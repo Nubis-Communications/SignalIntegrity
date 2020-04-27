@@ -21,9 +21,8 @@ import unittest
 
 import SignalIntegrity.Lib as si
 
-from numpy import linalg
-from numpy import matrix
-from numpy import identity
+from numpy import linalg,array,identity
+from numpy.linalg import inv
 
 class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -54,31 +53,31 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         sspn.AssignSParameters('D',D)
         resderiv=sspn.SParameters()
-        difference = linalg.norm(matrix(resdef)-matrix(resderiv))
+        difference = linalg.norm(array(resdef)-array(resderiv))
         self.assertTrue(difference<1e-10,'Z Shunt Four Port derivation different than device')
     def testDeviceShuntFourPortNumericSimplifiedSymbolic(self):
         Z=45.
         D=si.dev.SeriesZ(Z)
         resdef=si.dev.ShuntDeviceFourPort(D)
-        Wba=matrix([[-1./3,0,2./3,0],
+        Wba=array([[-1./3,0,2./3,0],
         [0,-1./3,0,2./3],
         [2./3,0,-1./3,0],
         [0,2./3,0,-1./3]])
-        Wbx=matrix([[0,0,2./3,0],
+        Wbx=array([[0,0,2./3,0],
         [2./3,0,0,0],
         [0,0,2./3,0],
         [2./3,0,0,0]])
-        Wxa=matrix([[0,0,0,0],
+        Wxa=array([[0,0,0,0],
             [0,2./3,0,2./3],
             [0,0,0,0],
             [2./3,0,2./3,0]])
-        Wxx=matrix([[0,D[1][1],0,D[1][0]],
+        Wxx=array([[0,D[1][1],0,D[1][0]],
             [-1./3,0,0,0],
             [0,D[0][1],0,D[0][0]],
             [0,0,-1./3,0]])
-        I=matrix(identity(4))
-        resderiv=matrix(Wba)+matrix(Wbx)*(I-matrix(Wxx)).getI()*matrix(Wxa)
-        difference = linalg.norm(matrix(resdef)-matrix(resderiv))
+        I=array(identity(4))
+        resderiv=array(Wba)+array(Wbx).dot(inv(I-array(Wxx))).dot(array(Wxa))
+        difference = linalg.norm(array(resdef)-array(resderiv))
         self.assertTrue(difference<1e-10,'Z Shunt Four Port derivation different than device')
     def testZShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -117,7 +116,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.AssignSParameters('D',si.dev.SeriesZ(Z))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.ShuntZFourPort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Four Port Numeric incorrect')
     def testZShuntThreePortPossibility1(self):
         sdp=si.p.SystemDescriptionParser()
@@ -163,7 +162,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.AssignSParameters('D',si.dev.SeriesZ(Z))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 1 Numeric incorrect')
     def testZShuntThreePortPossibility2Numeric(self):
         Z=-34.45+1j*24.98
@@ -175,7 +174,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.AssignSParameters('D',si.dev.ShuntZFourPort(Z))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 2 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericDirectSaveComplex(self):
         Z=-34.45+1j*24.98
@@ -187,7 +186,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericDirectSave50(self):
         Z=50.
@@ -199,7 +198,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericBlock50(self):
         Z=50.
@@ -211,7 +210,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters()
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-6,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericBlock50Unsafe(self):
         Z=50.
@@ -227,7 +226,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         si.sd.Numeric.trySVD=True
         self.assertEqual(cm.exception.parameter,'Numeric')
         #rescorrect=si.dev.ShuntZThreePort(Z)
-        #difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        #difference = linalg.norm(array(rescalc)-array(rescorrect))
         #self.assertTrue(difference<1e-6,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericBlock50UnsafeFixed(self):
         Z=50.
@@ -241,7 +240,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         rescalc=sspn.SParameters()
         #self.assertEqual(cm.exception.parameter,'Numeric')
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-6,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericBlockComplex(self):
         Z=-34.45+1j*24.98
@@ -253,7 +252,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters()
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-5,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericDirect50(self):
         Z=50.
@@ -265,7 +264,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testZShuntThreePortPossibility3NumericDirectComplex(self):
         Z=-34.45+1j*24.98
@@ -277,7 +276,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.ShuntZThreePort(Z)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Z Shunt Three Port Possibility 3 Numeric incorrect')
     def testTeeNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -286,7 +285,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc1=sspn.SParameters(solvetype='block')
         rescorrect=si.dev.Tee()
-        difference = linalg.norm(matrix(rescalc1)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc1)-array(rescorrect))
         self.assertTrue(difference<1e-6,'Tee Numeric incorrect')
     def testTeeNumericDirect(self):
         sdp=si.p.SystemDescriptionParser()
@@ -295,7 +294,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         sspn.InstallSafeTees()
         rescalc2=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.Tee()
-        difference = linalg.norm(matrix(rescalc2)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc2)-array(rescorrect))
         self.assertTrue(difference<1e-6,'Tee Numeric incorrect')
     def testZShuntTwoPortPossibility1(self):
         sdp=si.p.SystemDescriptionParser()

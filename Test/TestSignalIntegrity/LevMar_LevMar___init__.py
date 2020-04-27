@@ -14,7 +14,7 @@ class LevMar(CallBacker):
         aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
         if Fa is None:
             Fa = self.fF(a)
-        dFa = ((matrix(self.fF(aplusDeltaa))-matrix(Fa))/self.m_epsilon).tolist()
+        dFa = ((array(self.fF(aplusDeltaa))-array(Fa))/self.m_epsilon).tolist()
         return dFa
     def fJ(self,a,Fa=None):
         if Fa is None:
@@ -41,9 +41,9 @@ class LevMar(CallBacker):
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
         self.m_Fa = self.fF(self.m_a)
-        self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
-        self.m_mse=math.sqrt((matrix(self.m_r).getH()*
-            self.m_W*matrix(self.m_r)).tolist()[0][0].real/self.m_sumw)
+        self.m_r=(array(self.m_Fa)-array(self.m_y)).tolist()
+        self.m_mse=math.sqrt((array(self.m_r).conj().T.dot(
+            self.m_W).dot(array(self.m_r))).tolist()[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]
         self.m_mseTracking = [self.m_mse]
         self.m_J = None

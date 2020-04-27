@@ -66,7 +66,7 @@ class TestLevMarNumericTest(unittest.TestCase):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             qf.Initialize([[1] for _ in a], x, y)
             qf.Solve()
-        self.assertEquals(cm.exception.parameter,'Fitter')
+        self.assertEqual(cm.exception.parameter,'Fitter')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

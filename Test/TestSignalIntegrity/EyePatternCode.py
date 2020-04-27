@@ -17,5 +17,5 @@ def EyePattern(project,waveform,delay,bitrate):
     maxValue=(max([max(v) for v in bitmap]))
     bitmap=[[int((maxValue - float(bitmap[r][c]))/maxValue*255.0)
              for c in range(C)] for r in range(R)]
-    img=Image.fromarray(np.squeeze(np.asarray(np.matrix(bitmap))).astype(np.uint8))
+    img=Image.fromarray(np.squeeze(np.asarray(np.array(bitmap))).astype(np.uint8))
     img.save(waveform+'.png')

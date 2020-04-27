@@ -20,7 +20,7 @@ Calibration
 
 from SignalIntegrity.Lib.Measurement.Calibration.ErrorTerms import ErrorTerms
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
-from numpy import hstack,vstack,matrix
+from numpy import hstack,vstack,array
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
 from SignalIntegrity.Lib.Measurement.Calibration.CalibrationMeasurements import ThruCalibrationMeasurement
@@ -85,10 +85,10 @@ class Calibration(object):
         if pl is None: pl = [p for p in range(self.ports)]
         ports=len(pl)
         return [SParameters(self.f,[
-                vstack((hstack((matrix(self[n].Fixture(p,pl)[0][0]),
-                                matrix(self[n].Fixture(p,pl)[0][1]))),
-                        hstack((matrix(self[n].Fixture(p,pl)[1][0]),
-                                matrix(self[n].Fixture(p,pl)[1][1]))))).tolist()
+                vstack((hstack((array(self[n].Fixture(p,pl)[0][0]),
+                                array(self[n].Fixture(p,pl)[0][1]))),
+                        hstack((array(self[n].Fixture(p,pl)[1][0]),
+                                array(self[n].Fixture(p,pl)[1][1]))))).tolist()
                     for n in range(len(self))]) for p in range(ports)]
     def WriteFixturesToFiles(self,filename,pl=None):
         """Writes the error terms to a files in the form of fixtures

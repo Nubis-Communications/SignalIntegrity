@@ -12,7 +12,7 @@ class ErrorTerms(object):
                              [[EX21,ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
         DutCalc2=ErrorTerms([[[ED1,ER1,ES1],[EX12,-ET12,EL12]],
                              [[EX21,-ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
-        if norm(matrix(DutCalc1)-matrix(Sest)) < norm(matrix(DutCalc2)-matrix(Sest)):
+        if norm(array(DutCalc1)-array(Sest)) < norm(array(DutCalc2)-array(Sest)):
             return DutCalc1
         else:
             return DutCalc2

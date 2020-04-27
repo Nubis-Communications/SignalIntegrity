@@ -18,9 +18,8 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
-from numpy import array
-from numpy import identity
+from numpy import array,identity
+from numpy.linalg import inv
 
 def S2T(S,lp=None,rp=None):
     """Converts s-parameters to generalized T-parameters
@@ -48,4 +47,4 @@ def S2T(S,lp=None,rp=None):
     for r in range(len(rp)):
         TR.append(I[rp[r]-1])
         TR.append(S[rp[r]-1])
-    return array(matrix(TL)*matrix(TR).getI()).tolist()
+    return (array(TL).dot(inv(array(TR)))).tolist()

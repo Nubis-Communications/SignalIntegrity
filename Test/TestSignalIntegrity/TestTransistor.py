@@ -20,8 +20,6 @@ TestTransistor.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from numpy import linalg
-from numpy import matrix
 
 class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):

@@ -175,7 +175,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         maxValue=(max([max(v) for v in bitmap]))
         bitmap=[[int((maxValue - float(bitmap[r][c]))/maxValue*255.0)
                  for c in range(C)] for r in range(R)]
-        img=Image.fromarray(np.squeeze(np.asarray(np.matrix(bitmap))).astype(np.uint8))
+        img=Image.fromarray(np.squeeze(np.asarray(np.array(bitmap))).astype(np.uint8))
         img.save(waveform+'.png')
         # pragma: silent exclude
     @staticmethod
@@ -214,7 +214,8 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def ZeroForcingEqualizer(self,project,waveform,bitrate,value,pre,taps):
-        import SignalIntegrity.App as siapp; from numpy import matrix
+        import SignalIntegrity.App as siapp; from numpy import array
+        from numpy.linalg import pinv
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
@@ -228,7 +229,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         x=[pulsewf.Measure(startTime+m*ui) for m in range(M)]
         X=[[0 if r-c < 0 else x[r-c] for c in range(taps)] for r in range(M)]
         r=[[value] if r == d+pre else [0] for r in range(len(X))]
-        a=[v[0] for v in (matrix(X).getI()*matrix(r)).tolist()]
+        a=[v[0] for v in (pinv(array(X)).dot(array(r))).tolist()]
         print('results: '+str(a))
     def testZeroForcingEqualizer(self):
         project=os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PulseTest.si')

@@ -3,7 +3,7 @@ def Sw2Sp(Sp,Z0w=None,Z0p=None,Kw=None):
         Z0p=Z0w
     (Z0w,Kw)=Z0KHelper((Z0w,Kw),len(Sp))
     (Z0p,Kp)=Z0KHelperPW(Z0p,len(Sp))
-    Sp=matrix(Sp)
-    Sw=(Kp.getI()*Kw*Z0w.getI()*((Z0w-Z0p.conjugate())+(Z0w+Z0p.conjugate())*Sp)*
-        ((Z0w+Z0p)+(Z0w-Z0p)*Sp).getI()*Kp*Kw.getI()*Z0w)
-    return Sw
+    Sp=array(Sp)
+    Sw=inv(Kp).dot(Kw).dot(inv(Z0w)).dot((Z0w-Z0p.conj())+(Z0w+Z0p.conj()).dot(
+        Sp)).dot(inv((Z0w+Z0p)+(Z0w-Z0p).dot(Sp)).dot(Kp).dot(inv(Kw)).dot(Z0w))
+    return Sw.tolist()

@@ -587,14 +587,15 @@ class SignalIntegrityAppHeadless(object):
                 for c in range(len(portConnections))] 
                     for r in range(len(portConnections))]
 
-            from numpy import matrix
+            from numpy import array
+            from numpy.linalg import inv
 
             frequencyList=td.FrequencyList()
             data=[None for _ in range(len(frequencyList))]
             for n in range(len(frequencyList)):
                 B=[[Bfc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
                 A=[[Afc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
-                data[n]=(matrix(B)*matrix(A).getI()).tolist()
+                data[n]=(array(B).dot(inv(array(A)))).tolist()
             sp=si.sp.SParameters(frequencyList,data)
             return sp
 

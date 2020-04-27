@@ -16,8 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from numpy import matrix
-from numpy import identity
+from numpy import array,identity
+from numpy.linalg import inv
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
@@ -29,6 +29,6 @@ def Y2S(Y,Z0=None,K=None):
     @see Z0KHelper to see how the reference impedance
     and scaling factor are determined."""
     (Z0,K)=Z0KHelper((Z0,K),len(Y))
-    I=matrix(identity(len(Y)))
-    Y=matrix(Y)
-    return (K.getI()*(I+Z0*Y).getI()*(I-Z0*Y)*K).tolist()
+    I=array(identity(len(Y)))
+    Y=array(Y)
+    return (inv(K).dot(inv(I+Z0.dot(Y))).dot(I-Z0.dot(Y)).dot(K)).tolist()

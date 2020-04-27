@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import math
-from numpy import matrix,identity
+from numpy import array,identity
 
 from SignalIntegrity.Lib.Conversions import S2T,T2S
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
@@ -45,6 +45,6 @@ class PeeledPortSParameters(SParameters):
         Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
         tp1=[identity(2) for n in range(len(sp.f()))]
         for k in range(sections):
-            tp1=[tp1[n]*matrix(S2T(TLineTwoPortLossless(ip[k],Ts,sp.m_f[n])))
+            tp1=[tp1[n].dot(array(S2T(TLineTwoPortLossless(ip[k],Ts,sp.m_f[n]))))
                 for n in range(len(sp.m_f))]
         SParameters.__init__(self,sp.m_f,[T2S(tp.tolist()) for tp in tp1])

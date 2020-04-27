@@ -21,7 +21,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import SignalIntegrity.App as siapp
 from random import random
-from numpy import matrix
+from numpy import array
 from math import sqrt
 import os
 
@@ -43,7 +43,7 @@ class TestPowerDeliveryTest(unittest.TestCase):
         V=[[None],[None]]
         V[vgnames.index('VG1')][0]=(-1+random()*2.)+1j*(-1+random()*2.)
         V[vgnames.index('VG2')][0]=(-1+random()*2.)+1j*(-1+random()*2.)
-        b=[v[0] for v in (matrix(TM)*matrix(V)).tolist()]
+        b=[v[0] for v in (array(TM).dot(array(V))).tolist()]
         A1=b[onames.index('A1')]/sqrt(50.)
         A2=b[onames.index('A2')]/sqrt(50.)
         B1=b[onames.index('B1')]/sqrt(50.)
@@ -54,11 +54,11 @@ class TestPowerDeliveryTest(unittest.TestCase):
         I2=b[onames.index('I2')]
         pvi=V1*I1.conjugate()+V2*I2.conjugate()
         pab=abs(A1)*abs(A1)+abs(A2)*abs(A2)-abs(B1)*abs(B1)-abs(B2)*abs(B2)
-        A=matrix([[A1],[A2]])
-        B=matrix([[B1],[B2]])
-        pab2=(A.getH()*A-B.getH()*B).tolist()[0][0]
-        self.assertAlmostEquals(pvi, pab, 12, 'power delivered incorrect')
-        self.assertAlmostEquals(pvi, pab2, 12, 'power delivered incorrect')
+        A=array([[A1],[A2]])
+        B=array([[B1],[B2]])
+        pab2=(A.conj().T.dot(A)-B.conj().T.dot(B)).tolist()[0][0]
+        self.assertAlmostEqual(pvi, pab, 12, 'power delivered incorrect')
+        self.assertAlmostEqual(pvi, pab2, 12, 'power delivered incorrect')
         pass
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

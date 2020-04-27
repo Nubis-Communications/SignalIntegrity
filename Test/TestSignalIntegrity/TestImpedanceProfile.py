@@ -19,11 +19,9 @@ TestImpedanceProfile.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity.Lib as si
-from numpy import matrix
 import math
 import cmath
-from numpy import linalg
-from numpy import array
+from numpy import linalg,array
 import os
 
 import matplotlib
@@ -62,9 +60,9 @@ class TestImpedanceProfile(unittest.TestCase,si.test.SParameterCompareHelper,
         Gsp=[]
         for n in range(N+1):
             T = [si.cvt.S2T(si.dev.IdealTransmissionLine(rho[m],gamma[n])) for m in range(len(rho))]
-            tacc=matrix([[1.,0.],[0.,1.]])
+            tacc=array([[1.,0.],[0.,1.]])
             for m in range(len(rho)):
-                tacc=tacc*matrix(T[m])
+                tacc=tacc.dot(array(T[m]))
             G=si.cvt.T2S(tacc.tolist())
             Gsp.append(G)
         sp = si.sp.SParameters(f,Gsp,Z0)

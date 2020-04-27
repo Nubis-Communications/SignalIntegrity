@@ -20,7 +20,7 @@ TestVirtualProbe.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from numpy import linalg,array,matrix
+from numpy import linalg,array
 import copy
 import math
 import os
@@ -53,7 +53,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
         SC11=SC[1-1][1-1]
         SC22=SC[2-1][2-1]
         GR=D[D.DeviceNames().index('R')].SParameters[0][0]
-        SCD=linalg.det(matrix(SC))
+        SCD=linalg.det(array(SC))
         # this is what I say the answer should be
         H2=[[(SC21*(1+GR))/(1+SC11-GR*(SC22+SCD))]]
         #print "H2", H2
@@ -110,7 +110,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
         #print "H", H
         #This result was the result of a prior run - it's a regression test
         H2=[[0.3858829,0.13673016],[0.19142223,0.35129134]]
-        difference = linalg.norm(matrix(H)-H2)
+        difference = linalg.norm(array(H)-H2)
         #print difference
         self.assertTrue(difference<1e-8,'Virtual Probe Two Input, Two Output incorrect')
     def testVirtualProbeOneMeasTwoOut(self):
@@ -171,7 +171,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
         #print "H", H
         #This result was the result of a prior run - it's a regression test
         H2=[[0.20965471848736478],[-0.07827982596732863]]
-        difference = linalg.norm(matrix(H)-H2)
+        difference = linalg.norm(array(H)-H2)
         #print difference
         self.assertTrue(difference<1e-8,'Virtual Probe Two Input, Two Output incorrect')
     def testBookVirtualProbe1(self):

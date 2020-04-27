@@ -21,7 +21,8 @@ import unittest
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 import os
 
 class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
@@ -39,11 +40,11 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('D',1,1,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(Su)-matrix(SuCalc))
+        difference = linalg.norm(array(Su)-array(SuCalc))
         self.assertTrue(difference<1e-10,'One Port Fixture Deembedding incorrect')
         #Now test according to the simple one port equation in the book
-        GammaDut=(Sk[1-1][1-1]-D[1-1][1-1])/(Sk[1-1][1-1]*D[2-1][2-1]-linalg.det(matrix(D)))
-        difference = linalg.norm(GammaDut-matrix(SuCalc))
+        GammaDut=(Sk[1-1][1-1]-D[1-1][1-1])/(Sk[1-1][1-1]*D[2-1][2-1]-linalg.det(array(D)))
+        difference = linalg.norm(GammaDut-array(SuCalc))
         self.assertTrue(difference<1e-10,'One Port Fixture Deembedding equation incorrect')
     def testTwoPortThreeDevicesFixtureDeembedding(self):
         SL=[[5.,6.],[7.,8.]]
@@ -61,7 +62,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('DR',1,2,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(Su)-matrix(SuCalc))
+        difference = linalg.norm(array(Su)-array(SuCalc))
         self.assertTrue(difference<1e-10,'Two Port Three Devices Fixture Deembedding incorrect')
         #Now test according to the two port equation in the book
         Sk11=Sk[1-1][1-1]
@@ -76,14 +77,14 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SR12=SR[1-1][2-1]
         SR21=SR[2-1][1-1]
         SR22=SR[2-1][2-1]
-        B=matrix([[SL12,0.],[0.,SR12]]).getI()*(matrix([[Sk11,Sk12],[Sk21,Sk22]])-matrix([[SL11,0.],[0.,SR11]]))
-        A=matrix([[SL21,0.],[0.,SR21]])+matrix([[SL22,0.],[0.,SR22]])*B
-        SuCalc1=B*A.getI()
-        difference = linalg.norm(matrix(Su)-matrix(SuCalc1))
+        B=inv(array([[SL12,0.],[0.,SR12]])).dot(array([[Sk11,Sk12],[Sk21,Sk22]])-array([[SL11,0.],[0.,SR11]]))
+        A=array([[SL21,0.],[0.,SR21]])+array([[SL22,0.],[0.,SR22]]).dot(B)
+        SuCalc1=B.dot(inv(A))
+        difference = linalg.norm(array(Su)-array(SuCalc1))
         self.assertTrue(difference<1e-10,'Two Port Three Devices Fixture Deembedding Matrix equation incorrect')
-        SuCalc2=matrix([[(Sk11-SL11)/SL12,Sk12/SL12],[Sk21/SR12,(Sk22-SR11)/SR12]])
-        SuCalc2=SuCalc2*matrix([[(SL22*Sk11-linalg.det(matrix(SL)))/SL12,SL22*Sk12/SL12],[SR22*Sk21/SR12,(SR22*Sk22-linalg.det(matrix(SR)))/SR12]]).getI()
-        difference = linalg.norm(matrix(SuCalc1)-matrix(SuCalc2))
+        SuCalc2=array([[(Sk11-SL11)/SL12,Sk12/SL12],[Sk21/SR12,(Sk22-SR11)/SR12]])
+        SuCalc2=SuCalc2.dot(inv([[(SL22*Sk11-linalg.det(array(SL)))/SL12,SL22*Sk12/SL12],[SR22*Sk21/SR12,(SR22*Sk22-linalg.det(array(SR)))/SR12]]))
+        difference = linalg.norm(array(SuCalc1)-array(SuCalc2))
         self.assertTrue(difference<1e-10,'Two Port Three Devices Fixture Deembedding Final equation incorrect')
     def testTwoPortTwoDevicesSRUnknownFixtureDeembedding(self):
         SL=[[5.,6.],[7.,8.]]
@@ -98,7 +99,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('?R',2,2,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(SuCalc)-matrix(SR))
+        difference = linalg.norm(array(SuCalc)-array(SR))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SR unknown Fixture Deembedding incorrect')
         #Now test according to the two port equation in the book
         Sk11=Sk[1-1][1-1]
@@ -110,8 +111,8 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SL21=SL[2-1][1-1]
         SL22=SL[2-1][2-1]
         SRcalc=1./(SL22*Sk11-linalg.det(SL))
-        SRcalc=SRcalc*matrix([[Sk11-SL11,SL21*Sk12],[SL12*Sk21,SL22*linalg.det(Sk)-Sk22*linalg.det(SL)]])
-        difference = linalg.norm(matrix(SRcalc)-matrix(SR))
+        SRcalc=SRcalc*array([[Sk11-SL11,SL21*Sk12],[SL12*Sk21,SL22*linalg.det(Sk)-Sk22*linalg.det(SL)]])
+        difference = linalg.norm(array(SRcalc)-array(SR))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SR Unknown Fixture Deembedding equation incorrect')
     def testTwoPortTwoDevicesSLUnknownFixtureDeembedding(self):
         SL=[[5.,6.],[7.,8.]]
@@ -126,7 +127,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('DR',2,2,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(SuCalc)-matrix(SL))
+        difference = linalg.norm(array(SuCalc)-array(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL unknown Fixture Deembedding incorrect')
         #Now test according to the two port equation in the book
         Sk11=Sk[1-1][1-1]
@@ -138,8 +139,8 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SR21=SR[2-1][1-1]
         SR22=SR[2-1][2-1]
         SLcalc=1./(Sk22*SR11-linalg.det(SR))
-        SLcalc=SLcalc*matrix([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
-        difference = linalg.norm(matrix(SLcalc)-matrix(SL))
+        SLcalc=SLcalc*array([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
+        difference = linalg.norm(array(SLcalc)-array(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL Unknown Fixture Deembedding equation incorrect')
     def testOnePortOverConstrainedFixtureDeembeddingNoInternal(self):
         Su=si.dev.TerminationZ(30+20.*1j)
@@ -154,7 +155,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('D',2,2,False)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(Su)-matrix(SuCalc))
+        difference = linalg.norm(array(Su)-array(SuCalc))
         self.assertTrue(difference<1e-10,'One Port OverConstrained Deembedding with no internal ports (U=None) incorrect')
     def testOnePortOverConstrainedFixtureDeembedding(self):
         Su=si.dev.TerminationZ(30+20.*1j)
@@ -169,7 +170,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('D',2,2,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(Su)-matrix(SuCalc))
+        difference = linalg.norm(array(Su)-array(SuCalc))
         self.assertTrue(difference<1e-10,'One Port OverConstrained Deembedding with internal ports incorrect')
     def testTwoOnePortsMultipleUnknownsFixtureDeembedding(self):
         Su1=si.dev.TerminationZ(30+20.*1j)
@@ -189,9 +190,9 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
         UnknownNames=si.sd.Deembedder(SD).UnknownNames()
-        difference1 = linalg.norm(matrix(Su1)-matrix(SuCalc[UnknownNames.index('?1')]))
+        difference1 = linalg.norm(array(Su1)-array(SuCalc[UnknownNames.index('?1')]))
         self.assertTrue(difference1<1e-10,'Multiple Unknowns Deembedding - first unknown incorrect')
-        difference2 = linalg.norm(matrix(Su2)-matrix(SuCalc[UnknownNames.index('?2')]))
+        difference2 = linalg.norm(array(Su2)-array(SuCalc[UnknownNames.index('?2')]))
         self.assertTrue(difference2<1e-10,'Multiple Unknowns Deembedding - second unknown incorrect')
     def testTwoPortTwoDevicesSLUnknownThruDeembedding(self):
         SL=si.dev.Thru()
@@ -206,7 +207,7 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SD.AddPort('DR',2,2,True)
         Sk=si.sd.SystemSParametersNumeric(SD).SParameters()
         SuCalc=si.sd.DeembedderNumeric(SD).CalculateUnknown(Sk)
-        difference = linalg.norm(matrix(SuCalc)-matrix(SL))
+        difference = linalg.norm(array(SuCalc)-array(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL unknown Fixture Deembedding incorrect')
         #Now test according to the two port equation in the book
         Sk11=Sk[1-1][1-1]
@@ -218,8 +219,8 @@ class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
         SR21=SR[2-1][1-1]
         SR22=SR[2-1][2-1]
         SLcalc=1./(Sk22*SR11-linalg.det(SR))
-        SLcalc=SLcalc*matrix([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
-        difference = linalg.norm(matrix(SLcalc)-matrix(SL))
+        SLcalc=SLcalc*array([[SR11*linalg.det(Sk)-Sk11*linalg.det(SR),Sk12*SR21],[Sk21*SR12,Sk22-SR22]])
+        difference = linalg.norm(array(SLcalc)-array(SL))
         self.assertTrue(difference<1e-10,'Two Port Two Devices SL Unknown Fixture Deembedding equation incorrect')
     def testUnderconstrained(self):
         f=si.fd.EvenlySpacedFrequencyList(20e9,20)

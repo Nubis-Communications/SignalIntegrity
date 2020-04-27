@@ -12,4 +12,4 @@ def S2T(S,lp=None,rp=None):
     for r in range(len(rp)):
         TR.append(I[rp[r]-1])
         TR.append(S[rp[r]-1])
-    return array(matrix(TL)*matrix(TR).getI()).tolist()
+    return (array(TL).dot(inv(array(TR)))).tolist()

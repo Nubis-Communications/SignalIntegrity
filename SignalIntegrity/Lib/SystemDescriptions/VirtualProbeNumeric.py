@@ -20,7 +20,7 @@ Solves Virtual Probe Problems Numerically
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
+from numpy import array
 from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.VirtualProbe import VirtualProbe
@@ -54,16 +54,16 @@ class VirtualProbeNumeric(VirtualProbe,Numeric):
         self.Check()
         # pragma: include
         if self.m_D is None:
-            D=matrix(identity(len(self.StimsPrime())))
+            D=identity(len(self.StimsPrime()))
         else:
             D=self.m_D
-        VE_m=matrix(self.VoltageExtractionMatrix(self.m_ml))
-        VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
+        VE_m=array(self.VoltageExtractionMatrix(self.m_ml))
+        VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            SIPrime_m=matrix(self.SIPrime(Left=VE_m,Right=D))
-            SIPrime_o=matrix(self.SIPrime(Left=VE_o,Right=D))
+            SIPrime_m=array(self.SIPrime(Left=VE_m,Right=D))
+            SIPrime_o=array(self.SIPrime(Left=VE_o,Right=D))
         # pragma: silent exclude indent
         except SignalIntegrityExceptionSimulator as e:
             raise SignalIntegrityExceptionVirtualProbe(e.message)
@@ -71,12 +71,12 @@ class VirtualProbeNumeric(VirtualProbe,Numeric):
         # pragma: silent exclude
         try:
         # pragma: include outdent
-            Left=(VE_o*SIPrime_m*matrix(D))
-            Result=(Left*self.Dagger(VE_m*SIPrime_o*matrix(D),Left=Left)).tolist()
+            Left=VE_o.dot(SIPrime_m).dot(array(D))
+            Result=Left.dot(self.Dagger(VE_m.dot(SIPrime_o).dot(array(D)),Left=Left))
         # pragma: silent exclude indent
         except ValueError:
-            raise SignalIntegrityExceptionVirtualProbe('incorrect matrix alignment')
+            raise SignalIntegrityExceptionVirtualProbe('incorrect array alignment')
         except LinAlgError:
-            raise SignalIntegrityExceptionVirtualProbe('numerical error - cannot invert matrix')
+            raise SignalIntegrityExceptionVirtualProbe('numerical error - cannot invert array')
         # pragma: include
         return Result

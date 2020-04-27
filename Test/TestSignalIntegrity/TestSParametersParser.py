@@ -81,7 +81,7 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'post garbage',])
         with self.assertRaises(si.SignalIntegrityException) as cm:
             sspnp.SParameters()
-        self.assertEquals(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
+        self.assertEqual(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

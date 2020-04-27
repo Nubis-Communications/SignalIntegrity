@@ -20,7 +20,7 @@ TestTransconductanceAmplifier.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from numpy import linalg,matrix
+from numpy import linalg,array
 
 class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -73,7 +73,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Four Port incorrect')
     def testTransconductanceAmplifierFourPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -90,7 +90,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Four Port incorrect')
     def testTransconductanceAmplifierFourPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -102,7 +102,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Four Port incorrect')
     def testTransconductanceAmplifierThreePort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -143,7 +143,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Three Port incorrect')
     def testTransconductanceAmplifierThreePortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -157,7 +157,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn.AssignSParameters('D',si.dev.TransconductanceAmplifierFourPort(G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Three Port incorrect')
     def testTransconductanceAmplifierThreePortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -169,7 +169,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(3,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Three Port incorrect')
     def testTransconductanceAmplifierTwoPort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -221,7 +221,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         #sspn.trySVD=True
         #sspn.conditionNumberLimit=oldConditionNumberLimit
         rescorrect=si.dev.TransconductanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-7,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierTwoPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -236,7 +236,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn.AssignSParameters('D',si.dev.TransconductanceAmplifier(4,G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-7,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierTwoPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -248,7 +248,7 @@ class TestTransconductanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelpe
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransconductanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transconductance Amplifier Two Port incorrect')
     def testTransconductanceAmplifierFourPortCode(self):
         self.WriteCode('TestTransconductanceAmplifier.py','testTransconductanceAmplifierFourPort(self)',self.standardHeader)

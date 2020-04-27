@@ -18,9 +18,8 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
-from numpy import array
-from numpy import identity
+from numpy import array,identity
+from numpy.linalg import inv
 
 def T2S(T,lp=None,rp=None):
     """Converts generalized T-parameters to s-parameters
@@ -48,4 +47,4 @@ def T2S(T,lp=None,rp=None):
         else:
             SL.append(T[2*lp.index(p+1)])
             SR.append(T[2*lp.index(p+1)+1])
-    return array(matrix(SL)*matrix(SR).getI()).tolist()
+    return (array(SL).dot(inv(array(SR)))).tolist()

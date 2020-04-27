@@ -39,7 +39,7 @@ class DeembedderSymbolic(Deembedder,Symbolic):
         self._AddEq('\\mathbf{A}=\\mathbf{F_{21}}+ \\mathbf{F_{22}}\\cdot\\mathbf{B}')
         A=Device.SymbolicMatrix('A',len(Bdut),len(Bmsd))
         B=Device.SymbolicMatrix('B',len(Bdut),len(Bmsd))
-        AL=self.Partition(matrix(A)); BL=self.Partition(matrix(B))
+        AL=self.Partition(array(A)); BL=self.Partition(array(B))
         AL=[AL[u].tolist() for u in range(len(AL))]
         BL=[BL[u].tolist() for u in range(len(BL))]
         un=self.UnknownNames(); up=self.UnknownPorts()

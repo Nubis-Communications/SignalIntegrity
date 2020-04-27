@@ -21,7 +21,8 @@ import unittest
 import SignalIntegrity.Lib as si
 import os
 
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 
 class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                         si.test.SignalIntegrityAppTestHelper,si.test.RoutineWriterTesterHelper):
@@ -102,8 +103,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                 A12=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B22=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B12=fr[outputNames.index('BThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
-                spDict['Thru'+port1Name+port2Name]=si.sp.SParameters(f,[(matrix([[B11[n],B12[n]],[B21[n],B22[n]]])*
-                                                    matrix([[A11[n],A12[n]],[A21[n],A22[n]]]).getI()).tolist()
+                spDict['Thru'+port1Name+port2Name]=si.sp.SParameters(f,[(array([[B11[n],B12[n]],[B21[n],B22[n]]]).dot(
+                                                    inv(array([[A11[n],A12[n]],[A21[n],A22[n]]])))).tolist()
                                                     for n in range(len(f))])
 
         result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
@@ -123,8 +124,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('ADut'+otherName+drivenName)][sourceNames.index('VG'+drivenName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('BDut'+otherName+drivenName)][sourceNames.index('VG'+drivenName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -240,8 +241,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                 A12=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B22=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B12=fr[outputNames.index('BThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
-                spDict['Thru'+port1Name+port2Name]=si.sp.SParameters(f,[(matrix([[B11[n],B12[n]],[B21[n],B22[n]]])*
-                                                    matrix([[A11[n],A12[n]],[A21[n],A22[n]]]).getI()).tolist()
+                spDict['Thru'+port1Name+port2Name]=si.sp.SParameters(f,[(array([[B11[n],B12[n]],[B21[n],B22[n]]]).dot(
+                                                    inv(array([[A11[n],A12[n]],[A21[n],A22[n]]])))).tolist()
                                                     for n in range(len(f))])
 
         result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
@@ -261,8 +262,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('ADut'+otherName+drivenName)][sourceNames.index('VG'+drivenName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('BDut'+otherName+drivenName)][sourceNames.index('VG'+drivenName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
         f=spDict['Dut'].f()
 

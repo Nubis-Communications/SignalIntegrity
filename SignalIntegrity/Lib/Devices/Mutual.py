@@ -18,7 +18,6 @@ Mutual.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
 from numpy import array
 import math
 
@@ -31,7 +30,7 @@ def MutualOld(Ll,Lr,M,f,Z0=None,K=None):
         F=1.0/(s*(M*M-Ll*Lr))
     except ZeroDivisionError:
         F=1e15
-    YM=matrix([[-Lr,Lr,M,-M],[Lr,-Lr,-M,M],[M,-M,-Ll,Ll],[-M,M,Ll,-Ll]])*F
+    YM=array([[-Lr,Lr,M,-M],[Lr,-Lr,-M,M],[M,-M,-Ll,Ll],[-M,M,Ll,-Ll]])*F
     return array(Y2S(array(YM).tolist(),Z0,K)).tolist()
 
 def Mutual(Ll,Lr,M,f,Z0=None,K=None):

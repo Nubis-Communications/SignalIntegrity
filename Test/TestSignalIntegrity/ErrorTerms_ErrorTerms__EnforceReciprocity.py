@@ -11,7 +11,7 @@ class ErrorTerms(object):
             for c in Pr:
                 b[r*P+c]=[B[r][c]]
                 for p in Pr: L[p*P+r][M[p][c]]=A[c][r]
-        sv=(matrix(L).getI()*matrix(b)).tolist()
+        sv=(pinv(array(L)).dot(array(b))).tolist()
         S=[[sv[M[r][c]][0] for c in Pr] for r in Pr]
         return S
 ...

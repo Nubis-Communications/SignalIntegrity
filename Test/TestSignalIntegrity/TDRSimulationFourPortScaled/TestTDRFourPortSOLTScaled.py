@@ -22,7 +22,8 @@ import SignalIntegrity.Lib as si
 
 import os
 
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 import math
 
 #------------------------------------------------------------------------------ 
@@ -118,8 +119,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -141,8 +142,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -179,7 +180,7 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         with self.assertRaises(si.SignalIntegrityExceptionMeasurement) as cme:
             DUTCalcSp=cm.DutCalculation(spDict['Dut'])
 
@@ -233,8 +234,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -256,8 +257,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -294,7 +295,7 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         with self.assertRaises(si.SignalIntegrityExceptionMeasurement) as cme:
             DUTCalcSp=cm.DutCalculation(spDict['Dut'])
 
@@ -349,8 +350,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -372,8 +373,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -410,7 +411,7 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             ]
 
         cm=si.m.cal.Calibration(4,f,ml)
-        
+
         with self.assertRaises(si.SignalIntegrityExceptionMeasurement) as cme:
             DUTCalcSp=cm.DutCalculation(spDict['Dut'])
 
@@ -465,8 +466,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -488,8 +489,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -618,8 +619,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                             for n in range(len(A[r][c])):
                                 A[r][c][n]=0.
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -647,8 +648,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     for n in range(len(DutA[r][c])):
                         DutA[r][c][n]=0.
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -769,8 +770,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -796,8 +797,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -932,8 +933,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -964,8 +965,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1110,8 +1111,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1142,8 +1143,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1279,8 +1280,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1311,8 +1312,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1440,8 +1441,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1472,8 +1473,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1573,8 +1574,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1605,8 +1606,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1735,8 +1736,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -1767,8 +1768,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 #         pickle.dump(self.simdict,open("simresults.p","wb"))
 
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1926,8 +1927,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName+'old']=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName+'old']=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
                 self.assertTrue(self.SParametersAreEqual(spDict['Thru'+firstPortName+secondPortName], spDict['Thru'+firstPortName+secondPortName+'old'], 1e-4))
@@ -1978,8 +1979,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     DutB[otherPort][drivenPort]=wf.FrequencyContent()
 
 
-        spDict['Dutold']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dutold']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         self.assertTrue(self.SParametersAreEqual(spDict['Dut'], spDict['Dutold'], 1e-4))
@@ -2335,8 +2336,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -2377,8 +2378,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 newresp=[Poly.Evaluate(fr) for fr in f]
                 DutB[r][c]=si.fd.FrequencyDomain(f,newresp)
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -2503,8 +2504,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         if r!=c:
                             A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -2531,8 +2532,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 if r!=c:
                     DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -2638,8 +2639,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -2661,8 +2662,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -2803,8 +2804,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         if r!=c:
                             A[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         calStandards=[si.m.calkit.std.ShortStandard(f),
@@ -2863,8 +2864,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 if r!=c:
                     DutA[r][c]=si.fd.FrequencyResponse(f,[0. for _ in range(len(f))])
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -2950,8 +2951,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         calStandards=[si.m.calkit.std.ShortStandard(f),
@@ -3003,8 +3004,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -3272,8 +3273,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         B[o][d]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                         f=A[o][d].Frequencies()
 
-                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(matrix([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]])*
-                                                    matrix([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]]).getI()).tolist()
+                spDict['Thru'+firstPortName+secondPortName]=si.sp.SParameters(f,[(array([[B[0][0][n],B[0][1][n]],[B[1][0][n],B[1][1][n]]]).dot(
+                                                    inv(array([[A[0][0][n],A[0][1][n]],[A[1][0][n],A[1][1][n]]])))).tolist()
                                                     for n in range(len(f))])
 
         DutA=[[None for _ in range(ports)] for _ in range(ports)]
@@ -3295,8 +3296,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                 DutA[otherPort][drivenPort]=fr[outputNames.index('A'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
                 DutB[otherPort][drivenPort]=fr[outputNames.index('B'+otherPortName)][sourceNames.index('VG'+drivenPortName)]
 
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[DutB[r][c][n] for c in range(ports)] for r in range(ports)])*
-                                            matrix([[DutA[r][c][n] for c in range(ports)] for r in range(ports)]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[DutB[r][c][n] for c in range(ports)] for r in range(ports)]).dot(
+                                            inv(array([[DutA[r][c][n] for c in range(ports)] for r in range(ports)])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()

@@ -41,12 +41,12 @@ class Simulator(SystemSParameters,object):
         mprime=self.StimsPrime()
         if symbolic: SI=Device.SymbolicMatrix('Si',len(n))
         else:
-            PR=matrix(self.PermutationMatrix([m.index('m'+str(c+1))
+            PR=array(self.PermutationMatrix([m.index('m'+str(c+1))
                         for c in range(len(mprime))], len(n))).transpose()
             if Right is None: Right = PR
-            else: Right = matrix(PR)*matrix(Right)
+            else: Right = array(PR).dot(array(Right))
             SI=self.Dagger(
-                matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                array(identity(len(n)))-array(self.WeightsMatrix()),
                 Left=Left,Right=Right).tolist()
               SiPrime2=(SI*PR).tolist()
         SiPrime=[[0]*len(mprime) for r in range(len(n))]

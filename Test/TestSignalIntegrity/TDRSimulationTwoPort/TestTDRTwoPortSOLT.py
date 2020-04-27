@@ -23,7 +23,8 @@ import os
 
 import matplotlib.pyplot as plt
 
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 
 class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                     si.test.SignalIntegrityAppTestHelper,
@@ -1795,12 +1796,12 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         ET21=[et[n].ET[1][0][1] for n in range(len(et))]
         EL21=[et[n].ET[1][0][2] for n in range(len(et))]
 
-        from numpy import matrix,identity
+        from numpy import array,identity
 
-        DUT=[(matrix([[(spDict['Dut'][n][0][0]-ED1[n])/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])/ET12[n]],
-                       [(spDict['Dut'][n][1][0]-EX21[n])/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])/ER2[n]]])*\
-            (identity(2)+matrix([[(spDict['Dut'][n][0][0]-ED1[n])*ES1[n]/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])*EL12[n]/ET12[n]],
-                                 [(spDict['Dut'][n][1][0]-EX21[n])*EL21[n]/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])*ES2[n]/ER2[n]]])).getI()).tolist()
+        DUT=[(array([[(spDict['Dut'][n][0][0]-ED1[n])/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])/ET12[n]],
+                       [(spDict['Dut'][n][1][0]-EX21[n])/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])/ER2[n]]]).dot(
+            inv(identity(2)+array([[(spDict['Dut'][n][0][0]-ED1[n])*ES1[n]/ER1[n],(spDict['Dut'][n][0][1]-EX12[n])*EL12[n]/ET12[n]],
+                                 [(spDict['Dut'][n][1][0]-EX21[n])*EL21[n]/ET21[n],(spDict['Dut'][n][1][1]-ED2[n])*ES2[n]/ER2[n]]])))).tolist()
                 for n in range(len(et))]
 
         DUTCalcSp=si.sp.SParameters(f,DUT)
@@ -1900,8 +1901,8 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         BThru21=fr[outputNames.index('BThru21')][sourceNames.index('VGLeft')]
         BThru12=fr[outputNames.index('BThru12')][sourceNames.index('VGRight')]
         BThru22=fr[outputNames.index('BThru22')][sourceNames.index('VGRight')]
-        spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
-                                            matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
+        spDict['Thru']=si.sp.SParameters(f,[(array([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]]).dot(
+                                            inv(array([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
@@ -1912,8 +1913,8 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         BDut21=fr[outputNames.index('BDut21')][sourceNames.index('VGLeft')]
         BDut12=fr[outputNames.index('BDut12')][sourceNames.index('VGRight')]
         BDut22=fr[outputNames.index('BDut22')][sourceNames.index('VGRight')]
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
-                                            matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]]).dot(
+                                            inv(array([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
@@ -1924,8 +1925,8 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
         BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]
         BEx22=fr[outputNames.index('BEx22')][sourceNames.index('VGRight')]
-        spDict['Ex']=si.sp.SParameters(f,[(matrix([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]])*
-                                            matrix([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]]).getI()).tolist()
+        spDict['Ex']=si.sp.SParameters(f,[(array([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]]).dot(
+                                            inv(array([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()
@@ -1995,25 +1996,25 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         AThru11=fr[outputNames.index('AThru11')][sourceNames.index('VGLeft')]
         AThru21=fr[outputNames.index('AThru21')][sourceNames.index('VGLeft')]
         AThru12=fr[outputNames.index('AThru12')][sourceNames.index('VGRight')]
-        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]     
+        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]
         BThru11=fr[outputNames.index('BThru11')][sourceNames.index('VGLeft')]
         BThru21=fr[outputNames.index('BThru21')][sourceNames.index('VGLeft')]
         BThru12=fr[outputNames.index('BThru12')][sourceNames.index('VGRight')]
         BThru22=fr[outputNames.index('BThru22')][sourceNames.index('VGRight')]
-        spDict['Thru']=si.sp.SParameters(f,[(matrix([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]])*
-                                            matrix([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]]).getI()).tolist()
+        spDict['Thru']=si.sp.SParameters(f,[(array([[BThru11[n],BThru12[n]],[BThru21[n],BThru22[n]]]).dot(
+                                            inv(array([[AThru11[n],AThru12[n]],[AThru21[n],AThru22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
         ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
         ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
-        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]     
+        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]
         BDut11=fr[outputNames.index('BDut11')][sourceNames.index('VGLeft')]
         BDut21=fr[outputNames.index('BDut21')][sourceNames.index('VGLeft')]
         BDut12=fr[outputNames.index('BDut12')][sourceNames.index('VGRight')]
         BDut22=fr[outputNames.index('BDut22')][sourceNames.index('VGRight')]
-        spDict['Dut']=si.sp.SParameters(f,[(matrix([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]])*
-                                            matrix([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]]).getI()).tolist()
+        spDict['Dut']=si.sp.SParameters(f,[(array([[BDut11[n],BDut12[n]],[BDut21[n],BDut22[n]]]).dot(
+                                            inv(array([[ADut11[n],ADut12[n]],[ADut21[n],ADut22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
@@ -2024,8 +2025,8 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
         BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]
         BEx22=fr[outputNames.index('BEx22')][sourceNames.index('VGRight')]
-        spDict['Ex']=si.sp.SParameters(f,[(matrix([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]])*
-                                            matrix([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]]).getI()).tolist()
+        spDict['Ex']=si.sp.SParameters(f,[(array([[BEx11[n],BEx12[n]],[BEx21[n],BEx22[n]]]).dot(
+                                            inv(array([[AEx11[n],AEx12[n]],[AEx21[n],AEx22[n]]])))).tolist()
                                             for n in range(len(f))])
 
         f=spDict['Dut'].f()

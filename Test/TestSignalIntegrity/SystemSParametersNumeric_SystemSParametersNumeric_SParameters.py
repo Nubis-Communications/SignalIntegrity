@@ -10,9 +10,9 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
             n=self.NodeVector()
             PL=self.PermutationMatrix([n.index(BN[r])
                 for r in range(len(BN))], len(n))
-            PR=matrix(self.PermutationMatrix([n.index(AN[r])
+            PR=array(self.PermutationMatrix([n.index(AN[r])
                 for r in range(len(AN))], len(n))).transpose()
-            SCI=self.Dagger(matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+            SCI=self.Dagger(identity(len(n))-array(self.WeightsMatrix()),
                 Left=PL,Right=PR).tolist()
             B=[[0]*len(BN) for p in range(len(BN))]
             for r in range(len(BN)):
@@ -24,12 +24,12 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         Wba=self.WeightsMatrix(BN,AN)
         Wxx=self.WeightsMatrix(XN,XN)
         if len(Wxx)==0:
-            return matrix(Wba).tolist()
+            return array(Wba).tolist()
         Wbx=self.WeightsMatrix(BN,XN)
         Wxa=self.WeightsMatrix(XN,AN)
         if AllZeroMatrix(Wbx) or AllZeroMatrix(Wxa):
-            return matrix(Wba).tolist()
-        I=matrix(identity(len(Wxx)))
+            return array(Wba).tolist()
+        I=identity(len(Wxx))
         # Wba+Wbx*[(I-Wxx)^-1]*Wxa
-        result = matrix(Wba)+self.Dagger(I-matrix(Wxx),Left=Wbx,Right=Wxa,Mul=True)
+        result = array(Wba)+self.Dagger(I-array(Wxx),Left=Wbx,Right=Wxa,Mul=True)
         return result.tolist()

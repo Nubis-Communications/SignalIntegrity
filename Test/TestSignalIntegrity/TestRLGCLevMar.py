@@ -22,7 +22,8 @@ import SignalIntegrity.Lib as si
 import math
 import cmath
 import os
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 
 class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
                      si.test.RoutineWriterTesterHelper,si.test.SParameterCompareHelper):
@@ -263,7 +264,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
         plt.legend(loc='upper right')
         plt.grid(True)
         plt.show()
-        (Rx,Rsex,Lx)=(matrix([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList]).getI()*matrix([[z] for z in Z])).tolist()
+        (Rx,Rsex,Lx)=(inv(array([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList])).dot(array([[z] for z in Z]))).tolist()
         print((Rx[0].real,Rsex[0].real,Lx[0].real))
     def testRLGCExtract(self):
         return
@@ -300,7 +301,7 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
         plt.legend(loc='upper right')
         plt.grid(True)
         plt.show()
-        (Rx,Rsex,Lx)=(matrix([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList]).getI()*matrix([[z] for z in Z])).tolist()
+        (Rx,Rsex,Lx)=(inv(array([[1.,math.sqrt(f),1j*2*math.pi*f] for f in fList])).dot(array([[z] for z in Z]))).tolist()
         print((Rx[0].real,Rsex[0].real,Lx[0].real))
     def testWriteRLGCfFCode(self):
         fileName="../../SignalIntegrity/Lib/Fit/RLGC.py"

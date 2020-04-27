@@ -18,7 +18,7 @@
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from numpy import matrix
+from numpy import array
 from numpy import diag
 from numpy import sqrt
 
@@ -42,10 +42,10 @@ def Z0KHelperPW(Z0,P):
     port reference impedance and scaling factors
     """
     if Z0 is None:
-        Z0=matrix(diag([50.0]*P))
+        Z0=array(diag([50.0]*P))
     elif isinstance(Z0,list):
-        Z0=matrix(diag([float(i.real)+float(i.imag)*1j for i in Z0]))
+        Z0=array(diag([float(i.real)+float(i.imag)*1j for i in Z0]))
     elif isinstance(Z0.real,float) or isinstance(Z0.real,int):
-        Z0=matrix(diag([float(Z0.real)+float(Z0.imag)*1j]*P))
+        Z0=array(diag([float(Z0.real)+float(Z0.imag)*1j]*P))
     K=sqrt(abs(Z0.real))
     return (Z0,K)

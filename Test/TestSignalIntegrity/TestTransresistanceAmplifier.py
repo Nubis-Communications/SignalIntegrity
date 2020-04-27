@@ -21,7 +21,7 @@ import unittest
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
-from numpy import matrix
+from numpy import array
 
 class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -61,7 +61,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Four Port incorrect')
     def testTransresistanceAmplifierFourPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -77,7 +77,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Four Port incorrect')
     def testTransresistanceAmplifierFourPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -89,7 +89,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Four Port incorrect')
     def testTransresistanceAmplifierThreePort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -121,7 +121,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Three Port incorrect')
     def testTransresistanceAmplifierThreePortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -135,7 +135,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn.AssignSParameters('D',si.dev.TransresistanceAmplifierFourPort(G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Three Port incorrect')
     def testTransresistanceAmplifierThreePortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -147,7 +147,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(3,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Three Port incorrect')
     def testTransresistanceAmplifierTwoPort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -194,7 +194,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Two Port incorrect')
     def testTransresistanceAmplifierTwoPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -209,7 +209,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn.AssignSParameters('D',si.dev.TransresistanceAmplifier(4,G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Two Port incorrect')
     def testTransresistanceAmplifierTwoPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -221,7 +221,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Two Port incorrect')
     def testTransresistanceAmplifierTwoPortAlternateNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -235,7 +235,7 @@ class TestTransresistanceAmplifier(unittest.TestCase,si.test.SourcesTesterHelper
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.TransresistanceAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Transresistance Amplifier Two Port Alternate incorrect')
     def testTransresistanceAmplifierFourPortCode(self):
         self.WriteCode('TestTransresistanceAmplifier.py','testTransresistanceAmplifierFourPort(self)',self.standardHeader)

@@ -22,7 +22,6 @@ import unittest
 import SignalIntegrity.Lib as si
 from numpy import linalg
 from numpy import array
-from numpy import matrix
 from numpy import sqrt
 
 class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
@@ -126,13 +125,13 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testABCD2SComplexZComplexZ0matrix(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.ABCD2S(ABCD,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testS2ABCDComplexZComplexZ0matrix(self):
         R=23+1j*134
         ABCD=[[1,-R],[0,1]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.cvt.S2ABCD(si.dev.SeriesZZ0K(R,Z0),Z0)-array(ABCD))
         self.assertTrue(difference<1e-10,'Complex Series Z ABCD not equal S with  Z0=list different, default K')
     def testShuntZ(self):
@@ -154,13 +153,13 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testZ2SComplexZComplexZ0matrix(self):
         R=23+1j*134
         Z=[[R,R],[R,R]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.dev.ShuntZZ0K(R,Z0)-array(si.cvt.Z2S(Z,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testS2ZComplexZComplexZ0matrix(self):
         R=23+1j*134
         Z=[[R,R],[R,R]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.cvt.S2Z(si.dev.ShuntZZ0K(R,Z0),Z0)-array(Z))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testZ2SComplexZComplexZ0List(self):
@@ -178,13 +177,13 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def testY2SComplexZComplexZ0matrix(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.dev.SeriesZZ0K(R,Z0)-array(si.cvt.Y2S(Y,Z0)))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testS2YComplexZComplexZ0matrix(self):
         R=23+1j*134
         Y=[[1./R,-1./R],[-1./R,1./R]]
-        Z0=matrix([[25+1j*34,0.0],[0.0,95.-1j*91]])
+        Z0=array([[25+1j*34,0.0],[0.0,95.-1j*91]])
         difference = linalg.norm(si.cvt.S2Y(si.dev.SeriesZZ0K(R,Z0),Z0)-array(Y))
         self.assertTrue(difference<1e-10,'Complex Series Z Z not equal S with  Z0=list different, default K')
     def testY2SComplexZComplexZ0List(self):

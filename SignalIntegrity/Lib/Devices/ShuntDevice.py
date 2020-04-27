@@ -18,7 +18,7 @@ ShuntDevice.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
+from numpy import array
 
 def ShuntDeviceFourPort(D):
     """ShuntDeviceFourPort
@@ -35,7 +35,7 @@ def ShuntDeviceFourPort(D):
     D22=D[1][1]
     DetD=D11*D22-D12*D21
     DN=-9.-3.*D11-3.*D22-DetD
-    S=matrix([[3.-3.*D11+D22-DetD,-4.*D12,-6.-6.*D11-2.*D22-2*DetD,-4.*D12],
+    S=array([[3.-3.*D11+D22-DetD,-4.*D12,-6.-6.*D11-2.*D22-2*DetD,-4.*D12],
         [-4.*D21,3+D11-3.*D22-DetD,-4.*D21,-6.-2.*D11-6.*D22-2*DetD],
         [-6.-6.*D11-2.*D22-2.*DetD,-4.*D12,3.-3.*D11+D22-DetD,-4.*D12],
         [-4.*D21,-6.-2.*D11-6.*D22-2.*DetD,-4.*D21,3.+D11-3.*D22-DetD]])

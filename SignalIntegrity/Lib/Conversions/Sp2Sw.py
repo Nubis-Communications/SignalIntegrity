@@ -16,7 +16,8 @@ Converts power-wave s-parameters to pseudo-wave s-parameters
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 from SignalIntegrity.Lib.Conversions.Z0KHelperPW import Z0KHelperPW
@@ -37,7 +38,7 @@ def Sp2Sw(Sp,Z0w=None,Z0p=None,Kw=None):
         Z0p=Z0w
     (Z0w,Kw)=Z0KHelper((Z0w,Kw),len(Sp))
     (Z0p,Kp)=Z0KHelperPW(Z0p,len(Sp))
-    Sp=matrix(Sp)
-    Sw=(Kw.getI()*Kp*Z0p.real.getI()*((Z0p.conjugate()-Z0w)+(Z0p+Z0w)*Sp)*
-        ((Z0p.conjugate()+Z0w)+(Z0p-Z0w)*Sp).getI()*Kw*Kp.getI()*Z0p.real)
-    return Sw
+    Sp=array(Sp)
+    Sw=inv(Kw).dot(Kp).dot(inv(Z0p.real)).dot((Z0p.conj()-Z0w)+(Z0p+Z0w).dot(Sp)).dot(
+        inv((Z0p.conj()+Z0w)+(Z0p-Z0w).dot(Sp))).dot(Kw).dot(inv(Kp)).dot(Z0p.real)
+    return Sw.tolist()

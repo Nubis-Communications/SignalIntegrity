@@ -23,7 +23,7 @@ import math
 def MixedModeConverterVoltage():
     """MixedModeConverterVoltage
     Voltage mixed-mode converter
-    @return the s-paramater matrix of a voltage mixed-mode converter.
+    @return the s-parameter matrix of a voltage mixed-mode converter.
     Ports 1 2 3 4 are + - D C
 
     this one has the right definition for differential
@@ -41,7 +41,7 @@ def MixedModeConverterVoltage():
 def MixedModeConverter():
     """MixedModeConverter
     Standard mixed-mode converter
-    @return the s-paramater matrix of a the standard mixed-mode converter.
+    @return the s-parameter matrix of a the standard mixed-mode converter.
     Ports 1 2 3 4 are + - D C
 
     this one has the right definition for mixed-mode s-parameters.

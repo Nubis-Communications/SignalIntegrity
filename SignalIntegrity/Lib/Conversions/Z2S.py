@@ -16,7 +16,8 @@
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from numpy import matrix
+from numpy import array
+from numpy.linalg import inv
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
@@ -28,5 +29,5 @@ def Z2S(Z,Z0=None,K=None):
     @see Z0KHelper to see how the reference impedance
     and scaling factor are determined."""
     (Z0,K)=Z0KHelper((Z0,K),len(Z))
-    Z=matrix(Z)
-    return (K.getI()*(Z-Z0)*(Z+Z0).getI()*K).tolist()
+    Z=array(Z)
+    return (inv(K).dot(Z-Z0).dot(inv(Z+Z0)).dot(K)).tolist()
