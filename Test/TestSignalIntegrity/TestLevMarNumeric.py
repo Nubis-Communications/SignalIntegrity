@@ -20,7 +20,7 @@ TestLevMarNumeric.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from numpy import linalg,matrix
+from numpy import array
 
 class QuadraticFitter(si.fit.LevMar):
     def Initialize(self,a,x,y):
@@ -28,7 +28,7 @@ class QuadraticFitter(si.fit.LevMar):
         si.fit.LevMar.Initialize(self, a, y)
         self.m_epsilon=1e-6
     def fF(self,a):
-        return [[sum([a[m][0]*pow(x[0],m) for m in range(len(a))])] for x in self.m_x]
+        return array([[sum([a[m][0]*pow(x[0],m) for m in range(len(a))])] for x in self.m_x])
 
 class QuadraticFitterIllFormed(si.fit.LevMar):
     def Initialize(self,a,x,y):
@@ -46,21 +46,21 @@ class TestLevMarNumericTest(unittest.TestCase):
         y is a vectory created where:\n
         y[m][0] = a[0][0]+*a[1][0]*x[m][0]+*a[2][0]*x[m][0]^2
         """
-        a=[[1],[2],[3]]
-        x=[[0],[1],[2],[3],[4],[5]]
+        a=[[1.],[2.],[3.]]
+        x=[[0.],[1.],[2.],[3.],[4.],[5.]]
         y=[[sum([a[m][0]*pow(xv[0],m) for m in range(len(a))])] for xv in x]
         qf=QuadraticFitter()
-        qf.Initialize([[1] for _ in a], x, y)
+        qf.Initialize(array([[1.] for _ in a]), x, y)
         qf.Solve()
         ac=qf.m_a
-        fity=[[sum([ac[m][0]*pow(xv[0],m) for m in range(len(ac))])] for xv in x]
+        fity=array([[sum([ac[m][0]*pow(xv[0],m) for m in range(len(ac))])] for xv in x])
         maxError=max([abs(fv[0]-yv[0])/abs(yv[0])*100.0 for fv,yv in zip(fity,y)])
         self.assertLess(maxError, 0.1, 'quadratic fit failed') 
     def testLevMarNumericIllFormed(self):
         """tests that LevMar throws correct exception when non-overloaded
         class created"""
-        a=[[1],[2],[3]]
-        x=[[0],[1],[2],[3],[4],[5]]
+        a=[[1.],[2.],[3.]]
+        x=[[0.],[1.],[2.],[3.],[4.],[5.]]
         y=[[sum([a[m][0]*pow(xv[0],m) for m in range(len(a))])] for xv in x]
         qf=QuadraticFitterIllFormed()
         with self.assertRaises(si.SignalIntegrityException) as cm:

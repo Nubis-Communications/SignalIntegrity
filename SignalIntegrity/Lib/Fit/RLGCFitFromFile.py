@@ -51,7 +51,7 @@ class RLGCFitFromFile(object):
         Z0=sp.m_Z0*(1.+rho)/(1.-rho)
         L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
         fitter=RLGCFitter(sp,guess)
-        (R,L,G,C,Rse,df)=[r[0] for r in fitter.Solve().Results()]
+        (R,L,G,C,Rse,df)=fitter.Solve().Results()
 #         print "series resistance: "+ToSI(R,'ohm')
 #         print "series inductance: "+ToSI(L,'H')
 #         print "shunt conductance: "+ToSI(G,'S')

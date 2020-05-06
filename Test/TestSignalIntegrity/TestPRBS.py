@@ -22,6 +22,7 @@ import os
 import unittest
 import SignalIntegrity.Lib as si
 import SignalIntegrity.App as siapp
+from numpy import array
 
 class EqualizerFitter(si.fit.LevMar):
     def __init__(self,callback=None):
@@ -37,9 +38,9 @@ class EqualizerFitter(si.fit.LevMar):
         return [self.levels[min(list(zip([abs(v[0]-d)
             for d in self.levels],range(len(self.levels)))))[1]] for v in x]
     def fF(self,a):
-        return [[sum([a[i][0]*self.x[k-i+self.pre][0]
+        return array([[sum([a[i][0]*self.x[k-i+self.pre][0]
             for i in range(self.pre+self.post+1)])]
-                for k in range(self.pre,len(self.x)-self.post)]
+                for k in range(self.pre,len(self.x)-self.post)])
     def AdjustVariablesAfterIteration(self,a):
         self.y=[[v] for v in self.Decode(self.x)[self.pre:len(self.x)-self.post]]
         return si.fit.LevMar.AdjustVariablesAfterIteration(self,a)

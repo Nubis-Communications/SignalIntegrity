@@ -19,8 +19,8 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 import math
-from numpy import zeros,array
-from numpy.linalg import inv
+from numpy import zeros,array,diag
+from numpy.linalg import inv,LinAlgError,lstsq,solve
 from SignalIntegrity.Lib.CallBacker import CallBacker
 import copy
 from SignalIntegrity.Lib.Fit.FitConvergence import FitConvergenceMgr
@@ -75,10 +75,10 @@ class LevMar(CallBacker):
         @return the partial derivative of F(a) with respect to element m in a
         """
         aplusDeltaa = copy.copy(a)
-        aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
+        aplusDeltaa[m][0]=aplusDeltaa[m][0]+self.m_epsilon
         if Fa is None:
             Fa = self.fF(a)
-        dFa = ((array(self.fF(aplusDeltaa))-array(Fa))/self.m_epsilon).tolist()
+        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
         return dFa
     def fJ(self,a,Fa=None):
         """Calculates the Jacobian matrix.
@@ -96,7 +96,7 @@ class LevMar(CallBacker):
             Fa=self.fF(a)
         M = len(a)
         R = len(Fa)
-        J = zeros((R,M)).tolist()
+        J = zeros((R,M))
         for m in range(M):
             pFpam=self.fPartialFPartiala(a,m,Fa)
             for r in range(R):
@@ -123,25 +123,24 @@ class LevMar(CallBacker):
         @param y list of lists matrix y
         @param w (optional) list of lists weights matrix w
         """
-        self.m_a = copy.copy(a)
-        self.m_y = copy.copy(y)
+        self.m_a = copy.copy(array(a))
+        self.m_y = copy.copy(array(y))
         if w is None:
             self.m_sumw=len(y)
             self.m_W=1.0
         else:
-            self.m_W = Matrix.diag(w)
+            self.m_W = diag(w)
             self.m_sumw = 0
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
         self.m_Fa = self.fF(self.m_a)
-        self.m_r=(array(self.m_Fa)-array(self.m_y)).tolist()
-        self.m_mse=math.sqrt((array(self.m_r).conj().T.dot(
-            self.m_W).dot(array(self.m_r))).tolist()[0][0].real/self.m_sumw)
+        self.m_r=self.m_Fa-self.m_y
+        self.m_mse=math.sqrt(self.m_r.conj().T.dot(self.m_W).dot(
+            self.m_r)[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]
         self.m_mseTracking = [self.m_mse]
         self.m_J = None
         self.m_H = None
-        self.m_D = None
         self.m_JHWr = None
         self.ccm=FitConvergenceMgr()
     def Iterate(self):
@@ -155,27 +154,35 @@ class LevMar(CallBacker):
         if self.m_Fa is None:
             self.m_Fa=self.fF(self.m_a)
         if self.m_r is None:
-            self.m_r=(array(self.m_Fa)-array(self.m_y)).tolist()
+            self.m_r=self.m_Fa-self.m_y
         if self.m_J is None:
             self.m_J=self.fJ(self.m_a,self.m_Fa)
-        if self.m_H is None:
-            self.m_H=(array(self.m_J).conj().T.dot(self.m_W).dot(
-                      array(self.m_J))).tolist()
-        if self.m_D is None:
-            self.m_D=zeros((len(self.m_H),len(self.m_H[0]))).tolist()
-            for r in range(len(self.m_D)):
-                self.m_D[r][r]=self.m_H[r][r]
-        if self.m_JHWr is None:
-            self.m_JHWr = (array(self.m_J).conj().T.dot(
-            self.m_W).dot(array(self.m_r))).tolist()
-        Deltaa=(inv(array(self.m_H)+array(self.m_D).dot(
-                self.m_lambda)).dot(array(self.m_JHWr))).tolist()
-        newa=(array(self.m_a)-array(Deltaa)).tolist()
+        # pragma: silent exclude
+        if self.m_J.shape[1]>self.m_J.shape[0]: # fat matrix - underconstrained
+            if self.m_H is None:
+                self.m_H=lstsq(self.m_J,self.m_r,0.001)[0]
+            Deltaa=self.m_H/float(self.m_lambda)
+        else:
+            # pragma: include outdent
+            if self.m_H is None:
+                self.m_H=self.m_J.conj().T.dot(self.m_W).dot(self.m_J)
+            if self.m_JHWr is None:
+                self.m_JHWr=self.m_J.conj().T.dot(self.m_W).dot(self.m_r)
+            HplD=copy.copy(self.m_H)
+            for r in range(HplD.shape[0]): HplD[r][r]*=(1.+self.m_lambda)
+            # pragma: silent exclude
+            try:
+                # pragma: include outdent
+                Deltaa=solve(HplD,self.m_JHWr)
+            # pragma: silent exclude indent
+            except LinAlgError:
+                Deltaa=lstsq(HplD,self.m_JHWr,0.001)[0]
+        # pragma: include indent
+        newa=self.m_a-Deltaa
         newa=self.AdjustVariablesAfterIteration(newa)
         newFa = self.fF(newa)
-        newr=(array(newFa)-array(self.m_y)).tolist()
-        newmse=math.sqrt(array(newr).conj().T.dot(self.m_W).dot(
-            array(newr)).tolist()[0][0].real/self.m_sumw)
+        newr=newFa-self.m_y
+        newmse=math.sqrt(newr.conj().T.dot(self.m_W).dot(newr)[0][0].real/self.m_sumw)
         if newmse < self.m_mse:
             self.m_mse = newmse
             self.m_a = newa
@@ -185,7 +192,6 @@ class LevMar(CallBacker):
             self.m_r = newr
             self.m_J = None
             self.m_H = None
-            self.m_D = None
             self.m_JHWr = None
         else:
             self.m_lambda = min(self.m_lambda*

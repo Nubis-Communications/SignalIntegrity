@@ -7,5 +7,5 @@ def TlineFit(sp):
     rho=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
     Z0=sp.m_Z0*(1.+rho)/(1.-rho)
     L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
-    (R,L,G,C,Rse,df)=[r[0] for r in si.fit.RLGCFitter(sp,guess).Solve().Results()]
+    (R,L,G,C,Rse,df)=si.fit.RLGCFitter(sp,guess).Solve().Results()
     return si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)

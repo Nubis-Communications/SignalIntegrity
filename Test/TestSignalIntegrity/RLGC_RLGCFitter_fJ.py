@@ -27,5 +27,5 @@ class RLGCFitter(LevMar):
         dS=[[[[dS11[i][n],dS12[i][n]],[dS12[i][n],dS11[i][n]]]
                 for n in range(len(self.f))] for i in range(6)]
         vdS=[self.VectorizeSp(ds) for ds in dS]
-        return [[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))]
+        return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
 ...

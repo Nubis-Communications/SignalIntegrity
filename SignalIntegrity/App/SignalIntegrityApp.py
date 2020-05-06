@@ -716,7 +716,7 @@ class SignalIntegrityApp(tk.Frame):
         #pragma: include
         self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)
         #print(self.m_fitter.Results())
-        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
+        (R,L,G,C,Rse,df)=self.m_fitter.Solve().Results()
 #         print "series resistance: "+ToSI(R,'ohm')
 #         print "series inductance: "+ToSI(L,'H')
 #         print "shunt conductance: "+ToSI(G,'S')
