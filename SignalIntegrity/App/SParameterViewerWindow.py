@@ -1295,7 +1295,6 @@ class SParametersDialog(tk.Toplevel):
         self.topRightCanvas.draw()
         self.topRightToolbar.update()
 
-
     def onReadSParametersFromFile(self):
         filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
                                  initialdir=self.fileparts.AbsoluteFilePath(),

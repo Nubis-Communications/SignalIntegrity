@@ -18,9 +18,8 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix,zeros,identity
-from numpy.linalg import det
-from numpy.linalg import norm
+from numpy import array,zeros,identity
+from numpy.linalg import det,norm,pinv,inv
 import cmath
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionMeasurement
 
@@ -116,7 +115,7 @@ class ErrorTerms(object):
         # pragma: include
         A=[[1.,Gamma[r]*hatGamma[r],-Gamma[r]] for r in range(len(Gamma))]
         B=[[hatGamma[r]] for r in range(len(Gamma))]
-        EdEsDeltaS=(matrix(A).getI()*matrix(B)).tolist()
+        EdEsDeltaS=(pinv(array(A)).dot(array(B))).tolist()
         Ed=EdEsDeltaS[0][0]
         Es=EdEsDeltaS[1][0]
         DeltaS=EdEsDeltaS[2][0]
@@ -153,14 +152,14 @@ class ErrorTerms(object):
         B=zeros((2*len(b1a1),1)).tolist()
         for i in range(len(b1a1)):
             Sm=S[i]
-            detS=det(matrix(Sm))
+            detS=det(array(Sm))
             A[2*i][0]=(Es*detS-Sm[1][1])*(Ed-b1a1[i])-Er*detS
             A[2*i][1]=0.
             A[2*i+1][0]=(Es*detS-Sm[1][1])*(Ex-b2a1[i])
             A[2*i+1][1]=Sm[1][0]
             B[2*i][0]=(1.-Es*Sm[0][0])*(b1a1[i]-Ed)-Er*Sm[0][0]
             B[2*i+1][0]=(1-Es*Sm[0][0])*(b2a1[i]-Ex)
-        ElEt=(matrix(A).getI()*matrix(B)).tolist()
+        ElEt=(pinv(array(A)).dot(array(B))).tolist()
         (El,Et)=(ElEt[0][0],ElEt[1][0])
         self[n][m]=[Ex,Et,El]
         return self
@@ -205,7 +204,7 @@ class ErrorTerms(object):
                              [[EX21,ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
         DutCalc2=ErrorTerms([[[ED1,ER1,ES1],[EX12,-ET12,EL12]],
                              [[EX21,-ET21,EL21],[ED2,ER2,ES2]]]).DutCalculation(Sm)
-        if norm(matrix(DutCalc1)-matrix(Sest)) < norm(matrix(DutCalc2)-matrix(Sest)):
+        if norm(array(DutCalc1)-array(Sest)) < norm(array(DutCalc2)-array(Sest)):
             return DutCalc1
         else:
             return DutCalc2
@@ -317,14 +316,14 @@ class ErrorTerms(object):
             I=(identity(numPorts)).tolist()
             for m in range(numPorts):
                 E=self.Fixture(m,pl)
-                b=matrix([[sRaw[r][m]] for r in range(numPorts)])
-                Im=matrix([[I[r][m]] for r in range(numPorts)])
-                bprime=(matrix(E[0][1]).getI()*(b-matrix(E[0][0])*Im)).tolist()
-                aprime=(matrix(E[1][0])*Im+matrix(E[1][1])*matrix(bprime)).tolist()
+                b=array([[sRaw[r][m]] for r in range(numPorts)])
+                Im=array([[I[r][m]] for r in range(numPorts)])
+                bprime=(pinv(array(E[0][1])).dot(b-array(E[0][0]).dot(Im))).tolist()
+                aprime=(array(E[1][0]).dot(Im)+array(E[1][1]).dot(array(bprime))).tolist()
                 for r in range(numPorts):
                     A[r][m]=aprime[r][0]
                     B[r][m]=bprime[r][0]
-        if not reciprocal: S=(matrix(B)*matrix(A).getI()).tolist()
+        if not reciprocal: S=(array(B).dot(pinv(array(A)))).tolist()
         else: S=self._EnforceReciprocity(A,B)
         return S
     def DutCalculation(self,sRaw,pl=None,reciprocal=False):
@@ -345,7 +344,7 @@ class ErrorTerms(object):
         B=[[(sRaw[r][c]-self[pl[r]][pl[c]][0])/self[pl[r]][pl[c]][1]
             for c in Pr] for r in  Pr]
         A=[[B[r][c]*self[pl[r]][pl[c]][2]+(1 if r==c else 0) for c in Pr] for r in Pr]
-        if not reciprocal: S=(matrix(B)*matrix(A).getI()).tolist()
+        if not reciprocal: S=(array(B).dot(pinv(array(A)))).tolist()
         else: S=self._EnforceReciprocity(A,B)
         return S
     def _EnforceReciprocity(self,A,B):
@@ -365,7 +364,7 @@ class ErrorTerms(object):
             for c in Pr:
                 b[r*P+c]=[B[r][c]]
                 for p in Pr: L[p*P+r][M[p][c]]=A[c][r]
-        sv=(matrix(L).getI()*matrix(b)).tolist()
+        sv=(pinv(array(L)).dot(array(b))).tolist()
         S=[[sv[M[r][c]][0] for c in Pr] for r in Pr]
         return S
     def DutUnCalculation(self,S,pl=None):
@@ -378,10 +377,11 @@ class ErrorTerms(object):
         """
         if pl is None: pl = [p for p in range(len(S))]
         Sp=[[None for c in range(len(S))] for r in range(len(S))]
-        Si=matrix(S).getI()
+        Si=pinv(array(S))
         for c in range(len(S)):
             E=self.Fixture(c,pl)
-            Em=[[matrix(E[0][0]),matrix(E[0][1])],[matrix(E[1][0]),matrix(E[1][1])]]
-            col=(Em[0][0]*Em[1][0]+Em[0][1]*(Si-Em[1][1]).getI()*Em[1][0]).tolist()
+            Em=[[array(E[0][0]),array(E[0][1])],[array(E[1][0]),array(E[1][1])]]
+            col=(Em[0][0].dot(Em[1][0])+Em[0][1].dot(
+                pinv(Si-Em[1][1])).dot(Em[1][0])).tolist()
             for r in range(len(S)): Sp[r][c]=col[r][c]
         return Sp

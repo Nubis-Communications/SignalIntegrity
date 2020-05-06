@@ -13,7 +13,7 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
                 if self.m_spc[d][0] == 'system': systemSP=self.m_spc[d][1]
         for n in range(len(self.m_f)):
             for d in range(len(self.m_spc)):
-                if self.m_spc[d][0] != 'system':
+                if not self.m_spc[d][0] in ['system',None]:
                     self.m_sd.AssignSParameters(self.m_spc[d][0],self.m_spc[d][1][n])
             system = systemSP[n] if not systemSP is None else None
             unl=DeembedderNumeric(self.m_sd).CalculateUnknown(system)

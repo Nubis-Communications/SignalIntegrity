@@ -1,0 +1,39 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="36" y="-33" t="VNA" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-24" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">44,-28 40,-28</polyline>
+%  <text x="41" y="-27" t="1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">44,-36 40,-36</polyline>
+%  <text x="41" y="-35" t="2" h="3" halign="l" lc="black"/>
+%  <text x="36" y="-21" t="cd calculate" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-18" t="file TDRModelSimulation.si" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-15" t="et TDRCalibration.si" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-12" t="pl 1,3" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-9" t="D1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">50,-30 48,-28 50,-26</polyline>
+%  <polyline lc="black">44,-28 48,-28</polyline>
+%  <text x="50" y="-29" t="1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">50,-38 48,-36 50,-34</polyline>
+%  <polyline lc="black">44,-36 48,-36</polyline>
+%  <text x="50" y="-37" t="2" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (36,-33) node[anchor=base]{VNA};
+\path[line width=0.30mm, draw=black] (32,-40) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (44,-28) -- (40,-28);
+\draw[black] (41,-27) node[anchor=base west]{1};
+\path[line width=0.30mm, draw=black] (44,-36) -- (40,-36);
+\draw[black] (41,-35) node[anchor=base west]{2};
+\draw[black] (36,-21) node[anchor=base]{cd calculate};
+\draw[black] (36,-18) node[anchor=base]{file TDRModelSimulation.si};
+\draw[black] (36,-15) node[anchor=base]{et TDRCalibration.si};
+\draw[black] (36,-12) node[anchor=base]{pl 1,3};
+\draw[black] (36,-9) node[anchor=base]{D1};
+\path[line width=0.30mm, draw=black] (50,-30) -- (48,-28) -- (50,-26);
+\path[line width=0.30mm, draw=black] (44,-28) -- (48,-28);
+\draw[black] (50,-29) node[anchor=base west]{1};
+\path[line width=0.30mm, draw=black] (50,-38) -- (48,-36) -- (50,-34);
+\path[line width=0.30mm, draw=black] (44,-36) -- (48,-36);
+\draw[black] (50,-37) node[anchor=base west]{2};
+\end{tikzpicture}%

@@ -1425,20 +1425,29 @@ class DrawingStateMachine(object):
                         while portNumber in portNumberList:
                             portNumber=portNumber+1
                         device['pn'].SetValueFromString(str(portNumber))
-                else:
-                    existingReferenceDesignators=[]
+                elif device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                    portNumberList=[]
                     for existingDevice in self.parent.schematic.deviceList:
-                        referenceDesignatorProperty = existingDevice['ref']
-                        if referenceDesignatorProperty != None:
-                            existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
-                    if device['ref'] != None:
-                        if device['ref'].GetValue() in existingReferenceDesignators:
-                            defaultProperty = device['defref']
-                            if defaultProperty != None:
-                                defaultPropertyValue = defaultProperty.GetValue()
-                                uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                                if uniqueReferenceDesignator != None:
-                                    device['ref'].SetValueFromString(uniqueReferenceDesignator)
+                        if existingDevice['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                            portNumberList.append(int(existingDevice['pn'].GetValue()))
+                    if device['pn'].GetValue() in portNumberList:
+                        portNumber=1
+                        while portNumber in portNumberList:
+                            portNumber=portNumber+1
+                        device['pn'].SetValueFromString(str(portNumber))
+                existingReferenceDesignators=[]
+                for existingDevice in self.parent.schematic.deviceList:
+                    referenceDesignatorProperty = existingDevice['ref']
+                    if referenceDesignatorProperty != None:
+                        existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())
+                if device['ref'] != None:
+                    if device['ref'].GetValue() in existingReferenceDesignators:
+                        defaultProperty = device['defref']
+                        if defaultProperty != None:
+                            defaultPropertyValue = defaultProperty.GetValue()
+                            uniqueReferenceDesignator = self.parent.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                            if uniqueReferenceDesignator != None:
+                                device['ref'].SetValueFromString(uniqueReferenceDesignator)
                 device.partPicture.current.SetOrigin((device.partPicture.current.origin[0]+self.parent.Button1Coord[0],device.partPicture.current.origin[1]+self.parent.Button1Coord[1]))
                 device.selected=True
                 self.parent.schematic.deviceList.append(device)
@@ -1570,6 +1579,8 @@ class Drawing(tk.Frame):
         foundAStim=False
         foundAnUnknown=False
         foundASystem=False
+        foundACalibration=False
+        foundANetworkAnalyzerModel=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1589,8 +1600,12 @@ class Drawing(tk.Frame):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerport']:
                 foundASource = True
+            elif device.netlist['DeviceName'] == 'calibration':
+                foundACalibration=True
+            elif deviceType == 'NetworkAnalyzerModel':
+                foundANetworkAnalyzerModel=True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -1599,18 +1614,24 @@ class Drawing(tk.Frame):
             canvas.create_oval((dot[0]+originx)*grid-size,(dot[1]+originy)*grid-size,
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
-        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
-        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
+        canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
+        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
         canRLGC=canCalculateSParameters and (numPortsFound == 2)
-        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
-        canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
-        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed
-        self.parent.SimulateDoer.Activate(canSimulate)
+        canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
+        canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration
+        canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
+        canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
+        canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
+        self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
         self.parent.CalculateDoer.Activate(canCalculate)
-        self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters)
+        self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
         self.parent.RLGCDoer.Activate(canRLGC)
         self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
         self.parent.DeembedDoer.Activate(canDeembed)
+        self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
+        self.parent.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
+        self.parent.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
         self.parent.ClearProjectDoer.Activate(foundSomething)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)
@@ -1639,13 +1660,21 @@ class Drawing(tk.Frame):
                 while portNumber in portNumberList:
                     portNumber=portNumber+1
                 self.partLoaded['pn'].SetValueFromString(str(portNumber))
-            else:
-                defaultProperty = self.partLoaded['defref']
-                if defaultProperty != None:
-                    defaultPropertyValue = defaultProperty.GetValue()
-                    uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-                    if uniqueReferenceDesignator != None:
-                        self.partLoaded['ref'].SetValueFromString(uniqueReferenceDesignator)
+            elif self.partLoaded['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                portNumberList=[]
+                for device in self.schematic.deviceList:
+                    if device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
+                        portNumberList.append(int(device['pn'].GetValue()))
+                portNumber=1
+                while portNumber in portNumberList:
+                    portNumber=portNumber+1
+                self.partLoaded['pn'].SetValueFromString(str(portNumber))
+            defaultProperty = self.partLoaded['defref']
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.GetValue()
+                uniqueReferenceDesignator = self.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    self.partLoaded['ref'].SetValueFromString(uniqueReferenceDesignator)
             self.stateMachine.PartLoaded()
     def DeleteSelected(self):
         if self.stateMachine.state=='WireSelected':

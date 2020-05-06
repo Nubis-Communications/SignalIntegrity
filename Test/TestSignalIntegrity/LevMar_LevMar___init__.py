@@ -11,17 +11,17 @@ class LevMar(CallBacker):
         raise SignalIntegrityExceptionFitter('fF must be overloaded')
     def fPartialFPartiala(self,a,m,Fa=None):
         aplusDeltaa = copy.copy(a)
-        aplusDeltaa[m][0]=a[m][0]+self.m_epsilon
+        aplusDeltaa[m][0]=aplusDeltaa[m][0]+self.m_epsilon
         if Fa is None:
             Fa = self.fF(a)
-        dFa = ((matrix(self.fF(aplusDeltaa))-matrix(Fa))/self.m_epsilon).tolist()
+        dFa = (self.fF(aplusDeltaa)-Fa)/self.m_epsilon
         return dFa
     def fJ(self,a,Fa=None):
         if Fa is None:
             Fa=self.fF(a)
         M = len(a)
         R = len(Fa)
-        J = zeros((R,M)).tolist()
+        J = zeros((R,M))
         for m in range(M):
             pFpam=self.fPartialFPartiala(a,m,Fa)
             for r in range(R):
@@ -30,25 +30,24 @@ class LevMar(CallBacker):
     def AdjustVariablesAfterIteration(self,a):
         return a
     def Initialize(self,a,y,w=None):
-        self.m_a = copy.copy(a)
-        self.m_y = copy.copy(y)
+        self.m_a = copy.copy(array(a))
+        self.m_y = copy.copy(array(y))
         if w is None:
             self.m_sumw=len(y)
             self.m_W=1.0
         else:
-            self.m_W = Matrix.diag(w)
+            self.m_W = diag(w)
             self.m_sumw = 0
             for r in range(w.rows()):
                 self.m_sumw = self.m_sumw + w[r][0]
         self.m_Fa = self.fF(self.m_a)
-        self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
-        self.m_mse=math.sqrt((matrix(self.m_r).getH()*
-            self.m_W*matrix(self.m_r)).tolist()[0][0].real/self.m_sumw)
+        self.m_r=self.m_Fa-self.m_y
+        self.m_mse=math.sqrt(self.m_r.conj().T.dot(self.m_W).dot(
+            self.m_r)[0][0].real/self.m_sumw)
         self.m_lambdaTracking = [self.m_lambda]
         self.m_mseTracking = [self.m_mse]
         self.m_J = None
         self.m_H = None
-        self.m_D = None
         self.m_JHWr = None
         self.ccm=FitConvergenceMgr()
 ...

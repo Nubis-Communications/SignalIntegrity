@@ -21,6 +21,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import os
 import copy
+import sys
 
 class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):

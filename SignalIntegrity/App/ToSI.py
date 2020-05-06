@@ -101,13 +101,34 @@ def ToSI(d,sa='',letterPrefixes=True):
         spacer=''
 
     if d==0.:
-        return '0'+spacer+sa
+        if letterPrefixes:
+            return '0'+spacer+sa
+        else:
+            return '0'
+
+    exponentInUnit=False
+    if len(sa)>=2:
+        if sa[0:2] in ['e-','e+']:
+            exponentInUnit=True
+            if not letterPrefixes:
+                exp=sa.split(' ')[0]
+                try:
+                    s=str(d)+exp
+                    number=float(s)
+                    # if the number attempt passed, then we can return the string
+                    return s
+                except ValueError:
+                    d=d*float('1'+exp)
+                    exponentInUnit=False
 
     degree = int(math.floor(math.log10(math.fabs(d)) / 3))
 
     prefix = ''
 
-    if degree!=0:
+    if not letterPrefixes:
+        sa=''
+
+    if degree!=0 and not exponentInUnit:
         ds = degree/math.fabs(degree)
         if ds == 1:
             if degree - 1 < len(incPrefixes):

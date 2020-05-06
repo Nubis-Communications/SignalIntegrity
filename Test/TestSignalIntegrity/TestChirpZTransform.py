@@ -74,7 +74,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             fc=wf.FrequencyContent()
             self.assertAlmostEqual(fc.Values('mag')[n],5.)
             wf2=fc.Waveform()
-            self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+            self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testFrequencyContentNormalizationCZTEven(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
         fd=td.FrequencyList()
@@ -83,7 +83,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             fc=wf.FrequencyContent()
             self.assertAlmostEqual(fc.Values('mag')[n],1.)
             wf2=fc.Waveform()
-            self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+            self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testFrequencyContentNormalizationDFTOdd(self):
         td=si.td.wf.TimeDescriptor(-1e-9,11,10e9)
         fd=td.FrequencyList()
@@ -92,7 +92,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             fc=wf.FrequencyContent()
             self.assertAlmostEqual(fc.Values('mag')[n],5.)
             wf2=fc.Waveform()
-            self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+            self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testFrequencyContentNormalizationCZTOdd(self):
         td=si.td.wf.TimeDescriptor(-1e-9,11,10e9)
         fd=td.FrequencyList()
@@ -101,13 +101,13 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             fc=wf.FrequencyContent()
             self.assertAlmostEqual(fc.Values('mag')[n],1.)
             wf2=fc.Waveform()
-            self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+            self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testFrequencyContentStepEven(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,1e9)
         wf=si.td.wf.StepWaveform(td)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('step magnitude')
@@ -123,7 +123,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=si.td.wf.StepWaveform(td)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('step magnitude')
@@ -140,7 +140,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf[2]=1.0
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('impulse magnitude')
@@ -159,7 +159,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             wf=wf+si.td.wf.SineWaveform(td,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('sum of sines')
@@ -178,9 +178,9 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-1.05e-9,PulseWidth=100e-12)
-        self.assertEquals(wf2,wfImpulse,'not equal to impulse')
+        self.assertEqual(wf2,wfImpulse,'not equal to impulse')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('sum of sines scaled')
@@ -198,7 +198,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=sum([si.td.wf.SineWaveform(td,Frequency=fd[n],Phase=90.) for n in range(fd.N+1)])
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testSumOfSines4(self):
         td=si.td.wf.TimeDescriptor(-1e-9,10,10e9)
         fd=td.FrequencyList()
@@ -207,7 +207,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             wf=si.td.wf.SineWaveform(td,Frequency=fd[n],Phase=90.).__radd__(wf)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
     def testSumOfSinesByDefinition(self):
         td=si.td.wf.TimeDescriptor(-1e-9,20,10e9)
         fd=td.FrequencyList()
@@ -217,9 +217,9 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-0.05e-9,PulseWidth=100e-12)
-        self.assertEquals(wf2,wfImpulse,'not equal to impulse')
+        self.assertEqual(wf2,wfImpulse,'not equal to impulse')
     def testSumOfSinesByDefinitionOdd(self):
         td=si.td.wf.TimeDescriptor(-1e-9,21,10e9)
         fd=td.FrequencyList()
@@ -229,15 +229,15 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
             wf=wf+si.td.wf.SineWaveform(td,Amplitude=amplitude,Frequency=fd[n],Phase=90.)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         wfImpulse=si.td.wf.PulseWaveform(td,StartTime=-0.05e-9,PulseWidth=100e-12)
-        self.assertEquals(wf2,wfImpulse,'not equal to impulse')
+        self.assertEqual(wf2,wfImpulse,'not equal to impulse')
     def testNoiseWaveform(self):
         td=si.td.wf.TimeDescriptor(-1e-9,100,10e9)
         wf=si.td.wf.NoiseWaveform(td,.1)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform(td)
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('impulse magnitude')
@@ -253,7 +253,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=si.td.wf.NoiseWaveform(td,.1)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition(td)
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('impulse magnitude')
@@ -268,7 +268,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=si.td.wf.NoiseWaveform(td,1)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition(td)
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('impulse magnitude')
@@ -285,7 +285,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=si.td.wf.Waveform(td,.1)
         fc=wf.FrequencyContent()
         wf2=fc.Waveform()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         import matplotlib.pyplot as plt
         plt.clf()
         plt.title('impulse magnitude')
@@ -323,7 +323,7 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         wf=si.td.wf.PulseWaveform(td,StartTime=-0.5,PulseWidth=1.0)
         fc=wf.FrequencyContent()
         wf2=fc.WaveformFromDefinition()
-        self.assertEquals(wf,wf2,'waveform not equal from frequency content')
+        self.assertEqual(wf,wf2,'waveform not equal from frequency content')
         psd=fc.Values('dBmPerHz')
         for p in psd:
             self.assertAlmostEqual(p, 10.0, 1, 'psd incorrect')

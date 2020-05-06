@@ -1,0 +1,22 @@
+device Short 1 shortstd od 31.785e-12 oz0 50.0 ol 2.36e9 f0 1.0e9 l0 2.0765e-12 l1 -108.54e-24 l2 2.1705e-33 l3 -0.1001e-42
+device Open 1 openstd od 29.243e-12 oz0 50.0 ol 2.2e9 f0 1.0e9 c0 49.43e-15 c1 -310.13e-27 c2 23.1682e-36 c3 0.15966e-45
+device Load 1 loadstd od 0 oz0 50.0 ol 0 f0 1.0e9 tz 50.0
+device Thru 2 thrustd od 94.75e-12 oz0 50.0 ol 2.52e9 f0 1.0e9
+calibration reflect file TDRShort1.si std Short pn 1
+calibration reflect file TDROpen1.si std Open pn 1
+calibration reflect file TDRLoad1.si std Load pn 1
+calibration reflect file TDRShort2.si std Short pn 2
+calibration reflect file TDROpen2.si std Open pn 2
+calibration reflect file TDRLoad2.si std Load pn 2
+calibration thru file TDRThru12.si std Thru pn 1 opn 2 ct SOLT
+calibration reflect file TDRShort3.si std Short pn 3
+calibration reflect file TDROpen4.si std Open pn 4
+calibration reflect file TDRLoad3.si std Load pn 3
+calibration reflect file TDRShort4.si std Short pn 4
+calibration reflect file TDROpen3.si std Open pn 3
+calibration reflect file TDRLoad4.si std Load pn 4
+calibration thru file TDRThru13.si std Thru pn 1 opn 3 ct SOLT
+calibration thru file TDRThru14.si std Thru pn 1 opn 4 ct SOLT
+calibration thru file TDRThru23.si std Thru pn 2 opn 3 ct SOLT
+calibration thru file TDRThru24.si std Thru pn 2 opn 4 ct SOLT
+calibration thru file TDRThru34.si std Thru pn 3 opn 4 ct SOLT

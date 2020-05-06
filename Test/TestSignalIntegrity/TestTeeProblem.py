@@ -28,9 +28,7 @@ else:
 
 import SignalIntegrity.Lib as si
 
-from numpy import linalg
-from numpy import matrix
-from numpy import identity
+from numpy import linalg,array,identity
 
 class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -85,7 +83,7 @@ class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         rescalc1=sspn.SParameters()
         rescalc2=sspn.SParameters(solvetype='direct')
         rescorrect=si.dev.Tee()
-        difference = linalg.norm(matrix(rescalc1)-matrix(rescalc2))
+        difference = linalg.norm(array(rescalc1)-array(rescalc2))
         self.assertTrue(difference<1e-6,'Tee Numeric incorrect')
     def testTeeSimplerSystemDescription(self):
         sdp=si.p.SystemDescriptionParser()
@@ -149,7 +147,7 @@ class TestTeeProblem(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         rescalc2=sspn.SParameters(solvetype='direct')
         rescalc1=sspn.SParameters()
         rescorrect=si.dev.Tee()
-        difference = linalg.norm(matrix(rescalc1)-matrix(rescalc2))
+        difference = linalg.norm(array(rescalc1)-array(rescalc2))
         self.assertTrue(difference<1e-10,'Tee Simpler Numeric incorrect')
     def testTeeWithZBlockSymbolic(self):
         sdp=si.p.SystemDescriptionParser()

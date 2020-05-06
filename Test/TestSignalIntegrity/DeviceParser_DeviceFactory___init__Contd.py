@@ -21,18 +21,21 @@ class DeviceFactory(list):
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),
-        ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
+        ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['l0']),float(arg['l1']),float(arg['l2']),float(arg['l3']))"),
-        ParserDevice('openstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,
+            float(arg['f0']),float(arg['l0']),float(arg['l1']),float(arg['l2']),\
+            float(arg['l3']))"),
+        ParserDevice('openstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'c0':0.0,'c1':0.0,'c2':0.0,'c3':0.0},True,
             "OpenStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['c0']),float(arg['c1']),float(arg['c2']),float(arg['c3']))"),
-        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'tz0':50.0},
+            float(arg['f0']),float(arg['c0']),float(arg['c1']),float(arg['c2']),\
+            float(arg['c3']))"),
+        ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,'tz':50.0},
             True,"LoadStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['tz0']))"),
-        ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0},
-            True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']))")
+            float(arg['f0']),float(arg['tz']))"),
+        ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9},
+            True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
+            float(arg['f0']))")
         ]))
 ...

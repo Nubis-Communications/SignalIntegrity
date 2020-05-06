@@ -39,7 +39,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         for k in range(len(wf2)):
             if wf2[k]<self.epsilon:
                 wf2[k]=0.
-        self.assertEquals(wf,wf2,'waveforms not equal')
+        self.assertEqual(wf,wf2,'waveforms not equal')
     def testFrequencyContentDCSamePointsDescriptor(self):
         """
         This simple test tests whether a waveform equals the same waveform converted to frequency content and back again
@@ -54,7 +54,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         for k in range(len(wf2)):
             if wf2[k]<self.epsilon:
                 wf2[k]=0.
-        self.assertEquals(wf,wf2,'waveforms not equal')
+        self.assertEqual(wf,wf2,'waveforms not equal')
     def testFrequencyContentDCLessPointsReverse(self):
         """
         This test case takes a waveform and converts it to frequency content, but converts it back again using a time
@@ -73,7 +73,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         for k in range(len(wf2)):
             if wf2[k]<self.epsilon:
                 wf2[k]=0.
-        self.assertEquals(wf,wf2,'waveforms not equal')
+        self.assertEqual(wf,wf2,'waveforms not equal')
     @unittest.expectedFailure
     def testFrequencyContentDCLessPointsForward(self):
         """
@@ -95,7 +95,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         for k in range(len(wf2)):
             if wf2[k]<self.epsilon:
                 wf2[k]=0.
-        self.assertEquals(wf,wf2,'waveforms not equal')
+        self.assertEqual(wf,wf2,'waveforms not equal')
     def testFrequencyContentLimitedNoLimitSame(self):
         """
         This test checks that the limited content is the same if the
@@ -111,7 +111,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         fc=wf.FrequencyContent()
         fclimited=copy.deepcopy(fc)
         fclimited.LimitEndFrequency(Fe)
-        self.assertEquals(fc,fclimited,'limited content should be equal')
+        self.assertEqual(fc,fclimited,'limited content should be equal')
     def testFrequencyContentLimitedNoLimitSlightlyHigher(self):
         """
         This test checks that the limited content is the same if the
@@ -126,7 +126,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         import copy
         fc=wf.FrequencyContent()
         fclimited=copy.copy(fc).LimitEndFrequency(Fe)
-        self.assertEquals(fc,fclimited,'limited content should be equal')
+        self.assertEqual(fc,fclimited,'limited content should be equal')
     def testFrequencyContentLimitedNoLimitSlightlyLower(self):
         """
         This test checks that the limited content is the same if the
@@ -141,7 +141,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         import copy
         fc=wf.FrequencyContent()
         fclimited=copy.copy(fc).LimitEndFrequency(Fe)
-        self.assertEquals(fc,fclimited,'limited content should be equal')
+        self.assertEqual(fc,fclimited,'limited content should be equal')
     def testFrequencyContentLimitedNoLimitMuchHigher(self):
         """
         This test checks that the limited content is the same if the
@@ -156,7 +156,7 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         import copy
         fc=wf.FrequencyContent()
         fclimited=copy.copy(fc).LimitEndFrequency(Fe)
-        self.assertEquals(fc,fclimited,'limited content should be equal')
+        self.assertEqual(fc,fclimited,'limited content should be equal')
     def testFrequencyContentLimited(self):
         """
         This test checks that the limited content is the same if the
@@ -171,8 +171,8 @@ class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper
         import copy
         fc=wf.FrequencyContent()
         fclimited=copy.copy(fc).LimitEndFrequency(Fe)
-        self.assertEquals(len(fclimited),(len(fc)-1)/2+1,'limited content wrong number of points')
-        self.assertEquals(fclimited.Frequencies()[-1],Fe,'limited content wrong end frequency')
+        self.assertEqual(len(fclimited),(len(fc)-1)/2+1,'limited content wrong number of points')
+        self.assertEqual(fclimited.Frequencies()[-1],Fe,'limited content wrong end frequency')
 
 if __name__ == '__main__':
     unittest.main()

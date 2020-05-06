@@ -73,6 +73,7 @@ from TestSignalIntegrityApp import *
 from TestSParametersParser import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
+from TestVNACalibrationObject import *
 
 if __name__ == '__main__':
     unittest.main()

@@ -10,17 +10,18 @@ class CalibrationKit(object):
         self.m_f=f
         self.openStandard=OpenStandard(self.m_f,self.Constants.openOffsetDelay,
             self.Constants.openOffsetZ0,self.Constants.openOffsetLoss,
-            self.Constants.openC0,self.Constants.openC1,self.Constants.openC2,
-            self.Constants.openC3)
+            self.Constants.f0,self.Constants.openC0,self.Constants.openC1,
+            self.Constants.openC2,self.Constants.openC3)
         self.shortStandard=ShortStandard(self.m_f,self.Constants.shortOffsetDelay,
             self.Constants.shortOffsetZ0,self.Constants.shortOffsetLoss,
-            self.Constants.shortL0,self.Constants.shortL1,self.Constants.shortL2,
-            self.Constants.shortL3)
+            self.Constants.f0,self.Constants.shortL0,self.Constants.shortL1,
+            self.Constants.shortL2,self.Constants.shortL3)
         self.loadStandard=LoadStandard(self.m_f,self.Constants.loadOffsetDelay,
             self.Constants.loadOffsetZ0,self.Constants.loadOffsetLoss,
-            self.Constants.loadZ)
+            self.Constants.f0,self.Constants.loadZ)
         self.thruStandard=ThruStandard(self.m_f,self.Constants.thruOffsetDelay,
-            self.Constants.thruOffsetZ0,self.Constants.thruOffsetLoss)
+            self.Constants.thruOffsetZ0,self.Constants.thruOffsetLoss,
+            self.Constants.f0)
         return self
     def ReadFromFile(self,filename):
         self.Constants=CalibrationConstants().ReadFromFile(filename)

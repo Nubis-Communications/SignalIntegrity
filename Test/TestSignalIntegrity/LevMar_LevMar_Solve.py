@@ -4,27 +4,21 @@ class LevMar(CallBacker):
         if self.m_Fa is None:
             self.m_Fa=self.fF(self.m_a)
         if self.m_r is None:
-            self.m_r=(matrix(self.m_Fa)-matrix(self.m_y)).tolist()
+            self.m_r=self.m_Fa-self.m_y
         if self.m_J is None:
             self.m_J=self.fJ(self.m_a,self.m_Fa)
         if self.m_H is None:
-            self.m_H=(matrix(self.m_J).getH()*self.m_W*
-                      matrix(self.m_J)).tolist()
-        if self.m_D is None:
-            self.m_D=zeros((len(self.m_H),len(self.m_H[0]))).tolist()
-            for r in range(len(self.m_D)):
-                self.m_D[r][r]=self.m_H[r][r]
+            self.m_H=self.m_J.conj().T.dot(self.m_W).dot(self.m_J)
         if self.m_JHWr is None:
-            self.m_JHWr = (matrix(self.m_J).getH()*
-            self.m_W*matrix(self.m_r)).tolist()
-        Deltaa=((matrix(self.m_H)+matrix(self.m_D)*
-                self.m_lambda).getI()*matrix(self.m_JHWr)).tolist()
-        newa=(matrix(self.m_a)-matrix(Deltaa)).tolist()
+            self.m_JHWr=self.m_J.conj().T.dot(self.m_W).dot(self.m_r)
+        HplD=copy.copy(self.m_H)
+        for r in range(HplD.shape[0]): HplD[r][r]*=(1.+self.m_lambda)
+        Deltaa=solve(HplD,self.m_JHWr)
+        newa=self.m_a-Deltaa
         newa=self.AdjustVariablesAfterIteration(newa)
         newFa = self.fF(newa)
-        newr=(matrix(newFa)-matrix(self.m_y)).tolist()
-        newmse=math.sqrt((matrix(newr).getH()*self.m_W*
-            matrix(newr)).tolist()[0][0].real/self.m_sumw)
+        newr=newFa-self.m_y
+        newmse=math.sqrt(newr.conj().T.dot(self.m_W).dot(newr)[0][0].real/self.m_sumw)
         if newmse < self.m_mse:
             self.m_mse = newmse
             self.m_a = newa
@@ -34,7 +28,6 @@ class LevMar(CallBacker):
             self.m_r = newr
             self.m_J = None
             self.m_H = None
-            self.m_D = None
             self.m_JHWr = None
         else:
             self.m_lambda = min(self.m_lambda*

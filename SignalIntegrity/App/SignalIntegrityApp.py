@@ -43,6 +43,7 @@ from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Schematic import Drawing
 from SignalIntegrity.App.Simulator import Simulator
+from SignalIntegrity.App.NetworkAnalyzer import NetworkAnalyzerSimulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
@@ -57,6 +58,8 @@ from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
@@ -145,6 +148,9 @@ class SignalIntegrityApp(tk.Frame):
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe')
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed')
         self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit')
+        self.CalculateErrorTermsDoer = Doer(self.onCalculateErrorTerms).AddHelpElement('Control-Help:Calculate-Error-Terms')
+        self.SimulateNetworkAnalyzerModelDoer = Doer(self.onSimulateNetworkAnalyzerModel).AddHelpElement('Control-Help:Simulate-Network-Analyzer-Model')
+        self.CalculateSParametersFromNetworkAnalyzerModelDoer = Doer(self.onCalculateSParametersFromNetworkAnalyzerModel).AddHelpElement('Control-Help:Calculate-S-Parameters-From-Network-Analyzer-Model')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences')
@@ -233,6 +239,9 @@ class SignalIntegrityApp(tk.Frame):
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
+        self.CalculateErrorTermsDoer.AddMenuElement(CalcMenu,label='Calculate Error Terms',underline=10)
+        #self.CalculateSParametersFromNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters from VNA Model')
+        #self.SimulateNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Simulate VNA Model')
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -242,7 +251,6 @@ class SignalIntegrityApp(tk.Frame):
         HelpMenu.add_separator()
         self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
-
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -288,6 +296,7 @@ class SignalIntegrityApp(tk.Frame):
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
+        self.networkanalyzersimulator = NetworkAnalyzerSimulator(self)
         self.fileparts=FileParts()
 
         # The edit history (for undo)
@@ -324,7 +333,7 @@ class SignalIntegrityApp(tk.Frame):
             self.deltaHeight=event.height-600
             self.knowDelta=True
         #print 'width: '+str(event.width)+', height'+str(event.height)
-        
+
         self.deltaWidth=4
         self.deltaHeight=50
 
@@ -645,9 +654,10 @@ class SignalIntegrityApp(tk.Frame):
     def onDeleteSelectedWire(self):
         self.Drawing.DeleteSelectedWire()
 
-    def CalculateSParameters(self):
-        self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+    def CalculateSParameters(self,netList=None):
+        if netList==None:
+            self.Drawing.stateMachine.Nothing()
+            netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -668,7 +678,11 @@ class SignalIntegrityApp(tk.Frame):
         return sp
 
     def onCalculateSParameters(self):
-        sp=self.CalculateSParameters()
+        self.Drawing.stateMachine.Nothing()
+        if self.CalculateSParametersFromNetworkAnalyzerModelDoer.active:
+            sp=self.networkanalyzersimulator.Simulate(SParameters=True)
+        else:
+            sp=self.CalculateSParameters()
         if sp is None:
             return
         self.spd=SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
@@ -684,6 +698,7 @@ class SignalIntegrityApp(tk.Frame):
         return
 
     def onRLGC(self):
+        self.Drawing.stateMachine.Nothing()
         import SignalIntegrity.Lib as si
         sp=self.CalculateSParameters()
         if sp is None:
@@ -701,7 +716,7 @@ class SignalIntegrityApp(tk.Frame):
         #pragma: include
         self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)
         #print(self.m_fitter.Results())
-        (R,L,G,C,Rse,df)=[r[0] for r in self.m_fitter.Solve().Results()]
+        (R,L,G,C,Rse,df)=self.m_fitter.Solve().Results()
 #         print "series resistance: "+ToSI(R,'ohm')
 #         print "series inductance: "+ToSI(L,'H')
 #         print "shunt conductance: "+ToSI(G,'S')
@@ -716,7 +731,7 @@ class SignalIntegrityApp(tk.Frame):
                 if deviceToCheck['ports'].GetValue()==2:
                     device=copy.deepcopy(deviceToCheck)
                     break
-        
+
         device['r'].SetValueFromString(str(R)); device['r']['KeywordVisible']=True; device['r']['Visible']=True
         device['l'].SetValueFromString(str(L)); device['l']['KeywordVisible']=True; device['l']['Visible']=True
         device['g'].SetValueFromString(str(G)); device['g']['KeywordVisible']=True; device['g']['Visible']=True
@@ -739,7 +754,10 @@ class SignalIntegrityApp(tk.Frame):
 
     def onSimulate(self):
         self.Drawing.stateMachine.Nothing()
-        self.simulator.Simulate()
+        if self.SimulateNetworkAnalyzerModelDoer.active:
+            self.networkanalyzersimulator.Simulate()
+        else:
+            self.simulator.Simulate()
 
     def onVirtualProbe(self):
         self.Drawing.stateMachine.Nothing()
@@ -783,10 +801,11 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculateSParametersDoer.Execute()
         self.VirtualProbeDoer.Execute()
         self.DeembedDoer.Execute()
+        self.CalculateErrorTermsDoer.Execute()
 
     def onSParameterViewer(self):
         import SignalIntegrity.Lib as si
-        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
                                  parent=self,
                                  initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
@@ -794,8 +813,12 @@ class SignalIntegrityApp(tk.Frame):
         fileparts=FileParts(filename)
         if fileparts.fileext is None or fileparts.fileext == '':
             return
-        sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
-        SParametersDialog(self,sp,fileparts.FullFilePathExtension())
+        elif fileparts.fileext == '.cal':
+            self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
+            self.ViewCalibration(self.calibration)
+        else:
+            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+            SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onHelp(self):
         if Doer.helpKeys is None:
@@ -864,6 +887,8 @@ class SignalIntegrityApp(tk.Frame):
             self.SimulateDoer.Activate(True)
             self.DeembedDoer.Activate(True)
             self.RLGCDoer.Activate(True)
+            self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(True)
+            self.SimulateNetworkAnalyzerModelDoer.Activate(True)
             # ------
             self.HelpDoer.Activate(True)
             self.ControlHelpDoer.Activate(True)
@@ -976,7 +1001,78 @@ class SignalIntegrityApp(tk.Frame):
             Doer.helpKeys.Build()
             Doer.helpKeys.SaveToFile()
             self.statusbar.set('help keys updated')
-            
+
+    def OpenCalibrationFile(self,filename):
+        import SignalIntegrity.Lib as si
+        calibration=si.m.cal.Calibration(0,0)
+        try:
+            calibration.ReadFromFile(filename)
+        except:
+            calibration=None
+        return calibration
+
+    def onOpenCalibrationFile(self):
+        self.calibration=None
+        filename=AskOpenFileName(filetypes=[('calibration files', ('*.cal'))],
+                                 parent=self,
+                                 initialdir=self.fileparts.AbsoluteFilePath())
+        if filename is None:
+            return
+        fileparts=FileParts(filename)
+        if fileparts.fileext is None or fileparts.fileext == '':
+            return
+        self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
+
+    def onSaveCalibrationFile(self):
+        extension='.cal'
+        filename=AskSaveAsFilename(filetypes=[('calibration file', '.cal')],
+                    defaultextension=extension,
+                    initialdir=self.fileparts.AbsoluteFilePath(),
+                    initialfile=self.fileparts.FileNameWithExtension(extension),
+                    parent=self)
+        if filename is None:
+            return
+        self.fileparts=FileParts(filename)
+        self.calibration.WriteToFile(filename)
+
+    def ViewCalibration(self,calibration):
+        if self.calibration != None:
+            self.spd=SParametersDialog(self,self.calibration,title='Calibration',filename=self.fileparts.FullFilePathExtension('s'+str(self.calibration.ports)+'p'))
+
+    def onViewCalibrationFile(self):
+        self.ViewCalibration(self.calibration)
+
+    def CalculateErrorTerms(self):
+        self.Drawing.stateMachine.Nothing()
+        netList=self.Drawing.schematic.NetList().Text()
+        import SignalIntegrity.Lib as si
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        etnp=si.p.CalibrationNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            cacheFileName=cacheFileName)
+        etnp.AddLines(netList)
+        progressDialog = ProgressDialog(self,"Calculating Error Terms",etnp,etnp.CalculateCalibration,granularity=1.0)
+        try:
+            cal=progressDialog.GetResult()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Error Terms Calculator',e.parameter+': '+e.message)
+            return None
+        return cal
+
+    def onCalculateErrorTerms(self):
+        self.calibration=self.CalculateErrorTerms()
+        self.onViewCalibrationFile()
+
+    def onSimulateNetworkAnalyzerModel(self):
+        self.onSimulate()
+
+    def onCalculateSParametersFromNetworkAnalyzerModel(self):
+        self.onCalculateSParameters()
 
 def main():
     projectFileName = None

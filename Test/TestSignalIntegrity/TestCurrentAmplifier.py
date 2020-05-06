@@ -21,7 +21,7 @@ import unittest
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
-from numpy import matrix
+from numpy import array
 
 class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -61,7 +61,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Four Port incorrect')
     def testCurrentAmplifierFourPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -77,7 +77,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Four Port incorrect')
     def testCurrentAmplifierFourPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -89,7 +89,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Four Port incorrect')
     def testCurrentAmplifierThreePort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -129,7 +129,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Three Port incorrect')
     def testCurrentAmplifierThreePortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -143,7 +143,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('D',si.dev.CurrentAmplifierFourPort(G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Three Port incorrect')
     def testCurrentAmplifierThreePortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -155,7 +155,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(3,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Three Port incorrect')
     def testCurrentAmplifierTwoPort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -202,7 +202,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Two Port incorrect')
     def testCurrentAmplifierTwoPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -217,7 +217,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('D',si.dev.CurrentAmplifier(4,G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Two Port incorrect')
     def testCurrentAmplifierTwoPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -229,7 +229,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Two Port incorrect')
     def testCurrentAmplifierTwoPortAlternateNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -243,7 +243,7 @@ class TestCurrentAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.CurrentAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Current Amplifier Two Port Alternate incorrect')
     def testCurrentAmplifierFourPortCode(self):
         self.WriteCode('TestCurrentAmplifier.py','testCurrentAmplifierFourPort(self)',self.standardHeader)

@@ -5,7 +5,7 @@ class RLGCFitter(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
-        LevMar.Initialize(self, [[g] for g in guess], v)
+        LevMar.Initialize(self, array([[g] for g in guess]), array(v))
         self.ones=[1 for _ in self.f]
         self.dZdR=self.ones
         self.dZdRse=[math.sqrt(f) for f in self.f]
@@ -34,5 +34,5 @@ class RLGCFitter(LevMar):
         self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
         S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
         vS=self.VectorizeSp(S)
-        return vS
+        return array(vS)
 ...

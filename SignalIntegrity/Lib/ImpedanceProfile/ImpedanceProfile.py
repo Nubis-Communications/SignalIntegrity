@@ -24,7 +24,7 @@ import cmath
 from SignalIntegrity.Lib.Devices import IdealTransmissionLine
 from SignalIntegrity.Lib.Conversions import S2T
 from SignalIntegrity.Lib.Conversions import T2S
-from numpy import matrix
+from numpy import array
 
 class ImpedanceProfile(list):
     """ Impedance profile generated using the peeling algorithm.  After construction, it is
@@ -87,9 +87,9 @@ class ImpedanceProfile(list):
         Gsp=[None for n in range(N+1)]
         gamma=[1j*2.*math.pi*f[n]*self.m_Td for n in range(N+1)]
         for n in range(N+1):
-            tacc=matrix([[1.,0.],[0.,1.]])
+            tacc=array([[1.,0.],[0.,1.]])
             for m in range(len(self)):
-                tacc=tacc*matrix(S2T(IdealTransmissionLine(self[m],gamma[n])))
+                tacc=tacc.dot(array(S2T(IdealTransmissionLine(self[m],gamma[n]))))
             Gsp[n]=T2S(tacc.tolist())
         sp = SParameters(f,Gsp,self.m_Z0)
         return sp

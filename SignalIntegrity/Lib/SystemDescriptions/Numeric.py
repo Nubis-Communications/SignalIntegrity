@@ -83,10 +83,10 @@ class Numeric(object):
         @see singularValueLimit
         @throw LinAlgError if anything fails.
         """
-        from numpy import linalg,matrix,diag
+        from numpy import linalg,array,diag,ndarray
         from numpy.linalg.linalg import LinAlgError,svd
         if A is None: return None
-        if isinstance(A,list): A=matrix(A)
+        if isinstance(A,list): A=array(A)
         if not self.alwaysUseSVD:
             try:
                 # without this check, there is a gray zone where the matrix is really uninvertible
@@ -94,20 +94,20 @@ class Numeric(object):
                 if 1.0/linalg.cond(A) < self.conditionNumberLimit:
                     raise LinAlgError
 
-                Adagger=A.getI()
+                Adagger=linalg.inv(A)
 
                 if Mul:
-                    if Left is None: Left=1.
+                    if Left is None: Left=array(1.)
                     elif isinstance(Left,list):
-                        Left=matrix(Left)
+                        Left=array(Left)
                         if Left.shape == (1,1):
-                            Left=Left[0,0]
-                    if Right is None: Right=1.
+                            Left=array(Left[0,0])
+                    if Right is None: Right=array(1.)
                     elif isinstance(Right,list):
-                        Right=matrix(Right)
+                        Right=array(Right)
                         if Right.shape == (1,1):
-                            Right=Right[0,0]
-                    return Left*Adagger*Right
+                            Right=array(Right[0,0])
+                    return Left.dot(Adagger).dot(Right)
                 else:
                     return Adagger
             except:
@@ -118,20 +118,20 @@ class Numeric(object):
             try:
                 U,sigma,VH = svd(A,full_matrices=False)
                 sigma=sigma.tolist()
-                if Left is None: Left=1.
-                elif isinstance(Left,list):
-                    Left=matrix(Left)
+                if Left is None: Left=array(1.)
+                elif isinstance(Left,(list,ndarray)):
+                    Left=array(Left)
                     if Left.shape == (1,1):
-                        Left=Left[0,0]
-                if Right is None: Right=1.
-                elif isinstance(Right,list):
-                    Right=matrix(Right)
+                        Left=array(Left[0,0])
+                if Right is None: Right=array(1.)
+                elif isinstance(Right,(list,ndarray)):
+                    Right=array(Right)
                     if Right.shape == (1,1):
-                        Right=Right[0,0]
-                V=VH.getH()
-                lv=(Left*V).tolist()
-                UH=U.getH()
-                uhr=(UH*Right).tolist()
+                        Right=array(Right[0,0])
+                V=VH.conj().T
+                lv=Left.dot(V)
+                UH=U.conj().T
+                uhr=UH.dot(Right)
                 # assume that the singular value is unused according to left matrix
                 sl=[False]*len(sigma)
                 # if there is any element in column c that is nonzero
@@ -155,9 +155,9 @@ class Numeric(object):
                 sigmaInv=[1./self.singularValueLimit if (not sUsed[i] and s<self.singularValueLimit) else 1./sigma[i]
                         for i in range(len(sigma))]
                 if Mul:
-                    return matrix(lv)*matrix(diag(sigmaInv))*matrix(uhr)
+                    return lv.dot(diag(sigmaInv)).dot(uhr)
                 else:
-                    return V*matrix(diag(sigmaInv))*UH
+                    return V.dot(diag(sigmaInv)).dot(UH)
             except:
                 raise LinAlgError
         else:

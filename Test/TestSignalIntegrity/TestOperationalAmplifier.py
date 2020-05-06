@@ -20,8 +20,7 @@ TestOperationalAmplifier.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from numpy import linalg
-from numpy import matrix
+from numpy import linalg,array
 
 class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -61,7 +60,7 @@ class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.
         sspn.AssignSParameters('A',si.dev.VoltageAmplifier(4, G, Zd, Zo))
         res1=sspn.SParameters()
         res2=si.dev.OperationalAmplifier(Zi,Zd,Zo,G)
-        difference = linalg.norm(matrix(res1)-matrix(res2))
+        difference = linalg.norm(array(res1)-array(res2))
         self.assertTrue(difference<1e-10,'Operational Amplifier Numeric incorrect')
     def testOperationalAmplifierNumericParser(self):
         sdp=si.p.SystemDescriptionParser()
@@ -74,7 +73,7 @@ class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.
         sspn = si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         res1=sspn.SParameters()
         res2=si.dev.OperationalAmplifier(Zi,Zd,Zo,G)
-        difference = linalg.norm(matrix(res1)-matrix(res2))
+        difference = linalg.norm(array(res1)-array(res2))
         self.assertTrue(difference<1e-10,'Operational Amplifier Numeric Parser incorrect')
     def testWriteCodeOperationalAmplifier(self):
         self.WriteCode('TestOperationalAmplifier.py','testOperationalAmplifier(self)',self.standardHeader)

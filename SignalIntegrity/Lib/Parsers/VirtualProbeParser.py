@@ -46,7 +46,8 @@ class VirtualProbeParser(SystemDescriptionParser):
         this.
 
         netlist lines that are handled at this level are:
-        - 'output' - addition of an output probe
+        - 'output' - addition of an output probe.
+        - 'voltageoutput' - addition of a voltage output probe with a name.
         - 'meas' - addition of a measurement probe.
         - 'stim' - addition of a stimulus source.
         - 'stimdef' - definition of a stimdef (the relationship between stims).
@@ -62,6 +63,12 @@ class VirtualProbeParser(SystemDescriptionParser):
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
+        # pragma: silent exclude
+        elif lineList[0] == 'voltageoutput':
+            if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
+            for i in range(1,len(lineList),3):
+                self.m_sd.pOutputList.append((lineList[i+1],int(lineList[i+2]),lineList[i]))
+        # pragma: include
         elif lineList[0] == 'stim':
             for i in range((len(lineList)-1)//3):
                 self.m_sd.AssignM(lineList[i*3+2],int(lineList[i*3+3]),lineList[i*3+1])

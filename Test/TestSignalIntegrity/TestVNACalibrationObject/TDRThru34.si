@@ -1,0 +1,135 @@
+<Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>1000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>503x287+78+107</Geometry>
+			<Grid>16</Grid>
+			<Originx>4</Originx>
+			<Originy>0</Originy>
+		</DrawingProperties>
+		<Schematic>
+			<Devices>
+				<Device>
+					<ClassName>DeviceThruStandard</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>270</Orientation>
+						<Origin>(10, 10)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>od</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>9.475e-11</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>oz0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ol</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2520000000.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>f0</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1000000000.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>Thru</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceNetworkAnalyzerModel</ClassName>
+					<PartPicture>
+						<Index>3</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(5, 5)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>TDRModel.si</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(9, 10)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 10)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 9)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(12, 9)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(12, 13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(10, 12)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(9, 12)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+			</Wires>
+		</Schematic>
+	</Drawing>
+	<PostProcessing>
+		<Lines>
+		</Lines>
+	</PostProcessing>
+</Project>

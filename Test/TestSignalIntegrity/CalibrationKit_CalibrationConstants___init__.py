@@ -21,4 +21,5 @@ class CalibrationConstants(object):
         self.thruOffsetDelay=0.     # % offset delay (pS) - THRU
         self.thruOffsetZ0=50.       # % real(Zo) of offset length - THRU
         self.thruOffsetLoss=0.      # % offset loss (Gohm/s) - THRU
+        self.f0=1e9
 ...

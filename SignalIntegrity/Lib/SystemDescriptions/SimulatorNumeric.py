@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
+from numpy import array
 
 from SignalIntegrity.Lib.SystemDescriptions.Simulator import Simulator
 from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
@@ -43,8 +43,8 @@ class SimulatorNumeric(Simulator,Numeric):
 
         The transfer matrix provided is for a single frequency."""
         self.Check()
-        VE_o=matrix(self.VoltageExtractionMatrix(self.m_ol))
-        SIPrime=matrix(self.SIPrime(Left=VE_o))
-        sm=matrix(self.SourceToStimsPrimeMatrix())
-        Result=(VE_o*SIPrime*sm).tolist()
+        VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
+        SIPrime=array(self.SIPrime(Left=VE_o))
+        sm=array(self.SourceToStimsPrimeMatrix())
+        Result=VE_o.dot(SIPrime).dot(sm)
         return Result

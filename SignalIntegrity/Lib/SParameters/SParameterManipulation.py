@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg,dot,diag,matrix
+from numpy import linalg,dot,diag,array
 import math
 
 class SParameterManipulation(object):

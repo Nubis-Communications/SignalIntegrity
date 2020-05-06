@@ -75,6 +75,8 @@ class DrawingHeadless(object):
         foundAStim=False
         foundAnUnknown=False
         foundASystem=False
+        foundACalibration=False
+        foundANetworkAnalyzerModel=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -93,8 +95,12 @@ class DrawingHeadless(object):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource']:
+            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                 foundASource = True
+            elif device.netlist['DeviceName'] == 'calibration':
+                foundACalibration=True
+            elif deviceType == 'NetworkAnalyzerModel':
+                foundANetworkAnalyzerModel=True
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -104,11 +110,14 @@ class DrawingHeadless(object):
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
         self.foundSomething=foundSomething
-        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
-        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem
-        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem
-        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput
-        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed
+        self.canSimulate = foundASource and foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration
+        self.canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem
+        self.canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
+        self.canCalculateSParametersFromNetworkAnalyzerModel = self.canSimulateNetworkAnalyzerModel
+        self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed or self.canCalculateErrorTerms or self.canSimulateNetworkAnalyzerModel or self.canCalculateSParametersFromNetworkAnalyzerModel
         return canvas
     def InitFromProject(self):
         self.schematic = Schematic()
@@ -171,8 +180,18 @@ class SignalIntegrityAppHeadless(object):
         pass
 
     def CalculateSParameters(self):
-        netListText=self.NetListText()
         import SignalIntegrity.Lib as si
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
+            try:
+                sp=self.SimulateNetworkAnalyzerModel(SParameters=True)
+            except si.SignalIntegrityException as e:
+                return None
+            return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        elif not self.Drawing.canCalculateSParameters:
+            return None
+        netListText=self.NetListText()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
@@ -191,6 +210,12 @@ class SignalIntegrityAppHeadless(object):
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def Simulate(self):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if self.Drawing.canSimulateNetworkAnalyzerModel:
+            return self.SimulateNetworkAnalyzerModel(SParameters=False)
+        elif not self.Drawing.canSimulate:
+            return None
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -259,7 +284,7 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
             cacheFileName=cacheFileName)
-        snp.AddLines(netListText)       
+        snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
@@ -336,6 +361,30 @@ class SignalIntegrityAppHeadless(object):
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
 
+    def CalculateErrorTerms(self):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
+        if not self.Drawing.canCalculateErrorTerms:
+            return None
+        netList=self.Drawing.schematic.NetList()
+        netListText=self.NetListText()
+        import SignalIntegrity.Lib as si
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        etnp=si.p.CalibrationNumericParser(
+            si.fd.EvenlySpacedFrequencyList(
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            cacheFileName=cacheFileName)
+        etnp.AddLines(netListText)
+        try:
+            cal=etnp.CalculateCalibration()
+        except si.SignalIntegrityException as e:
+            return None
+        return (cal,self.fileparts.FullFilePathExtension('cal'))
+
     def Device(self,ref):
         """
         accesses a device by it's reference string
@@ -351,6 +400,205 @@ class SignalIntegrityAppHeadless(object):
             if device['ref']['Value']==ref:
                 return device
         return None
+
+    def SimulateNetworkAnalyzerModel(self,SParameters=False):
+        netList=self.Drawing.schematic.NetList().Text()
+        import SignalIntegrity.Lib as si
+        fd=si.fd.EvenlySpacedFrequencyList(
+                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
+                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()+'_DUTSParameters'
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
+        spnp.AddLines(netList)
+        try:
+            (DUTSp,NetworkAnalyzerProjectFile)=spnp.SParameters()
+        except si.SignalIntegrityException as e:
+            return None
+        netListText=None
+        if NetworkAnalyzerProjectFile != None:
+            level=SignalIntegrityAppHeadless.projectStack.Push()
+            try:
+                app=SignalIntegrityAppHeadless()
+                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
+                    app.Drawing.DrawSchematic()
+                    netList=app.Drawing.schematic.NetList()
+                    netListText=netList.Text()
+                else:
+                    pass
+            except:
+                pass
+            finally:
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
+        else:
+            netList=self.Drawing.schematic.NetList()
+            netListText=self.NetListText()
+
+        if netListText==None:
+            return None
+        cacheFileName=None
+        if SignalIntegrity.App.Preferences['Cache.CacheResults']:
+            cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
+        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
+        snp.AddLines(netListText)
+        try:
+            transferMatrices=snp.TransferMatrices()
+        except si.SignalIntegrityException as e:
+            return None
+
+        sourceNames=snp.m_sd.SourceVector()
+
+        gdoDict={}
+
+        if NetworkAnalyzerProjectFile != None:
+            level=SignalIntegrityAppHeadless.projectStack.Push()
+            try:
+                app=SignalIntegrityAppHeadless()
+                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
+                    app.Drawing.DrawSchematic()
+                    # get output gain, offset, delay
+                    for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
+                        gdoDict[name]={'gain':float(app.Device(name)['gain']['Value']),
+                            'offset':float(app.Device(name)['offset']['Value']),'delay':float(app.Device(name)['td']['Value'])}
+                    stateList=[app.Device(sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
+                    self.wflist=[]
+                    for driven in range(snp.simulationNumPorts):
+                        thiswflist=[]
+                        for port in range(snp.simulationNumPorts):
+                            app.Device(sourceNames[port])['state']['Value']='on' if port==driven else 'off'
+                        for wfIndex in range(len(sourceNames)):
+                            thiswflist.append(app.Device(sourceNames[wfIndex]).Waveform())
+                        self.wflist.append(thiswflist)
+                    for port in range(snp.simulationNumPorts):
+                        app.Device(sourceNames[port])['state']['Value']=stateList[port]
+                else:
+                    pass
+            except:
+                pass
+            finally:
+                SignalIntegrityAppHeadless.projectStack.Pull(level)
+        else:
+            stateList=[app.Device(sourceNames[port])['state']['Value'] for port in range(snp.simulationNumPorts)]
+            self.wflist=[]
+            for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:
+                gdoDict[name]={'gain':float(app.Device()[name]['gain']['Value']),
+                    'offset':float(app.Device()[name]['offset']['Value']),'delay':float(app.Device()[name]['td']['Value'])}
+            for driven in range(snp.simulationNumPorts):
+                thiswflist=[]
+                for port in range(snp.simulationNumPorts):
+                    app.Device(sourceNames[port])['state']['Value']='on' if port==driven else 'off'
+                for wfIndex in range(len(sourceNames)):
+                    thiswflist.append(app.Device(sourceNames[wfIndex]).Waveform())
+                self.wflist.append(thiswflist)
+            for port in range(snp.simulationNumPorts):
+                app.Device(sourceNames[port])['state']['Value']=stateList[port]
+
+        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
+        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+
+        try:
+            outputwflist=[]
+            for port in range(len(self.wflist)):
+                outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
+        except si.SignalIntegrityException as e:
+            return None
+        #
+        # The list of list of input waveforms have been processed processed, generating a list of list of output waveforms in 
+        # self.outputwflist.  The names of the output waveforms are in snp.m_sd.pOutputList.
+        #
+        outputwflist = [[wf.Adapt(si.td.wf.TimeDescriptor(wf.td[wf.td.IndexOfTime(-5e-9)],fd.TimeDescriptor().K,wf.td.Fs)) for wf in driven] for driven in outputwflist]
+
+        # The port connection list, which is a list of True or False for each port on the network analyzer, is
+        # converted to a list of network port indices corresponding to the driven ports.
+        #
+        portConnections=[]
+        for pci in range(len(snp.PortConnectionList)):
+            if snp.PortConnectionList[pci]: portConnections.append(pci)
+
+        outputWaveformList=[]
+        outputWaveformLabels=[]
+        for r in range(len(outputwflist)):
+            wflist=outputwflist[r]
+            for c in range(len(wflist)):
+                wf=wflist[c]; wfName=snp.m_sd.pOutputList[c][2]
+                gain=gdoDict[wfName]['gain']; offset=gdoDict[wfName]['offset']; delay=gdoDict[wfName]['delay']
+                if gain != 1.0 or offset != 0.0 or delay != 0.0:
+                    wf = wf.DelayBy(delay)*gain+offset
+                outputWaveformList.append(wf)
+                outputWaveformLabels.append(snp.m_sd.pOutputList[c][2]+str(portConnections[r]+1))
+
+        userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
+        outputWaveformList = [wf.Adapt(
+            si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
+                for wf in outputWaveformList]
+
+        td=si.td.wf.TimeDescriptor(-5e-9,
+           SignalIntegrity.App.Project['CalculationProperties.TimePoints'],
+           SignalIntegrity.App.Project['CalculationProperties.BaseSampleRate'])
+
+        if snp.simulationType != 'CW':
+            # note this matrix is transposed from what is normally expected
+            Vmat=[[outputWaveformList[outputWaveformLabels.index('V'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for r in range(len(portConnections))]
+                    for c in range(len(portConnections))]
+
+            for vli in range(len(Vmat)):
+                tdr=si.m.tdr.TDRWaveformToSParameterConverter(
+                    WindowForwardHalfWidthTime=200e-12,
+                    WindowReverseHalfWidthTime=200e-12,
+                    WindowRaisedCosineDuration=50e-12,
+                    Step=(snp.simulationType=='TDRStep'),
+                    Length=0,
+                    Denoise=True,
+                    DenoisePercent=20.,
+                    Inverted=False,
+                    fd=td.FrequencyList()
+                 )
+
+                tdr.Convert(Vmat[vli],vli)
+                for r in range(len(portConnections)):
+                    outputWaveformList.append(tdr.IncidentWaveform if r==vli else si.td.wf.Waveform(td))
+                    outputWaveformLabels.append('A'+str(portConnections[r]+1)+str(portConnections[vli]+1))
+                for r in range(len(portConnections)):
+                    outputWaveformList.append(tdr.ReflectWaveforms[r])
+                    outputWaveformLabels.append('B'+str(portConnections[r]+1)+str(portConnections[vli]+1))
+
+        if not SParameters:
+            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+        else:
+            # waveforms are adapted this way to give the horizontal offset that it already has closest to
+            #-5 ns, with the correct number of points without resampling the waveform in any way.
+            frequencyContentList=[]
+            for wf in outputWaveformList:
+                td=si.td.wf.TimeDescriptor(-5e-9,
+                                       SignalIntegrity.App.Project['CalculationProperties.TimePoints'],
+                                       SignalIntegrity.App.Project['CalculationProperties.BaseSampleRate'])
+                td.H=wf.TimeDescriptor()[wf.TimeDescriptor().IndexOfTime(td.H)]
+                fc=wf.Adapt(td).FrequencyContent()
+                frequencyContentList.append(fc)
+
+            Afc=[[frequencyContentList[outputWaveformLabels.index('A'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
+            Bfc=[[frequencyContentList[outputWaveformLabels.index('B'+str(portConnections[r]+1)+str(portConnections[c]+1))]
+                for c in range(len(portConnections))] 
+                    for r in range(len(portConnections))]
+
+            from numpy import array
+            from numpy.linalg import inv
+
+            frequencyList=td.FrequencyList()
+            data=[None for _ in range(len(frequencyList))]
+            for n in range(len(frequencyList)):
+                B=[[Bfc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
+                A=[[Afc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
+                data[n]=(array(B).dot(inv(array(A)))).tolist()
+            sp=si.sp.SParameters(frequencyList,data)
+            return sp
+
 def ProjectSParameters(filename):
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
@@ -358,6 +606,10 @@ def ProjectSParameters(filename):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename)):
             app.Drawing.DrawSchematic()
+            if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
+                result = app.SimulateNetworkAnalyzerModel(SParameters=True)
+                if not result is None:
+                    sp=result
             if app.Drawing.canCalculateSParameters:
                 result=app.CalculateSParameters()
                 if not result is None:
@@ -400,7 +652,7 @@ def ProjectCalibration(filename):
         if app.OpenProjectFile(os.path.realpath(filename)):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
-                result=app.CalculateErrorTerms()
+                result=app.CalculateErrorTerms()[0]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)

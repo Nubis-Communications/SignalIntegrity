@@ -21,7 +21,7 @@ import unittest
 import os
 
 import SignalIntegrity.Lib as si
-from numpy import linalg,matrix
+from numpy import linalg,array
 
 class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -77,7 +77,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
     def testVoltageAmplifierFourPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -95,7 +95,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
     def testVoltageAmplifierFourPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -107,7 +107,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(4,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Four Port incorrect')
     def testVoltageAmplifierThreePort(self):
         sdp=si.p.SystemDescriptionParser()
@@ -162,7 +162,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
     def testVoltageAmplifierThreePortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -176,7 +176,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('DV',si.dev.VoltageAmplifierFourPort(G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifierThreePort(G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
     def testVoltageAmplifierThreePortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -188,7 +188,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(3,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port incorrect')
     def testVoltageAmplifierThreePortAlternateNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -204,7 +204,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('ZO',si.dev.SeriesZ(ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(3,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Three Port Alternate incorrect')
     def testVoltageAmplifier2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -270,7 +270,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
     def testVoltageAmplifierTwoPortNumeric2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -285,7 +285,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn.AssignSParameters('DV',si.dev.VoltageAmplifier(4,G,ZI,ZO))
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
     def testVoltageAmplifierTwoPortNumeric3(self):
         sdp=si.p.SystemDescriptionParser()
@@ -297,7 +297,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port incorrect')
     def testVoltageAmplifierTwoPortAlternateNumeric(self):
         sdp=si.p.SystemDescriptionParser()
@@ -311,7 +311,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,G,ZI,ZO)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Two Port Alternate incorrect')
     def testVoltageAmplifierTwoPortVoltageSeriesFeedbackAlternate(self):
         sdp=si.p.SystemDescriptionParser()
@@ -409,7 +409,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
             'connect D 2 DF 2','connect D 3 DF 1','connect D 4 G 1'])
         rescalc=si.sd.SystemSParametersNumeric(sdp.SystemDescription()).SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,alpha*Zif/(Zo+Zif)*Zi/(Zi+Zof),Zi+Zof,Zo*Zif/(Zo+Zif))
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Voltage Amplifier Feedback incorrect')
     def testVoltageAmplifierVoltageSeriesFeedbackConjecture2(self):
         sdp=si.p.SystemDescriptionParser()
@@ -434,7 +434,7 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         A=AV/D # gain desensitized
         rescalc=si.sd.SystemSParametersNumeric(sdp.SystemDescription()).SParameters()
         rescorrect=si.dev.VoltageAmplifier(2,A,Ziff,Zoff)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-4,'Voltage Amplifier Feedback incorrect')
     def testVoltageAmplifierFourPortCode(self):
         self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierFourPort(self)',self.standardHeader)

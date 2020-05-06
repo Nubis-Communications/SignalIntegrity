@@ -8,7 +8,7 @@ class SimulatorParser(SystemDescriptionParser):
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
-        elif lineList[0] == 'voltagesource':
+        elif lineList[0] in ['voltagesource','networkanalyzerport']:
             self.m_sd.AddVoltageSource(lineList[1],int(lineList[2]))
         elif lineList[0] == 'currentsource':
             self.m_sd.AddCurrentSource(lineList[1],int(lineList[2]))

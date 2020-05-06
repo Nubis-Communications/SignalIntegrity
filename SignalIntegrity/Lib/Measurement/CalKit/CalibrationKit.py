@@ -105,6 +105,7 @@ class CalibrationConstants(object):
         self.thruOffsetDelay=0.     # % offset delay (pS) - THRU
         self.thruOffsetZ0=50.       # % real(Zo) of offset length - THRU
         self.thruOffsetLoss=0.      # % offset loss (Gohm/s) - THRU
+        self.f0=1e9
     def ReadFromFile(self,filename):
         """The file is read from the disk and the constants stored internally.
         @param filename string name of calibration constant file to read.
@@ -158,6 +159,7 @@ class CalibrationConstants(object):
         self.thruOffsetZ0=float(actualLines[19])
         # % offset loss (Gohm/s) - THRU
         self.thruOffsetLoss=float(actualLines[20])*1e9
+        self.f0=1e9
         return self
     def WriteToFile(self,filename,calkitname=None):
         """The calibration constants are written to a file.
@@ -241,7 +243,7 @@ class CalibrationConstants(object):
     ## @var openOffsetZ0
     # float real characteristic impedance of offset to open in ohms.
     ## @var openOffsetLoss
-    # float open offset loss in ohm/s at f0=1 GHz.
+    # float open offset loss in ohm/s at f0.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var shortL0
@@ -267,7 +269,7 @@ class CalibrationConstants(object):
     ## @var shortOffsetZ0
     # float real characteristic impedance of offset to short in ohms.
     ## @var shortOffsetLoss
-    # float short offset loss in ohm/s at f0=1 GHz.
+    # float short offset loss in ohm/s at f0.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var loadZ
@@ -279,7 +281,7 @@ class CalibrationConstants(object):
     ## @var loadOffsetZ0
     # float real characteristic impedance of offset to load in ohms.
     ## @var loadOffsetLoss
-    # float load offset loss in ohm/s at f0=1 GHz.
+    # float load offset loss in ohm/s at f0.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
     ## @var thruOffsetDelay
@@ -289,7 +291,9 @@ class CalibrationConstants(object):
     ## @var thruOffsetZ0
     # float real characteristic impedance of offset to thru in ohms.
     ## @var thruOffsetLoss
-    # float thru offset loss in ohm/s at f0=1 GHz.
+    # float thru offset loss in ohm/s at f0.
+    ## @var f0
+    # float frequency for loss.  Defaults to 1 GHz.
     # @note the internal storage is in the correct units and is the value in the calibration contants file
     # /1e9.
 
@@ -330,17 +334,18 @@ class CalibrationKit(object):
         self.m_f=f
         self.openStandard=OpenStandard(self.m_f,self.Constants.openOffsetDelay,
             self.Constants.openOffsetZ0,self.Constants.openOffsetLoss,
-            self.Constants.openC0,self.Constants.openC1,self.Constants.openC2,
-            self.Constants.openC3)
+            self.Constants.f0,self.Constants.openC0,self.Constants.openC1,
+            self.Constants.openC2,self.Constants.openC3)
         self.shortStandard=ShortStandard(self.m_f,self.Constants.shortOffsetDelay,
             self.Constants.shortOffsetZ0,self.Constants.shortOffsetLoss,
-            self.Constants.shortL0,self.Constants.shortL1,self.Constants.shortL2,
-            self.Constants.shortL3)
+            self.Constants.f0,self.Constants.shortL0,self.Constants.shortL1,
+            self.Constants.shortL2,self.Constants.shortL3)
         self.loadStandard=LoadStandard(self.m_f,self.Constants.loadOffsetDelay,
             self.Constants.loadOffsetZ0,self.Constants.loadOffsetLoss,
-            self.Constants.loadZ)
+            self.Constants.f0,self.Constants.loadZ)
         self.thruStandard=ThruStandard(self.m_f,self.Constants.thruOffsetDelay,
-            self.Constants.thruOffsetZ0,self.Constants.thruOffsetLoss)
+            self.Constants.thruOffsetZ0,self.Constants.thruOffsetLoss,
+            self.Constants.f0)
         return self
     def ReadFromFile(self,filename):
         """Reads the calibration constants from a file

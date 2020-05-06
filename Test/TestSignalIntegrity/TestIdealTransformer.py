@@ -21,7 +21,7 @@ import unittest
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
-from numpy import matrix
+from numpy import array
 
 class TestIdealTransformer(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -60,7 +60,7 @@ class TestIdealTransformer(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.IdealTransformer(a)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Ideal Transformer incorrect')
         pass
     def testIdealTransformerNumeric2(self):
@@ -74,7 +74,7 @@ class TestIdealTransformer(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         sspn=si.sd.SystemSParametersNumeric(sdp.SystemDescription())
         rescalc=sspn.SParameters()
         rescorrect=si.dev.IdealTransformer(a)
-        difference = linalg.norm(matrix(rescalc)-matrix(rescorrect))
+        difference = linalg.norm(array(rescalc)-array(rescorrect))
         self.assertTrue(difference<1e-10,'Ideal Transformer incorrect')
     def testIdealTransformerSymbolicCode(self):
         self.WriteCode('TestIdealTransformer.py','testIdealTransformerSymbolic(self)',self.standardHeader)

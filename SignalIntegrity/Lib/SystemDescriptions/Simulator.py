@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
+from numpy import array
 from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParameters import SystemSParameters
@@ -113,10 +113,10 @@ class Simulator(SystemSParameters,object):
                 # There is a permutation matrix such that SI*PR^T*PR*m
                 # where PR*m is m\prime and SI*PR^T is Si^\prime
                 # pragma: include outdent
-                PR=matrix(self.PermutationMatrix([m.index('m'+str(c+1))
+                PR=array(self.PermutationMatrix([m.index('m'+str(c+1))
                             for c in range(len(mprime))], len(n))).transpose()
                 if Right is None: Right = PR
-                else: Right = matrix(PR)*matrix(Right)
+                else: Right = array(PR).dot(array(Right))
                 """
                 @todo Dagger should be called with Left (not None), but when I allow
                 this, it allows diabolical solutions where ground is not necessarily 0V
@@ -125,7 +125,7 @@ class Simulator(SystemSParameters,object):
                 This is the way it was before Dagger was implemented anyway
                 """
                 SI=self.Dagger(
-                    matrix(identity(len(n)))-matrix(self.WeightsMatrix()),
+                    array(identity(len(n)))-array(self.WeightsMatrix()),
                     Left=Left,Right=Right).tolist()
 #                 SiPrime2=(SI*PR).tolist()
             # pragma: silent exclude indent

@@ -10,7 +10,8 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
         result=[]
         for n in range(len(self.m_f)):
             for d in range(len(self.m_spc)):
-                self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
+                if not spc[d][0] is None:
+                    self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             tm=VirtualProbeNumeric(self.m_sd).TransferMatrix()
             result.append(tm)
         self.transferMatrices=TransferMatrices(self.m_f,result)

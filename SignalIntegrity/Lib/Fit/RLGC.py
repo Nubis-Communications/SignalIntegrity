@@ -19,6 +19,7 @@ RLGC.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math,cmath
+from numpy import array
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
 class RLGCFitter(LevMar):
@@ -28,7 +29,7 @@ class RLGCFitter(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
-        LevMar.Initialize(self, [[g] for g in guess], v)
+        LevMar.Initialize(self, array([[g] for g in guess]), array(v))
         self.ones=[1 for _ in self.f]
         self.dZdR=self.ones
         self.dZdRse=[math.sqrt(f) for f in self.f]
@@ -45,14 +46,18 @@ class RLGCFitter(LevMar):
     def fF(self,a):
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
         # pragma: silent exclude
+        import numpy
+        npstate=numpy.seterr()['divide']
+        numpy.seterr(divide='raise')
         try:
-            1./G
+            test=1./G
         except:
             G=1e-12
         try:
-            1./R
+            test=1./R
         except:
             R=1e-12
+        numpy.seterr(divide=npstate)
         # pragma: include
         self.Z=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
         self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
@@ -67,7 +72,7 @@ class RLGCFitter(LevMar):
         self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
         S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
         vS=self.VectorizeSp(S)
-        return vS
+        return array(vS)
     def fJ(self,a,Fa=None):
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
@@ -95,7 +100,7 @@ class RLGCFitter(LevMar):
         dS=[[[[dS11[i][n],dS12[i][n]],[dS12[i][n],dS11[i][n]]]
                 for n in range(len(self.f))] for i in range(6)]
         vdS=[self.VectorizeSp(ds) for ds in dS]
-        return [[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))]
+        return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
     def VectorizeSp(self,sp):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
@@ -105,7 +110,7 @@ class RLGCFitter(LevMar):
             a[r][0]=abs(a[r][0].real)
         return a
     def Results(self):
-        return self.m_a
+        return [r[0].real for r in self.m_a]
 
 class RLGCFitter2(LevMar):
     def __init__(self,sp,guess,callback=None):
@@ -114,7 +119,7 @@ class RLGCFitter2(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
-        LevMar.Initialize(self, [[g] for g in guess], v)
+        LevMar.Initialize(self, array([[g] for g in guess]), v)
         self.ones=[1 for _ in self.f]
         self.dZdR=self.ones
         self.dZdRse=[math.sqrt(f) for f in self.f]
@@ -134,14 +139,18 @@ class RLGCFitter2(LevMar):
     def fF(self,a):
         (R,G,C,Rse,df,L0,Linf,fm,b)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0],a[6][0],a[7][0],a[8][0])
         # pragma: silent exclude
+        import numpy
+        npstate=numpy.seterr()['divide']
+        numpy.seterr(divide='raise')
         try:
-            1./G
+            test=1./G
         except:
             G=1e-12
         try:
-            1./R
+            test=1./R
         except:
             R=1e-12
+        numpy.seterr(divide=npstate)
         # pragma: include
         self.ffm=[f/fm for f in self.f]
         self.ffmb=[pow(ffm,b) for ffm in self.ffm]
@@ -158,7 +167,7 @@ class RLGCFitter2(LevMar):
         self.S12=[(1-r2)*e/(1-r2*e2) for (r2,e,e2) in zip(self.rho2,self.eg,self.e2g)]
         S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
         vS=self.VectorizeSp(S)
-        return vS
+        return array(vS)
     def fJ(self,a,Fa=None):
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,G,C,Rse,df,L0,Linf,fm,b)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0],a[6][0],a[7][0],a[8][0])
@@ -205,7 +214,7 @@ class RLGCFitter2(LevMar):
                 for n in range(len(self.f))]
                     for i in range(9)]
         vdS=[self.VectorizeSp(ds) for ds in dS]
-        return [[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))]
+        return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
     def VectorizeSp(self,sp):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]

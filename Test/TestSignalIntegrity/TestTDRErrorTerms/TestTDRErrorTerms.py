@@ -586,7 +586,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         fc=si.fd.FrequencyContent(resDict['ShortV1'],self.fd)
         # multiply frequency content by N if you want the s-parameter viewer to show the waveform
         #si.sp.SParameters(fc.m_f,[[[fc[n]*self.fd.N*(2. if ((n==0) or (n==self.fd.N)) else 1.)]] for n in range(len(fc))]).WriteToFile('ShortV1Correct.s1p')
-        self.assertEquals(fceq,fc,'short 1 voltage frequency content equation incorrect')
+        self.assertEqual(fceq,fc,'short 1 voltage frequency content equation incorrect')
     def testTDRIncidentVoltagePort1Short(self):
         resDict=TestTDRErrorTermsTest.resDict
         # confirm equation for incident voltage with short connected
@@ -622,7 +622,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         incfc=tdr.IncidentFrequencyContent
         # multiply frequency content by N  and by 2 at DC and Nyquist if you want the s-parameter viewer to show the waveform
         #si.sp.SParameters(incfc.m_f,[[[incfc[n]*self.fd.N*(2. if ((n==0) or (n==self.fd.N)) else 1.)]] for n in range(len(incfc))]).WriteToFile('ShortV1IncCorrect.s1p')
-        self.assertEquals(fceq,incfc,'short 1 incident voltage frequency content equation incorrect')
+        self.assertEqual(fceq,incfc,'short 1 incident voltage frequency content equation incorrect')
     def testTDRMeasuredVoltagePort2Thru(self):
         resDict=TestTDRErrorTermsTest.resDict
         # confirm equation for measured voltage at port 2 with thru connected
@@ -692,7 +692,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         fc=si.fd.FrequencyContent(self.resDict['Thru1V2'],self.fd)
         # multiply frequency content by N if you want the s-parameter viewer to show the waveform
         #si.sp.SParameters(fc.m_f,[[[fc[n]*self.fd.N*(2. if ((n==0) or (n==self.fd.N)) else 1.)]] for n in range(len(fc))]).WriteToFile('ThruV2Correct.s1p')
-        self.assertEquals(fceq,fc,'thru 2 voltage frequency content equation incorrect')
+        self.assertEqual(fceq,fc,'thru 2 voltage frequency content equation incorrect')
 
 if __name__ == "__main__":
         unittest.main()

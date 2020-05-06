@@ -59,7 +59,14 @@ class PartProperty(PartPropertyConfiguration):
             elif self.GetValue('Type')=='int':
                 value = self.GetValue('Value')
             elif self.GetValue('Type')=='float':
-                value = str(float(self.GetValue('Value')))
+                unitstr=self.GetValue('Unit')
+                # check for scaling of units (indicated by an exponent on the front of the units)
+                factor=''
+                if len(unitstr)>=2:
+                    if unitstr[0:2]=='e-':
+                        # this number is scaled - extract the scaling factor
+                        factor=unitstr.split(' ')[0] # this will be something like 'e-34'
+                value = str(float(self.GetValue('Value')+factor))
             else:
                 value = str(self.GetValue('Value'))
             return value
@@ -86,7 +93,7 @@ class PartProperty(PartPropertyConfiguration):
             elif self.GetValue('Type')=='int':
                 value = self.GetValue('Value')
             elif self.GetValue('Type')=='float':
-                value = str(ToSI(float(self.GetValue('Value')),letterPrefixes=False))
+                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit'),letterPrefixes=False))
             else:
                 value = str(self.GetValue('Value'))
             return value
@@ -94,7 +101,7 @@ class PartProperty(PartPropertyConfiguration):
             raise ValueError
             return str(self['Value'])
     def SetValueFromString(self,string):
-        if self['Type']=='string':
+        if self['Type']=='string' or self['Type']=='enum':
             self['Value']=str(string)
         elif self.GetValue('Type')=='file':
             self['Value']=str(string)
@@ -146,6 +153,10 @@ class PartPropertyPorts(PartProperty):
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'filename',type='file',unit=None,keyword='file',description='file name',value=fileName)
+
+class PartPropertyErrorTermsFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'errorterms',type='file',unit=None,keyword='et',description='error terms',value=fileName)
 
 class PartPropertyWaveformFileName(PartProperty):
     def __init__(self,fileName=''):
@@ -247,6 +258,10 @@ class PartPropertyVoltageAmplitude(PartProperty):
     def __init__(self,voltageAmplitude=1.):
         PartProperty.__init__(self,'voltageamplitude',type='float',unit='V',keyword='a',description='voltage amplitude (V)',value=voltageAmplitude,visible=True)
 
+class PartPropertyImpulseVoltageAmplitude(PartProperty):
+    def __init__(self,a=0.2):
+        PartProperty.__init__(self,'voltageamplitude',type='float',unit='Vs',keyword='ia',description='impulse voltage amplitude (Vs)',value=a,visible=True)
+
 class PartPropertyVoltageRms(PartProperty):
     def __init__(self,voltagerms=0.):
         PartProperty.__init__(self,'voltagerms',type='float',unit='Vrms',keyword='vrms',description='voltage (Vrms)',value=voltagerms,visible=True)
@@ -330,3 +345,91 @@ class PartPropertyRisetime(PartProperty):
 class PartPropertyPRBSPolynomial(PartProperty):
     def __init__(self,poly=7):
         PartProperty.__init__(self,'prbs',type='int',unit='',keyword='prbs',description='prbs polynomial order',value=poly,visible=True,keywordVisible=True)
+
+class PartPropertyPortsList(PartProperty):
+    def __init__(self,portsList):
+        PartProperty.__init__(self,'portslist',type='string',unit=None,keyword='pl',description='port list',value=portsList,visible=False,keywordVisible=False)
+
+class PartPropertyOffsetDelay(PartProperty):
+    def __init__(self,delay=0.0):
+        PartProperty.__init__(self,'od',type='float',unit='s',keyword='od',description='offset delay (s)',value=delay,visible=True)
+
+class PartPropertyOffsetZ0(PartProperty):
+    def __init__(self,Z0=50.):
+        PartProperty.__init__(self,'oz0',type='float',unit='ohm',keyword='oz0',description='offset characteristic impedance (ohms)',value=Z0,visible=True,keywordVisible=True)
+
+class PartPropertyOffsetLoss(PartProperty):
+    def __init__(self,ol=0.):
+        PartProperty.__init__(self,'ol',type='float',unit='ohm/s',keyword='ol',description='offset loss (ohm/s)',value=ol,visible=True,keywordVisible=True)
+
+class PartPropertyL0(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l0',type='float',unit='H',keyword='l0',description=' inductance (H)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL1(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l1',type='float',unit='e-24 H/Hz',keyword='l1',description=' inductance (1e-24 H/Hz)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL2(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l2',type='float',unit='e-33 H/Hz^2',keyword='l2',description=' inductance (1e-33 H/Hz^2)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyL3(PartProperty):
+    def __init__(self,inductance=0.):
+        PartProperty.__init__(self,'l3',type='float',unit='e-42 H/Hz^3',keyword='l3',description=' inductance (1e-42 H/Hz^3)',value=inductance,visible=True,keywordVisible=True)
+
+class PartPropertyC0(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c0',type='float',unit='F',keyword='c0',description=' capacitance (F)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC1(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c1',type='float',unit='e-27 F/Hz',keyword='c1',description=' capacitance (1e-27 F/Hz)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC2(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c2',type='float',unit='e-36 F/Hz^2',keyword='c2',description=' capacitance (1e-36 F/Hz^2)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyC3(PartProperty):
+    def __init__(self,capacitance=0.):
+        PartProperty.__init__(self,'c3',type='float',unit='e-45 F/Hz^3',keyword='c3',description=' capacitance (1e-45 F/Hz^3)',value=capacitance,visible=True,keywordVisible=True)
+
+class PartPropertyTerminationZ(PartProperty):
+    def __init__(self,Z=50.):
+        PartProperty.__init__(self,'tz',type='float',unit='ohm',keyword='tz',description='termination impedance (ohms)',value=Z,visible=True,keywordVisible=True)
+
+class PartPropertyF0(PartProperty):
+    def __init__(self,f0=1e9):
+        PartProperty.__init__(self,'f0',type='float',unit='Hz',keyword='f0',description='loss frequency (Hz)',value=f0,visible=False,keywordVisible=True)
+
+class PartPropertyCalculationDirection(PartProperty):
+    validEntries=['calculate','uncalculate']
+    def __init__(self,dir='forward'):
+        PartProperty.__init__(self,'cd',type='enum',keyword='cd',description='calculation direction',value=dir,visible=False,keywordVisible=False)
+
+class PartPropertyStandardFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'std',type='file',unit=None,keyword='std',description='cal standard file name',value=fileName)
+
+class PartPropertyOtherPortNumber(PartProperty):
+    def __init__(self,portNumber):
+        PartProperty.__init__(self,'otherportnumber',type='int',unit=None,keyword='opn',description='other port number',value=portNumber,visible=True, keywordVisible=False)
+
+class PartPropertyThruCalculationType(PartProperty):
+    validEntries=['SOLT','SOLR']
+    def __init__(self,dir='SOLT'):
+        PartProperty.__init__(self,'ct',type='enum',keyword='ct',description='calculation type',value=dir,visible=True,keywordVisible=True)
+
+class PartPropertyOnOff(PartProperty):
+    validEntries=['on','off']
+    def __init__(self,state='Off'):
+        PartProperty.__init__(self,'state',type='enum',keyword='state',description='state',value=state,visible=True,keywordVisible=True)
+
+class PartPropertyStimulusType(PartProperty):
+    validEntries=['CW','TDRStep','TDRImpulse']
+    def __init__(self,type='CW'):
+        PartProperty.__init__(self,'stimulustype',type='enum',keyword='st',description='stimulus type',value=type,visible=True,keywordVisible=True)
+
+class PartPropertyPowerLevel(PartProperty):
+    def __init__(self,dBm=0.):
+        PartProperty.__init__(self,'pow',type='float',unit='dBm',keyword='pow',description='power level (dBm)',value=dBm,visible=False,keywordVisible=False)

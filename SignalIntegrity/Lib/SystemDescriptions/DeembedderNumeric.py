@@ -19,7 +19,7 @@ Performs Device Deembedding Numerically
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import matrix
+from numpy import array
 from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.Deembedder import Deembedder
@@ -56,20 +56,20 @@ class DeembedderNumeric(Deembedder,Numeric):
             raise SignalIntegrityExceptionNumeric('under-constrained system')
         # pragma: include
         Internals=self.OtherNames(Bmsd+Amsd+Adut+Bdut)
-        G14=-matrix(self.WeightsMatrix(Bmsd,Amsd))
-        G15=-matrix(self.WeightsMatrix(Bmsd,Bdut))
-        G24=-matrix(self.WeightsMatrix(Adut,Amsd))
-        G25=-matrix(self.WeightsMatrix(Adut,Bdut))
+        G14=-array(self.WeightsMatrix(Bmsd,Amsd))
+        G15=-array(self.WeightsMatrix(Bmsd,Bdut))
+        G24=-array(self.WeightsMatrix(Adut,Amsd))
+        G25=-array(self.WeightsMatrix(Adut,Bdut))
         if len(Internals)>0:# internal nodes
-            G13=-matrix(self.WeightsMatrix(Bmsd,Internals))
-            G23=-matrix(self.WeightsMatrix(Adut,Internals))
+            G13=-array(self.WeightsMatrix(Bmsd,Internals))
+            G23=-array(self.WeightsMatrix(Adut,Internals))
             # pragma: silent exclude
             try:
             # pragma: include outdent
-                G33=matrix(identity(len(Internals)))-\
-                    matrix(self.WeightsMatrix(Internals,Internals))
-                G34=-matrix(self.WeightsMatrix(Internals,Amsd))
-                G35=-matrix(self.WeightsMatrix(Internals,Bdut))
+                G33=array(identity(len(Internals)))-\
+                    array(self.WeightsMatrix(Internals,Internals))
+                G34=-array(self.WeightsMatrix(Internals,Amsd))
+                G35=-array(self.WeightsMatrix(Internals,Bdut))
                 F11=self.Dagger(G33,Left=G13,Right=G34,Mul=True)-G14
                 F12=self.Dagger(G33,Left=G13,Right=G35,Mul=True)-G15
                 F21=self.Dagger(G33,Left=G23,Right=G34,Mul=True)-G24
@@ -91,7 +91,7 @@ class DeembedderNumeric(Deembedder,Numeric):
         except:
             raise SignalIntegrityExceptionNumeric('cannot invert F12')
         # pragma: include
-        A=F21+F22*B
+        A=F21+F22.dot(B)
         AL=self.Partition(A)# partition for multiple unknown devices
         BL=self.Partition(B)
         # pragma: silent exclude
