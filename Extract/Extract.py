@@ -13,7 +13,7 @@ def main():
     """
     Extract Utility:,
     Extracts s-parameters from a project file.  It allows the s-parameters of any file device to be replaced in the project.
-    Ports are placed where specified and all unused ports in the project are terminated with 50 ohm resistors.
+    Ports are placed where specified and all unused ports in the project are terminated.
 
     Command line format:
     -project [project file name]
