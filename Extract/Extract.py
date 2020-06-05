@@ -52,6 +52,14 @@ def main():
     Notes:
     . if no extension is supplied, it will be .sXp where X is the number of ports in the solution.
     . if an extension is supplied, it must match the number of ports in the solution.
+    . s-parameters will be in the reference impedance specified.
+
+    -Z0 [Z0]
+    for example: -Z0 42.5
+    this is the reference impedance.
+    Notes:
+    . all terminations of unused ports will be in this reference impedance specified.
+    . output s-parameters will be converted to this reference impedance.
     """
     args=sys.argv
     if len(args)<=1:
@@ -61,7 +69,7 @@ def main():
     read the command line keeping the list of tokens following one of the recognized tokens in
     the list below.
     """
-    tokens=['-project','-replace','-frequency','-numpoints','-ports','-output']
+    tokens=['-project','-replace','-frequency','-numpoints','-ports','-output','-Z0']
     intokens=False
     tokenlist=[]
     for arg in args[1:]:
@@ -80,7 +88,7 @@ def main():
     each list of tokens begins with one of the recognized tokens.  Assign the values to a dictionary
     of arguments.
     """
-    argsdict={'project':None,'endfrequency':None,'numpoints':None,'ports':None,'output':None,'replace':[]}
+    argsdict={'project':None,'endfrequency':None,'numpoints':None,'ports':None,'output':None,'replace':[],'Z0':50.0}
 
     for arglist in tokenlist:
         arg=arglist[0]
@@ -100,6 +108,9 @@ def main():
         elif arg=='-output':
             if len(arglist)==2:
                 argsdict['output']=arglist[1]
+        elif arg=='-Z0':
+            if len(arglist)==2:
+                argsdict['Z0']=float(arglist[1])
         elif arg=='-replace':
             if len(arglist)>2:
                 argsdict['replace'].append(arglist[1:])
@@ -155,8 +166,9 @@ def main():
     """
     for r in range(len(unconnectedlist)):
         (device,port)=unconnectedlist[r]
-        netlist.append('device R'+str(r+1)+' 1 r 50.0')
-        netlist.append('connect '+device+' '+str(port)+' R'+str(r+1)+' 1')
+        # use a $ on the resistor devices to avoid clash with other schematic elements.
+        netlist.append('device R$'+str(r+1)+' 1 r '+str(argsdict['Z0']))
+        netlist.append('connect '+device+' '+str(port)+' R$'+str(r+1)+' 1')
 
     netlist.append(portnetlistline)
     """
@@ -164,7 +176,9 @@ def main():
     """
     sdp=si.p.SystemSParametersNumericParser(f).AddLines(netlist)
     sp=sdp.SParameters()
-    sp.WriteToFile(argsdict['output'])
+    # although the s-parameters are in Z0=50, the format string will cause the reference impedance
+    # to be changed when the s-parameters are written.
+    sp.WriteToFile(argsdict['output'],'# MHz S MA R '+str(argsdict['Z0']))
 
 if __name__ == '__main__':
     main()
