@@ -38,8 +38,8 @@ class RLGCFitFromFile(object):
         self.spfile=filename
         self.RLGC=None
     def Fit(self):
-        """
-        Fits a two-port RLGC model for the specified s-parameter file
+        """Fits a two-port RLGC model for the specified s-parameter file
+        @see see RLGC
         """
         sp=SParameterFile(self.spfile,self.Z0)
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()

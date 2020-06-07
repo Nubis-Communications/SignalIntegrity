@@ -30,19 +30,14 @@ from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
     """generates deembedd s-parameters from a netlist"""
     def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
-        """constructor
-
+        """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
-
-        The optional callback is used as described in the class CallBacker.
-
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.  
+        The optional callback is used as described in the class CallBacker.  
         The use of the cacheFileName is described in the class LineCache
         """
         DeembedderParser.__init__(self, f, args)
@@ -52,7 +47,7 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
         LinesCache.__init__(self,'SParameters',cacheFileName)
         # pragma: include
     def Deembed(self,systemSParameters=None):
-        """computes deembedded s-parameters of a netlist.
+        """computes deembedded s-parameters of a netlist
         @param systemSParameters (optional) instance of class SParameters referring
         to the s-parameters of the system 
         @return instance of class SParameters of the unknown devices in the network.

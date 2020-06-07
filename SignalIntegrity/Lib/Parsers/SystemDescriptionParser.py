@@ -22,22 +22,17 @@ from SignalIntegrity.Lib.Parsers.ParserFile import ParserFile
 from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
 
 class SystemDescriptionParser(ParserFile,ParserArgs):
-    """Parses netlists and produces system descriptions.
-
-    These are instances of class SystemDescription.
-
+    """Parses netlists and produces system descriptions..
+    These are instances of class SystemDescription.  
     This class provides a mechanism for producing system descriptions from netlists
     rather than by scripting the adding of devices, ports, device connections, etc.
     """
     def __init__(self,f=None,args=None):
-        """Constructor
-
+        """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
-        @param args (optional) string arguments for the circuit.
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
+        @param args (optional) string arguments for the circuit.  
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
         self.m_sd = None
         self.m_f=f
@@ -80,20 +75,17 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
             self.AddLine(line)
         return self
     def _ProcessLine(self,line,exclusionList):
-        """processes the lines of a netlist
-
+        """processes the lines of a netlist  
         Lines that can be processed at this level are processed and lines that
         are unknown are place in a list of unknown lines for upstream processing.  This
         enables derived classes to benefit from what this class knows how to process and
         to simply add specific functionality.  As a simple example, a derived simulator class
         needs to add output probes, and this simple system description class knows nothing of
-        this.
-
+        this.  
         netlist lines that are handled at this level are:
         - 'device' - addition of devices.
         - 'connect' - handles device connections.
         - 'port' - adds system ports for s-parameter calculation.
-
         @param exclusionList list of strings representing commands to exclude.  These are either
         commands that are removed from the functionality (i.e. it would not be write to add a system
         port in a simulation), or commands that are withheld until further processing at a later time

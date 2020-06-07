@@ -24,20 +24,13 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
 class SParametersParser(SParameters):
     """parses a list of commands to process s-parameters"""
     def __init__(self,sp,lines):
-        """
-        constructor
-
-        takes a set of s-parameters along with a list of command lines to process the s-parameters
-
+        """Constructor  
+        Takes a set of s-parameters along with a list of command lines to process the s-parameters
         @param sp instance of SParameters to process
         @param lines list of lines with commands indicating the processing, in order
-        
-        For causality checks, the threshold for causality is 10e-6 (-100 dB).
-        
-        The maximum number of iterations is 30.
-        
-        the Largest singular value is 1.
-        
+        @remark For causality checks, the threshold for causality is 10e-6 (-100 dB).  
+        The maximum number of iterations is 30.  
+        the Largest singular value is 1.  
         @see EnforceCausality
         @see EnforcePassivity
         @see EnforceReciprocity
@@ -74,4 +67,3 @@ class SParametersParser(SParameters):
                     raise IndexError
             except:
                 raise SignalIntegrityExceptionPostProcessing('not understood: '+line)
-                    

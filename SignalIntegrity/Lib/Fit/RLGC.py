@@ -23,7 +23,21 @@ from numpy import array
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
 class RLGCFitter(LevMar):
+    """fits a two-port RLGC transmission line to s-parameters"""
     def __init__(self,sp,guess,callback=None):
+        """Constructor  
+        Initializes the fit of an RLGC transmission line.
+        @param sp instance of class SParameters containing the s-parameters to fit to.
+        @param guess list of variables as a guess __a__ at the variables defining the transmission line.  
+        The guess __a__ is arranged in the following order:
+        - a[0] - R - the total series resistance (in ohms).
+        - a[1] - L - the total series inductance (in henrys).
+        - a[2] - G - the total shunt conductance (in farads).
+        - a[3] - C - the total shunt capacitance (in siemens).
+        - a[4] - R - the total skin-effect resistance (in ohms/sqrt(Hz)).
+        - a[5] - df - the dissipation factor, or loss tangent (unitless).
+        @param callback (optional, defaults to None) instance of the class CallBacker containing a callback.
+        """
         self.m_sp=sp
         self.f=self.m_sp.m_f
         self.Z0=self.m_sp.m_Z0
@@ -44,6 +58,19 @@ class RLGCFitter(LevMar):
         self.dYdL=self.zeros
         self.dYdG=self.ones
     def fF(self,a):
+        """Calculates the s-parameters of a two-port transmission line as a function of transmission line parameters provided.
+        @param a list of transmission line parameters __a__.  
+        The parameters in __a__ are arranged in the following order:
+        - a[0] - R - the total series resistance (in ohms).
+        - a[1] - L - the total series inductance (in henrys).
+        - a[2] - G - the total shunt conductance (in farads).
+        - a[3] - C - the total shunt capacitance (in siemens).
+        - a[4] - R - the total skin-effect resistance (in ohms/sqrt(Hz)).
+        - a[5] - df - the dissipation factor, or loss tangent (unitless).
+        @return numpy array containing the s-parameters in vectorized form.
+        Vectorized form means each frequency is stacked on top of one another, with the s-parameter matrix for each frequency
+        having its columns stacked on top of one another, thus forming one long vector.
+        """
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
         # pragma: silent exclude
         import numpy
@@ -74,6 +101,21 @@ class RLGCFitter(LevMar):
         vS=self.VectorizeSp(S)
         return array(vS)
     def fJ(self,a,Fa=None):
+        """Calculates the Jacobian matrix as a function of transmission line parameters provided.
+        @param a list of transmission line parameters __a__.  
+        The parameters in __a__ are arranged in the following order:
+        - a[0] - R - the total series resistance (in ohms).
+        - a[1] - L - the total series inductance (in henrys).
+        - a[2] - G - the total shunt conductance (in farads).
+        - a[3] - C - the total shunt capacitance (in siemens).
+        - a[4] - R - the total skin-effect resistance (in ohms/sqrt(Hz)).
+        - a[5] - df - the dissipation factor, or loss tangent (unitless).
+        @param Fa (optional, defaults to None) precalculated value of F(a) from fF().
+        This is provided to avoid recalculation of F(a), if already computed previously.
+        @return numpy array containing Jacobian.
+        This is a six column array where each row corresponds to an s-parameter in the vectorized s-parameters matrix and
+        each column is the partial derivative of that s-parameter with respect to one of the transmission line parameters.
+        """
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
         dZ=[self.dZdR,self.dZdL,self.dZdG,self.dZdC,self.dZdRse,self.dZddf]
@@ -102,14 +144,42 @@ class RLGCFitter(LevMar):
         vdS=[self.VectorizeSp(ds) for ds in dS]
         return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
     def VectorizeSp(self,sp):
+        """Helper function to vectorize s-parameters
+        @param sp instance of class SParameters
+        @return list of list array where each row is an element of the vectorized s-parameters.
+        Vectorized form means each frequency is stacked on top of one another, with the s-parameter matrix for each frequency
+        having its columns stacked on top of one another, thus forming one long vector.
+        """
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]
         return v
     def AdjustVariablesAfterIteration(self,a):
+        """Adjusts the transmission line parameters after each iteration.  
+        In the case of a transmission line, the adjustment is to enforce that each parameter is real and not negative.
+        @param a list of transmission line parameters __a__.  
+        The parameters in __a__ are arranged in the following order:
+        - a[0] - R - the total series resistance (in ohms).
+        - a[1] - L - the total series inductance (in henrys).
+        - a[2] - G - the total shunt conductance (in farads).
+        - a[3] - C - the total shunt capacitance (in siemens).
+        - a[4] - R - the total skin-effect resistance (in ohms/sqrt(Hz)).
+        - a[5] - df - the dissipation factor, or loss tangent (unitless).
+        @return the adjusted transmission line parameters.
+        """
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
         return a
     def Results(self):
+        """Gets the fitted transmission line parameters.
+        @return list of transmission line parameters __a__.  
+        The parameters in __a__ are arranged in the following order:
+        - a[0] - R - the total series resistance (in ohms).
+        - a[1] - L - the total series inductance (in henrys).
+        - a[2] - G - the total shunt conductance (in farads).
+        - a[3] - C - the total shunt capacitance (in siemens).
+        - a[4] - R - the total skin-effect resistance (in ohms/sqrt(Hz)).
+        - a[5] - df - the dissipation factor, or loss tangent (unitless).
+        """
         return [r[0].real for r in self.m_a]
 
 class RLGCFitter2(LevMar):

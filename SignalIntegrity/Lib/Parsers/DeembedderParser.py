@@ -26,31 +26,25 @@ import copy
 class DeembedderParser(SystemDescriptionParser):
     """base class for netlist based deembedding solutions"""
     def __init__(self, f=None, args=None):
-        """Constructor
-
+        """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
         SystemDescriptionParser.__init__(self, f, args)
     def _ProcessDeembedderLine(self,line):
-        """processes a line of a netlist, handing deembedding specific commands
-
+        """processes a line of a netlist, handing deembedding specific commands  
         Lines that can be processed at this level are processed and lines that
         are unknown are place in a list of unknown lines for upstream processing.  This
         enables derived classes to benefit from what this class knows how to process and
         to simply add specific functionality.  As a simple example, a derived simulator class
         needs to add output probes, and this simple system description class knows nothing of
-        this.
-
+        this.  
         netlist lines that are handled at this level are:
         - 'system' - addition of the system
-        - 'unknown' - addition of a device whose s-parameters are unknown.
-
-        Calls SystemDescriptionParser._ProcessLines()
+        - 'unknown' - addition of a device whose s-parameters are unknown.  
+        Calls SystemDescriptionParser._ProcessLines(),
         exludes 'connect' and 'port' in first call, then processes simulator lines, then
         calls upstream one more time for the device connections, again excluding 'port'.
         """

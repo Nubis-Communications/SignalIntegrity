@@ -21,7 +21,17 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyRespo
 from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
 
 class Differentiator(FrequencyResponse):
+    """Frequency response of a differentiator
+    @see FrequencyResponse
+    """
     def __init__(self,fl):
+        """Constructor  
+        Constructs the frequency response of a differentiator.
+        @param fl instance of class EvenlySpacedFrequencyList containing list of frequencies for the differentiator
+        @remark The resulting frequency response of a differentiator can be directly multiplied by another instance
+        of FrequencyResponse such that the filter corresponding to the original frequency response now also differentiates
+        the applied frequency content.
+        """
         td=fl.TimeDescriptor()
         resp=[0 for _ in range(td.K)]
         resp[td.K//2]=td.Fs

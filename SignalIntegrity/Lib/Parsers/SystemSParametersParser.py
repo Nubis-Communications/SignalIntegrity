@@ -30,19 +30,14 @@ from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
     def __init__(self,f=None,args=None,callback=None,cacheFileName=None):
-        """constructor
-
+        """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
-        @param cacheFileName (optional) string name of file used to cache results
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
-
+        @param cacheFileName (optional) string name of file used to cache results  
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.  
         The optional callback is used as described in the class CallBacker.
-
         """
         SystemDescriptionParser.__init__(self,f,args)
         self.sf = None
@@ -54,7 +49,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         """compute the s-parameters of the netlist.
         @param solvetype (optional) string how to solve it. (defaults to 'block').
         @return instance of class SParameters as the solution of the network.
-        valid solvetype strings are:
+        @remark valid solvetype strings are:
         - 'block' - use the block matrix solution method.
         - 'direct' - use the direct method.
         'block' is faster and preferred, but direct is provided as an alternative and

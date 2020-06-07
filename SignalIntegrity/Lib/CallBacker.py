@@ -19,21 +19,16 @@ Handles Callbacks that allow progress reporting during long calculations and cap
 # If not, see <https://www.gnu.org/licenses/>
 
 class CallBacker(object):
-    """CallBacker
-
-    To use callbacks, a class is derived from CallBacker.
-
+    """CallBacker  
+    To use callbacks, a class is derived from CallBacker.  
     Either the constructor of the derived class or some other mechanism should
     provide means for supplying the callback function, which is installed in a
-    call to __init__.
-
+    call to __init__.  
     The derived class, during some long operation, then calls the callback function
     periodically.  The callback function then has the opportunity to report its
     progress.  Returning False in the callback function should cause the operation
-    to abort.
-
-    Here's a mini example derived class using CallBacker:
-
+    to abort.  
+    Here's a mini example derived class using CallBacker:  
     \code{.py}
     class ProcessingClass(Callbacker):
         def __init__(self,callback=None):

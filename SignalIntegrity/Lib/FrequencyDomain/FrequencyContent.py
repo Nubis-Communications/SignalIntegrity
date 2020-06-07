@@ -31,12 +31,10 @@ from SignalIntegrity.Lib.ChirpZTransform.ChirpZTransform import CZT
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
 class FrequencyContent(FrequencyDomain):
-    """Handles frequency content of waveforms.
-
+    """Handles frequency content of waveforms.  
     This is the frequency content view of a waveform.  In other words, it assumes that a waveform is an actual waveform and
     contains the complex values of sinusoids that, if added together, would make up the waveform.  This is the
     opposite of the FrequencyResponse() view.
-
     @see FrequencyResponse
     """
     R=50.0
@@ -48,8 +46,7 @@ class FrequencyContent(FrequencyDomain):
         """Constructor
         @param wf in instance of class Waveform
         @param fd (optional) an instance of class FrequencyList (defaults to None)
-        @remark
-        initializes itself internally by computing the frequency content of the waveform.
+        @remark initializes itself internally by computing the frequency content of the waveform.
 
         If fd is None then the frequency descriptor is simply the frequency descriptor corresponding to the time
         descriptor of the waveform and the frequency content is computed from the DFT.

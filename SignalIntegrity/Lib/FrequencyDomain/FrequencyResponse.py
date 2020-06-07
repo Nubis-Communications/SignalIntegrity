@@ -31,8 +31,7 @@ from SignalIntegrity.Lib.ChirpZTransform import CZT
 from SignalIntegrity.Lib.Rat import Rat
 
 class FrequencyResponse(FrequencyDomain):
-    """FrequencyResponse
-
+    """FrequencyResponse  
     Frequency response view of a waveform assumed computed from the FrequencyResponse() method
     of a class ImpulseResponse, which is itself derived from the class Waveform.  In other words,
     it would contain complex frequency-domain values that, if multiplied by the values in an

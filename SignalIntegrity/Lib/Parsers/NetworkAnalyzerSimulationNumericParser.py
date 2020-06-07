@@ -25,10 +25,8 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
     """performs numeric simulations from netlists"""
     def __init__(self, f=None, DUTSParameters=None, PortConnectionList=None ,args=None,  callback=None, cacheFileName=None):
-        """constructor
-
+        """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param DUTSParameters (optional) instance of class SParameters containing the DUT.
         If None is supplied, the file already in the schematic will be used, otherwise these
@@ -51,10 +49,9 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         self.DutSParameters=SParameters(DUTSParameters.m_f,DUTSParameters.m_d)
         SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
     def HashValue(self,stuffToHash=''):
-        """
-        @param stuffToHash repr of stuff to hash
-        Generates the hash for a definition\n
+        """Generates the hash for a definition  
         It is formed by hashing the port connection with whatever else is hashed..
+        @param stuffToHash repr of stuff to hash
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
@@ -206,15 +203,11 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         self.m_lines=newNetList
         self.AddKnownDevices(self.dutknown)
     def TransferMatrices(self):
-        """calculates transfer matrices for simulation
-
+        """Calculates transfer matrices for simulation  
         Simulation, insofar as this class is concerned means generating transfer matrices for
         processing waveforms with.
-
         @return instance of class TransferMatrices
-
-        @remark
-        TransferMatrices are used with a TransferMatricesProcessor to process waveforms for
+        @remark TransferMatrices are used with a TransferMatricesProcessor to process waveforms for
         simulation.
         """
         self.ArrangeSimulation()

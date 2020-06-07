@@ -28,21 +28,15 @@ from SignalIntegrity.Lib.ResultsCache import LinesCache
 class CalibrationNumericParser(CalibrationParser,CallBacker,LinesCache):
     """generates a calibration from a netlist"""
     def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
-        """constructor
-
+        """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback.
         @param cacheFileName (optional) string name of file used to cache results
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
-
-        The optional callback is used as described in the class CallBacker.
-
-        The use of the cacheFileName is described in the class LineCache
-
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.  
+        The optional callback is used as described in the class CallBacker.  
+        The use of the cacheFileName is described in the class LineCache.  
         """
         CalibrationParser.__init__(self, f, args)
         self.calibration = None
@@ -52,8 +46,8 @@ class CalibrationNumericParser(CalibrationParser,CallBacker,LinesCache):
         # pragma: include
     def CalculateCalibration(self):
         """calculates a calibration like for a VNA or TDR
-
         @return instance of class Calibration
+        @see Calibration
         """
         # pragma: silent exclude
         if self.CheckCache():

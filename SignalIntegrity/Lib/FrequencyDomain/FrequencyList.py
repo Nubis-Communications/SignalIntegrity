@@ -27,8 +27,7 @@
 class FrequencyList(list):
     """base class for lists of frequencies."""
     def __init__(self,f=None):
-        """Constructor
-
+        """Constructor  
         Initializes a frequency list either from another frequency list or from
         a list of frequencies provided.
         @param f (optional) list of frequencies or instance of class FrequencyList
@@ -80,8 +79,7 @@ class FrequencyList(list):
         """Frequencies
         @param unit optional string containing unit to use
         @return list of frequencies in the frequency list in the unit specified
-        @remark
-        Valid units are:
+        @remark Valid units are:
         - GHz - each frequency element is divided by 1e9.
         - MHz - each frequency element is divided by 1e6.
         - kHz - each frequency element is divided by 1e3

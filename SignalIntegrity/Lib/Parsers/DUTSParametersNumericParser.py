@@ -24,29 +24,23 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityException,SignalIntegri
 class DUTSParametersNumericParser(SystemSParametersNumericParser):
     """generates s-parameters of a DUT from a network analyzer model netlist"""
     def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
-        """constructor
-
+        """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
-
-        Arguments are provided on a line as pairs of names and values separated by a space.
-
-        The optional callback is used as described in the class CallBacker.
-
-        The use of the cacheFileName is described in the class LineCache
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.  
+        The optional callback is used as described in the class CallBacker.  
+        The use of the cacheFileName is described in the class LineCache  
         """
         self.NetworkAnalyzerProjectFile=None
         self.NetworkAnalyzerPortConnectionList=None
         SystemSParametersNumericParser.__init__(self, f, args, callback, cacheFileName)
     def HashValue(self,stuffToHash=''):
-        """
+        """Generates the hash for a definition.  
+        It is formed by hashing the port connection with whatever else is hashed.
         @param stuffToHash repr of stuff to hash
-        Generates the hash for a definition\n
-        It is formed by hashing the port connection with whatever else is hashed..
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
@@ -102,12 +96,12 @@ class DUTSParametersNumericParser(SystemSParametersNumericParser):
                 portNumber=portNumber+1
         self.m_lines=spNetList2
     def SParameters(self,solvetype='block'):
-        """compute the s-parameters of the DUT in a network analyzer simulation netlist.
+        """Compute the s-parameters of the DUT in a network analyzer simulation netlist.
         @param solvetype (optional) string how to solve it. (defaults to 'block').
         @return instance of class SParameters as the solution of the network.
-        valid solvetype strings are:
+        @remark valid solvetype strings are:
         - 'block' - use the block matrix solution method.
-        - 'direct' - use the direct method.
+        - 'direct' - use the direct method.  
         'block' is faster and preferred, but direct is provided as an alternative and
         for testing. (Previously, instances were found where the block method failed,
         but the direct method did not - but this possibility is thought to be impossible

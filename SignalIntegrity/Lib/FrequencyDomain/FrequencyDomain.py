@@ -64,7 +64,7 @@ class FrequencyDomain(list):
         - 'imag' - the imaginary part of the values.
 
         Returns the list of complex values if no unit specified.
-        
+
         Returns None if the unit is invalid.
         """
         if unit==None:

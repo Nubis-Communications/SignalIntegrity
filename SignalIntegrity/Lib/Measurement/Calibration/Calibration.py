@@ -294,10 +294,8 @@ class Calibration(object):
         for n in range(len(self.f)):
             self[n].CheckErrorTerms()
     def CalculateErrorTerms(self,force=False):
-        """Calculates the error terms
-
-        The error terms are calculated in a specific order so that dependencies can be satisfied.
-
+        """Calculates the error terms  
+        The error terms are calculated in a specific order so that dependencies can be satisfied.  
         The reflect error terms are computed first, then the crosstalk error terms.  The unknown thru
         error terms are calculated which need the reflect and crosstalk error terms.  The unknown thru
         recovers the thru which is passed to thru error terms calculations (the reason for this is to

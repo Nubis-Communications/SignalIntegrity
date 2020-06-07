@@ -23,23 +23,23 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescripto
 from SignalIntegrity.Lib.ImpedanceProfile.ImpedanceProfile import ImpedanceProfile
 
 class ImpedanceProfileWaveform(Waveform):
-    """Computes the impedance profile waveform from a set of s-parameters using the port specified.
-
-    method is 'exact','estimated' or 'approximate'
-    'exact' specifies to use the DFT method to deembed sections of impedance found
+    """Computes the impedance profile waveform from a set of s-parameters using the port specified.  
+    method is 'exact','estimated' or 'approximate':
+    - 'exact' specifies to use the DFT method to deembed sections of impedance found
     at an interface.  This method is exact in simulation.
-    'estimated' and 'approximate' both use the step response of the system computed
+    - 'estimated' and 'approximate' both use the step response of the system computed
     from the s-parameters.  'estimated' calculates the Z exactly, assuming the step
     response contains rho (the reflection coefficient), which is an estimate because
-    rho is polluted by multiple reflections.  'approximate' calculates Z using a simple
-    offset and scaling like would be employed when viewing a TDR waveform.
+    rho is polluted by multiple reflections.
+    - 'approximate' calculates Z using a simple
+    offset and scaling like would be employed when viewing a TDR waveform.  
     There is no reason to use 'approximate' - except for educational purposes.
     'exact' can be quite unstable.  'Estimated' is actually usually the best method.
 
-    align is either 'middle' or 'interface'
-    'middle' means that the impedance for each point produced is at the corresponding time
+    align is either 'middle' or 'interface':
+    - 'middle' means that the impedance for each point produced is at the corresponding time
     representing the the middle of a transmission line section.  
-    'interface' means that the time of the impedance is the time of the left edge of a
+    - 'interface' means that the time of the impedance is the time of the left edge of a
     transmission line with the corresponding impedance.
 
     includePortZ is set to True if you want the first point to be the impedance of the

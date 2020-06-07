@@ -36,13 +36,10 @@ def CZT(x,Fs,fs,fe,M,highSpeed=True):
     spaced points on a somewhat arbitrary arc, but here, we use it to compute equi-angularly
     spaced points on the rim of the unit circle, and as such, it is used simply to resample
     data.  Usually, we set fs=0 and the result is an M+1 point DFT of the waveform from 0 to
-    fs, without the same limitations imposed as the standard DFT.\n
-
-    The equation for the czt is:
-    
-    \f$m\in 0 \ldots M\f$
-    
-    {M}\cdot F_{e}}\f$
+    fs, without the same limitations imposed as the standard DFT.  
+    The equation for the czt is:  
+    \f$m\in 0\ldots M\f$  
+    \f$X\left[m\right]=\sum_{k=0}^{K-1}x\left[k\right]\cdot e^{-j\cdot2\pi\cdot\frac{k\cdot m}{M}\cdot F_{e}}\f$
     """
     M=int(M); K=len(x); fs=float(fs); Fs=float(Fs); fe=float(fe)
     theta0=fs/Fs; phi0=(fe-fs)/Fs*1./M; A0=1.; W0=1.

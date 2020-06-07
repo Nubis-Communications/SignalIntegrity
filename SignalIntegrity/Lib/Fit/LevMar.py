@@ -27,8 +27,7 @@ from SignalIntegrity.Lib.Fit.FitConvergence import FitConvergenceMgr
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionFitter
 
 class LevMar(CallBacker):
-    """Implements the Levenberg-Marquardt algorithm for non-linear fitting
-
+    """Implements the Levenberg-Marquardt algorithm for non-linear fitting  
     To use this class, you derive your class for fitting some arbitrary
     function to some data from LeVmar.  The function must contain, at a minimum, an
     __init__ function for construction and a function fF(self,a), which implements
@@ -37,8 +36,7 @@ class LevMar(CallBacker):
     f(a0,a1,a2)=y - you are trying to find the best values of a0, a1, and a2 that
     cause f(a0,a1,a2) to be the closes to y in a least-squares sense, then your
     a would be something like [[a0],[a1],[a2]] and your y would look similar.  In
-    this way, a is a 3x1 element matrix.
-
+    this way, a is a 3x1 element matrix.  
     During the fit, LevMar will call the function fJ, which in turn calls fPartialFPartiala
     with a and m being the index of the variable in a to take the derivative with respect
     to. If your derived class does not overload fJ and/or fPartialFPartiala, LevMar will
@@ -144,10 +142,8 @@ class LevMar(CallBacker):
         self.m_JHWr = None
         self.ccm=FitConvergenceMgr()
     def Iterate(self):
-        """Performs one iteration.
-
-        Usually, this function should not be used.  It can be used to take each iteration manually.
-
+        """Performs one iteration.  
+        Usually, this function should not be used.  It can be used to take each iteration manually.  
         Usually Solve() is used, which takes these iterations, but tests convergence and decides
         when the iterating should end.
         """

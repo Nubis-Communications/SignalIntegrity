@@ -32,7 +32,7 @@ class ImpedanceProfile(list):
     rhoLimit=0.99
     ZLimit=10e3
     def __init__(self,sp,sections,port):
-        """ Constructor\n
+        """ Constructor--
         Generates a list of rho values for a specified number of sections by peeling the
         s-parameters provided from the port provided.
         @param sp instance of class SParameters
