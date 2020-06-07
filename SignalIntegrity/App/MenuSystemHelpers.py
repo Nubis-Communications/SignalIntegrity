@@ -23,6 +23,55 @@ if sys.version_info.major < 3:
 else:
     import tkinter as tk
 
+class ToolTip(object):
+    """
+    Tooltip recipe from
+    http://www.voidspace.org.uk/python/weblog/arch_d7_2006_07_01.shtml#e387
+    """
+    @staticmethod
+    def createToolTip(widget, text):
+        toolTip = ToolTip(widget)
+        def enter(event):
+            toolTip.showtip(text)
+        def leave(event):
+            toolTip.hidetip()
+        widget.bind('<Enter>', enter)
+        widget.bind('<Leave>', leave)
+
+    def __init__(self, widget):
+        self.widget = widget
+        self.tipwindow = None
+        self.id = None
+        self.x = self.y = 0
+
+    def showtip(self, text):
+        "Display text in tooltip window"
+        self.text = text
+        if self.tipwindow or not self.text:
+            return
+        x, y, _, _ = self.widget.bbox("insert")
+        x = x + self.widget.winfo_rootx() + 27
+        y = y + self.widget.winfo_rooty() - 27
+        self.tipwindow = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(1)
+        tw.wm_geometry("+%d+%d" % (x, y))
+        try:
+            # For Mac OS
+            tw.tk.call("::tk::unsupported::MacWindowStyle",
+                       "style", tw._w,
+                       "help", "noActivates")
+        except tk.TclError:
+            pass
+        label = tk.Label(tw, text=self.text, justify=tk.LEFT,
+                         background="#ffffe0", relief=tk.SOLID, borderwidth=1)
+        label.pack(ipadx=1)
+
+    def hidetip(self):
+        tw = self.tipwindow
+        self.tipwindow = None
+        if tw:
+            tw.destroy()
+
 class MenuElement(object):
     def __init__(self,menu,**kw):
         menu.add_command(kw)
@@ -105,6 +154,7 @@ class Doer(object):
         self.keyBindElement=None
         self.controlHelpSectionString=None
         self.helpEnabled=True
+        self.tooltiptext=None
     def AddMenuElement(self,menu,**kw):
         kw['command']=self.Execute
         self.menuElement=MenuElement(menu,**kw)
@@ -123,6 +173,8 @@ class Doer(object):
         kw['command']=self.Execute
         self.toolBarElement=ToolBarElement(frame,**kw)
         self.toolBarElement.Activate(self.active)
+        if not self.tooltiptext == None:
+            ToolTip(self.toolBarElement.button).createToolTip(self.toolBarElement.button, self.tooltiptext)
         return self.toolBarElement
     def AddKeyBindElement(self,bindTo,key):
         self.keyBindElement = KeyBindElement(bindTo,key,self.Execute)
@@ -161,6 +213,9 @@ class Doer(object):
             return bool(self.variable.get())
         else:
             return False
+    def AddToolTip(self,tooltiptext):
+        self.tooltiptext=tooltiptext
+        return self
 
 class StatusBar(tk.Frame):
     def __init__(self, master):
