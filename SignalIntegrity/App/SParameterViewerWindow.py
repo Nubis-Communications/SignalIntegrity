@@ -55,6 +55,8 @@ from matplotlib.collections import LineCollection
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': True})
 
+from mpldatacursor import datacursor
+
 class NavigationToolbar(NavigationToolbar2Tk):
     def __init__(self, canvas, window,homeCallback=None):
         NavigationToolbar2Tk.__init__(self,canvas,window)
@@ -260,7 +262,6 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftToolbar = NavigationToolbar( self.topLeftCanvas, topLeftFrame ,self.onTopLeftHome)
         self.topLeftToolbar.update()
         self.topLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.topLeftToolbar.pan()
 
         self.topRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
@@ -269,7 +270,6 @@ class SParametersDialog(tk.Toplevel):
         self.topRightToolbar = NavigationToolbar( self.topRightCanvas, topRightFrame ,self.onTopRightHome)
         self.topRightToolbar.update()
         self.topRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.topRightToolbar.pan()
         self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
         self.topRightCanvasControlsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
         tk.Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
@@ -283,7 +283,6 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftToolbar = NavigationToolbar( self.bottomLeftCanvas, bottomLeftFrame ,self.onBottomLeftHome)
         self.bottomLeftToolbar.update()
         self.bottomLeftCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.bottomLeftToolbar.pan()
 
         self.bottomRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
@@ -292,7 +291,6 @@ class SParametersDialog(tk.Toplevel):
         self.bottomRightToolbar = NavigationToolbar( self.bottomRightCanvas, bottomRightFrame , self.onBottomRightHome)
         self.bottomRightToolbar.update()
         self.bottomRightCanvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.bottomRightToolbar.pan()
 
         self.controlsFrame = tk.Frame(self.dialogFrame)
         self.controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -458,16 +456,16 @@ class SParametersDialog(tk.Toplevel):
     def ZoomJoinActivations(self):
         self.Zoom['Frequencies']['Join']['All'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool())
         self.Zoom['Frequencies']['Join']['OffDiagonal'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool() and not self.Zoom['Frequencies']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
-        self.Zoom['Frequencies']['Join']['Reciprocals'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool() and not self.Zoom['Frequencies']['Join']['All'].Bool() and not self.Zoom['Frequencies']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])        
+        self.Zoom['Frequencies']['Join']['Reciprocals'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool() and not self.Zoom['Frequencies']['Join']['All'].Bool() and not self.Zoom['Frequencies']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])
         self.Zoom['Frequencies']['Join']['Reflects'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool() and not self.Zoom['Frequencies']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
         self.Zoom['Times']['Join']['All'].Activate(self.Zoom['Times']['JoinWithOthers'].Bool())
         self.Zoom['Times']['Join']['OffDiagonal'].Activate(self.Zoom['Times']['JoinWithOthers'].Bool() and not self.Zoom['Times']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
-        self.Zoom['Times']['Join']['Reciprocals'].Activate(self.Zoom['Times']['JoinWithOthers'].Bool() and not self.Zoom['Times']['Join']['All'].Bool() and not self.Zoom['Times']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])        
+        self.Zoom['Times']['Join']['Reciprocals'].Activate(self.Zoom['Times']['JoinWithOthers'].Bool() and not self.Zoom['Times']['Join']['All'].Bool() and not self.Zoom['Times']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])
         self.Zoom['Times']['Join']['Reflects'].Activate(self.Zoom['Times']['JoinWithOthers'].Bool() and not self.Zoom['Times']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
         verticalsActive = self.Zoom['Vertical']['JoinMagnitudeWithOthers'].Bool() or self.Zoom['Vertical']['JoinPhaseWithOthers'].Bool() or self.Zoom['Vertical']['JoinImpulseWithOthers'].Bool() or self.Zoom['Vertical']['JoinStepImpedanceWithOthers'].Bool()
         self.Zoom['Vertical']['Join']['All'].Activate(verticalsActive)
         self.Zoom['Vertical']['Join']['OffDiagonal'].Activate(verticalsActive and not self.Zoom['Vertical']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
-        self.Zoom['Vertical']['Join']['Reciprocals'].Activate(verticalsActive and not self.Zoom['Vertical']['Join']['All'].Bool() and not self.Zoom['Vertical']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])        
+        self.Zoom['Vertical']['Join']['Reciprocals'].Activate(verticalsActive and not self.Zoom['Vertical']['Join']['All'].Bool() and not self.Zoom['Vertical']['Join']['OffDiagonal'].Bool() and self.Zoom['AreSParameterLike'])
         self.Zoom['Vertical']['Join']['Reflects'].Activate(verticalsActive and not self.Zoom['Vertical']['Join']['All'].Bool() and self.Zoom['AreSParameterLike'])
         SignalIntegrity.App.Preferences.SaveToFile()
 
@@ -955,14 +953,16 @@ class SParametersDialog(tk.Toplevel):
             else:
                 for i in range(len(x)-1):
                     if self.LogScaleDoer.Bool():
-                        self.topLeftPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topLeftPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
-                        self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topLeftPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             if self.LogScaleDoer.Bool():
-                self.topLeftPlot.semilogx(x,y)
+                lines=self.topLeftPlot.semilogx(x,y)
             else:
-                self.topLeftPlot.plot(x,y)
+                lines=self.topLeftPlot.plot(x,y)
+
+        datacursor(lines,formatter="f: {x:.3f}\nmag: {y:.2f}".format,display='multiple',draggable=True)
 
         if self.ShowPassivityViolationsDoer.Bool():
             self.topLeftPlot.scatter(
@@ -1016,14 +1016,16 @@ class SParametersDialog(tk.Toplevel):
             else:
                 for i in range(len(x)-1):
                     if self.LogScaleDoer.Bool():
-                        self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
-                        self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             if self.LogScaleDoer.Bool():
-                self.topRightPlot.semilogx(x,y)
+                lines=self.topRightPlot.semilogx(x,y)
             else:
-                self.topRightPlot.plot(x,y)
+                lines=self.topRightPlot.plot(x,y)
+
+        datacursor(lines,formatter="f: {x:.3f}\nphi: {y:.1f}".format,display='multiple',draggable=True)
 
         self.topRightPlotProperties=self.plotProperties['Phase']
         self.topRightLabel.config(text='Phase')
@@ -1069,7 +1071,9 @@ class SParametersDialog(tk.Toplevel):
 
             x=ir.Times(timeLabelDivisor)
 
-            self.bottomLeftPlot.plot(x,y)
+            lines=self.bottomLeftPlot.plot(x,y)
+
+            datacursor(lines,formatter="t: {x:.3f}\namp: {y:.3f}".format,display='multiple',draggable=True)
 
             if self.ShowCausalityViolationsDoer.Bool():
                 minv=0.00001; maxv=0.1
@@ -1175,7 +1179,9 @@ class SParametersDialog(tk.Toplevel):
                     self.bottomRightPlotProperties['MaxY']=max(max(y)*1.05,0.1)
                     self.bottomRightPlotProperties['YInitialized']=True
 
-            self.bottomRightPlot.plot(x,y)
+            lines=self.bottomRightPlot.plot(x,y)
+
+            datacursor(lines,formatter="t: {x:.3f}\namp: {y:.3f}".format,display='multiple',draggable=True)
 
             if self.ShowCausalityViolationsDoer.Bool():
                 self.bottomRightPlot.scatter(
@@ -1268,14 +1274,16 @@ class SParametersDialog(tk.Toplevel):
             else:
                 for i in range(len(x)-1):
                     if self.LogScaleDoer.Bool():
-                        self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topRightPlot.semilogx(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
                     else:
-                        self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
+                        lines=self.topRightPlot.plot(x[i:i+2],y[i:i+2],linewidth=lw[i],color='blue')
         else:
             if self.LogScaleDoer.Bool():
-                self.topRightPlot.semilogx(x,y)
+                lines=self.topRightPlot.semilogx(x,y)
             else:
-                self.topRightPlot.plot(x,y)
+                lines=self.topRightPlot.plot(x,y)
+
+        datacursor(lines,formatter="f: {x:.3f}\nphi: {y:.1f}".format,display='multiple',draggable=True)
 
         if not self.topRightPlotProperties['XInitialized']:
             self.topRightPlotProperties['MinX']=min(x)
@@ -1376,7 +1384,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.topLeftFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_Magnitude.tex', '').replace('Magnitude.tex', ''))
         filename=fp.filename
 
@@ -1390,7 +1398,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.topRightFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_Phase.tex', '').replace('Phase.tex', ''))
         filename=fp.filename
 
@@ -1404,7 +1412,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.bottomLeftFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_ImpulseResponse.tex', '').replace('ImpulseResponse.tex', ''))
         filename=fp.filename
 
@@ -1480,7 +1488,7 @@ class SParametersDialog(tk.Toplevel):
         filename=self.spList[x][1]
         title=self.spList[x][2]
         self.buttonLabels=self.spList[x][3]
-        
+
         self.filename=self.spList[x][1]
         self.fileparts=FileParts(filename)
         if title is None:
