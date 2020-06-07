@@ -301,6 +301,8 @@ class SimulatorDialog(tk.Toplevel):
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
 
+        self.plt.grid(True)
+
         self.ZoomsInitialized=True
         self.f.canvas.draw()
 
@@ -460,6 +462,8 @@ class SimulatorDialog(tk.Toplevel):
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
 
+        self.plt.grid(True)
+
         self.ZoomsInitialized=True
         self.f.canvas.draw()
 
@@ -517,7 +521,7 @@ class SimulatorDialog(tk.Toplevel):
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
         if Doer.helpKeys is None:
-            messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')
             return
         Doer.helpKeys.Open('sec:Simulator-Dialog')
 
