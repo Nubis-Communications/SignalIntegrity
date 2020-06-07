@@ -998,6 +998,8 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
+        self.topLeftPlot.grid(True, 'both')
+
         TD = self.plotProperties['Delay']
         frph=fr._DelayBy(-TD)
 
@@ -1049,6 +1051,8 @@ class SParametersDialog(tk.Toplevel):
 
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
+
+        self.topRightPlot.grid(True, 'both')
 
         if ir is not None:
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
@@ -1104,6 +1108,8 @@ class SParametersDialog(tk.Toplevel):
 
             self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
             self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
+
+            self.bottomLeftPlot.grid(True)
 
             firFilter=ir.FirFilter()
             stepWaveformTimeDescriptor=ir.td/firFilter.FilterDescriptor()
@@ -1195,6 +1201,8 @@ class SParametersDialog(tk.Toplevel):
             self.bottomRightPlot.set_xlim(right=self.bottomRightPlotProperties['MaxX'])
             self.bottomRightPlot.set_ylim(bottom=self.bottomRightPlotProperties['MinY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
             self.bottomRightPlot.set_ylim(top=self.bottomRightPlotProperties['MaxY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
+
+        self.bottomRightPlot.grid(True)
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()
@@ -1292,6 +1300,9 @@ class SParametersDialog(tk.Toplevel):
 
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
+
+        self.topRightPlot.grid(True, 'both')
+
         self.topRightCanvas.draw()
         self.topRightToolbar.update()
 
@@ -1411,7 +1422,7 @@ class SParametersDialog(tk.Toplevel):
 
     def onHelp(self):
         if Doer.helpKeys is None:
-            messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')
             return
         Doer.helpKeys.Open('sec:S-parameter-Viewer')
 
@@ -1432,7 +1443,7 @@ class SParametersDialog(tk.Toplevel):
         self.sp.EnforceCausality()
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
-        
+
     def onEnforceBothPassivityAndCausality(self):
         self.sp.EnforceBothPassivityAndCausality(maxIterations=30,causalityThreshold=1e-5)
         self.UpdatePropertiesFromSParameters()
