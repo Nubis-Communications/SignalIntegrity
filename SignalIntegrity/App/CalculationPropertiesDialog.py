@@ -20,6 +20,7 @@ CalculationPropertiesDialog.py
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
 from SignalIntegrity.App.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
+import SignalIntegrity.App.Preferences
 
 class CalculationPropertiesDialog(PropertiesDialog):
     def __init__(self,parent):
@@ -39,9 +40,16 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.Save()
         self.Finish()
 
+    def NextHigher12458(self,x):
+        """helper function that allows turning this off, depending on preferences"""
+        if SignalIntegrity.App.Preferences['Calculation.Enforce12458']:
+            return nextHigher12458(x)
+        else:
+            return x
+
     def onendFrequencyEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(self.project['EndFrequency'])
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(self.project['EndFrequency'])
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
@@ -50,38 +58,38 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
 
     def onfrequencyResolutionEntered(self,event):
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onuserSampleRateEntered(self,event):
-        self.project['UserSampleRate']=nextHigher12458(self.project['UserSampleRate'])
+        self.project['UserSampleRate']=self.NextHigher12458(self.project['UserSampleRate'])
         self.UpdateStrings()
 
     def onuserSamplePeriodEntered(self,event):
-        self.project['UserSampleRate']=nextHigher12458(1./self.project['UserSamplePeriod'])
+        self.project['UserSampleRate']=self.NextHigher12458(1./self.project['UserSamplePeriod'])
         self.UpdateStrings()
 
     def onbaseSampleRateEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(self.project['BaseSampleRate'])/2.
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(self.project['BaseSampleRate'])/2.
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onbaseSamplePeriodEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(1./self.project['BaseSamplePeriod'])/2.
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(1./self.project['BaseSamplePeriod'])/2.
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def ontimePointsEntered(self,event):
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onimpulseLengthEntered(self,event):
         self.project['TimePoints']=int(self.project['ImpulseResponseLength']*self.project['BaseSampleRate']+0.5)
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
@@ -104,7 +112,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.parent.statusbar.set('Calculation Properties Modified')
         self.parent.history.Event('modify calculation properties')
         PropertiesDialog.destroy(self)
-        
+
     def cancel(self,event):
         self.Restore()
         PropertiesDialog.destroy(self)
@@ -113,7 +121,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.saved={'EndFrequency':self.project['EndFrequency'],
                     'FrequencyPoints':self.project['FrequencyPoints'],
                     'UserSampleRate':self.project['UserSampleRate']}
-    
+
     def Restore(self):
         for key in self.saved:
             self.project[key]=self.saved[key]

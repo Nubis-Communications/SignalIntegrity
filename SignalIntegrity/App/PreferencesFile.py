@@ -49,6 +49,7 @@ class Calculation(XMLConfiguration):
         XMLConfiguration.__init__(self,'Calculation')
         self.Add(XMLPropertyDefaultBool('TrySVD',False))
         self.Add(XMLPropertyDefaultBool('UseSinX',False))
+        self.Add(XMLPropertyDefaultBool('Enforce12458',True))
 
 class Cache(XMLConfiguration):
     def __init__(self):

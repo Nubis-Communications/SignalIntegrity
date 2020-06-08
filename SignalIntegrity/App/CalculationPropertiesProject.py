@@ -40,7 +40,7 @@ class CalculationProperty(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Entry(self,textvariable=self.string)
         self.entry.config(width=30,readonlybackground='light gray')
@@ -141,7 +141,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Button(self,text='None',command=self.onPressed)
         self.entry.config(width=30)
@@ -175,7 +175,6 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
 class CalculationPropertyChoices(tk.Frame):
     couplingChoices = [('50 ohm', 'DC50'),('1 Mohm', 'DC1M')]
     bandwidthChoices = [('20 MHz', '20MHz'),('200 MHz','200MHz')]
-    
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,choiceStrings,project=None,projectPath=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
@@ -186,7 +185,7 @@ class CalculationPropertyChoices(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Frame(self)
         self.entry.config(width=30,borderwidth=1,relief=tk.RAISED)
@@ -239,7 +238,7 @@ class CalculationPropertyColor(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=40,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Button(self,command=self.onPressed)
         self.entry.config(width=30)
