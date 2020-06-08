@@ -22,12 +22,10 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
 from SignalIntegrity.Lib.CallBacker import CallBacker
 
 class TransferMatricesProcessor(CallBacker):
-    """process transfer matrices
-
+    """process transfer matrices  
     Usually transfer matrices are produced in simulation and virtual probing
     solutions.  The resultant waveform processing for the final results are produced
     using this class.
-
     @see TransferMatrices"""
     def __init__(self,transferMatrices,callback=None):
         """Constructor
@@ -50,8 +48,7 @@ class TransferMatricesProcessor(CallBacker):
         during summation to choose the waveform with the largest absolute value of a point.
         This helps when models have frequency responses near the end frequency and causes
         the adaption to resample the smaller waveforms, which have less effect.
-        @remark
-        Externally, the order of the input and output waveforms are known.  The
+        @remark Externally, the order of the input and output waveforms are known.  The
         input waveforms must be provided in that order and the output waveforms are
         produced in that order.
         """

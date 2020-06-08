@@ -30,7 +30,7 @@ class SerialDataWaveform(Waveform):
     def __init__(self,pattern,bitRate,amplitude=1.0,risetime=0.,delay=0.,tdOrFs=None):
         """constructor
         @param pattern list of bits in pattern which must be 0 or 1
-        @param bitrate float bitrate in bits/s
+        @param bitRate float bitrate in bits/s
         @param amplitude (optional, defaults to 1.0) float amplitude of zero centered serial data waveform (pk-pk amplitude is twice this value)
         @param risetime (optional, defaults to 0.0) float risetime of a 1/2 cosine response.
         @param delay (optional, defaults to 0,0) float delay in time into the pattern.

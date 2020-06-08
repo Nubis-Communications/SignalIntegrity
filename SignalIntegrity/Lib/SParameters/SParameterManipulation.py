@@ -47,7 +47,7 @@ class SParameterManipulation(object):
         @return boolean True if the absolute value of all values in the impulse response
         of each s-parameter before time zero are less
         than the threshold provided otherwise returns False.
-        
+
         This is checked by generating the impulse response corresponding to the frequency
         response of each s-parameter from and to port combination.
         """
@@ -208,16 +208,14 @@ class SParameterManipulation(object):
                         self.m_d[n][c][r]=self.m_d[n][r][c]
         return self
     def EnforceBothPassivityAndCausality(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
-        """Enforces both passivity and causality on the s-parameters.
-        affects self.
-        
-        for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
+        """Enforces both passivity and causality on the s-parameters.  
+        Affects self.  
+        For up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
         enforces causality (because each causes violations of the other, but alternating this way generally
         converges.  If causality is detected by being below the causalityThreshold, then iterations stop.
-
         @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
         @param maxIterations (optional, defaults to 30) maximum iterations
-        @param threshold (optional, defaults to 0) positive float threshold for causality detection
+        @param causalityThreshold (optional, defaults to 0) positive float threshold for causality detection
         @return self
         @see EnforcePassivity
         @see EnforceCausality
@@ -233,17 +231,15 @@ class SParameterManipulation(object):
             else: keepGoing = True
         return self
     def EnforceAll(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
-        """Enforces both reciprocity, passivity and causality on the s-parameters.
-        affects self.
-        
-        First enforces reciprocity, then...
+        """Enforces both reciprocity, passivity and causality on the s-parameters.  
+        Affects self.  
+        First enforces reciprocity, then...  
         for up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
         enforces causality (because each causes violations of the other, but alternating this way generally
         converges.  If causality is detected by being below the causalityThreshold, then iterations stop.
-
         @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
         @param maxIterations (optional, defaults to 30) maximum iterations
-        @param threshold (optional, defaults to 0) positive float threshold for causality detection
+        @param causalityThreshold (optional, defaults to 0) positive float threshold for causality detection
         @return self
         @see EnforceReciprocity
         @see EnforcePassivity
@@ -252,4 +248,3 @@ class SParameterManipulation(object):
         self.EnforceReciprocity()
         self.EnforceBothPassivityAndCausality(causalityThreshold, maxIterations, maxSingularValue)
         return self
-    

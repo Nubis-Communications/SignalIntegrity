@@ -21,11 +21,9 @@ AdaptedWaveforms.py
 class AdaptedWaveforms(list):
     """waveforms adapted to common time axis"""
     def __init__(self,wfl):
-        """Constructor
-
+        """Constructor  
         insternally adapts all of the waveforms provided and keeps them internally in
         a list.
-
         @param wfl list of instances of class Waveform to be adapted
         """
         from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer

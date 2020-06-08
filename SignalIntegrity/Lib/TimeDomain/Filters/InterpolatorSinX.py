@@ -27,8 +27,7 @@ def SinX(S,U,F):
     @param S integer side samples for filter (without upsampling)
     @param U integer upsample factor
     @param F float fractional delay
-    @remark
-    The filter is 2*S*U+1 in length, meaning it has S*U samples on each side of a center
+    @remark The filter is 2*S*U+1 in length, meaning it has S*U samples on each side of a center
     sample point.
     """
     sl=[1. if float(k)/U-F-S==0 else
@@ -43,21 +42,17 @@ class FractionalDelayFilterSinX(FirFilter):
     """sinx/x fractional delay filter"""
     S=64
     def __init__(self,F,accountForDelay=True):
-        """Constructor
-
+        """Constructor  
         applies sinx/x interpolating filter.
-
         @param F float amount of delay to apply.  The delay is in samples of the input waveform.
         @param accountForDelay (optional) boolean whether to account for the delay
-        @remark
-        if accountForDelay, then the filter provides a sample phase adjustment, meaning
+        @remark if accountForDelay, then the filter provides a sample phase adjustment, meaning
         that there is no actual delay applied to the waveform, but the time axis under
         the waveform is shifted.  This is the usual way to apply this filter and is used
         to adapt waveforms on different time axes to each other.\n
         if not accountForDelay, then the filter actually delays waveforms by the delay
         specified.
-        @remark
-        The filter is hard-coded  in a static member to have 64 samples on each side of a center sample.
+        @remark The filter is hard-coded  in a static member to have 64 samples on each side of a center sample.
         In other words, it is 2*64+1=129 samples in length.
         """
         # pragma: silent exclude
@@ -72,10 +67,8 @@ class InterpolatorSinX(FirFilter):
     """sinx/x interpolating filter"""
     S=64
     def __init__(self,U):
-        """Constructor
-
+        """Constructor  
         applies a sinx/x interpolating filter.
-
         @param U integer upsample factor of the filter.
         """
         # pragma: silent exclude
@@ -119,13 +112,10 @@ class InterpolatorFractionalDelayFilterSinX(WaveformProcessor):
         self.fdf = FractionalDelayFilterSinX(F,accountForDelay)
         self.usf = InterpolatorSinX(U)
     def ProcessWaveform(self, wf):
-        """process waveform
-
+        """process waveform  
         waveforms are processed with both an interpolation and fractional delay filter.
-
         @param wf instance of class Waveform to filter
         @return instance of class Waveform of wf upsampled and fractionally delayed
-
         @see FilterWaveform
         """
         return self.FilterWaveform(wf)

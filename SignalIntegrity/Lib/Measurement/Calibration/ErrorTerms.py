@@ -24,23 +24,21 @@ import cmath
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionMeasurement
 
 class ErrorTerms(object):
-    """Error terms for VNA and TDR based s-parameter calculations.
-
+    """Error terms for VNA and TDR based s-parameter calculations.  
     Error terms are, for P ports, a P x P matrix of lists of three error terms.
     For the diagonal elements, the three error terms are ED, ER, and ES in that order
     for the off diagonal elements, the three error terms are EX, ET and EL in that order
     for r in 0...P-1, and c in 0...P-1,  ET[r][c] = [ED[r],ER[r],ES[r]], when r==c
-    ET[r][c]=[EX[r][c],ET[r][c],EL[r][c]] when r !=c
-
+    ET[r][c]=[EX[r][c],ET[r][c],EL[r][c]] when r !=c  
     ET[r][c] refers to the error terms at port r when driven at port c
-    in other words, if r==c, then:
-    ET[r][r][0] = EDr
-    ET[r][r][1] = ERr
-    ET[r][r][2] = ESr
-    and when r!=c, then:
-    ET[r][c][0]=EXrc
-    ET[r][c][1]=ETrc
-    ET[r][c][2]=ELrc
+    in other words, if r==c, then:  
+    ET[r][r][0] = EDr  
+    ET[r][r][1] = ERr  
+    ET[r][r][2] = ESr  
+    and when r!=c, then:  
+    ET[r][c][0]=EXrc  
+    ET[r][c][1]=ETrc  
+    ET[r][c][2]=ELrc  
     """
     def __init__(self,ET=None):
         """Constructor
@@ -52,11 +50,9 @@ class ErrorTerms(object):
         else:
             self.numPorts=None
     def Initialize(self,numPorts):
-        """Initialize
-
+        """Initialize  
         Initializes the number of ports and all of the three error terms for
         each row and column of the error terms to zero.
-
         @param numPorts integer number of ports for the error terms
         @return self
         """
@@ -71,10 +67,10 @@ class ErrorTerms(object):
                        for t in range(len(self.ET[other][driven]))):
                     raise SignalIntegrityExceptionMeasurement('Not all error terms calculated')
     def InitializeFromFixtures(self,fixtureList):
-        """Initialize from list of fixtures
-
+        """Initialize from list of fixtures  
         @param fixtureList list of list of list s-parameter fixture matrices
         @return self
+
         The number of matrices is the number of ports P and each matrix must be
         2P x 2P corresponding to the fixture format
         """
@@ -93,18 +89,15 @@ class ErrorTerms(object):
     def __getitem__(self,item):
         """overloads [item]
         @param item integer row of the error term matrix to access
-        @remark
-        This is typically used to access an error term where self[o][d][i]
+        @remark This is typically used to access an error term where self[o][d][i]
         would access the ith error term for port o with port d driven.
         """
         return self.ET[item]
     def ReflectCalibration(self,hatGamma,Gamma,m):
-        """performs a reflect calibration
-
+        """performs a reflect calibration  
         Computes the directivity, reverse transmission, and source match terms
         for a given port and frequency from a list of measurements and actual standard
         values and updates itself.
-
         @param hatGamma list of complex measurements of reflect standards
         @param Gamma list of complex actual values of the reflect standards
         @param m integer index of port
@@ -123,12 +116,10 @@ class ErrorTerms(object):
         self[m][m]=[Ed,Er,Es]
         return self
     def ThruCalibration(self,b1a1,b2a1,S,n,m):
-        """performs a thru calibration
-
+        """performs a thru calibration  
         Computes the forward transmission and load match terms
         for a given driven and undriven port and frequency from a list of measurements and actual
         standard values and updates itself.
-
         @param b1a1 list or single complex value for ratio of reflect to incident at driven port.
         @param b2a1 list or single complex value for ratio of reflect to incident at undriven port.
         @param S list or single list of list matrix representing s-parameters of thru standard
@@ -164,11 +155,9 @@ class ErrorTerms(object):
         self[n][m]=[Ex,Et,El]
         return self
     def UnknownThruCalibration(self,Sm,Sest,firstPort,secondPort):
-        """Computes the unknown thru
-
+        """Computes the unknown thru  
         for a given set of measurements of a thru and an estimate of the thru the actual value of the
         thru is calculated.
-
         @param Sm list of list raw sparameter measurement of the thru.
         @param Sest list of list estimate of the thru
         @param firstPort integer zero based port number of port 1 of thru standard
@@ -214,11 +203,9 @@ class ErrorTerms(object):
                 if other != driven:
                     self[other][driven][0]=0.
     def ExCalibration(self,b2a1,n,m):
-        """Computes the crosstalk term
-
+        """Computes the crosstalk term  
          For a given driven and undriven port and frequency from a list of measurements and actual
          standard values and updates itself.
-
          @param b2a1 single complex value for ratio of reflect to incident at undriven port.
          @param n integer index of undriven port
          @param m integer index of driven port
@@ -229,8 +216,7 @@ class ErrorTerms(object):
         self[n][m]=[Ex,Et,El]
         return self
     def TransferThruCalibration(self):
-        """Performs the transfer thru calibrations.
-
+        """Performs the transfer thru calibrations.  
         After all of the thru calibration calculations have been performed, it looks to see if there
         are any port combinations where a thru was not connected and attempts to perform the 'transfer
         thru' calibration that uses other thru measurements to form the thru calibration for a given
@@ -263,14 +249,12 @@ class ErrorTerms(object):
                                 continue
         return self
     def Fixture(self,m,pl=None):
-        """Fixture
-
+        """Fixture  
         For a P port measurement, the s-parameters are for a 2*P port
         fixture containing the error terms when port m driven going between
         the insrument ports and the DUT ports where
         the first P ports are the instrument port connections and the remaining
         ports connect to the DUT.
-
         @param m integer driven port
         @param pl (optional) list of zero based port numbers of the DUT
         @return a list of list s-parameter matrix

@@ -37,6 +37,7 @@ class SParametersParser(SParameters):
         @see EnforceBothPassivityAndReciprocity
         @see EnforceAll
         @see LimitImpulseResponseLength
+        @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         for line in lines:

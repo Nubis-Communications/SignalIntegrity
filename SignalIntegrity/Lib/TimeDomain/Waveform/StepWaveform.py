@@ -25,15 +25,12 @@ class StepWaveform(Waveform):
     """step waveform"""
     rtvsT=0.5903445
     def __init__(self,td,Amplitude=1.,StartTime=0.,risetime=0.):
-        """Constructor
-
+        """Constructor  
         constructs a step waveform.
-
         @param td instance of class TimeDescriptor containing time axis of waveform.
         @param Amplitude (optional) float amplitude of step (defaults to unity).
         @param StartTime (optional) float starting time of the pulse (defaults to zero).
         @param risetime (optional) float risetime in seconds (defaults to 0.)
-
         @note The amplitude can be positive or negative, with negative providing a negative
         pulse.
         @note The step starts at the first sample point after the start time specified.

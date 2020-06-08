@@ -34,9 +34,9 @@ class Waveform(list):
         """constructor
         @param x instance of class Waveform or TimeDescriptor
         @param y instance of float, int, or complex or list of such
-        
+
         @note here are the outcomes for this constructor:
-        
+
         |x type          |y type             |outcome                                            |
         |:--------------:|:-----------------:|:------------------------------------------------- |
         | Waveform       | don't care        | waveform is x provided (copy constructor)         |
@@ -284,11 +284,9 @@ class Waveform(list):
         """
         return not self == other
     def Adapt(self,td):
-        """adapts waveform to time descriptor
-
+        """adapts waveform to time descriptor  
         Waveform adaption is performed using upsampling, decimation, fractional delay,
         and waveform point trimming.
-
         @param td instance of class TimeDescriptor to adapt waveform to
         @return instance of class Waveform containing self adapted to the time descriptor
         @note does not affect self.
@@ -302,7 +300,6 @@ class Waveform(list):
         @see SignalIntegrity.TimeDomain.Filters.WaveformTrimmer.WaveformTrimmer
         @see SignalIntegrity.TimeDomain.Filters.WaveformDecimator.WaveformDecimator
         @see SignalIntegrity.Rat.Rat
-
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX
@@ -346,7 +343,7 @@ class Waveform(list):
         res=frac*(self[k+1]-self[k])+self[k]
         return res
     def FrequencyContent(self,fd=None):
-        """frequency content
+        """frequency content  
         provides the frequency content equivalent of the waveform.
         @param fd (optional) instance of class FrequencyList providing
         frequencies to provide the content for (defaults to None)
@@ -363,11 +360,9 @@ class Waveform(list):
         # pragma: include
         return FrequencyContent(self,fd)
     def Integral(self,c=0.,addPoint=True,scale=True):
-        """integral of waveform
-
+        """integral of waveform  
         the integral is calculated using Riemann sums (as opposed to trapezoidal
         integration.
-
         @param c (optional) float value to add to the integral waveform
         @param addPoint (optional) boolean whether to add a point to the waveform before
         the first point.  the value added is c.
@@ -389,10 +384,8 @@ class Waveform(list):
             i=[c]+i
         return Waveform(td,i)
     def Derivative(self,c=0.,removePoint=True,scale=True):
-        """derivative of waveform
-
+        """derivative of waveform  
         the derivative is calculated using the difference divided by the sample period.
-
         @param c (optional) this value is superfluous and not used.
         @param removePoint (optional) boolean whether to remove the first point.  If the
         first point is not removed, it is zero.

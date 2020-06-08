@@ -34,10 +34,8 @@ class FirFilter(WaveformProcessor):
         self.m_fd = fd
         self.m_ft=ft
     def ProcessWaveform(self, wf):
-        """process waveform
-
+        """process waveform  
         FIR filters process waveforms by filtering them.
-
         @param wf instance of class Waveform to filter
         @return instance of class Waveform containing this filter applied to wf
         @see FilterWaveform

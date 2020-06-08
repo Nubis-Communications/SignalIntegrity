@@ -27,14 +27,13 @@ import math,cmath
 from numpy import std,log2
 
 class WaveletDenoiser(object):
-    """performs wavelet denoising\n
+    """performs wavelet denoising
     @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)
     """
     wavelet=WaveletDaubechies16()
     @staticmethod
     def DenoisedWaveform(wf,pct=30.,mult=5.,isDerivative=True):
-        """
-        Denoises a waveform.
+        """Denoises a waveform.
         @details The noise is estimated by the amount of noise in the last pct percent of the
         last scale of the wavelet transform.  The threshold is set as a multiplier on
         the noise, generally 5 is used.  Thus wavelets more than 5 times the noise floor

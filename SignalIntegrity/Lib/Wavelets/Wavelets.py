@@ -20,12 +20,10 @@ Wavelets transformers
 import math
 
 class Wavelet(object):
-    """
-    base class that performs forward and inverse wavelet transforms
+    """base class that performs forward and inverse wavelet transforms
     """
     def __init__(self,h):
-        """
-        constructs a wavelet transformer with the provided
+        """constructs a wavelet transformer with the provided
         wavelet coefficients.
         @param h list of float wavelet coefficients
         @remark The wavelet coefficients are generally supplied by a
@@ -39,8 +37,7 @@ class Wavelet(object):
         self.L=len(self.h)
         self.g=[pow(-1.,l)*h[self.L-1-l] for l in range(self.L)]
     def DWT(self,xi):
-        """
-        performs the discrete wavelet transform (DWT).
+        """performs the discrete wavelet transform (DWT).
         @param xi list of float input waveform values.
         @warning length of xi must be a power of 2.
         """
@@ -56,8 +53,7 @@ class Wavelet(object):
             x=list(X); N=N//2
         return X
     def IDWT(self,XI):
-        """
-        peforms the inverse discrete wavelet transform (IDWT).
+        """peforms the inverse discrete wavelet transform (IDWT).
         @param XI list of float wavelet transform.
         @warning length of XI must be a power of 2.
         """
@@ -77,8 +73,7 @@ class Wavelet(object):
         return x
     @staticmethod
     def intlog2(x):
-        """
-        returns the closest power of 2 to x
+        """returns the closest power of 2 to x
         @param x integer value
         """
         r=math.log(float(x))/math.log(2.)

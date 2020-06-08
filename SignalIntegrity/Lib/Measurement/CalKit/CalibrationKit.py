@@ -25,10 +25,8 @@ from SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard import ThruSt
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 
 class CalibrationConstants(object):
-    """Class for holding, reading and writing calibration constants for a calibration kit
-
+    """Class for holding, reading and writing calibration constants for a calibration kit  
     Calibration Constants File Format
-
     @verbatim
     % DESCRIPTION [Enter manufacturer and model number of calkit]
     % 
@@ -77,7 +75,7 @@ class CalibrationConstants(object):
     @endverbatim
     """
     def __init__(self):
-        """Constructor
+        """Constructor  
         Initializes the calibration constants such that the calibration kit contains:
         - open standard - a perfect, lossless, lengthless open
         - short standard - a perfect, lossless, lengthless short

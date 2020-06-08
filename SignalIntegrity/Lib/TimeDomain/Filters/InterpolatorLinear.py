@@ -24,14 +24,11 @@ from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformPro
 class FractionalDelayFilterLinear(FirFilter):
     """linear fractional delay filter"""
     def __init__(self,F,accountForDelay=True):
-        """Constructor
-
+        """Constructor  
         applies a two-tap linear interpolating filter.
-
         @param F float amount of delay to apply.  The delay is in samples of the input waveform.
         @param accountForDelay (optional) boolean whether to account for the delay
-        @remark
-        if accountForDelay, then the filter provides a sample phase adjustment, meaning
+        @remark if accountForDelay, then the filter provides a sample phase adjustment, meaning
         that there is no actual delay applied to the waveform, but the time axis under
         the waveform is shifted.  This is the usual way to apply this filter and is used
         to adapt waveforms on different time axes to each other.\n
@@ -48,10 +45,8 @@ class FractionalDelayFilterLinear(FirFilter):
 class InterpolatorLinear(FirFilter):
     """linear interpolating filter"""
     def __init__(self,U):
-        """Constructor
-
+        """Constructor  
         applies a linear interpolating filter.
-
         @param U integer upsample factor of the filter.
         """
         # pragma: silent exclude
@@ -97,13 +92,10 @@ class InterpolatorFractionalDelayFilterLinear(WaveformProcessor):
         self.fdf = FractionalDelayFilterLinear(F,accountForDelay)
         self.usf = InterpolatorLinear(U)
     def ProcessWaveform(self, wf):
-        """process waveform
-
+        """process waveform  
         waveforms are processed with both an interpolation and fractional delay filter.
-
         @param wf instance of class Waveform to filter
         @return instance of class Waveform of wf upsampled and fractionally delayed
-
         @see FilterWaveform
         """
         return self.FilterWaveform(wf)

@@ -24,16 +24,13 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.StepWaveform import StepWaveform
 class PulseWaveform(Waveform):
     """pulse waveform"""
     def __init__(self,td,Amplitude=1.,StartTime=0.,PulseWidth=0.,Risetime=0.):
-        """Constructor
-
+        """Constructor  
         constructs a waveform with a single pulse.
-
         @param td instance of class TimeDescriptor containing time axis of waveform.
         @param Amplitude (optional) float amplitude of pulse (defaults to unity).
         @param StartTime (optional) float starting time of the pulse (defaults to zero).
         @param PulseWidth (optional) float the width of the pulse (defaults to zero).
         @param risetime (optional) float risetime in seconds (defaults to 0.)
-
         @note The amplitude can be positive or negative, with negative providing a negative
         pulse.
         @note if the pulse appears entirely within the samples, then the waveform will be all zero.

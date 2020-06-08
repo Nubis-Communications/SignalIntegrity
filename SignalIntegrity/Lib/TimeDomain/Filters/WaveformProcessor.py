@@ -21,8 +21,7 @@ WaveformProcessor.py
 class WaveformProcessor(object):
     """base class for things that process waveforms"""
     def ProcessWaveform(self,wf):
-        """function to be overloaded in a waveform processor
-
+        """function to be overloaded in a waveform processor  
         if not overloaded, will simply return the waveform, unprocessed
         """
         return wf

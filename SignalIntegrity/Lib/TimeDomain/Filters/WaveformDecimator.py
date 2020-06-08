@@ -33,10 +33,8 @@ class WaveformDecimator(FilterDescriptor,WaveformProcessor):
         self.dph=decimationPhase
         FilterDescriptor.__init__(self,1./decimationFactor,0,decimationPhase)
     def ProcessWaveform(self, wf):
-        """process waveform
-
+        """process waveform  
         Waveform decimators process waveforms by decimating them.
-
         @param wf instance of class Waveform to filter
         @return intance of class Waveform the decimated waveform
         @see DecimateWaveform

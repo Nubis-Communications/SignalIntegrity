@@ -27,10 +27,8 @@ class SineWaveform(Waveform):
     """sinewave waveform"""
     def __init__(self,td,Amplitude=1.,Frequency=1e6,Phase=0.,
                  StartTime=-100.,StopTime=100.):
-        """Constructor
-
+        """Constructor  
         constructs a sinewave waveform.
-
         @param td instance of class TimeDescriptor containing time axis of waveform.
         @param Amplitude (optional) float amplitude of sine wave (defaults to unity).
         @param Frequency (optional) float frequency of sine wave (defaults to 1 MHz).

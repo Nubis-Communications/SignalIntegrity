@@ -85,11 +85,9 @@ class TimeDescriptor(object):
         elif unit == 'ms':
             return [self[k]/1.e-3 for k in range(len(self))]
     def ApplyFilter(self,F):
-        """calculates effect of filter
-
+        """calculates effect of filter  
         calculates the new time descriptor of a waveform filtered by a filter
         with the filter descriptor provided.
-
         @param F instance of class FilterDescriptor
         @return instance of class TimeDescriptor containing the time descriptor
         affected by the filter.
@@ -100,13 +98,10 @@ class TimeDescriptor(object):
             NumPts=int(max(0,(self.K-F.S)*F.U)),
             SampleRate=self.Fs*F.U)
     def __mul__(self,F):
-        """overloads *
-
-        This is an abstraction
-
+        """overloads *  
+        This is an abstraction.  
         calculates the new time descriptor of a waveform filtered by a filter
         with the filter descriptor provided.
-
         @param F instance of class FilterDescriptor
         @return instance of class TimeDescriptor containing the time descriptor
         affected by the filter.
@@ -117,19 +112,15 @@ class TimeDescriptor(object):
     def __div__(self,other):
         return self.__truediv__(other)
     def __truediv__(self,other):
-        """overloads /
-
-        This is an abstraction and is polymorphic.
-
+        """overloads /  
+        This is an abstraction and is polymorphic.  
         if other is a filter descriptor, it assumes self is an outputwf such that
         inputwf*other=outputwf and it calculates the inputwf  as outputwf*other^-1.
         This is the same as finding the input waveform that if filtered by other would
-        produce self.
-
+        produce self.  
         if other is an input wf time descriptor, it assume that self is an output wf such that
         inputwf*filter=outputwf and it calculates the filter as inputwf^-1*outputwf.
         This is the same as finding the filter that, when applied to other, would produce self.
-        
         @param other instance of class TimeDescriptor or FilterDescriptor.
         @return instance of class TimeDescriptor or FilterDescriptor depending on the situations
         explained.
@@ -154,11 +145,9 @@ class TimeDescriptor(object):
         """
         return TimeDescriptor(self.H+D,self.K,self.Fs)
     def FrequencyList(self):
-        """corresponding frequency list
-
+        """corresponding frequency list  
         calculates a list of frequencies for a frequency domain waveform that would correspond
         to the time descriptor self.
-
         @return instance of EvenlySpacedFrequencyList containing list of frequencies that
         correspond to this time descriptor.
         """
@@ -167,10 +156,8 @@ class TimeDescriptor(object):
         Fe=float(self.Fs)*N/K
         return EvenlySpacedFrequencyList(Fe,N)
     def Intersection(self,other):
-        """intersection of two waveforms
-
+        """intersection of two waveforms  
         The intersection is the portion of two time-axes that overlap
-
         @param other instance of class TimeDescriptor
         @return the intersection of the two waveform descriptors
         """
