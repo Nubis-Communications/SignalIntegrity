@@ -134,7 +134,7 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if FileParts(filename).fileext == '.si':
-                result=os.system('SignalIntegrity '+os.path.abspath(filename)+' --external')
+                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'" --external')
                 if result != 0:
                     messagebox.showerror('ProjectFile','could not be opened')
                     return
