@@ -62,26 +62,26 @@ class SimulatorDialog(tk.Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement('Control-Help:Save-Waveforms')
+        self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement('Control-Help:Save-Waveforms').AddToolTip('Save waveforms to files')
         # TODO: someday allow waveform reading
-        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement('Control-Help:Read-Waveforms').Activate(False)
-        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement('Control-Help:Output-to-LaTeX')
+        self.WaveformReadDoer = Doer(self.onReadSimulatorFromFile).AddHelpElement('Control-Help:Read-Waveforms').Activate(False).AddToolTip('Read waveforms from files')
+        self.Matplotlib2tikzDoer = Doer(self.onMatplotlib2TikZ).AddHelpElement('Control-Help:Simulator-output-to-LaTeX').AddToolTip('Output plots to LaTeX')
         # ------
-        self.SelectionsDisplayAllDoer = Doer(self.onSelectionsDisplayAll).AddHelpElement('Control-Help:Display-All')
-        self.SelectionsDisplayNoneDoer = Doer(self.onSelectionsDisplayNone).AddHelpElement('Control-Help:Display-None')
-        self.SelectionsToggleAllDoer = Doer(self.onSelectionsToggle).AddHelpElement('Control-Help:Toggle-Selections')
+        self.SelectionsDisplayAllDoer = Doer(self.onSelectionsDisplayAll).AddHelpElement('Control-Help:Display-All').AddToolTip('Display all waveforms')
+        self.SelectionsDisplayNoneDoer = Doer(self.onSelectionsDisplayNone).AddHelpElement('Control-Help:Display-None').AddToolTip('Turn off display of all waveforms')
+        self.SelectionsToggleAllDoer = Doer(self.onSelectionsToggle).AddHelpElement('Control-Help:Toggle-Selections').AddToolTip('Toggle all waveform display')
         # ------
-        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties')
-        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters')
-        self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate')
+        self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties').AddToolTip('Edit calculation properties')
+        self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters').AddToolTip('View transfer parameters')
+        self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate').AddToolTip('Recalculate simulation')
         # ------
-        self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain)
-        self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent)
-        self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity)
+        self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain).AddHelpElement('Control-Help:View-Time-domain').AddToolTip('View time-domain waveforms')
+        self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent).AddHelpElement('Control-Help:View-Spectral-Content').AddToolTip('View spectral content of waveforms')
+        self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity).AddHelpElement('Control-Help:View-Spectral-Density').AddToolTip('View spectral density of waveforms')
         # ------
-        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Simulator-Open-Help-File')
-        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Simulator-Control-Help')
-        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Simulator-Preferences')
+        self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Simulator-Open-Help-File').AddToolTip('Open the help system in a browser')
+        self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Simulator-Control-Help').AddToolTip('Get help on a control')
+        self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Simulator-Preferences').AddToolTip('Edit the preferences')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -99,7 +99,7 @@ class SimulatorDialog(tk.Toplevel):
         self.SelectionMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Selection',menu=self.SelectionMenu,underline=0)
         self.SelectionsDisplayAllDoer.AddMenuElement(self.SelectionMenu,label='Display All',underline=8)
-        self.SelectionsDisplayNoneDoer.AddMenuElement(self.SelectionMenu,label='Dispay None',underline=8)
+        self.SelectionsDisplayNoneDoer.AddMenuElement(self.SelectionMenu,label='Dispay None',underline=7)
         self.SelectionsToggleAllDoer.AddMenuElement(self.SelectionMenu,label='Toggle All',underline=0)
         self.SelectionMenu.add_separator()
         # ------
