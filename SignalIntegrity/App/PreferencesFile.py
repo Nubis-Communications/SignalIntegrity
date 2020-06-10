@@ -76,6 +76,11 @@ class OnlineHelp(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
         self.Add(XMLPropertyDefaultString('URL','https://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
 
+class Features(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Features')
+        self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
+
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self)
@@ -86,4 +91,5 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
         self.SubDir(SParameterProperties(preferences=True))
+        self.SubDir(Features())
 

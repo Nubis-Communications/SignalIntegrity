@@ -76,6 +76,7 @@ class SignalIntegrityApp(tk.Frame):
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.UpdateColorsAndFonts()
+        self.UpdateFeatures()
 
         tk.Frame.__init__(self, self.root)
         self.pack(fill=tk.BOTH, expand=tk.YES)
@@ -971,6 +972,13 @@ class SignalIntegrityApp(tk.Frame):
                 pass
 
         self.root.update_idletasks()
+
+    def UpdateFeatures(self):
+        networkAnalyzerModelEnabled = SignalIntegrity.App.Preferences['Features.NetworkAnalyzerModel']
+        from SignalIntegrity.App.Device import DeviceList
+        DeviceList.Enable('NetworkAnalyzerStimulus',networkAnalyzerModelEnabled)
+        DeviceList.Enable('NetworkAnalyzerModel',networkAnalyzerModelEnabled)
+        DeviceList.Enable('DeviceUnderTest',networkAnalyzerModelEnabled)
 
     def CheckSaveCurrentProject(self):
         if self.Drawing.stateMachine.state == 'NoProject':
