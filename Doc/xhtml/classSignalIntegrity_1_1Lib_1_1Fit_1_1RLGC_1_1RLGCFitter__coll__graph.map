@@ -1,0 +1,5 @@
+<map id="RLGCFitter" name="RLGCFitter">
+<area shape="rect" id="node1" title="fits a two&#45;port RLGC transmission line to s&#45;parameters" alt="" coords="5,564,240,861"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,..." alt="" coords="5,189,240,516"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="44,5,201,141"/>
+</map>

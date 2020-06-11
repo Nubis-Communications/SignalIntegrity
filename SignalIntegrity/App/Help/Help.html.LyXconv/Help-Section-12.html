@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,57 +1073,96 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-22.html#next">Prev</a> S-Parameter Viewer Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-11.html#next">Prev</a> RLGC Fit</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Simulator File Menu <a class="next" name="next" href="Help-Subsection-30.html#prev">Next</a></span>
+<span class="next">Network Analyzer Calibration <a class="next" name="next" href="Help-Subsection-26.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-12"></a>Simulator Dialog<a class="Label" name="sec:Simulator-Dialog"> </a>
+<a class="toc" name="toc-Section-12"></a>Network Analyzer Measurements<a class="Label" name="sec:Network-Analyzer-Measurements"> </a>
 </h1>
 <div class="Standard">
-<img class="embedded" src="SimulatorExampleStep24.png" alt="figure SimulatorExampleStep24.png" style="max-width: 623px; max-height: 565px;"/>
+Network analyzer measurements allow the user to perform a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↓</a>, producing error terms, and to use these error terms along with raw measurements of the device under test to produce calibrated measurements. <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↓</a> has two main uses:
+</div>
+<ol>
+<li>
+To calibrate an instrument like a vector network analyzer (VNA).
+</li>
+<li>
+To perform fixture de-embedding in the form of a second-tier calibration.
+</li>
+
+</ol>
+<div class="Standard">
+For most VNA users, this kind of capability is not really useful for accomplishing item 1, since the VNA itself provides methods and algorithms for performing the calibration of the instrument. That being said, it can still be useful under this situation when calibrations not supported by the VNA are desired, such as overconstrained calibrations (using more standards than are needed), unknown thru calibrations (SOLR) if not supported, or transfer thru calibrations (when an incomplete set of thru measurements are made). It can also be used to check the calibration and certainly to learn about calibration, when coupled with examination of the source code or with the accompanying <a class="Reference" href="Help-Section-4.html#sec:Book">Book↑</a>.
+</div>
+<div class="Standard">
+For solving problems in item 2, the application is particularly useful. Often probes and fixtures are de-embedded from measurements using the calibration process. This involves calibration standards usually built into a fixture, or calibration substrates. In these cases, the VNA is first calibrated at the end of its cables, then measurements are made of the calibration standards on the fixture and used to produce error terms. Then these error terms are used to make second-tier calibrated measurements of the DUT, de-embedding the fixture in the process.
+</div>
+<div class="Standard">
+The parts used in network analysis are shown below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="CalibrationPartsSelection.png" alt="figure CalibrationPartsSelection.png" style="max-width: 520px; max-height: 555px;"/>
+
+</div>
 
 </div>
 <div class="Standard">
-The simulator dialog (which is really a waveform viewer dialog) appears under the following conditions:
+They fall into three categories:
 </div>
-<ul>
+<ol>
 <li>
-After <a class="Reference" href="Help-Subsection-10.html#sub:Simulating">Simulating↑</a> is invoked by either <a class="Reference" href="Help-Subsubsection-71.html#Control-Help:Simulate">Simulate↓</a> or <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> and the simulation completes properly in a <a class="Reference" href="Help-Section-7.html#sec:Simulation">Simulation↑</a> application.
+Calibration Standards — these are definition of standards applied to the instrument during calibration. They include:<ol>
+<li>
+<a class="Reference" href="Help-Subsection-89.html#device:Short-Standard">Short Standard↓</a> - the one-port definition of a short.
 </li>
 <li>
-After <a class="Reference" href="Help-Subsection-24.html#sub:Virtual-Probing">Virtual Probing↑</a> is invoked by either a <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> or <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> and the calculation completes properly in a <a class="Reference" href="Help-Section-9.html#sec:Virtual-Probing">Virtual Probing↑</a> application.
+<a class="Reference" href="Help-Subsection-90.html#device:Open-Standard">Open Standard↓</a> - the one-port definition of an open.
 </li>
 <li>
-When viewing the <a class="Reference" href="Help-Section-18.html#sec:Waveform">Waveform↓</a> associated with a <a class="Reference" href="Help-Subsection-68.html#device:Measure-Probe">Voltage Measure Probe↓</a>, <a class="Reference" href="Help-Subsection-57.html#device:Current-Source">Current Source↓</a> or <a class="Reference" href="Help-Subsection-56.html#device:Voltage-Source">Voltage Source↓</a> in a schematic through the <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Edit-Properties">Edit Properties↓</a> command.
+<a class="Reference" href="Help-Subsection-91.html#device:Load-Standard">Load Standard↓</a> - the one-port definition of a termination.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-92.html#device:Thru-Standard">Thru Standard↓</a> - the two-port definition of a thru.
 </li>
 
-</ul>
-<div class="Standard">
-This dialog has a menu and toolbar with commands that handle:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-30.html#sub:Simulator-File-Menu">Simulator File Menu↓</a>
+</ol>
+
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-31.html#sub:Simulator-Calculation-Menu">Simulator Calculation Menu↓</a>
+Calibration Measurements -- these are the raw measurements taken of the calibration standards used for the calibration and for the generation of the error terms. These include:<ol>
+<li>
+<a class="Reference" href="Help-Subsection-93.html#device:Reflect-Measurement">Reflect Measurement↓</a> - single-port measurements of the standards, usually three per port, each being a short, open, or load.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-32.html#sub:Simulator-Help">Help↓</a>
+<a class="Reference" href="Help-Subsection-94.html#device:Thru-Measurement">Thru Measurement↓</a> - two-port measurements of the thru standard, usually one per every port--port combination.
 </li>
 
-</ul>
+</ol>
+
+</li>
+<li>
+Network Analyzer Measurements — the <a class="Reference" href="Help-Subsection-95.html#device:Network-Analyzer">Network Analyzer↓</a> is used in conjunction with error terms previously calculated to convert raw s-parameter measurements into calibrated s-parameter measurements.
+</li>
+
+</ol>
 <div class="Standard">
-Along with context sensitive help.
+The two steps for network analyzer measurements are:
 </div>
-<div class="Standard">
-The main part of the dialog is a MatPlotLib plot (see <a class="URL" href="http://matplotlib.org">http://matplotlib.org</a>) with control of panning and zooming. These controls come standard with MatPlotLib, the standard Python way of plotting things. The plots have a legend in the upper right containing the name of the waveform plot being displayed and indication of its color in the plot. The axis for the plots are amplitude in Volts on the y axis, time in ns on the x axis. The waveform(s) are scaled and aligned as appropropriate originally.
-</div>
+<ol>
+<li>
+<a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↓</a> — the process of determining the error terms using calibration standards and calibration measurments.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-27.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement↓</a> — the process of using the error terms in conjunction with raw s-parameter measurements to calculate calibrated s-parameter measurements.
+</li>
+
+</ol>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-22.html#next">Prev</a> S-Parameter Viewer Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-11.html#next">Prev</a> RLGC Fit</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Simulator File Menu <a class="next" name="next" href="Help-Subsection-30.html#prev">Next</a></span>
+<span class="next">Network Analyzer Calibration <a class="next" name="next" href="Help-Subsection-26.html#prev">Next</a></span>
 </div>
 
 </div>

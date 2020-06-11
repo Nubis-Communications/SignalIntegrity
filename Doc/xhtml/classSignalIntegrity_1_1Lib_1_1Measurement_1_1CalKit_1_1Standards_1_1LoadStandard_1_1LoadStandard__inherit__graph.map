@@ -1,4 +1,5 @@
 <map id="LoadStandard" name="LoadStandard">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" title="Class containing s&#45;parameters. " alt="" coords="35,277,222,560"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" title="Class for manipulations on s&#45;parameters involving passivity, causality, etc. " alt="" coords="5,5,252,229"/>
+<area shape="rect" id="node1" title="Class providing the s&#45;parameters of a load standard as commonly defined for a calibration kit." alt="" coords="85,637,196,715"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" title="Class containing s&#45;parameters." alt="" coords="37,277,244,589"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" title="Class for manipulations on s&#45;parameters involving passivity, causality, etc." alt="" coords="5,5,276,229"/>
 </map>

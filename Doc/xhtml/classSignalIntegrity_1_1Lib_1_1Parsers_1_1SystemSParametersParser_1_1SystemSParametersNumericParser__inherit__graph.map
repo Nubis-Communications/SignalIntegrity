@@ -1,7 +1,9 @@
 <map id="SystemSParametersNumericParser" name="SystemSParametersNumericParser">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions. " alt="" coords="5,219,176,472"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers " alt="" coords="36,42,145,134"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort..." alt="" coords="201,277,343,413"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes. " alt="" coords="367,292,483,399"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching " alt="" coords="366,5,485,171"/>
+<area shape="rect" id="node1" title="generates system s&#45;parameters from a netlist" alt="" coords="190,535,399,641"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="159,689,430,840"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="5,233,192,487"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="39,49,158,141"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="216,292,373,428"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title=" " alt="" coords="398,307,525,413"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title=" " alt="" coords="397,5,525,185"/>
 </map>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,38 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-5.html#next">Prev</a> S-parameter Generation Example</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-6.html#next">Prev</a> Introduction</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Drawing a Schematic for Simulation <a class="next" name="next" href="Help-Subsection-6.html#prev">Next</a></span>
+<span class="next">Drawing a Schematic for S-parameter Generation <a class="next" name="next" href="Help-Subsection-1.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-7"></a>Simulation<a class="Label" name="sec:Simulation"> </a>
+<a class="toc" name="toc-Section-7"></a>S-Parameter Generation<a class="Label" name="sec:S-parameter-Generation"> </a>
 </h1>
 <div class="Standard">
-Simulation is about applying voltage or current stimulus waveforms to a circuit and measuring the resulting waveforms at various nodes in the circuit.
+This section explains how to use <b><i>SignalIntegrityApp</i></b> to generate the s-parameters of a system. It involves the steps of:
 </div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-1.html#sub:Drawing-a-Schematic-for-S-parameter-Generation">Drawing a Schematic for S-parameter Generation↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-2.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-3.html#sub:Setting-Calculation-Properties">Setting Calculation Properties↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-4.html#sub:Calculating-S-parameters">Calculating S-parameters↓</a>
+</li>
+
+</ul>
 <div class="Standard">
-This section provides step-by-step instructions for simulation. You can read through this, or go immediately to the <a class="Reference" href="Help-Subsection-11.html#sub:Simulation-Example">Simulation Example↓</a>. 
-</div>
-<div class="Standard">
-The circuit is drawing as a variety of devices and interconnected with wires. See <a class="Reference" href="Help-Subsection-6.html#sub:Drawing-a-Schematic-for-Simulation">Drawing a Schematic for Simulation↓</a>.
-</div>
-<div class="Standard">
-The stimulus to the circuit is applied through special parts. These special parts are categorized as <i><a class="Reference" href="Help-Subsection-7.html#sub:Sources-and-Generators">Sources and Generators↓</a></i>. A source supplies an input <a class="Reference" href="Help-Section-18.html#sec:Waveform">Waveform↓</a> specified from a file. A generator supplies some specified input <a class="Reference" href="Help-Section-18.html#sec:Waveform">Waveform↓</a>. Sources and generators can be voltages or currents and can supply input <a class="Reference" href="Help-Section-18.html#sec:Waveform">Waveform↓</a> from files, pulses, steps, and sine waves.
-</div>
-<div class="Standard">
-The probing points in the circuit for providing the output waveforms are specified through the use of <i><a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↓</a></i>. An <a class="Reference" href="Help-Subsection-69.html#device:Output-Probe">Voltage Output Probe↓</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe.
-</div>
-<div class="Standard">
-Once you are ready for simulation, you should configure the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. See <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↓</a>.
-</div>
-<div class="Standard">
-Once a circuit is drawn containing at least one source or generator, and at least one <a class="Reference" href="Help-Subsection-69.html#device:Output-Probe">Voltage Output Probe↓</a>, presumably with a circuit that has been properly configured, you can simulate the circuit. Simulation involves the calculation of transfer parameters which are applied to the input waveforms to generate the output waveforms and the waveforms are displayed in the <a class="Reference" href="Help-Section-12.html#sec:Simulator-Dialog">Simulator Dialog↓</a>. See <a class="Reference" href="Help-Subsection-10.html#sub:Simulating">Simulating↓</a>.
+Read through the following sections on how to accomplish this, or skip immediately to the <a class="Reference" href="Help-Subsection-5.html#sub:S-parameter-Generation-Example">S-parameter Generation Example↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-5.html#next">Prev</a> S-parameter Generation Example</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-6.html#next">Prev</a> Introduction</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Drawing a Schematic for Simulation <a class="next" name="next" href="Help-Subsection-6.html#prev">Next</a></span>
+<span class="next">Drawing a Schematic for S-parameter Generation <a class="next" name="next" href="Help-Subsection-1.html#prev">Next</a></span>
 </div>
 
 </div>

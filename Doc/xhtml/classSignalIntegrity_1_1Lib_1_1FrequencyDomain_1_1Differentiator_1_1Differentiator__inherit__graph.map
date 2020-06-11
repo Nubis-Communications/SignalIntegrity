@@ -1,0 +1,5 @@
+<map id="Differentiator" name="Differentiator">
+<area shape="rect" id="node1" title="Frequency response of a differentiator." alt="" coords="35,432,146,509"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="9,248,172,384"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" title="base class for frequency domain elements." alt="" coords="5,5,176,200"/>
+</map>

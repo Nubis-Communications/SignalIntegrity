@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,41 +1073,50 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Post-Processing</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Standard Preferences <a class="next" name="next" href="Help-Subsection--4.html#prev">Next</a></span>
+<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-19"></a>Preferences<a class="Label" name="sec:Preferences"> </a>
+<a class="toc" name="toc-Section-19"></a>Errors and Exceptions<a class="Label" name="sec:Errors-and-Exceptions"> </a>
 </h1>
 <div class="Standard">
-in <b><i>SignalIntegrityApp</i></b>, there are a number of preferences that can be set by the user that alter the appearance, calculations, file handling, etc. When the application is opened for the first time, a default preference file is created with the default settings. These are located at:
+When problems crop up during calculation, <b><i>SignalIntegrityApp</i></b> throws an exception and a message box is shown with the exception and the message the exception generates. As such, the exception type defines the main category of the exception and the message pertains to various flavors of that exception type.
 </div>
-<ul>
-<li>
-On Windows machines - c:\LeCroy\SignalIntegrity\preferences.xml.
-</li>
-<li>
-On Linux Machines - ~/.signalIntegrity/preferences.xml.
-</li>
-
-</ul>
 <div class="Standard">
-Currently, the preferences are broken into two groups:
+The <b><i>SignalIntegrity</i></b> exceptions are:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection--4.html#sub:Standard-Preferences">Standard Preferences↓</a> - Preferences that govern the basic operation of the schematic editor, file system, calculations, and help system.
+<a class="Reference" href="Help-Subsection-110.html#sub:System-Description-Error">SystemDescription↓</a> - pertains to a general problem with the netlist used for calculation.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection--18.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences↓</a> - Preferences that govern the display of the s-parameters in the s-parameter viewer.
+<a class="Reference" href="Help-Subsection-113.html#sub:Numeric">Numeric↓</a> - pertains to a general numerical error during calculation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-108.html#sub:SParameterFile">SParameterFile↓</a> - pertains to a problem with reading an s-parameter file.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-109.html#sub:WaveformFile">WaveformFile↓</a> - pertains to a problem with reading a <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> file.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-114.html#sub:DeviceParser">DeviceParser↓</a> - pertains to a problem parsing a device description in the netlist.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-111.html#sub:Simulator">Simulator↓</a> - pertains to a problem specific to the Simulator application and calculation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-112.html#sub:VirtualProbe">VirtualProbe↓</a> - pertains to a problem specific to the Virtual Probe application and calculation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection--3.html#sub:PostProcessing">PostProcessing↓</a> - pertains to a problem with <a class="Reference" href="Help-Section-18.html#sec:Post-Processing">Post-Processing↑</a>.
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Post-Processing</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Standard Preferences <a class="next" name="next" href="Help-Subsection--4.html#prev">Next</a></span>
+<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 
 </div>

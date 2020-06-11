@@ -582,7 +582,7 @@ While software tools are powerful and really help the signal integrity engineer,
 \end_layout
 
 \begin_layout Section
-S-parameter Generation
+S-Parameter Generation
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:S-parameter-Generation"
@@ -6494,6 +6494,21 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Formula $EX_{yx}$
+\end_inset
+
+ – Crosstalk term for port 
+\begin_inset Formula $y$
+\end_inset
+
+ with port 
+\begin_inset Formula $x$
+\end_inset
+
+ driven
+\end_layout
+
+\begin_layout Itemize
 \begin_inset Formula $ET_{yx}$
 \end_inset
 
@@ -6586,6 +6601,162 @@ name "subsec:Network-Analyzer-Measurement"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+To perform a calibrated network analyzer measurement, one creates a project
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:New-Project"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and places a 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "device:Network-Analyzer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the schematic using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, as in the following picture:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VNACalculationProject.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The description of the configurable parameters are in the description of
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ device.
+ Here, the calibration file is specified as Calibration.cal, and the raw,
+ uncalibrated s-parameters are specified as Raw.s2p.
+ The port list is set to 1,2, indicating that the first two ports of the
+ VNA are being used for the measurement.
+\end_layout
+
+\begin_layout Standard
+Ports are numbered and applied to the device in the order of the port ordering
+ desired for the output.
+\end_layout
+
+\begin_layout Standard
+The project is the same as an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Generation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project.
+\end_layout
+
+\begin_layout Standard
+Prior to performing the calculation, one should view and edit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+After editing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the calculation is invoked using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-S-parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or by pressing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the toolbar.
+\end_layout
+
+\begin_layout Standard
+Once the s-parameters are calculated, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is opened.
 \end_layout
 
 \begin_layout Section
@@ -45601,7 +45772,7 @@ file name
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+file
 \end_layout
 
 \end_inset
@@ -45650,7 +45821,7 @@ cal standard file name
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+string or file
 \end_layout
 
 \end_inset
@@ -45659,7 +45830,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-file
+std
 \end_layout
 
 \end_inset
@@ -45920,7 +46091,7 @@ file name
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+file
 \end_layout
 
 \end_inset
@@ -45969,7 +46140,7 @@ cal standard file name
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+string or file
 \end_layout
 
 \end_inset
@@ -45978,7 +46149,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-file
+std
 \end_layout
 
 \end_inset
@@ -46241,7 +46412,22 @@ SOLT is the most typical and assumes that the thru is perfectly specified.
 SOLR uses assumptions of reciprocity to recover the thru standard, using
  the thru standard provided as an estimate.
  The thru standard specified is used to resolve ambiguities in the phase.
- 
+ SOLR, while relying on the accuracy of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is useful when the thru standard is not precisely known or defined, hence
+ it is also called 
+\emph on
+the method of the unknown thru
+\emph default
+.
 \end_layout
 
 \begin_layout Subsection
@@ -46544,7 +46730,7 @@ error terms
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+file
 \end_layout
 
 \end_inset
@@ -46593,7 +46779,7 @@ file name
 \begin_inset Text
 
 \begin_layout Plain Layout
-string
+file
 \end_layout
 
 \end_inset
@@ -46692,6 +46878,115 @@ forward
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is a device used for 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ that produces calibrated s-parameters from raw, uncalibrated s-parameters
+ in conjunction with error terms produced from a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The error terms are supplied in a .cal file in a LeCroy format.
+ The format is for each driven port, for each port, for each term, for each
+ frequency, a real number followed by an imaginary number for the error
+ term.
+ The order of the error terms is ED, ER, ES for when the driven port equals
+ the other port and EX, ET, EL otherwise.
+ See the 
+\begin_inset CommandInset href
+LatexCommand href
+name "Software Documentation"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml"
+literal "false"
+
+\end_inset
+
+, specifically 
+\begin_inset CommandInset href
+LatexCommand href
+name "Calibration"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml#details"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset href
+LatexCommand href
+name "ErrorTerms"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml"
+literal "false"
+
+\end_inset
+
+ for more information).
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+
+\end_inset
+
+ for the brief description of these error terms.
+\end_layout
+
+\begin_layout Standard
+The file name name supplied is for an s-parameter file, or for a project
+ file that produces s-parameters.
+ The s-parameters must have the number of ports specified.
+ To provide some flexibility, but mostly to provide the capability of making
+ measurements of devices with less ports than the calibration is provided
+ for (i.e.
+ a two-port measurement using a four-port VNA), the ports refers to the
+ number of ports in the measurement, and the port list corresponds to the
+ ports of the VNA used for the measurement, in order of the ports in the
+ output s-parameters.
+ As an example, if ports is specified as 2, and the port list is 4,3, then
+ two-port calibrated s-parameters are produced with port 1 of the result
+ corresponding to the connection at port 4 of the VNA and port 2 corresponding
+ to the connection of port 3 of the VNA.
+\end_layout
+
+\begin_layout Standard
+A calculation direction is provided.
+ Normally, this calculation direction is specified as forward, and the input
+ s-parameters are uncalibrated and the output s-parameters are calibrated.
+ The device offers a capability useful in debugging and analyzing VNA measuremen
+t accuracy of reversing the calculation direction.
+ If the calculation direction is specified as reverse, then the supplied
+ s-parameters are assumed to be calibrated s-parameters, and the output
+ is the s-parameters that the VNA ought to have measured raw in order to
+ have computed these calibrated s-parameters.
 \end_layout
 
 \begin_layout Subsection

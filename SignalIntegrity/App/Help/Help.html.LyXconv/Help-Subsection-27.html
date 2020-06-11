@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,44 +1073,45 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-2.html#next">Prev</a> Save S-parameter File</span>
-<span class="up"><a class="up" name="up" href="Help-Section-11.html">Up</a> S-parameter Viewer</span>
-<span class="next">S-Parameter Properties <a class="next" name="next" href="Help-Subsubsection-3.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-26.html#next">Prev</a> Network Analyzer Calibration</span>
+<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Network Analyzer Measurements</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-13.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-27"></a>S-Parameter Viewer Properties Menu<a class="Label" name="sub:S-Parameter-Viewer-Properties"> </a>
+<a class="toc" name="toc-Subsection-27"></a>Network Analyzer Measurement<a class="Label" name="sub:Network-Analyzer-Measurement"> </a>
 </h2>
 <div class="Standard">
-The s-parameter properties menu allows viewing and editing of s-parameter properties, allowing for editing of response limits, resampling, reference impedance changes, and for enforcement of various physicality aspects.
+To perform a calibrated network analyzer measurement, one creates a project using <a class="Reference" href="Help-Subsubsection-38.html#Control-Help:New-Project">New Project↓</a> and places a <a class="Reference" href="Help-Subsection-95.html#device:Network-Analyzer">Network Analyzer↓</a> in the schematic using <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Add-Part">Add Part↓</a>, as in the following picture:
 </div>
 <div class="Standard">
-The Properties tasks are:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-3.html#Control-Help:S-Parameter-Properties">S-Parameter Properties↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-9.html#Control-Help:Wavelet-Denoise">Wavelet Denoise↓</a>
-</li>
+<div class="center">
+<img class="embedded" src="VNACalculationProject.png" alt="figure VNACalculationProject.png" style="max-width: 536px; max-height: 339px;"/>
 
-</ul>
+</div>
+
+</div>
+<div class="Standard">
+The description of the configurable parameters are in the description of the <a class="Reference" href="Help-Subsection-95.html#device:Network-Analyzer">Network Analyzer↓</a> device. Here, the calibration file is specified as Calibration.cal, and the raw, uncalibrated s-parameters are specified as Raw.s2p. The port list is set to 1,2, indicating that the first two ports of the VNA are being used for the measurement.
+</div>
+<div class="Standard">
+Ports are numbered and applied to the device in the order of the port ordering desired for the output.
+</div>
+<div class="Standard">
+The project is the same as an <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> project.
+</div>
+<div class="Standard">
+Prior to performing the calculation, one should view and edit the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-3.html#sub:Setting-Calculation-Properties">Setting Calculation Properties↑</a>).
+</div>
+<div class="Standard">
+After editing the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the calculation is invoked using <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> or by pressing the <a class="Reference" href="Help-Subsubsection-75.html#Control-Help:Calculate-Button">Calculate↓</a> in the toolbar.
+</div>
+<div class="Standard">
+Once the s-parameters are calculated, the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a> is opened.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-2.html#next">Prev</a> Save S-parameter File</span>
-<span class="up"><a class="up" name="up" href="Help-Section-11.html">Up</a> S-parameter Viewer</span>
-<span class="next">S-Parameter Properties <a class="next" name="next" href="Help-Subsubsection-3.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-26.html#next">Prev</a> Network Analyzer Calibration</span>
+<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Network Analyzer Measurements</span>
+<span class="next">S-parameter Viewer <a class="next" name="next" href="Help-Section-13.html#prev">Next</a></span>
 </div>
 
 </div>

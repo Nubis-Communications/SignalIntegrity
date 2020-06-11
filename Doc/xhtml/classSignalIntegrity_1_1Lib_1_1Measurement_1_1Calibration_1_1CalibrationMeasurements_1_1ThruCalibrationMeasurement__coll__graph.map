@@ -1,3 +1,4 @@
 <map id="ThruCalibrationMeasurement" name="ThruCalibrationMeasurement">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" title="Calibration Measurements. " alt="" coords="19,5,181,97"/>
+<area shape="rect" id="node1" title="A thru calibration measurement taken between two ports." alt="" coords="5,145,217,281"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" title="Calibration Measurements." alt="" coords="20,5,203,97"/>
 </map>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,13 +1073,17 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Directional Coupler</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Power Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Inductor</span>
+<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">IdealTransformer <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-49"></a>Net Name<a class="Label" name="device:Net-Name"> </a>
+<a class="toc" name="toc-Subsection-49"></a>Mutual<a class="Label" name="device:Mutual"> </a>
 </h2>
+<div class="Standard">
+<img class="embedded" src="Mutual.png" alt="figure Mutual.png" style="max-width: 152px; max-height: 148px;"/>
+
+</div>
 <div class="Standard">
 <table>
 <tr>
@@ -1102,37 +1106,55 @@ Units
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-category
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Miscellaneous
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-Net Name
+default reference
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-netname
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-???
+M?
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+inductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+l
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 nH
 </td>
 
 </tr>
@@ -1141,22 +1163,15 @@ netname
 
 </div>
 <div class="Standard">
-A net name is shown with text and a single connection point. When the connection point is joined to a device pin or wire in the same manner any other device is joined, the net assumes that name. Thus multiple connections of net names with the same name essentially joins the nets.
+This is a four-port mutual inductance. Their no self inductance and only the mutual inductance is specified and modeled. For self inductance, you need to use the 
 </div>
 <div class="Standard">
-The net names do not appear in the netlist. Only the fact that the device pins are connected together will be obvious.
-</div>
-<div class="Standard">
-Net names have no effect on the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a> generated.
-</div>
-<div class="Standard">
-<img class="embedded" src="NetName.png" alt="figure NetName.png" style="max-width: 567px; max-height: 319px;"/>
-
+The sense of the self inductance is indicated by the arrows in the part picture.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Directional Coupler</span>
-<span class="up"><a class="up" name="up" href="Help-Section-14.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Power Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Inductor</span>
+<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">IdealTransformer <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

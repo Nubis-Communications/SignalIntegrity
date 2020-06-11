@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1074,8 +1074,8 @@ a:visited {
 <div id="globalWrapper">
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-4.html#next">Prev</a> Calculating S-parameters</span>
-<span class="up"><a class="up" name="up" href="Help-Section-6.html">Up</a> S-parameter Generation</span>
-<span class="next">Simulation <a class="next" name="next" href="Help-Section-7.html#prev">Next</a></span>
+<span class="up"><a class="up" name="up" href="Help-Section-7.html">Up</a> S-Parameter Generation</span>
+<span class="next">Simulation <a class="next" name="next" href="Help-Section-8.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
 <a class="toc" name="toc-Subsection-5"></a>S-parameter Generation Example<a class="Label" name="sub:S-parameter-Generation-Example"> </a>
@@ -1094,10 +1094,10 @@ We start by opening the file provided in the examples. The file is included with
 Here we see three devices and four ports. 
 </div>
 <div class="Standard">
-To build this example, we first create a <a class="Reference" href="Help-Subsubsection-32.html#Control-Help:New-Project">New Project↓</a>.
+To build this example, we first create a <a class="Reference" href="Help-Subsubsection-38.html#Control-Help:New-Project">New Project↓</a>.
 </div>
 <div class="Standard">
-We added the devices by executing <a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Add-Part">Add Part↓</a>, opening the Files category, and selecting the Four Port <a class="Reference" href="Help-Subsection-40.html#device:File">File↓</a> device.
+We added the devices by executing <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Add-Part">Add Part↓</a>, opening the Files category, and selecting the Four Port <a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a> device.
 </div>
 <div class="Standard">
 <img class="embedded" src="PartPickerFourPortFile.png" alt="figure PartPickerFourPortFile.png" style="max-width: 414px; max-height: 308px;"/>
@@ -1131,7 +1131,7 @@ At this point, our schematic looks like this:
 Notice the red x’s showing where the part pins are unconnected. Also note that the part is blue and the status message says <i>Part Selected</i>.
 </div>
 <div class="Standard">
-We then add the mixed-mode converter devices by again executing <a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Add-Part">Add Part↓</a>, opening the Miscellaneous category, and selecting the <a class="Reference" href="Help-Subsection-50.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>.
+We then add the mixed-mode converter devices by again executing <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Add-Part">Add Part↓</a>, opening the Miscellaneous category, and selecting the <a class="Reference" href="Help-Subsection-55.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>.
 </div>
 <div class="Standard">
 <img class="embedded" src="PartPickerPowerMixedModeConverter.png" alt="figure PartPickerPowerMixedModeConverter.png" style="max-width: 498px; max-height: 308px;"/>
@@ -1154,14 +1154,14 @@ At this point, our schematic looks like this:
 Since we are converting single-ended to mixed-mode s-parameters, we need to hook the positive and negative ports of the left and right sides of the four-port device to the mixed-mode converters. But we don’t really know for sure where the positive and negative ports are on this device.
 </div>
 <div class="Standard">
-To find out, we select our four port device and invoke <a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Edit-Properties">Edit Properties↓</a>. This brings up the part properties dialog again for the file device:
+To find out, we select our four port device and invoke <a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Edit-Properties">Edit Properties↓</a>. This brings up the part properties dialog again for the file device:
 </div>
 <div class="Standard">
 <img class="embedded" src="SParameterGenerationExampleFileProperties.png" alt="figure SParameterGenerationExampleFileProperties.png" style="max-width: 621px; max-height: 458px;"/>
 
 </div>
 <div class="Standard">
-Next to the file name, we see the view button. Pressing this brings up the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+Next to the file name, we see the view button. Pressing this brings up the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
 </div>
 <div class="Standard">
 The s-parameters to view are selected from the box of buttons in the lower left. Selecting s31, we see:
@@ -1188,14 +1188,14 @@ We will need two mixed-mode converters. We have one already, so we drag it over 
 
 </div>
 <div class="Standard">
-It’s easy to get another mixed-mode converter on the other side. Just invoke <a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> with the mixed-mode converter selected and when the cursor changes to a finger, just click on the left of the file device to place a copy of the part. Since it is the wrong orientation, invoke <a class="Reference" href="Help-Subsubsection-57.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip it around and drag it into position as shown:
+It’s easy to get another mixed-mode converter on the other side. Just invoke <a class="Reference" href="Help-Subsubsection-61.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> with the mixed-mode converter selected and when the cursor changes to a finger, just click on the left of the file device to place a copy of the part. Since it is the wrong orientation, invoke <a class="Reference" href="Help-Subsubsection-63.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip it around and drag it into position as shown:
 </div>
 <div class="Standard">
 <img class="embedded" src="SParameterGenerationExampleStep4.png" alt="figure SParameterGenerationExampleStep4.png" style="max-width: 469px; max-height: 221px;"/>
 
 </div>
 <div class="Standard">
-Now we invoke <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Add-Port">Add Port↓</a> to add a <a class="Reference" href="Help-Subsection-67.html#device:Port">Port↓</a> to the circuit. When we do this, we see the part properties dialog for the port:
+Now we invoke <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Add-Port">Add Port↓</a> to add a <a class="Reference" href="Help-Subsection-72.html#device:Port">Port↓</a> to the circuit. When we do this, we see the part properties dialog for the port:
 </div>
 <div class="Standard">
 <img class="embedded" src="PartPropertiesPort.png" alt="figure PartPropertiesPort.png" style="max-width: 394px; max-height: 429px;"/>
@@ -1209,7 +1209,7 @@ Note that the port number 1 has already been filled in. Press OK and click and d
 
 </div>
 <div class="Standard">
-It is customary for mixed-mode s-parameters to have ports 1, 2, 3, and 4 to be D1, D2, C1, C2 where the D and C refer to the differential- and common-mode and the 1 and 2 refer to the left and right side of the transmission line. So we invoke <a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> and click the mouse and drag the new port to the right side of the device. Use <a class="Reference" href="Help-Subsubsection-57.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip the port around and place it as shown:
+It is customary for mixed-mode s-parameters to have ports 1, 2, 3, and 4 to be D1, D2, C1, C2 where the D and C refer to the differential- and common-mode and the 1 and 2 refer to the left and right side of the transmission line. So we invoke <a class="Reference" href="Help-Subsubsection-61.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> and click the mouse and drag the new port to the right side of the device. Use <a class="Reference" href="Help-Subsubsection-63.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to flip the port around and place it as shown:
 </div>
 <div class="Standard">
 <img class="embedded" src="SParameterGenerationExampleStep6.png" alt="figure SParameterGenerationExampleStep6.png" style="max-width: 469px; max-height: 221px;"/>
@@ -1223,7 +1223,7 @@ The rest of the ports are added in a similar manner:
 
 </div>
 <div class="Standard">
-The next step is to set the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. By default they look like this:
+The next step is to set the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. By default they look like this:
 </div>
 <div class="Standard">
 <img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png" style="max-width: 580px; max-height: 254px;"/>
@@ -1240,7 +1240,7 @@ When we looked at the s-parameters, we can see that the end frequency is 20 GHz 
 Note that, in general, we really don’t want to think of the number of frequency points in an s-parameter file. Instead, we choose to think in terms of impulse response length. In this example, this happens to mean one thousand frequency points.
 </div>
 <div class="Standard">
-Before calculating the s-parameters, it’s also good to look at the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a>. Invoking <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↓</a>, we see:
+Before calculating the s-parameters, it’s also good to look at the <a class="Reference" href="Help-Section-17.html#sec:Netlist">Netlist↓</a>. Invoking <a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Export-Netlist">Export Netlist↓</a>, we see:
 </div>
 <div class="Standard">
 <img class="embedded" src="SParameterGenerationExampleNetListDialog.png" alt="figure SParameterGenerationExampleNetListDialog.png" style="max-width: 578px; max-height: 468px;"/>
@@ -1250,7 +1250,7 @@ Before calculating the s-parameters, it’s also good to look at the <a class="R
 If you’ve read the book that accompanies the <b><i>SignalIntegrity</i></b> software, this netlist should be familiar to you. If you press OK, you can save this netlist to a file, if you wanted to.
 </div>
 <div class="Standard">
-To calculate the s-parameters, invoke <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-70.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a>. There should not be any errors (if there are, see <a class="Reference" href="Help-Section-17.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a>) and you should see the <a class="Reference" href="Help-Section-11.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>:
+To calculate the s-parameters, invoke <a class="Reference" href="Help-Subsubsection-75.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a>. There should not be any errors (if there are, see <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a>) and you should see the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="SParameterGenerationExampleResultS11.png" alt="figure SParameterGenerationExampleResultS11.png" style="max-width: 1033px; max-height: 727px;"/>
@@ -1265,8 +1265,8 @@ You can select the s-parameters you want to view from the buttons at the lower-l
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-4.html#next">Prev</a> Calculating S-parameters</span>
-<span class="up"><a class="up" name="up" href="Help-Section-6.html">Up</a> S-parameter Generation</span>
-<span class="next">Simulation <a class="next" name="next" href="Help-Section-7.html#prev">Next</a></span>
+<span class="up"><a class="up" name="up" href="Help-Section-7.html">Up</a> S-Parameter Generation</span>
+<span class="next">Simulation <a class="next" name="next" href="Help-Section-8.html#prev">Next</a></span>
 </div>
 
 </div>

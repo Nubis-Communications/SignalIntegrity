@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,56 +1073,242 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-17.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-16"></a>Post-Processing<a class="Label" name="sec:Post-Processing"> </a>
+<a class="toc" name="toc-Section-16"></a>Built-in Devices (Parts)<a class="Label" name="sec:Built-in-Devices"> </a>
 </h1>
 <div class="Standard">
-Post-processing commands are commands to be executed after a <a class="Reference" href="Help-Section-8.html#sec:Deembedding">Deembedding↑</a> or <a class="Reference" href="Help-Section-6.html#sec:S-parameter-Generation">S-parameter Generation↑</a> calculation completes.
-</div>
-<div class="Standard">
-These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
-</div>
-<div class="Standard">
-All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--2.html#sub:post">post↑</a> added when putting the commands in the netlist.
-</div>
-<div class="Standard">
-Because they are in the netlist, one is able to make scripted solutions with post-processing, and the cache coherency of the calculated result is maintained (i.e. changes to the netlist change the validity of cached results).
-</div>
-<div class="Standard">
-Valid post-processing commands are:
+<b><i>SignalIntegrity</i></b> defines the following built-in parts. If you don’t see what you want, you can always supply an s-parameter file through a <a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a> part.
 </div>
 <ul>
 <li>
-enforce causality - is the same as issuing <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a>
 </li>
 <li>
-enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>
 </li>
 <li>
-enforce both passivity and causality — is the same as issuing <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a> on the final result.
-</li>
-<li>
-enforce reciprocity - is the same as issuing <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a> on the final result.
-</li>
-<li>
-enforce all — is the same as issuing <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Enforce-All">Enforce All↑</a> on the final result.
-</li>
-<li>
-limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
+<a class="Reference" href="Help-Subsection-47.html#device:Capacitor">Capacitor↓</a>
 </li>
 
 </ul>
 <div class="Standard">
-If the post-processing commands are not recognized or cannot be parsed, the <a class="Reference" href="Help-Subsection--3.html#sub:PostProcessing">PostProcessing↓</a> exception is raised
+Inductor Devices
 </div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-48.html#device:Inductor">Inductor↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-49.html#device:Mutual">Mutual↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-50.html#device:IdealTransformer">IdealTransformer↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Miscellaneous Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-51.html#device:Ground">Ground↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-52.html#device:Open">Open↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-53.html#device:DirectionalCoupler">Directional Coupler↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-54.html#device:Net-Name">Net Name↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-55.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-56.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Transmission Line Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-57.html#device:Transmission-Line">Transmission Line↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-58.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-59.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-60.html#device:RLGC-Fit">RLGC Fit↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Sources
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-61.html#device:Voltage-Source">Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-62.html#device:Current-Source">Current Source↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Generators
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-63.html#device:Voltage-Noise-Generator">Voltage Noise Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-64.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-65.html#device:Voltage-Pulse-Generator">Voltage Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-66.html#device:Voltage-PRBS-Generator">Voltage PRBS Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-67.html#device:Voltage-Clock-Generator">Voltage Clock Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-68.html#device:Voltage-Sine-Generator">Voltage Sine Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-69.html#device:Current-Step-Generator">Current Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-70.html#device:Current-Pulse-Generator">Current Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-71.html#device:Current-Sine-Generator">Current Sine Generator↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Special Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-72.html#device:Port">Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-73.html#device:Measure-Probe">Voltage Measure Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-74.html#device:Output-Probe">Voltage Output Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-75.html#device:Stim">Stim↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-76.html#device:Current-Probe">Current Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-77.html#device:Voltage-Diff-Probe">Voltage Diff Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-78.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Dependent Sources
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-78.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-79.html#device:Current-Controlled-Current-Source">Current Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-80.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-81.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Amplifiers
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-82.html#device:Voltage-Amplifier">Voltage Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-83.html#device:Current-Amplifier">Current Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-84.html#device:Transconductance-Amplifier">Transconductance Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-85.html#device:Transresistance-Amplifier">Transresistance Amplifier↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Network Analysis Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-89.html#device:Short-Standard">Short Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-90.html#device:Open-Standard">Open Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-91.html#device:Load-Standard">Load Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-92.html#device:Thru-Standard">Thru Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-93.html#device:Reflect-Measurement">Reflect Measurement↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-94.html#device:Thru-Measurement">Thru Measurement↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-95.html#device:Network-Analyzer">Network Analyzer↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-96.html#device:Network-Analyzer-Stimulus">Network Analyzer Stimulus↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-97.html#device:Network-Analyzer-Model">Network Analyzer Model↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+De-embedding Elements
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-87.html#device:Unknown">Unknown↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-88.html#device:System">System↓</a>
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-17.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
 </div>
 
 </div>

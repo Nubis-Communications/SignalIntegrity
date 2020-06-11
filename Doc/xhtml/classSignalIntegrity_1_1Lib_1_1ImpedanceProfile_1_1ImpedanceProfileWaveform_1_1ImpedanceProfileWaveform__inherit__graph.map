@@ -1,3 +1,4 @@
 <map id="ImpedanceProfileWaveform" name="ImpedanceProfileWaveform">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms " alt="" coords="31,5,163,259"/>
+<area shape="rect" id="node1" title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified." alt="" coords="5,307,209,399"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="33,5,182,259"/>
 </map>

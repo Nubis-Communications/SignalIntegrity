@@ -1,2 +1,3 @@
 <map id="WaveletDenoiser" name="WaveletDenoiser">
+<area shape="rect" id="node1" title="performs wavelet denoising" alt="" coords="5,5,212,112"/>
 </map>

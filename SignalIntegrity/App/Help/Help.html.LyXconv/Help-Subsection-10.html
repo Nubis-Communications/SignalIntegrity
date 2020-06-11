@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1074,14 +1074,14 @@ a:visited {
 <div id="globalWrapper">
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-9.html#next">Prev</a> Setting Calculation Properties for Simulation</span>
-<span class="up"><a class="up" name="up" href="Help-Section-7.html">Up</a> Simulation</span>
+<span class="up"><a class="up" name="up" href="Help-Section-8.html">Up</a> Simulation</span>
 <span class="next">Simulation Example <a class="next" name="next" href="Help-Subsection-11.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
 <a class="toc" name="toc-Subsection-10"></a>Simulating<a class="Label" name="sub:Simulating"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for simulation and setting the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the simulation is run using either the <a class="Reference" href="Help-Subsubsection-71.html#Control-Help:Simulate">Simulate↓</a> command or the <a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for simulation and setting the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the simulation is run using either the <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Simulate">Simulate↓</a> command or the <a class="Reference" href="Help-Subsubsection-75.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for simulation. This criteria for the schematic regarding elements are that the schematic must:
@@ -1091,7 +1091,7 @@ Note that calculation will not be possible at all (i.e. the menu elements are di
 have at least one source or generator element (see <a class="Reference" href="Help-Subsection-7.html#sub:Sources-and-Generators">Sources and Generators↑</a>).
 </li>
 <li>
-have at least one output <a class="Reference" href="Help-Subsection-67.html#device:Port">Port↓</a> (see <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a>).
+have at least one output <a class="Reference" href="Help-Subsection-72.html#device:Port">Port↓</a> (see <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a>).
 </li>
 <li>
 not have any other elements that don’t make sense for simulation including:<ul>
@@ -1117,13 +1117,13 @@ system devices
 
 </ul>
 <div class="Standard">
-In simulation, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-15.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-37.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In simulation, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-17.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>SimulatorNumericParser</b> class as described in the software documentation after which the transfer parameters are extracted.
 </div>
 <div class="Standard">
-During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>). If a <a class="Reference" href="Help-Subsection-40.html#device:File">File↓</a> device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>). If a <a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a> device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
 </div>
 <div class="Standard">
 Then, for each frequency point, the transfer parameters are generated.
@@ -1132,14 +1132,14 @@ Then, for each frequency point, the transfer parameters are generated.
 After the transfer parameters are generated, the input waveforms are produced or read from files and applied to the filters corresponding to the transfer parameters to generate output waveforms.
 </div>
 <div class="Standard">
-Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-17.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
+Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
 </div>
 <div class="Standard">
-If everything goes correctly, the <a class="Reference" href="Help-Section-12.html#sec:Simulator-Dialog">Simulator Dialog↓</a> will open with the ability to view the output waveforms calculated and save them to a file.
+If everything goes correctly, the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a> will open with the ability to view the output waveforms calculated and save them to a file.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-9.html#next">Prev</a> Setting Calculation Properties for Simulation</span>
-<span class="up"><a class="up" name="up" href="Help-Section-7.html">Up</a> Simulation</span>
+<span class="up"><a class="up" name="up" href="Help-Section-8.html">Up</a> Simulation</span>
 <span class="next">Simulation Example <a class="next" name="next" href="Help-Subsection-11.html#prev">Next</a></span>
 </div>
 

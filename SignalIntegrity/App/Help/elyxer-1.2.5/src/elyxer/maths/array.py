@@ -37,7 +37,7 @@ class FormulaEquation(CommandBit):
   piece = 'equation'
 
   def parsebit(self, pos):
-    "Parse the array"
+    "Parse the matrix"
     self.output = ContentsOutput()
     self.add(self.factory.parsetype(WholeFormula, pos))
 
@@ -132,7 +132,7 @@ class FormulaArray(MultiRowFormula):
   piece = 'array'
 
   def parsebit(self, pos):
-    "Parse the array"
+    "Parse the matrix"
     self.output = TaggedOutput().settag('span class="array"', False)
     self.parsealignments(pos)
     self.parserows(pos)

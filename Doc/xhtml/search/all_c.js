@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['n',['N',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml#a8cc2e7240164328fdc3f0e5e21032c56',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList::FrequencyList']]],
-  ['noisewaveform',['NoiseWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::NoiseWaveform']]],
-  ['np',['np',['../namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1lfrac.xhtml#a1b6ccdb1ae826eedd54d9f3405eb5fb2',1,'SignalIntegrity::Lib::Helpers::lfrac']]],
-  ['numeric',['Numeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric']]]
+  ['n_190',['N',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml#a8cc2e7240164328fdc3f0e5e21032c56',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList::FrequencyList']]],
+  ['networkanalyzer_191',['NetworkAnalyzer',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1NetworkAnalyzer_1_1NetworkAnalyzer.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::NetworkAnalyzer']]],
+  ['networkanalyzersimulationnumericparser_192',['NetworkAnalyzerSimulationNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::NetworkAnalyzerSimulationNumericParser']]],
+  ['noisewaveform_193',['NoiseWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::NoiseWaveform']]],
+  ['np_194',['np',['../namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1lfrac.xhtml#a1b6ccdb1ae826eedd54d9f3405eb5fb2',1,'SignalIntegrity::Lib::Helpers::lfrac']]],
+  ['numeric_195',['Numeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric']]]
 ];

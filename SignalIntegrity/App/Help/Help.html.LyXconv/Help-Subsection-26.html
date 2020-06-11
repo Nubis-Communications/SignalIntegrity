@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2020-06-11"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,29 +1073,163 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-11.html#next">Prev</a> S-parameter Viewer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-11.html">Up</a> S-parameter Viewer</span>
-<span class="next">Open S-parameter File <a class="next" name="next" href="Help-Subsubsection-1.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-12.html#next">Prev</a> Network Analyzer Measurements</span>
+<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Network Analyzer Measurements</span>
+<span class="next">Network Analyzer Measurement <a class="next" name="next" href="Help-Subsection-27.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-26"></a>S-Parameter Viewer File Menu<a class="Label" name="sub:S-Parameter-Viewer-File"> </a>
+<a class="toc" name="toc-Subsection-26"></a>Network Analyzer Calibration<a class="Label" name="sub:Network-Analyzer-Calibration"> </a>
 </h2>
 <div class="Standard">
-The File tasks are:
+To perform a network analyzer calibration, one creates a project using <a class="Reference" href="Help-Subsubsection-38.html#Control-Help:New-Project">New Project↓</a> and places down parts on the schematic using <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Add-Part">Add Part↓</a>. All of the parts used will be in the Network Analysis category shown below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="CalibrationPartsSelection.png" alt="figure CalibrationPartsSelection.png" style="max-width: 520px; max-height: 555px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+For calibration, the calibration measurements are mandatory — these are the raw measurements taken of the calibration standards used for the calibration and for the generation of the error terms. These include:
+</div>
+<ol>
+<li>
+<a class="Reference" href="Help-Subsection-93.html#device:Reflect-Measurement">Reflect Measurement↓</a> - single-port measurements of the standards, usually three per port, each being a short, open, or load.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-94.html#device:Thru-Measurement">Thru Measurement↓</a> - (if two-ports or greater) two-port measurements of the thru standard, usually one per every port--port combination.
+</li>
+
+</ol>
+<div class="Standard">
+If calibration standards are used, and the calibration constants in the calibration kit are in a LeCroy format (which is the same as the Keysight format), then calibration standard devices can be used — these are definition of standards applied to the instrument during calibration. They include:
+</div>
+<ol>
+<li>
+<a class="Reference" href="Help-Subsection-89.html#device:Short-Standard">Short Standard↓</a> - the one-port definition of a short.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-90.html#device:Open-Standard">Open Standard↓</a> - the one-port definition of an open.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-91.html#device:Load-Standard">Load Standard↓</a> - the one-port definition of a termination.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-92.html#device:Thru-Standard">Thru Standard↓</a> - the two-port definition of a thru.
+</li>
+
+</ol>
+<div class="Standard">
+If calibration standards that don’t adhere to the LeCroy format are used, or in other situations such as fixtures or probes, then s-parameters can be supplied as standards.
+</div>
+<div class="Standard">
+Below is a project showing a two-port calibration:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="VNACalibrationProject.png" alt="figure VNACalibrationProject.png" style="max-width: 772px; max-height: 541px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+The calibration measurements are shown on the left, and the calibration standards are supplied on the right. Note that you don’t have to supply the calibration standards in the schematic, if the standards are referred to as s-parameters, either with a .s1p or .s2p file, or as a project that produces one-port or two-port s-parameters of the standard. If you are using calibration standards from a calibration kit, it’s easiest to simply drop the standards in the schematic, in which case one refers to the standard by the reference designator name, which is shown here as simply:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsubsection-2.html#Control-Help:Save-S-parameter-File">Save S-parameter File↓</a>
+Short — The <a class="Reference" href="Help-Subsection-89.html#device:Short-Standard">Short Standard↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsubsection-1.html#Control-Help:Open-S-parameter-File">Open S-parameter File↓</a>
+Open — The <a class="Reference" href="Help-Subsection-90.html#device:Open-Standard">Open Standard↓</a>
+</li>
+<li>
+Load — The <a class="Reference" href="Help-Subsection-91.html#device:Load-Standard">Load Standard↓</a>
+</li>
+<li>
+Thru — The <a class="Reference" href="Help-Subsection-92.html#device:Thru-Standard">Thru Standard↓</a>
 </li>
 
 </ul>
+<div class="Standard">
+The definition of these standards can be seen by following the links.
+</div>
+<div class="Standard">
+The calibration measurements on the left. There are three instances of <a class="Reference" href="Help-Subsection-93.html#device:Reflect-Measurement">Reflect Measurement↓</a> per port, where each <a class="Reference" href="Help-Subsection-93.html#device:Reflect-Measurement">Reflect Measurement↓</a> shows the port it pertains to, the calibration standard used, and the s-parameter measurement. Here, the s-parameter measurements are not shown as .s1p files, as they usually are, but as projects that presumably produce one-port s-parameters. There is one <a class="Reference" href="Help-Subsection-94.html#device:Thru-Measurement">Thru Measurement↓</a> shown, representing the single thru calibration between ports 1 and 2.
+</div>
+<div class="Standard">
+The <a class="Reference" href="Help-Section-17.html#sec:Netlist">Netlist↓</a> corresponding to the schematic is exported below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="VNACalibrationNetlist.png" alt="figure VNACalibrationNetlist.png" style="max-width: 903px; max-height: 332px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+This netlist could be used within a Python scripted environment (see the <a class="URL" href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml">Software Documentation</a>, specifically <a class="URL" href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml#details">CalibrationNumericParser</a>).
+</div>
+<div class="Standard">
+Prior to performing the calibration, one should view and edit the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-3.html#sub:Setting-Calculation-Properties">Setting Calculation Properties↑</a>).
+</div>
+<div class="Standard">
+After editing the <a class="Reference" href="Help-Subsubsection-72.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the calibration is invoked using <a class="Reference" href="Help-Subsubsection-81.html#Control-Help:Calculate-Error-Terms">Calculate Error Terms↓</a> or by pressing the <a class="Reference" href="Help-Subsubsection-75.html#Control-Help:Calculate-Button">Calculate↓</a> in the toolbar.
+</div>
+<div class="Standard">
+Once the error terms are calculated, the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a> is opened as shown below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="SParameterViewerErrorTerms.png" alt="figure SParameterViewerErrorTerms.png" style="max-width: 1430px; max-height: 907px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+In the viewer window, two special accommodations are made. First the s-parameters for the fixtures corresponding to the error terms are shown (for a definition of the fixtures see the <a class="Reference" href="Help-Section-4.html#sec:Book">Book↑</a>) with the buttons labeled appropriately, with the following definitions for error terms:
+</div>
+<ul>
+<li>
+<span class="formula"><i>ED</i><sub><i>x</i></sub></span> — Directivity term for port <span class="formula"><i>x</i></span>
+</li>
+<li>
+<span class="formula"><i>ER</i><sub><i>x</i></sub></span> — Reverse Transmission term for port <span class="formula"><i>x</i></span>
+</li>
+<li>
+<span class="formula"><i>ES</i><sub><i>x</i></sub></span> — Source Match term for port <span class="formula"><i>x</i></span>
+</li>
+<li>
+<span class="formula"><i>EX</i><sub><i>yx</i></sub></span> — Crosstalk term for port <span class="formula"><i>y</i></span> with port <span class="formula"><i>x</i></span> driven
+</li>
+<li>
+<span class="formula"><i>ET</i><sub><i>yx</i></sub></span> — Forward Transmission term for port <span class="formula"><i>y</i></span> with port <span class="formula"><i>x</i></span> driven
+</li>
+<li>
+<span class="formula"><i>EL</i><sub><i>yx</i></sub></span> — Load Match term for port <span class="formula"><i>y</i></span> with port <span class="formula"><i>x</i></span> driven
+</li>
+
+</ul>
+<div class="Standard">
+The description of all of these error terms are beyond the scope of this users manual.
+</div>
+<div class="Standard">
+To select error terms for different ports, use <a class="Reference" href="Help-Subsection-29.html#sub:S-Parameter-Viewer-Selection">S-Parameter Viewer Selection Menu↓</a>
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="CalibrationErrorTermsSelection.png" alt="figure CalibrationErrorTermsSelection.png" style="max-width: 170px; max-height: 99px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+The error terms can be saved for use in a <a class="Reference" href="Help-Subsection-27.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement↓</a> using <a class="Reference" href="Help-Subsubsection-2.html#Control-Help:Save-S-parameter-File">Save S-parameter File↓</a>, but the default extension recommended will be calibration (.cal).
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-11.html#next">Prev</a> S-parameter Viewer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-11.html">Up</a> S-parameter Viewer</span>
-<span class="next">Open S-parameter File <a class="next" name="next" href="Help-Subsubsection-1.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-12.html#next">Prev</a> Network Analyzer Measurements</span>
+<span class="up"><a class="up" name="up" href="Help-Section-12.html">Up</a> Network Analyzer Measurements</span>
+<span class="next">Network Analyzer Measurement <a class="next" name="next" href="Help-Subsection-27.html#prev">Next</a></span>
 </div>
 
 </div>

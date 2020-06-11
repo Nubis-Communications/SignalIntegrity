@@ -1,7 +1,8 @@
 <map id="Wavelet" name="Wavelet">
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies14.xhtml" title="14 tap Daubechies wavelet transformer " alt="" coords="5,204,159,281"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml" title="16 tap Daubechies wavelet transformer " alt="" coords="183,204,336,281"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml" title="4 tap Daubechies wavelet transformer " alt="" coords="361,204,507,281"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml" title="8 tap Daubechies wavelet transformer " alt="" coords="531,204,678,281"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml" title="2 tap Haar wavelet transformer " alt="" coords="702,204,801,281"/>
+<area shape="rect" id="node1" title="base class that performs forward and inverse wavelet transforms" alt="" coords="421,5,517,156"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies14.xhtml" title="14 tap Daubechies wavelet transformer" alt="" coords="5,204,173,281"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml" title="16 tap Daubechies wavelet transformer" alt="" coords="197,204,365,281"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml" title="4 tap Daubechies wavelet transformer" alt="" coords="389,204,549,281"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml" title="8 tap Daubechies wavelet transformer" alt="" coords="573,204,733,281"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml" title="2 tap Haar wavelet transformer" alt="" coords="757,204,864,281"/>
 </map>
