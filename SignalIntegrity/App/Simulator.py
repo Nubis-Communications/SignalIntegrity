@@ -48,6 +48,8 @@ from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
+from mpldatacursor import datacursor
+
 import math
 from numpy import mean,std
 
@@ -159,7 +161,6 @@ class SimulatorDialog(tk.Toplevel):
 
         toolbar = NavigationToolbar2Tk( self.canvas, self )
         toolbar.update()
-        toolbar.pan()
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
         controlsFrame = tk.Frame(self)
@@ -284,7 +285,9 @@ class SimulatorDialog(tk.Toplevel):
             fcName=str(self.waveformNamesList[wfi])
             fcColor=self.waveformColorIndexList[wfi]
 
-            self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
+            lines=self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
+
+            datacursor(lines,formatter="f: {x:.3f}\nmag: {y:.3f}".format,display='multiple',draggable=True)
 
         if minv != None or minvStd != None:
             minv = max(minv,minvStd)
@@ -300,6 +303,8 @@ class SimulatorDialog(tk.Toplevel):
             self.plt.set_ylim(bottom=self.miny)
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
+
+        self.plt.grid(True)
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
@@ -439,11 +444,14 @@ class SimulatorDialog(tk.Toplevel):
             plotlog=False
             plotdB=False
             if plotlog:
-                self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName,c=wfColor)
+                lines=self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName,c=wfColor)
+                datacursor(lines,formatter="t: {x:.3f}\namp: {y:.3f}".format,display='multiple',draggable=True)
             elif plotdB:
-                self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
+                lines=self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
+                datacursor(lines,formatter="t: {x:.3f}\namp: {y:.2f}".format,display='multiple',draggable=True)
             else:
-                self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor)
+                lines=self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor)
+                datacursor(lines,formatter="t: {x:.3f}\namp: {y:.3f}".format,display='multiple',draggable=True)
             minv=min(wfValues) if minv is None else min(minv,min(wfValues))
             maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 
@@ -459,6 +467,8 @@ class SimulatorDialog(tk.Toplevel):
 
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
+
+        self.plt.grid(True)
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
@@ -517,7 +527,7 @@ class SimulatorDialog(tk.Toplevel):
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
     def onHelp(self):
         if Doer.helpKeys is None:
-            messagebox.showerror('Help System','Cannot find or open this help element')            
+            messagebox.showerror('Help System','Cannot find or open this help element')
             return
         Doer.helpKeys.Open('sec:Simulator-Dialog')
 
