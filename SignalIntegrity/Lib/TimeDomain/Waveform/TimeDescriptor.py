@@ -48,7 +48,7 @@ class TimeDescriptor(object):
         @param other instance of class TimeDescriptor
         @return boolean whether the other descriptor is the same.
         @note the sample rate is compared with an epsilon of 1e-15.
-        @note the horizontal offset is compared with an epsilong of 0.001% of the sample period.
+        @note the horizontal offset is compared with an epsilon of 0.001% of the sample period.
         """
         if abs(self.Fs - other.Fs) > 1e-15: return False
         if abs(self.H - other.H) > .00001*1./self.Fs: return False

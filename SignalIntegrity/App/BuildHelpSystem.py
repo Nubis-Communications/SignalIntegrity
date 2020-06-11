@@ -101,7 +101,7 @@ class HelpSystemKeys(object):
     def CheckAndAdd(self,child,filename):
         if 'class' in child.keys() and 'name' in child.keys():
             if child.get('class')=='Label':
-                #print child.get('name')
+                #print(child.get('name'))
                 self.keydict[child.get('name')]=('/'.join(filename.split('\\'))).split('/')[-1]
     def Recurse(self,root,filename):
         for child in root:

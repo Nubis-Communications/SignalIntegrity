@@ -23,9 +23,6 @@ import SignalIntegrity.App as siapp
 
 import os
 
-from numpy import matrix,identity
-import math
-
 class TestVNACalibrationObjectTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):
     relearn=True
@@ -38,7 +35,6 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         self.SPCompareResolution=1e-2
-        self.deleted=False
         #si.test.SignalIntegrityAppTestHelper.plotErrors=True
     def setUp(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -52,7 +48,7 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         proj.SaveProjectToFile('TDRModel.si')
         if self.deleteCache:
             import glob
-            # Get a list of all the file paths that ends with .txt from in specified directory
+            # Get a list of all cached files
             fileList = glob.glob('*_cache*')
             # Iterate over the list of filepaths & remove each file.
             for filePath in fileList:
@@ -72,8 +68,8 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         unit='e-27 F/Hz'
         number=-310.13
         self.assertEqual(number,siapp.ToSI.FromSI(siapp.ToSI.ToSI(number,unit),unit),'si with exponent converted incorrectly')
-    def TestCal(self,id):
-        filename=id.split('.')[-1].replace('test','')+'.si'
+    def TestCal(self,testid):
+        filename=testid.split('.')[-1].replace('test','')+'.si'
         self.SParameterResultsChecker(filename)
         self.SimulationResultsChecker(filename)
         if self.deleteCache:
@@ -120,6 +116,3 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.CalibrationResultsChecker('TDRCalibration.si')
     def testTDRCalculation(self):
         self.SParameterResultsChecker('TDRCalculation.si')
-
-
-

@@ -159,10 +159,10 @@ class Waveform(list):
         @return self+other
         @see Waveform.__add__()
         """
-        if other is 0:
-            return Waveform(self)
-        else:
-            return self.__add__(other)
+        if isinstance(other,int):
+            if other == 0: return Waveform(self)
+            else: return self.__add__(other)
+        else: return self.__add__(other)
     def __mul__(self,other):
         """overloads *
         @param other instance of class WaveformProcessor or float, int, complex to multiply by.
