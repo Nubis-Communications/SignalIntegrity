@@ -15,7 +15,7 @@
 \font_sans "default" "default"
 \font_typewriter "default" "default"
 \font_math "auto" "auto"
-\font_default_family default
+\font_default_family sfdefault
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
@@ -357,6 +357,52 @@ https://www.gnu.org/licenses/
 \end_layout
 
 \begin_layout Section
+Book
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Book"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename Pete-social-3.jpg
+	lyxscale 35
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All of the software in 
+\emph on
+SignalIntegrity
+\emph default
+ is completely explained in the book 
+\begin_inset CommandInset href
+LatexCommand href
+name "“S-Parameters for Signal Integrity”"
+target "https://www.cambridge.org/core/books/sparameters-for-signal-integrity/2FD44B994CD054E4B844B358E8903A09#fndtn-information"
+literal "false"
+
+\end_inset
+
+ published by Cambridge University Press.
+\end_layout
+
+\begin_layout Standard
+The book describes the math behind all of the software and describes the
+ software itself, along with its organization.
+\end_layout
+
+\begin_layout Section
 On-line Video Examples
 \end_layout
 
@@ -508,9 +554,6 @@ reference "sec:Deembedding"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:RLGC-Fit"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5674,9 +5717,6 @@ This calculates the s-parameters of a
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Telegrapher---Two-Port"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5692,9 +5732,6 @@ Calculate the s-parameters of the schematic (see
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Generation"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5706,9 +5743,6 @@ Fit the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Telegrapher---Two-Port"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5720,9 +5754,6 @@ Open the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Viewer"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5734,9 +5765,6 @@ Place the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Telegrapher---Two-Port"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -5765,6 +5793,799 @@ reference "device:RLGC-Fit"
 \end_inset
 
  device.
+\end_layout
+
+\begin_layout Section
+Network Analyzer Measurements
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Network analyzer measurements allow the user to perform a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, producing error terms, and to use these error terms along with raw measurement
+s of the device under test to produce calibrated measurements.
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ has two main uses:
+\end_layout
+
+\begin_layout Enumerate
+To calibrate an instrument like a vector network analyzer (VNA).
+\end_layout
+
+\begin_layout Enumerate
+To perform fixture de-embedding in the form of a second-tier calibration.
+\end_layout
+
+\begin_layout Standard
+For most VNA users, this kind of capability is not really useful for accomplishi
+ng item 1, since the VNA itself provides methods and algorithms for performing
+ the calibration of the instrument.
+ That being said, it can still be useful under this situation when calibrations
+ not supported by the VNA are desired, such as overconstrained calibrations
+ (using more standards than are needed), unknown thru calibrations (SOLR)
+ if not supported, or transfer thru calibrations (when an incomplete set
+ of thru measurements are made).
+ It can also be used to check the calibration and certainly to learn about
+ calibration, when coupled with examination of the source code or with the
+ accompanying 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Book"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For solving problems in item 2, the application is particularly useful.
+ Often probes and fixtures are de-embedded from measurements using the calibrati
+on process.
+ This involves calibration standards usually built into a fixture, or calibratio
+n substrates.
+ In these cases, the VNA is first calibrated at the end of its cables, then
+ measurements are made of the calibration standards on the fixture and used
+ to produce error terms.
+ Then these error terms are used to make second-tier calibrated measurements
+ of the DUT, de-embedding the fixture in the process.
+\end_layout
+
+\begin_layout Standard
+The parts used in network analysis are shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationPartsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+They fall into three categories:
+\end_layout
+
+\begin_layout Enumerate
+Calibration Standards – these are definition of standards applied to the
+ instrument during calibration.
+ They include:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of a short.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of an open.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of a termination.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the two-port definition of a thru.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Calibration Measurements – these are the raw measurements taken of the calibrati
+on standards used for the calibration and for the generation of the error
+ terms.
+ These include:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - single-port measurements of the standards, usually three per port, each
+ being a short, open, or load.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - two-port measurements of the thru standard, usually one per every port–port
+ combination.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Network Analyzer Measurements – the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is used in conjunction with error terms previously calculated to convert
+ raw s-parameter measurements into calibrated s-parameter measurements.
+\end_layout
+
+\begin_layout Standard
+The two steps for network analyzer measurements are:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the process of determining the error terms using calibration standards
+ and calibration measurments.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the process of using the error terms in conjunction with raw s-parameter
+ measurements to calculate calibrated s-parameter measurements.
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Calibration
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Network-Analyzer-Calibration"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To perform a network analyzer calibration, one creates a project using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:New-Project"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and places down parts on the schematic using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ All of the parts used will be in the Network Analysis category shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationPartsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For calibration, the calibration measurements are mandatory – these are
+ the raw measurements taken of the calibration standards used for the calibratio
+n and for the generation of the error terms.
+ These include:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - single-port measurements of the standards, usually three per port, each
+ being a short, open, or load.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - (if two-ports or greater) two-port measurements of the thru standard,
+ usually one per every port–port combination.
+\end_layout
+
+\begin_layout Standard
+If calibration standards are used, and the calibration constants in the
+ calibration kit are in a LeCroy format (which is the same as the Keysight
+ format), then calibration standard devices can be used – these are definition
+ of standards applied to the instrument during calibration.
+ They include:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of a short.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of an open.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the one-port definition of a termination.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - the two-port definition of a thru.
+\end_layout
+
+\begin_layout Standard
+If calibration standards that don't adhere to the LeCroy format are used,
+ or in other situations such as fixtures or probes, then s-parameters can
+ be supplied as standards.
+\end_layout
+
+\begin_layout Standard
+Below is a project showing a two-port calibration:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VNACalibrationProject.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The calibration measurements are shown on the left, and the calibration
+ standards are supplied on the right.
+ Note that you don't have to supply the calibration standards in the schematic,
+ if the standards are referred to as s-parameters, either with a .s1p or
+ .s2p file, or as a project that produces one-port or two-port s-parameters
+ of the standard.
+ If you are using calibration standards from a calibration kit, it's easiest
+ to simply drop the standards in the schematic, in which case one refers
+ to the standard by the reference designator name, which is shown here as
+ simply:
+\end_layout
+
+\begin_layout Itemize
+Short – The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Open – The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Load – The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Thru – The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The definition of these standards can be seen by following the links.
+\end_layout
+
+\begin_layout Standard
+The calibration measurements on the left.
+ There are three instances of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ per port, where each 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the port it pertains to, the calibration standard used, and the s-paramet
+er measurement.
+ Here, the s-parameter measurements are not shown as .s1p files, as they
+ usually are, but as projects that presumably produce one-port s-parameters.
+ There is one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shown, representing the single thru calibration between ports 1 and 2.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ corresponding to the schematic is exported below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VNACalibrationNetlist.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This netlist could be used within a Python scripted environment (see the
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Software Documentation"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml"
+literal "false"
+
+\end_inset
+
+, specifically 
+\begin_inset CommandInset href
+LatexCommand href
+name "CalibrationNumericParser"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml#details"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Prior to performing the calibration, one should view and edit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+After editing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the calibration is invoked using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Error-Terms"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or by pressing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the toolbar.
+\end_layout
+
+\begin_layout Standard
+Once the error terms are calculated, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is opened as shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename SParameterViewerErrorTerms.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the viewer window, two special accommodations are made.
+ First the s-parameters for the fixtures corresponding to the error terms
+ are shown (for a definition of the fixtures see the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Book"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) with the buttons labeled appropriately, with the following definitions
+ for error terms:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ED_{x}$
+\end_inset
+
+ – Directivity term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ER_{x}$
+\end_inset
+
+ – Reverse Transmission term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ES_{x}$
+\end_inset
+
+ – Source Match term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ET_{yx}$
+\end_inset
+
+ – Forward Transmission term for port 
+\begin_inset Formula $y$
+\end_inset
+
+ with port 
+\begin_inset Formula $x$
+\end_inset
+
+ driven
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $EL_{yx}$
+\end_inset
+
+ – Load Match term for port 
+\begin_inset Formula $y$
+\end_inset
+
+ with port 
+\begin_inset Formula $x$
+\end_inset
+
+ driven
+\end_layout
+
+\begin_layout Standard
+The description of all of these error terms are beyond the scope of this
+ users manual.
+\end_layout
+
+\begin_layout Standard
+To select error terms for different ports, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Selection"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationErrorTermsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error terms can be saved for use in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-S-parameter-File"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but the default extension recommended will be calibration (.cal).
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Measurement
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Network-Analyzer-Measurement"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -6091,7 +6912,30 @@ reference "subsec:S-Parameter-Viewer-File"
 
 \end_inset
 
- - read and write files.
+ – read and write files.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:S-Parameter-Viewer-Selection"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – select other s-parameter files (or port error terms, when used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Itemize
@@ -6101,7 +6945,7 @@ reference "subsec:S-Parameter-Viewer-Properties"
 
 \end_inset
 
- - s-parameter properties.
+ – s-parameter properties and enforcements.
 \end_layout
 
 \begin_layout Itemize
@@ -6111,7 +6955,7 @@ reference "subsec:S-Parameter-Viewer-View"
 
 \end_inset
 
- - various viewing options.
+ – various viewing options.
 \end_layout
 
 \begin_layout Itemize
@@ -6121,20 +6965,17 @@ reference "Control-Help:S-Parameter-Viewer-Zoom"
 
 \end_inset
 
- - various zooming options.
+ – various zooming options.
 \end_layout
 
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Help"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
- - help system.
+ – help system.
 \end_layout
 
 \begin_layout Subsection
@@ -6512,6 +7353,38 @@ This saves the current s-parameter file being viewed to disk.
 \end_layout
 
 \begin_layout Subsection
+S-Parameter Viewer Selection Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:S-Parameter-Viewer-Selection"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Usually, the selection is grayed out, as only one s-parameter file is shown
+ at a time.
+ An exception to this is when viewing calibration files resulting from 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, in which the error terms for each port can be selected.
+\end_layout
+
+\begin_layout Standard
+Future enhancements will enable viewing of multiple s-parameters that will
+ be selectable through this menu.
+\end_layout
+
+\begin_layout Subsection
 S-Parameter Viewer Properties Menu
 \begin_inset CommandInset label
 LatexCommand label
@@ -6566,9 +7439,6 @@ reference "Control-Help:Enforce-Causality"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -6579,6 +7449,16 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Reciprocity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-All"
 plural "false"
 caps "false"
 noprefix "false"
@@ -6749,6 +7629,10 @@ Always
 </row>
 </lyxtabular>
 
+\end_inset
+
+
+\begin_inset Separator latexpar
 \end_inset
 
 
@@ -7199,9 +8083,6 @@ Causality violations are shown using
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Show-Causality-Violations"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -7409,9 +8290,6 @@ reference "Control-Help:Enforce-Passivity"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Causality"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -7436,9 +8314,6 @@ See
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Causality"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -7784,9 +8659,6 @@ Enforces all possible enforcements.
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -7794,9 +8666,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -7805,9 +8674,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -9811,9 +10677,6 @@ The zoom settings are in three categories:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Viewer-Frequency-Zoom"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -9824,9 +10687,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Viewer-Time-Zoom"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -9837,9 +10697,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Viewer-Vertical-Zoom"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10058,12 +10915,20 @@ Join within views (default) - this joins the phase and magnitude frequency
 Join with other views (default) - this joins the zoom to other s-parameters
  not being viewed.
  If this is set, then the rules for joining with the other plots are:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
 Join all views (default) - all s-parameter plots frequency axes are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10071,6 +10936,10 @@ Join all views (default) - all s-parameter plots frequency axes are joined.
 Join off-diagonal views - all s-parameter plots frequency axes that are
  off the diagonal are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10108,9 +10977,6 @@ These options are saved in the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10297,12 +11163,20 @@ Join within views (default) - this joins the impulse response, step response,
 Join with other views (default) - this joins the zoom to other frequency-domain
  s-parameters not being viewed.
  If this is set, then the rules for joining with the other plots are:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
 Join all views - all s-parameter plots time axes are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10310,6 +11184,10 @@ Join all views - all s-parameter plots time axes are joined.
 Join off-diagonal views (default) - all s-parameter plots time axes that
  are off the diagonal are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10348,9 +11226,6 @@ These options are saved in the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10553,6 +11428,10 @@ All plots that are joined vertically follow a common set of rules:
 \begin_layout Itemize
 Join all views - all common vertical zooms are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10560,6 +11439,10 @@ Join all views - all common vertical zooms are joined.
 Join off-diagonal views - all common vertical zooms for s-parameter off
  the diagonal are joined.
  Otherwise, you can:
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -10598,9 +11481,6 @@ These options are saved in the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10623,9 +11503,6 @@ The Help tasks are a category in the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Viewer"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10663,9 +11540,6 @@ reference "Control-Help:S-Parameter-Viewer-Control-Help"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10736,9 +11610,6 @@ Menu System
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Help"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10853,9 +11724,6 @@ This command opens the help system to the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Viewer"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -10926,9 +11794,6 @@ Menu System
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Help"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -11119,9 +11984,6 @@ Menu System
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Help"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -11231,9 +12093,6 @@ Preferences allows editing of the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -11385,7 +12244,27 @@ reference "subsec:Simulator-File-Menu"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "subsec:Simulator-Selection-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "subsec:Simulator-Calculation-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-View-Menu"
 
 \end_inset
 
@@ -11463,7 +12342,7 @@ reference "subsec:Read-Waveforms"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "Control-Help:Output-to-LaTeX"
+reference "Control-Help:Simulator-output-to-LaTeX"
 
 \end_inset
 
@@ -11830,7 +12709,7 @@ Output to \SpecialChar LaTeX
  (TikZ)
 \begin_inset CommandInset label
 LatexCommand label
-name "Control-Help:Output-to-LaTeX"
+name "Control-Help:Simulator-output-to-LaTeX"
 
 \end_inset
 
@@ -12041,6 +12920,586 @@ SignalIntegrityApp
 
 \begin_layout Standard
 For .png or other rasterized graphics use the disk button on the plot toolbar.
+\end_layout
+
+\begin_layout Subsection
+Simulator Selection Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Simulator-Selection-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The selection menu shows the selection tasks along with a list of all available
+ waveforms.
+ This is a tear-off menu and clicking in the dotted line area will cause
+ this menu to be permanently displayed, which is useful for turning on and
+ off waveform displays.
+ Clicking on any waveform in the list of available waveforms causes them
+ to turn on or off.
+ The section tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Display-All"
+
+\end_inset
+
+ - selects all waveforms for displaying.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Display-None"
+
+\end_inset
+
+ - turns off display of all waveforms.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Toggle-Selections"
+
+\end_inset
+
+ - toggles all display states.
+\end_layout
+
+\begin_layout Subsubsection
+Display All
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Display-All"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selection ▸ Display All
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+S,A
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selects all available waveforms for display.
+ Selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Display-All"
+
+\end_inset
+
+ causes all waveforms to be displayed and their selections checked in the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Selection-Menu"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Display None
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Display-None"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selection ▸ Display All
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+S,N
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Turns off all waveforms for display.
+ Selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Display-None"
+
+\end_inset
+
+ causes all waveforms to be turned off and their selections unchecked in
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Selection-Menu"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Toggle All
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Toggle-Selections"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selection ▸ Toggle All
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+S,T
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Toggles the display state of all available waveforms.
+ Selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Toggle-Selections"
+
+\end_inset
+
+ causes all waveforms that were previously checked to be unchecked, and
+ all waveforms that were previously unchecked to be checked in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-Selection-Menu"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -12460,6 +13919,563 @@ reference "sec:Virtual-Probing"
 \end_layout
 
 \begin_layout Subsection
+Simulator View Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Simulator-View-Menu"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-File-Menu"
+
+\end_inset
+
+ defaults to showing simulation or virtual probing results in the time domain
+ (i.e.
+ with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Time-domain"
+
+\end_inset
+
+ selected in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Simulator-View-Menu"
+
+\end_inset
+
+).
+ However, the results can be viewed in the time or frequency domain depending
+ on selection:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Time-domain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Spectral-Content"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:View-Spectral-Density"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+View Time-domain
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:View-Time-domain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Time-domain
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,T
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selects the mode of viewing waveforms as time domain.
+ All simulation or virtual probe results are plotted in the time domain.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+View Spectral Content
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:View-Spectral-Content"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Time-domain
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selects the mode of viewing waveforms as frequency content.
+ All simulation or virtual probe results are plotted in the frequency domain.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+View Spectral Density
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:View-Spectral-Density"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulator and Virtual Probe Dialog
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+View ▸ Time-domain
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,D
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Selects the mode of viewing waveforms as spectral density in the frequency
+ domain.
+ All simulation or virtual probe results are plotted as spectral density.
+ 
+\end_layout
+
+\begin_layout Subsection
 Help
 \begin_inset CommandInset label
 LatexCommand label
@@ -12475,9 +14491,6 @@ The Help tasks are a category in the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Simulator-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -12488,9 +14501,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Simulator-Open-Help-File"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -12498,9 +14508,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Simulator-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -12521,9 +14528,6 @@ reference "Control-Help:Simulator-Control-Help"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Simulator-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -12708,9 +14712,6 @@ This command opens the help system to the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Simulator-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -13080,9 +15081,6 @@ Preferences allows editing of any of the various
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Simulator-Dialog-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -16110,9 +18108,6 @@ reference "sec:Built-in-Devices"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Add-Net-Name"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -16120,9 +18115,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Net-Name"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -16948,9 +18940,6 @@ This command is used to add net names to a schematic.
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Net-Name"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -20836,9 +22825,6 @@ The default number of pixels per grid unit are controlled by
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Appearance.InitialGrid"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -20846,9 +22832,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -21038,9 +23021,6 @@ The default number of pixels per grid unit are controlled by
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Appearance.InitialGrid"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -21048,9 +23028,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -21295,9 +23272,6 @@ reference "Control-Help:Calculation-Properties"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -21376,6 +23350,52 @@ reference "Control-Help:Deembed"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Deembedding"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for performing an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:RLGC-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to the s-parameters.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Error-Terms"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for computing error terms in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -22355,9 +24375,6 @@ This command opens a text notepad where the user can enter
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -23684,9 +25701,6 @@ reference "sec:RLGC-Fit"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Telegrapher---Two-Port"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -23702,6 +25716,254 @@ reference "sec:RLGC-Fit"
 \end_inset
 
  for what happens when invoked and for the conditions for enabling this.
+\end_layout
+
+\begin_layout Subsubsection
+Calculate Error Terms
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Calculate-Error-Terms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ Calculate Error Terms
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the project is a calibration project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Invoking this command computes error terms in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Whether this command is available is based on whether the project can be
+ identified as a 
+\emph on
+calibration
+\emph default
+ project.
+ This identification is determined automatically by the presence of a calibratio
+n measurement (either a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), and nonexistence of any other unrelated devices like ports, probes, etc.
+\end_layout
+
+\begin_layout Standard
+If the command completes, the error terms are shown in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which allows writing the calibration file to the disk for subsequent use
+ in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -24390,6 +26652,10 @@ reference "device:Capacitor"
 
 \end_layout
 
+\begin_layout Standard
+Inductor Devices
+\end_layout
+
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -24418,6 +26684,10 @@ reference "device:IdealTransformer"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Miscellaneous Devices
 \end_layout
 
 \begin_layout Itemize
@@ -24454,9 +26724,6 @@ reference "device:DirectionalCoupler"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Net-Name"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -24481,6 +26748,10 @@ reference "device:Voltage-Mixed-Mode-Converter"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Transmission Line Devices
 \end_layout
 
 \begin_layout Itemize
@@ -24523,6 +26794,10 @@ reference "device:RLGC-Fit"
 
 \end_layout
 
+\begin_layout Standard
+Sources
+\end_layout
+
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -24541,6 +26816,10 @@ reference "device:Current-Source"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Generators
 \end_layout
 
 \begin_layout Itemize
@@ -24633,6 +26912,10 @@ reference "device:Current-Sine-Generator"
 
 \end_layout
 
+\begin_layout Standard
+Special Devices
+\end_layout
+
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -24703,6 +26986,10 @@ reference "device:Voltage-Controlled-Voltage-Source"
 
 \end_layout
 
+\begin_layout Standard
+Dependent Sources
+\end_layout
+
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -24743,6 +27030,10 @@ reference "device:Current-Controlled-Voltage-Source"
 
 \end_layout
 
+\begin_layout Standard
+Amplifiers
+\end_layout
+
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -24781,6 +27072,131 @@ reference "device:Transresistance-Amplifier"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Network Analysis Devices
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer-Stimulus"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer-Model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+De-embedding Elements
 \end_layout
 
 \begin_layout Itemize
@@ -27086,9 +29502,6 @@ Net names have no effect on the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -29683,6 +32096,7 @@ name "device:RLGC-Fit"
 \begin_layout Standard
 \begin_inset Graphics
 	filename RLGC.bmp
+	lyxscale 25
 	scale 25
 
 \end_inset
@@ -35661,9 +38075,6 @@ Ports can be optionally specified with a delay value.
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Show-Impedance"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37116,9 +39527,6 @@ When examining the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37127,9 +39535,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Current-Controlled-Voltage-Source"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37139,9 +39544,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Open"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37150,9 +39552,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Output-Probe"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37552,9 +39951,6 @@ When examining the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37563,9 +39959,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Voltage-Diff-Probe"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37575,9 +39968,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Open"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -37586,9 +39976,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "device:Output-Probe"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -40468,6 +42855,11 @@ reference "subsec:Unknowns"
 \end_layout
 
 \begin_layout Standard
+Unknowns are provided with fixed one, two, three, and four ports.
+ If more ports are needed, use the variable port unknown.
+\end_layout
+
+\begin_layout Standard
 Unknowns are placed in the schematic using 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -40798,6 +43190,11 @@ reference "subsec:Defining-the-System"
 \end_layout
 
 \begin_layout Standard
+Systems are provided with fixed one, two, three, and four ports.
+ If more ports are needed, use the variable port system.
+\end_layout
+
+\begin_layout Standard
 The system is defined by placing a special part in the schematic using 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -40862,6 +43259,3505 @@ er file is a project that produces s-parameters (i.e.
  file type.
 \end_layout
 
+\begin_layout Subsection
+Short Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Short-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ShortStandard.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Short?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Short1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+od
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset characteristic impedance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+oz0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset loss
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega/s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+loss frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GHz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+inductance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+l0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+H
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+l1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-24\,\mathrm{H}/\mathrm{Hz}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+l2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-33\,\mathrm{H}/\mathrm{Hz}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+l3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-42\,\mathrm{H}/\mathrm{Hz}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the short standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in an inductance, to account for an imperfect short.
+ The terminating inductance is defined as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+L=\left(\left(l3\cdot f+l2\right)\cdot f+l1\right)\cdot f+l0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the inductance (H) and f is frequency (Hz).
+ Note that the exponents are built into the units for the polynomial coefficient
+s, which usually makes the values simple numbers.
+\end_layout
+
+\begin_layout Subsection
+Open Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Open-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename OpenStandard.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Open?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Open1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+od
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset characteristic impedance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+oz0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+offset loss
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega/s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+loss frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GHz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+capacitance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fF
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-27\,\mathrm{F}/\mathrm{Hz}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-36\,\mathrm{F}/\mathrm{Hz}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{e}-45\,\mathrm{F}/\mathrm{Hz}^{3}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the open standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in a capacitance, to account for an imperfect open.
+ The terminating capacitance is defined as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C=\left(\left(c3\cdot f+c2\right)\cdot f+c1\right)\cdot f+c0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $C$
+\end_inset
+
+ is the capacitance (F) and f is frequency (Hz).
+ Note that the exponents are built into the units for the polynomial coefficient
+s, which usually makes the values simple numbers.
+\end_layout
+
+\begin_layout Subsection
+Load Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Load-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename LoadStandard.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Load?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Load1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+od
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset characteristic impedance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+oz0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset loss
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega/s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+loss frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GHz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+termination impedance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tz
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the load standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in an real impedance.
+\end_layout
+
+\begin_layout Subsection
+Thru Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Thru-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ThruStandard.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Thru?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Thru1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset delay
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+od
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset characteristic impedance
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+oz0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+offset loss
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Omega/s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+loss frequency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GHz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the thru standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+Reflect Measurement
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Reflect-Measurement"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ShortMeasure.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename OpenMeasure.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename LoadMeasure.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+cal standard file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+pn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration measurements are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a one-port calibration standard, specified
+ as s-parameters, a project producing s-parameters, or as a calibration
+ standard such as a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, or a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file name refers to a one-port s-parameter file, or a project producing
+ one-port s-parameters, or as the reference designator of a calibration
+ standard placed in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project.
+\end_layout
+
+\begin_layout Standard
+The port number corresponds to the port of a network analyzer where the
+ reflect measurement is made.
+\end_layout
+
+\begin_layout Subsection
+Thru Measurement
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Thru-Measurement"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename ThruMeasureSOLT.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ThruMeasureSOLR.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+cal standard file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+pn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+other port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+opn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+calibration type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+enum
+\end_layout
+
+\begin_layout Plain Layout
+SOLT
+\end_layout
+
+\begin_layout Plain Layout
+or
+\end_layout
+
+\begin_layout Plain Layout
+SOLR
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ct
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SOLT
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration measurements are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and are used in conjunction with a two-port calibration standard, specified
+ as s-parameters, a project producing s-parameters, or as a calibration
+ standard such as a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file name refers to a two-port s-parameter file, or a project producing
+ one-port s-parameters, or as the reference designator of a calibration
+ standard placed in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project.
+\end_layout
+
+\begin_layout Standard
+The port number corresponds to the port of a network analyzer where port
+ 1 of the thru standard is connected.
+ The other port number corresponds to the port of the network analyzer where
+ port 2 of the thru standard is connected.
+ This is properly deal with (the unusual case) of an asymmetric standard.
+\end_layout
+
+\begin_layout Standard
+The calibration types support are either (Short-Open-Load-Thru) SOLT or
+ (Short-Open-Load-Reciprocal) SOLR.
+\end_layout
+
+\begin_layout Standard
+SOLT is the most typical and assumes that the thru is perfectly specified.
+\end_layout
+
+\begin_layout Standard
+SOLR uses assumptions of reciprocity to recover the thru standard, using
+ the thru standard provided as an estimate.
+ The thru standard specified is used to resolve ambiguities in the phase.
+ SOLR, while relying on the accuracy of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, is useful when the thru standard is not precisely known or defined, hence
+ it is also called 
+\begin_inset Quotes eld
+\end_inset
+
+the method of the unknown thru
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Network-Analyzer"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename VNACalculation.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+default reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D?
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+reference
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ref
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+ports
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+ports
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+port list
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int (comma separated)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+pl
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1,2,3,4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+error terms
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+et
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+calculation direction
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+enum
+\end_layout
+
+\begin_layout Plain Layout
+forward
+\end_layout
+
+\begin_layout Plain Layout
+or
+\end_layout
+
+\begin_layout Plain Layout
+reverse
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+cd
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+forward
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Stimulus
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Network-Analyzer-Stimulus"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is an undocumented feature.
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Model
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Network-Analyzer-Model"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is an undocumented feature.
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Device-Under-Test
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Device-Under-Test"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is an undocumented feature.
+\end_layout
+
 \begin_layout Section
 Netlist
 \begin_inset CommandInset label
@@ -40875,7 +46771,7 @@ name "sec:Netlist"
 
 \begin_layout Standard
 Netlists are the internal text based format of the schematic.
- There is a one-to-one correspondance between the netlist and the schematic
+ There is a one-to-one correspondence between the netlist and the schematic
  from a device and connectivity standpoint.
 \end_layout
 
@@ -41101,9 +46997,6 @@ reference "sec:Deembedding"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:post"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -41111,9 +47004,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42023,9 +47913,6 @@ A netlist line beginning with the keyword post defines
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42044,9 +47931,6 @@ reference "sec:Deembedding"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Generation"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42062,9 +47946,6 @@ post enforce causality - is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Causality"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42076,9 +47957,6 @@ post enforce passivity - is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Passivity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42086,7 +47964,36 @@ noprefix "false"
 \end_layout
 
 \begin_layout Itemize
-post enforce reciprocity - enforces reciprocity on the final result.
+enforce both passivity and causality – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce reciprocity - is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-Reciprocity"
+
+\end_inset
+
+ on the final result.
+\end_layout
+
+\begin_layout Itemize
+enforce all – is the same as issuing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-All"
+
+\end_inset
+
+ on the final result.
 \end_layout
 
 \begin_layout Itemize
@@ -42117,9 +48024,6 @@ reference "sec:Deembedding"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:S-parameter-Generation"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42132,9 +48036,6 @@ These commands are entered as text in the order that they are to be executed
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42147,9 +48048,6 @@ All of the post-processing commands are appended to the
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42157,9 +48055,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Export-Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42168,9 +48063,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:post"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42193,9 +48085,6 @@ enforce causality - is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Causality"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42207,9 +48096,6 @@ enforce passivity - is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Passivity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42221,9 +48107,6 @@ enforce both passivity and causality – is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42235,9 +48118,6 @@ enforce reciprocity - is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Reciprocity"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42249,9 +48129,6 @@ enforce all – is the same as issuing
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-All"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -42398,9 +48275,6 @@ reference "subsec:PostProcessing"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43101,9 +48975,6 @@ A
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Post-Processing"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43111,9 +48982,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:Netlist"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43121,9 +48989,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:post"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43265,9 +49130,6 @@ Currently, the preferences are broken into two groups:
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Standard-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43279,9 +49141,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:S-Parameter-Viewer-Preferences"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43306,7 +49165,7 @@ The standard preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="14" columns="4">
+<lyxtabular version="3" rows="15" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -43421,9 +49280,6 @@ initial grid
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Appearance.InitialGrid"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -43665,13 +49521,57 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
 False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+enforce 12458 sequence in calculation properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.Enforce12458"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True
 \end_layout
 
 \end_inset
@@ -44175,9 +50075,6 @@ font size
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "subsec:Appearance.InitialGrid"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -44225,9 +50122,6 @@ This grid size is affected by zooming (see
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Zoom-In"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -44235,9 +50129,6 @@ noprefix "false"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Zoom-Out"
-plural "false"
-caps "false"
-noprefix "false"
 
 \end_inset
 
@@ -45079,6 +50970,151 @@ simulations determining the current in parallel loops of wire.
 
 \begin_layout Itemize
 simulations with voltage sources shorted to ground.
+\end_layout
+
+\begin_layout Subsection*
+Calculation.Enforce12458
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Calculation.Enforce12458"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+enforce 12458 sequence in calculation properties
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.Enforce12458"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Usually, when 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Setting-Calculation-Properties"
+
+\end_inset
+
+, using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ controls, it is desirable to use good, round numbers.
+ This is enforced using a 12458 sequence (actually, the next higher).
+ For example, if one enters 67.34 GS/s for the sample rate, the software
+ automatically adjusts this to 80 GS/s (the next higher 12458 number).
+ This is usually the best, but sometimes it is really necessary to enter,
+ for example, an end frequency of 70 GHz and these enforcements will confound
+ your efforts.
+ In these cases, set this preference to False.
+ Usually, I might set it to False, enter my odd-ball frequencies, and then
+ set it back to True (it will not change already entered numbers).
 \end_layout
 
 \begin_layout Subsection*
@@ -46104,6 +52140,10 @@ reference "subsec:S-Parameter-Viewer-View"
 \end_inset
 
 .
+\begin_inset Separator latexpar
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -46256,7 +52296,7 @@ The plot window preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="4">
+<lyxtabular version="3" rows="7" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -46487,7 +52527,7 @@ gray
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -46496,7 +52536,7 @@ show cursor values on plots
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -46511,7 +52551,7 @@ reference "subsec:Appearance.PlotCursorValues"
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -46520,13 +52560,57 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
 False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+significant digits
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:SParameterProperties.SignificantDigits"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
 \end_layout
 
 \end_inset
@@ -47282,6 +53366,133 @@ reference "sec:Simulator-Dialog"
 
 \begin_layout Standard
 To remove the annoyance, this feature can be controlled by this preference.
+\end_layout
+
+\begin_layout Subsection*
+SParameterProperties.SignificantDigits
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:SParameterProperties.SignificantDigits"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+significant digits
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:SParameterProperties.SignificantDigits"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Normally, when s-parameters are written to a file, 6 significant digits
+ are used, without exponent.
+ This is in the interest of space (remember that 0.000001 is -100 dB).
+ If you want more digits, you can raise this number to something higher.
+ In the future, exponents might be allowed, but this is the best compromise
+ for now.
 \end_layout
 
 \end_body

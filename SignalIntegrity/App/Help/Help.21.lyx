@@ -13,7 +13,7 @@
 \font_sans default
 \font_typewriter default
 \font_math auto
-\font_default_family default
+\font_default_family sfdefault
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
@@ -346,6 +346,51 @@ https://www.gnu.org/licenses/
 \end_inset
 
 >
+\end_layout
+
+\begin_layout Section
+Book
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Book"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename Pete-social-3.jpg
+	lyxscale 35
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All of the software in 
+\emph on
+SignalIntegrity
+\emph default
+ is completely explained in the book 
+\begin_inset CommandInset href
+LatexCommand href
+name "“S-Parameters for Signal Integrity”"
+target "https://www.cambridge.org/core/books/sparameters-for-signal-integrity/2FD44B994CD054E4B844B358E8903A09#fndtn-information"
+
+\end_inset
+
+ published by Cambridge University Press.
+\end_layout
+
+\begin_layout Standard
+The book describes the math behind all of the software and describes the
+ software itself, along with its organization.
 \end_layout
 
 \begin_layout Section
@@ -5726,6 +5771,205 @@ name "sec:Network-Analyzer-Measurements"
 
 \end_layout
 
+\begin_layout Standard
+Network analyzer measurements allow the user to perform a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+, producing error terms, and to use these error terms along with raw measurement
+s of the device under test to produce calibrated measurements.
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ has two main uses:
+\end_layout
+
+\begin_layout Enumerate
+To calibrate an instrument like a vector network analyzer (VNA).
+\end_layout
+
+\begin_layout Enumerate
+To perform fixture de-embedding in the form of a second-tier calibration.
+\end_layout
+
+\begin_layout Standard
+For most VNA users, this kind of capability is not really useful for accomplishi
+ng item 1, since the VNA itself provides methods and algorithms for performing
+ the calibration of the instrument.
+ That being said, it can still be useful under this situation when calibrations
+ not supported by the VNA are desired, such as overconstrained calibrations
+ (using more standards than are needed), unknown thru calibrations (SOLR)
+ if not supported, or transfer thru calibrations (when an incomplete set
+ of thru measurements are made).
+ It can also be used to check the calibration and certainly to learn about
+ calibration, when coupled with examination of the source code or with the
+ accompanying 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Book"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For solving problems in item 2, the application is particularly useful.
+ Often probes and fixtures are de-embedded from measurements using the calibrati
+on process.
+ This involves calibration standards usually built into a fixture, or calibratio
+n substrates.
+ In these cases, the VNA is first calibrated at the end of its cables, then
+ measurements are made of the calibration standards on the fixture and used
+ to produce error terms.
+ Then these error terms are used to make second-tier calibrated measurements
+ of the DUT, de-embedding the fixture in the process.
+\end_layout
+
+\begin_layout Standard
+The parts used in network analysis are shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationPartsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+They fall into three categories:
+\end_layout
+
+\begin_layout Enumerate
+Calibration Standards -- these are definition of standards applied to the
+ instrument during calibration.
+ They include:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+
+\end_inset
+
+ - the one-port definition of a short.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+
+\end_inset
+
+ - the one-port definition of an open.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+
+\end_inset
+
+ - the one-port definition of a termination.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+
+\end_inset
+
+ - the two-port definition of a thru.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Calibration Measurements --
+ these are the raw measurements taken of the calibrati
+on standards used for the calibration and for the generation of the error
+ terms.
+ These include:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+ - single-port measurements of the standards, usually three per port, each
+ being a short, open, or load.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+
+\end_inset
+
+ - two-port measurements of the thru standard, usually one per every port--port
+ combination.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Network Analyzer Measurements -- the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Network-Analyzer"
+
+\end_inset
+
+ is used in conjunction with error terms previously calculated to convert
+ raw s-parameter measurements into calibrated s-parameter measurements.
+\end_layout
+
+\begin_layout Standard
+The two steps for network analyzer measurements are:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ -- the process of determining the error terms using calibration standards
+ and calibration measurments.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Measurement"
+
+\end_inset
+
+ -- the process of using the error terms in conjunction with raw s-parameter
+ measurements to calculate calibrated s-parameter measurements.
+\end_layout
+
 \begin_layout Subsection
 Network Analyzer Calibration
 \begin_inset CommandInset label
@@ -5735,6 +5979,455 @@ name "sub:Network-Analyzer-Calibration"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+To perform a network analyzer calibration, one creates a project using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:New-Project"
+
+\end_inset
+
+ and places down parts on the schematic using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Add-Part"
+
+\end_inset
+
+.
+ All of the parts used will be in the Network Analysis category shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationPartsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For calibration, the calibration measurements are mandatory -- these are
+ the raw measurements taken of the calibration standards used for the calibratio
+n and for the generation of the error terms.
+ These include:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+ - single-port measurements of the standards, usually three per port, each
+ being a short, open, or load.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+
+\end_inset
+
+ - (if two-ports or greater) two-port measurements of the thru standard,
+ usually one per every port--port combination.
+\end_layout
+
+\begin_layout Standard
+If calibration standards are used, and the calibration constants in the
+ calibration kit are in a LeCroy format (which is the same as the Keysight
+ format), then calibration standard devices can be used -- these are definition
+ of standards applied to the instrument during calibration.
+ They include:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+
+\end_inset
+
+ - the one-port definition of a short.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+
+\end_inset
+
+ - the one-port definition of an open.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+
+\end_inset
+
+ - the one-port definition of a termination.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+
+\end_inset
+
+ - the two-port definition of a thru.
+\end_layout
+
+\begin_layout Standard
+If calibration standards that don't adhere to the LeCroy format are used,
+ or in other situations such as fixtures or probes, then s-parameters can
+ be supplied as standards.
+\end_layout
+
+\begin_layout Standard
+Below is a project showing a two-port calibration:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VNACalibrationProject.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The calibration measurements are shown on the left, and the calibration
+ standards are supplied on the right.
+ Note that you don't have to supply the calibration standards in the schematic,
+ if the standards are referred to as s-parameters, either with a .s1p or
+ .s2p file, or as a project that produces one-port or two-port s-parameters
+ of the standard.
+ If you are using calibration standards from a calibration kit, it's easiest
+ to simply drop the standards in the schematic, in which case one refers
+ to the standard by the reference designator name, which is shown here as
+ simply:
+\end_layout
+
+\begin_layout Itemize
+Short -- The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Open -- The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Load -- The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Thru -- The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The definition of these standards can be seen by following the links.
+\end_layout
+
+\begin_layout Standard
+The calibration measurements on the left.
+ There are three instances of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+ per port, where each 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+ shows the port it pertains to, the calibration standard used, and the s-paramet
+er measurement.
+ Here, the s-parameter measurements are not shown as .s1p files, as they
+ usually are, but as projects that presumably produce one-port s-parameters.
+ There is one 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+
+\end_inset
+
+ shown, representing the single thru calibration between ports 1 and 2.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Netlist"
+
+\end_inset
+
+ corresponding to the schematic is exported below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename VNACalibrationNetlist.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This netlist could be used within a Python scripted environment (see the
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Software Documentation"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml"
+
+\end_inset
+
+, specifically 
+\begin_inset CommandInset href
+LatexCommand href
+name "CalibrationNumericParser"
+target "https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml#details"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Prior to performing the calibration, one should view and edit the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Setting-Calculation-Properties"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+After editing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+, the calibration is invoked using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Error-Terms"
+
+\end_inset
+
+ or by pressing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Button"
+
+\end_inset
+
+ in the toolbar.
+\end_layout
+
+\begin_layout Standard
+Once the error terms are calculated, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+ is opened as shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename SParameterViewerErrorTerms.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the viewer window, two special accommodations are made.
+ First the s-parameters for the fixtures corresponding to the error terms
+ are shown (for a definition of the fixtures see the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Book"
+
+\end_inset
+
+) with the buttons labeled appropriately, with the following definitions
+ for error terms:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ED_{x}$
+\end_inset
+
+ -- Directivity term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ER_{x}$
+\end_inset
+
+ -- Reverse Transmission term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ES_{x}$
+\end_inset
+
+ -- Source Match term for port 
+\begin_inset Formula $x$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $ET_{yx}$
+\end_inset
+
+ -- Forward Transmission term for port 
+\begin_inset Formula $y$
+\end_inset
+
+ with port 
+\begin_inset Formula $x$
+\end_inset
+
+ driven
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $EL_{yx}$
+\end_inset
+
+ -- Load Match term for port 
+\begin_inset Formula $y$
+\end_inset
+
+ with port 
+\begin_inset Formula $x$
+\end_inset
+
+ driven
+\end_layout
+
+\begin_layout Standard
+The description of all of these error terms are beyond the scope of this
+ users manual.
+\end_layout
+
+\begin_layout Standard
+To select error terms for different ports, use 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-Parameter-Viewer-Selection"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename CalibrationErrorTermsSelection.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error terms can be saved for use in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Measurement"
+
+\end_inset
+
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-S-parameter-File"
+
+\end_inset
+
+, but the default extension recommended will be calibration (.cal).
 \end_layout
 
 \begin_layout Subsection
@@ -6071,7 +6764,24 @@ reference "sub:S-Parameter-Viewer-File"
 
 \end_inset
 
- - read and write files.
+ -- read and write files.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:S-Parameter-Viewer-Selection"
+
+\end_inset
+
+ -- select other s-parameter files (or port error terms, when used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Itemize
@@ -6081,7 +6791,7 @@ reference "sub:S-Parameter-Viewer-Properties"
 
 \end_inset
 
- - s-parameter properties.
+ -- s-parameter properties and enforcements.
 \end_layout
 
 \begin_layout Itemize
@@ -6091,7 +6801,7 @@ reference "sub:S-Parameter-Viewer-View"
 
 \end_inset
 
- - various viewing options.
+ -- various viewing options.
 \end_layout
 
 \begin_layout Itemize
@@ -6101,7 +6811,7 @@ reference "Control-Help:S-Parameter-Viewer-Zoom"
 
 \end_inset
 
- - various zooming options.
+ -- various zooming options.
 \end_layout
 
 \begin_layout Itemize
@@ -6111,7 +6821,7 @@ reference "sub:S-Parameter-Viewer-Help"
 
 \end_inset
 
- - help system.
+ -- help system.
 \end_layout
 
 \begin_layout Subsection
@@ -6489,6 +7199,35 @@ This saves the current s-parameter file being viewed to disk.
 \end_layout
 
 \begin_layout Subsection
+S-Parameter Viewer Selection Menu
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:S-Parameter-Viewer-Selection"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Usually, the selection is grayed out, as only one s-parameter file is shown
+ at a time.
+ An exception to this is when viewing calibration files resulting from 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+, in which the error terms for each port can be selected.
+\end_layout
+
+\begin_layout Standard
+Future enhancements will enable viewing of multiple s-parameters that will
+ be selectable through this menu.
+\end_layout
+
+\begin_layout Subsection
 S-Parameter Viewer Properties Menu
 \begin_inset CommandInset label
 LatexCommand label
@@ -6553,6 +7292,16 @@ reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Reciprocity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Enforce-All"
 
 \end_inset
 
@@ -22389,6 +23138,23 @@ reference "sec:RLGC-Fit"
  to the s-parameters.
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculate-Error-Terms"
+
+\end_inset
+
+ - for computing error terms in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Standard
 You also invoke the 
 \begin_inset CommandInset ref
@@ -24871,6 +25637,24 @@ When the project is a calibration project
 \end_layout
 
 \begin_layout Standard
+Invoking this command computes error terms in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ project used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 Whether this command is available is based on whether the project can be
  identified as a 
 \emph on
@@ -24893,24 +25677,6 @@ reference "device:Thru-Measurement"
 \end_inset
 
 ), and nonexistence of any other unrelated devices like ports, probes, etc.
-\end_layout
-
-\begin_layout Standard
-Invoking this command computes error terms that are used in 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sub:Network-Analyzer-Calibration"
-
-\end_inset
-
- used in 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Network-Analyzer-Measurements"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -42312,7 +43078,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+Short?
 \end_layout
 
 \end_inset
@@ -42359,7 +43125,7 @@ ref
 \begin_inset Text
 
 \begin_layout Plain Layout
-D1
+Short1
 \end_layout
 
 \end_inset
@@ -42765,6 +43531,73 @@ l3
 
 \end_layout
 
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the short standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in an inductance, to account for an imperfect short.
+ The terminating inductance is defined as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+L=\left(\left(l3\cdot f+l2\right)\cdot f+l1\right)\cdot f+l0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the inductance (H) and f is frequency (Hz).
+ Note that the exponents are built into the units for the polynomial coefficient
+s, which usually makes the values simple numbers.
+\end_layout
+
 \begin_layout Subsection
 Open Standard
 \begin_inset CommandInset label
@@ -42884,7 +43717,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+Open?
 \end_layout
 
 \end_inset
@@ -42931,7 +43764,7 @@ ref
 \begin_inset Text
 
 \begin_layout Plain Layout
-D1
+Open1
 \end_layout
 
 \end_inset
@@ -43337,6 +44170,73 @@ c3
 
 \end_layout
 
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the open standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in a capacitance, to account for an imperfect open.
+ The terminating capacitance is defined as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+C=\left(\left(c3\cdot f+c2\right)\cdot f+c1\right)\cdot f+c0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $C$
+\end_inset
+
+ is the capacitance (F) and f is frequency (Hz).
+ Note that the exponents are built into the units for the polynomial coefficient
+s, which usually makes the values simple numbers.
+\end_layout
+
 \begin_layout Subsection
 Load Standard
 \begin_inset CommandInset label
@@ -43460,7 +44360,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+Load?
 \end_layout
 
 \end_inset
@@ -43509,7 +44409,7 @@ ref
 \begin_inset Text
 
 \begin_layout Plain Layout
-D1
+Load1
 \end_layout
 
 \end_inset
@@ -43776,6 +44676,51 @@ tz
 
 \end_layout
 
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the load standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+), which is terminated in an real impedance.
+\end_layout
+
 \begin_layout Subsection
 Thru Standard
 \begin_inset CommandInset label
@@ -43899,7 +44844,7 @@ string
 \begin_inset Text
 
 \begin_layout Plain Layout
-D?
+Thru?
 \end_layout
 
 \end_inset
@@ -43948,7 +44893,7 @@ ref
 \begin_inset Text
 
 \begin_layout Plain Layout
-D1
+Thru1
 \end_layout
 
 \end_inset
@@ -44161,6 +45106,51 @@ GHz
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Calibration standards are generally used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Measurement"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The definition of the thru standard is an 
+\emph on
+offset
+\emph default
+ with given delay (s), characteristic impedance (
+\begin_inset Formula $\Omega$
+\end_inset
+
+), and loss (
+\begin_inset Formula $\mathrm{G\Omega}/\mathrm{s}$
+\end_inset
+
+) (specified at the loss frequency, usually 
+\begin_inset Formula $1\,\mathrm{GHz}$
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsection
@@ -44411,6 +45401,65 @@ pn
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Calibration measurements are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a one-port calibration standard, specified
+ as s-parameters, a project producing s-parameters, or as a calibration
+ standard such as a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Short-Standard"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Open-Standard"
+
+\end_inset
+
+, or a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Load-Standard"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file name refers to a one-port s-parameter file, or a project producing
+ one-port s-parameters, or as the reference designator of a calibration
+ standard placed in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ project.
+\end_layout
+
+\begin_layout Standard
+The port number corresponds to the port of a network analyzer where the
+ reflect measurement is made.
 \end_layout
 
 \begin_layout Subsection
@@ -44763,6 +45812,86 @@ SOLT
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Calibration measurements are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+
+\end_inset
+
+, and are used in conjunction with a two-port calibration standard, specified
+ as s-parameters, a project producing s-parameters, or as a calibration
+ standard such as a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Thru-Standard"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file name refers to a two-port s-parameter file, or a project producing
+ one-port s-parameters, or as the reference designator of a calibration
+ standard placed in a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Network-Analyzer-Calibration"
+
+\end_inset
+
+ project.
+\end_layout
+
+\begin_layout Standard
+The port number corresponds to the port of a network analyzer where port
+ 1 of the thru standard is connected.
+ The other port number corresponds to the port of the network analyzer where
+ port 2 of the thru standard is connected.
+ This is properly deal with (the unusual case) of an asymmetric standard.
+\end_layout
+
+\begin_layout Standard
+The calibration types support are either (Short-Open-Load-Thru) SOLT or
+ (Short-Open-Load-Reciprocal) SOLR.
+\end_layout
+
+\begin_layout Standard
+SOLT is the most typical and assumes that the thru is perfectly specified.
+\end_layout
+
+\begin_layout Standard
+SOLR uses assumptions of reciprocity to recover the thru standard, using
+ the thru standard provided as an estimate.
+ The thru standard specified is used to resolve ambiguities in the phase.
+ SOLR, while relying on the accuracy of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Reflect-Measurement"
+
+\end_inset
+
+, is useful when the thru standard is not precisely known or defined, hence
+ it is also called 
+\begin_inset Quotes eld
+\end_inset
+
+the method of the unknown thru
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -45226,6 +46355,10 @@ name "device:Network-Analyzer-Stimulus"
 
 \end_layout
 
+\begin_layout Standard
+This is an undocumented feature.
+\end_layout
+
 \begin_layout Subsection
 Network Analyzer Model
 \begin_inset CommandInset label
@@ -45235,6 +46368,25 @@ name "device:Network-Analyzer-Model"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is an undocumented feature.
+\end_layout
+
+\begin_layout Subsection
+Network Analyzer Device-Under-Test
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Device-Under-Test"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is an undocumented feature.
 \end_layout
 
 \begin_layout Section
