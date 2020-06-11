@@ -31,7 +31,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
-        @param args (optional) string arguments for the circuit.  
+        @param args (optional) string arguments for the circuit.
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
         self.m_sd = None

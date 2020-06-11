@@ -164,7 +164,7 @@ class Numeric(object):
             raise LinAlgError
     def PermutationMatrix(self,rowList,Elements):
         """Row permutation matrix
-        @param list of integer row elements to extract from matrix to right - in order
+        @param rowList list of integer row elements to extract from matrix to right - in order
         @param Elements integer number of elements in matrix to right
         @return Row permutation matrix that if multiplied by matrix to the right, extracts
         the rows in rowList

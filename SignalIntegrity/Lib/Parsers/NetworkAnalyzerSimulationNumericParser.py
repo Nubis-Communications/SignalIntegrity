@@ -50,7 +50,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
     def HashValue(self,stuffToHash=''):
         """Generates the hash for a definition  
-        It is formed by hashing the port connection with whatever else is hashed..
+        It is formed by hashing the port connection with whatever else is hashed
         @param stuffToHash repr of stuff to hash
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
