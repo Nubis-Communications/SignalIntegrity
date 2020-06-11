@@ -46241,26 +46241,7 @@ SOLT is the most typical and assumes that the thru is perfectly specified.
 SOLR uses assumptions of reciprocity to recover the thru standard, using
  the thru standard provided as an estimate.
  The thru standard specified is used to resolve ambiguities in the phase.
- SOLR, while relying on the accuracy of the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Reflect-Measurement"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, is useful when the thru standard is not precisely known or defined, hence
- it is also called 
-\begin_inset Quotes eld
-\end_inset
-
-the method of the unknown thru
-\begin_inset Quotes erd
-\end_inset
-
-.
+ 
 \end_layout
 
 \begin_layout Subsection

@@ -45884,13 +45884,9 @@ reference "device:Reflect-Measurement"
 
 , is useful when the thru standard is not precisely known or defined, hence
  it is also called 
-\begin_inset Quotes eld
-\end_inset
-
+\emph on
 the method of the unknown thru
-\begin_inset Quotes erd
-\end_inset
-
+\emph default
 .
 \end_layout
 
