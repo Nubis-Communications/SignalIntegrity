@@ -42,6 +42,7 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('PlotDPI',100))
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.Add(XMLPropertyDefaultBool('AllPinNumbersVisible',False))
+        self.Add(XMLPropertyDefaultBool('GridsOnPlots',False))
         self.SubDir(Color())
 
 class Calculation(XMLConfiguration):

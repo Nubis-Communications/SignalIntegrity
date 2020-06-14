@@ -91,6 +91,7 @@ class SParametersDialog(tk.Toplevel):
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help').AddToolTip('Get help on a control')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:S-Parameter-Viewer-Preferences').AddToolTip('Edit the preferences')
         # ------
+        self.ShowGridsDoer = Doer(self.onShowGrids).AddHelpElement('Control-Help:Show-Grids').AddToolTip('Show grids in plots')
         self.VariableLineWidthDoer = Doer(self.onVariableLineWidth).AddHelpElement('Control-Help:Variable-Line-Width').AddToolTip('Variable line width in plots')
         self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations').AddToolTip('Show passivity violations in plots')
         self.ShowCausalityViolationsDoer = Doer(self.onShowCausalityViolations).AddHelpElement('Control-Help:Show-Causality-Violations').AddToolTip('Show causality violations in plots')
@@ -162,6 +163,7 @@ class SParametersDialog(tk.Toplevel):
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.ShowGridsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Grids',underline=5)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9)
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5)
         self.ShowCausalityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Causality Violations',underline=6)
@@ -407,6 +409,11 @@ class SParametersDialog(tk.Toplevel):
         self.toPort = 1
         self.LimitChangeLock=False
         self.onSelection(0)
+
+    def onShowGrids(self):
+        SignalIntegrity.App.Preferences['Appearance.GridsOnPlots']=self.ShowGridsDoer.Bool()
+        SignalIntegrity.App.Preferences.SaveToFile()
+        self.PlotSParameter()
 
     def onVariableLineWidth(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth']=self.VariableLineWidthDoer.Bool()
@@ -802,6 +809,7 @@ class SParametersDialog(tk.Toplevel):
             self.PlotSParameter()
 
     def UpdatePreferences(self):
+        self.ShowGridsDoer.Set(SignalIntegrity.App.Preferences['Appearance.GridsOnPlots'])
         self.VariableLineWidthDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.VariableLineWidth'])
         self.ShowPassivityViolationsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowPassivityViolations'])
         self.ShowCausalityViolationsDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowCausalityViolations'])
@@ -998,7 +1006,8 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
-        self.topLeftPlot.grid(True, 'both')
+        if self.ShowGridsDoer.Bool():
+            self.topLeftPlot.grid(True, 'both')
 
         TD = self.plotProperties['Delay']
         frph=fr._DelayBy(-TD)
@@ -1052,7 +1061,8 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
-        self.topRightPlot.grid(True, 'both')
+        if self.ShowGridsDoer.Bool():
+            self.topRightPlot.grid(True, 'both')
 
         if ir is not None:
             if self.buttonLabels[self.toPort-1][self.fromPort-1][:2]=='i/' or self.buttonLabels[self.toPort-1][self.fromPort-1][:3]=='di/':
@@ -1109,7 +1119,8 @@ class SParametersDialog(tk.Toplevel):
             self.bottomLeftPlot.set_ylabel('amplitude',fontsize=10)
             self.bottomLeftPlot.set_xlabel('time ('+timeLabel+')',fontsize=10)
 
-            self.bottomLeftPlot.grid(True)
+            if self.ShowGridsDoer.Bool():
+                self.bottomLeftPlot.grid(True)
 
             firFilter=ir.FirFilter()
             stepWaveformTimeDescriptor=ir.td/firFilter.FilterDescriptor()
@@ -1202,7 +1213,8 @@ class SParametersDialog(tk.Toplevel):
             self.bottomRightPlot.set_ylim(bottom=self.bottomRightPlotProperties['MinY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
             self.bottomRightPlot.set_ylim(top=self.bottomRightPlotProperties['MaxY']*self.bottomRightPlotProperties['M']+self.bottomRightPlotProperties['B'])
 
-        self.bottomRightPlot.grid(True)
+        if self.ShowGridsDoer.Bool():
+            self.bottomRightPlot.grid(True)
 
         self.topLeftCanvas.draw()
         self.topRightCanvas.draw()
@@ -1301,7 +1313,8 @@ class SParametersDialog(tk.Toplevel):
         self.topRightPlot.set_ylabel('phase (degrees)',fontsize=10)
         self.topRightPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
-        self.topRightPlot.grid(True, 'both')
+        if self.ShowGridsDoer.Bool():
+            self.topRightPlot.grid(True, 'both')
 
         self.topRightCanvas.draw()
         self.topRightToolbar.update()
