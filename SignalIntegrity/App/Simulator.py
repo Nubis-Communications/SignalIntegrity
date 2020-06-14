@@ -75,6 +75,7 @@ class SimulatorDialog(tk.Toplevel):
         self.ExamineTransferMatricesDoer = Doer(self.onExamineTransferMatrices).AddHelpElement('Control-Help:View-Transfer-Parameters').AddToolTip('View transfer parameters')
         self.SimulateDoer = Doer(self.parent.parent.onCalculate).AddHelpElement('Control-Help:Recalculate').AddToolTip('Recalculate simulation')
         # ------
+        self.ShowGridsDoer = Doer(self.onShowGrids).AddHelpElement('Control-Help:Show-Grids').AddToolTip('Show grids in plots')
         self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain).AddHelpElement('Control-Help:View-Time-domain').AddToolTip('View time-domain waveforms')
         self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent).AddHelpElement('Control-Help:View-Spectral-Content').AddToolTip('View spectral content of waveforms')
         self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity).AddHelpElement('Control-Help:View-Spectral-Density').AddToolTip('View spectral density of waveforms')
@@ -112,6 +113,8 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.ShowGridsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Grids',underline=5)
+        self.ShowGridsDoer.Set(SignalIntegrity.App.Preferences['Appearance.GridsOnPlots'])
         self.ViewTimeDomainDoer.AddCheckButtonMenuElement(ViewMenu,label='View Time-domain',underline=5)
         self.ViewTimeDomainDoer.Set(True)
         self.ViewSpectralContentDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Content',underline=14)
@@ -301,7 +304,8 @@ class SimulatorDialog(tk.Toplevel):
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
 
-        self.plt.grid(True)
+        if self.ShowGridsDoer.Bool():
+            self.plt.grid(True)
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
@@ -365,6 +369,11 @@ class SimulatorDialog(tk.Toplevel):
         elif self.ViewSpectralDensityDoer.Bool():
             self.PlotWaveformsFrequencyContent(density=True)
         return self
+
+    def onShowGrids(self):
+        SignalIntegrity.App.Preferences['Appearance.GridsOnPlots']=self.ShowGridsDoer.Bool()
+        SignalIntegrity.App.Preferences.SaveToFile()
+        self.onSelection()
 
     def onViewTimeDomain(self):
         self.ZoomsInitialized=False
@@ -462,7 +471,8 @@ class SimulatorDialog(tk.Toplevel):
         if self.maxy != None:
             self.plt.set_ylim(top=self.maxy)
 
-        self.plt.grid(True)
+        if self.ShowGridsDoer.Bool():
+            self.plt.grid(True)
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
