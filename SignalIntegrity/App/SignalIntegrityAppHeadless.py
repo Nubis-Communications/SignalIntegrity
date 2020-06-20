@@ -444,10 +444,14 @@ class SignalIntegrityAppHeadless(object):
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
+        level=SignalIntegrityAppHeadless.projectStack.Push()
         try:
+            os.chdir(FileParts(os.path.abspath(NetworkAnalyzerProjectFile)).AbsoluteFilePath())
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
             return None
+        finally:
+            SignalIntegrityAppHeadless.projectStack.Pull(level)
 
         sourceNames=snp.m_sd.SourceVector()
 

@@ -18,6 +18,7 @@ NetworkAnalyzer.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import sys
+import os
 
 if sys.version_info.major < 3:
     import Tkinter as tk
@@ -29,7 +30,7 @@ else:
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App.Simulator import SimulatorDialog
-
+from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.Exception import SignalIntegrityException,SignalIntegrityExceptionNetworkAnalyzer
 
 import copy,os
@@ -102,7 +103,7 @@ class NetworkAnalyzerSimulator(object):
                 else:
                     raise SignalIntegrityExceptionNetworkAnalyzer('file could not be opened: '+NetworkAnalyzerProjectFile)
             except SignalIntegrityException as e:
-                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
+                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)
             finally:
                 SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
@@ -119,11 +120,15 @@ class NetworkAnalyzerSimulator(object):
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog = ProgressDialog(self.parent,"Calculating Transfer Matrices",snp,snp.TransferMatrices,granularity=1.0)
+        level=SignalIntegrityAppHeadless.projectStack.Push()
         try:
+            os.chdir(FileParts(os.path.abspath(NetworkAnalyzerProjectFile)).AbsoluteFilePath())
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)                
+            messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)
             return None
+        finally:
+            SignalIntegrityAppHeadless.projectStack.Pull(level)
         self.sourceNames=snp.m_sd.SourceVector()
         #
         # to clear up any confusion, if the DUT was not connected to all of the network analyzer ports, a multi-port DUT with
@@ -159,7 +164,7 @@ class NetworkAnalyzerSimulator(object):
                 else:
                     raise SignalIntegrityExceptionNetworkAnalyzer('file could not be opened: '+NetworkAnalyzerProjectFile)
             except SignalIntegrityException as e:
-                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)                
+                messagebox.showerror('Network Analyzer Model: ',e.parameter+': '+e.message)
             finally:
                 SignalIntegrityAppHeadless.projectStack.Pull(level)
         else:
