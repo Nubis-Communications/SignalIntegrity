@@ -7,7 +7,7 @@ SignalIntegrity comes with a library called _SignalIntegrity.Lib_.  From within 
 
 Then, all of the elements from within SignalIntegrity are accessible using si as the prefix.  For example, the single frequency s-parameters of a current amplifier are found by call ing the function:
 
-    si.d.CurrentAmplifier()
+    si.dev.CurrentAmplifier()
 
 All of the namespaces for these packages are listed at [Packages](http://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/namespaces.xhtml).
 
@@ -20,7 +20,7 @@ code | namespace | Description
 si | SignalIntegrity.Lib | Top of SignalIntegrity.Lib Package
 si.czt | SignalIntegrity.Lib.ChirpZTransform | Chirp z transform
 si.cvt | SignalIntegrity.Lib.Conversions | Conversion Formulas
-si.d | SignalIntegrity.Lib.Devices | Single Frequency Devices
+si.dev | SignalIntegrity.Lib.Devices | Single Frequency Devices
 si.fit | SignalIntegrity.Lib.Fit | Fitting Algorithms
 si.fd | SignalIntegrity.Lib.FrequencyDomain | Frequency Domain
 si.helper | SignalIntegrity.Lib.Helper | Helper functions and classes
