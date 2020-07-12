@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-06-11"/>
+<meta name="create-date" content="2020-07-12"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-73.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-43.html#next">Prev</a> Calculate</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Calculate <a class="next" name="next" href="Help-Subsubsection-75.html#prev">Next</a></span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Subsubsection-75.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-74"></a>S-parameter Viewer<a class="Label" name="Control-Help:S-parameter-Viewer"> </a>
+<a class="toc" name="toc-Subsubsection-74"></a>Calculation Properties<a class="Label" name="Control-Help:Calculation-Properties"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>, <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>, and <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a> ▸ S-parameter Viewer
+<a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a> ▸ Calculation Properties
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+C,V
+Alt+C,P
 </td>
 
 </tr>
@@ -1123,7 +1123,7 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="sp-view.png" alt="figure sp-view.png" style="max-width: 16px; max-height: 16px;"/>
+<img class="embedded" src="tooloptions.png" alt="figure tooloptions.png" style="max-width: 16px; max-height: 16px;"/>
 
 </td>
 
@@ -1142,12 +1142,226 @@ Always
 
 </div>
 <div class="Standard">
-This command invokes the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> dialog to view s-parameter files.
+Issuing the Calculation Properties command brings up the calculation properties dialog:
 </div>
+<div class="Standard">
+<img class="embedded" src="CalculationPropertiesDefault.png" alt="figure CalculationPropertiesDefault.png" style="max-width: 580px; max-height: 254px;"/>
+
+</div>
+<div class="Standard">
+The calculation properties are intended for use with all of the <b><i>SignalIntegrityApp</i></b> applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:
+</div>
+<div class="Standard">
+<div class="center">
+<table>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+<b>Property</b>
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+<b>Type</b>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<b>Equation</b>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<b>Internal Property Name</b>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+user sample rate
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+base
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>userSampleRate</i></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+UserSampleRate
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+end frequency
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+base
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>endfrequency</i></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+EndFrequency
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+number of frequency points
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+base
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>frequencyPoints</i></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+FrequencyPoints
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+base sample rate
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+derived
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>baseSampleRate</i> = 2⋅<i>endFrequency</i></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+BaseSampleRate
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+number of time points
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+derived
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>timePoints</i> = 2⋅<i>frequencyPoints</i></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+TimePoints
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+frequency resolution
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+derived
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>frequencyResolution</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>endFrequency</i></span><span class="ignored">)/(</span><span class="denominator"><i>frequencyPoints</i></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+FrequencyResolution
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+time length of impulse response
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+derived
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>impulseResponseLength</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>frequencyPoints</i></span><span class="ignored">)/(</span><span class="denominator"><i>endFrequency</i></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+ImpulseResponseLength
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 1.25in;">
+user sample period
+</td>
+<td align="center" valign="top" style="width: 0.5in;">
+derived
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<span class="formula"><i>userSamplePeriod</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>userSampleRate</i></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 1.5in;">
+<div class="PlainVisible">
+<a class="FlexURL" href="UserSamplePeriod"><div class="PlainVisible">
+UserSamplePeriod
+</div>
+</a>
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+<div class="Standard">
+The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). <b><i>SignalIntegrityApp</i></b> never uses scientific notation or anything like that. Also, if the number has units, the units are shown.
+</div>
+<div class="Standard">
+To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.
+</div>
+<div class="Standard">
+The units never need to be entered (but can be).
+</div>
+<div class="Standard">
+Numbers can be entered with exponents or with the engineering notation suffix. For example, 20 GHz can be entered as 20 GHz, 20 G, 20G, 20e6, or 2e7.
+</div>
+<div class="Standard">
+Whenever either the end frequency or the impulse response length are modified, all of the other properties are calculated as in the equations above. If any of the properties are modified that directly affect one of these base properties, then the affected base property is modified and all of the other properties are recalculated as stated. These properties include the frequency resolution, which is simply another expression of the impulse response length, and the base sample rate, which is simply another expression of the end frequency.
+</div>
+<div class="Standard">
+Otherwise, if either the frequency points or the time points are modified, which are functions of both of the base properties, then the end frequency is held constant and the impulse response length is modified to accommodate the new property value.
+</div>
+<div class="Standard">
+To summarize, all of the properties can be modified. Any modification first tries to hold the end frequency (and base sample rate) constant first and the impulse response length second.
+</div>
+<div class="Standard">
+One interesting thing to note is that the frequency points are actually the number of frequencies minus one. Said differently, the number of actual frequencies calculated is always the number shown plus one. In other words, for <span class="formula"><i>N</i></span> frequency points and an end frequency <span class="formula"><i>Fe</i></span>, the actual frequency points are, for <span class="formula"><i>n</i> ∈ 0…<i>N</i></span>:
+</div>
+<div class="Standard">
+<div class="formula">
+<i>f</i><span class="symbol">[</span><i>n</i><span class="symbol">]</span> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>n</i></span><span class="ignored">)/(</span><span class="denominator"><i>N</i></span><span class="ignored">)</span></span>⋅<i>Fe</i>
+</div>
+
+</div>
+<div class="Standard">
+The time points for the impulse response is specified for <span class="formula"><i>K</i> = 2⋅<i>N</i></span> time points and a sample rate <span class="formula"><i>Fs</i> = 2⋅<i>Fe</i></span>, as having times of, for <span class="formula"><i>k</i> ∈ 0…<i>K</i> − 1</span> :
+</div>
+<div class="Standard">
+<div class="formula">
+<i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span> = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><i>k</i> − <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>K</i></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>⋅<span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Fs</i></span><span class="ignored">)</span></span>
+</div>
+
+</div>
+<div class="Standard">
+Depending on the application, it is useful to also read:
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-4.html#sub:Calculating-S-parameters">Calculating S-parameters↑</a> for s-parameter calculation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-16.html#sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding↑</a>.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-23.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↑</a>.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-73.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-43.html#next">Prev</a> Calculate</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Calculate <a class="next" name="next" href="Help-Subsubsection-75.html#prev">Next</a></span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Subsubsection-75.html#prev">Next</a></span>
 </div>
 
 </div>
