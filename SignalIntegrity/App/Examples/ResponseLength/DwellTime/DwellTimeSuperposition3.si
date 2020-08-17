@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>862x965+2026+-3</Geometry>
+			<Geometry>742x965+87+25</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>1</Originx>
 			<Originy>-1</Originy>
@@ -17,7 +17,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 15)</Origin>
@@ -98,7 +98,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 14)</Origin>
+						<Origin>(16, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -134,7 +134,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(21, 12)</Origin>
+						<Origin>(18, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -170,7 +170,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, 12)</Origin>
+						<Origin>(10, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -200,7 +200,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(33, 12)</Origin>
+						<Origin>(30, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -236,7 +236,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(27, 12)</Origin>
+						<Origin>(24, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -269,10 +269,10 @@
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, 13)</Origin>
+						<Origin>(33, 8)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -299,7 +299,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 7)</Origin>
@@ -536,7 +536,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(17, 11)</Origin>
+						<Origin>(14, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -560,7 +560,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 15)</Origin>
+						<Origin>(15, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -590,7 +590,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 11)</Origin>
+						<Origin>(15, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -620,7 +620,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 10)</Origin>
+						<Origin>(16, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -674,7 +674,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>90</Orientation>
-						<Origin>(11, 12)</Origin>
+						<Origin>(9, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -689,7 +689,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 34)</Origin>
@@ -770,7 +770,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 33)</Origin>
+						<Origin>(16, 28)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -806,7 +806,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(21, 31)</Origin>
+						<Origin>(18, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -842,7 +842,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, 31)</Origin>
+						<Origin>(10, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -872,7 +872,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(33, 31)</Origin>
+						<Origin>(30, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -908,7 +908,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(27, 31)</Origin>
+						<Origin>(24, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -941,10 +941,10 @@
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, 32)</Origin>
+						<Origin>(33, 27)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -971,7 +971,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 26)</Origin>
@@ -1208,7 +1208,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(17, 30)</Origin>
+						<Origin>(14, 25)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1232,7 +1232,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 34)</Origin>
+						<Origin>(15, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1262,7 +1262,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 30)</Origin>
+						<Origin>(15, 25)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1292,7 +1292,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 29)</Origin>
+						<Origin>(16, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1346,7 +1346,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>90</Orientation>
-						<Origin>(11, 31)</Origin>
+						<Origin>(9, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1364,7 +1364,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 9)</Origin>
+						<Origin>(38, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1406,7 +1406,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 17)</Origin>
+						<Origin>(38, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1448,7 +1448,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 10)</Origin>
+						<Origin>(15, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1466,7 +1466,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 14)</Origin>
+						<Origin>(15, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1484,7 +1484,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 29)</Origin>
+						<Origin>(15, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1502,7 +1502,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 33)</Origin>
+						<Origin>(15, 28)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1520,7 +1520,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 9)</Origin>
+						<Origin>(37, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1538,7 +1538,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 12)</Origin>
+						<Origin>(37, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1562,7 +1562,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 34)</Origin>
+						<Origin>(37, 35)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1580,7 +1580,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 28)</Origin>
+						<Origin>(37, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1604,7 +1604,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(47, 28)</Origin>
+						<Origin>(41, 26)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1628,7 +1628,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(46, 9)</Origin>
+						<Origin>(40, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1652,7 +1652,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 34)</Origin>
+						<Origin>(38, 35)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1694,7 +1694,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 42)</Origin>
+						<Origin>(38, 43)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1736,7 +1736,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 37)</Origin>
+						<Origin>(37, 38)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1760,7 +1760,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 53)</Origin>
+						<Origin>(37, 54)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1784,7 +1784,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(47, 53)</Origin>
+						<Origin>(41, 54)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1808,7 +1808,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(46, 34)</Origin>
+						<Origin>(40, 35)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1832,7 +1832,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 17)</Origin>
+						<Origin>(37, 15)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1850,7 +1850,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 42)</Origin>
+						<Origin>(37, 43)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1868,7 +1868,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(48, 9)</Origin>
+						<Origin>(42, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1904,7 +1904,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(48, 34)</Origin>
+						<Origin>(42, 35)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1937,7 +1937,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 53)</Origin>
@@ -2018,7 +2018,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 52)</Origin>
+						<Origin>(16, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2054,7 +2054,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(21, 50)</Origin>
+						<Origin>(18, 45)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2090,7 +2090,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, 50)</Origin>
+						<Origin>(10, 45)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2120,7 +2120,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(33, 50)</Origin>
+						<Origin>(30, 45)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2156,7 +2156,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(27, 50)</Origin>
+						<Origin>(24, 45)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2189,10 +2189,10 @@
 					<ClassName>DeviceResistor</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, 51)</Origin>
+						<Origin>(33, 46)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2219,7 +2219,7 @@
 					<ClassName>DeviceVoltageSineGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
 						<Origin>(5, 45)</Origin>
@@ -2456,7 +2456,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(17, 49)</Origin>
+						<Origin>(14, 44)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2480,7 +2480,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 53)</Origin>
+						<Origin>(15, 48)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2510,7 +2510,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>True</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 49)</Origin>
+						<Origin>(15, 44)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2540,7 +2540,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(19, 48)</Origin>
+						<Origin>(16, 43)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2594,7 +2594,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>90</Orientation>
-						<Origin>(11, 50)</Origin>
+						<Origin>(9, 45)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2612,7 +2612,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 48)</Origin>
+						<Origin>(15, 43)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2630,7 +2630,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(18, 52)</Origin>
+						<Origin>(15, 47)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2648,7 +2648,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 50)</Origin>
+						<Origin>(38, 51)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2690,7 +2690,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 50)</Origin>
+						<Origin>(37, 51)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2708,7 +2708,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 45)</Origin>
+						<Origin>(37, 46)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2732,7 +2732,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 20)</Origin>
+						<Origin>(37, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2756,7 +2756,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(44, 25)</Origin>
+						<Origin>(38, 23)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2798,7 +2798,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(43, 25)</Origin>
+						<Origin>(37, 23)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -2814,154 +2814,124 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(25, 13)</Coord>
+							<Coord>(22, 8)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(27, 13)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(31, 13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(33, 13)</Coord>
+							<Coord>(24, 8)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(12, 13)</Coord>
+							<Coord>(28, 8)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(13, 13)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(25, 32)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(27, 32)</Coord>
+							<Coord>(30, 8)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 32)</Coord>
+							<Coord>(22, 27)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 32)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(12, 32)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(13, 32)</Coord>
+							<Coord>(24, 27)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(48, 12)</Coord>
+							<Coord>(28, 27)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 12)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(50, 18)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(48, 18)</Coord>
+							<Coord>(30, 27)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(48, 37)</Coord>
+							<Coord>(42, 10)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 37)</Coord>
+							<Coord>(44, 10)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 43)</Coord>
+							<Coord>(44, 16)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(48, 43)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(25, 51)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(27, 51)</Coord>
+							<Coord>(42, 16)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(31, 51)</Coord>
+							<Coord>(42, 38)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(33, 51)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(12, 51)</Coord>
+							<Coord>(44, 38)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(13, 51)</Coord>
+							<Coord>(44, 44)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(42, 44)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(48, 45)</Coord>
+							<Coord>(22, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 45)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(50, 51)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(48, 51)</Coord>
+							<Coord>(24, 46)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(48, 20)</Coord>
+							<Coord>(28, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 20)</Coord>
+							<Coord>(30, 46)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(42, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(50, 26)</Coord>
+							<Coord>(44, 46)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(48, 26)</Coord>
+							<Coord>(44, 52)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(42, 52)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(42, 18)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(44, 18)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(44, 24)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(42, 24)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
