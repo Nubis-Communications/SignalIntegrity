@@ -33,7 +33,7 @@ class Preferences(PreferencesFile):
             if thisOS == 'Linux':
                 pathToPreferencesFile = os.path.expanduser('~')+'/.signalintegrity'
             else:
-                pathToPreferencesFile = '/LeCroy/SignalIntegrity'
+                pathToPreferencesFile = 'c:/LeCroy/SignalIntegrity'
             self.preferencesFileName=pathToPreferencesFile+'/preferences'
             try:
                 os.makedirs(pathToPreferencesFile)

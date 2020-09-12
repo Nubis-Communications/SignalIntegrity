@@ -21,7 +21,10 @@ import os
 
 def ConvertFileNameToRelativePath(filename):
     if filename!='':
-        filename=os.path.relpath(filename,os.getcwd())
+        try:
+            filename=os.path.relpath(filename,os.getcwd())
+        except ValueError:
+            pass
     return filename
 
 class FileParts(object):

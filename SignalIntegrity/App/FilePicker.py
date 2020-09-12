@@ -45,7 +45,7 @@ def AskOpenFileName(**kw):
         if 'initialfile' in kw:
             ext=FileParts(kw['initialfile']).fileext
             filetypes=kw['filetypes']
-            filetypeext=[ext for (filetype,ext) in filetypes]
+            filetypeext=[lext for (filetype,lext) in filetypes]
             if ext in filetypeext:
                 extindex=filetypeext.index(ext)
                 if extindex != 0:
