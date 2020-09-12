@@ -242,7 +242,7 @@ class RLGCFitter2(LevMar):
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,G,C,Rse,df,L0,Linf,fm,b)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0],a[6][0],a[7][0],a[8][0])
         dffmbdfm=[-ffmb*b/fm for ffmb in self.ffmb]
-        dffmbdb=[ffmb*math.log(ffm+1e-15) for (ffmb,ffm) in zip(self.ffm,self.ffmb)]
+        dffmbdb=[ffmb*math.log(ffm.real+1e-15) for (ffmb,ffm) in zip(self.ffm,self.ffmb)]
         dLdL0=[1./(1.+ffmb) for ffmb in self.ffmb]
         dLdLinf=[ffmb/(1.+ffmb) for ffmb in self.ffmb]
         dLdfm=[(Linf-L0)/((1.+ffmb)*(1.+ffmb))*dffmbdfme for (ffmb,dffmbdfme) in zip(self.ffmb,dffmbdfm)]
