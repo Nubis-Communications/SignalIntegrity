@@ -30,8 +30,18 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.abspath('../../../SignalIntegrityBook/Sources'))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
+        unittest.TestCase.setUp(self)
         #si.test.SignalIntegrityAppTestHelper.forceWritePictures=True
-        pass
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.AllPinNumbersVisible=SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']=self.AllPinNumbersVisible
     def testSources(self):
         filesList=[
             'Amplifiers/TransresistanceAmplifierTwoPortCircuit.si',
@@ -95,7 +105,6 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
             self.path=os.getcwd()
             self.PictureChecker(pysi,pysi.fileparts.filename)
 
-    @unittest.expectedFailure
     def testBookDevices(self):
         filesList=[
             'File.si',
@@ -148,6 +157,7 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
             return
         os.chdir(self.path)
         for filename in filesList:
+            print(filename)
             os.chdir(os.path.dirname(__file__))
             self.path=os.path.abspath('../../../SignalIntegrityBook/SignalIntegrityApp')
             os.chdir(self.path)
@@ -159,6 +169,9 @@ class TestBookDevicesTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper
             #SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=16.
             #pysi.SaveProjectToFile(filename)
             self.PictureChecker(pysi,filename)
+            SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']=self.AllPinNumbersVisible
+
+
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
