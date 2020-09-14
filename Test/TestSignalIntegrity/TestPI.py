@@ -25,10 +25,25 @@ import os
 
 class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTesterHelper):
     def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.TrySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=True
+        SignalIntegrity.App.Preferences.SaveToFile()
     def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
         si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
+        SignalIntegrity.App.Preferences.SaveToFile()
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
