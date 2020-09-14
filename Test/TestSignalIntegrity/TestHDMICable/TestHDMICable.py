@@ -44,13 +44,26 @@ class TestHDMICableTest(unittest.TestCase,
     debug=False
     checkPictures=True
     epsilon=50e-12
+
     def setUp(self):
+        unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        #self.forceWritePictures=True
+        #si.test.SignalIntegrityAppTestHelper.forceWritePictures=True
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        SignalIntegrity.App.Preferences.SaveToFile()
     def tearDown(self):
-        os.chdir(self.cwd)
         unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences.SaveToFile()
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

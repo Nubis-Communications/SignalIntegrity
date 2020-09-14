@@ -34,9 +34,26 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         si.test.SParameterCompareHelper.__init__(self)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.__init__(self,methodName)
+
     def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
         os.chdir(self.path)
         self.book=os.path.exists('../../../../SignalIntegrityBook/')
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences.SaveToFile()
     def testFourPortTLineTest(self):
         self.SimulationResultsChecker('FourPortTLineTest.si')
     def testFilterTest(self):

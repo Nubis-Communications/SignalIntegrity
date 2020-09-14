@@ -52,9 +52,26 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+
     def setUp(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences.SaveToFile()
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testPRBS7(self):
