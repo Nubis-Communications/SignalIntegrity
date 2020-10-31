@@ -31,6 +31,8 @@ from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 import SignalIntegrity.App.Project
 
 class CalculationProperty(tk.Frame):
+    labelWidth=45
+    entryWidth=30
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
@@ -40,10 +42,10 @@ class CalculationProperty(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=self.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Entry(self,textvariable=self.string)
-        self.entry.config(width=30,readonlybackground='light gray')
+        self.entry.config(width=self.entryWidth,readonlybackground='light gray')
         self.entry.bind('<Return>',self.onEntered)
         self.entry.bind('<Tab>',self.onEntered)
         self.entry.bind('<Button-1>',self.onTouched)
@@ -141,10 +143,10 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Button(self,text='None',command=self.onPressed)
-        self.entry.config(width=30)
+        self.entry.config(width=CalculationProperty.entryWidth)
         self.entry.bind('<Return>',self.onPressed)
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
@@ -185,10 +187,10 @@ class CalculationPropertyChoices(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Frame(self)
-        self.entry.config(width=30,borderwidth=1,relief=tk.RAISED)
+        self.entry.config(width=CalculationProperty.entryWidth,borderwidth=1,relief=tk.RAISED)
 #         self.entry.bind('<Return>',self.onPressed)
 #         self.entry.bind('<Tab>',self.onEntered)
         self.entry.bind('<Button-1>',self.onTouched)
@@ -238,10 +240,10 @@ class CalculationPropertyColor(tk.Frame):
         self.projectPath=projectPath
         self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
         self.string=tk.StringVar()
-        self.label = tk.Label(self,width=45,text=textLabel+': ',anchor='e')
+        self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         self.entry = tk.Button(self,command=self.onPressed)
-        self.entry.config(width=30)
+        self.entry.config(width=CalculationProperty.entryWidth)
         self.entry.bind('<Return>',self.onPressed)
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
