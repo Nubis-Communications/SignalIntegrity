@@ -37,8 +37,8 @@ class XMLProperty(object):
     def Changed(self,changed):
         return self.changed or changed
 
-    def SetUnchanged(self):
-        self.changed=False
+    def SetChanged(self,changed=True):
+        self.changed=changed
         return self
 
     def OutputXML(self,indent):
@@ -54,9 +54,6 @@ class XMLProperty(object):
             elementPropertyValue = self.dict['value']
         else:
             elementPropertyValue = None
-        
-#        lines=lines+[indent+ProjectFileBase.indent+'<type>'+elementPropertyType+'</type>']
-        
         if isinstance(elementPropertyValue,list):
             lines=lines+[indent+'<'+self.dict['name']+'>']
             for item in elementPropertyValue:
@@ -211,9 +208,9 @@ class XMLConfiguration(object):
             changed=self.dict[item].Changed(changed)
         return changed
 
-    def SetUnchanged(self):
+    def SetChanged(self,changed=True):
         for item in self.dict:
-            self.dict[item].SetUnchanged()
+            self.dict[item].SetChanged(changed)
         return self
 
     def InitFromXML(self,element):
@@ -297,9 +294,9 @@ class ProjectFileBase(object):
             changed=self.dict[item].Changed(changed)
         return changed
 
-    def SetUnchanged(self):
+    def SetChanged(self,changed=True):
         for item in self.dict:
-            self.dict[item].SetUnchanged()
+            self.dict[item].SetChanged(changed)
         return self
 
     def LinesToWrite(self):
@@ -310,7 +307,7 @@ class ProjectFileBase(object):
         lines=lines+['</Project>']
         lines=["%s\n" % l for l in lines]
         return lines
-    
+
     def LinesInFile(self,filename):
         if not filename.split('.')[-1] == self.ext:
             filename=filename+'.'+self.ext
@@ -351,7 +348,6 @@ class ProjectFileBase(object):
             filename=filename+'.'+self.ext
         with open(filename,'w') as f:
             f.writelines(self.LinesToWrite())
-        self.SetUnchanged()
         return self
 
     def Read(self,filename):
@@ -360,7 +356,7 @@ class ProjectFileBase(object):
         tree=et.parse(filename)
         root=tree.getroot()
         self.Parse(root)
-        self.SetUnchanged()
+        self.SetChanged(True)
         return self
 
     def Parse(self,element):
