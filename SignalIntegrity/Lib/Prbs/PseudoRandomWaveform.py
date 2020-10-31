@@ -36,6 +36,10 @@ class PseudoRandomWaveform(SerialDataWaveform):
         @see PseudoRandomPolynomial
         """
         try:
-            SerialDataWaveform.__init__(self,PseudoRandomPolynomial(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)
+            if isinstance(tdOrFs,TimeDescriptor):
+                td=tdOrFs
+                SerialDataWaveform.__init__(self,PseudoRandomPolynomial(polynomial).Pattern(math.ceil(td.K*bitrate/td.Fs)),bitrate,amplitude,risetime,delay,tdOrFs)
+            else:
+                SerialDataWaveform.__init__(self,PseudoRandomPolynomial(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)
         except SignalIntegrityException as e:
             raise SignalIntegrityExceptionWaveform(e.message)

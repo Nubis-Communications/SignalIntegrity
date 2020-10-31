@@ -92,14 +92,16 @@ class PseudoRandomPolynomial(list):
         @see Order
         """
         return 2**self.Order()-1
-    def Pattern(self):
+    def Pattern(self,bits=None):
         """generate a list of pseudo-random bits according to the polynomial
+        @param bits (optional, defaults to None) integer number of bits to return.
+        If bits are specified, then the pattern returned will contain the number of bits specified.
         @return returns a list of integer (1 or 0) corresponding to the pattern.
 
-        for an order P polynomial, the list of bits is 2^P-1 elements long
+        for an order P polynomial, the list of bits is 2^P-1 elements long, assuming bits are specified as None.
         """
         order = self.Order()
-        length=self.PatternLength()
+        length=self.PatternLength() if bits == None else min(self.PatternLength(),bits)
         pattern = [1 if k < order else 0 for k in range(length)]
         for i in range(order,length):
             pattern[i]=sum([self[order-p]*pattern[i-(order-p)] for p in range(order)])%2

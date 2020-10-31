@@ -172,7 +172,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         with open(reggressionFile,'rU' if sys.version_info.major < 3 else 'r') as f:
             fitRegression=[[float(e)] for e in f.readline().replace(']','').replace('[','').split(',')]
         for (res,reg) in zip(results,fitRegression):
-            self.assertAlmostEqual(res[0], reg[0], 5, 'equalizer fit failed')
+            self.assertAlmostEqual(res[0], reg[0], 4, 'equalizer fit failed')
     @staticmethod
     def EyePattern(project,waveform,delay,bitrate):
         import numpy as np
@@ -233,7 +233,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def ZeroForcingEqualizer(self,project,waveform,bitrate,value,pre,taps):
         import SignalIntegrity.App as siapp; from numpy import array
-        from numpy.linalg import pinv
+        from numpy.linalg import inv
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
@@ -247,7 +247,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         x=[pulsewf.Measure(startTime+m*ui) for m in range(M)]
         X=[[0 if r-c < 0 else x[r-c] for c in range(taps)] for r in range(M)]
         r=[[value] if r == d+pre else [0] for r in range(len(X))]
-        a=[v[0] for v in (pinv(array(X)).dot(array(r))).tolist()]
+        a=[v[0] for v in (inv((array(X).T).dot(array(X))).dot(array(X).T).dot(array(r))).tolist()]
         print('results: '+str(a))
     def testZeroForcingEqualizer(self):
         project=os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PulseTest.si')
