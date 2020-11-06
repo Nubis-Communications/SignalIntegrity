@@ -85,7 +85,7 @@ class XMLProperty(object):
                 return self
             elementPropertyType = self.dict['type']
             if elementPropertyType == 'int':
-                self.value = int(elementPropertyValue)
+                self.value = int(float(elementPropertyValue))
             elif elementPropertyType == 'float':
                 self.value = float(elementPropertyValue)
             elif elementPropertyType == 'string':
