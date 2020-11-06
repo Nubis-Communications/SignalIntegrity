@@ -74,12 +74,17 @@ class Device(object):
             if propertyString != '':
                 visiblePartPropertyList.append(propertyString)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
+    def SetWaveform(self,wf):
+        self.Wf=wf
     def Waveform(self):
         import SignalIntegrity.Lib as si
         wfTypeProperty=self['wftype']
         if wfTypeProperty is None:
             waveform = None
         else:
+            if hasattr(self, 'Wf'):
+                if self.Wf != None:
+                    return self.Wf
             wfType=wfTypeProperty.GetValue()
             if wfType is None:
                 waveform = None

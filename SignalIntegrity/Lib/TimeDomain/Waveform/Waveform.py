@@ -269,6 +269,8 @@ class Waveform(list):
         @return boolean whether the waveforms are equal to each other.
         @note an epsilon of 1e-6 is used for the compare.
         """
+        if other == None:
+            return False
         if len(self) != len(other):
             return False
         if self.td != other.td:
