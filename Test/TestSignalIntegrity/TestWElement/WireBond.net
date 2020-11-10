@@ -1,0 +1,15 @@
+device D1 4 file TestWElementTest_testWElementWireBond.s4p
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device C1 1 C 10.0e-15 esr 0 df 0
+device C2 1 C 10.0e-15 esr 0 df 0
+device C3 1 C 10.0e-15 esr 0 df 0
+device C4 1 C 10.0e-15 esr 0 df 0
+connect MM2 1 C2 1 D1 1
+connect D1 2 C1 1 MM2 2
+connect MM1 1 C3 1 D1 3
+connect MM1 2 D1 4 C4 1
+port 2 td 0 MM1 3
+port 4 td 0 MM1 4
+port 1 td 0 MM2 3
+port 3 td 0 MM2 4

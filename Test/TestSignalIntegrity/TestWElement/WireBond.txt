@@ -1,0 +1,88 @@
+*--------------------------------------------
+*
+* RLCG parameters for W-Element
+* frequency-dependent transmission line
+*
+*
+*  MMTL File Name:  C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett.result
+*  Mon Nov 09 8:08:28 PM Eastern Standard Time 2020
+*
+*--------------------------------------------
+*
+* |   MMTL Simulation data from
+* |   C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett.result
+* | 
+* | 2020 11 09 20:07:57 pete_ NMMTL_2DLF
+* | 
+* | File = C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett
+* | Number of Signal Lines  =   2
+* | Number of Ground Planes =   1
+* | Number of Ground Wires  =   2
+* | Coupling Length =   0.02540 meters
+* | Rise Time =  1000.0000 picoseconds
+* | Contour (conductor) segments [cseg] = 100
+* | Ground Plane/Dielectric segments [dseg] = 500
+* | Conductivity CircCond1C1 = 4e+007 siemens/meter
+* | Conductivity CircCond1C0 = 4e+007 siemens/meter
+* | Note: minimum frequency for surface current assumptions is 982 MHz.
+* |
+* |  Signal Names (in order):
+* |     ::CircCond1C1
+* |     ::CircCond1C0
+*
+*--------------------------------------------
+*
+*  N = number of signal conductors
+*
+*--------------------------------------------
+   2
+
+*--------------------------------------------
+*
+* L0
+*
+*--------------------------------------------
+5.1808e-007	
+1.86677e-007	5.18081e-007	
+
+*--------------------------------------------
+*
+* C0
+*
+*--------------------------------------------
+9.34728e-011	
+-3.39275e-011	9.34694e-011	
+
+*--------------------------------------------
+*
+* R0
+*
+*--------------------------------------------
+49.3381	
+0	49.3381	
+
+*--------------------------------------------
+*
+* G0
+*
+*--------------------------------------------
+0	
+0	0	
+
+*--------------------------------------------
+*
+* Rs
+*
+*--------------------------------------------
+0.00393701	
+0	0.00393701	
+
+*--------------------------------------------
+*
+* Gd
+*
+*--------------------------------------------
+0	
+0	0	
+
+

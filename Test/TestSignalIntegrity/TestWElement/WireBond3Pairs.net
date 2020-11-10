@@ -1,0 +1,31 @@
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device D1 12 file TestWElementTest_testWElement3Pairs.s12p
+device MM3 4 mixedmode
+device MM4 4 mixedmode
+device MM5 4 mixedmode
+device MM6 4 mixedmode
+connect D1 7 MM1 1
+connect MM1 2 D1 8
+port 2 td 0 MM1 3
+port 4 td 0 MM1 4
+connect MM2 1 D1 1
+connect D1 2 MM2 2
+port 1 td 0 MM2 3
+port 3 td 0 MM2 4
+connect D1 3 MM4 1
+connect D1 4 MM4 2
+connect D1 5 MM6 1
+connect MM6 2 D1 6
+connect D1 9 MM3 1
+connect D1 10 MM3 2
+connect D1 11 MM5 1
+connect MM5 2 D1 12
+port 6 td 0 MM3 3
+port 8 td 0 MM3 4
+port 5 td 0 MM4 3
+port 7 td 0 MM4 4
+port 10 td 0 MM5 3
+port 12 td 0 MM5 4
+port 9 td 0 MM6 3
+port 11 td 0 MM6 4

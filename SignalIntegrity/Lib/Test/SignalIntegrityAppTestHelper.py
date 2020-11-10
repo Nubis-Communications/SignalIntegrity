@@ -70,10 +70,13 @@ class SignalIntegrityAppTestHelper:
         currentDirectory=os.getcwd()
         os.chdir(self.path)
         testFilename=self.FileNameForTest(filename)+'.net'
-        try:
-            netlist=pysi.Drawing.schematic.NetList().Text()
-        except:
-            self.assertTrue(False,filename + ' couldnt produce netlist')
+        if isinstance(pysi,list):
+            netlist=pysi
+        else:
+            try:
+                netlist=pysi.Drawing.schematic.NetList().Text()
+            except:
+                self.assertTrue(False,filename + ' couldnt produce netlist')
         netlist=[line+'\n' for line in netlist]
         if not os.path.exists(testFilename):
             with open(testFilename,"w") as f:

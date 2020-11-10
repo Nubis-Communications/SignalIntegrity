@@ -1,0 +1,120 @@
+*--------------------------------------------
+*
+* RLCG parameters for W-Element
+* frequency-dependent transmission line
+*
+*
+*  MMTL File Name:  C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett_1mil_80um_3.8_3pair.result
+*  Tue Nov 10 7:53:54 AM Eastern Standard Time 2020
+*
+*--------------------------------------------
+*
+* |   MMTL Simulation data from
+* |   C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett_1mil_80um_3.8_3pair.result
+* | 
+* | 2020 11 10 07:52:27 pete_ NMMTL_2DLF
+* | 
+* | File = C:/Program Files (x86)/tnt-1.2.2/examples/wires2Brett_1mil_80um_3.8_3pair
+* | Number of Signal Lines  =   6
+* | Number of Ground Planes =   1
+* | Number of Ground Wires  =   4
+* | Coupling Length =   0.02540 meters
+* | Rise Time =  1000.0000 picoseconds
+* | Contour (conductor) segments [cseg] = 100
+* | Ground Plane/Dielectric segments [dseg] = 1000
+* | Conductivity CircCond1C5 = 4e+007 siemens/meter
+* | Conductivity CircCond2C4 = 4e+007 siemens/meter
+* | Conductivity CircCond3C3 = 4e+007 siemens/meter
+* | Conductivity CircCond4C2 = 4e+007 siemens/meter
+* | Conductivity CircCond5C1 = 4e+007 siemens/meter
+* | Conductivity CircCond6C0 = 4e+007 siemens/meter
+* | Note: minimum frequency for surface current assumptions is 982 MHz.
+* |
+* |  Signal Names (in order):
+* |     ::CircCond1C5
+* |     ::CircCond2C4
+* |     ::CircCond3C3
+* |     ::CircCond4C2
+* |     ::CircCond5C1
+* |     ::CircCond6C0
+*
+*--------------------------------------------
+*
+*  N = number of signal conductors
+*
+*--------------------------------------------
+   6
+
+*--------------------------------------------
+*
+* L0
+*
+*--------------------------------------------
+5.15547e-007	
+1.83469e-007	5.14012e-007	
+3.33008e-008	4.77874e-008	5.12445e-007	
+2.41444e-008	3.28862e-008	1.81226e-007	5.12445e-007	
+9.781e-009	1.20081e-008	3.28859e-008	4.77875e-008	5.14012e-007	
+8.13105e-009	9.78084e-009	2.41444e-008	3.33012e-008	1.83469e-007	5.15547e-007	
+
+*--------------------------------------------
+*
+* C0
+*
+*--------------------------------------------
+9.38097e-011	
+-3.33182e-011	9.46043e-011	
+-2.56977e-012	-5.84676e-012	9.48084e-011	
+-1.41305e-012	-2.44212e-012	-3.28487e-011	9.48086e-011	
+-6.17105e-013	-8.42309e-013	-2.43884e-012	-5.84351e-012	9.4604e-011	
+-4.80983e-013	-6.12598e-013	-1.40474e-012	-2.56106e-012	-3.33125e-011	9.3809e-011	
+
+*--------------------------------------------
+*
+* R0
+*
+*--------------------------------------------
+49.3381	
+0	49.3381	
+0	0	49.3381	
+0	0	0	49.3381	
+0	0	0	0	49.3381	
+0	0	0	0	0	49.3381	
+
+*--------------------------------------------
+*
+* G0
+*
+*--------------------------------------------
+0	
+0	0	
+0	0	0	
+0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	0	
+
+*--------------------------------------------
+*
+* Rs
+*
+*--------------------------------------------
+0.00393701	
+0	0.00393701	
+0	0	0.00393701	
+0	0	0	0.00393701	
+0	0	0	0	0.00393701	
+0	0	0	0	0	0.00393701	
+
+*--------------------------------------------
+*
+* Gd
+*
+*--------------------------------------------
+0	
+0	0	
+0	0	0	
+0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	0	
+
+

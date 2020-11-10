@@ -1,0 +1,165 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="92" y="-28" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">88,-32 92,-32</polyline>
+%  <text x="91" y="-31" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-40 92,-40</polyline>
+%  <text x="91" y="-39" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">104,-32 100,-32</polyline>
+%  <text x="101" y="-31" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">104,-40 100,-40</polyline>
+%  <text x="101" y="-39" t="4" h="3" halign="l" lc="black"/>
+%  <text x="96" y="-25" t="TestWElementTest_testWElementWireBond.s4p" h="3" halign="c" lc="black"/>
+%  <text x="142" y="-33" t="+" h="3" halign="c" lc="black"/>
+%  <text x="142" y="-41" t="-" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-33" t="D" h="3" halign="c" lc="black"/>
+%  <text x="146" y="-41" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="140" y="-28" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">136,-32 140,-32</polyline>
+%  <polyline lc="black">136,-40 140,-40</polyline>
+%  <polyline lc="black">152,-32 148,-32</polyline>
+%  <polyline lc="black">152,-40 148,-40</polyline>
+%  <text x="42" y="-33" t="+" h="3" halign="c" lc="black"/>
+%  <text x="42" y="-41" t="-" h="3" halign="c" lc="black"/>
+%  <text x="38" y="-33" t="D" h="3" halign="c" lc="black"/>
+%  <text x="38" y="-41" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="36" y="-28" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">48,-32 44,-32</polyline>
+%  <polyline lc="black">48,-40 44,-40</polyline>
+%  <polyline lc="black">32,-32 36,-32</polyline>
+%  <polyline lc="black">32,-40 36,-40</polyline>
+%  <polyline lc="black">26,-30 28,-32 26,-34</polyline>
+%  <polyline lc="black">32,-32 28,-32</polyline>
+%  <text x="26" y="-33" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">158,-30 156,-32 158,-34</polyline>
+%  <polyline lc="black">152,-32 156,-32</polyline>
+%  <text x="158" y="-33" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">26,-38 28,-40 26,-42</polyline>
+%  <polyline lc="black">32,-40 28,-40</polyline>
+%  <text x="26" y="-41" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">158,-38 156,-40 158,-42</polyline>
+%  <polyline lc="black">152,-40 156,-40</polyline>
+%  <text x="158" y="-41" t="4" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">48,-44 48,-47</polyline>
+%  <polyline lc="black">45.333,-47 50.667,-47</polyline>
+%  <polyline lc="black">45.333,-49 50.667,-49</polyline>
+%  <polyline lc="black">48,-49 48,-52</polyline>
+%  <polyline lc="black">48,-52 48,-56</polyline>
+%  <polygon fill="black">45.333,-56 50.667,-56 48,-58.667 45.333,-56</polygon>
+%  <polyline lc="black">48,-40 48,-44</polyline>
+%  <text x="52" y="-51" t="10.0 fF" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">48,-28 48,-25</polyline>
+%  <polyline lc="black">45.333,-25 50.667,-25</polyline>
+%  <polyline lc="black">45.333,-23 50.667,-23</polyline>
+%  <polyline lc="black">48,-23 48,-20</polyline>
+%  <polyline lc="black">48,-20 48,-16</polyline>
+%  <polygon fill="black">45.333,-16 50.667,-16 48,-13.333 45.333,-16</polygon>
+%  <polyline lc="black">48,-32 48,-28</polyline>
+%  <text x="52" y="-23" t="10.0 fF" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">136,-28 136,-25</polyline>
+%  <polyline lc="black">133.333,-25 138.667,-25</polyline>
+%  <polyline lc="black">133.333,-23 138.667,-23</polyline>
+%  <polyline lc="black">136,-23 136,-20</polyline>
+%  <polyline lc="black">136,-20 136,-16</polyline>
+%  <polygon fill="black">133.333,-16 138.667,-16 136,-13.333 133.333,-16</polygon>
+%  <polyline lc="black">136,-32 136,-28</polyline>
+%  <text x="140" y="-23" t="10.0 fF" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">136,-44 136,-47</polyline>
+%  <polyline lc="black">133.333,-47 138.667,-47</polyline>
+%  <polyline lc="black">133.333,-49 138.667,-49</polyline>
+%  <polyline lc="black">136,-49 136,-52</polyline>
+%  <polyline lc="black">136,-52 136,-56</polyline>
+%  <polygon fill="black">133.333,-56 138.667,-56 136,-58.667 133.333,-56</polygon>
+%  <polyline lc="black">136,-40 136,-44</polyline>
+%  <text x="140" y="-51" t="10.0 fF" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">48,-32 88,-32</polyline>
+%  <polyline lc="black">88,-40 48,-40</polyline>
+%  <polyline lc="black">104,-32 136,-32</polyline>
+%  <polyline lc="black">136,-40 104,-40</polyline>
+%  <ellipse x="48" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="136" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="136" y="-32" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="48" y="-32" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (92,-44) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (88,-32) -- (92,-32);
+\draw[black] (91,-31) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (88,-40) -- (92,-40);
+\draw[black] (91,-39) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (104,-32) -- (100,-32);
+\draw[black] (101,-31) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (104,-40) -- (100,-40);
+\draw[black] (101,-39) node[anchor=base west]{4};
+\draw[black] (96,-25) node[anchor=base]{TestWElementTest\textunderscore testWElementWireBond.s4p};
+\draw[black] (142,-33) node[anchor=base]{+};
+\draw[black] (142,-41) node[anchor=base]{-};
+\draw[black] (146,-33) node[anchor=base]{D};
+\draw[black] (146,-41) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (140,-44) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (136,-32) -- (140,-32);
+\path[line width=0.30mm, draw=black] (136,-40) -- (140,-40);
+\path[line width=0.30mm, draw=black] (152,-32) -- (148,-32);
+\path[line width=0.30mm, draw=black] (152,-40) -- (148,-40);
+\draw[black] (42,-33) node[anchor=base]{+};
+\draw[black] (42,-41) node[anchor=base]{-};
+\draw[black] (38,-33) node[anchor=base]{D};
+\draw[black] (38,-41) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (36,-44) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (48,-32) -- (44,-32);
+\path[line width=0.30mm, draw=black] (48,-40) -- (44,-40);
+\path[line width=0.30mm, draw=black] (32,-32) -- (36,-32);
+\path[line width=0.30mm, draw=black] (32,-40) -- (36,-40);
+\path[line width=0.30mm, draw=black] (26,-30) -- (28,-32) -- (26,-34);
+\path[line width=0.30mm, draw=black] (32,-32) -- (28,-32);
+\draw[black] (26,-33) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (158,-30) -- (156,-32) -- (158,-34);
+\path[line width=0.30mm, draw=black] (152,-32) -- (156,-32);
+\draw[black] (158,-33) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (26,-38) -- (28,-40) -- (26,-42);
+\path[line width=0.30mm, draw=black] (32,-40) -- (28,-40);
+\draw[black] (26,-41) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (158,-38) -- (156,-40) -- (158,-42);
+\path[line width=0.30mm, draw=black] (152,-40) -- (156,-40);
+\draw[black] (158,-41) node[anchor=base west]{4};
+\path[line width=0.30mm, draw=black] (48,-44) -- (48,-47);
+\path[line width=0.30mm, draw=black] (45.333,-47) -- (50.667,-47);
+\path[line width=0.30mm, draw=black] (45.333,-49) -- (50.667,-49);
+\path[line width=0.30mm, draw=black] (48,-49) -- (48,-52);
+\path[line width=0.30mm, draw=black] (48,-52) -- (48,-56);
+\path[line width=0.30mm, fill=black] (45.333,-56) -- (50.667,-56) -- (48,-58.667) -- (45.333,-56) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-40) -- (48,-44);
+\draw[black] (52,-51) node[anchor=base west]{10.0 fF};
+\path[line width=0.30mm, draw=black] (48,-28) -- (48,-25);
+\path[line width=0.30mm, draw=black] (45.333,-25) -- (50.667,-25);
+\path[line width=0.30mm, draw=black] (45.333,-23) -- (50.667,-23);
+\path[line width=0.30mm, draw=black] (48,-23) -- (48,-20);
+\path[line width=0.30mm, draw=black] (48,-20) -- (48,-16);
+\path[line width=0.30mm, fill=black] (45.333,-16) -- (50.667,-16) -- (48,-13.333) -- (45.333,-16) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-32) -- (48,-28);
+\draw[black] (52,-23) node[anchor=base west]{10.0 fF};
+\path[line width=0.30mm, draw=black] (136,-28) -- (136,-25);
+\path[line width=0.30mm, draw=black] (133.333,-25) -- (138.667,-25);
+\path[line width=0.30mm, draw=black] (133.333,-23) -- (138.667,-23);
+\path[line width=0.30mm, draw=black] (136,-23) -- (136,-20);
+\path[line width=0.30mm, draw=black] (136,-20) -- (136,-16);
+\path[line width=0.30mm, fill=black] (133.333,-16) -- (138.667,-16) -- (136,-13.333) -- (133.333,-16) -- cycle;
+\path[line width=0.30mm, draw=black] (136,-32) -- (136,-28);
+\draw[black] (140,-23) node[anchor=base west]{10.0 fF};
+\path[line width=0.30mm, draw=black] (136,-44) -- (136,-47);
+\path[line width=0.30mm, draw=black] (133.333,-47) -- (138.667,-47);
+\path[line width=0.30mm, draw=black] (133.333,-49) -- (138.667,-49);
+\path[line width=0.30mm, draw=black] (136,-49) -- (136,-52);
+\path[line width=0.30mm, draw=black] (136,-52) -- (136,-56);
+\path[line width=0.30mm, fill=black] (133.333,-56) -- (138.667,-56) -- (136,-58.667) -- (133.333,-56) -- cycle;
+\path[line width=0.30mm, draw=black] (136,-40) -- (136,-44);
+\draw[black] (140,-51) node[anchor=base west]{10.0 fF};
+\path[line width=0.30mm, draw=black] (48,-32) -- (88,-32);
+\path[line width=0.30mm, draw=black] (88,-40) -- (48,-40);
+\path[line width=0.30mm, draw=black] (104,-32) -- (136,-32);
+\path[line width=0.30mm, draw=black] (136,-40) -- (104,-40);
+\path[line width=0.30mm, draw=black, fill=black] (48,-40) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (136,-40) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (136,-32) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (48,-32) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%
