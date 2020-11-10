@@ -391,7 +391,8 @@ class SParametersDialog(tk.Toplevel):
         self.Zoom['AreSParameterLike']=(areSParameters or isCalibration)
         if buttonLabels == None:
             numPorts=self.sp.m_P
-            buttonLabels=[['s'+str(toP+1)+str(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
+            (formatStr1,formatStr2)=('{:1d}','{:1d}') if numPorts < 10 else ('{:2d}','{:3d}') # assumes less than 100
+            buttonLabels=[['s'+formatStr1.format(toP+1)+formatStr2.format(fromP+1) for fromP in range(numPorts)] for toP in range(numPorts)]
             self.spList[0][3]=buttonLabels
         else:
             if self.calibration == None:
