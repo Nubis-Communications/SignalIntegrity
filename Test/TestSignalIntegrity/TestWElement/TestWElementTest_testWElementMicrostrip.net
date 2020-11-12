@@ -1,0 +1,10 @@
+device R_1 2
+device Rse_1 2
+device L_1 2
+device G_1 1
+device C_1 1
+port 1 R_1 1
+port 2 C_1 1
+connect R_1 2 Rse_1 1
+connect Rse_1 2 L_1 1
+connect L_1 2 C_1 1 G_1 1

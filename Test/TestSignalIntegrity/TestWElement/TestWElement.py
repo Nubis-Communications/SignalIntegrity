@@ -49,6 +49,11 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         sp=si.sp.dev.WElementFile('WireBond.txt',df=0.001,Z0=50,scale=1./1000.).SParameters(f)
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s4p')
+    def testWElementMicrostrip(self):
+        f=si.fd.EvenlySpacedFrequencyList(20e9,1000)
+        sp=si.sp.dev.WElementFile('microstrip.hspice-w.rlgc',df=0.01,Z0=50,scale=200./1000.).SParameters(f)
+        self.NetListChecker(sp.NetList(),self.testName())
+        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
     def testWElement3PairsMixedMode(self):
         self.SParameterResultsChecker('WireBond3Pairs.si')
     def testWElementWireBondMixedMode(self):

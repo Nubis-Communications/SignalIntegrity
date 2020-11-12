@@ -1,0 +1,146 @@
+Display Units: mils
+Lower Ground Plane Thickness: 1.000000e+000
+Upper Extent: 1.270000e-003
+Lower Extent: 0.000000e+000
+Right Extent: 4.572000e-003
+Left Extent: -2.286000e-003
+
+
+Contour: Signal
+Contour Type: Polygon
+Number of Points: 4
+Point: 0.000000e+000 1.270000e-003
+Point: 0.000000e+000 1.346200e-003
+Point: 2.286000e-003 1.346200e-003
+Point: 2.286000e-003 1.270000e-003
+
+Contour: Dielectric
+Contour Type: Polygon
+Number of Points: 4
+Point: -2.286000e-003 0.000000e+000
+Point: -2.286000e-003 1.270000e-003
+Point: 4.572000e-003 1.270000e-003
+Point: 4.572000e-003 0.000000e+000
+
+Start Solution Output:
+Active Line: c1R0
+
+Element Type: Conductor
+X Points: 0.000000e+000 2.286000e-004 4.572000e-004
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Edge: 0 5.561343e-001
+Charge Values: 3.927840e-009 1.225178e-008 6.969463e-009
+
+Element Type: Conductor
+X Points: 4.572000e-004 6.858000e-004 9.144000e-004
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: 6.969463e-009 8.151420e-009 7.073175e-009
+
+Element Type: Conductor
+X Points: 9.144000e-004 1.143000e-003 1.371600e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: 7.073175e-009 7.573715e-009 7.132190e-009
+
+Element Type: Conductor
+X Points: 1.371600e-003 1.600200e-003 1.828800e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: 7.132190e-009 8.103232e-009 7.388642e-009
+
+Element Type: Conductor
+X Points: 1.828800e-003 2.057400e-003 2.286000e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Edge: 1 5.561343e-001
+Charge Values: 7.388642e-009 1.132673e-008 1.996813e-010
+
+Element Type: Conductor
+X Points: 2.286000e-003 2.286000e-003 2.286000e-003
+Y Points: 1.270000e-003 1.289050e-003 1.308100e-003
+Edge: 0 5.561343e-001
+Charge Values: 1.996813e-010 8.309306e-008 3.829039e-008
+
+Element Type: Conductor
+X Points: 2.286000e-003 2.286000e-003 2.286000e-003
+Y Points: 1.308100e-003 1.327150e-003 1.346200e-003
+Edge: 1 6.666667e-001
+Charge Values: 3.829039e-008 3.132301e-008 3.083688e-009
+
+Element Type: Conductor
+X Points: 2.286000e-003 2.057400e-003 1.828800e-003
+Y Points: 1.346200e-003 1.346200e-003 1.346200e-003
+Edge: 0 6.666667e-001
+Charge Values: 3.083688e-009 8.704503e-009 2.863277e-009
+
+Element Type: Conductor
+X Points: 1.828800e-003 1.600200e-003 1.371600e-003
+Y Points: 1.346200e-003 1.346200e-003 1.346200e-003
+Charge Values: 2.863277e-009 4.204320e-009 3.002195e-009
+
+Element Type: Conductor
+X Points: 1.371600e-003 1.143000e-003 9.144000e-004
+Y Points: 1.346200e-003 1.346200e-003 1.346200e-003
+Charge Values: 3.002195e-009 3.533987e-009 3.123713e-009
+
+Element Type: Conductor
+X Points: 9.144000e-004 6.858000e-004 4.572000e-004
+Y Points: 1.346200e-003 1.346200e-003 1.346200e-003
+Charge Values: 3.123713e-009 4.087699e-009 3.613850e-009
+
+Element Type: Conductor
+X Points: 4.572000e-004 2.286000e-004 1.084202e-019
+Y Points: 1.346200e-003 1.346200e-003 1.346200e-003
+Edge: 1 6.666667e-001
+Charge Values: 3.613850e-009 7.383052e-009 1.529101e-010
+
+Element Type: Conductor
+X Points: 0.000000e+000 0.000000e+000 0.000000e+000
+Y Points: 1.346200e-003 1.327150e-003 1.308100e-003
+Edge: 0 6.666667e-001
+Charge Values: 1.529101e-010 6.308383e-008 4.699726e-008
+
+Element Type: Conductor
+X Points: 0.000000e+000 0.000000e+000 0.000000e+000
+Y Points: 1.308100e-003 1.289050e-003 1.270000e-003
+Edge: 1 5.561343e-001
+Charge Values: 4.699726e-008 3.729667e-008 3.927840e-009
+
+Element Type: Dielectric
+X Points: -2.286000e-003 -2.000250e-003 -1.714500e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -9.447781e-010 -1.040720e-009 -1.230345e-009
+
+Element Type: Dielectric
+X Points: -1.714500e-003 -1.428750e-003 -1.143000e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -1.230345e-009 -1.310226e-009 -1.782466e-009
+
+Element Type: Dielectric
+X Points: -1.143000e-003 -8.572500e-004 -5.715000e-004
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -1.782466e-009 -1.543585e-009 -3.482973e-009
+
+Element Type: Dielectric
+X Points: -5.715000e-004 -2.857500e-004 0.000000e+000
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -3.482973e-009 -1.845367e-009 -1.581924e-008
+
+Element Type: Dielectric
+X Points: 2.286000e-003 2.571750e-003 2.857500e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -1.764535e-008 -1.574097e-009 -3.783042e-009
+
+Element Type: Dielectric
+X Points: 2.857500e-003 3.143250e-003 3.429000e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -3.783042e-009 -1.497409e-009 -1.833711e-009
+
+Element Type: Dielectric
+X Points: 3.429000e-003 3.714750e-003 4.000500e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -1.833711e-009 -1.301973e-009 -1.239118e-009
+
+Element Type: Dielectric
+X Points: 4.000500e-003 4.286250e-003 4.572000e-003
+Y Points: 1.270000e-003 1.270000e-003 1.270000e-003
+Charge Values: -1.239118e-009 -1.038857e-009 -9.475766e-010
+
+End Solution Output:

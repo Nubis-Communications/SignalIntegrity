@@ -1,0 +1,80 @@
+*--------------------------------------------
+*
+* RLCG parameters for W-Element
+* frequency-dependent transmission line
+*
+*
+*  MMTL File Name:  C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestWElement/microstrip.result
+*  Wed Nov 11 4:14:23 PM Eastern Standard Time 2020
+*
+*--------------------------------------------
+*
+* |   MMTL Simulation data from
+* |   C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestWElement/microstrip.result
+* | 
+* | 2020 11 11 16:14:19 pete_ NMMTL_2DLF
+* | 
+* | File = C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestWElement/microstrip
+* | Number of Signal Lines  =   1
+* | Number of Ground Planes =   1
+* | Number of Ground Wires  =   0
+* | Coupling Length =   0.00000 meters
+* | Rise Time =   250.0000 picoseconds
+* | Contour (conductor) segments [cseg] = 10
+* | Ground Plane/Dielectric segments [dseg] = 10
+* | Conductivity c1R0 = 5e+007 siemens/meter
+* | Note: minimum frequency for surface current assumptions is 88 MHz.
+* |
+* |  Signal Names (in order):
+* |     ::c1R0
+*
+*--------------------------------------------
+*
+*  N = number of signal conductors
+*
+*--------------------------------------------
+   1
+
+*--------------------------------------------
+*
+* L0
+*
+*--------------------------------------------
+3.04108e-007	
+
+*--------------------------------------------
+*
+* C0
+*
+*--------------------------------------------
+1.22606e-010	
+
+*--------------------------------------------
+*
+* R0
+*
+*--------------------------------------------
+0.114815	
+
+*--------------------------------------------
+*
+* G0
+*
+*--------------------------------------------
+0	
+
+*--------------------------------------------
+*
+* Rs
+*
+*--------------------------------------------
+5.94769e-005	
+
+*--------------------------------------------
+*
+* Gd
+*
+*--------------------------------------------
+0	
+
+

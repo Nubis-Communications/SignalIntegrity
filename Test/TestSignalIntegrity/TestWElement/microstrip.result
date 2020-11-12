@@ -1,0 +1,44 @@
+
+2020 11 11 16:14:19 pete_ NMMTL_2DLF
+
+File = C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestWElement/microstrip
+Number of Signal Lines  =   1
+Number of Ground Planes =   1
+Number of Ground Wires  =   0
+Coupling Length =   0.00000 meters
+Rise Time =   250.0000 picoseconds
+Contour (conductor) segments [cseg] = 10
+Ground Plane/Dielectric segments [dseg] = 10
+Conductivity c1R0 = 5e+007 siemens/meter
+Note: minimum frequency for surface current assumptions is 88 MHz.
+Mutual and Self Electrostatic Induction:
+B(Active Signal , Passive Signal) Farads/Meter
+B( ::c1R0 , ::c1R0 )=  1.2260638e-010
+
+Mutual and Self Inductance:
+L(Active Signal , Passive Signal) Henrys/Meter
+L( ::c1R0 , ::c1R0 )=  3.0410845e-007
+
+Characteristic Impedance (Ohms):
+For Signal Line ::c1R0= 49.8033
+
+Effective Dielectric Constant:
+For Signal Line ::c1R0= 3.35571
+
+Propagation Velocity (meters/second):
+For Signal Line ::c1R0=  1.6365478e+008
+
+Propagation Delay (seconds/meter):
+For Signal Line ::c1R0=  6.1104233e-009
+
+Rdc:
+Rdc(Active Signal , Passive Signal) Ohms/Meter
+Rdc( ::c1R0 , ::c1R0 )=  1.1481504e-001
+
+Far-End (Forward) Cross Talk:
+FXT(Active Signal, Passive Signal)
+
+Near-End (Backward) Cross Talk:
+BXT(Active Signal, Passive Signal)
+
+NOTE: Cross talk results assume there are no reflections.

@@ -1,0 +1,23 @@
+
+
+		DUMP OF GEOMETRY
+
+cntr_seg=10, pln_seg=10, coupling=2.54e-006, risetime=2.5e-010
+conductivity=5.8e+007, frequency=1e+008, half min dim=3.81e-005
+1 ground planes, top thickness=1, bottom thickness=1
+
+SIGNAL CONDUCTORS:
+
+R c1R0 rectangle
+	low left = (0,0.00127), up right = (0.002286,0.0013462)
+
+
+GROUND CONDUCTORS:
+
+
+DIELECTRICS:
+
+	low left = (-0.002286,0), up right = (0.004572,0.00127)
+	constant=4.7, tangent=0
+
+

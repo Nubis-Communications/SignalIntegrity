@@ -74,6 +74,7 @@ from TestSParametersParser import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
 from TestVNACalibrationObject import *
+from TestWElement import *
 
 if __name__ == '__main__':
     unittest.main()

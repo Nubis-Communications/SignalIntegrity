@@ -1,0 +1,34 @@
+#----------------------------------
+# File:  C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestWElement/microstrip.xsctn
+# Wed Nov 11 4:14:14 PM Eastern Standard Time 2020
+#----------------------------------
+
+package require csdl
+
+set _title "Example Two Conductor Microstrip"
+set ::Stackup::couplingLength "2.54e-006"
+set ::Stackup::riseTime "250"
+set ::Stackup::frequency "1e9"
+set ::Stackup::defaultLengthUnits "mils"
+set CSEG 10
+set DSEG 10
+
+GroundPlane ground  \
+	 -thickness 3 \
+	 -yOffset 0.0 \
+	 -xOffset 0.0
+DielectricLayer fr4  \
+	 -thickness 50 \
+	 -lossTangent 0.0 \
+	 -permittivity 4.7 \
+	 -permeability 1.0 \
+	 -yOffset 0.0 \
+	 -xOffset 0.0
+RectangleConductors c1  \
+	 -width 90 \
+	 -pitch 20 \
+	 -conductivity 5.0e7S/m \
+	 -height 3 \
+	 -number 1 \
+	 -yOffset 0 \
+	 -xOffset 0
