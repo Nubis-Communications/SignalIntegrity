@@ -37,7 +37,24 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.SPCompareResolution=1e-2
         #si.test.SignalIntegrityAppTestHelper.plotErrors=True
     def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        #self.forceWritePictures=True
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences.SaveToFile()
     def testAAAADoThisFirst(self):
         proj=siapp.SignalIntegrityAppHeadless()
         self.assertTrue(proj.OpenProjectFile('TDRModel.si'))

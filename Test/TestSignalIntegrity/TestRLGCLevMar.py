@@ -347,8 +347,8 @@ class TestRLGCLevMar(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,
     def testRLGCFitEyal(self):
         sp=si.sp.SParameterFile('RF Cable 0004 edited.s4p')
         self.sp=si.sp.SParameters(sp.m_f,[[[s[r+2][c+2] for c in range(2)] for r in range(2)] for s in sp])
-        dly=4.7e-9;Z0=50.
-        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.01,0.]
+        dly=4.4e-9;Z0=51.
+        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0,0.]
         #pragma: silent exclude
         self.plotInitialized=False
         #pragma: include

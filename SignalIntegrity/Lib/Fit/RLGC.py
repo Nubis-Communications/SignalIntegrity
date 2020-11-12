@@ -23,6 +23,7 @@ from numpy import array
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
 class RLGCFitter(LevMar):
+    epsilonG=1e-15
     """fits a two-port RLGC transmission line to s-parameters"""
     def __init__(self,sp,guess,callback=None):
         """Constructor  
@@ -46,6 +47,10 @@ class RLGCFitter(LevMar):
         LevMar.Initialize(self, array([[g] for g in guess]), array(v))
         self.ones=[1 for _ in self.f]
         self.dZdR=self.ones
+        # pragma: silent exclude
+        # I thought dZdRse ought to be sqrt(f)*(1+1j) but fitter works much, much better without
+        # it.  I need to look forward at this.
+        # pragma: include
         self.dZdRse=[math.sqrt(f) for f in self.f]
         self.p2f=[2.*math.pi*f for f in self.f]
         self.dZdL=[1j*p2f for p2f in self.p2f]
@@ -79,14 +84,14 @@ class RLGCFitter(LevMar):
         try:
             test=1./G
         except:
-            G=1e-12
+            G=self.epsilonG
         try:
             test=1./R
         except:
-            R=1e-12
+            R=self.epsilonG
         numpy.seterr(divide=npstate)
         # pragma: include
-        self.Z=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
+        self.Z=[R+Rse*(1+1j)*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
         self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
         self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]
         self.Zc=[cmath.sqrt(z/y) for (z,y) in zip(self.Z,self.Y)]
@@ -168,6 +173,7 @@ class RLGCFitter(LevMar):
         """
         for r in range(len(a)):
             a[r][0]=abs(a[r][0].real)
+        a[2][0]=max(self.epsilonG,a[2][0])
         return a
     def Results(self):
         """Gets the fitted transmission line parameters.
@@ -192,7 +198,7 @@ class RLGCFitter2(LevMar):
         LevMar.Initialize(self, array([[g] for g in guess]), v)
         self.ones=[1 for _ in self.f]
         self.dZdR=self.ones
-        self.dZdRse=[math.sqrt(f) for f in self.f]
+        self.dZdRse=[math.sqrt(f)*(1+1j) for f in self.f]
         self.p2f=[2.*math.pi*f for f in self.f]
         self.dZdL=[1j*p2f for p2f in self.p2f]
         self.zeros=[0 for _ in self.f]
@@ -225,7 +231,7 @@ class RLGCFitter2(LevMar):
         self.ffm=[f/fm for f in self.f]
         self.ffmb=[pow(ffm,b) for ffm in self.ffm]
         self.L=[(L0+Linf*ffmb)/(1.+ffmb) for ffmb in self.ffmb]
-        self.Z=[R+Rse*math.sqrt(f)+1j*2.*math.pi*f*L for (L,f) in zip(self.L,self.f)]
+        self.Z=[R+Rse*(1+1j)*math.sqrt(f)+1j*2.*math.pi*f*L for (L,f) in zip(self.L,self.f)]
         self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
         self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]
         self.Zc=[cmath.sqrt(z/y) for (z,y) in zip(self.Z,self.Y)]

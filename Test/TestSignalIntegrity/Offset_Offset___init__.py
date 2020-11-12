@@ -9,7 +9,7 @@ class Offset(SParameters):
         C=Td/Zc
         G=0
         for f in fList:
-            R=R0*Td*cmath.sqrt(f/f0)
+            R=R0*Td*cmath.sqrt(f/f0)*(1+1j)
             Z=R+1j*2*cmath.pi*f*L
             Y=G+1j*2*cmath.pi*f*C
             y=cmath.sqrt(Z*Y)

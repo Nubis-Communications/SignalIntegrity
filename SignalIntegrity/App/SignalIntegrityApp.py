@@ -711,7 +711,11 @@ class SignalIntegrityApp(tk.Frame):
         dly=stepResponse.Times()[k]
         rho=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=False).Measure(dly)
         Z0=sp.m_Z0*(1.+rho)/(1.-rho)
-        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]
+        if sp.m_f[0]==0:
+            S11_0=sp[0][0][0]; R=(2*S11_0*sp.m_Z0/(1.-S11_0)).real
+        else:
+            R=0
+        L=dly*Z0; C=dly/Z0; guess=[R,L,0.,C,0.,0.]
         #pragma: silent exclude
         self.plotInitialized=False
         #pragma: include

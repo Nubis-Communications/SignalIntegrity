@@ -19,6 +19,7 @@
 import math,cmath
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.Devices import SeriesZ
 
 class TLineTwoPortRLGCAnalytic(SParameters):
     """s-parameters of analytic single-ended telegraphers transmission line"""
@@ -45,9 +46,9 @@ class TLineTwoPortRLGCAnalytic(SParameters):
         from SignalIntegrity.Lib.Devices.TLineTwoPort import TLineTwoPort
         # pragma: include
         f=self.m_f[n]
-        Z=self.R+self.Rse*math.sqrt(f)+1j*2*math.pi*f*self.L
+        Z=self.R+self.Rse*(1+1j)*math.sqrt(f)+1j*2*math.pi*f*self.L
         Y=self.G+2.*math.pi*f*self.C*(1j+self.df)
         try: Zc=cmath.sqrt(Z/Y)
-        except: Zc=self.m_Z0
+        except: return SeriesZ(Z)
         gamma=cmath.sqrt(Z*Y)
         return TLineTwoPort(Zc,gamma,self.m_Z0)

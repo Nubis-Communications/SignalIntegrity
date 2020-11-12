@@ -1,5 +1,4 @@
 class RLGCFitter(LevMar):
-...
     def fJ(self,a,Fa=None):
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])

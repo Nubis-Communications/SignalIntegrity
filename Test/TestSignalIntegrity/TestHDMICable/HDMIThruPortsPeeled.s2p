@@ -1,6 +1,6 @@
-! File created by SignalIntegrity v1.1.8: Signal and Power Integrity Tools
+! File created by SignalIntegrity v1.1.13: Signal and Power Integrity Tools
 ! https://github.com/TeledyneLeCroy/SignalIntegrity
-# MHz MA S R 50.0
+# MHz S MA R 50.0
 0.0 0.012433 0.0 0.99441 0.0 0.99837 0.0 0.002117 0.0
 500.0 0.063526 25.364653 0.984348 -63.036404 0.98591 -63.201094 0.05494 27.819084
 1000.0 0.063126 -19.517774 0.966892 -125.168028 0.964844 -125.359859 0.055255 -32.413658
