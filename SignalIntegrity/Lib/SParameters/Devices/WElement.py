@@ -25,7 +25,19 @@ from SignalIntegrity.Lib.Conversions import T2S
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class WElementFile(object):
+    """W element file."""
     def __init__(self,filename,df=0.,Z0=50., K=0, scale=1.):
+        """Constructor
+        @param string filename of W element file.
+        @param float (optional, defaults to 0.) dissipation factor to be added to W elements.
+        @param float (optional, defaults to 50.) reference impedance.
+        @param int (optional, defaults to 0.) number of sections to be used for approximation.
+        @param float (optional, defaults to 1.) scale factor to scale result by.
+        @remark dissipation factor does not seem to be included in W elements, which is surprising, which
+        neccessitates the addition through an argument until I better understand this.
+        @remark If sections are specified as 0, the number of sections used for the approximation will be determined
+        automatically based on capacitances and inductances supplied, and the final end frequency for the s-parameters.
+        """
         self.Z0=Z0
         self.K=K
         self.scale=scale
@@ -43,24 +55,33 @@ class WElementFile(object):
             if len(tokens)>0:
                 self.numbersList.extend(tokens)
         self.idx=0
-        self.wires=int(self.ReadToken())
-        self.L0=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
-        CM=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        self.wires=int(self._ReadToken())
+        self.L0=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        CM=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
         # CM is a Maxwell capacitance matrix.  It needs to be converted to a mutual capacitance matrix
         self.C0=[[None for _ in range(w+1)] for w in range(self.wires)]
         for r in range(self.wires):
             self.C0[r][r]=sum([CM[r][c] if r >= c else CM[c][r] for c in range(self.wires)])
             for c in range(r): self.C0[r][c]=-CM[r][c]
-        self.R0=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
-        self.G0=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
-        self.Rs=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
-        self.Gd=[[float(self.ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        self.R0=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        self.G0=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        self.Rs=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
+        self.Gd=[[float(self._ReadToken()) for _ in range(w+1)] for w in range(self.wires)]
         self.df=[[df for _ in range(w+1)] for w in range(self.wires)]
 
     def SParameters(self,f):
+        """Computes the s-parameters.
+        @param f list of frequencies.
+        @return S-parameters of the W element.
+        @remark for a P element W element, the result is a 2*P port s-parameter file, where ports 1 to P are the
+        left side of elements 1 to P and ports P+1 to 2*P are the right side of elements 1 to P.
+        """
         return WElement(f,self.wires,[self.R0[w][w] for w in range(self.wires)],[self.Rs[w][w] for w in range(self.wires)],
                         self.df,self.C0,self.G0,self.L0,self.Z0,self.K,self.scale)
-    def ReadToken(self):
+    def _ReadToken(self):
+        """Reads a single numeric token in string form from the W element file.
+        @return string numeric token.
+        """
         value=self.numbersList[self.idx]
         self.idx+=1
         return value
@@ -71,11 +92,9 @@ class WElement(SParameters):
     of sections specified."""
     rtFraction=.01
     def __init__(self,f, wires, R, Rse, df, Cm, Gm, Lm, Z0=50., K=0, scale=1.):
-        """Constructor
-
-        ports are 1,2,3,4... on left and W, W+1, W+2, W+4.. on right where W=wires
-        and wire 1 is port 1 to P, wire 2 is port 2 to (P+1),...  This is a P=2*w port device 
-
+        """Constructor  
+        ports are 1,2,3,4, etc. on left and W, W+1, W+2, W+4, etc. on right where W=wires
+        and wire 1 is port 1 to P, wire 2 is port 2 to (P+1), etc.  This is a P=2*w port device.
         @param f list of float frequencies
         @param wires integer number of wires
         @param R list of float DC resistance of wire (ohms)
@@ -88,7 +107,7 @@ class WElement(SParameters):
         @param K (optional) integer number of sections (defaults to 0)
         @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
-        approximation.
+        approximation.  
 
         The calculation is such that round-trip propagation time (twice the electrical length)
         of any one small section is no more than one percent of the fastest possible risetime.
@@ -184,6 +203,10 @@ class WElement(SParameters):
                 self.m_spdl.append(('C_'+str(w+1)+'_'+str(o+1),dev.SeriesC(f,Cm[o][w]/K,Z0,df[o][w])))
         SParameters.__init__(self,f,None,Z0)
     def NetList(self):
+        """NetList
+        @return the netlist formed for a W element.
+        @remark this is really for testing only.
+        """
         return self.NetListLines
     def __getitem__(self,n):
         """overloads [n]
