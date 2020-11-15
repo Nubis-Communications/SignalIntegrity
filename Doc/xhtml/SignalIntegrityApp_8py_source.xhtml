@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.11</span>
+   &#160;<span id="projectnumber">1.1.13</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -792,389 +792,393 @@ $(function() {
 <div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;        dly=stepResponse.Times()[k]</div>
 <div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;        rho=sp.FrequencyResponse(1,1).ImpulseResponse().Integral(scale=<span class="keyword">False</span>).Measure(dly)</div>
 <div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;        Z0=sp.m_Z0*(1.+rho)/(1.-rho)</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;        L=dly*Z0; C=dly/Z0; guess=[0.,L,0.,C,0.,0.]</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        <span class="comment">#pragma: silent exclude</span></div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        self.plotInitialized=<span class="keyword">False</span></div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        <span class="comment">#pragma: include</span></div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="comment">#print(self.m_fitter.Results())</span></div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        (R,L,G,C,Rse,df)=self.m_fitter.Solve().Results()</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="comment">#         print &quot;series resistance: &quot;+ToSI(R,&#39;ohm&#39;)</span></div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="comment">#         print &quot;series inductance: &quot;+ToSI(L,&#39;H&#39;)</span></div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment">#         print &quot;shunt conductance: &quot;+ToSI(G,&#39;S&#39;)</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment">#         print &quot;shunt capacitance: &quot;+ToSI(C,&#39;F&#39;)</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment">#         print &quot;skin-effect resistance: &quot;+ToSI(Rse,&#39;ohm/sqrt(Hz)&#39;)</span></div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">#         print &quot;dissipation factor: &quot;+ToSI(df,&#39;&#39;)</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        fitsp=si.sp.SParameters(sp.f(),[s <span class="keywordflow">for</span> s <span class="keywordflow">in</span> si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)])</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        SParametersDialog(self,fitsp,filename=self.fileparts.FullFilePathExtension(<span class="stringliteral">&#39;s&#39;</span>+str(sp.m_P)+<span class="stringliteral">&#39;p&#39;</span>))</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160; </div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        <span class="keywordflow">for</span> deviceToCheck <span class="keywordflow">in</span> DeviceList:</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;            <span class="keywordflow">if</span> deviceToCheck[<span class="stringliteral">&#39;partname&#39;</span>].GetValue()==<span class="stringliteral">&#39;Telegrapher&#39;</span>:</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;                <span class="keywordflow">if</span> deviceToCheck[<span class="stringliteral">&#39;ports&#39;</span>].GetValue()==2:</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                    device=copy.deepcopy(deviceToCheck)</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;                    <span class="keywordflow">break</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160; </div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        device[<span class="stringliteral">&#39;r&#39;</span>].SetValueFromString(str(R)); device[<span class="stringliteral">&#39;r&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;r&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        device[<span class="stringliteral">&#39;l&#39;</span>].SetValueFromString(str(L)); device[<span class="stringliteral">&#39;l&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;l&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;        device[<span class="stringliteral">&#39;g&#39;</span>].SetValueFromString(str(G)); device[<span class="stringliteral">&#39;g&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;g&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        device[<span class="stringliteral">&#39;c&#39;</span>].SetValueFromString(str(C)); device[<span class="stringliteral">&#39;c&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;c&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        device[<span class="stringliteral">&#39;rse&#39;</span>].SetValueFromString(str(Rse)); device[<span class="stringliteral">&#39;rse&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;rse&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        device[<span class="stringliteral">&#39;df&#39;</span>].SetValueFromString(str(df)); device[<span class="stringliteral">&#39;df&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;df&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        device[<span class="stringliteral">&#39;sect&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">False</span>; device[<span class="stringliteral">&#39;sect&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;        self.AddSpecificPart(device,popDialog=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160; </div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;    <span class="keyword">def </span>onCalculationProperties(self):</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(self, <span class="stringliteral">&#39;calculationPropertiesDialog&#39;</span>):</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;            self.calculationPropertiesDialog = CalculationPropertiesDialog(self)</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;        <span class="keywordflow">if</span> self.calculationPropertiesDialog == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;            self.calculationPropertiesDialog= CalculationPropertiesDialog(self)</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.calculationPropertiesDialog.winfo_exists():</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                self.calculationPropertiesDialog=CalculationPropertiesDialog(self)</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        self.calculationPropertiesDialog.grab_set()</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160; </div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="keyword">def </span>onSimulate(self):</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        <span class="keywordflow">if</span> self.SimulateNetworkAnalyzerModelDoer.active:</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;            self.networkanalyzersimulator.Simulate()</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;            self.simulator.Simulate()</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <span class="keyword">def </span>onVirtualProbe(self):</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        self.simulator.VirtualProbe()</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;        <span class="keywordflow">if</span> sp.m_f[0]==0:</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            S11_0=sp[0][0][0]; R=(2*S11_0*sp.m_Z0/(1.-S11_0)).real</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;            R=0</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        L=dly*Z0; C=dly/Z0; guess=[R,L,0.,C,0.,0.]</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="comment">#pragma: silent exclude</span></div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        self.plotInitialized=<span class="keyword">False</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        <span class="comment">#pragma: include</span></div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        self.m_fitter=si.fit.RLGCFitter(sp,guess,self.PlotResult)</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;        <span class="comment">#print(self.m_fitter.Results())</span></div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;        (R,L,G,C,Rse,df)=self.m_fitter.Solve().Results()</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment">#         print &quot;series resistance: &quot;+ToSI(R,&#39;ohm&#39;)</span></div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment">#         print &quot;series inductance: &quot;+ToSI(L,&#39;H&#39;)</span></div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment">#         print &quot;shunt conductance: &quot;+ToSI(G,&#39;S&#39;)</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="comment">#         print &quot;shunt capacitance: &quot;+ToSI(C,&#39;F&#39;)</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="comment">#         print &quot;skin-effect resistance: &quot;+ToSI(Rse,&#39;ohm/sqrt(Hz)&#39;)</span></div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="comment">#         print &quot;dissipation factor: &quot;+ToSI(df,&#39;&#39;)</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        fitsp=si.sp.SParameters(sp.f(),[s <span class="keywordflow">for</span> s <span class="keywordflow">in</span> si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)])</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;        SParametersDialog(self,fitsp,filename=self.fileparts.FullFilePathExtension(<span class="stringliteral">&#39;s&#39;</span>+str(sp.m_P)+<span class="stringliteral">&#39;p&#39;</span>))</div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160; </div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;        <span class="keywordflow">for</span> deviceToCheck <span class="keywordflow">in</span> DeviceList:</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;            <span class="keywordflow">if</span> deviceToCheck[<span class="stringliteral">&#39;partname&#39;</span>].GetValue()==<span class="stringliteral">&#39;Telegrapher&#39;</span>:</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;                <span class="keywordflow">if</span> deviceToCheck[<span class="stringliteral">&#39;ports&#39;</span>].GetValue()==2:</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;                    device=copy.deepcopy(deviceToCheck)</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;                    <span class="keywordflow">break</span></div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        device[<span class="stringliteral">&#39;r&#39;</span>].SetValueFromString(str(R)); device[<span class="stringliteral">&#39;r&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;r&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;        device[<span class="stringliteral">&#39;l&#39;</span>].SetValueFromString(str(L)); device[<span class="stringliteral">&#39;l&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;l&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;        device[<span class="stringliteral">&#39;g&#39;</span>].SetValueFromString(str(G)); device[<span class="stringliteral">&#39;g&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;g&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;        device[<span class="stringliteral">&#39;c&#39;</span>].SetValueFromString(str(C)); device[<span class="stringliteral">&#39;c&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;c&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        device[<span class="stringliteral">&#39;rse&#39;</span>].SetValueFromString(str(Rse)); device[<span class="stringliteral">&#39;rse&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;rse&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;        device[<span class="stringliteral">&#39;df&#39;</span>].SetValueFromString(str(df)); device[<span class="stringliteral">&#39;df&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">True</span>; device[<span class="stringliteral">&#39;df&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;        device[<span class="stringliteral">&#39;sect&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">False</span>; device[<span class="stringliteral">&#39;sect&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;        self.AddSpecificPart(device,popDialog=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160; </div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    <span class="keyword">def </span>onCalculationProperties(self):</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(self, <span class="stringliteral">&#39;calculationPropertiesDialog&#39;</span>):</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            self.calculationPropertiesDialog = CalculationPropertiesDialog(self)</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        <span class="keywordflow">if</span> self.calculationPropertiesDialog == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;            self.calculationPropertiesDialog= CalculationPropertiesDialog(self)</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.calculationPropertiesDialog.winfo_exists():</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;                self.calculationPropertiesDialog=CalculationPropertiesDialog(self)</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        self.calculationPropertiesDialog.grab_set()</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;    <span class="keyword">def </span>onSimulate(self):</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keywordflow">if</span> self.SimulateNetworkAnalyzerModelDoer.active:</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;            self.networkanalyzersimulator.Simulate()</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;            self.simulator.Simulate()</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160; </div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    <span class="keyword">def </span>onDeembed(self):</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    <span class="keyword">def </span>onVirtualProbe(self):</div>
 <div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        netList=self.Drawing.schematic.NetList().Text()+<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;PostProcessing&#39;</span>].NetListLines()</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        cacheFileName=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        <span class="keywordflow">if</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Cache.CacheResults&#39;</span>]:</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;            cacheFileName=self.fileparts.FileNameTitle()</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;        si.sd.Numeric.trySVD=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Calculation.TrySVD&#39;</span>]</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        dnp=si.p.DeembedderNumericParser(</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;            si.fd.EvenlySpacedFrequencyList(</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.EndFrequency&#39;</span>],</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.FrequencyPoints&#39;</span>]),</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                cacheFileName=cacheFileName)</div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;        dnp.AddLines(netList)</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160; </div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        progressDialog = ProgressDialog(self,<span class="stringliteral">&quot;Calculating De-embedded S-parameters&quot;</span>,dnp,dnp.Deembed,granularity=1.0)</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;            sp=progressDialog.GetResult()</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;        <span class="keywordflow">except</span> si.SignalIntegrityException <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Deembedder&#39;</span>,e.parameter+<span class="stringliteral">&#39;: &#39;</span>+e.message)</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;        unknownNames=dnp.m_sd.UnknownNames()</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keywordflow">if</span> len(unknownNames)==1:</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            sp=[sp]</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;        <span class="keywordflow">for</span> u <span class="keywordflow">in</span> range(len(unknownNames)):</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;            extension=<span class="stringliteral">&#39;.s&#39;</span>+str(sp[u].m_P)+<span class="stringliteral">&#39;p&#39;</span></div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            filename=unknownNames[u]+extension</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            <span class="keywordflow">if</span> self.fileparts.filename != <span class="stringliteral">&#39;&#39;</span>:</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;                filename=self.fileparts.filename+<span class="stringliteral">&#39;_&#39;</span>+filename</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;            SParametersDialog(self,sp[u],filename=filename)</div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160; </div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;    <span class="keyword">def </span>onCalculate(self):</div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;        self.Drawing.DrawSchematic()</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;        self.SimulateDoer.Execute()</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;        self.CalculateSParametersDoer.Execute()</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;        self.VirtualProbeDoer.Execute()</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        self.DeembedDoer.Execute()</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        self.CalculateErrorTermsDoer.Execute()</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160; </div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;    <span class="keyword">def </span>onSParameterViewer(self):</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;s-parameter files&#39;</span>, (<span class="stringliteral">&#39;*.s*p&#39;</span>)),(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;                                 parent=self,</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;                                 initialdir=self.fileparts.AbsoluteFilePath())</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;        fileparts=FileParts(filename)</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;        <span class="keywordflow">if</span> fileparts.fileext <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> fileparts.fileext == <span class="stringliteral">&#39;&#39;</span>:</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;        <span class="keywordflow">elif</span> fileparts.fileext == <span class="stringliteral">&#39;.cal&#39;</span>:</div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;            self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;            self.ViewCalibration(self.calibration)</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())</div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;            SParametersDialog(self,sp,fileparts.FullFilePathExtension())</div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160; </div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;    <span class="keyword">def </span>onHelp(self):</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open this help element&#39;</span>)</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;        Doer.helpKeys.Open(<span class="stringliteral">&#39;sec:Introduction&#39;</span>)</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160; </div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    <span class="keyword">def </span>onSoftwareDocumentation(self):</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open the software documentation&#39;</span>)</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;            <span class="keyword">import</span> webbrowser</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            url=Doer.helpKeys.controlHelpUrlBase+Doer.helpKeys[<span class="stringliteral">&#39;SoftwareDocumentation&#39;</span>]</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            webbrowser.open(url)</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open the software documentation&#39;</span>)</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160; </div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;    <span class="keyword">def </span>onControlHelp(self):</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        Doer.inHelp = <span class="keywordflow">not</span> Doer.inHelp</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;        <span class="keywordflow">if</span> Doer.inHelp:</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;            self.NewProjectDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;            self.OpenProjectDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;            self.SaveProjectDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;            self.SaveAsProjectDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            self.ClearProjectDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            self.ExportNetListDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            self.ExportTpXDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            self.UndoDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;            self.RedoDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;            self.AddPartDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;            self.AddNetNameDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;            self.AddPortDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;            self.AddMeasureProbeDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;            self.AddOutputProbeDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;            self.AddStimDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;            self.AddUnknownDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;            self.AddSystemDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;            self.DeletePartDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;            self.DeleteSelectedDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;            self.EditPropertiesDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            self.DuplicatePartDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;            self.DuplicateSelectedDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            self.CutSelectedDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            self.RotatePartDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;            self.FlipPartHorizontallyDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;            self.FlipPartVerticallyDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;            self.AddWireDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;            self.DeleteVertexDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;            self.DuplicateVertexDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;            self.DeleteWireDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;            self.ZoomInDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;            self.ZoomOutDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;            self.PanDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;        self.simulator.VirtualProbe()</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160; </div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    <span class="keyword">def </span>onDeembed(self):</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;        netList=self.Drawing.schematic.NetList().Text()+<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;PostProcessing&#39;</span>].NetListLines()</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        cacheFileName=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;        <span class="keywordflow">if</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Cache.CacheResults&#39;</span>]:</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;            cacheFileName=self.fileparts.FileNameTitle()</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;        si.sd.Numeric.trySVD=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Calculation.TrySVD&#39;</span>]</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;        dnp=si.p.DeembedderNumericParser(</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;            si.fd.EvenlySpacedFrequencyList(</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.EndFrequency&#39;</span>],</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.FrequencyPoints&#39;</span>]),</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;                cacheFileName=cacheFileName)</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;        dnp.AddLines(netList)</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160; </div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        progressDialog = ProgressDialog(self,<span class="stringliteral">&quot;Calculating De-embedded S-parameters&quot;</span>,dnp,dnp.Deembed,granularity=1.0)</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;            sp=progressDialog.GetResult()</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keywordflow">except</span> si.SignalIntegrityException <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Deembedder&#39;</span>,e.parameter+<span class="stringliteral">&#39;: &#39;</span>+e.message)</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;        unknownNames=dnp.m_sd.UnknownNames()</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;        <span class="keywordflow">if</span> len(unknownNames)==1:</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;            sp=[sp]</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;        <span class="keywordflow">for</span> u <span class="keywordflow">in</span> range(len(unknownNames)):</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;            extension=<span class="stringliteral">&#39;.s&#39;</span>+str(sp[u].m_P)+<span class="stringliteral">&#39;p&#39;</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;            filename=unknownNames[u]+extension</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;            <span class="keywordflow">if</span> self.fileparts.filename != <span class="stringliteral">&#39;&#39;</span>:</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;                filename=self.fileparts.filename+<span class="stringliteral">&#39;_&#39;</span>+filename</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;            SParametersDialog(self,sp[u],filename=filename)</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160; </div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    <span class="keyword">def </span>onCalculate(self):</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        self.Drawing.DrawSchematic()</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;        self.SimulateDoer.Execute()</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        self.CalculateSParametersDoer.Execute()</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;        self.VirtualProbeDoer.Execute()</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        self.DeembedDoer.Execute()</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;        self.CalculateErrorTermsDoer.Execute()</div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160; </div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    <span class="keyword">def </span>onSParameterViewer(self):</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;s-parameter files&#39;</span>, (<span class="stringliteral">&#39;*.s*p&#39;</span>)),(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;                                 parent=self,</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;                                 initialdir=self.fileparts.AbsoluteFilePath())</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;        fileparts=FileParts(filename)</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;        <span class="keywordflow">if</span> fileparts.fileext <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> fileparts.fileext == <span class="stringliteral">&#39;&#39;</span>:</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;        <span class="keywordflow">elif</span> fileparts.fileext == <span class="stringliteral">&#39;.cal&#39;</span>:</div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;            self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;            self.ViewCalibration(self.calibration)</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())</div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;            SParametersDialog(self,sp,fileparts.FullFilePathExtension())</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160; </div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;    <span class="keyword">def </span>onHelp(self):</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open this help element&#39;</span>)</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        Doer.helpKeys.Open(<span class="stringliteral">&#39;sec:Introduction&#39;</span>)</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160; </div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;    <span class="keyword">def </span>onSoftwareDocumentation(self):</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open the software documentation&#39;</span>)</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            <span class="keyword">import</span> webbrowser</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            url=Doer.helpKeys.controlHelpUrlBase+Doer.helpKeys[<span class="stringliteral">&#39;SoftwareDocumentation&#39;</span>]</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;            webbrowser.open(url)</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Help System&#39;</span>,<span class="stringliteral">&#39;Cannot find or open the software documentation&#39;</span>)</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160; </div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    <span class="keyword">def </span>onControlHelp(self):</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        Doer.inHelp = <span class="keywordflow">not</span> Doer.inHelp</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;        <span class="keywordflow">if</span> Doer.inHelp:</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            self.NewProjectDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            self.OpenProjectDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            self.SaveProjectDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            self.SaveAsProjectDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            self.ClearProjectDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;            self.ExportNetListDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            self.ExportTpXDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;            self.UndoDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;            self.RedoDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;            self.AddPartDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;            self.AddNetNameDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;            self.AddPortDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;            self.AddMeasureProbeDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;            self.AddOutputProbeDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;            self.AddStimDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;            self.AddUnknownDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            self.AddSystemDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;            self.DeletePartDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            self.DeleteSelectedDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            self.EditPropertiesDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;            self.DuplicatePartDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;            self.DuplicateSelectedDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;            self.CutSelectedDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;            self.RotatePartDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;            self.FlipPartHorizontallyDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;            self.FlipPartVerticallyDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;            self.AddWireDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;            self.DeleteVertexDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;            self.DuplicateVertexDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;            self.DeleteWireDoer.Activate(<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;            self.CalculationPropertiesDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;            self.SParameterViewerDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;            self.CalculateDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;            self.CalculateSParametersDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;            self.VirtualProbeDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;            self.SimulateDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;            self.DeembedDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;            self.RLGCDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;            self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;            self.SimulateNetworkAnalyzerModelDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;            self.HelpDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;            self.ControlHelpDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;            <span class="comment"># ------</span></div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;            self.EscapeDoer.Activate(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160; </div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;            self.config(cursor=<span class="stringliteral">&#39;question_arrow&#39;</span>)</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160; </div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;            self.statusbar.set(<span class="stringliteral">&#39;Control Help&#39;</span>)</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;            self.ZoomInDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;            self.ZoomOutDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;            self.PanDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;            self.CalculationPropertiesDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;            self.SParameterViewerDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;            self.CalculateDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;            self.CalculateSParametersDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;            self.VirtualProbeDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;            self.SimulateDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;            self.DeembedDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;            self.RLGCDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;            self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;            self.SimulateNetworkAnalyzerModelDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;            self.HelpDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;            self.ControlHelpDoer.Activate(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;            <span class="comment"># ------</span></div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;            self.EscapeDoer.Activate(<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160; </div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    <span class="keyword">def </span>onEscape(self):</div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;        <span class="keywordflow">if</span> self.Drawing.stateMachine.state != <span class="stringliteral">&#39;NoProject&#39;</span>:</div>
-<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;            self.Drawing.stateMachine.Nothing(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;            self.Drawing.stateMachine.NoProject(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;        self.config(cursor=<span class="stringliteral">&#39;left_ptr&#39;</span>)</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160; </div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    <span class="keyword">def </span>onAbout(self):</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;        AboutDialog(self)</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160; </div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    <span class="keyword">def </span>onPreferences(self):</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(self, <span class="stringliteral">&#39;preferencesDialog&#39;</span>):</div>
-<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;            self.preferencesDialog = PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
-<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;        <span class="keywordflow">if</span> self.preferencesDialog == <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;            self.preferencesDialog= PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.preferencesDialog.winfo_exists():</div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;                self.preferencesDialog=PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160; </div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    <span class="keyword">def </span>UpdateColorsAndFonts(self):</div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;        fontSizeDesired = <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.FontSize&#39;</span>]</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> fontSizeDesired <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;            default_font = font.nametofont(<span class="stringliteral">&quot;TkDefaultFont&quot;</span>)</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;                default_font.configure(size=fontSizeDesired)</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;                self.root.option_add(<span class="stringliteral">&quot;*Font&quot;</span>, default_font)</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;                PartPicture.textSpacing=fontSizeDesired+5</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;                <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160; </div>
-<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;        w=tk.Button(self.root)</div>
-<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160; </div>
-<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;        backgroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Background&#39;</span>]</div>
-<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;        <span class="keywordflow">if</span> backgroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;            backgroundColor=w[<span class="stringliteral">&#39;background&#39;</span>]</div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;            self.config(cursor=<span class="stringliteral">&#39;question_arrow&#39;</span>)</div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160; </div>
+<div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;            self.statusbar.set(<span class="stringliteral">&#39;Control Help&#39;</span>)</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160; </div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    <span class="keyword">def </span>onEscape(self):</div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;        <span class="keywordflow">if</span> self.Drawing.stateMachine.state != <span class="stringliteral">&#39;NoProject&#39;</span>:</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;            self.Drawing.stateMachine.Nothing(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;            self.Drawing.stateMachine.NoProject(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;        self.config(cursor=<span class="stringliteral">&#39;left_ptr&#39;</span>)</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160; </div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;    <span class="keyword">def </span>onAbout(self):</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        AboutDialog(self)</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160; </div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;    <span class="keyword">def </span>onPreferences(self):</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(self, <span class="stringliteral">&#39;preferencesDialog&#39;</span>):</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;            self.preferencesDialog = PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <span class="keywordflow">if</span> self.preferencesDialog == <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;            self.preferencesDialog= PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.preferencesDialog.winfo_exists():</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;                self.preferencesDialog=PreferencesDialog(self,<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>)</div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160; </div>
+<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;    <span class="keyword">def </span>UpdateColorsAndFonts(self):</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;        fontSizeDesired = <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.FontSize&#39;</span>]</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> fontSizeDesired <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;            default_font = font.nametofont(<span class="stringliteral">&quot;TkDefaultFont&quot;</span>)</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;                default_font.configure(size=fontSizeDesired)</div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;                self.root.option_add(<span class="stringliteral">&quot;*Font&quot;</span>, default_font)</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;                PartPicture.textSpacing=fontSizeDesired+5</div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;                <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160; </div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;        w=tk.Button(self.root)</div>
 <div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160; </div>
-<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;        foregroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Foreground&#39;</span>]</div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;        <span class="keywordflow">if</span> foregroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;            foregroundColor=w[<span class="stringliteral">&#39;foreground&#39;</span>]</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;        backgroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Background&#39;</span>]</div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;        <span class="keywordflow">if</span> backgroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;            backgroundColor=w[<span class="stringliteral">&#39;background&#39;</span>]</div>
 <div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160; </div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        activeForegroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.ActiveForeground&#39;</span>]</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        <span class="keywordflow">if</span> activeForegroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;            activeForegroundColor=w[<span class="stringliteral">&#39;activeforeground&#39;</span>]</div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        foregroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Foreground&#39;</span>]</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        <span class="keywordflow">if</span> foregroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;            foregroundColor=w[<span class="stringliteral">&#39;foreground&#39;</span>]</div>
 <div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160; </div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        activeBackgroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.ActiveBackground&#39;</span>]</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;        <span class="keywordflow">if</span> activeBackgroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;            activeBackgroundColor=w[<span class="stringliteral">&#39;activebackground&#39;</span>]</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        activeForegroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.ActiveForeground&#39;</span>]</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;        <span class="keywordflow">if</span> activeForegroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;            activeForegroundColor=w[<span class="stringliteral">&#39;activeforeground&#39;</span>]</div>
 <div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160; </div>
-<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        disabledForegroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.DisabledForeground&#39;</span>]</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        <span class="keywordflow">if</span> disabledForegroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;            disabledForegroundColor=w[<span class="stringliteral">&#39;disabledforeground&#39;</span>]</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        activeBackgroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.ActiveBackground&#39;</span>]</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        <span class="keywordflow">if</span> activeBackgroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;            activeBackgroundColor=w[<span class="stringliteral">&#39;activebackground&#39;</span>]</div>
 <div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160; </div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;            self.root.tk_setPalette(</div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;                foreground=foregroundColor,</div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;                background=backgroundColor,</div>
-<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;                activeforeground=activeForegroundColor,</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;                activebackground=activeBackgroundColor,</div>
-<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;                disabledforeground=disabledForegroundColor</div>
-<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;                )</div>
-<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;            <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160; </div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        matPlotLibColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Plot&#39;</span>]</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> matPlotLibColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;            <span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</div>
-<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;                mpl.rc(<span class="stringliteral">&quot;figure&quot;</span>, facecolor=matPlotLibColor)</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;                <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160; </div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;        self.root.update_idletasks()</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160; </div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    <span class="keyword">def </span>UpdateFeatures(self):</div>
-<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;        networkAnalyzerModelEnabled = <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Features.NetworkAnalyzerModel&#39;</span>]</div>
-<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;        <span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Device.xhtml">SignalIntegrity.App.Device</a> <span class="keyword">import</span> DeviceList</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;NetworkAnalyzerStimulus&#39;</span>,networkAnalyzerModelEnabled)</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;NetworkAnalyzerModel&#39;</span>,networkAnalyzerModelEnabled)</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;DeviceUnderTest&#39;</span>,networkAnalyzerModelEnabled)</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160; </div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;    <span class="keyword">def </span>CheckSaveCurrentProject(self):</div>
-<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;        <span class="keywordflow">if</span> self.Drawing.stateMachine.state == <span class="stringliteral">&#39;NoProject&#39;</span>:</div>
-<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;ProjectFiles.AskToSaveCurrentFile&#39;</span>]:</div>
-<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160; </div>
-<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;        filename=self.fileparts.AbsoluteFilePath()+<span class="stringliteral">&#39;/&#39;</span>+self.fileparts.FileNameWithExtension(ext=<span class="stringliteral">&#39;.si&#39;</span>)</div>
-<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> SignalIntegrity.App.Project.CheckFileChanged(filename):</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        disabledForegroundColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.DisabledForeground&#39;</span>]</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        <span class="keywordflow">if</span> disabledForegroundColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;            disabledForegroundColor=w[<span class="stringliteral">&#39;disabledforeground&#39;</span>]</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160; </div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;            self.root.tk_setPalette(</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;                foreground=foregroundColor,</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;                background=backgroundColor,</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;                activeforeground=activeForegroundColor,</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;                activebackground=activeBackgroundColor,</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;                disabledforeground=disabledForegroundColor</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;                )</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160; </div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;        matPlotLibColor=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.Color.Plot&#39;</span>]</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> matPlotLibColor <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;            <span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;                mpl.rc(<span class="stringliteral">&quot;figure&quot;</span>, facecolor=matPlotLibColor)</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;                <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160; </div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;        self.root.update_idletasks()</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160; </div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;    <span class="keyword">def </span>UpdateFeatures(self):</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        networkAnalyzerModelEnabled = <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Features.NetworkAnalyzerModel&#39;</span>]</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;        <span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Device.xhtml">SignalIntegrity.App.Device</a> <span class="keyword">import</span> DeviceList</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;NetworkAnalyzerStimulus&#39;</span>,networkAnalyzerModelEnabled)</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;NetworkAnalyzerModel&#39;</span>,networkAnalyzerModelEnabled)</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;        DeviceList.Enable(<span class="stringliteral">&#39;DeviceUnderTest&#39;</span>,networkAnalyzerModelEnabled)</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160; </div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;    <span class="keyword">def </span>CheckSaveCurrentProject(self):</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;        <span class="keywordflow">if</span> self.Drawing.stateMachine.state == <span class="stringliteral">&#39;NoProject&#39;</span>:</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;ProjectFiles.AskToSaveCurrentFile&#39;</span>]:</div>
 <div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
 <div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160; </div>
-<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        doit =  messagebox.askyesnocancel(<span class="stringliteral">&#39;Wait....&#39;</span>,<span class="stringliteral">&#39;Do you want to save the current project first?&#39;</span>)</div>
-<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160; </div>
-<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;        <span class="keywordflow">if</span> doit <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;            <span class="keywordflow">if</span> doit:</div>
-<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                self.onSaveAsProject()</div>
-<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160; </div>
-<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;    <span class="keyword">def </span>onClosing(self):</div>
-<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        <span class="keywordflow">if</span> self.CheckSaveCurrentProject():</div>
-<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;            self.root.withdraw()</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;            self.root.destroy()</div>
-<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160; </div>
-<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;    <span class="keyword">def </span>onBuildHelpKeys(self):</div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys:</div>
-<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;            Doer.helpKeys.Build()</div>
-<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;            Doer.helpKeys.SaveToFile()</div>
-<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;            self.statusbar.set(<span class="stringliteral">&#39;help keys updated&#39;</span>)</div>
-<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160; </div>
-<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;    <span class="keyword">def </span>OpenCalibrationFile(self,filename):</div>
-<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
-<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        calibration=si.m.cal.Calibration(0,0)</div>
-<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;            calibration.ReadFromFile(filename)</div>
-<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;            calibration=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;        <span class="keywordflow">return</span> calibration</div>
-<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160; </div>
-<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;    <span class="keyword">def </span>onOpenCalibrationFile(self):</div>
-<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;        self.calibration=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
-<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160;                                 parent=self,</div>
-<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;                                 initialdir=self.fileparts.AbsoluteFilePath())</div>
-<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;        fileparts=FileParts(filename)</div>
-<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;        <span class="keywordflow">if</span> fileparts.fileext <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> fileparts.fileext == <span class="stringliteral">&#39;&#39;</span>:</div>
-<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;        self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())</div>
-<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160; </div>
-<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;    <span class="keyword">def </span>onSaveCalibrationFile(self):</div>
-<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;        extension=<span class="stringliteral">&#39;.cal&#39;</span></div>
-<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;        filename=AskSaveAsFilename(filetypes=[(<span class="stringliteral">&#39;calibration file&#39;</span>, <span class="stringliteral">&#39;.cal&#39;</span>)],</div>
-<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;                    defaultextension=extension,</div>
-<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;                    initialdir=self.fileparts.AbsoluteFilePath(),</div>
-<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;                    initialfile=self.fileparts.FileNameWithExtension(extension),</div>
-<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;                    parent=self)</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;            <span class="keywordflow">return</span></div>
-<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        self.fileparts=FileParts(filename)</div>
-<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;        self.calibration.WriteToFile(filename)</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160; </div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;    <span class="keyword">def </span>ViewCalibration(self,calibration):</div>
-<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;        <span class="keywordflow">if</span> self.calibration != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;            self.spd=SParametersDialog(self,self.calibration,title=<span class="stringliteral">&#39;Calibration&#39;</span>,filename=self.fileparts.FullFilePathExtension(<span class="stringliteral">&#39;s&#39;</span>+str(self.calibration.ports)+<span class="stringliteral">&#39;p&#39;</span>))</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        filename=self.fileparts.AbsoluteFilePath()+<span class="stringliteral">&#39;/&#39;</span>+self.fileparts.FileNameWithExtension(ext=<span class="stringliteral">&#39;.si&#39;</span>)</div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> SignalIntegrity.App.Project.CheckFileChanged(filename):</div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160; </div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;        doit =  messagebox.askyesnocancel(<span class="stringliteral">&#39;Wait....&#39;</span>,<span class="stringliteral">&#39;Do you want to save the current project first?&#39;</span>)</div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160; </div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;        <span class="keywordflow">if</span> doit <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;            <span class="keywordflow">if</span> doit:</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;                self.onSaveAsProject()</div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160; </div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;    <span class="keyword">def </span>onClosing(self):</div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        <span class="keywordflow">if</span> self.CheckSaveCurrentProject():</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;            self.root.withdraw()</div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;            self.root.destroy()</div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160; </div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;    <span class="keyword">def </span>onBuildHelpKeys(self):</div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;        <span class="keywordflow">if</span> Doer.helpKeys:</div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;            Doer.helpKeys.Build()</div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;            Doer.helpKeys.SaveToFile()</div>
+<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;            self.statusbar.set(<span class="stringliteral">&#39;help keys updated&#39;</span>)</div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160; </div>
+<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;    <span class="keyword">def </span>OpenCalibrationFile(self,filename):</div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;        calibration=si.m.cal.Calibration(0,0)</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;            calibration.ReadFromFile(filename)</div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;            calibration=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;        <span class="keywordflow">return</span> calibration</div>
+<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160; </div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;    <span class="keyword">def </span>onOpenCalibrationFile(self):</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        self.calibration=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
+<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;                                 parent=self,</div>
+<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;                                 initialdir=self.fileparts.AbsoluteFilePath())</div>
+<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;        fileparts=FileParts(filename)</div>
+<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;        <span class="keywordflow">if</span> fileparts.fileext <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> fileparts.fileext == <span class="stringliteral">&#39;&#39;</span>:</div>
+<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;        self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())</div>
+<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160; </div>
+<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;    <span class="keyword">def </span>onSaveCalibrationFile(self):</div>
+<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;        extension=<span class="stringliteral">&#39;.cal&#39;</span></div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;        filename=AskSaveAsFilename(filetypes=[(<span class="stringliteral">&#39;calibration file&#39;</span>, <span class="stringliteral">&#39;.cal&#39;</span>)],</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;                    defaultextension=extension,</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;                    initialdir=self.fileparts.AbsoluteFilePath(),</div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;                    initialfile=self.fileparts.FileNameWithExtension(extension),</div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;                    parent=self)</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;        self.fileparts=FileParts(filename)</div>
+<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;        self.calibration.WriteToFile(filename)</div>
 <div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160; </div>
-<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;    <span class="keyword">def </span>onViewCalibrationFile(self):</div>
-<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;        self.ViewCalibration(self.calibration)</div>
-<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160; </div>
-<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;    <span class="keyword">def </span>CalculateErrorTerms(self):</div>
-<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
-<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;        netList=self.Drawing.schematic.NetList().Text()</div>
-<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
-<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;        cacheFileName=<span class="keywordtype">None</span></div>
-<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;        <span class="keywordflow">if</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Cache.CacheResults&#39;</span>]:</div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;            cacheFileName=self.fileparts.FileNameTitle()</div>
-<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;        si.sd.Numeric.trySVD=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Calculation.TrySVD&#39;</span>]</div>
-<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;        etnp=si.p.CalibrationNumericParser(</div>
-<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;            si.fd.EvenlySpacedFrequencyList(</div>
-<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.EndFrequency&#39;</span>],</div>
-<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.FrequencyPoints&#39;</span>]),</div>
-<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;            cacheFileName=cacheFileName)</div>
-<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;        etnp.AddLines(netList)</div>
-<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;        progressDialog = ProgressDialog(self,<span class="stringliteral">&quot;Calculating Error Terms&quot;</span>,etnp,etnp.CalculateCalibration,granularity=1.0)</div>
-<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;            cal=progressDialog.GetResult()</div>
-<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;        <span class="keywordflow">except</span> si.SignalIntegrityException <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Error Terms Calculator&#39;</span>,e.parameter+<span class="stringliteral">&#39;: &#39;</span>+e.message)</div>
-<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;        <span class="keywordflow">return</span> cal</div>
-<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160; </div>
-<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;    <span class="keyword">def </span>onCalculateErrorTerms(self):</div>
-<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;        self.calibration=self.CalculateErrorTerms()</div>
-<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;        self.onViewCalibrationFile()</div>
+<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;    <span class="keyword">def </span>ViewCalibration(self,calibration):</div>
+<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;        <span class="keywordflow">if</span> self.calibration != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160;            self.spd=SParametersDialog(self,self.calibration,title=<span class="stringliteral">&#39;Calibration&#39;</span>,filename=self.fileparts.FullFilePathExtension(<span class="stringliteral">&#39;s&#39;</span>+str(self.calibration.ports)+<span class="stringliteral">&#39;p&#39;</span>))</div>
+<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160; </div>
+<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;    <span class="keyword">def </span>onViewCalibrationFile(self):</div>
+<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;        self.ViewCalibration(self.calibration)</div>
+<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160; </div>
+<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;    <span class="keyword">def </span>CalculateErrorTerms(self):</div>
+<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;        self.Drawing.stateMachine.Nothing()</div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;        netList=self.Drawing.schematic.NetList().Text()</div>
+<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
+<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;        cacheFileName=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;        <span class="keywordflow">if</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Cache.CacheResults&#39;</span>]:</div>
+<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;            cacheFileName=self.fileparts.FileNameTitle()</div>
+<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;        si.sd.Numeric.trySVD=<a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Calculation.TrySVD&#39;</span>]</div>
+<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;        etnp=si.p.CalibrationNumericParser(</div>
+<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;            si.fd.EvenlySpacedFrequencyList(</div>
+<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.EndFrequency&#39;</span>],</div>
+<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;                <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a>[<span class="stringliteral">&#39;CalculationProperties.FrequencyPoints&#39;</span>]),</div>
+<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;            cacheFileName=cacheFileName)</div>
+<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;        etnp.AddLines(netList)</div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;        progressDialog = ProgressDialog(self,<span class="stringliteral">&quot;Calculating Error Terms&quot;</span>,etnp,etnp.CalculateCalibration,granularity=1.0)</div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;            cal=progressDialog.GetResult()</div>
+<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;        <span class="keywordflow">except</span> si.SignalIntegrityException <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;            messagebox.showerror(<span class="stringliteral">&#39;Error Terms Calculator&#39;</span>,e.parameter+<span class="stringliteral">&#39;: &#39;</span>+e.message)</div>
+<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;        <span class="keywordflow">return</span> cal</div>
 <div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160; </div>
-<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;    <span class="keyword">def </span>onSimulateNetworkAnalyzerModel(self):</div>
-<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;        self.onSimulate()</div>
-<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160; </div>
-<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;    <span class="keyword">def </span>onCalculateSParametersFromNetworkAnalyzerModel(self):</div>
-<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;        self.onCalculateSParameters()</div>
-<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160; </div>
-<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;<span class="keyword">def </span>main():</div>
-<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;    projectFileName = <span class="keywordtype">None</span></div>
-<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;    external=<span class="keyword">False</span></div>
-<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160;    <span class="keywordflow">if</span> len(sys.argv) &gt;= 2:</div>
-<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;        projectFileName=sys.argv[1]</div>
-<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;    <span class="keywordflow">for</span> arg <span class="keywordflow">in</span> sys.argv[2:]:</div>
-<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;        <span class="keywordflow">if</span> arg==<span class="stringliteral">&#39;--external&#39;</span>:</div>
-<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;            external=<span class="keyword">True</span></div>
-<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;    SignalIntegrityApp(projectFileName,external=external)</div>
-<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160; </div>
-<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;    main()</div>
+<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;    <span class="keyword">def </span>onCalculateErrorTerms(self):</div>
+<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;        self.calibration=self.CalculateErrorTerms()</div>
+<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;        self.onViewCalibrationFile()</div>
+<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160; </div>
+<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;    <span class="keyword">def </span>onSimulateNetworkAnalyzerModel(self):</div>
+<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;        self.onSimulate()</div>
+<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160; </div>
+<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;    <span class="keyword">def </span>onCalculateSParametersFromNetworkAnalyzerModel(self):</div>
+<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;        self.onCalculateSParameters()</div>
+<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160; </div>
+<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;<span class="keyword">def </span>main():</div>
+<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;    projectFileName = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;    external=<span class="keyword">False</span></div>
+<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;    <span class="keywordflow">if</span> len(sys.argv) &gt;= 2:</div>
+<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;        projectFileName=sys.argv[1]</div>
+<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;    <span class="keywordflow">for</span> arg <span class="keywordflow">in</span> sys.argv[2:]:</div>
+<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;        <span class="keywordflow">if</span> arg==<span class="stringliteral">&#39;--external&#39;</span>:</div>
+<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;            external=<span class="keyword">True</span></div>
+<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;    SignalIntegrityApp(projectFileName,external=external)</div>
+<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160; </div>
+<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;    main()</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1TpX_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1TpX.xhtml">SignalIntegrity.App.TpX</a></div><div class="ttdef"><b>Definition:</b> <a href="TpX_8py_source.xhtml#l00001">TpX.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1Files_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1Files.xhtml">SignalIntegrity.App.Files</a></div><div class="ttdef"><b>Definition:</b> <a href="Files_8py_source.xhtml#l00001">Files.py:1</a></div></div>

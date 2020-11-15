@@ -10,5 +10,7 @@ var searchData=
   ['waveletdaubechies4_707',['WaveletDaubechies4',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
   ['waveletdaubechies8_708',['WaveletDaubechies8',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
   ['waveletdenoiser_709',['WaveletDenoiser',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml',1,'SignalIntegrity::Lib::Wavelets::WaveletDenoiser']]],
-  ['wavelethaar_710',['WaveletHaar',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]]
+  ['wavelethaar_710',['WaveletHaar',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
+  ['welement_711',['WElement',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::WElement']]],
+  ['welementfile_712',['WElementFile',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElementFile.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::WElement']]]
 ];

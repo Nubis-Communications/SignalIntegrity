@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.11</span>
+   &#160;<span id="projectnumber">1.1.13</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -106,9 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1aa9376a9a845bd4be3cadf3f954a76b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a1aa9376a9a845bd4be3cadf3f954a76b">PatternLength</a> (self)</td></tr>
 <tr class="memdesc:a1aa9376a9a845bd4be3cadf3f954a76b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PatternLength.  <a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a1aa9376a9a845bd4be3cadf3f954a76b">More...</a><br /></td></tr>
 <tr class="separator:a1aa9376a9a845bd4be3cadf3f954a76b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ed2764806fe35efa9d5115a47f125ef"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0ed2764806fe35efa9d5115a47f125ef">Pattern</a> (self)</td></tr>
-<tr class="memdesc:a0ed2764806fe35efa9d5115a47f125ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">generate a list of pseudo-random bits according to the polynomial  <a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0ed2764806fe35efa9d5115a47f125ef">More...</a><br /></td></tr>
-<tr class="separator:a0ed2764806fe35efa9d5115a47f125ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab029b6e70016e607fafc6396e7fb8f8b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#ab029b6e70016e607fafc6396e7fb8f8b">Pattern</a> (self, bits=None)</td></tr>
+<tr class="memdesc:ab029b6e70016e607fafc6396e7fb8f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">generate a list of pseudo-random bits according to the polynomial  <a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#ab029b6e70016e607fafc6396e7fb8f8b">More...</a><br /></td></tr>
+<tr class="separator:ab029b6e70016e607fafc6396e7fb8f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>generates pseudo-random bit patterns <br  />
@@ -187,8 +187,8 @@ the first element of the polynomial is for the zero power and is always 1.</dd><
 
 </div>
 </div>
-<a id="a0ed2764806fe35efa9d5115a47f125ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ed2764806fe35efa9d5115a47f125ef">&#9670;&nbsp;</a></span>Pattern()</h2>
+<a id="ab029b6e70016e607fafc6396e7fb8f8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab029b6e70016e607fafc6396e7fb8f8b">&#9670;&nbsp;</a></span>Pattern()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,17 +197,33 @@ the first element of the polynomial is for the zero power and is always 1.</dd><
           <td class="memname">def Pattern </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bits</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>generate a list of pseudo-random bits according to the polynomial </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bits</td><td>(optional, defaults to None) integer number of bits to return. If bits are specified, then the pattern returned will contain the number of bits specified. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>returns a list of integer (1 or 0) corresponding to the pattern.</dd></dl>
-<p>for an order P polynomial, the list of bits is 2^P-1 elements long </p>
+<p>for an order P polynomial, the list of bits is 2^P-1 elements long, assuming bits are specified as None. </p>
 
-<p class="definition">Definition at line <a class="el" href="PseudoRandomPolynomial_8py_source.xhtml#l00107">107</a> of file <a class="el" href="PseudoRandomPolynomial_8py_source.xhtml">PseudoRandomPolynomial.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PseudoRandomPolynomial_8py_source.xhtml#l00109">109</a> of file <a class="el" href="PseudoRandomPolynomial_8py_source.xhtml">PseudoRandomPolynomial.py</a>.</p>
 
 </div>
 </div>

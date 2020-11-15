@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.11</span>
+   &#160;<span id="projectnumber">1.1.13</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -117,9 +117,13 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">        @see PseudoRandomPolynomial</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            SerialDataWaveform.__init__(self,<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml">PseudoRandomPolynomial</a>(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">except</span> SignalIntegrityException <span class="keyword">as</span> e:</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml#a3ce41e13d4eb24876d7cedb7670dacc7">   41</a></span>&#160;            <span class="keywordflow">raise</span> SignalIntegrityExceptionWaveform(e.message)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">if</span> isinstance(tdOrFs,TimeDescriptor):</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                td=tdOrFs</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml#a3ce41e13d4eb24876d7cedb7670dacc7">   41</a></span>&#160;                SerialDataWaveform.__init__(self,<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml">PseudoRandomPolynomial</a>(polynomial).Pattern(math.ceil(td.K*bitrate/td.Fs)),bitrate,amplitude,risetime,delay,tdOrFs)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                SerialDataWaveform.__init__(self,<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml">PseudoRandomPolynomial</a>(polynomial).Pattern(),bitrate,amplitude,risetime,delay,tdOrFs)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">except</span> SignalIntegrityException <span class="keyword">as</span> e:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">raise</span> SignalIntegrityExceptionWaveform(e.message)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform_xhtml_a3ce41e13d4eb24876d7cedb7670dacc7"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml#a3ce41e13d4eb24876d7cedb7670dacc7">SignalIntegrity.Lib.Prbs.PseudoRandomWaveform.PseudoRandomWaveform.__init__</a></div><div class="ttdeci">def __init__(self, polynomial, bitrate, amplitude=1.0, risetime=0., delay=0., tdOrFs=None)</div><div class="ttdoc">constructor</div><div class="ttdef"><b>Definition:</b> <a href="PseudoRandomWaveform_8py_source.xhtml#l00041">PseudoRandomWaveform.py:41</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1TimeDescriptor_1_1TimeDescriptor.xhtml">SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor.TimeDescriptor</a></div><div class="ttdoc">time-axis for waveforms</div><div class="ttdef"><b>Definition:</b> <a href="TimeDescriptor_8py_source.xhtml#l00028">TimeDescriptor.py:28</a></div></div>
