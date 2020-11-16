@@ -22,6 +22,7 @@ import unittest
 import os
 
 import SignalIntegrity.Lib as si
+from SignalIntegrity.Lib.SParameters.Devices.WElement import MaxwellMatrix,MutualMatrix
 
 class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):
     relearn=True
@@ -37,21 +38,20 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         return '_'.join(unittest.TestCase.id(self).split('.')[-2:])
     def tearDown(self):
         pass
-    def testWElementFile(self):
-        si.sp.dev.WElementFile('wires_1mil_80um_3.8_3pair.txt')
     def testWElement3Pairs(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
-        sp=si.sp.dev.WElementFile('wires_1mil_80um_3.8_3pair.txt',df=0.001,Z0=50,scale=1./1000.).SParameters(f)
+        sp=si.sp.dev.WElementFile('wires_1mil_80um_3.8_3pair.txt',f,df=0.001,Z0=50,scale=1./1000.)
+        self.assertEqual(sp.C0, MutualMatrix(MaxwellMatrix(sp.C0)), 'Maxwell matrix incorrect')
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s12p')
     def testWElementWireBond(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
-        sp=si.sp.dev.WElementFile('WireBond.txt',df=0.001,Z0=50,scale=1./1000.).SParameters(f)
+        sp=si.sp.dev.WElementFile('WireBond.txt',f,df=0.001,Z0=50,scale=1./1000.)
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s4p')
     def testWElementMicrostrip(self):
         f=si.fd.EvenlySpacedFrequencyList(20e9,1000)
-        sp=si.sp.dev.WElementFile('microstrip.hspice-w.rlgc',df=0.01,Z0=50,scale=200./1000.).SParameters(f)
+        sp=si.sp.dev.WElementFile('microstrip.hspice-w.rlgc',f,df=0.01,Z0=50,scale=200./1000.)
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
     def testWElement3PairsMixedMode(self):
