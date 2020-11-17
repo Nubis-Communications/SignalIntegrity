@@ -40,24 +40,41 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         pass
     def testWElement3Pairs(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
-        sp=si.sp.dev.WElementFile('wires_1mil_80um_3.8_3pair.txt',f,df=0.001,Z0=50,scale=1./1000.)
-        self.assertEqual(sp.C0, MutualMatrix(MaxwellMatrix(sp.C0)), 'Maxwell matrix incorrect')
+        sp=si.sp.dev.WElementFile(f,'wires_1mil_80um_3.8_3pair.txt',df=0.001,Z0=50,scale=1./1000.)
+        Cm=sp.C0
+        Cm2=MaxwellMatrix(MutualMatrix(sp.C0).MaxwellMatrix()).MutualMatrix()
+        for r in range(len(Cm)):
+            for c in range(len(Cm[r])):
+                self.assertAlmostEqual(Cm[r][c],Cm2[r][c],6,'Maxwell matrix incorrect')
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s12p')
     def testWElementWireBond(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
-        sp=si.sp.dev.WElementFile('WireBond.txt',f,df=0.001,Z0=50,scale=1./1000.)
+        sp=si.sp.dev.WElementFile(f,'WireBond.txt',df=0.001,Z0=50,scale=1./1000.)
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s4p')
     def testWElementMicrostrip(self):
         f=si.fd.EvenlySpacedFrequencyList(20e9,1000)
-        sp=si.sp.dev.WElementFile('microstrip.hspice-w.rlgc',f,df=0.01,Z0=50,scale=200./1000.)
+        sp=si.sp.dev.WElementFile(f,'microstrip.hspice-w.rlgc',df=0.01,Z0=50,scale=200./1000.)
         self.NetListChecker(sp.NetList(),self.testName())
         self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
     def testWElement3PairsMixedMode(self):
         self.SParameterResultsChecker('WireBond3Pairs.si')
     def testWElementWireBondMixedMode(self):
         self.SParameterResultsChecker('WireBond.si')
+    def testWElementParserDeviceOnePair(self):
+        f=si.fd.EvenlySpacedFrequencyList(100e9,100)
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device W1 4 w WireBond.txt df 0.001 scale 0.001','port 1 W1 1 2 W1 2 3 W1 3 4 W1 4'])
+        sp=sspnp.SParameters()
+        self.SParameterRegressionChecker(sp,'TestWElementTest_testWElementWireBond.s4p')
+    def testWElementParserDeviceThreePairs(self):
+        f=si.fd.EvenlySpacedFrequencyList(100e9,100)
+        sspnp=si.p.SystemSParametersNumericParser(f)
+        sspnp.AddLines(['device W1 12 w wires_1mil_80um_3.8_3pair.txt df 0.001 scale 0.001',
+                        'port 1 W1 1 2 W1 2 3 W1 3 4 W1 4 5 W1 5 6 W1 6 7 W1 7 8 W1 8 9 W1 9 10 W1 10 11 W1 11 12 W1 12'])
+        sp=sspnp.SParameters()
+        self.SParameterRegressionChecker(sp,'TestWElementTest_testWElement3Pairs.s12p')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

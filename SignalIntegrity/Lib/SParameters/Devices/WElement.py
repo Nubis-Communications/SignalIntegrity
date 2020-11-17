@@ -56,7 +56,7 @@ class MutualMatrix(list):
         wires=len(self)
         MM=[[None for _ in range(w+1)] for w in range(wires)]
         for r in range(wires):
-            MM[r][r]=sum([(self[r][c] if r >= c else self[c][r])*(1 if r==c else -1) for c in range(wires)])
+            MM[r][r]=sum([(self[r][c] if r >= c else self[c][r]) for c in range(wires)])
             for c in range(r): MM[r][c]=-self[r][c]
         return MaxwellMatrix(MM)
 
@@ -194,7 +194,7 @@ class WElement(SParameters):
 
 class WElementFile(WElement):
     """W element file."""
-    def __init__(self,filename,f,df=0.,Z0=50., K=0, scale=1.):
+    def __init__(self,f,filename,df=0.,Z0=50., K=0, scale=1.):
         """Constructor
         @param string filename of W element file.
         @param float (optional, defaults to 0.) dissipation factor to be added to W elements.
@@ -213,12 +213,9 @@ class WElementFile(WElement):
             lines=fi.readlines()
         self.numbersList=[]
         for line in lines:
-            if len(line)==0:
-                continue
-            elif line[0]=='*':
-                continue
-            elif len(line.strip(' '))==0:
-                continue
+            if len(line)==0: continue
+            elif line[0]=='*': continue
+            elif len(line.strip(' '))==0: continue
             tokens=line.split()
             if len(tokens)>0:
                 self.numbersList.extend(tokens)

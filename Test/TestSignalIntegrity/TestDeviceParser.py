@@ -399,9 +399,17 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'loadstd',1,od='0.',oz0='50.0',ol='0.')
     def testThruStd(self):
         self.Tester(self.id(),'thrustd',2,od='94.75e-12',oz0='50.0',ol='2.51e9')
+    def testBesselLp(self):
+        self.Tester(self.id(),'bessellp',2,order='4',fc='1e9')
+    def testButterworthLp(self):
+        self.Tester(self.id(),'butterworthlp',2,order='4',fc='1e9')
+    def testCTLE(self):
+        self.Tester(self.id(),'ctle',2,gdc='-2',gdc2='0',fz='2.3e9',flf='70e6',fp1='2.3e9',fp2='5.6e9')
+    def testFFE(self):
+        self.Tester(self.id(),'ffe',2,default='[-0.1,1.3,-0.2]',td='100e-12',pre='1')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,37)
+        self.assertEqual(L,42)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,[],[1,2,3]))

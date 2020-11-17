@@ -21,6 +21,9 @@ class DeviceFactory(list):
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('w','2,4,6,8,10,12,16',True,{'':None,'df':0.,'sect':0,'scale':1.},
+            True,"WElementFile(f,arg[''],float(arg['df']),50.,int(arg['sect']),\
+            float(arg['scale']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\

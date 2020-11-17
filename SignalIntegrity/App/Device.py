@@ -694,6 +694,71 @@ class DeviceNetworkAnalyzerStimulus(Device):
         self['ia']['Hidden']= (stimulusType != 'TDRImpulse')
         Device.CreateVisiblePropertiesList(self)
 
+class DeviceCTLE(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='ctle',values=[('gdc',True),('gdc2',True),('fz',True),('flf',True),('fp1',True),('fp2',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Continuous time linear equalizer'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Equalizers'),
+                         PartPropertyPartName('CTLE'),
+                         PartPropertyHelp('device:CTLE'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyCtleDCGain1(-2.),
+                         PartPropertyCtleDCGain2(0.),
+                         PartPropertyCtlefz(1e9/2.5),
+                         PartPropertyCtleflf(1e9/80),
+                         PartPropertyCtlefp1(1e9/2.5),
+                         PartPropertyCtlefp2(1e9)],
+                         PartPictureVariableCTLE())
+
+class DeviceFFE(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='ffe',values=[('taps',False),('td',True),('pre',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Feed-forward linear equalizer'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Equalizers'),
+                         PartPropertyPartName('FFE'),
+                         PartPropertyHelp('device:FFE'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyFfeTaps('[1.0]'),
+                         PartPropertyFfePre(0),
+                         PartPropertyFfeTd(0.)],
+                         PartPictureVariableFFE())
+
+class DeviceBesselLpFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='bessellp',values=[('order',True),('fc',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Bessel low-pass filter'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('BesselLp'),
+                         PartPropertyHelp('device:BesselLp'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyFilterOrder(4),
+                         PartPropertyLpFilterCutoff(1e9)],
+                         PartPictureVariableLpFilter())
+
+class DeviceButterworthLpFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='butterworthlp',values=[('order',True),('fc',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Butterworth low-pass filter'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('ButterworthLp'),
+                         PartPropertyHelp('device:ButterworthLp'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyFilterOrder(4),
+                         PartPropertyLpFilterCutoff(1e9)],
+                         PartPictureVariableLpFilter())
+
 class Devices(list):
     def __init__(self,devices):
         list.__init__(self,devices)
@@ -778,7 +843,11 @@ DeviceList=Devices([
               DeviceReflectCalibrationMeasurement(),
               DeviceThruCalibrationMeasurement(),
               DeviceNetworkAnalyzerStimulus(),
-              DeviceNetworkAnalyzerDeviceUnderTest()])
+              DeviceNetworkAnalyzerDeviceUnderTest(),
+              DeviceCTLE(),
+              DeviceFFE(),
+              DeviceBesselLpFilter(),
+              DeviceButterworthLpFilter()])
 
 
 DeviceListUnknown = Devices([

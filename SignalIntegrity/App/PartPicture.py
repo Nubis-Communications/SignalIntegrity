@@ -2140,3 +2140,27 @@ class PartPictureDeviceUnderTestSide(PartPictureSpecifiedPortsTextSide):
 class PartPictureVariableDeviceUnderTest(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureDeviceUnderTest','PartPictureDeviceUnderTestAcross','PartPictureDeviceUnderTestDownAndUp','PartPictureDeviceUnderTestSide'],ports)
+
+class PartPictureCTLE(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='CTLE')
+
+class PartPictureVariableCTLE(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCTLE'],2)
+
+class PartPictureFFE(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='FFE')
+
+class PartPictureVariableFFE(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureFFE'],2)
+
+class PartPictureLpFilter(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='LPF')
+
+class PartPictureVariableLpFilter(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureLpFilter'],2)

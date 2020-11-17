@@ -35,6 +35,7 @@ from TestDwellTime import *
 from TestDescriptors import *
 from TestDeviceParser import *
 from TestExceptions import *
+from TestFilters import *
 from TestFrequencyContent import *
 from TestFrequencyList import *
 from TestHDMICable import *
@@ -75,6 +76,7 @@ from YuriyWaveTest import *
 from TestLevMarNumeric import *
 from TestVNACalibrationObject import *
 from TestWElement import *
+
 
 if __name__ == '__main__':
     unittest.main()

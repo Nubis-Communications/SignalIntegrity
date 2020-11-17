@@ -84,11 +84,16 @@ class DeviceFactory(list):
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
         |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
         |rlgcfit                                |2    |False    |file=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                             |
+        |w                                      |2-16 |True     |filename=None df=0 scale=1.0 sect=0                                                            | True                |sp.dev.WElementFile(f,filename,df,50.,sect,scale)                                                |
         |shortstd                               |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n l0=0 l1=0.0 l2=0 l3=0                                                | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,f0,l0,l1,l2,l3)                                           |
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n c0=0 c1=0 c2=0 c3=0                                                  | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)                                            |
         |loadstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9 tz=50                                                                  | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,f0,tz0)                                                    |
         |thrustd                                |2    |False    |od=0 oz0=50 ol=0 f0=1e9                                                                        | True                |m.calkit.std.ThruStandard(f,od,oz0,ol,f0)                                                        |
-        |networkanalyzer                        |any  |False    |file=None, et=None, pl=None, cd=calculate                                                      | True                |m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')                                                              |
+        |networkanalyzer                        |any  |False    |file=None, et=None, pl=None, cd=calculate                                                      | True                |m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')                                        |
+        |bessellp                               |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
+        |butterworthlp                          |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
+        |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
+        |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -173,6 +178,9 @@ class DeviceFactory(list):
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('w','2,4,6,8,10,12,16',True,{'':None,'df':0.,'sect':0,'scale':1.},
+            True,"WElementFile(f,arg[''],float(arg['df']),50.,int(arg['sect']),\
+            float(arg['scale']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
@@ -197,7 +205,15 @@ class DeviceFactory(list):
         list.__init__(self,list(self+[
         ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,'cd':'calculate'},True,
             "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],not arg['cd']=='uncalculate')"),
-        ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],50.).Resample(f)")
+        ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],50.).Resample(f)"),
+        ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
+            "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
+        ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
+            "ButterworthLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
+        ParserDevice('ctle',2,False,{'gdc':None,'gdc2':None,'fz':None,'flf':None,'fp1':None,'fp2':None},
+            True,"CTLE(f,float(arg['gdc']),float(arg['gdc2']),float(arg['fz']),float(arg['flf']),\
+            float(arg['fp1']),float(arg['fp2']),50.)"),
+        ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,float(arg['td']),eval(arg['']),eval(arg['pre']),50.)")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
@@ -253,6 +269,9 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset import Offset
         from SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGC import TLineDifferentialRLGC
         from SignalIntegrity.Lib.Measurement.Calibration.NetworkAnalyzer import NetworkAnalyzer
+        from SignalIntegrity.Lib.SParameters.Devices.WElement import WElementFile
+        from SignalIntegrity.Lib.SParameters.Devices.ClassicalFilter import ButterworthLowPassFilter,BesselLowPassFilter
+        from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
         # pragma: include
         self.dev=None
         if len(argsList) == 0:

@@ -433,3 +433,48 @@ class PartPropertyStimulusType(PartProperty):
 class PartPropertyPowerLevel(PartProperty):
     def __init__(self,dBm=0.):
         PartProperty.__init__(self,'pow',type='float',unit='dBm',keyword='pow',description='power level (dBm)',value=dBm,visible=False,keywordVisible=False)
+
+class PartPropertyCtleDCGain1(PartProperty):
+    def __init__(self,dB=0.):
+        PartProperty.__init__(self,'gdc',type='float',unit='dB',keyword='gdc',description='DC gain1 (dB)',value=dB,visible=True,keywordVisible=True)
+
+class PartPropertyCtleDCGain2(PartProperty):
+    def __init__(self,dB=0.):
+        PartProperty.__init__(self,'gdc2',type='float',unit='dB',keyword='gdc2',description='DC gain2 (dB)',value=dB,visible=True,keywordVisible=True)
+
+class PartPropertyCtlefz(PartProperty):
+    def __init__(self,fz=0.):
+        PartProperty.__init__(self,'fz',type='float',unit='Hz',keyword='fz',description='scaled zero frequency (Hz)',value=fz,visible=True,keywordVisible=True)
+
+class PartPropertyCtleflf(PartProperty):
+    def __init__(self,flf=0.):
+        PartProperty.__init__(self,'flf',type='float',unit='Hz',keyword='flf',description='lf pole/scaled zero frequency (Hz)',value=flf,visible=True,keywordVisible=True)
+
+class PartPropertyCtlefp1(PartProperty):
+    def __init__(self,fp1=0.):
+        PartProperty.__init__(self,'fp1',type='float',unit='Hz',keyword='fp1',description='pole frequency 1 (Hz)',value=fp1,visible=True,keywordVisible=True)
+
+class PartPropertyCtlefp2(PartProperty):
+    def __init__(self,fp2=0.):
+        PartProperty.__init__(self,'fp2',type='float',unit='Hz',keyword='fp2',description='pole frequency 2 (Hz)',value=fp2,visible=True,keywordVisible=True)
+
+class PartPropertyFfeTaps(PartProperty):
+    def __init__(self,taps='[1.0]'):
+        PartProperty.__init__(self,'taps',type='string',unit=None,keyword='taps',description='tap values []',value=taps,visible=True,keywordVisible=True)
+
+class PartPropertyFfePre(PartProperty):
+    def __init__(self,pre):
+        PartProperty.__init__(self,'pre',type='int',unit=None,keyword='pre',description='number of precursor taps',value=pre,visible=False, keywordVisible=False)
+
+class PartPropertyFfeTd(PartProperty):
+    def __init__(self,delay=0.0):
+        PartProperty.__init__(self,'td',type='float',unit='s',keyword='td',description='tap delay (s)',value=delay,visible=True, keywordVisible=True)
+
+class PartPropertyFilterOrder(PartProperty):
+    def __init__(self,order=0.):
+        PartProperty.__init__(self,'order',type='int',unit=None,keyword='order',description='order',value=order,visible=True,keywordVisible=True)
+
+class PartPropertyLpFilterCutoff(PartProperty):
+    def __init__(self,fc=1.0):
+        PartProperty.__init__(self,'fc',type='float',unit='Hz',keyword='fc',description='cutoff frequency (Hz)',value=fc,visible=True, keywordVisible=True)
+
