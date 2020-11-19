@@ -32,6 +32,11 @@ class TimeDescriptor(object):
         self.H = HorOffset
         self.K = int(NumPts)
         self.Fs=SampleRate
+    def Duration(self):
+        """waveform duration
+        @return duration of the waveform
+        """
+        return self.K/self.Fs
     def __len__(self):
         """overloads len()
         @return number of time points

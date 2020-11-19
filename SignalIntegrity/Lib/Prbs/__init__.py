@@ -22,3 +22,4 @@ from .PseudoRandomPolynomial import PseudoRandomPolynomial
 from .PseudoRandomWaveform import PseudoRandomWaveform
 from .SerialDataWaveform import SerialDataWaveform
 from .ClockWaveform import ClockWaveform
+from .MultiLevelWaveform import MultiLevelWaveform
