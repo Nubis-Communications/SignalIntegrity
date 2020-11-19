@@ -338,6 +338,10 @@ class PartPropertyBitRate(PartProperty):
     def __init__(self,bitRate=1e9):
         PartProperty.__init__(self,'bitRate',type='float',unit='b/s',keyword='br',description='bit rate (b/s)',value=bitRate,visible=True)
 
+class PartPropertyBaudRate(PartProperty):
+    def __init__(self,baudRate=1e9):
+        PartProperty.__init__(self,'baudRate',type='float',unit='Baud',keyword='br',description='baud rate (Baud)',value=baudRate,visible=True)
+
 class PartPropertyRisetime(PartProperty):
     def __init__(self,risetime=0.0):
         PartProperty.__init__(self,'risetime',type='float',unit='s',keyword='rt',description='risetime (s)',value=risetime,visible=False)
@@ -345,6 +349,10 @@ class PartPropertyRisetime(PartProperty):
 class PartPropertyPRBSPolynomial(PartProperty):
     def __init__(self,poly=7):
         PartProperty.__init__(self,'prbs',type='int',unit='',keyword='prbs',description='prbs polynomial order',value=poly,visible=True,keywordVisible=True)
+
+class PartPropertyBitsPerSymbol(PartProperty):
+    def __init__(self,bits=1):
+        PartProperty.__init__(self,'bps',type='int',unit='',keyword='bps',description='bits per symbol',value=bits,visible=True,keywordVisible=True)
 
 class PartPropertyPortsList(PartProperty):
     def __init__(self,portsList):

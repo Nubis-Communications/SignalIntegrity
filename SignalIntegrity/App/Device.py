@@ -116,6 +116,14 @@ class Device(object):
                 amplitude=float(self['a'].GetValue())
                 delay=float(self['t0'].GetValue())
                 waveform = si.prbs.PseudoRandomWaveform(polynomial,bitrate,amplitude,risetime,delay,self.WaveformTimeDescriptor())
+            elif wfType == 'mlw':
+                polynomial=int(self['prbs'].GetValue())
+                baudrate=float(self['br'].GetValue())
+                bitspersymbol=int(self['bps'].GetValue())
+                risetime=float(self['rt'].GetValue())
+                amplitude=float(self['a'].GetValue())
+                delay=float(self['t0'].GetValue())
+                waveform = si.prbs.MultiLevelWaveform(polynomial,baudrate,bitspersymbol,amplitude,risetime,delay,self.WaveformTimeDescriptor())
             elif wfType == 'clock':
                 clockrate=float(self['f'].GetValue())
                 risetime=float(self['rt'].GetValue())
@@ -293,6 +301,12 @@ class DeviceVoltagePRBSGenerator(Device):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage PRBS Generator'),PartPropertyHelp('device:Voltage-PRBS-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyBitRate(),PartPropertyRisetime(),PartPropertyPRBSPolynomial(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('prbs')]+propertiesList,partPicture)
+
+class DeviceVoltageMultiLevelWaveformGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Multi Level Waveform Generator'),PartPropertyHelp('device:Voltage-Multi-Level-Waveform-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
+        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyBaudRate(),PartPropertyRisetime(),PartPropertyPRBSPolynomial(),PartPropertyBitsPerSymbol(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('mlw')]+propertiesList,partPicture)
 
 class DeviceVoltageClockGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -798,6 +812,8 @@ DeviceList=Devices([
               DeviceVoltagePulseGenerator([PartPropertyDescription('Two Port Voltage Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),
               DeviceVoltagePRBSGenerator([PartPropertyDescription('One Port Voltage PRBS Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
               DeviceVoltagePRBSGenerator([PartPropertyDescription('Two Port Voltage PRBS Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
+              DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription('One Port Voltage PRBS Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
+              DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription('Two Port Voltage PRBS Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
               DeviceVoltageClockGenerator([PartPropertyDescription('One Port Voltage Clock Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceClockGeneratorOnePort()),
               DeviceVoltageClockGenerator([PartPropertyDescription('Two Port Voltage Clock Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceClockGeneratorTwoPort()),
               DeviceVoltageSineGenerator([PartPropertyDescription('One Port Voltage Sine Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceSineGeneratorOnePort()),
