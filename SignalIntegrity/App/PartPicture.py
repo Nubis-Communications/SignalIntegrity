@@ -1977,7 +1977,7 @@ class PartPictureCurrentProbe(PartPictureBox):
         # arrow on the sensing port
         PartPicture.DrawArrowUp(self,canvas,grid,drawingOrigin,1)
         PartPictureBox.DrawDevice(self,canvas,grid,drawingOrigin,connected)
-        
+
 class PartPictureVariableCurrentProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentProbe'],2)
@@ -2164,3 +2164,23 @@ class PartPictureLpFilter(PartPictureSpecifiedPortsText):
 class PartPictureVariableLpFilter(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureLpFilter'],2)
+
+class PartPictureWElement(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='W')
+
+class PartPictureWElementAcross(PartPictureSpecifiedPortsTextAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='W')
+
+class PartPictureWElementDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='W')
+
+class PartPictureWElementSide(PartPictureSpecifiedPortsTextSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='W')
+
+class PartPictureVariableWElement(PartPictureVariable):
+    def __init__(self,ports=4):
+        PartPictureVariable.__init__(self,['PartPictureWElement','PartPictureWElementAcross','PartPictureWElementDownAndUp','PartPictureWElementSide'],ports)

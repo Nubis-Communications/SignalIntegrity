@@ -1,0 +1,31 @@
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device MM3 4 mixedmode
+device MM4 4 mixedmode
+device MM5 4 mixedmode
+device MM6 4 mixedmode
+device W1 12 w wires_1mil_80um_3.8_3pair.txt df 0 scale 1.0e-3 sect 0
+connect W1 7 MM1 1
+connect MM1 2 W1 8
+port 2 td 0 MM1 3
+port 4 td 0 MM1 4
+connect MM2 1 W1 1
+connect MM2 2 W1 2
+port 1 td 0 MM2 3
+port 3 td 0 MM2 4
+connect W1 9 MM3 1
+connect W1 10 MM3 2
+port 6 td 0 MM3 3
+port 8 td 0 MM3 4
+connect MM4 1 W1 3
+connect MM4 2 W1 4
+port 5 td 0 MM4 3
+port 7 td 0 MM4 4
+connect W1 11 MM5 1
+connect MM5 2 W1 12
+port 10 td 0 MM5 3
+port 12 td 0 MM5 4
+connect W1 5 MM6 1
+connect W1 6 MM6 2
+port 9 td 0 MM6 3
+port 11 td 0 MM6 4

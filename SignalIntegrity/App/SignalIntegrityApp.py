@@ -674,7 +674,7 @@ class SignalIntegrityApp(tk.Frame):
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
-            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)                
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return None
         return sp
 

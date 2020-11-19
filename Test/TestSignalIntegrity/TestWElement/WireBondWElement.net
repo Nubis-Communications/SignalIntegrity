@@ -1,0 +1,15 @@
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device C1 1 C 10.0e-15 esr 0 df 0
+device C2 1 C 10.0e-15 esr 0 df 0
+device C3 1 C 10.0e-15 esr 0 df 0
+device C4 1 C 10.0e-15 esr 0 df 0
+device W1 4 w WireBond.txt df 0 scale 1.0e-3 sect 0
+connect C3 1 W1 3 MM1 1
+connect MM1 2 C4 1 W1 4
+port 2 td 0 MM1 3
+port 4 td 0 MM1 4
+connect MM2 1 C2 1 W1 1
+connect MM2 2 W1 2 C1 1
+port 1 td 0 MM2 3
+port 3 td 0 MM2 4

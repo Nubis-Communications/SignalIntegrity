@@ -75,6 +75,10 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
                         'port 1 W1 1 2 W1 2 3 W1 3 4 W1 4 5 W1 5 6 W1 6 7 W1 7 8 W1 8 9 W1 9 10 W1 10 11 W1 11 12 W1 12'])
         sp=sspnp.SParameters()
         self.SParameterRegressionChecker(sp,'TestWElementTest_testWElement3Pairs.s12p')
+    def testWElement3PairsMixedModeWElement(self):
+        self.SParameterResultsChecker('WireBond3PairsWElement.si')
+    def testWElementWireBondMixedModeWElement(self):
+        self.SParameterResultsChecker('WireBondWElement.si')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
