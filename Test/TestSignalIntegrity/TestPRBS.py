@@ -82,10 +82,30 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def testPRBS7Waveform(self):
         risetime=300e-12
         bitrate=1e9
-        samplesPerUI=100
+        samplesPerUI=10
         amplitude=0.5
         delay=0.
         wf=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
+        self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
+    def testMultiLevelPam4PRBS23Waveform(self):
+        risetime=300e-12
+        baudrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        bitsPerSymbol=2
+        td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),baudrate*10.)
+        wf=si.prbs.MultiLevelWaveform(23,baudrate,bitsPerSymbol,amplitude,risetime,delay,td)
+        self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
+    def testMultiLevelPam8PRBS31Waveform(self):
+        risetime=300e-12
+        baudrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        bitsPerSymbol=3
+        td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),baudrate*10.)
+        wf=si.prbs.MultiLevelWaveform(31,baudrate,bitsPerSymbol,amplitude,risetime,delay,td)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
     def testPRBS9Waveform(self):
         risetime=300e-12
