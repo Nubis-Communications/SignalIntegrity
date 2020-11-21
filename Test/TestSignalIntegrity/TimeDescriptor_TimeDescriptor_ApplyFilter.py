@@ -3,6 +3,7 @@ class TimeDescriptor(object):
         self.H = HorOffset
         self.K = int(NumPts)
         self.Fs=SampleRate
+...
     def __len__(self):
         return self.K
     def __getitem__(self,item):
