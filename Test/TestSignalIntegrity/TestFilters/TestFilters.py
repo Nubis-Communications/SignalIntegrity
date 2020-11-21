@@ -32,11 +32,25 @@ class TestFiltersTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
-        os.chdir(self.path)
+        unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences.SaveToFile()
     def testName(self):
         return '_'.join(unittest.TestCase.id(self).split('.')[-1:])
-    def tearDown(self):
-        pass
     def testBesselLowPassFilter(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
         sp=si.sp.dev.BesselLowPassFilter(f,4,0.6*56e9)
