@@ -412,7 +412,7 @@ class PartPropertyF0(PartProperty):
 
 class PartPropertyCalculationDirection(PartProperty):
     validEntries=['calculate','uncalculate']
-    def __init__(self,dir='forward'):
+    def __init__(self,dir='calculate'):
         PartProperty.__init__(self,'cd',type='enum',keyword='cd',description='calculation direction',value=dir,visible=False,keywordVisible=False)
 
 class PartPropertyStandardFileName(PartProperty):
