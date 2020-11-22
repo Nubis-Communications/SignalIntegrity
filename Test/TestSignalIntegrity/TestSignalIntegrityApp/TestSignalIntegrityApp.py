@@ -265,7 +265,6 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
             '../../../../SignalIntegrityBook/Measurement/TDRSimulation2.si',
         ]
         for filename in filesList:
-            self.setUp()
             if not 'SignalIntegrityBook' in filename or self.book:
                 #print filename
                 pysi=self.Preliminary(filename)
