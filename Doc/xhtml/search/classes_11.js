@@ -1,16 +1,8 @@
 var searchData=
 [
-  ['waveform_700',['Waveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::Waveform']]],
-  ['waveformdecimator_701',['WaveformDecimator',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformDecimator']]],
-  ['waveformprocessor_702',['WaveformProcessor',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformProcessor']]],
-  ['waveformtrimmer_703',['WaveformTrimmer',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::WaveformTrimmer']]],
-  ['wavelet_704',['Wavelet',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['waveletdaubechies14_705',['WaveletDaubechies14',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies14.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['waveletdaubechies16_706',['WaveletDaubechies16',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['waveletdaubechies4_707',['WaveletDaubechies4',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['waveletdaubechies8_708',['WaveletDaubechies8',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['waveletdenoiser_709',['WaveletDenoiser',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml',1,'SignalIntegrity::Lib::Wavelets::WaveletDenoiser']]],
-  ['wavelethaar_710',['WaveletHaar',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml',1,'SignalIntegrity::Lib::Wavelets::Wavelets']]],
-  ['welement_711',['WElement',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::WElement']]],
-  ['welementfile_712',['WElementFile',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElementFile.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::WElement']]]
+  ['virtualprobe_715',['VirtualProbe',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::VirtualProbe']]],
+  ['virtualprobenumeric_716',['VirtualProbeNumeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::VirtualProbeNumeric']]],
+  ['virtualprobenumericparser_717',['VirtualProbeNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::VirtualProbeNumericParser']]],
+  ['virtualprobeparser_718',['VirtualProbeParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml',1,'SignalIntegrity::Lib::Parsers::VirtualProbeParser']]],
+  ['virtualprobesymbolic_719',['VirtualProbeSymbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::VirtualProbeSymbolic']]]
 ];

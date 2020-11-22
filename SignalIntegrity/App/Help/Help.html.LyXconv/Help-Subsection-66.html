@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-07-12"/>
+<meta name="create-date" content="2020-11-22"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Voltage Pulse Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Voltage Step Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Clock Generator <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
+<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-66"></a>Voltage PRBS Generator<a class="Label" name="device:Voltage-PRBS-Generator"> </a>
+<a class="toc" name="toc-Subsection-66"></a>Voltage Pulse Generator<a class="Label" name="device:Voltage-Pulse-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltagePRBSGenerator.png" alt="figure VoltagePRBSGenerator.png" style="max-width: 397px; max-height: 239px;"/>
+<img class="embedded" src="VoltagePulseGeneratorOnePort.png" alt="figure VoltagePulseGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
+<img class="embedded" src="VoltagePulseGeneratorTwoPort.png" alt="figure VoltagePulseGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1178,55 +1179,19 @@ S/s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-prbs
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-int
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-prbs
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-7
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-risetime
+pulse width
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-rt
+w
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-bitrate
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-br
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-b/s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 Gb/s
+1.0 ns
 </td>
 
 </tr>
@@ -1239,6 +1204,24 @@ float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 t0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 s
@@ -1289,27 +1272,21 @@ s
 
 </div>
 <div class="Standard">
-The voltage PRBS generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pseudo-random NRZ <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage pulse generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pulse <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> to the system.
 </div>
 <div class="Standard">
 The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
-The waveform uses the PRBS polynomial specified at the bitrate specified.
+If zero risetime is specified, the waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the duration specified by the pulse width.
 </div>
 <div class="Standard">
-If a nonzero risetime is specified, the first edge crosses 50% at the start time.
-</div>
-<div class="Standard">
-The maximum risetime is 59% of the unit interval (the reciprocal of the bitrate).
-</div>
-<div class="Standard">
-Warning - longer PRBS patterns (a high prbs number) take longer to calculate.
+If a nonzero risetime is specified, the first edge crosses 50% at the start time and falls, crossing at 50% of the stop time (pulse width minus start time). In other words, the width of the pulse specified is the time between the starting and ending 50% points.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Voltage Pulse Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Voltage Step Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Clock Generator <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
+<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 
 </div>

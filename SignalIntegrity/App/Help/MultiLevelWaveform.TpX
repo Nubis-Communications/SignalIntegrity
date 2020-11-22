@@ -1,0 +1,91 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">14,-21.5 14.5,-21.5 15.5,-18.5 16.5,-18.5 17.5,-21.5 18,-21.5</polyline>
+%  <polyline lc="black">14,-18.5 14.5,-18.5 15.5,-21.5 16.5,-21.5 17.5,-18.5 18,-18.5</polyline>
+%  <ellipse x="16" y="-20" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">15.25,-17.5 16.75,-17.5</polyline>
+%  <polyline lc="black">16,-16.75 16,-18.25</polyline>
+%  <polyline lc="black">15.25,-22.5 16.75,-22.5</polyline>
+%  <polyline lc="black">16,-24 16,-28</polyline>
+%  <polygon fill="black">13.333,-28 18.667,-28 16,-30.667 13.333,-28</polygon>
+%  <polyline lc="black">16,-12 16,-16</polyline>
+%  <polyline lw="2" lc="red">15.5,-11.5 16.5,-12.5</polyline>
+%  <polyline lw="2" lc="red">16.5,-11.5 15.5,-12.5</polyline>
+%  <text x="22" y="-54.75" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-51" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-47.25" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-43.5" t="br 1.0 GBaud" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-39.75" t="rt 0 s" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-36" t="prbs 7" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-32.25" t="bps 1" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-28.5" t="fs 40.0 GS/s" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-24.75" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="22" y="-21" t="VG1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">54,-21.5 54.5,-21.5 55.5,-18.5 56.5,-18.5 57.5,-21.5 58,-21.5</polyline>
+%  <polyline lc="black">54,-18.5 54.5,-18.5 55.5,-21.5 56.5,-21.5 57.5,-18.5 58,-18.5</polyline>
+%  <ellipse x="56" y="-20" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">55.25,-17.5 56.75,-17.5</polyline>
+%  <polyline lc="black">56,-16.75 56,-18.25</polyline>
+%  <polyline lc="black">55.25,-22.5 56.75,-22.5</polyline>
+%  <polyline lc="black">56,-12 56,-16</polyline>
+%  <polyline lw="2" lc="red">55.5,-11.5 56.5,-12.5</polyline>
+%  <polyline lw="2" lc="red">56.5,-11.5 55.5,-12.5</polyline>
+%  <polyline lc="black">56,-28 56,-24</polyline>
+%  <polyline lw="2" lc="red">55.5,-27.5 56.5,-28.5</polyline>
+%  <polyline lw="2" lc="red">56.5,-27.5 55.5,-28.5</polyline>
+%  <text x="62" y="-54.75" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-51" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-47.25" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-43.5" t="br 1.0 GBaud" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-39.75" t="rt 0 s" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-36" t="prbs 7" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-32.25" t="bps 1" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-28.5" t="fs 40.0 GS/s" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-24.75" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-21" t="VG2" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (14,-21.5) -- (14.5,-21.5) -- (15.5,-18.5) -- (16.5,-18.5) -- (17.5,-21.5) -- (18,-21.5);
+\path[line width=0.30mm, draw=black] (14,-18.5) -- (14.5,-18.5) -- (15.5,-21.5) -- (16.5,-21.5) -- (17.5,-18.5) -- (18,-18.5);
+\path[line width=0.30mm, draw=black] (16,-20) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (15.25,-17.5) -- (16.75,-17.5);
+\path[line width=0.30mm, draw=black] (16,-16.75) -- (16,-18.25);
+\path[line width=0.30mm, draw=black] (15.25,-22.5) -- (16.75,-22.5);
+\path[line width=0.30mm, draw=black] (16,-24) -- (16,-28);
+\path[line width=0.30mm, fill=black] (13.333,-28) -- (18.667,-28) -- (16,-30.667) -- (13.333,-28) -- cycle;
+\path[line width=0.30mm, draw=black] (16,-12) -- (16,-16);
+\path[line width=0.6mm, draw=red] (15.5,-11.5) -- (16.5,-12.5);
+\path[line width=0.6mm, draw=red] (16.5,-11.5) -- (15.5,-12.5);
+\draw[black] (22,-54.75) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (22,-51) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (22,-47.25) node[anchor=base west]{t0 0 s};
+\draw[black] (22,-43.5) node[anchor=base west]{br 1.0 GBaud};
+\draw[black] (22,-39.75) node[anchor=base west]{rt 0 s};
+\draw[black] (22,-36) node[anchor=base west]{prbs 7};
+\draw[black] (22,-32.25) node[anchor=base west]{bps 1};
+\draw[black] (22,-28.5) node[anchor=base west]{fs 40.0 GS/s};
+\draw[black] (22,-24.75) node[anchor=base west]{a 1.0 V};
+\draw[black] (22,-21) node[anchor=base west]{VG1};
+\path[line width=0.30mm, draw=black] (54,-21.5) -- (54.5,-21.5) -- (55.5,-18.5) -- (56.5,-18.5) -- (57.5,-21.5) -- (58,-21.5);
+\path[line width=0.30mm, draw=black] (54,-18.5) -- (54.5,-18.5) -- (55.5,-21.5) -- (56.5,-21.5) -- (57.5,-18.5) -- (58,-18.5);
+\path[line width=0.30mm, draw=black] (56,-20) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (55.25,-17.5) -- (56.75,-17.5);
+\path[line width=0.30mm, draw=black] (56,-16.75) -- (56,-18.25);
+\path[line width=0.30mm, draw=black] (55.25,-22.5) -- (56.75,-22.5);
+\path[line width=0.30mm, draw=black] (56,-12) -- (56,-16);
+\path[line width=0.6mm, draw=red] (55.5,-11.5) -- (56.5,-12.5);
+\path[line width=0.6mm, draw=red] (56.5,-11.5) -- (55.5,-12.5);
+\path[line width=0.30mm, draw=black] (56,-28) -- (56,-24);
+\path[line width=0.6mm, draw=red] (55.5,-27.5) -- (56.5,-28.5);
+\path[line width=0.6mm, draw=red] (56.5,-27.5) -- (55.5,-28.5);
+\draw[black] (62,-54.75) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (62,-51) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (62,-47.25) node[anchor=base west]{t0 0 s};
+\draw[black] (62,-43.5) node[anchor=base west]{br 1.0 GBaud};
+\draw[black] (62,-39.75) node[anchor=base west]{rt 0 s};
+\draw[black] (62,-36) node[anchor=base west]{prbs 7};
+\draw[black] (62,-32.25) node[anchor=base west]{bps 1};
+\draw[black] (62,-28.5) node[anchor=base west]{fs 40.0 GS/s};
+\draw[black] (62,-24.75) node[anchor=base west]{a 1.0 V};
+\draw[black] (62,-21) node[anchor=base west]{VG2};
+\end{tikzpicture}%

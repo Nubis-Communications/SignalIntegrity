@@ -1,0 +1,7 @@
+<map id="ClassicalFilter" name="ClassicalFilter">
+<area shape="rect" id="node1" title="Classical filter." alt="" coords="116,637,243,773"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1BesselLowPassFilter.xhtml" title="Bessel low pass filter." alt="" coords="5,821,159,899"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1ButterworthLowPassFilter.xhtml" title="Butterworth Low pass filter." alt="" coords="183,821,370,899"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" title="Class containing s&#45;parameters." alt="" coords="76,277,283,589"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" title="Class for manipulations on s&#45;parameters involving passivity, causality, etc." alt="" coords="44,5,315,229"/>
+</map>

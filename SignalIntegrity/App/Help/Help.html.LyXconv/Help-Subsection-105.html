@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-07-12"/>
+<meta name="create-date" content="2020-11-22"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,203 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> stim</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">unknown <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-105"></a>stimdef<a class="Label" name="sub:stimdef"> </a>
+<a class="toc" name="toc-Subsection-105"></a>device<a class="Label" name="sub:device"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>stimdef</i> specifies the relationship between defining and dependent stims in the schematic (see <a class="Reference" href="Help-Subsection-75.html#device:Stim">Stim↑</a>).
+A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </div>
 <div class="Standard">
-This should only appear in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications.
+The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
 </div>
 <div class="Standard">
-A <i>stimdef</i> statement will only appear if there is a defining stim in the schematic.
+Following this is often optional keyword pairs specifying the arguments for the device.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>stimdef</i> followed by a python list-based matrix definition where the form:
+Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
 </div>
 <div class="Standard">
-<div class="formula">
-<span class="symbol">[</span><span class="symbol">[</span><i>d</i><sub>11</sub>, <i>d</i><sub>12</sub>, …, <i>d</i><sub>1<i>C</i></sub><span class="symbol">]</span>, <span class="symbol">[</span><i>d</i><sub>21</sub>, <i>d</i><sub>22</sub>, …, <i>d</i><sub>2<i>C</i></sub><span class="symbol">]</span>, …, <span class="symbol">[</span><i>d</i><sub><i>R</i>1</sub>, <i>d</i><sub><i>R</i>2</sub>, …, <i>d</i><sub><i>RC</i></sub><span class="symbol">]</span><span class="symbol">]</span>
-</div>
-
-</div>
-<div class="Standard">
-which is equivalent to a <span class="formula"><i>R</i> × <i>C</i></span> matrix <span class="formula"><b>D</b></span>:
-</div>
-<div class="Standard">
-<div class="formula">
-<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub>11</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>12</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>1<i>C</i></sub>
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub>21</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>22</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>2<i>C</i></sub>
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-⋮
-</span>
-<span class="arraycell align-c">
-⋮
-</span>
-<span class="arraycell align-c">
-⋱
-</span>
-<span class="arraycell align-c">
-⋮
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub><i>R</i>1</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub><i>R</i>2</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub><i>RC</i></sub>
-</span>
-
-</span>
-</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>
-</div>
-
-</div>
-<div class="Standard">
-The matrix is such that for a <span class="formula"><i>C</i></span> element vector of dependent stims <span class="formula"><b>m</b></span> (with the elements <span class="formula"><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub>1</sub>
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub>2</sub>
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-⋮
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub><i>C</i></sub>
-</span>
-
-</span>
-</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>), as listed in the netlist for the dependent stims and an <span class="formula"><i>R</i></span> element vector of defining stims <span class="formula"><b>d</b></span> (see <a class="Reference" href="Help-Subsection-104.html#sub:stim">stim↑</a> for the netlist statement for the stim and <a class="Reference" href="Help-Subsection-75.html#device:Stim">Stim↑</a> for a description of dependent and defining stims), that the stimdef defines <span class="formula"><b>D</b></span> such that:
-</div>
-<div class="Standard">
-<div class="formula">
-<b>d</b> = <b>D</b>⋅<b>m</b>
-</div>
-
-</div>
-<div class="Standard">
-When no stimdef statement appears, there are <span class="formula"><i>C</i></span> unknowns (and there must be at least <span class="formula"><i>C</i></span> <a class="Reference" href="Help-Subsection-73.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-102.html#sub:meas">meas↑</a> in the netlist). If a stimdef statement appears, there are <span class="formula"><i>R</i></span> unknowns (and there must be at least <span class="formula"><i>R</i></span> <a class="Reference" href="Help-Subsection-73.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-102.html#sub:meas">meas↑</a> in the netlist).
+If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-120.html#sub:DeviceParser">DeviceParser↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> stim</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">unknown <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
 </div>
 
 </div>

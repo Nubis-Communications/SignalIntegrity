@@ -1,3 +1,20 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml" title="parses a list of commands to process s&#45;parameters" alt="" coords="5,5,152,32"/>
+<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="401,223,492,250"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,..." alt="" coords="637,173,708,199"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="578,325,767,351"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="571,71,774,98"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="582,274,763,301"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="568,5,777,47"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists" alt="" coords="573,122,772,149"/>
+<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" title="process transfer matrices &#160;&#160;Usually transfer matrices are produced in simulation and virtual probing ..." alt="" coords="575,223,770,250"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="838,267,1042,308"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="825,13,1055,39"/>
+<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,122,91,149"/>
+<area shape="rect" id="node12" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="139,122,325,149"/>
+<area shape="rect" id="node13" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationParser_1_1CalibrationParser.xhtml" title="base class for netlist based error terms solutions" alt="" coords="379,325,514,351"/>
+<area shape="rect" id="node14" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" title="base class for netlist based deembedding solutions" alt="" coords="373,71,520,98"/>
+<area shape="rect" id="node15" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions" alt="" coords="383,274,510,301"/>
+<area shape="rect" id="node16" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" title="base class for netlist based virtual probing solutions" alt="" coords="375,122,518,149"/>
+<area shape="rect" id="node17" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title=" " alt="" coords="177,173,287,199"/>
+<area shape="rect" id="node18" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title=" " alt="" coords="399,173,495,199"/>
 </map>

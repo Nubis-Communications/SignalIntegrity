@@ -1,28 +1,7 @@
 var searchData=
 [
-  ['serialdatawaveform_648',['SerialDataWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::SerialDataWaveform']]],
-  ['seriesc_649',['SeriesC',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesC_1_1SeriesC.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesC']]],
-  ['seriesl_650',['SeriesL',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesL_1_1SeriesL.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesL']]],
-  ['seriesrse_651',['SeriesRse',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1SeriesRse_1_1SeriesRse.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::SeriesRse']]],
-  ['shortstandard_652',['ShortStandard',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ShortStandard_1_1ShortStandard.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards::ShortStandard']]],
-  ['simulator_653',['Simulator',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Simulator']]],
-  ['simulatornumeric_654',['SimulatorNumeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SimulatorNumeric']]],
-  ['simulatornumericparser_655',['SimulatorNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SimulatorNumericParser']]],
-  ['simulatorparser_656',['SimulatorParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SimulatorParser']]],
-  ['simulatorsymbolic_657',['SimulatorSymbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SimulatorSymbolic']]],
-  ['sinewaveform_658',['SineWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::SineWaveform']]],
-  ['sparameterfile_659',['SParameterFile',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameterFile']]],
-  ['sparametermanipulation_660',['SParameterManipulation',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation']]],
-  ['sparameters_661',['SParameters',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml',1,'SignalIntegrity::Lib::SParameters::SParameters']]],
-  ['sparametersparser_662',['SParametersParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SParametersParser']]],
-  ['spline_663',['Spline',['../classSignalIntegrity_1_1Lib_1_1Splines_1_1Splines_1_1Spline.xhtml',1,'SignalIntegrity::Lib::Splines::Splines']]],
-  ['stepwaveform_664',['StepWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::StepWaveform']]],
-  ['symbolic_665',['Symbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Symbolic']]],
-  ['systemdescription_666',['SystemDescription',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SystemDescription']]],
-  ['systemdescriptionparser_667',['SystemDescriptionParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SystemDescriptionParser']]],
-  ['systemdescriptionsymbolic_668',['SystemDescriptionSymbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SystemDescriptionSymbolic']]],
-  ['systemsparameters_669',['SystemSParameters',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SystemSParameters']]],
-  ['systemsparametersnumeric_670',['SystemSParametersNumeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SystemSParametersNumeric']]],
-  ['systemsparametersnumericparser_671',['SystemSParametersNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::SystemSParametersParser']]],
-  ['systemsparameterssymbolic_672',['SystemSParametersSymbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::SystemSParametersSymbolic']]]
+  ['raisedcosinefilter_664',['RaisedCosineFilter',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::RaisedCosineFilter']]],
+  ['reflectcalibrationmeasurement_665',['ReflectCalibrationMeasurement',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1ReflectCalibrationMeasurement.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::CalibrationMeasurements']]],
+  ['resultscache_666',['ResultsCache',['../classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml',1,'SignalIntegrity::Lib::ResultsCache']]],
+  ['rlgcfitfromfile_667',['RLGCFitFromFile',['../classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml',1,'SignalIntegrity::Lib::Fit::RLGCFitFromFile']]]
 ];

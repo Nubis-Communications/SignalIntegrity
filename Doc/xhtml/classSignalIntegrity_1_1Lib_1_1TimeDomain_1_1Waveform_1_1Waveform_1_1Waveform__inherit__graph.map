@@ -1,12 +1,13 @@
 <map id="Waveform" name="Waveform">
-<area shape="rect" id="node1" title="base class for all waveforms" alt="" coords="606,5,755,259"/>
+<area shape="rect" id="node1" title="base class for all waveforms" alt="" coords="701,5,850,259"/>
 <area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified." alt="" coords="5,336,209,428"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="233,336,392,428"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform" alt="" coords="416,307,593,457"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" title="noise waveform" alt="" coords="617,343,744,421"/>
-<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" title="pulse waveform" alt="" coords="769,343,894,421"/>
-<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" title="sinewave waveform" alt="" coords="919,343,1037,421"/>
-<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" title="step waveform" alt="" coords="1061,343,1180,421"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="157,505,284,583"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="308,505,499,583"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1MultiLevelWaveform_1_1MultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="233,343,392,421"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="416,336,575,428"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform" alt="" coords="599,307,776,457"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" title="noise waveform" alt="" coords="800,343,927,421"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" title="pulse waveform" alt="" coords="951,343,1077,421"/>
+<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" title="sinewave waveform" alt="" coords="1101,343,1220,421"/>
+<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" title="step waveform" alt="" coords="1244,343,1363,421"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="340,505,467,583"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="491,505,681,583"/>
 </map>

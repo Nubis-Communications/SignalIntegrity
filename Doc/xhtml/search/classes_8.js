@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['mixedmodetline_628',['MixedModeTLine',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1MixedModeTline_1_1MixedModeTLine.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::MixedModeTline']]],
-  ['mutual_629',['Mutual',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Mutual_1_1Mutual.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::Mutual']]]
+  ['levmar_642',['LevMar',['../classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml',1,'SignalIntegrity::Lib::Fit::LevMar']]],
+  ['linescache_643',['LinesCache',['../classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml',1,'SignalIntegrity::Lib::ResultsCache']]],
+  ['loadstandard_644',['LoadStandard',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1LoadStandard_1_1LoadStandard.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards::LoadStandard']]]
 ];
