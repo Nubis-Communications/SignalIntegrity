@@ -454,6 +454,26 @@ class TestVoltageAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.test
         self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierTwoPortVoltageSeriesFeedback(self)',self.standardHeader)
     def testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternateCode(self):
         self.WriteCode('TestVoltageAmplifier.py','testVoltageAmplifierFourPortVoltageSeriesFeedbackAlternate(self)',self.standardHeader)
+    def testPeakingAmplifier(self):
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines(['device D1 4','device R1 2','device C 1','device G1 1 ground','device G2 1 ground','device R2 2','device L 2',
+                      'connect D1 2 G1 1','connect D1 1 R1 2 C 1 R2 1','connect D1 3 G2 1','port 2 L 2','connect L 2 D1 4',
+                      'port 1 R1 1','connect R2 2 L 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small',
+            eqprefix='\\begin{equation} ',eqsuffix=' \\end{equation}')
+        VDVS=si.sy.VoltageControlledVoltageSource('G')
+        R1=si.sy.SeriesZ('R_1')
+        R2=si.sy.SeriesZ('R_2')
+        L=si.sy.SeriesZ('Z_l')
+        C=si.sy.ShuntZ(1,'Z_c')
+        ssps.AssignSParameters('D1',VDVS)
+        ssps.AssignSParameters('R1',R1)
+        ssps.AssignSParameters('R2',R2)
+        ssps.AssignSParameters('L',L)
+        ssps.AssignSParameters('C',C)
+        ssps.DocStart().LaTeXSolution(size='big').DocEnd().Emit()
+        # pragma: exclude
+        self.CheckSymbolicResult(self.id(),ssps,'Peaking Amplifier Symbolic')
 
 if __name__ == '__main__':
     unittest.main()

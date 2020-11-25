@@ -1,5 +1,5 @@
 \documentclass[10pt]{article} \usepackage{amsmath} \usepackage{bbold}
-\begin{document}
+\usepackage{bbm} \begin{document}
 \[ \left[ \boldsymbol{\mathbbm{I}}  - \left(\begin{array}{cc} 0 & -1
 \\ -1 & 0 \end{array}\right)\right] \cdot \left(\begin{array}{c} n_{1}
 \\ n_{2} \end{array}\right) = \left(\begin{array}{c} 0 \\ m_{1}
