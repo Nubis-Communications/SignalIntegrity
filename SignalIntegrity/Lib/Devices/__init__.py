@@ -52,3 +52,4 @@ from .TLineTwoPortLossless import TLineTwoPortLossless
 from .OperationalAmplifier import OperationalAmplifier
 from .DirectionalCoupler import DirectionalCoupler
 from .SeriesRse import SeriesRse
+from .IdealRelay import IdealRelay
