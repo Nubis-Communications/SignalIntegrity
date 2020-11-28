@@ -2184,3 +2184,23 @@ class PartPictureWElementSide(PartPictureSpecifiedPortsTextSide):
 class PartPictureVariableWElement(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureWElement','PartPictureWElementAcross','PartPictureWElementDownAndUp','PartPictureWElementSide'],ports)
+
+class PartPictureRelay(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(p+1,(0,p*2+1),'l',True,True,True) for p in range(ports-1)]+[PartPin(ports,(4,ports-1),'r',True,True,True)],[(1,0),(3,(ports-1)*2)],[(0,0),(4,(ports-1)*2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        position=int(device['pos']['Value'])
+        ports=len(self.pinListSupplied)
+        if 0 < position < ports:
+            lx=(drawingOrigin[0]+self.origin[0]+1)*grid
+            ly=(drawingOrigin[1]+self.origin[1]+2*position-1)*grid
+            rx=(drawingOrigin[0]+self.origin[0]+3)*grid
+            ry=(drawingOrigin[1]+self.origin[1]+ports-1)*grid
+            p=[ct.Translate((lx,ly)),ct.Translate((rx,ry))]
+            canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableRelay(PartPictureVariable):
+    def __init__(self,ports=3):
+        PartPictureVariable.__init__(self,['PartPictureRelay'],ports)

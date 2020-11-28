@@ -489,3 +489,8 @@ class PartPropertyLpFilterCutoff(PartProperty):
 class PartPropertyWElementFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'wfilename',type='file',unit=None,keyword='file',description='W element file',value=fileName,visible=True)
+
+class PartPropertyPosition(PartProperty):
+    def __init__(self,position=1):
+        PartProperty.__init__(self,'position',type='int',unit=None,keyword='pos',description='relay position',value=position,visible=True,keywordVisible=True)
+

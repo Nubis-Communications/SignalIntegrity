@@ -37,7 +37,7 @@ def IdealRelay(ports,position,termination='open',Z0=50.):
     if termination == 'open': rho=1.
     else: rho=TerminationZ(termination,Z0)[0][0]
     S=[[rho if r==c else 0 for c in range(ports)] for r in range(ports)]
-    if 0 < position < ports-1:
+    if 0 < position < ports:
         S[position-1][position-1] = 0;  S[position-1][ports-1] = 1.
         S[ports-1][position-1] =    1.; S[ports-1][ports-1] =    0
     return S

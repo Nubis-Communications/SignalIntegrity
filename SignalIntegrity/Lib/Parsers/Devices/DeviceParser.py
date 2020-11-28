@@ -94,6 +94,7 @@ class DeviceFactory(list):
         |butterworthlp                          |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
         |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
         |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
+        |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0                                                                 |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -178,9 +179,9 @@ class DeviceFactory(list):
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']))"),
-        ParserDevice('w','2,4,6,8,10,12,16',True,{'':None,'df':0.,'sect':0,'scale':1.},
-            True,"WElementFile(f,arg[''],float(arg['df']),50.,int(arg['sect']),\
-            float(arg['scale']))"),
+        ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
+            'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),50.,\
+            int(arg['sect']),float(arg['scale']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
@@ -203,17 +204,23 @@ class DeviceFactory(list):
         # pragma: include
     def __init__Contd2(self):
         list.__init__(self,list(self+[
-        ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,'cd':'calculate'},True,
-            "NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],not arg['cd']=='uncalculate')"),
-        ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],50.).Resample(f)"),
+        ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,
+            'cd':'calculate'},True,"NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],\
+            not arg['cd']=='uncalculate')"),
+        ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],\
+            50.).Resample(f)"),
         ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
             "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
         ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
             "ButterworthLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
-        ParserDevice('ctle',2,False,{'gdc':None,'gdc2':None,'fz':None,'flf':None,'fp1':None,'fp2':None},
-            True,"CTLE(f,float(arg['gdc']),float(arg['gdc2']),float(arg['fz']),float(arg['flf']),\
-            float(arg['fp1']),float(arg['fp2']),50.)"),
-        ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,float(arg['td']),eval(arg['']),eval(arg['pre']),50.)")
+        ParserDevice('ctle',2,False,{'gdc':None,'gdc2':None,'fz':None,'flf':None,
+            'fp1':None,'fp2':None},True,"CTLE(f,float(arg['gdc']),float(arg['gdc2']),\
+            float(arg['fz']),float(arg['flf']),float(arg['fp1']),float(arg['fp2']),50.)"),
+        ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,\
+            float(arg['td']),eval(arg['']),eval(arg['pre']),50.)"),
+        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',True,{'':0,'term':1e9,
+            'z0':50.},False,"IdealRelay(ports,int(arg['']),float(arg['term']),\
+            float(arg['z0']))")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
@@ -253,6 +260,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Devices.TransresistanceAmplifier import TransresistanceAmplifier
         from SignalIntegrity.Lib.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
         from SignalIntegrity.Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
+        from SignalIntegrity.Lib.Devices.IdealRelay import IdealRelay
         from SignalIntegrity.Lib.Fit.RLGCFitFromFile import RLGCFitFromFile
         from SignalIntegrity.Lib.SParameters.Devices.Mutual import Mutual
         from SignalIntegrity.Lib.SParameters.Devices.SeriesC import SeriesC

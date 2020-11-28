@@ -184,6 +184,8 @@ class DeviceFromProject(object):
             self.result=DeviceNetworkAnalyzerDeviceUnderTest(ports)
         elif className=='DeviceWElement':
             self.result=DeviceWElement([PartPropertyPorts(ports,False)],PartPictureVariableWElement(ports))
+        elif className=='DeviceRelay':
+            self.result=DeviceRelay([PartPropertyPorts(ports,False)],PartPictureVariableRelay(ports))
         else:
             for device in DeviceList+DeviceListSystem+DeviceListUnknown:
                 if (str(device.__class__).split('.')[-1].strip('\'>') == className):
@@ -806,6 +808,22 @@ class DeviceWElement(Device):
         self['sect']['Visible']=False
         self['scale']['Visible']=True
 
+class DeviceRelay(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(partname='relay',values=[('pos',False),('term',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Relay'),
+                         PartPropertyCategory('Miscellaneous'),
+                         PartPropertyPartName('Relay'),
+                         PartPropertyHelp('device:Relay'),
+                         PartPropertyDefaultReferenceDesignator('K?'),
+                         PartPropertyResistance(1e9,'term','unconn. termination '),
+                         PartPropertyPosition(1)]+propertiesList,
+                         partPicture)
+        self['term']['KeywordVisible']=True
+        self['term']['Visible']=False
+
 class Devices(list):
     def __init__(self,devices):
         list.__init__(self,devices)
@@ -897,7 +915,8 @@ DeviceList=Devices([
                 DeviceFFE(),
                 DeviceBesselLpFilter(),
                 DeviceButterworthLpFilter(),
-                DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement())
+                DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
+                DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay())
                 ])
 
 

@@ -407,9 +407,23 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'ctle',2,gdc='-2',gdc2='0',fz='2.3e9',flf='70e6',fp1='2.3e9',fp2='5.6e9')
     def testFFE(self):
         self.Tester(self.id(),'ffe',2,default='[-0.1,1.3,-0.2]',td='100e-12',pre='1')
+    def testRelay2OpenTermOpen(self):
+        self.Tester(self.id(),'relay',2,default='0')
+    def testRelay2ClosedTermOpen(self):
+        self.Tester(self.id(),'relay',2,default='1')
+    def testRelay2OpenTerm50(self):
+        self.Tester(self.id(),'relay',2,default='0',term='50.')
+    def testRelay2ClosedTerm50(self):
+        self.Tester(self.id(),'relay',2,default='1',term='50.')
+    def testRelay3Pos0(self):
+        self.Tester(self.id(),'relay',3,default='0',term='50.')
+    def testRelay3Pos1(self):
+        self.Tester(self.id(),'relay',3,default='1',term='50.')
+    def testRelay3Pos2(self):
+        self.Tester(self.id(),'relay',3,default='2',term='50.')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,42)
+        self.assertEqual(L,43)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,[],[1,2,3]))
