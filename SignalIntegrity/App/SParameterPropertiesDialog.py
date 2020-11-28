@@ -57,9 +57,16 @@ class SParameterPropertiesDialog(PropertiesDialog):
         self.project.CalculateOthersFromBaseInformation()
         self.UpdateStrings()
 
+    def NextHigher12458(self,x):
+        """helper function that allows turning this off, depending on preferences"""
+        if SignalIntegrity.App.Preferences['Calculation.Enforce12458']:
+            return nextHigher12458(x)
+        else:
+            return x
+
     def onendFrequencyEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(self.project['EndFrequency'])
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(self.project['EndFrequency'])
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
@@ -68,30 +75,30 @@ class SParameterPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
 
     def onfrequencyResolutionEntered(self,event):
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onbaseSampleRateEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(self.project['BaseSampleRate'])/2.
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(self.project['BaseSampleRate'])/2.
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onbaseSamplePeriodEntered(self,event):
-        self.project['EndFrequency']=nextHigher12458(1./self.project['BaseSamplePeriod'])/2.
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
+        self.project['EndFrequency']=self.NextHigher12458(1./self.project['BaseSamplePeriod'])/2.
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['EndFrequency']/self.project['FrequencyResolution']))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def ontimePointsEntered(self,event):
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
     def onimpulseLengthEntered(self,event):
         self.project['TimePoints']=int(self.project['ImpulseResponseLength']*self.project['BaseSampleRate']+0.5)
-        self.project['FrequencyPoints']=int(nextHigher12458(self.project['TimePoints']/2))
+        self.project['FrequencyPoints']=int(self.NextHigher12458(self.project['TimePoints']/2))
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
@@ -104,7 +111,7 @@ class SParameterPropertiesDialog(PropertiesDialog):
         if self.project['TimeLimitPositive']<0.:
             self.project['TimeLimitPositive']=0.
             self.positiveTimeFrame.UpdateStrings()
-    
+
     def onReferenceImpedanceEntered(self,event):
         self.UpdateStrings()
 
@@ -128,7 +135,7 @@ class SParameterPropertiesDialog(PropertiesDialog):
     def ok(self,event):
         self.destroy()
         self.parent.UpdateSParametersFromProperties()
-        
+
     def cancel(self,event):
         self.Restore()
         self.destroy()
@@ -140,7 +147,7 @@ class SParameterPropertiesDialog(PropertiesDialog):
                     'ReferenceImpedance':self.project['ReferenceImpedance'],
                     'TimeLimitNegative':self.project['TimeLimitNegative'],
                     'TimeLimitPositive':self.project['TimeLimitPositive']}
-    
+
     def Restore(self):
         for key in self.saved:
             self.project[key]=self.saved[key]
