@@ -35,7 +35,7 @@ class Device(object):
             self.AddPartProperty(PartPropertyReferenceDesignator(''))
     def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.CreateVisiblePropertiesList()
-        self.partPicture.current.Selected(self.selected).DrawDevice(canvas,grid,(x,y),pinsConnectedList)
+        self.partPicture.current.Selected(self.selected).DrawDevice(self,canvas,grid,(x,y),pinsConnectedList)
     def IsAt(self,coord,augmentor,distance):
         return self.partPicture.current.IsAt(coord,augmentor,distance)
     def IsIn(self,coord0,coord1,coord0Augmentor,coord1Augmentor):
