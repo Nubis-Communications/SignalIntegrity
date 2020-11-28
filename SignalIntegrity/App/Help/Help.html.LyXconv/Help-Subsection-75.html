@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-11-22"/>
+<meta name="create-date" content="2020-11-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-74.html#next">Prev</a> Port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-74.html#next">Prev</a> Current Sine Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Output Probe <a class="next" name="next" href="Help-Subsection-76.html#prev">Next</a></span>
+<span class="next">Voltage Measure Probe <a class="next" name="next" href="Help-Subsection-76.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-75"></a>Voltage Measure Probe<a class="Label" name="device:Measure-Probe"> </a>
+<a class="toc" name="toc-Subsection-75"></a>Port<a class="Label" name="device:Port"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="MeasureProbe.png" alt="figure MeasureProbe.png" style="max-width: 106px; max-height: 90px;"/>
+<img class="embedded" src="Port.png" alt="figure Port.png" style="max-width: 93px; max-height: 48px;"/>
 
 </div>
 <div class="Standard">
@@ -1106,55 +1106,37 @@ Units
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-default reference
+delay
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+td
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VM?
+0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-reference
+port number
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+pn
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-file name
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-None
+?
 </td>
 
 </tr>
@@ -1163,18 +1145,24 @@ None
 
 </div>
 <div class="Standard">
-The measure probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications to specify measurements actually made in the system. See <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a>.
+The port is used in <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications to define locations where waves enter and exit the system.
 </div>
 <div class="Standard">
-The file specified is for a <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> file containing the actual measurement.
+In <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a>, they define the how the s-parameters will be produced. For example Sxy will be the reflected wave at port x due to the incident wave at port y, with all other ports terminated in the reference impedance. See <a class="Reference" href="Help-Subsection-2.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation↑</a>.
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
+In <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>, they match the port numbers in the circuit with the ports on the <a class="Reference" href="Help-Subsection-91.html#device:System">System↓</a>. See <a class="Reference" href="Help-Subsection-13.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding↑</a>
+</div>
+<div class="Standard">
+They are added to the schematic with the <a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Add-Port">Add Port↑</a> command.
+</div>
+<div class="Standard">
+Ports can be optionally specified with a delay value. This is amount to peel from the port using impedance peeling techniques. Peeling is performed by de-embedding a portion of the line from the port, with the de-embedded device corresponding to an ideal transmission line with the desired length, and characteristic impedance equal to the impedance profile calculated for the length specified (see <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:Show-Impedance">Show Impedance↑</a>).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-74.html#next">Prev</a> Port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-74.html#next">Prev</a> Current Sine Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Output Probe <a class="next" name="next" href="Help-Subsection-76.html#prev">Next</a></span>
+<span class="next">Voltage Measure Probe <a class="next" name="next" href="Help-Subsection-76.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-11-22"/>
+<meta name="create-date" content="2020-11-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,35 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> connect</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="next">meas <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-108"></a>meas<a class="Label" name="sub:meas"> </a>
+<a class="toc" name="toc-Subsection-108"></a>port<a class="Label" name="sub:port"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>meas</i> specifies a <a class="Reference" href="Help-Subsection-75.html#device:Measure-Probe">Voltage Measure Probe↑</a> and it’s connection to a device pin.
+A netlist line beginning with the keyword <i>port</i> specifies a <a class="Reference" href="Help-Subsection-75.html#device:Port">Port↑</a> and it’s connection to a device pin.
 </div>
 <div class="Standard">
-This should only appear in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications and there must be at least one statement like this.
+This should appear only in <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be at least one statement like this.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>meas</i> followed by a reference designator and pin number.
+The syntax is the keyword <i>port</i> followed by triplets containing a port number followed by the reference designator and pin number of the device pin that the port is connected to.
 </div>
 <div class="Standard">
-The reference designators refer to one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-105.html#sub:device">device↑</a> command elsewhere in the netlist.
+The reference designators refer to one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-106.html#sub:device">device↑</a> command elsewhere in the netlist.
 </div>
 <div class="Standard">
 The pin numbers refer to a pin of the device.
 </div>
 <div class="Standard">
-If in your schematic, a <a class="Reference" href="Help-Subsection-75.html#device:Measure-Probe">Voltage Measure Probe↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-106.html#sub:connect">connect↑</a> netlist lines.)
-</div>
-<div class="Standard">
-Note that the reference designator (i.e. the name) and the filename of the <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> associated with the <a class="Reference" href="Help-Subsection-75.html#device:Measure-Probe">Voltage Measure Probe↑</a> do not appear in the netlist as it is unimportant for the calculations. Instead, the application keeps track of this information during netlist generation for use in managing the calculation.
+If in your schematic, a <a class="Reference" href="Help-Subsection-75.html#device:Port">Port↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-107.html#sub:connect">connect↑</a> netlist lines.)
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> connect</span>
 <span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="next">meas <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 
 </div>

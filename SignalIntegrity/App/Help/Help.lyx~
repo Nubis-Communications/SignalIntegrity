@@ -50050,6 +50050,11 @@ The filter element is constructed like an active device which has infinite
  isolation.
 \end_layout
 
+\begin_layout Standard
+Note: This element requires the installation of the scipy package, which
+ is not automatically installed by this software.
+\end_layout
+
 \begin_layout Subsection
 Bessel Low-Pass Filter
 \begin_inset CommandInset label
@@ -50347,6 +50352,11 @@ The filter element is constructed like an active device which has infinite
  input impedance at port 1, zero output impedance at port 2, The transfer
  characteristics from port 1 to 2 as the filter response, and perfect reverse
  isolation.
+\end_layout
+
+\begin_layout Standard
+Note: This element requires the installation of the scipy package, which
+ is not automatically installed by this software.
 \end_layout
 
 \begin_layout Section

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-11-22"/>
+<meta name="create-date" content="2020-11-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1084,7 +1084,7 @@ a:visited {
 In this example, we will step through the simulation of an RLC network. this example will highlight a few things about simulation that you need to be aware of.
 </div>
 <div class="Standard">
-The circuit we will simulate will be a series 100 nH <a class="Reference" href="Help-Subsection-48.html#device:Inductor">Inductor↓</a>, 1 pF <a class="Reference" href="Help-Subsection-47.html#device:Capacitor">Capacitor↓</a>, and 50 ohm <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>. We will simulate with a step voltage applied to the input to the circuit through a <a class="Reference" href="Help-Subsection-65.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a> and probe initially the voltage at the 50 ohm termination <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>.
+The circuit we will simulate will be a series 100 nH <a class="Reference" href="Help-Subsection-48.html#device:Inductor">Inductor↓</a>, 1 pF <a class="Reference" href="Help-Subsection-47.html#device:Capacitor">Capacitor↓</a>, and 50 ohm <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>. We will simulate with a step voltage applied to the input to the circuit through a <a class="Reference" href="Help-Subsection-66.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a> and probe initially the voltage at the 50 ohm termination <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>.
 </div>
 <div class="Standard">
 When we open <b><i>SignalIntegrityApp</i></b>, we have a blank canvas:
@@ -1101,7 +1101,7 @@ We invoke <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Add
 
 </div>
 <div class="Standard">
-Select the Generators category, and select the One Port <a class="Reference" href="Help-Subsection-65.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>:
+Select the Generators category, and select the One Port <a class="Reference" href="Help-Subsection-66.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="PartPickerOnePortVoltageGenerator.png" alt="figure PartPickerOnePortVoltageGenerator.png" style="max-width: 467px; max-height: 308px;"/>
@@ -1175,7 +1175,7 @@ or by clicking in the middle of a wire and dragging:
 
 </div>
 <div class="Standard">
-Now, use <a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> to add some probing points to the circuit. When we invoke <a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a>, we see the part properties dialog for the <a class="Reference" href="Help-Subsection-76.html#device:Output-Probe">Voltage Output Probe↓</a>:
+Now, use <a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> to add some probing points to the circuit. When we invoke <a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a>, we see the part properties dialog for the <a class="Reference" href="Help-Subsection-77.html#device:Output-Probe">Voltage Output Probe↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="SimulatorExampleStep10.png" alt="figure SimulatorExampleStep10.png" style="max-width: 394px; max-height: 492px;"/>
@@ -1210,7 +1210,7 @@ Use <a class="Reference" href="Help-Subsubsection-73.html#Control-Help:Pan">Pan�
 
 </div>
 <div class="Standard">
-Select the <a class="Reference" href="Help-Subsection-76.html#device:Output-Probe">Voltage Output Probe↓</a> and use <a class="Reference" href="Help-Subsubsection-63.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> to place another probe at the resistor. Use <a class="Reference" href="Help-Subsubsection-65.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to change the orientation, and <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↓</a> to change the reference designator to Vout.
+Select the <a class="Reference" href="Help-Subsection-77.html#device:Output-Probe">Voltage Output Probe↓</a> and use <a class="Reference" href="Help-Subsubsection-63.html#Control-Help:Duplicate-Part">Duplicate Part↓</a> to place another probe at the resistor. Use <a class="Reference" href="Help-Subsubsection-65.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a> to change the orientation, and <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↓</a> to change the reference designator to Vout.
 </div>
 <div class="Standard">
 <img class="embedded" src="SimulatorExampleStep15.png" alt="figure SimulatorExampleStep15.png" style="max-width: 468px; max-height: 268px;"/>
