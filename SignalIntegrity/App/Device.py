@@ -790,6 +790,20 @@ class DeviceButterworthLpFilter(Device):
                          PartPropertyLpFilterCutoff(1e9)],
                          PartPictureVariableLpFilter())
 
+class DeviceLaplace(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='laplace',values=[('eq',False)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Laplace domain equation'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('Laplace'),
+                         PartPropertyHelp('device:Laplace'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyLaplaceEquation('')],
+                         PartPictureVariableLaplace())
+
 class DeviceWElement(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='w',values=[('file',False),('df',True),('scale',True),('sect',True)])
@@ -915,6 +929,7 @@ DeviceList=Devices([
                 DeviceFFE(),
                 DeviceBesselLpFilter(),
                 DeviceButterworthLpFilter(),
+                DeviceLaplace(),
                 DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
                 DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay())
                 ])

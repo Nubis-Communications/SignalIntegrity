@@ -486,6 +486,10 @@ class PartPropertyLpFilterCutoff(PartProperty):
     def __init__(self,fc=1.0):
         PartProperty.__init__(self,'fc',type='float',unit='Hz',keyword='fc',description='cutoff frequency (Hz)',value=fc,visible=True, keywordVisible=True)
 
+class PartPropertyLaplaceEquation(PartProperty):
+    def __init__(self,eq=''):
+        PartProperty.__init__(self,'eq',type='string',unit=None,keyword='eq',description='laplace domain equation',value=eq,visible=True, keywordVisible=False)
+
 class PartPropertyWElementFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'wfilename',type='file',unit=None,keyword='file',description='W element file',value=fileName,visible=True)

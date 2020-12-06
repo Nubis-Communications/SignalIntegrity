@@ -42,6 +42,7 @@ from TestHDMICable import *
 from TestHeaders import *
 from TestHiRes import *
 from TestImpedanceProfile import *
+from TestLaplace import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
