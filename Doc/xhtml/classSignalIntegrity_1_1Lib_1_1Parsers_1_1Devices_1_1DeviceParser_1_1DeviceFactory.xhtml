@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.14</span>
+   &#160;<span id="projectnumber">1.1.15</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -177,6 +177,7 @@ Public Attributes</h2></td></tr>
     |butterworthlp                          |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
     |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
     |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
+    |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
     |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0                                                                 |
 
     @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
@@ -185,7 +186,7 @@ Public Attributes</h2></td></tr>
     come from 'dev' meaning devices.  'm.calkit.std' refers to 'Measurement.CalKit.Standards' package.
     @note Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00110">110</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00111">111</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -242,7 +243,7 @@ Public Attributes</h2></td></tr>
     @return boolean whether the device was created.
     @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00247">247</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00249">249</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -260,7 +261,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> or list of list matrix when not frequency dependent. </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00291">291</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00294">294</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -277,7 +278,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>boolean whether dev is frequency dependent. pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00349">349</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00352">352</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

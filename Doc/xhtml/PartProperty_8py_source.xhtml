@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.14</span>
+   &#160;<span id="projectnumber">1.1.15</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -567,14 +567,18 @@ $(function() {
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keyword">def </span>__init__(self,fc=1.0):</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;fc&#39;</span>,type=<span class="stringliteral">&#39;float&#39;</span>,unit=<span class="stringliteral">&#39;Hz&#39;</span>,keyword=<span class="stringliteral">&#39;fc&#39;</span>,description=<span class="stringliteral">&#39;cutoff frequency (Hz)&#39;</span>,value=fc,visible=<span class="keyword">True</span>, keywordVisible=<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keyword">class </span>PartPropertyWElementFileName(PartProperty):</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keyword">def </span>__init__(self,fileName=&#39;&#39;):</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;wfilename&#39;</span>,type=<span class="stringliteral">&#39;file&#39;</span>,unit=<span class="keywordtype">None</span>,keyword=<span class="stringliteral">&#39;file&#39;</span>,description=<span class="stringliteral">&#39;W element file&#39;</span>,value=fileName,visible=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keyword">class </span>PartPropertyLaplaceEquation(PartProperty):</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keyword">def </span>__init__(self,eq=&#39;&#39;):</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;eq&#39;</span>,type=<span class="stringliteral">&#39;string&#39;</span>,unit=<span class="keywordtype">None</span>,keyword=<span class="stringliteral">&#39;eq&#39;</span>,description=<span class="stringliteral">&#39;laplace domain equation&#39;</span>,value=eq,visible=<span class="keyword">True</span>, keywordVisible=<span class="keyword">False</span>)</div>
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keyword">class </span>PartPropertyPosition(PartProperty):</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keyword">def </span>__init__(self,position=1):</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;position&#39;</span>,type=<span class="stringliteral">&#39;int&#39;</span>,unit=<span class="keywordtype">None</span>,keyword=<span class="stringliteral">&#39;pos&#39;</span>,description=<span class="stringliteral">&#39;relay position&#39;</span>,value=position,visible=<span class="keyword">True</span>,keywordVisible=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keyword">class </span>PartPropertyWElementFileName(PartProperty):</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keyword">def </span>__init__(self,fileName=&#39;&#39;):</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;wfilename&#39;</span>,type=<span class="stringliteral">&#39;file&#39;</span>,unit=<span class="keywordtype">None</span>,keyword=<span class="stringliteral">&#39;file&#39;</span>,description=<span class="stringliteral">&#39;W element file&#39;</span>,value=fileName,visible=<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="keyword">class </span>PartPropertyPosition(PartProperty):</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    <span class="keyword">def </span>__init__(self,position=1):</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        PartProperty.__init__(self,<span class="stringliteral">&#39;position&#39;</span>,type=<span class="stringliteral">&#39;int&#39;</span>,unit=<span class="keywordtype">None</span>,keyword=<span class="stringliteral">&#39;pos&#39;</span>,description=<span class="stringliteral">&#39;relay position&#39;</span>,value=position,visible=<span class="keyword">True</span>,keywordVisible=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFile_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFile_8py_source.xhtml#l00001">ProjectFile.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ToSI_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ToSI.xhtml">SignalIntegrity.App.ToSI</a></div><div class="ttdef"><b>Definition:</b> <a href="ToSI_8py_source.xhtml#l00001">ToSI.py:1</a></div></div>

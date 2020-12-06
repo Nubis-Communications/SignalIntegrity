@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.14</span>
+   &#160;<span id="projectnumber">1.1.15</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -2245,45 +2245,53 @@ $(function() {
 <div class="line"><a name="l02165"></a><span class="lineno"> 2165</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
 <div class="line"><a name="l02166"></a><span class="lineno"> 2166</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureLpFilter&#39;</span>],2)</div>
 <div class="line"><a name="l02167"></a><span class="lineno"> 2167</span>&#160; </div>
-<div class="line"><a name="l02168"></a><span class="lineno"> 2168</span>&#160;<span class="keyword">class </span>PartPictureWElement(PartPictureSpecifiedPortsText):</div>
+<div class="line"><a name="l02168"></a><span class="lineno"> 2168</span>&#160;<span class="keyword">class </span>PartPictureLaplace(PartPictureSpecifiedPortsText):</div>
 <div class="line"><a name="l02169"></a><span class="lineno"> 2169</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02170"></a><span class="lineno"> 2170</span>&#160;        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
+<div class="line"><a name="l02170"></a><span class="lineno"> 2170</span>&#160;        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;H(s)&#39;</span>)</div>
 <div class="line"><a name="l02171"></a><span class="lineno"> 2171</span>&#160; </div>
-<div class="line"><a name="l02172"></a><span class="lineno"> 2172</span>&#160;<span class="keyword">class </span>PartPictureWElementAcross(PartPictureSpecifiedPortsTextAcross):</div>
-<div class="line"><a name="l02173"></a><span class="lineno"> 2173</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02174"></a><span class="lineno"> 2174</span>&#160;        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
+<div class="line"><a name="l02172"></a><span class="lineno"> 2172</span>&#160;<span class="keyword">class </span>PartPictureVariableLaplace(PartPictureVariable):</div>
+<div class="line"><a name="l02173"></a><span class="lineno"> 2173</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l02174"></a><span class="lineno"> 2174</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureLaplace&#39;</span>],2)</div>
 <div class="line"><a name="l02175"></a><span class="lineno"> 2175</span>&#160; </div>
-<div class="line"><a name="l02176"></a><span class="lineno"> 2176</span>&#160;<span class="keyword">class </span>PartPictureWElementDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):</div>
+<div class="line"><a name="l02176"></a><span class="lineno"> 2176</span>&#160;<span class="keyword">class </span>PartPictureWElement(PartPictureSpecifiedPortsText):</div>
 <div class="line"><a name="l02177"></a><span class="lineno"> 2177</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02178"></a><span class="lineno"> 2178</span>&#160;        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
+<div class="line"><a name="l02178"></a><span class="lineno"> 2178</span>&#160;        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
 <div class="line"><a name="l02179"></a><span class="lineno"> 2179</span>&#160; </div>
-<div class="line"><a name="l02180"></a><span class="lineno"> 2180</span>&#160;<span class="keyword">class </span>PartPictureWElementSide(PartPictureSpecifiedPortsTextSide):</div>
+<div class="line"><a name="l02180"></a><span class="lineno"> 2180</span>&#160;<span class="keyword">class </span>PartPictureWElementAcross(PartPictureSpecifiedPortsTextAcross):</div>
 <div class="line"><a name="l02181"></a><span class="lineno"> 2181</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02182"></a><span class="lineno"> 2182</span>&#160;        PartPictureSpecifiedPortsTextSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
+<div class="line"><a name="l02182"></a><span class="lineno"> 2182</span>&#160;        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
 <div class="line"><a name="l02183"></a><span class="lineno"> 2183</span>&#160; </div>
-<div class="line"><a name="l02184"></a><span class="lineno"> 2184</span>&#160;<span class="keyword">class </span>PartPictureVariableWElement(PartPictureVariable):</div>
-<div class="line"><a name="l02185"></a><span class="lineno"> 2185</span>&#160;    <span class="keyword">def </span>__init__(self,ports=4):</div>
-<div class="line"><a name="l02186"></a><span class="lineno"> 2186</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureWElement&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementAcross&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementDownAndUp&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementSide&#39;</span>],ports)</div>
+<div class="line"><a name="l02184"></a><span class="lineno"> 2184</span>&#160;<span class="keyword">class </span>PartPictureWElementDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):</div>
+<div class="line"><a name="l02185"></a><span class="lineno"> 2185</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02186"></a><span class="lineno"> 2186</span>&#160;        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
 <div class="line"><a name="l02187"></a><span class="lineno"> 2187</span>&#160; </div>
-<div class="line"><a name="l02188"></a><span class="lineno"> 2188</span>&#160;<span class="keyword">class </span>PartPictureRelay(PartPictureBox):</div>
+<div class="line"><a name="l02188"></a><span class="lineno"> 2188</span>&#160;<span class="keyword">class </span>PartPictureWElementSide(PartPictureSpecifiedPortsTextSide):</div>
 <div class="line"><a name="l02189"></a><span class="lineno"> 2189</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02190"></a><span class="lineno"> 2190</span>&#160;        PartPictureBox.__init__(self,origin,[PartPin(p+1,(0,p*2+1),<span class="stringliteral">&#39;l&#39;</span>,<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">True</span>) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> range(ports-1)]+[PartPin(ports,(4,ports-1),<span class="stringliteral">&#39;r&#39;</span>,<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">True</span>)],[(1,0),(3,(ports-1)*2)],[(0,0),(4,(ports-1)*2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)</div>
-<div class="line"><a name="l02191"></a><span class="lineno"> 2191</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
-<div class="line"><a name="l02192"></a><span class="lineno"> 2192</span>&#160;        ct=self.CoordinateTranslater(grid,drawingOrigin)</div>
-<div class="line"><a name="l02193"></a><span class="lineno"> 2193</span>&#160;        position=int(device[<span class="stringliteral">&#39;pos&#39;</span>][<span class="stringliteral">&#39;Value&#39;</span>])</div>
-<div class="line"><a name="l02194"></a><span class="lineno"> 2194</span>&#160;        ports=len(self.pinListSupplied)</div>
-<div class="line"><a name="l02195"></a><span class="lineno"> 2195</span>&#160;        <span class="keywordflow">if</span> 0 &lt; position &lt; ports:</div>
-<div class="line"><a name="l02196"></a><span class="lineno"> 2196</span>&#160;            lx=(drawingOrigin[0]+self.origin[0]+1)*grid</div>
-<div class="line"><a name="l02197"></a><span class="lineno"> 2197</span>&#160;            ly=(drawingOrigin[1]+self.origin[1]+2*position-1)*grid</div>
-<div class="line"><a name="l02198"></a><span class="lineno"> 2198</span>&#160;            rx=(drawingOrigin[0]+self.origin[0]+3)*grid</div>
-<div class="line"><a name="l02199"></a><span class="lineno"> 2199</span>&#160;            ry=(drawingOrigin[1]+self.origin[1]+ports-1)*grid</div>
-<div class="line"><a name="l02200"></a><span class="lineno"> 2200</span>&#160;            p=[ct.Translate((lx,ly)),ct.Translate((rx,ry))]</div>
-<div class="line"><a name="l02201"></a><span class="lineno"> 2201</span>&#160;            canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)</div>
-<div class="line"><a name="l02202"></a><span class="lineno"> 2202</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
-<div class="line"><a name="l02203"></a><span class="lineno"> 2203</span>&#160; </div>
-<div class="line"><a name="l02204"></a><span class="lineno"> 2204</span>&#160;<span class="keyword">class </span>PartPictureVariableRelay(PartPictureVariable):</div>
-<div class="line"><a name="l02205"></a><span class="lineno"> 2205</span>&#160;    <span class="keyword">def </span>__init__(self,ports=3):</div>
-<div class="line"><a name="l02206"></a><span class="lineno"> 2206</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureRelay&#39;</span>],ports)</div>
+<div class="line"><a name="l02190"></a><span class="lineno"> 2190</span>&#160;        PartPictureSpecifiedPortsTextSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;W&#39;</span>)</div>
+<div class="line"><a name="l02191"></a><span class="lineno"> 2191</span>&#160; </div>
+<div class="line"><a name="l02192"></a><span class="lineno"> 2192</span>&#160;<span class="keyword">class </span>PartPictureVariableWElement(PartPictureVariable):</div>
+<div class="line"><a name="l02193"></a><span class="lineno"> 2193</span>&#160;    <span class="keyword">def </span>__init__(self,ports=4):</div>
+<div class="line"><a name="l02194"></a><span class="lineno"> 2194</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureWElement&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementAcross&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementDownAndUp&#39;</span>,<span class="stringliteral">&#39;PartPictureWElementSide&#39;</span>],ports)</div>
+<div class="line"><a name="l02195"></a><span class="lineno"> 2195</span>&#160; </div>
+<div class="line"><a name="l02196"></a><span class="lineno"> 2196</span>&#160;<span class="keyword">class </span>PartPictureRelay(PartPictureBox):</div>
+<div class="line"><a name="l02197"></a><span class="lineno"> 2197</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02198"></a><span class="lineno"> 2198</span>&#160;        PartPictureBox.__init__(self,origin,[PartPin(p+1,(0,p*2+1),<span class="stringliteral">&#39;l&#39;</span>,<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">True</span>) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> range(ports-1)]+[PartPin(ports,(4,ports-1),<span class="stringliteral">&#39;r&#39;</span>,<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">True</span>)],[(1,0),(3,(ports-1)*2)],[(0,0),(4,(ports-1)*2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02199"></a><span class="lineno"> 2199</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02200"></a><span class="lineno"> 2200</span>&#160;        ct=self.CoordinateTranslater(grid,drawingOrigin)</div>
+<div class="line"><a name="l02201"></a><span class="lineno"> 2201</span>&#160;        position=int(device[<span class="stringliteral">&#39;pos&#39;</span>][<span class="stringliteral">&#39;Value&#39;</span>])</div>
+<div class="line"><a name="l02202"></a><span class="lineno"> 2202</span>&#160;        ports=len(self.pinListSupplied)</div>
+<div class="line"><a name="l02203"></a><span class="lineno"> 2203</span>&#160;        <span class="keywordflow">if</span> 0 &lt; position &lt; ports:</div>
+<div class="line"><a name="l02204"></a><span class="lineno"> 2204</span>&#160;            lx=(drawingOrigin[0]+self.origin[0]+1)*grid</div>
+<div class="line"><a name="l02205"></a><span class="lineno"> 2205</span>&#160;            ly=(drawingOrigin[1]+self.origin[1]+2*position-1)*grid</div>
+<div class="line"><a name="l02206"></a><span class="lineno"> 2206</span>&#160;            rx=(drawingOrigin[0]+self.origin[0]+3)*grid</div>
+<div class="line"><a name="l02207"></a><span class="lineno"> 2207</span>&#160;            ry=(drawingOrigin[1]+self.origin[1]+ports-1)*grid</div>
+<div class="line"><a name="l02208"></a><span class="lineno"> 2208</span>&#160;            p=[ct.Translate((lx,ly)),ct.Translate((rx,ry))]</div>
+<div class="line"><a name="l02209"></a><span class="lineno"> 2209</span>&#160;            canvas.create_line(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color)</div>
+<div class="line"><a name="l02210"></a><span class="lineno"> 2210</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
+<div class="line"><a name="l02211"></a><span class="lineno"> 2211</span>&#160; </div>
+<div class="line"><a name="l02212"></a><span class="lineno"> 2212</span>&#160;<span class="keyword">class </span>PartPictureVariableRelay(PartPictureVariable):</div>
+<div class="line"><a name="l02213"></a><span class="lineno"> 2213</span>&#160;    <span class="keyword">def </span>__init__(self,ports=3):</div>
+<div class="line"><a name="l02214"></a><span class="lineno"> 2214</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureRelay&#39;</span>],ports)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1PartPin_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1PartPin.xhtml">SignalIntegrity.App.PartPin</a></div><div class="ttdef"><b>Definition:</b> <a href="PartPin_8py_source.xhtml#l00001">PartPin.py:1</a></div></div>
 <!-- start footer part -->
