@@ -332,7 +332,29 @@ class SignalIntegrityApp(tk.Frame):
                 self.Drawing.stateMachine.NoProject(True)
 
         self.UpdateRecentProjectsMenu()
+
         self.root.deiconify()
+
+        # if a project was not opened and a file was supplied, try to open as an s-parameter file
+        if not projectFileName == None:
+            if self.Drawing.stateMachine.state == 'NoProject':
+                fileparts=FileParts(projectFileName)
+                ext=fileparts.fileext
+                if ext=='.cal':
+                    self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
+                    self.ViewCalibration(self.calibration)
+                elif len(ext) >= 4: # for '.sXp' at the minimum
+                    if (ext[0:2] == '.s') and (ext[-1] == 'p'):
+                        try:
+                            int(ext[2:-1])
+                            isSpFile=True
+                        except:
+                            isSpFile=False
+                    if isSpFile:
+                        import SignalIntegrity.Lib as si
+                        sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+                        spd=SParametersDialog(self,sp,fileparts.FullFilePathExtension())
+
         if runMainLoop:
             self.root.mainloop()
 
@@ -386,6 +408,7 @@ class SignalIntegrityApp(tk.Frame):
             return
 
         try:
+            cd=os.getcwd()
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
@@ -396,6 +419,7 @@ class SignalIntegrityApp(tk.Frame):
             self.history.Event('read project')
             self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
         except:
+            os.chdir(cd)
             if showError:
                 messagebox.showerror('Project File:',self.fileparts.FileNameWithExtension()+' could not be opened')
 
