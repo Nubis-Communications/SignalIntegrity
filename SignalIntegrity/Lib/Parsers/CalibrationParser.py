@@ -53,7 +53,7 @@ class CalibrationParser(SystemDescriptionParser):
         if len(lineList) == 0: return
         if lineList[0] == 'calibration':
             if self.calibrationMeasurementList == None: self.calibrationMeasurementList = []
-            if lineList[1] in ['reflect','thru']:
+            if lineList[1] in ['reflect','thru','xtalk']:
                 if self.calibrationMeasurementList is None: self.calibrationMeasurementList=[]
                 measDict={}
                 measDict['type']=lineList[1]
@@ -85,7 +85,12 @@ class CalibrationParser(SystemDescriptionParser):
                             measDict['raw'].FrequencyResponse(1,2),measDict['std'],measDict['other']-1,measDict['driven']-1))
                     elif measDict['thrutype']=='SOLR':
                         self.calibrationMeasurementList.append(UnknownThruCalibrationMeasurement(measDict['raw'],
-                            measDict['std'],measDict['driven']-1,measDict['other']-1))     
+                            measDict['std'],measDict['driven']-1,measDict['other']-1))
+                elif measDict['type']=='xtalk':
+                    self.calibrationMeasurementList.append(XtalkCalibrationMeasurement(measDict['raw'].FrequencyResponse(2,1),
+                            measDict['driven']-1,measDict['other']-1))
+                    self.calibrationMeasurementList.append(XtalkCalibrationMeasurement(measDict['raw'].FrequencyResponse(1,2),
+                            measDict['other']-1,measDict['driven']-1))
         else: self.m_ul.append(line)
     def _ProcessLines(self):
         """processes all of the lines in a netlist

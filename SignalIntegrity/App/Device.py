@@ -693,6 +693,21 @@ class DeviceThruCalibrationMeasurement(Device):
                          PartPropertyThruCalculationType()],
                         PartPictureVariableMeasurementTwoPort())
 
+class DeviceXtalkCalibrationMeasurement(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='calibration',partname='xtalk',showReference=False,showports=False,values=[('file',True),('pn',True),('opn',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('xtalk calibration measurement'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Network Analysis'),
+                         PartPropertyPartName('XtalkMeasurement'),
+                         PartPropertyHelp('device:Xtalk-Measurement'),
+                         PartPropertyFileName(),
+                         PartPropertyPortNumber(1),
+                         PartPropertyOtherPortNumber(2)],
+                        PartPictureVariableMeasurementTwoPort())
+
 class DeviceNetworkAnalyzerStimulus(Device):
     def __init__(self,portNumber=1):
         netlist=DeviceNetListLine(devicename='networkanalyzerport',values=[('pn',True),('state',True),('st',True),('pow',True),('rt',True),('a',True),('ia',True)])
@@ -923,6 +938,7 @@ DeviceList=Devices([
                 DeviceThruStandard(),
                 DeviceReflectCalibrationMeasurement(),
                 DeviceThruCalibrationMeasurement(),
+                DeviceXtalkCalibrationMeasurement(),
                 DeviceNetworkAnalyzerStimulus(),
                 DeviceNetworkAnalyzerDeviceUnderTest(),
                 DeviceCTLE(),
