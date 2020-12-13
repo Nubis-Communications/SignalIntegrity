@@ -49,7 +49,8 @@ class PartProperty(PartPropertyConfiguration):
                     value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
                 else:
                     value = str(self.GetValue('Value'))
-                result=result+value
+                if not value == None:
+                    result=result+value
             return result
         elif stype == 'raw':
             if self.GetValue('Type')=='string':
