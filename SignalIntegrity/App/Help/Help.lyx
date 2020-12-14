@@ -6002,6 +6002,21 @@ noprefix "false"
  combination.
 \end_layout
 
+\begin_layout Enumerate
+(optional) 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Xtalk-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - two-port measurements made while the ports are not connected.
+ If used, usually on per every port-port combination.
+\end_layout
+
 \end_deeper
 \begin_layout Enumerate
 Network Analyzer Measurements – the 
@@ -6128,8 +6143,22 @@ noprefix "false"
 
 \end_inset
 
- - (if two-ports or greater) two-port measurements of the thru standard,
+ - (if two ports or greater) two-port measurements of the thru standard,
  usually one per every port–port combination.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Xtalk-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - (optional, if two ports or greater) two-port measurements with the ports
+ unconnected, usually one per every port-port combination.
 \end_layout
 
 \begin_layout Standard
@@ -27831,6 +27860,19 @@ noprefix "false"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "device:Xtalk-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "device:Thru-Measurement"
 plural "false"
 caps "false"
@@ -48446,14 +48488,16 @@ noprefix "false"
 
 \begin_layout Standard
 The port number corresponds to the port of a network analyzer where port
- 1 of the thru standard is connected.
+ 1 of the thru standard is connected and to port 1 of the two-port raw s-paramet
+er measurement.
  The other port number corresponds to the port of the network analyzer where
- port 2 of the thru standard is connected.
- This is properly deal with (the unusual case) of an asymmetric standard.
+ port 2 of the thru standard is connected and to port 2 of the two-port
+ raw s-parameter measurement.
+ This is to properly deal with (the unusual case) of an asymmetric standard.
 \end_layout
 
 \begin_layout Standard
-The calibration types support are either (Short-Open-Load-Thru) SOLT or
+The calibration types supported are either (Short-Open-Load-Thru) SOLT or
  (Short-Open-Load-Reciprocal) SOLR.
 \end_layout
 
@@ -48481,6 +48525,282 @@ noprefix "false"
 the method of the unknown thru
 \emph default
 .
+\end_layout
+
+\begin_layout Subsection
+Xtalk Measurement
+\begin_inset CommandInset label
+LatexCommand label
+name "device:Xtalk-Measurement"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename XtalkMeasurement.bmp
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="middle" width="4cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="center" valignment="top" width="1cm">
+<column alignment="center" valignment="top" width="2cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+Property Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keyword
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+file name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+pn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align center
+other port number
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+opn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Calibration measurements are only used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Network-Analyzer-Calibration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as a step in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Network-Analyzer-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The file name refers to a two-port s-parameter file, or a project producing
+ one-port s-parameters.
+\end_layout
+
+\begin_layout Standard
+The port number corresponds to the port of a network analyzer where port
+ 1 of the thru standard is connected and to port 1 of the two-port raw s-paramet
+er measurement.
+ The other port number corresponds to the port of the network analyzer where
+ port 2 of the thru standard is connected and to port 2 of the two-port
+ raw s-parameter measurement.
+\end_layout
+
+\begin_layout Standard
+Ideally, the ports are not connected during a crosstalk measurement.
 \end_layout
 
 \begin_layout Subsection
