@@ -73,7 +73,7 @@ class TransferMatricesProcessor(CallBacker):
             if adaptToLargest and len(acc)>1:
                 largestValue=0.0; largestIndex=0
                 for wfi in range(len(acc)):
-                    if isinstance(wfi,Waveform):
+                    if isinstance(acc[wfi],Waveform):
                         absMax=max(acc[wfi].Values('abs'))
                         if absMax>=largestValue:
                             largestIndex=wfi; largestValue=absMax
