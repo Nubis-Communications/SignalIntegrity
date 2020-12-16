@@ -153,6 +153,9 @@ class Device(object):
                         waveform = si.td.wf.StepWaveform(td,2.*float(self['ia']['Value'])/td.Fs,0.0,float(self['rt']['Value'])).Derivative(removePoint=True,scale=True)
                     elif self['st']['Value'] == 'TDRStep':
                         waveform = si.td.wf.StepWaveform(td,2.*float(self['a']['Value']),0.0,float(self['rt']['Value']))
+            elif wfType == 'DC':
+                amplitude=float(self['a'].GetValue())
+                waveform=amplitude
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity as si
@@ -282,6 +285,19 @@ class DeviceVoltageStepGenerator(Device):
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Step Generator'),PartPropertyHelp('device:Voltage-Step-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
 
+class DeviceVoltageDCSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Voltage DC Source'),
+            PartPropertyHelp('device:Voltage-DC-Source'),
+            PartPropertyDefaultReferenceDesignator('VS?'),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('DC')]+propertiesList,
+            partPicture)
+        self['a']['KeywordVisible']=False
+
 class DeviceVoltagePulseGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
@@ -348,6 +364,19 @@ class DeviceCurrentStepGenerator(Device):
         netlist=DeviceNetListLine(devicename='currentsource')
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyHelp('device:Current-Step-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
+
+class DeviceCurrentDCSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='currentsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Current DC Source'),
+            PartPropertyHelp('device:Current-DC-Source'),
+            PartPropertyDefaultReferenceDesignator('CS?'),
+            PartPropertyCurrentAmplitude(),
+            PartPropertyWaveformType('DC')]+propertiesList,
+            partPicture)
+        self['a']['KeywordVisible']=False
 
 class DeviceCurrentPulseGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -888,6 +917,8 @@ DeviceList=Devices([
                 DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('Two Port Voltage Step Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceStepGeneratorTwoPort()),
+                DeviceVoltageDCSource([PartPropertyDescription('One Port Voltage DC Generator'),PartPropertyPorts(1)],PartPictureVariableDCVoltageSourceOnePort()),
+                DeviceVoltageDCSource([PartPropertyDescription('Two Port Voltage DC Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('One Port Voltage Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('Two Port Voltage Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),
                 DeviceVoltagePRBSGenerator([PartPropertyDescription('One Port Voltage PRBS Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
@@ -902,6 +933,8 @@ DeviceList=Devices([
                 DeviceCurrentSource([PartPropertyDescription('Two Port Current Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
                 DeviceCurrentStepGenerator([PartPropertyDescription('One Port Current Step Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceStepGeneratorOnePort()),
                 DeviceCurrentStepGenerator([PartPropertyDescription('Two Port Current Step Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceStepGeneratorTwoPort()),
+                DeviceCurrentDCSource([PartPropertyDescription('One Port Current DC Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
+                DeviceCurrentDCSource([PartPropertyDescription('Two Port Current DC Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('One Port Current Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),

@@ -2212,3 +2212,20 @@ class PartPictureRelay(PartPictureBox):
 class PartPictureVariableRelay(PartPictureVariable):
     def __init__(self,ports=3):
         PartPictureVariable.__init__(self,['PartPictureRelay'],ports)
+
+class PartPictureVcc(PartPicture):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(1,(1,2),'b',False,True,False)],[(0,1),(2,2)],[(0,1),(2,2)],(1,0.5),orientation,mirroredHorizontally,mirroredVertically,(1,2),False)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # dot on top
+        lx=(drawingOrigin[0]+self.origin[0]+1)*grid-grid/8
+        ty=(drawingOrigin[1]+self.origin[1]+1)*grid-grid/8
+        size=grid/4
+        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]
+        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)
+        PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,False,connected)
+
+class PartPictureVariableDCVoltageSourceOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceOnePort','PartPictureVcc'],1)

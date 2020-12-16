@@ -20,6 +20,7 @@ TransferMatricesProcessor.py
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
 from SignalIntegrity.Lib.CallBacker import CallBacker
+from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
 class TransferMatricesProcessor(CallBacker):
     """process transfer matrices  
@@ -40,10 +41,11 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: include
     def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
         """processes input waveforms and produces output waveforms
-        @param wfl list of Waveform input waveforms to process.
+        @param wfl list of Waveform input waveforms to process.  If numbers are in the
+        waveform list, they are assumed to be DC waveforms, that are treated specially.
         @param td (optional) instance of class TimeDescriptor.  If this is included,
         all final waveforms are adapted to this descriptor.  Otherwise, the sample rates of
-        each waveform are used in the computeation of the impulse responses.
+        each waveform are used in the computation of the impulse responses.
         @param adaptToLargest bool (optional, defaults to False) causes waveform adaption
         during summation to choose the waveform with the largest absolute value of a point.
         This helps when models have frequency responses near the end frequency and causes
@@ -53,13 +55,16 @@ class TransferMatricesProcessor(CallBacker):
         produced in that order.
         """
         if td is None:
-            td = [wflm.td.Fs for wflm in wfl]
+            td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td)
+        fr = self.TransferMatrices.FrequencyResponses() # for DC inputs
         result=[]
         for o in range(len(ir)):
             acc=[]
             for i in range(len(ir[o])):
-                acc.append(ir[o][i].FirFilter().FilterWaveform(wfl[i]))
+                acc.append(ir[o][i].FirFilter().FilterWaveform(wfl[i])
+                           if isinstance(wfl[i],Waveform)
+                           else (wfl[i]*fr[o][i][0]).real)
                 # pragma: silent exclude
                 if self.HasACallBack():
                     progress=(float(o)/len(ir)+float(i)/(len(ir)*len(ir[o])))*100.0
@@ -68,10 +73,18 @@ class TransferMatricesProcessor(CallBacker):
             if adaptToLargest and len(acc)>1:
                 largestValue=0.0; largestIndex=0
                 for wfi in range(len(acc)):
-                    absMax=max(acc[wfi].Values('abs'))
-                    if absMax>=largestValue:
-                        largestIndex=wfi; largestValue=absMax
+                    if isinstance(acc[wfi],Waveform):
+                        absMax=max(acc[wfi].Values('abs'))
+                        if absMax>=largestValue:
+                            largestIndex=wfi; largestValue=absMax
                 acc=[acc[largestIndex]]+acc[0:largestIndex]+acc[largestIndex+1:]
+            # if the first element of the accumulator is not a waveform (a number, assuming a DC value),
+            # then rearrange so a waveform comes first.
+            if not isinstance(acc[0],Waveform):
+                for wfi in range(len(acc)):
+                    if isinstance(acc[wfi],Waveform):
+                        acc=[acc[wfi]]+acc[0:wfi]+acc[wfi+1:]
+                        break
                 # pragma: include
             result.append(sum(acc))
         return result
