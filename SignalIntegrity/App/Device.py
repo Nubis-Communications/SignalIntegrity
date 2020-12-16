@@ -285,14 +285,14 @@ class DeviceVoltageStepGenerator(Device):
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Step Generator'),PartPropertyHelp('device:Voltage-Step-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
 
-class DeviceVoltageDCGenerator(Device):
+class DeviceVoltageDCSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[
-            PartPropertyCategory('Generators'),
-            PartPropertyPartName('Voltage DC Generator'),
-            PartPropertyHelp('device:Voltage-DC-Generator'),
-            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Voltage DC Source'),
+            PartPropertyHelp('device:Voltage-DC-Source'),
+            PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyVoltageAmplitude(),
             PartPropertyWaveformType('DC')]+propertiesList,
             partPicture)
@@ -365,14 +365,14 @@ class DeviceCurrentStepGenerator(Device):
         Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyHelp('device:Current-Step-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
         PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
 
-class DeviceCurrentDCGenerator(Device):
+class DeviceCurrentDCSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
         Device.__init__(self,netlist,[
-            PartPropertyCategory('Generators'),
-            PartPropertyPartName('Current DC Generator'),
-            PartPropertyHelp('device:Current-DC-Generator'),
-            PartPropertyDefaultReferenceDesignator('CG?'),
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Current DC Source'),
+            PartPropertyHelp('device:Current-DC-Source'),
+            PartPropertyDefaultReferenceDesignator('CS?'),
             PartPropertyCurrentAmplitude(),
             PartPropertyWaveformType('DC')]+propertiesList,
             partPicture)
@@ -917,8 +917,8 @@ DeviceList=Devices([
                 DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('Two Port Voltage Step Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceStepGeneratorTwoPort()),
-                DeviceVoltageDCGenerator([PartPropertyDescription('One Port Voltage DC Generator'),PartPropertyPorts(1)],PartPictureVariableDCVoltageSourceOnePort()),
-                DeviceVoltageDCGenerator([PartPropertyDescription('Two Port Voltage DC Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+                DeviceVoltageDCSource([PartPropertyDescription('One Port Voltage DC Generator'),PartPropertyPorts(1)],PartPictureVariableDCVoltageSourceOnePort()),
+                DeviceVoltageDCSource([PartPropertyDescription('Two Port Voltage DC Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('One Port Voltage Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('Two Port Voltage Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),
                 DeviceVoltagePRBSGenerator([PartPropertyDescription('One Port Voltage PRBS Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
@@ -933,8 +933,8 @@ DeviceList=Devices([
                 DeviceCurrentSource([PartPropertyDescription('Two Port Current Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
                 DeviceCurrentStepGenerator([PartPropertyDescription('One Port Current Step Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceStepGeneratorOnePort()),
                 DeviceCurrentStepGenerator([PartPropertyDescription('Two Port Current Step Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceStepGeneratorTwoPort()),
-                DeviceCurrentDCGenerator([PartPropertyDescription('One Port Current DC Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
-                DeviceCurrentDCGenerator([PartPropertyDescription('Two Port Current DC Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
+                DeviceCurrentDCSource([PartPropertyDescription('One Port Current DC Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),
+                DeviceCurrentDCSource([PartPropertyDescription('Two Port Current DC Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('One Port Current Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),

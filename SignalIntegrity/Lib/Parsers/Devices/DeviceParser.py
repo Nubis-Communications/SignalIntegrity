@@ -48,7 +48,6 @@ class DeviceFactory(list):
     """device class factory that produces devices"""
     def __init__(self):
         """Constructor
-
         list of devices
 
         | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
@@ -226,7 +225,6 @@ class DeviceFactory(list):
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
-
         The device is assigned to self.dev and self.frequencyDependent determines whether the
         device is frequency dependent.  Frequency dependent devices are assumed to be instances
         of the class SParameters.  Otherwise, they are list of list matrices.
@@ -369,7 +367,6 @@ class DeviceParser():
     deviceFactory=DeviceFactory()
     def __init__(self,f,ports,argsList):
         """Constructor
-
         makes a device from a set of arguments
 
         The device is assigned to self.m_spf if frequencyDependent and assumed

@@ -208,10 +208,11 @@ class DeviceProperties(tk.Frame):
                     self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    partViewFrame=tk.Frame(self)
-                    partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
-                    self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
-                    self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                    if not self.device['wftype'].GetValue() == 'DC':
+                        partViewFrame=tk.Frame(self)
+                        partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+                        self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
+                        self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         keywords = [property['Keyword'] for property in self.device.propertiesList]
         if 'wffile' in keywords:
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()

@@ -488,7 +488,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceVoltageDCGenerator</ClassName>
+					<ClassName>DeviceVoltageDCSource</ClassName>
 					<PartPicture>
 						<Index>1</Index>
 						<MirroredHorizontally>True</MirroredHorizontally>
