@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-06"/>
+<meta name="create-date" content="2020-12-16"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,165 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Feed-Forward Linear Equalizer</span>
+<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Bessel Low-Pass Filter <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-107"></a>device<a class="Label" name="sub:device"> </a>
+<a class="toc" name="toc-Subsection-107"></a>Butterworth Low-Pass Filter<a class="Label" name="device:ButterworthLp"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
+<img class="embedded" src="LPF.png" alt="figure LPF.png" style="width: 126px; max-width: 420px; height: 149px; max-height: 497px;"/>
+
 </div>
 <div class="Standard">
-The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
+<table>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Property Name
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+category
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Filters
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+default reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F?
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ref
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F1
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+cutoff frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+fc
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Hz
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GHz
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+order
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+order
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+4
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Following this is often optional keyword pairs specifying the arguments for the device.
+This is a Butterworth filter of the specified order and cutoff frequency, where it reaches -3 dB.
 </div>
 <div class="Standard">
-Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+It is built as an analog filter whose frequency response is sampled.
 </div>
 <div class="Standard">
-If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-122.html#sub:DeviceParser">DeviceParser↓</a>.
+The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
+</div>
+<div class="Standard">
+Note: This element requires the installation of the scipy package, which is not automatically installed by this software.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Feed-Forward Linear Equalizer</span>
+<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Bessel Low-Pass Filter <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -1,0 +1,43 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="20" y="-32" dx="8" dy="-8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">20,-29 20,-35</polyline>
+%  <polyline lc="black">20,-36 20,-40</polyline>
+%  <polygon fill="black">17.333,-40 22.667,-40 20,-42.667 17.333,-40</polygon>
+%  <polyline lc="black">20,-24 20,-28</polyline>
+%  <polyline lw="2" lc="red">19.5,-23.5 20.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">20.5,-23.5 19.5,-24.5</polyline>
+%  <text x="26" y="-36.75" t="a 1.0 A" h="3" halign="l" lc="black"/>
+%  <text x="26" y="-33" t="ref CS1" h="3" halign="l" lc="black"/>
+%  <ellipse x="52" y="-32" dx="8" dy="-8" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">52,-29 52,-35</polyline>
+%  <polyline lc="black">52,-24 52,-28</polyline>
+%  <polyline lw="2" lc="red">51.5,-23.5 52.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">52.5,-23.5 51.5,-24.5</polyline>
+%  <polyline lc="black">52,-40 52,-36</polyline>
+%  <polyline lw="2" lc="red">51.5,-39.5 52.5,-40.5</polyline>
+%  <polyline lw="2" lc="red">52.5,-39.5 51.5,-40.5</polyline>
+%  <text x="58" y="-36.75" t="a 1.0 A" h="3" halign="l" lc="black"/>
+%  <text x="58" y="-33" t="ref CS1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (20,-32) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black, <-] (20,-29) -- (20,-35);
+\path[line width=0.30mm, draw=black] (20,-36) -- (20,-40);
+\path[line width=0.30mm, fill=black] (17.333,-40) -- (22.667,-40) -- (20,-42.667) -- (17.333,-40) -- cycle;
+\path[line width=0.30mm, draw=black] (20,-24) -- (20,-28);
+\path[line width=0.6mm, draw=red] (19.5,-23.5) -- (20.5,-24.5);
+\path[line width=0.6mm, draw=red] (20.5,-23.5) -- (19.5,-24.5);
+\draw[black] (26,-36.75) node[anchor=base west]{a 1.0 A};
+\draw[black] (26,-33) node[anchor=base west]{ref CS1};
+\path[line width=0.30mm, draw=black] (52,-32) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black, <-] (52,-29) -- (52,-35);
+\path[line width=0.30mm, draw=black] (52,-24) -- (52,-28);
+\path[line width=0.6mm, draw=red] (51.5,-23.5) -- (52.5,-24.5);
+\path[line width=0.6mm, draw=red] (52.5,-23.5) -- (51.5,-24.5);
+\path[line width=0.30mm, draw=black] (52,-40) -- (52,-36);
+\path[line width=0.6mm, draw=red] (51.5,-39.5) -- (52.5,-40.5);
+\path[line width=0.6mm, draw=red] (52.5,-39.5) -- (51.5,-40.5);
+\draw[black] (58,-36.75) node[anchor=base west]{a 1.0 A};
+\draw[black] (58,-33) node[anchor=base west]{ref CS1};
+\end{tikzpicture}%

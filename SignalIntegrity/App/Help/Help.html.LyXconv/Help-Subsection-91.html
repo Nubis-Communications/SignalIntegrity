@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-06"/>
+<meta name="create-date" content="2020-12-16"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,21 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-90.html#next">Prev</a> Unknown</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-90.html#next">Prev</a> Transresistance Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Short Standard <a class="next" name="next" href="Help-Subsection-92.html#prev">Next</a></span>
+<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-92.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-91"></a>System<a class="Label" name="device:System"> </a>
+<a class="toc" name="toc-Subsection-91"></a>Operational Amplifier<a class="Label" name="device:Operational-Amplifier"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="SystemOnePort.png" alt="figure SystemOnePort.png" style="max-width: 112px; max-height: 116px;"/>
-<img class="embedded" src="SystemTwoPort.png" alt="figure SystemTwoPort.png" style="max-width: 144px; max-height: 116px;"/>
-<img class="embedded" src="SystemTwoPortAlt.png" alt="figure SystemTwoPortAlt.png" style="max-width: 112px; max-height: 180px;"/>
-<img class="embedded" src="SystemThreePort.png" alt="figure SystemThreePort.png" style="max-width: 144px; max-height: 180px;"/>
-<img class="embedded" src="SystemThreePortAlt.png" alt="figure SystemThreePortAlt.png" style="max-width: 112px; max-height: 244px;"/>
-<img class="embedded" src="SystemFourPort.png" alt="figure SystemFourPort.png" style="max-width: 144px; max-height: 180px;"/>
-<img class="embedded" src="SystemFourPortAlt.png" alt="figure SystemFourPortAlt.png" style="max-width: 112px; max-height: 308px;"/>
+<img class="embedded" src="OperationalAmplifier.png" alt="figure OperationalAmplifier.png" style="max-width: 175px; max-height: 220px;"/>
 
 </div>
 <div class="Standard">
@@ -1107,6 +1101,24 @@ Units
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 (Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Amplifiers
 </td>
 
 </tr>
@@ -1148,19 +1160,55 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-file name
+output impedance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+zo
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 <span class="mathrm"> MΩ</span></span>
+</td>
 
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+input impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+zi
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">100 <span class="mathrm"> MΩ</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+1.0
 </td>
 
 </tr>
@@ -1169,34 +1217,15 @@ None
 
 </div>
 <div class="Standard">
-System devices are only used in <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and are used to specify the s-parameters of the system as defined by each <a class="Reference" href="Help-Subsection-75.html#device:Port">Port↑</a> in the schematic.
+The operational amplifier is an amplifier that outputs a voltage proportional to the difference between the voltages at the input terminals.
 </div>
 <div class="Standard">
-See <a class="Reference" href="Help-Subsection-15.html#sub:Defining-the-System">Defining the System↑</a> for more information on their use.
-</div>
-<div class="Standard">
-Systems are provided with fixed one, two, three, and four ports. If more ports are needed, use the variable port system.
-</div>
-<div class="Standard">
-The system is defined by placing a special part in the schematic using <a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Add-System">Add System↑</a> or by using <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Add-Part">Add Part↑</a> and selecting <a class="Reference" href="Help-Subsection-91.html#device:System">System↑</a> devices from the Systems category.
-</div>
-<div class="Standard">
-<img class="embedded" src="PartPickerSystemsCategory.png" alt="figure PartPickerSystemsCategory.png" style="max-width: 502px; max-height: 540px;"/>
-
-</div>
-<div class="Standard">
-System devices are the same as <a class="Reference" href="Help-Subsection-45.html#device:File">File↑</a> devices except their internal type.
-</div>
-<div class="Standard">
-They take an s-parameter file name in the file name property. The in the Part Properties Dialog, you can browse to the file and view the file in the S-parameter Viewer if you want.
-</div>
-<div class="Standard">
-File names can be projects. When browsing for file names, the default files type shown will be s-parameter files, but you can click on the files type and the choice of project files is shown. Then other projects can be selected as the source of the s-parameters. This allows nesting of projects. When you do this, you must ensure that the project you select for the s-parameter file is a project that produces s-parameters (i.e. a de-embedding or s-parameter generation project) and that the number of ports in the s-parameters produced matches the number of ports in your file type.
+Despite the default value of 1.0, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-90.html#next">Prev</a> Unknown</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-90.html#next">Prev</a> Transresistance Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Short Standard <a class="next" name="next" href="Help-Subsection-92.html#prev">Next</a></span>
+<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-92.html#prev">Next</a></span>
 </div>
 
 </div>

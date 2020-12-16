@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-06"/>
+<meta name="create-date" content="2020-12-16"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Reflect Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Load Standard</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
+<span class="next">Reflect Measurement <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-97"></a>Thru Measurement<a class="Label" name="device:Thru-Measurement"> </a>
+<a class="toc" name="toc-Subsection-97"></a>Thru Standard<a class="Label" name="device:Thru-Standard"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="ThruMeasureSOLT.png" alt="figure ThruMeasureSOLT.png" style="width: 149px; max-width: 597px; height: 126px; max-height: 507px;"/>
-<img class="embedded" src="ThruMeasureSOLR.png" alt="figure ThruMeasureSOLR.png" style="width: 149px; max-width: 597px; height: 126px; max-height: 507px;"/>
+<img class="embedded" src="ThruStandard.png" alt="figure ThruStandard.png" style="width: 113px; max-width: 452px; height: 111px; max-height: 447px;"/>
 
 </div>
 <div class="Standard">
@@ -1110,121 +1109,145 @@ Units
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-file name
-</div>
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+Network Analysis
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-cal standard file name
+default reference
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string or file
+string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-std
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+Thru?
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-port number
+reference
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-pn
+ref
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1
+Thru1
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-other port number
+offset delay
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-opn
+od
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-2
+0
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-calibration type
+offset characteristic impedance
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="PlainVisible">
-
-</div>
-<div class="PlainVisible">
-
-</div>
-<div class="PlainVisible">
-
-</div>
-<div class="PlainVisible">
-enum<br/>
-SOLT<br/>
-or<br/>
-SOLR
-</div>
-
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ct
+oz0
 </td>
 <td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+50
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+offset loss
+</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-SOLT
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ol
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω ⁄ <i>s</i></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+loss frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+f0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Hz
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GHz
 </td>
 
 </tr>
@@ -1233,27 +1256,15 @@ SOLT
 
 </div>
 <div class="Standard">
-Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a two-port calibration standard, specified as s-parameters, a project producing s-parameters, or as a calibration standard such as a <a class="Reference" href="Help-Subsection-95.html#device:Thru-Standard">Thru Standard↑</a>.
+Calibration standards are generally used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a <a class="Reference" href="Help-Subsection-99.html#device:Thru-Measurement">Thru Measurement↓</a>.
 </div>
 <div class="Standard">
-The file name refers to a two-port s-parameter file, or a project producing one-port s-parameters, or as the reference designator of a calibration standard placed in a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> project.
-</div>
-<div class="Standard">
-The port number corresponds to the port of a network analyzer where port 1 of the thru standard is connected. The other port number corresponds to the port of the network analyzer where port 2 of the thru standard is connected. This is properly deal with (the unusual case) of an asymmetric standard.
-</div>
-<div class="Standard">
-The calibration types support are either (Short-Open-Load-Thru) SOLT or (Short-Open-Load-Reciprocal) SOLR.
-</div>
-<div class="Standard">
-SOLT is the most typical and assumes that the thru is perfectly specified.
-</div>
-<div class="Standard">
-SOLR uses assumptions of reciprocity to recover the thru standard, using the thru standard provided as an estimate. The thru standard specified is used to resolve ambiguities in the phase. SOLR, while relying on the accuracy of the <a class="Reference" href="Help-Subsection-96.html#device:Reflect-Measurement">Reflect Measurement↑</a>, is useful when the thru standard is not precisely known or defined, hence it is also called <i>the method of the unknown thru</i>.
+The definition of the thru standard is an <i>offset</i> with given delay (s), characteristic impedance (<span class="formula">Ω</span>), and loss (<span class="formula"><span class="mathrm">GΩ</span> ⁄ <span class="mathrm">s</span></span>) (specified at the loss frequency, usually <span class="formula">1 <span class="mathrm"> GHz</span></span>).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Reflect Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-96.html#next">Prev</a> Load Standard</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
+<span class="next">Reflect Measurement <a class="next" name="next" href="Help-Subsection-98.html#prev">Next</a></span>
 </div>
 
 </div>

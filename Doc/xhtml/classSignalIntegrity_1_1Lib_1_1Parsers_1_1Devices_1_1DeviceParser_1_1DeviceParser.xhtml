@@ -95,7 +95,7 @@ Collaboration diagram for DeviceParser:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a286a7f15e5aa7761d219f91accd234c1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a286a7f15e5aa7761d219f91accd234c1">__init__</a> (self, f, ports, argsList)</td></tr>
-<tr class="memdesc:a286a7f15e5aa7761d219f91accd234c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a286a7f15e5aa7761d219f91accd234c1">More...</a><br /></td></tr>
+<tr class="memdesc:a286a7f15e5aa7761d219f91accd234c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor makes a device from a set of arguments.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a286a7f15e5aa7761d219f91accd234c1">More...</a><br /></td></tr>
 <tr class="separator:a286a7f15e5aa7761d219f91accd234c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -110,7 +110,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>contains s-parameters of devices made from a netlist line </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00376">376</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00374">374</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a286a7f15e5aa7761d219f91accd234c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a286a7f15e5aa7761d219f91accd234c1">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -150,33 +150,27 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
-<pre class="fragment">    makes a device from a set of arguments
+<p>Constructor makes a device from a set of arguments. </p>
+<p>The device is assigned to self.m_spf if frequencyDependent and assumed to be an instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a>. Otherwise, it is assigned to self.m_sp and is assumed to be a list of list matrix.</p>
+<p>The intent of this class is that "Parser" classes use this <a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml" title="contains s-parameters of devices made from a netlist line">DeviceParser</a> to parse netlist lines that have 'device' as the first token. It keeps these s-parameters and assigns them as it loops over the frequencies generating numeric solutions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>list of frequencies </td></tr>
+    <tr><td class="paramname">ports</td><td>integer number of ports </td></tr>
+    <tr><td class="paramname">argsList</td><td>list of arguments. The name of the device is the first argument. If the device has no keyword for the argument, then that argument is next. Otherwise, besides the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the keyword is a string and the value is the value of the keyword. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">SignalIntegrityExceptionDeviceParser</td><td>if the device cannot be created. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>SignalIntegrity.Parsers.SystemDescriptionParser </dd></dl>
 
-    The device is assigned to self.m_spf if frequencyDependent and assumed
-    to be an instance of class SParameters.
-    Otherwise, it is assigned to self.m_sp and is assumed to be a list of
-    list matrix.
-
-    The intent of this class is that "Parser" classes use this DeviceParser
-    to parse netlist lines that have 'device'
-    as the first token.  It keeps these s-parameters and assigns them as
-    it loops over the frequencies generating numeric
-    solutions.
-
-    @param f list of frequencies
-    @param ports integer number of ports
-    @param argsList list of arguments.  The name of the device is the
-    first argument.
-    If the device has no keyword for the argument, then that argument is next. 
-    Otherwise, besides the name and the argument with no keyword, the
-    remaining arguments come in keyword/value pairs where the
-    keyword is a string and the value is the value of the keyword.
-    @return None
-    @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
-    @see SignalIntegrity.Parsers.SystemDescriptionParser
-</pre> 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00406">406</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00403">403</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -194,7 +188,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>list of frequencies pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00411">411</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00408">408</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -211,7 +205,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>None if device is frequency dependent otherwise an instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00412">412</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00409">409</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -228,7 +222,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>None if device is not frequency dependent otherwise a list of list s-parameter matrix </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00413">413</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00410">410</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

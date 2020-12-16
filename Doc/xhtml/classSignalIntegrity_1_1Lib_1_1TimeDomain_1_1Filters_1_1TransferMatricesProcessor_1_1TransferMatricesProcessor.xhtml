@@ -125,7 +125,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
  Usually transfer matrices are produced in simulation and virtual probing solutions. </p>
 <p>The resultant waveform processing for the final results are produced using this class. </p><dl class="section see"><dt>See also</dt><dd>TransferMatrices </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00032">32</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00033">33</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5ebf8388e92aaa7273f885b0ee6d418e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ebf8388e92aaa7273f885b0ee6d418e">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -169,7 +169,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1CallBacker.xhtml">CallBacker</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00040">40</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00041">41</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
 
 </div>
 </div>
@@ -215,15 +215,15 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>processes input waveforms and produces output waveforms </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">wfl</td><td>list of <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform.xhtml">Waveform</a> input waveforms to process. </td></tr>
-    <tr><td class="paramname">td</td><td>(optional) instance of class TimeDescriptor. If this is included, all final waveforms are adapted to this descriptor. Otherwise, the sample rates of each waveform are used in the computeation of the impulse responses. </td></tr>
+    <tr><td class="paramname">wfl</td><td>list of <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform.xhtml">Waveform</a> input waveforms to process. If numbers are in the waveform list, they are assumed to be DC waveforms, that are treated specially. </td></tr>
+    <tr><td class="paramname">td</td><td>(optional) instance of class TimeDescriptor. If this is included, all final waveforms are adapted to this descriptor. Otherwise, the sample rates of each waveform are used in the computation of the impulse responses. </td></tr>
     <tr><td class="paramname">adaptToLargest</td><td>bool (optional, defaults to False) causes waveform adaption during summation to choose the waveform with the largest absolute value of a point. This helps when models have frequency responses near the end frequency and causes the adaption to resample the smaller waveforms, which have less effect. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section remark"><dt>Remarks</dt><dd>Externally, the order of the input and output waveforms are known. The input waveforms must be provided in that order and the output waveforms are produced in that order. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00059">59</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TransferMatricesProcessor_8py_source.xhtml#l00061">61</a> of file <a class="el" href="TransferMatricesProcessor_8py_source.xhtml">TransferMatricesProcessor.py</a>.</p>
 
 </div>
 </div>

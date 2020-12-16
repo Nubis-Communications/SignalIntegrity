@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-06"/>
+<meta name="create-date" content="2020-12-16"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> Butterworth Low-Pass Filter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Laplace <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
+<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-105"></a>Bessel Low-Pass Filter<a class="Label" name="device:BesselLp"> </a>
+<a class="toc" name="toc-Subsection-105"></a>Continuous Time Linear Equalizer<a class="Label" name="device:CTLE"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="LPF.png" alt="figure LPF.png" style="width: 126px; max-width: 420px; height: 149px; max-height: 497px;"/>
+<img class="embedded" src="CTLE.png" alt="figure CTLE.png" style="width: 134px; max-width: 448px; height: 239px; max-height: 797px;"/>
 
 </div>
 <div class="Standard">
@@ -1104,6 +1104,27 @@ Units
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 (Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+category
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Equalizers
 </td>
 
 </tr>
@@ -1152,42 +1173,198 @@ F1
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-cutoff frequency
+DC Gain 1
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+<div class="center">
 float
+</div>
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-fc
+<div class="center">
+gdc
+</div>
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-Hz
+<div class="center">
+dB
+</div>
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1 GHz
+<div class="center">
+-2 dB
+</div>
+
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-order
+DC Gain 2
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-order
-</td>
-<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+float
+</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-4
+<div class="center">
+gdc2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+dB
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+0 dB
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Scaled Zero Frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+400 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+LF pole/Scaled Zero Frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+flf
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+12.5 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Pole Frequency 1
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fp1
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+400 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Pole Frequency 2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fp2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+1 GHz
+</div>
+
 </td>
 
 </tr>
@@ -1196,21 +1373,48 @@ order
 
 </div>
 <div class="Standard">
-This is a Bessel filter of the specified order and cutoff frequency, where it reaches -3 dB.
+The equation for the CTLE is:
 </div>
 <div class="Standard">
-It is built as an analog filter whose frequency response is sampled.
+<div class="formula">
+<i>H</i>(<i>f</i>) = <span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i></span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fz</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i>2</span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)/(</span><span class="denominator"><span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>1</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>2</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)</span></span><span class="mbox">.</span>
+</div>
+
 </div>
 <div class="Standard">
-The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
+The default settings are reasonably set for a 1 GBaud signal (albeit with 2 dB of boost). The reasonable settings, give <span class="formula"><i>fbaud</i></span> are:
 </div>
 <div class="Standard">
-Note: This element requires the installation of the scipy package, which is not automatically installed by this software.
+<div class="formula">
+<i>fz</i> = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>flf</i> = <i>fbaud</i> ⁄ 80<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>fp</i>1 = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>fp</i>2 = <i>fbaud</i><span class="mbox">.</span>
+</div>
+
+</div>
+<div class="Standard">
+The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> Butterworth Low-Pass Filter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-104.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
 <span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Laplace <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
+<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-106.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -2292,6 +2292,23 @@ $(function() {
 <div class="line"><a name="l02212"></a><span class="lineno"> 2212</span>&#160;<span class="keyword">class </span>PartPictureVariableRelay(PartPictureVariable):</div>
 <div class="line"><a name="l02213"></a><span class="lineno"> 2213</span>&#160;    <span class="keyword">def </span>__init__(self,ports=3):</div>
 <div class="line"><a name="l02214"></a><span class="lineno"> 2214</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureRelay&#39;</span>],ports)</div>
+<div class="line"><a name="l02215"></a><span class="lineno"> 2215</span>&#160; </div>
+<div class="line"><a name="l02216"></a><span class="lineno"> 2216</span>&#160;<span class="keyword">class </span>PartPictureVcc(PartPicture):</div>
+<div class="line"><a name="l02217"></a><span class="lineno"> 2217</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02218"></a><span class="lineno"> 2218</span>&#160;        PartPicture.__init__(self,origin,[PartPin(1,(1,2),<span class="stringliteral">&#39;b&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">False</span>)],[(0,1),(2,2)],[(0,1),(2,2)],(1,0.5),orientation,mirroredHorizontally,mirroredVertically,(1,2),<span class="keyword">False</span>)</div>
+<div class="line"><a name="l02219"></a><span class="lineno"> 2219</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02220"></a><span class="lineno"> 2220</span>&#160;        ct=self.CoordinateTranslater(grid,drawingOrigin)</div>
+<div class="line"><a name="l02221"></a><span class="lineno"> 2221</span>&#160;        <span class="comment"># dot on top</span></div>
+<div class="line"><a name="l02222"></a><span class="lineno"> 2222</span>&#160;        lx=(drawingOrigin[0]+self.origin[0]+1)*grid-grid/8</div>
+<div class="line"><a name="l02223"></a><span class="lineno"> 2223</span>&#160;        ty=(drawingOrigin[1]+self.origin[1]+1)*grid-grid/8</div>
+<div class="line"><a name="l02224"></a><span class="lineno"> 2224</span>&#160;        size=grid/4</div>
+<div class="line"><a name="l02225"></a><span class="lineno"> 2225</span>&#160;        p=[ct.Translate((lx,ty)),ct.Translate((lx+size,ty+size))]</div>
+<div class="line"><a name="l02226"></a><span class="lineno"> 2226</span>&#160;        canvas.create_oval(p[0][0],p[0][1],p[1][0],p[1][1],fill=self.color,outline=self.color)</div>
+<div class="line"><a name="l02227"></a><span class="lineno"> 2227</span>&#160;        PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,<span class="keyword">False</span>,connected)</div>
+<div class="line"><a name="l02228"></a><span class="lineno"> 2228</span>&#160; </div>
+<div class="line"><a name="l02229"></a><span class="lineno"> 2229</span>&#160;<span class="keyword">class </span>PartPictureVariableDCVoltageSourceOnePort(PartPictureVariable):</div>
+<div class="line"><a name="l02230"></a><span class="lineno"> 2230</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l02231"></a><span class="lineno"> 2231</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureVoltageSourceOnePort&#39;</span>,<span class="stringliteral">&#39;PartPictureVcc&#39;</span>],1)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1PartPin_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1PartPin.xhtml">SignalIntegrity.App.PartPin</a></div><div class="ttdef"><b>Definition:</b> <a href="PartPin_8py_source.xhtml#l00001">PartPin.py:1</a></div></div>
 <!-- start footer part -->

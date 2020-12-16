@@ -97,10 +97,10 @@ Collaboration diagram for DeviceFactory:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae64f0875afe3067b97ba370b354b9213"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ae64f0875afe3067b97ba370b354b9213">__init__</a> (self)</td></tr>
-<tr class="memdesc:ae64f0875afe3067b97ba370b354b9213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ae64f0875afe3067b97ba370b354b9213">More...</a><br /></td></tr>
+<tr class="memdesc:ae64f0875afe3067b97ba370b354b9213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor list of devices.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ae64f0875afe3067b97ba370b354b9213">More...</a><br /></td></tr>
 <tr class="separator:ae64f0875afe3067b97ba370b354b9213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84bd6828768b3a1677c71d39f3cb91dd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#a84bd6828768b3a1677c71d39f3cb91dd">MakeDevice</a> (self, ports, argsList, f)</td></tr>
-<tr class="memdesc:a84bd6828768b3a1677c71d39f3cb91dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">makes a device from a set of arguments  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#a84bd6828768b3a1677c71d39f3cb91dd">More...</a><br /></td></tr>
+<tr class="memdesc:a84bd6828768b3a1677c71d39f3cb91dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">makes a device from a set of arguments The device is assigned to self.dev and self.frequencyDependent determines whether the device is frequency dependent.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#a84bd6828768b3a1677c71d39f3cb91dd">More...</a><br /></td></tr>
 <tr class="separator:a84bd6828768b3a1677c71d39f3cb91dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -131,62 +131,136 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor. </p>
-<pre class="fragment">    list of devices
+<p>Constructor list of devices. </p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">name </th><th class="markdownTableHeadCenter">ports </th><th class="markdownTableHeadCenter">arginname </th><th class="markdownTableHeadCenter">defaults </th><th class="markdownTableHeadCenter">frequency<br  />
+ dependent </th><th class="markdownTableHeadLeft">device  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">file </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SParameterFile(filename,50.)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">c </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">c=None df=0 esr=0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TerminationC(f,c,z0,df,esr)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">c </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">c=None df=0 esr=0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SeriesC(f,c,z0,df,esr)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">l </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">l=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TerminationL(f,l,z0)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">l </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">l=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SeriesL(f,l,z0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">r </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">r=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.TerminationZ(r)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">r </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">r=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.SeriesZ(r)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">rse </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">r=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SeriesRse(r)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">shunt </td><td class="markdownTableBodyCenter">2-4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">r=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.ShuntZ(ports,r)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">m </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">m=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.Mutual(f,m)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">ground </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Ground()  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">open </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Open()  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">thru </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Thru()  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">directional<br  />
+ coupler </td><td class="markdownTableBodyCenter">3-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.DirectionalCoupler(ports)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">termination </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">zeros(shape=(ports,ports)).tolist()  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">tee </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Tee(ports)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">mixedmode </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">'power' </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.MixedModeConverter()<br  />
+ or dev.MixedModeConverterVoltage()  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">ideal<br  />
+ transformer </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">tr=1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealTransformer(tr)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">voltage<br  />
+ controlled<br  />
+ voltage<br  />
+ source </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">gain=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.VoltageControlledVoltageSource(gain)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">current<br  />
+ controlled<br  />
+ current<br  />
+ source </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">gain=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.CurrentControlledCurrentSource(gain)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">current<br  />
+ controlled<br  />
+ voltage<br  />
+ source </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">gain=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.CurrentControlledVoltageSource(gain)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">voltage<br  />
+ controlled<br  />
+ current<br  />
+ source </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">gain=None </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.VoltageControlledCurrentSource(gain)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">voltage<br  />
+ amplifier </td><td class="markdownTableBodyCenter">2-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gain=None zo=0 zi=1e8 z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.VoltageAmplifier(ports,gain,zi,zo)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">current<br  />
+ amplifier </td><td class="markdownTableBodyCenter">2-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gain=None zo=1e8 zi=0 z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.CurrentAmplifier(ports,gain,zi,zo)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">transresistance<br  />
+ amplifier </td><td class="markdownTableBodyCenter">2-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gain=None zo=0 zi=0 z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.TransresistanceAmplifier(ports,gain,zi,zo)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">transconductance<br  />
+ amplifier </td><td class="markdownTableBodyCenter">2-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gain=None zo=1e8 zi=1e8 z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.TransconductanceAmplifier(ports,gain,zi,zo)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">opamp </td><td class="markdownTableBodyCenter">3 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.OperationalAmplifier(zi,zd,zo,gain,z0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">tline </td><td class="markdownTableBodyCenter">2,4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">zc=50 td=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineLossless(f,ports,zc,td)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">telegrapher </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineTwoPortRLGC(<br  />
+ f,r,rse,l,g,c,df,z0,sect,scale)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">telegrapher </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">rp=0 rsep=0 lp=0 cp=0<br  />
+ dfp=0 gp=0 rn=0 rsen=0<br  />
+ ln=0 cn=0 dfn=0 gn=0<br  />
+ lm 0 gm=0 z0=50<br  />
+ scale=1.0 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineDifferentialRLGC(<br  />
+ f,rp,rsep,lp,gp,cp,dfp,<br  />
+ rn,rsen,ln,gn,cn,dfn,<br  />
+ cm,dfm,gm,lm,z0,sect,scale)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">rlgcfit </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">file=None scale=1.0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">fit.RLGCFitFromFile(f,file,scale,Z0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">w </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None df=0 scale=1.0 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.WElementFile(f,filename,df,50.,sect,scale)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">shortstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9<br  />
+ l0=0 l1=0.0 l2=0 l3=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.ShortStandard(f,od,oz0,ol,f0,l0,l1,l2,l3)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">openstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9<br  />
+ c0=0 c1=0 c2=0 c3=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">loadstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9 tz=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.LoadStandard(f,od,oz0,ol,f0,tz0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">thrustd </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.ThruStandard(f,od,oz0,ol,f0)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">networkanalyzer </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">file=None, et=None, pl=None, cd=calculate </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">bessellp </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">order=4 fc=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.BesselLowPassFilter(f,order,fc,50.)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">butterworthlp </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">order=4 fc=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.BesselLowPassFilter(f,order,fc,50.)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">ctle </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gdc=None gdc2=None fz=None flf=None fp1=None fp2=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">ffe </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">taps='[1.0]' td=None pre=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.FFE(f,td,taps,pre,50.)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">laplace </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">eq </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.Laplace(f,eq)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">relay </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">pos=0 term=1e9 Z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealRelay(ports,pos,term,z0  </td></tr>
+</table>
+<dl class="section note"><dt>Note</dt><dd>ports any mean None supplied. comma or dash separated ports are supplied as a string. </dd>
+<dd>
+arginname means the argument is supplied without a keyword. The first default argument has the actual name of the argument. </dd>
+<dd>
+frequency dependent devices usually come from 'sp.dev' meaning <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices.xhtml">SParameters.Devices</a> package. <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices.xhtml">Devices</a> that are not frequency dependent come from 'dev' meaning devices. 'm.calkit.std' refers to '<a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards.xhtml">Measurement.CalKit.Standards</a>' package. </dd>
+<dd>
+Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used. </dd></dl>
 
-    | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
-    |:-------------------------------------:|:---:|:-------:|:---------------------------------------------------------------------------------------------:|:-------------------:|:------------------------------------------------------------------------------------------------|
-    |file                                   |any  |True     |filename=None                                                                                  | True                |sp.dev.SParameterFile(filename,50.)                                                              |
-    |c                                      |1    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.TerminationC(f,c,z0,df,esr)                                                               |
-    |c                                      |2    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.SeriesC(f,c,z0,df,esr)                                                                    |
-    |l                                      |1    |True     |l=None                                                                                         | True                |sp.dev.TerminationL(f,l,z0)                                                                      |
-    |l                                      |2    |True     |l=None                                                                                         | True                |sp.dev.SeriesL(f,l,z0)                                                                           |
-    |r                                      |1    |True     |r=None                                                                                         | False               |dev.TerminationZ(r)                                                                              |
-    |r                                      |2    |True     |r=None                                                                                         | False               |dev.SeriesZ(r)                                                                                   |
-    |rse                                    |2    |True     |r=None                                                                                         | True                |sp.dev.SeriesRse(r)                                                                              |
-    |shunt                                  |2-4  |True     |r=None                                                                                         | False               |dev.ShuntZ(ports,r)                                                                              |
-    |m                                      |4    |True     |m=None                                                                                         | True                |sp.dev.Mutual(f,m)                                                                               |
-    |ground                                 |1    |False    |                                                                                               | False               |dev.Ground()                                                                                     |
-    |open                                   |1    |False    |                                                                                               | False               |dev.Open()                                                                                       |
-    |thru                                   |2    |False    |                                                                                               | False               |dev.Thru()                                                                                       |
-    |directional\n coupler                  |3-4  |False    |                                                                                               | False               |dev.DirectionalCoupler(ports)                                                                    |
-    |termination                            |any  |False    |                                                                                               | False               |zeros(shape=(ports,ports)).tolist()                                                              |
-    |tee                                    |any  |False    |                                                                                               | False               |dev.Tee(ports)                                                                                   |
-    |mixedmode                              |4    |True     |'power'                                                                                        | False               |dev.MixedModeConverter()\n or dev.MixedModeConverterVoltage()                                    |
-    |ideal\n transformer                    |4    |True     |tr=1                                                                                           | False               |dev.IdealTransformer(tr)                                                                         |
-    |voltage\n controlled\n voltage\n source|4    |True     |gain=None                                                                                      | False               |dev.VoltageControlledVoltageSource(gain)                                                         |
-    |current\n controlled\n current\n source|4    |True     |gain=None                                                                                      | False               |dev.CurrentControlledCurrentSource(gain)                                                         |
-    |current\n controlled\n voltage\n source|4    |True     |gain=None                                                                                      | False               |dev.CurrentControlledVoltageSource(gain)                                                         |
-    |voltage\n controlled\n current\n source|4    |True     |gain=None                                                                                      | False               |dev.VoltageControlledCurrentSource(gain)                                                         |
-    |voltage\n amplifier                    |2-4  |False    |gain=None zo=0 zi=1e8 z0=50                                                                    | False               |dev.VoltageAmplifier(ports,gain,zi,zo)                                                           |
-    |current\n amplifier                    |2-4  |False    |gain=None zo=1e8 zi=0 z0=50                                                                    | False               |dev.CurrentAmplifier(ports,gain,zi,zo)                                                           |
-    |transresistance\n amplifier            |2-4  |False    |gain=None zo=0 zi=0 z0=50                                                                      | False               |dev.TransresistanceAmplifier(ports,gain,zi,zo)                                                   |
-    |transconductance\n amplifier           |2-4  |False    |gain=None zo=1e8 zi=1e8 z0=50                                                                  | False               |dev.TransconductanceAmplifier(ports,gain,zi,zo)                                                  |
-    |opamp                                  |3    |False    |zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50                                                              | False               |dev.OperationalAmplifier(zi,zd,zo,gain,z0)                                                       |
-    |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
-    |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
-    |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
-    |rlgcfit                                |2    |False    |file=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                             |
-    |w                                      |2-16 |True     |filename=None df=0 scale=1.0 sect=0                                                            | True                |sp.dev.WElementFile(f,filename,df,50.,sect,scale)                                                |
-    |shortstd                               |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n l0=0 l1=0.0 l2=0 l3=0                                                | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,f0,l0,l1,l2,l3)                                           |
-    |openstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n c0=0 c1=0 c2=0 c3=0                                                  | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)                                            |
-    |loadstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9 tz=50                                                                  | True                |m.calkit.std.LoadStandard(f,od,oz0,ol,f0,tz0)                                                    |
-    |thrustd                                |2    |False    |od=0 oz0=50 ol=0 f0=1e9                                                                        | True                |m.calkit.std.ThruStandard(f,od,oz0,ol,f0)                                                        |
-    |networkanalyzer                        |any  |False    |file=None, et=None, pl=None, cd=calculate                                                      | True                |m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')                                        |
-    |bessellp                               |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
-    |butterworthlp                          |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
-    |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
-    |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
-    |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
-    |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0                                                                 |
-
-    @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
-    @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
-    @note frequency dependent devices usually come from 'sp.dev' meaning SParameters.Devices package.  Devices that are not frequency dependent
-    come from 'dev' meaning devices.  'm.calkit.std' refers to 'Measurement.CalKit.Standards' package.
-    @note Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used.
-</pre> 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00111">111</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00110">110</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -229,21 +303,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>makes a device from a set of arguments </p>
-<pre class="fragment">    The device is assigned to self.dev and self.frequencyDependent determines whether the
-    device is frequency dependent.  Frequency dependent devices are assumed to be instances
-    of the class SParameters.  Otherwise, they are list of list matrices.
+<p>makes a device from a set of arguments The device is assigned to self.dev and self.frequencyDependent determines whether the device is frequency dependent. </p>
+<p>Frequency dependent devices are assumed to be instances of the class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a>. Otherwise, they are list of list matrices.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ports</td><td>integer number of ports </td></tr>
+    <tr><td class="paramname">argsList</td><td>list of arguments. The name of the device is the first argument. If the device has no keyword for the argument, then that argument is next. Otherwise, besides the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the keyword is a string and the value is the value of the keyword. </td></tr>
+    <tr><td class="paramname">f</td><td>list of frequencies </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean whether the device was created. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">SignalIntegrityExceptionDeviceParser</td><td>if the device cannot be created. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-    @param ports integer number of ports
-    @param argsList list of arguments.  The name of the device is the first argument.
-    If the device has no keyword for the argument, then that argument is next.  Otherwise, besides
-    the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the
-    keyword is a string and the value is the value of the keyword.
-    @param f list of frequencies
-    @return boolean whether the device was created.
-    @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
-</pre> 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00249">249</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00247">247</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -261,7 +339,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> or list of list matrix when not frequency dependent. </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00294">294</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00292">292</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -278,7 +356,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>boolean whether dev is frequency dependent. pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00352">352</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00350">350</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
