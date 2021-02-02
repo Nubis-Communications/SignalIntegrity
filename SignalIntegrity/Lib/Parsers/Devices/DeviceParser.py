@@ -219,7 +219,7 @@ class DeviceFactory(list):
         ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,\
             float(arg['td']),eval(arg['']),eval(arg['pre']),50.)"),
         ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),50.)"),
-        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',True,{'':0,'term':1e9,
+        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9,
             'z0':50.},False,"IdealRelay(ports,int(arg['']),float(arg['term']),\
             float(arg['z0']))")
         ]))

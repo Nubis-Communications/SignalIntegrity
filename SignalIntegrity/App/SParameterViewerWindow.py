@@ -99,6 +99,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowExcessInductanceDoer = Doer(self.onShowExcessInductance).AddHelpElement('Control-Help:Show-Excess-Inductance').AddToolTip('Show excess inductance in plots')
         self.ShowExcessCapacitanceDoer = Doer(self.onShowExcessCapacitance).AddHelpElement('Control-Help:Show-Excess-Capacitance').AddToolTip('Show excess capacitance in plots')
         self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale').AddToolTip('Show frequency plots log scale')
+        self.LinearVerticalScaleDoer = Doer(self.onLinearVerticalScale).AddHelpElement('Control-Help:Linear-Vertical-Scale').AddToolTip('Show frequency plots linear vertical scale')
         # ------
         self.Zoom={
             'AreSParameterLike':False,
@@ -171,6 +172,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=13)
         self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=12)
         self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4)
+        self.LinearVerticalScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Linear Vertical Scale',underline=8)
         #-------
         ZoomMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Zoom',menu=ZoomMenu,underline=0)
@@ -460,6 +462,11 @@ class SParametersDialog(tk.Toplevel):
 
     def onLogScale(self):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']=self.LogScaleDoer.Bool()
+        SignalIntegrity.App.Preferences.SaveToFile()
+        self.PlotSParameter()
+
+    def onLinearVerticalScale(self):
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.LinearVerticalScale']=self.LinearVerticalScaleDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
 
@@ -818,6 +825,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowExcessInductanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessInductance'])
         self.ShowExcessCapacitanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'])
         self.LogScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'])
+        self.LinearVerticalScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LinearVerticalScale'])
         self.Zoom['Frequencies']['JoinWithin'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin'])
         self.Zoom['Times']['JoinWithin'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin'])
         self.Zoom['Frequencies']['JoinWithOthers'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers'])
@@ -932,7 +940,7 @@ class SParametersDialog(tk.Toplevel):
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
 
-        y=fr.Response('dB')
+        y=fr.Response('mag') if self.LinearVerticalScaleDoer.Bool() else fr.Response('dB')
 
         self.freqLabel=ToSI(fr.Frequencies()[-1],'Hz')[-3:]
         freqLabelDivisor=FromSI('1. '+self.freqLabel,'Hz')
@@ -1004,7 +1012,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftPlot.set_ylim(bottom=self.topLeftPlotProperties['MinY'])
         self.topLeftPlot.set_ylim(top=self.topLeftPlotProperties['MaxY'])
 
-        self.topLeftPlot.set_ylabel('magnitude (dB)',fontsize=10)
+        self.topLeftPlot.set_ylabel('magnitude (abs)'  if self.LinearVerticalScaleDoer.Bool() else 'magnitude (dB)',fontsize=10)
         self.topLeftPlot.set_xlabel('frequency ('+self.freqLabel+')',fontsize=10)
 
         if self.ShowGridsDoer.Bool():

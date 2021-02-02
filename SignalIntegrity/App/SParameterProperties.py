@@ -54,6 +54,7 @@ class PlotProperties(XMLConfiguration):
             self.Add(XMLPropertyDefaultBool('ShowExcessInductance',False))
             self.Add(XMLPropertyDefaultBool('ShowExcessCapacitance',False))
             self.Add(XMLPropertyDefaultBool('LogScale',False))
+            self.Add(XMLPropertyDefaultBool('LinearVerticalScale',False))
 
 class ZoomJoinProperties(XMLConfiguration):
     def __init__(self):

@@ -179,7 +179,7 @@ class SignalIntegrityAppHeadless(object):
     def config(self,cursor=None):
         pass
 
-    def CalculateSParameters(self):
+    def CalculateSParameters(self,callback=None):
         import SignalIntegrity.Lib as si
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
@@ -202,6 +202,8 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
+        if not callback == None:
+            spnp.InstallCallback(callback)
         spnp.AddLines(netListText)
         try:
             sp=spnp.SParameters()
@@ -209,7 +211,7 @@ class SignalIntegrityAppHeadless(object):
             return None
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
-    def Simulate(self):
+    def Simulate(self,callback=None):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if self.Drawing.canSimulateNetworkAnalyzerModel:
@@ -227,6 +229,8 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
+        if not callback == None:
+            snp.InstallCallback(callback)
         snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
@@ -397,8 +401,9 @@ class SignalIntegrityAppHeadless(object):
         """
         devices=self.Drawing.schematic.deviceList
         for device in devices:
-            if device['ref']['Value']==ref:
-                return device
+            if device['ref'] != None:
+                if device['ref']['Value'] == ref:
+                    return device
         return None
 
     def SimulateNetworkAnalyzerModel(self,SParameters=False):
