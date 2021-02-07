@@ -19,8 +19,10 @@ Schematic.py
 import sys
 if sys.version_info.major < 3:
     import Tkinter as tk
+    from Tkinter import ttk
 else:
     import tkinter as tk
+    from tkinter import ttk
 
 import copy
 
@@ -1524,7 +1526,11 @@ class Drawing(tk.Frame):
     def __init__(self,parent):
         tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.tabControl=ttk.Notebook(self)
+        self.tab1=ttk.Frame(self.tabControl)
+        self.tabControl.add(self.tab1,text='Page 1')
+        self.tabControl.pack(expand=1,fill=tk.BOTH)
+        self.canvas = tk.Canvas(self.tab1,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
         self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
