@@ -440,6 +440,23 @@ class EquationsConfiguration(XMLConfiguration):
             pplines[l]['Line']=lines[l]
         self['Lines']=pplines
 
+class PageConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Page')
+        self.Add(XMLPropertyDefaultString('Name','Page 1'))
+        self.SubDir(DrawingConfiguration())
+        from SignalIntegrity.App.Wire import WireList
+        self['Drawing.Schematic'].dict['Wires']=WireList()
+
+class ProjectConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Project')
+        self.Add(XMLPropertyDefaultString('Name','Main'))
+        self.SubDir(CalculationProperties())
+        self.SubDir(PostProcessingConfiguration())
+        self.Add(XMLProperty('Pages',[PageConfiguration() for _ in range(0)],'array',arrayType=PageConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
@@ -448,6 +465,8 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(PostProcessingConfiguration())
         self.SubDir(VariablesConfiguration())
         self.SubDir(EquationsConfiguration())
+        self.Add(XMLProperty('Projects',[ProjectConfiguration() for _ in range(0)],'array',arrayType=ProjectConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
@@ -456,10 +475,39 @@ class ProjectFile(ProjectFileBase):
         # end of backward compatibility to be removed some day
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
+    def New(self):
+        self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
+        self['Selected']=0
+        selected=self['Projects'][0]
+        selected.dict['CalculationProperties']=self['CalculationProperties']
+        selected.dict['PostProcessing']=self['PostProcessing']
+        selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
+        selected['Selected']=0
+        selectedPage=selected['Pages'][0]
+        selectedPage['Name']='Page 1'
+        selectedPage.dict['Drawing']=self['Drawing']
+        return self
 
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
+            if self['Projects'] == []:
+                self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
+                self['Selected']=0
+                selected=self['Projects'][0]
+                selected.dict['CalculationProperties']=self['CalculationProperties']
+                selected.dict['PostProcessing']=self['PostProcessing']
+                selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
+                selected['Selected']=0
+                selectedPage=selected['Pages'][0]
+                selectedPage['Name']='Page 1'
+                selectedPage.dict['Drawing']=self['Drawing']
+            else:
+                selected=self['Projects'][0]
+                self.dict['CalculationProperties']=selected['CalculationProperties']
+                self.dict['PostProcessing']=selected['PostProcessing']
+                selectedPage=selected['Pages'][0]
+                self.dict['Drawing']=selectedPage['Drawing']
         return self
 
     def Write(self,app,filename=None):
@@ -488,8 +536,32 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
+        selectedProject=self['Projects'][self['Selected']]
+        selectedProject.dict['CalculationProperties']=self['CalculationProperties']
+        selectedProject.dict['PostProcessing']=self['PostProcessing']
+        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+        selectedPage.dict['Drawing']=self['Drawing']
         if not filename is None:
             ProjectFileBase.Write(self,filename)
+            projectCopy=copy.deepcopy(self)
+            del projectCopy.dict['CalculationProperties']
+            del projectCopy.dict['PostProcessing']
+            del projectCopy.dict['Drawing']
+            # Now, after all of this, decide whether we want to save in legacy format
+            legacyFormat=True
+            if legacyFormat and len(self['Projects']) != 1: legacyFormat = False
+            if legacyFormat and self['Projects'][0]['Name'] != 'Main': legacyFormat = False
+            if legacyFormat and len(self['Projects'][0]['Pages']) != 1: legacyFormat = False
+            # if there is only one project, the project has the default name, and has only one page,
+            # then store it in the legacy format.
+            if legacyFormat:
+                projectCopy.dict['CalculationProperties']=self['Projects'][0]['CalculationProperties']
+                projectCopy.dict['PostProcessing']=self['Projects'][0]['PostProcessing']
+                projectCopy.dict['Drawing']=self['Projects'][0]['Pages'][0]['Drawing']
+                del(projectCopy.dict['Selected'])
+                del(projectCopy.dict['Projects'])
+                projectCopy.baseName='Project'
+            ProjectFileBase.Write(projectCopy,filename)
         return self
 
     @staticmethod
