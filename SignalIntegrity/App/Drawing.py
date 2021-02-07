@@ -58,10 +58,11 @@ class SchematicCanvas(tk.Canvas):
         return tk.Canvas._create(self,itemType,args,kwargs)
 
 class Drawing(tk.Frame):
-    def __init__(self,parent):
+    def __init__(self,parent,root):
         tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = SchematicCanvas(self,parent.displayScale,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.root=root
+        self.canvas = SchematicCanvas(self,root.displayScale,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
         self.BuildTearOffMenus()
@@ -69,26 +70,26 @@ class Drawing(tk.Frame):
         self.InstallStateMachine()
     def DisplayGrid(self):
         grid=SignalIntegrity.App.Project['Drawing.DrawingProperties']['Grid']
-        return grid*self.parent.displayScale
+        return grid*self.root.displayScale
     def ProjectGeometry(self):
-        geometry=self.parent.root.geometry()
+        geometry=self.root.root.geometry()
         if sys.platform.startswith('linux'):
-            geometry=ScaleWindowGeometry(geometry,1.0/self.parent.displayScale)
+            geometry=ScaleWindowGeometry(geometry,1.0/self.root.displayScale)
         return geometry
     def BuildTearOffMenus(self):
         self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
         self.wireTearOffMenu=tk.Menu(self, tearoff=0)
         self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
-        if self.parent.ReadOnly():
+        if self.root.ReadOnly():
             return
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
         self.deviceTearOffMenu.add_command(label='Convert',command=self.ConvertSelectedDevice)
-        self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
-        self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
-        self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
+        self.canvasTearOffMenu.add_command(label='Add Part',command=self.root.onAddPart)
+        self.canvasTearOffMenu.add_command(label='Add Wire',command=self.root.onAddWire)
+        self.canvasTearOffMenu.add_command(label='Add Port',command=self.root.onAddPort)
         self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
         self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
         self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
@@ -99,10 +100,10 @@ class Drawing(tk.Frame):
         """builds the state machine matching the current read-only mode, preserving the state"""
         state=None if self.stateMachine is None else self.stateMachine.state
         self.BuildTearOffMenus()
-        if self.parent.ReadOnly():
-            self.stateMachine = DrawingStateMachineReadOnly(self)
+        if self.root.ReadOnly():
+            self.stateMachine = DrawingStateMachineReadOnly(self,self.root)
         else:
-            self.stateMachine = DrawingStateMachine(self)
+            self.stateMachine = DrawingStateMachine(self,self.root)
         if state is not None:
             self.stateMachine.state=state
             self.stateMachine.ForceIntializeState()
@@ -204,40 +205,40 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         canGenerateTransferMatrices = (canSimulate and foundASource and foundAnOutput) or canVirtualProbe
-        writable = not self.parent.ReadOnly()
-        self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
-        self.parent.TransferParametersDoer.Activate(canGenerateTransferMatrices)
-        self.parent.CalculateDoer.Activate(canCalculate)
-        self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
-        self.parent.RLGCDoer.Activate(canRLGC)
-        self.parent.VirtualProbeDoer.Activate(canVirtualProbe)
-        self.parent.DeembedDoer.Activate(canDeembed)
-        self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
-        self.parent.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
-        self.parent.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
-        self.parent.ClearProjectDoer.Activate(foundSomething and writable)
-        self.parent.ExportNetListDoer.Activate(foundSomething)
-        self.parent.ExportTpXDoer.Activate(foundSomething)
-        self.parent.ExportPngDoer.Activate(foundSomething)
-        self.parent.PanDoer.Activate(foundSomething and writable)
-        self.parent.ZoomInDoer.Activate(foundSomething and writable)
-        self.parent.ZoomOutDoer.Activate(foundSomething and writable)
+        writable = not self.root.ReadOnly()
+        self.root.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
+        self.root.TransferParametersDoer.Activate(canGenerateTransferMatrices)
+        self.root.CalculateDoer.Activate(canCalculate)
+        self.root.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
+        self.root.RLGCDoer.Activate(canRLGC)
+        self.root.VirtualProbeDoer.Activate(canVirtualProbe)
+        self.root.DeembedDoer.Activate(canDeembed)
+        self.root.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
+        self.root.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
+        self.root.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
+        self.root.ClearProjectDoer.Activate(foundSomething and writable)
+        self.root.ExportNetListDoer.Activate(foundSomething)
+        self.root.ExportTpXDoer.Activate(foundSomething)
+        self.root.ExportPngDoer.Activate(foundSomething)
+        self.root.PanDoer.Activate(foundSomething and writable)
+        self.root.ZoomInDoer.Activate(foundSomething and writable)
+        self.root.ZoomOutDoer.Activate(foundSomething and writable)
         return canvas
     def EditSelectedDevice(self):
-        if self.parent.ReadOnly():
+        if self.root.ReadOnly():
             return
         if self.stateMachine.state=='DeviceSelected':
-            dpe=DevicePropertiesDialog(self.parent,self.deviceSelected)
+            dpe=DevicePropertiesDialog(self.root,self.deviceSelected)
             if dpe.result != None:
                 self.deviceSelected = dpe.result
                 self.schematic.deviceList[self.deviceSelectedIndex] = self.deviceSelected
                 self.schematic.Consolidate()
                 self.DrawSchematic()
-                self.parent.history.Event('edit device')
+                self.root.history.Event('edit device')
     def ViewSelectedDevice(self,action):
         if self.stateMachine.state=='DeviceSelected':
             from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction
-            PerformDeviceViewAction(self.parent,self.deviceSelected,action)
+            PerformDeviceViewAction(self.root,self.deviceSelected,action)
     def DuplicateSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             self.partLoaded=copy.deepcopy(self.deviceSelected)
@@ -276,13 +277,13 @@ class Drawing(tk.Frame):
     def DeleteSelectedDevice(self):
         del self.schematic.deviceList[self.deviceSelectedIndex]
         self.stateMachine.Nothing()
-        self.parent.history.Event('delete device')
+        self.root.history.Event('delete device')
     def ConvertSelectedDevice(self):
-        self.parent.onConvertPart()
+        self.root.onConvertPart()
     def DeleteSelectedVertex(self):
         del SignalIntegrity.App.Project['Drawing.Schematic.Wires'][self.w]['Vertices'][self.v]
         self.stateMachine.Nothing()
-        self.parent.history.Event('delete vertex')
+        self.root.history.Event('delete vertex')
     def DuplicateSelectedVertex(self):
         wireProject=SignalIntegrity.App.Project['Drawing.Schematic.Wires'][self.w]
         vertexProject=copy.deepcopy(wireProject['Vertices'][self.v])
@@ -292,7 +293,7 @@ class Drawing(tk.Frame):
     def DeleteSelectedWire(self):
         del SignalIntegrity.App.Project['Drawing.Schematic.Wires'][self.w]
         self.stateMachine.Nothing()
-        self.parent.history.Event('delete wire')
+        self.root.history.Event('delete wire')
     def DeleteMultipleSelections(self,advanceStateMachine=True):
         newDeviceList=[]
         for device in self.schematic.deviceList:
@@ -312,7 +313,7 @@ class Drawing(tk.Frame):
         self.schematic.deviceList=newDeviceList
         if advanceStateMachine:
             self.stateMachine.Nothing()
-        self.parent.history.Event('delete selections')
+        self.root.history.Event('delete selections')
     def CutMultipleSelections(self):
         if self.stateMachine.state=='Multiple Selections':
             self.DuplicateMultipleSelections(False)
@@ -387,8 +388,8 @@ class Drawing(tk.Frame):
         #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
         geometry=drawingProperties['Geometry'].split('+')[0]
         if sys.platform.startswith('linux'):
-            geometry=ScaleWindowGeometry(geometry,self.parent.displayScale)
-        self.parent.root.geometry(geometry)
+            geometry=ScaleWindowGeometry(geometry,self.root.displayScale)
+        self.root.root.geometry(geometry)
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = None

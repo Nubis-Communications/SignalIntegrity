@@ -57,6 +57,9 @@ from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+from SignalIntegrity.App.Projects import Projects
+from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage
@@ -347,15 +350,17 @@ class SignalIntegrityApp(tk.Frame):
         self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
         self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
 
-        # The Drawing (which contains the schecmatic)
-        self.Drawing=Drawing(self)
-        self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        SignalIntegrity.App.Project=ProjectFile()
+
+        self.InternalProjects=Projects(self)
+        self.InternalProjects.InitFromProject()
+        # The Drawing (which contains the schematic)
+        #self.Drawing=Drawing(self)
+        #self.InternalProjects.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
 
         self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
         self.root.bind('<Key>',self.onKey)
 
-        SignalIntegrity.App.Project=ProjectFile()
-        self.Drawing.InitFromProject()
 
         if pwd == None:
             pwd = SignalIntegrity.App.Preferences['ProjectFiles.Encryption.Password']
@@ -463,6 +468,10 @@ class SignalIntegrityApp(tk.Frame):
     def onMinimize(self,event):
         if not self.root.winfo_viewable():
             self.root.deiconify()
+
+    @property
+    def Drawing(self):
+        return self.InternalProjects.Drawing()
 
     def onResize(self,event):
         if not self.knowDelta:
@@ -642,6 +651,7 @@ class SignalIntegrityApp(tk.Frame):
             self.SetVariables(args, reportMissing=True)
             self.readOnly=self.ResolveReadOnly(self.readOnlyRequested if readOnly is None else readOnly)
             self.Drawing.InitFromProject()
+            self.InternalProjects.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
@@ -662,14 +672,13 @@ class SignalIntegrityApp(tk.Frame):
             return
 
         self.simulator.DeleteDialogs()
-
-        SignalIntegrity.App.Project=ProjectFile()
+        SignalIntegrity.App.Project=ProjectFile().New()
         SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
         self.readOnly=False
         self.openArgs={}
         self.argsChangedProject=False
+        self.InternalProjects.InitFromProject()
         self.Drawing.InstallStateMachine()
-        self.Drawing.InitFromProject()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
         self.SaveProjectToFile(filename)
