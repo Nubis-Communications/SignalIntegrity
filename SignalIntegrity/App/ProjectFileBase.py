@@ -278,6 +278,7 @@ class ProjectFileBase(object):
         self.dict={}
         self.ext=ext.strip('.')
         self.makeOnRead={}
+        self.baseName='SignalIntegrity'
 
     def Add(self,property):
         self.dict[property.dict['name']]=property
@@ -291,10 +292,10 @@ class ProjectFileBase(object):
 
     def OutputXML(self):
         lines=[]
-        lines=lines+['<Project>']
+        lines=lines+[f'<{self.baseName}>']
         for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
-        lines=lines+['</Project>']
+        lines=lines+[f'</{self.baseName}>']
         for line in lines:
             print(line)
         return self
@@ -312,10 +313,10 @@ class ProjectFileBase(object):
 
     def LinesToWrite(self):
         lines=[]
-        lines=lines+['<Project>']
+        lines=lines+[f'<{self.baseName}>']
         for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
-        lines=lines+['</Project>']
+        lines=lines+[f'</{self.baseName}>']
         lines=["%s\n" % l for l in lines]
         return lines
 
