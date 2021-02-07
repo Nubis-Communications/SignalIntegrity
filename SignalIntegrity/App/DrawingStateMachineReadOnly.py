@@ -31,7 +31,7 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
     exists solely to edit, so they all redirect to Nothing.
     """
     def ActivateDoers(self):
-        app=self.parent.parent
+        app=self.root
         app.NewProjectDoer.Activate(True)
         app.OpenProjectDoer.Activate(True)
         app.CloseProjectDoer.Activate(True)
@@ -97,7 +97,7 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             self.UnselectAllDevices()
             self.UnselectAllWires()
             Doer.inHelp = False
-            self.parent.parent.config(cursor='left_ptr')
+            self.root.config(cursor='left_ptr')
             for sequence in ['<Button-1>','<Shift-Button-1>','<Shift-B1-Motion>',
                              '<Shift-ButtonRelease-1>','<Control-Button-1>','<Control-B1-Motion>',
                              '<Control-ButtonRelease-1>','<Button-3>','<Control-Button-3>','<B1-Motion>',
@@ -108,8 +108,8 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             self.parent.canvas.bind('<Control-Button-3>',self.onControlMouseButton3_Nothing)
             self.parent.focus_set()
             self.ActivateDoers()
-            self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
-            self.parent.parent.statusbar.set('Read Only')
+            self.root.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
+            self.root.statusbar.set('Read Only')
             self.parent.DrawSchematic()
 
     def onMouseButton3_Nothing(self,event):
@@ -155,7 +155,7 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
 
     def ViewDevice(self,device,action):
         from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction
-        PerformDeviceViewAction(self.parent.parent,device,action)
+        PerformDeviceViewAction(self.root,device,action)
         if action == 'file':
             self.UnselectAllDevices()
             self.parent.DrawSchematic()
