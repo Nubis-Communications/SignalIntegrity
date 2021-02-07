@@ -59,6 +59,7 @@ from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+from SignalIntegrity.App.Projects import Projects
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
@@ -285,6 +286,7 @@ class SignalIntegrityApp(tk.Frame):
         self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
         self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
 
+        self.InternalProjects=Projects(self)
         # The Drawing (which contains the schecmatic)
         self.Drawing=Drawing(self)
         self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)

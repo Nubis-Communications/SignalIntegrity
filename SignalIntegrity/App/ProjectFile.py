@@ -203,12 +203,29 @@ class PostProcessingConfiguration(XMLConfiguration):
             goodlines=[]
         return goodlines
 
+class PageConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Page')
+        self.Add(XMLPropertyDefaultString('Name','Page 1'))
+        self.SubDir(DrawingConfiguration())
+
+class ProjectConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Project')
+        self.Add(XMLPropertyDefaultString('Name',''))
+        self.SubDir(CalculationProperties())
+        self.SubDir(PostProcessingConfiguration())
+        self.Add(XMLProperty('Pages',[PageConfiguration() for _ in range(0)],'array',arrayType=PageConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        self.Add(XMLProperty('Projects',[ProjectConfiguration() for _ in range(0)],'array',arrayType=ProjectConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
