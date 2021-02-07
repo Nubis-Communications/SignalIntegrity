@@ -21,4 +21,4 @@ __init__.py
 
 from __future__ import absolute_import
 
-from .TestArchive import TestArchive
+from .TestArchive import TestArchive,TestArchiveProjects

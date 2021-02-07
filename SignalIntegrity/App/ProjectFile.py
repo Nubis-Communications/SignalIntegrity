@@ -41,6 +41,14 @@ def ArchiveFile(path):
         EquationArchiveFiles.append((os.getcwd(),ResolveFileName(os.path.abspath(str(path)))))
     return path
 
+def _DevicePreferences():
+    import SignalIntegrity.App
+    preferences=getattr(SignalIntegrity.App,'Preferences',None)
+    if preferences is not None and not hasattr(preferences,'__spec__'):
+        return preferences['Devices']
+    from SignalIntegrity.App.PreferencesFile import DeviceConfigurations
+    return DeviceConfigurations()
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -104,15 +112,15 @@ class DeviceConfiguration(XMLConfiguration):
         self.Add(XMLProperty('PartProperties',[PartPropertyConfiguration() for _ in range(0)],'array',arrayType=PartPropertyConfiguration()))
         self.SubDir(VariablesConfiguration())
         self.SubDir(DeviceNetListConfiguration())
-        import SignalIntegrity.App.Preferences
-        for key in SignalIntegrity.App.Preferences['Devices'].dict.keys():
-            self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices'][key]),makeOnRead=True)
+        devices=_DevicePreferences()
+        for key in devices.dict.keys():
+            self.SubDir(copy.deepcopy(devices[key]),makeOnRead=True)
         # backwards compatibility: legacy projects stored the (voltage) noise
         # configuration under the <Noise> tag before the voltage/current split.
         # Register a read-only alias so those files still load; on save the
         # device writes the configuration under its new <VoltageNoise> tag.
-        if 'VoltageNoise' in SignalIntegrity.App.Preferences['Devices'].dict.keys():
-            legacyNoise=copy.deepcopy(SignalIntegrity.App.Preferences['Devices']['VoltageNoise'])
+        if 'VoltageNoise' in devices.dict.keys():
+            legacyNoise=copy.deepcopy(devices['VoltageNoise'])
             legacyNoise.name='Noise'
             legacyNoise.write=False
             self.SubDir(legacyNoise,makeOnRead=True)
@@ -595,7 +603,6 @@ class ProjectPropertiesConfiguration(XMLConfiguration):
         if not self.dict['ReadOnly'].value:
             return []
         return XMLConfiguration.OutputXML(self,indent)
-
 class SchematicPageConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Page')
@@ -604,7 +611,27 @@ class SchematicPageConfiguration(XMLConfiguration):
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
+class ProjectConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Project')
+        self.Add(XMLPropertyDefaultString('Name','Main'))
+        self.SubDir(DrawingConfiguration())
+        from SignalIntegrity.App.Wire import WireList
+        self['Drawing.Schematic'].dict['Wires']=WireList()
+        self.Add(XMLPropertyDefaultString('FirstPageName','Main',writeDefault=False))
+        self.Add(XMLProperty('Pages',[],'array',arrayType=SchematicPageConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
+        self.Add(XMLPropertyDefaultBool('GeometryIncludesTabs',False,writeDefault=False))
+        self.SubDir(CalculationProperties())
+        self.SubDir(PostProcessingConfiguration())
+        self.SubDir(VariablesConfiguration())
+        self.SubDir(EquationsConfiguration())
+        self.SubDir(PictureConfiguration())
+
 class ProjectFile(ProjectFileBase):
+    projectFields=('Drawing','FirstPageName','Pages','GeometryIncludesTabs',
+                   'CalculationProperties','PostProcessing','Variables','Equations','Picture')
+
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(ProjectPropertiesConfiguration())
@@ -618,14 +645,93 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(VariablesConfiguration())
         self.SubDir(EquationsConfiguration())
         self.SubDir(PictureConfiguration())
+        self.Add(XMLProperty('Projects',[ProjectConfiguration() for _ in range(0)],'array',arrayType=ProjectConfiguration()))
+        self.Add(XMLPropertyDefaultInt('Selected',0))
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
-        import SignalIntegrity.App.Preferences
-        self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices']['EyeDiagram']),makeOnRead=True)
+        self.SubDir(copy.deepcopy(_DevicePreferences()['EyeDiagram']),makeOnRead=True)
         # end of backward compatibility to be removed some day
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
+        self._createInitialProject()
+
+    def _createInitialProject(self):
+        project=ProjectConfiguration()
+        for field in self.projectFields:
+            project.dict[field]=self.dict[field]
+        self['Projects']=[project]
+        self['Selected']=0
+
+    def New(self):
+        self.__init__()
+        return self
+
+    def _captureProject(self):
+        project=self['Projects'][self['Selected']]
+        for field in self.projectFields:
+            project.dict[field]=self.dict[field]
+        project['Selected']=self.activePage
+
+    def _bindProject(self,index):
+        project=self['Projects'][index]
+        self['Selected']=index
+        for field in self.projectFields:
+            self.dict[field]=project.dict[field]
+        self.activePage=max(0,min(project['Selected'] or 0,len(project['Pages'])))
+        for name in ('variablesDefinition','equationsDefinition'):
+            self.__dict__.pop(name,None)
+
+    def SelectProject(self,index):
+        """Select a project by zero-based index, retaining its current page."""
+        if not isinstance(index,int) or index < 0 or index >= len(self['Projects']):
+            raise IndexError('project index out of range')
+        self._captureProject()
+        self._bindProject(index)
+        return self
+
+    def AddProject(self,name=None,source=None,sourceIndex=None):
+        """Append a blank project or a deep copy from a ProjectFile; return its index."""
+        if source is None:
+            project=ProjectConfiguration()
+        else:
+            if not isinstance(source,ProjectFile):
+                raise TypeError('source must be a ProjectFile')
+            source._captureProject()
+            index=source['Selected'] if sourceIndex is None else sourceIndex
+            if not isinstance(index,int) or index < 0 or index >= len(source['Projects']):
+                raise IndexError('source project index out of range')
+            project=copy.deepcopy(source['Projects'][index])
+        if name is not None:
+            project['Name']=name
+        self['Projects'].append(project)
+        return len(self['Projects'])-1
+
+    def ImportProject(self,source,sourceIndex=None,name=None):
+        """Append an independent copy of a project from another ProjectFile."""
+        return self.AddProject(name=name,source=source,sourceIndex=sourceIndex)
+
+    def ExtractProject(self,index):
+        """Return an independent ProjectFile containing only the indexed project."""
+        if not isinstance(index,int) or index < 0 or index >= len(self['Projects']):
+            raise IndexError('project index out of range')
+        self._captureProject()
+        extracted=copy.deepcopy(self)
+        extracted['Projects']=[extracted['Projects'][index]]
+        extracted._bindProject(0)
+        return extracted
+
+    def DeleteProject(self,index):
+        """Delete a project, selecting a surviving project if necessary."""
+        if not isinstance(index,int) or index < 0 or index >= len(self['Projects']):
+            raise IndexError('project index out of range')
+        if len(self['Projects']) == 1:
+            raise ValueError('cannot delete the last project')
+        self._captureProject()
+        selected=self['Selected']
+        del self['Projects'][index]
+        self._bindProject(min(selected-(index < selected),len(self['Projects'])-1))
+        return self
 
     def PageDrawings(self):
         return [self.dict['Drawing']]+[page['Drawing'] for page in self['Pages']]
@@ -667,16 +773,54 @@ class ProjectFile(ProjectFileBase):
         drawing,suffix=self.DrawingPath(path)
         return super().SetValue(path,value) if drawing is None else drawing.SetValue(suffix,value)
 
+    def LinesToWrite(self):
+        self._captureProject()
+        snapshot=copy.copy(self)
+        snapshot.dict=self.dict.copy()
+        if len(self['Projects']) == 1 and self['Projects'][0]['Name'] == 'Main':
+            del snapshot.dict['Projects']
+            del snapshot.dict['Selected']
+        return ProjectFileBase.LinesToWrite(snapshot)
+
+    def ToDictionary(self):
+        self._captureProject()
+        result=super().ToDictionary()
+        if len(self['Projects']) == 1 and self['Projects'][0]['Name'] == 'Main':
+            del result['Projects']
+            del result['Selected']
+        return result
+
     def FromText(self,text):
-        self['Pages']=[]
-        self['FirstPageName']='Main'
-        self['GeometryIncludesTabs']=False
-        self.dict['Drawing']['Schematic.Devices']=[]
-        self.dict['Drawing']['Schematic.Wires']=[]
-        self['Variables.Items']=[]
-        self['Equations.Lines']=[]
-        super().FromText(text)
-        self.activePage=min(self.activePage,len(self['Pages']))
+        import xml.etree.ElementTree as ET
+        root=ET.fromstring(''.join(text))
+        candidate=ProjectFile()
+        ProjectFileBase.Parse(candidate,root)
+        projectsElement=root.find('Projects')
+        if projectsElement is None:
+            candidate._captureProject()
+            candidate.activePage=min(self.activePage,len(candidate['Pages']))
+        else:
+            elements=list(projectsElement)
+            projects=candidate['Projects']
+            if not elements or len(elements) != len(projects):
+                raise ValueError('invalid project list')
+            for project,element in zip(projects,elements):
+                if element.find('Drawing') is None:
+                    pages=project['Pages']
+                    if not pages:
+                        raise ValueError('legacy project has no pages')
+                    project.dict['Drawing']=pages[0].dict['Drawing']
+                    project['FirstPageName']=pages[0]['Name']
+                    project['Pages']=pages[1:]
+                    for field in ('Variables','Equations','Picture','GeometryIncludesTabs'):
+                        if element.find(field) is None:
+                            project.dict[field]=copy.deepcopy(candidate.dict[field])
+            index=candidate['Selected']
+            if not isinstance(index,int) or index < 0 or index >= len(projects):
+                raise ValueError('invalid selected project')
+            candidate._bindProject(index)
+        candidate.SetChanged(True)
+        self.__dict__.update(candidate.__dict__)
         return self
 
     def Read(self,filename=None):
@@ -716,7 +860,6 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
-
     @staticmethod
     def EvaluateSafely(equations,sendargs,returnargs):
         # proposed solution Sam McD-S:

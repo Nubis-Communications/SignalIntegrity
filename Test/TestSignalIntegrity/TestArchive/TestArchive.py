@@ -440,5 +440,172 @@ class TestArchive(unittest.TestCase):
         finally:
             os.chdir(currentDir)
 
+class TestArchiveProjects(unittest.TestCase):
+    def setUp(self):
+        import uuid
+        import SignalIntegrity.App as App
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        self.cwd=os.getcwd()
+        self.directory=os.path.abspath('archive-project-test-'+uuid.uuid4().hex)
+        os.mkdir(self.directory)
+        self.project=App.Project
+        self.preferences=App.Preferences
+        self.stack=SignalIntegrityAppHeadless.projectStack
+        self.stackContents=self.stack.stack[:]
+        self.addCleanup(self.cleanup)
+
+    def cleanup(self):
+        import SignalIntegrity.App as App
+        os.chdir(self.cwd)
+        App.Project=self.project
+        App.Preferences=self.preferences
+        self.stack.stack[:]=self.stackContents
+        shutil.rmtree(self.directory)
+
+    def makeProject(self):
+        import copy
+        from SignalIntegrity.App.ProjectFile import ProjectFile,SchematicPageConfiguration,VariableConfiguration
+        from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
+        fixture=os.path.join(os.path.dirname(__file__),'..','TestSParameterFile','Reordered.si')
+        template=ProjectFile().Read(fixture)['Drawing.Schematic.Devices'][0]
+        def device(filename):
+            result=copy.deepcopy(template)
+            for prop in result['PartProperties']:
+                if prop['Keyword']=='file':
+                    prop['Value']=filename
+            return result
+        for name in ('inactive.s4p','second.s4p','live.s4p','equation.csv','equation_data','nested.csv'):
+            with open(os.path.join(self.directory,name),'w') as stream:
+                stream.write('data')
+        nested=ProjectFile().New()
+        nestedVariable=VariableConfiguration()
+        nestedVariable['Name']='data'
+        nestedVariable['Type']='file'
+        nestedVariable['Value']='missing.s4p'
+        nested['Variables.Items']=[nestedVariable]
+        nested.AddProject('NestedInactive')
+        nested.SelectProject(1)
+        nested['Equations'].PutTextString("ArchiveFile('nested.csv')")
+        nested.SelectProject(0)
+        ProjectFileBase.Write(nested,os.path.join(self.directory,'nested.si'))
+        project=ProjectFile().New()
+        project.AddProject('Inactive')
+        project.SelectProject(1)
+        project['Drawing.Schematic.Devices']=[device('=path')]
+        variable=VariableConfiguration()
+        variable['Name']='path'
+        variable['Type']='file'
+        variable['Value']='unused.s4p'
+        variable['ReadOnly']=True
+        subprojectVariable=VariableConfiguration()
+        subprojectVariable['Name']='subproject'
+        subprojectVariable['Type']='file'
+        subprojectVariable['Value']='nested.si'
+        project['Variables.Items']=[variable,subprojectVariable]
+        project['Equations'].PutTextString(
+            "path = 'inactive.s4p'\nArchiveFile('equation.csv')\nArchiveFile('equation_data')")
+        page=SchematicPageConfiguration()
+        page['Name']='Other page'
+        childDevice=device('=subproject')
+        childArg=VariableConfiguration()
+        childArg['Name']='data'
+        childArg['Type']='file'
+        childArg['Value']='second.s4p'
+        childDevice['Variables.Items']=[childArg]
+        page['Drawing.Schematic.Devices']=[device('second.s4p'),childDevice]
+        project['Pages']=[page]
+        project.SelectProject(0)
+        filename=os.path.join(self.directory,'parent.si')
+        ProjectFileBase.Write(project,filename)
+        return filename,device('live.s4p')
+
+    def test_inactive_projects_pages_and_nested_dependencies(self):
+        import SignalIntegrity.App as App
+        import SignalIntegrity.App.ProjectFile as PF
+        from SignalIntegrity.App.Device import DeviceFromProject
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        filename,liveConfig=self.makeProject()
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile(filename))
+        original=App.Project
+        liveDevice=DeviceFromProject(liveConfig).result
+        app.Drawing.schematic.deviceList.append(liveDevice)
+        before=original.LinesToWrite()
+        stackMarker=('outer nesting',self.cwd)
+        self.stack.stack.append(stackMarker)
+        stackBefore=self.stack.stack[:]
+        current=os.getcwd()
+        result=Archive().BuildArchiveDictionary(app,original['Variables'].Dictionary())
+        self.assertEqual(os.getcwd(),current)
+        self.assertIs(App.Project,original)
+        self.assertEqual(original['Selected'],0)
+        self.assertEqual(original.LinesToWrite(),before)
+        self.assertEqual(original['Projects'][1]['Variables.Items'][0]['Value'],'unused.s4p')
+        self.assertIs(app.Drawing.schematic.deviceList[0],liveDevice)
+        self.assertEqual(self.stack.stack,stackBefore)
+        self.assertFalse(PF.RecordingArchiveFiles)
+        names={os.path.basename(entry['file']) for entry in result}
+        self.assertTrue({'parent.si','inactive.s4p','second.s4p','live.s4p',
+                         'equation.csv','equation_data','nested.si','nested.csv'}.issubset(names),names)
+        destination=os.path.join(self.directory,'output')
+        result.CopyArchiveFilesToDestination(destination)
+        for name in ('inactive.s4p','second.s4p','live.s4p','equation.csv','equation_data','nested.si','nested.csv'):
+            self.assertTrue(os.path.isfile(os.path.join(destination,name)),name)
+
+    def test_missing_inactive_dependency_restores_state(self):
+        import SignalIntegrity.App as App
+        import SignalIntegrity.App.ProjectFile as PF
+        from SignalIntegrity.App.Archive import SignalIntegrityExceptionArchive
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        filename,_=self.makeProject()
+        os.remove(os.path.join(self.directory,'inactive.s4p'))
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile(filename))
+        original=App.Project
+        stackBefore=self.stack.stack[:]
+        current=os.getcwd()
+        with self.assertRaises(SignalIntegrityExceptionArchive):
+            Archive().BuildArchiveDictionary(app,{})
+        self.assertIs(App.Project,original)
+        self.assertEqual(original['Selected'],0)
+        self.assertEqual(self.stack.stack,stackBefore)
+        self.assertEqual(os.getcwd(),current)
+        self.assertFalse(PF.RecordingArchiveFiles)
+
+    def test_external_scan_preserves_outer_recording(self):
+        import SignalIntegrity.App as App
+        import SignalIntegrity.App.ProjectFile as PF
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        filename,_=self.makeProject()
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile(filename))
+        original=App.Project
+        recording=PF.RecordingArchiveFiles
+        files=PF.EquationArchiveFiles[:]
+        marker=(self.directory,'outer.csv')
+        try:
+            PF.RecordingArchiveFiles=True
+            PF.EquationArchiveFiles[:]=[marker]
+            result=Archive().BuildArchiveDictionary(filename,{},external=True)
+            self.assertTrue(PF.RecordingArchiveFiles)
+            self.assertEqual(PF.EquationArchiveFiles,[marker])
+            self.assertIs(App.Project,original)
+            self.assertIn('nested.csv',[os.path.basename(entry['file']) for entry in result])
+        finally:
+            PF.RecordingArchiveFiles=recording
+            PF.EquationArchiveFiles[:]=files
+
+    def test_copy_failure_is_reported(self):
+        from unittest.mock import patch
+        from SignalIntegrity.App.Archive import SignalIntegrityExceptionArchive
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        filename,_=self.makeProject()
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile(filename))
+        archive=Archive().BuildArchiveDictionary(app,{})
+        with patch.object(shutil,'copy2',side_effect=OSError('copy failed')):
+            with self.assertRaises(SignalIntegrityExceptionArchive):
+                archive.CopyArchiveFilesToDestination(os.path.join(self.directory,'output'))
+
 if __name__ == '__main__':
     unittest.main()

@@ -117,6 +117,102 @@ class TestSchematicPages(unittest.TestCase):
              patch('tkinter.simpledialog.askstring',return_value='Imported'):
             self.app.onAddSchematicPageFromProject()
 
+    def test_project_tabs_keep_pages_and_variables_independent(self):
+        import SignalIntegrity.App
+        self.addPage()
+        with patch('SignalIntegrity.App.SignalIntegrityApp.AskOpenFileName',return_value=self.source):
+            self.app.onImportProjectTab()
+        project=SignalIntegrity.App.Project
+        self.assertEqual(self.app.projectTabs.cget('style'),'Project.TNotebook')
+        self.app.root.update()
+        self.assertLess(self.app.projectTabs.winfo_rootx(),self.app.Drawing.canvas.winfo_rootx())
+        self.assertEqual(project.PageNames(),['Main','Not imported'])
+        self.assertEqual(project['Variables'].Names(),['newvar','sourcefile'])
+        self.assertEqual(project['Equations'].GetTextString(),'newvar=3')
+        self.assertEqual(len(self.app.Drawing.schematic.CircuitDevices()),3)
+        value=project['Variables.Items'][1]['Value']
+        self.assertEqual(os.path.normcase(os.path.abspath(os.path.join(self.targetDir,value))),
+                         os.path.normcase(str(self.sourceDir/'other.s2p')))
+        project['Variables.Items'][0]['Value']='7'
+        project['Equations'].PutTextString('newvar=7')
+        self.app.projectTabs.select(0)
+        self.app.root.update()
+        self.assertEqual(project.PageNames(),['Main','Imported'])
+        self.assertEqual(project['Variables'].Names(),['x','channel'])
+        self.assertEqual(project['Equations'].GetTextString(),'x=2')
+        self.assertEqual(len(self.app.Drawing.schematic.CircuitDevices()),5)
+        self.app.SaveProjectToFile(self.target)
+        self.app.OpenProjectFile(self.target,showError=False,readOnly=False)
+        project=SignalIntegrity.App.Project
+        self.app.projectTabs.select(1)
+        self.app.root.update()
+        self.assertEqual(project.PageNames(),['Main','Not imported'])
+        self.assertEqual(project['Variables.Items'][0]['Value'],'7')
+        self.assertEqual(project['Equations'].GetTextString(),'newvar=7')
+        output=str(self.targetDir/'single-page.si')
+        with patch('SignalIntegrity.App.SignalIntegrityApp.AskSaveAsFilename',return_value=output):
+            self.app.onSaveSchematicPage(0)
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        exported=ProjectFile().Read(output)
+        self.assertEqual(len(exported['Projects']),1)
+        self.assertEqual(exported.PageNames(),['Main'])
+        self.assertEqual(exported['Variables'].Names(),['newvar','sourcefile'])
+
+    def test_project_tab_add_delete_undo_redo(self):
+        import SignalIntegrity.App
+        with patch('tkinter.simpledialog.askstring',return_value='Second'):
+            self.app.onAddProjectTab()
+        project=SignalIntegrity.App.Project
+        self.assertEqual([p['Name'] for p in project['Projects']],['Main','Second'])
+        self.assertEqual(project['Variables'].Names(),[])
+        with patch('SignalIntegrity.App.SignalIntegrityApp.messagebox.askyesno',return_value=True):
+            self.app.onDeleteProjectTab(1)
+        self.assertEqual([p['Name'] for p in project['Projects']],['Main'])
+        self.app.history.Undo()
+        self.assertEqual([p['Name'] for p in project['Projects']],['Main','Second'])
+        self.assertEqual(len(self.app.projectTabs.tabs()),2)
+        self.app.history.Redo()
+        self.assertEqual([p['Name'] for p in project['Projects']],['Main'])
+        self.assertEqual(len(self.app.projectTabs.tabs()),1)
+
+    def test_read_only_project_tabs_allow_navigation_but_not_edits(self):
+        import SignalIntegrity.App
+        with patch('tkinter.simpledialog.askstring',return_value='Second'):
+            self.app.onAddProjectTab()
+        self.app.SetReadOnly(True)
+        self.app.projectTabs.select(0)
+        self.app.root.update()
+        self.assertEqual(SignalIntegrity.App.Project['Selected'],0)
+        with patch('tkinter.simpledialog.askstring') as name, \
+             patch('SignalIntegrity.App.SignalIntegrityApp.AskOpenFileName') as picker, \
+             patch('SignalIntegrity.App.SignalIntegrityApp.messagebox.askyesno') as confirm:
+            self.app.onAddProjectTab()
+            self.app.onImportProjectTab()
+            self.app.onDeleteProjectTab(1)
+        name.assert_not_called()
+        picker.assert_not_called()
+        confirm.assert_not_called()
+        self.assertEqual(len(SignalIntegrity.App.Project['Projects']),2)
+
+    def test_import_multiple_project_tabs(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
+        source=ProjectFile().Read(self.source)
+        source.AddProject(name='Other')
+        ProjectFileBase.Write(source,self.source)
+        with patch('SignalIntegrity.App.SignalIntegrityApp.AskOpenFileName',return_value=self.source), \
+             patch('SignalIntegrity.App.SignalIntegrityApp.ProjectImportOptionsDialog',
+                   return_value=SimpleNamespace(result=[0,1])):
+            self.app.onImportProjectTab()
+        project=SignalIntegrity.App.Project
+        self.assertEqual([item['Name'] for item in project['Projects']],['Main','source','Other'])
+        self.assertEqual(project['Selected'],2)
+        self.assertEqual(project['Variables'].Names(),[])
+        self.app.projectTabs.select(1)
+        self.app.root.update()
+        self.assertEqual(project['Variables'].Names(),['newvar','sourcefile'])
+
     def test_add_and_save_page_project(self):
         import SignalIntegrity.App
         from SignalIntegrity.App.ProjectFile import ProjectFile

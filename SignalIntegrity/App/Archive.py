@@ -24,6 +24,8 @@ import stat
 import time
 import zipfile
 import glob
+import copy
+import sys
 
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.FileNameMangling import MangledFileName,ResolveFileName
@@ -86,136 +88,136 @@ class Archive(list):
         import SignalIntegrity.App.Project
         import SignalIntegrity.App.ProjectFile
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.Schematic import Schematic
         currentPath=os.getcwd()
+        originalSysPath=sys.path[:]
+        originalProject=SignalIntegrity.App.Project
+        originalPreferences=SignalIntegrity.App.Preferences
+        stack=SignalIntegrityAppHeadless.projectStack
+        originalStack=stack.stack
+        stackContents=originalStack[:]
+        previousRecording=SignalIntegrity.App.ProjectFile.RecordingArchiveFiles
+        previousFiles=SignalIntegrity.App.ProjectFile.EquationArchiveFiles[:]
         SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=True
         SignalIntegrity.App.ProjectFile.EquationArchiveFiles.clear()
+        scanned=set()
+
+        def findElement(filename,fileargs):
+            return next((entry for entry in self
+                         if entry['file']==filename and entry['args']==fileargs),None)
+
+        def addReference(filename,fileargs,referencingDir,descend=True):
+            filename=ResolveFileName(os.path.abspath(os.path.join(referencingDir,filename)),referencingDir)
+            if not os.path.isfile(filename):
+                raise SignalIntegrityExceptionArchive('Referenced file not found: '+filename)
+            entry=findElement(filename,fileargs)
+            if entry is None:
+                entry={'file':filename,'descended':not descend or not filename.lower().endswith('.si'),
+                       'devices':[],'args':fileargs}
+                self.append(entry)
+            elif descend and filename.lower().endswith('.si') and id(entry) not in scanned:
+                entry['descended']=False
+            dirs=entry.setdefault('referencedByDirs',[])
+            if referencingDir not in dirs:
+                dirs.append(referencingDir)
+            return entry
+
+        def scan(app,thisFile,fileargs,entry):
+            scanned.add(id(entry))
+            model=SignalIntegrity.App.Project
+            selected=model['Selected']
+            liveDevices=list(app.Drawing.schematic.CircuitDevices())
+            working=copy.deepcopy(model)
+            projectDir=os.path.dirname(os.path.abspath(thisFile))
+            for index in range(len(working['Projects'])):
+                working.SelectProject(index)
+                SignalIntegrity.App.Project=working
+                os.chdir(projectDir)
+                error=working.EvaluateEquations(force=True)
+                if error is not None:
+                    raise SignalIntegrityExceptionArchive(
+                        'Equations failed in '+thisFile+' project '+str(index)+': '+str(error))
+                os.chdir(projectDir)
+                if index==selected:
+                    devices=liveDevices
+                else:
+                    schematic=Schematic()
+                    schematic.InitFromProject()
+                    devices=schematic.CircuitDevices()
+                    expected=sum(len(drawing['Schematic.Devices']) for drawing in working.PageDrawings())
+                    if len(devices)!=expected:
+                        raise SignalIntegrityExceptionArchive(
+                            'Could not load every device in '+thisFile+' project '+str(index))
+
+                for device in devices:
+                    deviceArgs={}
+                    for variable in device.variablesList:
+                        value=variable.Value()
+                        if variable['Type']=='file':
+                            value=ResolveFileName(os.path.abspath(value))
+                        deviceArgs[variable['Name']]=value
+                    if device['element_state'] is not None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
+                        continue
+                    for property in device.propertiesList:
+                        if property['Type']!='file':
+                            continue
+                        value=property.GetValue()
+                        if not value or value=='None':
+                            continue
+                        if value.startswith('='):
+                            raise SignalIntegrityExceptionArchive('Unresolved file property: '+value)
+                        filename=ResolveFileName(os.path.abspath(value))
+                        addReference(filename,deviceArgs,projectDir)
+                        entry['devices'].append({'Ref':device['ref']['Value'],
+                                                 'Keyword':property['Keyword'],
+                                                 'File':filename,'args':deviceArgs})
+                for variable in working['Variables.Items']:
+                    if variable['Type']=='file':
+                        value=variable.Value()
+                        if value and value!='None':
+                            if value.startswith('='):
+                                raise SignalIntegrityExceptionArchive('Unresolved file variable: '+value)
+                            addReference(value,{},projectDir,descend=False)
+            entry['descended']=True
+
         try:
             if not isinstance(parent,str):
-                thisFile=os.path.abspath(parent.fileparts.FileNameWithExtension())
+                thisFile=os.path.abspath(os.path.join(parent.fileparts.AbsoluteFilePath(),
+                                                       parent.fileparts.FileNameWithExtension()))
                 app=parent
                 fileargs=args
             else:
-                thisFile=parent
+                thisFile=os.path.abspath(parent)
                 app=SignalIntegrityAppHeadless()
-                app.projectStack.Push()
-                if external:
-                    external=False
-                    fileargs=args
-                else:
-                    fileargs=SignalIntegrity.App.Project['Variables'].Dictionary()
+                fileargs=args if external else originalProject['Variables'].Dictionary()
                 if not app.OpenProjectFile(thisFile,args=fileargs):
-                    app.projectStack.Pull()
-                    return self
- 
-            initial=True
-
-            done=False
-            while not done:
-                if not initial:
-                    done=True
-                    for element in self:
-                        thisFile=element['file']
-                        if not element['descended']:
-                            done=False
-                            break
-                    if not done:
-                        app=SignalIntegrityAppHeadless()
-                        app.projectStack.Push()
-                        fileargs=element['args']
-                        if not app.OpenProjectFile(thisFile,args=fileargs):
-                            app.projectStack.Pull()
-                            dict.__init__(self,{})
-                            raise SignalIntegrityExceptionArchive('During archiving:',thisFile+' could not be opened')
-                            return self
-
-
-                    else: # done building the archive dictionary
-                        done=True
-                else:
-                    initial=False
-                if not done:
-                    #Force equations to evaluate so that variabels are propagated correctly
-                    SignalIntegrity.App.Project.EvaluateEquations(force=True)
-                    for device in app.Drawing.schematic.CircuitDevices():
-                        args={}
-                        for variable in device.variablesList:
-                            name=variable['Name']
-                            value=variable.Value()
-                            if variable['Type'] == 'file':
-                                value=ResolveFileName(os.path.abspath(value))
-                            args[name]=value
-                        # skip only devices that are removed or bypassed in the netlist
-                        # (see NetList.py); any other element state (including None or '')
-                        # keeps the device, so its referenced files must still be archived
-                        if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
-                            continue
-                        for property in device.propertiesList:
-                            if property['Type']=='file':
-                                filename=os.path.abspath(property.GetValue())
-                                if len(os.path.basename(filename).split('.')) != 2:
-                                    continue # file name does not have an extension
-                                # a mangled copy in this project's directory always wins,
-                                # whether or not the original location can be reached
-                                filename=ResolveFileName(filename)
-                                if not thisFile in [fileelement['file'] for fileelement in self]:
-                                    element={'file':thisFile,
-                                             'descended':True,
-                                             'devices':[{'Ref':device['ref']['Value'],
-                                                         'Keyword':property['Keyword'],
-                                                         'File':filename,
-                                                         'args':args}],
-                                             'args':fileargs}
-                                    self.append(element)
-                                else:
-                                    try:
-                                        element
-                                    except NameError:
-                                        element=self[[fileelement['file'] for fileelement in self].index(thisFile)]
-                                    element['devices'].append({'Ref':device['ref']['Value'],
-                                                               'Keyword':property['Keyword'],
-                                                               'File':filename,
-                                                               'args':args})
-                                if not filename in [fileelement['file'] for fileelement in self]:
-                                    self.append({'file':filename,
-                                                 'descended':(not filename.endswith('.si')),
-                                                 'devices':[],
-                                                 'args':args})
-                                else:
-                                    # this file is in the list, but now a check is made to ensure that the file, if a project file
-                                    # was opened with the same arguments.  If not, we must add a duplicate file to the list with the
-                                    # new, different set of arguments.
-                                    for newElement in self:
-                                        if newElement['file'] == filename:
-                                            if newElement['args'] != args:
-                                                self.append({'file':filename,
-                                                             'descended':(not filename.endswith('.si')),
-                                                             'devices':[],
-                                                             'args':args})
-                                                break
-                    if not thisFile in [fileelement['file'] for fileelement in self]: # does not reference any files
-                        element = {'file':thisFile,
-                                     'descended':True,
-                                     'devices':[],
-                                     'args':{}}
-                        self.append(element)
-                    element['descended']=True # done searching for file devices in this project
-                    if hasattr(app, 'projectStack') and (app.projectStack.stack != []):
-                        app.projectStack.Pull()
+                    raise SignalIntegrityExceptionArchive('During archiving: '+thisFile+' could not be opened')
+            entry=findElement(thisFile,fileargs)
+            if entry is None:
+                entry={'file':thisFile,'descended':False,'devices':[],'args':fileargs}
+                self.append(entry)
+            scan(app,thisFile,fileargs,entry)
+            while True:
+                entry=next((item for item in self if not item['descended']),None)
+                if entry is None:
+                    break
+                thisFile=entry['file']
+                fileargs=entry['args']
+                app=SignalIntegrityAppHeadless()
+                if not app.OpenProjectFile(thisFile,args=fileargs):
+                    raise SignalIntegrityExceptionArchive('During archiving: '+thisFile+' could not be opened')
+                scan(app,thisFile,fileargs,entry)
             # include files declared inside equations via ArchiveFile()
             for equationProjectDir,equationFile in SignalIntegrity.App.ProjectFile.EquationArchiveFiles:
-                if len(os.path.basename(equationFile).split('.')) < 2:
-                    continue
-                if equationFile not in [fileelement['file'] for fileelement in self]:
-                    self.append({'file':equationFile,
-                                 'descended':True,
-                                 'devices':[],
-                                 'args':{},
-                                 'referencedBy':equationProjectDir})
-        except Exception as e:
-            print(e)
-            raise(e)
+                addReference(equationFile,{},equationProjectDir)['descended']=True
         finally:
-            SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=False
+            SignalIntegrity.App.Project=originalProject
+            SignalIntegrity.App.Preferences=originalPreferences
+            originalStack[:]=stackContents
+            stack.stack=originalStack
+            SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=previousRecording
+            SignalIntegrity.App.ProjectFile.EquationArchiveFiles[:]=previousFiles
+            sys.path[:]=originalSysPath
             os.chdir(currentPath)
         return self
     def _MangledDestinations(self,filename,elementIndex,archiveDir):
@@ -233,6 +235,8 @@ class Archive(list):
         if mangledName=='':
             return []
         referencingDirList=[]
+        referencingDirList.extend(directory.replace('\\','/') for directory in
+                                  self[elementIndex].get('referencedByDirs',[]))
         referencedBy=self[elementIndex].get('referencedBy',None)
         if not referencedBy is None:
             referencingDirList.append(referencedBy.replace('\\','/'))
@@ -321,7 +325,8 @@ class Archive(list):
                                             shutil.copy2(src=cache_srcfile,dst=cache_dstfile)
                                             shutil.copystat(src=cache_srcfile,dst=cache_dstfile)
                 except Exception as e:
-                    print(e)
+                    raise SignalIntegrityExceptionArchive(
+                        'Could not archive '+srcfile+' to '+destfile+': '+str(e)) from e
             # go through all of the files, straightening out the relative path references
             straighten_paths = False
             if straighten_paths:
@@ -390,7 +395,8 @@ class Archive(list):
                         shutil.copy2(src=srcfile,dst=destfile)
                     shutil.copystat(src=srcfile,dst=destfile)
                 except Exception as e:
-                    print(e)
+                    raise SignalIntegrityExceptionArchive(
+                        'Could not archive '+srcfile+' to '+destfile+': '+str(e)) from e
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 for device in element['devices']:

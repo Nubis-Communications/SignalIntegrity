@@ -59,6 +59,7 @@ from SignalIntegrity.App.Theme import ApplyTheme, ContrastRatio
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage
@@ -79,6 +80,21 @@ class PageImportOptionsDialog(simpledialog.Dialog):
 
     def apply(self):
         self.result=(self.importVariables.get(),self.importEquations.get())
+
+class ProjectImportOptionsDialog(simpledialog.Dialog):
+    def __init__(self,parent,names):
+        self.names=names
+        super().__init__(parent,title='Import Project Tabs')
+
+    def body(self,master):
+        self.selected=[]
+        for name in self.names:
+            variable=tk.BooleanVar(master=self,value=False)
+            self.selected.append(variable)
+            ttk.Checkbutton(master,text=name,variable=variable).pack(anchor='w')
+
+    def apply(self):
+        self.result=[index for index,variable in enumerate(self.selected) if variable.get()]
 
 class SignalIntegrityApp(tk.Frame):
     def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={},readOnly=None):
@@ -371,6 +387,17 @@ class SignalIntegrityApp(tk.Frame):
         self.UndoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-undo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
         self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
 
+        SignalIntegrity.App.Project=ProjectFile().New()
+
+        style=ttk.Style(self.root)
+        style.configure('Project.TNotebook',tabposition='wn')
+        self.projectTabs=ttk.Notebook(self,style='Project.TNotebook',width=1)
+        self.projectTabs.pack(side=tk.LEFT,fill=tk.Y)
+        self.projectTabs.bind('<<NotebookTabChanged>>',self.onSelectProjectTab)
+        self.projectTabs.bind('<Button-3>',self.onProjectTabMenu)
+        self.projectTabMenu=tk.Menu(self.projectTabs,tearoff=False)
+        self.refreshingProjectTabs=False
+
         # The Drawing (which contains the schecmatic)
         self.pageBar=ttk.Frame(self,padding=(8,0))
         self.pageBar.pack(side=tk.TOP,fill=tk.X)
@@ -388,13 +415,12 @@ class SignalIntegrityApp(tk.Frame):
         self.pageMenu=tk.Menu(self.pageBar,tearoff=False)
         self.pageTabs.pack(side=tk.LEFT)
         self.statusbar.pack(side=tk.BOTTOM,fill=tk.X)
-        self.Drawing=Drawing(self)
+        self.Drawing=Drawing(self,self)
         self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.Drawing.InitFromProject()
 
         self.root.bind('<Key>',self.onKey)
 
-        SignalIntegrity.App.Project=ProjectFile()
-        self.Drawing.InitFromProject()
 
         if pwd == None:
             pwd = SignalIntegrity.App.Preferences['ProjectFiles.Encryption.Password']
@@ -682,8 +708,7 @@ class SignalIntegrityApp(tk.Frame):
             return
 
         self.simulator.DeleteDialogs()
-
-        SignalIntegrity.App.Project=ProjectFile()
+        SignalIntegrity.App.Project=ProjectFile().New()
         SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
         self.readOnly=False
         self.openArgs={}
@@ -704,6 +729,130 @@ class SignalIntegrityApp(tk.Frame):
         self.pagesMenu.entryconfigure('Duplicate Page',state=state)
         self.pagesMenu.entryconfigure('Delete Page',
                                       state='normal' if editable and project['Pages'] else 'disabled')
+
+    def RefreshProjectTabs(self):
+        project=SignalIntegrity.App.Project
+        names=[item['Name'] for item in project['Projects']]
+        self.refreshingProjectTabs=True
+        try:
+            tabs=self.projectTabs.tabs()
+            if [self.projectTabs.tab(tab,'text') for tab in tabs] != names:
+                for tab in tabs:
+                    self.projectTabs.nametowidget(tab).destroy()
+                for name in names:
+                    self.projectTabs.add(ttk.Frame(self.projectTabs),text=name)
+            self.projectTabs.select(project['Selected'])
+        finally:
+            self.refreshingProjectTabs=False
+
+    def onSelectProjectTab(self,event):
+        if self.refreshingProjectTabs:
+            return
+        selected=self.projectTabs.select()
+        project=SignalIntegrity.App.Project
+        if not selected or project is None or self.Drawing.stateMachine is None:
+            return
+        index=self.projectTabs.index(selected)
+        if index == project['Selected'] or index >= len(project['Projects']):
+            return
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.pendingPageImport=None
+        project.Write(self)
+        project.SelectProject(index)
+        self.Drawing.InitFromProject(resize=False)
+        self.Drawing.stateMachine.Nothing(force=True)
+
+    def onProjectTabMenu(self,event):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        clicked=self.projectTabs.tk.call(self.projectTabs._w,'identify','tab',event.x,event.y)
+        self.projectTabMenu.delete(0,tk.END)
+        self.projectTabMenu.add_command(label='New Project Tab...',command=self.onAddProjectTab)
+        self.projectTabMenu.add_command(label='Import Project Tab...',command=self.onImportProjectTab)
+        if clicked != '':
+            index=int(clicked)
+            self.projectTabMenu.add_command(label='Delete Project Tab',
+                command=lambda:self.onDeleteProjectTab(index),
+                state='normal' if len(SignalIntegrity.App.Project['Projects']) > 1 else 'disabled')
+        try:
+            self.projectTabMenu.tk_popup(event.x_root,event.y_root)
+        finally:
+            self.projectTabMenu.grab_release()
+
+    def onAddProjectTab(self):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        name=simpledialog.askstring('New Project Tab','Project name:',parent=self.root)
+        if name is None or not name.strip():
+            return
+        project=SignalIntegrity.App.Project
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.pendingPageImport=None
+        project.Write(self)
+        index=project.AddProject(name=name.strip())
+        project.SelectProject(index)
+        self.Drawing.InitFromProject(resize=False)
+        self.Drawing.stateMachine.Nothing(force=True)
+        self.history.Event('add project tab')
+
+    def onImportProjectTab(self):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        filename=AskOpenFileName(parent=self.root,filetypes=[('si','.si')],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),title='Import project tab')
+        if filename is None:
+            return
+        try:
+            filename=os.path.abspath(filename)
+            text=Encryption().ReadEncryptedLines(filename,split=False)
+            if ET.fromstring(''.join(text)).tag not in ('Project','SignalIntegrity'):
+                raise ValueError('not a SignalIntegrity project')
+            source=ProjectFile().FromText(text)
+            sourceIndexes=[0]
+            if len(source['Projects']) > 1:
+                sourceIndexes=ProjectImportOptionsDialog(
+                    self.root,[item['Name'] for item in source['Projects']]).result
+            if not sourceIndexes:
+                return
+            prepared=[]
+            for sourceIndex in sourceIndexes:
+                item=source.ExtractProject(sourceIndex)
+                self.RebasePageFilePaths(item['Projects'][0],os.path.dirname(filename),
+                                         self.fileparts.AbsoluteFilePath())
+                name=item['Projects'][0]['Name']
+                if name == 'Main':
+                    name=os.path.splitext(os.path.basename(filename))[0]
+                prepared.append((item,name))
+        except (OSError,ValueError,TypeError,KeyError,IndexError,AttributeError,NameError,ET.ParseError) as error:
+            messagebox.showerror('Import Project','Could not import project:\n'+str(error),parent=self.root)
+            return
+        project=SignalIntegrity.App.Project
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.pendingPageImport=None
+        project.Write(self)
+        for item,name in prepared:
+            index=project.ImportProject(item,name=name)
+        project.SelectProject(index)
+        self.Drawing.InitFromProject(resize=False)
+        self.Drawing.stateMachine.Nothing(force=True)
+        self.history.Event('import project tab')
+
+    def onDeleteProjectTab(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        project=SignalIntegrity.App.Project
+        if len(project['Projects']) <= 1:
+            return
+        name=project['Projects'][index]['Name']
+        if not messagebox.askyesno('Delete Project Tab','Delete project "'+name+'"?',parent=self.root):
+            return
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.pendingPageImport=None
+        project.Write(self)
+        project.DeleteProject(index)
+        self.Drawing.InitFromProject(resize=False)
+        self.Drawing.stateMachine.Nothing(force=True)
+        self.history.Event('delete project tab')
 
     def RefreshSchematicPages(self):
         project=SignalIntegrity.App.Project
@@ -863,7 +1012,7 @@ class SignalIntegrityApp(tk.Frame):
         try:
             filename=os.path.abspath(filename)
             text=Encryption().ReadEncryptedLines(filename,split=False)
-            if ET.fromstring(''.join(text)).tag != 'Project':
+            if ET.fromstring(''.join(text)).tag not in ('Project','SignalIntegrity'):
                 raise ValueError('not a SignalIntegrity project')
             source=ProjectFile().FromText(text)
             options=self.SelectPageImportOptions()
@@ -1042,15 +1191,17 @@ class SignalIntegrityApp(tk.Frame):
             messagebox.showerror('Save Page','Choose a different file from the current project.',parent=self.root)
             return
         project=SignalIntegrity.App.Project
-        exported=copy.deepcopy(project)
+        exported=project.ExtractProject(project['Selected'])
+        exported['Projects'][0]['Name']='Main'
         exported.dict['Drawing']=copy.deepcopy(project.PageDrawings()[index])
         devices=self.Drawing.schematic.CircuitPages()[index][0].deviceList
         exported.WritePageDevices(exported.dict['Drawing'],copy.deepcopy(devices))
         exported['Pages']=[]
         exported['FirstPageName']='Main'
         exported.activePage=0
-        for item in exported.dict.values():
-            self.RebasePageFilePaths(item,self.fileparts.AbsoluteFilePath(),os.path.dirname(filename))
+        for key,item in exported.dict.items():
+            if key != 'Projects':
+                self.RebasePageFilePaths(item,self.fileparts.AbsoluteFilePath(),os.path.dirname(filename))
         from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
         try:
             ProjectFileBase.Write(exported,filename)
@@ -1169,6 +1320,7 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.RefreshSchematicPages()
+        self.RefreshProjectTabs()
         self.Drawing.DrawSchematic()
         self.fileparts=FileParts()
         self.root.title('SignalIntegrity')
