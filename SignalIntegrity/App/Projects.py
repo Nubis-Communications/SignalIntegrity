@@ -25,30 +25,57 @@ else:
     from tkinter import ttk
 
 import SignalIntegrity.App.Project
-from SignalIntegrity.App.ProjectFile import ProjectConfiguration,PageConfiguration
 
-class Projects(tk.Frame):
-    def __init__(self,parent):
-        super().__init__(parent)
-        self.parent=parent
+from SignalIntegrity.App.Schematic import Drawing
+
 #         self.tabControl=ttk.Notebook(self)
 #         self.tab1=ttk.Frame(self.tabControl)
 #         self.tabControl.add(self.tab1,text='Page 1')
 #         self.tabControl.pack(expand=1,fill=tk.BOTH)
-#         self.canvas = tk.Canvas(self.tab1,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
-#         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
-#         self.schematic = Schematic()
-    def InitFromProject(self):
-        drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        # the canvas and geometry must be set prior to the remainder of the schematic initialization
-        # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
-        # properties first, which made it work, but it was an accident.
-        #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
-        self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
-        self.schematic = Schematic()
-        self.schematic.InitFromProject()
-        self.stateMachine = DrawingStateMachine(self)
 
-class Project(tk.Frame):
+class Projects(tk.Frame):
     def __init__(self,parent):
+        if hasattr(self, 'initialized'):
+            if self.initialized == True:
+                self.Dwg.pack_forget()
+                self.tabControl.pack_forget()
+                self.pack_forget()
         super().__init__(parent)
+        self.parent=parent
+        self.root=parent
+        numProjects=len(SignalIntegrity.App.Project['Projects'])
+        self.tabControl=ttk.Notebook(self)
+        self.projectList=[]
+        if numProjects > 0:
+            for i in range(len(SignalIntegrity.App.Project['Projects'])):
+                projectFrame=ttk.Frame(self.tabControl)
+                self.projectList.append(projectFrame)
+                self.tabControl.add(projectFrame,text=SignalIntegrity.App.Project['Projects'][i]['Name'])
+        else: # empty - just do something
+            projectFrame=ttk.Frame(self.tabControl)
+            self.projectList.append(projectFrame)
+            self.tabControl.add(projectFrame,text='project')
+        self.tabControl.pack(expand=1,fill=tk.BOTH)
+        self.selectedProject=0
+        self.Dwg=Drawing(self.projectList[self.selectedProject],self.root)
+        self.Dwg.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.initialized=True
+    def InitFromProject(self):
+        self.__init__(self.parent)
+        self.Drawing().InitFromProject()
+    def Drawing(self):
+        return self.Dwg
+
+class Project(ttk.Frame):
+    def __init__(self,i,parent,root):
+        super().__init__(parent.tabControl)
+        self.parent=parent
+        self.root=root
+        self.projectNumber=i
+        self.Drawing = None
+    def SelectProject(self):
+        if self.Drawing == None:
+            self.Drawing=Drawing(self,self.root)
+            self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+

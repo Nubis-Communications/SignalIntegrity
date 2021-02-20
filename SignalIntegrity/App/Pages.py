@@ -24,16 +24,23 @@ else:
     import tkinter as tk
     from tkinter import ttk
 
+import SignalIntegrity.App.Project
+
+from SignalIntegrity.App.Drawing import Drawing
+
 class Pages(tk.Frame):
-    def __init__(self,parent):
+    def __init__(self,parent,root):
         tk.Frame.__init__(self,parent)
         self.parent=parent
+        self.root=root
         self.tabControl=ttk.Notebook(self)
-        self.tab1=ttk.Frame(self.tabControl)
-        self.tabControl.add(self.tab1,text='Page 1')
+        selectedProject=SignalIntegrity.App.Project['Selected']
+        self.tabList=[ttk.Frame(self.tabControl) for _ in range(len(selectedProject['Pages']))]
+        for t in range(len(self.tabList)):
+            self.tabControl.add(self.tabList[t],text=f'Page {t}')
         self.tabControl.pack(expand=1,fill=tk.BOTH)
-        self.canvas = tk.Canvas(self.tab1,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
-        self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
-        self.schematic = Schematic()
+        selectedPage=selectedProject['Selected']
+        self.drawingList=[None for _ in range(len(self.tabList))]
+        self.drawingList[selectedPage] = Drawing(self,root)
 
 class Page(tk.Frame):
