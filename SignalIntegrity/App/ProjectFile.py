@@ -19,6 +19,8 @@ ProjectFile.py
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
+import copy
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -208,6 +210,8 @@ class PageConfiguration(XMLConfiguration):
         super().__init__('Page')
         self.Add(XMLPropertyDefaultString('Name','Page 1'))
         self.SubDir(DrawingConfiguration())
+        from SignalIntegrity.App.Wire import WireList
+        self['Drawing.Schematic'].dict['Wires']=WireList()
 
 class ProjectConfiguration(XMLConfiguration):
     def __init__(self):
@@ -232,6 +236,23 @@ class ProjectFile(ProjectFileBase):
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
+            if self['Projects'] == []:
+                self['Projects']=[ProjectConfiguration()]
+                self['Selected']=0
+                selected=self['Projects'][0]
+                selected.dict['CalculationProperties']=self['CalculationProperties']
+                selected.dict['PostProcessing']=self['PostProcessing']
+                selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
+                selected['Selected']=0
+                selectedPage=selected['Pages'][0]
+                selectedPage['Name']='Page 1'
+                selectedPage.dict['Drawing']=self['Drawing']
+            else:
+                selected=self['Projects'][0]
+                self.dict['CalculationProperties']=selected['CalculationProperties']
+                self.dict['PostProcessing']=selected['PostProcessing']
+                selectedPage=selected['Pages'][0]
+                self.dict['Drawing']=selectedPage['Drawing']
         return self
 
     def Write(self,app,filename=None):
@@ -253,6 +274,15 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
+        selectedProject=self['Projects'][self['Selected']]
+        selectedProject.dict['CalculationProperties']=self['CalculationProperties']
+        selectedProject.dict['PostProcessing']=self['PostProcessing']
+        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+        selectedPage.dict['Drawing']=self['Drawing']
         if not filename is None:
-            ProjectFileBase.Write(self,filename)
+            projectCopy=copy.deepcopy(self)
+            del projectCopy.dict['CalculationProperties']
+            del projectCopy.dict['PostProcessing']
+            del projectCopy.dict['Drawing']
+            ProjectFileBase.Write(projectCopy,filename)
         return self

@@ -25,7 +25,7 @@ else:
     from tkinter import ttk
 
 import SignalIntegrity.App.Project
-from SignalIntegrity.ProjectFile import ProjectConfiguration,PageConfiguration
+from SignalIntegrity.App.ProjectFile import ProjectConfiguration,PageConfiguration
 
 class Projects(tk.Frame):
     def __init__(self,parent):
@@ -39,31 +39,15 @@ class Projects(tk.Frame):
 #         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
 #         self.schematic = Schematic()
     def InitFromProject(self):
-        pass
-        if SignalIntegrity.App.Project['Projects'] == []:
-            SignalIntegrity.App.Project['Projects']=[ProjectConfiguration()]
-            SignalIntegrity.App.Project['Selected']=0
-            selected=SignalIntegrity.App.Project['Projects'][0]
-            selected['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
-            selected['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
-            selected['Pages']=[PageConfiguration()]
-            selected['Selected']=0
-            selectedPage=selected['Pages'][0]
-            selectedPage['Name']='Page 1'
-            selectedPage['Drawing']=SignalIntegrity.App.Project['Drawing']
-
-        for project in SignalIntegrity.App.Project['Projects']:
-            for page in project['Pages']
-#         drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-#         # the canvas and geometry must be set prior to the remainder of the schematic initialization
-#         # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
-#         # properties first, which made it work, but it was an accident.
-#         #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
-#         self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
-#         self.schematic = Schematic()
-#         self.schematic.InitFromProject()
-#         self.stateMachine = DrawingStateMachine(self)
-
+        drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        # the canvas and geometry must be set prior to the remainder of the schematic initialization
+        # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
+        # properties first, which made it work, but it was an accident.
+        #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
+        self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
+        self.schematic = Schematic()
+        self.schematic.InitFromProject()
+        self.stateMachine = DrawingStateMachine(self)
 
 class Project(tk.Frame):
     def __init__(self,parent):
