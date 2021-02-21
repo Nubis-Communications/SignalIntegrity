@@ -20,18 +20,77 @@ import sys
 if sys.version_info.major < 3:
     import Tkinter as tk
     from Tkinter import ttk
+    import tkMessageBox as messagebox
 else:
     import tkinter as tk
     from tkinter import ttk
+    from tkinter import messagebox
+
+import os
 
 import SignalIntegrity.App.Project
 
 from SignalIntegrity.App.Schematic import Drawing
+from SignalIntegrity.App.FilePicker import AskOpenFileName
+from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
+from SignalIntegrity.App.ProjectFile import ProjectFile
 
 #         self.tabControl=ttk.Notebook(self)
 #         self.tab1=ttk.Frame(self.tabControl)
 #         self.tabControl.add(self.tab1,text='Page 1')
 #         self.tabControl.pack(expand=1,fill=tk.BOTH)
+
+class NameSelector(tk.Toplevel):
+    def __init__(self,parent,names,namesChosen):
+        super().__init__(parent)
+        self.names=names
+        self.namesChosen=namesChosen
+        self.parent=parent
+        self.ints=[0 for _ in names]
+        self.vars=[tk.IntVar(value=self.ints[i]) for i in range(len(names))]
+        self.checkButtons=[None for _ in names]
+        self.transient(parent)
+        self.title('Select tabs from other project file')
+        self.result = None
+        for n in range(len(self.names)):
+            name=self.names[n]
+            self.checkButtons[n]=tk.Checkbutton(self, text=name, variable=self.vars[n], onvalue=1, offvalue = 0)
+            self.checkButtons[n].pack()
+        self.buttonbox()
+        self.wait_visibility(self)
+        self.grab_set()
+        self.protocol("WM_DELETE_WINDOW", self.cancel)
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,parent.winfo_rooty()+50))
+        self.wait_window(self)
+
+    def buttonbox(self):
+        # add standard button box. override if you don't want the
+        # standard buttons
+        box = tk.Frame(self)
+        w = tk.Button(box, text="OK", width=10, command=self.ok)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tk.Button(box, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        self.bind("<Return>", self.ok)
+        self.bind("<Escape>", self.cancel)
+        box.pack()
+    #
+    # standard button semantics
+    def ok(self, event=None):
+        self.withdraw()
+        self.update_idletasks()
+
+        self.ints=[self.vars[i].get() for i in range(len(self.vars))]
+        for i in range(len(self.ints)):
+            if self.ints[i]==1:
+                self.namesChosen.append(self.names[i])
+
+        self.cancel()
+
+    def cancel(self, event=None):
+        # put focus back to the parent window
+        self.parent.focus_set()
+        self.destroy()
 
 class Projects(tk.Frame):
     def __init__(self,parent):
@@ -53,6 +112,7 @@ class Projects(tk.Frame):
         self.tabTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedTab)
         self.noTabTearOffMenu=tk.Menu(self, tearoff=0)
         self.noTabTearOffMenu.add_command(label="Open Project File in New Tab",command=self.OpenNewProject)
+        self.noTabTearOffMenu.add_command(label="Add Project File to New Tab",command=self.AddNewProject)
         numProjects=len(SignalIntegrity.App.Project['Projects'])
         self.tabControl=ttk.Notebook(self)
         self.projectList=[]
@@ -91,6 +151,40 @@ class Projects(tk.Frame):
         pass
     def OpenNewProject(self):
         pass
+    def AddNewProject(self):
+        filename=AskOpenFileName(filetypes=[('si', '.si')],
+                                 initialdir=self.root.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.root.fileparts.FileNameWithExtension('.si'))
+        if filename is None:
+            return
+
+        try:
+            fileparts=FileParts(filename)
+            proj=ProjectFile().Read(fileparts.FullFilePathExtension('.si'))
+            mainName=fileparts.filename
+            if len(proj['Projects']) == 1:
+                newProject=proj['Projects'][0]
+                newProject['Name']=mainName
+                SignalIntegrity.App.Project['Projects'].append(newProject)
+                projectFrame=Project(self,self.root)
+                self.projectList.append(projectFrame)
+                self.tabControl.add(projectFrame,text=mainName)
+            else:
+                names=[p['Name'] for p in proj['Projects']]
+                namesChosen=[]
+                NameSelector(self,names,namesChosen)
+                for projectConfiguration in proj['Projects']:
+                    if projectConfiguration['Name'] in namesChosen:
+                        newProject=projectConfiguration
+                        if newProject['Name']=='Main':
+                            newProject['Name']=mainName
+                    SignalIntegrity.App.Project['Projects'].append(newProject)
+                    projectFrame=Project(self,self.root)
+                    self.projectList.append(projectFrame)
+                    self.tabControl.add(projectFrame,text=newProject['Name'])
+        except Exception as e:
+            messagebox.showerror('Project File:',fileparts.FileNameWithExtension()+' could not be opened')
+
     def onTouched(self,event):
 #         print('widget:', event.widget)
 #         print('x:', event.x)
