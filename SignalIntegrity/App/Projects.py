@@ -37,45 +37,76 @@ class Projects(tk.Frame):
     def __init__(self,parent):
         if hasattr(self, 'initialized'):
             if self.initialized == True:
-                self.Dwg.pack_forget()
+                self.Drawing().pack_forget()
                 self.tabControl.pack_forget()
                 self.pack_forget()
         super().__init__(parent)
         self.parent=parent
         self.root=parent
+        self.tabTearOffMenu=tk.Menu(self, tearoff=0)
+        self.tabTearOffMenu.add_command(label="Open",command=self.OpenSelectedTab)
+        self.tabTearOffMenu.add_command(label="New Tab To Right",command=self.NewTabToRight)
+        self.tabTearOffMenu.add_command(label="New Tab To Left",command=self.NewTabToLeft)
+        self.tabTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedTab)
+        self.tabTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedTab)
         numProjects=len(SignalIntegrity.App.Project['Projects'])
         self.tabControl=ttk.Notebook(self)
         self.projectList=[]
         if numProjects > 0:
             for i in range(len(SignalIntegrity.App.Project['Projects'])):
-                projectFrame=ttk.Frame(self.tabControl)
+                projectFrame=Project(self,self.root)
                 self.projectList.append(projectFrame)
                 self.tabControl.add(projectFrame,text=SignalIntegrity.App.Project['Projects'][i]['Name'])
+            self.selectedProject=SignalIntegrity.App.Project['Selected']
         else: # empty - just do something
-            projectFrame=ttk.Frame(self.tabControl)
+            projectFrame=Project(self,self.root)
             self.projectList.append(projectFrame)
             self.tabControl.add(projectFrame,text='project')
+            self.selectedProject=0
         self.tabControl.pack(expand=1,fill=tk.BOTH)
-        self.selectedProject=0
-        self.Dwg=Drawing(self.projectList[self.selectedProject],self.root)
-        self.Dwg.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.tabControl.bind('<Button-3>', self.onTouched)
+        self.projectList[self.selectedProject].SelectProject()
         self.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.initialized=True
     def InitFromProject(self):
         self.__init__(self.parent)
         self.Drawing().InitFromProject()
     def Drawing(self):
-        return self.Dwg
+        return self.projectList[self.selectedProject].Drawing
+    def OpenSelectedTab(self):
+        pass
+    def NewTabToRight(self):
+        pass
+    def NewTabToLeft(self):
+        pass
+    def DuplicateSelectedTab(self):
+        pass
+    def DeleteSelectedTab(self):
+        pass
+    def onTouched(self,event):
+#         print('widget:', event.widget)
+#         print('x:', event.x)
+#         print('y:', event.y)
+# 
+#         #selected = nb.identify(event.x, event.y)
+#         #print('selected:', selected) # it's not usefull
+# 
+#         clicked_tab = self.tabControl.tk.call(self.tabControl._w, "identify", "tab", event.x, event.y)
+#         print('clicked tab:', clicked_tab)
+# 
+#         active_tab = self.tabControl.index(self.tabControl.select())
+#         print(' active tab:', active_tab)
+        self.tabControl.focus_set()
+        self.parent.tk.call('tk_popup',self.tabTearOffMenu, event.x_root, event.y_root)
+
 
 class Project(ttk.Frame):
-    def __init__(self,i,parent,root):
+    def __init__(self,parent,root):
         super().__init__(parent.tabControl)
         self.parent=parent
         self.root=root
-        self.projectNumber=i
         self.Drawing = None
     def SelectProject(self):
         if self.Drawing == None:
             self.Drawing=Drawing(self,self.root)
             self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
-
