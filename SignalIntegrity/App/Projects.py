@@ -45,10 +45,14 @@ class Projects(tk.Frame):
         self.root=parent
         self.tabTearOffMenu=tk.Menu(self, tearoff=0)
         self.tabTearOffMenu.add_command(label="Open",command=self.OpenSelectedTab)
+        self.tabTearOffMenu.add_command(label="Rename",command=self.RenameSelectedTab)
+        self.tabTearOffMenu.add_command(label="Save Tab to Project File",command=self.OpenSelectedTab)
         self.tabTearOffMenu.add_command(label="New Tab To Right",command=self.NewTabToRight)
         self.tabTearOffMenu.add_command(label="New Tab To Left",command=self.NewTabToLeft)
         self.tabTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedTab)
         self.tabTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedTab)
+        self.noTabTearOffMenu=tk.Menu(self, tearoff=0)
+        self.noTabTearOffMenu.add_command(label="Open Project File in New Tab",command=self.OpenNewProject)
         numProjects=len(SignalIntegrity.App.Project['Projects'])
         self.tabControl=ttk.Notebook(self)
         self.projectList=[]
@@ -75,6 +79,8 @@ class Projects(tk.Frame):
         return self.projectList[self.selectedProject].Drawing
     def OpenSelectedTab(self):
         pass
+    def RenameSelectedTab(self):
+        pass
     def NewTabToRight(self):
         pass
     def NewTabToLeft(self):
@@ -82,6 +88,8 @@ class Projects(tk.Frame):
     def DuplicateSelectedTab(self):
         pass
     def DeleteSelectedTab(self):
+        pass
+    def OpenNewProject(self):
         pass
     def onTouched(self,event):
 #         print('widget:', event.widget)
@@ -91,13 +99,16 @@ class Projects(tk.Frame):
 #         #selected = nb.identify(event.x, event.y)
 #         #print('selected:', selected) # it's not usefull
 # 
-#         clicked_tab = self.tabControl.tk.call(self.tabControl._w, "identify", "tab", event.x, event.y)
+        clicked_tab = self.tabControl.tk.call(self.tabControl._w, "identify", "tab", event.x, event.y)
 #         print('clicked tab:', clicked_tab)
 # 
-#         active_tab = self.tabControl.index(self.tabControl.select())
+        active_tab = self.tabControl.index(self.tabControl.select())
 #         print(' active tab:', active_tab)
-        self.tabControl.focus_set()
-        self.parent.tk.call('tk_popup',self.tabTearOffMenu, event.x_root, event.y_root)
+        if clicked_tab == '':
+            self.parent.tk.call('tk_popup',self.noTabTearOffMenu, event.x_root, event.y_root)
+        else:
+            self.tabControl.focus_set()
+            self.parent.tk.call('tk_popup',self.tabTearOffMenu, event.x_root, event.y_root)
 
 
 class Project(ttk.Frame):
