@@ -64,8 +64,6 @@ class NameSelector(tk.Toplevel):
         self.wait_window(self)
 
     def buttonbox(self):
-        # add standard button box. override if you don't want the
-        # standard buttons
         box = tk.Frame(self)
         w = tk.Button(box, text="OK", width=10, command=self.ok)
         w.pack(side=tk.LEFT, padx=5, pady=5)
@@ -74,8 +72,7 @@ class NameSelector(tk.Toplevel):
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
         box.pack()
-    #
-    # standard button semantics
+
     def ok(self, event=None):
         self.withdraw()
         self.update_idletasks()
@@ -88,7 +85,6 @@ class NameSelector(tk.Toplevel):
         self.cancel()
 
     def cancel(self, event=None):
-        # put focus back to the parent window
         self.parent.focus_set()
         self.destroy()
 
@@ -128,7 +124,8 @@ class Projects(tk.Frame):
             self.tabControl.add(projectFrame,text='project')
             self.selectedProject=0
         self.tabControl.pack(expand=1,fill=tk.BOTH)
-        self.tabControl.bind('<Button-3>', self.onTouched)
+        self.tabControl.bind('<Button-3>', self.onTearOff)
+        self.tabControl.bind('<Button-1>', self.onTouched)
         self.projectList[self.selectedProject].SelectProject()
         self.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.initialized=True
@@ -178,14 +175,14 @@ class Projects(tk.Frame):
                         newProject=projectConfiguration
                         if newProject['Name']=='Main':
                             newProject['Name']=mainName
-                    SignalIntegrity.App.Project['Projects'].append(newProject)
-                    projectFrame=Project(self,self.root)
-                    self.projectList.append(projectFrame)
-                    self.tabControl.add(projectFrame,text=newProject['Name'])
+                        SignalIntegrity.App.Project['Projects'].append(newProject)
+                        projectFrame=Project(self,self.root)
+                        self.projectList.append(projectFrame)
+                        self.tabControl.add(projectFrame,text=newProject['Name'])
         except Exception as e:
             messagebox.showerror('Project File:',fileparts.FileNameWithExtension()+' could not be opened')
 
-    def onTouched(self,event):
+    def onTearOff(self,event):
 #         print('widget:', event.widget)
 #         print('x:', event.x)
 #         print('y:', event.y)
@@ -204,6 +201,34 @@ class Projects(tk.Frame):
             self.tabControl.focus_set()
             self.parent.tk.call('tk_popup',self.tabTearOffMenu, event.x_root, event.y_root)
 
+    def onTouched(self,event):
+        clicked_tab = self.tabControl.tk.call(self.tabControl._w, "identify", "tab", event.x, event.y)
+        print('clicked tab:', clicked_tab)
+# 
+        active_tab = self.tabControl.index(self.tabControl.select())
+        print(' active tab:', active_tab)
+
+        if clicked_tab == '':
+            return
+
+        if clicked_tab == active_tab:
+            return
+
+        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+        selectedProject.dict['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
+        selectedProject.dict['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
+        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+        selectedPage.dict['Drawing']=SignalIntegrity.App.Project['Drawing']
+        self.selectedProject=clicked_tab
+        SignalIntegrity.App.Project['Selected']=self.selectedProject
+        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+        SignalIntegrity.App.Project['CalculationProperties']=selectedProject.dict['CalculationProperties']
+        SignalIntegrity.App.Project['PostProcessing']=selectedProject.dict['PostProcessing']
+        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+        SignalIntegrity.App.Project['Drawing']=selectedPage.dict['Drawing']
+        self.projectList[self.selectedProject].SelectProject()
+        self.Drawing().InitFromProject()
+        #self.InitFromProject()
 
 class Project(ttk.Frame):
     def __init__(self,parent,root):
