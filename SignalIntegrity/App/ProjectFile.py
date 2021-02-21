@@ -216,7 +216,7 @@ class PageConfiguration(XMLConfiguration):
 class ProjectConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Project')
-        self.Add(XMLPropertyDefaultString('Name',''))
+        self.Add(XMLPropertyDefaultString('Name','Main'))
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
         self.Add(XMLProperty('Pages',[PageConfiguration() for _ in range(0)],'array',arrayType=PageConfiguration()))
@@ -237,7 +237,7 @@ class ProjectFile(ProjectFileBase):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
             if self['Projects'] == []:
-                self['Projects']=[ProjectConfiguration()]
+                self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
                 self['Selected']=0
                 selected=self['Projects'][0]
                 selected.dict['CalculationProperties']=self['CalculationProperties']
@@ -284,5 +284,19 @@ class ProjectFile(ProjectFileBase):
             del projectCopy.dict['CalculationProperties']
             del projectCopy.dict['PostProcessing']
             del projectCopy.dict['Drawing']
+            # Now, after all of this, decide whether we want to save in legacy format
+            legacyFormat=True
+            if legacyFormat and len(self['Projects']) != 1: legacyFormat = False
+            if legacyFormat and self['Projects'][0]['Name'] != 'Main': legacyFormat = False
+            if legacyFormat and len(self['Projects'][0]['Pages']) != 1: legacyFormat = False
+            # if there is only one project, the project has the default name, and has only one page,
+            # then store it in the legacy format.
+            if legacyFormat:
+                projectCopy.dict['CalculationProperties']=self['Projects'][0]['CalculationProperties']
+                projectCopy.dict['PostProcessing']=self['Projects'][0]['PostProcessing']
+                projectCopy.dict['Drawing']=self['Projects'][0]['Pages'][0]['Drawing']
+                del(projectCopy.dict['Selected'])
+                del(projectCopy.dict['Projects'])
+                projectCopy.baseName='Project'
             ProjectFileBase.Write(projectCopy,filename)
         return self

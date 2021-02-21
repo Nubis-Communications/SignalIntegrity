@@ -161,7 +161,7 @@ class XMLPropertyDefault(XMLProperty):
 class XMLPropertyDefaultFloat(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None):
         XMLPropertyDefault.__init__(self,name,'float',value,write,arrayType)
-        
+
 class XMLPropertyDefaultInt(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None):
         XMLPropertyDefault.__init__(self,name,'int',value,write,arrayType)
@@ -270,6 +270,7 @@ class ProjectFileBase(object):
     def __init__(self,ext='xml'):
         self.dict={}
         self.ext=ext.strip('.')
+        self.baseName='SignalIntegrity'
 
     def Add(self,property):
         self.dict[property.dict['name']]=property
@@ -280,10 +281,10 @@ class ProjectFileBase(object):
 
     def OutputXML(self):
         lines=[]
-        lines=lines+['<SignalIntegrity>']
+        lines=lines+[f'<{self.baseName}>']
         for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
-        lines=lines+['</SignalIntegrity>']
+        lines=lines+[f'</{self.baseName}>']
         for line in lines:
             print(line)
         return self
@@ -301,10 +302,10 @@ class ProjectFileBase(object):
 
     def LinesToWrite(self):
         lines=[]
-        lines=lines+['<SignalIntegrity>']
+        lines=lines+[f'<{self.baseName}>']
         for item in [key for key in sorted(self.dict.keys())]:
             lines=lines+self.dict[item].OutputXML(self.indent)
-        lines=lines+['</SignalIntegrity>']
+        lines=lines+[f'</{self.baseName}>']
         lines=["%s\n" % l for l in lines]
         return lines
 
