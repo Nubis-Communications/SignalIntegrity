@@ -147,7 +147,10 @@ class Projects(tk.Frame):
     def DeleteSelectedTab(self):
         pass
     def OpenNewProject(self):
-        pass
+        if self.AddNewProject():
+            tab=len(SignalIntegrity.App.Project['Projects'])-1
+            self.tabControl.select(tab)
+            self.SelectTab(tab)
     def AddNewProject(self):
         filename=AskOpenFileName(filetypes=[('si', '.si')],
                                  initialdir=self.root.fileparts.AbsoluteFilePath(),
@@ -179,8 +182,10 @@ class Projects(tk.Frame):
                         projectFrame=Project(self,self.root)
                         self.projectList.append(projectFrame)
                         self.tabControl.add(projectFrame,text=newProject['Name'])
+            return True
         except Exception as e:
             messagebox.showerror('Project File:',fileparts.FileNameWithExtension()+' could not be opened')
+            return False
 
     def onTearOff(self,event):
 #         print('widget:', event.widget)
@@ -204,22 +209,20 @@ class Projects(tk.Frame):
     def onTouched(self,event):
         clicked_tab = self.tabControl.tk.call(self.tabControl._w, "identify", "tab", event.x, event.y)
         print('clicked tab:', clicked_tab)
-# 
         active_tab = self.tabControl.index(self.tabControl.select())
         print(' active tab:', active_tab)
-
         if clicked_tab == '':
             return
-
         if clicked_tab == active_tab:
             return
-
+        self.SelectTab(clicked_tab)
+    def SelectTab(self,tab):
         selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
         selectedProject.dict['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
         selectedProject.dict['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
         selectedPage=selectedProject['Pages'][selectedProject['Selected']]
         selectedPage.dict['Drawing']=SignalIntegrity.App.Project['Drawing']
-        self.selectedProject=clicked_tab
+        self.selectedProject=tab
         SignalIntegrity.App.Project['Selected']=self.selectedProject
         selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
         SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
