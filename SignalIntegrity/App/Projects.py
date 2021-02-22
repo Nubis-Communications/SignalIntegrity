@@ -228,6 +228,7 @@ class Projects(tk.Frame):
         SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
+        self.Drawing().stateMachine.Nothing()
         #self.InitFromProject()
 
 class Project(ttk.Frame):
