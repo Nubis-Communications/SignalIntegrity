@@ -145,7 +145,25 @@ class Projects(tk.Frame):
     def DuplicateSelectedTab(self):
         pass
     def DeleteSelectedTab(self):
-        pass
+        if len(SignalIntegrity.App.Project['Projects'])==1:
+            SignalIntegrity.App.Project = ProjectFile().New()
+        else:
+            # a[0:selected]+a[selected+1:-1]
+            del SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+            del self.projectList[SignalIntegrity.App.Project['Selected']]
+            if SignalIntegrity.App.Project['Selected']>=len(SignalIntegrity.App.Project['Projects']):
+                SignalIntegrity.App.Project['Selected']=len(SignalIntegrity.App.Project['Projects'])-1
+                self.selectedProject=SignalIntegrity.App.Project['Selected']
+            selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+            SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
+            SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
+            selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+            SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+            self.projectList[self.selectedProject].SelectProject()
+            active_tab = self.tabControl.index(self.tabControl.select())
+            self.tabControl.forget(active_tab)
+        self.Drawing().InitFromProject()
+        self.Drawing().stateMachine.Nothing()
     def OpenNewProject(self):
         if self.AddNewProject():
             tab=len(SignalIntegrity.App.Project['Projects'])-1
