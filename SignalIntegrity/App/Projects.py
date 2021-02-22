@@ -222,10 +222,10 @@ class Projects(tk.Frame):
         self.selectedProject=clicked_tab
         SignalIntegrity.App.Project['Selected']=self.selectedProject
         selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-        SignalIntegrity.App.Project['CalculationProperties']=selectedProject.dict['CalculationProperties']
-        SignalIntegrity.App.Project['PostProcessing']=selectedProject.dict['PostProcessing']
+        SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
+        SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
         selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        SignalIntegrity.App.Project['Drawing']=selectedPage.dict['Drawing']
+        SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
         #self.InitFromProject()
