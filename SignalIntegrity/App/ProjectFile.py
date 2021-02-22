@@ -232,6 +232,18 @@ class ProjectFile(ProjectFileBase):
         self.Add(XMLPropertyDefaultInt('Selected',0))
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
+    def New(self):
+        self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
+        self['Selected']=0
+        selected=self['Projects'][0]
+        selected.dict['CalculationProperties']=self['CalculationProperties']
+        selected.dict['PostProcessing']=self['PostProcessing']
+        selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
+        selected['Selected']=0
+        selectedPage=selected['Pages'][0]
+        selectedPage['Name']='Page 1'
+        selectedPage.dict['Drawing']=self['Drawing']
+        return self
 
     def Read(self,filename=None):
         if not filename is None:
