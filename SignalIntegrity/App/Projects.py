@@ -109,6 +109,7 @@ class Projects(tk.Frame):
         self.noTabTearOffMenu=tk.Menu(self, tearoff=0)
         self.noTabTearOffMenu.add_command(label="Open Project File in New Tab",command=self.OpenNewProject)
         self.noTabTearOffMenu.add_command(label="Add Project File to New Tab",command=self.AddNewProject)
+        self.noTabTearOffMenu.add_command(label="Delete Projects",command=self.DeleteProjects)
         numProjects=len(SignalIntegrity.App.Project['Projects'])
         self.tabControl=ttk.Notebook(self)
         self.projectList=[]
@@ -204,6 +205,51 @@ class Projects(tk.Frame):
         except Exception as e:
             messagebox.showerror('Project File:',fileparts.FileNameWithExtension()+' could not be opened')
             return False
+    def DeleteProjects(self):
+        names=[p['Name'] for p in SignalIntegrity.App.Project['Projects']]
+        namesChosen=[]
+        NameSelector(self,names,namesChosen)
+        if namesChosen == []:
+            return
+        for name in namesChosen:
+            for i in range(len(SignalIntegrity.App.Project['Projects'])):
+                thisName=SignalIntegrity.App.Project['Projects'][i]['Name']
+                if name != thisName:
+                    continue
+                if len(SignalIntegrity.App.Project['Projects'])==1:
+                    SignalIntegrity.App.Project = ProjectFile().New()
+                else:
+                    del SignalIntegrity.App.Project['Projects'][i]
+                    del self.projectList[i]
+                    self.tabControl.forget(i)
+                    break
+        active_tab = self.tabControl.index(self.tabControl.select())
+        SignalIntegrity.App.Project['Selected']=active_tab
+        self.selectedProject=active_tab
+        self.projectList[self.selectedProject].SelectProject()
+        self.Drawing().InitFromProject()
+        self.Drawing().stateMachine.Nothing()
+
+    def DeleteSelectedTab(self):
+        if len(SignalIntegrity.App.Project['Projects'])==1:
+            SignalIntegrity.App.Project = ProjectFile().New()
+        else:
+            # a[0:selected]+a[selected+1:-1]
+            del SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+            del self.projectList[SignalIntegrity.App.Project['Selected']]
+            if SignalIntegrity.App.Project['Selected']>=len(SignalIntegrity.App.Project['Projects']):
+                SignalIntegrity.App.Project['Selected']=len(SignalIntegrity.App.Project['Projects'])-1
+                self.selectedProject=SignalIntegrity.App.Project['Selected']
+            selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
+            SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
+            SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
+            selectedPage=selectedProject['Pages'][selectedProject['Selected']]
+            SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+            self.projectList[self.selectedProject].SelectProject()
+            active_tab = self.tabControl.index(self.tabControl.select())
+            self.tabControl.forget(active_tab)
+        self.Drawing().InitFromProject()
+        self.Drawing().stateMachine.Nothing()
 
     def onTearOff(self,event):
 #         print('widget:', event.widget)
