@@ -1,9 +1,9 @@
 class DeviceFactory(list):
     def __init__(self):
         list.__init__(self,[
-        ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
-            ,None,callback,**extraArgs).Resample(f).\
-            SetReferenceImpedance(float(arg['z0']))"),
+        ParserDevice('file',None,True,{'':None,'subproject':''},True,
+            "SParameterFile(arg[''],None,callback,subproject=arg['subproject'],\
+            **extraArgs).Resample(f).SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),

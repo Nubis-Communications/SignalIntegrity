@@ -8,6 +8,8 @@ class DeviceFactory(list):
         argsList=argsList[1:]
         for device in self:
             if device.ports is not None:
+                if ports is None:
+                    continue
                 if isinstance(device.ports,int):
                     if device.ports != ports:
                         continue

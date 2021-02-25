@@ -31,7 +31,7 @@ import os
 import SignalIntegrity.App.Project
 
 from SignalIntegrity.App.Drawing import Drawing
-from SignalIntegrity.App.FilePicker import AskOpenFileName
+from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.ProjectFile import ProjectFile
 
@@ -101,7 +101,7 @@ class Projects(tk.Frame):
         self.tabTearOffMenu=tk.Menu(self, tearoff=0)
         self.tabTearOffMenu.add_command(label="Open",command=self.OpenSelectedTab)
         self.tabTearOffMenu.add_command(label="Rename",command=self.RenameSelectedTab)
-        self.tabTearOffMenu.add_command(label="Save Tab to Project File",command=self.OpenSelectedTab)
+        self.tabTearOffMenu.add_command(label="Save Tab to Project File",command=self.SaveSelectedTab)
         self.tabTearOffMenu.add_command(label="New Tab To Right",command=self.NewTabToRight)
         self.tabTearOffMenu.add_command(label="New Tab To Left",command=self.NewTabToLeft)
         self.tabTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedTab)
@@ -130,6 +130,7 @@ class Projects(tk.Frame):
         self.tabControl.bind('<Button-3>', self.onTearOff)
         self.tabControl.bind('<Button-1>', self.onTouched)
         self.projectList[self.selectedProject].SelectProject()
+        self.tabControl.select(self.selectedProject)
         self.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.initialized=True
     def InitFromProject(self):
@@ -139,6 +140,21 @@ class Projects(tk.Frame):
         return self.projectList[self.selectedProject].Drawing
     def OpenSelectedTab(self):
         pass
+    def SaveSelectedTab(self):
+        tab=getattr(self,'contextTab',self.selectedProject)
+        name=SignalIntegrity.App.Project['Projects'][tab]['Name']
+        filename=AskSaveAsFilename(filetypes=[('si', '.si')],
+                                   defaultextension='.si',
+                                   initialdir=self.root.fileparts.AbsoluteFilePath(),
+                                   initialfile=name+'.si')
+        if filename is None:
+            return
+        try:
+            SignalIntegrity.App.Project.WriteTab(self.root,tab,filename)
+        except (OSError,ValueError) as e:
+            messagebox.showerror('Project File:',filename+' could not be saved:\n'+str(e))
+            return
+        self.root.statusbar.set('Tab Saved: '+filename)
     def RenameSelectedTab(self):
         pass
     def NewTabToRight(self):
@@ -208,6 +224,7 @@ class Projects(tk.Frame):
         active_tab = self.tabControl.index(self.tabControl.select())
         SignalIntegrity.App.Project['Selected']=active_tab
         self.selectedProject=active_tab
+        SignalIntegrity.App.Project._LoadTabIntoWork(active_tab)
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
         self.Drawing().stateMachine.Nothing()
@@ -222,11 +239,7 @@ class Projects(tk.Frame):
             if SignalIntegrity.App.Project['Selected']>=len(SignalIntegrity.App.Project['Projects']):
                 SignalIntegrity.App.Project['Selected']=len(SignalIntegrity.App.Project['Projects'])-1
                 self.selectedProject=SignalIntegrity.App.Project['Selected']
-            selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-            SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
-            SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
-            selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-            SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+            SignalIntegrity.App.Project._LoadTabIntoWork(SignalIntegrity.App.Project['Selected'])
             self.projectList[self.selectedProject].SelectProject()
             active_tab = self.tabControl.index(self.tabControl.select())
             self.tabControl.forget(active_tab)
@@ -249,6 +262,7 @@ class Projects(tk.Frame):
         if clicked_tab == '':
             self.parent.tk.call('tk_popup',self.noTabTearOffMenu, event.x_root, event.y_root)
         else:
+            self.contextTab=int(clicked_tab)
             self.tabControl.focus_set()
             self.parent.tk.call('tk_popup',self.tabTearOffMenu, event.x_root, event.y_root)
 
@@ -263,18 +277,13 @@ class Projects(tk.Frame):
             return
         self.SelectTab(clicked_tab)
     def SelectTab(self,tab):
-        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-        selectedProject.dict['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
-        selectedProject.dict['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
-        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        selectedPage.dict['Drawing']=SignalIntegrity.App.Project['Drawing']
+        # record the leaving tab's edited state so undo can return here; switching tabs does
+        # not persist edits (only an explicit save does), so there is no write-back into the
+        # leaving tab, and the entered tab is loaded as a fresh copy of its stored state
+        self.root.history.Event('switch tab')
         self.selectedProject=tab
         SignalIntegrity.App.Project['Selected']=self.selectedProject
-        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-        SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
-        SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
-        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+        SignalIntegrity.App.Project._LoadTabIntoWork(self.selectedProject)
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
         self.Drawing().stateMachine.Nothing()

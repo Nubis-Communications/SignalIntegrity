@@ -170,20 +170,33 @@ class SignalIntegrityAppHeadless(object):
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,args={},writable=False):
+    def OpenProjectFile(self,filename,args={},writable=False,subproject=None):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
             filename=''
         filename=str(filename)
-        if filename=='':
+        # the subproject is threaded through its own parameter; it is never a
+        # project variable, so route it out of args (using it as the subproject
+        # when one was not supplied explicitly) to avoid misapplying it as a
+        # missing project variable.
+        if 'subproject' in args:
+            if subproject is None:
+                subproject=args['subproject']
+            args={key:value for key,value in args.items() if key != 'subproject'}
+        subprojectOnly = filename in ['',None,'None']
+        if subprojectOnly and subproject==None:
             return False
         self.readOnly=not writable
         try:
-            self.fileparts=FileParts(filename)
-            os.chdir(self.fileparts.AbsoluteFilePath())
-            self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            if subprojectOnly:
+                self.fileparts=FileParts(SignalIntegrity.App.Project['FileName'])
+                SignalIntegrity.App.Project.Select(subproject)
+            else:
+                self.fileparts=FileParts(filename)
+                os.chdir(self.fileparts.AbsoluteFilePath())
+                self.fileparts=FileParts(filename)
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si')).Select(subproject)
             self.SetVariables(args, True)
             self.Drawing.InitFromProject()
         except:
@@ -271,7 +284,7 @@ class SignalIntegrityAppHeadless(object):
         netListText=self.NetListText()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
@@ -317,7 +330,7 @@ class SignalIntegrityAppHeadless(object):
         fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
@@ -743,7 +756,7 @@ class SignalIntegrityAppHeadless(object):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
@@ -1152,15 +1165,33 @@ class SignalIntegrityAppHeadless(object):
             return False
         return True
 
-def ProjectSParameters(filename,callback,**kwargs):
+def ProjectSParameters(filename,callback=None,subproject=None,**kwargs):
+    # push a descriptive title onto the progress dialog's title stack so the
+    # user can see what is being traversed.  Sub-projects (tabs in the current
+    # file) have no filename, so without this their name was never shown and the
+    # trailing pop below was unbalanced.
+    pushedTitle=False
     if callback != None:
-        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
-            return None
+        titleName=None
+        if filename not in ['',None,'None']:
+            titleName=FileParts(filename).FileNameTitle()
+            if subproject not in [None,'','None']:
+                titleName=titleName+':'+str(subproject)
+        elif subproject not in [None,'','None']:
+            titleName=str(subproject)
+        if titleName != None:
+            pushedTitle=True
+            if not callback(0,'+'+titleName):
+                return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+        if filename in ['',None,'None']:
+            fullFileName=filename
+        else:
+            fullFileName=os.path.realpath(filename)
+        if app.OpenProjectFile(fullFileName,kwargs,subproject=subproject):
             app.Drawing.DrawSchematic()
             try:
                 from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
@@ -1187,7 +1218,7 @@ def ProjectSParameters(filename,callback,**kwargs):
     except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
-    if callback != None:
+    if callback != None and pushedTitle:
         if not callback(0,'-'):
             return None
     return sp
@@ -1316,9 +1347,9 @@ def ClearProjectModificationTimeCache():
     """Clears the process-level sub-project enumeration memo (mainly for tests)."""
     _pmtEnumerateCache.clear()
 
-def _EnumerateProjectRefs(fileName,args):
+def _EnumerateProjectRefs(fileName,args,subproject=None):
     """Opens a ``.si`` project and returns ``(projectDir, refs)`` without
-    recursing.  ``refs`` is a list of ``(kind, referencedFileName, deviceArgs)``
+    recursing.  ``refs`` is a list of ``(kind, referencedFileName, subproject, deviceArgs)``
     where ``kind`` is ``'si'`` or ``'leaf'`` and ``referencedFileName`` is the
     file reference exactly as the original time-check used it (resolved relative
     to ``projectDir``).  Returns ``None`` if the project cannot be opened or
@@ -1337,7 +1368,7 @@ def _EnumerateProjectRefs(fileName,args):
     result=0
     try:
         app=SignalIntegrityAppHeadless()
-        if not app.OpenProjectFile(os.path.realpath(fileName),args):
+        if not app.OpenProjectFile(os.path.realpath(fileName),args,subproject=subproject):
             raise ValueError
         projDir=os.getcwd()
         app.Drawing.DrawSchematic()
@@ -1362,6 +1393,17 @@ def _EnumerateProjectRefs(fileName,args):
                 if variable['Type'] == 'file':
                     value=os.path.abspath(value)
                 deviceArgs[name]=value
+            subproj=None
+            if device['subproject'] != None:
+                subproj=device['subproject']['Value']
+            # the subproject is threaded through the dedicated subproject argument,
+            # not as a project variable; keep it out of deviceArgs (and fall back
+            # to it when the device carries no subproject part property) so it is
+            # not misapplied as a missing project variable.
+            if 'subproject' in deviceArgs:
+                if subproj in [None,'']:
+                    subproj=deviceArgs['subproject']
+                del deviceArgs['subproject']
             propertiesList = device.propertiesList
             for property in propertiesList:
                 if property['Type']=='file':
@@ -1372,11 +1414,13 @@ def _EnumerateProjectRefs(fileName,args):
                             filename=variable['Value']
                         else:
                             raise ValueError
-                    if filename.endswith('.si'):
-                        refs.append(('si',filename,deviceArgs))
+                    if filename in [None,''] and subproj != None:
+                        filename=SignalIntegrity.App.Project['FileName']
+                    if filename != None and filename.endswith('.si'):
+                        refs.append(('si',filename,subproj,deviceArgs))
                     else:
-                        if '.' in filename:
-                            refs.append(('leaf',filename,deviceArgs))
+                        if filename != None and '.' in filename:
+                            refs.append(('leaf',filename,subproj,deviceArgs))
     except:
         result=None
     SignalIntegrity.App.Project=savedProject
@@ -1385,7 +1429,7 @@ def _EnumerateProjectRefs(fileName,args):
         return None
     return (projDir,refs)
 
-def _CachedEnumerateProjectRefs(fileName,args):
+def _CachedEnumerateProjectRefs(fileName,args,subproject=None):
     """Memoized wrapper around :func:`_EnumerateProjectRefs`.  Only successful
     enumerations are cached; failures are retried (and thus keep returning the
     legacy ``None`` -> cache-invalid behavior)."""
@@ -1394,36 +1438,55 @@ def _CachedEnumerateProjectRefs(fileName,args):
         mtime=os.path.getmtime(keyPath)
     except OSError:
         return None
-    key=(keyPath,mtime,_pmtArgsKey(args))
+    key=(keyPath,mtime,_pmtArgsKey(args),subproject)
     cached=_pmtEnumerateCache.get(key,_PMT_MISS)
     if cached is not _PMT_MISS:
         return cached
-    enum=_EnumerateProjectRefs(fileName,args)
+    enum=_EnumerateProjectRefs(fileName,args,subproject)
     if enum is not None:
         _pmtEnumerateCache[key]=enum
     return enum
 
-def ProjectModificationTime(modificationTimeDict,fileName,args=None):
+def ProjectModificationTime(modificationTimeDict,fileName,args=None,subproject=None):
     #print(os.path.abspath(fileName))
     if modificationTimeDict == None:
         return None
-    if os.path.abspath(fileName) in [file['name'] for file in modificationTimeDict]:
-        if modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']==False:
-            # this is a recursion problem
-            return None
-        else:
-            return(modificationTimeDict)
-    elif not fileName.endswith('.si'):
-        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':True})
+
+    for entry in modificationTimeDict:
+        if entry['name'] == os.path.abspath(fileName) and entry['subproject'] == subproject:
+            if entry['traversed'] == False:
+                # this is a recursion problem
+                return None
+            else:
+                return(modificationTimeDict)
+
+#     if os.path.abspath(fileName) in [file['name'] for file in modificationTimeDict]:
+#         if modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']==False:
+#             # this is a recursion problem
+#             return None
+#         else:
+#             return(modificationTimeDict)
+    if not fileName.endswith('.si'):
+        modificationTimeDict.append({'name':os.path.abspath(fileName),
+                                     'subproject':subproject,
+                                     'time':os.path.getmtime(os.path.abspath(fileName)),
+                                     'traversed':True})
     else:
-        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':False})
+        modificationTimeDict.append({'name':os.path.abspath(fileName),
+                                     'subproject':subproject,
+                                     'time':os.path.getmtime(os.path.abspath(fileName)),
+                                     'traversed':False})
         filenamenoext=FileParts(fileName).FileNameTitle()
+        if subproject == None:
+            subprojectname=''
+        else:
+            subprojectname='_'+subproject
         for postfix in ['','_DUTSParameters','_TransferMatrices']:
             for cacheName in ['SParameters','TransferMatrices','Calibration']:
-                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                cacheFileName=FileParts(filenamenoext+subprojectname+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                 if os.path.exists(cacheFileName):
                     modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
-        enum=_CachedEnumerateProjectRefs(fileName,args)
+        enum=_CachedEnumerateProjectRefs(fileName,args,subproject)
         result=0
         if enum is None:
             result=None
@@ -1435,9 +1498,9 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                 # CWD-relative resolution of child references and sibling cache
                 # files matches the original (un-memoized) behavior exactly.
                 os.chdir(projDir)
-                for refKind,refFileName,refArgs in refs:
+                for refKind,refFileName,refSubproj,refArgs in refs:
                     if refKind=='si':
-                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,refFileName,refArgs)
+                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,refFileName,refArgs,refSubproj)
                         if modificationTimeDict==None:
                             result=None
                             break
@@ -1452,7 +1515,7 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                             break
                     else:
                         modificationTimeDict.append({'name':os.path.abspath(refFileName),
-                                                     'args':refArgs,
+                                                     'subproject':refSubproj,
                                                      'time':os.path.getmtime(os.path.abspath(refFileName)),
                                                      'traversed':True})
             except:
@@ -1461,5 +1524,7 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                 os.chdir(savedcwd)
         if result==None:
             return result
-    modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True
-    return modificationTimeDict
+    for entry in modificationTimeDict:
+        if entry['name'] == os.path.abspath(fileName) and entry['subproject'] == subproject:
+            entry['traversed'] = True
+            return modificationTimeDict

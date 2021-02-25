@@ -92,7 +92,7 @@ class VariablePropertyDialog(PropertiesDialog):
 
 class VariablesDialog(PropertiesDialog):
 
-    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None, parameterizable = False):
+    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None,parameterizable=False,subproject=None):
         # the system variables are edited when no project is supplied, otherwise these are device variables
         self.systemVariables=(project == None)
         if project == None: project = SignalIntegrity.App.Project['Variables.Items']
@@ -106,6 +106,7 @@ class VariablesDialog(PropertiesDialog):
                       and self.device['script'] is not None
                       and self.device['inputports'] is not None
                       and self.device['outputports'] is not None)
+        self.subproject=subproject
         self.savedVariables=copy.deepcopy(self.project)
 
         self.useScrollbar=(len(self.project)>30)
@@ -130,7 +131,7 @@ class VariablesDialog(PropertiesDialog):
 
         if self.isWaveformProcessor:
             tk.Button(self.controlFrame, text='import from script', command=self.onImportFromScript).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
-        elif self.filename != None:
+        elif self.filename != None or self.subproject != None:
             tk.Button(self.controlFrame, text='import from project', command=self.onImportFromProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
             tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         elif parameterizable:
@@ -386,6 +387,9 @@ class VariablesDialog(PropertiesDialog):
         self.project[v]['Visible'] = not self.project[v]['Visible']
 
     def onImportFromProject(self):
+        if self.subproject != None:
+            self.onImportFromSubprojectTab()
+            return
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
         level=app.projectStack.Push()
@@ -399,6 +403,21 @@ class VariablesDialog(PropertiesDialog):
         except:
             InformationMessage(self,"Schematic Variables Import","The project could not be opened and the import failed")
         app.projectStack.Pull(level)
+        self.DrawVariables()
+
+    def onImportFromSubprojectTab(self):
+        projectVariables=None
+        for projectConfiguration in SignalIntegrity.App.Project['Projects']:
+            if projectConfiguration['Name']==self.subproject:
+                projectVariables=projectConfiguration['Variables.Items']
+                break
+        if projectVariables is None:
+            InformationMessage(self,"Schematic Variables Import","The sub-project tab '"+str(self.subproject)+"' could not be found and the import failed")
+            return
+        currentNames=[variable['Name'] for variable in self.project]
+        for variable in projectVariables:
+            if (not variable['ReadOnly']) and (not variable['Name'] in currentNames):
+                self.project.append(copy.deepcopy(variable))
         self.DrawVariables()
 
     def onClosing(self):
