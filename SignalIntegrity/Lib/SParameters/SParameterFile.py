@@ -54,7 +54,7 @@ class SParameterFile(SParameters):
         if 'name' in params:
             return True
         return any(p.kind==inspect.Parameter.VAR_KEYWORD for p in params.values())
-    def __init__(self,name,Z0=None,callback=None,**kwargs):
+    def __init__(self,name,Z0=None,callback=None,subproject=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
         @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
@@ -90,10 +90,13 @@ class SParameterFile(SParameters):
             order=[int(p) for p in order.split(',')]
         else:
             order=None
-        ext=str.lower(name).split('.')[-1]
-        if ext == 'si':
+        if name == None:
+            ext=None
+        else:
+            ext=str.lower(name).split('.')[-1]
+        if ext == 'si' or name == None:
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
-            sp=ProjectSParameters(name,callback,**kwargs)
+            sp=ProjectSParameters(name,callback,subproject=subproject,**kwargs)
             if not sp is None:
                 if order != None:
                     sp=sp.PortReorder(order)

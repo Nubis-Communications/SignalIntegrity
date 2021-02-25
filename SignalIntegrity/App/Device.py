@@ -21,6 +21,7 @@ from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.PartPicture import *
 from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
 from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
+import os
 
 class Device(object):
     def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=[]):
@@ -307,6 +308,9 @@ class DeviceFromProject(object):
                         # keep Linux file system format
                         devicePartProperty['Value']=devicePartProperty['Value'].replace('\\','/')
         self.result.variablesList=deviceProject['Variables']['Items']
+        if not self.result['filetype'] == None:
+            self.result['file']['Hidden'] = self.result['filetype']['Value'] in ['TabInCurrent']
+            self.result['subproject']['Hidden'] = self.result['filetype']['Value'] in ['SelectedProjectFile','SParameterFile']
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
         if not self.result.configuration is None:
@@ -336,14 +340,16 @@ class DeviceFileNetListLine(DeviceNetListLine):
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceFileNetListLine(values=[('file',True)])
+        netlist=DeviceFileNetListLine(values=[('file',True),('subproject',True)])
         Device.__init__(self,netlist,[
             PartPropertyCategory('Files'),
             PartPropertyPartName('File'),
             PartPropertyHelp('device:File'),
             PartPropertyCalculationProperties(),
             PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyFileType(),
             PartPropertyFileName(),
+            PartPropertySubprojectName(),
             PartPropertyElementState(),
             PartPropertyReorder()]+propertiesList,partPicture)
 
@@ -358,13 +364,16 @@ class DeviceUnknown(Device):
 
 class DeviceSystem(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Systems'),
-                                      PartPropertyPartName('System'),
-                                      PartPropertyHelp('device:System'),
-                                      PartPropertyDefaultReferenceDesignator('D?'),
-                                      PartPropertyCalculationProperties(),
-                                      PartPropertyFileName()]+propertiesList,partPicture)
+        netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True),('subproject',True)])
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Systems'),
+            PartPropertyPartName('System'),
+            PartPropertyHelp('device:System'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyFileType(),
+            PartPropertyFileName(),
+            PartPropertySubprojectName()]+propertiesList,partPicture)
 
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
@@ -496,6 +505,7 @@ class DeviceVoltageSource(Device):
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyCalculationProperties(),
             PartPropertyWaveformFileName(),
+            PartPropertySubprojectName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
@@ -675,6 +685,7 @@ class DeviceCurrentSource(Device):
             PartPropertyDefaultReferenceDesignator('CS?'),
             PartPropertyCalculationProperties(),
             PartPropertyWaveformFileName(),
+            PartPropertySubprojectName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
@@ -1246,44 +1257,53 @@ class DeviceRLGCFitFromFile(Device):
 class DeviceNetworkAnalyzer(Device):
     def __init__(self,ports=4):
         netlist=DeviceNetListLine(partname='networkanalyzer',values=[('file',True),('et',True),('pl',True),('cd',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),
-                                      PartPropertyPartName('NetworkAnalyzer'),
-                                      PartPropertyHelp('device:Network-Analyzer'),
-                                      PartPropertyDefaultReferenceDesignator('D?'),
-                                      PartPropertyCalculationProperties(),
-                                      PartPropertyCalculationDirection(),
-                                      PartPropertyFileName(),
-                                      PartPropertyErrorTermsFileName(),
-                                      PartPropertyPortsList(','.join([str(p+1) for p in range(ports)])),
-                                      PartPropertyDescription('Calibrated Port Network Analyzer'),
-                                      PartPropertyPorts(ports,False)],
-                                PartPictureVariableNetworkAnalyzer())
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Network Analysis'),
+            PartPropertyPartName('NetworkAnalyzer'),
+            PartPropertyHelp('device:Network-Analyzer'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyCalculationDirection(),
+            PartPropertyFileType(),
+            PartPropertyFileName(),
+            PartPropertySubprojectName(),
+            PartPropertyErrorTermsFileName(),
+            PartPropertyPortsList(','.join([str(p+1) for p in range(ports)])),
+            PartPropertyDescription('Calibrated Port Network Analyzer'),
+            PartPropertyPorts(ports,False)],
+            PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerModel(Device):
     def __init__(self,ports=4):
         netlist=DeviceNetListLine(partname='networkanalyzermodel',values=[('file',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),
-                                      PartPropertyPartName('NetworkAnalyzerModel'),
-                                      PartPropertyHelp('device:Network-Analyzer-Model'),
-                                      PartPropertyDefaultReferenceDesignator('D?'),
-                                      PartPropertyCalculationProperties(),
-                                      PartPropertyFileName(),
-                                      PartPropertyDescription('Network Analyzer Model'),
-                                      PartPropertyPorts(ports,False)],
-                                      PartPictureVariableNetworkAnalyzer())
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Network Analysis'),
+            PartPropertyPartName('NetworkAnalyzerModel'),
+            PartPropertyHelp('device:Network-Analyzer-Model'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyFileType(),
+            PartPropertyFileName(),
+            PartPropertySubprojectName(),
+            PartPropertyDescription('Network Analyzer Model'),
+            PartPropertyPorts(ports,False)],
+            PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerDeviceUnderTest(Device):
     def __init__(self,ports=4):
         netlist=DeviceNetListLine(partname='dut',values=[('file',False)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Network Analysis'),
-                                      PartPropertyPartName('DeviceUnderTest'),
-                                      PartPropertyHelp('device:Device-Under-Test'),
-                                      PartPropertyDefaultReferenceDesignator('D?'),
-                                      PartPropertyCalculationProperties(),
-                                      PartPropertyFileName(),
-                                      PartPropertyDescription('Network Analyzer Device-Under-Test'),
-                                      PartPropertyPorts(ports,False)],
-                                      PartPictureVariableDeviceUnderTest())
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Network Analysis'),
+            PartPropertyPartName('DeviceUnderTest'),
+            PartPropertyHelp('device:Device-Under-Test'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyFileType(),
+            PartPropertyFileName(),
+            PartPropertySubprojectName(),
+            PartPropertyDescription('Network Analyzer Device-Under-Test'),
+            PartPropertyPorts(ports,False)],
+            PartPictureVariableDeviceUnderTest())
 
 class DeviceShortStandard(Device):
     def __init__(self):
@@ -1374,7 +1394,9 @@ class DeviceReflectCalibrationMeasurement(Device):
                          PartPropertyHelp('device:Reflect-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
                          PartPropertyCalculationProperties(),
+                         PartPropertyFileType(),
                          PartPropertyFileName(),
+                         PartPropertySubprojectName(),
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1)],
                         PartPictureVariableMeasurementOnePort())
@@ -1391,7 +1413,9 @@ class DeviceThruCalibrationMeasurement(Device):
                          PartPropertyHelp('device:Thru-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
                          PartPropertyCalculationProperties(),
+                         PartPropertyFileType(),
                          PartPropertyFileName(),
+                         PartPropertySubprojectName(),
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1),
                          PartPropertyOtherPortNumber(2),
@@ -1410,7 +1434,9 @@ class DeviceXtalkCalibrationMeasurement(Device):
                          PartPropertyHelp('device:Xtalk-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
                          PartPropertyCalculationProperties(),
+                         PartPropertyFileType(),
                          PartPropertyFileName(),
+                         PartPropertySubprojectName(),
                          PartPropertyPortNumber(1),
                          PartPropertyOtherPortNumber(2)],
                         PartPictureVariableMeasurementTwoPort())

@@ -1042,7 +1042,7 @@ class SignalIntegrityApp(tk.Frame):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
@@ -1232,7 +1232,7 @@ class SignalIntegrityApp(tk.Frame):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(

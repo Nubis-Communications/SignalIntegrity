@@ -251,7 +251,11 @@ class DeviceProperty(tk.Frame):
         propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         if self.partProperty['Type']=='enum':
-            self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries,command=self.onEntered)
+            if hasattr(self.partProperty,'menuEntries'):
+                self.propertyString.set(self.partProperty.menuEntries[self.partProperty.validEntries.index(self.propertyString.get())])
+                self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.menuEntries,command=self.onEntered)
+            else:
+                self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries,command=self.onEntered)
         else:
             self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
@@ -452,7 +456,24 @@ class DeviceProperty(tk.Frame):
         self.partProperty['KeywordVisible']=bool(self.keywordVisible.get())
         self.callBack()
     def onEntered(self,event):
+        stringEntered=self.propertyString.get()
+        if self.partProperty['Type']=='enum':
+            if hasattr(self.partProperty, 'menuEntries'):
+                stringEntered=self.partProperty.validEntries[self.partProperty.menuEntries.index(stringEntered)]
         self.partProperty.SetValueFromString(self.propertyString.get(),True)
+        if self.partProperty['PropertyName'] == 'filetype':
+            if stringEntered == 'SParameterFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif stringEntered == 'ProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=False
+            elif stringEntered == 'SelectedProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif stringEntered == 'TabInCurrent':
+                self.device['file']['Hidden']=True
+                self.device['subproject']['Hidden']=False
         if self.partProperty['PropertyName'] == 'waveformfilename':
             filename=self.partProperty.GetValue()
             isProject=FileParts(filename).fileext == '.si'
@@ -504,6 +525,19 @@ class DeviceProperties(tk.Frame):
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        if self.device['filetype'] != None:
+            if self.device['filetype']['Value'] == 'SParameterFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif self.device['filetype']['Value'] == 'ProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=False
+            elif self.device['filetype']['Value'] == 'SelectedProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif self.device['filetype']['Value'] == 'TabInCurrent':
+                self.device['file']['Hidden']=True
+                self.device['subproject']['Hidden']=False
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
         except TypeError:
@@ -932,8 +966,17 @@ class DevicePropertiesDialog(tk.Toplevel):
         self.result=copy.deepcopy(self.device)
         for pIndex in range(len(self.DeviceProperties.propertyFrameList)):
             propFrame=self.DeviceProperties.propertyFrameList[pIndex]
-            propFrame.partProperty.SetValueFromString(propFrame.propertyString.get())
+            stringEntered=propFrame.propertyString.get()
+            if propFrame.partProperty['Type']=='enum':
+                if hasattr(propFrame.partProperty, 'menuEntries'):
+                    stringEntered=propFrame.partProperty.validEntries[propFrame.partProperty.menuEntries.index(stringEntered)]
+            propFrame.partProperty.SetValueFromString(stringEntered)
             self.result.propertiesList[pIndex]=propFrame.partProperty
+        if not self.device['file'] is None:
+            if self.device['file']['Hidden']:
+                self.device['file']['Value']=None
+            if self.device['subproject']['Hidden']:
+                self.device['subproject']['Value']=None
         if not self.device['ports'] is None:
             self.result.partPicture.ports=self.result['ports'].GetValue()
         self.result.partPicture.SwitchPartPicture(self.result.partPicture.partPictureSelected)
