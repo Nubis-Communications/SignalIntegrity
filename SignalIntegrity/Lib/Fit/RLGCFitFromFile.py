@@ -41,7 +41,7 @@ class RLGCFitFromFile(object):
         """Fits a two-port RLGC model for the specified s-parameter file
         @see see RLGC
         """
-        sp=SParameterFile(self.spfile,self.Z0)
+        sp=SParameterFile(self.spfile,Z0=self.Z0)
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
         threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
         for k in range(len(stepResponse)):
