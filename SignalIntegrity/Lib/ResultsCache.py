@@ -292,6 +292,9 @@ class LinesCache(ResultsCache):
                                                    for key,value in [(lineList[k],lineList[k+1])
                                                                      for k in range(5,len(lineList),2)]
                                                    if key not in ['reorder']}
+                        elif lineList[3] == 'subproject':
+                            import SignalIntegrity.App.Project
+                            fileList[SignalIntegrity.App.Project['FileName']]={'subproject':lineList[4]}
                         elif lineList[3] == 'networkanalyzer':
                             fileList[lineList[5]]={key:value
                                                    for key,value in [(lineList[k],lineList[k+1])
@@ -349,7 +352,8 @@ class LinesCache(ResultsCache):
         for fileName in fileList.keys():
             try:
                 from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
-                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,fileList[fileName])
+                subproject = fileList[fileName].get('subproject',None) if isinstance(fileList[fileName],dict) else None
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,fileList[fileName],subproject)
                 if modificationTimeDict == None:
                     return False
             except:
