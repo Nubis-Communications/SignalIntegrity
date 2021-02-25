@@ -771,6 +771,8 @@ class SignalIntegrityApp(tk.Frame):
         self.projectTabMenu.add_command(label='Import Project Tab...',command=self.onImportProjectTab)
         if clicked != '':
             index=int(clicked)
+            self.projectTabMenu.add_command(label='Save Project Tab to File...',
+                command=lambda:self.onSaveProjectTab(index))
             self.projectTabMenu.add_command(label='Delete Project Tab',
                 command=lambda:self.onDeleteProjectTab(index),
                 state='normal' if len(SignalIntegrity.App.Project['Projects']) > 1 else 'disabled')
@@ -778,6 +780,28 @@ class SignalIntegrityApp(tk.Frame):
             self.projectTabMenu.tk_popup(event.x_root,event.y_root)
         finally:
             self.projectTabMenu.grab_release()
+
+    def onSaveProjectTab(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        project=SignalIntegrity.App.Project
+        name=project['Projects'][index]['Name']
+        filename=AskSaveAsFilename(parent=self.root,filetypes=[('si','.si')],defaultextension='.si',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),initialfile=name+'.si',
+                                   title='Save project tab')
+        if filename is None:
+            return
+        filename=os.path.abspath(filename)
+        current=os.path.abspath(self.fileparts.FullFilePathExtension('.si'))
+        if os.path.normcase(os.path.realpath(filename)) == os.path.normcase(os.path.realpath(current)):
+            messagebox.showerror('Save Project Tab','Choose a different file from the current project.',parent=self.root)
+            return
+        try:
+            project.WriteTab(self,index,filename)
+        except (OSError,ValueError,TypeError) as error:
+            messagebox.showerror('Save Project Tab','Could not save project:\n'+str(error),parent=self.root)
+            return
+        self.statusbar.set('Project tab saved')
 
     def onAddProjectTab(self):
         if self.ReadOnly() or not self.fileparts.filename:
@@ -1691,7 +1715,7 @@ class SignalIntegrityApp(tk.Frame):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
@@ -1881,7 +1905,7 @@ class SignalIntegrityApp(tk.Frame):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(

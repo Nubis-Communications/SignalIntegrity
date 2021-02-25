@@ -276,6 +276,10 @@ class LinesCache(ResultsCache):
         """
         import os
         fileList={}
+        # Tabbed subprojects are collected separately from fileList: several tabs
+        # of the same project file share one filename key and would otherwise
+        # collide in a dict, dropping all but the last tab from the traversal.
+        subprojectList=[]
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         try:
             for line in self.m_lines:
@@ -292,6 +296,19 @@ class LinesCache(ResultsCache):
                                                    for key,value in [(lineList[k],lineList[k+1])
                                                                      for k in range(5,len(lineList),2)]
                                                    if key not in ['reorder']}
+                        elif lineList[3] == 'subproject':
+                            import SignalIntegrity.App.Project
+                            # Keep the arguments provided to the subproject tab (the
+                            # variable name/value pairs that follow the tab name) so the
+                            # referenced tab can be evaluated during the traversal.
+                            # Without them the tab's equations cannot resolve and the
+                            # cache is treated as invalid on every calculation.
+                            subprojectArgs={key:value
+                                            for key,value in [(lineList[k],lineList[k+1])
+                                                              for k in range(5,len(lineList),2)]
+                                            if key not in ['reorder']}
+                            subprojectArgs['subproject']=lineList[4]
+                            subprojectList.append((SignalIntegrity.App.Project['FileName'],subprojectArgs))
                         elif lineList[3] == 'networkanalyzer':
                             fileList[lineList[5]]={key:value
                                                    for key,value in [(lineList[k],lineList[k+1])
@@ -349,7 +366,17 @@ class LinesCache(ResultsCache):
         for fileName in fileList.keys():
             try:
                 from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
-                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,fileList[fileName])
+                subproject = fileList[fileName].get('subproject',None) if isinstance(fileList[fileName],dict) else None
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,fileList[fileName],subproject)
+                if modificationTimeDict == None:
+                    return False
+            except:
+                return False
+        for fileName,subprojectArgs in subprojectList:
+            try:
+                from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
+                subproject=subprojectArgs.get('subproject',None)
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,subprojectArgs,subproject)
                 if modificationTimeDict == None:
                     return False
             except:

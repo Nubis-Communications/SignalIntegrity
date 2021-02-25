@@ -213,6 +213,57 @@ class TestSchematicPages(unittest.TestCase):
         self.app.root.update()
         self.assertEqual(project['Variables'].Names(),['newvar','sourcefile'])
 
+    def test_save_project_tab_preserves_all_pages_and_settings(self):
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        self.addPage()
+        output=str(self.sourceDir/'project-tab.si')
+        with patch('SignalIntegrity.App.SignalIntegrityApp.AskSaveAsFilename',return_value=output):
+            self.app.onSaveProjectTab(0)
+        exported=ProjectFile().Read(output)
+        self.assertEqual(exported.PageNames(),['Main','Imported'])
+        self.assertEqual(exported['Variables'].Names(),['x','channel'])
+        self.assertEqual(exported['Equations'].GetTextString(),'x=2')
+        value=exported['Variables.Items'][1]['Value']
+        self.assertEqual(os.path.normcase(os.path.abspath(os.path.join(self.sourceDir,value))),
+                         os.path.normcase(str(self.targetDir/'shared.s2p')))
+
+    def test_file_type_selection_keeps_internal_enum_value(self):
+        from SignalIntegrity.App.Device import DeviceFile,DeviceList
+        from SignalIntegrity.App.DeviceProperties import DeviceProperty
+        device=copy.deepcopy(next(item for item in DeviceList if isinstance(item,DeviceFile)))
+        parent=SimpleNamespace(device=device,UpdatePicture=lambda:None)
+        frame=tk.Frame(self.app.root)
+        self.addCleanup(frame.destroy)
+        control=DeviceProperty(frame,parent,device['filetype'])
+        for label,value,hiddenFile,hiddenSubproject in (
+                ('Project file','SelectedProjectFile',False,True),
+                ('Multi-project project file','ProjectFile',False,False),
+                ('Tab in current file','TabInCurrent',True,False),
+                ('S-parameter file','SParameterFile',False,True)):
+            with self.subTest(value=value):
+                control.propertyString.set(label)
+                control.onEntered(None)
+                control.onUntouched(None)
+                self.assertEqual(device['filetype']['Value'],value)
+                self.assertEqual(control.propertyString.get(),label)
+                self.assertEqual(device['file']['Hidden'],hiddenFile)
+                self.assertEqual(device['subproject']['Hidden'],hiddenSubproject)
+
+    def test_view_in_file_subproject_uses_side_tabs(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceFile,DeviceList
+        from SignalIntegrity.App.DeviceProperties import ViewDeviceSubproject
+        with patch('tkinter.simpledialog.askstring',return_value='Second'):
+            self.app.onAddProjectTab()
+        self.app.projectTabs.select(0)
+        self.app.root.update()
+        device=copy.deepcopy(next(item for item in DeviceList if isinstance(item,DeviceFile)))
+        device['filetype']['Value']='TabInCurrent'
+        device['subproject']['Value']='Second'
+        ViewDeviceSubproject(self.app,device)
+        self.assertEqual(SignalIntegrity.App.Project['Selected'],1)
+        self.assertEqual(self.app.projectTabs.index(self.app.projectTabs.select()),1)
+
     def test_add_and_save_page_project(self):
         import SignalIntegrity.App
         from SignalIntegrity.App.ProjectFile import ProjectFile

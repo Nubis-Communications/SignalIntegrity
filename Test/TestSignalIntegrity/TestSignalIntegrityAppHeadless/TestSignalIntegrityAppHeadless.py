@@ -63,6 +63,70 @@ class TestSignalIntegrityAppHeadlessTest(unittest.TestCase):
         for label,wf in zip(result['output waveform labels'],result['output waveforms']):
             self.assertTrue(len(wf) > 0 and all(math.isfinite(v) for v in wf.Values()),message+': '+label+' is not finite')
 
+    def test_in_file_subproject_sparameters(self):
+        import copy
+        import tempfile
+        from pathlib import Path
+        import numpy as np
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceFile,DeviceList,DeviceResistor,Port
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime,SignalIntegrityAppHeadless
+
+        def place(device):
+            x,y=device.PinCoordinates()[0]
+            ox,oy=device.partPicture.current.origin
+            device.partPicture.current.SetOrigin((ox+4-x,oy+4-y))
+            return device
+
+        previousProject=SignalIntegrity.App.Project
+        cwd=os.getcwd()
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                try:
+                    filename=str(Path(directory)/'projects.si')
+                    project=ProjectFile()
+                    index=project.AddProject('Termination')
+                    project.SelectProject(index)
+                    resistor=copy.deepcopy(next(device for device in DeviceList
+                        if isinstance(device,DeviceResistor) and device['ports'].GetValue()==1))
+                    resistor['ref']['Value']='R1'
+                    project.WritePageDevices(project.PageDrawings()[0],[place(resistor),place(Port(1))])
+                    project.SelectProject(0)
+                    fileDevice=copy.deepcopy(next(device for device in DeviceList
+                        if isinstance(device,DeviceFile) and device['ports'].GetValue()==1))
+                    fileDevice['ref']['Value']='D1'
+                    fileDevice['filetype']['Value']='TabInCurrent'
+                    fileDevice['subproject']['Value']='Termination'
+                    fileDevice['file']['Hidden']=True
+                    fileDevice['subproject']['Hidden']=False
+                    project.WritePageDevices(project.PageDrawings()[0],[place(fileDevice),place(Port(1))])
+                    project['CalculationProperties.FrequencyPoints']=8
+                    ProjectFileBase.Write(project,filename)
+                    app=SignalIntegrityAppHeadless()
+                    self.assertTrue(app.OpenProjectFile(filename))
+                    self.assertTrue(any('subproject Termination' in line for line in app.NetListText()))
+                    nested=app.CalculateSParameters()['s-parameters']
+                    dependencies=ProjectModificationTime([],filename,{})
+                    self.assertIsNotNone(dependencies)
+                    self.assertEqual({entry['subproject'] for entry in dependencies if entry['name']==filename},
+                                     {None,'Termination'})
+                    self.assertFalse(app.OpenProjectFile('',subproject='Missing'))
+                    previous=SignalIntegrity.App.Project
+                    self.assertFalse(app.OpenProjectFile(filename,subproject='Missing'))
+                    self.assertIs(SignalIntegrity.App.Project,previous)
+                    self.assertTrue(app.OpenProjectFile(filename,subproject='Termination'))
+                    app.Drawing.DrawSchematic()
+                    result=app.CalculateSParameters()
+                    self.assertIn('s-parameters',result,repr((result,app.NetListText())))
+                    direct=result['s-parameters'].Resample(nested.m_f)
+                    np.testing.assert_allclose(nested.m_d,direct.m_d)
+                finally:
+                    os.chdir(cwd)
+        finally:
+            SignalIntegrity.App.Project=previousProject
+
     def testHeadlessPictureIgnoresGuiTextSpacing(self):
         from SignalIntegrity.App.PartPicture import PartPicture
         from SignalIntegrity.App.TpX import TpX

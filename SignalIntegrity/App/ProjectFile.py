@@ -647,6 +647,7 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(PictureConfiguration())
         self.Add(XMLProperty('Projects',[ProjectConfiguration() for _ in range(0)],'array',arrayType=ProjectConfiguration()))
         self.Add(XMLPropertyDefaultInt('Selected',0))
+        self.Add(XMLPropertyDefaultString('FileName',write=False))
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
@@ -795,6 +796,7 @@ class ProjectFile(ProjectFileBase):
         root=ET.fromstring(''.join(text))
         candidate=ProjectFile()
         ProjectFileBase.Parse(candidate,root)
+        candidate['FileName']=self['FileName']
         projectsElement=root.find('Projects')
         if projectsElement is None:
             candidate._captureProject()
@@ -819,6 +821,7 @@ class ProjectFile(ProjectFileBase):
             if not isinstance(index,int) or index < 0 or index >= len(projects):
                 raise ValueError('invalid selected project')
             candidate._bindProject(index)
+        candidate._inferFileTypes()
         candidate.SetChanged(True)
         self.__dict__.update(candidate.__dict__)
         return self
@@ -826,13 +829,116 @@ class ProjectFile(ProjectFileBase):
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
+            base,ext=os.path.splitext(filename)
+            self['FileName']=filename if ext == '.si' else base+'.si'
         return self
 
+    def Select(self,subProjectName):
+        """Select a named project, or return None if it does not exist."""
+        if subProjectName in (None,'','None'):
+            return self
+        for index,project in enumerate(self['Projects']):
+            if project['Name'] == subProjectName:
+                return self.SelectProject(index)
+        return None
+
+    def _inferFileTypes(self):
+        from SignalIntegrity.App.PartProperty import PartPropertyFileType,PartPropertySubprojectName
+        for project in self['Projects']:
+            drawings=[project['Drawing']]+[page['Drawing'] for page in project['Pages']]
+            for drawing in drawings:
+                for device in drawing['Schematic.Devices']:
+                    file=device.Property('file')
+                    if file is None:
+                        continue
+                    if device.Property('filetype') is None:
+                        value=file['Value']
+                        kind='SelectedProjectFile' if isinstance(value,str) and value.lower().endswith('.si') else 'SParameterFile'
+                        prop=PartPropertyFileType(kind)
+                        prop['InProjectFile']=False
+                        device['PartProperties'].append(prop)
+                    if device.Property('subproject') is None:
+                        prop=PartPropertySubprojectName()
+                        prop['InProjectFile']=False
+                        device['PartProperties'].append(prop)
+
+    def SnapshotLines(self,app):
+        """Capture the live circuit pages and all independent projects for history."""
+        if app is not None:
+            self.Write(app)
+        return self.LinesToWrite()
+
+    def WriteTab(self,app,index,filename):
+        """Export one complete project, rebasing file references to the destination."""
+        if not isinstance(index,int) or index < 0 or index >= len(self['Projects']):
+            raise IndexError('project index out of range')
+        if app is not None:
+            self.Write(app)
+        project=self.ExtractProject(index)
+        sourceName=self['FileName']
+        if app is not None and getattr(app,'fileparts',None) is not None:
+            sourceDirectory=app.fileparts.AbsoluteFilePath()
+            appName=app.fileparts.FullFilePathExtension()
+            if appName:
+                sourceName=appName
+        else:
+            sourceDirectory=os.path.dirname(os.path.abspath(sourceName)) if sourceName not in (None,'','None') else os.getcwd()
+        sourcePath=None
+        if sourceName not in (None,'','None'):
+            sourcePath=os.path.abspath(sourceName)
+            if os.path.splitext(sourcePath)[1].lower() != '.si':
+                sourcePath=os.path.splitext(sourcePath)[0]+'.si'
+        destinationDirectory=os.path.dirname(os.path.abspath(filename))
+
+        def rebase(path):
+            if not isinstance(path,str) or path in ('','None') or path.startswith('=') or os.path.isabs(path):
+                return path
+            absolute=os.path.normpath(os.path.join(sourceDirectory,path))
+            try:
+                return os.path.relpath(absolute,destinationDirectory).replace('\\','/')
+            except ValueError:
+                return absolute.replace('\\','/')
+
+        def rebaseVariables(variables):
+            for variable in variables:
+                if variable['Type'] == 'file':
+                    variable['Value']=rebase(variable['Value'])
+
+        from SignalIntegrity.App.Device import DeviceFromProject
+        rebaseVariables(project['Variables.Items'])
+        for drawing in project.PageDrawings():
+            for device in drawing['Schematic.Devices']:
+                filetype=device.Property('filetype')
+                if filetype is not None and filetype['Value'] == 'TabInCurrent':
+                    if sourcePath is None or not os.path.isfile(sourcePath):
+                        raise ValueError('cannot export a current-tab reference without a saved source file')
+                    destinationPath=os.path.splitext(os.path.abspath(filename))[0]+'.si'
+                    if os.path.normcase(sourcePath) == os.path.normcase(destinationPath):
+                        raise ValueError('cannot overwrite the source of a current-tab reference')
+                    file=device.Property('file')
+                    if file is None:
+                        raise ValueError('current-tab reference has no file property')
+                    filetype['Value']='ProjectFile'
+                    filetype['InProjectFile']=True
+                    file['Value']=sourcePath.replace('\\','/')
+                live=DeviceFromProject(device).result
+                for prop in live.propertiesList:
+                    if prop['Type'] == 'file':
+                        stored=device.Property(prop['Keyword'])
+                        if stored is not None:
+                            stored['Value']=rebase(stored['Value'])
+                rebaseVariables(device['Variables.Items'])
+        ProjectFileBase.Write(project,filename)
+        return project
+
     def Write(self,app,filename=None):
-        for drawing,(schematic,_) in zip(self.PageDrawings(),app.Drawing.schematic.CircuitPages()):
-            self.WritePageDevices(drawing,schematic.deviceList)
+        if app is not None:
+            for drawing,(schematic,_) in zip(self.PageDrawings(),app.Drawing.schematic.CircuitPages()):
+                self.WritePageDevices(drawing,schematic.deviceList)
         if filename is not None:
             ProjectFileBase.Write(self,filename)
+            base,ext=os.path.splitext(filename)
+            self['FileName']=filename if ext == '.si' else base+'.si'
         return self
 
     @staticmethod

@@ -54,7 +54,8 @@ class DeviceFactory(list):
         todo: fill in reference impedance arguments in table
         | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
         |:-------------------------------------:|:---:|:-------:|:---------------------------------------------------------------------------------------------:|:-------------------:|:------------------------------------------------------------------------------------------------|
-        |file                                   |any  |True     |filename=None                                                                                  | True                |sp.dev.SParameterFile(filename,50.,callback)                                                     |
+        |file                                   |any  |True     |filename=None subproject=None                                                                  | True                |sp.dev.SParameterFile(filename,50.,callback,subproject)                                           |
+        |subproject                             |any  |True     |subproject=None                                                                                | True                |sp.dev.SParameterFile(None,50.,callback,subproject)                                              |
         |c                                      |1    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.TerminationC(f,c,z0,df,esr)                                                               |
         |c                                      |2    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.SeriesC(f,c,z0,df,esr)                                                                    |
         |l                                      |1    |True     |l=None                                                                                         | True                |sp.dev.TerminationL(f,l,z0)                                                                      |
@@ -87,7 +88,7 @@ class DeviceFactory(list):
         |tlinelossy                             |2    |False    |zc=50 td=0 LdBperHzpers=0 LdBperrootHzpers=0                                                   | True                |sp.dev.TLineLossy(f,ports,zc,td,LdBperHzpers,LdBperrootHzpers)                                   |
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
         |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
-        |rlgcfit                                |2    |False    |file=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                             |
+        |rlgcfit                                |2    |False    |file=None subproject=None scale=1.0 z0=50                                                                      | True                |fit.RLGCFitFromFile(f,file,scale,Z0)                                                             |
         |w                                      |2-16 |True     |filename=None df=0 scale=1.0 sect=0                                                            | True                |sp.dev.WElementFile(f,filename,df,50.,sect,scale)                                                |
         |shortstd                               |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n l0=0 l1=0.0 l2=0 l3=0                                                | True                |m.calkit.std.ShortStandard(f,od,oz0,ol,f0,l0,l1,l2,l3)                                           |
         |openstd                                |1    |False    |od=0 oz0=50 ol=0 f0=1e9\n c0=0 c1=0 c2=0 c3=0                                                  | True                |m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)                                            |
@@ -120,9 +121,9 @@ class DeviceFactory(list):
         @note Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used.
         """
         list.__init__(self,[
-        ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
-            ,None,callback,**extraArgs).Resample(f).\
-            SetReferenceImpedance(float(arg['z0']))"),
+        ParserDevice('file',None,True,{'':None,'subproject':''},True,
+            "SParameterFile(arg[''],None,callback,subproject=arg['subproject'],\
+            **extraArgs).Resample(f).SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
@@ -186,6 +187,9 @@ class DeviceFactory(list):
         # pragma: include
     def __init__Contd(self):
         list.__init__(self,list(self+[
+        ParserDevice('subproject',None,True,{'':None},True,"SParameterFile(None\
+            ,None,callback,subproject=arg[''],**extraArgs).Resample(f).\
+            SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
             Z0=float(arg['z0']))"),
@@ -216,9 +220,9 @@ class DeviceFactory(list):
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),float(arg['sect']),\
             float(arg['scale']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'scale':1},True,
-            "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
-            Z0=float(arg['z0']),**extraArgs)"),
+        ParserDevice('rlgcfit',2,False,{'file':'','subproject':'','scale':1},True,
+            "RLGCFitFromFile(f,arg['file'],subproject=arg['subproject'],\
+            scale=float(arg['scale']),Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
             'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),\
             float(arg['z0']),float(arg['sect']),float(arg['scale']))"),
@@ -248,9 +252,11 @@ class DeviceFactory(list):
             'cd':'calculate'},True,"NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],\
             (not arg['cd']=='uncalculate'),callback,**extraArgs)"),
         ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],\
-            None,callback,**extraArgs).Resample(f).SetReferenceImpedance(float(arg['z0']))"),
+            None,callback,**extraArgs).Resample(f).\
+            SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
-            "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),Z0=float(arg['z0']))"),
+            "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
             "ButterworthLowPassFilter(f,int(arg['order']),float(arg['fc']),\
             Z0=float(arg['z0']))"),
@@ -265,14 +271,18 @@ class DeviceFactory(list):
         ParserDevice('tlineequation',2,True,{'':'','zc':50.},True,
             "TransmissionLineEquation(f,str(arg['']),Z0=float(arg['zc'])).\
             SetReferenceImpedance(float(arg['z0']))"),
-        ParserDevice('raisedcosinerisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
-            "RaisedCosineRisetimeFilter(f,float(arg['']),arg['rt_type']=='1090',float(arg['z0']))"),
+        ParserDevice('raisedcosinerisetimefilter',2,True,{'':None,'rt_type':'1090'},
+            True,"RaisedCosineRisetimeFilter(f,float(arg['']),\
+            arg['rt_type']=='1090',float(arg['z0']))"),
         ParserDevice('gaussianrisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
-            "GaussianRisetimeFilter(f,float(arg['']),arg['rt_type']=='1090',float(arg['z0']))"),
-        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9},
-            False,"IdealRelay(ports,int(arg['']),float(arg['term']),float(arg['z0']))"),
+            "GaussianRisetimeFilter(f,float(arg['']),\
+            arg['rt_type']=='1090',float(arg['z0']))"),
+        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,
+            {'':0,'term':1e9},False,
+            "IdealRelay(ports,int(arg['']),float(arg['term']),float(arg['z0']))"),
         ParserDevice('impulseresponsefilter',2,True,
-            {'':None,'wfprojname':'None','dcgain':None,'mults':True,'derivative':False},True,
+            {'':None,'wfprojname':'None','dcgain':None,'mults':True,
+            'derivative':False},True,
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
@@ -281,10 +291,12 @@ class DeviceFactory(list):
             "FrequencyResponseFilter(arg[''],\
             normalizedDCGain=eval(arg['dcgain']),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),callback,**extraArgs)"),
-        ParserDevice('series',None,False,{'file':None,'sect':None,'lp':None,'rp':None},True,
-                     "Series(f,arg['file'],float(arg['sect']),eval('['+arg['lp']+']'),\
-                     eval('['+arg['rp']+']'),float(arg['z0']),callback,**extraArgs)"),
+            "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),\
+            callback,**extraArgs)"),
+        ParserDevice('series',None,False,
+            {'file':None,'sect':None,'lp':None,'rp':None},True,
+            "Series(f,arg['file'],float(arg['sect']),eval('['+arg['lp']+']'),\
+            eval('['+arg['rp']+']'),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('currenttovoltageconverter',3,False,{},False,
                      "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),
         ParserDevice('voltagetovoltageconverter',3,False,{},False,
@@ -384,6 +396,8 @@ class DeviceFactory(list):
         argsList=argsList[1:]
         for device in self:
             if device.ports is not None:
+                if ports is None:
+                    continue
                 if isinstance(device.ports,int):
                     if device.ports != ports:
                         continue

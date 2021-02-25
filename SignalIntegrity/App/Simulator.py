@@ -122,7 +122,7 @@ class Simulator(object):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.parent.fileparts.FileNameTitle()
+            cacheFileName=self.parent.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
