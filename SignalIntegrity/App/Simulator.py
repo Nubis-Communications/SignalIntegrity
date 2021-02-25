@@ -102,7 +102,7 @@ class Simulator(object):
         fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.parent.fileparts.FileNameTitle()
+            cacheFileName=self.parent.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'],allowParallel=self.parent.AllowParallelization())
