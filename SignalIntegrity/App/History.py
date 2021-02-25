@@ -45,7 +45,7 @@ class History(object):
         else: # somewhere in the middle due to a previous undo
             self.history=self.history[:self.current+1]
             self.current=len(self.history)-1
-        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent).LinesToWrite())
+        element=HistoryElement(eventName,SignalIntegrity.App.Project.SnapshotLines(self.parent))
         self.history.append(element)
         self.current=self.current+1
         self.FigureState()

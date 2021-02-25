@@ -84,10 +84,28 @@ def ViewableFileNameOfDevice(device):
     for partProperty in propertiesList:
         if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'filename'):
             filename=partProperty.GetValue()
-            if filename in [None,'']:
+            # 'None' is the sentinel stored for devices that reference an in-file tab
+            # rather than a file on disk; those are viewed as sub-projects, not files
+            if filename in [None,'','None']:
                 return None
             return filename
     return None
+
+def SubprojectTabNameOfDevice(device):
+    """the name of the in-file tab (sub-project) this device references, or None"""
+    try:
+        filetype=device['filetype']
+        subproject=device['subproject']
+    except (TypeError,ValueError,KeyError,AttributeError):
+        return None
+    if filetype is None or subproject is None:
+        return None
+    if filetype['Value'] != 'TabInCurrent':
+        return None
+    name=subproject['Value']
+    if name in [None,'']:
+        return None
+    return name
 
 def DeviceViewKind(device):
     """'file','waveform','noise' if this device has something viewable, or None"""
@@ -134,6 +152,8 @@ def DeviceViewMenuActions(device,editable=True):
         actions.append(('Edit Script','editscript'))
     elif kind == 'noise':
         actions.append(('View Noise','noise'))
+    if kind != 'file' and not SubprojectTabNameOfDevice(device) is None:
+        actions.append(('View','subproject'))
     if not WaveformProjectFileNameOfDevice(device) is None:
         actions.append(('Open Project','openproject'))
     return actions
@@ -146,10 +166,41 @@ def PerformDeviceViewAction(app,device,action):
         ViewDeviceWaveform(app,device)
     elif action == 'noise':
         ViewDeviceNoise(app,device)
+    elif action == 'subproject':
+        ViewDeviceSubproject(app,device)
     elif action == 'openproject':
         OpenDeviceWaveformProject(app,device)
     elif action == 'editscript':
         EditDeviceScript(app,device)
+
+def ViewDeviceSubproject(app,device):
+    """selects the in-file tab (sub-project) this device references in the current window,
+    passing in the device's variables (and the parent calculation properties when the device
+    uses them) and evaluating the tab's equations, so it looks and behaves like the sub-project
+    as computed - just with its tab selected."""
+    import SignalIntegrity.App.Project
+    tabname=SubprojectTabNameOfDevice(device)
+    if tabname is None:
+        return
+    names=[project['Name'] for project in SignalIntegrity.App.Project['Projects']]
+    if tabname not in names:
+        messagebox.showerror('Subproject','subproject tab "'+str(tabname)+'" not found')
+        return
+    # resolve the arguments in the current (parent) context before switching tabs
+    args=SignalIntegrity.App.Project['Variables'].Dictionary(device.variablesList)
+    try:
+        useCalculationProperties=(device['calcprop']['Value'] == 'true')
+    except TypeError:
+        useCalculationProperties=False
+    if useCalculationProperties:
+        args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+    index=names.index(tabname)
+    app.InternalProjects.tabControl.select(index)
+    app.InternalProjects.SelectTab(index)
+    app.SetVariables(args)
+    # DrawSchematic re-evaluates the tab's equations and refreshes the variable display
+    app.Drawing.DrawSchematic()
+    app.history.Event('view subproject tab')
 
 def OpenDeviceWaveformProject(app,device):
     """opens the sub-project used to generate this device's waveform in a new instance of the app"""
@@ -274,7 +325,11 @@ class DeviceProperty(tk.Frame):
         propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
         if self.partProperty['Type']=='enum':
-            self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries,command=self.onEntered)
+            if hasattr(self.partProperty,'menuEntries'):
+                self.propertyString.set(self.partProperty.menuEntries[self.partProperty.validEntries.index(self.propertyString.get())])
+                self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.menuEntries,command=self.onEntered)
+            else:
+                self.propertyEntry = tk.OptionMenu(self,self.propertyString,*self.partProperty.validEntries,command=self.onEntered)
         else:
             self.propertyEntry = tk.Entry(self,textvariable=self.propertyString)
         self.propertyEntry.config(width=15)
@@ -295,6 +350,9 @@ class DeviceProperty(tk.Frame):
                 # self.propertyFileCalcButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
                 self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
                 self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        elif self.partProperty['PropertyName'] == 'subproject' and not SubprojectTabNameOfDevice(self.device) is None:
+            self.propertySubprojectViewButton = tk.Button(self,text='view',command=self.onSubprojectView)
+            self.propertySubprojectViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
@@ -433,6 +491,14 @@ class DeviceProperty(tk.Frame):
                 else:
                     self.parent.parent.parent.ViewCalibration(calibration)
 
+    def onSubprojectView(self):
+        self.parentFrame.focus()
+        app=self.parent.parent.parent
+        device=self.device
+        # close the (modal) properties dialog so the selected sub-project tab is visible
+        self.parent.parent.cancel()
+        ViewDeviceSubproject(app,device)
+
     def onFileCalc(self):
         device=self.parent.device
         line = device.NetListLine()
@@ -475,7 +541,24 @@ class DeviceProperty(tk.Frame):
         self.partProperty['KeywordVisible']=bool(self.keywordVisible.get())
         self.callBack()
     def onEntered(self,event):
+        stringEntered=self.propertyString.get()
+        if self.partProperty['Type']=='enum':
+            if hasattr(self.partProperty, 'menuEntries'):
+                stringEntered=self.partProperty.validEntries[self.partProperty.menuEntries.index(stringEntered)]
         self.partProperty.SetValueFromString(self.propertyString.get(),True)
+        if self.partProperty['PropertyName'] == 'filetype':
+            if stringEntered == 'SParameterFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif stringEntered == 'ProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=False
+            elif stringEntered == 'SelectedProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif stringEntered == 'TabInCurrent':
+                self.device['file']['Hidden']=True
+                self.device['subproject']['Hidden']=False
         if self.partProperty['PropertyName'] == 'waveformfilename':
             filename=self.partProperty.GetValue()
             isProject=FileParts(filename).fileext == '.si'
@@ -513,13 +596,15 @@ class DeviceProperties(tk.Frame):
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
                 filename=self.device[fileTypeKeywords[0]]['Value']
+                if filename is None:
+                    filename=''
                 if (len(filename)>1) and (filename[0]=='='):
                     import SignalIntegrity.App.Project
                     if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
                         filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                         if filename == None:
                             filename=''
-                self.isAProjectDevice = filename.split('.')[-1]=='si'
+                self.isAProjectDevice = (filename.split('.')[-1]=='si') or (SubprojectTabNameOfDevice(self.device) is not None)
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -531,6 +616,19 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         self.UpdateScriptEditorButton()
+        if self.device['filetype'] != None:
+            if self.device['filetype']['Value'] == 'SParameterFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif self.device['filetype']['Value'] == 'ProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=False
+            elif self.device['filetype']['Value'] == 'SelectedProjectFile':
+                self.device['file']['Hidden']=False
+                self.device['subproject']['Hidden']=True
+            elif self.device['filetype']['Value'] == 'TabInCurrent':
+                self.device['file']['Hidden']=True
+                self.device['subproject']['Hidden']=False
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
         except TypeError:
@@ -653,6 +751,7 @@ class DeviceProperties(tk.Frame):
             # the variables are passed into the script by name, as they are passed into a sub-project
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables')
             return
+        subproject=SubprojectTabNameOfDevice(self.device)
         if self.device['file'] != None:
             filename=self.device['file']['Value']
         elif self.device['wffile'] != None:
@@ -666,7 +765,8 @@ class DeviceProperties(tk.Frame):
                     filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                     if filename == None:
                         filename=''
-            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        if filename != None or subproject != None:
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename,subproject=subproject)
         elif self.device['wftype'].GetValue() == 'Dependent':
             #Dependent devices have variables without an associated filename
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=None, parameterizable=True)
@@ -698,13 +798,15 @@ class DeviceProperties(tk.Frame):
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
                 filename=self.device[fileTypeKeywords[0]]['Value']
+                if filename is None:
+                    filename=''
                 if (len(filename)>1) and (filename[0]=='='):
                     import SignalIntegrity.App.Project
                     if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
                         filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                         if filename == None:
                             filename=''
-                self.isAProjectDevice = filename.split('.')[-1]=='si'
+                self.isAProjectDevice = (filename.split('.')[-1]=='si') or (SubprojectTabNameOfDevice(self.device) is not None)
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -993,8 +1095,17 @@ class DevicePropertiesDialog(tk.Toplevel):
         self.result=copy.deepcopy(self.device)
         for pIndex in range(len(self.DeviceProperties.propertyFrameList)):
             propFrame=self.DeviceProperties.propertyFrameList[pIndex]
-            propFrame.partProperty.SetValueFromString(propFrame.propertyString.get())
+            stringEntered=propFrame.propertyString.get()
+            if propFrame.partProperty['Type']=='enum':
+                if hasattr(propFrame.partProperty, 'menuEntries'):
+                    stringEntered=propFrame.partProperty.validEntries[propFrame.partProperty.menuEntries.index(stringEntered)]
+            propFrame.partProperty.SetValueFromString(stringEntered)
             self.result.propertiesList[pIndex]=propFrame.partProperty
+        if not self.device['file'] is None:
+            if self.device['file']['Hidden']:
+                self.device['file']['Value']=None
+            if self.device['subproject']['Hidden']:
+                self.device['subproject']['Value']=None
         if not self.device['ports'] is None:
             self.result.partPicture.ports=self.result['ports'].GetValue()
         self.result.partPicture.SwitchPartPicture(self.result.partPicture.partPictureSelected)

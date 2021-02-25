@@ -88,6 +88,8 @@ class TestHDMICableTest(unittest.TestCase,
         self.SimulationResultsChecker('PRBSTest.si',archive=True)
     def testPRBSTestCompare(self):
         self.SimulationResultsChecker('PRBSTestCompare.si')
+    def testPRBSTestMulti(self):
+        self.SimulationResultsChecker('PRBSTestMulti.si')
     def testFFE(self):
         self.SParameterResultsChecker('FFE.si')
     def testHDMIThru(self):

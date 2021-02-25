@@ -609,6 +609,8 @@ class ProjectConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Name','Main'))
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        self.SubDir(VariablesConfiguration())
+        self.SubDir(EquationsConfiguration())
         self.Add(XMLProperty('Pages',[PageConfiguration() for _ in range(0)],'array',arrayType=PageConfiguration()))
         self.Add(XMLPropertyDefaultInt('Selected',0))
 
@@ -627,47 +629,110 @@ class ProjectFile(ProjectFileBase):
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
+        self.Add(XMLPropertyDefaultString('FileName',write=False))
         import SignalIntegrity.App.Preferences
         self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices']['EyeDiagram']),makeOnRead=True)
         # end of backward compatibility to be removed some day
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
+    def _LoadTabIntoWork(self,index):
+        """copy stored tab `index`'s mini-project into the top-level work structure (deep copy).
+        The work structure is what the app edits; tabs are pristine storage until an explicit save."""
+        tab=self['Projects'][index]
+        self.dict['CalculationProperties']=copy.deepcopy(tab['CalculationProperties'])
+        self.dict['PostProcessing']=copy.deepcopy(tab['PostProcessing'])
+        self.dict['Variables']=copy.deepcopy(tab['Variables'])
+        self.dict['Equations']=copy.deepcopy(tab['Equations'])
+        page=tab['Pages'][tab['Selected']]
+        self.dict['Drawing']=copy.deepcopy(page['Drawing'])
+    def _CommitWorkIntoTab(self,index):
+        """copy the top-level work structure back into stored tab `index` (deep copy)."""
+        tab=self['Projects'][index]
+        tab.dict['CalculationProperties']=copy.deepcopy(self['CalculationProperties'])
+        tab.dict['PostProcessing']=copy.deepcopy(self['PostProcessing'])
+        tab.dict['Variables']=copy.deepcopy(self['Variables'])
+        tab.dict['Equations']=copy.deepcopy(self['Equations'])
+        page=tab['Pages'][tab['Selected']]
+        page.dict['Drawing']=copy.deepcopy(self['Drawing'])
     def New(self):
         self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
         self['Selected']=0
         selected=self['Projects'][0]
         selected.dict['CalculationProperties']=self['CalculationProperties']
         selected.dict['PostProcessing']=self['PostProcessing']
+        selected.dict['Variables']=self['Variables']
+        selected.dict['Equations']=self['Equations']
         selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
         selected['Selected']=0
         selectedPage=selected['Pages'][0]
         selectedPage['Name']='Page 1'
         selectedPage.dict['Drawing']=self['Drawing']
+        # the work structure is a copy of the tab; edits never touch stored tabs until save
+        self._LoadTabIntoWork(0)
         return self
 
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
+            self['FileName']=filename
             if self['Projects'] == []:
+                # this is legacy format
                 self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
                 self['Selected']=0
                 selected=self['Projects'][0]
                 selected.dict['CalculationProperties']=self['CalculationProperties']
                 selected.dict['PostProcessing']=self['PostProcessing']
+                selected.dict['Variables']=self['Variables']
+                selected.dict['Equations']=self['Equations']
                 selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
                 selected['Selected']=0
                 selectedPage=selected['Pages'][0]
                 selectedPage['Name']='Page 1'
+                for device in self['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] == 'file':
+                            from SignalIntegrity.App.PartProperty import PartPropertyFileType,PartPropertySubprojectName
+                            if prop['Value'] is not None and prop['Value'].endswith('.si'):
+                                fileTypeProp=PartPropertyFileType('SelectedProjectFile')
+                            else:
+                                fileTypeProp=PartPropertyFileType('SParameterFile')
+                            device['PartProperties'].extend([fileTypeProp,PartPropertySubprojectName()])
+                            break
                 selectedPage.dict['Drawing']=self['Drawing']
+                # the work structure is a copy of the tab; edits never touch stored tabs until save
+                self._LoadTabIntoWork(0)
             else:
-                selected=self['Projects'][0]
-                self.dict['CalculationProperties']=selected['CalculationProperties']
-                self.dict['PostProcessing']=selected['PostProcessing']
-                selectedPage=selected['Pages'][0]
-                self.dict['Drawing']=selectedPage['Drawing']
+                selected=self['Selected']
+                # backward compatibility: multi-project files written before
+                # Variables/Equations became per-project stored a single shared
+                # set at the top level.  Distribute a copy to every project so
+                # each tab starts with the same set it had before.
+                if len(self['Variables.Items'])>0 or len(self['Equations.Lines'])>0:
+                    for projectConfiguration in self['Projects']:
+                        projectConfiguration.dict['Variables']=copy.deepcopy(self['Variables'])
+                        projectConfiguration.dict['Equations']=copy.deepcopy(self['Equations'])
+                selectedProject=self['Projects'][selected]
+                self._LoadTabIntoWork(selected)
         return self
 
-    def Write(self,app,filename=None):
+    def Select(self,subProjectName):
+        if subProjectName in [None,'','None']:
+            return self
+        selectIndex=None
+        for p in range(len(self['Projects'])):
+            if self['Projects'][p]['Name']==subProjectName:
+                selectIndex=p
+                break
+        if selectIndex==None:
+            return None
+        if selectIndex==self['Selected']:
+            return self
+        self['Selected']=selectIndex
+        self._LoadTabIntoWork(selectIndex)
+        return self
+
+    def _SyncSchematicDevices(self,app):
+        """pull the live schematic's devices into the work Drawing."""
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
         for d in range(len(self['Drawing.Schematic.Devices'])):
             deviceProject=self['Drawing.Schematic.Devices'][d]
@@ -693,28 +758,115 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
-        selectedProject=self['Projects'][self['Selected']]
-        selectedProject.dict['CalculationProperties']=self['CalculationProperties']
-        selectedProject.dict['PostProcessing']=self['PostProcessing']
-        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        selectedPage.dict['Drawing']=self['Drawing']
+    def SnapshotLines(self,app):
+        """serialize the project with the current work edits committed into the selected tab,
+        without persisting them into the stored tabs (used for undo history snapshots)."""
+        self._SyncSchematicDevices(app)
+        tab=self['Projects'][self['Selected']]
+        page=tab['Pages'][tab['Selected']]
+        saved=(tab.dict['CalculationProperties'],tab.dict['PostProcessing'],
+               tab.dict['Variables'],tab.dict['Equations'],page.dict['Drawing'])
+        try:
+            tab.dict['CalculationProperties']=self['CalculationProperties']
+            tab.dict['PostProcessing']=self['PostProcessing']
+            tab.dict['Variables']=self['Variables']
+            tab.dict['Equations']=self['Equations']
+            page.dict['Drawing']=self['Drawing']
+            return self.LinesToWrite()
+        finally:
+            (tab.dict['CalculationProperties'],tab.dict['PostProcessing'],
+             tab.dict['Variables'],tab.dict['Equations'],page.dict['Drawing'])=saved
+    def WriteTab(self,app,index,filename):
+        """Export a tab's selected schematic in the legacy single-project format."""
+        from SignalIntegrity.App.Device import DeviceFromProject
+        projectCopy=copy.deepcopy(self)
+        if index == self['Selected']:
+            projectCopy._SyncSchematicDevices(app)
+            projectCopy._CommitWorkIntoTab(index)
+        tab=projectCopy['Projects'][index]
+        sourceDirectory=app.fileparts.AbsoluteFilePath()
+        destinationDirectory=os.path.dirname(os.path.abspath(filename))
+
+        def RebasePath(path):
+            if path in [None,'','None'] or path.startswith('=') or os.path.isabs(path):
+                return path
+            absolutePath=os.path.normpath(os.path.join(sourceDirectory,path))
+            try:
+                return os.path.relpath(absolutePath,destinationDirectory).replace('\\','/')
+            except ValueError:
+                # Files on another Windows drive cannot have a relative path.
+                return absolutePath.replace('\\','/')
+
+        def RebaseVariables(variables):
+            for variable in variables:
+                if variable['Type'] == 'file':
+                    variable['Value']=RebasePath(variable['Value'])
+
+        RebaseVariables(tab['Variables.Items'])
+        for page in tab['Pages']:
+            for deviceConfiguration in page['Drawing.Schematic.Devices']:
+                device=DeviceFromProject(deviceConfiguration).result
+                filetype=device['filetype']
+                if filetype is not None and filetype['Value'] == 'TabInCurrent':
+                    deviceConfiguration.Property('filetype')['Value']='ProjectFile'
+                    deviceConfiguration.Property('file')['Value']=os.path.join(
+                        sourceDirectory,app.fileparts.FileNameTitle()+'.si').replace('\\','/')
+                elif filetype is not None and filetype['Value'] in ['SParameterFile','SelectedProjectFile']:
+                    for keyword in ['filetype','subproject']:
+                        stored=deviceConfiguration.Property(keyword)
+                        if stored is not None:
+                            stored['InProjectFile']=False
+                for prop in device.propertiesList:
+                    if prop['Type'] == 'file':
+                        stored=deviceConfiguration.Property(prop['Keyword'])
+                        if stored is not None:
+                            stored['Value']=RebasePath(stored['Value'])
+                RebaseVariables(deviceConfiguration['Variables.Items'])
+        projectCopy['Projects']=[tab]
+        projectCopy['Selected']=0
+        projectCopy._LoadTabIntoWork(0)
+        del projectCopy.dict['Projects']
+        del projectCopy.dict['Selected']
+        projectCopy.baseName='Project'
+        ProjectFileBase.Write(projectCopy,filename)
+        return projectCopy
+
+    def Write(self,app,filename=None):
+        if app is not None:
+            self._SyncSchematicDevices(app)
+        self._CommitWorkIntoTab(self['Selected'])
         if not filename is None:
             ProjectFileBase.Write(self,filename)
             projectCopy=copy.deepcopy(self)
             del projectCopy.dict['CalculationProperties']
             del projectCopy.dict['PostProcessing']
+            del projectCopy.dict['Variables']
+            del projectCopy.dict['Equations']
             del projectCopy.dict['Drawing']
             # Now, after all of this, decide whether we want to save in legacy format
             legacyFormat=True
             if legacyFormat and len(self['Projects']) != 1: legacyFormat = False
             if legacyFormat and self['Projects'][0]['Name'] != 'Main': legacyFormat = False
             if legacyFormat and len(self['Projects'][0]['Pages']) != 1: legacyFormat = False
+            if legacyFormat:
+                for device in self['Projects'][0]['Pages'][0]['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] == 'filetype':
+                            if not prop['Value'] in ['SParameterFile','SelectedProjectFile']:
+                                legacyFormat=False
+                                break;
             # if there is only one project, the project has the default name, and has only one page,
             # then store it in the legacy format.
             if legacyFormat:
                 projectCopy.dict['CalculationProperties']=self['Projects'][0]['CalculationProperties']
                 projectCopy.dict['PostProcessing']=self['Projects'][0]['PostProcessing']
+                projectCopy.dict['Variables']=self['Projects'][0]['Variables']
+                projectCopy.dict['Equations']=self['Projects'][0]['Equations']
                 projectCopy.dict['Drawing']=self['Projects'][0]['Pages'][0]['Drawing']
+                for device in self['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] in ['filetype','subproject']:
+                            prop.write=False
                 del(projectCopy.dict['Selected'])
                 del(projectCopy.dict['Projects'])
                 projectCopy.baseName='Project'

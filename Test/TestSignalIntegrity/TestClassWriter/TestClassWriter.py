@@ -601,6 +601,11 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='DeviceFactory'
         defName=['__init__Contd']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteDeviceFactoryInitContd2(self):
+        fileName="../../../SignalIntegrity/Lib/Parsers/Devices/DeviceParser.py"
+        className='DeviceFactory'
+        defName=['__init__Contd2']
+        self.WriteClassCode(fileName,className,defName)
     def testWriteDeviceFactoryMakeDevice(self):
         fileName="../../../SignalIntegrity/Lib/Parsers/Devices/DeviceParser.py"
         className='DeviceFactory'
