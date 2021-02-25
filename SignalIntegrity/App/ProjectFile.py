@@ -267,6 +267,30 @@ class ProjectFile(ProjectFileBase):
                 self.dict['Drawing']=selectedPage['Drawing']
         return self
 
+    def Select(self,subProjectName):
+        if subProjectName in [None,'']:
+            return self
+        selectIndex=None
+        for p in range(len(self['Projects'])):
+            if self['Projects'][p]['Name']==subProjectName:
+                selectIndex=p
+                break
+        if selectIndex==None:
+            return None
+        if selectIndex==self['Selected']:
+            return self
+        currentlySelectedProject=self['Projects'][self['Selected']]
+        currentlySelectedProject.dict['CalculationProperties']=self['CalculationProperties']
+        currentlySelectedProject.dict['PostProcessing']=self['PostProcessing']
+        currentlySelectedPage=currentlySelectedProject['Pages'][currentlySelectedProject['Selected']]
+        currentlySelectedPage.dict['Drawing']=self['Drawing']
+        self['Selected']=selectIndex
+        newlySelectedProject=self['Projects'][self['Selected']]
+        self.dict['CalculationProperties']=newlySelectedProject['CalculationProperties']
+        self.dict['PostProcessing']=newlySelectedProject['PostProcessing']
+        newlySelectedPage=newlySelectedProject['Pages'][newlySelectedProject['Selected']]
+        self.dict['Drawing']=newlySelectedPage['Drawing']
+
     def Write(self,app,filename=None):
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
         for d in range(len(self['Drawing.Schematic.Devices'])):

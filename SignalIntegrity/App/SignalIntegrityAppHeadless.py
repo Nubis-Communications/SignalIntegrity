@@ -137,7 +137,7 @@ class SignalIntegrityAppHeadless(object):
     def NullCommand(self):
         pass
 
-    def OpenProjectFile(self,filename):
+    def OpenProjectFile(self,filename,subproject=None):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -149,7 +149,7 @@ class SignalIntegrityAppHeadless(object):
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si')).Select(subproject)
             self.Drawing.InitFromProject()
         except:
             return False
@@ -608,12 +608,12 @@ class SignalIntegrityAppHeadless(object):
             sp=si.sp.SParameters(frequencyList,data)
             return sp
 
-def ProjectSParameters(filename):
+def ProjectSParameters(filename,subproject=None):
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename)):
+        if app.OpenProjectFile(os.path.realpath(filename),subproject=subproject):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(SParameters=True)

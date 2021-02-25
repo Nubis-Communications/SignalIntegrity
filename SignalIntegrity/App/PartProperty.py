@@ -155,6 +155,16 @@ class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'filename',type='file',unit=None,keyword='file',description='file name',value=fileName)
 
+class PartPropertyFileType(PartProperty):
+    menuEntries=['S-parameter file','Project file','Multi-project project file','Tab in current file']
+    validEntries=['SParameterFile','SelectedProjectFile','ProjectFile','TabInCurrent']
+    def __init__(self,type='SParameterFile'):
+        PartProperty.__init__(self,'filetype',type='enum',keyword='filetype',description='file type',value=type,visible=False,keywordVisible=False)
+
+class PartPropertySubprojectName(PartProperty):
+    def __init__(self,subprojectName='',hidden=True):
+        PartProperty.__init__(self,'subproject',type='string',unit=None,keyword='subproject',description='subproject name',value=subprojectName,hidden=hidden)
+
 class PartPropertyErrorTermsFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'errorterms',type='file',unit=None,keyword='et',description='error terms',value=fileName)
