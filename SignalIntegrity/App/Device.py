@@ -211,6 +211,9 @@ class DeviceFromProject(object):
                 for propertyItemName in partPropertyProject.dict:
                     if partPropertyProject.dict[propertyItemName].dict['write']:
                         devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
+        if not self.result['filetype'] == None:
+            self.result['file']['Hidden'] = self.result['filetype']['Value'] in ['TabInCurrent']
+            self.result['subproject']['Hidden'] = self.result['filetype']['Value'] in ['SelectedProjectFile','SParameterFile']
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
 

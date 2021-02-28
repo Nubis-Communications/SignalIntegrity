@@ -50,7 +50,7 @@ class DeviceNetListLine(DeviceNetListConfiguration):
                 returnstring=returnstring+' '
             returnstring=returnstring+self['PartName']
         for kwc in self['Values']:
-            if not device[kwc['Keyword']]['Hidden'] or kwc['Keyword']=='file':
+            if not device[kwc['Keyword']]['Hidden']:
                 if not returnstring=='':
                     returnstring=returnstring+' '
                 if kwc['ShowKeyword']:
