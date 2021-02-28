@@ -52,7 +52,8 @@ class DeviceFactory(list):
 
         | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
         |:-------------------------------------:|:---:|:-------:|:---------------------------------------------------------------------------------------------:|:-------------------:|:------------------------------------------------------------------------------------------------|
-        |file                                   |any  |True     |filename=None subproject=None                                                                  | True                |sp.dev.SParameterFile(filename,subproject,50.)                                               |
+        |file                                   |any  |True     |filename=None subproject=None                                                                  | True                |sp.dev.SParameterFile(filename,subproject,50.)                                                   |
+        |subproject                             |any  |True     |subproject=None                                                                                | True                |sp.dev.SParameterFile(None,subproject,50.)                                                       |
         |c                                      |1    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.TerminationC(f,c,z0,df,esr)                                                               |
         |c                                      |2    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.SeriesC(f,c,z0,df,esr)                                                                    |
         |l                                      |1    |True     |l=None                                                                                         | True                |sp.dev.TerminationL(f,l,z0)                                                                      |
@@ -105,6 +106,8 @@ class DeviceFactory(list):
         list.__init__(self,[
         ParserDevice('file',None,True,{'':None,'subproject':''},True,
             "SParameterFile(arg[''],subproject=arg['subproject'],Z0=50.).Resample(f)"),
+        ParserDevice('subproject',None,True,{'':None},True,
+            "SParameterFile(None,subproject=arg[''],Z0=50.).Resample(f)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),

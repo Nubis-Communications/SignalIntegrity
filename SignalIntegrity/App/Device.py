@@ -211,30 +211,6 @@ class DeviceFromProject(object):
                 for propertyItemName in partPropertyProject.dict:
                     if partPropertyProject.dict[propertyItemName].dict['write']:
                         devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
-        if not self.result['filetype'] == None:
-            # truth table for filetype
-            # filetype can be one of ['SParameterFile','SelectedProjectFile','ProjectFile','TabInCurrent']
-            # hasFileName | extension == .si | hasSubproject |
-            #   False     |    N/A           |   False       |   Error
-            #   False     |    N/A           |   True        |   TabInCurrent
-            #   True      |    False         |   False       |   SParameterFile
-            #   True      |    True          |   False       |   SelectedProjectFile
-            #   True      |    False         |   True        |   Error
-            #   True      |    True          |   True        |   ProjectFile
-            filename = self.result['file']['Value']
-            if filename == None: # does not have filename
-                self.result['filetype']['Value']='TabInCurrent'
-            else: # has filename
-                hasSubproject = not self.result['subproject']['Value'] == None
-                isProjectFile = os.path.splitext(filename)[1] == '.si'
-                if isProjectFile: # is project file (extension == .si)
-                    if hasSubproject:
-                        self.result['filetype']['Value']='ProjectFile'
-                    else:
-                        self.result['filetype']['Value']='SelectedProjectFile'
-                else: # not a project file
-                    self.result['subproject']['Value']='None'
-                    self.result['filetype']['Value']='SParameterFile'
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
 
@@ -257,7 +233,7 @@ class DeviceUnknown(Device):
 
 class DeviceSystem(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True)])
+        netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True),('subproject',True)])
         Device.__init__(self,netlist,[
             PartPropertyCategory('Systems'),
             PartPropertyPartName('System'),

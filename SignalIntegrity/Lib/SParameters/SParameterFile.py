@@ -44,8 +44,11 @@ class SParameterFile(SParameters):
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
-        ext=str.lower(name).split('.')[-1]
-        if ext == 'si':
+        if name == None:
+            ext=None
+        else:
+            ext=str.lower(name).split('.')[-1]
+        if ext == 'si' or name == None:
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
             sp=ProjectSParameters(name,subproject)
             if not sp is None:

@@ -143,16 +143,24 @@ class SignalIntegrityAppHeadless(object):
         if isinstance(filename,tuple):
             filename=''
         filename=str(filename)
-        if filename=='':
-            return False
-        try:
-            self.fileparts=FileParts(filename)
-            os.chdir(self.fileparts.AbsoluteFilePath())
-            self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si')).Select(subproject)
-            self.Drawing.InitFromProject()
-        except:
-            return False
+        if filename in ['',None,'None']:
+            if subproject==None:
+                return False
+            try:
+                self.fileparts=FileParts(SignalIntegrity.App.Project['FileName'])
+                SignalIntegrity.App.Project.Select(subproject)
+                self.Drawing.InitFromProject()
+            except:
+                return False
+        else:
+            try:
+                self.fileparts=FileParts(filename)
+                os.chdir(self.fileparts.AbsoluteFilePath())
+                self.fileparts=FileParts(filename)
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si')).Select(subproject)
+                self.Drawing.InitFromProject()
+            except:
+                return False
         self.Drawing.schematic.Consolidate()
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
@@ -194,7 +202,7 @@ class SignalIntegrityAppHeadless(object):
         netListText=self.NetListText()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
@@ -226,7 +234,7 @@ class SignalIntegrityAppHeadless(object):
             SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         if not callback == None:
@@ -336,7 +344,7 @@ class SignalIntegrityAppHeadless(object):
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
-            cacheFileName=self.fileparts.FileNameTitle()
+            cacheFileName=self.fileparts.FileNameTitle()+'_'+SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]['Name']
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
@@ -613,7 +621,11 @@ def ProjectSParameters(filename,subproject=None):
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),subproject=subproject):
+        if filename in ['',None,'None']:
+            fullFileName=filename
+        else:
+            fullFileName=os.path.realpath(filename)
+        if app.OpenProjectFile(fullFileName,subproject=subproject):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(SParameters=True)
@@ -667,61 +679,87 @@ def ProjectCalibration(filename):
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     return result
 
-def ProjectModificationTime(modificationTimeDict,fileName):
+def ProjectModificationTime(modificationTimeDict,fileName,subproject=None):
     #print(os.path.abspath(fileName))
     if modificationTimeDict == None:
         return None
-    if os.path.abspath(fileName) in [file['name'] for file in modificationTimeDict]:
-        if modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']==False:
-            # this is a recursion problem
-            return None
-        else:
-            return(modificationTimeDict)
-    elif not fileName.endswith('.si'):
-        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':True})
+
+    for entry in modificationTimeDict:
+        if entry['name'] == os.path.abspath(fileName) and entry['subproject'] == subproject:
+            if entry['traversed'] == False:
+                # this is a recursion problem
+                return None
+            else:
+                return(modificationTimeDict)
+
+#     if os.path.abspath(fileName) in [file['name'] for file in modificationTimeDict]:
+#         if modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']==False:
+#             # this is a recursion problem
+#             return None
+#         else:
+#             return(modificationTimeDict)
+    if not fileName.endswith('.si'):
+        modificationTimeDict.append({'name':os.path.abspath(fileName),
+                                     'subproject':subproject,
+                                     'time':os.path.getmtime(os.path.abspath(fileName)),
+                                     'traversed':True})
     else:
-        modificationTimeDict.append({'name':os.path.abspath(fileName),'time':os.path.getmtime(os.path.abspath(fileName)),'traversed':False})
+        modificationTimeDict.append({'name':os.path.abspath(fileName),
+                                     'subproject':subproject,
+                                     'time':os.path.getmtime(os.path.abspath(fileName)),
+                                     'traversed':False})
         filenamenoext=FileParts(fileName).FileNameTitle()
+        if subproject == None:
+            subprojectname=''
+        else:
+            subprojectname='_'+subproject
         for postfix in ['','_DUTSParameters','_TransferMatrices']:
             for cacheName in ['SParameters','TransferMatrices','Calibration']:
-                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                cacheFileName=FileParts(filenamenoext+subprojectname+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                 if os.path.exists(cacheFileName):
                     modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
         level=SignalIntegrityAppHeadless.projectStack.Push()
         result=0
         try:
             app=SignalIntegrityAppHeadless()
-            if not app.OpenProjectFile(os.path.realpath(fileName)):
+            if not app.OpenProjectFile(os.path.realpath(fileName),subproject):
                 raise ValueError
             app.Drawing.DrawSchematic()
             if not app.Drawing.canCalculate:
                 raise ValueError
             deviceList=app.Drawing.schematic.deviceList
             for device in deviceList:
-                propertiesList = device.propertiesList
-                for property in propertiesList:
-                    if property['Type']=='file':
-                        filename=property['Value']
-                        if filename.endswith('.si'):
-                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename)
-                            filenamenoext=FileParts(filename).FileNameTitle()
-                            for postfix in ['','_DUTSParameters','_TransferMatrices']:
-                                for cacheName in ['SParameters','TransferMatrices','Calibration']:
-                                    cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
-                                    if os.path.exists(cacheFileName):
-                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
-                        else:
-                            if '.' in filename:
-                                modificationTimeDict.append({'name':os.path.abspath(filename),
-                                                             'time':os.path.getmtime(os.path.abspath(filename)),
-                                                             'traversed':True})
-                        if modificationTimeDict==None:
-                            raise ValueError
+                if device['file'] != None:
+                    filename=device['file']['Value']
+                    subproj=device['subproject']['Value']
+                    if not subproj == None and filename == None:
+                        import SignalIntegrity.App.Project
+                        filename=SignalIntegrity.App.Project['FileName']
+                    if filename.endswith('.si'):
+                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename,subproj)
+                        filenamenoext=FileParts(filename).FileNameTitle()
+                        for postfix in ['','_DUTSParameters','_TransferMatrices']:
+                            for cacheName in ['SParameters','TransferMatrices','Calibration']:
+                                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                                if os.path.exists(cacheFileName):
+                                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
+                    else:
+                        if '.' in filename:
+                            modificationTimeDict.append({'name':os.path.abspath(filename),
+                                                         'subproject':subproj,
+                                                         'time':os.path.getmtime(os.path.abspath(filename)),
+                                                         'traversed':True})
+                    if modificationTimeDict==None:
+                        raise ValueError
         except:
             result=None
         SignalIntegrityAppHeadless.projectStack.Pull(level)
         if result==None:
             return result
-    modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True
-    return modificationTimeDict
+    for entry in modificationTimeDict:
+        if entry['name'] == os.path.abspath(fileName) and entry['subproject'] == subproject:
+            entry['traversed'] = True
+            return modificationTimeDict
+#     modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True
+#     return modificationTimeDict
 

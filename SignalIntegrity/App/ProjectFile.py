@@ -230,6 +230,7 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(PostProcessingConfiguration())
         self.Add(XMLProperty('Projects',[ProjectConfiguration() for _ in range(0)],'array',arrayType=ProjectConfiguration()))
         self.Add(XMLPropertyDefaultInt('Selected',0))
+        self.Add(XMLPropertyDefaultString('FileName',write=False))
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
     def New(self):
@@ -248,7 +249,9 @@ class ProjectFile(ProjectFileBase):
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
+            self['FileName']=filename
             if self['Projects'] == []:
+                # this is legacy format
                 self.dict['Projects']=XMLProperty('Projects',[ProjectConfiguration()],'array',arrayType=ProjectConfiguration())
                 self['Selected']=0
                 selected=self['Projects'][0]
@@ -258,12 +261,23 @@ class ProjectFile(ProjectFileBase):
                 selected['Selected']=0
                 selectedPage=selected['Pages'][0]
                 selectedPage['Name']='Page 1'
+                for device in self['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] == 'file':
+                            from SignalIntegrity.App.PartProperty import PartPropertyFileType,PartPropertySubprojectName
+                            if prop['Value'].endswith('.si'):
+                                fileTypeProp=PartPropertyFileType('SelectedProjectFile')
+                            else:
+                                fileTypeProp=PartPropertyFileType('SParameterFile')
+                            device['PartProperties'].extend([fileTypeProp,PartPropertySubprojectName()])
+                            break
                 selectedPage.dict['Drawing']=self['Drawing']
             else:
-                selected=self['Projects'][0]
-                self.dict['CalculationProperties']=selected['CalculationProperties']
-                self.dict['PostProcessing']=selected['PostProcessing']
-                selectedPage=selected['Pages'][0]
+                selected=self['Selected']
+                selectedProject=self['Projects'][selected]
+                self.dict['CalculationProperties']=selectedProject['CalculationProperties']
+                self.dict['PostProcessing']=selectedProject['PostProcessing']
+                selectedPage=selectedProject['Pages'][selectedProject['Selected']]
                 self.dict['Drawing']=selectedPage['Drawing']
         return self
 
@@ -290,6 +304,7 @@ class ProjectFile(ProjectFileBase):
         self.dict['PostProcessing']=newlySelectedProject['PostProcessing']
         newlySelectedPage=newlySelectedProject['Pages'][newlySelectedProject['Selected']]
         self.dict['Drawing']=newlySelectedPage['Drawing']
+        return self
 
     def Write(self,app,filename=None):
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
@@ -325,12 +340,23 @@ class ProjectFile(ProjectFileBase):
             if legacyFormat and len(self['Projects']) != 1: legacyFormat = False
             if legacyFormat and self['Projects'][0]['Name'] != 'Main': legacyFormat = False
             if legacyFormat and len(self['Projects'][0]['Pages']) != 1: legacyFormat = False
+            if legacyFormat:
+                for device in self['Projects'][0]['Pages'][0]['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] == 'filetype':
+                            if not prop['Value'] in ['SParameterFile','SelectedProjectFile']:
+                                legacyFormat=False
+                                break;
             # if there is only one project, the project has the default name, and has only one page,
             # then store it in the legacy format.
             if legacyFormat:
                 projectCopy.dict['CalculationProperties']=self['Projects'][0]['CalculationProperties']
                 projectCopy.dict['PostProcessing']=self['Projects'][0]['PostProcessing']
                 projectCopy.dict['Drawing']=self['Projects'][0]['Pages'][0]['Drawing']
+                for device in self['Drawing.Schematic.Devices']:
+                    for prop in device['PartProperties']:
+                        if prop['Keyword'] in ['filetype','subproject']:
+                            prop.write=False
                 del(projectCopy.dict['Selected'])
                 del(projectCopy.dict['Projects'])
                 projectCopy.baseName='Project'

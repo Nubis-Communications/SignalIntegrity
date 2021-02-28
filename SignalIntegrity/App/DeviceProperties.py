@@ -482,7 +482,9 @@ class DevicePropertiesDialog(tk.Toplevel):
             self.result.propertiesList[pIndex]=propFrame.partProperty
         if not self.device['file'] is None:
             if self.device['file']['Hidden']:
-                self.device['file']['Value']=self.parent.fileparts.FileNameWithExtension()
+                self.device['file']['Value']=None
+            if self.device['subproject']['Hidden']:
+                self.device['subproject']['Value']=None
         if not self.device['ports'] is None:
             self.result.partPicture.ports=self.result['ports'].GetValue()
         self.result.partPicture.SwitchPartPicture(self.result.partPicture.partPictureSelected)

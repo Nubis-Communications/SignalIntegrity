@@ -152,7 +152,16 @@ class LinesCache(ResultsCache):
                 # todo:  this is wrong - must parse tokens
                 if len(lineList)>=5:
                     if lineList[3]=='file':
-                        fileList.append(lineList[4])
+                        filename=lineList[4]
+                        subproject=None
+                        if len(lineList)>=7:
+                            subproject=lineList[6]
+                        fileList.append((filename,subproject))
+                    elif lineList[3] == 'subproject':
+                        import SignalIntegrity.App.Project
+                        filename=SignalIntegrity.App.Project['FileName']
+                        subproject=lineList[4]
+                        fileList.append((filename,subproject))
                     elif lineList[3] == 'networkanalyzer':
                         fileList.append(lineList[5])
                         fileList.append(lineList[7])
@@ -163,7 +172,11 @@ class LinesCache(ResultsCache):
                 if '.' in lineList[5]:
                     fileList.append(lineList[5])
             elif lineList[0] == 'system':
-                fileList.append(lineList[2])
+                filename=lineList[2]
+                subproject=None
+                if len(lineList)>=5:
+                    subproject=lineList[4]
+                fileList.append((filename,subproject))
         try:
             cacheFileTime = os.path.getmtime(cacheFilename)
         except:
@@ -172,7 +185,7 @@ class LinesCache(ResultsCache):
         for fileName in fileList:
             try:
                 from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
-                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName)
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName[0],fileName[1])
                 if modificationTimeDict == None:
                     return False
             except:
