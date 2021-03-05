@@ -231,7 +231,22 @@ class DeviceSystem(Device):
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='R',values=[('r',False)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Resistors'),PartPropertyPartName('Resistor'),PartPropertyHelp('device:Resistor'),PartPropertyDefaultReferenceDesignator('R?'),PartPropertyResistance()]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Resistors'),
+            PartPropertyPartName('Resistor'),
+            PartPropertyHelp('device:Resistor'),
+            PartPropertyDefaultReferenceDesignator('R?'),
+            PartPropertyResistance()]+propertiesList,partPicture)
+
+class DeviceSkinEffectResistor(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(partname='R',values=[('rse',False)])
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Resistors'),
+            PartPropertyPartName('Skin-effect Resistor'),
+            PartPropertyHelp('device:Skin-Effect-Resistor'),
+            PartPropertyDefaultReferenceDesignator('R?'),
+            PartPropertyResistanceSkinEffect()]+propertiesList,partPicture)
 
 class DeviceCapacitor(Device):
     def __init__(self,propertiesList,partPicture):
@@ -898,6 +913,7 @@ DeviceList=Devices([
                 DeviceFile([PartPropertyDescription('Variable Port File'),PartPropertyPorts(4,False)],PartPictureVariableSpecifiedPorts()),
                 DeviceResistor([PartPropertyDescription('One Port Resistor to Ground'),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),
                 DeviceResistor([PartPropertyDescription('Two Port Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
+                DeviceSkinEffectResistor([PartPropertyDescription('Two Port Skin-Effect Resistor'),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),
                 DeviceCapacitor([PartPropertyDescription('One Port Capacitor to Ground'),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),
                 DeviceCapacitor([PartPropertyDescription('Two Port Capacitor'),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),
                 DeviceInductor([PartPropertyDescription('Two Port Inductor'),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),
