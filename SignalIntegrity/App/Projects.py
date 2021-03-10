@@ -111,7 +111,9 @@ class Projects(tk.Frame):
         self.noTabTearOffMenu.add_command(label="Add Project File to New Tab",command=self.AddNewProject)
         self.noTabTearOffMenu.add_command(label="Delete Projects",command=self.DeleteProjects)
         numProjects=len(SignalIntegrity.App.Project['Projects'])
-        self.tabControl=ttk.Notebook(self)
+        style=ttk.Style(self.root)
+        style.configure('lefttab.TNotebook',tabposition='wn')
+        self.tabControl=ttk.Notebook(self,style='lefttab.TNotebook')
         self.projectList=[]
         if numProjects > 0:
             for i in range(len(SignalIntegrity.App.Project['Projects'])):
