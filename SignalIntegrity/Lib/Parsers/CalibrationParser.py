@@ -62,7 +62,9 @@ class CalibrationParser(SystemDescriptionParser):
                     if tokenName == 'file':
                         measDict['raw']=SParameterFile(tokenValue).Resample(self.m_f)
                     elif tokenName == 'std':
-                        if not tokenValue in self.m_spc:
+                        if tokenValue == 'None':
+                            self.m_spc[tokenValue] = None
+                        elif not tokenValue in self.m_spc:
                             self.m_spc[tokenValue] = SParameterFile(tokenValue)
                         measDict['std']=self.m_spc[tokenValue]
                     elif tokenName == 'pn':
