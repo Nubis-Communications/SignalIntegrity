@@ -65,7 +65,7 @@ class CalibrationParser(SystemDescriptionParser):
                         if tokenValue == 'None':
                             self.m_spc[tokenValue] = None
                         elif not tokenValue in self.m_spc:
-                            self.m_spc[tokenValue] = SParameterFile(tokenValue)
+                            self.m_spc[tokenValue] = SParameterFile(tokenValue).Resample(self.m_f)
                         measDict['std']=self.m_spc[tokenValue]
                     elif tokenName == 'pn':
                         measDict['driven']=port=int(tokenValue)
