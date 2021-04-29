@@ -810,7 +810,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onSParameterViewer(self):
         import SignalIntegrity.Lib as si
-        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p','*.S*P')),('calibration files', ('*.cal'))],
                                  parent=self,
                                  initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:

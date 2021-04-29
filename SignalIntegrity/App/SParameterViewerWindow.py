@@ -1329,7 +1329,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightToolbar.update()
 
     def onReadSParametersFromFile(self):
-        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p')),('calibration files', ('*.cal'))],
+        filename=AskOpenFileName(filetypes=[('s-parameter files', ('*.s*p','*.S*P')),('calibration files', ('*.cal'))],
                                  initialdir=self.fileparts.AbsoluteFilePath(),
                                  initialfile=self.fileparts.FileNameWithExtension(),
                                  parent=self)
@@ -1353,15 +1353,15 @@ class SParametersDialog(tk.Toplevel):
 
     def onWriteSParametersToFile(self):
         ports=self.sp.m_P
-        extension='.s'+str(ports)+'p'
+        extension='.s'+str(ports)+'p','.S'+str(ports)+'P'
         filetypes=[('s-parameters', extension)]
         if self.calibration != None:
-            extension='.cal'
+            extension=('.cal')
             filetypes=[('calibration file', '.cal')]+filetypes
         filename=AskSaveAsFilename(filetypes=filetypes,
-                    defaultextension=extension,
+                    defaultextension=extension[0],
                     initialdir=self.fileparts.AbsoluteFilePath(),
-                    initialfile=self.fileparts.FileNameWithExtension(extension),
+                    initialfile=self.fileparts.FileNameWithExtension(extension[0]),
                     parent=self)
         if filename is None:
             return

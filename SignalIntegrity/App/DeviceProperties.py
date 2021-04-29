@@ -85,16 +85,16 @@ class DeviceProperty(tk.Frame):
         # end of ugly workaround
         self.callBack()
         if self.partProperty['PropertyName'] in ['filename','std']:
-            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p'
+            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p','.S'+self.device['ports'].PropertyString(stype='raw')+'P'
             filetypename='s-parameters'
         elif self.partProperty['PropertyName'] == 'waveformfilename':
-            extension='.txt'
+            extension=('.txt')
             filetypename='waveforms'
         elif self.partProperty['PropertyName'] == 'errorterms':
-            extension='.cal'
+            extension=('.cal')
             filetypename='calibration file'
         else:
-            extension=''
+            extension=('')
             filetypename='all'
         currentFileParts=FileParts(self.partProperty.PropertyString(stype='raw'))
         if currentFileParts.filename=='':
@@ -102,10 +102,10 @@ class DeviceProperty(tk.Frame):
             initialFile=''
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
-            if currentFileParts.fileext in ['.si',extension]:
+            if currentFileParts.fileext in ['.si',extension[0]]:
                 initialFile=currentFileParts.FileNameWithExtension()
             else:
-                initialFile=currentFileParts.filename+extension
+                initialFile=currentFileParts.filename+extension[0]
         filename=AskOpenFileName(parent=self,
                                  filetypes=[(filetypename,extension),('project','.si')],
                                  initialdir=initialDirectory,
