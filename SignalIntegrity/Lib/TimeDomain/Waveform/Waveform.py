@@ -318,7 +318,7 @@ class Waveform(list):
             wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
                 else InterpolatorLinear(upsampleFactor))
         ad=td/wf.td
-        f=ad.D-int(ad.D)
+        f=ad.D-int(math.floor(ad.D))
         if not ((f<self.epsilon) or ((1-f)<self.epsilon)):
             wf=wf*(FractionalDelayFilterSinX(f,True) if wf.adaptionStrategy=='SinX'
                 else FractionalDelayFilterLinear(f,True))
