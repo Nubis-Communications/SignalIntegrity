@@ -51,9 +51,20 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         CallBacker.__init__(self,callback)
         LinesCache.__init__(self,'SParameters',cacheFileName)
         # pragma: include
-    def SParameters(self,solvetype='block'):
+    # pragma: silent exclude
+    @staticmethod
+    def loop(n,SD,spc,solvetype):
+        for d in range(len(spc)):
+            if not spc[d][0] is None:
+                SD.AssignSParameters(spc[d][0],spc[d][1][n])
+        result=(SystemSParametersNumeric(SD).SParameters(
+            solvetype=solvetype))
+        return n,result
+    # pragma: include
+    def SParameters(self,solvetype='block',multicore=False):
         """compute the s-parameters of the netlist.
         @param solvetype (optional) string how to solve it. (defaults to 'block').
+        @param multicore (optional) whether to solve multi core (defaults to 'false')
         @return instance of class SParameters as the solution of the network.
         @remark valid solvetype strings are:
         - 'block' - use the block matrix solution method.
@@ -62,6 +73,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         for testing. (Previously, instances were found where the block method failed,
         but the direct method did not - but this possibility is thought to be impossible
         now.
+        @remark multicore might be possible only on Python 3.7 and higher
         """
         # pragma: silent exclude
         if self.CheckCache():
@@ -71,20 +83,38 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         self.SystemDescription()
         self.m_sd.CheckConnections()
         spc=self.m_spc
-        result = []
-        for n in range(len(self.m_f)):
-            for d in range(len(spc)):
-                if not spc[d][0] is None:
-                    self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
-            result.append(SystemSParametersNumeric(self.m_sd).SParameters(
-                solvetype=solvetype))
-            # pragma: silent exclude
-            if self.HasACallBack():
-                progress=(n+1)/len(self.m_f)*100.0
-                if not self.CallBack(progress):
-                    raise SignalIntegrityExceptionSParameters('calculation aborted')
-            # pragma: include
-        self.sf = SParameters(self.m_f, result,self.m_Z0)
+        result=[None for _ in range(len(self.m_f))]
+        # praga: silent exclude
+        if multicore:
+            try:
+                import concurrent.futures
+            except:
+                multicore=False
+        if multicore:
+            with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
+                futures = {executor.submit(self.loop,n,self.m_sd,spc,solvetype) for n in range(len(self.m_f))}
+                for future in concurrent.futures.as_completed(futures):
+                    n,res = future.result()
+                    result[n]=res
+                    if self.HasACallBack():
+                        progress=self.m_f[n]/self.m_f[-1]*100.0
+                        if not self.CallBack(progress):
+                            raise SignalIntegrityExceptionSParameters('calculation aborted')
+        else:
+            # pragma: include outdent
+            for n in range(len(self.m_f)):
+                for d in range(len(spc)):
+                    if not spc[d][0] is None:
+                        self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
+                result[n]=(SystemSParametersNumeric(self.m_sd).SParameters(
+                    solvetype=solvetype))
+                # pragma: silent exclude
+                if self.HasACallBack():
+                    progress=(n+1)/len(self.m_f)*100.0
+                    if not self.CallBack(progress):
+                        raise SignalIntegrityExceptionSParameters('calculation aborted')
+                # pragma: include indent
+        self.sf = SParameters(self.m_f, result)
         # pragma: silent exclude
         if hasattr(self, 'delayDict'):
             td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]
