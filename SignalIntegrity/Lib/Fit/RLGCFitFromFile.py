@@ -25,7 +25,7 @@ from SignalIntegrity.Lib.Fit.RLGC import RLGCFitter
 
 class RLGCFitFromFile(object):
     """fits a two-port RLGC model to s-parameters from a file"""
-    def __init__(self,f,filename,scale=1,Z0=50.,**kwargs):
+    def __init__(self,f,filename,subproject=None,scale=1,Z0=50.,**kwargs):
         """Constructor
         @param f list of float frequencies
         @param filename string name of s-parameter file or project that produces s-parameters
@@ -37,7 +37,8 @@ class RLGCFitFromFile(object):
         self.scale=scale
         self.Z0=Z0
         self.m_f=f
-        self.spfile=filename
+        self.spfile=None if filename == '' else filename
+        self.subproject=None if subproject == '' else subproject
         self.RLGC=None
         self.kwargs=kwargs
         if scale == 0.0:
@@ -46,7 +47,7 @@ class RLGCFitFromFile(object):
         """Fits a two-port RLGC model for the specified s-parameter file
         @see see RLGC
         """
-        sp=SParameterFile(self.spfile,self.Z0,None,**self.kwargs)
+        sp=SParameterFile(self.spfile,self.Z0,None,subproject=self.subproject,**self.kwargs)
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
         threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
         for k in range(len(stepResponse)):
