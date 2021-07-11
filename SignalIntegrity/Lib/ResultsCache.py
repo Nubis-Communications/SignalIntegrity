@@ -22,14 +22,12 @@ import pickle
 import hashlib
 
 class ResultsCache(object):
-    """
-    base class for results caching
+    """base class for results caching
     @note derived class must implement the function HashValue(), which determines the hash
     corresponding to a definition.
     """
     def __init__(self,name,filename=None):
-        """
-        constructor\n
+        """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
         @param name string name of thing to cache.  Examples are 'SParameters' and 'TransferMatrices'.
         @param filename string base filename of project being processed.
@@ -37,16 +35,14 @@ class ResultsCache(object):
         self.filename=filename
         self.extra='_cached'+name+'.p'
     def HashValue(self,stuffToHash=''):
-        """
+        """ Generates the hash for a definition\n
         @param stuffToHash repr of stuff to hash
-        Generates the hash for a definition\n
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
     def CheckCache(self):
-        """
-        Called to see if the cache has results that can be used instead of processing the result.\n
+        """Called to see if the cache has results that can be used instead of processing the result.\n
         It calculates a hash value for the definition of the processing and sees if a _pickle_ containing
         a cached result exists and can be loaded.  Then it checks the times of the cache file and the
         various subcomponents.  Finally, if the hash value matches the cache, meaning they were both
@@ -74,8 +70,7 @@ class ResultsCache(object):
         except:
             return False
     def CacheResult(self):
-        """
-        Caches a calculated result
+        """Caches a calculated result
         @return self
         @note that the hash value for the result was generated through a previous call to CheckCache().
         In other words, each cached value must be stored with a hash corresponding to the definition that generated
@@ -91,8 +86,7 @@ class ResultsCache(object):
         with open(self.filename+self.extra, 'wb') as f: pickle.dump(pickleDict, f, 2)
         return self
     def FileTime(self,filename):
-        """
-        Modification time of a file.
+        """Modification time of a file.
         @param filename string name of file on the disk.
         @note the filename must contain a path that can be directly navigated to from the current directory.
         @return the last modification time of the file.
@@ -101,8 +95,7 @@ class ResultsCache(object):
         modificationTime = os.path.getmtime(filename)
         return modificationTime
     def CheckTimes(self,cacheFilename):
-        """
-        Base class function to check times of various components.
+        """Base class function to check times of various components.
         If a project does not have any file components or time dependencies, this can be ignored, otherwise
         the derived class must overload this function.
         @return True (must be overloaded to provide anything other)
@@ -110,31 +103,27 @@ class ResultsCache(object):
         return True
 
 class LinesCache(ResultsCache):
-    """
-    Caches results calculated based on netlist lines, as used in all of the parser classes.\n
+    """Caches results calculated based on netlist lines, as used in all of the parser classes.\n
     These parser classes derive from this class and thus inherit the caching capability.
     @see Parsers
     """
     def __init__(self,name,filename=None):
-        """
-        constructor\n
+        """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
         @param name string name of thing to cache.  Examples are 'SParameters' and 'TransferMatrices'.
         @param filename string base filename of project being processed.
         """
         ResultsCache.__init__(self,name,filename)
     def HashValue(self,stuffToHash=''):
-        """
+        """Generates the hash for a definition\n
         @param stuffToHash repr of stuff to hash
-        Generates the hash for a definition\n
         It is formed by hashing a combination of the netlist lines, the frequencies, and the arguments provided.
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
         return ResultsCache.HashValue(self,repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+stuffToHash)
     def CheckTimes(self,cacheFilename):
-        """
-        Checks the times for files associated with a netlist.\n
+        """Checks the times for files associated with a netlist.\n
         In netlist devices listed as either file or system devices (i.e. are s-parameter files on the disk) are
         newer than the cache file, then returns False.
         @return False if the cache cannot be used due to file modifications otherwise True
