@@ -25,6 +25,7 @@ import sys
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile,SignalIntegrityExceptionWaveform
+from SignalIntegrity.Lib.TimeDomain.Waveform.LeCroyWaveform import to_trc
 
 class Waveform(list):
     """base class for all waveforms"""
@@ -409,6 +410,8 @@ class Waveform(list):
             td.H=td.H+1./td.Fs
             vl=vl[1:]
         return Waveform(td,vl)
+    def WriteLeCroyWaveform(self,filename):
+        to_trc(self,filename)
 
 class WaveformFileAmplitudeOnly(Waveform):
     def __init__(self,fileName,td=None):
