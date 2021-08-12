@@ -94,7 +94,8 @@ class DeviceFactory(list):
         |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
         |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
         |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
-        |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0                                                                 |
+        |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
+        |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(filename,dcGain,mulTs,derivative                                    |
 
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
@@ -221,7 +222,12 @@ class DeviceFactory(list):
         ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),50.)"),
         ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9,
             'z0':50.},False,"IdealRelay(ports,int(arg['']),float(arg['term']),\
-            float(arg['z0']))")
+            float(arg['z0']))"),
+        ParserDevice('impulseresponsefilter',2,True,
+            {'':None,'wfprojname':'None','dcgain':None,'mults':True,'derivative':False},True,
+            "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
+            normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
+            derivative=(arg['derivative']=='true')).Resample(f)")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
@@ -281,6 +287,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.ClassicalFilter import ButterworthLowPassFilter,BesselLowPassFilter
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
         from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
+        from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
         # pragma: include
         self.dev=None
         if len(argsList) == 0:

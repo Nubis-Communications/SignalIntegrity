@@ -52,9 +52,10 @@ class Schematic(object):
     def InputWaveforms(self):
         inputWaveformList=[]
         for device in self.deviceList:
-            wf = device.Waveform()
-            if not wf is None:
-                inputWaveformList.append(wf)
+            if not device['partname']['Value'] == 'ImpulseResponseFilter':
+                wf = device.Waveform()
+                if not wf is None:
+                    inputWaveformList.append(wf)
         return inputWaveformList
     def Clear(self):
         self.deviceList = []

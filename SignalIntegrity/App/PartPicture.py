@@ -2173,6 +2173,14 @@ class PartPictureVariableLaplace(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureLaplace'],2)
 
+class PartPictureImpulseResponseFilter(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='IR')
+
+class PartPictureVariableImpulseResponseFilter(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureImpulseResponseFilter'],2)
+
 class PartPictureWElement(PartPictureSpecifiedPortsText):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='W')

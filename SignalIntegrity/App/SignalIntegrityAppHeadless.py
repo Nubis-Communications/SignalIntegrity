@@ -245,6 +245,16 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return None
 
+        diresp=None
+        for r in range(len(outputWaveformLabels)):
+            for c in range(len(inputWaveformList)):
+                if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='d/':
+                    if diresp == None:
+                        diresp=si.fd.Differentiator(fd).Response()
+                    #print 'differentiate: '+outputWaveformLabels[r]
+                    for n in range(len(transferMatrices)):
+                        transferMatrices[n][r][c]=transferMatrices[n][r][c]*diresp[n]
+
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
 
@@ -252,6 +262,11 @@ class SignalIntegrityAppHeadless(object):
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
         except si.SignalIntegrityException as e:
             return None
+
+        for r in range(len(outputWaveformList)):
+            if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='i/':
+                #print 'integrate: '+outputWaveformLabels[r]
+                outputWaveformList[r]=outputWaveformList[r].Integral()
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]

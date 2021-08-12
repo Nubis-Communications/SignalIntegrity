@@ -215,6 +215,10 @@ class PartPropertyVoltageGain(PartProperty):
     def __init__(self,voltageGain=1.0):
         PartProperty.__init__(self,'gain',type='float',unit='',keyword='gain',description='voltage gain (V/V)',value=voltageGain,visible=True)
 
+class PartPropertyDCGain(PartProperty):
+    def __init__(self,dcGain=0):
+        PartProperty.__init__(self,'dcgain',type='float',unit='',keyword='dcgain',description='dc gain',value=dcGain,visible=False)
+
 class PartPropertyCurrentGain(PartProperty):
     def __init__(self,currentGain=1.0):
         PartProperty.__init__(self,'gain',type='float',unit='',keyword='gain',description='current gain (A/A)',value=currentGain,visible=True)
@@ -498,4 +502,14 @@ class PartPropertyWElementFileName(PartProperty):
 class PartPropertyPosition(PartProperty):
     def __init__(self,position=1):
         PartProperty.__init__(self,'position',type='int',unit=None,keyword='pos',description='relay position',value=position,visible=True,keywordVisible=True)
+
+class PartPropertyMulTs(PartProperty):
+    validEntries=['true','false']
+    def __init__(self,state='true'):
+        PartProperty.__init__(self,'mults',type='enum',keyword='mults',description='multiply by Ts',value=state,visible=False,keywordVisible=False)
+
+class PartPropertyDerivative(PartProperty):
+    validEntries=['true','false']
+    def __init__(self,state='false'):
+        PartProperty.__init__(self,'derivative',type='enum',keyword='derivative',description='calculate derivative',value=state,visible=False,keywordVisible=False)
 

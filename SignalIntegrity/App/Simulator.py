@@ -600,11 +600,12 @@ class Simulator(object):
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
-        diresp=si.fd.Differentiator(fd).Response()
-
+        diresp=None
         for r in range(len(self.outputWaveformLabels)):
             for c in range(len(self.inputWaveformList)):
                 if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='d/':
+                    if diresp == None:
+                        diresp=si.fd.Differentiator(fd).Response()
                     #print 'differentiate: '+self.outputWaveformLabels[r]
                     for n in range(len(self.transferMatrices)):
                         self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]

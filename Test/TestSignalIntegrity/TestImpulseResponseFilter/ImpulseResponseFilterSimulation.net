@@ -1,0 +1,33 @@
+device F1 2 impulseresponsefilter WaveformViewer.si wfprojname VD dcgain 0 mults true derivative true
+voltagesource VG1 1
+device R1 1 R 50.0
+device MM1 4 mixedmode voltage
+device F2 2 impulseresponsefilter WaveformViewer.si wfprojname VC dcgain 0 mults true derivative true
+device MM2 4 mixedmode voltage
+device R2 1 R 50.0
+device G1 1 ground
+device D1 4 file Parasitics.s4p
+device D2 2 voltageamplifier gain 2.0 zi 100.0e6 zo 50.0
+device D3 2 voltageamplifier gain 2.0 zi 100.0e6 zo 50.0
+device MM3 4 mixedmode voltage
+device MM4 4 mixedmode voltage
+connect MM1 3 F1 1
+connect F1 2 MM2 3
+connect VG1 1 MM1 1
+voltageoutput Vp MM3 1
+connect MM3 1 R1 1
+connect G1 1 MM1 2
+connect F2 1 MM1 4
+connect MM2 4 F2 2
+connect D2 1 MM2 1
+connect MM2 2 D3 1
+voltageoutput Vm MM3 2
+connect MM3 2 R2 1
+voltageoutput VD MM4 3
+connect MM4 3 MM3 3
+voltageoutput VC MM4 4
+connect MM4 4 MM3 4
+connect D1 1 D2 2
+connect D3 2 D1 3
+connect D1 2 MM4 1
+connect D1 4 MM4 2
