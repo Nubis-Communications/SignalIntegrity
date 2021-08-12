@@ -292,13 +292,30 @@ class DeviceDirectionalCoupler(Device):
 class DeviceVoltageSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Sources'),PartPropertyPartName('Voltage Source'),PartPropertyHelp('device:Voltage-Source'),PartPropertyDefaultReferenceDesignator('VS?'),PartPropertyWaveformFileName(),PartPropertyWaveformType('file'),PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Voltage Source'),
+            PartPropertyHelp('device:Voltage-Source'),
+            PartPropertyDefaultReferenceDesignator('VS?'),
+            PartPropertyWaveformFileName(),
+            PartPropertyWaveformType('file'),
+            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
 class DeviceVoltageStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Step Generator'),PartPropertyHelp('device:Voltage-Step-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Step Generator'),
+            PartPropertyHelp('device:Voltage-Step-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyRisetime(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('step')]+propertiesList,partPicture)
 
 class DeviceVoltageDCSource(Device):
     def __init__(self,propertiesList,partPicture):
@@ -863,6 +880,31 @@ class DeviceLaplace(Device):
                          PartPropertyLaplaceEquation('')],
                          PartPictureVariableLaplace())
 
+class DeviceImpulseResponseFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='impulseresponsefilter',
+                                  values=[('wffile',False),
+                                          ('wfprojname',True),
+                                          ('dcgain',True),
+                                          ('mults',True),
+                                          ('derivative',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Impulse Response Filter'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('ImpulseResponseFilter'),
+                         PartPropertyHelp('device:ImpulseResponseFilter'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyWaveformFileName(),
+                         PartPropertyWaveformType('file'),
+                         PartPropertyDCGain(),
+                         PartPropertyMulTs(),
+                         PartPropertyDerivative(),
+                         PartPropertyWaveformProjectName('')],
+                         PartPictureVariableImpulseResponseFilter())
+        self['wffile']['Description']='impulse response file name'
+
 class DeviceWElement(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='w',values=[('file',False),('df',True),('scale',True),('sect',True)])
@@ -996,7 +1038,8 @@ DeviceList=Devices([
                 DeviceButterworthLpFilter(),
                 DeviceLaplace(),
                 DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
-                DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay())
+                DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay()),
+                DeviceImpulseResponseFilter()
                 ])
 
 

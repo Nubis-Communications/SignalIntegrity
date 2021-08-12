@@ -34,3 +34,4 @@ from .WElement import WElement,WElementFile
 from .ClassicalFilter import BesselLowPassFilter,ButterworthLowPassFilter
 from .Equalizer import CTLE,FFE
 from .Laplace import Laplace
+from .ImpulseResponseFilter import ImpulseResponseFilter
