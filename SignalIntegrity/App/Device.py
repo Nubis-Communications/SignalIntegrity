@@ -240,7 +240,7 @@ class DeviceResistor(Device):
 
 class DeviceSkinEffectResistor(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(partname='R',values=[('rse',False)])
+        netlist=DeviceNetListLine(partname='rse',values=[('rse',False)])
         Device.__init__(self,netlist,[
             PartPropertyCategory('Resistors'),
             PartPropertyPartName('Skin-effect Resistor'),

@@ -116,7 +116,7 @@ class DeviceFactory(list):
         ParserDevice('l',2,True,{'':None},True,"SeriesL(f,float(arg['']))"),
         ParserDevice('r',1,True,{'':None},False,"TerminationZ(float(arg['']))"),
         ParserDevice('r',2,True,{'':None},False,"SeriesZ(float(arg['']))"),
-        ParserDevice('rse',2,True,{'':None},False,"SeriesRse(float(arg['']))"),
+        ParserDevice('rse',2,True,{'':None},True,"SeriesRse(f,float(arg['']))"),
         ParserDevice('shunt','2-4',True,{'':None},False,
             "ShuntZ(ports,float(arg['']))"),
         ParserDevice('m',4,True,{'':None},True,"Mutual(f,float(arg['']))"),
@@ -268,6 +268,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
         from SignalIntegrity.Lib.Devices.IdealRelay import IdealRelay
         from SignalIntegrity.Lib.Fit.RLGCFitFromFile import RLGCFitFromFile
+        from SignalIntegrity.Lib.SParameters.Devices.SeriesRse import SeriesRse
         from SignalIntegrity.Lib.SParameters.Devices.Mutual import Mutual
         from SignalIntegrity.Lib.SParameters.Devices.SeriesC import SeriesC
         from SignalIntegrity.Lib.SParameters.Devices.SeriesL import SeriesL
