@@ -70,6 +70,29 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'post limit none none',])
         sp=sspnp.SParameters()
         self.SParameterRegressionChecker(sp,self.id()+'.s2p')
+    def testSParametersPostBoth(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1',
+                        'post enforce both',
+                        'post limit none none'])
+        sp=sspnp.SParameters()
+        self.SParameterRegressionChecker(sp,self.id()+'.s2p')
+    def testSParametersGarbage(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1',
+                        'garbage'])
+        sp=sspnp.SParameters()
+        self.SParameterRegressionChecker(sp,self.id()+'.s2p')
     def testSParametersPostGarbage(self):
         fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
         sspnp=si.p.SystemSParametersNumericParser(fd)
@@ -79,6 +102,18 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'port 2 D2 2',
                         'connect D1 2 D2 1',
                         'post garbage',])
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            sspnp.SParameters()
+        self.assertEqual(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
+    def testSParametersPostEnforceGarbage(self):
+        fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1',
+                        'post enforce garbage',])
         with self.assertRaises(si.SignalIntegrityException) as cm:
             sspnp.SParameters()
         self.assertEqual(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
