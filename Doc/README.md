@@ -5,7 +5,7 @@ SignalIntegrity comes with a library called _SignalIntegrity.Lib_.  From within 
 
     import SignalIntegrity.Lib as si
 
-Then, all of the elements from within SignalIntegrity are accessible using si as the prefix.  For example, the single frequency s-parameters of a current amplifier are found by call ing the function:
+Then, all of the elements from within SignalIntegrity are accessible using si as the prefix.  For example, the single frequency s-parameters of a current amplifier are found by calling the function:
 
     si.dev.CurrentAmplifier()
 
