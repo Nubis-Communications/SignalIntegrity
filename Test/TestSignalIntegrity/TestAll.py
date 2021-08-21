@@ -44,6 +44,7 @@ from TestHiRes import *
 from TestImpedanceProfile import *
 from TestImpulseResponseFilter import *
 from TestLaplace import *
+from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *

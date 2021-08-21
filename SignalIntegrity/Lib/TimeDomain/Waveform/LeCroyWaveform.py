@@ -19,8 +19,10 @@ LeCroyWaveform.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile
+
 import numpy as np
 import sys,os
+import math
 
 """
 This file defines the numpy dtype strings for the lecroy waveform template.
@@ -180,45 +182,98 @@ def to_trc(wf,fname):
         if not extensionCorrect:
             raise SignalIntegrityExceptionWaveformFile('incorrect extension LeCroy trace file name in '+fname+'.  Should be .trc.')
     except:
-        raise SignalIntegrityExceptionWaveformFile('incorrect extension in s-parameter file name in '+fname+'.  Should be .trc.')
+        raise SignalIntegrityExceptionWaveformFile('incorrect extension in LeCroy trace file name in '+fname+'.  Should be .trc.')
 
-    # setup the descriptor and populate it with the default values
-    desc = np.empty((1,),dtype=WFM_DESC)
-    for field in default_descriptor_values:
-        desc[field] = default_descriptor_values[field]
+    try:
+        # setup the descriptor and populate it with the default values
+        desc = np.empty((1,),dtype=WFM_DESC)
+        for field in default_descriptor_values:
+            desc[field] = default_descriptor_values[field]
 
-    # TODO: add option to store the raw samples directly rather than re-scaling to get maximum resolution (this might be more important for the ADC tester)
-    # force the waveform into the right format
-    x = np.array(wf.Values())
-    vert_scale = (x.max() - x.min())/60000
-    vert_offset = x.min() + (x.max() - x.min())/2
-    x_int = ((x - vert_offset)/vert_scale).astype(dtype="<i2")
+        # TODO: add option to store the raw samples directly rather than re-scaling to get maximum resolution (this might be more important for the ADC tester)
+        # force the waveform into the right format
+        x = np.array(wf.Values())
+        vert_scale = (x.max() - x.min())/60000
+        vert_offset = x.min() + (x.max() - x.min())/2
 
-    # modify the descriptor where needed
-    desc["WAVE_ARRAY_COUNT"]=   len(x),         # exact number of samples in the waveform
-    desc["NOM_SUBARRAY_COUNT"]= 1,              # the number of segments in the waveform
-    desc["PNTS_PER_SCREEN"]=    len(x),         # set to 2 less than the total number of points?
-    desc["HORIZ_OFFSET"]=       wf.td.H,        # time of the first point at the left (first one or first one on screen?)
-    desc["HORIZ_INTERVAL"]=     1/wf.td.Fs,     # 1/sample rate
-    desc["LAST_VALID_PNT"]=     len(x)-1,       # WAVE_ARRAY_COUNT - 1
-    desc["WAVE_ARRAY_1"]=       2*len(x),       # 2 * WAVE_ARRAY_COUNT if the data type is word
-    desc["MIN_VALUE"]=          -32000.,        # the data is 16 bits so this is the minimum value
-    desc["MAX_VALUE"]=          31744.,         # the data is 16 bits so this is the minimum value
-    desc["ACQ_VERT_OFFSET"]=    -vert_offset,   # the vertical offset of the channel
-    desc["PIXEL_OFFSET"]=       wf.td.H,        # not sure
-    desc["VERTICAL_OFFSET"]=    -vert_offset,   # vertical offset but different than ACQ_VERT_OFFSET?
-    desc["VERTICAL_GAIN"] =     vert_scale,     # volts per 16 bit code
-    desc["FIXED_VERT_GAIN"] =   15
+        # modify the descriptor where needed
+        desc["WAVE_ARRAY_COUNT"]=   len(x),         # exact number of samples in the waveform
+        desc["NOM_SUBARRAY_COUNT"]= 1,              # the number of segments in the waveform
+        desc["PNTS_PER_SCREEN"]=    len(x),         # set to 2 less than the total number of points?
+        desc["HORIZ_OFFSET"]=       wf.td.H,        # time of the first point at the left (first one or first one on screen?)
+        desc["HORIZ_INTERVAL"]=     1/wf.td.Fs,     # 1/sample rate
+        desc["LAST_VALID_PNT"]=     len(x)-1,       # WAVE_ARRAY_COUNT - 1
+        desc["WAVE_ARRAY_1"]=       2*len(x),       # 2 * WAVE_ARRAY_COUNT if the data type is word
+        desc["MIN_VALUE"]=          -32000.,        # the data is 16 bits so this is the minimum value
+        desc["MAX_VALUE"]=          31744.,         # the data is 16 bits so this is the minimum value
+        desc["ACQ_VERT_OFFSET"]=    -vert_offset,   # the vertical offset of the channel
+        desc["PIXEL_OFFSET"]=       wf.td.H,        # not sure
+        desc["VERTICAL_OFFSET"]=    -vert_offset,   # vertical offset but different than ACQ_VERT_OFFSET?
+        desc["VERTICAL_GAIN"] =     vert_scale,     # volts per 16 bit code
+        desc["FIXED_VERT_GAIN"] =   15
 
-    # Write the values to file
-    total_length = 2*len(x) + 346
+        # reload these to acquire the quantization effect of storing them in the descriptor
+        vert_scale = desc["VERTICAL_GAIN"][0]
+        vert_offset = -desc["VERTICAL_OFFSET"][0]
+        x_int = ((x - vert_offset)/vert_scale).astype(dtype="<i2")
 
-    with open(fname, "wb") as f:
-        if sys.version_info.major > 2:
-            f.write(bytes('#9{:09d}'.format(total_length), encoding='utf-8'))
+        # Write the values to file
+        total_length = 2*len(x) + 346
+
+        with open(fname, "wb") as f:
+            if sys.version_info.major > 2:
+                f.write(bytes('#9{:09d}'.format(total_length), encoding='utf-8'))
+            else:
+                f.write(b'#9{:09d}'.format(total_length))
+            f.write(desc)
+            # f.write('\00')
+            f.write(x_int.tobytes())
+            # f.write('\00')
+    except:
+        raise SignalIntegrityExceptionWaveformFile('LeCroy trace file could not be written: '+fname)
+
+def from_trc(filename):
+    """Read a waveform in lecroy trc format
+    @param filename String name of the filename to read.  Should have a .trc extension
+    @return a waveform in SignalIntegrity format
+    """
+    try:
+        fname, file_extension = os.path.splitext(filename)
+        extensionCorrect=True
+        if file_extension=='' or file_extension is None:
+            filename=filename+'.trc'
         else:
-            f.write(b'#9{:09d}'.format(total_length))
-        f.write(desc)
-        # f.write('\00')
-        f.write(x_int.tobytes())
-        # f.write('\00')
+            file_extension=file_extension.lower()
+            if file_extension != '.trc':
+                extensionCorrect=False
+        if not extensionCorrect:
+            raise SignalIntegrityExceptionWaveformFile('incorrect extension LeCroy trace file name in '+filename+'.  Should be .trc.')
+    except:
+        raise SignalIntegrityExceptionWaveformFile('incorrect extension in LeCroy trace file name in '+filename+'.  Should be .trc.')
+    try:
+        with open(filename, "rb") as f:
+            header=f.read(11).decode()
+            start=header[0:2]
+            if start != '#9':
+                raise SignalIntegrityExceptionWaveformFile('Incorrect LeCroy trace file header in: '+filename)
+            count=int(header[2:11])
+            descData=np.frombuffer(f.read(346),np.dtype(WFM_DESC))
+            wfBuffer=np.frombuffer(f.read(count-346),'int16')
+            if descData["NOM_SUBARRAY_COUNT"] != 1:
+                raise SignalIntegrityExceptionWaveformFile('Cannot read multi-segment waveform in: '+filename)
+            vertScale=descData['VERTICAL_GAIN'][0]
+            vertOffset=-descData['VERTICAL_OFFSET'][0]
+            horizontalOffset=descData['HORIZ_OFFSET'][0]
+            sampleRate=1./descData['HORIZ_INTERVAL'][0]
+            Exp=10**round(math.log10(sampleRate),6)
+            sampleRate=sampleRate/Exp
+            sampleRate=round(sampleRate,6)
+            sampleRate=sampleRate*Exp
+            numPoints=descData['WAVE_ARRAY_COUNT'][0]
+            from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+            from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+            wf=Waveform(TimeDescriptor(horizontalOffset,numPoints,sampleRate),
+                                 [v*vertScale+vertOffset for v in wfBuffer])
+            return wf
+    except:
+        SignalIntegrityExceptionWaveformFile('LeCroy trace file could not be read: '+filename)
