@@ -55,6 +55,16 @@ class TestLeCroyWaveformsTest(unittest.TestCase):
         os.remove(filename)
         self.Check(self.NameForTest(), wf, wf2, amplitude)
 
+    def testWriteTrc(self):
+        filename='LeCroyWaveform.trc'
+        amplitude=1
+        td=si.td.wf.TimeDescriptor(-10e-9,200e-9*1e9,1e9)
+        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
+        wf.WriteToFile(filename)
+        wf2=si.td.wf.Waveform().ReadFromFile(filename)
+        os.remove(filename)
+        self.Check(self.NameForTest(), wf, wf2, amplitude)
+
     def testLeCroyWaveformsNoExt(self):
         filename='LeCroyWaveform'
         amplitude=1

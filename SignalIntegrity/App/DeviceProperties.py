@@ -88,7 +88,7 @@ class DeviceProperty(tk.Frame):
             extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p','.S'+self.device['ports'].PropertyString(stype='raw')+'P'
             filetypename='s-parameters'
         elif self.partProperty['PropertyName'] == 'waveformfilename':
-            extension=('.txt')
+            extension=('.txt','.trc')
             filetypename='waveforms'
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')

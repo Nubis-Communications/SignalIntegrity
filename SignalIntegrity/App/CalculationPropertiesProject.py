@@ -97,7 +97,7 @@ class CalculationPropertyFileName(CalculationProperty):
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
         fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
-        filename=AskOpenFileName(filetypes=[('txt', '.txt')],
+        filename=AskOpenFileName(filetypes=[('txt', '.txt'),('trc','.trc')],
                                 initialdir=fp.AbsoluteFilePath(),
                                 initialfile=fp.FileNameWithExtension('txt'))
         if filename is None:

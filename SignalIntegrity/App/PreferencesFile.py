@@ -70,6 +70,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
         self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
+        self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
 
 class OnlineHelp(XMLConfiguration):
     def __init__(self):

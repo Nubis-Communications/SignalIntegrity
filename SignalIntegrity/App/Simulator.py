@@ -490,10 +490,17 @@ class SimulatorDialog(tk.Toplevel):
                 filename=outputWaveformName
             else:
                 filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
-            filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt')],
-                            defaultextension='.txt',
-                            initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
-                            initialfile=filename+'.txt')
+            preferLeCroyWaveforms=SignalIntegrity.App.Preferences['ProjectFiles.PreferSaveWaveformsLeCroyFormat']
+            if preferLeCroyWaveforms:
+                filename=AskSaveAsFilename(parent=self,filetypes=[('LeCroy','.trc'),('waveform', '.txt')],
+                                defaultextension='.trc',
+                                initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                                initialfile=filename+'.trc')
+            else:
+                filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt'),('LeCroy','.trc')],
+                                defaultextension='.txt',
+                                initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                                initialfile=filename+'.txt')
             if filename is None:
                 continue
             outputWaveform.WriteToFile(filename)

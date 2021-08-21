@@ -21,6 +21,7 @@ Waveform.py
 from copy import copy
 import math
 import sys
+import os
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.AdaptedWaveforms import AdaptedWaveforms
@@ -221,8 +222,13 @@ class Waveform(list):
         the format output by SignalIntegrity.  However, if the data is all on one line, then
         the format is assumed to be LeCroy MathPack format with the first point
         being the number of points, and the remaining points being time and value.
+        @note if the file extension is '.trc', then LeCroy waveform format is assumed
         """
         # pragma: silent exclude
+        _, file_extension = os.path.splitext(fileName)
+        if file_extension == '.trc':
+            self.ReadLeCroyWaveform(fileName)
+            return self
         try:
         # pragma: include outdent
             with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
@@ -256,6 +262,12 @@ class Waveform(list):
         horizontal offset followed by the number of points followed by the sample
         rate.  The remaining lines contain one waveform point per line.
         """
+        # pragma: silent exclude
+        _, file_extension = os.path.splitext(fileName)
+        if file_extension == '.trc':
+            self.WriteLeCroyWaveform(fileName)
+            return self
+        # pragma: include
         with open(fileName,"w") as f:
             td=self.td
             f.write(str(td.H)+'\n')

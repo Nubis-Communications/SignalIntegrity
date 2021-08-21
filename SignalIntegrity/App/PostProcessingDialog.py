@@ -92,17 +92,13 @@ class PostProcessingDialog(tk.Toplevel):
         self.AboutDoer.OpenHelp()
 
     def onOpenFile(self): 
-        
         self.__file = AskOpenFileName(defaultextension=".txt", 
                                     filetypes=[("All Files","*.*"), 
                                         ("Text Documents","*.txt")]) 
-
         if self.__file == "": 
-            
             # no file to open 
             self.__file = None
-        else: 
-            
+        else:
             # Try to open the file 
             # set the window title 
             self.__root.title(os.path.basename(self.__file) + " - Notepad") 
@@ -114,7 +110,6 @@ class PostProcessingDialog(tk.Toplevel):
 
             file.close() 
 
-        
     def onNewFile(self): 
         self.__root.title("Untitled - Notepad") 
         self.__file = None
@@ -132,16 +127,12 @@ class PostProcessingDialog(tk.Toplevel):
             if self.__file == "": 
                 self.__file = None
             else: 
-                
                 # Try to save the file 
                 file = open(self.__file,"w") 
-                file.write(self.TextArea.get(1.0,END)) 
+                file.write(self.TextArea.get(1.0,tk.END)) 
                 file.close() 
-                
                 # Change the window title 
                 self.__root.title(os.path.basename(self.__file) + " - Notepad") 
-                
-            
         else: 
             file = open(self.__file,"w") 
             file.write(self.TextArea.get(1.0,tk.END)) 
