@@ -25,16 +25,12 @@ import math
 
 class TestLeCroyWaveformsTest(unittest.TestCase):
 
-    def testLeCroyWaveforms(self):
-        filename='LeCroyWaveform.trc'
-        amplitude=1
-        td=si.td.wf.TimeDescriptor(-10e-9,200e-9*1e9,1e9)
-        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
-        wf.WriteLeCroyWaveform(filename)
-        wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
-        os.remove(filename)
+    def NameForTest(self):
+        return '_'.join(self.id().split('.')[-2:])
+
+    def Check(self,name,wf,wf2,amplitude):
         # calculate a reasonable error
-        SNRdB=90. # give it 80 dB dynamic range
+        SNRdB=90. # give it 90 dB dynamic range
         SignaldBm=20.*math.log10(amplitude/math.sqrt(2.))+13.010
         NoisedBm=SignaldBm-SNRdB
         Noiserms=pow(10.,(NoisedBm-13.010)/20.)
@@ -47,7 +43,61 @@ class TestLeCroyWaveformsTest(unittest.TestCase):
             plt.plot(wf2.Times(),wf2.Values(),label='LeCroy')
             plt.legend()
             plt.show()
-        self.assertEqual(wf,wf2,'waveforms not equal')
+        self.assertEqual(wf,wf2,name+': waveforms not equal')
+
+    def testLeCroyWaveforms(self):
+        filename='LeCroyWaveform.trc'
+        amplitude=1
+        td=si.td.wf.TimeDescriptor(-10e-9,200e-9*1e9,1e9)
+        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
+        wf.WriteLeCroyWaveform(filename)
+        wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
+        os.remove(filename)
+        self.Check(self.NameForTest(), wf, wf2, amplitude)
+
+    def testLeCroyWaveformsNoExt(self):
+        filename='LeCroyWaveform'
+        amplitude=1
+        td=si.td.wf.TimeDescriptor(-10e-9,200e-9*1e9,1e9)
+        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
+        wf.WriteLeCroyWaveform(filename)
+        wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
+        os.remove(filename+'.trc')
+        self.Check(self.NameForTest(), wf, wf2, amplitude)
+
+    def testWrongExtWrite(self):
+        filename='LeCroyWaveform.wav'
+        amplitude=1
+        td=si.td.wf.TimeDescriptor(-10e-9,200e-9*1e9,1e9)
+        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
+        with self.assertRaises(si.SignalIntegrityExceptionWaveformFile) as e:
+            wf.WriteLeCroyWaveform(filename)
+
+    def testEmptyWrite(self):
+        filename='LeCroyWaveform.trc'
+        wf=si.td.wf.Waveform()
+        with self.assertRaises(si.SignalIntegrityExceptionWaveformFile) as e:
+            wf.WriteLeCroyWaveform(filename)
+
+    def testWrongExtRead(self):
+        filename='LeCroyWaveform.wav'
+        with self.assertRaises(si.SignalIntegrityExceptionWaveformFile) as e:
+            wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
+
+    def testFileNotFound(self):
+        filename='nonexistent.trc'
+        with self.assertRaises(si.SignalIntegrityExceptionWaveformFile) as e:
+            wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
+
+    def testLongWaveform(self):
+        filename='LeCroyWaveform.trc'
+        amplitude=1
+        td=si.td.wf.TimeDescriptor(-10e-9,int(1000000),1e9)
+        wf=si.td.wf.SineWaveform(td,Frequency=100.123456789e6,Amplitude=amplitude)
+        wf.WriteLeCroyWaveform(filename)
+        wf2=si.td.wf.Waveform().ReadLeCroyWaveform(filename)
+        os.remove(filename)
+        self.Check(self.NameForTest(), wf, wf2, amplitude)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

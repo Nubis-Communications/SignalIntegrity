@@ -276,4 +276,4 @@ def from_trc(filename):
                                  [v*vertScale+vertOffset for v in wfBuffer])
             return wf
     except:
-        SignalIntegrityExceptionWaveformFile('LeCroy trace file could not be read: '+filename)
+        raise SignalIntegrityExceptionWaveformFile('LeCroy trace file could not be read: '+filename)
