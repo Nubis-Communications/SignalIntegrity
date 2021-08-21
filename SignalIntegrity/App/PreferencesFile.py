@@ -42,20 +42,20 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('PlotDPI',100))
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.Add(XMLPropertyDefaultBool('AllPinNumbersVisible',False))
-        self.Add(XMLPropertyDefaultBool('GridsOnPlots',False))
+        self.Add(XMLPropertyDefaultBool('GridsOnPlots',True))
         self.SubDir(Color())
 
 class Calculation(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Calculation')
-        self.Add(XMLPropertyDefaultBool('TrySVD',False))
-        self.Add(XMLPropertyDefaultBool('UseSinX',False))
+        self.Add(XMLPropertyDefaultBool('TrySVD',True))
+        self.Add(XMLPropertyDefaultBool('UseSinX',True))
         self.Add(XMLPropertyDefaultBool('Enforce12458',True))
 
 class Cache(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Cache')
-        self.Add(XMLPropertyDefaultBool('CacheResults',False))
+        self.Add(XMLPropertyDefaultBool('CacheResults',True))
 
 class LastFiles(XMLConfiguration):
     def __init__(self):
