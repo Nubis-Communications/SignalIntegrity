@@ -38,6 +38,11 @@ class PeeledLaunches(SParameters):
         'approximate' use the approximation based on the simulated step response.
         'exact' use the impedance peeling algorithm.
         """
+        # pragma: silent exclude
+        if all([t==0.0 for t in timelen]):
+            SParameters.__init__(self,sp.m_f,sp.m_d)
+            return
+        # pragma: include
         spp=[PeeledPortSParameters(sp,p+1,timelen[p],method) for p in range(sp.m_P)]
         sddp=DeembedderParser().AddLine('unknown S '+str(sp.m_P))
         for ps in [str(p+1) for p in range(sp.m_P)]:

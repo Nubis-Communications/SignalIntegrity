@@ -41,6 +41,12 @@ class PeeledPortSParameters(SParameters):
         'approximate' use the approximation based on the simulated step response.
         'exact' use the impedance peeling algorithm.
         """
+        # pragma: silent exclude
+        if timelen == 0.0:
+            # if the time length is zero, make a zero length transmission line
+            SParameters.__init__(self,sp.m_f,[TLineTwoPortLossless(50.,0,f) for f in sp.m_f])
+            return
+        # pragma: include
         ip=ImpedanceProfileWaveform(sp,port,method,includePortZ=False)
         Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))
         tp1=[identity(2) for n in range(len(sp.f()))]
