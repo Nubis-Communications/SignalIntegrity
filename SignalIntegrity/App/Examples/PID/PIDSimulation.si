@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>558x413+2073+120</Geometry>
+			<Geometry>558x413+2031+48</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>11</Originy>
@@ -314,13 +314,13 @@
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-0.002</Value>
+							<Value>-0.00015</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.004</Value>
+							<Value>0.0003</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
