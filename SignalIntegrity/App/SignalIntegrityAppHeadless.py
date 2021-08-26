@@ -118,6 +118,7 @@ class DrawingHeadless(object):
         self.canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration
         self.canCalculateSParametersFromNetworkAnalyzerModel = self.canSimulateNetworkAnalyzerModel
         self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed or self.canCalculateErrorTerms or self.canSimulateNetworkAnalyzerModel or self.canCalculateSParametersFromNetworkAnalyzerModel
+        self.canGenerateTransferMatrices = self.canSimulate or self.canVirtualProbe
         return canvas
     def InitFromProject(self):
         self.schematic = Schematic()
@@ -211,7 +212,7 @@ class SignalIntegrityAppHeadless(object):
             return None
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
-    def Simulate(self,callback=None):
+    def Simulate(self,callback=None,TransferMatricesOnly=False):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if self.Drawing.canSimulateNetworkAnalyzerModel:
@@ -244,6 +245,9 @@ class SignalIntegrityAppHeadless(object):
             sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
             return None
+
+        if TransferMatricesOnly:
+            return (sourceNames,outputWaveformLabels,transferMatrices)
 
         diresp=None
         for r in range(len(outputWaveformLabels)):
@@ -289,7 +293,7 @@ class SignalIntegrityAppHeadless(object):
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
-    def VirtualProbe(self):
+    def VirtualProbe(self,callback=None,TransferMatricesOnly=False):
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -303,6 +307,8 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
             cacheFileName=cacheFileName)
+        if not callback == None:
+            snp.InstallCallback(callback)
         snp.AddLines(netListText)
         try:
             transferMatrices=snp.TransferMatrices()
@@ -325,6 +331,9 @@ class SignalIntegrityAppHeadless(object):
 
         outputWaveformLabels=netList.OutputNames()
 
+        if TransferMatricesOnly:
+            return (sourceNames,outputWaveformLabels,transferMatrices)
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
@@ -345,6 +354,18 @@ class SignalIntegrityAppHeadless(object):
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+
+    def TransferParameters(self,callback=None,):
+        if not hasattr(self.Drawing,'canGenerateTransferMatrices'):
+            self.Drawing.DrawSchematic()
+        if not self.Drawing.canGenerateTransferMatrices:
+            return None
+        if self.Drawing.canSimulate:
+            return self.Simulate(callback,TransferMatricesOnly=True)
+        elif self.Drawing.canVirtualProbe:
+            return self.VirtualProbe(callback,TransferMatricesOnly=True)
+        else:
+            return None
 
     def Deembed(self):
         netListText=self.NetListText()

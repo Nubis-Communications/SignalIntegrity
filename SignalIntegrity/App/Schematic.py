@@ -337,6 +337,7 @@ class DrawingStateMachine(object):
             self.parent.parent.CalculateDoer.Activate(False)
             self.parent.parent.CalculateSParametersDoer.Activate(False)
             self.parent.parent.SimulateDoer.Activate(False)
+            self.parent.parent.TransferParametersDoer.Activate(False)
             self.parent.parent.VirtualProbeDoer.Activate(False)
             self.parent.parent.DeembedDoer.Activate(False)
             self.parent.parent.HelpDoer.Activate(True)
@@ -441,6 +442,7 @@ class DrawingStateMachine(object):
             #self.parent.parent.CalculateDoer.Activate(False)
             #self.parent.parent.CalculateSParametersDoer.Activate(False)
             #self.parent.parent.SimulateDoer.Activate(False)
+            #self.parent.parent.TransferParametersDoer.Activate(False)
             #self.parent.parent.VirtualProbeDoer.Activate(False)
             #self.parent.parent.DeembedDoer.Activate(False)
             self.parent.parent.HelpDoer.Activate(True)
@@ -1626,6 +1628,7 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
+        self.parent.TransferParametersDoer.Activate(canSimulate or canVirtualProbe)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
         self.parent.RLGCDoer.Activate(canRLGC)

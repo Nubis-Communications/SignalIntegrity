@@ -589,7 +589,7 @@ class Simulator(object):
             self.EyeDiagramDialog(eye['Name']).UpdateWaveforms(eye)
     def _ProcessWaveforms(self,callback=None):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
-    def Simulate(self):
+    def Simulate(self,TransferMatricesOnly=False):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
@@ -619,6 +619,16 @@ class Simulator(object):
             self.sourceNames=netList.SourceNames()
         except si.SignalIntegrityException as e:
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            return
+
+        if TransferMatricesOnly:
+            buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
+            maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
+            buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
+            sp=self.transferMatrices.SParameters()
+            SParametersDialog(self.parent,sp,
+                              self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                              'Transfer Parameters',buttonLabelList)
             return
 
         diresp=None
@@ -685,7 +695,7 @@ class Simulator(object):
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)
 
-    def VirtualProbe(self):
+    def VirtualProbe(self,TransferMatricesOnly=False):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
@@ -715,6 +725,15 @@ class Simulator(object):
         except si.SignalIntegrityException as e:
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
+
+        if TransferMatricesOnly:
+            buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
+            maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
+            buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
+            sp=self.transferMatrices.SParameters()
+            SParametersDialog(self.parent,sp,
+                              self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                              'Transfer Parameters',buttonLabelList)
 
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:

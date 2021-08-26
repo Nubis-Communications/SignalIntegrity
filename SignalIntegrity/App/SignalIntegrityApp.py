@@ -146,6 +146,7 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Calculate-tk.Button').AddToolTip('Calculate the schematic')
         self.CalculateSParametersDoer = Doer(self.onCalculateSParameters).AddHelpElement('Control-Help:Calculate-S-parameters').AddToolTip('Calculate s-parameters')
         self.SimulateDoer = Doer(self.onSimulate).AddHelpElement('Control-Help:Simulate').AddToolTip('Simulate')
+        self.TransferParametersDoer = Doer(self.onTransferParameters).AddHelpElement('Control-Help:Transfer-Parameters').AddToolTip('Generate transfer parameters')
         self.VirtualProbeDoer = Doer(self.onVirtualProbe).AddHelpElement('Control-Help:Virtual-Probe').AddToolTip('Simulate with virtual probe')
         self.DeembedDoer = Doer(self.onDeembed).AddHelpElement('Control-Help:Deembed').AddToolTip('Calculate de-embedding solution')
         self.RLGCDoer = Doer(self.onRLGC).AddHelpElement('Control-Help:RLGC-Fit').AddToolTip('Fit the element to a RLGC model')
@@ -237,6 +238,7 @@ class SignalIntegrityApp(tk.Frame):
         CalcMenu.add_separator()
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Simulate',underline=0)
+        self.TransferParametersDoer.AddMenuElement(CalcMenu,label='Generate Transfer Parameters',underline=0)
         self.VirtualProbeDoer.AddMenuElement(CalcMenu,label='Virtual Probe',underline=9)
         self.DeembedDoer.AddMenuElement(CalcMenu,label='Deembed',underline=0)
         self.RLGCDoer.AddMenuElement(CalcMenu,label='RLGC Fit',underline=5)
@@ -757,16 +759,22 @@ class SignalIntegrityApp(tk.Frame):
                 self.calculationPropertiesDialog=CalculationPropertiesDialog(self)
         self.calculationPropertiesDialog.grab_set()
 
-    def onSimulate(self):
+    def onSimulate(self,TransferMatricesOnly=False):
         self.Drawing.stateMachine.Nothing()
         if self.SimulateNetworkAnalyzerModelDoer.active:
             self.networkanalyzersimulator.Simulate()
         else:
-            self.simulator.Simulate()
+            self.simulator.Simulate(TransferMatricesOnly=TransferMatricesOnly)
 
-    def onVirtualProbe(self):
+    def onVirtualProbe(self,TransferMatricesOnly=False):
         self.Drawing.stateMachine.Nothing()
-        self.simulator.VirtualProbe()
+        self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
+
+    def onTransferParameters(self):
+        if self.SimulateDoer.active:
+            self.onSimulate(TransferMatricesOnly=True)
+        elif self.VirtualProbeDoer.active:
+            self.onVirtualProbe(TransferMatricesOnly=True)
 
     def onDeembed(self):
         self.Drawing.stateMachine.Nothing()
@@ -890,6 +898,7 @@ class SignalIntegrityApp(tk.Frame):
             self.CalculateSParametersDoer.Activate(True)
             self.VirtualProbeDoer.Activate(True)
             self.SimulateDoer.Activate(True)
+            self.TransferParametersDoer.Activate(True)
             self.DeembedDoer.Activate(True)
             self.RLGCDoer.Activate(True)
             self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(True)
