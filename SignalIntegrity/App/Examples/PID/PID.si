@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>655x498+2806+195</Geometry>
+			<Geometry>655x498+182+182</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>8</Originy>
@@ -26,7 +26,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>20.0</Value>
+							<Value>60.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -50,8 +50,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>D8</Value>
-							<Visible>False</Visible>
+							<Value>GP</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -92,8 +92,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>D9</Value>
-							<Visible>False</Visible>
+							<Value>GD</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -134,8 +134,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>D10</Value>
-							<Visible>False</Visible>
+							<Value>GI</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
