@@ -22,6 +22,48 @@ from SignalIntegrity.App.SParameterProperties import SParameterProperties
 
 import os
 
+class EyeYAxisConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('YAxis')
+        self.Add(XMLPropertyDefaultString('Mode','Auto'))
+        self.Add(XMLPropertyDefaultFloat('Max',1.0))
+        self.Add(XMLPropertyDefaultFloat('Min',0.0))
+
+class EyeLogIntensityConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('LogIntensity')
+        self.Add(XMLPropertyDefaultBool('LogIntensity',False))
+        self.Add(XMLPropertyDefaultFloat('MinBERExponent',-12))
+        self.Add(XMLPropertyDefaultFloat('MinBERSaturationPercent',20))
+        self.Add(XMLPropertyDefaultFloat('MaxBERExponent',-6))
+        self.Add(XMLPropertyDefaultFloat('MaxBERSaturationPercent',100))
+
+class EyeJitterNoiseConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('JitterNoise')
+        self.Add(XMLPropertyDefaultFloat('JitterPercentUI',0))
+        self.Add(XMLPropertyDefaultFloat('JitterS',0))
+        self.Add(XMLPropertyDefaultFloat('JitterDeterministicPercentUIPk',0))
+        self.Add(XMLPropertyDefaultFloat('JitterDeterministicPkS',0))
+        self.Add(XMLPropertyDefaultFloat('Noise',0.0))
+        self.Add(XMLPropertyDefaultInt('MaxWindowPixels',100000))
+        self.SubDir(EyeLogIntensityConfiguration())
+
+class EyeConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('EyeDiagram')
+        self.Add(XMLPropertyDefaultString('Color','#ffffff'))
+        self.Add(XMLPropertyDefaultFloat('UI',3.))
+        self.Add(XMLPropertyDefaultInt('Rows',200))
+        self.Add(XMLPropertyDefaultInt('Columns',200))
+        self.Add(XMLPropertyDefaultFloat('Saturation',20))
+        self.Add(XMLPropertyDefaultFloat('ScaleX',75.))
+        self.Add(XMLPropertyDefaultFloat('ScaleY',150.))
+        self.Add(XMLPropertyDefaultString('Mode','ISI'))
+        self.Add(XMLPropertyDefaultBool('Invert',True))
+        self.SubDir(EyeYAxisConfiguration())
+        self.SubDir(EyeJitterNoiseConfiguration())
+
 class Color(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Color')
@@ -93,5 +135,6 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
         self.SubDir(SParameterProperties(preferences=True))
+        self.SubDir(EyeConfiguration())
         self.SubDir(Features())
 

@@ -185,6 +185,7 @@ class DrawingStateMachine(object):
             else:
                 nothingSelectedState()
     def onMouseButton1TryToSelectSomething(self,event):
+        self.parent.lift()
         self.Nothing()
         self.SaveButton1Coordinates(event)
         selectedSomething=False
@@ -1591,7 +1592,7 @@ class Drawing(tk.Frame):
             if  deviceType == 'Port':
                 foundAPort = True
                 numPortsFound=numPortsFound+1
-            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                 foundAnOutput = True
             elif deviceType == 'Stim':
                 foundAStim = True

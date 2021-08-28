@@ -271,7 +271,16 @@ class DeviceIdealTransformer(Device):
 class Port(Device):
     def __init__(self,portNumber=1):
         netlist=DeviceNetListLine(devicename='port',showReference=False,showports=False,values=[('pn',False),('td',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Port'),PartPropertyHelp('device:Port'),PartPropertyDescription('Port'),PartPropertyPorts(1),PartPropertyDelay(0.0),PartPropertyPortNumber(portNumber)],partPicture=PartPictureVariablePort())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('Port'),
+                         PartPropertyHelp('device:Port'),
+                         PartPropertyDescription('Port'),
+                         PartPropertyPorts(1),
+                         PartPropertyDelay(0.0),
+                         PartPropertyPortNumber(portNumber)],
+                        partPicture=PartPictureVariablePort())
         self['td']['Visible']=False
 
 class DeviceGround(Device):
@@ -426,13 +435,32 @@ class DeviceCurrentSineGenerator(Device):
 class DeviceMeasurement(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='meas',showReference=False,showports=False)
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Measure'),PartPropertyHelp('device:Measure-Probe'),PartPropertyDefaultReferenceDesignator('VM?'),PartPropertyDescription('Measure'),PartPropertyWaveformFileName(),PartPropertyWaveformType('file'),PartPropertyWaveformProjectName('')],PartPictureVariableMeasureProbe())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Virtual Probe'),
+                         PartPropertyPartName('Measure'),
+                         PartPropertyHelp('device:Measure-Probe'),
+                         PartPropertyDefaultReferenceDesignator('VM?'),
+                         PartPropertyDescription('Measure'),
+                         PartPropertyWaveformFileName(),
+                         PartPropertyWaveformType('file'),
+                         PartPropertyWaveformProjectName('')],
+                        PartPictureVariableMeasureProbe())
 
 class DeviceOutput(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='voltageoutput',showReference=True,showports=False)
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Output'),PartPropertyHelp('device:Output-Probe'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Output'),
-            PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableProbe())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('Output'),
+                         PartPropertyHelp('device:Output-Probe'),
+                         PartPropertyDefaultReferenceDesignator('VO?'),
+                         PartPropertyDescription('Output'),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0)],
+                        PartPictureVariableProbe())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
@@ -445,7 +473,15 @@ class DeviceNetName(Device):
 class DeviceStim(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='stim',showReference=False,showports=False)
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('Stim'),PartPropertyHelp('device:Stim'),PartPropertyDefaultReferenceDesignator('M?'),PartPropertyWeight(1.),PartPropertyDescription('Stim')],PartPictureVariableStim())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Virtual Probe'),
+                         PartPropertyPartName('Stim'),
+                         PartPropertyHelp('device:Stim'),
+                         PartPropertyDefaultReferenceDesignator('M?'),
+                         PartPropertyWeight(1.),
+                         PartPropertyDescription('Stim')],
+                        PartPictureVariableStim())
 
 class DevicePowerMixedModeConverter(Device):
     def __init__(self):
@@ -525,12 +561,12 @@ class DeviceTransresistanceAmplifierFourPort(Device):
 class DeviceTransmissionLine(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='tline',values=[('zc',True),('td',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('TransmissionLines'),PartPropertyPartName('TransmissionLine'),PartPropertyHelp('device:Transmission-Line'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyDelay(),PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),PartPropertyPartName('TransmissionLine'),PartPropertyHelp('device:Transmission-Line'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyDelay(),PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='telegrapher',values=[('r',True),('rse',True),('l',True),('g',True),('c',True),('df',True),('scale',True),('sect',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('TransmissionLines'),
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
                               PartPropertyPartName('Telegrapher'),
                               PartPropertyHelp('device:Telegrapher---Two-Port'),
                               PartPropertyDefaultReferenceDesignator('T?'),
@@ -549,7 +585,7 @@ class DeviceTelegrapherFourPort(Device):
             values=[('rp',True),('rsep',True),('lp',True),('gp',True),('cp',True),('dfp',True),
                     ('rn',True),('rsen',True),('ln',True),('gn',True),('cn',True),('dfn',True),
                     ('lm',True),('gm',True),('cm',True),('dfm',True),('scale',True),('sect',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('TransmissionLines'),
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
                               PartPropertyPartName('Telegrapher'),
                               PartPropertyHelp('device:Telegrapher---Four-Port'),
                               PartPropertyDefaultReferenceDesignator('T?'),
@@ -581,8 +617,18 @@ class DeviceVoltageNoiseSource(Device):
 class DeviceVoltageOutputProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='differentialvoltageoutput')
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('DifferentialVoltageOutput'),PartPropertyHelp('device:Voltage-Diff-Probe'),PartPropertyDefaultReferenceDesignator('VO?'),PartPropertyDescription('Differential Voltage Probe'),PartPropertyPorts(2),
-            PartPropertyVoltageGain(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableVoltageProbe())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('DifferentialVoltageOutput'),
+                         PartPropertyHelp('device:Voltage-Diff-Probe'),
+                         PartPropertyDefaultReferenceDesignator('VO?'),
+                         PartPropertyDescription('Differential Voltage Probe'),
+                         PartPropertyPorts(2),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0)],
+                        PartPictureVariableVoltageProbe())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
@@ -590,8 +636,18 @@ class DeviceVoltageOutputProbe(Device):
 class DeviceCurrentOutputProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='currentoutput')
-        Device.__init__(self,netlist,[PartPropertyCategory('Special'),PartPropertyPartName('CurrentOutput'),PartPropertyHelp('device:Current-Probe'),PartPropertyDefaultReferenceDesignator('IO?'),PartPropertyDescription('Current Probe'),PartPropertyPorts(2),
-            PartPropertyTransresistance(1.0),PartPropertyVoltageOffset(0.0),PartPropertyDelay(0.0)],PartPictureVariableCurrentProbe())
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('CurrentOutput'),
+                         PartPropertyHelp('device:Current-Probe'),
+                         PartPropertyDefaultReferenceDesignator('IO?'),
+                         PartPropertyDescription('Current Probe'),
+                         PartPropertyPorts(2),
+                         PartPropertyTransresistance(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0)],
+                        PartPictureVariableCurrentProbe())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
@@ -604,7 +660,7 @@ class DeviceNPNTransistor(Device):
 class DeviceRLGCFitFromFile(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
-        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('TransmissionLines'),PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyScale(scale=1)],PartPictureVariableTransmissionLineTwoPort())
+        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('Transmission Lines'),PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyScale(scale=1)],PartPictureVariableTransmissionLineTwoPort())
 
 class DeviceNetworkAnalyzer(Device):
     def __init__(self,ports=4):
@@ -727,7 +783,7 @@ class DeviceReflectCalibrationMeasurement(Device):
         netlist=DeviceNetListLine(devicename='calibration',partname='reflect',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('reflect calibration measurement'),
+                        [PartPropertyDescription('Reflect Calibration Measurement'),
                          PartPropertyPorts(1),
                          PartPropertyCategory('Network Analysis'),
                          PartPropertyPartName('ReflectMeasurement'),
@@ -742,7 +798,7 @@ class DeviceThruCalibrationMeasurement(Device):
         netlist=DeviceNetListLine(devicename='calibration',partname='thru',showReference=False,showports=False,values=[('file',True),('std',True),('pn',True),('opn',True),('ct',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('thru calibration measurement'),
+                        [PartPropertyDescription('Thru Calibration Measurement'),
                          PartPropertyPorts(2),
                          PartPropertyCategory('Network Analysis'),
                          PartPropertyPartName('ThruMeasurement'),
@@ -759,7 +815,7 @@ class DeviceXtalkCalibrationMeasurement(Device):
         netlist=DeviceNetListLine(devicename='calibration',partname='xtalk',showReference=False,showports=False,values=[('file',True),('pn',True),('opn',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('xtalk calibration measurement'),
+                        [PartPropertyDescription('Xtalk Calibration Measurement'),
                          PartPropertyPorts(2),
                          PartPropertyCategory('Network Analysis'),
                          PartPropertyPartName('XtalkMeasurement'),
@@ -806,7 +862,7 @@ class DeviceCTLE(Device):
         netlist=DeviceNetListLine(partname='ctle',values=[('gdc',True),('gdc2',True),('fz',True),('flf',True),('fp1',True),('fp2',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('Continuous time linear equalizer'),
+                        [PartPropertyDescription('Continuous Time Linear Equalizer'),
                          PartPropertyPorts(2),
                          PartPropertyCategory('Equalizers'),
                          PartPropertyPartName('CTLE'),
@@ -825,7 +881,7 @@ class DeviceFFE(Device):
         netlist=DeviceNetListLine(partname='ffe',values=[('taps',False),('td',True),('pre',True)])
         Device.__init__(self,
                         netlist,
-                        [PartPropertyDescription('Feed-forward linear equalizer'),
+                        [PartPropertyDescription('Feed-forward Linear Equalizer'),
                          PartPropertyPorts(2),
                          PartPropertyCategory('Equalizers'),
                          PartPropertyPartName('FFE'),
@@ -911,7 +967,7 @@ class DeviceWElement(Device):
         Device.__init__(self,
                         netlist,
                         [PartPropertyDescription('W Element'),
-                         PartPropertyCategory('TransmissionLines'),
+                         PartPropertyCategory('Transmission Lines'),
                          PartPropertyPartName('WElement'),
                          PartPropertyHelp('device:W-Element'),
                          PartPropertyDefaultReferenceDesignator('W?'),
@@ -938,6 +994,48 @@ class DeviceRelay(Device):
                          partPicture)
         self['term']['KeywordVisible']=True
         self['term']['Visible']=False
+
+class DeviceEyeProbe(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('EyeProbe'),
+                         PartPropertyHelp('device:Eye-Probe'),
+                         PartPropertyDefaultReferenceDesignator('Vo?'),
+                         PartPropertyDescription('Eye Probe'),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0),
+                         PartPropertyBaudRate(),
+                         PartPropertyPorts(1)]
+                        ,PartPictureVariableEyeProbe())
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=True
+        self['br']['Visible']=True
+
+class DeviceDifferentialEyeProbe(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='differentialeyeprobe',showReference=True,showports=False)
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Ports and Probes'),
+                         PartPropertyPartName('DifferentialEyeProbe'),
+                         PartPropertyHelp('device:Eye-Probe'),
+                         PartPropertyDefaultReferenceDesignator('Vo?'),
+                         PartPropertyDescription('Differential Eye Probe'),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0),
+                         PartPropertyBaudRate(),
+                         PartPropertyPorts(2)]
+                        ,PartPictureVariableDifferentialEyeProbe())
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=True
+        self['br']['Visible']=True
 
 class Devices(list):
     def __init__(self,devices):
@@ -1039,7 +1137,9 @@ DeviceList=Devices([
                 DeviceLaplace(),
                 DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
                 DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay()),
-                DeviceImpulseResponseFilter()
+                DeviceImpulseResponseFilter(),
+                DeviceEyeProbe(),
+                DeviceDifferentialEyeProbe()
                 ])
 
 

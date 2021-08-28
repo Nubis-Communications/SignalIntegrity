@@ -161,7 +161,7 @@ class XMLPropertyDefault(XMLProperty):
 class XMLPropertyDefaultFloat(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None):
         XMLPropertyDefault.__init__(self,name,'float',value,write,arrayType)
-        
+
 class XMLPropertyDefaultInt(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None):
         XMLPropertyDefault.__init__(self,name,'int',value,write,arrayType)
@@ -187,11 +187,15 @@ class XMLConfiguration(object):
         self.dict={}
         self.name=name
         self.write=write
+        self.makeOnRead={}
     def Add(self,property):
         self.dict[property.dict['name']]=property
         return self
-    def SubDir(self,config):
-        self.dict[config.name]=config
+    def SubDir(self,config,makeOnRead=False):
+        if not makeOnRead:
+            self.dict[config.name]=config
+        else:
+            self.makeOnRead[config.name]=config
     def InterceptProperty(self,element):
         return False
     def OutputXML(self,indent):
@@ -219,10 +223,13 @@ class XMLConfiguration(object):
                 name=child.tag
                 if name[len(name)-len('Configuration'):]=='Configuration':
                     name=name[:-len('Configuration')]
+                if name in self.makeOnRead.keys():
+                    self.dict[name]=self.makeOnRead[name]
                 self.dict[name].InitFromXML(child)
             except:
                 pass
         return self
+
     def Print(self):
         for item in self.dict:
             print (item)
@@ -270,13 +277,17 @@ class ProjectFileBase(object):
     def __init__(self,ext='xml'):
         self.dict={}
         self.ext=ext.strip('.')
+        self.makeOnRead={}
 
     def Add(self,property):
         self.dict[property.dict['name']]=property
         return self
 
-    def SubDir(self,config):
-        self.dict[config.name]=config
+    def SubDir(self,config,makeOnRead=False):
+        if not makeOnRead:
+            self.dict[config.name]=config
+        else:
+            self.makeOnRead[config.name]=config
 
     def OutputXML(self):
         lines=[]
@@ -365,6 +376,8 @@ class ProjectFileBase(object):
                 name=child.tag
                 if name[len(name)-len('Configuration'):]=='Configuration':
                     name=name[:-len('Configuration')]
+                if name in self.makeOnRead.keys():
+                    self.dict[name]=self.makeOnRead[name]
                 self.dict[name].InitFromXML(child)
             except:
                 pass

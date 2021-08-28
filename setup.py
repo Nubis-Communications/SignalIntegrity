@@ -33,7 +33,7 @@ with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "r") as f:
             dataValue=eval(token[1].strip().strip(os.linesep))
             globals()['__'+keyValue+'__']=dataValue
 
-install_requires=['setuptools>=47.2.0','pip>=20.2.4','numpy>=1.13.0','matplotlib>=2.2.3','urllib3>=1.22.0']
+install_requires=['setuptools>=47.2.0','pip>=20.2.4','numpy>=1.13.0','matplotlib>=2.2.3','urllib3>=1.22.0','Pillow>=5.4.1','scipy>=1.2.1']
 
 pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
@@ -81,7 +81,8 @@ setup(
                   pathToMoreIcons+'/edit-undo-3.gif',
                   pathToMoreIcons+'/edit-redo-3.gif',
                   pathToMoreIcons+'/dialog-information-4.gif',
-                  pathToMoreIcons+'/sp-view.gif'],
+                  pathToMoreIcons+'/sp-view.gif',
+                  pathToMoreIcons+'/eye.gif'],
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,

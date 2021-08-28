@@ -19,6 +19,8 @@ ProjectFile.py
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 
+import copy
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -209,6 +211,8 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        import SignalIntegrity.App.Preferences
+        self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['EyeDiagram']),makeOnRead=True)
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
@@ -219,9 +223,12 @@ class ProjectFile(ProjectFileBase):
 
     def Write(self,app,filename=None):
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
+        hasAnEyeProbe=False
         for d in range(len(self['Drawing.Schematic.Devices'])):
             deviceProject=self['Drawing.Schematic.Devices'][d]
             device=app.Drawing.schematic.deviceList[d]
+            if device['partname']['Value'] in ['EyeProbe','DifferentialEyeProbe']:
+                hasAnEyeProbe=True
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
@@ -237,5 +244,10 @@ class ProjectFile(ProjectFileBase):
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
         if not filename is None:
+            if not hasAnEyeProbe:
+                try:
+                    del(self.dict['EyeDiagram'])
+                except:
+                    pass
             ProjectFileBase.Write(self,filename)
         return self

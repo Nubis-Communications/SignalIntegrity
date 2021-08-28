@@ -32,7 +32,7 @@ from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
-
+from SignalIntegrity.App.EyeDiagram import EyeDiagramDialog
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 
 import SignalIntegrity.App.Project
@@ -571,8 +571,22 @@ class Simulator(object):
             if not self.simulatorDialog.winfo_exists():
                 self.simulatorDialog=SimulatorDialog(self)
         return self.simulatorDialog
+    def EyeDiagramDialog(self,name):
+        if not hasattr(self,'eyeDiagramDialogs'):
+            self.eyeDiagramDialogs={}
+        if self.eyeDiagramDialogs == None:
+            self.eyeDiagramDialogs={}
+        if name not in self.eyeDiagramDialogs.keys():
+            self.eyeDiagramDialogs[name]=EyeDiagramDialog(self,name)
+        else:
+            if not self.eyeDiagramDialogs[name].winfo_exists():
+                self.eyeDiagramDialogs[name]=EyeDiagramDialog(self,name)
+        return self.eyeDiagramDialogs[name]
     def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
         self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
+    def UpdateEyeDiagrams(self,eyeDiagramDict):
+        for eye in eyeDiagramDict:
+            self.EyeDiagramDialog(eye['Name']).UpdateWaveforms(eye)
     def _ProcessWaveforms(self,callback=None):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
     def Simulate(self):
@@ -636,7 +650,7 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -655,6 +669,21 @@ class Simulator(object):
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+        self.parent.root.update()
+        # gather up the eye probes and create a dialog for each one
+        eyeDiagramDict=[]
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            for device in self.parent.Drawing.schematic.deviceList:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
+                        eyeDict={'Name':outputWaveformLabel,
+                                 'BaudRate':device['br'].GetValue(),
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                        eyeDiagramDict.append(eyeDict)
+                        break
+        self.UpdateEyeDiagrams(eyeDiagramDict)
 
     def VirtualProbe(self):
         netList=self.parent.Drawing.schematic.NetList()
@@ -700,7 +729,7 @@ class Simulator(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -719,3 +748,19 @@ class Simulator(object):
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
         self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+        self.SimulatorDialog().update_idletasks()
+        # gather up the eye probes and create a dialog for each one
+        eyeDiagramDict=[]
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            for device in self.parent.Drawing.schematic.deviceList:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
+                        eyeDict={'Name':outputWaveformLabel,
+                                 'BaudRate':device['br'].GetValue(),
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                        eyeDiagramDict.append(eyeDict)
+                        break
+        self.UpdateEyeDiagrams(eyeDiagramDict)
+

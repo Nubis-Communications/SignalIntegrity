@@ -44,7 +44,8 @@ class SimulatorParser(SystemDescriptionParser):
         - 'output' - addition of an output probe
         - 'voltageoutput' - addition of a voltage output probe with a name.
         - 'voltagesource' or 'networkanalyzerport' - addition of a voltage source.
-        - 'currentsource' - addition of a current source.  
+        - 'currentsource' - addition of a current source.
+        - 'eyeprobe' - addition of an output probe.  
         Calls SystemDescriptionParser._ProcessLines(),
         exludes 'connect' and 'port' in first call, then processes simulator lines, then
         calls upstream one more time for the device connections, again excluding 'port'.
@@ -56,7 +57,7 @@ class SimulatorParser(SystemDescriptionParser):
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
         # pragma: silent exclude
-        elif lineList[0] == 'voltageoutput':
+        elif lineList[0] in ['voltageoutput','eyeprobe']:
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
             for i in range(1,len(lineList),3):
                 self.m_sd.pOutputList.append((lineList[i+1],int(lineList[i+2]),lineList[i]))

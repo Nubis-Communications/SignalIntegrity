@@ -58,7 +58,7 @@ class VirtualProbeParser(SystemDescriptionParser):
             for i in range(1,len(lineList),2):
                 self.m_sd.pOutputList.append((lineList[i],int(lineList[i+1])))
         # pragma: silent exclude
-        elif lineList[0] == 'voltageoutput':
+        elif lineList[0] in ['voltageoutput','eyeprobe']:
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []
             for i in range(1,len(lineList),3):
                 self.m_sd.pOutputList.append((lineList[i+1],int(lineList[i+2]),lineList[i]))

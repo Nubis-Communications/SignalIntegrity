@@ -2237,3 +2237,25 @@ class PartPictureVcc(PartPicture):
 class PartPictureVariableDCVoltageSourceOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceOnePort','PartPictureVcc'],1)
+
+class PartPictureEyeProbe(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,1,origin,orientation,mirroredHorizontally,mirroredVertically,text='Eye')
+
+class PartPictureVariableEyeProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureEyeProbe'],1)
+
+class PartPictureDiffrentialEyeProbe(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0,1),(2,3)],[(0,0),(2.5,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'Eye')
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableDifferentialEyeProbe(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureDiffrentialEyeProbe'],1)
+
+

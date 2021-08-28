@@ -85,7 +85,7 @@ class DrawingHeadless(object):
             deviceType = device['partname'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
-            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+            elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                 foundAnOutput = True
             elif deviceType == 'Stim':
                 foundAStim = True
@@ -272,7 +272,7 @@ class SignalIntegrityAppHeadless(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
             for device in self.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -329,7 +329,7 @@ class SignalIntegrityAppHeadless(object):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
             for device in self.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput']:
+                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']

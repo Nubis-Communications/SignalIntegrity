@@ -41,7 +41,7 @@ class NetList(object):
         equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put all devices in the net list
         for device in deviceList:
-            if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName']:
+            if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:
                 self.textToShow.append(device.NetListLine())
                 if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     self.sourceNames.append(device['ref'].GetValue())
@@ -168,7 +168,7 @@ class NetList(object):
                 thisDevicePartName = thisDevice['partname'].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
-                elif thisDevicePartName == 'Output':
+                elif thisDevicePartName in ['Output','EyeProbe']:
                     outputList.append(devicePin)
                 elif thisDevicePartName == 'Measure':
                     measureList.append(devicePin)
@@ -283,15 +283,18 @@ class NetList(object):
             tokens = line.split(' ')
             if tokens[0] == 'currentoutput':
                 line = 'device '+tokens[1]+' 4 currentcontrolledvoltagesource 1.0'
-            if tokens[0] == 'differentialvoltageoutput':
+            if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe']:
                 line = 'device '+tokens[1]+' 4 voltagecontrolledvoltagesource 1.0'
-            if tokens[0] == 'currentoutput' or tokens[0] == 'differentialvoltageoutput':
+            if tokens[0] in ['currentoutput','differentialvoltageoutput','differentialeyeprobe']:
                 self.outputNames.append(tokens[1])
                 endinglines.append('device '+tokens[1]+'_2 1 ground')
                 endinglines.append('device '+tokens[1]+'_3 1 open')
                 endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
                 endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
-                endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
+                if tokens[0] in ['currentoutput','differentialvoltageoutput']:
+                    endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
+                if tokens[0] == 'differentialeyeprobe':
+                    endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 4')
             textToShow.append(line)
         self.textToShow=textToShow+endinglines
     def Text(self):
