@@ -233,18 +233,20 @@ class EyeDiagram(object):
         return res
 
     def CalculateEyeDiagram(self):
-        self.parent.lift()
-        self.parent.statusbar.set('Creating Eye Diagram')
+        if not self.headless:
+            self.parent.lift()
+            self.parent.statusbar.set('Creating Eye Diagram')
+
         baudRate=self.baudrate
         UI=1./baudRate
         R=SignalIntegrity.App.Project['EyeDiagram.Rows']; C=SignalIntegrity.App.Project['EyeDiagram.Columns']
         Fs=baudRate*C
         UpsampleFactor=Fs/self.prbswf.td.Fs
 
-        self.parent.statusbar.set('Adapting Waveform for Eye Diagram') 
+        if not self.headless: self.parent.statusbar.set('Adapting Waveform for Eye Diagram') 
         self.aprbswf=self.prbswf.Adapt(TimeDescriptor(self.prbswf.td.H,self.prbswf.td.K*UpsampleFactor,Fs))
         self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
-        self.parent.statusbar.set('Adaption Complete')
+        if not self.headless: self.parent.statusbar.set('Adaption Complete')
 
         from PIL import Image,ImageTk
 
@@ -267,7 +269,7 @@ class EyeDiagram(object):
 
         DeltaV=maxV-minV
 
-        self.parent.statusbar.set('Building Bitmap')
+        if not self.headless: self.parent.statusbar.set('Building Bitmap')
         bitmap=np.zeros((R,C))
         for k in range(self.aprbswf.td.K):
             r=(self.aprbswf[k]-minV)/DeltaV*R
@@ -276,7 +278,7 @@ class EyeDiagram(object):
             bitmap[max(0,min(R-1,int(math.floor(r))))][c]+=1.-(r-math.floor(r))
 
         if applyJitterNoise:
-            self.parent.statusbar.set('Applying Jitter and Noise')
+            if not self.headless: self.parent.statusbar.set('Applying Jitter and Noise')
             deltaT=UI/C
             deltaY=(maxV-minV)/R
 
@@ -289,7 +291,7 @@ class EyeDiagram(object):
 
             maxPixels = int(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.MaxWindowPixels'])
             if WH*WV > maxPixels:
-                self.parent.statusbar.set('***** warning - limiting window to : '+str(maxPixels)+' *****')
+                if not self.headless: self.parent.statusbar.set('***** warning - limiting window to : '+str(maxPixels)+' *****')
                 WH=int(math.floor((WH*math.sqrt(float(maxPixels)/float(WH*WV))-1)/2))*2+1
                 WV=int(math.floor((WV*math.sqrt(float(maxPixels)/float(WH*WV))-1)/2))*2+1
 
@@ -331,11 +333,14 @@ class EyeDiagram(object):
 
         numUI=int(SignalIntegrity.App.Project['EyeDiagram.UI']+0.5)
         bitmapCentered=[[0 for c in range(C*numUI)] for _ in range(R)]
+        self.rawBitmap=np.empty((len(bitmap),len(bitmap[0])))
 
         for u in range(numUI):
             for r in range(R):
                 for c in range(C):
                     bitmapCentered[r][u*C+c]=bitmap[r][(c+midBin)%C]
+                    if u==0:
+                        self.rawBitmap[r][c]=bitmap[r][(c+midBin)%C]
 
         bitmap=bitmapCentered
         C=C*numUI

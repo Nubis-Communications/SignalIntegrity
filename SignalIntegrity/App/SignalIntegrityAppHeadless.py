@@ -30,6 +30,7 @@ from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 from SignalIntegrity.App.TikZ import TikZ
+from SignalIntegrity.App.EyeDiagram import EyeDiagram
 
 import SignalIntegrity.App.Project
 
@@ -212,7 +213,7 @@ class SignalIntegrityAppHeadless(object):
             return None
         return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
-    def Simulate(self,callback=None,TransferMatricesOnly=False):
+    def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if self.Drawing.canSimulateNetworkAnalyzerModel:
@@ -291,9 +292,36 @@ class SignalIntegrityAppHeadless(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+        if not EyeDiagrams:
+            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
-    def VirtualProbe(self,callback=None,TransferMatricesOnly=False):
+        # gather up the eye probes and create a dialog for each one
+        eyeDiagramDict=[]
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            for device in self.Drawing.schematic.deviceList:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
+                        eyeDict={'Name':outputWaveformLabel,
+                                 'BaudRate':device['br'].GetValue(),
+                                 'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)]}
+                        eyeDiagramDict.append(eyeDict)
+                        break
+
+        eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
+        eyeDiagramImages=[]
+        eyeDiagramBitmaps=[]
+        for eye in eyeDiagramDict:
+            eyeDiagram=EyeDiagram(None,headless=True)
+            eyeDiagram.prbswf=eye['Waveform']
+            eyeDiagram.baudrate=eye['BaudRate']
+            eyeDiagram.CalculateEyeDiagram()
+            eyeDiagramImages.append(eyeDiagram.img)
+            eyeDiagramBitmaps.append(eyeDiagram.rawBitmap)
+        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagramImages,eyeDiagramBitmaps)
+
+    def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -353,7 +381,34 @@ class SignalIntegrityAppHeadless(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+        if not EyeDiagrams:
+            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+
+        # gather up the eye probes and create a dialog for each one
+        eyeDiagramDict=[]
+        for outputWaveformIndex in range(len(outputWaveformList)):
+            outputWaveform=outputWaveformList[outputWaveformIndex]
+            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            for device in self.parent.Drawing.schematic.deviceList:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                    if device['ref'].GetValue() == outputWaveformLabel:
+                        eyeDict={'Name':outputWaveformLabel,
+                                 'BaudRate':device['br'].GetValue(),
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                        eyeDiagramDict.append(eyeDict)
+                        break
+
+        eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
+        eyeDiagramImages=[]
+        eyeDiagramBitmaps=[]
+        for eye in eyeDiagramDict:
+            eyeDiagram=EyeDiagram(None,headless=True)
+            eyeDiagram.prbswf=eye['Waveform']
+            eyeDiagram.baudrate=eye['BaudRate']
+            eyeDiagram.CalculateEyeDiagram()
+            eyeDiagramImages.append(eyeDiagram.img)
+            eyeDiagramBitmaps.append(eyeDiagram.rawBitmap)
+        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagramImages,eyeDiagramBitmaps)
 
     def TransferParameters(self,callback=None,):
         if not hasattr(self.Drawing,'canGenerateTransferMatrices'):

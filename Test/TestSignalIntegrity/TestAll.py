@@ -35,6 +35,7 @@ from TestDwellTime import *
 from TestDescriptors import *
 from TestDeviceParser import *
 from TestExceptions import *
+from TestEyeDiagram import *
 from TestFilters import *
 from TestFrequencyContent import *
 from TestFrequencyList import *

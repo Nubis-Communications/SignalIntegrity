@@ -242,6 +242,82 @@ class SignalIntegrityAppTestHelper:
             wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
         return result
+    def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+        result=pysi.Simulate(TransferMatricesOnly=True)
+        self.assertIsNotNone(result, filename+' produced none')
+        os.chdir(self.path)
+        self.assertEquals(len(result),3,'wrong number of results')
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        try:
+            sp=transferMatrices.SParameters()
+            ports=sp.m_P
+            if ports == 0:
+                raise
+        except:
+            self.assertTrue(False, filename + 'has no transfer matrices')
+        spfilename=self.FileNameForTest(filename)+'.s'+str(ports)+'p'
+        self.SParameterRegressionChecker(sp, spfilename)
+        return result
+    def ImageRegressionChecker(self,img,filename):
+        from PIL import Image,ImageChops
+        currentDirectory=os.getcwd()
+        os.chdir(self.path)
+        if not os.path.exists(filename):
+            img.save(filename)
+            if not self.relearn:
+                self.assertTrue(False, filename + ' not found')
+        regression=Image.open(filename)
+        diff=ImageChops.difference(regression,img)
+        self.assertFalse(diff.getbbox(),filename + ' incorrect')
+        os.chdir(currentDirectory)
+    def NumpyArrayRegressionChecker(self,ary,filename):
+        import numpy as np
+        currentDirectory=os.getcwd()
+        os.chdir(self.path)
+        if not os.path.exists(filename):
+            np.save(filename,ary,allow_pickle=False)
+            if not self.relearn:
+                self.assertTrue(False, filename + ' not found')
+        regression=np.load(filename)
+        comparison=(regression==ary)
+        self.assertTrue(comparison.all(),filename + ' incorrect')
+        os.chdir(currentDirectory)
+    def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+        result=pysi.Simulate(EyeDiagrams=True)
+        self.assertIsNotNone(result, filename+' produced none')
+        os.chdir(self.path)
+        sourceNames=result[0]
+        outputNames=result[1]
+        transferMatrices=result[2]
+        outputWaveforms=result[3]
+        eyeDiagramNames=result[4]
+        eyeDiagramImages=result[5]
+        eyeDiagramBitmaps=result[6]
+        try:
+            sp=transferMatrices.SParameters()
+            ports=sp.m_P
+            if ports == 0:
+                raise
+        except:
+            self.assertTrue(False, filename + 'has no transfer matrices')
+        spfilename=self.FileNameForTest(filename)+'.s'+str(ports)+'p'
+        self.SParameterRegressionChecker(sp, spfilename)
+        for i in range(len(outputNames)):
+            wf=outputWaveforms[i]
+            wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
+            self.WaveformRegressionChecker(wf, wffilename)
+        for i in range(len(eyeDiagramNames)):
+            eyeDiagramImage=eyeDiagramImages[i]
+            eyeDiagramImageFileName=self.FileNameForTest(filename)+'_'+eyeDiagramNames[i]+'.png'
+            self.ImageRegressionChecker(eyeDiagramImage,eyeDiagramImageFileName)
+            eyeDiagramBitmap=eyeDiagramBitmaps[i]
+            eyeDiagramBitmapFileName=self.FileNameForTest(filename)+'_'+eyeDiagramNames[i]+'.npy'
+            self.NumpyArrayRegressionChecker(eyeDiagramBitmap,eyeDiagramBitmapFileName)
+        return result
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
         result=pysi.VirtualProbe()

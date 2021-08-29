@@ -1,0 +1,7 @@
+device R1 2 R 50.0
+device R5 1 R 50.0
+voltagesource VG2 1
+voltageoutput Vin R1 1
+connect R1 1 VG2 1
+eyeprobe Veq R1 2
+connect R1 2 R5 1
