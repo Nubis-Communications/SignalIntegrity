@@ -22,7 +22,7 @@ import unittest
 import os
 
 exclusionList=[
-    'doxypy.py']
+    'doxypy.py','Zoomer.py']
 
 license=[
     '# Copyright (c) 2018 Teledyne LeCroy, Inc.\n',

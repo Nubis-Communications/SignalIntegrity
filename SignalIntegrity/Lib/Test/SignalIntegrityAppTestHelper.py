@@ -244,7 +244,7 @@ class SignalIntegrityAppTestHelper:
         return result
     def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.Simulate(TransferMatricesOnly=True)
+        result=pysi.TransferParameters()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         self.assertEqual(len(result),3,'wrong number of results')

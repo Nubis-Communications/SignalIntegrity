@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x531+1948+57</Geometry>
+			<Geometry>711x531+2008+76</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>4</Originx>
 			<Originy>-8</Originy>
@@ -877,54 +877,6 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
-				<Device>
-					<ClassName>DeviceDifferentialEyeProbe</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(25, 20)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>0.5</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>offset</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>td</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>-1.43e-09</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>br</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2500000000.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>Vo1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
 			</Devices>
 			<Wires>
 				<Wire>
@@ -1205,7 +1157,7 @@
 							<Coord>(23, 20)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(26, 20)</Coord>
+							<Coord>(28, 20)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -1215,26 +1167,6 @@
 							<Coord>(23, 24)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(26, 24)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(26, 20)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(28, 20)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(26, 24)</Coord>
-						</Vertex>
-						<Vertex>
 							<Coord>(28, 24)</Coord>
 						</Vertex>
 					</Vertices>
@@ -1242,37 +1174,6 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<EyeDiagram>
-		<Color>#c6ff2c</Color>
-		<Columns>200</Columns>
-		<Invert>True</Invert>
-		<JitterNoise>
-			<JitterDeterministicPercentUIPk>2.0</JitterDeterministicPercentUIPk>
-			<JitterDeterministicPkS>4e-12</JitterDeterministicPkS>
-			<JitterPercentUI>2.0</JitterPercentUI>
-			<JitterS>4e-12</JitterS>
-			<LogIntensity>
-				<LogIntensity>False</LogIntensity>
-				<MaxBERExponent>0</MaxBERExponent>
-				<MaxBERSaturationPercent>100</MaxBERSaturationPercent>
-				<MinBERExponent>-6</MinBERExponent>
-				<MinBERSaturationPercent>20</MinBERSaturationPercent>
-			</LogIntensity>
-			<MaxWindowPixels>100000.0</MaxWindowPixels>
-			<Noise>0.03</Noise>
-		</JitterNoise>
-		<Mode>ISI</Mode>
-		<Rows>200</Rows>
-		<Saturation>20.0</Saturation>
-		<ScaleX>75.0</ScaleX>
-		<ScaleY>150.0</ScaleY>
-		<UI>3</UI>
-		<YAxis>
-			<Max>1.0</Max>
-			<Min>0.0</Min>
-			<Mode>Auto</Mode>
-		</YAxis>
-	</EyeDiagram>
 	<PostProcessing>
 		<Lines>
 		</Lines>

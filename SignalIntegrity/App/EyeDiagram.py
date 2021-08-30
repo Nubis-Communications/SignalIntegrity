@@ -243,7 +243,10 @@ class EyeDiagram(object):
         Fs=baudRate*C
         UpsampleFactor=Fs/self.prbswf.td.Fs
 
-        if not self.headless: self.parent.statusbar.set('Adapting Waveform for Eye Diagram') 
+        if not self.headless: self.parent.statusbar.set('Adapting Waveform for Eye Diagram')
+        # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there
+        # is the assumption that there is a point at exactly time zero, and that is the center of the unit interval.
+        # the amount of points to remove is trimmed from the left to make the very first sample at the center of a unit interval.
         self.aprbswf=self.prbswf.Adapt(TimeDescriptor(self.prbswf.td.H,self.prbswf.td.K*UpsampleFactor,Fs))
         self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
         if not self.headless: self.parent.statusbar.set('Adaption Complete')
@@ -385,9 +388,3 @@ class EyeDiagram(object):
         self.parent.eyeCanvas.create_image(C/2,R/2,image=self.parent.eyeImage)
         self.parent.eyeCanvas.pack(expand=tk.YES,fill=tk.BOTH)
         self.parent.statusbar.set('Calculation complete')
-
-    def PixelX(self,time):
-        return min(time*self.XM+self.XB,self.pixelsX)
-    def PixelY(self,volt):
-        return min(volt*self.YM+self.YB+4,self.pixelsY)
-
