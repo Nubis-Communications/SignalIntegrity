@@ -53,6 +53,8 @@ from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
 from matplotlib.figure import Figure
 
+from PIL import Image,ImageTk
+
 import math
 import copy
 
@@ -135,6 +137,41 @@ class EyeDiagramDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
 
+        # Allow resizing of the image
+        self.knowDelta=False
+        self.deltaWidth=0
+        self.deltaHeight=0
+        self.bind('<Configure>',self.onResize)
+
+    def onResize(self,event):
+        if not self.knowDelta:
+            self.adjusting=False
+            self.adjustCount=0
+            self.deltaWidth=4
+            self.deltaHeight=4
+            self.knowDelta=True
+        else:
+            if self.adjusting:
+                self.adjustCount+=1
+            else:
+                self.adjusting=True
+                self.adjustCount=0
+                self.after(100,self.AdjustImage)
+
+    def AdjustImage(self):
+        if self.adjustCount != 0:
+            self.adjustCount=0
+            self.after(100,self.AdjustImage)
+        else:
+            newImageWidth=self.eyeCanvas.winfo_width()-self.deltaWidth
+            newImageHeight=self.eyeCanvas.winfo_height()-self.deltaHeight
+            if (newImageWidth != self.eyeImage.width()) or (newImageHeight != self.eyeImage.height()):
+                if (newImageHeight > 0) and (newImageWidth > 0):
+                    img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight))
+                    self.eyeImage=ImageTk.PhotoImage(img)
+                    self.eyeCanvas.create_image(newImageWidth/2,newImageHeight/2,image=self.eyeImage)
+            self.adjusting=False
+
     def onClosing(self):
         self.withdraw()
         self.destroy()
@@ -196,6 +233,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.eyeDiagram.baudrate=eyeArgs['BaudRate']
         self.eyeDiagram.CalculateEyeDiagram()
         self.deiconify()
+        self.lift()
         return self
 
 class EyeDiagram(object):
@@ -250,8 +288,6 @@ class EyeDiagram(object):
         self.aprbswf=self.prbswf.Adapt(TimeDescriptor(self.prbswf.td.H,self.prbswf.td.K*UpsampleFactor,Fs))
         self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
         if not self.headless: self.parent.statusbar.set('Adaption Complete')
-
-        from PIL import Image,ImageTk
 
         auto=(SignalIntegrity.App.Project['EyeDiagram.YAxis.Mode']=='Auto')
         noiseSigma=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.Noise']
