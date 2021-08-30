@@ -57,6 +57,14 @@ class TestEyeDiagramTest(unittest.TestCase,
         self.SimulationEyeDiagramResultsChecker('EyeDiagramTest.si')
     def testEyeDiagramTransferMatrices(self):
         self.SimulationTransferMatricesResultsChecker('EyeDiagramTest.si')
+    def testEyeDiagramJitterNoise(self):
+        self.SimulationEyeDiagramResultsChecker('EyeDiagramTestJitterNoise.si')
+    def testEyeDiagramJitterNoiseTransferMatrices(self):
+        self.SimulationTransferMatricesResultsChecker('EyeDiagramTestJitterNoise.si')
+    def testEyeDiagramJitterNoiseLog(self):
+        self.SimulationEyeDiagramResultsChecker('EyeDiagramTestJitterNoiseLog.si')
+    def testEyeDiagramJitterNoiseLogTransferMatrices(self):
+        self.SimulationTransferMatricesResultsChecker('EyeDiagramTestJitterNoiseLog.si')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

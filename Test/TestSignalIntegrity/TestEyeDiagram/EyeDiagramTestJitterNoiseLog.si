@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x371+1948+57</Geometry>
+			<Geometry>861x371+2008+76</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>22</Originy>
@@ -504,7 +504,7 @@
 			<JitterPercentUI>2.0</JitterPercentUI>
 			<JitterS>4e-12</JitterS>
 			<LogIntensity>
-				<LogIntensity>False</LogIntensity>
+				<LogIntensity>True</LogIntensity>
 				<MaxBERExponent>0</MaxBERExponent>
 				<MaxBERSaturationPercent>100</MaxBERSaturationPercent>
 				<MinBERExponent>-6</MinBERExponent>
@@ -513,7 +513,7 @@
 			<MaxWindowPixels>100000.0</MaxWindowPixels>
 			<Noise>0.03</Noise>
 		</JitterNoise>
-		<Mode>ISI</Mode>
+		<Mode>JitterNoise</Mode>
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>
 		<ScaleX>75.0</ScaleX>
