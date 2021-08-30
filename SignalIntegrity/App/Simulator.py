@@ -585,8 +585,14 @@ class Simulator(object):
     def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
         self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
     def UpdateEyeDiagrams(self,eyeDiagramDict):
+        import SignalIntegrity.Lib as si
         for eye in eyeDiagramDict:
-            self.EyeDiagramDialog(eye['Name']).UpdateWaveforms(eye)
+            progressDialog=ProgressDialog(self.parent,"Eye Diagram Processing",self.EyeDiagramDialog(eye['Name']).SetEyeArgs(eye),self.EyeDiagramDialog(eye['Name']).UpdateWaveforms)
+            try:
+                progressDialog.GetResult()
+            except si.SignalIntegrityException as e:
+                messagebox.showerror('Eye Diagram',e.parameter+': '+e.message)
+                return
     def _ProcessWaveforms(self,callback=None):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
     def Simulate(self,TransferMatricesOnly=False):

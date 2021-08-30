@@ -199,7 +199,13 @@ class EyeDiagramDialog(tk.Toplevel):
 
     def onRecalculateEyeDiagram(self):
         self.statusbar.set('Calculation Started')
-        self.eyeDiagram.CalculateEyeDiagram()
+        import SignalIntegrity.Lib as si
+        progressDialog=ProgressDialog(self.parent.parent,"Eye Diagram Processing",self,self.CalculateEyeDiagram)
+        try:
+            progressDialog.GetResult()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Eye Diagram',e.parameter+': '+e.message)
+            return
 
     def onCalculationProperties(self):
         self.parent.parent.onCalculationProperties()
@@ -228,10 +234,23 @@ class EyeDiagramDialog(tk.Toplevel):
             if not self.eyeDialog.winfo_exists():
                 self.eyeDialog=EyeDiagramPropertiesDialog(self,SignalIntegrity.App.Project)
 
-    def UpdateWaveforms(self,eyeArgs):
-        self.eyeDiagram.prbswf=eyeArgs['Waveform']
-        self.eyeDiagram.baudrate=eyeArgs['BaudRate']
-        self.eyeDiagram.CalculateEyeDiagram()
+    def SetEyeArgs(self,eyeArgs):
+        self.eyeArgs=eyeArgs
+        return self
+
+    def InstallCallback(self,Callback=None):
+        self.callback=Callback
+
+    def RemoveCallback(self):
+        self.callback=None
+
+    def CalculateEyeDiagram(self):
+        self.eyeDiagram.CalculateEyeDiagram(self.callback)
+
+    def UpdateWaveforms(self):
+        self.eyeDiagram.prbswf=self.eyeArgs['Waveform']
+        self.eyeDiagram.baudrate=self.eyeArgs['BaudRate']
+        self.eyeDiagram.CalculateEyeDiagram(self.callback)
         self.deiconify()
         self.lift()
         return self
@@ -270,9 +289,11 @@ class EyeDiagram(object):
         res=0.5*EyeDiagram.normpd(x,mu,sigma)+0.25*EyeDiagram.normpd(x-0.5,mu,sigma)+0.25*EyeDiagram.normpd(x+0.5,mu,sigma)
         return res
 
-    def CalculateEyeDiagram(self):
+    def CalculateEyeDiagram(self,callback=None):
+        self.img=None
+        self.rawBitmap=None
+
         if not self.headless:
-            self.parent.lift()
             self.parent.statusbar.set('Creating Eye Diagram')
 
         baudRate=self.baudrate
@@ -311,6 +332,9 @@ class EyeDiagram(object):
         if not self.headless: self.parent.statusbar.set('Building Bitmap')
         bitmap=np.zeros((R,C))
         for k in range(self.aprbswf.td.K):
+            if not callback is None:
+                if not callback(k/self.aprbswf.td.K*100.):
+                    return
             r=(self.aprbswf[k]-minV)/DeltaV*R
             c=k%C
             bitmap[max(0,min(R-1,int(math.ceil(r))))][c]+=r-math.floor(r)
