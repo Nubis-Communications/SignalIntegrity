@@ -163,13 +163,14 @@ class EyeDiagramDialog(tk.Toplevel):
             self.adjustCount=0
             self.after(100,self.AdjustImage)
         else:
-            newImageWidth=self.eyeCanvas.winfo_width()-self.deltaWidth
-            newImageHeight=self.eyeCanvas.winfo_height()-self.deltaHeight
-            if (newImageWidth != self.eyeImage.width()) or (newImageHeight != self.eyeImage.height()):
-                if (newImageHeight > 0) and (newImageWidth > 0):
-                    img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight))
-                    self.eyeImage=ImageTk.PhotoImage(img)
-                    self.eyeCanvas.create_image(newImageWidth/2,newImageHeight/2,image=self.eyeImage)
+            if hasattr(self, 'eyeImage'):
+                newImageWidth=self.eyeCanvas.winfo_width()-self.deltaWidth
+                newImageHeight=self.eyeCanvas.winfo_height()-self.deltaHeight
+                if (newImageWidth != self.eyeImage.width()) or (newImageHeight != self.eyeImage.height()):
+                    if (newImageHeight > 0) and (newImageWidth > 0):
+                        img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight))
+                        self.eyeImage=ImageTk.PhotoImage(img)
+                        self.eyeCanvas.create_image(newImageWidth/2,newImageHeight/2,image=self.eyeImage)
             self.adjusting=False
 
     def onClosing(self):
