@@ -73,9 +73,9 @@ class EyeDiagramDialog(tk.Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
-        self.WaveformSaveDoer = Doer(self.onWriteImageToFile).AddHelpElement('Control-Help:Save-Waveforms').AddToolTip('Save images to files')
+        self.EyeDiagramSaveDoer = Doer(self.onWriteImageToFile).AddHelpElement('Control-Help:Save-Eye-Diagram-Image').AddToolTip('Save images to files')
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties').AddToolTip('Edit calculation properties')
-        self.PropertiesDoer=Doer(self.onProperties).AddHelpElement('Control-Help:Eye-Diagram-Preferences').AddToolTip('Edit eye diagram properties')
+        self.PropertiesDoer=Doer(self.onProperties).AddHelpElement('Control-Help:Eye-Diagram-Properties').AddToolTip('Edit eye diagram properties')
         self.SimulateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Recalculate').AddToolTip('Recalculate simulation')
         self.OnlyRecalculateEyeDoer =Doer(self.onRecalculateEyeDiagram).AddHelpElement('Control-Help:Only-Recalculate-Eye-Diagram').AddToolTip('Recalculate eye diagram')
         # ------
@@ -90,7 +90,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.config(menu=TheMenu)
         FileMenu=tk.Menu(self)
         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
-        self.WaveformSaveDoer.AddMenuElement(FileMenu,label="Save Image to File",underline=0)
+        self.EyeDiagramSaveDoer.AddMenuElement(FileMenu,label="Save Image to File",underline=0)
         FileMenu.add_separator()
         # ------
         CalcMenu=tk.Menu(self)
@@ -110,7 +110,7 @@ class EyeDiagramDialog(tk.Toplevel):
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         iconsdir=SignalIntegrity.App.IconsDir+''
-        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.EyeDiagramSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(self,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.CalculationPropertiesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'tooloptions.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.SimulateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)

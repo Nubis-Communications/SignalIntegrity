@@ -1023,7 +1023,7 @@ class DeviceDifferentialEyeProbe(Device):
                         netlist,
                         [PartPropertyCategory('Ports and Probes'),
                          PartPropertyPartName('DifferentialEyeProbe'),
-                         PartPropertyHelp('device:Eye-Probe'),
+                         PartPropertyHelp('device:Differential-Eye-Probe'),
                          PartPropertyDefaultReferenceDesignator('Vo?'),
                          PartPropertyDescription('Differential Eye Probe'),
                          PartPropertyVoltageGain(1.0),
