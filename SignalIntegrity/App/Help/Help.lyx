@@ -51270,8 +51270,11 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
 .
  As such, this probe behaves exactly like a 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "device:Voltage-Diff-Probe"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 

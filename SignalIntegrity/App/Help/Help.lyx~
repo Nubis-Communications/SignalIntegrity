@@ -17586,16 +17586,6 @@ noprefix "false"
 
  settings.
  Further re-scaling is possible by simply resizing the final canvas.
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Scale-Y"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
