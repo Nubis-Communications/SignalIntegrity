@@ -51,16 +51,14 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MaxYFrame=CalculationPropertySI(self.YAxisFrame,'Maximum Y',self.onUpdateSaturation,None,project,'EyeDiagram.YAxis.Max','V')
         self.MinYFrame=CalculationPropertySI(self.YAxisFrame,'Minimum Y',self.onUpdateSaturation,None,project,'EyeDiagram.YAxis.Min','V')
         self.Mode=CalculationPropertyChoices(self.JitterNoiseFrame,'Eye Mode',None,self.onUpdateCalculate,self.ModeChoices,project,'EyeDiagram.Mode')
-        self.JitterPercentUI=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (% UI)',self.onUpdateJitterPercentUI,None,project,'EyeDiagram.JitterNoise.JitterPercentUI','%')
         self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterS','s')
-        self.JitterDeterministicPercentUIPk=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (% UI, pk)',self.onUpdateJitterDeterministicPercentUI,None,project,'EyeDiagram.JitterNoise.JitterDeterministicPercentUIPk','%')
         self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateDeterministicJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterDeterministicPkS','s')
         self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateNoise,None,project,'EyeDiagram.JitterNoise.Noise','V')
-        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max window dimensions',self.onUpdateMaxWindowWidthHeightPixels,None,project,'EyeDiagram.JitterNoise.MaxWindowPixels','pixels')
+        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Window Dimensions',self.onUpdateMaxWindowWidthHeightPixels,None,project,'EyeDiagram.JitterNoise.MaxWindowPixels','pixels')
         self.Invert=CalculationPropertyTrueFalseButton(self.EyeFrame,'Invert Plot',self.onUpdateInvert,None,project,'EyeDiagram.Invert')
         self.LogIntensityFrame=tk.Frame(self.JitterNoiseFrame)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log intensity',self.onUpdateLogIntensity,None,project,'EyeDiagram.JitterNoise.LogIntensity.LogIntensity')
+        self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateLogIntensity,None,project,'EyeDiagram.JitterNoise.LogIntensity.LogIntensity')
         self.MinBERExponent=CalculationProperty(self.LogIntensityFrame,'Min BER exponent',self.onUpdateMinBERExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinBERExponent')
         self.MinBERSaturation=CalculationProperty(self.LogIntensityFrame,'Min BER saturation',self.onUpdateMinBERSaturation,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinBERSaturationPercent')
         self.MaxBERExponent=CalculationProperty(self.LogIntensityFrame,'Max BER exponent',self.onUpdateMaxBERExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MaxBERExponent')
@@ -120,9 +118,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.ScaleYFrame.UpdateStrings()
         jitterNoiseMode=(self.project['EyeDiagram.Mode'] == 'JitterNoise')
         self.LogIntensityFrame.pack_forget()
-        self.JitterPercentUI.Show(jitterNoiseMode)
         self.JitterSeconds.Show(jitterNoiseMode)
-        self.JitterDeterministicPercentUIPk.Show(jitterNoiseMode)
         self.JitterDeterministicPkS.Show(jitterNoiseMode)
         self.Noise.Show(jitterNoiseMode)
         self.MaxWindowWidthHeightPixels.Show(jitterNoiseMode)
@@ -133,21 +129,9 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MinBERSaturation.Show(jitterNoiseMode and logIntensity)
         self.MaxBERExponent.Show(jitterNoiseMode and logIntensity)
         self.MaxBERSaturation.Show(jitterNoiseMode and logIntensity)
-    def onUpdateJitterPercentUI(self,_):
-        self.project['EyeDiagram.JitterNoise.JitterS'] = self.project['EyeDiagram.JitterNoise.JitterPercentUI']/100./self.parent.eyeDiagram.baudrate
-        self.JitterSeconds.UpdateStrings()
-        self.UpdateStrings()
     def onUpdateJitterSeconds(self,_):
-        self.project['EyeDiagram.JitterNoise.JitterPercentUI'] = self.project['EyeDiagram.JitterNoise.JitterS']*self.parent.eyeDiagram.baudrate*100.
-        self.JitterPercentUI.UpdateStrings()
-        self.UpdateStrings()
-    def onUpdateJitterDeterministicPercentUI(self,_):
-        self.project['EyeDiagram.JitterNoise.JitterDeterministicPkS'] = self.project['EyeDiagram.JitterNoise.JitterDeterministicPercentUIPk']/100./self.parent.eyeDiagram.baudrate
-        self.JitterDeterministicPkS.UpdateStrings()
         self.UpdateStrings()
     def onUpdateDeterministicJitterSeconds(self,_):
-        self.project['EyeDiagram.JitterNoise.JitterDeterministicPercentUIPk'] = self.project['EyeDiagram.JitterNoise.JitterDeterministicPkS']*self.parent.eyeDiagram.baudrate*100.
-        self.JitterDeterministicPercentUIPk.UpdateStrings()
         self.UpdateStrings()
     def onUpdateNoise(self,_):
         self.UpdateStrings()

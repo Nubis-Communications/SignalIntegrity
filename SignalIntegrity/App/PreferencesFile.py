@@ -41,9 +41,7 @@ class EyeLogIntensityConfiguration(XMLConfiguration):
 class EyeJitterNoiseConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('JitterNoise')
-        self.Add(XMLPropertyDefaultFloat('JitterPercentUI',0))
         self.Add(XMLPropertyDefaultFloat('JitterS',0))
-        self.Add(XMLPropertyDefaultFloat('JitterDeterministicPercentUIPk',0))
         self.Add(XMLPropertyDefaultFloat('JitterDeterministicPkS',0))
         self.Add(XMLPropertyDefaultFloat('Noise',0.0))
         self.Add(XMLPropertyDefaultInt('MaxWindowPixels',100000))
