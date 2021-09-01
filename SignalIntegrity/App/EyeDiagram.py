@@ -353,7 +353,7 @@ class EyeDiagram(object):
             WH=int(math.floor(math.floor(2.*10.*(deterministicJitter+jitterSigma)/deltaT/2.)*2.)+1.)
             WV=int(math.floor(math.floor(2.*10.*noiseSigma/deltaY/2.)*2.)+1.)
 
-            maxPixels = int(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.MaxWindowPixels'])
+            maxPixels = int(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.MaxKernelPixels'])
             if WH*WV > maxPixels:
                 if not self.headless: self.parent.statusbar.set('***** warning - limiting window to : '+str(maxPixels)+' *****')
                 WH=int(math.floor((WH*math.sqrt(float(maxPixels)/float(WH*WV))-1)/2))*2+1
@@ -378,11 +378,11 @@ class EyeDiagram(object):
             if SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.LogIntensity']:
                 total=sum([sum([bitmap[r][c] for c in range(C)]) for r in range(R)])
                 bitmap=[[bitmap[r][c]/total*C for c in range(C)] for r in range(R)]
-                minBER=max(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MinBERExponent'],-20)
-                maxBER=max(minBER,SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MaxBERExponent'])
+                minBER=max(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MinExponent'],-20)
+                maxBER=max(minBER,SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MaxExponent'])
                 minValue=pow(10.,minBER-1)
-                minSat=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MinBERSaturationPercent']/100.
-                maxSat=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MaxBERSaturationPercent']/100.
+                minSat=0
+                maxSat=1.
 
                 m=(maxSat-minSat)/(maxBER-minBER)
                 b=minSat-minBER*m

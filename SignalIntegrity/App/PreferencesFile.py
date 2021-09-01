@@ -33,10 +33,8 @@ class EyeLogIntensityConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('LogIntensity')
         self.Add(XMLPropertyDefaultBool('LogIntensity',False))
-        self.Add(XMLPropertyDefaultFloat('MinBERExponent',-12))
-        self.Add(XMLPropertyDefaultFloat('MinBERSaturationPercent',20))
-        self.Add(XMLPropertyDefaultFloat('MaxBERExponent',-6))
-        self.Add(XMLPropertyDefaultFloat('MaxBERSaturationPercent',100))
+        self.Add(XMLPropertyDefaultFloat('MinExponent',-12))
+        self.Add(XMLPropertyDefaultFloat('MaxExponent',0))
 
 class EyeJitterNoiseConfiguration(XMLConfiguration):
     def __init__(self):
@@ -44,7 +42,7 @@ class EyeJitterNoiseConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('JitterS',0))
         self.Add(XMLPropertyDefaultFloat('JitterDeterministicPkS',0))
         self.Add(XMLPropertyDefaultFloat('Noise',0.0))
-        self.Add(XMLPropertyDefaultInt('MaxWindowPixels',100000))
+        self.Add(XMLPropertyDefaultInt('MaxKernelPixels',100000))
         self.SubDir(EyeLogIntensityConfiguration())
 
 class EyeConfiguration(XMLConfiguration):

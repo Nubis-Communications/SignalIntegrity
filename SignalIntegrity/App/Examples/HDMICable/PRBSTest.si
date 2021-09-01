@@ -542,16 +542,12 @@
 		<Columns>200</Columns>
 		<Invert>True</Invert>
 		<JitterNoise>
-			<JitterDeterministicPercentUIPk>2.0</JitterDeterministicPercentUIPk>
 			<JitterDeterministicPkS>4e-12</JitterDeterministicPkS>
-			<JitterPercentUI>2.0</JitterPercentUI>
 			<JitterS>4e-12</JitterS>
 			<LogIntensity>
 				<LogIntensity>False</LogIntensity>
-				<MaxBERExponent>0</MaxBERExponent>
-				<MaxBERSaturationPercent>100</MaxBERSaturationPercent>
-				<MinBERExponent>-6</MinBERExponent>
-				<MinBERSaturationPercent>20</MinBERSaturationPercent>
+				<MaxExponent>0</MaxExponent>
+				<MinExponent>-12</MinExponent>
 			</LogIntensity>
 			<MaxWindowPixels>100000.0</MaxWindowPixels>
 			<Noise>0.03</Noise>
@@ -560,7 +556,7 @@
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>
 		<ScaleX>75.0</ScaleX>
-		<ScaleY>200.0</ScaleY>
+		<ScaleY>150.0</ScaleY>
 		<UI>3</UI>
 		<YAxis>
 			<Max>1.0</Max>

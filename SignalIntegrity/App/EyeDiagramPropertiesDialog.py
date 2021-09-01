@@ -54,15 +54,13 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterS','s')
         self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateDeterministicJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterDeterministicPkS','s')
         self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateNoise,None,project,'EyeDiagram.JitterNoise.Noise','V')
-        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Window Dimensions',self.onUpdateMaxWindowWidthHeightPixels,None,project,'EyeDiagram.JitterNoise.MaxWindowPixels','pixels')
+        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Kernel Pixels',self.onUpdateMaxWindowWidthHeightPixels,None,project,'EyeDiagram.JitterNoise.MaxKernelPixels','pixels')
         self.Invert=CalculationPropertyTrueFalseButton(self.EyeFrame,'Invert Plot',self.onUpdateInvert,None,project,'EyeDiagram.Invert')
         self.LogIntensityFrame=tk.Frame(self.JitterNoiseFrame)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateLogIntensity,None,project,'EyeDiagram.JitterNoise.LogIntensity.LogIntensity')
-        self.MinBERExponent=CalculationProperty(self.LogIntensityFrame,'Min BER exponent',self.onUpdateMinBERExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinBERExponent')
-        self.MinBERSaturation=CalculationProperty(self.LogIntensityFrame,'Min BER saturation',self.onUpdateMinBERSaturation,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinBERSaturationPercent')
-        self.MaxBERExponent=CalculationProperty(self.LogIntensityFrame,'Max BER exponent',self.onUpdateMaxBERExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MaxBERExponent')
-        self.MaxBERSaturation=CalculationProperty(self.LogIntensityFrame,'Max BER saturation',self.onUpdateMaxBERSaturation,None,project,'EyeDiagram.JitterNoise.LogIntensity.MaxBERSaturationPercent')
+        self.MinExponent=CalculationProperty(self.LogIntensityFrame,'Min Exponent',self.onUpdateMinExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinExponent')
+        self.MaxExponent=CalculationProperty(self.LogIntensityFrame,'Max Exponent',self.onUpdateMaxExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MaxExponent')
         self.SaveToPreferencesFrame=tk.Frame(self.propertyListFrame,relief=tk.RIDGE, borderwidth=5)
         self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.SaveToPreferencesButton = tk.Button(self.SaveToPreferencesFrame,text='Save Properties to Global Preferences',command=self.onSaveToPreferences,width=CalculationProperty.entryWidth)
@@ -125,10 +123,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.LogIntensity.Show(jitterNoiseMode)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         logIntensity=self.project['EyeDiagram.JitterNoise.LogIntensity.LogIntensity']
-        self.MinBERExponent.Show(jitterNoiseMode and logIntensity)
-        self.MinBERSaturation.Show(jitterNoiseMode and logIntensity)
-        self.MaxBERExponent.Show(jitterNoiseMode and logIntensity)
-        self.MaxBERSaturation.Show(jitterNoiseMode and logIntensity)
+        self.MinExponent.Show(jitterNoiseMode and logIntensity)
+        self.MaxExponent.Show(jitterNoiseMode and logIntensity)
     def onUpdateJitterSeconds(self,_):
         self.UpdateStrings()
     def onUpdateDeterministicJitterSeconds(self,_):
@@ -137,13 +133,9 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
     def onUpdateMaxWindowWidthHeightPixels(self,_):
         self.UpdateStrings()
-    def onUpdateMinBERExponent(self,_):
+    def onUpdateMinExponent(self,_):
         self.UpdateStrings()
-    def onUpdateMinBERSaturation(self,_):
-        self.UpdateStrings()
-    def onUpdateMaxBERExponent(self,_):
-        self.UpdateStrings()
-    def onUpdateMaxBERSaturation(self,_):
+    def onUpdateMaxExponent(self,_):
         self.UpdateStrings()
     def onUpdateInvert(self,_):
         self.UpdateStrings()
