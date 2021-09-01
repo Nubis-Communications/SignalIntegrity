@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,87 +1073,50 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Ground</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Directional Coupler <a class="next" name="next" href="Help-Subsection-53.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Minimum Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-53.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-52"></a>Open<a class="Label" name="device:Open"> </a>
+<a class="toc" name="toc-Subsection-52"></a>Eye Mode<a class="Label" name="sub:Eye-Mode"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="Open.png" alt="figure Open.png" style="max-width: 99px; max-height: 34px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Type
+<b>Type</b>
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-category
+<td align="center" valign="top" style="width: 8cm;">
+Eye Mode
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+Enum
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
+<div class="left">
+ISI Only or Jitter &amp; Noise
+</div>
 
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Miscellaneous
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-O?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
+</div>
+<div class="PlainVisible">
+Default is ISI Only
+</div>
 
 </td>
 
@@ -1163,12 +1126,23 @@ string
 
 </div>
 <div class="Standard">
-This is a one-port ideal open.
+<div class="center">
+<img class="embedded" src="ISIOnly.png" alt="figure ISIOnly.png" style="max-width: 450px; max-height: 300px;"/>
+  <img class="embedded" src="JitterNoise.png" alt="figure JitterNoise.png" style="max-width: 450px; max-height: 300px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+If this mode is set to ISI Only, then the eye diagram is produced with the waveform exactly as presented with no additional noise or jitter added to it. This is the default mode. If this mode is set to Jitter &amp; Noise, then a kernel is created (with a maximum number of pixels specified by <a class="Reference" href="Help-Subsection-56.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>) with Gaussian <a class="Reference" href="Help-Subsection-55.html#sub:Noise">Noise↓</a> added vertically, and <a class="Reference" href="Help-Subsection-54.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a> (dual-dirac) and <a class="Reference" href="Help-Subsection-53.html#sub:Random-Jitter">Random Jitter↓</a> (Gaussian, unbounded) horizontally, which is convolved with the ISI only eye diagram. This creates a blurry, statistical eye diagram.
+</div>
+<div class="Standard">
+In the above plots, the left plot is ISI Only, and the right plot is Jitter &amp; Noise.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Ground</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Directional Coupler <a class="next" name="next" href="Help-Subsection-53.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Minimum Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-53.html#prev">Next</a></span>
 </div>
 
 </div>

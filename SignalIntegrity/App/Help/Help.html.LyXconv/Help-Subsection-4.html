@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1081,14 +1081,14 @@ a:visited {
 <a class="toc" name="toc-Subsection-4"></a>Calculating S-parameters<a class="Label" name="sub:Calculating-S-parameters"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> command or the <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a class="Reference" href="Help-Subsubsection-83.html#Control-Help:Calculate-S-parameters">Calculate S-parameters↓</a> command or the <a class="Reference" href="Help-Subsubsection-82.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for s-parameter calculation. This criteria for the schematic regarding elements are that the schematic must:
 </div>
 <ul>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-77.html#device:Port">Port↓</a> element (see <a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Add-Port">Add Port↓</a>)
+have at least one <a class="Reference" href="Help-Subsection-100.html#device:Port">Port↓</a> element (see <a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Add-Port">Add Port↓</a>)
 </li>
 <li>
 not have any other elements that don’t make sense for s-parameter generation including:<ul>
@@ -1114,19 +1114,19 @@ system devices
 
 </ul>
 <div class="Standard">
-In calculating the s-parameters, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-17.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In calculating the s-parameters, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-20.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-50.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>SystemSParametersNumericParser</b> class as described in software documentation after which the s-parameters are extracted.
 </div>
 <div class="Standard">
-During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-74.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-79.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
 </div>
 <div class="Standard">
 Then, for each frequency point, the s-parameters are generated of the schematic.
 </div>
 <div class="Standard">
-Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
+Sometimes, things go wrong and an error is generated. See <a class="Reference" href="Help-Section-22.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> for an explanation of any errors generated during calculation.
 </div>
 <div class="Standard">
 If everything goes correctly, a dialog will open with the ability to view the s-parameters calculated and save them to a file in the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.

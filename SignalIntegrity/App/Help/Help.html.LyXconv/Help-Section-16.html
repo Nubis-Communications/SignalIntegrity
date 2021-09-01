@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,290 +1073,65 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-86.html#next">Prev</a> Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-43.html#next">Prev</a> Control Help</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
+<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-17.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-16"></a>Built-in Devices (Parts)<a class="Label" name="sec:Built-in-Devices"> </a>
+<a class="toc" name="toc-Section-16"></a>Eye Diagram Calculation<a class="Label" name="sec:Eye-Diagram-Calculation"> </a>
 </h1>
 <div class="Standard">
-<b><i>SignalIntegrity</i></b> defines the following built-in parts. If you don’t see what you want, you can always supply an s-parameter file through a <a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a> part.
+When a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> or <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> project is created and the schematic contains a <a class="Reference" href="Help-Subsection-106.html#device:Eye-Probe">Eye Probe↓</a> or a <a class="Reference" href="Help-Subsection-107.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> element, when the simulation is run, for each one, an eye diagram is created using the waveform produced in conjunction with the baud rate specified and the <a class="Reference" href="Help-Section-17.html#sec:Eye-Diagram-Properties">Eye Diagram Properties↓</a> specified.
 </div>
 <div class="Standard">
-File Devices
+This section explains how the eye diagram is created and will refer to various <a class="Reference" href="Help-Section-17.html#sec:Eye-Diagram-Properties">Eye Diagram Properties↓</a> during the explanation.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-45.html#device:File">File↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-47.html#device:Capacitor">Capacitor↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Inductor Devices
+The reciprocal of the baud rate specifies the unit interval, or the length of one UI in the waveform. The goal of the eye diagram is to show, overlapped, all of the portions of the waveform that pass through the unit interval. So, for a given time in a waveform <span class="formula"><i>t</i><sub><i>k</i></sub></span>, and a given UI length, <span class="formula"><i>UI</i></span>, the time of each point in the waveform, <span class="formula"><i>t</i><sub><i>eye</i></sub></span> inside the unit interval is given by:<div class="formula">
+<i>t</i><sub><i>eye</i></sub> = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><i>t</i><sub><i>k</i></sub> + <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>UI</i></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span> % <i>UI</i>
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-48.html#device:Inductor">Inductor↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-49.html#device:Mutual">Mutual↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-50.html#device:IdealTransformer">IdealTransformer↓</a>
-</li>
-
-</ul>
+ where <span class="formula">%</span> represents the modulo operator. You can see by this definition that <span class="formula">0 ≤ <i>t</i><sub><i>eye</i></sub> ≤ <i>UI</i></span> and that when <span class="formula"><i>t</i><sub><i>k</i></sub> = 0, </span> <span class="formula"><i>t</i><sub><i>eye</i></sub> = <i>UI</i> ⁄ 2</span>. In other words, it is assumed that at <span class="formula"><i>t</i> = 0</span>, the waveform is at the center of one unit interval, and is therefore at the center of the eye. If this is not the case, and you need the eye to be at the center, you would modify the delay value in the <a class="Reference" href="Help-Subsection-106.html#device:Eye-Probe">Eye Probe↓</a> or <a class="Reference" href="Help-Subsection-107.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> element, and re-run the simulation. Oftentimes, one just wants to get a general look, and when the <a class="Reference" href="Help-Subsection-42.html#sub:Number-of-UI">Number of UI↓</a> is specified as its default value of 3, you will see at at least one of the eyes in its entirety.
+</div>
 <div class="Standard">
-Miscellaneous Devices
+The eye is generated starting with an empty array that is the <a class="Reference" href="Help-Subsection-43.html#sub:Number-of-Rows">Number of Rows↓</a> in height, and the <a class="Reference" href="Help-Subsection-44.html#sub:Number-of-Columns">Number of Columns↓</a> in width. In order to count the hits in each column of pixels, the waveform is upsampled such that every waveform point is a column of the array. Because this upsampling is expensive in both processing time and memory, it is useful for the upsample factor to not be too large (hence the default <a class="Reference" href="Help-Subsection-44.html#sub:Number-of-Columns">Number of Columns↓</a> = 200). It is also useful for the upsample factor to be a nice ratio of the original sample rate of the waveform.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-51.html#device:Ground">Ground↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-52.html#device:Open">Open↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-53.html#device:DirectionalCoupler">Directional Coupler↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-54.html#device:Net-Name">Net Name↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-55.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-56.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-57.html#device:Relay">Relay↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Transmission Line Devices
+For a given sample rate, <span class="formula"><i>Fs</i></span>, number of columns, <span class="formula"><i>C</i></span>, and baudrate, <span class="formula"><i>R</i></span>, the upsample factor <span class="formula"><i>U</i></span> is given by:<div class="formula">
+<i>U</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>R</i>⋅<i>C</i></span><span class="ignored">)/(</span><span class="denominator"><i>Fs</i></span><span class="ignored">)</span></span><span class="mbox">.</span>
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-58.html#device:Transmission-Line">Transmission Line↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-59.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-60.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-61.html#device:RLGC-Fit">RLGC Fit↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-62.html#device:W-Element">W Element↓</a>
-</li>
 
-</ul>
+</div>
 <div class="Standard">
-Sources
+For example, if the incoming waveform is at <span class="formula">20 <i>GS</i> ⁄ <i>s</i></span> sample rate, at a baud rate of <span class="formula">5 <i>GBaud</i></span>, and there are 200 columns in the eye diagram, the upsample factor is <span class="formula">5⋅200 ⁄ 20 = 50</span>. What you definitely want to avoid is for the upsample factor to be a ratio of numbers, especially with a large number in the numerator.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-63.html#device:Voltage-Source">Voltage Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-65.html#device:Voltage-DC-Source">Voltage DC Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-64.html#device:Current-Source">Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-66.html#device:Current-DC-Source">Current DC Source↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Generators
+Once the waveform is upsampled, a number of points <span class="formula"> ≤ <i>C</i></span>, are trimmed such that the first point of the waveform is in column 0.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-67.html#device:Voltage-Noise-Generator">Voltage Noise Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-68.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-69.html#device:Voltage-Pulse-Generator">Voltage Pulse Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-70.html#device:Voltage-PRBS-Generator">Voltage PRBS Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-71.html#device:Voltage-Multi-Level-Waveform-Generator">Voltage Multi-Level Waveform Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-72.html#device:Voltage-Clock-Generator">Voltage Clock Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-73.html#device:Voltage-Sine-Generator">Voltage Sine Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-74.html#device:Current-Step-Generator">Current Step Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-75.html#device:Current-Pulse-Generator">Current Pulse Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-76.html#device:Current-Sine-Generator">Current Sine Generator↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Special Devices
+Then, the maximum and minimum voltage associated with each row is calculated, using <a class="Reference" href="Help-Subsection-49.html#sub:Y-Axis">Y Axis↓</a> mode, in conjunction possibly with <a class="Reference" href="Help-Subsection-51.html#sub:Minimum-Y">Minimum Y↓</a> and <a class="Reference" href="Help-Subsection-50.html#sub:Maximum-Y">Maximum Y↓</a>. This allows for the calculation of the row, with respect to the voltage. For each waveform point (a column), the row is calculated, and a one is added to the array. Usually, it is spread over a row and the correct fractional amounts are allocated.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-77.html#device:Port">Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-79.html#device:Output-Probe">Voltage Output Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-80.html#device:Stim">Stim↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-81.html#device:Current-Probe">Current Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-82.html#device:Voltage-Diff-Probe">Voltage Diff Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-83.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Dependent Sources
+At this point, the ISI only bitmap array is complete. If the <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↓</a> is Jitter &amp; Noise, some extra steps are now performed. In this case, a kernel is created. This is an array that contains a Gaussian vertically that encompasses the <a class="Reference" href="Help-Subsection-55.html#sub:Noise">Noise↓</a>, and a Gaussian horizontally that encompasses the <a class="Reference" href="Help-Subsection-53.html#sub:Random-Jitter">Random Jitter↓</a> jitter convolved with a dual-Dirac delta function representing the <a class="Reference" href="Help-Subsection-54.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a>. This array is constructed so that it sums to unity. This kernel is convolved with the bitmap array, serving to smear out the eye. To handle pathological cases, the kernel is limited to the <a class="Reference" href="Help-Subsection-56.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-83.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-84.html#device:Current-Controlled-Current-Source">Current Controlled Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-85.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-86.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Amplifiers
+For Jitter &amp; Noise <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↓</a>s, a further option exists to show the eye logarithmically. If <a class="Reference" href="Help-Subsection-57.html#sub:Log-Intensity">Log Intensity↓</a> is True, the eye diagram is re-scaled such that each pixel contains a probability of hitting that pixel, and the eye diagram is saturated in a log-linear fashion with a zero indicating that the probability is at or below a number indicated by the <a class="Reference" href="Help-Subsection-59.html#sub:Min-Exponent">Min Exponent↓</a>, and one indicating that the probability is at or above a number indicated by the <a class="Reference" href="Help-Subsection-58.html#sub:Max-Exponent">Max Exponent↓</a>.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-87.html#device:Voltage-Amplifier">Voltage Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-88.html#device:Current-Amplifier">Current Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-89.html#device:Transconductance-Amplifier">Transconductance Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-90.html#device:Transresistance-Amplifier">Transresistance Amplifier↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Network Analysis Devices
+At this point, the processing joins where it would resume following the ISI Only <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↓</a> processing if Jitter &amp; Noise were not specified.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-94.html#device:Short-Standard">Short Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-95.html#device:Open-Standard">Open Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-96.html#device:Load-Standard">Load Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-97.html#device:Thru-Standard">Thru Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-98.html#device:Reflect-Measurement">Reflect Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-100.html#device:Xtalk-Measurement">Xtalk Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-99.html#device:Thru-Measurement">Thru Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-101.html#device:Network-Analyzer">Network Analyzer↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-102.html#device:Network-Analyzer-Stimulus">Network Analyzer Stimulus↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-103.html#device:Network-Analyzer-Model">Network Analyzer Model↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Equalizers
+The bitmap is now duplicated according the <a class="Reference" href="Help-Subsection-42.html#sub:Number-of-UI">Number of UI↓</a> specified. If Jitter &amp; Noise were not specified for the <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↓</a> and <a class="Reference" href="Help-Subsection-57.html#sub:Log-Intensity">Log Intensity↓</a> was not specified, the eye is then re-saturated using a spline such that the maximum intensity is achieved at a value at or above the <a class="Reference" href="Help-Subsection-45.html#sub:Saturation">Saturation↓</a>.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-105.html#device:CTLE">Continuous Time Linear Equalizer↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-106.html#device:FFE">Feed-Forward Linear Equalizer↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-Filters
+The eye is then inverted or not, depending on the setting of <a class="Reference" href="Help-Subsection-48.html#sub:Invert-Plot">Invert Plot↓</a>, and colorized according to the specified <a class="Reference" href="Help-Subsection-41.html#sub:Eye-Diagram-Color">Eye Diagram Color↓</a>.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-108.html#device:BesselLp">Bessel Low-Pass Filter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-107.html#device:ButterworthLp">Butterworth Low-Pass Filter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-109.html#device:Laplace">Laplace↓</a>
-</li>
-
-</ul>
 <div class="Standard">
-De-embedding Elements
+Finally, the image is scaled according to the <a class="Reference" href="Help-Subsection-46.html#sub:Scale-X">Scale X↓</a> and <a class="Reference" href="Help-Subsection-47.html#sub:Scale-Y">Scale Y↓</a> settings. Further re-scaling is possible by simply resizing the final canvas.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-92.html#device:Unknown">Unknown↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-93.html#device:System">System↓</a>
-</li>
-
-</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-86.html#next">Prev</a> Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-43.html#next">Prev</a> Control Help</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
+<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-17.html#prev">Next</a></span>
 </div>
 
 </div>

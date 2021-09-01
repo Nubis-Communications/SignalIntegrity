@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="Caches results calculated based on netlist lines, as used in all of the parser classes.">
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-0.5 0.5,-79.5 95.5,-79.5 95.5,-0.5 0.5,-0.5"/>
 <text text-anchor="middle" x="48" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">LinesCache</text>
 <polyline fill="none" stroke="black" points="0.5,-60.5 95.5,-60.5 "/>
@@ -27,7 +27,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching">
 <polygon fill="white" stroke="black" points="0,-116.5 0,-250.5 96,-250.5 96,-116.5 0,-116.5"/>
 <text text-anchor="middle" x="48" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">ResultsCache</text>
 <polyline fill="none" stroke="black" points="0,-231.5 96,-231.5 "/>

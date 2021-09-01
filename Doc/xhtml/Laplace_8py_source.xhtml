@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.16</span>
+   &#160;<span id="projectnumber">1.1.17</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SignalIntegrity.Lib.SParameters.SParameters</a> <span class="keyword">import</span> SParameters</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Exception.xhtml">SignalIntegrity.Lib.Exception</a> <span class="keyword">import</span> SignalIntegrityExceptionSParameters</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> math</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> math,cmath</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml">Laplace</a>(<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SParameters</a>):</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Laplace domain equation&quot;&quot;&quot;</span></div>
@@ -113,13 +113,16 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">        @param f float frequency</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">        @return laplace equation evaluated at f</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        pi=math.pi</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        w=2*pi*f</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        j=1j</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        s=j*w</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> eval(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#affa5b56586c4e21380c84bcb597cc217">eq</a>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#ab7a6da5139e0878b590d68292aaa70f2">__getitem__</a>(self,n):</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> [[1.,0],[2.*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#a14310a64c5cc3b47c4558e22b4755b35">_Evaluate</a>(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a40a26fb5046a51e40dd1b61c78d72ace">m_f</a>[n]),-1.]]</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        Fs=2.*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a40a26fb5046a51e40dd1b61c78d72ace">m_f</a>[-1]</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        Ts=1./Fs</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        pi=math.pi</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        w=2*pi*f</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        j=1j</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        s=j*w</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        z=cmath.exp(s*Ts)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> eval(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#affa5b56586c4e21380c84bcb597cc217">eq</a>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#ab7a6da5139e0878b590d68292aaa70f2">__getitem__</a>(self,n):</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> [[1.,0],[2.*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#a14310a64c5cc3b47c4558e22b4755b35">_Evaluate</a>(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a40a26fb5046a51e40dd1b61c78d72ace">m_f</a>[n]),-1.]]</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace_xhtml_a14310a64c5cc3b47c4558e22b4755b35"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#a14310a64c5cc3b47c4558e22b4755b35">SignalIntegrity.Lib.SParameters.Devices.Laplace.Laplace._Evaluate</a></div><div class="ttdeci">def _Evaluate(self, f)</div><div class="ttdoc">Evaluate equation.</div><div class="ttdef"><b>Definition:</b> <a href="Laplace_8py_source.xhtml#l00038">Laplace.py:38</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SignalIntegrity.Lib.SParameters.SParameters.SParameters</a></div><div class="ttdoc">Class containing s-parameters.</div><div class="ttdef"><b>Definition:</b> <a href="SParameters_8py_source.xhtml#l00040">SParameters.py:40</a></div></div>
@@ -128,7 +131,7 @@ $(function() {
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml">SignalIntegrity.Lib.SParameters.Devices.Laplace.Laplace</a></div><div class="ttdoc">Laplace domain equation.</div><div class="ttdef"><b>Definition:</b> <a href="Laplace_8py_source.xhtml#l00028">Laplace.py:28</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace_xhtml_abe518b19aa347242cdcca1b09ab23e54"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#abe518b19aa347242cdcca1b09ab23e54">SignalIntegrity.Lib.SParameters.Devices.Laplace.Laplace.__init__</a></div><div class="ttdeci">def __init__(self, f, eq, Z0=50.)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="Laplace_8py_source.xhtml#l00029">Laplace.py:29</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters_xhtml_a40a26fb5046a51e40dd1b61c78d72ace"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a40a26fb5046a51e40dd1b61c78d72ace">SignalIntegrity.Lib.SParameters.SParameters.SParameters.m_f</a></div><div class="ttdeci">m_f</div><div class="ttdef"><b>Definition:</b> <a href="SParameters_8py_source.xhtml#l00053">SParameters.py:53</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace_xhtml_ab7a6da5139e0878b590d68292aaa70f2"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#ab7a6da5139e0878b590d68292aaa70f2">SignalIntegrity.Lib.SParameters.Devices.Laplace.Laplace.__getitem__</a></div><div class="ttdeci">def __getitem__(self, n)</div><div class="ttdoc">overloads [item]</div><div class="ttdef"><b>Definition:</b> <a href="Laplace_8py_source.xhtml#l00044">Laplace.py:44</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace_xhtml_ab7a6da5139e0878b590d68292aaa70f2"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Laplace_1_1Laplace.xhtml#ab7a6da5139e0878b590d68292aaa70f2">SignalIntegrity.Lib.SParameters.Devices.Laplace.Laplace.__getitem__</a></div><div class="ttdeci">def __getitem__(self, n)</div><div class="ttdoc">overloads [item]</div><div class="ttdef"><b>Definition:</b> <a href="Laplace_8py_source.xhtml#l00047">Laplace.py:47</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

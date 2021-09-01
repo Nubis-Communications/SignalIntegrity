@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Current Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transresistance Amplifier <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Voltage DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-89"></a>Transconductance Amplifier<a class="Label" name="device:Transconductance-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-89"></a>Current DC Source<a class="Label" name="device:Current-DC-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TransconductanceAmplifier.png" alt="figure TransconductanceAmplifier.png" style="max-width: 675px; max-height: 162px;"/>
+<img class="embedded" src="CurrentSourceDC.png" alt="figure CurrentSourceDC.png" style="width: 276px; max-width: 1105px; height: 115px; max-height: 463px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Amplifiers
+Sources
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+CS?
 </td>
 
 </tr>
@@ -1154,61 +1154,25 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+CS1
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
+amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zo
+a
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohm
+A
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-100 Mohm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-input impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zi
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-ohm
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 Mohm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-gain
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-gain
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0
+1.0 A
 </td>
 
 </tr>
@@ -1217,12 +1181,15 @@ gain
 
 </div>
 <div class="Standard">
-The transconductance amplifier is like a <a class="Reference" href="Help-Subsection-85.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↑</a> except that the input impedance of the voltage sense is settable and the output impedance of the current source is settable.
+The DC current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC current.
+</div>
+<div class="Standard">
+The DC current source is handled specially in that it does not provide a waveform, but rather a number representing the DC current. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the current specified. The transfer characteristics of a DC current source through the system is to take the DC response of the system.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Current Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transresistance Amplifier <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Voltage DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-90.html#prev">Next</a></span>
 </div>
 
 </div>

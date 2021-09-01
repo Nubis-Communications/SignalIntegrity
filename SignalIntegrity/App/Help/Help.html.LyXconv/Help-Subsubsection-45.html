@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-44.html#next">Prev</a> Clear Schematic</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Export LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-44.html#next">Prev</a> Open Recent File</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-60.html">Up</a> File</span>
+<span class="next">Open Project <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-45"></a>Export Netlist<a class="Label" name="Control-Help:Export-Netlist"> </a>
+<a class="toc" name="toc-Subsubsection-45"></a>New Project<a class="Label" name="Control-Help:New-Project"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-18.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Export Netlist
+<a class="Reference" href="Help-Subsection-60.html#sub:File">File↑</a> ▸ New Project
 </td>
 
 </tr>
@@ -1114,7 +1114,7 @@ Alt+F,N
 <i>Key Binding</i>
 </td>
 <td align="center" valign="top">
-None
+Ctrl+N
 </td>
 
 </tr>
@@ -1123,7 +1123,8 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-None
+<img class="embedded" src="document-new-3.png" alt="figure document-new-3.png" style="max-width: 16px; max-height: 16px;"/>
+
 </td>
 
 </tr>
@@ -1132,7 +1133,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the project is not empty
+Always
 </td>
 
 </tr>
@@ -1141,35 +1142,21 @@ When the project is not empty
 
 </div>
 <div class="Standard">
-During all of the calculations, a text-based net list is created that is passed to the <b><i>SignalIntegrity</i></b> toolbox software.
+A request to create a new project brings up a file dialog so you can choose the file you want to create.
 </div>
 <div class="Standard">
-The format of this net list is described in the accompanying book but somewhat under <a class="Reference" href="Help-Section-17.html#sec:Netlist">Netlist↓</a>.
+This will clear the current schematic and an empty project file is created. This can be undone using <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Undo">Undo↓</a>.
 </div>
 <div class="Standard">
-Usually, you don’t need to look at or save this net list, but examining it is helpful sometimes for debugging problems and saving it allows the schematic to be be utilized within customized Python based user applications that rely on the <b><i>SignalIntegrity</i></b> toolbox, but do not rely on the <b><i>SignalIntegrityApp</i></b> application.
+A dialog will ask you for the file name. If an existing file is selected, that file will be overwritten and cleared.
 </div>
 <div class="Standard">
-Invoking this command causes the netlist to be generated that would be the same for any calculation and shown. For example, for this type of schematic:
-</div>
-<div class="Standard">
-<img class="embedded" src="SParameterGenerationExample.png" alt="figure SParameterGenerationExample.png" style="max-width: 469px; max-height: 221px;"/>
-
-</div>
-<div class="Standard">
-We would have a net list that looked like this:
-</div>
-<div class="Standard">
-<img class="embedded" src="SParameterGenerationExampleNetListDialog.png" alt="figure SParameterGenerationExampleNetListDialog.png" style="max-width: 578px; max-height: 468px;"/>
-
-</div>
-<div class="Standard">
-Pressing OK prompts you for a text file to save it to. Pressing Cancel or escape leaves without saving the file.
+No matter the file name you use, it will have the extension .xml placed on it.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-44.html#next">Prev</a> Clear Schematic</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Export LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-44.html#next">Prev</a> Open Recent File</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-60.html">Up</a> File</span>
+<span class="next">Open Project <a class="next" name="next" href="Help-Subsubsection-46.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 290)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-290 810,-290 810,4 -4,4"/>
-<!-- Node108 -->
+<!-- Node109 -->
 <g id="node1" class="node">
-<title>Node108</title>
+<title>Node109</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" target="_top" xlink:title="handles numeric details of derived class solutions">
 <polygon fill="white" stroke="black" points="345,-67.5 345,-86.5 403,-86.5 403,-67.5 345,-67.5"/>
 <text text-anchor="middle" x="374" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">Numeric</text>
@@ -27,9 +27,9 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node3 -->
+<!-- Node109&#45;&gt;Node3 -->
 <g id="edge1" class="edge">
-<title>Node108&#45;&gt;Node3</title>
+<title>Node109&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M412.87,-86.57C434.56,-92.03 462.29,-98.96 487,-105 499.68,-108.1 513.52,-111.43 526.04,-114.42"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="413.61,-83.15 403.06,-84.1 411.9,-89.94 413.61,-83.15"/>
 </g>
@@ -42,9 +42,9 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node6 -->
+<!-- Node109&#45;&gt;Node6 -->
 <g id="edge2" class="edge">
-<title>Node108&#45;&gt;Node6</title>
+<title>Node109&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M413.43,-78.81C442.5,-80.17 482.73,-82.06 514.65,-83.56"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="413.41,-75.3 403.26,-78.33 413.08,-82.29 413.41,-75.3"/>
 </g>
@@ -57,9 +57,9 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node13 -->
+<!-- Node109&#45;&gt;Node13 -->
 <g id="edge3" class="edge">
-<title>Node108&#45;&gt;Node13</title>
+<title>Node109&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M407.72,-63.71C429.93,-54.87 460.05,-43.23 487,-34 502,-28.86 518.79,-23.71 533.06,-19.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="406.4,-60.47 398.41,-67.43 409,-66.97 406.4,-60.47"/>
 </g>
@@ -72,9 +72,9 @@
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node9 -->
+<!-- Node109&#45;&gt;Node9 -->
 <g id="edge4" class="edge">
-<title>Node108&#45;&gt;Node9</title>
+<title>Node109&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M413.23,-68.5C466.79,-58.16 566.75,-44.7 648,-67 681.65,-76.24 715.44,-100.66 732.54,-114.35"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="412.27,-65.12 403.15,-70.51 413.64,-71.98 412.27,-65.12"/>
 </g>

@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.16</span>
+   &#160;<span id="projectnumber">1.1.17</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -166,16 +166,16 @@ $(function() {
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="comment"># end of ugly workaround</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        self.callBack()</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> self.partProperty[<span class="stringliteral">&#39;PropertyName&#39;</span>] <span class="keywordflow">in</span> [<span class="stringliteral">&#39;filename&#39;</span>,<span class="stringliteral">&#39;std&#39;</span>]:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            extension=<span class="stringliteral">&#39;.s&#39;</span>+self.device[<span class="stringliteral">&#39;ports&#39;</span>].PropertyString(stype=<span class="stringliteral">&#39;raw&#39;</span>)+<span class="stringliteral">&#39;p&#39;</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            extension=<span class="stringliteral">&#39;.s&#39;</span>+self.device[<span class="stringliteral">&#39;ports&#39;</span>].PropertyString(stype=<span class="stringliteral">&#39;raw&#39;</span>)+<span class="stringliteral">&#39;p&#39;</span>,<span class="stringliteral">&#39;.S&#39;</span>+self.device[<span class="stringliteral">&#39;ports&#39;</span>].PropertyString(stype=<span class="stringliteral">&#39;raw&#39;</span>)+<span class="stringliteral">&#39;P&#39;</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            filetypename=<span class="stringliteral">&#39;s-parameters&#39;</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">elif</span> self.partProperty[<span class="stringliteral">&#39;PropertyName&#39;</span>] == <span class="stringliteral">&#39;waveformfilename&#39;</span>:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            extension=<span class="stringliteral">&#39;.txt&#39;</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            extension=(<span class="stringliteral">&#39;.txt&#39;</span>,<span class="stringliteral">&#39;.trc&#39;</span>)</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            filetypename=<span class="stringliteral">&#39;waveforms&#39;</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">elif</span> self.partProperty[<span class="stringliteral">&#39;PropertyName&#39;</span>] == <span class="stringliteral">&#39;errorterms&#39;</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            extension=<span class="stringliteral">&#39;.cal&#39;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            extension=(<span class="stringliteral">&#39;.cal&#39;</span>)</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            filetypename=<span class="stringliteral">&#39;calibration file&#39;</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            extension=<span class="stringliteral">&#39;&#39;</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            extension=(<span class="stringliteral">&#39;&#39;</span>)</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            filetypename=<span class="stringliteral">&#39;all&#39;</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        currentFileParts=FileParts(self.partProperty.PropertyString(stype=<span class="stringliteral">&#39;raw&#39;</span>))</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> currentFileParts.filename==<span class="stringliteral">&#39;&#39;</span>:</div>
@@ -183,10 +183,10 @@ $(function() {
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            initialFile=<span class="stringliteral">&#39;&#39;</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            initialDirectory=currentFileParts.AbsoluteFilePath()</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> currentFileParts.fileext <span class="keywordflow">in</span> [<span class="stringliteral">&#39;.si&#39;</span>,extension]:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> currentFileParts.fileext <span class="keywordflow">in</span> [<span class="stringliteral">&#39;.si&#39;</span>,extension[0]]:</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                initialFile=currentFileParts.FileNameWithExtension()</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                initialFile=currentFileParts.filename+extension</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                initialFile=currentFileParts.filename+extension[0]</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        filename=AskOpenFileName(parent=self,</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                 filetypes=[(filetypename,extension),(<span class="stringliteral">&#39;project&#39;</span>,<span class="stringliteral">&#39;.si&#39;</span>)],</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                 initialdir=initialDirectory,</div>

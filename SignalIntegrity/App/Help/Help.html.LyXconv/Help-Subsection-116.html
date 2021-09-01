@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,203 +1073,159 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> stim</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">unknown <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> Transresistance Amplifier</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-116"></a>stimdef<a class="Label" name="sub:stimdef"> </a>
+<a class="toc" name="toc-Subsection-116"></a>Operational Amplifier<a class="Label" name="device:Operational-Amplifier"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>stimdef</i> specifies the relationship between defining and dependent stims in the schematic (see <a class="Reference" href="Help-Subsection-80.html#device:Stim">Stim↑</a>).
-</div>
-<div class="Standard">
-This should only appear in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications.
-</div>
-<div class="Standard">
-A <i>stimdef</i> statement will only appear if there is a defining stim in the schematic.
-</div>
-<div class="Standard">
-The syntax is the keyword <i>stimdef</i> followed by a python list-based matrix definition where the form:
-</div>
-<div class="Standard">
-<div class="formula">
-<span class="symbol">[</span><span class="symbol">[</span><i>d</i><sub>11</sub>, <i>d</i><sub>12</sub>, …, <i>d</i><sub>1<i>C</i></sub><span class="symbol">]</span>, <span class="symbol">[</span><i>d</i><sub>21</sub>, <i>d</i><sub>22</sub>, …, <i>d</i><sub>2<i>C</i></sub><span class="symbol">]</span>, …, <span class="symbol">[</span><i>d</i><sub><i>R</i>1</sub>, <i>d</i><sub><i>R</i>2</sub>, …, <i>d</i><sub><i>RC</i></sub><span class="symbol">]</span><span class="symbol">]</span>
-</div>
+<img class="embedded" src="OperationalAmplifier.png" alt="figure OperationalAmplifier.png" style="max-width: 175px; max-height: 220px;"/>
 
 </div>
 <div class="Standard">
-which is equivalent to a <span class="formula"><i>R</i> × <i>C</i></span> matrix <span class="formula"><b>D</b></span>:
-</div>
-<div class="Standard">
-<div class="formula">
-<span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub>11</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>12</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>1<i>C</i></sub>
-</span>
+<table>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+Property Name
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub>21</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>22</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub>2<i>C</i></sub>
-</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-⋮
-</span>
-<span class="arraycell align-c">
-⋮
-</span>
-<span class="arraycell align-c">
-⋱
-</span>
-<span class="arraycell align-c">
-⋮
-</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Amplifiers
+</td>
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
-<span class="arraycell align-c">
- 
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+default reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>d</i><sub><i>R</i>1</sub>
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub><i>R</i>2</sub>
-</span>
-<span class="arraycell align-c">
-…
-</span>
-<span class="arraycell align-c">
-<i>d</i><sub><i>RC</i></sub>
-</span>
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
-</span>
-</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>
-</div>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+D?
+</td>
 
-</div>
-<div class="Standard">
-The matrix is such that for a <span class="formula"><i>C</i></span> element vector of dependent stims <span class="formula"><b>m</b></span> (with the elements <span class="formula"><span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎜</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="array"><span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub>1</sub>
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub>2</sub>
-</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
+</td>
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-⋮
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+output impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+zo
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 <span class="mathrm"> MΩ</span></span>
+</td>
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
- 
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+input impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+zi
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">100 <span class="mathrm"> MΩ</span></span>
+</td>
 
-</span>
-<span class="arrayrow">
-<span class="arraycell align-c">
-<i>m</i><sub><i>C</i></sub>
-</span>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
-</span>
-</span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎟</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span></span>), as listed in the netlist for the dependent stims and an <span class="formula"><i>R</i></span> element vector of defining stims <span class="formula"><b>d</b></span> (see <a class="Reference" href="Help-Subsection-115.html#sub:stim">stim↑</a> for the netlist statement for the stim and <a class="Reference" href="Help-Subsection-80.html#device:Stim">Stim↑</a> for a description of dependent and defining stims), that the stimdef defines <span class="formula"><b>D</b></span> such that:
-</div>
-<div class="Standard">
-<div class="formula">
-<b>d</b> = <b>D</b>⋅<b>m</b>
-</div>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0
+</td>
+
+</tr>
+
+</table>
 
 </div>
 <div class="Standard">
-When no stimdef statement appears, there are <span class="formula"><i>C</i></span> unknowns (and there must be at least <span class="formula"><i>C</i></span> <a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-113.html#sub:meas">meas↑</a> in the netlist). If a stimdef statement appears, there are <span class="formula"><i>R</i></span> unknowns (and there must be at least <span class="formula"><i>R</i></span> <a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↑</a>s specified with lines that begin with <a class="Reference" href="Help-Subsection-113.html#sub:meas">meas↑</a> in the netlist).
+The operational amplifier is an amplifier that outputs a voltage proportional to the difference between the voltages at the input terminals.
+</div>
+<div class="Standard">
+Despite the default value of 1.0, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> stim</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">unknown <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> Transresistance Amplifier</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
 </div>
 
 </div>

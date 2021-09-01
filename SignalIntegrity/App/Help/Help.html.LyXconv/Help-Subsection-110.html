@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,127 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-111.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-109.html#next">Prev</a> Current Controlled Current Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-111.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-110"></a>device<a class="Label" name="sub:device"> </a>
+<a class="toc" name="toc-Subsection-110"></a>Voltage Controlled Current Source<a class="Label" name="device:Voltage-Controlled-Current-Source"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
+<img class="embedded" src="VoltageControlledCurrentSource.png" alt="figure VoltageControlledCurrentSource.png" style="max-width: 223px; max-height: 152px;"/>
+<img class="embedded" src="VoltageControlledCurrentSourceAlt.png" alt="figure VoltageControlledCurrentSourceAlt.png" style="max-width: 223px; max-height: 152px;"/>
+
 </div>
 <div class="Standard">
-The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
+<table>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+Property Name
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Dependent Sources
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+default reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+D?
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Following this is often optional keyword pairs specifying the arguments for the device.
+This is a current source that is proportional to the voltage across the voltage measurement terminals with the proportionality set by the gain.
 </div>
 <div class="Standard">
-Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-46.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+The input impedance of the voltage measurement pins is infinite.
 </div>
 <div class="Standard">
-If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-19.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-125.html#sub:DeviceParser">DeviceParser↓</a>.
+The output impedance of the current source is infinite.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-17.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-111.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-109.html#next">Prev</a> Current Controlled Current Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-111.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Transconductance Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Operational Amplifier <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Current DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-90"></a>Transresistance Amplifier<a class="Label" name="device:Transresistance-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-90"></a>Voltage Noise Generator<a class="Label" name="device:Voltage-Noise-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TransresistanceAmplifier.png" alt="figure TransresistanceAmplifier.png" style="max-width: 660px; max-height: 162px;"/>
+<img class="embedded" src="VoltageNoiseGeneratorOnePort.png" alt="figure VoltageNoiseGeneratorOnePort.png" style="max-width: 200px; max-height: 176px;"/>
+<img class="embedded" src="VoltageNoiseGeneratorTwoPort.png" alt="figure VoltageNoiseGeneratorTwoPort.png" style="max-width: 200px; max-height: 176px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Amplifiers
+Generators
 </td>
 
 </tr>
@@ -1136,7 +1137,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+VG?
 </td>
 
 </tr>
@@ -1160,55 +1161,91 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
+amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zo
+vrms
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohm
+<span class="formula"><span class="mathrm">V<sub>rms</sub></span></span>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 ohm
+<span class="formula">0 <i>V</i><sub><i>rms</i></sub></span>
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-input impedance
+sample rate
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zi
+fs
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohm
+S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 ohm
+40.0 GS/s
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gain
+start time
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-gain
+t0
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+duration
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dur
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+200.0 ns
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+horizontal offset
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ho
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+-100.0 ns
 </td>
 
 </tr>
@@ -1217,12 +1254,12 @@ gain
 
 </div>
 <div class="Standard">
-The transresistance amplifier is like a <a class="Reference" href="Help-Subsection-86.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↑</a> except that the input impedance of the current sense is settable and the output impedance of the voltage source is settable.
+The voltage noise generator generates random, normally distributed, zero-mean noise with an rms voltage as specified.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Transconductance Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Operational Amplifier <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Current DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
 </div>
 
 </div>

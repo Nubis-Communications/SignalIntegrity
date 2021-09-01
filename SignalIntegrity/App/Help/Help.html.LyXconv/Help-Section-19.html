@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,50 +1073,320 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-91.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-19"></a>Errors and Exceptions<a class="Label" name="sec:Errors-and-Exceptions"> </a>
+<a class="toc" name="toc-Section-19"></a>Built-in Devices (Parts)<a class="Label" name="sec:Built-in-Devices"> </a>
 </h1>
 <div class="Standard">
-When problems crop up during calculation, <b><i>SignalIntegrityApp</i></b> throws an exception and a message box is shown with the exception and the message the exception generates. As such, the exception type defines the main category of the exception and the message pertains to various flavors of that exception type.
+<b><i>SignalIntegrity</i></b> defines the following built-in parts. If you don’t see what you want, you can always supply an s-parameter file through a <a class="Reference" href="Help-Subsection-67.html#device:File">File↓</a> part.
 </div>
 <div class="Standard">
-The <b><i>SignalIntegrity</i></b> exceptions are:
+File Devices
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-121.html#sub:System-Description-Error">SystemDescription↓</a> - pertains to a general problem with the netlist used for calculation.
+<a class="Reference" href="Help-Subsection-67.html#device:File">File↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Resistor Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-68.html#device:Resistor">Resistor↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-124.html#sub:Numeric">Numeric↓</a> - pertains to a general numerical error during calculation.
+<a class="Reference" href="Help-Subsection-69.html#device:Skin-Effect-Resistor">Resistor↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Capacitor Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-70.html#device:Capacitor">Capacitor↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Inductor Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-71.html#device:Inductor">Inductor↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-119.html#sub:SParameterFile">SParameterFile↓</a> - pertains to a problem with reading an s-parameter file.
+<a class="Reference" href="Help-Subsection-72.html#device:Mutual">Mutual↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-120.html#sub:WaveformFile">WaveformFile↓</a> - pertains to a problem with reading a <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> file.
+<a class="Reference" href="Help-Subsection-73.html#device:IdealTransformer">IdealTransformer↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Miscellaneous Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-74.html#device:Ground">Ground↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-125.html#sub:DeviceParser">DeviceParser↓</a> - pertains to a problem parsing a device description in the netlist.
+<a class="Reference" href="Help-Subsection-75.html#device:Open">Open↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-122.html#sub:Simulator">Simulator↓</a> - pertains to a problem specific to the Simulator application and calculation.
+<a class="Reference" href="Help-Subsection-76.html#device:DirectionalCoupler">Directional Coupler↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-123.html#sub:VirtualProbe">VirtualProbe↓</a> - pertains to a problem specific to the Virtual Probe application and calculation.
+<a class="Reference" href="Help-Subsection-77.html#device:Net-Name">Net Name↓</a>
 </li>
 <li>
-<a class="Reference" href="Help-Subsection--3.html#sub:PostProcessing">PostProcessing↓</a> - pertains to a problem with <a class="Reference" href="Help-Section-18.html#sec:Post-Processing">Post-Processing↑</a>.
+<a class="Reference" href="Help-Subsection-78.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-79.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-80.html#device:Relay">Relay↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Transmission Line Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-81.html#device:Transmission-Line">Transmission Line↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-82.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-83.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-84.html#device:RLGC-Fit">RLGC Fit↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-85.html#device:W-Element">W Element↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Sources
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-86.html#device:Voltage-Source">Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-88.html#device:Voltage-DC-Source">Voltage DC Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-87.html#device:Current-Source">Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-89.html#device:Current-DC-Source">Current DC Source↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Generators
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-90.html#device:Voltage-Noise-Generator">Voltage Noise Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-91.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-92.html#device:Voltage-Pulse-Generator">Voltage Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-93.html#device:Voltage-PRBS-Generator">Voltage PRBS Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-94.html#device:Voltage-Multi-Level-Waveform-Generator">Voltage Multi-Level Waveform Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-95.html#device:Voltage-Clock-Generator">Voltage Clock Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-96.html#device:Voltage-Sine-Generator">Voltage Sine Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-97.html#device:Current-Step-Generator">Current Step Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-98.html#device:Current-Pulse-Generator">Current Pulse Generator↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-99.html#device:Current-Sine-Generator">Current Sine Generator↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Probes and Ports
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-100.html#device:Port">Port↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-104.html#device:Current-Probe">Current Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-105.html#device:Voltage-Diff-Probe">Voltage Diff Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-108.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-106.html#device:Eye-Probe">Eye Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-107.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Virtual Probe Elements
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-101.html#device:Measure-Probe">Voltage Measure Probe↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-103.html#device:Stim">Stim↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Dependent Sources
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-108.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-109.html#device:Current-Controlled-Current-Source">Current Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-110.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-111.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Amplifiers
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-112.html#device:Voltage-Amplifier">Voltage Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-113.html#device:Current-Amplifier">Current Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-114.html#device:Transconductance-Amplifier">Transconductance Amplifier↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-115.html#device:Transresistance-Amplifier">Transresistance Amplifier↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Network Analysis Devices
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-119.html#device:Short-Standard">Short Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-120.html#device:Open-Standard">Open Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-121.html#device:Load-Standard">Load Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-122.html#device:Thru-Standard">Thru Standard↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-123.html#device:Reflect-Measurement">Reflect Measurement↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-125.html#device:Xtalk-Measurement">Xtalk Measurement↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-124.html#device:Thru-Measurement">Thru Measurement↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-126.html#device:Network-Analyzer">Network Analyzer↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-127.html#device:Network-Analyzer-Stimulus">Network Analyzer Stimulus↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-128.html#device:Network-Analyzer-Model">Network Analyzer Model↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Equalizers
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-130.html#device:CTLE">Continuous Time Linear Equalizer↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-131.html#device:FFE">Feed-Forward Linear Equalizer↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+Filters
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-133.html#device:BesselLp">Bessel Low-Pass Filter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-132.html#device:ButterworthLp">Butterworth Low-Pass Filter↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-134.html#device:Laplace">Laplace↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-135.html#device:ImpulseResponseFilter">Impulse Response Filter↓</a>
+</li>
+
+</ul>
+<div class="Standard">
+De-embedding Elements
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-117.html#device:Unknown">Unknown↓</a>
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-118.html#device:System">System↓</a>
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-91.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 
 </div>

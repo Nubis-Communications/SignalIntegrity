@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,88 +1073,44 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-52.html#next">Prev</a> Open</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Net Name <a class="next" name="next" href="Help-Subsection-54.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-52.html#next">Prev</a> Eye Mode</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Deterministic Jitter <a class="next" name="next" href="Help-Subsection-54.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-53"></a>Directional Coupler<a class="Label" name="device:DirectionalCoupler"> </a>
+<a class="toc" name="toc-Subsection-53"></a>Random Jitter<a class="Label" name="sub:Random-Jitter"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="DirectionalCouplerThreePort.png" alt="figure DirectionalCouplerThreePort.png" style="max-width: 200px; max-height: 186px;"/>
-<img class="embedded" src="DirectionalCouplerFourPort.png" alt="figure DirectionalCouplerFourPort.png" style="max-width: 200px; max-height: 200px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Type
+<b>Type</b>
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-category
+<td align="center" valign="top" style="width: 8cm;">
+Random Jitter
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection-53.html#sub:Random-Jitter">Random Jitter↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+Float
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Miscellaneous
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-D?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+0 s
+</div>
 
 </td>
 
@@ -1164,21 +1120,18 @@ string
 
 </div>
 <div class="Standard">
-Three and four port directional couplers.
+In the industry, random jitter generally refers to jitter with a Gaussian, unbounded distribution. Random jitter refers to that here (even though there are many other types of random jitter, both bounded and unbounded.
 </div>
 <div class="Standard">
-Directional couplers are ideal thru elements between the ports connected by a straight line. Waves going in the direction shown by the arrows are picked off in the direction shown.
+When the <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↑</a> is set to Jitter &amp; Noise, this jitter forms the Gaussian portion.
 </div>
 <div class="Standard">
-A three port directional coupler picks off one wave, while a four port picks off both. In the end, the waves are voltage waves and when probed are the wave multiplied by <span class="formula"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>Z</i>0</span><span class="ignored">)</span></span></span>.
-</div>
-<div class="Standard">
-Note that these devices are not passive and are completely ideal. A real directional coupler could not pick a wave off entirely while simultaneously passing waves between two ports.
+When <a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↑</a> is set to ISI Only, this jitter value is not used and not shown.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-52.html#next">Prev</a> Open</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Net Name <a class="next" name="next" href="Help-Subsection-54.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-52.html#next">Prev</a> Eye Mode</span>
+<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Deterministic Jitter <a class="next" name="next" href="Help-Subsection-54.html#prev">Next</a></span>
 </div>
 
 </div>

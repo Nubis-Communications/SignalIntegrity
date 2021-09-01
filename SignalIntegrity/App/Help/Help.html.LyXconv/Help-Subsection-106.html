@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,25 +1073,22 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Continuous Time Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Voltage Diff Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Differential Eye Probe <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-106"></a>Feed-Forward Linear Equalizer<a class="Label" name="device:FFE"> </a>
+<a class="toc" name="toc-Subsection-106"></a>Eye Probe<a class="Label" name="device:Eye-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="FFE.png" alt="figure FFE.png" style="width: 126px; max-width: 420px; height: 171px; max-height: 572px;"/>
+<img class="embedded" src="EyeProbe.png" alt="figure EyeProbe.png" style="width: 103px; max-width: 412px; height: 161px; max-height: 647px;"/>
 
 </div>
 <div class="Standard">
 <table>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 Property Name
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Type
@@ -1108,11 +1105,8 @@ Units
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 category
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 
@@ -1124,16 +1118,13 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Equalizers
+Ports and Probes
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 default reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
@@ -1145,127 +1136,97 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F?
+VO?
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ref
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F1
+
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-Tap Delay
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+baud rate
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
 float
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Baud
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GBaud
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 td
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
 s
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
 0 s
-</div>
-
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-number of precursor taps
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-int
-</div>
-
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-pre
-</div>
-
+offset
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-
-</div>
-
+V
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-0
-</div>
-
+0 V
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-tap values
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-list of float
-</div>
-
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-taps
-</div>
-
+gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-[1.0]
-</div>
-
+1.0
 </td>
 
 </tr>
@@ -1274,27 +1235,36 @@ taps
 
 </div>
 <div class="Standard">
-The equation for the FFE, for given number of taps <span class="formula"><i>M</i></span>:
+The output probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms along with eye diagrams to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>. As such, this probe behaves exactly like a <a class="Reference" href="Help-Subsection-105.html#device:Voltage-Diff-Probe">105↑</a>, with the addition of the eye diagram.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>H</i>(<i>f</i>) = <span class="limits"><sup class="limit"><i>M</i> − 1</sup><span class="limit">⎲</span><span class="limit">⎳</span><sub class="limit"><i>m</i> = 0</sub></span><i>taps</i><span class="symbol">[</span><i>m</i><span class="symbol">]</span>⋅<i>e</i><sup><span class="displaystyle"> − </span><i>j</i>⋅2<i>π</i>⋅<i>f</i>⋅<span class="symbol">(</span><i>m</i> − <i>pre</i><span class="symbol">)</span>⋅<i>td</i></sup>
+When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
 </div>
+<div class="Standard">
+When placing an output probe, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a probe will assign the value VO3 to the probe reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
 
-</div>
+</ul>
 <div class="Standard">
-The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
-</div>
-<div class="Standard">
-Generally, in order to have unity gain at DC, the list of taps is constructed such that their sum equals unity.
-</div>
-<div class="Standard">
-Usually the tap delay is the reciprocal of the baud rate for which the equalizer is used. When constructed in this manner, it response will peak at half the baud rate, and will repeatedly peak 1.5, 2.5, 3.5, etc. times half the baud rate.
+When simulations are complete, for each Eye Probe, the <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval. Currently, this unit interval is fixed, and the eye will be aligned in a manner assuming that the center of a unit interval occurs at time zero. In order to align the eye diagram, you must adjust the delay accordingly. This will be improved in future versions.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Continuous Time Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Voltage Diff Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Differential Eye Probe <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 
 </div>

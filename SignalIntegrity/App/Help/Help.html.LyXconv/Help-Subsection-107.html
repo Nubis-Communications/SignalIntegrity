@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,25 +1073,22 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Feed-Forward Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Bessel Low-Pass Filter <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Eye Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-107"></a>Butterworth Low-Pass Filter<a class="Label" name="device:ButterworthLp"> </a>
+<a class="toc" name="toc-Subsection-107"></a>Differential Eye Probe<a class="Label" name="device:Differential-Eye-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="LPF.png" alt="figure LPF.png" style="width: 126px; max-width: 420px; height: 149px; max-height: 497px;"/>
+<img class="embedded" src="DifferentialEyeProbe.png" alt="figure DifferentialEyeProbe.png" style="width: 151px; max-width: 605px; height: 145px; max-height: 583px;"/>
 
 </div>
 <div class="Standard">
 <table>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 Property Name
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Type
@@ -1108,11 +1105,8 @@ Units
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 category
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 
@@ -1124,16 +1118,13 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Filters
+Ports and Probes
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 default reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
@@ -1145,70 +1136,97 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F?
+VO?
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ref
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F1
+
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-cutoff frequency
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+baud rate
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-fc
+br
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-Hz
+Baud
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1 GHz
+1 GBaud
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-order
-</div>
+<td align="center" valign="top" style="width: 4cm;">
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
 
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-order
+offset
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+V
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 V
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-4
+1.0
 </td>
 
 </tr>
@@ -1217,21 +1235,30 @@ order
 
 </div>
 <div class="Standard">
-This is a Butterworth filter of the specified order and cutoff frequency, where it reaches -3 dB.
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
+
+</ul>
+<div class="Standard">
+When examining the <a class="Reference" href="Help-Section-20.html#sec:Netlist">Netlist↓</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-105.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-75.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
 </div>
 <div class="Standard">
-It is built as an analog filter whose frequency response is sampled.
-</div>
-<div class="Standard">
-The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
-</div>
-<div class="Standard">
-Note: This element requires the installation of the scipy package, which is not automatically installed by this software.
+When simulations are complete, for each Eye Probe, the <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval. Currently, this unit interval is fixed, and the eye will be aligned in a manner assuming that the center of a unit interval occurs at time zero. In order to align the eye diagram, you must adjust the delay accordingly. This will be improved in future versions.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Feed-Forward Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-16.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Bessel Low-Pass Filter <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Eye Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 
 </div>

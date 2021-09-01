@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-12-16"/>
+<meta name="create-date" content="2021-09-01"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,156 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> port</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> Voltage Amplifier</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Transconductance Amplifier <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-113"></a>meas<a class="Label" name="sub:meas"> </a>
+<a class="toc" name="toc-Subsection-113"></a>Current Amplifier<a class="Label" name="device:Current-Amplifier"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>meas</i> specifies a <a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↑</a> and it’s connection to a device pin.
+<img class="embedded" src="CurrentAmplifier.png" alt="figure CurrentAmplifier.png" style="max-width: 675px; max-height: 147px;"/>
+
 </div>
 <div class="Standard">
-This should only appear in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications and there must be at least one statement like this.
+<table>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+Property Name
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Amplifiers
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+default reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+D?
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+output impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+zo
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+ohm
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+100 Mohm
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+input impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+zi
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+ohm
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 ohm
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gain
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-The syntax is the keyword <i>meas</i> followed by a reference designator and pin number.
-</div>
-<div class="Standard">
-The reference designators refer to one of the <a class="Reference" href="Help-Section-16.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-110.html#sub:device">device↑</a> command elsewhere in the netlist.
-</div>
-<div class="Standard">
-The pin numbers refer to a pin of the device.
-</div>
-<div class="Standard">
-If in your schematic, a <a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-111.html#sub:connect">connect↑</a> netlist lines.)
-</div>
-<div class="Standard">
-Note that the reference designator (i.e. the name) and the filename of the <a class="Reference" href="Help-Section-20.html#sec:Waveform">Waveform↓</a> associated with the <a class="Reference" href="Help-Subsection-78.html#device:Measure-Probe">Voltage Measure Probe↑</a> do not appear in the netlist as it is unimportant for the calculations. Instead, the application keeps track of this information during netlist generation for use in managing the calculation.
+The current amplifier is like a <a class="Reference" href="Help-Subsection-109.html#device:Current-Controlled-Current-Source">Current Controlled Current Source↑</a> except that the input impedance of the current sense is settable and the output impedance of the current source is settable.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> port</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Netlist</span>
-<span class="next">output <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> Voltage Amplifier</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Transconductance Amplifier <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
 </div>
 
 </div>

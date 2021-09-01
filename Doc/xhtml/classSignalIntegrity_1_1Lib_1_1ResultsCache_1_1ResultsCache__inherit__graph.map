@@ -1,6 +1,6 @@
 <map id="ResultsCache" name="ResultsCache">
-<area shape="rect" id="node1" title=" " alt="" coords="472,5,600,185"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title=" " alt="" coords="473,233,599,340"/>
+<area shape="rect" id="node1" title="base class for results caching" alt="" coords="472,5,600,185"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="473,233,599,340"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="5,395,195,487"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="219,395,421,487"/>
 <area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="445,395,627,487"/>

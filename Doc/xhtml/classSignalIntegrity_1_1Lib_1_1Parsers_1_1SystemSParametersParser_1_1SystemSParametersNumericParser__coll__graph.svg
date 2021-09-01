@@ -101,7 +101,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" target="_top" xlink:title="Caches results calculated based on netlist lines, as used in all of the parser classes.">
 <polygon fill="white" stroke="black" points="294.5,-171.5 294.5,-250.5 389.5,-250.5 389.5,-171.5 294.5,-171.5"/>
 <text text-anchor="middle" x="342" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">LinesCache</text>
 <polyline fill="none" stroke="black" points="294.5,-231.5 389.5,-231.5 "/>
@@ -122,7 +122,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching">
 <polygon fill="white" stroke="black" points="294,-342.5 294,-476.5 390,-476.5 390,-342.5 294,-342.5"/>
 <text text-anchor="middle" x="342" y="-464.5" font-family="Helvetica,sans-Serif" font-size="10.00">ResultsCache</text>
 <polyline fill="none" stroke="black" points="294,-457.5 390,-457.5 "/>

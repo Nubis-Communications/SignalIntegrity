@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.16</span>
+   &#160;<span id="projectnumber">1.1.17</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -1410,7 +1410,7 @@ $(function() {
 <div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;        self.topRightToolbar.update()</div>
 <div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160; </div>
 <div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;    <span class="keyword">def </span>onReadSParametersFromFile(self):</div>
-<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;s-parameter files&#39;</span>, (<span class="stringliteral">&#39;*.s*p&#39;</span>)),(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
+<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;        filename=AskOpenFileName(filetypes=[(<span class="stringliteral">&#39;s-parameter files&#39;</span>, (<span class="stringliteral">&#39;*.s*p&#39;</span>,<span class="stringliteral">&#39;*.S*P&#39;</span>)),(<span class="stringliteral">&#39;calibration files&#39;</span>, (<span class="stringliteral">&#39;*.cal&#39;</span>))],</div>
 <div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;                                 initialdir=self.fileparts.AbsoluteFilePath(),</div>
 <div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;                                 initialfile=self.fileparts.FileNameWithExtension(),</div>
 <div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;                                 parent=self)</div>
@@ -1434,15 +1434,15 @@ $(function() {
 <div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160; </div>
 <div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;    <span class="keyword">def </span>onWriteSParametersToFile(self):</div>
 <div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160;        ports=self.sp.m_P</div>
-<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;        extension=<span class="stringliteral">&#39;.s&#39;</span>+str(ports)+<span class="stringliteral">&#39;p&#39;</span></div>
+<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;        extension=<span class="stringliteral">&#39;.s&#39;</span>+str(ports)+<span class="stringliteral">&#39;p&#39;</span>,<span class="stringliteral">&#39;.S&#39;</span>+str(ports)+<span class="stringliteral">&#39;P&#39;</span></div>
 <div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;        filetypes=[(<span class="stringliteral">&#39;s-parameters&#39;</span>, extension)]</div>
 <div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;        <span class="keywordflow">if</span> self.calibration != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160;            extension=<span class="stringliteral">&#39;.cal&#39;</span></div>
+<div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160;            extension=(<span class="stringliteral">&#39;.cal&#39;</span>)</div>
 <div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;            filetypes=[(<span class="stringliteral">&#39;calibration file&#39;</span>, <span class="stringliteral">&#39;.cal&#39;</span>)]+filetypes</div>
 <div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;        filename=AskSaveAsFilename(filetypes=filetypes,</div>
-<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;                    defaultextension=extension,</div>
+<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;                    defaultextension=extension[0],</div>
 <div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;                    initialdir=self.fileparts.AbsoluteFilePath(),</div>
-<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;                    initialfile=self.fileparts.FileNameWithExtension(extension),</div>
+<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;                    initialfile=self.fileparts.FileNameWithExtension(extension[0]),</div>
 <div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;                    parent=self)</div>
 <div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;        <span class="keywordflow">if</span> filename <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;            <span class="keywordflow">return</span></div>

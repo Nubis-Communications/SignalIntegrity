@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.16</span>
+   &#160;<span id="projectnumber">1.1.17</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -122,13 +122,19 @@ $(function() {
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        &#39;approximate&#39; use the approximation based on the simulated step response.</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">        &#39;exact&#39; use the impedance peeling algorithm.</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        ip=<a class="code" href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml">ImpedanceProfileWaveform</a>(sp,port,method,includePortZ=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        tp1=[identity(2) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(len(sp.f()))]</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml#a2f07334b8ebb7d96d8bbfbe1f5425e3b">   47</a></span>&#160;        <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(sections):</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            tp1=[tp1[n].dot(array(S2T(TLineTwoPortLossless(ip[k],Ts,sp.m_f[n]))))</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(len(sp.m_f))]</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        SParameters.__init__(self,sp.m_f,[T2S(tp.tolist()) <span class="keywordflow">for</span> tp <span class="keywordflow">in</span> tp1])</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> timelen == 0.0:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="comment"># if the time length is zero, make a zero length transmission line</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml#a2f07334b8ebb7d96d8bbfbe1f5425e3b">   47</a></span>&#160;            SParameters.__init__(self,sp.m_f,[TLineTwoPortLossless(50.,0,f) <span class="keywordflow">for</span> f <span class="keywordflow">in</span> sp.m_f])</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        ip=<a class="code" href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml">ImpedanceProfileWaveform</a>(sp,port,method,includePortZ=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        Ts=1./ip.td.Fs; sections=int(math.floor(timelen/Ts+0.5))</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        tp1=[identity(2) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(len(sp.f()))]</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(sections):</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            tp1=[tp1[n].dot(array(S2T(TLineTwoPortLossless(ip[k],Ts,sp.m_f[n]))))</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(len(sp.m_f))]</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        SParameters.__init__(self,sp.m_f,[T2S(tp.tolist()) <span class="keywordflow">for</span> tp <span class="keywordflow">in</span> tp1])</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml">SignalIntegrity.Lib.ImpedanceProfile.PeeledPortSParameters.PeeledPortSParameters</a></div><div class="ttdoc">s-parameters of peeled impedance profile from port calculates the impedance profile looking into a po...</div><div class="ttdef"><b>Definition:</b> <a href="PeeledPortSParameters_8py_source.xhtml#l00035">PeeledPortSParameters.py:35</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters_xhtml_a2f07334b8ebb7d96d8bbfbe1f5425e3b"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1PeeledPortSParameters_1_1PeeledPortSParameters.xhtml#a2f07334b8ebb7d96d8bbfbe1f5425e3b">SignalIntegrity.Lib.ImpedanceProfile.PeeledPortSParameters.PeeledPortSParameters.__init__</a></div><div class="ttdeci">def __init__(self, sp, port, timelen, method='estimated')</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="PeeledPortSParameters_8py_source.xhtml#l00047">PeeledPortSParameters.py:47</a></div></div>
