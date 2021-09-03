@@ -262,6 +262,7 @@ class SignalIntegrityAppHeadless(object):
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
         try:
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
@@ -345,6 +346,7 @@ class SignalIntegrityAppHeadless(object):
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
         try:
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
@@ -598,6 +600,7 @@ class SignalIntegrityAppHeadless(object):
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
         try:
             outputwflist=[]

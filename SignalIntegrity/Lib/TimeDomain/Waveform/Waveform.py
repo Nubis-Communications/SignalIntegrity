@@ -32,6 +32,7 @@ class Waveform(list):
     """base class for all waveforms"""
     adaptionStrategy='SinX'
     epsilon=1e-6
+    maximumWaveformSize=20e6
     def __init__(self,x=None,y=None):
         """constructor
         @param x instance of class Waveform or TimeDescriptor
@@ -328,6 +329,8 @@ class Waveform(list):
         wf=self
         (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.td.Fs)
         if upsampleFactor>1:
+            if wf.td.K*upsampleFactor > self.maximumWaveformSize:
+                raise SignalIntegrityExceptionWaveform('waveform too large to process')
             wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
                 else InterpolatorLinear(upsampleFactor))
         ad=td/wf.td

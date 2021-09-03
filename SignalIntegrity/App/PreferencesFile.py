@@ -89,6 +89,7 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
         self.Add(XMLPropertyDefaultBool('UseSinX',True))
         self.Add(XMLPropertyDefaultBool('Enforce12458',True))
+        self.Add(XMLPropertyDefaultFloat('MaximumWaveformSize',5e6))
 
 class Cache(XMLConfiguration):
     def __init__(self):

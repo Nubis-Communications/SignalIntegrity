@@ -649,6 +649,7 @@ class Simulator(object):
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
@@ -724,6 +725,7 @@ class Simulator(object):
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
