@@ -51270,8 +51270,11 @@ reference "subsec:Output-Probes-for-Virtual-Probing"
 .
  As such, this probe behaves exactly like a 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "device:Voltage-Diff-Probe"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -64239,6 +64242,113 @@ The waveform file could not be found.
 \end_layout
 
 \begin_layout Subsection
+Waveform
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Waveform"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An error occurred involving a waveform
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cannot generate frequency content
+\end_layout
+
+\begin_layout Standard
+An error occurred in the generation of frequency content of a waveform.
+ This usually occurs when the frequencies are not evenly spaced and the
+ DFT cannot be used.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+PRBS risetime too high for waveform generation
+\end_layout
+
+\begin_layout Standard
+The generation of serial data waveforms uses a raised cosine for setting
+ the risetime.
+ This requires the risetime to be such that it forms a raised cosine on
+ the edges that does not extend beyond one-half of the unit interval.
+ This means a risetime greater than 56% of the unit interval.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cannot add waveform to type ...
+\end_layout
+
+\begin_layout Standard
+An attempt is made to add a waveform to an unsupported type.
+ Supported types are Waveform, float, int, and complex.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cannot subtract type ...
+ from waveform
+\end_layout
+
+\begin_layout Standard
+An attempt is made to subtract an unsupported type from a waveform.
+ Supported types are Waveform, float, int, and complex.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cannot multiply waveform by type ...
+\end_layout
+
+\begin_layout Standard
+An attempt is made to multiply a waveform by an unsupported type.
+ Supported types are Waveform, float, int, and complex.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cannot divide waveform by type ...
+\end_layout
+
+\begin_layout Standard
+An attempt is made to divide a waveform by an unsupported type.
+ Supported types are Waveform, float, int, and complex.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+waveform file to large to process
+\end_layout
+
+\begin_layout Standard
+An attempt is made to process a waveform that is larger than the preference
+ specified in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.MaximumWaveformPoints"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 SystemDescription
 \begin_inset CommandInset label
 LatexCommand label
@@ -65052,7 +65162,7 @@ The standard preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="15" columns="4">
+<lyxtabular version="3" rows="16" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -65454,11 +65564,55 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+maximum waveform points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.MaximumWaveformPoints"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5 Mpts
 \end_layout
 
 \end_inset
@@ -67003,6 +67157,161 @@ reference "Control-Help:Calculation-Properties"
  In these cases, set this preference to False.
  Usually, I might set it to False, enter my odd-ball frequencies, and then
  set it back to True (it will not change already entered numbers).
+\end_layout
+
+\begin_layout Subsection*
+Calculation.MaximumWaveformPoints
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Calculation.MaximumWaveformPoints"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+maximum waveform points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.MaximumWaveformPoints"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Float
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+5 Mpts
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sometimes waveforms are just too big to process, and instead of needing
+ to kill the program, it would be better if the program just threw a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Waveform"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ exception.
+ Pathological cases also occur accidentally, especially with regard to upsamplin
+g and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To protect things, a maximum value is set in the preferences for the sizes
+ of waveforms.
+ The user can set this value as high as desired, but setting it to a reasonably
+ sized number is advised.
 \end_layout
 
 \begin_layout Subsection*
