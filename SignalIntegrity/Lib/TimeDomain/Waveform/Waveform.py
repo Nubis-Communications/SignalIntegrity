@@ -329,8 +329,10 @@ class Waveform(list):
         wf=self
         (upsampleFactor,decimationFactor)=Rat(td.Fs/wf.td.Fs)
         if upsampleFactor>1:
+            # pragma: silent exclude
             if wf.td.K*upsampleFactor > self.maximumWaveformSize:
                 raise SignalIntegrityExceptionWaveform('waveform too large to process')
+            # pragma: include
             wf=wf*(InterpolatorSinX(upsampleFactor) if wf.adaptionStrategy=='SinX'
                 else InterpolatorLinear(upsampleFactor))
         ad=td/wf.td

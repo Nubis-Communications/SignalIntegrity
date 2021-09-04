@@ -20,7 +20,7 @@ FirFilter.py
 
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 
-from scipy import signal
+from scipy.signal import convolve
 #from PySICppLib import PySIConvolve
 
 class FirFilter(WaveformProcessor):
@@ -63,7 +63,7 @@ class FirFilter(WaveformProcessor):
         # pragma: silent exclude
         #filteredwf=PySIConvolve(wf.Values(),self.FilterTaps())
         # pragma: include
-        filteredwf=signal.convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
+        filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
         return Waveform(td,filteredwf)
     def Print(self):
         """prints an ASCII description of the filter"""

@@ -20,7 +20,6 @@
 import math
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveform,SignalIntegrityException
 from SignalIntegrity.Lib.Prbs.SerialDataWaveform import SerialDataWaveform
 
 class ClockWaveform(SerialDataWaveform):
