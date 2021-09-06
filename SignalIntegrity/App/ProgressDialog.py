@@ -26,7 +26,7 @@ else:
 import SignalIntegrity.App.Project
 
 from math import floor
-       
+
 class ProgressDialog(tk.Toplevel):
     def __init__(self, parent, title, classOfThing, thingToDo, granularity=1.0):
         tk.Toplevel.__init__(self, parent)

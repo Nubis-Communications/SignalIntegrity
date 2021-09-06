@@ -302,7 +302,7 @@
 						<PartProperty>
 							<Keyword>prbs</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>31</Value>
+							<Value>13</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -368,7 +368,7 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-8.805e-09</Value>
+							<Value>-8.800000000000001e-09</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -416,7 +416,7 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-8.61e-09</Value>
+							<Value>-8.600000000000001e-09</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -538,6 +538,11 @@
 		</Schematic>
 	</Drawing>
 	<EyeDiagram>
+		<Alignment>
+			<AutoAlign>True</AutoAlign>
+			<BERForAlignment>-3</BERForAlignment>
+			<BitsPerSymbol>2</BitsPerSymbol>
+		</Alignment>
 		<Color>#c6ff2c</Color>
 		<Columns>200</Columns>
 		<Invert>True</Invert>
@@ -546,16 +551,16 @@
 			<JitterS>4e-12</JitterS>
 			<LogIntensity>
 				<LogIntensity>False</LogIntensity>
-				<MaxExponent>0</MaxExponent>
-				<MinExponent>-12</MinExponent>
+				<MaxExponent>-2.999</MaxExponent>
+				<MinExponent>-3</MinExponent>
 			</LogIntensity>
-			<MaxWindowPixels>100000.0</MaxWindowPixels>
-			<Noise>0.03</Noise>
+			<MaxKernelPixels>100000</MaxKernelPixels>
+			<Noise>0.003</Noise>
 		</JitterNoise>
 		<Mode>ISI</Mode>
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>
-		<ScaleX>75.0</ScaleX>
+		<ScaleX>200.0</ScaleX>
 		<ScaleY>150.0</ScaleY>
 		<UI>3</UI>
 		<YAxis>

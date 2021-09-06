@@ -26,41 +26,47 @@ else:
 import math
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertyTrueFalseButton,CalculationPropertyChoices,CalculationPropertySI,CalculationProperty,CalculationPropertyColor
+import SignalIntegrity.App.Project
 
 class EyeDiagramPropertiesDialog(PropertiesDialog):
     YAxisModeChoices={('Auto','Auto'),('Fixed','Fixed')}
     ModeChoices=[('ISI Only','ISI'),('Jitter & Noise','JitterNoise')]
-    def __init__(self,parent,project):
-        PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
-        self.pixelsX=int(self.project['EyeDiagram.UI']*self.project['EyeDiagram.Columns']*self.project['EyeDiagram.ScaleX']/100.)
-        self.pixelsY=int(self.project['EyeDiagram.Rows']*self.project['EyeDiagram.ScaleY']/100.)
+    def __init__(self,parent):
+        PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['EyeDiagram'],parent,'Eye Diagram Properties')
+        self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
+        self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.EyeFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.EyeFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.AutoAlignFrame=tk.Frame(self.EyeFrame, relief=tk.RIDGE, borderwidth=5)
+        self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.YAxisFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.YAxisFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.JitterNoiseFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.JitterNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.Color=CalculationPropertyColor(self.EyeFrame,'Color',self.onUpdateColor,None,project,'EyeDiagram.Color')
-        self.UIFrame=CalculationProperty(self.EyeFrame,'Number of UI',self.onUpdateUI,None,project,'EyeDiagram.UI')
-        self.RowsFrame=CalculationProperty(self.EyeFrame,'Number of Rows',self.onUpdateRows,None,project,'EyeDiagram.Rows')
-        self.ColsFrame=CalculationProperty(self.EyeFrame,'Number of Columns',self.onUpdateCols,None,project,'EyeDiagram.Columns')
-        self.SaturationFrame=CalculationPropertySI(self.EyeFrame,'Saturation',self.onUpdateSaturation,None,project,'EyeDiagram.Saturation','%')
-        self.ScaleXFrame=CalculationPropertySI(self.EyeFrame,'Scale X',self.onUpdateScaleX,None,project,'EyeDiagram.ScaleX','%')
-        self.ScaleYFrame=CalculationPropertySI(self.EyeFrame,'Scale Y',self.onUpdateScaleY,None,project,'EyeDiagram.ScaleY','%')
-        self.YAxisModeFrame=CalculationPropertyChoices(self.YAxisFrame,'Y Axis',self.onUpdateYAxisMode,None,self.YAxisModeChoices,project,'EyeDiagram.YAxis.Mode')
-        self.MaxYFrame=CalculationPropertySI(self.YAxisFrame,'Maximum Y',self.onUpdateSaturation,None,project,'EyeDiagram.YAxis.Max','V')
-        self.MinYFrame=CalculationPropertySI(self.YAxisFrame,'Minimum Y',self.onUpdateSaturation,None,project,'EyeDiagram.YAxis.Min','V')
-        self.Mode=CalculationPropertyChoices(self.JitterNoiseFrame,'Eye Mode',None,self.onUpdateCalculate,self.ModeChoices,project,'EyeDiagram.Mode')
-        self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterS','s')
-        self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateDeterministicJitterSeconds,None,project,'EyeDiagram.JitterNoise.JitterDeterministicPkS','s')
-        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateNoise,None,project,'EyeDiagram.JitterNoise.Noise','V')
-        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Kernel Pixels',self.onUpdateMaxWindowWidthHeightPixels,None,project,'EyeDiagram.JitterNoise.MaxKernelPixels','pixels')
-        self.Invert=CalculationPropertyTrueFalseButton(self.EyeFrame,'Invert Plot',self.onUpdateInvert,None,project,'EyeDiagram.Invert')
+        self.AutoAlign=CalculationPropertyTrueFalseButton(self.AutoAlignFrame,'Auto Align Eye',self.onUpdateAutoAlign,None,self.project,'Alignment.AutoAlign')
+        self.BERExponent=CalculationProperty(self.AutoAlignFrame,'BER Exponent for Alignment',self.onUpdateBERExponent,None,self.project,'Alignment.BERForAlignment')
+        self.BitsPerSymbol=CalculationProperty(self.AutoAlignFrame,'Bits per Symbol',self.onUpdateBitsPerSymbol,None,self.project,'Alignment.BitsPerSymbol')
+        self.Color=CalculationPropertyColor(self.EyeFrame,'Color',self.onUpdateColor,None,self.project,'Color')
+        self.UIFrame=CalculationProperty(self.EyeFrame,'Number of UI',self.onUpdateUI,None,self.project,'UI')
+        self.RowsFrame=CalculationProperty(self.EyeFrame,'Number of Rows',self.onUpdateRows,None,self.project,'Rows')
+        self.ColsFrame=CalculationProperty(self.EyeFrame,'Number of Columns',self.onUpdateCols,None,self.project,'Columns')
+        self.SaturationFrame=CalculationPropertySI(self.EyeFrame,'Saturation',self.onUpdateSaturation,None,self.project,'Saturation','%')
+        self.ScaleXFrame=CalculationPropertySI(self.EyeFrame,'Scale X',self.onUpdateScaleX,None,self.project,'ScaleX','%')
+        self.ScaleYFrame=CalculationPropertySI(self.EyeFrame,'Scale Y',self.onUpdateScaleY,None,self.project,'ScaleY','%')
+        self.YAxisModeFrame=CalculationPropertyChoices(self.YAxisFrame,'Y Axis',self.onUpdateYAxisMode,None,self.YAxisModeChoices,self.project,'YAxis.Mode')
+        self.MaxYFrame=CalculationPropertySI(self.YAxisFrame,'Maximum Y',self.onUpdateSaturation,None,self.project,'YAxis.Max','V')
+        self.MinYFrame=CalculationPropertySI(self.YAxisFrame,'Minimum Y',self.onUpdateSaturation,None,self.project,'YAxis.Min','V')
+        self.Mode=CalculationPropertyChoices(self.JitterNoiseFrame,'Eye Mode',None,self.onUpdateCalculate,self.ModeChoices,self.project,'Mode')
+        self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateJitterSeconds,None,self.project,'JitterNoise.JitterS','s')
+        self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateDeterministicJitterSeconds,None,self.project,'JitterNoise.JitterDeterministicPkS','s')
+        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateNoise,None,self.project,'JitterNoise.Noise','V')
+        self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Kernel Pixels',self.onUpdateMaxWindowWidthHeightPixels,None,self.project,'JitterNoise.MaxKernelPixels','pixels')
+        self.Invert=CalculationPropertyTrueFalseButton(self.EyeFrame,'Invert Plot',self.onUpdateInvert,None,self.project,'Invert')
         self.LogIntensityFrame=tk.Frame(self.JitterNoiseFrame)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateLogIntensity,None,project,'EyeDiagram.JitterNoise.LogIntensity.LogIntensity')
-        self.MinExponent=CalculationProperty(self.LogIntensityFrame,'Min Exponent',self.onUpdateMinExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MinExponent')
-        self.MaxExponent=CalculationProperty(self.LogIntensityFrame,'Max Exponent',self.onUpdateMaxExponent,None,project,'EyeDiagram.JitterNoise.LogIntensity.MaxExponent')
+        self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateLogIntensity,None,self.project,'JitterNoise.LogIntensity.LogIntensity')
+        self.MinExponent=CalculationProperty(self.LogIntensityFrame,'Min Exponent',self.onUpdateMinExponent,None,self.project,'JitterNoise.LogIntensity.MinExponent')
+        self.MaxExponent=CalculationProperty(self.LogIntensityFrame,'Max Exponent',self.onUpdateMaxExponent,None,self.project,'JitterNoise.LogIntensity.MaxExponent')
         self.SaveToPreferencesFrame=tk.Frame(self.propertyListFrame,relief=tk.RIDGE, borderwidth=5)
         self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.SaveToPreferencesButton = tk.Button(self.SaveToPreferencesFrame,text='Save Properties to Global Preferences',command=self.onSaveToPreferences,width=CalculationProperty.entryWidth)
@@ -74,19 +80,19 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     def onUpdateColor(self,_):
         self.UpdateStrings()
     def onUpdateUI(self,_):
-        self.project['EyeDiagram.ScaleX']=self.pixelsX/(self.project['EyeDiagram.UI']*self.project['EyeDiagram.Columns'])*100.
+        self.project['ScaleX']=self.pixelsX/(self.project['UI']*self.project['Columns'])*100.
         self.UpdateStrings()
     def onUpdateRows(self,_):
-        self.project['EyeDiagram.ScaleY']=self.pixelsY/self.project['EyeDiagram.Rows']*100.
+        self.project['ScaleY']=self.pixelsY/self.project['Rows']*100.
         self.UpdateStrings()
     def onUpdateCols(self,_):
-        self.project['EyeDiagram.ScaleX']=self.pixelsX/(self.project['EyeDiagram.UI']*self.project['EyeDiagram.Columns'])*100.
+        self.project['ScaleX']=self.pixelsX/(self.project['UI']*self.project['Columns'])*100.
         self.UpdateStrings()
     def onUpdateScaleX(self,_):
-        self.pixelsX=int(self.project['EyeDiagram.UI']*self.project['EyeDiagram.Columns']*self.project['EyeDiagram.ScaleX']/100.)
+        self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
         self.UpdateStrings()
     def onUpdateScaleY(self,_):
-        self.pixelsY=int(self.project['EyeDiagram.Rows']*self.project['EyeDiagram.ScaleY']/100.)
+        self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.UpdateStrings()
     def onUpdateSaturation(self,_):
         self.UpdateStrings()
@@ -96,9 +102,18 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
     def onUpdateMinY(self,_):
         self.UpdateStrings()
+    def onUpdateAutoAlign(self,_):
+        self.UpdateStrings()
+    def onUpdateBERExponent(self,_):
+        self.UpdateStrings()
+    def onUpdateBitsPerSymbol(self,_):
+        self.UpdateStrings()
     def UpdateStrings(self,calculate=True):
         showEye=True
-        auto=(self.project['EyeDiagram.YAxis.Mode']=='Auto' and showEye)
+        autoAlign=self.project['Alignment.AutoAlign']
+        auto=(self.project['YAxis.Mode']=='Auto' and showEye)
+        self.BERExponent.Show(autoAlign)
+        self.BitsPerSymbol.Show(autoAlign)
         self.MaxYFrame.Show(not auto and showEye)
         self.MinYFrame.Show(not auto and showEye)
         self.UIFrame.Show(showEye)
@@ -114,7 +129,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.SaturationFrame.UpdateStrings()
         self.ScaleXFrame.UpdateStrings()
         self.ScaleYFrame.UpdateStrings()
-        jitterNoiseMode=(self.project['EyeDiagram.Mode'] == 'JitterNoise')
+        jitterNoiseMode=(self.project['Mode'] == 'JitterNoise')
         self.LogIntensityFrame.pack_forget()
         self.JitterSeconds.Show(jitterNoiseMode)
         self.JitterDeterministicPkS.Show(jitterNoiseMode)
@@ -122,7 +137,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MaxWindowWidthHeightPixels.Show(jitterNoiseMode)
         self.LogIntensity.Show(jitterNoiseMode)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        logIntensity=self.project['EyeDiagram.JitterNoise.LogIntensity.LogIntensity']
+        logIntensity=self.project['JitterNoise.LogIntensity.LogIntensity']
         self.MinExponent.Show(jitterNoiseMode and logIntensity)
         self.MaxExponent.Show(jitterNoiseMode and logIntensity)
     def onUpdateJitterSeconds(self,_):

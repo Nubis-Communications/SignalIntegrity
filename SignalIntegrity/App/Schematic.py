@@ -333,6 +333,7 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(False)
             self.parent.parent.PanDoer.Activate(False)
             self.parent.parent.CalculationPropertiesDoer.Activate(False)
+            self.parent.parent.EyePropertiesDoer.Activate(False)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             self.parent.parent.CalculateDoer.Activate(False)
             self.parent.parent.CalculateSParametersDoer.Activate(False)
@@ -438,6 +439,7 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(True)
             self.parent.parent.PanDoer.Activate(True)
             self.parent.parent.CalculationPropertiesDoer.Activate(True)
+            #self.parent.parent.EyePropertiesDoer.Activate(False)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             #self.parent.parent.CalculateDoer.Activate(False)
             #self.parent.parent.CalculateSParametersDoer.Activate(False)
@@ -1578,6 +1580,7 @@ class Drawing(tk.Frame):
         foundAPort=False
         foundASource=False
         foundAnOutput=False
+        foundAnEyeProbe=False
         foundSomething=False
         foundAMeasure=False
         foundAStim=False
@@ -1595,6 +1598,8 @@ class Drawing(tk.Frame):
                 foundAPort = True
                 numPortsFound=numPortsFound+1
             elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
+                if deviceType in ['EyeProbe','DifferentialEyeProbe']:
+                    foundAnEyeProbe = True
                 foundAnOutput = True
             elif deviceType == 'Stim':
                 foundAStim = True
@@ -1628,6 +1633,7 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
+        self.parent.EyePropertiesDoer.Activate(foundAnEyeProbe)
         self.parent.TransferParametersDoer.Activate(canSimulate or canVirtualProbe)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)

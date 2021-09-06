@@ -32,7 +32,7 @@ from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
-from SignalIntegrity.App.EyeDiagram import EyeDiagramDialog
+from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 
 import SignalIntegrity.App.Project

@@ -45,11 +45,18 @@ class EyeJitterNoiseConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('MaxKernelPixels',100000))
         self.SubDir(EyeLogIntensityConfiguration())
 
+class EyeAlignmentConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Alignment')
+        self.Add(XMLPropertyDefaultBool('AutoAlign',True))
+        self.Add(XMLPropertyDefaultFloat('BERForAlignment',-3))
+        self.Add(XMLPropertyDefaultInt('BitsPerSymbol',1))
+
 class EyeConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('EyeDiagram')
         self.Add(XMLPropertyDefaultString('Color','#ffffff'))
-        self.Add(XMLPropertyDefaultFloat('UI',3.))
+        self.Add(XMLPropertyDefaultInt('UI',3))
         self.Add(XMLPropertyDefaultInt('Rows',200))
         self.Add(XMLPropertyDefaultInt('Columns',200))
         self.Add(XMLPropertyDefaultFloat('Saturation',20))
@@ -59,6 +66,7 @@ class EyeConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('Invert',True))
         self.SubDir(EyeYAxisConfiguration())
         self.SubDir(EyeJitterNoiseConfiguration())
+        self.SubDir(EyeAlignmentConfiguration())
 
 class Color(XMLConfiguration):
     def __init__(self):
