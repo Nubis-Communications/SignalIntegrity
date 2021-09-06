@@ -133,3 +133,16 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.CalibrationResultsChecker('TDRCalibration.si')
     def testTDRCalculation(self):
         self.SParameterResultsChecker('TDRCalculation.si')
+
+if __name__ == "__main__": # pragma: no cover
+    runProfiler=False
+
+    if runProfiler:
+        import cProfile
+        cProfile.run('unittest.main()','stats')
+
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        unittest.main()
