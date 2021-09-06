@@ -1119,5 +1119,15 @@ def main():
             external=True
     SignalIntegrityApp(projectFileName,external=external)
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__': # pragma: no cover
+    runProfiler=False
+
+    if runProfiler:
+        import cProfile
+        cProfile.run('main()','stats')
+
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        main()

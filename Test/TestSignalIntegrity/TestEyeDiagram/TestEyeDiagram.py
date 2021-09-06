@@ -66,6 +66,15 @@ class TestEyeDiagramTest(unittest.TestCase,
     def testEyeDiagramJitterNoiseLogTransferMatrices(self):
         self.SimulationTransferMatricesResultsChecker('EyeDiagramTestJitterNoiseLog.si')
 
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+if __name__ == "__main__": # pragma: no cover
+    runProfiler=False
+
+    if runProfiler:
+        import cProfile
+        cProfile.run('unittest.main()','stats')
+
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        unittest.main()

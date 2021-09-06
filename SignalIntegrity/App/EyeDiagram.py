@@ -322,4 +322,3 @@ class EyeDiagram(object):
             for c in range(C):
                 self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
         return
-

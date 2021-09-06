@@ -308,7 +308,7 @@
 						<PartProperty>
 							<Keyword>bps</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
+							<Value>2</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -560,7 +560,7 @@
 		<Mode>ISI</Mode>
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>
-		<ScaleX>200.0</ScaleX>
+		<ScaleX>100.0</ScaleX>
 		<ScaleY>150.0</ScaleY>
 		<UI>3</UI>
 		<YAxis>
