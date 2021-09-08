@@ -424,13 +424,13 @@ class DevicePropertiesDialog(tk.Toplevel):
     def ok(self, event=None):
         self.withdraw()
         self.update_idletasks()
-
         self.apply()
-
-        self.cancel()
+        self.parent.focus_set()
+        self.destroy()
 
     def cancel(self, event=None):
         # put focus back to the parent window
+        self.result=None
         self.parent.focus_set()
         self.destroy()
     #

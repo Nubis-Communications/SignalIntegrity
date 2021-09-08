@@ -60,6 +60,7 @@ from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
+from SignalIntegrity.App.PartProperty import *
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
@@ -131,6 +132,7 @@ class SignalIntegrityApp(tk.Frame):
         self.RotatePartDoer = Doer(self.onRotatePart).AddHelpElement('Control-Help:Rotate-Part').AddToolTip('Rotate a part 90 degrees')
         self.FlipPartHorizontallyDoer = Doer(self.onFlipPartHorizontally).AddHelpElement('Control-Help:Flip-Horizontally').AddToolTip('Flip part horizontally')
         self.FlipPartVerticallyDoer = Doer(self.onFlipPartVertically).AddHelpElement('Control-Help:Flip-Vertically').AddToolTip('Flip part vertically')
+        self.ConvertPartDoer = Doer(self.onConvertPart).AddHelpElement('Control-Help:Convert-Part').AddToolTip('Convert part to different part')
         # ------
         self.AddWireDoer = Doer(self.onAddWire).AddHelpElement('Control-Help:Add-Wire').AddToolTip('Add wires to the schematic')
         self.DeleteVertexDoer = Doer(self.onDeleteSelectedVertex).AddHelpElement('Control-Help:Delete-Vertex').AddToolTip('Delete wire vertices from the schematic')
@@ -217,6 +219,7 @@ class SignalIntegrityApp(tk.Frame):
         self.RotatePartDoer.AddMenuElement(PartsMenu,label='Rotate Part',underline=0)
         self.FlipPartHorizontallyDoer.AddMenuElement(PartsMenu,label='Flip Horizontally',underline=5)
         self.FlipPartVerticallyDoer.AddMenuElement(PartsMenu,label='Flip Vertically',underline=5)
+        self.ConvertPartDoer.AddMenuElement(PartsMenu,label='Convert Part',underline=0)
         # ------
         WireMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Wires',menu=WireMenu,underline=0)
@@ -580,6 +583,24 @@ class SignalIntegrityApp(tk.Frame):
             self.Drawing.deviceSelected.partPicture.current.ApplyOrientation(orientation,mirroredHorizontally,not mirroredVertically)
             self.Drawing.DrawSchematic()
             self.history.Event('flip vertically')
+    def onConvertPart(self):
+        if self.Drawing.stateMachine.state == 'DeviceSelected':
+            deviceCopy=copy.deepcopy(self.Drawing.deviceSelected)
+            deviceList=DeviceList+DeviceListUnknown+DeviceListSystem
+            self.Drawing.stateMachine.Nothing()
+            dpd=DevicePickerDialog(self,deviceList)
+            if dpd.result != None:
+                self.onDeletePart()
+                devicePicked=copy.deepcopy(deviceList[dpd.result])
+                for propertyInNew in devicePicked.propertiesList:
+                    if not isinstance(propertyInNew,PartPropertyReadOnly):
+                        for propertyInOld in deviceCopy.propertiesList:
+                            if type(propertyInNew) is type(propertyInOld):
+                                for key in propertyInNew.dict:
+                                    if key in propertyInOld.dict and propertyInOld.dict[key].dict['write']:
+                                        propertyInNew.dict[key].dict['value']=propertyInOld.dict[key].dict['value']
+                                        propertyInNew.dict[key].value=propertyInOld.dict[key].value
+                self.AddSpecificPart(devicePicked,updateRef=False)
     def onDuplicateSelected(self):
         self.Drawing.DuplicateSelected()
     def onCutMultipleSelections(self):
@@ -618,20 +639,23 @@ class SignalIntegrityApp(tk.Frame):
     def onAddStim(self):
         self.AddSpecificPart(DeviceStim())
 
-    def AddSpecificPart(self,part,popDialog=True):
+    def AddSpecificPart(self,part,popDialog=True,updateRef=True):
         self.Drawing.stateMachine.Nothing()
         devicePicked=part
         defaultProperty = devicePicked['defref']
-        if defaultProperty != None:
-            defaultPropertyValue = defaultProperty.GetValue()
-            uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
-            if uniqueReferenceDesignator != None:
-                devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
-                devicePicked['ref'].SetValueFromString(uniqueReferenceDesignator)
+        if updateRef:
+            if defaultProperty != None:
+                defaultPropertyValue = defaultProperty.GetValue()
+                uniqueReferenceDesignator = self.Drawing.schematic.NewUniqueReferenceDesignator(defaultPropertyValue)
+                if uniqueReferenceDesignator != None:
+                    devicePicked.AddPartProperty(PartPropertyReferenceDesignator(''))
+                    devicePicked['ref'].SetValueFromString(uniqueReferenceDesignator)
         if popDialog:
             dpe=DevicePropertiesDialog(self,devicePicked)
             if dpe.result != None:
                 part=dpe.result
+            else:
+                part=None
         if not part is None:
             self.Drawing.partLoaded = part
             self.Drawing.stateMachine.PartLoaded()
@@ -896,6 +920,7 @@ class SignalIntegrityApp(tk.Frame):
             self.RotatePartDoer.Activate(True)
             self.FlipPartHorizontallyDoer.Activate(True)
             self.FlipPartVerticallyDoer.Activate(True)
+            self.ConvertPartDoer.Activate(True)
             # ------
             self.AddWireDoer.Activate(True)
             self.DeleteVertexDoer.Activate(True)
