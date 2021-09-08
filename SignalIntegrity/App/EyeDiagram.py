@@ -264,12 +264,12 @@ class EyeDiagram(object):
         indexOfBestOpening=None
         for c in range(C):
             dc=darkCounts[c]
-            if len(dc)!=numberOfEyes:
+            if len(dc)<numberOfEyes:
                 continue
             if bestOpenings is None:
-                bestOpenings=np.sort(dc)
+                bestOpenings=np.flip(np.sort(dc))
             else:
-                dc=np.sort(dc)
+                dc=np.flip(np.sort(dc))
                 if dc[0]>bestOpenings[0]:
                     bestOpenings=dc; indexOfBestOpening=c
                 elif (dc[0]==bestOpenings[0]) and (numberOfEyes > 1):
@@ -280,7 +280,7 @@ class EyeDiagram(object):
                             bestOpenings=dc; indexOfBestOpening=c
         # These are the three largest eye openings at the best index in order of appearance
         # remember that the eye is upside down (we're looking from the bottom up
-        eyeExtents=sorted(sorted(darkExtents[indexOfBestOpening],key = lambda x: x[1]-x[0])[0:numberOfEyes],key = lambda y:y[0])
+        eyeExtents=sorted(sorted(darkExtents[indexOfBestOpening],key = lambda x: x[1]-x[0],reverse=True)[0:numberOfEyes],key = lambda y:y[0])
         # now, for each eye, walk backwards and forwards at each row slice within these extents
         # to find the extents of each eye opening
         rowOfMaxEyeWidth=None
