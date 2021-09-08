@@ -282,8 +282,7 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, filename + ' not found')
         regression=np.load(filename)
-        comparison=(regression==ary)
-        self.assertTrue(comparison.all(),filename + ' incorrect')
+        self.assertTrue(np.allclose(ary,regression),filename + ' incorrect')
         os.chdir(currentDirectory)
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
