@@ -234,7 +234,6 @@ class EyeDiagram(object):
         BitsPerSymbol=SignalIntegrity.App.Project['EyeDiagram.Alignment.BitsPerSymbol']
         numberOfEyes=int(2**BitsPerSymbol-1)
         (R,C)=bitmap.shape
-        darkCounts=[]
         darkExtents=[]
         minValueLog=pow(10.,-20)
         minSat=0
@@ -247,19 +246,26 @@ class EyeDiagram(object):
         bitmapLog=bitmapLog*m+b
         bitmapLog=np.array([[0. if bitmapLog[r][c] < minSat else (1 if bitmapLog[r][c] > maxSat else bitmapLog[r][c]) for c in range(C)] for r in range(R)])
 
+        # develop the extents of the eye openings for each eye in a column (vertical slice)
+        # The assumption is that there is signal or the exterior in the first row.  Stepping into
+        # a dark area from a non-dark area starts an extent and the stepping from a dark area to a
+        # non-dark area ends an extent.
         for c in range(C):
             counter=None
-            thisCounts=[]
             thisExtents=[]
             for r in range(1,R):
                 if bitmapLog[r][c]==0. and bitmapLog[r-1][c]!=0.:
                     counter=r
                 elif bitmapLog[r][c]!=0 and bitmapLog[r-1][c]==0:
                     if counter != None:
-                        thisCounts.append(r-counter)
                         thisExtents.append((counter,r))
             darkExtents.append(thisExtents)
-            darkCounts.append(thisCounts)
+        # conver the extents into sizes for comparison
+        darkCounts=[[f-e for (e,f) in extents] for extents in darkExtents]
+
+        # now we look for the column index having the best opening
+        # this is defined as the largest eye opening.  If there is a tie and there are multiple
+        # eyes, then we compare the size of the next eye, and so on.
         bestOpenings=None
         indexOfBestOpening=None
         for c in range(C):
@@ -268,16 +274,20 @@ class EyeDiagram(object):
                 continue
             if bestOpenings is None:
                 bestOpenings=np.flip(np.sort(dc))
+                indexOfBestOpening=c
             else:
                 dc=np.flip(np.sort(dc))
-                if dc[0]>bestOpenings[0]:
-                    bestOpenings=dc; indexOfBestOpening=c
-                elif (dc[0]==bestOpenings[0]) and (numberOfEyes > 1):
-                    if dc[1]> bestOpenings[1]:
-                        bestOpenings=dc; indexOfBestOpening=c
-                    elif dc[1]==bestOpenings[1]:
-                        if dc[2]>bestOpenings[2]:
-                            bestOpenings=dc; indexOfBestOpening=c
+                e=0; Continue=True
+                while (e < numberOfEyes) and (indexOfBestOpening !=c) and Continue:
+                    if dc[e]>bestOpenings[e]:
+                        bestOpenings=dc
+                        indexOfBestOpening=c
+                        Continue=False
+                    elif dc[e]==bestOpenings[e]:
+                        pass # should continue
+                    else:
+                        Continue=False
+                    e+=1
         # These are the three largest eye openings at the best index in order of appearance
         # remember that the eye is upside down (we're looking from the bottom up
         eyeExtents=sorted(sorted(darkExtents[indexOfBestOpening],key = lambda x: x[1]-x[0],reverse=True)[0:numberOfEyes],key = lambda y:y[0])
