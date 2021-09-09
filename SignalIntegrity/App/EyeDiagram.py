@@ -332,3 +332,81 @@ class EyeDiagram(object):
             for c in range(C):
                 self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
         return
+
+    def EyeMeasurements(self):
+        bitmap=self.rawBitmap.copy()
+        BERForMeasure=SignalIntegrity.App.Project['EyeDiagram.Measure.BERForMeasure']
+        BitsPerSymbol=SignalIntegrity.App.Project['EyeDiagram.Alignment.BitsPerSymbol']
+        numberOfEyes=int(2**BitsPerSymbol-1)
+        (R,C)=bitmap.shape
+        darkExtents=[]
+        minValueLog=pow(10.,-20)
+        minSat=0
+        maxSat=1.
+
+        minBER=BERForMeasure; maxBER=BERForMeasure+0.001
+        m=(maxSat-minSat)/(maxBER-minBER)
+        b=minSat-minBER*m
+        bitmapLog=np.array([[math.log10(max(bitmap[r][c],minValueLog)) for c in range(C)] for r in range(R)])
+        bitmapLog=bitmapLog*m+b
+        bitmapLog=np.array([[0. if bitmapLog[r][c] < minSat else (1 if bitmapLog[r][c] > maxSat else bitmapLog[r][c]) for c in range(C)] for r in range(R)])
+
+        # develop the extents of the eye openings for each eye in a column (vertical slice)
+        # The assumption is that there is signal or the exterior in the first row.  Stepping into
+        # a dark area from a non-dark area starts an extent and the stepping from a dark area to a
+        # non-dark area ends an extent.
+
+        c=C//2
+        counter=None
+        darkExtents=[]
+        for r in range(1,R):
+            if bitmapLog[r][c]==0. and bitmapLog[r-1][c]!=0.:
+                counter=r
+            elif bitmapLog[r][c]!=0 and bitmapLog[r-1][c]==0:
+                if counter != None:
+                    darkExtents.append((counter,r))
+        # conver the extents into sizes for comparison
+        darkCounts=[f-e for (e,f) in darkExtents]
+        eyeExtents=sorted(sorted(darkExtents,key = lambda x: x[1]-x[0],reverse=True)[0:numberOfEyes],key = lambda y:y[0])
+        # now, for each eye, walk backwards and forwards at each row slice within these extents
+        # to find the extents of each eye opening
+        rowOfMaxEyeWidth=None
+        startColumnofMaxEyeWidth=None
+        endColumnofMaxEyeWidth=None
+        maxEyeWidth=0
+        for eye in eyeExtents:
+            for r in range(eye[0],eye[1]+1):
+                c=C//2
+                count=1 # count the pixel we're on
+                startColumn=c
+                endColumn=c
+                found=False
+                while count != C and not found:
+                    c=(c-1)%C
+                    if bitmapLog[r][c]!=0:
+                        found=True
+                    else:
+                        count+=1
+                        startColumn=c
+                found=False
+                while count != C and not found:
+                    c=(c+1)%C
+                    if bitmapLog[r][c]!=0:
+                        found=True
+                    else:
+                        count+=1
+                        endColumn=c
+                if (count < C) and (count > maxEyeWidth):
+                    maxEyeWidth=count
+                    rowOfMaxEyeWidth=r
+                    startColumnofMaxEyeWidth=startColumn
+                    endColumnofMaxEyeWidth=endColumn
+        # should check these for None
+        if endColumnofMaxEyeWidth<startColumnofMaxEyeWidth:
+            endColumnofMaxEyeWidth+=C
+        columnAtEyeCenter=((startColumnofMaxEyeWidth+endColumnofMaxEyeWidth)//2)%C
+        for r in range(R):
+            for c in range(C):
+                self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
+        return
+
