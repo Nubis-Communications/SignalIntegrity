@@ -28,7 +28,6 @@ else:
 
 from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
-from SignalIntegrity.Lib.Splines.Splines import Spline
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionEyeDiagram
 
 import SignalIntegrity.App.Project
@@ -272,6 +271,7 @@ class EyeDiagram(object):
         try:
             self.AutoAlignEyeDiagram()
             bitmap=self.rawBitmap
+            #self.EyeMeasurements()
         except:
             raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Auto-Alignment Failed.')
 
@@ -292,23 +292,21 @@ class EyeDiagram(object):
                 self.rawBitmap=bitmap
                 bitmap=255.0-bitmap*255.0
 
-        maxValue=(max([max(v) for v in bitmap]))
+        maxValue=bitmap.max()
 
         numUI=int(SignalIntegrity.App.Project['EyeDiagram.UI']+0.5)
         if numUI>1:
-            bitmap=[[bitmap[r][c%C] for c in range(C*numUI)] for r in range(R)]
+            bitmap=np.array([[bitmap[r][c%C] for c in range(C*numUI)] for r in range(R)])
 
         C=C*numUI
 
         if not applyJitterNoise or not SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.LogIntensity']:
-            saturationCurve=Spline([0.,0.5,1.],[0.,SignalIntegrity.App.Project['EyeDiagram.Saturation']/100.,1.])
-
-            bitmap=[[int(saturationCurve.Evaluate((maxValue - float(bitmap[r][c]))/maxValue)*255.0)
-                     for c in range(C)] for r in range(R)]
+            P=math.log10(min(0.99,max(0.001,SignalIntegrity.App.Project['EyeDiagram.Saturation']/100.)))/math.log10(0.5)
+            bitmap=(((bitmap.astype(float)*-1.0+maxValue)/maxValue)**P*255.0).astype(int)
 
         InvertImage=SignalIntegrity.App.Project['EyeDiagram.Invert']
         if InvertImage:
-            bitmap=[[255-bitmap[r][c] for c in range(C)] for r in range(R)]
+            bitmap=255-bitmap
 
         color=True
         if color:
@@ -442,6 +440,7 @@ class EyeDiagram(object):
         return
 
     def EyeMeasurements(self):
+        return
         bitmap=self.rawBitmap.copy()
         BERForMeasure=SignalIntegrity.App.Project['EyeDiagram.Measure.BERForMeasure']
         BitsPerSymbol=SignalIntegrity.App.Project['EyeDiagram.Alignment.BitsPerSymbol']
@@ -451,6 +450,15 @@ class EyeDiagram(object):
         minValueLog=pow(10.,-20)
         minSat=0
         maxSat=1.
+
+        import matplotlib.pyplot as plt
+        plt.cla()
+        c=C//2
+        ber=[math.log10(max(bitmap[r][c],minValueLog)) for r in range(R)]
+        plt.plot([r for r in range(R)],ber)
+        plt.xlabel('row')
+        plt.ylabel('ber exponent')
+        plt.show()
 
         minBER=BERForMeasure; maxBER=BERForMeasure+0.001
         m=(maxSat-minSat)/(maxBER-minBER)
