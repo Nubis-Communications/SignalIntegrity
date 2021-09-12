@@ -41,6 +41,100 @@ import copy
 
 import numpy as np
 
+# class Pixelator(object):
+#     def __init__(self,Bins=1,minValue=0,maxValue=1.,wrapNotLimit=False):
+#         self.bins=Bins
+#         self.minValue=minValue
+#         self.maxValue=maxValue
+#         self.wrapNotLimit=wrapNotLimit
+#         self.span=self.maxValue-self.minValue
+#         # m and b convert bin to volts
+#         self.m = self.bins/self.span
+#         # solve m*0+b=minValue
+#         self.b = self.minValue
+#     def Value(self,bin):
+#         """
+#             @note: maximum bin will not produce maximum value.  The maximum bin + 1 produces the maximum
+#             value.  This is because the lower bin edge is the actual value.
+#         """
+#         return bin*self.m+self.b
+#     def FloatBin(self,value):
+#         bin=(value-self.b)/self.m
+#         if self.wrapNotLimit:
+#             bin=bin%self.bins
+#             if bin<0: bin=bin+self.bins
+#         return bin
+#     def IntBin(self,value):
+#         return int(self.FloatBin(value))
+# 
+# class VerticalPixelator(Pixelator):
+#     def __init__(self,Rows=1,minValue=0,maxValue=1.):
+#         super().__init__(Rows,minValue,maxValue,wrapNotLimit=False)
+# 
+# 
+# class HorizontalPixelator(Pixelator):
+#     def __init__(self,Rows=1,minValue=0,maxValue=1.):
+#         super().__init__(Rows,minValue,maxValue,wrapNotLimit=True)
+
+class Pixelator(object):
+    def __init__(self,rows,columns,step=1,mode='Fixed'):
+        self.rows=rows
+        self.columns=columns
+        self.step=step
+        self.auto=(mode=='Auto')
+
+    def Hits(self,r,c):
+        R=self.rows; C=self.columns
+        lowestr=r-0.5
+        rl=int(math.floor(lowestr))
+        highestr=r+0.5
+        rh=int(math.floor(highestr))
+        lrh=lowestr-rl
+        lrl=1-lrh
+        lowestc=c-0.5
+        cl=int(math.floor(lowestc))
+        highestc=c+0.5
+        ch=int(math.floor(highestc))
+        lch=lowestc-cl
+        lcl=1-lch
+        rlValid=(0<=rl<R)
+        rhValid=(0<=rh<R)
+        if cl<0:
+            cl=cl+C
+        if ch>=C:
+            ch=ch-C
+        clValid=(0<=cl<C)
+        chValid=(0<=ch<C)
+        results=[]
+        if rlValid and clValid: results+=[((rl,cl),(lrl,lcl),lrl*lcl/self.step)]
+        if rhValid and clValid: results+=[((rh,cl),(lrh,lcl),lrh*lcl/self.step)]
+        if rlValid and chValid: results+=[((rl,ch),(lrl,lch),lrl*lch/self.step)]
+        if rhValid and chValid: results+=[((rh,ch),(lrh,lch),lrh*lch/self.step)]
+#         for result in results:
+#             print(f"({result[0][0]},{result[0][1]}) = {result[1][0]}*{result[1][1]}={result[2]}")
+        return results
+
+    def Results(self,ri,ci,rf,cf,useFirst=False):
+        R=self.rows; C=self.columns
+        steps=self.step if not self.auto else max(1,min(int(math.ceil(2*abs(rf-ri))),self.step))
+        if ci>cf:
+            cf=cf+C
+        m=(rf-ri)/(cf-ci)
+        # solve y=mx+b for ci to produce ri:  ri=m*ci+b
+        b=ri-m*ci
+        # so now, r=m*c+b
+
+        cspan=cf-ci
+        rspan=rf-ri
+        c=[n/steps*cspan+ci for n in range(steps+1)]
+        r=[n/steps*rspan+ri for n in range(steps+1)]
+        results=[]
+        useFirst=True
+        for n in range(steps+1):
+            if n!=0 or useFirst:
+                results.extend(self.Hits(r[n],c[n]))
+        return results
+
 class EyeDiagram(object):
     def __init__(self,parent,headless=False):
         self.parent=parent
@@ -116,16 +210,30 @@ class EyeDiagram(object):
         DeltaV=maxV-minV
         midBin=C//2
 
+        enhancementMode=SignalIntegrity.App.Project['EyeDiagram.EnhancedPrecision.Mode']
+        if enhancementMode=='Fixed':
+            steps=SignalIntegrity.App.Project['EyeDiagram.EnhancedPrecision.FixedEnhancement']
+        elif enhancementMode=='Auto':
+            steps=R
+        else:
+            steps=1
+        pixelator = Pixelator(R,C,steps,mode=enhancementMode)
+
         if not self.headless: self.parent.statusbar.set('Building Bitmap')
         bitmap=np.zeros((R,C))
-        for k in range(self.aprbswf.td.K):
-            r=(self.aprbswf[k]-minV)/DeltaV*R
-            c=(k+midBin)%C
+        ri=(self.aprbswf[0]-minV)/DeltaV*R
+        ci=(0+midBin)%C
+        for k in range(1,self.aprbswf.td.K):
+            rf=(self.aprbswf[k]-minV)/DeltaV*R
+            cf=(k+midBin)%C
             if (not callback is None) and (k//C != (k-1)//C):
                 if not callback(k/self.aprbswf.td.K*100.):
                     return
-            bitmap[max(0,min(R-1,int(math.ceil(r))))][c]+=r-math.floor(r)
-            bitmap[max(0,min(R-1,int(math.floor(r))))][c]+=1.-(r-math.floor(r))
+            results=pixelator.Results(ri, ci, rf, cf, k==0)
+            for result in results:
+                r,c,prob=result[0][0],result[0][1],result[2]
+                bitmap[r][c]+=prob
+            ri=rf; ci=cf
 
         self.rawBitmap=bitmap
 

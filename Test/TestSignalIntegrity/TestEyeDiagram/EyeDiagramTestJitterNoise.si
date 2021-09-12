@@ -502,6 +502,10 @@
 		</Alignment>
 		<Color>#c6ff2c</Color>
 		<Columns>200</Columns>
+		<EnhancedPrecision>
+			<FixedEnhancement>10</FixedEnhancement>
+			<Mode>Auto</Mode>
+		</EnhancedPrecision>
 		<Invert>True</Invert>
 		<JitterNoise>
 			<JitterDeterministicPkS>4e-12</JitterDeterministicPkS>

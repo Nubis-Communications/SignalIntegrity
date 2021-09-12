@@ -52,6 +52,12 @@ class EyeAlignmentConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('BERForAlignment',-3))
         self.Add(XMLPropertyDefaultInt('BitsPerSymbol',1))
 
+class EyeEnhancedPrecisionConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('EnhancedPrecision')
+        self.Add(XMLPropertyDefaultString('Mode','Auto'))
+        self.Add(XMLPropertyDefaultInt('FixedEnhancement',10))
+
 class EyeConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('EyeDiagram')
@@ -67,6 +73,7 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeYAxisConfiguration())
         self.SubDir(EyeJitterNoiseConfiguration())
         self.SubDir(EyeAlignmentConfiguration())
+        self.SubDir(EyeEnhancedPrecisionConfiguration())
 
 class Color(XMLConfiguration):
     def __init__(self):
