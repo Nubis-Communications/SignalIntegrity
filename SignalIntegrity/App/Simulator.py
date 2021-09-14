@@ -562,6 +562,14 @@ class SimulatorDialog(tk.Toplevel):
 class Simulator(object):
     def __init__(self,parent):
         self.parent=parent
+    def DeleteDialogs(self):
+        if hasattr(self,'simulatorDialog'):
+            if self.simulatorDialog.winfo_exists():
+                self.simulatorDialog.destroy()
+        if hasattr(self, 'eyeDiagramDialogs'):
+            for key in self.eyeDiagramDialogs.keys():
+                if self.eyeDiagramDialogs[key].winfo_exists():
+                    self.eyeDiagramDialogs[key].destroy()
     def SimulatorDialog(self):
         if not hasattr(self,'simulatorDialog'):
             self.simulatorDialog=SimulatorDialog(self)

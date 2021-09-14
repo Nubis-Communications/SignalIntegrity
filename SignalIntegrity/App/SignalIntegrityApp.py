@@ -57,7 +57,7 @@ from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
-from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog
+from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.PartProperty import *
@@ -321,6 +321,8 @@ class SignalIntegrityApp(tk.Frame):
         self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
 
+        CalculationProperty.labelWidth=40
+
         if projectFileName is None:
             projectFileName = SignalIntegrity.App.Preferences.GetLastFileOpened()
 
@@ -409,6 +411,8 @@ class SignalIntegrityApp(tk.Frame):
         if filename=='':
             return
 
+        self.simulator.DeleteDialogs()
+
         try:
             cd=os.getcwd()
             self.fileparts=FileParts(filename)
@@ -434,6 +438,9 @@ class SignalIntegrityApp(tk.Frame):
                                    title='new project file')
         if filename is None:
             return
+
+        self.simulator.DeleteDialogs()
+
         SignalIntegrity.App.Project=ProjectFile()
         SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
         self.Drawing.InitFromProject()
@@ -622,7 +629,7 @@ class SignalIntegrityApp(tk.Frame):
                 for propertyInNew in devicePicked.propertiesList:
                     if not isinstance(propertyInNew,PartPropertyReadOnly):
                         for propertyInOld in deviceCopy.propertiesList:
-                            if type(propertyInNew) is type(propertyInOld):
+                            if (not isinstance(propertyInOld,PartPropertyPorts)) and (type(propertyInNew) is type(propertyInOld)):
                                 for key in propertyInNew.dict:
                                     if key in propertyInOld.dict and propertyInOld.dict[key].dict['write']:
                                         propertyInNew.dict[key].dict['value']=propertyInOld.dict[key].dict['value']

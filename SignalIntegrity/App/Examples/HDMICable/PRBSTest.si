@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x371+2008+76</Geometry>
+			<Geometry>861x371+1948+57</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>22</Originy>
@@ -545,6 +545,10 @@
 		</Alignment>
 		<Color>#c6ff2c</Color>
 		<Columns>200</Columns>
+		<EnhancedPrecision>
+			<FixedEnhancement>10</FixedEnhancement>
+			<Mode>Auto</Mode>
+		</EnhancedPrecision>
 		<Invert>True</Invert>
 		<JitterNoise>
 			<JitterDeterministicPkS>4e-12</JitterDeterministicPkS>
@@ -557,6 +561,12 @@
 			<MaxKernelPixels>100000</MaxKernelPixels>
 			<Noise>0.003</Noise>
 		</JitterNoise>
+		<Measure>
+			<Annotate>True</Annotate>
+			<AnnotationColor>#00ff00</AnnotationColor>
+			<BERForMeasure>-6</BERForMeasure>
+			<Measure>True</Measure>
+		</Measure>
 		<Mode>ISI</Mode>
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>

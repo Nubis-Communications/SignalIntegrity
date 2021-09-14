@@ -284,6 +284,21 @@ class SignalIntegrityAppTestHelper:
         regression=np.load(filename)
         self.assertTrue(np.allclose(ary,regression),filename + ' incorrect')
         os.chdir(currentDirectory)
+    def JsonDictRegressionChecker(self,meas,filename):
+        import json
+        currentDirectory=os.getcwd()
+        os.chdir(self.path)
+        if not os.path.exists(filename):
+            with open(filename,'w') as f:
+                json.dump(meas, f)
+            if not self.relearn:
+                self.assertTrue(False, filename + ' not found')
+        meas=json.loads(json.dumps(meas))
+        with open(filename) as f:
+            regression = json.load(f)
+        self.assertTrue(regression == meas,filename + ' incorrect')
+        os.chdir(currentDirectory)
+
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
         result=pysi.Simulate(EyeDiagrams=True)
@@ -294,8 +309,10 @@ class SignalIntegrityAppTestHelper:
         transferMatrices=result[2]
         outputWaveforms=result[3]
         eyeDiagramNames=result[4]
-        eyeDiagramImages=result[5]
-        eyeDiagramBitmaps=result[6]
+        eyeDiagrams=result[5]
+        eyeDiagramImages=[ed.Image() for ed in eyeDiagrams]
+        eyeDiagramBitmaps=[ed.BitMap() for ed in eyeDiagrams]
+        eyeDiagramMeasurements=[ed.Measurements() for ed in eyeDiagrams]
         try:
             sp=transferMatrices.SParameters()
             ports=sp.m_P
@@ -316,6 +333,9 @@ class SignalIntegrityAppTestHelper:
             eyeDiagramBitmap=eyeDiagramBitmaps[i]
             eyeDiagramBitmapFileName=self.FileNameForTest(filename)+'_'+eyeDiagramNames[i]+'.npy'
             self.NumpyArrayRegressionChecker(eyeDiagramBitmap,eyeDiagramBitmapFileName)
+            eyeDiagramMeasurement=eyeDiagramMeasurements[i]
+            eyeDiagramMeasurementFileName=self.FileNameForTest(filename)+'_'+eyeDiagramNames[i]+'.json'
+            self.JsonDictRegressionChecker(eyeDiagramMeasurement,eyeDiagramMeasurementFileName)
         return result
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)

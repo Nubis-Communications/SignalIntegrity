@@ -30,6 +30,7 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
+from SignalIntegrity.App.EyeDiagramMeasurementsDialog import EyeDiagramMeasurementsDialog
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
 
 import SignalIntegrity.App.Project
@@ -38,7 +39,6 @@ import SignalIntegrity.App.Preferences
 from PIL import Image,ImageTk
 
 class EyeDiagramDialog(tk.Toplevel):
-
     def __init__(self, parent, name):
         tk.Toplevel.__init__(self, parent.parent)
         self.parent=parent
@@ -105,7 +105,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.statusbar=StatusBar(self)
         self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
 
-        self.eyeDiagram=EyeDiagram(self)
+        self.eyeDiagram=EyeDiagram(self,self.name)
 
         if SignalIntegrity.App.Project['EyeDiagram']==None:
             import copy
@@ -119,6 +119,15 @@ class EyeDiagramDialog(tk.Toplevel):
         self.deltaWidth=0
         self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
+        self.bind('<FocusIn>',self.onFocus)
+
+    def onFocus(self,event):
+        if event.widget == self:
+            if hasattr(self,'eyeDiagramMeasurementsDialog'):
+                if self.eyeDiagramMeasurementsDialog != None:
+                    if self.eyeDiagramMeasurementsDialog.winfo_exists():
+                        self.eyeDiagramMeasurementsDialog.lift()
+                        self.lift()
 
     def onResize(self,event):
         if not self.knowDelta:
@@ -223,7 +232,8 @@ class EyeDiagramDialog(tk.Toplevel):
         self.callback=None
 
     def CalculateEyeDiagram(self):
-        self.eyeDiagram.CalculateEyeDiagram(self.callback)
+        self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
+        self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
         self.eyeCanvas.pack_forget()
         R=SignalIntegrity.App.Project['EyeDiagram.Rows']; C=SignalIntegrity.App.Project['EyeDiagram.Columns']
         C=int(C*SignalIntegrity.App.Project['EyeDiagram.ScaleX']/100.*SignalIntegrity.App.Project['EyeDiagram.UI']); R=int(R*SignalIntegrity.App.Project['EyeDiagram.ScaleY']/100.)
@@ -235,6 +245,17 @@ class EyeDiagramDialog(tk.Toplevel):
             self.statusbar.set('Calculation complete')
         else:
             self.statusbar.set('Calculation failed or aborted')
+
+    def EyeDiagramMeasurementsDialog(self):
+        if not hasattr(self,'eyeDiagramMeasurementsDialog'):
+            self.eyeDiagramMeasurementsDialog=EyeDiagramMeasurementsDialog(self,self.name)
+        if self.eyeDiagramMeasurementsDialog == None:
+            self.eyeDiagramMeasurementsDialog=EyeDiagramMeasurementsDialog(self,self.name)
+        else:
+            if not self.eyeDiagramMeasurementsDialog.winfo_exists():
+                self.eyeDiagramMeasurementsDialog=EyeDiagramMeasurementsDialog(self,self.name)
+        return self.eyeDiagramMeasurementsDialog
+
 
     def UpdateWaveforms(self):
         self.eyeDiagram.prbswf=self.eyeArgs['Waveform']

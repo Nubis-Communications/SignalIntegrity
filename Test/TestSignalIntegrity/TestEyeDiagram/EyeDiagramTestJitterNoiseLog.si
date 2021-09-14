@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x371+2008+76</Geometry>
+			<Geometry>861x371+1910+19</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>22</Originy>
@@ -128,7 +128,7 @@
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>5.000000000000001e-07</Value>
+							<Value>2.0000000000000002e-07</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -499,7 +499,22 @@
 			<AutoAlign>True</AutoAlign>
 			<BERForAlignment>-3</BERForAlignment>
 			<BitsPerSymbol>1</BitsPerSymbol>
+			<Horizontal>Middle</Horizontal>
+			<Mode>Horizontal</Mode>
+			<Vertical>MaxMin</Vertical>
 		</Alignment>
+		<Annotation>
+			<Annotate>True</Annotate>
+			<Color>#00ff00</Color>
+			<Contours>
+				<Show>True</Show>
+				<Which>All</Which>
+			</Contours>
+			<EyeHeight>True</EyeHeight>
+			<EyeWidth>True</EyeWidth>
+			<LevelExtents>True</LevelExtents>
+			<MeanLevels>True</MeanLevels>
+		</Annotation>
 		<Color>#c6ff2c</Color>
 		<Columns>200</Columns>
 		<EnhancedPrecision>
@@ -508,16 +523,20 @@
 		</EnhancedPrecision>
 		<Invert>True</Invert>
 		<JitterNoise>
-			<JitterDeterministicPkS>4e-12</JitterDeterministicPkS>
-			<JitterS>4e-12</JitterS>
+			<JitterDeterministicPkS>2e-12</JitterDeterministicPkS>
+			<JitterS>2e-12</JitterS>
 			<LogIntensity>
 				<LogIntensity>True</LogIntensity>
 				<MaxExponent>0</MaxExponent>
 				<MinExponent>-12</MinExponent>
 			</LogIntensity>
 			<MaxKernelPixels>100000</MaxKernelPixels>
-			<Noise>0.03</Noise>
+			<Noise>0.01</Noise>
 		</JitterNoise>
+		<Measure>
+			<BERForMeasure>-6</BERForMeasure>
+			<Measure>True</Measure>
+		</Measure>
 		<Mode>JitterNoise</Mode>
 		<Rows>200</Rows>
 		<Saturation>20.0</Saturation>

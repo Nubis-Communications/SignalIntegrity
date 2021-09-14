@@ -65,63 +65,14 @@ class TestEyeDiagramTest(unittest.TestCase,
         self.SimulationEyeDiagramResultsChecker('EyeDiagramTestJitterNoiseLog.si')
     def testEyeDiagramJitterNoiseLogTransferMatrices(self):
         self.SimulationTransferMatricesResultsChecker('EyeDiagramTestJitterNoiseLog.si')
-    def Hits(self,r,c,R,C):
-        lowestr=r-0.5
-        rl=int(math.floor(lowestr))
-        highestr=r+0.5
-        rh=int(math.floor(highestr))
-        lrh=lowestr-rl
-        lrl=1-lrh
-        lowestc=c-0.5
-        cl=int(math.floor(lowestc))
-        highestc=c+0.5
-        ch=int(math.floor(highestc))
-        lch=lowestc-cl
-        lcl=1-lch
-        rlValid=(0<=rl<R)
-        rhValid=(0<=rh<R)
-        cl=cl%C
-        if cl<0: cl=cl+C
-        ch=ch%C
-        if ch<0: ch=ch+C
-        clValid=(0<=cl<C)
-        chValid=(0<=ch<C)
-        results=[]
-        if rlValid and clValid: results+=[((rl,cl),(lrl,lcl),lrl*lcl)]
-        if rhValid and clValid: results+=[((rh,cl),(lrh,lcl),lrh*lcl)]
-        if rlValid and chValid: results+=[((rl,ch),(lrl,lch),lrl*lch)]
-        if rhValid and chValid: results+=[((rh,ch),(lrh,lch),lrh*lch)]
-        return results
-    def testLocations(self):
-        R,C=(200,200)
-        r=1.8
-        c=1.7
-        results=self.Hits(r, c, R, C)
-        for result in results:
-            print(f"({result[0][0]},{result[0][1]}) = {result[1][0]}*{result[1][1]}={result[2]}")
-    def testSteps(self):
-        R,C=(4,4)
-        steps=1
-        ri,ci=(0.2,3.7)
-        rf,cf=(2.6,1.3)
-        if ci>cf:
-            cf=cf+C
-        m=(rf-ri)/(cf-ci)
-        # solve y=mx+b for ci to produce ri:  ri=m*ci+b
-        b=ri-m*ci
-        # so now, r=m*c+b
-
-        cspan=cf-ci
-        rspan=rf-ri
-        c=[n/steps*cspan+ci for n in range(steps+1)]
-        r=[n/steps*rspan+ri for n in range(steps+1)]
-        results=[]
-        useFirst=True
-        for n in range(steps+1):
-            if n!=0 or useFirst:
-                results.extend(self.Hits(r[n],c[n],R,C))
-        for result in results:
-            print(f"({result[0][0]},{result[0][1]}) = {result[1][0]}*{result[1][1]}={result[2]}")
+    def testMatPlotLib(self):
+        result=self.SimulationEyeDiagramResultsChecker('EyeDiagramTest.si')
+        eyeDiagrams=result[5]
+        eyeDiagramImages=[ed.Image() for ed in eyeDiagrams]
+        eyeDiagramBitmaps=[ed.BitMap() for ed in eyeDiagrams]
+        pass
+    def testEyeDiagramNonlinear(self):
+        self.SimulationEyeDiagramResultsChecker('EyeDiagramNonLinear.si')
 
 if __name__ == "__main__": # pragma: no cover
     runProfiler=False

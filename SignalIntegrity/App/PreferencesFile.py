@@ -51,12 +51,38 @@ class EyeAlignmentConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('AutoAlign',True))
         self.Add(XMLPropertyDefaultFloat('BERForAlignment',-3))
         self.Add(XMLPropertyDefaultInt('BitsPerSymbol',1))
+        self.Add(XMLPropertyDefaultString('Mode','Horizontal')) # 'Horizontal' or 'Vertical'
+        self.Add(XMLPropertyDefaultString('Horizontal','Middle')) # 'Middle' or 'Max' (vertical eye)
+        self.Add(XMLPropertyDefaultString('Vertical','MaxMin')) # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
 
 class EyeEnhancedPrecisionConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('EnhancedPrecision')
         self.Add(XMLPropertyDefaultString('Mode','Auto'))
         self.Add(XMLPropertyDefaultInt('FixedEnhancement',10))
+
+class EyeMeasureConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Measure')
+        self.Add(XMLPropertyDefaultBool('Measure',True))
+        self.Add(XMLPropertyDefaultFloat('BERForMeasure',-6))
+
+class EyeContourConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Contours')
+        self.Add(XMLPropertyDefaultBool('Show',True))
+        self.Add(XMLPropertyDefaultString('Which','Eye')) # 'Eye' or 'All'
+
+class EyeAnnotationConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Annotation')
+        self.Add(XMLPropertyDefaultBool('Annotate',True))
+        self.Add(XMLPropertyDefaultString('Color','#ffffff'))
+        self.Add(XMLPropertyDefaultBool('MeanLevels',True))
+        self.Add(XMLPropertyDefaultBool('LevelExtents',True))
+        self.Add(XMLPropertyDefaultBool('EyeWidth',True))
+        self.Add(XMLPropertyDefaultBool('EyeHeight',True))
+        self.SubDir(EyeContourConfiguration())
 
 class EyeConfiguration(XMLConfiguration):
     def __init__(self):
@@ -74,6 +100,8 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeJitterNoiseConfiguration())
         self.SubDir(EyeAlignmentConfiguration())
         self.SubDir(EyeEnhancedPrecisionConfiguration())
+        self.SubDir(EyeMeasureConfiguration())
+        self.SubDir(EyeAnnotationConfiguration())
 
 class Color(XMLConfiguration):
     def __init__(self):

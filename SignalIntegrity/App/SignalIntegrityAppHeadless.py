@@ -311,16 +311,14 @@ class SignalIntegrityAppHeadless(object):
                         break
 
         eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
-        eyeDiagramImages=[]
-        eyeDiagramBitmaps=[]
+        eyeDiagrams=[]
         for eye in eyeDiagramDict:
-            eyeDiagram=EyeDiagram(None,headless=True)
+            eyeDiagram=EyeDiagram(None,eye['Name'],headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
-            eyeDiagram.CalculateEyeDiagram()
-            eyeDiagramImages.append(eyeDiagram.img)
-            eyeDiagramBitmaps.append(eyeDiagram.rawBitmap)
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagramImages,eyeDiagramBitmaps)
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            eyeDiagrams.append(eyeDiagram)
+        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagrams)
 
     def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         netList=self.Drawing.schematic.NetList()
@@ -401,16 +399,14 @@ class SignalIntegrityAppHeadless(object):
                         break
 
         eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
-        eyeDiagramImages=[]
-        eyeDiagramBitmaps=[]
+        eyeDiagrams=[]
         for eye in eyeDiagramDict:
             eyeDiagram=EyeDiagram(None,headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
-            eyeDiagram.CalculateEyeDiagram()
-            eyeDiagramImages.append(eyeDiagram.img)
-            eyeDiagramBitmaps.append(eyeDiagram.rawBitmap)
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagramImages,eyeDiagramBitmaps)
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            eyeDiagrams.append(eyeDiagram)
+        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagrams)
 
     def TransferParameters(self,callback=None,):
         if not hasattr(self.Drawing,'canGenerateTransferMatrices'):
