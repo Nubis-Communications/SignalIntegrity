@@ -438,8 +438,9 @@ class SignalIntegrityApp(tk.Frame):
                                    initialfile=self.fileparts.FileNameWithExtension('.si'),
                                    initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
-            return
+            return False
         self.SaveProjectToFile(filename)
+        return True
 
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
@@ -1048,7 +1049,7 @@ class SignalIntegrityApp(tk.Frame):
             return False
         else:
             if doit:
-                self.onSaveAsProject()
+                return self.onSaveAsProject()
         return True
 
     def onClosing(self):
