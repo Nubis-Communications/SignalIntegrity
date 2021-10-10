@@ -64,9 +64,10 @@ class NavigationToolbar(NavigationToolbar2Tk):
             self.homeCallback()
 
 class SParametersDialog(tk.Toplevel):
-    def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None):
+    def __init__(self, parent,sp,filename=None,title=None,buttonLabels=None,standalone=False):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
+        self.standalone=standalone
         self.withdraw()
 
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
@@ -918,6 +919,8 @@ class SParametersDialog(tk.Toplevel):
     def destroy(self):
         tk.Toplevel.withdraw(self)
         tk.Toplevel.destroy(self)
+        if self.standalone:
+            sys.exit()
 
     def PlotSParameter(self):
         self.topLeftPlot.cla()
@@ -1502,7 +1505,7 @@ class SParametersDialog(tk.Toplevel):
         filename=self.spList[x][1]
         title=self.spList[x][2]
         self.buttonLabels=self.spList[x][3]
-        
+
         self.filename=self.spList[x][1]
         self.fileparts=FileParts(filename)
         if title is None:

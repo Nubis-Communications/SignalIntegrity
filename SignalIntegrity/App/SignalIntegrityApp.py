@@ -333,9 +333,8 @@ class SignalIntegrityApp(tk.Frame):
 
         self.UpdateRecentProjectsMenu()
 
-        self.root.deiconify()
-
         # if a project was not opened and a file was supplied, try to open as an s-parameter file
+        deiconify=True # assume s-parameter viewer will not run standalone
         if not projectFileName == None:
             if self.Drawing.stateMachine.state == 'NoProject':
                 fileparts=FileParts(projectFileName)
@@ -351,10 +350,13 @@ class SignalIntegrityApp(tk.Frame):
                         except:
                             isSpFile=False
                     if isSpFile:
+                        deiconify=False # since running standalone
                         import SignalIntegrity.Lib as si
                         sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
-                        spd=SParametersDialog(self,sp,fileparts.FullFilePathExtension())
+                        spd=SParametersDialog(self,sp,fileparts.FullFilePathExtension(),standalone=True)
 
+        if deiconify:
+            self.root.deiconify()
         if runMainLoop:
             self.root.mainloop()
 
