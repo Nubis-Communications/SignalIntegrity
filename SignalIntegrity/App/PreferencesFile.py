@@ -55,6 +55,17 @@ class EyeAlignmentConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Horizontal','Middle')) # 'Middle' or 'Max' (vertical eye)
         self.Add(XMLPropertyDefaultString('Vertical','MaxMin')) # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
 
+class BathtubConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Bathtub')
+        self.Add(XMLPropertyDefaultFloat('DecadesFromJoinForFit',0.5))
+        self.Add(XMLPropertyDefaultInt('MinPointsForFit',6))
+
+class DecisionConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Decision')
+        self.Add(XMLPropertyDefaultString('Mode','Mid')) # 'Mid' or 'Best' for independent decision levels
+
 class EyeEnhancedPrecisionConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('EnhancedPrecision')
@@ -66,6 +77,7 @@ class EyeMeasureConfiguration(XMLConfiguration):
         super().__init__('Measure')
         self.Add(XMLPropertyDefaultBool('Measure',True))
         self.Add(XMLPropertyDefaultFloat('BERForMeasure',-6))
+        self.Add(XMLPropertyDefaultFloat('NoisePenalty',0))
 
 class EyeContourConfiguration(XMLConfiguration):
     def __init__(self):
@@ -102,6 +114,8 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeEnhancedPrecisionConfiguration())
         self.SubDir(EyeMeasureConfiguration())
         self.SubDir(EyeAnnotationConfiguration())
+        self.SubDir(DecisionConfiguration())
+        self.SubDir(BathtubConfiguration())
 
 class Color(XMLConfiguration):
     def __init__(self):

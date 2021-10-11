@@ -32,11 +32,12 @@ from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.EyeDiagramMeasurementsDialog import EyeDiagramMeasurementsDialog
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
+from SignalIntegrity.App.BathtubCurveDialog import BathtubCurveDialog
 
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
 
-from PIL import Image,ImageTk
+from PIL import ImageTk
 
 class EyeDiagramDialog(tk.Toplevel):
     def __init__(self, parent, name):
@@ -51,10 +52,14 @@ class EyeDiagramDialog(tk.Toplevel):
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.EyeDiagramSaveDoer = Doer(self.onWriteImageToFile).AddHelpElement('Control-Help:Save-Eye-Diagram-Image').AddToolTip('Save images to files')
+        # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties').AddToolTip('Edit calculation properties')
         self.PropertiesDoer=Doer(self.onProperties).AddHelpElement('Control-Help:Eye-Diagram-Properties').AddToolTip('Edit eye diagram properties')
         self.SimulateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Recalculate').AddToolTip('Recalculate simulation')
         self.OnlyRecalculateEyeDoer =Doer(self.onRecalculateEyeDiagram).AddHelpElement('Control-Help:Only-Recalculate-Eye-Diagram').AddToolTip('Recalculate eye diagram')
+        # ------
+        self.EyeMeasurementsDoer = Doer(self.onEyeMeasurements).AddHelpElement('Control-Help:Eye-Measurements').AddToolTip('View the eye measurements')
+        self.BathtubCurveDoer = Doer(self.onBathtubCurve).AddHelpElement('Control-Help:Bathtub-Curve').AddToolTip('View the bathtub curves')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Eye-Diagram-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Eye-Diagram-Control-Help').AddToolTip('Get help on a control')
@@ -77,6 +82,11 @@ class EyeDiagramDialog(tk.Toplevel):
         CalcMenu.add_separator()
         self.SimulateDoer.AddMenuElement(CalcMenu,label='Recalculate',underline=0)
         self.OnlyRecalculateEyeDoer.AddMenuElement(CalcMenu,label='Only Recalculate Eye Diagram',underline=0)
+        # ------
+        ViewMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.EyeMeasurementsDoer.AddMenuElement(ViewMenu,label='Eye Measurements',underline=0)
+        self.BathtubCurveDoer.AddMenuElement(ViewMenu,label='Bathtub Curve',underline=0)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -233,7 +243,14 @@ class EyeDiagramDialog(tk.Toplevel):
 
     def CalculateEyeDiagram(self):
         self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
-        self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        if hasattr(self,'eyeDiagramMeasurementsDialog'):
+            if self.eyeDiagramMeasurementsDialog != None:
+                if self.eyeDiagramMeasurementsDialog.winfo_exists():
+                    self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        if hasattr(self, 'bathtubCurveDialog'):
+            if self.bathtubCurveDialog != None:
+                if self.bathtubCurveDialog.winfo_exists():
+                    self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
         self.eyeCanvas.pack_forget()
         R=SignalIntegrity.App.Project['EyeDiagram.Rows']; C=SignalIntegrity.App.Project['EyeDiagram.Columns']
         C=int(C*SignalIntegrity.App.Project['EyeDiagram.ScaleX']/100.*SignalIntegrity.App.Project['EyeDiagram.UI']); R=int(R*SignalIntegrity.App.Project['EyeDiagram.ScaleY']/100.)
@@ -264,3 +281,29 @@ class EyeDiagramDialog(tk.Toplevel):
         self.deiconify()
         self.lift()
         return self
+
+    def BathtubCurveDialog(self):
+        if not hasattr(self,'bathtubCurveDialog'):
+            self.bathtubCurveDialog=BathtubCurveDialog(self,self.name)
+        if self.bathtubCurveDialog == None:
+            self.bathtubCurveDialog=BathtubCurveDialog(self,self.name)
+        else:
+            if not self.bathtubCurveDialog.winfo_exists():
+                self.bathtubCurveDialog=BathtubCurveDialog(self,self.name)
+        return self.bathtubCurveDialog
+
+    def onBathtubCurve(self):
+        windowOpen=hasattr(self,'bathtubCurveDialog')\
+            and (self.bathtubCurveDialog != None)\
+            and bool(self.bathtubCurveDialog.winfo_exists())
+        if not windowOpen:
+            self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        self.BathtubCurveDialog().lift()
+
+    def onEyeMeasurements(self):
+        windowOpen=hasattr(self,'eyeDiagramMeasurementsDialog')\
+            and (self.eyeDiagramMeasurementsDialog != None)\
+            and bool(self.eyeDiagramMeasurementsDialog.winfo_exists())
+        if not windowOpen:
+            self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        self.EyeDiagramMeasurementsDialog().lift()

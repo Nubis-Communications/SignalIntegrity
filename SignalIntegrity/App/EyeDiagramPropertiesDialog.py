@@ -36,6 +36,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     VerticalAlignmentModeChoices=[('Max of Smallest Eye','MaxMin'),('Maximum Eye','Max')]
     HorizontalAlignmentModeChoices=[('MidPoint of Middle Eye','Middle'),('Midpoint of Widest Eye','Max')]
     ContourChoices=[('All Contours','All'),('Only Contours inside Eye','Eye')]
+    DecisionChoices=[('Midpoint of Eye','Mid'),('Best Decision Point','Best')]
     def __init__(self,parent):
         PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['EyeDiagram'],parent,'Eye Diagram Properties')
         self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
@@ -56,6 +57,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.AutoAlignFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.DecisionFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
+        self.DecisionFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.MeasurementsFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.MeasurementsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.BitsPerSymbol=CalculationProperty(self.GeneralFrame,'Bits per Symbol',self.onUpdateFromChanges,None,self.project,'Alignment.BitsPerSymbol')
@@ -73,6 +76,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.HorizontalAlignmentMode=CalculationPropertyChoices(self.AutoAlignFrame,'Horizontal Alignment',self.onUpdateFromChanges,None,self.HorizontalAlignmentModeChoices,self.project,'Alignment.Horizontal')
         self.Measurements=CalculationPropertyTrueFalseButton(self.MeasurementsFrame,'Measure Eye Parameters',self.onUpdateFromChanges,None,self.project,'Measure.Measure')
         self.BERForMeasure=CalculationProperty(self.MeasurementsFrame,'BER Exponent for Measure',self.onUpdateFromChanges,None,self.project,'Measure.BERForMeasure')
+        self.NoisePenalty=CalculationPropertySI(self.MeasurementsFrame,'Noise Penalty',self.onUpdateFromChanges,None,self.project,'Measure.NoisePenalty','dB')
+        self.DecisionMode=CalculationPropertyChoices(self.DecisionFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
         self.AnnotateFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
         self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Annotate=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye with Measurements',self.onUpdateFromChanges,None,self.project,'Annotation.Annotate')
@@ -134,6 +139,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         contours=self.project['Annotation.Contours.Show']
         self.AnnotateFrame.pack_forget()
         self.BERForMeasure.Show(measure)
+        self.NoisePenalty.Show(measure)
         if measure:
             self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Annotate.Show(measure)

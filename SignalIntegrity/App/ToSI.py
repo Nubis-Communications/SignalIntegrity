@@ -86,7 +86,7 @@ def nextLowerInteger(v):
 incexpPrefixes=['e'+str(int(p*3)) for p in range(1,110)]
 decexpPrefixes = ['e-'+str(int(p*3)) for p in range(1,110)]
 
-def ToSI(d,sa='',letterPrefixes=True):
+def ToSI(d,sa='',letterPrefixes=True,round=12):
 
     if sa is None:
         sa=''
@@ -128,7 +128,10 @@ def ToSI(d,sa='',letterPrefixes=True):
     if not letterPrefixes:
         sa=''
 
-    if degree!=0 and not exponentInUnit:
+    # certain units should not be scaled to engineering notation
+    prohibitedUnits = (sa in ['dB','dBm'])
+
+    if degree!=0 and not exponentInUnit and not prohibitedUnits:
         ds = degree/math.fabs(degree)
         if ds == 1:
             if degree - 1 < len(incPrefixes):
@@ -144,14 +147,14 @@ def ToSI(d,sa='',letterPrefixes=True):
                 degree = -len(decPrefixes)
 
         scaled = float(d * math.pow(1000, -degree))
-        s = ("{:.12g}"+spacer+"{}").format(scaled,prefix)
+        s = ("{:."+str(round)+"g}"+spacer+"{}").format(scaled,prefix)
         if not '.' in s:
-            s=("{:.12g}.0"+spacer+"{}").format(scaled,prefix)
+            s=("{:."+str(round)+"g}.0"+spacer+"{}").format(scaled,prefix)
         #s = "{:.1f} {}".format(scaled,prefix)
     else:
-        s = ("{:.12g}"+spacer).format(d)
+        s = ("{:."+str(round)+"g}"+spacer).format(d)
         if not '.' in s:
-            s = ("{:.12g}.0"+spacer).format(d)
+            s = ("{:."+str(round)+"g}.0"+spacer).format(d)
         #s = "{:.1f} ".format(d)
 
     return s+sa
