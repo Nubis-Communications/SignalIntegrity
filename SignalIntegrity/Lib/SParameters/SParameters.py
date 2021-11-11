@@ -47,7 +47,7 @@ class SParameters(SParameterManipulation):
         self.header=['File created by '+__project__+' v'+\
                     __version__+': '+__description__, __url__]
         # pragma: include
-        self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
+        self.m_parameterType='S'; self.m_d=data; self.m_Z0=Z0
         self.m_f=FrequencyList(f)
         if not data is None:
             if len(data)>0: self.m_P=len(data[0])
@@ -104,7 +104,7 @@ class SParameters(SParameterManipulation):
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
         for lin in self.header: lines.append(
             ('! '+lin if ((len(lin) > 0) and (lin[0] != '!')) else lin)+'\n')
-        lines.append('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
+        lines.append('# '+fToken+' '+self.m_parameterType+' '+cpxType+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
             mat=self[n]

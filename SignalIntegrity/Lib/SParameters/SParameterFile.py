@@ -22,28 +22,28 @@ from numpy import empty
 from numpy import array
 import cmath
 import math
-import os
 import sys
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
-from SignalIntegrity.Lib.Conversions import ReferenceImpedance
+from SignalIntegrity.Lib.Conversions import ReferenceImpedance,Z2S,Y2S
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
-    def __init__(self,name,Z0=None,**kwargs):
+    def __init__(self,name,Z0=None,parameterType='S',**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
         @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
+        @param parameterType (optional, defaults to 'S') 'S' or None
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
 
-        Reads the s-parameter file and produces an instance of its base class SParameters.  
+        Reads the s-parameter file and produces an instance of its base class SParameters.
 
         If the reference impedance of the Touchstone 1.0 file read is not the reference
         impedance specified, then the reference impedance of the s-parameters are converted
         to the reference impedance specified."""
-        self.m_sToken='S'
+        self.m_parameterType=parameterType
         self.m_Z0=Z0
         # pragma: silent exclude
         ext=str.lower(name).split('.')[-1]
@@ -59,10 +59,12 @@ class SParameterFile(SParameters):
         else:
             try:
             # pragma: include outdent outdent
-                self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+                extension=str.lower(name).split('.')[-1]
+                parameterType=extension[0].upper()
+                self.m_P=int(extension.split(parameterType.lower())[1].split('p')[0])
             # pragma: silent exclude indent indent
             except:
-                raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
+                raise SignalIntegrityExceptionSParameterFile('incorrect extension in network parameter file name in '+name)
         # pragma: include
         freqMul = 1e6
         complexType = 'MA'
@@ -102,12 +104,15 @@ class SParameterFile(SParameters):
                     if 'db' in lineList: complexType = 'DB'
                     if 'r' in lineList:
                         Z0=float(lineList[lineList.index('r')+1])
-                    if not self.m_sToken.lower() in lineList:
-                        sp=False
+                    if not parameterType.lower() in lineList:
+                        spfile.close()
+                        raise SignalIntegrityExceptionSParameterFile('network parameter type missing or incorrect in '+name)
                 else: numbersList.extend(lineList)
         spfile.close()
-        if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
+        # pragma: silent exclude
+        if self.m_parameterType == None: self.m_parameterType = parameterType
+        # pragma: include
         frequencies = len(numbersList)//(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]
@@ -127,6 +132,14 @@ class SParameterFile(SParameters):
                             self.m_d[fi][r][c]=math.pow(10.,n1/20)*expangle
             if P == 2:
                 self.m_d[fi]=array(self.m_d[fi]).transpose().tolist()
+            # pragma: silent exclude
+            if parameterType != self.m_parameterType:
+                if self.m_parameterType == 'S':
+                    if parameterType == 'Z': self.m_d[fi]=Z2S(self.m_d[fi]*Z0,Z0)
+                    elif parameterType == 'Y': self.m_d[f]=Y2S(self.m_d[fi]/Z0,Z0)
+                else:
+                    raise SignalIntegrityExceptionSParameterFile('network parameters must be converted to s-parameters: '+name)
+            # pragma: include
             if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
         self.m_f=GenericFrequencyList(f)

@@ -1,6 +1,6 @@
 class SParameterFile(SParameters):
     def __init__(self,name,Z0=None,**kwargs):
-        self.m_sToken='S'
+        self.m_parameterType='S'
         self.m_Z0=Z0
         self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
         freqMul = 1e6
@@ -24,7 +24,7 @@ class SParameterFile(SParameters):
                     if 'db' in lineList: complexType = 'DB'
                     if 'r' in lineList:
                         Z0=float(lineList[lineList.index('r')+1])
-                    if not self.m_sToken.lower() in lineList:
+                    if not self.m_parameterType.lower() in lineList:
                         sp=False
                 else: numbersList.extend(lineList)
         spfile.close()

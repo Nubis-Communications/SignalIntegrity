@@ -177,7 +177,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
     def testSParameterFileFourPortNoSRead(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('TestDut.s4p',50.)
-        sf.m_sToken='Z' #switch the internal token to Z parameters to make them faulty
+        sf.m_parameterType='Z' #switch the internal token to Z parameters to make them faulty
         sf.WriteToFile('TestDutCmp.s4p')
         sf2=si.sp.SParameterFile('TestDutCmp.s4p',50.)
         os.remove('TestDutCmp.s4p')
