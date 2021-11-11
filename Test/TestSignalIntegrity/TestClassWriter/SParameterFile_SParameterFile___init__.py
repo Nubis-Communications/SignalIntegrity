@@ -1,8 +1,10 @@
 class SParameterFile(SParameters):
-    def __init__(self,name,Z0=None,callback=None,**kwargs):
-        self.m_sToken='S'
+    def __init__(self,name,Z0=None,callback=None,parameterType='S',**kwargs):
+        self.m_parameterType=parameterType
         self.m_Z0=Z0
-        self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
+        extension=str.lower(name).split('.')[-1]
+        parameterType=extension[0].upper()
+        self.m_P=int(extension.split(parameterType.lower())[1].split('p')[0])
         freqMul = 1e6
         complexType = 'MA'
         Z0=50.
@@ -24,7 +26,7 @@ class SParameterFile(SParameters):
                     if 'db' in lineList: complexType = 'DB'
                     if 'r' in lineList:
                         Z0=float(lineList[lineList.index('r')+1])
-                    if not self.m_sToken.lower() in lineList:
+                    if not parameterType.lower() in lineList:
                         sp=False
                 else:
                     nums = np.fromstring(line_no_comment, sep=' ')
@@ -53,7 +55,7 @@ class SParameterFile(SParameters):
             m_d_np = m_d_np.transpose((0, 2, 1))
 
         self.m_d=m_d_np.tolist()
-        if Z0 != self.m_Z0:
-            for fi in range(len(self.m_d)):
+        for fi in range(len(self.m_d)):
+            if Z0 != self.m_Z0:
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
         self.m_f=GenericFrequencyList(f.tolist())
