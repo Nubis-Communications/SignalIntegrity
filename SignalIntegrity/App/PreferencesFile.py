@@ -48,7 +48,7 @@ class EyeJitterNoiseConfiguration(XMLConfiguration):
 class EyeAlignmentConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Alignment')
-        self.Add(XMLPropertyDefaultBool('AutoAlign',True))
+        self.Add(XMLPropertyDefaultBool('AutoAlign',False))
         self.Add(XMLPropertyDefaultFloat('BERForAlignment',-3))
         self.Add(XMLPropertyDefaultInt('BitsPerSymbol',1))
         self.Add(XMLPropertyDefaultString('Mode','Horizontal')) # 'Horizontal' or 'Vertical'
@@ -58,6 +58,7 @@ class EyeAlignmentConfiguration(XMLConfiguration):
 class BathtubConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Bathtub')
+        self.Add(XMLPropertyDefaultBool('Measure',False))
         self.Add(XMLPropertyDefaultFloat('DecadesFromJoinForFit',0.5))
         self.Add(XMLPropertyDefaultInt('MinPointsForFit',6))
 
@@ -75,23 +76,23 @@ class EyeEnhancedPrecisionConfiguration(XMLConfiguration):
 class EyeMeasureConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Measure')
-        self.Add(XMLPropertyDefaultBool('Measure',True))
+        self.Add(XMLPropertyDefaultBool('Measure',False))
         self.Add(XMLPropertyDefaultFloat('BERForMeasure',-6))
         self.Add(XMLPropertyDefaultFloat('NoisePenalty',0))
 
 class EyeContourConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Contours')
-        self.Add(XMLPropertyDefaultBool('Show',True))
+        self.Add(XMLPropertyDefaultBool('Show',False))
         self.Add(XMLPropertyDefaultString('Which','Eye')) # 'Eye' or 'All'
 
 class EyeAnnotationConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Annotation')
-        self.Add(XMLPropertyDefaultBool('Annotate',True))
+        self.Add(XMLPropertyDefaultBool('Annotate',False))
         self.Add(XMLPropertyDefaultString('Color','#ffffff'))
         self.Add(XMLPropertyDefaultBool('MeanLevels',True))
-        self.Add(XMLPropertyDefaultBool('LevelExtents',True))
+        self.Add(XMLPropertyDefaultBool('LevelExtents',False))
         self.Add(XMLPropertyDefaultBool('EyeWidth',True))
         self.Add(XMLPropertyDefaultBool('EyeHeight',True))
         self.SubDir(EyeContourConfiguration())
@@ -116,6 +117,11 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeAnnotationConfiguration())
         self.SubDir(DecisionConfiguration())
         self.SubDir(BathtubConfiguration())
+
+class DeviceConfigurations(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Devices')
+        self.SubDir(EyeConfiguration())
 
 class Color(XMLConfiguration):
     def __init__(self):
@@ -178,6 +184,7 @@ class Features(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
+        self.Add(XMLPropertyDefaultBool('OpticalMeasurements',False))
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):
@@ -189,6 +196,6 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
         self.SubDir(SParameterProperties(preferences=True))
-        self.SubDir(EyeConfiguration())
+        self.SubDir(DeviceConfigurations())
         self.SubDir(Features())
 

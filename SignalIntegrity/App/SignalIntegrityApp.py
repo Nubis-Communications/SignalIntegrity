@@ -144,7 +144,6 @@ class SignalIntegrityApp(tk.Frame):
         self.PanDoer = Doer(self.onPan).AddHelpElement('Control-Help:Pan').AddToolTip('Pan the schematic')
         # ------
         self.CalculationPropertiesDoer = Doer(self.onCalculationProperties).AddHelpElement('Control-Help:Calculation-Properties').AddToolTip('Edit calculation properties')
-        self.EyePropertiesDoer=Doer(self.onEyeProperties).AddHelpElement('Control-Help:Eye-Diagram-Properties').AddToolTip('Edit eye diagram properties')
         self.PostProcessingDoer = Doer(self.onPostProcessing).AddHelpElement('Control-Help:Post-Processing').AddToolTip('Edit calculation post processing')
         self.SParameterViewerDoer = Doer(self.onSParameterViewer).AddHelpElement('Control-Help:S-parameter-Viewer').AddToolTip('View s-parameters')
         self.CalculateDoer = Doer(self.onCalculate).AddHelpElement('Control-Help:Calculate-tk.Button').AddToolTip('Calculate the schematic')
@@ -238,8 +237,6 @@ class SignalIntegrityApp(tk.Frame):
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
-        self.EyePropertiesDoer.AddMenuElement(CalcMenu,label='Eye Diagram Properties',underline=0)
-        self.PostProcessingDoer.AddMenuElement(CalcMenu,label='Post-Processing',underline=1)
         self.SParameterViewerDoer.AddMenuElement(CalcMenu,label='S-parameter Viewer',underline=12)
         CalcMenu.add_separator()
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
@@ -588,7 +585,7 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.stateMachine.Nothing()
         dpd=DevicePickerDialog(self,deviceList)
         if dpd.result != None:
-            devicePicked=copy.deepcopy(deviceList[dpd.result])
+            devicePicked=copy.deepcopy(deviceList[dpd.result]).InitializeFromPreferences()
             self.AddSpecificPart(devicePicked)
     def onDeletePart(self):
         self.Drawing.DeleteSelectedDevice()
@@ -819,17 +816,6 @@ class SignalIntegrityApp(tk.Frame):
             if not self.calculationPropertiesDialog.winfo_exists():
                 self.calculationPropertiesDialog=CalculationPropertiesDialog(self)
         self.calculationPropertiesDialog.grab_set()
-
-    def onEyeProperties(self):
-        self.Drawing.stateMachine.Nothing()
-        if not hasattr(self, 'eyePropertiesDialog'):
-            self.eyePropertiesDialog = EyeDiagramPropertiesDialog(self)
-        if self.eyePropertiesDialog == None:
-            self.eyePropertiesDialog= EyeDiagramPropertiesDialog(self)
-        else:
-            if not self.eyePropertiesDialog.winfo_exists():
-                self.eyePropertiesDialog=EyeDiagramPropertiesDialog(self)
-        self.eyePropertiesDialog.grab_set()
 
     def onSimulate(self,TransferMatricesOnly=False):
         self.Drawing.stateMachine.Nothing()

@@ -59,17 +59,17 @@ class EyeDiagram(object):
             eyeDiagramBitmap=EyeDiagramBitmap(
                 callback=callback,
                 cacheFileName=cacheFileName+'_'+self.name if SignalIntegrity.App.Preferences['Cache.CacheResults'] else None,
-                YAxisMode=SignalIntegrity.App.Project['EyeDiagram.YAxis.Mode'],
-                YMax=SignalIntegrity.App.Project['EyeDiagram.YAxis.Max'],
-                YMin=SignalIntegrity.App.Project['EyeDiagram.YAxis.Min'],
-                NoiseSigma=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.Noise'] if (SignalIntegrity.App.Project['EyeDiagram.Mode'] == 'JitterNoise') else 0,
-                Rows=SignalIntegrity.App.Project['EyeDiagram.Rows'],
-                Cols=SignalIntegrity.App.Project['EyeDiagram.Columns'],
+                YAxisMode=self.config['YAxis.Mode'],
+                YMax=self.config['YAxis.Max'],
+                YMin=self.config['YAxis.Min'],
+                NoiseSigma=self.config['JitterNoise.Noise'] if (self.config['Mode'] == 'JitterNoise') else 0,
+                Rows=self.config['Rows'],
+                Cols=self.config['Columns'],
                 BaudRate=self.baudrate,
                 prbswf=self.prbswf,
-                EnhancementMode=SignalIntegrity.App.Project['EyeDiagram.EnhancedPrecision.Mode'],
-                EnhancementSteps=SignalIntegrity.App.Project['EyeDiagram.EnhancedPrecision.FixedEnhancement'],
-                BitsPerSymbol=SignalIntegrity.App.Project['EyeDiagram.Alignment.BitsPerSymbol'], # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
+                EnhancementMode=self.config['EnhancedPrecision.Mode'],
+                EnhancementSteps=self.config['EnhancedPrecision.FixedEnhancement'],
+                BitsPerSymbol=self.config['Alignment.BitsPerSymbol'], # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
                 )
         except Exception as e:
             raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Creation Failed.')
@@ -79,14 +79,14 @@ class EyeDiagram(object):
 
         # if desired, apply jitter and noise to the bitmap
         try:
-            applyJitterNoise=(SignalIntegrity.App.Project['EyeDiagram.Mode'] == 'JitterNoise')
+            applyJitterNoise=(self.config['Mode'] == 'JitterNoise')
             if applyJitterNoise:
                 if not self.headless: self.parent.statusbar.set('Applying Jitter and Noise')
                 eyeDiagramBitmap.ApplyJitterNoise(
-                                NoiseSigma=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.Noise'],
-                                JitterSigma=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.JitterS'],
-                                DeterministicJitter=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.JitterDeterministicPkS'],
-                                MaxPixelsKernel=int(SignalIntegrity.App.Project['EyeDiagram.JitterNoise.MaxKernelPixels']))
+                                NoiseSigma=self.config['JitterNoise.Noise'],
+                                JitterSigma=self.config['JitterNoise.JitterS'],
+                                DeterministicJitter=self.config['JitterNoise.JitterDeterministicPkS'],
+                                MaxPixelsKernel=int(self.config['JitterNoise.MaxKernelPixels']))
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Jitter/Noise Failed.')
@@ -94,46 +94,51 @@ class EyeDiagram(object):
         # if desired, automaticall align the waveform to place the eye at the center.  If measurements are to be performed, the alignment performed
         # to generate the eye extents only
         try:
-            if SignalIntegrity.App.Project['EyeDiagram.Alignment.AutoAlign'] or SignalIntegrity.App.Project['EyeDiagram.Measure.Measure']:
+            if self.config['Alignment.AutoAlign'] or self.config['Measure.Measure']:
                 if not self.headless: self.parent.statusbar.set('Aligning Eye Diagram')
                 eyeDiagramBitmap.AutoAlign(
-                  BERForAlignment=SignalIntegrity.App.Project['EyeDiagram.Alignment.BERForAlignment'], # Exponent of probability contour to align on
-                  AlignmentMode=SignalIntegrity.App.Project['EyeDiagram.Alignment.Mode'], # can be 'Horizontal' or 'Vertical'
-                  HorizontalAlignment=SignalIntegrity.App.Project['EyeDiagram.Alignment.Horizontal'], # 'Middle' or 'Max' (vertical eye) - alignment will be the horizontal midpoint of one of these two eye possibilities
-                  VerticalAlignment=SignalIntegrity.App.Project['EyeDiagram.Alignment.Vertical'], # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
-                  GenerateExtentsOnly=not SignalIntegrity.App.Project['EyeDiagram.Alignment.AutoAlign'] # if this is True, calculations are made only to obtain the extents, to be used in the measurements
+                  BERForAlignment=self.config['Alignment.BERForAlignment'], # Exponent of probability contour to align on
+                  AlignmentMode=self.config['Alignment.Mode'], # can be 'Horizontal' or 'Vertical'
+                  HorizontalAlignment=self.config['Alignment.Horizontal'], # 'Middle' or 'Max' (vertical eye) - alignment will be the horizontal midpoint of one of these two eye possibilities
+                  VerticalAlignment=self.config['Alignment.Vertical'], # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
+                  GenerateExtentsOnly=not self.config['Alignment.AutoAlign'] # if this is True, calculations are made only to obtain the extents, to be used in the measurements
                   )
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Auto-Alignment Failed.')
 
         try:
-            if not self.headless: self.parent.statusbar.set('Measuring Eye Diagram')
-            eyeDiagramBitmap.Measure(
-                BERForMeasure=SignalIntegrity.App.Project['EyeDiagram.Measure.BERForMeasure'], # Exponent of probability contour to measure
-                DecisionMode=SignalIntegrity.App.Project['EyeDiagram.Decision.Mode'] # 'Mid' or 'Best' for independent decision levels
-                )
+            if self.config['Measure.Measure']:
+                if not self.headless: self.parent.statusbar.set('Measuring Eye Diagram')
+                eyeDiagramBitmap.Measure(
+                    BERForMeasure=self.config['Measure.BERForMeasure'], # Exponent of probability contour to measure
+                    DecisionMode=self.config['Decision.Mode'] # 'Mid' or 'Best' for independent decision levels
+                    )
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Measurement Failed.')
 
         try:
-            if not self.headless: self.parent.statusbar.set('Calculating Bathtub Curves')
-            eyeDiagramBitmap.Bathtub()
+            if self.config['Bathtub.Measure']:
+                if not self.headless: self.parent.statusbar.set('Calculating Bathtub Curves')
+                eyeDiagramBitmap.Bathtub(
+                    DecadesFromJoin=self.config['Bathtub.DecadesFromJoinForFit'],
+                    MinPointsForFit=self.config['Bathtub.MinPointsForFit']
+                    )
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Bathtub Curves Failed.')
 
         try:
-            if SignalIntegrity.App.Project['EyeDiagram.Annotation.Annotate']:
+            if self.config['Measure.Measure'] and self.config['Annotation.Annotate']:
                 if not self.headless: self.parent.statusbar.set('Annotating Eye Diagram')
                 eyeDiagramBitmap.Annotations(
-                                MeanLevels=SignalIntegrity.App.Project['EyeDiagram.Annotation.MeanLevels'],
-                                LevelExtents=SignalIntegrity.App.Project['EyeDiagram.Annotation.LevelExtents'],
-                                EyeWidth=SignalIntegrity.App.Project['EyeDiagram.Annotation.EyeWidth'],
-                                EyeHeight=SignalIntegrity.App.Project['EyeDiagram.Annotation.EyeHeight'],
-                                Contours=SignalIntegrity.App.Project['EyeDiagram.Annotation.Contours.Show'],
-                                WhichContours=SignalIntegrity.App.Project['EyeDiagram.Annotation.Contours.Which'] # 'Eye' or 'All'
+                                MeanLevels=self.config['Annotation.MeanLevels'],
+                                LevelExtents=self.config['Annotation.LevelExtents'],
+                                EyeWidth=self.config['Annotation.EyeWidth'],
+                                EyeHeight=self.config['Annotation.EyeHeight'],
+                                Contours=self.config['Annotation.Contours.Show'],
+                                WhichContours=self.config['Annotation.Contours.Which'] # 'Eye' or 'All'
                                 )
         except Exception as e:
             pass
@@ -142,27 +147,29 @@ class EyeDiagram(object):
         try:
             if not self.headless: self.parent.statusbar.set('Creating Image')
             eyeDiagramBitmap.CreateImage(
-                        LogIntensity=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.LogIntensity'],
-                        MinExponentLogIntensity=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MinExponent'],
-                        MaxExponentLogIntensity=SignalIntegrity.App.Project['EyeDiagram.JitterNoise.LogIntensity.MaxExponent'],
-                        NumUI=SignalIntegrity.App.Project['EyeDiagram.UI'],
-                        Saturation=SignalIntegrity.App.Project['EyeDiagram.Saturation'],
-                        InvertImage=SignalIntegrity.App.Project['EyeDiagram.Invert'],
-                        Color=SignalIntegrity.App.Project['EyeDiagram.Color'],
-                        AnnotationColor=SignalIntegrity.App.Project['EyeDiagram.Annotation.Color'],
-                        ScaleX=SignalIntegrity.App.Project['EyeDiagram.ScaleX'],
-                        ScaleY=SignalIntegrity.App.Project['EyeDiagram.ScaleY']
+                        LogIntensity=self.config['JitterNoise.LogIntensity.LogIntensity'],
+                        MinExponentLogIntensity=self.config['JitterNoise.LogIntensity.MinExponent'],
+                        MaxExponentLogIntensity=self.config['JitterNoise.LogIntensity.MaxExponent'],
+                        NumUI=self.config['UI'],
+                        Saturation=self.config['Saturation'],
+                        InvertImage=self.config['Invert'],
+                        Color=self.config['Color'],
+                        AnnotationColor=self.config['Annotation.Color'],
+                        ScaleX=self.config['ScaleX'],
+                        ScaleY=self.config['ScaleY']
                         )
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Image Creation Failed.')
 
-        try:
-            if not self.headless: self.parent.statusbar.set('Calculating Penalties')
-            eyeDiagramBitmap.Penalties(SignalIntegrity.App.Project['EyeDiagram.Measure.NoisePenalty'])
-        except Exception as e:
-            pass
-            #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Penalties Calculation Failed.')
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            try:
+                if self.config['Measure.Measure']:
+                    if not self.headless: self.parent.statusbar.set('Calculating Penalties')
+                    eyeDiagramBitmap.Penalties(self.config['Measure.NoisePenalty'])
+            except Exception as e:
+                pass
+                #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Penalties Calculation Failed.')
 
         if not self.headless: self.parent.statusbar.set('Calculation Complete')
         self.measDict=eyeDiagramBitmap.measDict

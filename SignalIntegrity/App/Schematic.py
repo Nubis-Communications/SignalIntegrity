@@ -46,6 +46,10 @@ class Schematic(object):
                 returnedDevice=None
             if not returnedDevice is None:
                 self.deviceList.append(returnedDevice)
+        # global eye diagram configurations are allowed to get into the project for backwards compatibility
+        # Once the schematic has been initialized, this can be removed
+        if 'EyeDiagram' in SignalIntegrity.App.Project.dict.keys():
+            del(SignalIntegrity.App.Project.dict['EyeDiagram'])
     def NetList(self):
         self.Consolidate()
         return NetList(self)
@@ -334,7 +338,6 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(False)
             self.parent.parent.PanDoer.Activate(False)
             self.parent.parent.CalculationPropertiesDoer.Activate(False)
-            self.parent.parent.EyePropertiesDoer.Activate(False)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             self.parent.parent.CalculateDoer.Activate(False)
             self.parent.parent.CalculateSParametersDoer.Activate(False)
@@ -441,7 +444,6 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(True)
             self.parent.parent.PanDoer.Activate(True)
             self.parent.parent.CalculationPropertiesDoer.Activate(True)
-            #self.parent.parent.EyePropertiesDoer.Activate(False)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             #self.parent.parent.CalculateDoer.Activate(False)
             #self.parent.parent.CalculateSParametersDoer.Activate(False)
@@ -571,6 +573,18 @@ class DrawingStateMachine(object):
             self.Unlock()
     def onMouseButton3Release_DeviceSelected(self,event):
         if not self.Locked():
+            self.parent.deviceTearOffMenu=tk.Menu(self.parent, tearoff=0)
+            self.parent.deviceTearOffMenu.add_command(label="Edit Properties",command=self.parent.EditSelectedDevice)
+            if not self.parent.deviceSelected.configuration is None:
+                if isinstance(self.parent.deviceSelected.configuration,list):
+                    for config in self.parent.deviceSelected.configuration:
+                        self.parent.deviceTearOffMenu.add_command(label=config.name,command=lambda: config.onConfiguration(self.parent))
+                else:
+                    config=self.parent.deviceSelected.configuration
+                    self.parent.deviceTearOffMenu.add_command(label=config.name,command=lambda: config.onConfiguration(self.parent))
+            self.parent.deviceTearOffMenu.add_command(label="Duplicate",command=self.parent.DuplicateSelectedDevice)
+            self.parent.deviceTearOffMenu.add_command(label="Delete",command=self.parent.DeleteSelectedDevice)
+            self.parent.deviceTearOffMenu.add_command(label='Convert',command=self.parent.ConvertSelectedDevice)
             self.parent.tk.call("tk_popup", self.parent.deviceTearOffMenu, event.x_root, event.y_root)
             self.Unlock()
     def onMouseButton1Double_DeviceSelected(self,event):
@@ -1592,7 +1606,6 @@ class Drawing(tk.Frame):
         foundAPort=False
         foundASource=False
         foundAnOutput=False
-        foundAnEyeProbe=False
         foundSomething=False
         foundAMeasure=False
         foundAStim=False
@@ -1610,8 +1623,6 @@ class Drawing(tk.Frame):
                 foundAPort = True
                 numPortsFound=numPortsFound+1
             elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
-                if deviceType in ['EyeProbe','DifferentialEyeProbe']:
-                    foundAnEyeProbe = True
                 foundAnOutput = True
             elif deviceType == 'Stim':
                 foundAStim = True
@@ -1645,7 +1656,6 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
-        self.parent.EyePropertiesDoer.Activate(foundAnEyeProbe)
         self.parent.TransferParametersDoer.Activate(canSimulate or canVirtualProbe)
         self.parent.CalculateDoer.Activate(canCalculate)
         self.parent.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)

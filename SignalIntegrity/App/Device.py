@@ -19,16 +19,17 @@ Device.py
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.PartPicture import *
 from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
-
+from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
 import math
 
 class Device(object):
-    def __init__(self,netlist,propertiesList,partPicture):
+    def __init__(self,netlist,propertiesList,partPicture,configuration=None):
         self.netlist=netlist
         if propertiesList==None:
             propertiesList=[]
         self.propertiesList=propertiesList
         self.partPicture=partPicture
+        self.configuration=configuration
         self.selected=False
         self.enabled=True
         if self['defref'] != None:
@@ -163,6 +164,15 @@ class Device(object):
         K=int(math.ceil(Fs*float(self['dur'].GetValue())))
         horOffset=float(self['ho'].GetValue())
         return si.td.wf.TimeDescriptor(horOffset,K,Fs)
+    def InitializeFromPreferences(self):
+        if not self.configuration is None:
+            if isinstance(self.configuration,list):
+                for config in self.configuration:
+                    config.InitializeFromPreferences()
+            else:
+                self.configuration.InitializeFromPreferences()
+        return self
+
 
 class DeviceFromProject(object):
     def __init__(self,deviceProject):
@@ -212,6 +222,16 @@ class DeviceFromProject(object):
                         devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
+        if not self.result.configuration is None:
+            if isinstance(self.result.configuration,list):
+                for c in range(len(self.result.configuration)):
+                    if self.result.configuration[c].name in deviceProject.dict.keys():
+                        self.result.configuration[c].dict = deviceProject[self.result.configuration[c].name]
+            else:
+                if self.result.configuration.name in deviceProject.dict.keys():
+                    self.result.configuration.dict = deviceProject[self.result.configuration.name].dict
+                else:
+                    self.result.configuration.HandleBackwardsCompatibility()
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1009,8 +1029,9 @@ class DeviceEyeProbe(Device):
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
                          PartPropertyBaudRate(),
-                         PartPropertyPorts(1)]
-                        ,PartPictureVariableEyeProbe())
+                         PartPropertyPorts(1)],
+                        PartPictureVariableEyeProbe(),
+                        EyeDiagramConfiguration())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=True
@@ -1030,8 +1051,9 @@ class DeviceDifferentialEyeProbe(Device):
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
                          PartPropertyBaudRate(),
-                         PartPropertyPorts(2)]
-                        ,PartPictureVariableDifferentialEyeProbe())
+                         PartPropertyPorts(2)],
+                        PartPictureVariableDifferentialEyeProbe(),
+                        EyeDiagramConfiguration())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=True

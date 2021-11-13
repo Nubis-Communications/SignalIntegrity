@@ -85,6 +85,9 @@ class BathtubCurveDialog(tk.Toplevel):
         tk.Toplevel.destroy(self)
 
     def UpdateMeasurements(self,measDict):
+        if (measDict is None) or (not 'Bathtub' in measDict.keys()):
+            self.withdraw()
+            return
         self.dialogFrame.pack_forget()
         self.dialogFrame = tk.Frame(self, borderwidth=5)
         self.dialogFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
@@ -225,7 +228,7 @@ class BathtubCurveDialog(tk.Toplevel):
             self.rightPlots[ee].set_xlabel('time ('+self.timeLabel+')',fontsize=10)
 
             self.rightPlots[ee].grid(True, 'both')
-
+            self.deiconify()
     def onLeftHome(self):
         pass
 

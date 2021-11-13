@@ -705,7 +705,8 @@ class Simulator(object):
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                 'Config':device.configuration}
                         eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)
@@ -794,7 +795,8 @@ class Simulator(object):
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                 'Config':device.configuration}
                         eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)

@@ -70,9 +70,10 @@ class TestEyeDiagramTest(unittest.TestCase,
         eyeDiagrams=result[5]
         eyeDiagramImages=[ed.Image() for ed in eyeDiagrams]
         eyeDiagramBitmaps=[ed.BitMap() for ed in eyeDiagrams]
-        pass
     def testEyeDiagramNonlinear(self):
         self.SimulationEyeDiagramResultsChecker('EyeDiagramNonLinear.si')
+    def testPRBSTest(self):
+        self.SimulationEyeDiagramResultsChecker('../../../SignalIntegrity/App/Examples/HDMICable/PRBSTest.si')
 
 if __name__ == "__main__": # pragma: no cover
     runProfiler=False

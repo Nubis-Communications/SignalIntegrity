@@ -286,14 +286,20 @@ class SignalIntegrityAppTestHelper:
         os.chdir(currentDirectory)
     def JsonDictRegressionChecker(self,meas,filename):
         import json
+        import numpy as np
+        class CustomJSONizer(json.JSONEncoder):
+            def default(self, obj):
+                return super().encode(bool(obj)) \
+                    if isinstance(obj, np.bool_) \
+                    else super().default(obj)
         currentDirectory=os.getcwd()
         os.chdir(self.path)
         if not os.path.exists(filename):
             with open(filename,'w') as f:
-                json.dump(meas, f)
+                json.dump(meas, f, cls=CustomJSONizer)
             if not self.relearn:
                 self.assertTrue(False, filename + ' not found')
-        meas=json.loads(json.dumps(meas))
+        meas=json.loads(json.dumps(meas, cls=CustomJSONizer))
         with open(filename) as f:
             regression = json.load(f)
         self.assertTrue(regression == meas,filename + ' incorrect')

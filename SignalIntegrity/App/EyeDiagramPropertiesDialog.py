@@ -37,8 +37,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     HorizontalAlignmentModeChoices=[('MidPoint of Middle Eye','Middle'),('Midpoint of Widest Eye','Max')]
     ContourChoices=[('All Contours','All'),('Only Contours inside Eye','Eye')]
     DecisionChoices=[('Midpoint of Eye','Mid'),('Best Decision Point','Best')]
-    def __init__(self,parent):
-        PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['EyeDiagram'],parent,'Eye Diagram Properties')
+    def __init__(self,project,parent):
+        PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
         self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
         self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.LeftFrame=tk.Frame(self.propertyListFrame)
@@ -76,8 +76,14 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.HorizontalAlignmentMode=CalculationPropertyChoices(self.AutoAlignFrame,'Horizontal Alignment',self.onUpdateFromChanges,None,self.HorizontalAlignmentModeChoices,self.project,'Alignment.Horizontal')
         self.Measurements=CalculationPropertyTrueFalseButton(self.MeasurementsFrame,'Measure Eye Parameters',self.onUpdateFromChanges,None,self.project,'Measure.Measure')
         self.BERForMeasure=CalculationProperty(self.MeasurementsFrame,'BER Exponent for Measure',self.onUpdateFromChanges,None,self.project,'Measure.BERForMeasure')
-        self.NoisePenalty=CalculationPropertySI(self.MeasurementsFrame,'Noise Penalty',self.onUpdateFromChanges,None,self.project,'Measure.NoisePenalty','dB')
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            self.NoisePenalty=CalculationPropertySI(self.MeasurementsFrame,'Noise Penalty',self.onUpdateFromChanges,None,self.project,'Measure.NoisePenalty','dB')
         self.DecisionMode=CalculationPropertyChoices(self.DecisionFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
+        self.BathtubFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
+        self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.BathtubCurves=CalculationPropertyTrueFalseButton(self.BathtubFrame,'Measure Bathtub Curves',self.onUpdateFromChanges,None,self.project,'Bathtub.Measure')
+        self.DecadesFromJoin=CalculationProperty(self.BathtubFrame,'Decades Above for Fit',self.onUpdateFromChanges,None,self.project,'Bathtub.DecadesFromJoinForFit')
+        self.MinPointsForFit=CalculationProperty(self.BathtubFrame,'Minimum Points for Fit',self.onUpdateFromChanges,None,self.project,'Bathtub.MinPointsForFit')
         self.AnnotateFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
         self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Annotate=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye with Measurements',self.onUpdateFromChanges,None,self.project,'Annotation.Annotate')
@@ -137,11 +143,18 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         measure=self.project['Measure.Measure']
         annotate=self.project['Annotation.Annotate']
         contours=self.project['Annotation.Contours.Show']
+        bathtub=self.project['Bathtub.Measure']
+        self.BathtubFrame.pack_forget()
         self.AnnotateFrame.pack_forget()
         self.BERForMeasure.Show(measure)
-        self.NoisePenalty.Show(measure)
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            self.NoisePenalty.Show(measure)
         if measure:
+            self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
             self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.BathtubCurves.Show(measure)
+        self.DecadesFromJoin.Show(measure and bathtub)
+        self.MinPointsForFit.Show(measure and bathtub)
         self.Annotate.Show(measure)
         self.ContoursFrame.pack_forget()
         self.AnnotationColor.Show(measure and annotate)
@@ -182,7 +195,4 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MinExponent.Show(logIntensity)
         self.MaxExponent.Show(logIntensity)
     def onSaveToPreferences(self):
-        import SignalIntegrity.App.Preferences
-        import copy
-        SignalIntegrity.App.Preferences.dict['EyeDiagram']=copy.deepcopy(self.project)
-        SignalIntegrity.App.Preferences.SaveToFile()
+        self.parent.device.configuration.SaveToPreferences()

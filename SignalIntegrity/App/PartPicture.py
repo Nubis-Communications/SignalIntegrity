@@ -568,7 +568,7 @@ class PartPictureDependent(PartPictureBox):
         # the outline around the dependent source
         PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)
         PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
-    
+
 class PartPictureSpecifiedPorts(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         LeftPorts=(ports+1)//2
@@ -2238,15 +2238,18 @@ class PartPictureVariableDCVoltageSourceOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceOnePort','PartPictureVcc'],1)
 
-class PartPictureEyeProbe(PartPictureSpecifiedPortsText):
+class PartPictureEyeProbe(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureSpecifiedPortsText.__init__(self,1,origin,orientation,mirroredHorizontally,mirroredVertically,text='Eye')
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),'l',False,True,True)],[(1,0),(3,2)],[(0,0),(4,2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'Eye')
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
 
 class PartPictureVariableEyeProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureEyeProbe'],1)
 
-class PartPictureDiffrentialEyeProbe(PartPictureBox):
+class PartPictureDifferentialEyeProbe(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0,1),(2,3)],[(0,0),(2.5,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
@@ -2256,6 +2259,6 @@ class PartPictureDiffrentialEyeProbe(PartPictureBox):
 
 class PartPictureVariableDifferentialEyeProbe(PartPictureVariable):
     def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureDiffrentialEyeProbe'],1)
+        PartPictureVariable.__init__(self,['PartPictureDifferentialEyeProbe'],1)
 
 

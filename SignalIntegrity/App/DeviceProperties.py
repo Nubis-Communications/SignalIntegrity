@@ -224,6 +224,16 @@ class DeviceProperties(tk.Frame):
         self.propertyFrameList=[]
         for partProperty in self.device.propertiesList:
             self.propertyFrameList.append(DeviceProperty(propertyListFrame,self,partProperty))
+        self.configurationFrame = tk.Frame(propertyListFrame)
+        self.configurationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        if not device.configuration is None:
+            if isinstance(device.configuration,list):
+                for config in device.configuration:
+#                     config.parent=self.parent
+                    tk.Button(self.configurationFrame,text=config.label,command=lambda: config.onConfiguration(self)).pack(side=tk.TOP,expand=tk.YES,fill=tk.X)
+            else:
+#                 device.configuration.parent=self.parent
+                tk.Button(self.configurationFrame,text=device.configuration.label,command=lambda: device.configuration.onConfiguration(self)).pack(side=tk.TOP,expand=tk.YES,fill=tk.X)
         self.rotationFrame = tk.Frame(propertyListFrame)
         self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.rotationString=tk.StringVar(value=str(self.device.partPicture.current.orientation))
@@ -288,6 +298,7 @@ class DeviceProperties(tk.Frame):
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
         # also update part properties as some may have become hidden or unhidden
+        self.configurationFrame.pack_forget()
         self.mirrorFrame.pack_forget()
         self.rotationFrame.pack_forget()
         for propertyFrame in self.propertyFrameList:
@@ -295,6 +306,7 @@ class DeviceProperties(tk.Frame):
         for propertyFrame in self.propertyFrameList:
             if not propertyFrame.partProperty['Hidden']:
                 propertyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.configurationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 

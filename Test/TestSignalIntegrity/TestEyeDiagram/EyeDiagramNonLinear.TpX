@@ -15,7 +15,6 @@
 %  <text x="144" y="-25" t="Eye" h="3" halign="c" lc="black"/>
 %  <rect x="140" y="-20" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">136,-24 140,-24</polyline>
-%  <text x="139" y="-23" t="1" h="3" halign="r" lc="black"/>
 %  <text x="144" y="-17" t="td 0 s" h="3" halign="c" lc="black"/>
 %  <text x="144" y="-14" t="br 5.0 GBaud" h="3" halign="c" lc="black"/>
 %  <text x="144" y="-11" t="Vo" h="3" halign="c" lc="black"/>
@@ -156,7 +155,6 @@
 \draw[black] (144,-25) node[anchor=base]{Eye};
 \path[line width=0.30mm, draw=black] (140,-28) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (136,-24) -- (140,-24);
-\draw[black] (139,-23) node[anchor=base east]{1};
 \draw[black] (144,-17) node[anchor=base]{td 0 s};
 \draw[black] (144,-14) node[anchor=base]{br 5.0 GBaud};
 \draw[black] (144,-11) node[anchor=base]{Vo};

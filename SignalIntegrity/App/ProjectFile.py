@@ -83,6 +83,9 @@ class DeviceConfiguration(XMLConfiguration):
         self.SubDir(PartPictureConfiguration())
         self.Add(XMLProperty('PartProperties',[PartPropertyConfiguration() for _ in range(0)],'array',arrayType=PartPropertyConfiguration()))
         self.SubDir(DeviceNetListConfiguration())
+        import SignalIntegrity.App.Preferences
+        for key in SignalIntegrity.App.Preferences['Devices'].dict.keys():
+            self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices'][key]),makeOnRead=True)
 
 class VertexConfiguration(XMLConfiguration):
     def __init__(self):
@@ -211,8 +214,12 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
+        # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
+        # saved, the global eye diagram configuration will be removed
         import SignalIntegrity.App.Preferences
-        self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['EyeDiagram']),makeOnRead=True)
+        self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices']['EyeDiagram']),makeOnRead=True)
+        # end of backward compatibility to be removed some day
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
@@ -223,12 +230,15 @@ class ProjectFile(ProjectFileBase):
 
     def Write(self,app,filename=None):
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
-        hasAnEyeProbe=False
         for d in range(len(self['Drawing.Schematic.Devices'])):
             deviceProject=self['Drawing.Schematic.Devices'][d]
             device=app.Drawing.schematic.deviceList[d]
-            if device['partname']['Value'] in ['EyeProbe','DifferentialEyeProbe']:
-                hasAnEyeProbe=True
+            if not device.configuration is None:
+                if isinstance(device.configuration,list):
+                    for config in device.configuration:
+                        deviceProject.SubDir(config)
+                else:
+                    deviceProject.SubDir(device.configuration)
             deviceProject['ClassName']=device.__class__.__name__
             partPictureProject=deviceProject['PartPicture']
             partPicture=device.partPicture
@@ -244,10 +254,5 @@ class ProjectFile(ProjectFileBase):
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
         if not filename is None:
-            if not hasAnEyeProbe:
-                try:
-                    del(self.dict['EyeDiagram'])
-                except:
-                    pass
             ProjectFileBase.Write(self,filename)
         return self

@@ -541,7 +541,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             self.measDict['Eye'][i]['Decision']=self.measDict['Eye'][i]['Mid'] if DecisionMode=='Mid' else self.measDict['Eye'][i]['Best']
         self.BitmapLog = bitmapLog
 
-    def Bathtub(self):
+    def Bathtub(self,
+                DecadesFromJoin=0.25,
+                MinPointsForFit=6
+                ):
         numberOfEyes=int(2**self.BitsPerSymbol-1)
         UI=1./self.BaudRate
         (R,C)=self.rawBitmap.shape
@@ -556,8 +559,6 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         XF=[[1.,v,v**2] for v in x]
 
-        decadesFromJoin=0.25
-        minPointsForFit=6
         lowerLimit=1e-30
         self.measDict['Bathtub']['Vertical']['Level']={e:{'LeftEst':None,'RightEst':None} for e in range(numberOfEyes+1)}
         # estimate the gaussians for the edges
@@ -573,7 +574,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                         gathering=True
                         rStart=r
                 if gathering:
-                    if y[r] <= maxFit or len(X) < minPointsForFit:
+                    if y[r] <= maxFit or len(X) < MinPointsForFit:
                         X.append(XF[r])
                         Y.append([np.log(y[r])])
                         rEnd=r
@@ -605,7 +606,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                         gathering=True
                         rStart=r
                 if gathering:
-                    if y[r] <= maxFit or len(X) < minPointsForFit:
+                    if y[r] <= maxFit or len(X) < MinPointsForFit:
                         X.append(XF[r])
                         Y.append([np.log(y[r])])
                         rEnd=r
@@ -632,7 +633,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             if y[self.measDict['Eye'][e]['Decision']['Bin']]==0: # there's a hole in the middle
                 minFit=0.
             else:
-                minFit=pow(10.,np.log10(minProbability)+decadesFromJoin)
+                minFit=pow(10.,np.log10(minProbability)+DecadesFromJoin)
             try:
                 r=self.measDict['Eye'][e]['Decision']['Bin']
                 gathering=False
@@ -643,7 +644,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                             gathering=True
                             rStart=r
                     if gathering:
-                        if y[r] <= maxFit or len(X) < minPointsForFit:
+                        if y[r] <= maxFit or len(X) < MinPointsForFit:
                             X.append(XF[r])
                             Y.append([np.log(y[r])])
                             rEnd=r
@@ -673,7 +674,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                             gathering=True
                             rStart=r
                     if gathering:
-                        if y[r] <= maxFit  or len(X) < minPointsForFit:
+                        if y[r] <= maxFit  or len(X) < MinPointsForFit:
                             X.append(XF[r])
                             Y.append([np.log(y[r])])
                             rEnd=r

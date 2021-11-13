@@ -1,0 +1,17 @@
+device R1 2 R 50.0
+device R2 1 R 50.0
+device D4 4 file HDMICableDeembeddedMM.si
+device R3 1 R 50.0
+device R4 1 R 50.0
+device D1 2 file FFE.si
+device R5 1 R 50.0
+voltagesource VG2 1
+voltageoutput Vin VG2 1
+connect VG2 1 R1 1
+connect R1 2 D4 1
+eyeprobe Vdiff R2 1
+connect R2 1 D4 2 D1 1
+connect D4 3 R3 1
+connect D4 4 R4 1
+eyeprobe Veq D1 2
+connect D1 2 R5 1

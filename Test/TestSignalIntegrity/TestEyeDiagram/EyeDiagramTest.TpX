@@ -29,7 +29,6 @@
 %  <text x="176" y="-37" t="Eye" h="3" halign="c" lc="black"/>
 %  <rect x="172" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">168,-36 172,-36</polyline>
-%  <text x="171" y="-35" t="1" h="3" halign="r" lc="black"/>
 %  <text x="176" y="-29" t="td 0 s" h="3" halign="c" lc="black"/>
 %  <text x="176" y="-26" t="br 5.0 GBaud" h="3" halign="c" lc="black"/>
 %  <text x="176" y="-23" t="Veq" h="3" halign="c" lc="black"/>
@@ -121,7 +120,6 @@
 \draw[black] (176,-37) node[anchor=base]{Eye};
 \path[line width=0.30mm, draw=black] (172,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (168,-36) -- (172,-36);
-\draw[black] (171,-35) node[anchor=base east]{1};
 \draw[black] (176,-29) node[anchor=base]{td 0 s};
 \draw[black] (176,-26) node[anchor=base]{br 5.0 GBaud};
 \draw[black] (176,-23) node[anchor=base]{Veq};

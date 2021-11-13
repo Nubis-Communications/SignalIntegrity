@@ -306,7 +306,8 @@ class SignalIntegrityAppHeadless(object):
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)]}
+                                 'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)],
+                                 'Config':device.configuration}
                         eyeDiagramDict.append(eyeDict)
                         break
 
@@ -316,6 +317,7 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram=EyeDiagram(None,eye['Name'],headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
+            eyeDiagram.config=eye['Config']
             eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
             eyeDiagrams.append(eyeDiagram)
         return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagrams)
@@ -394,7 +396,8 @@ class SignalIntegrityAppHeadless(object):
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)]}
+                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                 'Config':device.configuration}
                         eyeDiagramDict.append(eyeDict)
                         break
 

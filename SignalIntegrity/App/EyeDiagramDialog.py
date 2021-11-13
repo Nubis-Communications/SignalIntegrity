@@ -117,10 +117,6 @@ class EyeDiagramDialog(tk.Toplevel):
 
         self.eyeDiagram=EyeDiagram(self,self.name)
 
-        if SignalIntegrity.App.Project['EyeDiagram']==None:
-            import copy
-            SignalIntegrity.App.Project.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['EyeDiagram']))
-
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
 
@@ -222,14 +218,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.config(cursor='left_ptr')
 
     def onProperties(self):
-        self.eyeDialog=EyeDiagramPropertiesDialog(self)
-        if not hasattr(self, 'eyeDialog'):
-            self.eyeDialog = EyeDiagramPropertiesDialog(self)
-        if self.eyeDialog == None:
-            self.eyeDialog= EyeDiagramPropertiesDialog(self)
-        else:
-            if not self.eyeDialog.winfo_exists():
-                self.eyeDialog=EyeDiagramPropertiesDialog(self)
+        self.eyeDialog = self.eyeDiagram.config.onConfiguration(self)
 
     def SetEyeArgs(self,eyeArgs):
         self.eyeArgs=eyeArgs
@@ -251,9 +240,12 @@ class EyeDiagramDialog(tk.Toplevel):
             if self.bathtubCurveDialog != None:
                 if self.bathtubCurveDialog.winfo_exists():
                     self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        self.EyeMeasurementsDoer.Activate(not self.eyeDiagram.measDict is None)
+        self.BathtubCurveDoer.Activate((not self.eyeDiagram.measDict is None) and ('Bathtub' in self.eyeDiagram.measDict.keys()))
         self.eyeCanvas.pack_forget()
-        R=SignalIntegrity.App.Project['EyeDiagram.Rows']; C=SignalIntegrity.App.Project['EyeDiagram.Columns']
-        C=int(C*SignalIntegrity.App.Project['EyeDiagram.ScaleX']/100.*SignalIntegrity.App.Project['EyeDiagram.UI']); R=int(R*SignalIntegrity.App.Project['EyeDiagram.ScaleY']/100.)
+        config=self.eyeArgs['Config']
+        R=config['Rows']; C=config['Columns']
+        C=int(C*config['ScaleX']/100.*config['UI']); R=int(R*config['ScaleY']/100.)
         self.eyeCanvas=tk.Canvas(self.eyeFrame,width=C,height=R)
         if not self.eyeDiagram.img is None:
             self.eyeImage=ImageTk.PhotoImage(self.eyeDiagram.img)
@@ -277,6 +269,7 @@ class EyeDiagramDialog(tk.Toplevel):
     def UpdateWaveforms(self):
         self.eyeDiagram.prbswf=self.eyeArgs['Waveform']
         self.eyeDiagram.baudrate=self.eyeArgs['BaudRate']
+        self.eyeDiagram.config=self.eyeArgs['Config']
         self.CalculateEyeDiagram()
         self.deiconify()
         self.lift()

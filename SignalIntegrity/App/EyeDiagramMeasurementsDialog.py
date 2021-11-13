@@ -57,10 +57,11 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.BERFrame=tk.Frame(self.tab2,relief=tk.RIDGE,borderwidth=5)
         self.BERFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
 
-        self.tab3=ttk.Frame(self.tabControl)
-        self.tabControl.add(self.tab3,text='Penalties')
-        self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
-        self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            self.tab3=ttk.Frame(self.tabControl)
+            self.tabControl.add(self.tab3,text='Penalties')
+            self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
+            self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
 
         self.bind('<FocusIn>',self.onFocus)
         self.resizable(False, False)
@@ -147,9 +148,10 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.BERFrame=tk.Frame(self.tab2,relief=tk.RIDGE,borderwidth=5)
         self.BERFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
 
-        self.PenaltiesFrame.pack_forget()
-        self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
-        self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            self.PenaltiesFrame.pack_forget()
+            self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
+            self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
 
         #topline=''.join(['Eye'.ljust(self.labelwidth)]+[str(eye).center(self.entrywidth-1) for eye in range(len(self.meas['Eye']))]+[''.ljust(self.entrywidth-1)])
         self.Heading(self.ParametersFrame,'Eye',[str(e) for e in range(len(self.meas['Eye']))])
@@ -169,121 +171,151 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.Line2(self.ParametersFrame,'')
         #line=''.join(['Thresholds'.ljust(self.labelwidth)]+[str(th).center(self.entrywidth-1) for th in range(len(self.meas['Level']))])
         #self.Line2(line)
-        self.Heading(self.ParametersFrame,'Thresholds',[str(th) for th in range(len(self.meas['Level']))])
+        self.Heading(self.ParametersFrame,'Extents',[str(th) for th in range(len(self.meas['Level']))])
         self.Fields2(self.ParametersFrame,'Level','Min','Volt','Min','V')
         self.Fields2(self.ParametersFrame,'Level', 'Max', 'Volt', 'Max','V')
         self.Fields2(self.ParametersFrame,'Level', 'Delta', 'Volt', 'Delta','V')
         self.Fields2(self.ParametersFrame,'Level', 'Mean', 'Volt', 'Mean','V')
         self.Line2(self.ParametersFrame,'')
-        self.SingleLine(self.ParametersFrame,'Eye Linearity',ToSI(self.meas['Linearity']*100.,'%'))
-        try:
-            self.SingleLine(self.ParametersFrame,'RLM',ToSI(self.meas['RLM']*100.,'%'))
-        except:
-            pass
-        self.Line2(self.ParametersFrame,'')
+        if len(meas['Eye'])>1:
+            self.SingleLine(self.ParametersFrame,'Eye Linearity',ToSI(self.meas['Linearity']*100.,'%'))
+            try:
+                self.SingleLine(self.ParametersFrame,'RLM',ToSI(self.meas['RLM']*100.,'%'))
+            except:
+                pass
+            self.Line2(self.ParametersFrame,'')
         self.SingleLine(self.ParametersFrame,'Vertical Resolution',ToSI(self.meas['VerticalResolution'],'V'))
         self.SingleLine(self.ParametersFrame,'Horizontal Resolution',ToSI(self.meas['HorizontalResolution'],'s'))
 
+        if 'Probabilities' in self.meas.keys():
 #         self.measDict['Probabilities']={'SymbolCodes':SymbolCode,'GrayCodes':GrayCodes,'Interpretation':SymbolInterpretedAsOther,
 #                                         'ErrorRate':{'Symbol':{'PerSymbol':SymbolErrorRatePerSymbol,'Nominal':NominalSymbolErrorRate,'Measured':MeasuredSymbolErrorRate},
 #                                                      'Bit':{'Standard':{'PerSymbol':BitErrorRatePerSymbol,'Nominal':NominalBitErrorRate,'Measured':MeasuredBitErrorRate},
 #                                                             'Gray':{'PerSymbol':GrayCodeBitErrorRatePerSymbol,'Nominal':GrayCodeNominalBitErrorRate,'Measured':GrayCodeMeasuredBitErrorRate}}}}
 
-        SymbolCode=self.meas['Probabilities']['SymbolCodes']
-        GrayCode=self.meas['Probabilities']['GrayCodes']
-        numberOfSymbols=len(SymbolCode)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
-        self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
-        self.AddText(lineFrame,'Interpretation'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'',self.entrywidth)
-        self.AddText(lineFrame,'',self.entrywidth)
-        symbolDigits=math.floor(math.log2(numberOfSymbols)+0.5)
-        for s in SymbolCode:
-            self.AddText(lineFrame,bin(s)[2:].rjust(symbolDigits,'0'),self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'',self.entrywidth)
-        self.AddText(lineFrame,'',self.entrywidth)
-        symbolDigits=math.floor(math.log2(numberOfSymbols)+0.5)
-        for s in GrayCode:
-            self.AddText(lineFrame,bin(s)[2:].rjust(symbolDigits,'0'),self.entrywidth)
-        self.deiconify()
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'Symbol',self.entrywidth)
-        self.AddText(lineFrame,'Gray Code',self.entrywidth)
-        Probability=self.meas['Probabilities']['Interpretation']
-        for s in range(len(SymbolCode)):
+            SymbolCode=self.meas['Probabilities']['SymbolCodes']
+            GrayCode=self.meas['Probabilities']['GrayCodes']
+            numberOfSymbols=len(SymbolCode)
             lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            for o in range(len(SymbolCode)):
-                self.AddEntry(lineFrame, '{:.3E}'.format(Probability[s][o],3), self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
-        # nominal error rates
-        self.AddText(lineFrame,'Nominal Error Rates'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'Symbol',self.entrywidth)
-        self.AddText(lineFrame,'Gray Code',self.entrywidth)
-        self.AddText(lineFrame,'Probability',self.entrywidth)
-        self.AddText(lineFrame,'SER',self.entrywidth)
-        self.AddText(lineFrame,'BER',self.entrywidth)
-        self.AddText(lineFrame,'Gray BER',self.entrywidth)
-        Probability=1./len(SymbolCode)
-        SER=self.meas['Probabilities']['ErrorRate']['Symbol']['PerSymbol']
-        BER=self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['PerSymbol']
-        GrayBER=self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['PerSymbol']
-        for s in range(len(SymbolCode)):
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,'Interpretation'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
             lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(Probability,3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(SER[s],3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(BER[s],3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(GrayBER[s],3), self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'',self.entrywidth)
-        self.AddText(lineFrame,'Totals',self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(1.,3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Symbol']['Nominal'],3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['Nominal'],3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['Nominal'],3), self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
-        # measured error rates
-        self.AddText(lineFrame,'Measured Error Rates'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'Symbol',self.entrywidth)
-        self.AddText(lineFrame,'Gray Code',self.entrywidth)
-        self.AddText(lineFrame,'Probability',self.entrywidth)
-        self.AddText(lineFrame,'SER',self.entrywidth)
-        self.AddText(lineFrame,'BER',self.entrywidth)
-        self.AddText(lineFrame,'Gray BER',self.entrywidth)
-        Probability=self.meas['Probabilities']['Symbol']
-        SER=self.meas['Probabilities']['ErrorRate']['Symbol']['PerSymbol']
-        BER=self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['PerSymbol']
-        GrayBER=self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['PerSymbol']
-        for s in range(len(SymbolCode)):
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'',self.entrywidth)
+            self.AddText(lineFrame,'',self.entrywidth)
+            symbolDigits=math.floor(math.log2(numberOfSymbols)+0.5)
+            for s in SymbolCode:
+                self.AddText(lineFrame,bin(s)[2:].rjust(symbolDigits,'0'),self.entrywidth)
             lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(Probability[s],3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(SER[s],3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(BER[s],3), self.entrywidth)
-            self.AddEntry(lineFrame, '{:.3E}'.format(GrayBER[s],3), self.entrywidth)
-        lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AddText(lineFrame,'',self.entrywidth)
-        self.AddText(lineFrame,'Totals',self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(sum(Probability),3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Symbol']['Measured'],3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['Measured'],3), self.entrywidth)
-        self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['Measured'],3), self.entrywidth)
-
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'',self.entrywidth)
+                self.AddText(lineFrame,'',self.entrywidth)
+                symbolDigits=math.floor(math.log2(numberOfSymbols)+0.5)
+                for s in GrayCode:
+                    self.AddText(lineFrame,bin(s)[2:].rjust(symbolDigits,'0'),self.entrywidth)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.AddText(lineFrame,'Symbol',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'Gray Code',self.entrywidth)
+            Probability=self.meas['Probabilities']['Interpretation']
+            for s in range(len(SymbolCode)):
+                lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+                self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                for o in range(len(SymbolCode)):
+                    self.AddEntry(lineFrame, '{:.3E}'.format(Probability[s][o],3), self.entrywidth)
+            # nominal error rates
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,'Nominal Error Rates'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.AddText(lineFrame,'Symbol',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'Gray Code',self.entrywidth)
+            self.AddText(lineFrame,'Probability',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'SER',self.entrywidth)
+            self.AddText(lineFrame,'BER',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'Gray BER',self.entrywidth)
+            Probability=1./len(SymbolCode)
+            SER=self.meas['Probabilities']['ErrorRate']['Symbol']['PerSymbol']
+            BER=self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['PerSymbol']
+            GrayBER=self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['PerSymbol']
+            for s in range(len(SymbolCode)):
+                lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+                self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                self.AddEntry(lineFrame, '{:.3E}'.format(Probability,3), self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddEntry(lineFrame, '{:.3E}'.format(SER[s],3), self.entrywidth)
+                self.AddEntry(lineFrame, '{:.3E}'.format(BER[s],3), self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddEntry(lineFrame, '{:.3E}'.format(GrayBER[s],3), self.entrywidth)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'',self.entrywidth)
+            self.AddText(lineFrame,'Totals',self.entrywidth)
+            self.AddEntry(lineFrame, '{:.3E}'.format(1.,3), self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Symbol']['Nominal'],3), self.entrywidth)
+            self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['Nominal'],3), self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['Nominal'],3), self.entrywidth)
+            # measured error rates
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.AddText(lineFrame,''.center(2*self.entrywidth),2*self.entrywidth)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,''.center(self.entrywidth),self.entrywidth)
+            self.AddText(lineFrame,'Measured Error Rates'.center(self.entrywidth*numberOfSymbols),self.entrywidth*numberOfSymbols)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.AddText(lineFrame,'Symbol',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'Gray Code',self.entrywidth)
+            self.AddText(lineFrame,'Probability',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'SER',self.entrywidth)
+            self.AddText(lineFrame,'BER',self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'Gray BER',self.entrywidth)
+            Probability=self.meas['Probabilities']['Symbol']
+            SER=self.meas['Probabilities']['ErrorRate']['Symbol']['PerSymbol']
+            BER=self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['PerSymbol']
+            GrayBER=self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['PerSymbol']
+            for s in range(len(SymbolCode)):
+                lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+                self.AddText(lineFrame,bin(SymbolCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddText(lineFrame,bin(GrayCode[s])[2:].rjust(symbolDigits,'0'),self.entrywidth)
+                self.AddEntry(lineFrame, '{:.3E}'.format(Probability[s],3), self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddEntry(lineFrame, '{:.3E}'.format(SER[s],3), self.entrywidth)
+                self.AddEntry(lineFrame, '{:.3E}'.format(BER[s],3), self.entrywidth)
+                if numberOfSymbols > 2:
+                    self.AddEntry(lineFrame, '{:.3E}'.format(GrayBER[s],3), self.entrywidth)
+            lineFrame=tk.Frame(self.BERFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            if numberOfSymbols > 2:
+                self.AddText(lineFrame,'',self.entrywidth)
+            self.AddText(lineFrame,'Totals',self.entrywidth)
+            self.AddEntry(lineFrame, '{:.3E}'.format(sum(Probability),3), self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Symbol']['Measured'],3), self.entrywidth)
+            self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Standard']['Measured'],3), self.entrywidth)
+            if numberOfSymbols > 2:
+                self.AddEntry(lineFrame, '{:.3E}'.format(self.meas['Probabilities']['ErrorRate']['Bit']['Gray']['Measured'],3), self.entrywidth)
+            self.tabControl.tab(1,state='normal')
+        else:
+            self.tabControl.tab(1,state='disabled')
 #             self.measDict['Penalties']={'PH':PH,'PL':PL,'MA':OMA,'QFactorExpected':QFactorExpected,'QFactorExpecteddB':QFactorExpecteddB,
 #                                         'BERMeasured':BERmeas,'BERExpected':BERexpected,
 #                                         'QFactor':QFactor,'QFactordB':QFactordB,'TxPenalty':TxPenalty,
@@ -293,32 +325,34 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
 #                                         'F':{'Numerical':F,'Numerator':FN,'Denominator':FD},
 #                                         'D':D}
 
-        if 'Penalties' in self.meas.keys():
-            PH=self.meas['Penalties']['PH']
-            self.SingleLine(self.PenaltiesFrame, 'High Level', ToSI(PH,round=6))
-            PL=self.meas['Penalties']['PL']
-            self.SingleLine(self.PenaltiesFrame, 'Low Level', ToSI(PL,round=6))
-            OMA=self.meas['Penalties']['MA']
-            self.SingleLine(self.PenaltiesFrame, 'Modulation Amplitude', ToSI(OMA,round=6))
-            sigma=self.meas['Penalties']['NoiseSigma']
-            self.SingleLine(self.PenaltiesFrame, 'Noise Sigma', ToSI(sigma,round=6))
-            noisePenaltydB=self.meas['Penalties']['NoisePenalty']
-            self.SingleLine(self.PenaltiesFrame, 'Noise Penalty', ToSI(noisePenaltydB,'dB',round=4))
-            QFactorExpected=self.meas['Penalties']['QFactorExpected']
-            self.SingleLine(self.PenaltiesFrame, 'Expected Q Factor', ToSI(QFactorExpected,round=6))
-            BERexpected=self.meas['Penalties']['BERExpected']
-            self.SingleLine(self.PenaltiesFrame, 'Expected BER', '{:.3E}'.format(BERexpected))
-            lineFrame=tk.Frame(self.PenaltiesFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.AddText(lineFrame,'',self.entrywidth)
-            BERmeas=self.meas['Penalties']['BERMeasured']
-            self.SingleLine(self.PenaltiesFrame, 'Measured BER', '{:.3E}'.format(BERmeas))
-            QFactor=self.meas['Penalties']['QFactor']
-            self.SingleLine(self.PenaltiesFrame, 'Measured Q Factor', 'infinite' if math.isinf(QFactor) else ToSI(QFactor,round=6))
-            TxPenalty=self.meas['Penalties']['TxPenalty']
-            if BERexpected == 0 and BERmeas == 0:
-                self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'unknown')
+        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
+            if 'Penalties' in self.meas.keys():
+                PH=self.meas['Penalties']['PH']
+                self.SingleLine(self.PenaltiesFrame, 'High Level', ToSI(PH,round=6))
+                PL=self.meas['Penalties']['PL']
+                self.SingleLine(self.PenaltiesFrame, 'Low Level', ToSI(PL,round=6))
+                OMA=self.meas['Penalties']['MA']
+                self.SingleLine(self.PenaltiesFrame, 'Modulation Amplitude', ToSI(OMA,round=6))
+                sigma=self.meas['Penalties']['NoiseSigma']
+                self.SingleLine(self.PenaltiesFrame, 'Noise Sigma', ToSI(sigma,round=6))
+                noisePenaltydB=self.meas['Penalties']['NoisePenalty']
+                self.SingleLine(self.PenaltiesFrame, 'Noise Penalty', ToSI(noisePenaltydB,'dB',round=4))
+                QFactorExpected=self.meas['Penalties']['QFactorExpected']
+                self.SingleLine(self.PenaltiesFrame, 'Expected Q Factor', ToSI(QFactorExpected,round=6))
+                BERexpected=self.meas['Penalties']['BERExpected']
+                self.SingleLine(self.PenaltiesFrame, 'Expected BER', '{:.3E}'.format(BERexpected))
+                lineFrame=tk.Frame(self.PenaltiesFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+                self.AddText(lineFrame,'',self.entrywidth)
+                BERmeas=self.meas['Penalties']['BERMeasured']
+                self.SingleLine(self.PenaltiesFrame, 'Measured BER', '{:.3E}'.format(BERmeas))
+                QFactor=self.meas['Penalties']['QFactor']
+                self.SingleLine(self.PenaltiesFrame, 'Measured Q Factor', 'infinite' if math.isinf(QFactor) else ToSI(QFactor,round=6))
+                TxPenalty=self.meas['Penalties']['TxPenalty']
+                if BERexpected == 0 and BERmeas == 0:
+                    self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'unknown')
+                else:
+                    self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'infinite' if math.isinf(TxPenalty) else ToSI(TxPenalty,'dB',round=4))
+                self.tabControl.tab(2,state='normal')
             else:
-                self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'infinite' if math.isinf(TxPenalty) else ToSI(TxPenalty,'dB',round=4))
-            self.tabControl.tab(2,state='normal')
-        else:
-            self.tabControl.tab(2,state='disabled')
+                self.tabControl.tab(2,state='disabled')
+        self.deiconify()
