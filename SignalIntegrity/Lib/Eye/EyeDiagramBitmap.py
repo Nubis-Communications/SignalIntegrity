@@ -91,8 +91,14 @@ class Pixelator(object):
         return results
 
 class EyeDiagramBitmap(CallBacker,ResultsCache):
-
+    """Generates the eye diagram bitmap and many associated measurements from it"""
     def HashValue(self,stuffToHash=''):
+        """Generates the hash for a definition.  
+        It is formed by hashing the bitmap definition with whatever else is hashed.
+        @param stuffToHash repr of stuff to hash
+        @remark derived classes should override this method and call the base class HashValue with their stuff added
+        @return integer hash value
+        """
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
                     repr(self.NoiseSigma)+repr(self.Rows)+repr(self.Cols)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
@@ -114,6 +120,62 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  BitsPerSymbol=1, # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
                  *args,
                  **kwargs):
+        """Constructor
+        Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is
+        not aligned -- it assumes that the unit interval starts at zero time. (see AutoAlign for alignment).
+        This class allows for caching of the bitmap if the cacheFileName is provided.
+        @param cacheFileName string file name (defaults to None) containing the base cached file name.
+        Usually, this file name is the name of the project file joined to the name of the waveform with an
+        underscore.
+        @param YAxisMode String, 'Auto' or 'Fixed' (defaults to 'Auto') defining the method of computing the
+        y axis extents for the eye diagram.  'Auto' means to generate this axis depending on the extents of
+        the input waveform and the noise statistics.  'Fixed' means that these extents are defined in the
+        YMax and YMin arguments.  'Auto' places the y axis such that it is 10 standard deviations beyond the
+        noise specified.  If no noise is provided, the y-axis is placed 10% beyond the min and max extents of
+        the waveform.
+        @param YMax float, defaults to None, defining the upper extent of the y-axis in the bitmap when YAxisMode
+        is provided as 'Fixed'.  If YAxisMode is auto, this parameter is ignored.
+        @param YMin float, defaults to None, defining the lower extent of the y-axis in the bitmap when YAxisMode
+        is provided as 'Fixed'.  If YAxisMode is auto, this parameter is ignored.
+        @param NoiseSigma float, defaults to zero, amount of noise that will be added to the waveform, presumably
+        in a call to ApplyJitterNoise.
+        @param Rows int, defaults to None, defining the number of rows in the eye diagram bitmap.
+        @param Cols int, defaults to None, defining the number of columns in the eye diagram bitmap.
+        @param Baudrate float, defaults to None, Baud or symbol rate for the waveform.
+        @param prbswf instance of class Waveform, defaults to None, containing the serial data waveform used
+        to generate the bitmap.
+        @param EnhancementMode string, defaults to 'Auto', containing the enhancement mode -- can be 'Auto',
+        'Fixed', or 'None'.  The eye diagram is generated from a waveform that is upsampled to a
+        rate such that every point falls in a column of the bitmap.  When 'None' is specified, for each point,
+        the row is calculated (usually a probability straddling two rows) and the probability is counted.
+        Sometimes, the waveform transitions multiple rows in between columns and this can lead to bitmaps with
+        vertical holes.  This is not only visually undesirable but can play havoc with the measurements.  When
+        'Fixed' is specified, for every point, the steps provided in EnhancementSteps is used.  This is slow and
+        not really advised.  'Auto' strikes a balance and calculates how many rows have been traversed and
+        calculates a step amount to fill in about two steps per row.  'Auto' therefore dynamically adjusts the
+        step size and is the recommended mode.
+        @param EnhancementSteps int, defaults to 10, fixed number of steps to be used in 'Fixed' EnhancementMode.
+        @param BitsPerSymbol int, defaults to 1, number of bits per symbol.  One bit per symbol is NRZ, or PAM-2.
+        Two bits per symbol is PAM-4, etc.  
+        At the end of construction, the bitmap can be accessed through a call to Bitmap.  
+        The construction initializes several member variables that contain computed or partially computed results
+        as a result of further processing.  These are:
+        *  self.BitmapLog - the logarithmic bitmap which is calculated in the call to Measure.
+        *  self.measDict - the dictionary containing the measurement and bathtub curve calculation results
+        produced in calls to Measure and Bathtub.
+        *  self.annotationBitmap - the bitmap that is overlaid containing annotations on the eye created in the
+        call to Annotations..
+        *  self.img - the actual bitmap picture created in the call to CreateImage.
+        @note After construction, there are limitations on the order of further downstream processing.  The
+        recommended order is:
+        1.  Constructor
+        2.  ApplyJitterNoise
+        3.  AutoAlign
+        4.  Measure
+        5.  Bathtub
+        6.  Annotations
+        7.  CreateImage
+        """
         self.YAxisMode=YAxisMode
         self.YMax=YMax
         self.YMin=YMin
@@ -121,7 +183,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.Rows=Rows
         self.Cols=Cols
         self.BaudRate=BaudRate
-        self.prbswf=prbswf
+        self.prbswf=prbswf # saved only for generating hash value
         self.EnhancementMode=EnhancementMode
         self.EnhancementSteps=EnhancementSteps
         self.BitsPerSymbol=BitsPerSymbol
@@ -148,15 +210,15 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there
         # is the assumption that there is a point at exactly time zero, and that is the center of the unit interval.
         # the amount of points to remove is trimmed from the left to make the very first sample at the center of a unit interval.
-        self.aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
-        self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
+        aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
+        aprbswf=WaveformTrimmer(C-int(round((aprbswf.td.H-math.floor(aprbswf.td.H/UI)*UI)*aprbswf.td.Fs)),0).TrimWaveform(aprbswf)
 
         auto=YAxisMode
         noiseSigma=NoiseSigma
 
         if auto:
-            self.maxV=max(self.aprbswf.Values())
-            self.minV=min(self.aprbswf.Values())
+            self.maxV=max(aprbswf.Values())
+            self.minV=min(aprbswf.Values())
             if noiseSigma != 0:
                 self.maxV=self.maxV+10.*noiseSigma
                 self.minV=self.minV-10.*noiseSigma
@@ -180,13 +242,13 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         pixelator = Pixelator(R,C,steps,mode=enhancementMode)
 
         bitmap=np.zeros((R,C))
-        ri=(self.aprbswf[0]-self.minV)/DeltaV*R
+        ri=(aprbswf[0]-self.minV)/DeltaV*R
         ci=(0+midBin)%C
-        for k in range(1,self.aprbswf.td.K):
-            rf=(self.aprbswf[k]-self.minV)/DeltaV*R
+        for k in range(1,aprbswf.td.K):
+            rf=(aprbswf[k]-self.minV)/DeltaV*R
             cf=(k+midBin)%C
             if (not callback is None) and (k//C != (k-1)//C):
-                if not callback(k/self.aprbswf.td.K*100.):
+                if not callback(k/aprbswf.td.K*100.):
                     return
             results=pixelator.Results(ri, ci, rf, cf, k==0)
             for result in results:
@@ -201,7 +263,6 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         # don't cache the waveform
         del self.prbswf
-        del self.aprbswf
         self.CacheResult()
 
     def Bitmap(self):

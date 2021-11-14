@@ -21,6 +21,7 @@ si | SignalIntegrity.Lib | Top of SignalIntegrity.Lib Package
 si.czt | SignalIntegrity.Lib.ChirpZTransform | Chirp z transform
 si.cvt | SignalIntegrity.Lib.Conversions | Conversion Formulas
 si.dev | SignalIntegrity.Lib.Devices | Single Frequency Devices
+si.eye | SignalIntegrity.Lib.Eye | Eye Diagram Generation and Processing
 si.fit | SignalIntegrity.Lib.Fit | Fitting Algorithms
 si.fd | SignalIntegrity.Lib.FrequencyDomain | Frequency Domain
 si.helper | SignalIntegrity.Lib.Helper | Helper functions and classes
