@@ -84,7 +84,17 @@ class Pixelator(object):
         return results
 
 class EyeDiagramBitmap(CallBacker,ResultsCache):
-    """Generates the eye diagram bitmap and many associated measurements from it"""
+    """Generates the eye diagram bitmap and many associated measurements from it
+        @note After construction, there are limitations on the order of further downstream processing.  The
+        recommended order is:
+        1.  Constructor
+        2.  ApplyJitterNoise
+        3.  AutoAlign
+        4.  Measure
+        5.  Bathtub
+        6.  Annotations
+        7.  CreateImage
+        """
     def HashValue(self,stuffToHash=''):
         """Generates the hash for a definition.  
         It is formed by hashing the bitmap definition with whatever else is hashed.
@@ -149,6 +159,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param EnhancementSteps int, defaults to 10, fixed number of steps to be used in 'Fixed' EnhancementMode.
         @param BitsPerSymbol int, defaults to 1, number of bits per symbol.  One bit per symbol is NRZ, or PAM-2.
         Two bits per symbol is PAM-4, etc.  
+
         At the end of construction, the bitmap can be accessed through a call to Bitmap.  
         The construction initializes several member variables that contain computed or partially computed results
         as a result of further processing.  These are:
@@ -157,7 +168,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         produced in calls to Measure and Bathtub.
         *  self.annotationBitmap - the bitmap that is overlaid containing annotations on the eye created in the
         call to Annotations..
-        *  self.img - the actual bitmap picture created in the call to CreateImage.
+        *  self.img - the actual bitmap picture created in the call to CreateImage.  
+
         @note After construction, there are limitations on the order of further downstream processing.  The
         recommended order is:
         1.  Constructor
@@ -274,6 +286,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param DeterministicJitter float, defaults to 0, amount of deterministic jitter to apply
         horizontally.
         @param MaxPixelsKernel int, defaults to 100000, maximum number of pixels in kernel  
+
         Noise and jitter are applied by constructing a kernel and then convolving this kernel with
         the eye diagram bitmap.  The kernel itself is a convolution of a vertical histogram, containing
         the Gaussian distributed vertical noise and a horizontal histogram, containing the jitter.
@@ -335,21 +348,18 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param BERForAlignment float, defaults to -3, exponent of the probability contour to align on.
         @param AlignmentMode string, either 'Horizontal' or 'Vertical', defaults to 'Horizontal', defining the alignment mode.
         @param HorizontalAlignment string, either 'Middle' or 'Max' , defaults to 'Middle', defining the horizontal alignment mode.
-        @param VerticalAlignment string, either 'MaxMin' or 'Max', defaults to MaxMin, defining the vertical alignment mode. 
+        @param VerticalAlignment string, either 'MaxMin' or 'Max', defaults to MaxMin, defining the vertical alignment mode.  
+
         Alignment is made by considering contours that define the probability specified by the BERForAlignment.  While not technically
         a BER, it is the probability contour inside of which, all hits are lower probability.  All measurements of vertical height and
         horizontal width are taken on these contours produced.   
         Alignment modes are a combination of the three alignment mode specifications:
         | AlignmentMode | HorizontalAlignment | VerticalAlignment | Definition                                                                                  |
         |:-------------:|:-------------------:|:-----------------:|:--------------------------------------------------------------------------------------------|
-        | Horizontal    | Middle              | N/A               | The center of the eye is found by first computing the widest horizontal opening of the\n    |
-        |               |                     |                   | middle eye, then computing the horizontal midpoint.                                         |
-        | Horizontal    | Max                 | N/A               | The center of the eye is found by first computing the widest horizontal opening of the\n    |
-        |               |                     |                   | widest eye, then computing the horizontal midpoint.                                         |
-        | Vertical      | N/A                 | MaxMin            | The center of the eye is found by finding the horizontal location where the vertical\n      |
-        |               |                     |                   | opening is maximized for the narrowest eye.                                                 |
-        | Vertical      | N/A                 | Max               | The center of the eye is found by finding the horizontal location where the vertical\n      |
-        |               |                     |                   | opening is maximized for any eye.                                                           |
+        | Horizontal    | Middle              | N/A               | The center of the eye is found by first computing the widest horizontal opening of the middle eye, then computing the horizontal midpoint.|
+        | Horizontal    | Max                 | N/A               | The center of the eye is found by first computing the widest horizontal opening of the widest eye, then computing the horizontal midpoint.|
+        | Vertical      | N/A                 | MaxMin            | The center of the eye is found by finding the horizontal location where the vertical opening is maximized for the narrowest eye.          |
+        | Vertical      | N/A                 | Max               | The center of the eye is found by finding the horizontal location where the vertical opening is maximized for any eye.                    |
         The side effect of this function is for the rawBitmap member variable to be replaced with a new bitmap containing the aligned eye diagram.
         """
         bitmap=self.rawBitmap.copy()
@@ -488,37 +498,39 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         If 'Mid', the decision point is the vertical middle of the eye.  If 'Best' is specified, it is the least likey
         point in the middle of the eye.  If the probability goes to zero in the middle, it is the midpoint of the middle
         zero locations.  
+
         Measurements are made by first determining a probablity contour in the eye such that everything inside the contour
         is lower probability than the contour edge, which is above the probability of the BERForMeasure.  The vertical extents
         of the contour (the eye height) is the length of the vertical line in the exact center of the eye diagram.  The horizontal
         extents of the contour (the eye width) are the lengths of the horizontal line at the decision point, specified by the
         DecisionMode.  
+
         Upon completion, the member variable measDict contains a dictionary with the following elements:
-        R - Rows in the bitmap.
-        C - Columns in the bitmap.
-        MinV - Voltage defined by row 0.
-        MaxV - Voltage defined by the maximum row.
-        MinT - Time defined by the column 0.
-        MaxT - Time defined by the last column.
-        Eye - An array of parameters, one for each eye containing:
-        * Start - a dictionary containing Bin and Time defining the pixel column of the horizontal start of the eye.
-        * End - a dictionary containing Bin and Time defining the pixel column of the horizontal end of the eye.
-        * Width - a dictionary containing the Bin and Time width of the eye.
-        * High - a dictionary containing the Bin and Volt defining the pixel row of the vertical top of the eye.
-        * Low - a dictionary containing the Bin and Volt defining the pixel row of the vertical bottom of the eye.
-        * Mid - a dictionary containing the Bin and Volt defining the pixel row of the vertical middle of the eye.
-        * Best - a dictionary containing the Bin and Volt defining the pixel row of the best decision point for the eye.
-        * Height - a dictionary containing the Bin and Volt defining the vertical height of the eye.
-        * AV - a dictionary containing Volt defining the volts between the level extents at each edge of the eye.
-        Level - An array of parameters, one for each level of the eye (the number of eyes plus one) containing:
-        * Min - a dictionary containing the Bin and Volt of the minimum edge of the level extent.
-        * Max - a dictionary containing the Bin and Volt of the maximum edge of the level extent.
-        * Delta  - a dictionary containing the Bin and Volt vertical distance between the edeges of the level extent.
-        * Mean - a dictionary containing the Bin and Volt of the mean vertical location of the level extent.
-        Linearity - The eye linearity calculated as the Min(AV)/Max(AV).  This is 100% for NRZ waveforms.
-        RLM - Relative Level Mismatch - only defined for PAM-4.
-        VerticalResolution - the resolution, in V, for each row of the eye.
-        HorizontalResolution - the resolution in seconds, for each column of the eye.
+        * R - Rows in the bitmap.
+        * C - Columns in the bitmap.
+        * MinV - Voltage defined by row 0.
+        * MaxV - Voltage defined by the maximum row.
+        * MinT - Time defined by the column 0.
+        * MaxT - Time defined by the last column.
+        * Eye - An array of parameters, one for each eye containing:
+            - Start - a dictionary containing Bin and Time defining the pixel column of the horizontal start of the eye.
+            - End - a dictionary containing Bin and Time defining the pixel column of the horizontal end of the eye.
+            - Width - a dictionary containing the Bin and Time width of the eye.
+            - High - a dictionary containing the Bin and Volt defining the pixel row of the vertical top of the eye.
+            - Low - a dictionary containing the Bin and Volt defining the pixel row of the vertical bottom of the eye.
+            - Mid - a dictionary containing the Bin and Volt defining the pixel row of the vertical middle of the eye.
+            - Best - a dictionary containing the Bin and Volt defining the pixel row of the best decision point for the eye.
+            - Height - a dictionary containing the Bin and Volt defining the vertical height of the eye.
+            - AV - a dictionary containing Volt defining the volts between the level extents at each edge of the eye.
+        * Level - An array of parameters, one for each level of the eye (the number of eyes plus one) containing:
+            - Min - a dictionary containing the Bin and Volt of the minimum edge of the level extent.
+            - Max - a dictionary containing the Bin and Volt of the maximum edge of the level extent.
+            - Delta  - a dictionary containing the Bin and Volt vertical distance between the edeges of the level extent.
+            - Mean - a dictionary containing the Bin and Volt of the mean vertical location of the level extent.
+        * Linearity - The eye linearity calculated as the Min(AV)/Max(AV).  This is 100% for NRZ waveforms.
+        * RLM - Relative Level Mismatch - only defined for PAM-4.
+        * VerticalResolution - the resolution, in V, for each row of the eye.
+        * HorizontalResolution - the resolution in seconds, for each column of the eye.
         """
         bitmap=self.rawBitmap.copy()
         numberOfEyes=int(2**self.BitsPerSymbol-1)
@@ -684,57 +696,56 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         the 'Bathtub' dictionary are the following items:
         Vertical - a dictionary containing:
         * Data - contains two vectors called:
-        ** x - an x axis containing one element per row containing the voltage.
-        ** y - a y axis containing one element per row containing the probability.
+            - x - an x axis containing one element per row containing the voltage.
+            - y - a y axis containing one element per row containing the probability.
         * Level - a dictionary array (each element in the dictionary is 0, 1, 2, etc.) containing, per level:
-        ** LeftEst - a dictionary containing information on the left estimate (the PDF tail below the level in the histogram shown as a vertical slice:
-        *** Start - a dictionary containing Bin which is the starting row for the estimate of the PDF.
-        *** End - a dictionary containing Bin which is the ending row for the estimate of the PDF.
-        *** Est - a dictionary of the estimatated polynomial:
-        **** Coef - list of the three coefficients a0, a1, a2 for the polynomial a0+a1*x+a2*x^2 where x is the natural log of the probability.
-        **** Valid - if the estimate is valid.
-        **** Wf - a dictionary of the estimated PDF tail where:
-        ***** x - is the x axis containing the voltage.
-        ***** y - is the y axis containing the probability.
-        ** RightEst - a dictionary containing information on the right estimate (the PDF tail above the level in the histogram shown as a vertical slice:
-        *** Start - a dictionary containing Bin which is the starting row for the estimate of the PDF.
-        *** End - a dictionary containing Bin which is the ending row for the estimate of the PDF.
-        *** Est - a dictionary of the estimatated polynomial:
-        **** Coef - list of the three coefficients a0, a1, a2 for the polynomial a0+a1*x+a2*x^2 where x is the natural log of the probability.
-        **** Valid - if the estimate is valid.
-        **** Wf - a dictionary of the estimated PDF tail where:
-        ***** x - is the x axis containing the voltage.
-        ***** y - is the y axis containing the probability.
-        ** Hist - the entire, partially estimated, PDF for this level vertically across the entire vertical slice.  There is one probablity element
-        per row in the eye diagram.
-        ** CDFFromLeft - The integrated PDF from the bottom to the top, forming the probability that a value could be below a given row.
-        ** CDFFromRight - The integrated PDF from the top to the bottom, forming the probability that a value could be above a given row.
+            - LeftEst - a dictionary containing information on the left estimate (the PDF tail below the level in the histogram shown as a vertical slice:
+                - Start - a dictionary containing Bin which is the starting row for the estimate of the PDF.
+                - End - a dictionary containing Bin which is the ending row for the estimate of the PDF.
+                - Est - a dictionary of the estimatated polynomial:
+                    - Coef - list of the three coefficients a0, a1, a2 for the polynomial a0+a1*x+a2*x^2 where x is the natural log of the probability.
+                    - Valid - if the estimate is valid.
+                    - Wf - a dictionary of the estimated PDF tail where:
+                        - x - is the x axis containing the voltage.
+                        - y - is the y axis containing the probability.
+            - RightEst - a dictionary containing information on the right estimate (the PDF tail above the level in the histogram shown as a vertical slice:
+                - Start - a dictionary containing Bin which is the starting row for the estimate of the PDF.
+                - End - a dictionary containing Bin which is the ending row for the estimate of the PDF.
+                - Est - a dictionary of the estimatated polynomial:
+                    - Coef - list of the three coefficients a0, a1, a2 for the polynomial a0+a1*x+a2*x^2 where x is the natural log of the probability.
+                    - Valid - if the estimate is valid.
+                    - Wf - a dictionary of the estimated PDF tail where:
+                        - x - is the x axis containing the voltage.
+                        - y - is the y axis containing the probability.
+            - Hist - the entire, partially estimated, PDF for this level vertically across the entire vertical slice.  There is one probablity element
+            per row in the eye diagram.
+            - CDFFromLeft - The integrated PDF from the bottom to the top, forming the probability that a value could be below a given row.
+            - CDFFromRight - The integrated PDF from the top to the bottom, forming the probability that a value could be above a given row.
         * Horizontal - a dictionary array, one element per eye, where each element in the dictionary is 0, 1, 2, etc.), containing, per eye:
-        ** Data - an instance of class Waveform, spanning the entire UI horizontally, containing the probability at the decision point for each column.
-        This is used to plot the jitter bathtub curves.
-        Inside
-        the 'Probabilities' dictionary are the following items:
+            - Data - an instance of class Waveform, spanning the entire UI horizontally, containing the probability at the decision point for each column.
+            This is used to plot the jitter bathtub curves.
+        Inside the 'Probabilities' dictionary are the following items:
         * SymbolCodes - a list of the codes for the symbol.  This is just 0, 1, 2, etc. depending on the bits per symbol.
         * GrayCodes - a list of gray coded symbols corresponding to the symbol codes.
         * Interpretation - A list of lists representing a Symbols x Symbols matrix, where Interpretation[x][y] represents the probability that a
         symbol transmitted as symbol x is interpreted as symbol y.
         * Symbol - the measured probability that a symbol was transmitted.
         * ErrorRate - The error rates containing:
-        ** Symbol - the symbol error rates as:
-        *** PerSymbol - A list per symbol containing the probability of a symbol being erroneously decoded.
-        *** Nominal - The total, nominal symbol error rate, assuming that each symbol was transmitted with equal probability.
-        *** Measured - The total, measured symbol error rate, considering the measured probability that a given symbol was transmitted.
-        ** Bit - The bit error rates containing:
-        *** Standard - The un-gray coded bit errors:
-        **** PerSymbol - a list per symbol containing the probability of one or more bit errors in the symbol.
-        **** Nominal - The total, nominal bit error rate, assuming that each bit was transmitted with equal probability.
-        **** Measured - the total, measured bit error rate, considering the measured probability that a given bit was transmitted.
-        *** Gray - The gray coded bit errors:
-        **** PerSymbol - a list per symbol containing the probability of one or more bit errors in the symbol.
-        **** Nominal - The total, nominal bit error rate, assuming that each bit was transmitted with equal probability.  Nominally, this should
-        be the nominal BER divided by the number of bits per symbol.
-        **** Measured - the total, measured bit error rate, considering the measured probability that a given bit was transmitted.
-        @requires: That the Measure member function be called prior to this call.
+            - Symbol - the symbol error rates as:
+                - PerSymbol - A list per symbol containing the probability of a symbol being erroneously decoded.
+                - Nominal - The total, nominal symbol error rate, assuming that each symbol was transmitted with equal probability.
+                - Measured - The total, measured symbol error rate, considering the measured probability that a given symbol was transmitted.
+            - Bit - The bit error rates containing:
+                - Standard - The un-gray coded bit errors:
+                    - PerSymbol - a list per symbol containing the probability of one or more bit errors in the symbol.
+                    - Nominal - The total, nominal bit error rate, assuming that each bit was transmitted with equal probability.
+                    - Measured - the total, measured bit error rate, considering the measured probability that a given bit was transmitted.
+                - Gray - The gray coded bit errors:
+                    - PerSymbol - a list per symbol containing the probability of one or more bit errors in the symbol.
+                    - Nominal - The total, nominal bit error rate, assuming that each bit was transmitted with equal probability.  Nominally, this should
+                    be the nominal BER divided by the number of bits per symbol.
+                    - Measured - the total, measured bit error rate, considering the measured probability that a given bit was transmitted.
+        @remark The Measure member function be called prior to this call.
         """
         numberOfEyes=int(2**self.BitsPerSymbol-1)
         UI=1./self.BaudRate
@@ -966,9 +977,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param EyeWidth bool, defaults to True, whether to place a horizontal line where the eye width is measured.
         @param EyeHeight bool, defaults to True, whether to place a vertical line where the eye height is measured.
         @param Contours bool, defaults to True, whether to annotate the eye contour with the probability specified in the Measurement.
-        @param WhichContours, string, 'Eye' or 'All', defaults to 'Eye', where to annotate the contour.  'Eye' annotates only the contour around
+        @param WhichContours string, 'Eye' or 'All', defaults to 'Eye', where to annotate the contour.  'Eye' annotates only the contour around
         the eye.  'All' annotates any region whose inside has the probability specified.
-        @requires: That the Measure member function be called prior to this call.
+        @remark The Measure member function be called prior to this call.
         """
         # annotations
         (R,C)=self.rawBitmap.shape
@@ -1099,9 +1110,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         Best values are 20 % or lower.
         @param InvertImage bool, defaults to True.  Non-inverted images are shades of black on the color specified.  Inverted images are shades of
         the color specified on black.
-        @param Color, string, defaults to #ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
+        @param Color string, defaults to #ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
         eye diagram.  '#ffffff' is white.  '#000000' is black.
-        @param AnnotationColor, string, defaults to #000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
+        @param AnnotationColor string, defaults to #000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
         for the annotations.
         @param ScaleX float, defaults to 100, scaling of the x axis of the image after construction.
         @param ScaleY float, defaults to 100, scaling of the y axis of the image after construction. 
