@@ -91,17 +91,15 @@ class EyeDiagram(object):
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Jitter/Noise Failed.')
 
-        # if desired, automaticall align the waveform to place the eye at the center.  If measurements are to be performed, the alignment performed
-        # to generate the eye extents only
+        # if desired, automatically align the waveform to place the eye at the center.
         try:
-            if self.config['Alignment.AutoAlign'] or self.config['Measure.Measure']:
+            if self.config['Alignment.AutoAlign']:
                 if not self.headless: self.parent.statusbar.set('Aligning Eye Diagram')
                 eyeDiagramBitmap.AutoAlign(
                   BERForAlignment=self.config['Alignment.BERForAlignment'], # Exponent of probability contour to align on
                   AlignmentMode=self.config['Alignment.Mode'], # can be 'Horizontal' or 'Vertical'
                   HorizontalAlignment=self.config['Alignment.Horizontal'], # 'Middle' or 'Max' (vertical eye) - alignment will be the horizontal midpoint of one of these two eye possibilities
                   VerticalAlignment=self.config['Alignment.Vertical'], # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
-                  GenerateExtentsOnly=not self.config['Alignment.AutoAlign'] # if this is True, calculations are made only to obtain the extents, to be used in the measurements
                   )
         except Exception as e:
             pass
