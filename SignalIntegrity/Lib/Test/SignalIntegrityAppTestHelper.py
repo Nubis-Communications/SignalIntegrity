@@ -262,7 +262,7 @@ class SignalIntegrityAppTestHelper:
         self.SParameterRegressionChecker(sp, spfilename)
         return result
     def ImageRegressionChecker(self,img,filename):
-        from PIL import Image,ImageChops
+        from PIL import Image
         currentDirectory=os.getcwd()
         os.chdir(self.path)
         if not os.path.exists(filename):
@@ -270,8 +270,25 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, filename + ' not found')
         regression=Image.open(filename)
-        diff=ImageChops.difference(regression,img)
-        self.assertFalse(diff.getbbox(),filename + ' incorrect')
+
+        def ImageRMSE(imageA, imageB):
+            import numpy as np
+            import math
+
+            imageA=np.array(imageA)
+            imageB=np.array(imageB)
+            # the 'Mean Squared Error' between the two images is the
+            # sum of the squared difference between the two images;
+            # NOTE: the two images must have the same dimension
+            err = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+            err /= float(imageA.shape[0] * imageA.shape[1])
+            # return the MSE, the lower the error, the more "similar"
+            # the two images are
+            return math.sqrt(err)
+
+        #print(f'RMSE: {ImageRMSE(regression,img)}')
+        errorBetweenImages=ImageRMSE(regression,img)
+        self.assertTrue(errorBetweenImages<20.,filename + ' incorrect')
         os.chdir(currentDirectory)
     def NumpyArrayRegressionChecker(self,ary,filename):
         import numpy as np
@@ -282,7 +299,8 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, filename + ' not found')
         regression=np.load(filename)
-        self.assertTrue(np.allclose(ary,regression),filename + ' incorrect')
+        #print(np.sum(np.isclose(ary,regression,1e-8,1e-1)))
+        self.assertTrue(np.allclose(ary,regression,1e-8,1e-1),filename + ' incorrect')
         os.chdir(currentDirectory)
     def JsonDictRegressionChecker(self,meas,filename):
         import json
@@ -302,7 +320,46 @@ class SignalIntegrityAppTestHelper:
         meas=json.loads(json.dumps(meas, cls=CustomJSONizer))
         with open(filename) as f:
             regression = json.load(f)
-        self.assertTrue(regression == meas,filename + ' incorrect')
+
+        from typing import Optional, Union
+        JsonType = Optional[Union[dict, list, str, float, int]]
+
+        def are_jsons_approx_equal(js1: JsonType, js2: JsonType, precision: int) -> bool:
+            """Compares two json objects and returns True if these are approximately equal.
+
+            Float values are rounded to the significant figures specified as `precision`
+            when being compared.
+
+            Args:
+                js1: json object to compare
+                js2: json object to compare
+                precision: significant figures applied to float values
+
+            Returns:
+                True if two json objects are approximately equal.
+
+            Raises:
+                TypeError: if `js1` or `js2` is not a valid json object.
+            """
+            def _float_to_str_in_json(js):
+                if type(js) in (str, int, bool, type(None)):
+                    return js
+                if type(js) is float:
+                    return f"{js:.{precision}e}"
+                if type(js) is list:
+                    return [_float_to_str_in_json(x) for x in js]
+                if type(js) is dict:
+                    if any([type(key) is not str for key in js.keys()]):
+                        raise TypeError("One of key types is not 'str'.")
+                    return {key: _float_to_str_in_json(val) for key, val in js.items()}
+                raise TypeError(f"Value of type '{type(js)}' is not a valid json object.")
+
+            new_js1 = _float_to_str_in_json(js1)
+            new_js2 = _float_to_str_in_json(js2)
+
+            return new_js1 == new_js2
+
+        self.assertTrue(are_jsons_approx_equal(regression,meas,5),filename + ' incorrect')
         os.chdir(currentDirectory)
 
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
