@@ -342,7 +342,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         kernelHarray=kernelHarray[:,horStart:horEnd]
 
         # pad the bitmap array to encompass the vertical size of the kernel
-        rowsToPad=min(kernelVarray.shape[0],self.Rows)
+        rowsToPad=min(kernelVarray.shape[0],self.RowsSpecified)
         if rowsToPad > 0:
             padding=np.zeros((rowsToPad,self.Cols))
             bitmaparray=np.vstack((padding,bitmaparray,padding))
