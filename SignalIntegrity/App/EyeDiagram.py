@@ -62,7 +62,6 @@ class EyeDiagram(object):
                 YAxisMode=self.config['YAxis.Mode'],
                 YMax=self.config['YAxis.Max'],
                 YMin=self.config['YAxis.Min'],
-                NoiseSigma=self.config['JitterNoise.Noise'] if (self.config['Mode'] == 'JitterNoise') else 0,
                 Rows=self.config['Rows'],
                 Cols=self.config['Columns'],
                 BaudRate=self.baudrate,

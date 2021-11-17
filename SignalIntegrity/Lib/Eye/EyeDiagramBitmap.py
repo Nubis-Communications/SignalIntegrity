@@ -103,7 +103,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @return integer hash value
         """
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
-                    repr(self.NoiseSigma)+repr(self.Rows)+repr(self.Cols)+\
+                    repr(self.RowsSpecified)+repr(self.Cols)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
                     repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
@@ -113,7 +113,6 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  YAxisMode='Auto',
                  YMax=None, # ignored if YAxisMode is Auto
                  YMin=None, # ignored if YAxisMode is Auto
-                 NoiseSigma=0, # if Auto, can be used to set the axis, otherwise 10% added to each side
                  Rows=None,
                  Cols=None,
                  BaudRate=None,
@@ -131,16 +130,13 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         underscore.
         @param YAxisMode String, 'Auto' or 'Fixed' (defaults to 'Auto') defining the method of computing the
         y axis extents for the eye diagram.  'Auto' means to generate this axis depending on the extents of
-        the input waveform and the noise statistics.  'Fixed' means that these extents are defined in the
-        YMax and YMin arguments.  'Auto' places the y axis such that it is 10 standard deviations beyond the
-        noise specified.  If no noise is provided, the y-axis is placed 10% beyond the min and max extents of
+        the input waveform.  'Fixed' means that these extents are defined in the
+        YMax and YMin arguments.  'Auto' places the y axis such that it is 10% beyond the min and max extents of
         the waveform.
         @param YMax float, defaults to None, defining the upper extent of the y-axis in the bitmap when YAxisMode
         is provided as 'Fixed'.  If YAxisMode is auto, this parameter is ignored.
         @param YMin float, defaults to None, defining the lower extent of the y-axis in the bitmap when YAxisMode
         is provided as 'Fixed'.  If YAxisMode is auto, this parameter is ignored.
-        @param NoiseSigma float, defaults to zero, amount of noise that will be added to the waveform, presumably
-        in a call to ApplyJitterNoise.
         @param Rows int, defaults to None, defining the number of rows in the eye diagram bitmap.
         @param Cols int, defaults to None, defining the number of columns in the eye diagram bitmap.
         @param Baudrate float, defaults to None, Baud or symbol rate for the waveform.
@@ -183,8 +179,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.YAxisMode=YAxisMode
         self.YMax=YMax
         self.YMin=YMin
-        self.NoiseSigma=NoiseSigma
-        self.Rows=Rows
+        self.RowsSpecified=Rows
         self.Cols=Cols
         self.BaudRate=BaudRate
         self.prbswf=prbswf # saved only for generating hash value
@@ -217,18 +212,11 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
         aprbswf=WaveformTrimmer(C-int(round((aprbswf.td.H-math.floor(aprbswf.td.H/UI)*UI)*aprbswf.td.Fs)),0).TrimWaveform(aprbswf)
 
-        auto=YAxisMode
-        noiseSigma=NoiseSigma
-
-        if auto:
-            self.maxV=max(aprbswf.Values())
-            self.minV=min(aprbswf.Values())
-            if noiseSigma != 0:
-                self.maxV=self.maxV+10.*noiseSigma
-                self.minV=self.minV-10.*noiseSigma
-            else:
-                self.maxV=self.maxV+abs(self.maxV-self.minV)*.1
-                self.minV=self.minV-abs(self.maxV-self.minV)*.1
+        if YAxisMode=='Auto':
+            maxV=max(aprbswf.Values())
+            minV=min(aprbswf.Values())
+            self.maxV=maxV+abs(maxV-minV)*.1
+            self.minV=minV-abs(maxV-minV)*.1
         else:
             self.maxV = YMax
             self.minV = YMin
@@ -299,10 +287,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         is truncated.  
         When this function concludes, the side effect is that the rawBitmap member variable is updated
         with a new bitmap representing the noise and jitter addition effect.
+        @remark The shape of the bitmap is adjusted by padding rows based on the amount of vertical noise
+        added.
         """
         UI=1./self.BaudRate
         deltaT=UI/self.Cols
-        deltaY=(self.maxV-self.minV)/self.Rows
+        deltaY=(self.maxV-self.minV)/self.RowsSpecified
 
         WH=int(math.floor(math.floor(2.*10.*(DeterministicJitter+JitterSigma)/deltaT/2.)*2.)+1.)
         WV=int(math.floor(math.floor(2.*10.*NoiseSigma/deltaY/2.)*2.)+1.)
@@ -331,6 +321,35 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         bitmaparray=np.array(self.rawBitmap)
         kernelHarray=np.array([[(dnorm(wh-(WH-1)//2,-DeterministicJitter/deltaT,JitterSigma/deltaT)+dnorm(wh-(WH-1)//2,DeterministicJitter/deltaT,JitterSigma/deltaT))/2.0 for wh in range(WH)]])
         kernelVarray=np.array([[dnorm(wv-(WV-1)//2,0,NoiseSigma/deltaY)] for wv in range(WV)])
+
+        # trim away the edges of the vertical part of the kernel that is containing zeros to save time
+        for vertStart in range(kernelVarray.shape[0]):
+            if kernelVarray[vertStart][0]!=0:
+                break
+        for vertEnd in range(kernelVarray.shape[0]):
+            if kernelVarray[kernelVarray.shape[0]-1-vertEnd][0]!=0:
+                vertEnd=kernelVarray.shape[0]-1-vertEnd
+                break
+        kernelVarray=kernelVarray[vertStart:vertEnd,:]
+
+        # trim away the edges of the horizontal part of the kernel that is containing zeros to save time
+        for horStart in range(kernelHarray.shape[1]):
+            if kernelHarray[0][horStart]!=0:
+                break
+        for horEnd in range(kernelHarray.shape[1]):
+            if kernelHarray[0][kernelHarray.shape[1]-1-horEnd]!=0:
+                horEnd=kernelHarray.shape[1]-1-horEnd
+                break
+        kernelHarray=kernelHarray[:,horStart:horEnd]
+
+        # pad the bitmap array to encompass the vertical size of the kernel
+        rowsToPad=kernelVarray.shape[0]
+        if rowsToPad > 0:
+            padding=np.zeros((rowsToPad,self.Cols))
+            bitmaparray=np.vstack((padding,bitmaparray,padding))
+            #self.RowsSpecified+=rowsToPad*2
+            self.minV-=rowsToPad*deltaY
+            self.maxV+=rowsToPad*deltaY
 
         from scipy.ndimage.filters import convolve
         bitmap=convolve(bitmaparray,kernelHarray,mode='wrap')
@@ -1189,7 +1208,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         else:
             self.img=Image.fromarray(np.squeeze(np.asarray(np.array(bitmap))).astype(np.uint8))
 
-        C=int(C*ScaleX/100.); R=int(R*ScaleY/100.)
+        C=int(C*ScaleX/100.); R=int(self.RowsSpecified*ScaleY/100.)
         self.img=self.img.resize((C,R))
         self.image=copy.deepcopy(self.img)
 
