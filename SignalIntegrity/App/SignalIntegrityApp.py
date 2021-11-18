@@ -631,6 +631,29 @@ class SignalIntegrityApp(tk.Frame):
                                     if key in propertyInOld.dict and propertyInOld.dict[key].dict['write']:
                                         propertyInNew.dict[key].dict['value']=propertyInOld.dict[key].dict['value']
                                         propertyInNew.dict[key].value=propertyInOld.dict[key].value
+                if not devicePicked.configuration is None:
+                    if isinstance(devicePicked.configuration,list):
+                        for i in range(len(devicePicked.configuration)):
+                            if not deviceCopy.configuration is None:
+                                if isinstance(deviceCopy.configuration,list):
+                                    for j in range(len(deviceCopy.configuration)):
+                                        if devicePicked.configuration[i].name == deviceCopy.configuration[j].name:
+                                            devicePicked.configuration[i] = copy.deepcopy(deviceCopy.configuration[j])
+                                            break
+                                else:
+                                    if devicePicked.configuration[i].name == deviceCopy.configuration.name:
+                                        devicePicked.configuration[i] = copy.deepcopy(deviceCopy.configuration)
+                                        break
+                    else:
+                        if not deviceCopy.configuration is None:
+                            if isinstance(deviceCopy.configuration,list):
+                                for j in range(len(deviceCopy.configuration)):
+                                    if devicePicked.configuration.name == deviceCopy.configuration[j].name:
+                                        devicePicked.configuration = copy.deepcopy(deviceCopy.configuration[j])
+                                        break
+                            else:
+                                if devicePicked.configuration.name == deviceCopy.configuration.name:
+                                    devicePicked.configuration = copy.deepcopy(deviceCopy.configuration)
                 self.AddSpecificPart(devicePicked,updateRef=False)
     def onDuplicateSelected(self):
         self.Drawing.DuplicateSelected()

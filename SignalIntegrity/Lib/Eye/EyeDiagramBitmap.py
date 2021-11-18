@@ -103,7 +103,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @return integer hash value
         """
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
-                    repr(self.RowsSpecified)+repr(self.Cols)+\
+                    repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
                     repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
