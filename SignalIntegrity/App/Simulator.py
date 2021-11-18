@@ -27,7 +27,7 @@ else:
     from tkinter import messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
-from SignalIntegrity.App.MenuSystemHelpers import Doer
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
@@ -139,6 +139,8 @@ class SimulatorDialog(tk.Toplevel):
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
+        self.statusbar=StatusBar(self)
+        self.statusbar.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         labelFrame = tk.Frame(self)
         labelFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.plotLabel = tk.Label(labelFrame,fg='black')
@@ -328,7 +330,6 @@ class SimulatorDialog(tk.Toplevel):
             self.SelectionDoerList[s].Set(True)
         self.TheMenu.entryconfigure('Selection', state= tk.DISABLED if len(self.totalwaveformNamesList) <= 1 else tk.ACTIVE)
         # ------
-
         self.onSelection()
         return self
 
@@ -358,9 +359,13 @@ class SimulatorDialog(tk.Toplevel):
                 self.waveformNamesList.append(self.totalwaveformNamesList[si])
                 self.waveformColorIndexList.append(colors[si%len(colors)])
 
-#         if self.waveformList == []:
-#             self.waveformList = None
-#             self.waveformNamesList = None
+        if len(self.waveformList) == 1:
+            self.statusbar.set(ToSI(self.waveformList[0].td.K,'Pts')+' starting at '+ToSI(self.waveformList[0].td.H,'s')+' at '+
+                                    ToSI(self.waveformList[0].td.Fs,'S/s')+' (T = '+ToSI(1./self.waveformList[0].td.Fs,'s')+')')
+        elif len(self.waveformList) == 0:
+            self.statusbar.set('No Waveforms')
+        else:
+            self.statusbar.set('Multiple Waveforms')
 
         if self.ViewTimeDomainDoer.Bool():
             self.PlotWaveformsTimeDomain()
