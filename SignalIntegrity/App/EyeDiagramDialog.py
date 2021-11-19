@@ -29,10 +29,10 @@ else:
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
-from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.EyeDiagramMeasurementsDialog import EyeDiagramMeasurementsDialog
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
 from SignalIntegrity.App.BathtubCurveDialog import BathtubCurveDialog
+from SignalIntegrity.App.ToSI import ToSI
 
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
@@ -105,6 +105,9 @@ class EyeDiagramDialog(tk.Toplevel):
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+
+        self.eyeStatus=StatusBar(self)
+        self.eyeStatus.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
         self.eyeFrame=tk.Frame(self, relief=tk.RIDGE, borderwidth=5) 
         self.eyeCanvas=tk.Canvas(self.eyeFrame,width=0,height=0)
@@ -248,12 +251,14 @@ class EyeDiagramDialog(tk.Toplevel):
         C=int(C*config['ScaleX']/100.*config['UI']); R=int(R*config['ScaleY']/100.)
         self.eyeCanvas=tk.Canvas(self.eyeFrame,width=C,height=R)
         if not self.eyeDiagram.img is None:
+            self.eyeStatus.set(ToSI(int(self.eyeDiagram.prbswf.td.K/self.eyeDiagram.prbswf.td.Fs*self.eyeDiagram.baudrate),'UI')+' at '+ToSI(self.eyeDiagram.baudrate,'Baud'))
             self.eyeImage=ImageTk.PhotoImage(self.eyeDiagram.img)
             self.eyeCanvas.create_image(C/2,R/2,image=self.eyeImage)
             self.eyeCanvas.pack(expand=tk.YES,fill=tk.BOTH)
             self.statusbar.set('Calculation complete')
         else:
             self.statusbar.set('Calculation failed or aborted')
+            self.eyeStatus.set('No Eye')
 
     def EyeDiagramMeasurementsDialog(self):
         if not hasattr(self,'eyeDiagramMeasurementsDialog'):

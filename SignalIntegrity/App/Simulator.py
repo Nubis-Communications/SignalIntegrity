@@ -215,12 +215,6 @@ class SimulatorDialog(tk.Toplevel):
         self.lift(self.parent.parent)
         self.plt.cla()
 
-        import SignalIntegrity.Lib as si
-        fd=si.fd.EvenlySpacedFrequencyList(
-            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
-            )
-
         if not SignalIntegrity.App.Preferences['Appearance.PlotCursorValues']:
             self.plt.format_coord = lambda x, y: ''
 
