@@ -77,6 +77,7 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         self.ShowGridsDoer = Doer(self.onShowGrids).AddHelpElement('Control-Help:Show-Grids').AddToolTip('Show grids in plots')
         self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain).AddHelpElement('Control-Help:View-Time-domain').AddToolTip('View time-domain waveforms')
+        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale').AddToolTip('Show frequency plots log scale')
         self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent).AddHelpElement('Control-Help:View-Spectral-Content').AddToolTip('View spectral content of waveforms')
         self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity).AddHelpElement('Control-Help:View-Spectral-Density').AddToolTip('View spectral density of waveforms')
         # ------
@@ -117,6 +118,8 @@ class SimulatorDialog(tk.Toplevel):
         self.ShowGridsDoer.Set(SignalIntegrity.App.Preferences['Appearance.GridsOnPlots'])
         self.ViewTimeDomainDoer.AddCheckButtonMenuElement(ViewMenu,label='View Time-domain',underline=5)
         self.ViewTimeDomainDoer.Set(True)
+        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Frequency Scale',underline=0)
+        self.LogScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'])
         self.ViewSpectralContentDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Content',underline=14)
         self.ViewSpectralDensityDoer.AddCheckButtonMenuElement(ViewMenu,label='View Spectral Density',underline=14)
         # ------
@@ -250,6 +253,14 @@ class SimulatorDialog(tk.Toplevel):
                 self.minx=minf
                 self.maxx=maxf
 
+            if self.LogScaleDoer.Bool():
+                if self.minx <= 0.:
+                    if max(fcFrequencies)>0:
+                        for value in fcFrequencies:
+                            if value>0.:
+                                self.minx=value/freqLabelDivisor
+                                break
+
             if self.minx != None:
                 self.plt.set_xlim(left=self.minx)
 
@@ -283,7 +294,10 @@ class SimulatorDialog(tk.Toplevel):
             fcName=str(self.waveformNamesList[wfi])
             fcColor=self.waveformColorIndexList[wfi]
 
-            self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
+            if self.LogScaleDoer.Bool():
+                self.plt.semilogx(fcFrequencies,fcValues,label=fcName,c=fcColor)
+            else:
+                self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
 
         if minv != None or minvStd != None:
             minv = max(minv,minvStd)
@@ -301,7 +315,7 @@ class SimulatorDialog(tk.Toplevel):
             self.plt.set_ylim(top=self.maxy)
 
         if self.ShowGridsDoer.Bool():
-            self.plt.grid(True)
+            self.plt.grid(True, 'both')
 
         self.ZoomsInitialized=True
         self.f.canvas.draw()
@@ -371,6 +385,11 @@ class SimulatorDialog(tk.Toplevel):
 
     def onShowGrids(self):
         SignalIntegrity.App.Preferences['Appearance.GridsOnPlots']=self.ShowGridsDoer.Bool()
+        SignalIntegrity.App.Preferences.SaveToFile()
+        self.onSelection()
+
+    def onLogScale(self):
+        SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale']=self.LogScaleDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.onSelection()
 
