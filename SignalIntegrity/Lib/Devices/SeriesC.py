@@ -29,6 +29,6 @@ def SeriesC(C,f,Z0=None,df=0.,esr=0.):
     @return the list of list s-parameter matrix for a series capacitance
     """
     G=C*2.*math.pi*f*(1j+df)
-    try: G=G+1/esr
+    try: G=1./(1./G+esr)
     except: pass
     return SeriesG(G,Z0)
