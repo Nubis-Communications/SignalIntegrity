@@ -259,7 +259,7 @@ class CalculationPropertyColor(tk.Frame):
     def onPressed(self,event=None):
         color = self.string.get()
         if color=='None': color=None
-        color = colorchooser.askcolor(color)[1]
+        color = colorchooser.askcolor(color,parent=self)[1]
         if not color is None:
             self.SetString(color)
             if not ((self.project is None) or (self.projectPath is None)):
