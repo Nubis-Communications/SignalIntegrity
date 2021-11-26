@@ -221,7 +221,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.config(cursor='left_ptr')
 
     def onProperties(self):
-        self.eyeDialog = self.eyeDiagram.config.onConfiguration(self)
+        self.eyeArgs['Config'].onConfiguration(self)
 
     def SetEyeArgs(self,eyeArgs):
         self.eyeArgs=eyeArgs

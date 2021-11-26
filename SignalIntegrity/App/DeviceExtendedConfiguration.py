@@ -32,9 +32,10 @@ class DeviceExtendedConfiguration(object):
         if (self.window is None) or not self.window.winfo_exists():
             self.window=self.dialog(self,parent)
         # the following makes the window go to the top, but not necessarily stay there
+        self.window.wait_visibility(self.window)
+        self.window.grab_set()
         self.window.attributes('-topmost',True)
-        self.window.update()
-        self.window.attributes('-topmost',False)
+        self.window.wait_window(self.window)
         return self.window
     def InitializeFromPreferences(self):
         import SignalIntegrity.App.Preferences
