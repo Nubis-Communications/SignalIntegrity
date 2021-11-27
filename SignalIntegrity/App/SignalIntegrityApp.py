@@ -356,6 +356,16 @@ class SignalIntegrityApp(tk.Frame):
 
         if deiconify:
             self.root.deiconify()
+
+        if self.external:
+            import platform
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                self.root.attributes('-type','dialog')
+            elif thisOS == 'Windows':
+                self.root.attributes('-toolwindow',True)
+            self.root.attributes('-topmost',True)
+
         if runMainLoop:
             self.root.mainloop()
 

@@ -39,6 +39,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     DecisionChoices=[('Midpoint of Eye','Mid'),('Best Decision Point','Best')]
     def __init__(self,project,parent):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
+        self.transient(parent)
         self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
         self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.LeftFrame=tk.Frame(self.propertyListFrame)

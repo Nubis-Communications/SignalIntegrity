@@ -228,7 +228,7 @@ class BathtubCurveDialog(tk.Toplevel):
             self.rightPlots[ee].set_xlabel('time ('+self.timeLabel+')',fontsize=10)
 
             self.rightPlots[ee].grid(True, 'both')
-            self.deiconify()
+        self.deiconify()
     def onLeftHome(self):
         pass
 
