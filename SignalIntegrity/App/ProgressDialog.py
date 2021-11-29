@@ -32,6 +32,8 @@ class ProgressDialog(tk.Toplevel):
         tk.Toplevel.__init__(self, parent)
         self.withdraw()
         self.parent=parent
+        self.transient(parent)
+        self.attributes('-topmost',True)
         self.title(title)
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
@@ -53,6 +55,7 @@ class ProgressDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
         self.deiconify()
+        self.wait_visibility(self)
         self.grab_set()
     def onStop(self):
         self.stopCommand=True
