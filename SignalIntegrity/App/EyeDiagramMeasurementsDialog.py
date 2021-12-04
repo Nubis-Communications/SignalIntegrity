@@ -27,6 +27,7 @@ else:
 
 import math
 
+from SignalIntegrity.App.MenuSystemHelpers import StatusBar
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
 from SignalIntegrity.App.ToSI import ToSI
@@ -49,6 +50,8 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.tab1=ttk.Frame(self.tabControl)
         self.tabControl.add(self.tab1,text='Vertical/Horizontal')
         self.tabControl.pack(expand=1,fill=tk.BOTH)
+        self.eyeStatus=StatusBar(self.tab1)
+        self.eyeStatus.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.ParametersFrame=tk.Frame(self.tab1,relief=tk.RIDGE,borderwidth=5)
         self.ParametersFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
 
@@ -152,6 +155,8 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             self.PenaltiesFrame.pack_forget()
             self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
             self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
+
+        self.eyeStatus.set(f"All Measurements Taken at: {10.0**meas['BERForMeasure']}")
 
         #topline=''.join(['Eye'.ljust(self.labelwidth)]+[str(eye).center(self.entrywidth-1) for eye in range(len(self.meas['Eye']))]+[''.ljust(self.entrywidth-1)])
         self.Heading(self.ParametersFrame,'Eye',[str(e) for e in range(len(self.meas['Eye']))])

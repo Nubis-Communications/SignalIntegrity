@@ -530,6 +530,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         * MaxV - Voltage defined by the maximum row.
         * MinT - Time defined by the column 0.
         * MaxT - Time defined by the last column.
+        * BERForMeasure - BER, or probability, for contour for all of the eye measurements.
         * Eye - An array of parameters, one for each eye containing:
             - Start - a dictionary containing Bin and Time defining the pixel column of the horizontal start of the eye.
             - End - a dictionary containing Bin and Time defining the pixel column of the horizontal end of the eye.
@@ -667,7 +668,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             if number == None: return number
             power = "{:e}".format(number).split('e')[1]
             return round(number, -(int(power) - digits))
-        self.measDict={'R':R,'C':C,'MinV':self.minV,'MaxV':self.maxV,'MinT':-C//2*UI,'MaxT':(C-1)//2*UI,
+        self.measDict={'R':R,'C':C,'MinV':self.minV,'MaxV':self.maxV,'MinT':-C//2*UI,'MaxT':(C-1)//2*UI,'BERForMeasure':BERForMeasure,
                        'Eye':{i:{'Start':{'Bin':eyeHorizontalExtentsForMeasure[i][0],
                                           'Time':precision_round((eyeHorizontalExtentsForMeasure[i][0]-C/2)/C*UI)},
                                  'End':{'Bin':eyeHorizontalExtentsForMeasure[i][1],

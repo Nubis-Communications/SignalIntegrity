@@ -192,6 +192,10 @@ class SimulatorDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.parent.root.winfo_y()+self.parent.parent.root.winfo_height()/2-self.winfo_height()/2))
 
+        self.lift()
+        self.attributes('-topmost',True)
+        self.after_idle(self.attributes,'-topmost',False)
+
     def onXLimitChange(self,ax):
         xlim=ax.get_xlim()
         self.minx=xlim[0]

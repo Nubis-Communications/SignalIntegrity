@@ -318,6 +318,10 @@ class SParametersDialog(tk.Toplevel):
         self.NewSParameters(sp,filename,title,buttonLabels)
         self.deiconify()
 
+        self.lift()
+        self.attributes('-topmost',True)
+        self.after_idle(self.attributes,'-topmost',False)
+
     def NewSParameters(self,sp,filename=None,title=None,buttonLabels=None):
         self.calibration=None
         if isinstance(sp,si.m.cal.Calibration):
