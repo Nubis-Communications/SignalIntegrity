@@ -28,12 +28,14 @@ else:
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.App.ToSI import FromSI,ToSI
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
+from SignalIntegrity.App.MenuSystemHelpers import ToolTip
+
 import SignalIntegrity.App.Project
 
 class CalculationProperty(tk.Frame):
     labelWidth=45
     entryWidth=30
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
@@ -55,6 +57,8 @@ class CalculationProperty(tk.Frame):
         self.entry.bind('<Escape>',self.onUntouchedLoseFocus)
         self.entry.bind('<FocusOut>',self.onUntouched)
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
+        if not tooltip is None:
+            ToolTip(self.entry).createToolTip(self.entry,tooltip)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString((self.project[self.projectPath]))
         self.SetReadOnly(False)
@@ -92,7 +96,7 @@ class CalculationProperty(tk.Frame):
             self.updateStringsCallback()
 
 class CalculationPropertyFileName(CalculationProperty):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None,tooltip=None):
         self.fileparts=fileparts
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
@@ -107,7 +111,7 @@ class CalculationPropertyFileName(CalculationProperty):
         self.UpdateStrings()
 
 class CalculationPropertyFileNameSaveAs(CalculationProperty):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None,tooltip=None):
         self.fileparts=fileparts
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def onTouched(self,event):
@@ -122,7 +126,7 @@ class CalculationPropertyFileNameSaveAs(CalculationProperty):
         self.UpdateStrings()
 
 class CalculationPropertySI(CalculationProperty):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None,tooltip=None):
         self.unitString=unit
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def SetString(self,value):
@@ -134,7 +138,7 @@ class CalculationPropertySI(CalculationProperty):
         return FromSI(self.string.get(),self.unitString)
 
 class CalculationPropertyTrueFalseButton(tk.Frame):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
@@ -177,7 +181,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
 class CalculationPropertyChoices(tk.Frame):
     couplingChoices = [('50 ohm', 'DC50'),('1 Mohm', 'DC1M')]
     bandwidthChoices = [('20 MHz', '20MHz'),('200 MHz','200MHz')]
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,choiceStrings,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,choiceStrings,project=None,projectPath=None,tooltip=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
@@ -231,7 +235,7 @@ class CalculationPropertyChoices(tk.Frame):
             self.updateStringsCallback()
 
 class CalculationPropertyColor(tk.Frame):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None):
         tk.Frame.__init__(self,parentFrame)
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback

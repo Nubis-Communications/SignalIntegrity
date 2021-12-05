@@ -364,7 +364,6 @@ class SignalIntegrityApp(tk.Frame):
                 self.root.attributes('-type','dialog')
             elif thisOS == 'Windows':
                 self.root.attributes('-toolwindow',True)
-            self.root.attributes('-topmost',True)
 
         if runMainLoop:
             self.root.mainloop()

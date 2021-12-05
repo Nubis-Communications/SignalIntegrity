@@ -206,7 +206,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, -14)</Origin>
+						<Origin>(35, -14)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -236,7 +236,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(42, -11)</Origin>
+						<Origin>(41, -11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -351,7 +351,7 @@
 							<BERForAlignment>-3</BERForAlignment>
 							<BitsPerSymbol>2</BitsPerSymbol>
 							<Horizontal>Middle</Horizontal>
-							<Mode>Horizontal</Mode>
+							<Mode>Vertical</Mode>
 							<Vertical>MaxMin</Vertical>
 						</Alignment>
 						<Annotation>
@@ -372,9 +372,9 @@
 							<MinPointsForFit>6</MinPointsForFit>
 						</Bathtub>
 						<Color>#c6ff2c</Color>
-						<Columns>200</Columns>
+						<Columns>400</Columns>
 						<Decision>
-							<Mode>Mid</Mode>
+							<Mode>Best</Mode>
 						</Decision>
 						<EnhancedPrecision>
 							<FixedEnhancement>10</FixedEnhancement>
@@ -397,11 +397,11 @@
 							<Measure>True</Measure>
 							<NoisePenalty>0</NoisePenalty>
 						</Measure>
-						<Mode>JitterNoise</Mode>
-						<Rows>200</Rows>
+						<Mode>ISI</Mode>
+						<Rows>400</Rows>
 						<Saturation>20.0</Saturation>
-						<ScaleX>100.0</ScaleX>
-						<ScaleY>150.0</ScaleY>
+						<ScaleX>50.0</ScaleX>
+						<ScaleY>75.0</ScaleY>
 						<UI>3</UI>
 						<YAxis>
 							<Max>1.0</Max>
@@ -414,7 +414,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(49, -14)</Origin>
+						<Origin>(47, -14)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -484,7 +484,7 @@
 							<MinPointsForFit>6</MinPointsForFit>
 						</Bathtub>
 						<Color>#ff00f6</Color>
-						<Columns>200</Columns>
+						<Columns>400</Columns>
 						<Decision>
 							<Mode>Mid</Mode>
 						</Decision>
@@ -509,11 +509,11 @@
 							<Measure>True</Measure>
 							<NoisePenalty>0</NoisePenalty>
 						</Measure>
-						<Mode>JitterNoise</Mode>
-						<Rows>200</Rows>
+						<Mode>ISI</Mode>
+						<Rows>400</Rows>
 						<Saturation>20.0</Saturation>
-						<ScaleX>100.0</ScaleX>
-						<ScaleY>150.0</ScaleY>
+						<ScaleX>50.0</ScaleX>
+						<ScaleY>75.0</ScaleY>
 						<UI>3</UI>
 						<YAxis>
 							<Max>1.0</Max>
@@ -615,37 +615,37 @@
 							<Coord>(31, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(36, -13)</Coord>
+							<Coord>(35, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(40, -13)</Coord>
+							<Coord>(39, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(43, -13)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(43, -13)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(43, -11)</Coord>
+							<Coord>(42, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(49, -13)</Coord>
+							<Coord>(42, -13)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(43, -13)</Coord>
+							<Coord>(42, -11)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(47, -13)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(42, -13)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

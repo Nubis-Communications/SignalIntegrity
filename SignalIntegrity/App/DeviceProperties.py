@@ -145,7 +145,23 @@ class DeviceProperty(tk.Frame):
                     messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
                     return
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
-                spd.grab_set()
+                try:
+                    import platform
+                    thisOS=platform.system()
+                    if thisOS == 'Linux':
+                        spd.attributes('-type','dialog')
+                    elif thisOS == 'Windows':
+                        spd.attributes('-toolwindow',True)
+                    def disable_event():
+                        pass
+                    self.parent.parent.protocol("WM_DELETE_WINDOW", disable_event)
+                    spd.attributes('-topmost', 1)
+                    spd.focus_set()
+                    spd.grab_set()
+                    spd.transient(self.parent.parent)
+                    self.wait_window(spd)
+                finally:
+                    self.parent.parent.protocol("WM_DELETE_WINDOW", self.parent.parent.cancel)
             elif self.partProperty['PropertyName'] == 'waveformfilename':
                 filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
                 if filenametoshow is None:
@@ -159,7 +175,24 @@ class DeviceProperty(tk.Frame):
                 sd.title(filenametoshow)
                 sd.UpdateWaveforms([wf],[filenametoshow])
                 sd.state('normal')
-                sd.grab_set()
+                try:
+                    import platform
+                    thisOS=platform.system()
+                    if thisOS == 'Linux':
+                        sd.attributes('-type','dialog')
+                    elif thisOS == 'Windows':
+                        sd.attributes('-toolwindow',True)
+                    def disable_event():
+                        pass
+                    self.parent.parent.protocol("WM_DELETE_WINDOW", disable_event)
+                    sd.attributes('-topmost', 1)
+                    sd.focus_set()
+                    sd.grab_set()
+                    sd.transient(self.parent.parent)
+                    self.wait_window(sd)
+                finally:
+                    self.parent.parent.protocol("WM_DELETE_WINDOW", self.parent.parent.cancel)
+
             elif self.partProperty['PropertyName'] == 'errorterms':
                 calibration=self.parent.parent.parent.OpenCalibrationFile(os.path.abspath(filename))
                 if calibration is None:
@@ -380,7 +413,23 @@ class DeviceProperties(tk.Frame):
         fileParts=copy.copy(self.parent.parent.fileparts)
         fileParts.filename=fileParts.filename+'_'+referenceDesignator
         spd=SParametersDialog(self.parent.parent,sp,filename=fileParts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
-        spd.grab_set()
+        try:
+            import platform
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                spd.attributes('-type','dialog')
+            elif thisOS == 'Windows':
+                spd.attributes('-toolwindow',True)
+            def disable_event():
+                pass
+            self.parent.protocol("WM_DELETE_WINDOW", disable_event)
+            spd.attributes('-topmost', 1)
+            spd.focus_set()
+            spd.grab_set()
+            spd.transient(self.parent)
+            self.wait_window(spd)
+        finally:
+            self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
 
     def onWaveformView(self):
         self.focus()
@@ -396,7 +445,24 @@ class DeviceProperties(tk.Frame):
         sd=sim.SimulatorDialog()
         sd.title('Waveform')
         sim.UpdateWaveforms([wf],[referenceDesignator])
-        sd.grab_set()
+        #sd.wait_visibility(sd)
+        try:
+            import platform
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                sd.attributes('-type','dialog')
+            elif thisOS == 'Windows':
+                sd.attributes('-toolwindow',True)
+            def disable_event():
+                pass
+            self.parent.protocol("WM_DELETE_WINDOW", disable_event)
+            sd.attributes('-topmost', 1)
+            sd.focus_set()
+            sd.grab_set()
+            sd.transient(self.parent)
+            self.wait_window(sd)
+        finally:
+            self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
 
 class DevicePropertiesDialog(tk.Toplevel):
     def __init__(self,parent,device):
