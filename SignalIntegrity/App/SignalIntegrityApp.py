@@ -358,15 +358,28 @@ class SignalIntegrityApp(tk.Frame):
             self.root.deiconify()
 
         if self.external:
-            import platform
-            thisOS=platform.system()
-            if thisOS == 'Linux':
-                self.root.attributes('-type','dialog')
-            elif thisOS == 'Windows':
-                self.root.attributes('-toolwindow',True)
+# originally, I wanted this as a dialog or tool window.  This means that the dialog appears, it is resizable
+# but unfortunately not maximizable, and could not be minimized.  This had a bad side effect of not appearing
+# as an icon in the system tray, and sometimes I simply could no longer find the dialog.  This really sucked
+# so I now do something that has annoying, but tolerable side effects.  Now, if the window is external (meaning
+# another application is waiting for it to close to continue), the window appears like a normal window (can be
+# resized, maximized, and closed.  It looks like it can be minimized, but I try to catch the minimization.  An
+# unfortunate side effect is that I catch the window minimization after it has been minimized!  So, if the window
+# has been minimized, I simply restore it.  It's a bit weird, but works okay on windows.
+#             import platform
+#             thisOS=platform.system()
+#             if thisOS == 'Linux':
+#                 self.root.attributes('-type','dialog')
+#             elif thisOS == 'Windows':
+#                 self.root.attributes('-toolwindow',True)
+            self.root.bind('<Unmap>', self.onMinimize)
 
         if runMainLoop:
             self.root.mainloop()
+
+    def onMinimize(self,event):
+        if not self.root.winfo_viewable():
+            self.root.deiconify()
 
     def onResize(self,event):
         if not self.knowDelta:

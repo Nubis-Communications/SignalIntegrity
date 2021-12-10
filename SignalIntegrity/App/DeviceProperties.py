@@ -146,6 +146,8 @@ class DeviceProperty(tk.Frame):
                     return
                 spd=SParametersDialog(self.parent.parent.parent,sp,filename)
                 try:
+                    spd.grab_set()
+                    spd.focus_set()
                     import platform
                     thisOS=platform.system()
                     if thisOS == 'Linux':
@@ -156,9 +158,7 @@ class DeviceProperty(tk.Frame):
                         pass
                     self.parent.parent.protocol("WM_DELETE_WINDOW", disable_event)
                     spd.attributes('-topmost', 1)
-                    spd.focus_set()
-                    spd.grab_set()
-                    spd.transient(self.parent.parent)
+#                     spd.transient(self.parent.parent)
                     self.wait_window(spd)
                 finally:
                     self.parent.parent.protocol("WM_DELETE_WINDOW", self.parent.parent.cancel)
@@ -188,7 +188,7 @@ class DeviceProperty(tk.Frame):
                     sd.attributes('-topmost', 1)
                     sd.focus_set()
                     sd.grab_set()
-                    sd.transient(self.parent.parent)
+#                     sd.transient(self.parent.parent)
                     self.wait_window(sd)
                 finally:
                     self.parent.parent.protocol("WM_DELETE_WINDOW", self.parent.parent.cancel)
@@ -426,7 +426,7 @@ class DeviceProperties(tk.Frame):
             spd.attributes('-topmost', 1)
             spd.focus_set()
             spd.grab_set()
-            spd.transient(self.parent)
+#             spd.transient(self.parent)
             self.wait_window(spd)
         finally:
             self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
@@ -459,7 +459,7 @@ class DeviceProperties(tk.Frame):
             sd.attributes('-topmost', 1)
             sd.focus_set()
             sd.grab_set()
-            sd.transient(self.parent)
+#             sd.transient(self.parent)
             self.wait_window(sd)
         finally:
             self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
