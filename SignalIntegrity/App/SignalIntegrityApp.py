@@ -366,13 +366,13 @@ class SignalIntegrityApp(tk.Frame):
 # resized, maximized, and closed.  It looks like it can be minimized, but I try to catch the minimization.  An
 # unfortunate side effect is that I catch the window minimization after it has been minimized!  So, if the window
 # has been minimized, I simply restore it.  It's a bit weird, but works okay on windows.
-#             import platform
-#             thisOS=platform.system()
-#             if thisOS == 'Linux':
-#                 self.root.attributes('-type','dialog')
-#             elif thisOS == 'Windows':
-#                 self.root.attributes('-toolwindow',True)
-            self.root.bind('<Unmap>', self.onMinimize)
+            import platform
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                self.root.attributes('-type','dialog')
+                self.root.attributes('-topmost',True)
+            elif thisOS == 'Windows':
+                self.root.bind('<Unmap>', self.onMinimize)
 
         if runMainLoop:
             self.root.mainloop()
