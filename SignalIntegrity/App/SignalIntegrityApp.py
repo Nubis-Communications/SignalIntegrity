@@ -237,6 +237,7 @@ class SignalIntegrityApp(tk.Frame):
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
         self.CalculationPropertiesDoer.AddMenuElement(CalcMenu,label='Calculation Properties',underline=12)
+        self.PostProcessingDoer.AddMenuElement(CalcMenu,label='Post-Processing',underline=1)
         self.SParameterViewerDoer.AddMenuElement(CalcMenu,label='S-parameter Viewer',underline=12)
         CalcMenu.add_separator()
         self.CalculateSParametersDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters',underline=0)
