@@ -50,6 +50,7 @@ class SParameterFile(SParameters):
             sp=ProjectSParameters(name)
             if not sp is None:
                 SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+                self.SetReferenceImpedance(Z0)
                 return
             else:
                 raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)

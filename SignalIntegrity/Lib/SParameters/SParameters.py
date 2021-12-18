@@ -188,8 +188,12 @@ class SParameters(SParameterManipulation):
         """Sets the reference impedance as specified
         @param Z0 real or complex reference impedance
         @return self
-        Transforms the reference impedance of self to the new reference impedance Z0.
+        Transforms the reference impedance of self to the new reference impedance Z0.  
+        To make it work better with other functions, it allows none to be specified, in
+        which case it returns self
         """
+        if Z0 == None:
+            return self
         if Z0 != self.m_Z0:
             for n in range(len(self.m_f)):
                 self.m_d[n]=ReferenceImpedance(self.m_d[n],Z0,self.m_Z0)

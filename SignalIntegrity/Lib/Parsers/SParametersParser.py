@@ -24,7 +24,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
 class SParametersParser(SParameters):
     """parses a list of commands to process s-parameters"""
     def __init__(self,sp,lines):
-        """Constructor  
+        """Constructor
         Takes a set of s-parameters along with a list of command lines to process the s-parameters
         @param sp instance of SParameters to process
         @param lines list of lines with commands indicating the processing, in order
@@ -37,6 +37,7 @@ class SParametersParser(SParameters):
         @see EnforceBothPassivityAndReciprocity
         @see EnforceAll
         @see LimitImpulseResponseLength
+        @see SetReferenceImpedance
         @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
@@ -64,6 +65,14 @@ class SParametersParser(SParameters):
                 elif tokens[1]=='limit':
                     self.LimitImpulseResponseLength((float(tokens[2]) if tokens[2]!='none' else -1e15,
                                                      float(tokens[3]) if tokens[3]!='none' else +1e15))
+                elif tokens[1]=='reference':
+                    if tokens[2]=='impedance':
+                        try:
+                            self.SetReferenceImpedance(float(tokens[3]))
+                        except:
+                            raise IndexError
+                    else:
+                        raise IndexError
                 else:
                     raise IndexError
             except:
