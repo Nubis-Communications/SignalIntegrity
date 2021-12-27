@@ -341,21 +341,34 @@ class SignalIntegrityAppTestHelper:
             Raises:
                 TypeError: if `js1` or `js2` is not a valid json object.
             """
-            def _float_to_str_in_json(js):
+            def _float_to_str_in_json(js,stringList):
                 if type(js) in (str, int, bool, type(None)):
-                    return js
+                    jsstring=str(js)
+                    #print(jsstring)
+                    stringList.append(jsstring+'\n')
+                    return jsstring
                 if type(js) is float:
-                    return f"{js:.{precision}e}"
+                    jsstring=f"{js:.{precision}e}"
+                    #print(jsstring)
+                    stringList.append(jsstring+'\n')
+                    return jsstring
                 if type(js) is list:
-                    return [_float_to_str_in_json(x) for x in js]
+                    return [_float_to_str_in_json(x,stringList) for x in js]
                 if type(js) is dict:
                     if any([type(key) is not str for key in js.keys()]):
                         raise TypeError("One of key types is not 'str'.")
-                    return {key: _float_to_str_in_json(val) for key, val in js.items()}
+                    return {key: _float_to_str_in_json(val,stringList) for key, val in js.items()}
                 raise TypeError(f"Value of type '{type(js)}' is not a valid json object.")
 
-            new_js1 = _float_to_str_in_json(js1)
-            new_js2 = _float_to_str_in_json(js2)
+            stringList1=[]
+            new_js1 = _float_to_str_in_json(js1,stringList1)
+
+            stringList2=[]
+            new_js2 = _float_to_str_in_json(js2,stringList2)
+
+            if stringList1 != stringList2:
+                with open('regressionJson.txt','wt') as f: f.writelines(stringList1)
+                with open('currentJson.txt','wt') as f: f.writelines(stringList2)
 
             return new_js1 == new_js2
 
