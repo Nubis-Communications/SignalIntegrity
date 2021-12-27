@@ -796,7 +796,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 if gathering:
                     if y[r] <= maxFit or len(X) < MinPointsForFit:
                         X.append(XF[r])
-                        Y.append([np.log(y[r])])
+                        with np.errstate(divide='ignore'):
+                            Y.append([np.log(y[r])])
                         rEnd=r
                     else:
                         break
@@ -810,7 +811,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             else:
                 raise
         except Exception as ex:
-            print(ex)
+            #print(ex)
             self.measDict['Bathtub']['Vertical']['Level'][0]['LeftEst']=\
                     {'Start':{'Bin':rStart},'End':{'Bin':rEnd},'Est':{'Coef':None,'Valid':False,'Wf':None}}
 
@@ -828,7 +829,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 if gathering:
                     if y[r] <= maxFit or len(X) < MinPointsForFit:
                         X.append(XF[r])
-                        Y.append([np.log(y[r])])
+                        with np.errstate(divide='ignore'):
+                            Y.append([np.log(y[r])])
                         rEnd=r
                     else:
                         break
@@ -842,7 +844,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             else:
                 raise
         except Exception as ex:
-            print(ex)
+            #print(ex)
             self.measDict['Bathtub']['Vertical']['Level'][numberOfEyes]['RightEst']=\
                 {'Start':{'Bin':rStart},'End':{'Bin':rEnd},'Est':{'Coef':None,'Valid':False,'Wf':None}}
 
@@ -866,7 +868,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     if gathering:
                         if y[r] <= maxFit or len(X) < MinPointsForFit:
                             X.append(XF[r])
-                            Y.append([np.log(y[r])])
+                            with np.errstate(divide='ignore'):
+                                Y.append([np.log(y[r])])
                             rEnd=r
                         else:
                             break
@@ -880,7 +883,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 else:
                     raise
             except Exception as ex:
-                print(ex)
+                #print(ex)
                 self.measDict['Bathtub']['Vertical']['Level'][e]['RightEst']=\
                     {'Start':{'Bin':rStart},'End':{'Bin':rEnd},'Est':{'Coef':None,'Valid':False,'Wf':None}}
 
@@ -896,7 +899,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     if gathering:
                         if y[r] <= maxFit  or len(X) < MinPointsForFit:
                             X.append(XF[r])
-                            Y.append([np.log(y[r])])
+                            with np.errstate(divide='ignore'):
+                                Y.append([np.log(y[r])])
                             rEnd=r
                         else:
                             break
@@ -911,7 +915,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 else:
                     raise
             except Exception as ex:
-                print(ex)
+                #print(ex)
                 self.measDict['Bathtub']['Vertical']['Level'][e+1]['LeftEst']=\
                     {'Start':{'Bin':rStart},'End':{'Bin':rEnd},'Est':{'Coef':None,'Valid':False,'Wf':None}}
 
@@ -937,7 +941,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 self.measDict['Bathtub']['Vertical']['Level'][t]['CDFFromLeft']=Waveform(td,yCombo).Integral(addPoint=False,scale=False).Values()
                 self.measDict['Bathtub']['Vertical']['Level'][t]['CDFFromRight']=[v for v in reversed(Waveform(td,[v for v in reversed(yCombo)]).Integral(addPoint=False,scale=False).Values())]
             except Exception as ex:
-                print(ex)
+                #print(ex)
                 pass
 
         # SymbolProbability[s] is the probabability that a symbol sent was sent as symbol s
