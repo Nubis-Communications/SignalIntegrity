@@ -288,7 +288,7 @@ class SignalIntegrityAppTestHelper:
 
         #print(f'RMSE: {ImageRMSE(regression,img)}')
         errorBetweenImages=ImageRMSE(regression,img)
-        self.assertTrue(errorBetweenImages<20.,filename + ' incorrect')
+        self.assertTrue(errorBetweenImages<=0.,filename + ' incorrect')
         os.chdir(currentDirectory)
     def NumpyArrayRegressionChecker(self,ary,filename):
         import numpy as np
@@ -299,8 +299,8 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, filename + ' not found')
         regression=np.load(filename)
-        #print(np.sum(np.isclose(ary,regression,1e-8,1e-1)))
-        self.assertTrue(np.allclose(ary,regression,1e-8,1e-1),filename + ' incorrect')
+        #print(np.sum(np.isclose(ary,regression)))
+        self.assertTrue(np.allclose(ary,regression),filename + ' incorrect')
         os.chdir(currentDirectory)
     def JsonDictRegressionChecker(self,meas,filename):
         import json
@@ -348,7 +348,15 @@ class SignalIntegrityAppTestHelper:
                     stringList.append(jsstring+'\n')
                     return jsstring
                 if type(js) is float:
-                    jsstring=f"{js:.{precision}e}"
+                    if js<1e-30:
+                        js=0.0
+                    if js<1e-10:
+                        precisionToUse=max(0,precision-2)
+                    elif js<1e-4:
+                        precisionToUse=max(0,precision-1)
+                    else:
+                        precisionToUse=precision
+                    jsstring=f"{js:.{precisionToUse}e}"
                     #print(jsstring)
                     stringList.append(jsstring+'\n')
                     return jsstring
@@ -372,7 +380,7 @@ class SignalIntegrityAppTestHelper:
 
             return new_js1 == new_js2
 
-        self.assertTrue(are_jsons_approx_equal(regression,meas,5),filename + ' incorrect')
+        self.assertTrue(are_jsons_approx_equal(regression,meas,4),filename + ' incorrect')
         os.chdir(currentDirectory)
 
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
