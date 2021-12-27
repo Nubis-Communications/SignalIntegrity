@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x371+1948+57</Geometry>
+			<Geometry>861x371+2008+76</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>22</Originy>
@@ -195,6 +195,70 @@
 				</Device>
 				<Device>
 					<ClassName>DeviceEyeProbe</ClassName>
+					<EyeDiagram>
+						<Alignment>
+							<AutoAlign>True</AutoAlign>
+							<BERForAlignment>-3</BERForAlignment>
+							<BitsPerSymbol>1</BitsPerSymbol>
+							<Horizontal>Middle</Horizontal>
+							<Mode>Horizontal</Mode>
+							<Vertical>MaxMin</Vertical>
+						</Alignment>
+						<Annotation>
+							<Annotate>True</Annotate>
+							<Color>#00ff00</Color>
+							<Contours>
+								<Show>True</Show>
+								<Which>Eye</Which>
+							</Contours>
+							<EyeHeight>True</EyeHeight>
+							<EyeWidth>True</EyeWidth>
+							<LevelExtents>True</LevelExtents>
+							<MeanLevels>True</MeanLevels>
+						</Annotation>
+						<Bathtub>
+							<DecadesFromJoinForFit>0.5</DecadesFromJoinForFit>
+							<Measure>True</Measure>
+							<MinPointsForFit>6</MinPointsForFit>
+						</Bathtub>
+						<Color>#c6ff2c</Color>
+						<Columns>200</Columns>
+						<Decision>
+							<Mode>Mid</Mode>
+						</Decision>
+						<EnhancedPrecision>
+							<FixedEnhancement>10</FixedEnhancement>
+							<Mode>Auto</Mode>
+						</EnhancedPrecision>
+						<Invert>True</Invert>
+						<JitterNoise>
+							<JitterDeterministicPkS>2e-12</JitterDeterministicPkS>
+							<JitterS>2e-12</JitterS>
+							<LogIntensity>
+								<LogIntensity>False</LogIntensity>
+								<MaxExponent>0</MaxExponent>
+								<MinExponent>-6</MinExponent>
+							</LogIntensity>
+							<MaxKernelPixels>100000</MaxKernelPixels>
+							<Noise>0.01</Noise>
+						</JitterNoise>
+						<Measure>
+							<BERForMeasure>-6</BERForMeasure>
+							<Measure>True</Measure>
+							<NoisePenalty>0</NoisePenalty>
+						</Measure>
+						<Mode>JitterNoise</Mode>
+						<Rows>200</Rows>
+						<Saturation>20.0</Saturation>
+						<ScaleX>100.0</ScaleX>
+						<ScaleY>200.0</ScaleY>
+						<UI>3</UI>
+						<YAxis>
+							<Max>1.0</Max>
+							<Min>0.0</Min>
+							<Mode>Auto</Mode>
+						</YAxis>
+					</EyeDiagram>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -351,6 +415,70 @@
 				</Device>
 				<Device>
 					<ClassName>DeviceDifferentialEyeProbe</ClassName>
+					<EyeDiagram>
+						<Alignment>
+							<AutoAlign>True</AutoAlign>
+							<BERForAlignment>-3</BERForAlignment>
+							<BitsPerSymbol>1</BitsPerSymbol>
+							<Horizontal>Middle</Horizontal>
+							<Mode>Horizontal</Mode>
+							<Vertical>MaxMin</Vertical>
+						</Alignment>
+						<Annotation>
+							<Annotate>True</Annotate>
+							<Color>#00ff00</Color>
+							<Contours>
+								<Show>True</Show>
+								<Which>Eye</Which>
+							</Contours>
+							<EyeHeight>True</EyeHeight>
+							<EyeWidth>True</EyeWidth>
+							<LevelExtents>True</LevelExtents>
+							<MeanLevels>True</MeanLevels>
+						</Annotation>
+						<Bathtub>
+							<DecadesFromJoinForFit>0.5</DecadesFromJoinForFit>
+							<Measure>True</Measure>
+							<MinPointsForFit>6</MinPointsForFit>
+						</Bathtub>
+						<Color>#c6ff2c</Color>
+						<Columns>200</Columns>
+						<Decision>
+							<Mode>Mid</Mode>
+						</Decision>
+						<EnhancedPrecision>
+							<FixedEnhancement>10</FixedEnhancement>
+							<Mode>Auto</Mode>
+						</EnhancedPrecision>
+						<Invert>True</Invert>
+						<JitterNoise>
+							<JitterDeterministicPkS>2e-12</JitterDeterministicPkS>
+							<JitterS>2e-12</JitterS>
+							<LogIntensity>
+								<LogIntensity>False</LogIntensity>
+								<MaxExponent>0</MaxExponent>
+								<MinExponent>-6</MinExponent>
+							</LogIntensity>
+							<MaxKernelPixels>100000</MaxKernelPixels>
+							<Noise>0.01</Noise>
+						</JitterNoise>
+						<Measure>
+							<BERForMeasure>-6</BERForMeasure>
+							<Measure>True</Measure>
+							<NoisePenalty>0</NoisePenalty>
+						</Measure>
+						<Mode>JitterNoise</Mode>
+						<Rows>200</Rows>
+						<Saturation>20.0</Saturation>
+						<ScaleX>100.0</ScaleX>
+						<ScaleY>200.0</ScaleY>
+						<UI>3</UI>
+						<YAxis>
+							<Max>1.0</Max>
+							<Min>0.0</Min>
+							<Mode>Auto</Mode>
+						</YAxis>
+					</EyeDiagram>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -494,61 +622,6 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<EyeDiagram>
-		<Alignment>
-			<AutoAlign>True</AutoAlign>
-			<BERForAlignment>-3</BERForAlignment>
-			<BitsPerSymbol>1</BitsPerSymbol>
-			<Horizontal>Middle</Horizontal>
-			<Mode>Horizontal</Mode>
-			<Vertical>MaxMin</Vertical>
-		</Alignment>
-		<Annotation>
-			<Annotate>True</Annotate>
-			<Color>#00ff00</Color>
-			<Contours>
-				<Show>True</Show>
-				<Which>Eye</Which>
-			</Contours>
-			<EyeHeight>True</EyeHeight>
-			<EyeWidth>True</EyeWidth>
-			<LevelExtents>True</LevelExtents>
-			<MeanLevels>True</MeanLevels>
-		</Annotation>
-		<Color>#c6ff2c</Color>
-		<Columns>200</Columns>
-		<EnhancedPrecision>
-			<FixedEnhancement>10</FixedEnhancement>
-			<Mode>Auto</Mode>
-		</EnhancedPrecision>
-		<Invert>True</Invert>
-		<JitterNoise>
-			<JitterDeterministicPkS>2e-12</JitterDeterministicPkS>
-			<JitterS>2e-12</JitterS>
-			<LogIntensity>
-				<LogIntensity>False</LogIntensity>
-				<MaxExponent>0</MaxExponent>
-				<MinExponent>-6</MinExponent>
-			</LogIntensity>
-			<MaxKernelPixels>100000</MaxKernelPixels>
-			<Noise>0.01</Noise>
-		</JitterNoise>
-		<Measure>
-			<BERForMeasure>-6</BERForMeasure>
-			<Measure>True</Measure>
-		</Measure>
-		<Mode>JitterNoise</Mode>
-		<Rows>200</Rows>
-		<Saturation>20.0</Saturation>
-		<ScaleX>100.0</ScaleX>
-		<ScaleY>200.0</ScaleY>
-		<UI>3</UI>
-		<YAxis>
-			<Max>1.0</Max>
-			<Min>0.0</Min>
-			<Mode>Auto</Mode>
-		</YAxis>
-	</EyeDiagram>
 	<PostProcessing>
 		<Lines>
 		</Lines>
