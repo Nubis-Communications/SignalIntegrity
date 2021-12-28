@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-57.html#next">Prev</a> Enhanced Precision Steps</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Maximum Y <a class="next" name="next" href="Help-Subsection-59.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-57.html#next">Prev</a> Number of Columns</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Scale X <a class="next" name="next" href="Help-Subsection-59.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-58"></a>Y Axis<a class="Label" name="sub:Y-Axis"> </a>
+<a class="toc" name="toc-Subsection-58"></a>Saturation<a class="Label" name="sub:Saturation"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,23 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Y Axis
+Saturation
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.YAxis.Mode
+EyeDiagram.Saturation
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Enum
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="PlainVisible">
 <div class="left">
-Auto or Fixed
-</div>
-
-</div>
-<div class="PlainVisible">
-Auto is default
+20%
 </div>
 
 </td>
@@ -1126,15 +1120,15 @@ Auto is default
 
 </div>
 <div class="Standard">
-If Y Axis is set to Auto, the vertical extent of the eye diagram is calculated automatically. The automatic calculation is such that if <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↓</a> is ISI Only, then the vertical extents are 10% higher and lower than the maximum and minimum extents of the waveform. If the <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↓</a> is Jitter &amp; Noise, then the minimum and maximum extents extend to the maximum and minimum value plus or minus ten standard deviations of the vertical <a class="Reference" href="Help-Subsection-64.html#sub:Noise">Noise↓</a> specified.
+This sets the saturation of the eye diagram image by setting the brightness to 100% when this percentage of hits in a pixel are reached. This causes the eye to be brightened (or darkened if Invert is False). Higher values cause the eye diagram to be fainter and wispier, and lower values cause it to be darker.
 </div>
 <div class="Standard">
-If Y Axis is set to Fixed, then the vertical extents are specified by <a class="Reference" href="Help-Subsection-59.html#sub:Maximum-Y">Maximum Y↓</a> and <a class="Reference" href="Help-Subsection-60.html#sub:Minimum-Y">Minimum Y↓</a>.
+The default value of 20 is thought to be just the right number.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-57.html#next">Prev</a> Enhanced Precision Steps</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Maximum Y <a class="next" name="next" href="Help-Subsection-59.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-57.html#next">Prev</a> Number of Columns</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Scale X <a class="next" name="next" href="Help-Subsection-59.html#prev">Next</a></span>
 </div>
 
 </div>

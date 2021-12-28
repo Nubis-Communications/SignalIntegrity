@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-56.html#next">Prev</a> Enhanced Precision Mode</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Y Axis <a class="next" name="next" href="Help-Subsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-56.html#next">Prev</a> Number of Rows</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Saturation <a class="next" name="next" href="Help-Subsection-58.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-57"></a>Enhanced Precision Steps<a class="Label" name="sub:Enhanced-Precision-Steps"> </a>
+<a class="toc" name="toc-Subsection-57"></a>Number of Columns<a class="Label" name="sub:Number-of-Columns"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Enhanced Precision Steps
+Number of Columns
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.EnhancedPrecision.Mode
+EyeDiagram.Columns
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Int
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-10
+200
 </div>
 
 </td>
@@ -1120,12 +1120,18 @@ Int
 
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-56.html#sub:Enhanced-Precision-Mode">Enhanced Precision Mode↑</a> is set to fixed, this parameter defines the fixed number steps used.
+This sets the number of pixels horizontally in the underlying eye diagram (the actual image is zoomed by the <a class="Reference" href="Help-Subsection-59.html#sub:Scale-X">Scale X↓</a>). Setting this number too low causes excessive pixelation, while setting it too high causes too much work to be performed, as the waveform is upsampled such that each point lands on these pixels.
+</div>
+<div class="Standard">
+The number of columns also affects the measurement <a class="Reference" href="Help-Subsubsection-97.html#sub:Resolution">Resolution↑</a>.
+</div>
+<div class="Standard">
+The default value of 200 is thought to be just the right number, although it is highly advantageous to set this number to a direct multiple of the number of samples in a single unit interval.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-56.html#next">Prev</a> Enhanced Precision Mode</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Y Axis <a class="next" name="next" href="Help-Subsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-56.html#next">Prev</a> Number of Rows</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Saturation <a class="next" name="next" href="Help-Subsection-58.html#prev">Next</a></span>
 </div>
 
 </div>

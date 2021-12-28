@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,60 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-34.html#next">Prev</a> Annotate Mean Levels</span>
-<span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Annotate Eye Width <a class="next" name="next" href="Help-Section-36.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Eye Measurement Properties</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
+<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-103.html#prev">Next</a></span>
 </div>
-<h1 class="Section">
-<a class="toc" name="toc-Section-35"></a>Annotate Levels Extents<a class="Label" name="sec:Annotate-Levels-Extents"> </a>
-</h1>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-102"></a>Bathtub Curve Measurement Properties<a class="Label" name="pc:Bathtub-Curve-Measurement-Properties"> </a>
+</h3>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Description</b>
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Name</b>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<b>Type</b>
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<b>(Default) Value</b>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Annotate Level Extents
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Annotation.LevelExtents
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="PlainVisible">
-
+When <a class="Reference" href="Help-Subsection-83.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↓</a> is set to True, bathtub curves are calculated and accessed through the <a class="Reference" href="Help-Subsubsection-91.html#Control-Help:Bathtub-Curve">Bathtub Curve↑</a> command in the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a>, and <a class="Reference" href="Help-Subsection--2.html#sub:Error-Rates">Error Rates↑</a> measurements tab in the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>.
 </div>
-<div class="PlainVisible">
-True or False<br/>
-False is default
+<div class="Standard">
+The bathtub curve measurement properties are:
 </div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-84.html#sub:Decades-Above-for">Decades Above for Fit↓</a> — Because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. The parameter specifies how many decades above the location where the histograms overlap to begin fitting the histogram. Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-85.html#sub:Minimum-Points-for-Fit">Minimum Points for Fit↓</a> — This is the number of points on the tail of the histogram to use for the fit. At least three points are needed (a quadratic is fit). A few more points are better to provide an overconstrained fit, but too many points cause the fit to deviate from the tail of the histogram. It is desirable to fit the tail.
+</li>
 
-</td>
-
-</tr>
-
-</table>
-
-</div>
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-34.html#next">Prev</a> Annotate Mean Levels</span>
-<span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Annotate Eye Width <a class="next" name="next" href="Help-Section-36.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Eye Measurement Properties</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
+<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-103.html#prev">Next</a></span>
 </div>
 
 </div>

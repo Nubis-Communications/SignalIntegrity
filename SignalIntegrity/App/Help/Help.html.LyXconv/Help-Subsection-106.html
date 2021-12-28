@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Telegrapher - Four Port</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">W Element <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Relay <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-106"></a>RLGC Fit<a class="Label" name="device:RLGC-Fit"> </a>
+<a class="toc" name="toc-Subsection-106"></a>Voltage Mixed Mode Converter<a class="Label" name="device:Voltage-Mixed-Mode-Converter"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="RLGC.png" alt="figure RLGC.png" style="width: 142px; max-width: 569px; height: 117px; max-height: 470px;"/>
+<img class="embedded" src="VoltageMixedModeConverter.png" alt="figure VoltageMixedModeConverter.png" style="max-width: 152px; max-height: 144px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Transmission Lines
+Miscellaneous
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-T?
+D?
 </td>
 
 </tr>
@@ -1158,62 +1158,38 @@ string
 </td>
 
 </tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-file name
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-scale
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-scale
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This device is a two-port transmission line as in <a class="Reference" href="Help-Subsection-104.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↑</a> where the constants for the transmission line are formed by fitting the s-parameters contained in the file specified to an RLGC transmission line.
+The voltage mixed mode converter is one that defines differential and common mode voltage with respect to positive and negative voltages as:
 </div>
 <div class="Standard">
-The fit is performed by estimating the impedance and the delay through the line and using that to form a guess of the inductance and capacitance of the line. Initially no series resistance, skin-effect resistance, dissipation factor of conductance is in the guess.
+<div class="formula">
+<i>V</i><sub><i>d</i></sub> = <i>V</i><sub> + </sub> − <i>V</i><sub> − </sub>
+</div>
+
 </div>
 <div class="Standard">
-The fit proceeds until it converges and the fitted s-parameters are used as the device.
+<div class="formula">
+<i>V</i><sub><i>c</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> + <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span>
+</div>
+
 </div>
 <div class="Standard">
-The scale variable allows the fitted line to be scaled. This is particularly useful when model fitting to perform a 2x thru de-embedding where a scale of 0.5 splits the model in half.
+This is the standard definition in industry for the time-domain and this device is used primarily to expose differential- and common-mode voltages in time-domain simulation or virtual probing applications.
+</div>
+<div class="Standard">
+The other kind of mixed-mode converter is the <a class="Reference" href="Help-Subsection-105.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↑</a>.
+</div>
+<div class="Standard">
+See <a class="Reference" href="Help-Subsection-25.html#sub:Virtual-Probing-Example">Virtual Probing Example↑</a> for an example of this type of device is used.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Telegrapher - Four Port</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">W Element <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Relay <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 
 </div>

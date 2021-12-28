@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> Voltage Step Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> Voltage Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-114"></a>Voltage Pulse Generator<a class="Label" name="device:Voltage-Pulse-Generator"> </a>
+<a class="toc" name="toc-Subsection-114"></a>Current Source<a class="Label" name="device:Current-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltagePulseGeneratorOnePort.png" alt="figure VoltagePulseGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="VoltagePulseGeneratorTwoPort.png" alt="figure VoltagePulseGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="CurrentSourceOnePort.png" alt="figure CurrentSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
+<img class="embedded" src="CurrentSourceTwoPort.png" alt="figure CurrentSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Generators
+Sources
 </td>
 
 </tr>
@@ -1137,7 +1137,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VG?
+CS?
 </td>
 
 </tr>
@@ -1161,127 +1161,19 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-amplitude
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-a
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-V
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 V
-</td>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-sample rate
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-fs
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-S/s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-40.0 GS/s
-</td>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-pulse width
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-w
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 ns
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-risetime
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-rt
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-duration
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-dur
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-200.0 ns
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-horizontal offset
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ho
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100.0 ns
+None
 </td>
 
 </tr>
@@ -1290,21 +1182,15 @@ s
 
 </div>
 <div class="Standard">
-The voltage pulse generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pulse <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> to the system.
+The current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a current <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> specified by the file name to the system.
 </div>
 <div class="Standard">
-The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
-</div>
-<div class="Standard">
-If zero risetime is specified, the waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the duration specified by the pulse width.
-</div>
-<div class="Standard">
-If a nonzero risetime is specified, the first edge crosses 50% at the start time and falls, crossing at 50% of the stop time (pulse width minus start time). In other words, the width of the pulse specified is the time between the starting and ending 50% points.
+The <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> Voltage Step Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> Voltage Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
 </div>
 
 </div>

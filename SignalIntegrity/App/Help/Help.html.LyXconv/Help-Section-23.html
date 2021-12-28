@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,53 +1073,56 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-22.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-162.html#next">Prev</a> Impulse Response Filter</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-167.html#prev">Next</a></span>
+<span class="next">device <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-23"></a>Errors and Exceptions<a class="Label" name="sec:Errors-and-Exceptions"> </a>
+<a class="toc" name="toc-Section-23"></a>Netlist<a class="Label" name="sec:Netlist"> </a>
 </h1>
 <div class="Standard">
-When problems crop up during calculation, <b><i>SignalIntegrityApp</i></b> throws an exception and a message box is shown with the exception and the message the exception generates. As such, the exception type defines the main category of the exception and the message pertains to various flavors of that exception type.
+Netlists are the internal text based format of the schematic. There is a one-to-one correspondence between the netlist and the schematic from a device and connectivity standpoint.
 </div>
 <div class="Standard">
-The <b><i>SignalIntegrity</i></b> exceptions are:
+each line in the netlist starts with one of the following keywords:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-170.html#sub:System-Description-Error">SystemDescription↓</a> - pertains to a general problem with the netlist used for calculation.
+<a class="Reference" href="Help-Subsection-163.html#sub:device">device↓</a>- specifies one of the <a class="Reference" href="Help-Section-22.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-173.html#sub:Numeric">Numeric↓</a> - pertains to a general numerical error during calculation.
+<a class="Reference" href="Help-Subsection-164.html#sub:connect">connect↓</a>- specifies one or more device pin connections.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-167.html#sub:SParameterFile">SParameterFile↓</a> - pertains to a problem with reading an s-parameter file.
+<a class="Reference" href="Help-Subsection-165.html#sub:port">port↓</a>- specifies a <a class="Reference" href="Help-Subsection-127.html#device:Port">Port↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-168.html#sub:WaveformFile">WaveformFile↓</a> - pertains to a problem with reading a <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> file.
+<a class="Reference" href="Help-Subsection-166.html#sub:meas">meas↓</a>- specifies a <a class="Reference" href="Help-Subsection-128.html#device:Measure-Probe">Voltage Measure Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-169.html#sub:Waveform">Waveform↓</a> - pertains to a problem with calculating with a <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a>.
+<a class="Reference" href="Help-Subsection-167.html#sub:output">output↓</a>- specifies an <a class="Reference" href="Help-Subsection-129.html#device:Output-Probe">Voltage Output Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-174.html#sub:DeviceParser">DeviceParser↓</a> - pertains to a problem parsing a device description in the netlist.
+<a class="Reference" href="Help-Subsection-168.html#sub:stim">stim↓</a>- specifies a <a class="Reference" href="Help-Subsection-130.html#device:Stim">Stim↑</a> and it’s associated device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-171.html#sub:Simulator">Simulator↓</a> - pertains to a problem specific to the Simulator application and calculation.
+<a class="Reference" href="Help-Subsection-169.html#sub:stimdef">stimdef↓</a>- specifies the relationship between defining and dependent stims (see <a class="Reference" href="Help-Subsection-130.html#device:Stim">Stim↑</a>). (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-172.html#sub:VirtualProbe">VirtualProbe↓</a> - pertains to a problem specific to the Virtual Probe application and calculation.
+<a class="Reference" href="Help-Subsection-170.html#sub:unknown">unknown↓</a>- specifies an <a class="Reference" href="Help-Subsection-144.html#device:Unknown">Unknown↑</a> device (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection--3.html#sub:PostProcessing">PostProcessing↓</a> - pertains to a problem with <a class="Reference" href="Help-Section-22.html#sec:Post-Processing">Post-Processing↑</a>.
+<a class="Reference" href="Help-Subsection-171.html#sub:system">system↓</a>- specifies a <a class="Reference" href="Help-Subsection-145.html#device:System">System↑</a> device (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
+</li>
+<li>
+<a class="Reference" href="Help-Subsection--3.html#sub:post">post↓</a>- specifies <a class="Reference" href="Help-Section-24.html#sec:Post-Processing">Post-Processing↓</a> of a resulting s-parameter file (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> and <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> applications).
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-22.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-162.html#next">Prev</a> Impulse Response Filter</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">SParameterFile <a class="next" name="next" href="Help-Subsection-167.html#prev">Next</a></span>
+<span class="next">device <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 
 </div>

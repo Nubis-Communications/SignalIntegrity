@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Save Project As…</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-41.html">Up</a> File</span>
-<span class="next">Export Netlist <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Undo</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
+<span class="next">Delete Selected <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-49"></a>Clear Schematic<a class="Label" name="Control-Help:Clear-Schematic"> </a>
+<a class="toc" name="toc-Subsubsection-49"></a>Redo<a class="Label" name="Control-Help:Redo"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1087,7 +1087,7 @@ a:visited {
 <i>Dialog</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Section-17.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
 </td>
 
 </tr>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-41.html#sub:File">File↑</a> ▸ Clear Schematic
+<a class="Reference" href="Help-Subsection-39.html#sub:Edit">Edit↑</a> ▸ Redo
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,C
+Alt+E,R
 </td>
 
 </tr>
@@ -1114,7 +1114,7 @@ Alt+F,C
 <i>Key Binding</i>
 </td>
 <td align="center" valign="top">
-None
+Ctrl+Shift+Z
 </td>
 
 </tr>
@@ -1123,7 +1123,7 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="document-new-3.png" alt="figure document-new-3.png" style="max-width: 16px; max-height: 16px;"/>
+<img class="embedded" src="edit-redo-3.png" alt="figure edit-redo-3.png" style="max-width: 16px; max-height: 16px;"/>
 
 </td>
 
@@ -1133,7 +1133,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the project is not empty
+When there is something that can be redone in the history buffer
 </td>
 
 </tr>
@@ -1142,12 +1142,21 @@ When the project is not empty
 
 </div>
 <div class="Standard">
-It clears the current project, but this can be undone using <a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Undo">Undo↓</a>
+This redoes the last undo.
+</div>
+<div class="Standard">
+This is available whenever an <a class="Reference" href="Help-Subsubsection-48.html#Control-Help:Undo">Undo↑</a> was issued.
+</div>
+<div class="Standard">
+It becomes unavailable whenever a change occurs that causes an event to store the state in the <a class="Reference" href="Help-Subsubsection-47.html#sub:History-Buffer">History Buffer↑</a>.
+</div>
+<div class="Standard">
+In other words, if you undo something or many things and then make a change to the schematic, the redo becomes unavailable.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Save Project As…</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-41.html">Up</a> File</span>
-<span class="next">Export Netlist <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Undo</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
+<span class="next">Delete Selected <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

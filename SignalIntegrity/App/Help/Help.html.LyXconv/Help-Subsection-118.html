@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage Clock Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage Noise Generator</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Pulse Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-118"></a>Voltage Sine Generator<a class="Label" name="device:Voltage-Sine-Generator"> </a>
+<a class="toc" name="toc-Subsection-118"></a>Voltage Step Generator<a class="Label" name="device:Voltage-Step-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSineGeneratorOnePort.png" alt="figure VoltageSineGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="VoltageSineGeneratorTwoPort.png" alt="figure VoltageSineGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="VoltageStepGeneratorOnePort.png" alt="figure VoltageStepGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
+<img class="embedded" src="VoltageStepGeneratorTwoPort.png" alt="figure VoltageStepGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1161,42 +1161,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-phase
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ph
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-deg
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 deg
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-frequency
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-f
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Hz
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 MHz
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1228,6 +1192,42 @@ S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 40.0 GS/s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+start time
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+t0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
 </td>
 
 </tr>
@@ -1267,62 +1267,26 @@ s
 </td>
 
 </tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-stop time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-tf
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 s
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-The voltage sine generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage sine <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage step generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage step <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> to the system.
 </div>
 <div class="Standard">
 The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
-The waveform is such that it has the frequency specified and has the phase specified at time zero.
+If zero risetime is specified, the waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the remaining duration of the waveform.
 </div>
 <div class="Standard">
-When the sine wave is active can be controlled by the start and stop time. Before the start time and after the stop time, the waveform is zero.
+If a nonzero risetime is specified, the edge crosses 50% at the start time. The risetime is implemented as a raised-cosine.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage Clock Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage Noise Generator</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Pulse Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Calculation.Enforce12458</span>
-<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
-<span class="next">RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Calculation.TrySVD</span>
+<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Preferences</span>
+<span class="next">Calculation.MaximumWaveformPoints <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--13"></a>Calculation.MaximumWaveformPoints<a class="Label" name="sub:Calculation.MaximumWaveformPoints"> </a>
+<a class="toc" name="toc-Subsection--13"></a>Calculation.Enforce12458<a class="Label" name="sub:Calculation.Enforce12458"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-maximum waveform points
+enforce 12458 sequence in calculation properties
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--13.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints↑</a>
+<a class="Reference" href="Help-Subsection--13.html#sub:Calculation.Enforce12458">Calculation.Enforce12458↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Float
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-5 Mpts
+True
 </div>
 
 </td>
@@ -1120,15 +1120,12 @@ Float
 
 </div>
 <div class="Standard">
-Sometimes waveforms are just too big to process, and instead of needing to kill the program, it would be better if the program just threw a <a class="Reference" href="Help-Subsection-169.html#sub:Waveform">Waveform↑</a> exception. Pathological cases also occur accidentally, especially with regard to upsampling and <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
-</div>
-<div class="Standard">
-To protect things, a maximum value is set in the preferences for the sizes of waveforms. The user can set this value as high as desired, but setting it to a reasonably sized number is advised.
+Usually, when <a class="Reference" href="Help-Subsection-3.html#sub:Setting-Calculation-Properties">Setting Calculation Properties↑</a>, using the <a class="Reference" href="Help-Subsubsection-74.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> controls, it is desirable to use good, round numbers. This is enforced using a 12458 sequence (actually, the next higher). For example, if one enters 67.34 GS/s for the sample rate, the software automatically adjusts this to 80 GS/s (the next higher 12458 number). This is usually the best, but sometimes it is really necessary to enter, for example, an end frequency of 70 GHz and these enforcements will confound your efforts. In these cases, set this preference to False. Usually, I might set it to False, enter my odd-ball frequencies, and then set it back to True (it will not change already entered numbers).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Calculation.Enforce12458</span>
-<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
-<span class="next">RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--12.html#next">Prev</a> Calculation.TrySVD</span>
+<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Preferences</span>
+<span class="next">Calculation.MaximumWaveformPoints <a class="next" name="next" href="Help-Subsection--14.html#prev">Next</a></span>
 </div>
 
 </div>

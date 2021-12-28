@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Annotate Mean Levels</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Annotate Eye Width <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Measure Bathtub Curves</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Minimum Points for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-84"></a>Annotate Levels Extents<a class="Label" name="sub:Annotate-Levels-Extents"> </a>
+<a class="toc" name="toc-Subsection-84"></a>Decades Above for Fit<a class="Label" name="sub:Decades-Above-for"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,23 +1099,16 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Annotate Level Extents
+Decades Above for Fit
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Annotation.LevelExtents
+EyeDiagram.Bathtub.DeadesFromJoinForFit
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Bool
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="PlainVisible">
-
-</div>
-<div class="PlainVisible">
-True or False<br/>
-False is default
-</div>
-
+0.5
 </td>
 
 </tr>
@@ -1123,10 +1116,19 @@ False is default
 </table>
 
 </div>
+<div class="Standard">
+When <a class="Reference" href="Help-Subsection-83.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↑</a> is set to True, <a class="Reference" href="Help-Subsection-84.html#sub:Decades-Above-for">Decades Above for Fit↑</a> specifies how many decades above the location where the histograms overlap to begin fitting the histogram. 
+</div>
+<div class="Standard">
+This is used because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. 
+</div>
+<div class="Standard">
+Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Annotate Mean Levels</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Annotate Eye Width <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Measure Bathtub Curves</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Minimum Points for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 
 </div>

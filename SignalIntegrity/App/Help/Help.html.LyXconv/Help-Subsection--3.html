@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,23 +1073,50 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-174.html#next">Prev</a> DeviceParser</span>
-<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Errors and Exceptions</span>
-<span class="next">Waveform <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-171.html#next">Prev</a> system</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Netlist</span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--3"></a>PostProcessing<a class="Label" name="sub:PostProcessing"> </a>
+<a class="toc" name="toc-Subsection--3"></a>post<a class="Label" name="sub:post"> </a>
 </h2>
 <div class="Standard">
-<b>not understood</b>
+A netlist line beginning with the keyword post defines <a class="Reference" href="Help-Section-24.html#sec:Post-Processing">Post-Processing↓</a> of a resulting s-parameter file.
 </div>
 <div class="Standard">
-A <a class="Reference" href="Help-Section-22.html#sec:Post-Processing">Post-Processing↑</a> command (a <a class="Reference" href="Help-Section-21.html#sec:Netlist">Netlist↑</a> line preceded by the keyword <a class="Reference" href="Help-Subsection--2.html#sub:post">post↑</a>) is not understood or cannot be parsed.
+This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> and <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> applications.
 </div>
+<div class="Standard">
+valid post processing lines are:
+</div>
+<ul>
+<li>
+post enforce causality - is the same as issuing <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> on the final result.
+</li>
+<li>
+post enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
+</li>
+<li>
+post enforce both — is the same as issuing <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a> on the final result.
+</li>
+<li>
+post enforce reciprocity - is the same as issuing <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a> on the final result.
+</li>
+<li>
+post enforce all — is the same as issuing <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Enforce-All">Enforce All↑</a> on the final result.
+</li>
+<li>
+post limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
+</li>
+<li>
+post reference impedance &lt;value&gt; - sets the resulting s-parameter calculation reference impedance according to the value specified.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-174.html#next">Prev</a> DeviceParser</span>
-<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Errors and Exceptions</span>
-<span class="next">Waveform <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-171.html#next">Prev</a> system</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Netlist</span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 
 </div>

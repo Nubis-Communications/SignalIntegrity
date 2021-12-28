@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,320 +1073,45 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Which Contours to Show</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Bathtub Curves Dialog</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-89.html#prev">Next</a></span>
+<span class="next">Eye Diagram Image Properties <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-20"></a>Built-in Devices (Parts)<a class="Label" name="sec:Built-in-Devices"> </a>
+<a class="toc" name="toc-Section-20"></a>Eye Diagram Properties Dialog<a class="Label" name="sec:Eye-Diagram-Properties-Dialog"> </a>
 </h1>
 <div class="Standard">
-<b><i>SignalIntegrity</i></b> defines the following built-in parts. If you don’t see what you want, you can always supply an s-parameter file through a <a class="Reference" href="Help-Subsection-89.html#device:File">File↓</a> part.
-</div>
-<div class="Standard">
-File Devices
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-89.html#device:File">File↓</a>
-</li>
+<div class="center">
+<img class="embedded" src="EyeDiagramProperties.png" alt="figure EyeDiagramProperties.png" style="max-width: 1254px; max-height: 750px;"/>
 
-</ul>
-<div class="Standard">
-Resistor Devices
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-90.html#device:Resistor">Resistor↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-91.html#device:Skin-Effect-Resistor">Resistor↓</a>
-</li>
 
-</ul>
+</div>
 <div class="Standard">
-Capacitor Devices
+The Eye Diagram Properties are accessed either from the device properties dialog for an <a class="Reference" href="Help-Subsection-133.html#device:Eye-Probe">Eye Probe↓</a> or <a class="Reference" href="Help-Subsection-134.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> placed in the schematic, or by using the <a class="Reference" href="Help-Subsubsection-88.html#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties↑</a> command in an <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> from an already created eye.
+</div>
+<div class="Standard">
+The properties control the <a class="Reference" href="Help-Section-17.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
+</div>
+<div class="Standard">
+When an <a class="Reference" href="Help-Subsection-133.html#device:Eye-Probe">Eye Probe↓</a> or <a class="Reference" href="Help-Subsection-134.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> is placed in a schematic, the properties are initialized by values held in the <a class="Reference" href="Help-Section-27.html#sec:Preferences">Preferences↓</a> file. Once initialized however, any changes to the properties are for the particular device (i.e. unique settings can be used for multiple <a class="Reference" href="Help-Subsection-133.html#device:Eye-Probe">Eye Probe↓</a>s in a schematic). If you like, the settings for a particular device may be saved globally to the preferences file, causing all new eye probe devices to default to these new settings.
+</div>
+<div class="Standard">
+The Eye Diagram Properties can be broken into several categories:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-92.html#device:Capacitor">Capacitor↓</a>
+The <a class="Reference" href="Help-Subsection-50.html#sub:Eye-Diagram-Image-Properties">Eye Diagram Image Properties↓</a> — Provides properties that determine how the eye diagram bitmap and image will be generated (essentially the entire left half of the dialog).
 </li>
-
-</ul>
-<div class="Standard">
-Inductor Devices
-</div>
-<ul>
 <li>
-<a class="Reference" href="Help-Subsection-93.html#device:Inductor">Inductor↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-94.html#device:Mutual">Mutual↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-95.html#device:IdealTransformer">IdealTransformer↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Miscellaneous Devices
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-96.html#device:Ground">Ground↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-97.html#device:Open">Open↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-98.html#device:DirectionalCoupler">Directional Coupler↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-99.html#device:Net-Name">Net Name↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-100.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-101.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-102.html#device:Relay">Relay↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Transmission Line Devices
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-103.html#device:Transmission-Line">Transmission Line↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-104.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-105.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-106.html#device:RLGC-Fit">RLGC Fit↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-107.html#device:W-Element">W Element↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Sources
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-108.html#device:Voltage-Source">Voltage Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-110.html#device:Voltage-DC-Source">Voltage DC Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-109.html#device:Current-Source">Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-111.html#device:Current-DC-Source">Current DC Source↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Generators
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-112.html#device:Voltage-Noise-Generator">Voltage Noise Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-113.html#device:Voltage-Step-Generator">Voltage Step Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-114.html#device:Voltage-Pulse-Generator">Voltage Pulse Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-115.html#device:Voltage-PRBS-Generator">Voltage PRBS Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-116.html#device:Voltage-Multi-Level-Waveform-Generator">Voltage Multi-Level Waveform Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-117.html#device:Voltage-Clock-Generator">Voltage Clock Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-118.html#device:Voltage-Sine-Generator">Voltage Sine Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-119.html#device:Current-Step-Generator">Current Step Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-120.html#device:Current-Pulse-Generator">Current Pulse Generator↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-121.html#device:Current-Sine-Generator">Current Sine Generator↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Probes and Ports
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-122.html#device:Port">Port↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-126.html#device:Current-Probe">Current Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-127.html#device:Voltage-Diff-Probe">Voltage Diff Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-130.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-128.html#device:Eye-Probe">Eye Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-129.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Virtual Probe Elements
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-123.html#device:Measure-Probe">Voltage Measure Probe↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-125.html#device:Stim">Stim↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Dependent Sources
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-130.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-131.html#device:Current-Controlled-Current-Source">Current Controlled Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-132.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-133.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Amplifiers
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-134.html#device:Voltage-Amplifier">Voltage Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-135.html#device:Current-Amplifier">Current Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-136.html#device:Transconductance-Amplifier">Transconductance Amplifier↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-137.html#device:Transresistance-Amplifier">Transresistance Amplifier↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Network Analysis Devices
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-141.html#device:Short-Standard">Short Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-142.html#device:Open-Standard">Open Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-143.html#device:Load-Standard">Load Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-144.html#device:Thru-Standard">Thru Standard↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-145.html#device:Reflect-Measurement">Reflect Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-147.html#device:Xtalk-Measurement">Xtalk Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-146.html#device:Thru-Measurement">Thru Measurement↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-148.html#device:Network-Analyzer">Network Analyzer↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-149.html#device:Network-Analyzer-Stimulus">Network Analyzer Stimulus↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-150.html#device:Network-Analyzer-Model">Network Analyzer Model↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Equalizers
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-152.html#device:CTLE">Continuous Time Linear Equalizer↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-153.html#device:FFE">Feed-Forward Linear Equalizer↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-Filters
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-155.html#device:BesselLp">Bessel Low-Pass Filter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-154.html#device:ButterworthLp">Butterworth Low-Pass Filter↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-156.html#device:Laplace">Laplace↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-157.html#device:ImpulseResponseFilter">Impulse Response Filter↓</a>
-</li>
-
-</ul>
-<div class="Standard">
-De-embedding Elements
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-139.html#device:Unknown">Unknown↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-140.html#device:System">System↓</a>
+The <a class="Reference" href="Help-Subsection-51.html#sub:Eye-Diagram-Measurement">Eye Diagram Measurement Properties↓</a> — Provides Alignment, Measurement, and Annotation Properties (the entire right half of the dialog).
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-88.html#next">Prev</a> Which Contours to Show</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Bathtub Curves Dialog</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-89.html#prev">Next</a></span>
+<span class="next">Eye Diagram Image Properties <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

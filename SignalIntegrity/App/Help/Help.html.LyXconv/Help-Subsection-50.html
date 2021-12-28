@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,45 +1073,125 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-49.html#next">Prev</a> Eye Diagram Color</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Number of Rows <a class="next" name="next" href="Help-Subsection-51.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-20.html#next">Prev</a> Eye Diagram Properties Dialog</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Eye Diagram Properties Dialog</span>
+<span class="next">Eye Diagram Measurement Properties <a class="next" name="next" href="Help-Subsection-51.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-50"></a>Number of UI<a class="Label" name="sub:Number-of-UI"> </a>
+<a class="toc" name="toc-Subsection-50"></a>Eye Diagram Image Properties<a class="Label" name="sub:Eye-Diagram-Image-Properties"> </a>
 </h2>
 <div class="Standard">
+The main image is controlled by the properties in the upper left of the dialog:
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-53.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↓</a> — defines the type of signaling used. This is really only important for automatic alignment and measurements made from the eye diagram:<ul>
+<li>
+1 = NRZ, or PAM-2,
+</li>
+<li>
+2 = PAM-4.
+</li>
+
+</ul>
+
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-54.html#sub:Eye-Diagram-Color">Eye Diagram Color↓</a> — any 24 bit RGB color can be selected. If the plot is inverted, then this is the color of the eye against a black background. If not inverted, the eye is black against the background color specified.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-55.html#sub:Number-of-UI">Number of UI↓</a> — this is the number of unit intervals (UI) shown in the eye. Regardless of this setting, the eye is created for a single UI, and then the image is multiplied this many times horizontally.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-56.html#sub:Number-of-Rows">Number of Rows↓</a> — the number of pixels vertically in the bitmap representing the eye.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-57.html#sub:Number-of-Columns">Number of Columns↓</a> — the number of pixels horizontally in the bitmap representing a single unit interval of the eye.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-58.html#sub:Saturation">Saturation↓</a> — determines 50% point setting of a saturation curve used to enhance the drawing of the eye. Lower numbers make more infrequent hits in the eye brighter. Higher numbers make them lower. A setting of 50% makes the eye intensity linear with hit probability. Generally, numbers like 20-30 % yield the best results.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-59.html#sub:Scale-X">Scale X↓</a> — determines the initial scaling horizontally of the resulting bitmap.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-60.html#sub:Scale-Y">Scale Y↓</a> — determines the initial scaling vertically of the resulting bitmap.
+</li>
+
+</ul>
+<div class="Standard">
+<b>Enhanced Precision Mode</b>
+</div>
+<div class="Standard">
+The eye is drawn by first resampling the waveform such that its sample period is exactly one pixel horizontally. This can cause problems in regions of the eye that have a fast slew rate (i.e. slew many pixels vertically in a given sample period). To improve the situation, <a class="Reference" href="Help-Subsection-61.html#sub:Enhanced-Precision-Mode">Enhanced Precision Mode↓</a> is provided. If the mode is set to None, then it is off, and enhanced precision is not provided. This results in the fastest calculation speed, with the aforementioned problems.
+</div>
+<div class="Standard">
+When set to fixed, every probability is calculated from a line segment between each pixel, which is divided into the number of <a class="Reference" href="Help-Subsection-62.html#sub:Enhanced-Precision-Steps">Enhanced Precision Steps↓</a> specified. This results in the slowest calculation speed, but with a prettier and more accurate eye.
+</div>
+<div class="Standard">
+Auto, the preferred mode, causes the algorithm to automatically determine the number of precision steps based on how many pixels the waveform slews vertically in a given sample. The number of steps is twice the vertical delta. Auto is the best balance between speed and accuracy.
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="EnhancedPrecisionMode.png" alt="figure EnhancedPrecisionMode.png" style="width: 240px; max-width: 480px; height: 340px; max-height: 680px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+The example above is for a change of two pixels. Here, the step size is shown as five (the first pixel is not counted, as it has already been calculated, usually). Since there are five pixel steps, the probability for each pixel is <span class="formula">1 ⁄ 5</span>. Then, for each pixel step, the probability that the pixel occupies in the four possible pixels it straddles is apportioned to the four pixels based on how much area is overlapping. In the end, the result is that probabilities have been accumulated for all of the six pixels shown above.
+</div>
+<div class="Standard">
+<b>Y Axis Control</b>
+</div>
+<div class="Standard">
+Generally, the Y Axis is determined automatically as 10% beyond the maximum and minimum extents of the waveform. This can be fixed to specified voltage levels by setting <a class="Reference" href="Help-Subsection-63.html#sub:Y-Axis">Y Axis↓</a> to Fixed, and entering the <a class="Reference" href="Help-Subsection-65.html#sub:Minimum-Y">Minimum Y↓</a> and <a class="Reference" href="Help-Subsection-64.html#sub:Maximum-Y">Maximum Y↓</a> values.
+</div>
+<div class="Standard">
+<b>Jitter and Noise Addition</b>
+</div>
+<div class="Standard">
+Eyes can be generated from only the input supplied waveform by specifying the <a class="Reference" href="Help-Subsection-66.html#sub:Eye-Mode">Eye Mode↓</a> as ISI Only. Specifying the <a class="Reference" href="Help-Subsection-66.html#sub:Eye-Mode">Eye Mode↓</a> as Jitter &amp; Noise allows for the addition of jitter and noise statistically through the creation of a smoothing kernel.
+</div>
+<div class="Standard">
+The kernel is specified as the convolution of two 2D kernels (to produce a 3D kernel). The vertical 2D kernel is a Gaussian determined by the specified amount of <a class="Reference" href="Help-Subsection-69.html#sub:Noise">Noise↓</a> (in rms voltage). The horizontal 2D kernel is again two kernels convolved with each other horizontally. The first is a Gaussian determined by the amount of <a class="Reference" href="Help-Subsection-67.html#sub:Random-Jitter">Random Jitter↓</a> specified (as rms jitter), and the other is a dual Dirac, where each delta function is <span class="formula">1 ⁄ 2</span> in area, separated by the amount of <a class="Reference" href="Help-Subsection-68.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a> specified.
+</div>
+<div class="Standard">
+The desired size of the kernel is such that 10 standard deviations exist on all sides of the kernel. This is for good probability calculations, even when probabilities are low.
+</div>
+<div class="Standard">
+To prevent pathological situations resulting from the incorrect entry of jitter and noise amounts, the resulting kernel is limited in size to the amount specified as the <a class="Reference" href="Help-Subsection-70.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>.
+</div>
+<div class="Standard">
+<b>Log Intensity</b>
+</div>
+<div class="Standard">
+<div class="center">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Description</b>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeNoLog.png" alt="figure EyeNoLog.png" style="max-width: 200px; max-height: 300px;"/>
+
 </td>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Name</b>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeLog.png" alt="figure EyeLog.png" style="max-width: 200px; max-height: 300px;"/>
+
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-<b>Type</b>
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<b>(Default) Value</b>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeLog2.png" alt="figure EyeLog2.png" style="max-width: 200px; max-height: 300px;"/>
+
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 8cm;">
-Number of UI
+<td align="center" valign="top" style="width: 2.5in;">
+No log intensity
 </td>
-<td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.UI
+<td align="center" valign="top" style="width: 2.5in;">
+Log intensity (0 to -18 exponent)
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-3
-</div>
-
+<td align="center" valign="top" style="width: 2.5in;">
+Log intensity (-17.999 to -18 exponent)
 </td>
 
 </tr>
@@ -1119,13 +1199,69 @@ Int
 </table>
 
 </div>
+
+</div>
 <div class="Standard">
-This sets the number of unit intervals (UI) shown in the eye diagram. The default value of 3 ensures that even an improperly centered eye can be examined. The unit interval is the reciprocal of the baud rate.
+<a class="Reference" href="Help-Subsection-71.html#sub:Log-Intensity">Log Intensity↓</a> is used to further enhance the eye diagram. Normally, the intensity is linear (mostly) with the probability. In Log Intensity mode, the intensity is linear with the log of the probability, with the <a class="Reference" href="Help-Subsection-73.html#sub:Min-Exponent">Min Exponent↓</a> specifying zero intensity, and the <a class="Reference" href="Help-Subsection-72.html#sub:Max-Exponent">Max Exponent↓</a> specifying full intensity. This is particularly useful to identify the low probability areas of the eye.
+</div>
+<div class="Standard">
+In the above plots, all are shown with their -6 probability exponent (1 in <span class="formula">10<sup>6</sup></span>) contour shown. The left plot is shown normally, where the contour is in the middle of a large dark area. The middle plot shows it in Log Intensity mode with the max exponent of 0 and the min exponent of -18. This shows better the gradation of probabilities throughout the eye center. The right plot is showing all probabilities above 1 in <span class="formula">10<sup>18</sup></span> as max intensity, and all probabilities below that as black. This is useful for seeing regions where a given specification should be met.
+</div>
+<div class="Standard">
+Note that the <a class="Reference" href="Help-Subsection-73.html#sub:Min-Exponent">Min Exponent↓</a> specified must be less than the <a class="Reference" href="Help-Subsection-72.html#sub:Max-Exponent">Max Exponent↓</a> specified, otherwise the calculation will fail.
+</div>
+<div class="Standard">
+<b>Invert Plot</b>
+</div>
+<div class="Standard">
+Inversion of the eye diagram plot is controlled by <a class="Reference" href="Help-Subsection-74.html#sub:Invert-Plot">Invert Plot↓</a>. Normally, the plot is inverted. When inverted, the eye is the specified color against a black background. If not inverted, the eye is black against the background color specified.
+</div>
+<div class="Standard">
+<b>Eye Alignment</b>
+</div>
+<div class="Standard">
+The simplest way to generate eye diagrams is to ensure that the waveform passes through the midpoint of the eye at zero time. In this situation, eye alignment is unnecessary. It is, however, very convenient to have the eye aligned automatically. Setting <a class="Reference" href="Help-Subsection-75.html#sub:Auto-Align-Eye">Auto Align Eye↓</a> to True, enables this and shows a number of other parameters in the dialog.
+</div>
+<div class="Standard">
+Eye alignment is performed using measurements on a contour of the eye at a certain probability, specified by the <a class="Reference" href="Help-Subsection-76.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↓</a>. Usually, this is set to -3 (i.e. the contour used is at the internal boundary of the eye with a probability of one in <span class="formula">10<sup> − 3</sup></span>. Using a relatively high probability allows for eyes to be aligned even in extreme cases where the BER is very poor.
+</div>
+<div class="Standard">
+In the case of PAM-2, the algorithm searches the vertical extents of these contours searching for the single widest opening. For PAM-2, it searches for the widest minimum opening. Once the horizontal location of these vertical extents are found, there are four options for alignment in the <a class="Reference" href="Help-Subsection-77.html#sub:Alignment-Mode">Alignment Mode↓</a>:
+</div>
+<ul>
+<li>
+Horizontal Alignment — the eye is aligned based on horizontal measurements using the <a class="Reference" href="Help-Subsection-78.html#sub:Horizontal-Alignment">Horizontal Alignment↓</a> mode:<ul>
+<li>
+Middle — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the middle eye, then computing the horizontal midpoint.
+</li>
+<li>
+Max — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the widest eye, then computing the horizontal midpoint.
+</li>
+
+</ul>
+
+</li>
+<li>
+Vertical Alignment — the eye is aligned based on vertical measurements using the <a class="Reference" href="Help-Subsection-79.html#sub:Vertical-Alignment">Vertical Alignment↓</a> mode:<ul>
+<li>
+MaxMin — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for the narrowest eye.
+</li>
+<li>
+Max — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for any eye. 
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Standard">
+If auto alignment fails, the eye is still produced, but not aligned. In these cases, try making the <a class="Reference" href="Help-Subsection-76.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↓</a> larger.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-49.html#next">Prev</a> Eye Diagram Color</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Number of Rows <a class="next" name="next" href="Help-Subsection-51.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-20.html#next">Prev</a> Eye Diagram Properties Dialog</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Eye Diagram Properties Dialog</span>
+<span class="next">Eye Diagram Measurement Properties <a class="next" name="next" href="Help-Subsection-51.html#prev">Next</a></span>
 </div>
 
 </div>

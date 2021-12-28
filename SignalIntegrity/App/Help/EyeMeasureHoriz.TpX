@@ -1,0 +1,59 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <bezier>65,78 65.7117,81.7309 67.4422,85.1921 70,88 75.1326,93.6346 82.684,95.9177 90,98 95.0578,99.4396 100,102 105,98 109.856,94.1152 110.979,87.5987 115,83 119.394,77.9749 127.424,74.3441 125,68 124.136,65.7385 121.932,64.4416 120,63 115.088,59.3356 111.123,50.9062 105,50 94.8222,48.4936 86,59 80,63 74.6589,66.5608 66.9469,66.9273 65,73 64.4787,74.6259 64.4787,76.3741 65,78</bezier>
+%  <line x1="100" y1="100" x2="100" y2="50"/>
+%  <line x1="64.5" y1="75" x2="123.5" y2="75"/>
+%  <line x1="65" y1="73" x2="125" y2="73" li="dot"/>
+%  <text x="114" y="96" t="BER Contour" h="3" li="dot">
+%    <font face="Arial" charset="0"/>
+%  </text>
+%  <line x1="113" y1="95" x2="110" y2="92" arr2="h44"/>
+%  <line x1="100" y1="107" x2="100" y2="101" arr2="h44"/>
+%  <text x="100" y="108" t="Eye Center" h="3" halign="c" li="dot">
+%    <font face="Arial" charset="0"/>
+%  </text>
+%  <circle x="100" y="73" d="1.41421" fill="black"/>
+%  <line x1="103" y1="67.5" x2="101" y2="71.5" arr2="h44"/>
+%  <text x="103" y="65" t="Best Decision" h="3" li="dot">
+%    <font face="Arial" charset="0"/>
+%  </text>
+%  <text x="103" y="62" t="Point" h="3" li="dot">
+%    <font face="Arial" charset="0"/>
+%  </text>
+%  <line x1="124.88" y1="80" x2="124.88" y2="65" li="dot" fill="black"/>
+%  <line x1="123.48" y1="82" x2="123.48" y2="67" fill="black"/>
+%  <line x1="65" y1="80" x2="65" y2="65" li="dot" fill="black"/>
+%  <line x1="64.59" y1="82" x2="64.59" y2="67" fill="black"/>
+%  <circle x="100" y="75" d="1.41421" fill="black"/>
+%  <line x1="96" y1="80" x2="99" y2="76.5" arr2="h44"/>
+%  <text x="95" y="81" t="Midpoint" h="3" halign="r" li="dot">
+%    <font face="Arial" charset="0"/>
+%  </text>
+%</TpX>
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (62.50,47.85) rectangle +(71.17,64.51);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (65.00,78.00) .. controls (65.71,81.73) and (67.44,85.19) .. (70.00,88.00) .. controls (75.13,93.63) and (82.68,95.92) .. (90.00,98.00) .. controls (95.06,99.44) and (100.00,102.00) .. (105.00,98.00) .. controls (109.86,94.12) and (110.98,87.60) .. (115.00,83.00) .. controls (119.39,77.97) and (127.42,74.34) .. (125.00,68.00) .. controls (124.14,65.74) and (121.93,64.44) .. (120.00,63.00) .. controls (115.09,59.34) and (111.12,50.91) .. (105.00,50.00) .. controls (94.82,48.49) and (86.00,59.00) .. (80.00,63.00) .. controls (74.66,66.56) and (66.95,66.93) .. (65.00,73.00) .. controls (64.48,74.63) and (64.48,76.37) .. (65.00,78.00);
+\path[line width=0.30mm, draw=L] (100.00,100.00) -- (100.00,50.00);
+\path[line width=0.30mm, draw=L] (64.50,75.00) -- (123.50,75.00);
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (65.00,73.00) -- (125.00,73.00);
+\draw(114.00,96.00) node[anchor=base west]{BER Contour};
+\path[line width=0.30mm, draw=L] (113.00,95.00) -- (110.00,92.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (110.00,92.00) -- (112.47,93.48) -- (111.48,94.47) -- (110.00,92.00) -- cycle;
+\path[line width=0.30mm, draw=L] (100.00,107.00) -- (100.00,101.00);
+\path[line width=0.30mm, draw=L, fill=F] (100.00,101.00) -- (100.70,103.80) -- (99.30,103.80) -- (100.00,101.00) -- cycle;
+\draw(100.00,108.00) node[anchor=base]{Eye Center};
+\path[line width=0.30mm, draw=L, fill=F] (100.00,73.00) circle (0.71mm);
+\path[line width=0.30mm, draw=L] (103.00,67.50) -- (101.00,71.50);
+\path[line width=0.30mm, draw=L, fill=F] (101.00,71.50) -- (101.63,68.68) -- (102.88,69.31) -- (101.00,71.50) -- cycle;
+\draw(103.00,65.00) node[anchor=base west]{Best Decision};
+\draw(103.00,62.00) node[anchor=base west]{Point};
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (124.88,80.00) -- (124.88,65.00);
+\path[line width=0.30mm, draw=L] (123.48,82.00) -- (123.48,67.00);
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (65.00,80.00) -- (65.00,65.00);
+\path[line width=0.30mm, draw=L] (64.59,82.00) -- (64.59,67.00);
+\path[line width=0.30mm, draw=L, fill=F] (100.00,75.00) circle (0.71mm);
+\path[line width=0.30mm, draw=L] (96.00,80.00) -- (99.00,76.50);
+\path[line width=0.30mm, draw=L, fill=F] (99.00,76.50) -- (97.71,79.08) -- (96.65,78.17) -- (99.00,76.50) -- cycle;
+\draw(95.00,81.00) node[anchor=base east]{Midpoint};
+\end{tikzpicture}%

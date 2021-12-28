@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,26 +1073,35 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> stimdef</span>
-<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Netlist</span>
-<span class="next">system <a class="next" name="next" href="Help-Subsection-166.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> connect</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Netlist</span>
+<span class="next">meas <a class="next" name="next" href="Help-Subsection-166.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-165"></a>unknown<a class="Label" name="sub:unknown"> </a>
+<a class="toc" name="toc-Subsection-165"></a>port<a class="Label" name="sub:port"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>unknown</i> defines an <a class="Reference" href="Help-Subsection-139.html#device:Unknown">Unknown↑</a> in the schematic.
+A netlist line beginning with the keyword <i>port</i> specifies a <a class="Reference" href="Help-Subsection-127.html#device:Port">Port↑</a> and it’s connection to a device pin.
 </div>
 <div class="Standard">
-This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
+This should appear only in <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be at least one statement like this.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>unknown</i> followed by the reference designator followed by the number of ports.
+The syntax is the keyword <i>port</i> followed by triplets containing a port number followed by the reference designator and pin number of the device pin that the port is connected to.
+</div>
+<div class="Standard">
+The reference designators refer to one of the <a class="Reference" href="Help-Section-22.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-163.html#sub:device">device↑</a> command elsewhere in the netlist.
+</div>
+<div class="Standard">
+The pin numbers refer to a pin of the device.
+</div>
+<div class="Standard">
+If in your schematic, a <a class="Reference" href="Help-Subsection-127.html#device:Port">Port↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-164.html#sub:connect">connect↑</a> netlist lines.)
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> stimdef</span>
-<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Netlist</span>
-<span class="next">system <a class="next" name="next" href="Help-Subsection-166.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> connect</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Netlist</span>
+<span class="next">meas <a class="next" name="next" href="Help-Subsection-166.html#prev">Next</a></span>
 </div>
 
 </div>

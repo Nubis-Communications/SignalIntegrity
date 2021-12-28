@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> W Element</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Source <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Relay</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-108"></a>Voltage Source<a class="Label" name="device:Voltage-Source"> </a>
+<a class="toc" name="toc-Subsection-108"></a>Transmission Line<a class="Label" name="device:Transmission-Line"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSourceOnePort.png" alt="figure VoltageSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
-<img class="embedded" src="VoltageSourceTwoPort.png" alt="figure VoltageSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
+<img class="embedded" src="TlineTwoPort.png" alt="figure TlineTwoPort.png" style="max-width: 152px; max-height: 94px;"/>
+<img class="embedded" src="TlineFourPort.png" alt="figure TlineFourPort.png" style="max-width: 152px; max-height: 114px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Sources
+Transmission Lines
 </td>
 
 </tr>
@@ -1137,7 +1137,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VS?
+T?
 </td>
 
 </tr>
@@ -1161,19 +1161,37 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-file name
+characteristic impedance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+zc
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+ohms
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+50.0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+time delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
 </td>
 
 </tr>
@@ -1182,15 +1200,18 @@ None
 
 </div>
 <div class="Standard">
-The voltage source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> specified by the file name to the system.
+This is a one- and two-port ideal transmission line with given characteristic impedance and delay.
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
+The four-port ideal transmission line only transmits the differential mode.
+</div>
+<div class="Standard">
+A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> W Element</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Source <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Relay</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 
 </div>

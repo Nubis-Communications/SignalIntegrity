@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Continuous Time Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Xtalk Measurement</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Network Analyzer Stimulus <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-153"></a>Feed-Forward Linear Equalizer<a class="Label" name="device:FFE"> </a>
+<a class="toc" name="toc-Subsection-153"></a>Network Analyzer<a class="Label" name="device:Network-Analyzer"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="FFE.png" alt="figure FFE.png" style="width: 126px; max-width: 420px; height: 171px; max-height: 572px;"/>
+<img class="embedded" src="VNACalculation.png" alt="figure VNACalculation.png" style="width: 177px; max-width: 710px; height: 186px; max-height: 747px;"/>
 
 </div>
 <div class="Standard">
@@ -1109,10 +1109,7 @@ Units
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
 category
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 
@@ -1124,7 +1121,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Equalizers
+Network Analysis
 </td>
 
 </tr>
@@ -1145,7 +1142,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F?
+D?
 </td>
 
 </tr>
@@ -1166,47 +1163,14 @@ ref
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F1
+D1
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-Tap Delay
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-td
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-s
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-0 s
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-number of precursor taps
+ports
 </div>
 
 </td>
@@ -1218,7 +1182,7 @@ int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 <div class="center">
-pre
+ports
 </div>
 
 </td>
@@ -1230,7 +1194,7 @@ pre
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 <div class="center">
-0
+4
 </div>
 
 </td>
@@ -1239,33 +1203,99 @@ pre
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-tap values
+port list
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-list of float
-</div>
-
+int (comma separated)
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-taps
-</div>
-
+pl
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
 
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1,2,3,4
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+error terms
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+file
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+et
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-[1.0]
+file name
 </div>
 
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+file
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+file
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+calculation direction
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+enum<br/>
+calculate<br/>
+or<br/>
+uncalculate
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+cd
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+calculate
 </td>
 
 </tr>
@@ -1274,27 +1304,21 @@ taps
 
 </div>
 <div class="Standard">
-The equation for the FFE, for given number of taps <span class="formula"><i>M</i></span>:
+The <a class="Reference" href="Help-Subsection-153.html#device:Network-Analyzer">Network Analyzer↑</a> is a device used for <a class="Reference" href="Help-Subsection-27.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement↑</a> that produces calibrated s-parameters from raw, uncalibrated s-parameters in conjunction with error terms produced from a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a>.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>H</i>(<i>f</i>) = <span class="limits"><sup class="limit"><i>M</i> − 1</sup><span class="limit">⎲</span><span class="limit">⎳</span><sub class="limit"><i>m</i> = 0</sub></span><i>taps</i><span class="symbol">[</span><i>m</i><span class="symbol">]</span>⋅<i>e</i><sup><span class="displaystyle"> − </span><i>j</i>⋅2<i>π</i>⋅<i>f</i>⋅<span class="symbol">(</span><i>m</i> − <i>pre</i><span class="symbol">)</span>⋅<i>td</i></sup>
-</div>
-
+The error terms are supplied in a .cal file in a LeCroy format. The format is for each driven port, for each port, for each term, for each frequency, a real number followed by an imaginary number for the error term. The order of the error terms is ED, ER, ES for when the driven port equals the other port and EX, ET, EL otherwise. See the <a class="URL" href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml">Software Documentation</a>, specifically <a class="URL" href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1Calibration_1_1Calibration.xhtml#details">Calibration</a> and <a class="URL" href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml">ErrorTerms</a> for more information). See <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> for the brief description of these error terms.
 </div>
 <div class="Standard">
-The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
+The file name name supplied is for an s-parameter file, or for a project file that produces s-parameters. The s-parameters must have the number of ports specified. To provide some flexibility, but mostly to provide the capability of making measurements of devices with less ports than the calibration is provided for (i.e. a two-port measurement using a four-port VNA), the ports refers to the number of ports in the measurement, and the port list corresponds to the ports of the VNA used for the measurement, in order of the ports in the output s-parameters. As an example, if ports is specified as 2, and the port list is 4,3, then two-port calibrated s-parameters are produced with port 1 of the result corresponding to the connection at port 4 of the VNA and port 2 corresponding to the connection of port 3 of the VNA.
 </div>
 <div class="Standard">
-Generally, in order to have unity gain at DC, the list of taps is constructed such that their sum equals unity.
-</div>
-<div class="Standard">
-Usually the tap delay is the reciprocal of the baud rate for which the equalizer is used. When constructed in this manner, it response will peak at half the baud rate, and will repeatedly peak 1.5, 2.5, 3.5, etc. times half the baud rate.
+A calculation direction is provided. Normally, this calculation direction is specified as calculate, and the input s-parameters are uncalibrated and the output s-parameters are calibrated. The device offers a capability useful in debugging and analyzing VNA measurement accuracy of reversing the calculation direction. If the calculation direction is specified as uncalculate, then the supplied s-parameters are assumed to be calibrated s-parameters, and the output is the s-parameters that the VNA ought to have measured raw in order to have computed these calibrated s-parameters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Continuous Time Linear Equalizer</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Xtalk Measurement</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Network Analyzer Stimulus <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
 </div>
 
 </div>

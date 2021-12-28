@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Minimum Y</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Scale Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Enhanced Precision Steps <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-61"></a>Eye Mode<a class="Label" name="sub:Eye-Mode"> </a>
+<a class="toc" name="toc-Subsection-61"></a>Enhanced Precision Mode<a class="Label" name="sub:Enhanced-Precision-Mode"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,23 +1099,23 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Eye Mode
+Enhanced Precision Mode
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a>
+EyeDiagram.EnhancedPrecision.Mode
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Enum
+enum
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="PlainVisible">
 <div class="left">
-ISI Only or Jitter &amp; Noise
+Auto, Fixed, or None
 </div>
 
 </div>
 <div class="PlainVisible">
-Default is ISI Only
+Auto is the default
 </div>
 
 </td>
@@ -1126,23 +1126,28 @@ Default is ISI Only
 
 </div>
 <div class="Standard">
+The eye is drawn by first resampling the waveform such that its sample period is exactly one pixel horizontally. This can cause problems in regions of the eye that have a fast slew rate (i.e. slew many pixels vertically in a given sample period). To improve the situation, Enhanced Precision Mode is provided. If the mode is set to None, then it is off, and enhanced precision is not provided. This results in the fastest calculation speed, with the aforementioned problems.
+</div>
+<div class="Standard">
+When set to fixed, every probability is calculated from a line segment between each pixel, which is divided into the number of <a class="Reference" href="Help-Subsection-62.html#sub:Enhanced-Precision-Steps">Enhanced Precision Steps↓</a> specified. This results in the slowest calculation speed, but with a prettier and more accurate eye.
+</div>
+<div class="Standard">
+Auto, the preferred mode, causes the algorithm to automatically determine the number of precision steps based on how many pixels the waveform slews vertically in a given sample. The number of steps is twice the vertical delta. Auto is the best balance between speed and accuracy.
+</div>
+<div class="Standard">
 <div class="center">
-<img class="embedded" src="ISIOnly.png" alt="figure ISIOnly.png" style="max-width: 450px; max-height: 300px;"/>
-  <img class="embedded" src="JitterNoise.png" alt="figure JitterNoise.png" style="max-width: 450px; max-height: 300px;"/>
+<img class="embedded" src="EnhancedPrecisionMode.png" alt="figure EnhancedPrecisionMode.png" style="width: 240px; max-width: 480px; height: 340px; max-height: 680px;"/>
 
 </div>
 
 </div>
 <div class="Standard">
-If this mode is set to ISI Only, then the eye diagram is produced with the waveform exactly as presented with no additional noise or jitter added to it. This is the default mode. If this mode is set to Jitter &amp; Noise, then a kernel is created (with a maximum number of pixels specified by <a class="Reference" href="Help-Subsection-65.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>) with Gaussian <a class="Reference" href="Help-Subsection-64.html#sub:Noise">Noise↓</a> added vertically, and <a class="Reference" href="Help-Subsection-63.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a> (dual-dirac) and <a class="Reference" href="Help-Subsection-62.html#sub:Random-Jitter">Random Jitter↓</a> (Gaussian, unbounded) horizontally, which is convolved with the ISI only eye diagram. This creates a blurry, statistical eye diagram.
-</div>
-<div class="Standard">
-In the above plots, the left plot is ISI Only, and the right plot is Jitter &amp; Noise.
+The example above is for a change of two pixels. Here, the step size is shown as five (the first pixel is not counted, as it has already been calculated, usually). Since there are five pixel steps, the probability for each pixel is <span class="formula">1 ⁄ 5</span>. Then, for each pixel step, the probability that the pixel occupies in the four possible pixels it straddles is apportioned to the four pixels based on how much area is overlapping. In the end, the result is that probabilities have been accumulated for all of the six pixels shown above.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Minimum Y</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Scale Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Enhanced Precision Steps <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
 </div>
 
 </div>

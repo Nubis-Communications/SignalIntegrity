@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,80 +1073,41 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Control Help</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-66.html">Up</a> Help</span>
-<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Vertical</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-49.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-96"></a>Preferences<a class="Label" name="Control-Help:Preferences"> </a>
+<a class="toc" name="toc-Subsubsection-96"></a>Linearity<a class="Label" name="sub:Linearity"> </a>
 </h3>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top">
-<i>Dialog</i>
-</td>
-<td align="center" valign="top">
-<a class="Reference" href="Help-Section-18.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Menu System</i>
-</td>
-<td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-66.html#sub:Help">Help↑</a>▸ Preferences
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Navigation</i>
-</td>
-<td align="center" valign="top">
-Alt+H,P
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Key Binding</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Toolbar</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Availability</i>
-</td>
-<td align="center" valign="top">
-Always
-</td>
-
-</tr>
-
-</table>
+Linearity is only defined for PAM-4 and above. It is a measure of the similarity in height of the eyes, or more properly, the evenness in the level extents.
+</div>
+<div class="Standard">
+There are two measures, where 100% is the best, and 0% is the worst:
+</div>
+<ol>
+<li>
+Eye Linearity — This is the simplest and preferred measurement. It is the ratio of the minimum Delta Extent to the maximum Delta Extent (expressed as a percentage).
+</li>
+<li>
+RLM (Relative Level Mismatch) — Defined according to a complicated formula according to AN-835, 2019.03.12 from Intel. Assuming that the four level extents for PAM-4 are denoted <span class="formula"><i>V</i><sub>0</sub></span>, <span class="formula"><i>V</i><sub>1</sub></span>, <span class="formula"><i>V</i><sub>2</sub></span>, and <span class="formula"><i>V</i><sub>3</sub></span>, and that <span class="formula"><i>V</i><sub><i>min</i></sub> = <span class="symbol">(</span><i>V</i><sub>0</sub> + <i>V</i><sub>3</sub><span class="symbol">)</span> ⁄ 2</span>. We define <span class="formula"><i>ES</i>1 = <span class="symbol">(</span><i>V</i><sub>1</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>0</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span> and <span class="formula"><i>ES</i>2 = <span class="symbol">(</span><i>V</i><sub>2</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>3</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span>. RLM is defined as:<div class="Standard">
+<div class="center">
+<span class="formula"><i>RLM</i> = min<span class="symbol">(</span>3⋅<i>ES</i>1, 3⋅<i>ES</i>2, 2 − 3⋅<i>ES</i>1, 2 − 3⋅<i>ES</i>2<span class="symbol">)</span></span>
+</div>
 
 </div>
 <div class="Standard">
-Preferences allows editing of any of the various global <a class="Reference" href="Help-Section-24.html#sec:Preferences">Preferences↓</a> for the application.
+expressed as a percentage.
 </div>
+
+</li>
+
+</ol>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Control Help</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-66.html">Up</a> Help</span>
-<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Vertical</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-49.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
 </div>
 
 </div>

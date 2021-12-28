@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-135.html#next">Prev</a> Current Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transresistance Amplifier <a class="next" name="next" href="Help-Subsection-137.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-135.html#next">Prev</a> Voltage Controlled Voltage Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Controlled Current Source <a class="next" name="next" href="Help-Subsection-137.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-136"></a>Transconductance Amplifier<a class="Label" name="device:Transconductance-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-136"></a>Current Controlled Current Source<a class="Label" name="device:Current-Controlled-Current-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TransconductanceAmplifier.png" alt="figure TransconductanceAmplifier.png" style="max-width: 675px; max-height: 162px;"/>
+<img class="embedded" src="CurrentControlledCurrentSource.png" alt="figure CurrentControlledCurrentSource.png" style="max-width: 202px; max-height: 152px;"/>
+<img class="embedded" src="CurrentControlledCurrentSourceAlt.png" alt="figure CurrentControlledCurrentSourceAlt.png" style="max-width: 202px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Amplifiers
+Dependent Sources
 </td>
 
 </tr>
@@ -1160,42 +1161,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zo
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-ohm
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 Mohm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-input impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zi
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-ohm
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 Mohm
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1217,12 +1182,18 @@ gain
 
 </div>
 <div class="Standard">
-The transconductance amplifier is like a <a class="Reference" href="Help-Subsection-132.html#device:Voltage-Controlled-Current-Source">Voltage Controlled Current Source↑</a> except that the input impedance of the voltage sense is settable and the output impedance of the current source is settable.
+This is a current source that is proportional to the current through the current measurement terminals with the proportionality set by the gain.
+</div>
+<div class="Standard">
+The input impedance of the current measurement pins is zero.
+</div>
+<div class="Standard">
+The output impedance of the current source is infinite.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-135.html#next">Prev</a> Current Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transresistance Amplifier <a class="next" name="next" href="Help-Subsection-137.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-135.html#next">Prev</a> Voltage Controlled Voltage Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Controlled Current Source <a class="next" name="next" href="Help-Subsection-137.html#prev">Next</a></span>
 </div>
 
 </div>

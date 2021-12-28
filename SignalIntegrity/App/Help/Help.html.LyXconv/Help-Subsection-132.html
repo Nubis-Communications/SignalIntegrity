@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-131.html#next">Prev</a> Current Controlled Current Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-133.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-131.html#next">Prev</a> Current Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Eye Probe <a class="next" name="next" href="Help-Subsection-133.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-132"></a>Voltage Controlled Current Source<a class="Label" name="device:Voltage-Controlled-Current-Source"> </a>
+<a class="toc" name="toc-Subsection-132"></a>Voltage Diff Probe<a class="Label" name="device:Voltage-Diff-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageControlledCurrentSource.png" alt="figure VoltageControlledCurrentSource.png" style="max-width: 223px; max-height: 152px;"/>
-<img class="embedded" src="VoltageControlledCurrentSourceAlt.png" alt="figure VoltageControlledCurrentSourceAlt.png" style="max-width: 223px; max-height: 152px;"/>
+<img class="embedded" src="DiffProbe.png" alt="figure DiffProbe.png" style="max-width: 110px; max-height: 127px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Dependent Sources
+Ports and Probes
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+VO?
 </td>
 
 </tr>
@@ -1161,7 +1160,43 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gain
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+offset
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+V
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 V
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1182,18 +1217,39 @@ gain
 
 </div>
 <div class="Standard">
-This is a current source that is proportional to the voltage across the voltage measurement terminals with the proportionality set by the gain.
+The voltage diff probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
 </div>
 <div class="Standard">
-The input impedance of the voltage measurement pins is infinite.
+The voltage diff probe calculates the difference between the two voltages at the plus and minus labeled connection points.
 </div>
 <div class="Standard">
-The output impedance of the current source is infinite.
+When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
+</div>
+<div class="Standard">
+When placing an diff probe, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a probe will assign the value VO3 to the probe reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
+
+</ul>
+<div class="Standard">
+When examining the <a class="Reference" href="Help-Section-23.html#sec:Netlist">Netlist↓</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-132.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-102.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-129.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-131.html#next">Prev</a> Current Controlled Current Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-133.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-131.html#next">Prev</a> Current Probe</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Eye Probe <a class="next" name="next" href="Help-Subsection-133.html#prev">Next</a></span>
 </div>
 
 </div>

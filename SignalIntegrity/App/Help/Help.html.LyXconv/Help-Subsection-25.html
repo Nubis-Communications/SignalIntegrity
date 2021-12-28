@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1084,7 +1084,7 @@ a:visited {
 In this example, we are not going to explain how to draw the entire example in the schematic editor. Many of the other examples step you through this process. We will examine a canned example found in the folder ./Examples/VirtualProbingExample/VirtualProbeExample.xml.
 </div>
 <div class="Standard">
-When we open this example using <a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Open-Project">Open Project↓</a>, we see the following:
+When we open this example using <a class="Reference" href="Help-Subsubsection-41.html#Control-Help:Open-Project">Open Project↓</a>, we see the following:
 </div>
 <div class="Standard">
 <img class="embedded" src="VirtualProbingExample.png" alt="figure VirtualProbingExample.png" style="max-width: 706px; max-height: 505px;"/>
@@ -1094,26 +1094,26 @@ When we open this example using <a class="Reference" href="Help-Subsubsection-46
 This example demonstrates many possible examples of virtual probing simultaneously. The top network containing inductors, a capacitor and a resistor is a <i>probe loading model</i>. This is a circuit which describes the effect that a probe has when inserted into a system. These models are generally published by manufacturers of high-frequency probes used for oscilloscopes. The probe loading model shown is for a single-ended probe.
 </div>
 <div class="Standard">
-The circuit beneath the probe loading model is the circuit being measured. Ignoring the stimuli for the moment, this circuit is for a 50 Ω differential source driving a differential transmission line represented by a four-port s-parameter <a class="Reference" href="Help-Subsection-89.html#device:File">File↓</a> device. The s-parameters are contained in the file Sparq_demo_16.s4p. Notice that the probe loading model is connected to the circuit at the input termination.
+The circuit beneath the probe loading model is the circuit being measured. Ignoring the stimuli for the moment, this circuit is for a 50 Ω differential source driving a differential transmission line represented by a four-port s-parameter <a class="Reference" href="Help-Subsection-94.html#device:File">File↓</a> device. The s-parameters are contained in the file Sparq_demo_16.s4p. Notice that the probe loading model is connected to the circuit at the input termination.
 </div>
 <div class="Standard">
 The final circuit at the bottom is an exact duplicate of the previously described circuit section except that it does not have the probe loading model connected.
 </div>
 <div class="Standard">
-In the probe loading model section where the probe is connected to the circuit, we have a <a class="Reference" href="Help-Subsection-123.html#device:Measure-Probe">Voltage Measure Probe↓</a> device (see <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a> for more information). The measure probe is shows an input file name of VirtualProbingExampleSimulation_Vprobe.txt which is presumably a <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> file containing a waveform measured (by, for example an oscilloscope) while probing a circuit like the middle circuit section. In fact, in this contrived example, it is the output waveform of a <b><i>SignalIntegrityApp</i></b> <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> simulated under exactly these conditions.
+In the probe loading model section where the probe is connected to the circuit, we have a <a class="Reference" href="Help-Subsection-128.html#device:Measure-Probe">Voltage Measure Probe↓</a> device (see <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↑</a> for more information). The measure probe is shows an input file name of VirtualProbingExampleSimulation_Vprobe.txt which is presumably a <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> file containing a waveform measured (by, for example an oscilloscope) while probing a circuit like the middle circuit section. In fact, in this contrived example, it is the output waveform of a <b><i>SignalIntegrityApp</i></b> <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> simulated under exactly these conditions.
 </div>
 <div class="Standard">
-Invoke <a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the measure probe selected and press view to view the waveform in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+Invoke <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the measure probe selected and press view to view the waveform in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="VirtualProbeVprobeWaveform.png" alt="figure VirtualProbeVprobeWaveform.png" style="max-width: 623px; max-height: 565px;"/>
 
 </div>
 <div class="Standard">
-Throughout the rest of the schematic, we see various <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↓</a> devices (see <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a> for more information). I will talk about these in a bit, but for now notice one interesting thing about the output probes named Voutloaded and Vout. These are in between two back-to-back <a class="Reference" href="Help-Subsection-101.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a> devices. These devices placed back-to-pack expose the plus and minus terminals of a single-ended line on each side and the differential- and common-mode lines in the middle. These devices connected in this arrangement have no effect on the circuit (the two plus pins or the two minus pins could even be shorted together if you wanted). Thus, these output probes are probing the differential output at the output termination.
+Throughout the rest of the schematic, we see various <a class="Reference" href="Help-Subsection-129.html#device:Output-Probe">Voltage Output Probe↓</a> devices (see <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a> for more information). I will talk about these in a bit, but for now notice one interesting thing about the output probes named Voutloaded and Vout. These are in between two back-to-back <a class="Reference" href="Help-Subsection-106.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a> devices. These devices placed back-to-pack expose the plus and minus terminals of a single-ended line on each side and the differential- and common-mode lines in the middle. These devices connected in this arrangement have no effect on the circuit (the two plus pins or the two minus pins could even be shorted together if you wanted). Thus, these output probes are probing the differential output at the output termination.
 </div>
 <div class="Standard">
-Note that these output probes have keyword/values of td -1.43ns and gain 0.5. The gain is the gain applied to the output waveform. Since the input waveform is a single-ended measurement it is half the size of the differential waveform. We want to see relative changes is size, so we put the differential waveforms on the same relative scale as the single-ended waveforms. The time delay of -1.43 ns is to account for the delay through the channel. This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p. You can do that by selecting the four-port file<a class="Reference" href="Help-Subsection-89.html#device:File">File↓</a> device, double-clicking on it to invoke <a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Edit-Properties">Edit Properties↓</a> and then pressing view to invoke the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
+Note that these output probes have keyword/values of td -1.43ns and gain 0.5. The gain is the gain applied to the output waveform. Since the input waveform is a single-ended measurement it is half the size of the differential waveform. We want to see relative changes is size, so we put the differential waveforms on the same relative scale as the single-ended waveforms. The time delay of -1.43 ns is to account for the delay through the channel. This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p. You can do that by selecting the four-port file<a class="Reference" href="Help-Subsection-94.html#device:File">File↓</a> device, double-clicking on it to invoke <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Edit-Properties">Edit Properties↓</a> and then pressing view to invoke the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↓</a>.
 </div>
 <div class="Standard">
 Selecting S31, we have:
@@ -1133,7 +1133,7 @@ and by selecting S41, we have:
 Since there are multiple spikes in the impulse response, the differential time delay through the channels is roughly the time of the positive going spike in the S31 that goes with the negative going spike in the S32.
 </div>
 <div class="Standard">
-Regarding the <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a>, we see four dependent stimuli and one independent stimuli. The dependent stimuli are connected to the pin of each <a class="Reference" href="Help-Subsection-96.html#device:Ground">Ground↓</a> device representing the transmitters (remember, a voltage source looks like a short with waves emanating from it). These grounds are connected through a small piece of wire to the pins of 50 Ω resistors. (see <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for why this small piece of wire is necessary). A <a class="Reference" href="Help-Subsection-125.html#device:Stim">Stim↓</a> is connected with the arrow touching each pin of the grounds, meaning the stimulus emanates from the grounds.
+Regarding the <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a>, we see four dependent stimuli and one independent stimuli. The dependent stimuli are connected to the pin of each <a class="Reference" href="Help-Subsection-101.html#device:Ground">Ground↓</a> device representing the transmitters (remember, a voltage source looks like a short with waves emanating from it). These grounds are connected through a small piece of wire to the pins of 50 Ω resistors. (see <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for why this small piece of wire is necessary). A <a class="Reference" href="Help-Subsection-130.html#device:Stim">Stim↓</a> is connected with the arrow touching each pin of the grounds, meaning the stimulus emanates from the grounds.
 </div>
 <div class="Standard">
 An independent stimulus is all the way to the left with wires connecting the arrow tip of the independent stimulus to the back of each of the stims. This means that the other stimuli depend on this stimulus. Note that in each of the circuit sections, the weights of the two bottom stims are -1.0 (the others are 1.0 and not shown). This means that the top stim in each circuit is the same as the independent stimulus and the bottom stim in each circuit is the negative of the independent stimulus. What we are saying here is that the waves emanating from the differential transmitters are balanced. See <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↑</a> for a discussion of this topic.
@@ -1192,7 +1192,7 @@ Before creating the output waveforms, you need to check that the calculation pro
 
 </div>
 <div class="Standard">
-Invoke  <a class="Reference" href="Help-Subsubsection-82.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-85.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+Invoke  <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-80.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="VirtualProbeProbeLoadingWaveforms.png" alt="figure VirtualProbeProbeLoadingWaveforms.png" style="max-width: 623px; max-height: 565px;"/>
@@ -1219,7 +1219,7 @@ Now let’s go back to the schematic and view the output waveform. Disconnect th
 
 </div>
 <div class="Standard">
-Invoke  <a class="Reference" href="Help-Subsubsection-82.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-85.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+Invoke  <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-80.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="VirtualProbingExampleProbingAtDifferentPointWaveforms.png" alt="figure VirtualProbingExampleProbingAtDifferentPointWaveforms.png" style="max-width: 623px; max-height: 565px;"/>
@@ -1236,7 +1236,7 @@ This portion of the example does not give us what we really want. We want to see
 
 </div>
 <div class="Standard">
-Invoke  <a class="Reference" href="Help-Subsubsection-82.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-85.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
+Invoke  <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Calculate-Button">Calculate↓</a> or <a class="Reference" href="Help-Subsubsection-80.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> to create the output waveforms in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a>:
 </div>
 <div class="Standard">
 <img class="embedded" src="VirtualProbeOutputsOnlyWaveforms.png" alt="figure VirtualProbeOutputsOnlyWaveforms.png" style="max-width: 623px; max-height: 565px;"/>

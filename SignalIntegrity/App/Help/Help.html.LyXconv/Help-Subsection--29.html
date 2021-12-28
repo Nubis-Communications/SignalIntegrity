@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2020-03-08"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,66 +1073,45 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">Enforce Reciprocity <a class="next" name="next" href="Help-Subsubsection--2.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--28.html#next">Prev</a> Appearance.PlotCursorValues</span>
+<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Preferences</span>
+<span class="next"><a class="next" name="next"> </a></span>
 </div>
-<h3 class="Subsubsection-">
-<a class="toc" name="toc-Subsubsection--1"></a>Enforce Both Passivity and Reciprocity<a class="Label" name="Control-Help:Enforce-Both-Passivity-and-Reciprocity"> </a>
-</h3>
+<h2 class="Subsection-">
+<a class="toc" name="toc-Subsection--29"></a>SParameterProperties.SignificantDigits<a class="Label" name="sub:SParameterProperties.SignificantDigits"> </a>
+</h2>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top">
-<i>Dialog</i>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
 </td>
-<td align="center" valign="top">
-S-parameter Viewer Dialog
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Menu System</i>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
 </td>
-<td align="center" valign="top">
-Properties ▸ Enforce Both Passivity and Causality
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top">
-<i>Navigation</i>
+<td align="center" valign="top" style="width: 8cm;">
+significant digits
 </td>
-<td align="center" valign="top">
-Alt+P,B
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--29.html#sub:SParameterProperties.SignificantDigits">SParameterProperties.SignificantDigits↑</a>
 </td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+6
+</div>
 
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Key Binding</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Toolbar</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Availability</i>
-</td>
-<td align="center" valign="top">
-When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1141,18 +1120,7 @@ When s-parameter files are being viewed
 
 </div>
 <div class="Standard">
-This command enforces both passivity and causality by repeatedly issuing the commands <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> and <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> up to thirty times. This is because each of these commands issued alone tends to cause violations of the other, but tends to converge if done repeatedly.
-</div>
-<div class="Standard">
-See <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> for passivity enforcement.
-</div>
-<div class="Standard">
-See <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> for causality enforcement.
-</div>
-<div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-5.html#next">Prev</a> Enforce Causality</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-27.html">Up</a> S-Parameter Viewer Properties Menu</span>
-<span class="next">Enforce Reciprocity <a class="next" name="next" href="Help-Subsubsection--2.html#prev">Next</a></span>
+Normally, when s-parameters are written to a file, 6 significant digits are used, without exponent. This is in the interest of space (remember that 0.000001 is -100 dB). If you want more digits, you can raise this number to something higher. In the future, exponents might be allowed, but this is the best compromise for now.
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,231 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> meas</span>
-<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Netlist</span>
-<span class="next">stim <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Laplace</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-23.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-162"></a>output<a class="Label" name="sub:output"> </a>
+<a class="toc" name="toc-Subsection-162"></a>Impulse Response Filter<a class="Label" name="device:ImpulseResponseFilter"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>output</i> specifies a <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↑</a> and it’s connection to a device pin.
+<img class="embedded" src="ImpulseResponseFilter.png" alt="figure ImpulseResponseFilter.png" style="width: 154px; max-width: 515px; height: 194px; max-height: 647px;"/>
+
 </div>
 <div class="Standard">
-This should only appear in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> or <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications and there must be at least one statement like this in the netlist.
+<table>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Property Name
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+category
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Filters
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+default reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F?
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ref
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F1
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+waveform filename
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wffile
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+’’
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+waveform in project
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wfprojname
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+normalized DC gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dcgain
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+multiply by sample period
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+mults
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+true
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+calculate derivative
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+derivative
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+false
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-The syntax is the keyword <i>output</i> followed by a reference designator and pin number.
+This is an filter generated from an impulse response.
 </div>
 <div class="Standard">
-The reference designators refer to one of the <a class="Reference" href="Help-Section-20.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> specified in a <a class="Reference" href="Help-Subsection-158.html#sub:device">device↑</a> command elsewhere in the netlist.
+The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
 </div>
 <div class="Standard">
-The pin numbers refer to a pin of the device.
+An impulse response is provided in two manners:
+</div>
+<ol>
+<li>
+Through a file containing a waveform in the <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> format.
+</li>
+<li>
+Through a project that produces waveforms, such as a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> or a <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> project.
+</li>
+
+</ol>
+<div class="Standard">
+If a <a class="Reference" href="Help-Section-26.html#sec:Waveform">Waveform↓</a> file is supplied, the keyword <i>wfprojname</i> is ignored, otherwise it is the reference designator for the probe used (i.e. a <a class="Reference" href="Help-Subsection-129.html#device:Output-Probe">Voltage Output Probe↑</a>, <a class="Reference" href="Help-Subsection-132.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a>, or a <a class="Reference" href="Help-Subsection-131.html#device:Current-Probe">Current Probe↑</a>).
 </div>
 <div class="Standard">
-If in your schematic, a <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↑</a> is connected to a net with multiple device pins connected, the line in the netlist will specify a connection to an arbitrarily chosen one of the device pins (with the connection to the other device pins held in <a class="Reference" href="Help-Subsection-159.html#sub:connect">connect↑</a> netlist lines.)
+If a waveform is not actually in the form of an impulse response, it is traditional to multiply the waveform values by the sample period. To do this, <i>mults</i> is set to true. This is the usual case, so true is the default value.
 </div>
 <div class="Standard">
-Note that the reference designator (i.e. the name) associated with the <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↑</a> do not appear in the netlist as it is unimportant for the calculations. Instead, the application keeps track of this information during netlist generation for use in managing the calculation.
+It is also common to enforce the DC gain of the filter. By default, <i>dcgain</i> is set to 0., meaning to not enforce this, but if <i>dcgain</i> is set to any non-zero value, the DC gain is enforced by ensuring that all of the values in the impulse response add up to the value specified.
+</div>
+<div class="Standard">
+Oftentimes, the impulse response desired comes in the form of a step response provided. To handle this option, the time derivative must be taken of the waveform. This is handled by setting <i>derivative</i> to true. The default is to not take the derivative.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> meas</span>
-<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Netlist</span>
-<span class="next">stim <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Laplace</span>
+<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-23.html#prev">Next</a></span>
 </div>
 
 </div>

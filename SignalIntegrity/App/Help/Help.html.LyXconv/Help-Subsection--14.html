@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--13.html#next">Prev</a> Calculation.MaximumWaveformPoints</span>
-<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
-<span class="next">OpenLastFile <a class="next" name="next" href="Help-Subsection--15.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--13.html#next">Prev</a> Calculation.Enforce12458</span>
+<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Preferences</span>
+<span class="next">RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--15.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--14"></a>RetainLastFilesOpened<a class="Label" name="sub:RetainLastFilesOpened"> </a>
+<a class="toc" name="toc-Subsection--14"></a>Calculation.MaximumWaveformPoints<a class="Label" name="sub:Calculation.MaximumWaveformPoints"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-retain recent project files
+maximum waveform points
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--14.html#sub:RetainLastFilesOpened">RetainLastFilesOpened↑</a>
+<a class="Reference" href="Help-Subsection--14.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Bool
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-True
+5 Mpts
 </div>
 
 </td>
@@ -1120,15 +1120,15 @@ True
 
 </div>
 <div class="Standard">
-This causes the application to maintain a list of the last four files opened. These files are shown on the <a class="Reference" href="Help-Subsection-41.html#sub:File">File↑</a> pulldown menu in the <a class="Reference" href="Help-Subsubsection-44.html#Control-Help:Open-Recent-File">Open Recent File↑</a> selection.
+Sometimes waveforms are just too big to process, and instead of needing to kill the program, it would be better if the program just threw a <a class="Reference" href="Help-Subsection-174.html#sub:Waveform">Waveform↑</a> exception. Pathological cases also occur accidentally, especially with regard to upsampling and <a class="Reference" href="Help-Section-17.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
 </div>
 <div class="Standard">
-Also, the availability of the preference for the application to always open with the last file edited (<a class="Reference" href="Help-Subsection--15.html#sub:OpenLastFile">OpenLastFile↓</a>) is controlled by this preference. In other words, if this preference is not set to True, the preference to open the last file has no effect.
+To protect things, a maximum value is set in the preferences for the sizes of waveforms. The user can set this value as high as desired, but setting it to a reasonably sized number is advised.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--13.html#next">Prev</a> Calculation.MaximumWaveformPoints</span>
-<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
-<span class="next">OpenLastFile <a class="next" name="next" href="Help-Subsection--15.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--13.html#next">Prev</a> Calculation.Enforce12458</span>
+<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Preferences</span>
+<span class="next">RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--15.html#prev">Next</a></span>
 </div>
 
 </div>

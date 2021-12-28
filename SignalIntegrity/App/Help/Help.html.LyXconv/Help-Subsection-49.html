@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-27"/>
+<meta name="create-date" content="2021-12-28"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,62 +1073,48 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Bits per Symbol</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Number of UI <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Eye Diagram Measurements Dialog</span>
+<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Eye Diagram Measurements Dialog</span>
+<span class="next">Timing <a class="next" name="next" href="Help-Subsubsection-94.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-49"></a>Eye Diagram Color<a class="Label" name="sub:Eye-Diagram-Color"> </a>
+<a class="toc" name="toc-Subsection-49"></a>Vertical/Horizontal<a class="Label" name="sub:Vertical/Horizontal"> </a>
 </h2>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Description</b>
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Name</b>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<b>Type</b>
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<b>(Default) Value</b>
-</td>
+<div class="center">
+<img class="embedded" src="EyeDiagramMeasurementsVerticalHorizontalPAM4.png" alt="figure EyeDiagramMeasurementsVerticalHorizontalPAM4.png" style="max-width: 644px; max-height: 823px;"/>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Color
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-RGB color (string)
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-’#ffffff’ (white)
 </div>
-
-</td>
-
-</tr>
-
-</table>
 
 </div>
 <div class="Standard">
-This sets the color of the eye diagram. If <a class="Reference" href="Help-Subsection-69.html#sub:Invert-Plot">Invert Plot↓</a> is set to True, then the background is black and the eye diagram traces are shown in this color. Otherwise, if <a class="Reference" href="Help-Subsection-69.html#sub:Invert-Plot">Invert Plot↓</a> is set to False, the background is set to this color and the eye diagram traces are shown in black.
+The vertical/horizontal measurements are, as the name implies, various vertical and horizontal measurements that are made on the eye.
 </div>
 <div class="Standard">
-The color is edited with the <a class="Reference" href="Help-Subsection-175.html#sub:Color-Picker">Color Picker↓</a>.
+The very first thing to note is the BER that the measurements are taken at. This is shown on top of the dialog and is the value configured in <a class="Reference" href="Help-Subsection-81.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a> in the <a class="Reference" href="Help-Section-20.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↓</a>. (see <a class="Reference" href="Help-Subsubsection-101.html#pc:Eye-Measurement-Properties">Eye Measurement Properties↓</a>). This value is the probability contour used to denote the perimeter of the eye.
+</div>
+<div class="Standard">
+The first section of the measurements regards the eye itself, with measurements in each column representing the eye number (from 0 to <span class="formula">2<sup><i>BitsPerSymbol</i></sup> − 1</span>), where eye zero is on the bottom. The measurements are broken into two sections:
+</div>
+<ol>
+<li>
+<a class="Reference" href="Help-Subsubsection-94.html#sub:Timing">Timing↓</a> — Horizontal (time) measurements of the eye.
+</li>
+<li>
+<a class="Reference" href="Help-Subsubsection-95.html#sub:Vertical">Vertical↓</a> — Vertical (voltage) measurements of the eye. These also include measurements of the levels, or extents.
+</li>
+
+</ol>
+<div class="Standard">
+Below all of this, optionally shown for PAM-4 and above, are measurements of <a class="Reference" href="Help-Subsubsection-96.html#sub:Linearity">Linearity↓</a>.
+</div>
+<div class="Standard">
+At the end, the <a class="Reference" href="Help-Subsubsection-97.html#sub:Resolution">Resolution↓</a> is indicated.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-48.html#next">Prev</a> Bits per Symbol</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Number of UI <a class="next" name="next" href="Help-Subsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-18.html#next">Prev</a> Eye Diagram Measurements Dialog</span>
+<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Eye Diagram Measurements Dialog</span>
+<span class="next">Timing <a class="next" name="next" href="Help-Subsubsection-94.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -98,6 +98,19 @@ name "sec:About"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeCollage.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
 \begin_inset Graphics
 	filename Screenshot.png
 
@@ -15852,2276 +15865,6 @@ reference "subsec:Simulator-Dialog-Preferences"
 \end_layout
 
 \begin_layout Section
-Eye Diagram Dialog
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Eye-Diagram-Dialog"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename EyeDiagramDialog.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The Eye Diagram Dialog appears whenever a 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- or 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Virtual-Probing"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- project is calculated, and the project contains an 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- or 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Differential-Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-See 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for how the eye diagram is calculated.
-\end_layout
-
-\begin_layout Standard
-The Eye Diagram Dialog consists of a menu bar and toolbar buttons that enable
- certain tasks to be executed.
- These are:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-File"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - tasks for saving eye diagrams to files.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-Calculate"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - tasks dealing with the simulation and calculation of the eye diagram.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-View"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - tasks for viewing eye diagram measurements.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-Help"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - tasks dealing with the help system.
-\end_layout
-
-\begin_layout Subsection
-File
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Eye-Diagram-File"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The tasks in this category are used for saving eye diagrams to files.
- Currently, the only supported command is:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Save-Eye-Diagram-Image"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for saving images to files.
-\end_layout
-
-\begin_layout Subsubsection
-Save Image To File
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Save-Eye-Diagram-Image"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-File ▸ Save
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+F,S
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename document-save-2.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Saves the eye diagram image to a variety of graphics formats including .png,
- .bmp, .jpg, .gif, and .tiff.
-\end_layout
-
-\begin_layout Subsection
-Calculate
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Eye-Diagram-Calculate"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The tasks in this category are for dealing with calculation.
- These tasks are:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Calculation-Properties"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for editing the simulation calculation properties.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Eye-Diagram-Properties"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for editing the eye diagram calculation properties.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Recalculate"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for recalculating the entire simulation.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Only-Recalculate-Eye-Diagram"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for only recalculating the eye diagram.
-\end_layout
-
-\begin_layout Subsubsection
-Eye Diagram Properties
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Eye-Diagram-Properties"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Calculate"
-
-\end_inset
-
- ▸ Eye Diagram Properties
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+C,E
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Issuing the Eye Diagram Properties command brings up the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Properties-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- dialog for configuring how the eye diagram is calculated and shown.
-\end_layout
-
-\begin_layout Subsubsection
-Only Recalculate Eye Diagram
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Only-Recalculate-Eye-Diagram"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Calculate"
-
-\end_inset
-
- ▸ Only Recalculate Eye Diagram
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+C,O
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename eye.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Issuing this command causes only the eye diagram to be recalculated (see
- 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for more information).
- This command is useful when only changes to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Eye-Diagram-Properties"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- have been made, and there is no need to redo the entire simulation.
-\end_layout
-
-\begin_layout Subsection
-View
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Eye-Diagram-View"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The tasks in this category are for dealing with viewing measurement results.
- These tasks are:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Eye-Measurements"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for viewing eye measurements.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Bathtub-Curve"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - for viewing bathtub curves.
-\end_layout
-
-\begin_layout Subsubsection
-Eye Measurements
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Eye-Measurements"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-View"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- ▸ Eye Measurements
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+V,E
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Issuing the Eye Measurements command brings up the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Measurements-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for viewing eye measurements.
-\end_layout
-
-\begin_layout Subsubsection
-Bathtub Curve
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Bathtub-Curve"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-View"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- ▸ Bathtub Curve
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+V,B
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Issuing this command brings up the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Bathtub-Curves-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for viewing bathtub curves.
-\end_layout
-
-\begin_layout Subsection
-Help
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Eye-Diagram-Help"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The tasks in this category are for dealing with the eye diagram help system.
-\end_layout
-
-\begin_layout Standard
-The tasks are:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Eye-Diagram-Open-Help-File"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - opens the help system to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- section.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "Control-Help:Eye-Diagram-Control-Help"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- - enables control help for the elements in the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsubsection
-Open Help File
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Eye-Diagram-Open-Help-File"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-Help"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- ▸ Open Help File
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+H,O
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename help-contents-5.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This command opens the help system to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- section.
-\end_layout
-
-\begin_layout Subsubsection
-Control Help
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Eye-Diagram-Control-Help"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-Help"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-▸ Control Help
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+H,C
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename help-3.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Control help allows you to get help on any command.
-\end_layout
-
-\begin_layout Standard
-When in control help, all of the commands are activated.
- This includes key bindings, toolbar buttons, and menu elements.
- However, issuing any of the possible commands takes you to a location in
- the help system corresponding to the desired control instead of actually
- issuing the command.
-\end_layout
-
-\begin_layout Standard
-Control help stays active until you either press the escape key, or touch
- somewhere in the canvas.
-\end_layout
-
-\begin_layout Section
-Eye Diagram Calculation
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Eye-Diagram-Calculation"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-When a 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- or 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Virtual-Probing"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- project is created and the schematic contains a 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- or a 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Differential-Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- element, when the simulation is run, for each one, an eye diagram is created
- using the waveform produced in conjunction with the baud rate specified
- and the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Properties-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- specified.
-\end_layout
-
-\begin_layout Standard
-This section explains how the eye diagram is created and will refer to various
- 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Eye-Diagram-Properties-Dialog"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- during the explanation.
-\end_layout
-
-\begin_layout Standard
-The reciprocal of the baud rate specifies the unit interval, or the length
- of one UI in the waveform.
- The goal of the eye diagram is to show, overlapped, all of the portions
- of the waveform that pass through the unit interval.
- So, for a given time in a waveform 
-\begin_inset Formula $t_{k}$
-\end_inset
-
-, and a given UI length, 
-\begin_inset Formula $UI$
-\end_inset
-
-, the time of each point in the waveform, 
-\begin_inset Formula $t_{eye}$
-\end_inset
-
- inside the unit interval is given by:
-\begin_inset Formula 
-\[
-t_{eye}=\left(t_{k}+\frac{UI}{2}\right)\:\%\:UI
-\]
-
-\end_inset
-
- where 
-\begin_inset Formula $\%$
-\end_inset
-
- represents the modulo operator.
- You can see by this definition that 
-\begin_inset Formula $0\le t_{eye}\le UI$
-\end_inset
-
- and that when 
-\begin_inset Formula $t_{k}=0,$
-\end_inset
-
- 
-\begin_inset Formula $t_{eye}=UI/2$
-\end_inset
-
-.
- In other words, it is assumed that at 
-\begin_inset Formula $t=0$
-\end_inset
-
-, the waveform is at the center of one unit interval, and is therefore at
- the center of the eye.
- If this is not the case, and you need the eye to be at the center, you
- would modify the delay value in the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- or 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "device:Differential-Eye-Probe"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- element, and re-run the simulation.
- Oftentimes, one just wants to get a general look, and when the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Number-of-UI"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- is specified as its default value of 3, you will see at at least one of
- the eyes in its entirety.
-\end_layout
-
-\begin_layout Standard
-The eye is generated starting with an empty array that is the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Number-of-Rows"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- in height, and the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Number-of-Columns"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- in width.
- In order to count the hits in each column of pixels, the waveform is upsampled
- such that every waveform point is a column of the array.
- Because this upsampling is expensive in both processing time and memory,
- it is useful for the upsample factor to not be too large (hence the default
- 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Number-of-Columns"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- = 200).
- It is also useful for the upsample factor to be a nice ratio of the original
- sample rate of the waveform.
-\end_layout
-
-\begin_layout Standard
-For a given sample rate, 
-\begin_inset Formula $Fs$
-\end_inset
-
-, number of columns, 
-\begin_inset Formula $C$
-\end_inset
-
-, and baudrate, 
-\begin_inset Formula $R$
-\end_inset
-
-, the upsample factor 
-\begin_inset Formula $U$
-\end_inset
-
- is given by:
-\begin_inset Formula 
-\[
-U=\frac{R\cdot C}{Fs}\mbox{.}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-For example, if the incoming waveform is at 
-\begin_inset Formula $20\:GS/s$
-\end_inset
-
- sample rate, at a baud rate of 
-\begin_inset Formula $5\:GBaud$
-\end_inset
-
-, and there are 200 columns in the eye diagram, the upsample factor is 
-\begin_inset Formula $5\cdot200/20=50$
-\end_inset
-
-.
- What you definitely want to avoid is for the upsample factor to be a ratio
- of numbers, especially with a large number in the numerator.
-\end_layout
-
-\begin_layout Standard
-Once the waveform is upsampled, a number of points 
-\begin_inset Formula $\le C$
-\end_inset
-
-, are trimmed such that the first point of the waveform is in column 0.
-\end_layout
-
-\begin_layout Standard
-Then, the maximum and minimum voltage associated with each row is calculated,
- using 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Y-Axis"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- mode, in conjunction possibly with 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Minimum-Y"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Maximum-Y"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- This allows for the calculation of the row, with respect to the voltage.
- For each waveform point (a column), the row is calculated, and a one is
- added to the array.
- Usually, it is spread over a row and the correct fractional amounts are
- allocated.
-\end_layout
-
-\begin_layout Standard
-At this point, the ISI only bitmap array is complete.
- If the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Mode"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- is Jitter & Noise, some extra steps are now performed.
- In this case, a kernel is created.
- This is an array that contains a Gaussian vertically that encompasses the
- 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Noise"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, and a Gaussian horizontally that encompasses the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Random-Jitter"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- jitter convolved with a dual-Dirac delta function representing the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Deterministic-Jitter"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- This array is constructed so that it sums to unity.
- This kernel is convolved with the bitmap array, serving to smear out the
- eye.
- To handle pathological cases, the kernel is limited to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Max-Kernel-Pixels"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-For Jitter & Noise 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Mode"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-s, a further option exists to show the eye logarithmically.
- If 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Log-Intensity"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- is True, the eye diagram is re-scaled such that each pixel contains a probabili
-ty of hitting that pixel, and the eye diagram is saturated in a log-linear
- fashion with a zero indicating that the probability is at or below a number
- indicated by the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Min-Exponent"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, and one indicating that the probability is at or above a number indicated
- by the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Max-Exponent"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-At this point, the processing joins where it would resume following the
- ISI Only 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Mode"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- processing if Jitter & Noise were not specified.
-\end_layout
-
-\begin_layout Standard
-The bitmap is now duplicated according the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Number-of-UI"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- specified.
- If Jitter & Noise were not specified for the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Mode"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Log-Intensity"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- was not specified, the eye is then re-saturated using a spline such that
- the maximum intensity is achieved at a value at or above the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Saturation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The eye is then inverted or not, depending on the setting of 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Invert-Plot"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, and colorized according to the specified 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Eye-Diagram-Bits-per-Symbol"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Finally, the image is scaled according to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Scale-X"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Scale-Y"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- settings.
- Further re-scaling is possible by simply resizing the final canvas.
-\end_layout
-
-\begin_layout Section
-Eye Diagram Measurements Dialog
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Eye-Diagram-Measurements-Dialog"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Vertical/Horizontal
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Vertical/Horizontal"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename EyeDiagramMeasurementsVerticalHorizontalPAM4.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Error Rates
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Error-Rates"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename EyeDiagramMeasurementsErrorRatesPAM4.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Bathtub Curves Dialog
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Bathtub-Curves-Dialog"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename BathtubCurveDialogPAM4.png
-	lyxscale 80
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
 Main Schematic Dialog
 \begin_inset CommandInset label
 LatexCommand label
@@ -29627,6 +27370,3379 @@ reference "sec:Preferences"
 \end_layout
 
 \begin_layout Section
+Eye Diagram Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Eye-Diagram-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeDiagramDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Eye Diagram Dialog appears whenever a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project is calculated, and the project contains an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Differential-Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for how the eye diagram is calculated.
+\end_layout
+
+\begin_layout Standard
+The Eye Diagram Dialog consists of a menu bar and toolbar buttons that enable
+ certain tasks to be executed.
+ These are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-File"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - tasks for saving eye diagrams to files.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Calculate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - tasks dealing with the simulation and calculation of the eye diagram.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - tasks for viewing eye diagram measurements.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - tasks dealing with the help system.
+\end_layout
+
+\begin_layout Subsection
+File
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tasks in this category are used for saving eye diagrams to files.
+ Currently, the only supported command is:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Save-Eye-Diagram-Image"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for saving images to files.
+\end_layout
+
+\begin_layout Subsubsection
+Save Image To File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Save-Eye-Diagram-Image"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+File ▸ Save
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename document-save-2.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Saves the eye diagram image to a variety of graphics formats including .png,
+ .bmp, .jpg, .gif, and .tiff.
+\end_layout
+
+\begin_layout Subsection
+Calculate
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-Calculate"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tasks in this category are for dealing with calculation.
+ These tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing the simulation calculation properties.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Diagram-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for editing the eye diagram calculation properties.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Recalculate"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for recalculating the entire simulation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Only-Recalculate-Eye-Diagram"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for only recalculating the eye diagram.
+\end_layout
+
+\begin_layout Subsubsection
+Eye Diagram Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Eye-Diagram-Properties"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ Eye Diagram Properties
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing the Eye Diagram Properties command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ dialog for configuring how the eye diagram is calculated and shown.
+\end_layout
+
+\begin_layout Subsubsection
+Only Recalculate Eye Diagram
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Only-Recalculate-Eye-Diagram"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculate"
+
+\end_inset
+
+ ▸ Only Recalculate Eye Diagram
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+C,O
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename eye.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing this command causes only the eye diagram to be recalculated (see
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for more information).
+ This command is useful when only changes to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Diagram-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ have been made, and there is no need to redo the entire simulation.
+\end_layout
+
+\begin_layout Subsection
+View
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-View"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tasks in this category are for dealing with viewing measurement results.
+ These tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for viewing eye measurements.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for viewing bathtub curves.
+\end_layout
+
+\begin_layout Subsubsection
+Eye Measurements
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Eye-Measurements"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Eye Measurements
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing the Eye Measurements command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for viewing eye measurements.
+\end_layout
+
+\begin_layout Subsubsection
+Bathtub Curve
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Bathtub-Curve"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Bathtub Curve
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,B
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing this command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for viewing bathtub curves.
+\end_layout
+
+\begin_layout Subsection
+Help
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tasks in this category are for dealing with the eye diagram help system.
+\end_layout
+
+\begin_layout Standard
+The tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Diagram-Open-Help-File"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - opens the help system to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ section.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Diagram-Control-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - enables control help for the elements in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Open Help File
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Eye-Diagram-Open-Help-File"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Open Help File
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,O
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-contents-5.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command opens the help system to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ section.
+\end_layout
+
+\begin_layout Subsubsection
+Control Help
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Eye-Diagram-Control-Help"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Help"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+▸ Control Help
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,C
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename help-3.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Control help allows you to get help on any command.
+\end_layout
+
+\begin_layout Standard
+When in control help, all of the commands are activated.
+ This includes key bindings, toolbar buttons, and menu elements.
+ However, issuing any of the possible commands takes you to a location in
+ the help system corresponding to the desired control instead of actually
+ issuing the command.
+\end_layout
+
+\begin_layout Standard
+Control help stays active until you either press the escape key, or touch
+ somewhere in the canvas.
+\end_layout
+
+\begin_layout Section
+Eye Diagram Calculation
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Eye-Diagram-Calculation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ project is created and the schematic contains a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Differential-Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ element, when the simulation is run, for each one, an eye diagram is created
+ using the waveform produced in conjunction with the baud rate specified
+ and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specified.
+\end_layout
+
+\begin_layout Standard
+This section explains how the eye diagram is created and will refer to various
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ during the explanation.
+\end_layout
+
+\begin_layout Standard
+The reciprocal of the baud rate specifies the unit interval, or the length
+ of one UI in the waveform.
+ The goal of the eye diagram is to show, overlapped, all of the portions
+ of the waveform that pass through the unit interval.
+ So, for a given time in a waveform 
+\begin_inset Formula $t_{k}$
+\end_inset
+
+, and a given UI length, 
+\begin_inset Formula $UI$
+\end_inset
+
+, the time of each point in the waveform, 
+\begin_inset Formula $t_{eye}$
+\end_inset
+
+ inside the unit interval is given by:
+\begin_inset Formula 
+\[
+t_{eye}=\left(t_{k}+\frac{UI}{2}\right)\:\%\:UI
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\%$
+\end_inset
+
+ represents the modulo operator.
+ You can see by this definition that 
+\begin_inset Formula $0\le t_{eye}\le UI$
+\end_inset
+
+ and that when 
+\begin_inset Formula $t_{k}=0,$
+\end_inset
+
+ 
+\begin_inset Formula $t_{eye}=UI/2$
+\end_inset
+
+.
+ In other words, it is assumed that at 
+\begin_inset Formula $t=0$
+\end_inset
+
+, the waveform is at the center of one unit interval, and is therefore at
+ the center of the eye.
+ If this is not the case, and you need the eye to be at the center, you
+ would modify the delay value in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ or 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Differential-Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ element, and re-run the simulation.
+ Oftentimes, one just wants to get a general look, and when the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-UI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is specified as its default value of 3, you will see at at least one of
+ the eyes in its entirety.
+\end_layout
+
+\begin_layout Standard
+The eye is generated starting with an empty array that is the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Rows"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in height, and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Columns"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in width.
+ In order to count the hits in each column of pixels, the waveform is upsampled
+ such that every waveform point is a column of the array.
+ Because this upsampling is expensive in both processing time and memory,
+ it is useful for the upsample factor to not be too large (hence the default
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Columns"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ = 200).
+ It is also useful for the upsample factor to be a nice ratio of the original
+ sample rate of the waveform.
+\end_layout
+
+\begin_layout Standard
+For a given sample rate, 
+\begin_inset Formula $Fs$
+\end_inset
+
+, number of columns, 
+\begin_inset Formula $C$
+\end_inset
+
+, and baudrate, 
+\begin_inset Formula $R$
+\end_inset
+
+, the upsample factor 
+\begin_inset Formula $U$
+\end_inset
+
+ is given by:
+\begin_inset Formula 
+\[
+U=\frac{R\cdot C}{Fs}\mbox{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For example, if the incoming waveform is at 
+\begin_inset Formula $20\:GS/s$
+\end_inset
+
+ sample rate, at a baud rate of 
+\begin_inset Formula $5\:GBaud$
+\end_inset
+
+, and there are 200 columns in the eye diagram, the upsample factor is 
+\begin_inset Formula $5\cdot200/20=50$
+\end_inset
+
+.
+ What you definitely want to avoid is for the upsample factor to be a ratio
+ of numbers, especially with a large number in the numerator.
+\end_layout
+
+\begin_layout Standard
+Once the waveform is upsampled, a number of points 
+\begin_inset Formula $\le C$
+\end_inset
+
+, are trimmed such that the first point of the waveform is in column 0.
+\end_layout
+
+\begin_layout Standard
+Then, the maximum and minimum voltage associated with each row is calculated,
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Y-Axis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode, in conjunction possibly with 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Maximum-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This allows for the calculation of the row, with respect to the voltage.
+ For each waveform point (a column), the row is calculated, and a one is
+ added to the array.
+ Usually, it is spread over a row and the correct fractional amounts are
+ allocated.
+\end_layout
+
+\begin_layout Standard
+At this point, the ISI only bitmap array is complete.
+ If the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is Jitter & Noise, some extra steps are now performed.
+ In this case, a kernel is created.
+ This is an array that contains a Gaussian vertically that encompasses the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Noise"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and a Gaussian horizontally that encompasses the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Random-Jitter"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ jitter convolved with a dual-Dirac delta function representing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Deterministic-Jitter"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This array is constructed so that it sums to unity.
+ This kernel is convolved with the bitmap array, serving to smear out the
+ eye.
+ To handle pathological cases, the kernel is limited to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Max-Kernel-Pixels"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For Jitter & Noise 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+s, a further option exists to show the eye logarithmically.
+ If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Log-Intensity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is True, the eye diagram is re-scaled such that each pixel contains a probabili
+ty of hitting that pixel, and the eye diagram is saturated in a log-linear
+ fashion with a zero indicating that the probability is at or below a number
+ indicated by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Min-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and one indicating that the probability is at or above a number indicated
+ by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Max-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+At this point, the processing joins where it would resume following the
+ ISI Only 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ processing if Jitter & Noise were not specified.
+\end_layout
+
+\begin_layout Standard
+The bitmap is now duplicated according the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-UI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specified.
+ If Jitter & Noise were not specified for the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Log-Intensity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ was not specified, the eye is then re-saturated using a spline such that
+ the maximum intensity is achieved at a value at or above the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Saturation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The eye is then inverted or not, depending on the setting of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Invert-Plot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and colorized according to the specified 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Bits-per-Symbol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Finally, the image is scaled according to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Scale-X"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Scale-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ settings.
+ Further re-scaling is possible by simply resizing the final canvas.
+\end_layout
+
+\begin_layout Section
+Eye Diagram Measurements Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Eye-Diagram-Measurements-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Eye diagram measurements are configured in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ when configuring an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in a schematic.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+After eye diagram creation, following the start of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is opened.
+\end_layout
+
+\begin_layout Standard
+Eye diagram measurements are available by selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is not available in the dialog, then either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ property is set to False, or the measurements could not be made.
+\end_layout
+
+\begin_layout Standard
+There are two tabs in the Eye Measurements Dialog:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical/Horizontal"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – standard measurements of eye height, eye width, etc.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - measurements of, and the breakdown of bit error rate (BER) calculations.
+\end_layout
+
+\begin_layout Subsection
+Vertical/Horizontal
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Vertical/Horizontal"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeDiagramMeasurementsVerticalHorizontalPAM4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The vertical/horizontal measurements are, as the name implies, various vertical
+ and horizontal measurements that are made on the eye.
+\end_layout
+
+\begin_layout Standard
+The very first thing to note is the BER that the measurements are taken
+ at.
+ This is shown on top of the dialog and is the value configured in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+
+\end_inset
+
+).
+ This value is the probability contour used to denote the perimeter of the
+ eye.
+\end_layout
+
+\begin_layout Standard
+The first section of the measurements regards the eye itself, with measurements
+ in each column representing the eye number (from 0 to 
+\begin_inset Formula $2^{BitsPerSymbol}-1$
+\end_inset
+
+), where eye zero is on the bottom.
+ The measurements are broken into two sections:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Timing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Horizontal (time) measurements of the eye.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Vertical (voltage) measurements of the eye.
+ These also include measurements of the levels, or extents.
+\end_layout
+
+\begin_layout Standard
+Below all of this, optionally shown for PAM-4 and above, are measurements
+ of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Linearity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+At the end, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Resolution"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is indicated.
+\end_layout
+
+\begin_layout Subsubsection
+Timing
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Timing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeMeasureHoriz.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Timing measurements are made from a line that spans the contour horizontally.
+ This line is defined by a few properties, not to mention the actual alignment
+ of the eye:
+\end_layout
+
+\begin_layout Enumerate
+The horizontal extent of the line is governed by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The vertical placement of the line is governed by the choice of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Given these choices, the following measurements are made, for each eye:
+\end_layout
+
+\begin_layout Itemize
+Start – the start time.
+\end_layout
+
+\begin_layout Itemize
+End – the end time.
+\end_layout
+
+\begin_layout Itemize
+Width – the width of the eye.
+\end_layout
+
+\begin_layout Subsubsection
+Vertical
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Vertical"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeMeasureVert.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vertical measurements are made from a line that spans the contour vertically.
+ The extents of the line is based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+
+\end_inset
+
+.
+ Each column in the vertical measurements contains, for each eye:
+\end_layout
+
+\begin_layout Itemize
+Low – the lowest point of the eye (where the vertical line touches the contour).
+\end_layout
+
+\begin_layout Itemize
+Midpoint – the midpoint of the eye (the average of the Low and the High).
+\end_layout
+
+\begin_layout Itemize
+Best Decision Level – the location along the line where the probability
+ is the minimum.
+ This is deemed the best threshold to employ, if possible, to sample the
+ waveform.
+\end_layout
+
+\begin_layout Itemize
+High – the highest point of the eye (where the vertical line touches the
+ contour).
+\end_layout
+
+\begin_layout Itemize
+Height – the difference between the High and the Low.
+\end_layout
+
+\begin_layout Itemize
+AV – This is the distance between the mean levels.
+ This is explained better in Extents below.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+(Vertical) Extents
+\end_layout
+
+\begin_layout Standard
+The vertical extents are measurements made not directly from the eye itself,
+ but from the vertical levels that surround the eye.
+ These levels are the intended voltages representing each bit.
+ The measurements are made vertically between probabilities based on the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There are 
+\begin_inset Formula $2^{BitsPerSymbol}$
+\end_inset
+
+ vertical extents.
+ The lowest extent is extent zero.
+\end_layout
+
+\begin_layout Standard
+For each extent, the following measurements are made:
+\end_layout
+
+\begin_layout Itemize
+Min – the lowest level of the extent, where it touches the lowest vertical
+ value below the BER specified, or the top of the eye below.
+\end_layout
+
+\begin_layout Itemize
+Max – the highest level of the extent, where it touches the highest vertical
+ value below the BER specified, or the bottom of the eye above.
+\end_layout
+
+\begin_layout Itemize
+Delta – the difference between the Max and Min.
+\end_layout
+
+\begin_layout Itemize
+Mean – the mean vertical value between the Max and the Min.
+ This is not the average of the Max and the Min.
+ It is the best value to describe the level based on the probabilities in
+ the vertical histogram slice through the eye.
+\end_layout
+
+\begin_layout Standard
+Note that normally, in serial data testing, these extents are measured using
+ a specific pattern to estimate the intended transmitted levels.
+ This software tries to measure these extents statistically from the eye.
+\end_layout
+
+\begin_layout Subsubsection
+Linearity
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Linearity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Linearity is only defined for PAM-4 and above.
+ It is a measure of the similarity in height of the eyes, or more properly,
+ the evenness in the level extents.
+\end_layout
+
+\begin_layout Standard
+There are two measures, where 100% is the best, and 0% is the worst:
+\end_layout
+
+\begin_layout Enumerate
+Eye Linearity – This is the simplest and preferred measurement.
+ It is the ratio of the minimum Delta Extent to the maximum Delta Extent
+ (expressed as a percentage).
+\end_layout
+
+\begin_layout Enumerate
+RLM (Relative Level Mismatch) – Defined according to a complicated formula
+ according to AN-835, 2019.03.12 from Intel.
+ Assuming that the four level extents for PAM-4 are denoted 
+\begin_inset Formula $V_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{2}$
+\end_inset
+
+, and 
+\begin_inset Formula $V_{3}$
+\end_inset
+
+, and that 
+\begin_inset Formula $V_{min}=\left(V_{0}+V_{3}\right)/2$
+\end_inset
+
+.
+ We define 
+\begin_inset Formula $ES1=\left(V_{1}-V_{min}\right)/\left(V_{0}-V_{min}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $ES2=\left(V_{2}-V_{min}\right)/\left(V_{3}-V_{min}\right)$
+\end_inset
+
+.
+ RLM is defined as:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $RLM=\min\left(3\cdot ES1,3\cdot ES2,2-3\cdot ES1,2-3\cdot ES2\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+expressed as a percentage.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Resolution
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Resolution"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The vertical and horizontal resolution is shown at the bottom:
+\end_layout
+
+\begin_layout Itemize
+Vertical Resolution – the vertical height of each pixel in the eye diagram.
+ Vertical resolution can be improved by increasing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Rows"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Horizontal Resolution – the horizontal width of each pixel in the eye diagram.
+ Horizontal resolution can be improved by increasing 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Columns"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Error Rates
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Error-Rates"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error rates tab on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is available only when 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True.
+ This is because the information in the bathtub curves (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is used to make all of the error rate computations.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeDiagramMeasurementsErrorRatesPAM4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error rates are broken into three sections:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – information showing the probability that various bits intended are decoded
+ as the intended bit, or other bits.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Nominal-Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – based on the bit interpretations, along with a uniform bit density (all
+ probabilities of symbols transmitted are equal), the symbol error rate
+ (SER) and bit error rate (BER) is computed.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Measured-Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – based on the bit interpretations, along with the measured bit density
+ (the measured probability of symbols transmitted from the eye diagram),
+ the symbol error rate (SER) and bit error rate (BER) is computed.
+\end_layout
+
+\begin_layout Standard
+Note that even if the actual symbol probabilities are all equal, small errors
+ in the extrapolation of histograms can lead to small errors in the measured
+ symbol densities.
+ If the user knows that the symbol density is uniform, then the Nominal
+ Error Rate can be used, otherwise, the Measured Error Rate is what was
+ actually measured.
+ In practice, they ought not to differ by a lot.
+\end_layout
+
+\begin_layout Subsubsection
+Interpretation
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Interpretation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The interpretation table has the symbol transmitted along each row and the
+ probability of the symbol interpretation along each column.
+ If PAM-4 and above are employed, then Gray coding information is also provided
+ (with the normal bit identification as 00, 01, 10, 11 first, with the Gray
+ code as 00, 01, 11, 10, second).
+\end_layout
+
+\begin_layout Standard
+If the user is unfamiliar with Gray coding, it is a method of encoding the
+ bits employed so that on each side of a symbol, there is only a single
+ bit transition.
+ Gray coding is always employed for PAM-4 and above and tends to make the
+ BER identical the SER divided by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Bits-per-Symbol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This is because symbol errors are usually such that a symbol is accidentally
+ interpreted as an adjacent Gray coded symbol, thus causing a single bit
+ error.
+\end_layout
+
+\begin_layout Standard
+The probabilities for interpretation is derived from the vertical bathtub
+ curve (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Nominal Error Rates
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Nominal-Error-Rates"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The nominal error rate table shows each transmitted symbol in each row (along
+ with its Gray coded symbol), and in each column provides:
+\end_layout
+
+\begin_layout Itemize
+Probability – the probability that a given symbol is transmitted.
+ Nominally, this is the reciprocal of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Bits-per-Symbol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+SER – the symbol error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, it is transmitted
+ in error.
+\end_layout
+
+\begin_layout Itemize
+BER – the bit error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, of bits in
+ error.
+ This does not assume Gray coding.
+\end_layout
+
+\begin_layout Itemize
+Gray BER – the Gray coded bit error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, of bits in
+ error.
+ This assumes Gray coding.
+\end_layout
+
+\begin_layout Standard
+At the bottom of the table, all values are totaled.
+ The probability it totaled by summing the probabilities.
+ The SER, BER, and Gray BER are sums of the values in the column, weighted
+ by the probability of transmitting the corresponding symbol.
+\end_layout
+
+\begin_layout Subsubsection
+Measured Error Rates
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Measured-Error-Rates"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The measured error rate table shows each transmitted symbol in each row
+ (along with its Gray coded symbol), and in each column provides:
+\end_layout
+
+\begin_layout Itemize
+Probability – the probability that a given symbol is transmitted.
+ This probability is the measured probability for each symbol in the measured
+ eye.
+\end_layout
+
+\begin_layout Itemize
+SER – the symbol error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, it is transmitted
+ in error.
+\end_layout
+
+\begin_layout Itemize
+BER – the bit error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, of bits in
+ error.
+ This does not assume Gray coding.
+\end_layout
+
+\begin_layout Itemize
+Gray BER – the Gray coded bit error rate.
+ Based on the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Interpretation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the probability that, if the symbol is transmitted, of bits in
+ error.
+ This assumes Gray coding.
+\end_layout
+
+\begin_layout Standard
+At the bottom of the table, all values are totaled.
+ The probability it totaled by summing the probabilities.
+ The SER, BER, and Gray BER are sums of the values in the column, weighted
+ by the probability of transmitting the corresponding symbol.
+\end_layout
+
+\begin_layout Section
+Bathtub Curves Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Bathtub-Curves-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename BathtubCurveDialogPAM4.png
+	lyxscale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Eye diagram measurements are configured in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ when configuring an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Probe"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ in a schematic.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Measurement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+After eye diagram creation, following the start of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is opened.
+\end_layout
+
+\begin_layout Standard
+The Bathtub Curve Dialog is available by selecting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is not available in the dialog, then either the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ property is set to False, or the measurements could not be made.
+\end_layout
+
+\begin_layout Standard
+The dialog is broken into a left and right half:
+\end_layout
+
+\begin_layout Itemize
+Vertical Bathtub Curve – on the left.
+ This shows:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+a histogram, in blue, of the vertical slice of the eye diagram.
+ These probabilities are directly measured.
+\end_layout
+
+\begin_layout Itemize
+fitted tails of the histogram, in fat green lines, showing the region of
+ the histogram used to perform each tail fit.
+ The location of these areas is governed by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decades-Above-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Points-for-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Bathtub-Curve-Measurement-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+histograms for each symbol transmitted, in green, resulting from fitted
+ and actual data.
+\end_layout
+
+\begin_layout Itemize
+cumulative distribution functions (CDFs), in red, representing probabilities
+ for how the given symbols are interpreted.
+\end_layout
+
+\begin_layout Itemize
+decision levels, in red, vertical, dashed lines, indicating where decisions
+ are made.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Horizontal Bathtub Curves – on the right.
+ This shows, for each eye, the probabilities for a horizontal slice taken
+ through the histogram at the decision point (governed by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), along with a vertical, dashed, red line showing the middle of the eye.
+\end_layout
+
+\begin_layout Section
 Eye Diagram Properties Dialog
 \begin_inset CommandInset label
 LatexCommand label
@@ -29764,20 +30880,41 @@ The Eye Diagram Properties can be broken into several categories:
 \end_layout
 
 \begin_layout Itemize
-The Eye Diagram Image Properties (essentially the entire left half of the
- dialog).
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Image-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Provides properties that determine how the eye diagram bitmap and image
+ will be generated (essentially the entire left half of the dialog).
 \end_layout
 
 \begin_layout Itemize
-The Alignment, Measurement, and Annotation Properties (the entire right
- half of the dialog).
+The 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Measurement"
+
+\end_inset
+
+ – Provides Alignment, Measurement, and Annotation Properties (the entire
+ right half of the dialog).
 \end_layout
 
-\begin_layout Standard
-
-\series bold
-\size large
+\begin_layout Subsection
 Eye Diagram Image Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-Image-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -29786,7 +30923,16 @@ The main image is controlled by the properties in the upper left of the
 \end_layout
 
 \begin_layout Itemize
-Bits per Symbol – defines the type of signaling used.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Bits-per-Symbol"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – defines the type of signaling used.
  This is really only important for automatic alignment and measurements
  made from the eye diagram:
 \end_layout
@@ -29802,31 +30948,75 @@ Bits per Symbol – defines the type of signaling used.
 
 \end_deeper
 \begin_layout Itemize
-Color – any 24 bit RGB color can be selected.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-Color"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – any 24 bit RGB color can be selected.
  If the plot is inverted, then this is the color of the eye against a black
  background.
  If not inverted, the eye is black against the background color specified.
 \end_layout
 
 \begin_layout Itemize
-Number of UI – this is the number of unit intervals (UI) shown in the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-UI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – this is the number of unit intervals (UI) shown in the eye.
  Regardless of this setting, the eye is created for a single UI, and then
  the image is multiplied this many times horizontally.
 \end_layout
 
 \begin_layout Itemize
-Number of Rows – the number of pixels vertically in the bitmap representing
- the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Rows"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the number of pixels vertically in the bitmap representing the eye.
 \end_layout
 
 \begin_layout Itemize
-Number of Columns – the number of pixels horizontally in the bitmap representing
- a single unit interval of the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Number-of-Columns"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the number of pixels horizontally in the bitmap representing a single
+ unit interval of the eye.
 \end_layout
 
 \begin_layout Itemize
-Saturation – determines 50% point setting of a saturation curve used to
- enhance the drawing of the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Saturation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – determines 50% point setting of a saturation curve used to enhance the
+ drawing of the eye.
  Lower numbers make more infrequent hits in the eye brighter.
  Higher numbers make them lower.
  A setting of 50% makes the eye intensity linear with hit probability.
@@ -29834,11 +31024,29 @@ Saturation – determines 50% point setting of a saturation curve used to
 \end_layout
 
 \begin_layout Itemize
-Scale X – determines the initial scaling horizontally of the resulting bitmap.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Scale-X"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – determines the initial scaling horizontally of the resulting bitmap.
 \end_layout
 
 \begin_layout Itemize
-Scale Y – determines the initial scaling vertically of the resulting bitmap.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Scale-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – determines the initial scaling vertically of the resulting bitmap.
 \end_layout
 
 \begin_layout Standard
@@ -29853,7 +31061,17 @@ The eye is drawn by first resampling the waveform such that its sample period
  This can cause problems in regions of the eye that have a fast slew rate
  (i.e.
  slew many pixels vertically in a given sample period).
- To improve the situation, Enhanced Precision Mode is provided.
+ To improve the situation, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Enhanced-Precision-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is provided.
  If the mode is set to None, then it is off, and enhanced precision is not
  provided.
  This results in the fastest calculation speed, with the aforementioned
@@ -29862,7 +31080,16 @@ The eye is drawn by first resampling the waveform such that its sample period
 
 \begin_layout Standard
 When set to fixed, every probability is calculated from a line segment between
- each pixel, which is divided into the number of Enhanced Precision Steps
+ each pixel, which is divided into the number of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Enhanced-Precision-Steps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
  specified.
  This results in the slowest calculation speed, but with a prettier and
  more accurate eye.
@@ -29914,7 +31141,37 @@ Y Axis Control
 \begin_layout Standard
 Generally, the Y Axis is determined automatically as 10% beyond the maximum
  and minimum extents of the waveform.
- This can be fixed to specified voltage levels by setting it to Fixed.
+ This can be fixed to specified voltage levels by setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Y-Axis"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to Fixed, and entering the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Maximum-Y"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ values.
 \end_layout
 
 \begin_layout Standard
@@ -29925,25 +31182,74 @@ Jitter and Noise Addition
 
 \begin_layout Standard
 Eyes can be generated from only the input supplied waveform by specifying
- the Eye Mode as ISI Only.
- Specifying the Eye Mode as Jitter & Noise allows for the addition of jitter
- and noise statistically through the creation of a smoothing kernel.
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as ISI Only.
+ Specifying the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as Jitter & Noise allows for the addition of jitter and noise statistically
+ through the creation of a smoothing kernel.
 \end_layout
 
 \begin_layout Standard
 The kernel is specified as the convolution of two 2D kernels (to produce
  a 3D kernel).
  The vertical 2D kernel is a Gaussian determined by the specified amount
- of Noise (in rms voltage).
+ of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Noise"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (in rms voltage).
  The horizontal 2D kernel is again two kernels convolved with each other
  horizontally.
- The first is a Gaussian determined by the amount of Random jitter specified
- (as rms jitter), and the other is a dual Dirac, where each delta function
- is 
+ The first is a Gaussian determined by the amount of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Random-Jitter"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specified (as rms jitter), and the other is a dual Dirac, where each delta
+ function is 
 \begin_inset Formula $1/2$
 \end_inset
 
- in area, separated by the amount of Deterministic jitter specified.
+ in area, separated by the amount of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Deterministic-Jitter"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specified.
 \end_layout
 
 \begin_layout Standard
@@ -29956,7 +31262,17 @@ The desired size of the kernel is such that 10 standard deviations exist
 \begin_layout Standard
 To prevent pathological situations resulting from the incorrect entry of
  jitter and noise amounts, the resulting kernel is limited in size to the
- amount specified as the Max Kernel Pixels.
+ amount specified as the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Max-Kernel-Pixels"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -30055,11 +31371,41 @@ Log intensity (-17.999 to -18 exponent)
 \end_layout
 
 \begin_layout Standard
-Log intensity is used to further enhance the eye diagram.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Log-Intensity"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is used to further enhance the eye diagram.
  Normally, the intensity is linear (mostly) with the probability.
- In Log Intensity mode, the intensity is linear with the log of the probability.
- This is particularly useful to identify better low probability areas of
- the eye.
+ In Log Intensity mode, the intensity is linear with the log of the probability,
+ with the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Min-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifying zero intensity, and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Max-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifying full intensity.
+ This is particularly useful to identify the low probability areas of the
+ eye.
 \end_layout
 
 \begin_layout Standard
@@ -30084,7 +31430,26 @@ In the above plots, all are shown with their -6 probability exponent (1
 \end_layout
 
 \begin_layout Standard
-Note that the min exponent specified must be less than the max exponent
+Note that the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Min-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specified must be less than the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Max-Exponent"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
  specified, otherwise the calculation will fail.
 \end_layout
 
@@ -30095,7 +31460,18 @@ Invert Plot
 \end_layout
 
 \begin_layout Standard
-Normally, the plot is inverted.
+Inversion of the eye diagram plot is controlled by 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Invert-Plot"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Normally, the plot is inverted.
  When inverted, the eye is the specified color against a black background.
  If not inverted, the eye is black against the background color specified.
 \end_layout
@@ -30111,13 +31487,32 @@ The simplest way to generate eye diagrams is to ensure that the waveform
  passes through the midpoint of the eye at zero time.
  In this situation, eye alignment is unnecessary.
  It is, however, very convenient to have the eye aligned automatically.
- Setting Auto Align Eye to True, enables this and shows a number of other
- parameters in the dialog.
+ Setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to True, enables this and shows a number of other parameters in the dialog.
 \end_layout
 
 \begin_layout Standard
 Eye alignment is performed using measurements on a contour of the eye at
- a certain probability, specified by the BER Exponent for Alignment.
+ a certain probability, specified by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  Usually, this is set to -3 (i.e.
  the contour used is at the internal boundary of the eye with a probability
  of one in 
@@ -30134,12 +31529,32 @@ In the case of PAM-2, the algorithm searches the vertical extents of these
  contours searching for the single widest opening.
  For PAM-2, it searches for the widest minimum opening.
  Once the horizontal location of these vertical extents are found, there
- are four options for alignment:
+ are four options for alignment in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Alignment-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Itemize
 Horizontal Alignment – the eye is aligned based on horizontal measurements
- using the Horizontal Alignment mode:
+ using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Horizontal-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
 \end_layout
 
 \begin_deeper
@@ -30158,7 +31573,17 @@ Max – The center of the eye is found by first computing the vertical location
 \end_deeper
 \begin_layout Itemize
 Vertical Alignment – the eye is aligned based on vertical measurements using
- the Vertical Alignment mode:
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
 \end_layout
 
 \begin_deeper
@@ -30176,49 +31601,160 @@ Max – The center of the eye is found by finding the horizontal location
 \end_deeper
 \begin_layout Standard
 If auto alignment fails, the eye is still produced, but not aligned.
- In these cases, try making the BER Exponent for Alignment larger.
+ In these cases, try making the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ larger.
 \end_layout
 
-\begin_layout Standard
-
-\series bold
-\size large
+\begin_layout Subsection
 Eye Diagram Measurement Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-Measurement"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-If Measure Eye Parameters is set to False, no measurements are made on the
- eye.
- Turn this to false when debugging eye diagram creation that is failing
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to False, no measurements are made on the eye.
+ Turn this to False when debugging eye diagram creation that is failing
  due to any inability to perform eye diagram measurements.
 \end_layout
 
 \begin_layout Standard
-Setting Measure Eye Parameters to True enables a large amount of other parameter
- choices:
+Setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to True enables a large amount of other parameter choices:
 \end_layout
 
 \begin_layout Itemize
-Measurement Properties – the properties that determine how standard eye
- measurements are made.
- These measurements appear in the left tab of the Eye Measurements Dialog.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the properties that determine how 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical/Horizontal"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ eye measurements are made.
+ These measurements appear in the left tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-Bathtub Curve Measurement Properties – The properties that determine the
- bathtub curve generation, which allows the measurements of things like
- BER from the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Bathtub-Curve-Measurement-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – The properties that determine the bathtub curve generation, which allows
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ measurements.
+ These measurements appear in the right tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These can be analyzed looking at the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-Annotation – measurements made on the eye can be shown by painting directly
- on the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Annotation-Properties"
+
+\end_inset
+
+ – measurements made on the eye can be shown by painting directly on the
+ eye.
 \end_layout
 
-\begin_layout Standard
-
-\series bold
+\begin_layout Subsubsection
 Eye Measurement Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Eye-Measurement-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -30227,13 +31763,31 @@ There are two properties that effect how the eye diagram measurements are
 \end_layout
 
 \begin_layout Itemize
-BER Exponent for Measure – this is the probability contour on each eye where
- the measurements are made.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – this is the probability contour on each eye where the measurements are
+ made.
  This is usually at the BER specified by a given standard.
 \end_layout
 
 \begin_layout Itemize
-Decision Level – either of:
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – either of:
 \end_layout
 
 \begin_deeper
@@ -30249,21 +31803,94 @@ Best Decision Point – the least likely vertical location in the eye.
 \end_deeper
 \begin_layout Standard
 Note that the best decision point is always calculated and shown in the
- Vertical/Horizontal tab of the Eye Diagram Measurements Dialog, but if
- Best Decision Point is chosen, the eye width will be calculated at this
- vertical location.
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical/Horizontal"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but if Best Decision Point is chosen, the eye width will be calculated
+ at this vertical location.
 \end_layout
 
-\begin_layout Standard
-
-\series bold
+\begin_layout Subsubsection
 Bathtub Curve Measurement Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Bathtub-Curve-Measurement-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-When Measure Bathtub Curves is set to True, bathtub curves are calculated
- and accessed through Bathtub Curves, and BER measurements (shown in the
- Error Rates tab of the Eye Diagram Measurements Dialog).
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, bathtub curves are calculated and accessed through the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ measurements tab in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -30271,9 +31898,18 @@ The bathtub curve measurement properties are:
 \end_layout
 
 \begin_layout Itemize
-Decades Above for Fit – Because many bathtub curves intersect vertically,
- at some point, meaning the channel is not error free, it becomes somewhat
- difficult to separate the histograms representing each bit being transmitted.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decades-Above-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Because many bathtub curves intersect vertically, at some point, meaning
+ the channel is not error free, it becomes somewhat difficult to separate
+ the histograms representing each bit being transmitted.
  The parameter specifies how many decades above the location where the histogram
 s overlap to begin fitting the histogram.
  Larger numbers mean that the fit is performed higher on the histogram with
@@ -30285,60 +31921,164 @@ s overlap to begin fitting the histogram.
 \end_layout
 
 \begin_layout Itemize
-Minimum Points for Fit – This is the number of points on the tail of the
- histogram to use for the fit.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Points-for-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – This is the number of points on the tail of the histogram to use for
+ the fit.
  At least three points are needed (a quadratic is fit).
  A few more points are better to provide an overconstrained fit, but too
- many points cause the fit to deviate from the tail of the histogram, which
- is the desire.
+ many points cause the fit to deviate from the tail of the histogram.
+ It is desirable to fit the tail.
 \end_layout
 
-\begin_layout Standard
-
-\series bold
+\begin_layout Subsubsection
 Eye Annotation Properties
+\begin_inset CommandInset label
+LatexCommand label
+name "pc:Eye-Annotation-Properties"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-When Annotate Eye with Measurements is set to True, the resulting eye diagram
- is decorated with indicators of the measurements made:
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, the resulting eye diagram is decorated with indicators
+ of the measurements made:
 \end_layout
 
 \begin_layout Itemize
-Annotation Color – the color of the annotations.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotation-Color"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the color of the annotations.
  Generally, it's best to choose a highly contrasting color to the color
  of the eye (like a complementary color: Green for red eye diagrams, Violet
  for yellow eye diagrams, Orange for blue eye diagrams, and vice versa.)
 \end_layout
 
 \begin_layout Itemize
-Annotate Mean Levels – draw a horizontal line through the most probable
- levels at each bit.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Mean-Levels"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a horizontal line through the most probable levels at each bit.
 \end_layout
 
 \begin_layout Itemize
-Annotate Level Extents – draw horizontal dotted lines at the extents of
- the bit levels (also the extent of the eye height).
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Levels-Extents"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw horizontal dotted lines at the extents of the bit levels (also the
+ extent of the eye height).
 \end_layout
 
 \begin_layout Itemize
-Annotate Eye Width – draw a horizontal line representing the horizontal
- start, stop and width of the eye.
- This is drawn at a vertical location that depends on the choice of Decision
- Level.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Width"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a horizontal line representing the horizontal start, stop and width
+ of the eye.
+ This is drawn at a vertical location that depends on the choice of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
-Annotate Eye Height – draw a vertical line representing the bottom, top
- and height of the eye.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Height"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a vertical line representing the bottom, top and height of the eye.
  This is always drawn at the horizontal midpoint of the eye.
 \end_layout
 
 \begin_layout Itemize
-Annotate Contour – try to draw a line around the contour of the eye representing
- the BER Exponent for Measure.
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Contour"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – try to draw a line around the contour of the eye representing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  It says try, because it is not always perfectly joined.
- The method used is based on Which Contours to Show:
+ The method used is based on 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Which-Contours-to-Show"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_deeper
@@ -30355,7 +32095,7 @@ Only Contours inside Eye – at the perimeter of the contour bounded by the
 \end_layout
 
 \end_deeper
-\begin_layout Standard
+\begin_layout Subsection
 
 \series bold
 Saving Properties to Global Preferences
@@ -30374,7 +32114,7 @@ noprefix "false"
 
  is placed in a schematic always come from the 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand nameref
 reference "sec:Preferences"
 plural "false"
 caps "false"
@@ -33345,6 +35085,17 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
+The number of rows also affects the measurement 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Resolution"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 The default value of 200 is thought to be just the right number.
 \end_layout
 
@@ -33479,7 +35230,20 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The default value of 200 is thought to be just the right number.
+The number of columns also affects the measurement 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Resolution"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The default value of 200 is thought to be just the right number, although
+ it is highly advantageous to set this number to a direct multiple of the
+ number of samples in a single unit interval.
 \end_layout
 
 \begin_layout Subsection
@@ -36280,6 +38044,138 @@ False is default
 
 \end_layout
 
+\begin_layout Standard
+The simplest way to generate eye diagrams is to ensure that the waveform
+ passes through the midpoint of the eye at zero time.
+ In this situation, eye alignment is unnecessary.
+ It is, however, very convenient to have the eye aligned automatically.
+ Setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to True, enables this and shows a number of other parameters in the dialog.
+\end_layout
+
+\begin_layout Standard
+Eye alignment is performed using measurements on a contour of the eye at
+ a certain probability, specified by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Usually, this is set to -3 (i.e.
+ the contour used is at the internal boundary of the eye with a probability
+ of one in 
+\begin_inset Formula $10^{-3}$
+\end_inset
+
+.
+ Using a relatively high probability allows for eyes to be aligned even
+ in extreme cases where the BER is very poor.
+\end_layout
+
+\begin_layout Standard
+In the case of PAM-2, the algorithm searches the vertical extents of these
+ contours searching for the single widest opening.
+ For PAM-2, it searches for the widest minimum opening.
+ Once the horizontal location of these vertical extents are found, there
+ are four options for alignment in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Alignment-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+Horizontal Alignment – the eye is aligned based on horizontal measurements
+ using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Horizontal-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Middle – The center of the eye is found by first computing the vertical
+ location of the widest horizontal opening of the middle eye, then computing
+ the horizontal midpoint.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by first computing the vertical location
+ of the widest horizontal opening of the widest eye, then computing the
+ horizontal midpoint.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Vertical Alignment – the eye is aligned based on vertical measurements using
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+MaxMin – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for the narrowest eye.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for any eye.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+If auto alignment fails, the eye is still produced, but not aligned.
+ In these cases, try making the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ larger.
+\end_layout
+
 \begin_layout Subsection
 BER Exponent for Alignment
 \begin_inset CommandInset label
@@ -36388,6 +38284,40 @@ Float
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, eye alignment is performed using measurements on a contour
+ of the eye at a certain probability, specified by the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Usually, this is set to -3 (i.e.
+ the contour used is at the internal boundary of the eye with a probability
+ of one in 
+\begin_inset Formula $10^{-3}$
+\end_inset
+
+.
+ Using a relatively high probability allows for eyes to be aligned even
+ in extreme cases where the BER is very poor.
 \end_layout
 
 \begin_layout Subsection
@@ -36504,6 +38434,87 @@ Horizontal is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, there are four options for alignment in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Alignment-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+Horizontal Alignment – the eye is aligned based on horizontal measurements
+ using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Horizontal-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Middle – The center of the eye is found by first computing the vertical
+ location of the widest horizontal opening of the middle eye, then computing
+ the horizontal midpoint.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by first computing the vertical location
+ of the widest horizontal opening of the widest eye, then computing the
+ horizontal midpoint.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Vertical Alignment – the eye is aligned based on vertical measurements using
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+MaxMin – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for the narrowest eye.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for any eye.
+ 
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 Horizontal Alignment
 \begin_inset CommandInset label
@@ -36616,6 +38627,56 @@ Middle is default
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Alignment-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to Horizontal, 
+\end_layout
+
+\begin_layout Standard
+the eye is aligned based on horizontal measurements using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Horizontal-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_layout Itemize
+Middle – The center of the eye is found by first computing the vertical
+ location of the widest horizontal opening of the middle eye, then computing
+ the horizontal midpoint.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by first computing the vertical location
+ of the widest horizontal opening of the widest eye, then computing the
+ horizontal midpoint.
 \end_layout
 
 \begin_layout Subsection
@@ -36732,6 +38793,55 @@ MaxMin is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Auto-Align-Eye"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, and the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Alignment-Mode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to Vertical, 
+\end_layout
+
+\begin_layout Standard
+the eye is aligned based on vertical measurements using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical-Alignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ mode:
+\end_layout
+
+\begin_layout Itemize
+MaxMin – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for the narrowest eye.
+\end_layout
+
+\begin_layout Itemize
+Max – The center of the eye is found by finding the horizontal location
+ where the vertical opening is maximized for any eye.
+ 
+\end_layout
+
 \begin_layout Subsection
 Measure Eye Parameters
 \begin_inset CommandInset label
@@ -36846,6 +38956,127 @@ False is default
 
 \end_layout
 
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to False, no measurements are made on the eye.
+ Turn this to False when debugging eye diagram creation that is failing
+ due to any inability to perform eye diagram measurements.
+\end_layout
+
+\begin_layout Standard
+Setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to True enables a large amount of other parameter choices:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Measurement-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the properties that determine how 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical/Horizontal"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ eye measurements are made.
+ These measurements appear in the left tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Bathtub-Curve-Measurement-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – The properties that determine the bathtub curve generation, which allows
+ the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ measurements.
+ These measurements appear in the right tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These can be analyzed looking at the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "pc:Eye-Annotation-Properties"
+
+\end_inset
+
+ – measurements made on the eye can be shown by painting directly on the
+ eye.
+\end_layout
+
 \begin_layout Subsection
 BER Exponent for Measure
 \begin_inset CommandInset label
@@ -36954,6 +39185,31 @@ Float
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is the probability contour on each eye where the measurements are made.
+ This is usually at the BER specified by a given standard.
 \end_layout
 
 \begin_layout Subsection
@@ -37070,6 +39326,66 @@ Mid is default
 
 \end_layout
 
+\begin_layout Standard
+If 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Eye-Parameters"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ determines where the decisiont threshold is.
+ It is either of:
+\end_layout
+
+\begin_layout Itemize
+Midpoint of Eye – as it says, the decision level is taken at the vertical
+ midpoint of the eye.
+\end_layout
+
+\begin_layout Itemize
+Best Decision Point – the least likely vertical location in the eye.
+\end_layout
+
+\begin_layout Standard
+Note that the best decision point is always calculated and shown in the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Vertical/Horizontal"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ tab of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but if Best Decision Point is chosen, the eye width will be calculated
+ at this vertical location.
+\end_layout
+
 \begin_layout Subsection
 Measure Bathtub Curves
 \begin_inset CommandInset label
@@ -37184,6 +39500,106 @@ False is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, bathtub curves are calculated and accessed through the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Error-Rates"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ measurements tab in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The bathtub curve measurement properties are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decades-Above-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Because many bathtub curves intersect vertically, at some point, meaning
+ the channel is not error free, it becomes somewhat difficult to separate
+ the histograms representing each bit being transmitted.
+ The parameter specifies how many decades above the location where the histogram
+s overlap to begin fitting the histogram.
+ Larger numbers mean that the fit is performed higher on the histogram with
+ less interaction of the other overlapping histogram.
+ Smaller numbers mean that the fit is performed closer to the overlap point.
+ Larger is better, but specifying this as too large may cause the measurement
+ to fail.
+ If so, set this to a small number (like zero) to debug the situation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Points-for-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – This is the number of points on the tail of the histogram to use for
+ the fit.
+ At least three points are needed (a quadratic is fit).
+ A few more points are better to provide an overconstrained fit, but too
+ many points cause the fit to deviate from the tail of the histogram.
+ It is desirable to fit the tail.
+\end_layout
+
 \begin_layout Subsection
 Decades Above for Fit
 \begin_inset CommandInset label
@@ -37294,6 +39710,48 @@ Float
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decades-Above-for"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies how many decades above the location where the histograms overlap
+ to begin fitting the histogram.
+ 
+\end_layout
+
+\begin_layout Standard
+This is used because many bathtub curves intersect vertically, at some point,
+ meaning the channel is not error free, it becomes somewhat difficult to
+ separate the histograms representing each bit being transmitted.
+ 
+\end_layout
+
+\begin_layout Standard
+Larger numbers mean that the fit is performed higher on the histogram with
+ less interaction of the other overlapping histogram.
+ Smaller numbers mean that the fit is performed closer to the overlap point.
+ Larger is better, but specifying this as too large may cause the measurement
+ to fail.
+ If so, set this to a small number (like zero) to debug the situation.
+\end_layout
+
 \begin_layout Subsection
 Minimum Points for Fit
 \begin_inset CommandInset label
@@ -37402,6 +39860,35 @@ Int
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Measure-Bathtub-Curves"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Minimum-Points-for-Fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies the number of points on the tail of the histogram to use for
+ the fit.
+ At least three points are needed (a quadratic is fit).
+ A few more points are better to provide an overconstrained fit, but too
+ many points cause the fit to deviate from the tail of the histogram.
+ It is desirable to fit the tail.
 \end_layout
 
 \begin_layout Subsection
@@ -37518,6 +40005,152 @@ False is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, the resulting eye diagram is decorated with indicators
+ of the measurements made:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotation-Color"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – the color of the annotations.
+ Generally, it's best to choose a highly contrasting color to the color
+ of the eye (like a complementary color: Green for red eye diagrams, Violet
+ for yellow eye diagrams, Orange for blue eye diagrams, and vice versa.)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Mean-Levels"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a horizontal line through the most probable levels at each bit.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Levels-Extents"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw horizontal dotted lines at the extents of the bit levels (also the
+ extent of the eye height).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Width"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a horizontal line representing the horizontal start, stop and width
+ of the eye.
+ This is drawn at a vertical location that depends on the choice of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Height"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – draw a vertical line representing the bottom, top and height of the eye.
+ This is always drawn at the horizontal midpoint of the eye.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Contour"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – try to draw a line around the contour of the eye representing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It says try, because it is not always perfectly joined.
+ The method used is based on 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Which-Contours-to-Show"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+All Contours – at the perimeter of any probability contour having the probabilit
+y specified.
+ This performs better on more closed eyes.
+\end_layout
+
+\begin_layout Itemize
+Only Contours inside Eye – at the perimeter of the contour bounded by the
+ eye height and width.
+ This performs better on more open eyes.
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 Annotation Color
 \begin_inset CommandInset label
@@ -37628,6 +40261,33 @@ RGB color (string)
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotation-Color"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies the color of the annotations.
+ Generally, it's best to choose a highly contrasting color to the color
+ of the eye (like a complementary color: Green for red eye diagrams, Violet
+ for yellow eye diagrams, Orange for blue eye diagrams, and vice versa.)
 \end_layout
 
 \begin_layout Subsection
@@ -37744,6 +40404,31 @@ True is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Mean-Levels"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies whether to draw a horizontal line through the most probable levels
+ at each bit.
+\end_layout
+
 \begin_layout Subsection
 Annotate Levels Extents
 \begin_inset CommandInset label
@@ -37856,6 +40541,31 @@ False is default
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Levels-Extents"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies whether to draw horizontal dotted lines at the extents of the
+ bit levels (also the extent of the eye height).
 \end_layout
 
 \begin_layout Subsection
@@ -37972,6 +40682,42 @@ True is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Width"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies whether to draw a horizontal line representing the horizontal
+ start, stop and width of the eye.
+ This is drawn at a vertical location that depends on the choice of 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Decision-Level"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Annotate Eye Height
 \begin_inset CommandInset label
@@ -38084,6 +40830,79 @@ True is default
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-Height"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies whether to draw a vertical line representing the bottom, top
+ and height of the eye.
+ This is always drawn at the horizontal midpoint of the eye.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Contour"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – try to draw a line around the contour of the eye representing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It says try, because it is not always perfectly joined.
+ The method used is based on 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Which-Contours-to-Show"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+All Contours – at the perimeter of any probability contour having the probabilit
+y specified.
+ This performs better on more closed eyes.
+\end_layout
+
+\begin_layout Standard
+Only Contours inside Eye – at the perimeter of the contour bounded by the
+ eye height and width.
+ This performs better on more open eyes.
 \end_layout
 
 \begin_layout Subsection
@@ -38200,6 +41019,65 @@ False is default
 
 \end_layout
 
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Contour"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies whether to try to draw a line around the contour of the eye represent
+ing the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:BER-Exponent-for-Measure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It says try, because it is not always perfectly joined.
+ The method used is based on 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Which-Contours-to-Show"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+All Contours – at the perimeter of any probability contour having the probabilit
+y specified.
+ This performs better on more closed eyes.
+\end_layout
+
+\begin_layout Itemize
+Only Contours inside Eye – at the perimeter of the contour bounded by the
+ eye height and width.
+ This performs better on more open eyes.
+\end_layout
+
 \begin_layout Subsection
 Which Contours to Show
 \begin_inset CommandInset label
@@ -38312,6 +41190,52 @@ Eye is default
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Eye-with-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Annotate-Contour"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Which-Contours-to-Show"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ specifies how the contour will be drawn:
+\end_layout
+
+\begin_layout Itemize
+All Contours – at the perimeter of any probability contour having the probabilit
+y specified.
+ This performs better on more closed eyes.
+\end_layout
+
+\begin_layout Itemize
+Only Contours inside Eye – at the perimeter of the contour bounded by the
+ eye height and width.
+ This performs better on more open eyes.
 \end_layout
 
 \begin_layout Section
@@ -68887,7 +71811,7 @@ reference "Control-Help:Enforce-Passivity"
 \end_layout
 
 \begin_layout Itemize
-enforce both passivity and causality – is the same as issuing 
+post enforce both – is the same as issuing 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
@@ -68898,7 +71822,7 @@ reference "Control-Help:Enforce-Both-Passivity-and-Reciprocity"
 \end_layout
 
 \begin_layout Itemize
-enforce reciprocity - is the same as issuing 
+post enforce reciprocity - is the same as issuing 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-Reciprocity"
@@ -68909,7 +71833,7 @@ reference "Control-Help:Enforce-Reciprocity"
 \end_layout
 
 \begin_layout Itemize
-enforce all – is the same as issuing 
+post enforce all – is the same as issuing 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Enforce-All"
@@ -68922,6 +71846,11 @@ reference "Control-Help:Enforce-All"
 \begin_layout Itemize
 post limit <negative> <positive> - limits the impulse response lengths of
  the final result to be between the negative and positive time values specified.
+\end_layout
+
+\begin_layout Itemize
+post reference impedance <value> - sets the resulting s-parameter calculation
+ reference impedance according to the value specified.
 \end_layout
 
 \begin_layout Section
@@ -69061,6 +71990,11 @@ reference "Control-Help:Enforce-All"
 \begin_layout Itemize
 limit <negative> <positive> - limits the impulse response lengths of the
  final result to be between the negative and positive time values specified.
+\end_layout
+
+\begin_layout Itemize
+reference impedance <value> – sets the resulting s-parameter calculation
+ reference impedance according to the value specified.
 \end_layout
 
 \begin_layout Standard
