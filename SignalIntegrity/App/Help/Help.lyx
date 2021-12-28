@@ -15966,6 +15966,19 @@ noprefix "false"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - tasks for viewing eye diagram measurements.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "subsec:Eye-Diagram-Help"
 plural "false"
 caps "false"
@@ -16633,6 +16646,424 @@ noprefix "false"
 \end_inset
 
  have been made, and there is no need to redo the entire simulation.
+\end_layout
+
+\begin_layout Subsection
+View
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eye-Diagram-View"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tasks in this category are for dealing with viewing measurement results.
+ These tasks are:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Eye-Measurements"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for viewing eye measurements.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Bathtub-Curve"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - for viewing bathtub curves.
+\end_layout
+
+\begin_layout Subsubsection
+Eye Measurements
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Eye-Measurements"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Eye Measurements
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing the Eye Measurements command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Measurements-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for viewing eye measurements.
+\end_layout
+
+\begin_layout Subsubsection
+Bathtub Curve
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Bathtub-Curve"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Eye-Diagram-View"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Bathtub Curve
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,B
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing this command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Bathtub-Curves-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for viewing bathtub curves.
 \end_layout
 
 \begin_layout Subsection
@@ -17610,6 +18041,84 @@ noprefix "false"
 
  settings.
  Further re-scaling is possible by simply resizing the final canvas.
+\end_layout
+
+\begin_layout Section
+Eye Diagram Measurements Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Eye-Diagram-Measurements-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Vertical/Horizontal
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Vertical/Horizontal"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeDiagramMeasurementsVerticalHorizontalPAM4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Error Rates
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Error-Rates"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EyeDiagramMeasurementsErrorRatesPAM4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Bathtub Curves Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Bathtub-Curves-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename BathtubCurveDialogPAM4.png
+	lyxscale 80
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
