@@ -58,8 +58,6 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.AutoAlignFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.DecisionFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
-        self.DecisionFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.MeasurementsFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.MeasurementsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.BitsPerSymbol=CalculationProperty(self.GeneralFrame,'Bits per Symbol',self.onUpdateFromChanges,None,self.project,'Alignment.BitsPerSymbol',tooltip='The number of bits transmitted per symbol\n1=NRZ, or PAM-2, 2=PAM-4, 3=PAM-8')
@@ -79,7 +77,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.BERForMeasure=CalculationProperty(self.MeasurementsFrame,'BER Exponent for Measure',self.onUpdateFromChanges,None,self.project,'Measure.BERForMeasure')
         if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
             self.NoisePenalty=CalculationPropertySI(self.MeasurementsFrame,'Noise Penalty',self.onUpdateFromChanges,None,self.project,'Measure.NoisePenalty','dB')
-        self.DecisionMode=CalculationPropertyChoices(self.DecisionFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
+        self.DecisionMode=CalculationPropertyChoices(self.MeasurementsFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
         self.BathtubFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
         self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.BathtubCurves=CalculationPropertyTrueFalseButton(self.BathtubFrame,'Measure Bathtub Curves',self.onUpdateFromChanges,None,self.project,'Bathtub.Measure')
@@ -147,6 +145,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         bathtub=self.project['Bathtub.Measure']
         self.BathtubFrame.pack_forget()
         self.AnnotateFrame.pack_forget()
+        self.DecisionMode.Show(measure)
         self.BERForMeasure.Show(measure)
         if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
             self.NoisePenalty.Show(measure)
