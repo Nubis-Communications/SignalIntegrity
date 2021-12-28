@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,106 +1073,49 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-87.html#next">Prev</a> Current Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-89.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-87.html#next">Prev</a> Annotate Contour</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-20.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-88"></a>Voltage DC Source<a class="Label" name="device:Voltage-DC-Source"> </a>
+<a class="toc" name="toc-Subsection-88"></a>Which Contours to Show<a class="Label" name="sub:Which-Contours-to-Show"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="VoltageSourceDC.png" alt="figure VoltageSourceDC.png" style="width: 377px; max-width: 1508px; height: 118px; max-height: 475px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Type
+<b>Type</b>
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-category
+<td align="center" valign="top" style="width: 8cm;">
+Which Contours to Show
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+EyeDiagram.Annotation.Contours.Which
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+Enum
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
 
-</td>
-<td align="center" valign="top" style="width: 2cm;">
+</div>
+<div class="PlainVisible">
+Eye or All<br/>
+Eye is default
+</div>
 
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Sources
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-VS?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-VS1
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-amplitude
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-a
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-V
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 V
 </td>
 
 </tr>
@@ -1180,16 +1123,10 @@ V
 </table>
 
 </div>
-<div class="Standard">
-The DC voltage source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC voltage.
-</div>
-<div class="Standard">
-The DC voltage source is handled specially in that it does not provide a waveform, but rather a number representing the DC voltage. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the voltage specified. The transfer characteristics of a DC voltage source through the system is to take the DC response of the system.
-</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-87.html#next">Prev</a> Current Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-89.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-87.html#next">Prev</a> Annotate Contour</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-20.html#prev">Next</a></span>
 </div>
 
 </div>

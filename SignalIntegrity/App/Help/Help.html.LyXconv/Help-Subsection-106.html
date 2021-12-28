@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Voltage Diff Probe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Differential Eye Probe <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Telegrapher - Four Port</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">W Element <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-106"></a>Eye Probe<a class="Label" name="device:Eye-Probe"> </a>
+<a class="toc" name="toc-Subsection-106"></a>RLGC Fit<a class="Label" name="device:RLGC-Fit"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="EyeProbe.png" alt="figure EyeProbe.png" style="width: 103px; max-width: 412px; height: 161px; max-height: 647px;"/>
+<img class="embedded" src="RLGC.png" alt="figure RLGC.png" style="width: 142px; max-width: 569px; height: 117px; max-height: 470px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Ports and Probes
+Transmission Lines
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+T?
 </td>
 
 </tr>
@@ -1160,67 +1160,31 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-baud rate
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-br
+file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-Baud
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1 GBaud
+None
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-delay
+scale
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-td
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-voltage offset
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-offset
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-V
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 V
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-voltage gain
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-gain
+scale
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
@@ -1235,36 +1199,21 @@ gain
 
 </div>
 <div class="Standard">
-The output probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms along with eye diagrams to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>. As such, this probe behaves exactly like a <a class="Reference" href="Help-Subsection-105.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a>, with the addition of the eye diagram.
+This device is a two-port transmission line as in <a class="Reference" href="Help-Subsection-104.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↑</a> where the constants for the transmission line are formed by fitting the s-parameters contained in the file specified to an RLGC transmission line.
 </div>
 <div class="Standard">
-When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
+The fit is performed by estimating the impedance and the delay through the line and using that to form a guess of the inductance and capacitance of the line. Initially no series resistance, skin-effect resistance, dissipation factor of conductance is in the guess.
 </div>
 <div class="Standard">
-When placing an output probe, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a probe will assign the value VO3 to the probe reference designator. This, of course, can be changed by the user.
+The fit proceeds until it converges and the fitted s-parameters are used as the device.
 </div>
 <div class="Standard">
-There are some special prefixes on the reference that cause the calculation result to be special calculations:
-</div>
-<ul>
-<li>
-’d/’ — causes the derivative of the waveform to be calculated.
-</li>
-<li>
-’i/’ — causes the integral of the waveform to be calculated.
-</li>
-<li>
-’di/’ — causes the integral of the derivative to be calculated.
-</li>
-
-</ul>
-<div class="Standard">
-When simulations are complete, for each Eye Probe, the <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval. Currently, this unit interval is fixed, and the eye will be aligned in a manner assuming that the center of a unit interval occurs at time zero. In order to align the eye diagram, you must adjust the delay accordingly. This will be improved in future versions.
+The scale variable allows the fitted line to be scaled. This is particularly useful when model fitting to perform a 2x thru de-embedding where a scale of 0.5 splits the model in half.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Voltage Diff Probe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Differential Eye Probe <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-105.html#next">Prev</a> Telegrapher - Four Port</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">W Element <a class="next" name="next" href="Help-Subsection-107.html#prev">Next</a></span>
 </div>
 
 </div>

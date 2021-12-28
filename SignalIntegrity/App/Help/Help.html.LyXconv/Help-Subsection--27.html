@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Appearance.PlotCursorValues</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Preferences</span>
-<span class="next"><a class="next" name="next"> </a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Appearance.Color.Plot</span>
+<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
+<span class="next">SParameterProperties.SignificantDigits <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--27"></a>SParameterProperties.SignificantDigits<a class="Label" name="sub:SParameterProperties.SignificantDigits"> </a>
+<a class="toc" name="toc-Subsection--27"></a>Appearance.PlotCursorValues<a class="Label" name="sub:Appearance.PlotCursorValues"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-significant digits
+show cursor values on plots
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--27.html#sub:SParameterProperties.SignificantDigits">SParameterProperties.SignificantDigits↑</a>
+<a class="Reference" href="Help-Subsection--27.html#sub:Appearance.PlotCursorValues">Appearance.PlotCursorValues↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Int
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-6
+False
 </div>
 
 </td>
@@ -1120,7 +1120,22 @@ Int
 
 </div>
 <div class="Standard">
-Normally, when s-parameters are written to a file, 6 significant digits are used, without exponent. This is in the interest of space (remember that 0.000001 is -100 dB). If you want more digits, you can raise this number to something higher. In the future, exponents might be allowed, but this is the best compromise for now.
+<div class="center">
+<img class="embedded" src="PlotCursors.png" alt="figure PlotCursors.png" style="max-width: 611px; max-height: 556px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+In the embedded <i>matplotlib</i> plot dialogs, such as the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> or the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a> windows, if one hovers the mouse over the plots, the (x,y) coordinates within the plot are plotted in the lower right-hand corner of each. This can be useful and act as cursors, sort of. But they are also visually annoying and tend to cause constant, erratic changes to the plot size.
+</div>
+<div class="Standard">
+To remove the annoyance, this feature can be controlled by this preference.
+</div>
+<div class="splitheader">
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Appearance.Color.Plot</span>
+<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
+<span class="next">SParameterProperties.SignificantDigits <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 
 </div>

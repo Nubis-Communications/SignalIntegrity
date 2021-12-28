@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,77 +1073,65 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-57.html#next">Prev</a> Cut Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-61.html#next">Prev</a> Eye Mode</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Deterministic Jitter <a class="next" name="next" href="Help-Subsection-63.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-62"></a>Parts<a class="Label" name="sub:Parts"> </a>
+<a class="toc" name="toc-Subsection-62"></a>Random Jitter<a class="Label" name="sub:Random-Jitter"> </a>
 </h2>
 <div class="Standard">
-The Parts tasks are a category in the <a class="Reference" href="Help-Section-18.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for adding all elements of the schematic (except the connection <a class="Reference" href="Help-Subsection-63.html#sub:Wires">Wires↓</a>). All elements of the schematic are parts, but some parts are special and can be added more easily through menu commands:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-58.html#Control-Help:Add-Part">Add Part↓</a> — Adds any part to the schematic. These parts are cataloged in <a class="Reference" href="Help-Section-19.html#sec:Built-in-Devices">Built-in Devices (Parts)↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-59.html#Control-Help:Add-Net-Name">Add Net Name↓</a> — Adds a <a class="Reference" href="Help-Subsection-77.html#device:Net-Name">Net Name↓</a> to the schematic.
-</li>
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
 
-</ul>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+Random Jitter
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection-62.html#sub:Random-Jitter">Random Jitter↑</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Float
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+0 s
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
 <div class="Standard">
-The remaining add tasks are for adding special parts used for specific applications:
+In the industry, random jitter generally refers to jitter with a Gaussian, unbounded distribution. Random jitter refers to that here (even though there are many other types of random jitter, both bounded and unbounded.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Add-Port">Add Port↓</a> - Adds a <a class="Reference" href="Help-Subsection-100.html#device:Port">Port↓</a>. (used for <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-61.html#Control-Help:Add-Output-Probe">Add Output Probe↓</a> - Adds an <a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↓</a>. (used for <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Add-Measure-Probe">Add Measure Probe↓</a> - Adds a <a class="Reference" href="Help-Subsection-101.html#device:Measure-Probe">Voltage Measure Probe↓</a>. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-63.html#Control-Help:Add-Stim">Add Stim↓</a> - Adds a <a class="Reference" href="Help-Subsection-103.html#device:Stim">Stim↓</a>. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-64.html#Control-Help:Add-Unknown">Add Unknown↓</a> - Adds a device whose s-parameters are unknown. (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>)
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-65.html#Control-Help:Add-System">Add System↓</a> - Adds a device that represents the s-parameters of a system. (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>)
-</li>
-
-</ul>
 <div class="Standard">
-If a part is selected, the following tasks are also possible:
+When the <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a> is set to Jitter &amp; Noise, this jitter forms the Gaussian portion.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Delete-Part">Delete Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-67.html#Control-Help:Edit-Properties">Edit Properties↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-68.html#Control-Help:Duplicate-Part">Duplicate Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-69.html#Control-Help:Rotate-Part">Rotate Part↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-70.html#Control-Help:Flip-Horizontally">Flip Horizontally↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-71.html#Control-Help:Flip-Vertically">Flip Vertically↓</a>
-</li>
-
-</ul>
+<div class="Standard">
+When <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a> is set to ISI Only, this jitter value is not used and not shown.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-57.html#next">Prev</a> Cut Selected</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Add Part <a class="next" name="next" href="Help-Subsubsection-58.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-61.html#next">Prev</a> Eye Mode</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Deterministic Jitter <a class="next" name="next" href="Help-Subsection-63.html#prev">Next</a></span>
 </div>
 
 </div>

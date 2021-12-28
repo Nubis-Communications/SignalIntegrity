@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> AskToSaveCurrentFile</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Preferences</span>
-<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> OpenLastFile</span>
+<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
+<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--16"></a>Cache.CacheResults<a class="Label" name="sub:Cache.CacheResults"> </a>
+<a class="toc" name="toc-Subsection--16"></a>AskToSaveCurrentFile<a class="Label" name="sub:AskToSaveCurrentFile"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,10 +1099,10 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-cache results
+ask to save current file
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--16.html#sub:Cache.CacheResults">Cache.CacheResults↑</a>
+<a class="Reference" href="Help-Subsection--16.html#sub:AskToSaveCurrentFile">AskToSaveCurrentFile↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1120,48 +1120,15 @@ True
 
 </div>
 <div class="Standard">
-This preference determines whether results will be <i>cached</i> to speed up computation.
+This preference determines whether the application will unconditionally ask whether you want to save the changes to the current project file prior to exiting the application.
 </div>
 <div class="Standard">
-Caching is performed on transfer matrix calculations performed in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and on s-parameter results in <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>. No caching is performed on any waveform results.
-</div>
-<div class="Standard">
-Caching is performed by:
-</div>
-<ul>
-<li>
-Generating a hash corresponding to the <a class="Reference" href="Help-Section-20.html#sec:Netlist">Netlist↑</a> and calculation properties (see <a class="Reference" href="Help-Subsection-3.html#sub:Setting-Calculation-Properties">Setting Calculation Properties↑</a>).
-</li>
-<li>
-Attempting to load a cache file.
-</li>
-<li>
-Comparing the hash to the hash stored in the cache file.
-</li>
-<li>
-Comparing the timestamp of the cache file to the timestamp of any of the files required in the calculation.
-</li>
-
-</ul>
-<div class="Standard">
-If this preference is True, whenever a calculation result is computed by the application, a cached result is written with a filename prefixed by the project file name, and suffixed with a concatenation of the word ’_cached’ and either ’TransferMatrices.p’ for <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> or ’SParameters.p’ for <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>.
-</div>
-<div class="Standard">
-For example, the simulation project file named ’RLCTest.xml’ would produce cached transfer matrices named ’RLCTest_cachedTransferMatrices.p’ and the s-parameter project file ’CascadedTwoPorts’ would produce the cached s-parameters named ’CascadedTwoPorts_cachedSParameters.p’.
-</div>
-<div class="Standard">
-Again, when this preference is set to True, transfer matrices or s-parameters from a cached file would be utilized whenever <a class="Reference" href="Help-Subsection-65.html#sub:Calculate">Calculate↑</a> is initiated, the cached file is found, the hash matches the hash of the netlist and calculation properties, and the timestamp of the cached file is later than any files utilized in the calculation.
-</div>
-<div class="Standard">
-Since only transfer matrices are cached in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> and <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications, waveform processing always proceeds as usual.
-</div>
-<div class="Standard">
-Using caching greatly speeds up computation, but tends to litter the disk with these files, which can be quite large. It’s useful to occasionally delete all of the files named ’*_cached*.p’ from the system. This must be performed manually.
+Currently, it has no knowledge of whether the project was recently changed.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> AskToSaveCurrentFile</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Preferences</span>
-<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> OpenLastFile</span>
+<span class="up"><a class="up" name="up" href="Help-Section-25.html">Up</a> Preferences</span>
+<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
 </div>
 
 </div>

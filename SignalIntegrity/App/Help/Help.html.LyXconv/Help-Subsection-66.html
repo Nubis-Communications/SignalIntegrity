@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,75 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-88.html#next">Prev</a> Calculate Error Terms</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Open Help File <a class="next" name="next" href="Help-Subsubsection-89.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Max Kernel Pixels</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Max Exponent <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-66"></a>Help<a class="Label" name="sub:Help"> </a>
+<a class="toc" name="toc-Subsection-66"></a>Log Intensity<a class="Label" name="sub:Log-Intensity"> </a>
 </h2>
 <div class="Standard">
-The Help tasks are a category in the <a class="Reference" href="Help-Section-18.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> for dealing with the help system:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-89.html#Control-Help:Open-Help-File">Open Help File↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-90.html#Control-Help:Control-Help">Control Help↓</a> - for help on any menu elements or toolbar buttons.
-</li>
-<li>
-<a class="Reference" href="Help-Section-24.html#sec:Preferences">Preferences↓</a> - for editing any global preferences.
-</li>
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
 
-</ul>
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+Log Intensity
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection-66.html#sub:Log-Intensity">Log Intensity↑</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+False
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="LogIntensity.png" alt="figure LogIntensity.png" style="max-width: 450px; max-height: 300px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+When <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a> is set to Jitter &amp; Noise, it is sometimes useful to view the eye diagram with an intensity that is proportional to the Log of the intensity, rather than proportional to the intensity itself. This sometimes help see the eye in a manner more related to the bit-error-rate (BER).
+</div>
+<div class="Standard">
+In the plot above, the <a class="Reference" href="Help-Subsection-67.html#sub:Max-Exponent">Max Exponent↓</a> is set to zero and the <a class="Reference" href="Help-Subsection-68.html#sub:Min-Exponent">Min Exponent↓</a> is set to -12.
+</div>
+<div class="Standard">
+the color is completely saturated wherever the chance of hitting the pixel is above 1.0, (which is almost never, but some come close to that), and is completely dark and black where the chance is below one in 1e-12.
+</div>
+<div class="Standard">
+When <a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a> is set to ISI Only, Log Intensity is not used and this value is not shown.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-88.html#next">Prev</a> Calculate Error Terms</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">Open Help File <a class="next" name="next" href="Help-Subsubsection-89.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-65.html#next">Prev</a> Max Kernel Pixels</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Max Exponent <a class="next" name="next" href="Help-Subsection-67.html#prev">Next</a></span>
 </div>
 
 </div>

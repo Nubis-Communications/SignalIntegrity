@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Transconductance Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Operational Amplifier <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Voltage Pulse Generator</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Multi-Level Waveform Generator <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-115"></a>Transresistance Amplifier<a class="Label" name="device:Transresistance-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-115"></a>Voltage PRBS Generator<a class="Label" name="device:Voltage-PRBS-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TransresistanceAmplifier.png" alt="figure TransresistanceAmplifier.png" style="max-width: 660px; max-height: 162px;"/>
+<img class="embedded" src="VoltagePRBSGenerator.png" alt="figure VoltagePRBSGenerator.png" style="max-width: 397px; max-height: 239px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Amplifiers
+Generators
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+VG?
 </td>
 
 </tr>
@@ -1160,55 +1160,145 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
+amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zo
+a
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohm
+V
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 ohm
+1.0 V
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-input impedance
+sample rate
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zi
+fs
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohm
+S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 ohm
+40.0 GS/s
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gain
+prbs
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-gain
+prbs
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0
+7
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+bitrate
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+b/s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 Gb/s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+start time
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+t0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+duration
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dur
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+200.0 ns
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+horizontal offset
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ho
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+-100.0 ns
 </td>
 
 </tr>
@@ -1217,12 +1307,27 @@ gain
 
 </div>
 <div class="Standard">
-The transresistance amplifier is like a <a class="Reference" href="Help-Subsection-111.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↑</a> except that the input impedance of the current sense is settable and the output impedance of the voltage source is settable.
+The voltage PRBS generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pseudo-random NRZ <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> to the system.
+</div>
+<div class="Standard">
+The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
+</div>
+<div class="Standard">
+The waveform uses the PRBS polynomial specified at the bitrate specified.
+</div>
+<div class="Standard">
+If a nonzero risetime is specified, the first edge crosses 50% at the start time.
+</div>
+<div class="Standard">
+The maximum risetime is 59% of the unit interval (the reciprocal of the bitrate).
+</div>
+<div class="Standard">
+The PRBS pattern calculated is such that the entire duration of the waveform contains however many bits of the PRBS polynomial dictated sequence fits into the waveform. If the waveform starts at zero, this is what would be expected, but if it starts at negative time, the negative time contains the PRBS bits wrapped around.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Transconductance Amplifier</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Operational Amplifier <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Voltage Pulse Generator</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Multi-Level Waveform Generator <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1075,472 +1075,42 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Section-16.html#next">Prev</a> Eye Diagram Calculation</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Eye Diagram Color <a class="next" name="next" href="Help-Subsection-41.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-41.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-17"></a>Eye Diagram Properties<a class="Label" name="sec:Eye-Diagram-Properties"> </a>
+<a class="toc" name="toc-Section-17"></a>Main Schematic Dialog<a class="Label" name="sec:Main-Schematic-Dialog"> </a>
 </h1>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="EyeDiagramProperties.png" alt="figure EyeDiagramProperties.png" style="max-width: 672px; max-height: 601px;"/>
-
+When <b><i>SignalIntegrityApp</i></b> opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The menu bar is broken into sections where appropriate. These are:
 </div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-41.html#sub:File">File↓</a> - tasks for dealing with the project file.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-42.html#sub:Edit">Edit↓</a> - tasks for undoing and redoing tasks in the schematic.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-43.html#sub:Parts">Parts↓</a> - tasks for dealing with schematic elements in the drawing.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-44.html#sub:Wires">Wires↓</a> - tasks for dealing with wires connecting schematic elements.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-45.html#sub:View">View↓</a>- tasks for controlling the view of the schematic.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-46.html#sub:Calculate">Calculate↓</a> - tasks for performing calculations on the schematic.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-47.html#sub:Help">Help↓</a> - tasks dealing with the help system.
+</li>
 
-</div>
-<div class="Standard">
-The Eye Diagram Properties are accessed from the <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a>.
-</div>
-<div class="Standard">
-These properties are edited using the <a class="Reference" href="Help-Subsubsection-40.html#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties↑</a> command. The properties control how the eye diagram is calculated and displayed. See <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
-</div>
-<div class="Standard">
-When a project is created and an eye diagram is generated for the first time, these properties are actually initialized by values held in the <a class="Reference" href="Help-Section-24.html#sec:Preferences">Preferences↓</a> file. Once initialized however, they are saved in the project file and pertain to all eye diagrams generated in the project. If you are happy with the settings, you may save these globally to the preferences file, thus causing all new projects created to default to these new settings.
-</div>
-<div class="Standard">
-The Eye Diagram Properties are:
-</div>
-<div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Description</b>
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<b>Preference Name</b>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-<b>Type</b>
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<b>(Default) Value</b>
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<b>Availability</b>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-41.html#sub:Eye-Diagram-Color">Eye Diagram Color↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-RGB color (string)
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-’#ffffff’ (white)
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Number of UI
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-42.html#sub:Number-of-UI">Number of UI↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-3
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Number of Rows
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-43.html#sub:Number-of-Rows">Number of Rows↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-200
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Number of Columns
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-44.html#sub:Number-of-Columns">Number of Columns↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-200
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Saturation
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-45.html#sub:Saturation">Saturation↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-20%
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Scale X
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-46.html#sub:Scale-X">Scale X↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-75%
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Scale Y
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-47.html#sub:Scale-Y">Scale Y↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-200%
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Invert Plot
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-48.html#sub:Invert-Plot">Invert Plot↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-True
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Y Axis
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-49.html#sub:Y-Axis">Y Axis↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Enum Auto or Fixed
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-Auto
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Maximum Y
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-50.html#sub:Maximum-Y">Maximum Y↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-1.0
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Y Axis is Fixed
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Minimum Y
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-51.html#sub:Minimum-Y">Minimum Y↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-0.0
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Y Axis is Fixed
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Eye Mode
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-52.html#sub:Eye-Mode">Eye Mode↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-<div class="PlainVisible">
-Enum
-</div>
-<div class="PlainVisible">
-<div class="left">
-ISI Only 
-</div>
-
-</div>
-<div class="PlainVisible">
-<div class="left">
-or
-</div>
-
-</div>
-<div class="PlainVisible">
-<div class="left">
-Jitter &amp; Noise
-</div>
-
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-ISI Only
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Always
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Random Jitter
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-53.html#sub:Random-Jitter">Random Jitter↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-0 s
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Deterministic Jitter
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-54.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-0 s
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Noise
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-55.html#sub:Noise">Noise↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-0 V
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Max Kernel Pixels
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-56.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-100,000
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Log Intensity
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-57.html#sub:Log-Intensity">Log Intensity↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-False
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Min Exponent
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-58.html#sub:Max-Exponent">Max Exponent↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
-0
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise and Log Intensity is True
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-Min Exponent
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-59.html#sub:Min-Exponent">Min Exponent↓</a>
-</td>
-<td align="center" valign="top" style="width: 4cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 3cm;">
-<div class="left">
--12
-</div>
-
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-Eye Mode is Jitter &amp; Noise and Log Intensity is True
-</td>
-
-</tr>
-
-</table>
-
-</div>
+</ul>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Section-16.html#next">Prev</a> Eye Diagram Calculation</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Eye Diagram Color <a class="next" name="next" href="Help-Subsection-41.html#prev">Next</a></span>
+<span class="next">File <a class="next" name="next" href="Help-Subsection-41.html#prev">Next</a></span>
 </div>
 
 </div>

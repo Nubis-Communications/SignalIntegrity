@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Current DC Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> File</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-90"></a>Voltage Noise Generator<a class="Label" name="device:Voltage-Noise-Generator"> </a>
+<a class="toc" name="toc-Subsection-90"></a>Resistor<a class="Label" name="device:Resistor"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageNoiseGeneratorOnePort.png" alt="figure VoltageNoiseGeneratorOnePort.png" style="max-width: 200px; max-height: 176px;"/>
-<img class="embedded" src="VoltageNoiseGeneratorTwoPort.png" alt="figure VoltageNoiseGeneratorTwoPort.png" style="max-width: 200px; max-height: 176px;"/>
+<img class="embedded" src="ResistorOnePort.png" alt="figure ResistorOnePort.png" style="max-width: 124px; max-height: 169px;"/>
+<img class="embedded" src="ResistorTwoPort.png" alt="figure ResistorTwoPort.png" style="max-width: 152px; max-height: 84px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Generators
+Resistors
 </td>
 
 </tr>
@@ -1137,7 +1137,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VG?
+R?
 </td>
 
 </tr>
@@ -1161,91 +1161,19 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-amplitude
+resistance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-vrms
+r
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<span class="formula"><span class="mathrm">V<sub>rms</sub></span></span>
+ohms
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<span class="formula">0 <i>V</i><sub><i>rms</i></sub></span>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-sample rate
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-fs
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-S/s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-40.0 GS/s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-duration
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-dur
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-200.0 ns
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-horizontal offset
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ho
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100.0 ns
+50.0 ohms
 </td>
 
 </tr>
@@ -1254,12 +1182,12 @@ s
 
 </div>
 <div class="Standard">
-The voltage noise generator generates random, normally distributed, zero-mean noise with an rms voltage as specified.
+This is a one and two port resistor with the given resistance.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> Current DC Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-89.html#next">Prev</a> File</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-91.html#prev">Next</a></span>
 </div>
 
 </div>

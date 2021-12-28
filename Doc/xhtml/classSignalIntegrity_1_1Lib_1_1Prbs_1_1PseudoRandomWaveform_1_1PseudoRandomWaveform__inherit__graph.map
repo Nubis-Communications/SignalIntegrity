@@ -1,5 +1,5 @@
 <map id="PseudoRandomWaveform" name="PseudoRandomWaveform">
-<area shape="rect" id="node1" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="5,447,196,524"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="21,307,180,399"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="26,5,175,259"/>
+<area shape="rect" id="node1" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="9,461,200,539"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="25,321,184,413"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,204,273"/>
 </map>

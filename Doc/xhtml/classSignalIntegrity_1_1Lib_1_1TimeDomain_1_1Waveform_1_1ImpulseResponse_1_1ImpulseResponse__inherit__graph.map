@@ -1,4 +1,4 @@
 <map id="ImpulseResponse" name="ImpulseResponse">
-<area shape="rect" id="node1" title="impulse response of a filter as a waveform" alt="" coords="5,307,183,457"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="19,5,169,259"/>
+<area shape="rect" id="node1" title="impulse response of a filter as a waveform" alt="" coords="16,321,193,472"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,204,273"/>
 </map>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1108,19 +1108,19 @@ In order to virtually probe a circuit, you first need a schematic containing a n
 You will need to supply probing points in the circuit for providing measured waveforms (<a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↓</a>) and for specifying the output waveforms <i>(<a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↓</a></i>).
 </div>
 <div class="Standard">
-A <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↓</a> requires a <a class="Reference" href="Help-Section-23.html#sec:Waveform">Waveform↓</a> file that provides the waveform measured at that location. We talk about these in <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↓</a>.
+A <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↓</a> requires a <a class="Reference" href="Help-Section-24.html#sec:Waveform">Waveform↓</a> file that provides the waveform measured at that location. We talk about these in <a class="Reference" href="Help-Subsection-20.html#sub:Measure-Probes">Measure Probes↓</a>.
 </div>
 <div class="Standard">
-An <a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↓</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe (without loading effects). We talk about these in <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↓</a>.
+An <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↓</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe (without loading effects). We talk about these in <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↓</a>.
 </div>
 <div class="Standard">
-For virtual probing to work correctly, all sources of stimuli (i.e. waves entering the system, or sources of voltage and/or current) must be identified. In virtual probing, you don’t supply stimuli, only tell it how it enters the system. This identification of stimuli is achieved through the use of the <a class="Reference" href="Help-Subsection-103.html#device:Stim">Stim↓</a>. This is discussed in <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↓</a>.
+For virtual probing to work correctly, all sources of stimuli (i.e. waves entering the system, or sources of voltage and/or current) must be identified. In virtual probing, you don’t supply stimuli, only tell it how it enters the system. This identification of stimuli is achieved through the use of the <a class="Reference" href="Help-Subsection-125.html#device:Stim">Stim↓</a>. This is discussed in <a class="Reference" href="Help-Subsection-22.html#sub:Stimuli">Stimuli↓</a>.
 </div>
 <div class="Standard">
 Once you are ready for virtual probing, you should configure the Calculation properties. See <a class="Reference" href="Help-Subsection-23.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing↓</a>.
 </div>
 <div class="Standard">
-Once a circuit is drawn containing at least one <a class="Reference" href="Help-Subsection-103.html#device:Stim">Stim↓</a>, at least one <a class="Reference" href="Help-Subsection-101.html#device:Measure-Probe">Voltage Measure Probe↓</a> and at least one <a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↓</a>, presumably with a circuit that has been properly configured, you can virtually probe the circuit. Virtual probing involves first the calculation of transfer parameters which are applied to the measured input waveforms to generate the output waveforms and the waveforms are displayed. See <a class="Reference" href="Help-Subsection-24.html#sub:Virtual-Probing">Virtual Probing↓</a>.
+Once a circuit is drawn containing at least one <a class="Reference" href="Help-Subsection-125.html#device:Stim">Stim↓</a>, at least one <a class="Reference" href="Help-Subsection-123.html#device:Measure-Probe">Voltage Measure Probe↓</a> and at least one <a class="Reference" href="Help-Subsection-124.html#device:Output-Probe">Voltage Output Probe↓</a>, presumably with a circuit that has been properly configured, you can virtually probe the circuit. Virtual probing involves first the calculation of transfer parameters which are applied to the measured input waveforms to generate the output waveforms and the waveforms are displayed. See <a class="Reference" href="Help-Subsection-24.html#sub:Virtual-Probing">Virtual Probing↓</a>.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-18.html#next">Prev</a> Deembedding Example</span>

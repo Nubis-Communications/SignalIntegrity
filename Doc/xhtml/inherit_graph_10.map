@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml" title="Frequency lists." alt="" coords="5,31,117,57"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="165,5,368,32"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="185,56,348,83"/>
+<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" title="base class for frequency domain elements." alt="" coords="5,31,145,57"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml" title="Handles frequency content of waveforms." alt="" coords="199,5,339,32"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="193,56,345,83"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1Differentiator_1_1Differentiator.xhtml" title="Frequency response of a differentiator." alt="" coords="393,56,504,83"/>
 </map>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,44 +1073,334 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-59.html#next">Prev</a> Min Exponent</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-91.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-60.html#prev">Next</a></span>
+<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-18"></a>Main Schematic Dialog<a class="Label" name="sec:Main-Schematic-Dialog"> </a>
+<a class="toc" name="toc-Section-18"></a>Eye Diagram Properties Dialog<a class="Label" name="sec:Eye-Diagram-Properties-Dialog"> </a>
 </h1>
 <div class="Standard">
-When <b><i>SignalIntegrityApp</i></b> opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The menu bar is broken into sections where appropriate. These are:
+<div class="center">
+<img class="embedded" src="EyeDiagramProperties.png" alt="figure EyeDiagramProperties.png" style="max-width: 1254px; max-height: 750px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+The Eye Diagram Properties are accessed either from the device properties dialog for an <a class="Reference" href="Help-Subsection-128.html#device:Eye-Probe">Eye Probe↓</a> or <a class="Reference" href="Help-Subsection-129.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> placed in the schematic, or by using the <a class="Reference" href="Help-Subsubsection-40.html#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties↑</a> command in an <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> from an already created eye.
+</div>
+<div class="Standard">
+The properties control the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
+</div>
+<div class="Standard">
+When an <a class="Reference" href="Help-Subsection-128.html#device:Eye-Probe">Eye Probe↓</a> or <a class="Reference" href="Help-Subsection-129.html#device:Differential-Eye-Probe">Differential Eye Probe↓</a> is placed in a schematic, the properties are initialized by values held in the <a class="Reference" href="Help-Section-25.html#sec:Preferences">Preferences↓</a> file. Once initialized however, any changes to the properties are for the particular device (i.e. unique settings can be used for multiple <a class="Reference" href="Help-Subsection-128.html#device:Eye-Probe">Eye Probe↓</a>s in a schematic). If you like, the settings for a particular device may be saved globally to the preferences file, causing all new eye probe devices to default to these new settings.
+</div>
+<div class="Standard">
+The Eye Diagram Properties can be broken into several categories:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-60.html#sub:File">File↓</a> - tasks for dealing with the project file.
+The Eye Diagram Image Properties (essentially the entire left half of the dialog).
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-61.html#sub:Edit">Edit↓</a> - tasks for undoing and redoing tasks in the schematic.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-62.html#sub:Parts">Parts↓</a> - tasks for dealing with schematic elements in the drawing.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-63.html#sub:Wires">Wires↓</a> - tasks for dealing with wires connecting schematic elements.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-64.html#sub:View">View↓</a>- tasks for controlling the view of the schematic.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-65.html#sub:Calculate">Calculate↓</a> - tasks for performing calculations on the schematic.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-66.html#sub:Help">Help↓</a> - tasks dealing with the help system.
+The Alignment, Measurement, and Annotation Properties (the entire right half of the dialog).
 </li>
 
 </ul>
+<div class="Standard">
+<b><span class="large">Eye Diagram Image Properties</span></b>
+</div>
+<div class="Standard">
+The main image is controlled by the properties in the upper left of the dialog:
+</div>
+<ul>
+<li>
+Bits per Symbol — defines the type of signaling used. This is really only important for automatic alignment and measurements made from the eye diagram:<ul>
+<li>
+1 = NRZ, or PAM-2,
+</li>
+<li>
+2 = PAM-4.
+</li>
+
+</ul>
+
+</li>
+<li>
+Color — any 24 bit RGB color can be selected. If the plot is inverted, then this is the color of the eye against a black background. If not inverted, the eye is black against the background color specified.
+</li>
+<li>
+Number of UI — this is the number of unit intervals (UI) shown in the eye. Regardless of this setting, the eye is created for a single UI, and then the image is multiplied this many times horizontally.
+</li>
+<li>
+Number of Rows — the number of pixels vertically in the bitmap representing the eye.
+</li>
+<li>
+Number of Columns -- the number of pixels horizontally in the bitmap representing a single unit interval of the eye.
+</li>
+<li>
+Saturation — determines 50% point setting of a saturation curve used to enhance the drawing of the eye. Lower numbers make more infrequent hits in the eye brighter. Higher numbers make them lower. A setting of 50% makes the eye intensity linear with hit probability. Generally, numbers like 20-30 % yield the best results.
+</li>
+<li>
+Scale X — determines the initial scaling horizontally of the resulting bitmap.
+</li>
+<li>
+Scale Y — determines the initial scaling vertically of the resulting bitmap.
+</li>
+
+</ul>
+<div class="Standard">
+<b>Enhanced Precision Mode</b>
+</div>
+<div class="Standard">
+The eye is drawn by first resampling the waveform such that its sample period is exactly one pixel horizontally. This can cause problems in regions of the eye that have a fast slew rate (i.e. slew many pixels vertically in a given sample period). To improve the situation, Enhanced Precision Mode is provided. If the mode is set to None, then it is off, and enhanced precision is not provided. This results in the fastest calculation speed, with the aforementioned problems.
+</div>
+<div class="Standard">
+When set to fixed, every probability is calculated from a line segment between each pixel, which is divided into the number of Enhanced Precision Steps specified. This results in the slowest calculation speed, but with a prettier and more accurate eye.
+</div>
+<div class="Standard">
+Auto, the preferred mode, causes the algorithm to automatically determine the number of precision steps based on how many pixels the waveform slews vertically in a given sample. The number of steps is twice the vertical delta. Auto is the best balance between speed and accuracy.
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="EnhancedPrecisionMode.png" alt="figure EnhancedPrecisionMode.png" style="width: 240px; max-width: 480px; height: 340px; max-height: 680px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+The example above is for a change of two pixels. Here, the step size is shown as five (the first pixel is not counted, as it has already been calculated, usually). Since there are five pixel steps, the probability for each pixel is <span class="formula">1 ⁄ 5</span>. Then, for each pixel step, the probability that the pixel occupies in the four possible pixels it straddles is apportioned to the four pixels based on how much area is overlapping. In the end, the result is that probabilities have been accumulated for all of the six pixels shown above.
+</div>
+<div class="Standard">
+<b>Y Axis Control</b>
+</div>
+<div class="Standard">
+Generally, the Y Axis is determined automatically as 10% beyond the maximum and minimum extents of the waveform. This can be fixed to specified voltage levels by setting it to Fixed.
+</div>
+<div class="Standard">
+<b>Jitter and Noise Addition</b>
+</div>
+<div class="Standard">
+Eyes can be generated from only the input supplied waveform by specifying the Eye Mode as ISI Only. Specifying the Eye Mode as Jitter &amp; Noise allows for the addition of jitter and noise statistically through the creation of a smoothing kernel.
+</div>
+<div class="Standard">
+The kernel is specified as the convolution of two 2D kernels (to produce a 3D kernel). The vertical 2D kernel is a Gaussian determined by the specified amount of Noise (in rms voltage). The horizontal 2D kernel is again two kernels convolved with each other horizontally. The first is a Gaussian determined by the amount of Random jitter specified (as rms jitter), and the other is a dual Dirac, where each delta function is <span class="formula">1 ⁄ 2</span> in area, separated by the amount of Deterministic jitter specified.
+</div>
+<div class="Standard">
+The desired size of the kernel is such that 10 standard deviations exist on all sides of the kernel. This is for good probability calculations, even when probabilities are low.
+</div>
+<div class="Standard">
+To prevent pathological situations resulting from the incorrect entry of jitter and noise amounts, the resulting kernel is limited in size to the amount specified as the Max Kernel Pixels.
+</div>
+<div class="Standard">
+<b>Log Intensity</b>
+</div>
+<div class="Standard">
+<div class="center">
+<table>
+<tr>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeNoLog.png" alt="figure EyeNoLog.png" style="max-width: 200px; max-height: 300px;"/>
+
+</td>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeLog.png" alt="figure EyeLog.png" style="max-width: 200px; max-height: 300px;"/>
+
+</td>
+<td align="center" valign="top" style="width: 2.5in;">
+<img class="embedded" src="EyeLog2.png" alt="figure EyeLog2.png" style="max-width: 200px; max-height: 300px;"/>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 2.5in;">
+No log intensity
+</td>
+<td align="center" valign="top" style="width: 2.5in;">
+Log intensity (0 to -18 exponent)
+</td>
+<td align="center" valign="top" style="width: 2.5in;">
+Log intensity (-17.999 to -18 exponent)
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+<div class="Standard">
+Log intensity is used to further enhance the eye diagram. Normally, the intensity is linear (mostly) with the probability. In Log Intensity mode, the intensity is linear with the log of the probability. This is particularly useful to identify better low probability areas of the eye.
+</div>
+<div class="Standard">
+In the above plots, all are shown with their -6 probability exponent (1 in <span class="formula">10<sup>6</sup></span>) contour shown. The left plot is shown normally, where the contour is in the middle of a large dark area. The middle plot shows it in Log Intensity mode with the max exponent of 0 and the min exponent of -18. This shows better the gradation of probabilities throughout the eye center. The right plot is showing all probabilities above 1 in <span class="formula">10<sup>18</sup></span> as max intensity, and all probabilities below that as black. This is useful for seeing regions where a given specification should be met.
+</div>
+<div class="Standard">
+Note that the min exponent specified must be less than the max exponent specified, otherwise the calculation will fail.
+</div>
+<div class="Standard">
+<b>Invert Plot</b>
+</div>
+<div class="Standard">
+Normally, the plot is inverted. When inverted, the eye is the specified color against a black background. If not inverted, the eye is black against the background color specified.
+</div>
+<div class="Standard">
+<b>Eye Alignment</b>
+</div>
+<div class="Standard">
+The simplest way to generate eye diagrams is to ensure that the waveform passes through the midpoint of the eye at zero time. In this situation, eye alignment is unnecessary. It is, however, very convenient to have the eye aligned automatically. Setting Auto Align Eye to True, enables this and shows a number of other parameters in the dialog.
+</div>
+<div class="Standard">
+Eye alignment is performed using measurements on a contour of the eye at a certain probability, specified by the BER Exponent for Alignment. Usually, this is set to -3 (i.e. the contour used is at the internal boundary of the eye with a probability of one in <span class="formula">10<sup> − 3</sup></span>. Using a relatively high probability allows for eyes to be aligned even in extreme cases where the BER is very poor.
+</div>
+<div class="Standard">
+In the case of PAM-2, the algorithm searches the vertical extents of these contours searching for the single widest opening. For PAM-2, it searches for the widest minimum opening. Once the horizontal location of these vertical extents are found, there are four options for alignment:
+</div>
+<ul>
+<li>
+Horizontal Alignment — the eye is aligned based on horizontal measurements using the Horizontal Alignment mode:<ul>
+<li>
+Middle — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the middle eye, then computing the horizontal midpoint.
+</li>
+<li>
+Max — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the widest eye, then computing the horizontal midpoint.
+</li>
+
+</ul>
+
+</li>
+<li>
+Vertical Alignment — the eye is aligned based on vertical measurements using the Vertical Alignment mode:<ul>
+<li>
+MaxMin — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for the narrowest eye.
+</li>
+<li>
+Max — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for any eye. 
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Standard">
+If auto alignment fails, the eye is still produced, but not aligned. In these cases, try making the BER Exponent for Alignment larger.
+</div>
+<div class="Standard">
+<b><span class="large">Eye Diagram Measurement Properties</span></b>
+</div>
+<div class="Standard">
+If Measure Eye Parameters is set to False, no measurements are made on the eye. Turn this to false when debugging eye diagram creation that is failing due to any inability to perform eye diagram measurements.
+</div>
+<div class="Standard">
+Setting Measure Eye Parameters to True enables a large amount of other parameter choices:
+</div>
+<ul>
+<li>
+Measurement Properties — the properties that determine how standard eye measurements are made. These measurements appear in the left tab of the Eye Measurements Dialog.
+</li>
+<li>
+Bathtub Curve Measurement Properties — The properties that determine the bathtub curve generation, which allows the measurements of things like BER from the eye.
+</li>
+<li>
+Annotation — measurements made on the eye can be shown by painting directly on the eye.
+</li>
+
+</ul>
+<div class="Standard">
+<b>Eye Measurement Properties</b>
+</div>
+<div class="Standard">
+There are two properties that effect how the eye diagram measurements are made:
+</div>
+<ul>
+<li>
+BER Exponent for Measure — this is the probability contour on each eye where the measurements are made. This is usually at the BER specified by a given standard.
+</li>
+<li>
+Decision Level — either of:<ul>
+<li>
+Midpoint of Eye — as it says, the decision level is taken at the vertical midpoint of the eye.
+</li>
+<li>
+Best Decision Point — the least likely vertical location in the eye.
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Standard">
+Note that the best decision point is always calculated and shown in the Vertical/Horizontal tab of the Eye Diagram Measurements Dialog, but if Best Decision Point is chosen, the eye width will be calculated at this vertical location.
+</div>
+<div class="Standard">
+<b>Bathtub Curve Measurement Properties</b>
+</div>
+<div class="Standard">
+When Measure Bathtub Curves is set to True, bathtub curves are calculated and accessed through Bathtub Curves, and BER measurements (shown in the Error Rates tab of the Eye Diagram Measurements Dialog).
+</div>
+<div class="Standard">
+The bathtub curve measurement properties are:
+</div>
+<ul>
+<li>
+Decades Above for Fit — Because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. The parameter specifies how many decades above the location where the histograms overlap to begin fitting the histogram. Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
+</li>
+<li>
+Minimum Points for Fit — This is the number of points on the tail of the histogram to use for the fit. At least three points are needed (a quadratic is fit). A few more points are better to provide an overconstrained fit, but too many points cause the fit to deviate from the tail of the histogram, which is the desire.
+</li>
+
+</ul>
+<div class="Standard">
+<b>Eye Annotation Properties</b>
+</div>
+<div class="Standard">
+When Annotate Eye with Measurements is set to True, the resulting eye diagram is decorated with indicators of the measurements made:
+</div>
+<ul>
+<li>
+Annotation Color — the color of the annotations. Generally, it’s best to choose a highly contrasting color to the color of the eye (like a complementary color: Green for red eye diagrams, Violet for yellow eye diagrams, Orange for blue eye diagrams, and vice versa.)
+</li>
+<li>
+Annotate Mean Levels — draw a horizontal line through the most probable levels at each bit.
+</li>
+<li>
+Annotate Level Extents — draw horizontal dotted lines at the extents of the bit levels (also the extent of the eye height).
+</li>
+<li>
+Annotate Eye Width — draw a horizontal line representing the horizontal start, stop and width of the eye. This is drawn at a vertical location that depends on the choice of Decision Level.
+</li>
+<li>
+Annotate Eye Height — draw a vertical line representing the bottom, top and height of the eye. This is always drawn at the horizontal midpoint of the eye.
+</li>
+<li>
+Annotate Contour -- try to draw a line around the contour of the eye representing the BER Exponent for Measure. It says try, because it is not always perfectly joined. The method used is based on Which Contours to Show:<ul>
+<li>
+All Contours -- at the perimeter of any probability contour having the probability specified. This performs better on more closed eyes.
+</li>
+<li>
+Only Contours inside Eye — at the perimeter of the contour bounded by the eye height and width. This performs better on more open eyes.
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+<div class="Standard">
+<b>Saving Properties to Global Preferences</b>
+</div>
+<div class="Standard">
+The properties assigned whenever an <a class="Reference" href="Help-Subsection-128.html#device:Eye-Probe">Eye Probe↓</a> is placed in a schematic always come from the <a class="Reference" href="Help-Section-25.html#sec:Preferences">25↓</a>. Oftentimes, it gets annoying to keep editing the properties when there is a setup that you commonly use. When you want all future eye probes to start with a given set of properties, pressing the Save Properties to Global Preference button saves these to the preferences.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-59.html#next">Prev</a> Min Exponent</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-91.html#next">Prev</a> Preferences</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">File <a class="next" name="next" href="Help-Subsection-60.html#prev">Next</a></span>
+<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,106 +1073,51 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-68.html#next">Prev</a> Resistor</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Capacitor <a class="next" name="next" href="Help-Subsection-70.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-68.html#next">Prev</a> Min Exponent</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Auto Align Eye <a class="next" name="next" href="Help-Subsection-70.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-69"></a>Resistor<a class="Label" name="device:Skin-Effect-Resistor"> </a>
+<a class="toc" name="toc-Subsection-69"></a>Invert Plot<a class="Label" name="sub:Invert-Plot"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="ResistorTwoPort.png" alt="figure ResistorTwoPort.png" style="max-width: 152px; max-height: 84px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Type
+<b>Type</b>
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-category
+<td align="center" valign="top" style="width: 8cm;">
+Invert Plot
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+EyeDiagram.Invert
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
+<div class="left">
+True or False
+</div>
 
-</td>
-<td align="center" valign="top" style="width: 2cm;">
+</div>
+<div class="PlainVisible">
+True is default
+</div>
 
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Resistors
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-R?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-skin effect
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-rse
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><i>Hz</i></span><span class="ignored">)</span></span></span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50.0 ohms
 </td>
 
 </tr>
@@ -1181,12 +1126,12 @@ rse
 
 </div>
 <div class="Standard">
-This is a two port skin-effect resistor. This resistor has its impedance vary as the square root of frequency and is intended to augment resistor capability when constructing transmission lines.
+If Invert is set to True, then the background is black and the eye diagram traces are shown in the color specified by the <a class="Reference" href="Help-Subsection-48.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↑</a>. Otherwise, if Invert is set to False, the background is set to the color specified by the <a class="Reference" href="Help-Subsection-48.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↑</a> and the eye diagram traces are shown in black.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-68.html#next">Prev</a> Resistor</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Capacitor <a class="next" name="next" href="Help-Subsection-70.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-68.html#next">Prev</a> Min Exponent</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Auto Align Eye <a class="next" name="next" href="Help-Subsection-70.html#prev">Next</a></span>
 </div>
 
 </div>

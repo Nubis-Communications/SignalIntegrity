@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.17</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -648,7 +648,7 @@ $(function() {
 <div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        <span class="comment"># the outline around the dependent source</span></div>
 <div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,3)</div>
 <div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    </div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160; </div>
 <div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="keyword">class </span>PartPictureSpecifiedPorts(PartPictureBox):</div>
 <div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
 <div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        LeftPorts=(ports+1)//2</div>
@@ -2318,27 +2318,30 @@ $(function() {
 <div class="line"><a name="l02238"></a><span class="lineno"> 2238</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
 <div class="line"><a name="l02239"></a><span class="lineno"> 2239</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureVoltageSourceOnePort&#39;</span>,<span class="stringliteral">&#39;PartPictureVcc&#39;</span>],1)</div>
 <div class="line"><a name="l02240"></a><span class="lineno"> 2240</span>&#160; </div>
-<div class="line"><a name="l02241"></a><span class="lineno"> 2241</span>&#160;<span class="keyword">class </span>PartPictureEyeProbe(PartPictureSpecifiedPortsText):</div>
+<div class="line"><a name="l02241"></a><span class="lineno"> 2241</span>&#160;<span class="keyword">class </span>PartPictureEyeProbe(PartPictureBox):</div>
 <div class="line"><a name="l02242"></a><span class="lineno"> 2242</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02243"></a><span class="lineno"> 2243</span>&#160;        PartPictureSpecifiedPortsText.__init__(self,1,origin,orientation,mirroredHorizontally,mirroredVertically,text=<span class="stringliteral">&#39;Eye&#39;</span>)</div>
-<div class="line"><a name="l02244"></a><span class="lineno"> 2244</span>&#160; </div>
-<div class="line"><a name="l02245"></a><span class="lineno"> 2245</span>&#160;<span class="keyword">class </span>PartPictureVariableEyeProbe(PartPictureVariable):</div>
-<div class="line"><a name="l02246"></a><span class="lineno"> 2246</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l02247"></a><span class="lineno"> 2247</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureEyeProbe&#39;</span>],1)</div>
-<div class="line"><a name="l02248"></a><span class="lineno"> 2248</span>&#160; </div>
-<div class="line"><a name="l02249"></a><span class="lineno"> 2249</span>&#160;<span class="keyword">class </span>PartPictureDiffrentialEyeProbe(PartPictureBox):</div>
-<div class="line"><a name="l02250"></a><span class="lineno"> 2250</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
-<div class="line"><a name="l02251"></a><span class="lineno"> 2251</span>&#160;        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),<span class="stringliteral">&#39;b&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>),PartPin(2,(1,0),<span class="stringliteral">&#39;t&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>)],[(0,1),(2,3)],[(0,0),(2.5,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)</div>
-<div class="line"><a name="l02252"></a><span class="lineno"> 2252</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
-<div class="line"><a name="l02253"></a><span class="lineno"> 2253</span>&#160;        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)</div>
-<div class="line"><a name="l02254"></a><span class="lineno"> 2254</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;Eye&#39;</span>)</div>
-<div class="line"><a name="l02255"></a><span class="lineno"> 2255</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
-<div class="line"><a name="l02256"></a><span class="lineno"> 2256</span>&#160; </div>
-<div class="line"><a name="l02257"></a><span class="lineno"> 2257</span>&#160;<span class="keyword">class </span>PartPictureVariableDifferentialEyeProbe(PartPictureVariable):</div>
-<div class="line"><a name="l02258"></a><span class="lineno"> 2258</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l02259"></a><span class="lineno"> 2259</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureDiffrentialEyeProbe&#39;</span>],1)</div>
-<div class="line"><a name="l02260"></a><span class="lineno"> 2260</span>&#160; </div>
-<div class="line"><a name="l02261"></a><span class="lineno"> 2261</span>&#160; </div>
+<div class="line"><a name="l02243"></a><span class="lineno"> 2243</span>&#160;        PartPictureBox.__init__(self,origin,[PartPin(1,(0,1),<span class="stringliteral">&#39;l&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>)],[(1,0),(3,2)],[(0,0),(4,2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02244"></a><span class="lineno"> 2244</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02245"></a><span class="lineno"> 2245</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;Eye&#39;</span>)</div>
+<div class="line"><a name="l02246"></a><span class="lineno"> 2246</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
+<div class="line"><a name="l02247"></a><span class="lineno"> 2247</span>&#160; </div>
+<div class="line"><a name="l02248"></a><span class="lineno"> 2248</span>&#160;<span class="keyword">class </span>PartPictureVariableEyeProbe(PartPictureVariable):</div>
+<div class="line"><a name="l02249"></a><span class="lineno"> 2249</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l02250"></a><span class="lineno"> 2250</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureEyeProbe&#39;</span>],1)</div>
+<div class="line"><a name="l02251"></a><span class="lineno"> 2251</span>&#160; </div>
+<div class="line"><a name="l02252"></a><span class="lineno"> 2252</span>&#160;<span class="keyword">class </span>PartPictureDifferentialEyeProbe(PartPictureBox):</div>
+<div class="line"><a name="l02253"></a><span class="lineno"> 2253</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02254"></a><span class="lineno"> 2254</span>&#160;        PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),<span class="stringliteral">&#39;b&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>),PartPin(2,(1,0),<span class="stringliteral">&#39;t&#39;</span>,<span class="keyword">False</span>,<span class="keyword">True</span>,<span class="keyword">True</span>)],[(0,1),(2,3)],[(0,0),(2.5,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02255"></a><span class="lineno"> 2255</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02256"></a><span class="lineno"> 2256</span>&#160;        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)</div>
+<div class="line"><a name="l02257"></a><span class="lineno"> 2257</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;Eye&#39;</span>)</div>
+<div class="line"><a name="l02258"></a><span class="lineno"> 2258</span>&#160;        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)</div>
+<div class="line"><a name="l02259"></a><span class="lineno"> 2259</span>&#160; </div>
+<div class="line"><a name="l02260"></a><span class="lineno"> 2260</span>&#160;<span class="keyword">class </span>PartPictureVariableDifferentialEyeProbe(PartPictureVariable):</div>
+<div class="line"><a name="l02261"></a><span class="lineno"> 2261</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l02262"></a><span class="lineno"> 2262</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureDifferentialEyeProbe&#39;</span>],1)</div>
+<div class="line"><a name="l02263"></a><span class="lineno"> 2263</span>&#160; </div>
+<div class="line"><a name="l02264"></a><span class="lineno"> 2264</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1PartPin_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1PartPin.xhtml">SignalIntegrity.App.PartPin</a></div><div class="ttdef"><b>Definition:</b> <a href="PartPin_8py_source.xhtml#l00001">PartPin.py:1</a></div></div>
 <!-- start footer part -->

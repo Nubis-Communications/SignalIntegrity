@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-47.html#next">Prev</a> Scale Y</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Y Axis <a class="next" name="next" href="Help-Subsection-49.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Eye Diagram Properties</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Eye Diagram Color <a class="next" name="next" href="Help-Subsection-49.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-48"></a>Invert Plot<a class="Label" name="sub:Invert-Plot"> </a>
+<a class="toc" name="toc-Subsection-48"></a>Bits per Symbol<a class="Label" name="sub:Eye-Diagram-Bits-per-Symbol"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,23 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Invert Plot
+Bits per Symbol
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-48.html#sub:Invert-Plot">Invert Plot↑</a>
+EyeDiagram.Alignment.BitsPerSymbol
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Bool
+Integer
 </td>
 <td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
 <div class="left">
-True
+1 or 2
+</div>
+
+</div>
+<div class="PlainVisible">
+1 is default.
 </div>
 
 </td>
@@ -1120,12 +1126,21 @@ True
 
 </div>
 <div class="Standard">
-If Invert is set to True, then the background is black and the eye diagram traces are shown in the color specified by the <a class="Reference" href="Help-Subsection-41.html#sub:Eye-Diagram-Color">Eye Diagram Color↑</a>. Otherwise, if Invert is set to False, the background is set to the color specified by the <a class="Reference" href="Help-Subsection-41.html#sub:Eye-Diagram-Color">Eye Diagram Color↑</a> and the eye diagram traces are shown in black.
+This sets the number of bits per symbol and defines the type of signaling used. This is really only important for automatic alignment and measurements made from the eye diagram:
 </div>
+<ul>
+<li>
+1 = NRZ, or PAM-2,
+</li>
+<li>
+2 = PAM-4.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-47.html#next">Prev</a> Scale Y</span>
-<span class="up"><a class="up" name="up" href="Help-Section-17.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Y Axis <a class="next" name="next" href="Help-Subsection-49.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-19.html#next">Prev</a> Eye Diagram Properties</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Eye Diagram Color <a class="next" name="next" href="Help-Subsection-49.html#prev">Next</a></span>
 </div>
 
 </div>

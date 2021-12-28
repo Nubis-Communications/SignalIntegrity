@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-99.html#next">Prev</a> Current Sine Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Measure Probe <a class="next" name="next" href="Help-Subsection-101.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-99.html#next">Prev</a> Net Name</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-101.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-100"></a>Port<a class="Label" name="device:Port"> </a>
+<a class="toc" name="toc-Subsection-100"></a>Power Mixed Mode Converter<a class="Label" name="device:Power-Mixed-Mode-Converter"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="Port.png" alt="figure Port.png" style="max-width: 93px; max-height: 48px;"/>
+<img class="embedded" src="PowerMixedModeConverter.png" alt="figure PowerMixedModeConverter.png" style="max-width: 152px; max-height: 144px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,43 +1118,43 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Ports and Probes
+Miscellaneous
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-delay
+default reference
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-td
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-s
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+D?
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-port number
+reference
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-pn
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-?
+
 </td>
 
 </tr>
@@ -1163,24 +1163,33 @@ pn
 
 </div>
 <div class="Standard">
-The port is used in <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications to define locations where waves enter and exit the system.
+This is a power mixed-mode converter. The power mixed-mode converter is one that defines differential and common mode voltage with respect to positive and negative voltages as:
 </div>
 <div class="Standard">
-In <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a>, they define the how the s-parameters will be produced. For example Sxy will be the reflected wave at port x due to the incident wave at port y, with all other ports terminated in the reference impedance. See <a class="Reference" href="Help-Subsection-2.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation↑</a>.
+<div class="formula">
+<i>V</i><sub><i>d</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> − <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>
+</div>
+
 </div>
 <div class="Standard">
-In <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a>, they match the port numbers in the circuit with the ports on the <a class="Reference" href="Help-Subsection-118.html#device:System">System↓</a>. See <a class="Reference" href="Help-Subsection-13.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding↑</a>
+<div class="formula">
+<i>V</i><sub><i>c</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> + <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root">2</span><span class="ignored">)</span></span></span><span class="ignored">)</span></span>
+</div>
+
 </div>
 <div class="Standard">
-They are added to the schematic with the <a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Add-Port">Add Port↑</a> command.
+This is the standard definition for s-parameters and this device is used primarily to convert from single-ended to mixed-mode s-parameters and vice versa.
 </div>
 <div class="Standard">
-Ports can be optionally specified with a delay value. This is amount to peel from the port using impedance peeling techniques. Peeling is performed by de-embedding a portion of the line from the port, with the de-embedded device corresponding to an ideal transmission line with the desired length, and characteristic impedance equal to the impedance profile calculated for the length specified (see <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:Show-Impedance">Show Impedance↑</a>).
+The other kind of mixed-mode converter is the <a class="Reference" href="Help-Subsection-101.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter↓</a>.
+</div>
+<div class="Standard">
+See <a class="Reference" href="Help-Subsection-5.html#sub:S-parameter-Generation-Example">S-parameter Generation Example↑</a> for an example of how this device is used.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-99.html#next">Prev</a> Current Sine Generator</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Measure Probe <a class="next" name="next" href="Help-Subsection-101.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-99.html#next">Prev</a> Net Name</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-101.html#prev">Next</a></span>
 </div>
 
 </div>

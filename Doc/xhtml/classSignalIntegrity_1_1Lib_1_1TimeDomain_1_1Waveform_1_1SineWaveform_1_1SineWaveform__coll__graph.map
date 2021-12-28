@@ -1,4 +1,4 @@
 <map id="SineWaveform" name="SineWaveform">
-<area shape="rect" id="node1" title="sinewave waveform" alt="" coords="21,307,139,384"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,155,259"/>
+<area shape="rect" id="node1" title="sinewave waveform" alt="" coords="45,321,164,399"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,204,273"/>
 </map>

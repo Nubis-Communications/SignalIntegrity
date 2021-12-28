@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.1.17</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml">SParametersParser</a>(SParameters):</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;parses a list of commands to process s-parameters&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">def </span>__init__(self,sp,lines):</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Constructor  </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Constructor</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml">   28</a></span>&#160;<span class="stringliteral">        Takes a set of s-parameters along with a list of command lines to process the s-parameters</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">        @param sp instance of SParameters to process</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">        @param lines list of lines with commands indicating the processing, in order</span></div>
@@ -118,37 +118,46 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">        @see EnforceBothPassivityAndReciprocity</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral">        @see EnforceAll</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        @see LimitImpulseResponseLength</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">for</span> line <span class="keywordflow">in</span> lines:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            tokens=line.split()</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml#ac41fd948191d746969f977664e441a73">   45</a></span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordflow">if</span> tokens[0]!=<span class="stringliteral">&#39;post&#39;</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <span class="keywordflow">continue</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">if</span> tokens[1]==<span class="stringliteral">&#39;enforce&#39;</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    <span class="keywordflow">if</span> tokens[2]==<span class="stringliteral">&#39;causality&#39;</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                        self.EnforceCausality()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;passivity&#39;</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                        self.EnforcePassivity()</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;reciprocity&#39;</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        self.EnforceReciprocity()</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;both&#39;</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        self.EnforceBothPassivityAndCausality(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;all&#39;</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        self.EnforceAll(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                        <span class="keywordflow">raise</span> IndexError</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">elif</span> tokens[1]==<span class="stringliteral">&#39;limit&#39;</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    self.LimitImpulseResponseLength((float(tokens[2]) <span class="keywordflow">if</span> tokens[2]!=<span class="stringliteral">&#39;none&#39;</span> <span class="keywordflow">else</span> -1e15,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                     float(tokens[3]) <span class="keywordflow">if</span> tokens[3]!=<span class="stringliteral">&#39;none&#39;</span> <span class="keywordflow">else</span> +1e15))</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="keywordflow">raise</span> IndexError</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">raise</span> SignalIntegrityExceptionPostProcessing(<span class="stringliteral">&#39;not understood: &#39;</span>+line)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        @see SetReferenceImpedance</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span> line <span class="keywordflow">in</span> lines:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            tokens=line.split()</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml#ac41fd948191d746969f977664e441a73">   46</a></span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="keywordflow">if</span> tokens[0]!=<span class="stringliteral">&#39;post&#39;</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">if</span> tokens[1]==<span class="stringliteral">&#39;enforce&#39;</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    <span class="keywordflow">if</span> tokens[2]==<span class="stringliteral">&#39;causality&#39;</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                        self.EnforceCausality()</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;passivity&#39;</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                        self.EnforcePassivity()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;reciprocity&#39;</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        self.EnforceReciprocity()</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;both&#39;</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        self.EnforceBothPassivityAndCausality(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    <span class="keywordflow">elif</span> tokens[2]==<span class="stringliteral">&#39;all&#39;</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                        self.EnforceAll(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                        <span class="keywordflow">raise</span> IndexError</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <span class="keywordflow">elif</span> tokens[1]==<span class="stringliteral">&#39;limit&#39;</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    self.LimitImpulseResponseLength((float(tokens[2]) <span class="keywordflow">if</span> tokens[2]!=<span class="stringliteral">&#39;none&#39;</span> <span class="keywordflow">else</span> -1e15,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                     float(tokens[3]) <span class="keywordflow">if</span> tokens[3]!=<span class="stringliteral">&#39;none&#39;</span> <span class="keywordflow">else</span> +1e15))</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">elif</span> tokens[1]==<span class="stringliteral">&#39;reference&#39;</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    <span class="keywordflow">if</span> tokens[2]==<span class="stringliteral">&#39;impedance&#39;</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                            self.SetReferenceImpedance(float(tokens[3]))</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                            <span class="keywordflow">raise</span> IndexError</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        <span class="keywordflow">raise</span> IndexError</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    <span class="keywordflow">raise</span> IndexError</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">raise</span> SignalIntegrityExceptionPostProcessing(<span class="stringliteral">&#39;not understood: &#39;</span>+line)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SParametersParser_1_1SParametersParser.xhtml">SignalIntegrity.Lib.Parsers.SParametersParser.SParametersParser</a></div><div class="ttdoc">parses a list of commands to process s-parameters</div><div class="ttdef"><b>Definition:</b> <a href="SParametersParser_8py_source.xhtml#l00028">SParametersParser.py:28</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1SParameters_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SignalIntegrity.Lib.SParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="Lib_2SParameters_2____init_____8py_source.xhtml#l00001">__init__.py:1</a></div></div>

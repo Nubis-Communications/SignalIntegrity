@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Eye Probe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-107"></a>Differential Eye Probe<a class="Label" name="device:Differential-Eye-Probe"> </a>
+<a class="toc" name="toc-Subsection-107"></a>W Element<a class="Label" name="device:W-Element"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="DifferentialEyeProbe.png" alt="figure DifferentialEyeProbe.png" style="width: 151px; max-width: 605px; height: 145px; max-height: 583px;"/>
+<img class="embedded" src="WElement.png" alt="figure WElement.png" style="width: 126px; max-width: 420px; height: 264px; max-height: 882px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Ports and Probes
+Transmission Lines
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+W?
 </td>
 
 </tr>
@@ -1154,73 +1154,55 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+W1
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-baud rate
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-br
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-Baud
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1 GBaud
+None
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-delay
+dissipation factor
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-td
+df
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-s
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 s
+0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage offset
+scale
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-offset
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-V
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 V
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-voltage gain
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-gain
+scale
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
@@ -1230,35 +1212,65 @@ gain
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+sections
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+sect
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+4
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-There are some special prefixes on the reference that cause the calculation result to be special calculations:
-</div>
-<ul>
-<li>
-’d/’ — causes the derivative of the waveform to be calculated.
-</li>
-<li>
-’i/’ — causes the integral of the waveform to be calculated.
-</li>
-<li>
-’di/’ — causes the integral of the derivative to be calculated.
-</li>
-
-</ul>
-<div class="Standard">
-When examining the <a class="Reference" href="Help-Section-20.html#sec:Netlist">Netlist↓</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-105.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-75.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-102.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
+W elements are distributed transmission lines. A two-port W element is equivalent to an <a class="Reference" href="Help-Subsection-104.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↑</a> transmission line and a four-port W element is equivalent to a <a class="Reference" href="Help-Subsection-105.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↑</a>. Usually the transmission line model is provided numerically with values per meter. So if you want something different from 1 meter, you must scale the line.
 </div>
 <div class="Standard">
-When simulations are complete, for each Eye Probe, the <a class="Reference" href="Help-Section-15.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval. Currently, this unit interval is fixed, and the eye will be aligned in a manner assuming that the center of a unit interval occurs at time zero. In order to align the eye diagram, you must adjust the delay accordingly. This will be improved in future versions.
+The user can specify the number of sections to be utilized for analytic approximation, but 0 is recommended. When zero sections are specified, the number of sections is intelligently calculated based on the fastest risetime possible (based on the end frequency used in the calculation) and the worst case electrical length possible determined from the inductance and capacitance values in the model.
+</div>
+<div class="Standard">
+The number of ports should always be even and match those in the W element file name specified. The transmission line elements in the model are always such that for <span class="formula"><i>P</i></span> ports, transmission line <span class="formula"><i>m</i></span> goes from port <span class="formula"><i>m</i></span> to port <span class="formula"><i>P</i> ⁄ 2 + <i>m</i></span> .
+</div>
+<div class="Standard">
+Because the model does not seem to support dissipation factor, it can be entered globally for the model.
+</div>
+<div class="Standard">
+More documentation on this device may be found here: <a class="FlexURL" href="http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf">http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf</a>
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Eye Probe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-20.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-09-01"/>
+<meta name="create-date" content="2021-12-27"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,47 +1073,76 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-51.html#next">Prev</a> Export LaTeX (TikZ)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">History Buffer <a class="next" name="next" href="Help-Subsubsection-52.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Minimum Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-61"></a>Edit<a class="Label" name="sub:Edit"> </a>
+<a class="toc" name="toc-Subsection-61"></a>Eye Mode<a class="Label" name="sub:Eye-Mode"> </a>
 </h2>
 <div class="Standard">
-The Edit tasks are a category in the <a class="Reference" href="Help-Section-18.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a> and are broken into two sections, one involving undo and redo of schematic edits and the other dealing with multiple selections:
-</div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-53.html#Control-Help:Undo">Undo↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-54.html#Control-Help:Redo">Redo↓</a>
-</li>
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
 
-</ul>
-<div class="Standard">
-and:
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+Eye Mode
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection-61.html#sub:Eye-Mode">Eye Mode↑</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Enum
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
+<div class="left">
+ISI Only or Jitter &amp; Noise
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsubsection-55.html#Control-Help:Delete-Selected">Delete Selected↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-56.html#Control-Help:Duplicate-Selected">Duplicate Selected↓</a>
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-57.html#Control-Help:Cut-Selected">Cut Selected↓</a>
-</li>
 
-</ul>
+</div>
+<div class="PlainVisible">
+Default is ISI Only
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
 <div class="Standard">
-The undo and redo tasks depend on the <a class="Reference" href="Help-Subsubsection-52.html#sub:History-Buffer">History Buffer↓</a> which records the state of the schematic at various events.
+<div class="center">
+<img class="embedded" src="ISIOnly.png" alt="figure ISIOnly.png" style="max-width: 450px; max-height: 300px;"/>
+  <img class="embedded" src="JitterNoise.png" alt="figure JitterNoise.png" style="max-width: 450px; max-height: 300px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+If this mode is set to ISI Only, then the eye diagram is produced with the waveform exactly as presented with no additional noise or jitter added to it. This is the default mode. If this mode is set to Jitter &amp; Noise, then a kernel is created (with a maximum number of pixels specified by <a class="Reference" href="Help-Subsection-65.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>) with Gaussian <a class="Reference" href="Help-Subsection-64.html#sub:Noise">Noise↓</a> added vertically, and <a class="Reference" href="Help-Subsection-63.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a> (dual-dirac) and <a class="Reference" href="Help-Subsection-62.html#sub:Random-Jitter">Random Jitter↓</a> (Gaussian, unbounded) horizontally, which is convolved with the ISI only eye diagram. This creates a blurry, statistical eye diagram.
+</div>
+<div class="Standard">
+In the above plots, the left plot is ISI Only, and the right plot is Jitter &amp; Noise.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-51.html#next">Prev</a> Export LaTeX (TikZ)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-18.html">Up</a> Main Schematic Dialog</span>
-<span class="next">History Buffer <a class="next" name="next" href="Help-Subsubsection-52.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-60.html#next">Prev</a> Minimum Y</span>
+<span class="up"><a class="up" name="up" href="Help-Section-19.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-62.html#prev">Next</a></span>
 </div>
 
 </div>
