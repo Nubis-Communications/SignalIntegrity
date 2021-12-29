@@ -1073,26 +1073,103 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-39.html#next">Prev</a> Edit</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Undo <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Clear Schematic</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
+<span class="next">Export LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-47"></a>History Buffer<a class="Label" name="sub:History-Buffer"> </a>
+<a class="toc" name="toc-Subsubsection-47"></a>Export Netlist<a class="Label" name="Control-Help:Export-Netlist"> </a>
 </h3>
 <div class="Standard">
-The <b><i>SignalIntegrityApp</i></b> maintains a buffer containing the history of changes made to the project since the application started.
+<table>
+<tr>
+<td align="center" valign="top">
+<i>Dialog</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Menu System</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Export Netlist
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Navigation</i>
+</td>
+<td align="center" valign="top">
+Alt+F,N
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Key Binding</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Toolbar</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Availability</i>
+</td>
+<td align="center" valign="top">
+When the project is not empty
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Currently it records the last 100 changes.
+During all of the calculations, a text-based net list is created that is passed to the <b><i>SignalIntegrity</i></b> toolbox software.
 </div>
 <div class="Standard">
-Each change is labelled, so as a change is undid and redid, the name of the event that is undid is displayed in the status message area.
+The format of this net list is described in the accompanying book but somewhat under <a class="Reference" href="Help-Section-23.html#sec:Netlist">Netlist↓</a>.
+</div>
+<div class="Standard">
+Usually, you don’t need to look at or save this net list, but examining it is helpful sometimes for debugging problems and saving it allows the schematic to be be utilized within customized Python based user applications that rely on the <b><i>SignalIntegrity</i></b> toolbox, but do not rely on the <b><i>SignalIntegrityApp</i></b> application.
+</div>
+<div class="Standard">
+Invoking this command causes the netlist to be generated that would be the same for any calculation and shown. For example, for this type of schematic:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExample.png" alt="figure SParameterGenerationExample.png" style="max-width: 469px; max-height: 221px;"/>
+
+</div>
+<div class="Standard">
+We would have a net list that looked like this:
+</div>
+<div class="Standard">
+<img class="embedded" src="SParameterGenerationExampleNetListDialog.png" alt="figure SParameterGenerationExampleNetListDialog.png" style="max-width: 578px; max-height: 468px;"/>
+
+</div>
+<div class="Standard">
+Pressing OK prompts you for a text file to save it to. Pressing Cancel or escape leaves without saving the file.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-39.html#next">Prev</a> Edit</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Undo <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Clear Schematic</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
+<span class="next">Export LaTeX (TikZ) <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
 </div>
 
 </div>

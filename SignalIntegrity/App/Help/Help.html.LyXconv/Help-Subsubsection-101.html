@@ -1073,41 +1073,38 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Eye Diagram Measurement Properties</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Bathtub Curve Measurement Properties <a class="next" name="next" href="Help-Subsubsection-102.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-100.html#next">Prev</a> Interpretation</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
+<span class="next">Measured Error Rates <a class="next" name="next" href="Help-Subsubsection-102.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-101"></a>Eye Measurement Properties<a class="Label" name="pc:Eye-Measurement-Properties"> </a>
+<a class="toc" name="toc-Subsubsection-101"></a>Nominal Error Rates<a class="Label" name="pc:Nominal-Error-Rates"> </a>
 </h3>
 <div class="Standard">
-There are two properties that effect how the eye diagram measurements are made:
+The nominal error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-81.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a> — this is the probability contour on each eye where the measurements are made. This is usually at the BER specified by a given standard.
+Probability — the probability that a given symbol is transmitted. Nominally, this is the reciprocal of the <a class="Reference" href="Help-Subsection-53.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↓</a>.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-82.html#sub:Decision-Level">Decision Level↓</a> — either of:<ul>
-<li>
-Midpoint of Eye — as it says, the decision level is taken at the vertical midpoint of the eye.
+SER — the symbol error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.
 </li>
 <li>
-Best Decision Point — the least likely vertical location in the eye.
+BER — the bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.
 </li>
-
-</ul>
-
+<li>
+Gray BER — the Gray coded bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.
 </li>
 
 </ul>
 <div class="Standard">
-Note that the best decision point is always calculated and shown in the <a class="Reference" href="Help-Subsection-49.html#sub:Vertical/Horizontal">Vertical/Horizontal↑</a> tab of the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>, but if Best Decision Point is chosen, the eye width will be calculated at this vertical location.
+At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Eye Diagram Measurement Properties</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Bathtub Curve Measurement Properties <a class="next" name="next" href="Help-Subsubsection-102.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-100.html#next">Prev</a> Interpretation</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
+<span class="next">Measured Error Rates <a class="next" name="next" href="Help-Subsubsection-102.html#prev">Next</a></span>
 </div>
 
 </div>

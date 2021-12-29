@@ -1073,20 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Annotation Properties</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Measurement Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-21.html#prev">Next</a></span>
+<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-104"></a><b>Saving Properties to Global Preferences</b>
+<a class="toc" name="toc-Subsubsection-104"></a>Bathtub Curve Measurement Properties<a class="Label" name="pc:Bathtub-Curve-Measurement-Properties"> </a>
 </h3>
 <div class="Standard">
-The properties assigned whenever an <a class="Reference" href="Help-Subsection-132.html#device:Eye-Probe">Eye Probe↓</a> is placed in a schematic always come from the <a class="Reference" href="Help-Section-27.html#sec:Preferences">27↓</a>. Oftentimes, it gets annoying to keep editing the properties when there is a setup that you commonly use. When you want all future eye probes to start with a given set of properties, pressing the Save Properties to Global Preference button saves these to the preferences.
+When <a class="Reference" href="Help-Subsection-83.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↓</a> is set to True, bathtub curves are calculated and accessed through the <a class="Reference" href="Help-Subsubsection-93.html#Control-Help:Bathtub-Curve">Bathtub Curve↑</a> command in the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a>, and <a class="Reference" href="Help-Subsection--2.html#sub:Error-Rates">Error Rates↑</a> measurements tab in the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>.
 </div>
+<div class="Standard">
+The bathtub curve measurement properties are:
+</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-84.html#sub:Decades-Above-for">Decades Above for Fit↓</a> — Because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. The parameter specifies how many decades above the location where the histograms overlap to begin fitting the histogram. Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-85.html#sub:Minimum-Points-for-Fit">Minimum Points for Fit↓</a> — This is the number of points on the tail of the histogram to use for the fit. At least three points are needed (a quadratic is fit). A few more points are better to provide an overconstrained fit, but too many points cause the fit to deviate from the tail of the histogram. It is desirable to fit the tail.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Annotation Properties</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Measurement Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Eye Diagram Properties <a class="next" name="next" href="Help-Section-21.html#prev">Next</a></span>
+<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
 </div>
 
 </div>

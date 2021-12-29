@@ -1073,41 +1073,51 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Vertical</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-49.html#next">Prev</a> Vertical/Horizontal</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-49.html">Up</a> Vertical/Horizontal</span>
-<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
+<span class="next">Vertical <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-96"></a>Linearity<a class="Label" name="sub:Linearity"> </a>
+<a class="toc" name="toc-Subsubsection-96"></a>Timing<a class="Label" name="sub:Timing"> </a>
 </h3>
 <div class="Standard">
-Linearity is only defined for PAM-4 and above. It is a measure of the similarity in height of the eyes, or more properly, the evenness in the level extents.
+<div class="center">
+<img class="embedded" src="EyeMeasureHoriz.png" alt="figure EyeMeasureHoriz.png" style="width: 426px; max-width: 1423px; height: 387px; max-height: 1290px;"/>
+
+</div>
+
 </div>
 <div class="Standard">
-There are two measures, where 100% is the best, and 0% is the worst:
+Timing measurements are made from a line that spans the contour horizontally. This line is defined by a few properties, not to mention the actual alignment of the eye:
 </div>
 <ol>
 <li>
-Eye Linearity — This is the simplest and preferred measurement. It is the ratio of the minimum Delta Extent to the maximum Delta Extent (expressed as a percentage).
+The horizontal extent of the line is governed by the <a class="Reference" href="Help-Subsection-81.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a>. See <a class="Reference" href="Help-Subsubsection-103.html#pc:Eye-Measurement-Properties">Eye Measurement Properties↓</a>.
 </li>
 <li>
-RLM (Relative Level Mismatch) — Defined according to a complicated formula according to AN-835, 2019.03.12 from Intel. Assuming that the four level extents for PAM-4 are denoted <span class="formula"><i>V</i><sub>0</sub></span>, <span class="formula"><i>V</i><sub>1</sub></span>, <span class="formula"><i>V</i><sub>2</sub></span>, and <span class="formula"><i>V</i><sub>3</sub></span>, and that <span class="formula"><i>V</i><sub><i>min</i></sub> = <span class="symbol">(</span><i>V</i><sub>0</sub> + <i>V</i><sub>3</sub><span class="symbol">)</span> ⁄ 2</span>. We define <span class="formula"><i>ES</i>1 = <span class="symbol">(</span><i>V</i><sub>1</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>0</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span> and <span class="formula"><i>ES</i>2 = <span class="symbol">(</span><i>V</i><sub>2</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>3</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span>. RLM is defined as:<div class="Standard">
-<div class="center">
-<span class="formula"><i>RLM</i> = min<span class="symbol">(</span>3⋅<i>ES</i>1, 3⋅<i>ES</i>2, 2 − 3⋅<i>ES</i>1, 2 − 3⋅<i>ES</i>2<span class="symbol">)</span></span>
-</div>
-
-</div>
-<div class="Standard">
-expressed as a percentage.
-</div>
-
+The vertical placement of the line is governed by the choice of <a class="Reference" href="Help-Subsection-82.html#sub:Decision-Level">Decision Level↓</a>.
 </li>
 
 </ol>
+<div class="Standard">
+Given these choices, the following measurements are made, for each eye:
+</div>
+<ul>
+<li>
+Start — the start time.
+</li>
+<li>
+End — the end time.
+</li>
+<li>
+Width — the width of the eye.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-95.html#next">Prev</a> Vertical</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-49.html#next">Prev</a> Vertical/Horizontal</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-49.html">Up</a> Vertical/Horizontal</span>
-<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
+<span class="next">Vertical <a class="next" name="next" href="Help-Subsubsection-97.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -1073,38 +1073,26 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-99.html#next">Prev</a> Nominal Error Rates</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> Error Rates</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Bathtub Curves Dialog <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="next">Nominal Error Rates <a class="next" name="next" href="Help-Subsubsection-101.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-100"></a>Measured Error Rates<a class="Label" name="pc:Measured-Error-Rates"> </a>
+<a class="toc" name="toc-Subsubsection-100"></a>Interpretation<a class="Label" name="pc:Interpretation"> </a>
 </h3>
 <div class="Standard">
-The measured error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:
+The interpretation table has the symbol transmitted along each row and the probability of the symbol interpretation along each column. If PAM-4 and above are employed, then Gray coding information is also provided (with the normal bit identification as 00, 01, 10, 11 first, with the Gray code as 00, 01, 11, 10, second).
 </div>
-<ul>
-<li>
-Probability — the probability that a given symbol is transmitted. This probability is the measured probability for each symbol in the measured eye.
-</li>
-<li>
-SER — the symbol error rate. Based on the <a class="Reference" href="Help-Subsubsection-98.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.
-</li>
-<li>
-BER — the bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-98.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.
-</li>
-<li>
-Gray BER — the Gray coded bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-98.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.
-</li>
-
-</ul>
 <div class="Standard">
-At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.
+If the user is unfamiliar with Gray coding, it is a method of encoding the bits employed so that on each side of a symbol, there is only a single bit transition. Gray coding is always employed for PAM-4 and above and tends to make the BER identical the SER divided by the <a class="Reference" href="Help-Subsection-53.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↓</a>. This is because symbol errors are usually such that a symbol is accidentally interpreted as an adjacent Gray coded symbol, thus causing a single bit error.
+</div>
+<div class="Standard">
+The probabilities for interpretation is derived from the vertical bathtub curve (see <a class="Reference" href="Help-Section-19.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog↓</a>). 
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-99.html#next">Prev</a> Nominal Error Rates</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> Error Rates</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Bathtub Curves Dialog <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="next">Nominal Error Rates <a class="next" name="next" href="Help-Subsubsection-101.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -1085,7 +1085,7 @@ a:visited {
 
 </div>
 <div class="Standard">
-To set the calculation properties for simulation, see <a class="Reference" href="Help-Subsubsection-74.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>.
+To set the calculation properties for simulation, see <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>.
 </div>
 <div class="Standard">
 The calculation properties determine how the transfer parameters are calculated. Transfer parameters are frequency responses that define transfer characteristics from an input waveform to an output waveform. Input waveforms come from sources and output waveforms are provided at output probe locations in the circuit. An output waveform is a linear combination of input waveforms applied to filters that are the time-domain equivalent of the frequency responses.
@@ -1103,7 +1103,7 @@ The impulse responses generated for the filters are always centered on time zero
 Assuming that all of the s-parameters have been sampled sufficiently, meaning to the right end frequency and most importantly, with the proper spacing to provide an impulse response that does not have time-aliasing effects, then it is possible to specify an appropriate impulse response length in the calculation properties. But with the tool in its current state, there is no way to guarantee this - you must set it to a value that makes sense. But the key is that it must be long enough. If it is too short, the simulator produces incorrect waveforms. If it is too long, it just needs to do extra work.
 </div>
 <div class="Standard">
-The advice here is to set the impulse response length to a number that is twice the length of a finite impulse response (FIR) filter in time as how long you think the impulse response of the longest filter should be. Then, after the simulation completes, you should <a class="Reference" href="Help-Subsubsection-30.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> from the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a> to make sure that this occurred.
+The advice here is to set the impulse response length to a number that is twice the length of a finite impulse response (FIR) filter in time as how long you think the impulse response of the longest filter should be. Then, after the simulation completes, you should <a class="Reference" href="Help-Subsubsection-31.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters↓</a> from the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↓</a> to make sure that this occurred.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-8.html#next">Prev</a> Output Probes for Simulation</span>

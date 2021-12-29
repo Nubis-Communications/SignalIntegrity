@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-49.html#next">Prev</a> Redo</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-49.html#next">Prev</a> History Buffer</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Duplicate Selected <a class="next" name="next" href="Help-Subsubsection-51.html#prev">Next</a></span>
+<span class="next">Redo <a class="next" name="next" href="Help-Subsubsection-51.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-50"></a>Delete Selected<a class="Label" name="Control-Help:Delete-Selected"> </a>
+<a class="toc" name="toc-Subsubsection-50"></a>Undo<a class="Label" name="Control-Help:Undo"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-39.html#sub:Edit">Edit↑</a> ▸ Delete Selected
+<a class="Reference" href="Help-Subsection-39.html#sub:Edit">Edit↑</a> ▸ Undo
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+E,D
+Alt+E,U
 </td>
 
 </tr>
@@ -1114,7 +1114,7 @@ Alt+E,D
 <i>Key Binding</i>
 </td>
 <td align="center" valign="top">
-Delete
+Ctrl+Z
 </td>
 
 </tr>
@@ -1123,7 +1123,7 @@ Delete
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-<img class="embedded" src="edit-delete-6.png" alt="figure edit-delete-6.png" style="max-width: 16px; max-height: 16px;"/>
+<img class="embedded" src="edit-undo-3.png" alt="figure edit-undo-3.png" style="max-width: 16px; max-height: 16px;"/>
 
 </td>
 
@@ -1133,7 +1133,7 @@ Delete
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When one or more drawing element is selected
+When there is something to undo in the history buffer
 </td>
 
 </tr>
@@ -1142,18 +1142,21 @@ When one or more drawing element is selected
 
 </div>
 <div class="Standard">
-This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.
+This undoes whatever has been done since the last event stored in the <a class="Reference" href="Help-Subsubsection-49.html#sub:History-Buffer">History Buffer↑</a>.
 </div>
 <div class="Standard">
-The items selected to be deleted are shown as blue items in the schematic.
+It is available whenever something has been done since the last event, otherwise it is disabled.
 </div>
 <div class="Standard">
-This command is also available by right clicking while multiple devices are selected through a context sensitive menu.
+The event that is undone is shown in the status message area.
+</div>
+<div class="Standard">
+Whenever something gets undone, <a class="Reference" href="Help-Subsubsection-51.html#Control-Help:Redo">Redo↓</a> becomes available.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-49.html#next">Prev</a> Redo</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-49.html#next">Prev</a> History Buffer</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Duplicate Selected <a class="next" name="next" href="Help-Subsubsection-51.html#prev">Next</a></span>
+<span class="next">Redo <a class="next" name="next" href="Help-Subsubsection-51.html#prev">Next</a></span>
 </div>
 
 </div>

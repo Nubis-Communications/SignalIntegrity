@@ -1073,39 +1073,27 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Bathtub Curve Measurement Properties</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Eye Diagram Measurement Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next"> <a class="next" name="next" href="Help-Subsection-52.html#prev">Next</a></span>
+<span class="next">Bathtub Curve Measurement Properties <a class="next" name="next" href="Help-Subsubsection-104.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-103"></a>Eye Annotation Properties<a class="Label" name="pc:Eye-Annotation-Properties"> </a>
+<a class="toc" name="toc-Subsubsection-103"></a>Eye Measurement Properties<a class="Label" name="pc:Eye-Measurement-Properties"> </a>
 </h3>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-86.html#sub:Annotate-Eye-with-Measurements">Annotate Eye with Measurements↓</a> is set to True, the resulting eye diagram is decorated with indicators of the measurements made:
+There are two properties that effect how the eye diagram measurements are made:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsection-87.html#sub:Annotation-Color">Annotation Color↓</a> — the color of the annotations. Generally, it’s best to choose a highly contrasting color to the color of the eye (like a complementary color: Green for red eye diagrams, Violet for yellow eye diagrams, Orange for blue eye diagrams, and vice versa.)
+<a class="Reference" href="Help-Subsection-81.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a> — this is the probability contour on each eye where the measurements are made. This is usually at the BER specified by a given standard.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-88.html#sub:Annotate-Mean-Levels">Annotate Mean Levels↓</a> — draw a horizontal line through the most probable levels at each bit.
+<a class="Reference" href="Help-Subsection-82.html#sub:Decision-Level">Decision Level↓</a> — either of:<ul>
+<li>
+Midpoint of Eye — as it says, the decision level is taken at the vertical midpoint of the eye.
 </li>
 <li>
-<a class="Reference" href="Help-Subsection-89.html#sub:Annotate-Levels-Extents">Annotate Levels Extents↓</a> — draw horizontal dotted lines at the extents of the bit levels (also the extent of the eye height).
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-90.html#sub:Annotate-Eye-Width">Annotate Eye Width↓</a> — draw a horizontal line representing the horizontal start, stop and width of the eye. This is drawn at a vertical location that depends on the choice of <a class="Reference" href="Help-Subsection-82.html#sub:Decision-Level">Decision Level↓</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-91.html#sub:Annotate-Eye-Height">Annotate Eye Height↓</a> — draw a vertical line representing the bottom, top and height of the eye. This is always drawn at the horizontal midpoint of the eye.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-92.html#sub:Annotate-Contour">Annotate Contour↓</a> — try to draw a line around the contour of the eye representing the <a class="Reference" href="Help-Subsection-81.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a>. It says try, because it is not always perfectly joined. The method used is based on <a class="Reference" href="Help-Subsection-93.html#sub:Which-Contours-to-Show">Which Contours to Show↓</a>:<ul>
-<li>
-All Contours -- at the perimeter of any probability contour having the probability specified. This performs better on more closed eyes.
-</li>
-<li>
-Only Contours inside Eye — at the perimeter of the contour bounded by the eye height and width. This performs better on more open eyes.
+Best Decision Point — the least likely vertical location in the eye.
 </li>
 
 </ul>
@@ -1113,10 +1101,13 @@ Only Contours inside Eye — at the perimeter of the contour bounded by the eye 
 </li>
 
 </ul>
+<div class="Standard">
+Note that the best decision point is always calculated and shown in the <a class="Reference" href="Help-Subsection-49.html#sub:Vertical/Horizontal">Vertical/Horizontal↑</a> tab of the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>, but if Best Decision Point is chosen, the eye width will be calculated at this vertical location.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Bathtub Curve Measurement Properties</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-51.html#next">Prev</a> Eye Diagram Measurement Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next"> <a class="next" name="next" href="Help-Subsection-52.html#prev">Next</a></span>
+<span class="next">Bathtub Curve Measurement Properties <a class="next" name="next" href="Help-Subsubsection-104.html#prev">Next</a></span>
 </div>
 
 </div>

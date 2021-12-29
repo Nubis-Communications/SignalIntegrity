@@ -1081,7 +1081,7 @@ a:visited {
 <a class="toc" name="toc-Subsection-10"></a>Simulating<a class="Label" name="sub:Simulating"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for simulation and setting the <a class="Reference" href="Help-Subsubsection-74.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the simulation is run using either the <a class="Reference" href="Help-Subsubsection-79.html#Control-Help:Simulate">Simulate↓</a> command or the <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for simulation and setting the <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculation-Properties">Calculation Properties↓</a>, the simulation is run using either the <a class="Reference" href="Help-Subsubsection-81.html#Control-Help:Simulate">Simulate↓</a> command or the <a class="Reference" href="Help-Subsubsection-79.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for simulation. This criteria for the schematic regarding elements are that the schematic must:
@@ -1117,13 +1117,13 @@ system devices
 
 </ul>
 <div class="Standard">
-In simulation, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-23.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In simulation, the first step is to convert the schematic shown into a <a class="Reference" href="Help-Section-23.html#sec:Netlist">Netlist↓</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>SimulatorNumericParser</b> class as described in the software documentation after which the transfer parameters are extracted.
 </div>
 <div class="Standard">
-During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-74.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>). If a <a class="Reference" href="Help-Subsection-94.html#device:File">File↓</a> device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
+During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculation-Properties">Calculation Properties↓</a> (see <a class="Reference" href="Help-Subsection-9.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation↑</a>). If a <a class="Reference" href="Help-Subsection-94.html#device:File">File↓</a> device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.
 </div>
 <div class="Standard">
 Then, for each frequency point, the transfer parameters are generated.
