@@ -1660,7 +1660,6 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         self.root.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
-        self.root.EyePropertiesDoer.Activate(foundAnEyeProbe)
         self.root.TransferParametersDoer.Activate(canSimulate or canVirtualProbe)
         self.root.CalculateDoer.Activate(canCalculate)
         self.root.CalculateSParametersDoer.Activate(canCalculateSParameters or canCalculateSParametersFromNetworkAnalyzerModel)
