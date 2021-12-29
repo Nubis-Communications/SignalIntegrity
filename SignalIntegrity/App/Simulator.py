@@ -77,7 +77,7 @@ class SimulatorDialog(tk.Toplevel):
         # ------
         self.ShowGridsDoer = Doer(self.onShowGrids).AddHelpElement('Control-Help:Show-Grids').AddToolTip('Show grids in plots')
         self.ViewTimeDomainDoer = Doer(self.onViewTimeDomain).AddHelpElement('Control-Help:View-Time-domain').AddToolTip('View time-domain waveforms')
-        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale').AddToolTip('Show frequency plots log scale')
+        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Sim-Log-Scale').AddToolTip('Show frequency plots log scale')
         self.ViewSpectralContentDoer = Doer(self.onViewSpectralContent).AddHelpElement('Control-Help:View-Spectral-Content').AddToolTip('View spectral content of waveforms')
         self.ViewSpectralDensityDoer = Doer(self.onViewSpectralDensity).AddHelpElement('Control-Help:View-Spectral-Density').AddToolTip('View spectral density of waveforms')
         # ------

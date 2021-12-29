@@ -99,7 +99,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowImpedanceDoer = Doer(self.onShowImpedance).AddHelpElement('Control-Help:Show-Impedance').AddToolTip('Show impedance plots')
         self.ShowExcessInductanceDoer = Doer(self.onShowExcessInductance).AddHelpElement('Control-Help:Show-Excess-Inductance').AddToolTip('Show excess inductance in plots')
         self.ShowExcessCapacitanceDoer = Doer(self.onShowExcessCapacitance).AddHelpElement('Control-Help:Show-Excess-Capacitance').AddToolTip('Show excess capacitance in plots')
-        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:Log-Scale').AddToolTip('Show frequency plots log scale')
+        self.LogScaleDoer = Doer(self.onLogScale).AddHelpElement('Control-Help:SP-Log-Scale').AddToolTip('Show frequency plots log scale')
         self.LinearVerticalScaleDoer = Doer(self.onLinearVerticalScale).AddHelpElement('Control-Help:Linear-Vertical-Scale').AddToolTip('Show frequency plots linear vertical scale')
         # ------
         self.Zoom={
@@ -172,7 +172,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowImpedanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Impedance',underline=5)
         self.ShowExcessInductanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Inductance',underline=13)
         self.ShowExcessCapacitanceDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Excess Capacitance',underline=12)
-        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Scale',underline=4)
+        self.LogScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Log Frequency Scale',underline=14)
         self.LinearVerticalScaleDoer.AddCheckButtonMenuElement(ViewMenu,label='Linear Vertical Scale',underline=8)
         #-------
         ZoomMenu=tk.Menu(self)
