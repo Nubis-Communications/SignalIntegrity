@@ -306,7 +306,14 @@ class SParametersDialog(tk.Toplevel):
 
         self.controlsFrame = tk.Frame(self.dialogFrame)
         self.controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
+        self.buttonsCanvas = tk.Canvas(self.controlsFrame,width=100,height=100)
+        self.vsb = tk.Scrollbar(self.buttonsCanvas, orient="vertical", command=self.buttonsCanvas.yview)
+        self.vsb.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
+        self.hsb = tk.Scrollbar(self.buttonsCanvas, orient="horizontal", command=self.buttonsCanvas.xview)
+        self.hsb.pack(fill=tk.X, side=tk.BOTTOM, expand=tk.FALSE)
+        self.buttonsCanvas.configure(xscrollcommand=self.hsb.set, yscrollcommand=self.vsb.set)
+        self.buttonsCanvas.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        self.sButtonsFrame = tk.Frame(self.buttonsCanvas, bd=1, relief=tk.SUNKEN)
         self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
 
         try:
@@ -1565,7 +1572,7 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
-        sButtonsFrame = tk.Frame(self.controlsFrame, bd=1, relief=tk.SUNKEN)
+        sButtonsFrame = tk.Frame(self.buttonsCanvas, bd=1, relief=tk.SUNKEN)
         self.buttons=[]
         for toP in range(len(self.buttonLabels)):
             buttonrow=[]
