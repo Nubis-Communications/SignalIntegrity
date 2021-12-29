@@ -306,15 +306,16 @@ class SParametersDialog(tk.Toplevel):
 
         self.controlsFrame = tk.Frame(self.dialogFrame)
         self.controlsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.buttonsCanvas = tk.Canvas(self.controlsFrame,width=100,height=100)
-        self.vsb = tk.Scrollbar(self.buttonsCanvas, orient="vertical", command=self.buttonsCanvas.yview)
-        self.vsb.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
-        self.hsb = tk.Scrollbar(self.buttonsCanvas, orient="horizontal", command=self.buttonsCanvas.xview)
-        self.hsb.pack(fill=tk.X, side=tk.BOTTOM, expand=tk.FALSE)
-        self.buttonsCanvas.configure(xscrollcommand=self.hsb.set, yscrollcommand=self.vsb.set)
-        self.buttonsCanvas.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
-        self.sButtonsFrame = tk.Frame(self.buttonsCanvas, bd=1, relief=tk.SUNKEN)
-        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+#         self.buttonsCanvas = tk.Canvas(self.controlsFrame)
+#         self.vsb = tk.Scrollbar(self.controlsFrame, orient="vertical", command=self.buttonsCanvas.yview)
+#         self.vsb.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
+#         self.hsb = tk.Scrollbar(self.controlsFrame, orient="horizontal", command=self.buttonsCanvas.xview)
+#         self.hsb.pack(fill=tk.X, side=tk.BOTTOM, expand=tk.FALSE)
+#         self.buttonsCanvas.configure(xscrollcommand=self.hsb.set, yscrollcommand=self.vsb.set)
+#         self.buttonsCanvas.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+#         self.sButtonsFrame = tk.Frame(self.buttonsCanvas, bd=1, relief=tk.SUNKEN)
+#         #self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+#         #self.buttonsCanvas.create_window(0,0,anchor='nw',window=self.sButtonsFrame)
 
         try:
             try:
@@ -1572,6 +1573,10 @@ class SParametersDialog(tk.Toplevel):
             else:
                 self.title(title+': '+self.fileparts.FileNameTitle())
 
+        self.buttonsCanvas = tk.Canvas(self.controlsFrame,width=200,height=200)
+        self.vsb = tk.Scrollbar(self.buttonsCanvas, orient="vertical", command=self.buttonsCanvas.yview)
+        self.hsb = tk.Scrollbar(self.buttonsCanvas, orient="horizontal", command=self.buttonsCanvas.xview)
+
         sButtonsFrame = tk.Frame(self.buttonsCanvas, bd=1, relief=tk.SUNKEN)
         self.buttons=[]
         for toP in range(len(self.buttonLabels)):
@@ -1583,8 +1588,17 @@ class SParametersDialog(tk.Toplevel):
                 thisButton.pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
                 buttonrow.append(thisButton)
             self.buttons.append(buttonrow)
-        self.sButtonsFrame.pack_forget()
+        #self.sButtonsFrame.pack_forget()
         self.sButtonsFrame=sButtonsFrame
-        self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        #self.sButtonsFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        self.buttonsCanvas.create_window(0,0,anchor='nw',window=self.sButtonsFrame)
+        self.update_idletasks()
+
+        self.buttonsCanvas.configure(xscrollcommand=self.hsb.set, yscrollcommand=self.vsb.set)
+        self.buttonsCanvas.pack(side=tk.LEFT,expand=tk.YES,fill=tk.BOTH)
+        self.vsb.pack(fill=tk.Y, side=tk.RIGHT, expand=tk.FALSE)
+        self.hsb.pack(fill=tk.X, side=tk.BOTTOM, expand=tk.FALSE)
+
+        #self.buttonsCanvas.bind("<Configure>", lambda event: self.buttonsCanvas.configure(scrollregion=self.buttonsCanvas.bbox("all")))
         self.update_idletasks()
         self.onSelectSParameter(self.toPort, self.fromPort)
