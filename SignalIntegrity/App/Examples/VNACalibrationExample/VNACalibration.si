@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>752x454+366+464</Geometry>
+			<Geometry>752x454+1998+107</Geometry>
 			<Grid>16</Grid>
 			<Originx>-2</Originx>
 			<Originy>7</Originy>
@@ -293,6 +293,12 @@
 							<Value>1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>ShortMeas1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -328,6 +334,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>OpenMeas1</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -365,6 +377,12 @@
 							<Value>1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>LoadMeas1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -400,6 +418,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>ShortMeas2</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -437,6 +461,12 @@
 							<Value>2</Value>
 							<Visible>True</Visible>
 						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>OpenMeas2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -472,6 +502,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>LoadMeas2</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -520,6 +556,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>SOLT</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>ThruMeas12</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
