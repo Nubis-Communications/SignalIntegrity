@@ -43,11 +43,10 @@ class SParametersParser(SParameters):
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         for line in lines:
             tokens=line.split()
-            try:
-                if tokens[0]!='post':
-                    continue
-            except:
-                pass
+            if len(tokens)>=0:
+                if tokens[0]!='post': continue
+            else: # pragma: no cover
+                continue
             try:
                 if tokens[1]=='enforce':
                     if tokens[2]=='causality':

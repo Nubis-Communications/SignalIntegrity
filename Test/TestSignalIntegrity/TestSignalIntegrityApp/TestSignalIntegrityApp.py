@@ -133,6 +133,12 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/PRBSExample/CommonModeProbe.si')
     def testNet(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/NetTest.si')
+    def testVirtualProbe(self):
+        try:
+            os.remove('../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample_cachedTransferMatrices.p')
+        except:
+            pass
+        self.VirtualProbeResultsChecker('../../../SignalIntegrity/App/Examples/VirtualProbingExample/VirtualProbeExample.si')
     def testPicturesNetlists(self):
         filesList=[
             'FilterTest.si',
