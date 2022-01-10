@@ -76,6 +76,7 @@ class Simulator(SystemSParameters,object):
         sv=self.SourceVector()
         sp=self.StimsPrime()
         Z0='Z0' if symbolic else 50.
+        nZ0='-Z0' if symbolic else -50.
         sm = [[0]*len(sv) for r in range(len(sp))]
         for s in sv:
             d=self[self.IndexOfDevice(s)]
@@ -83,7 +84,7 @@ class Simulator(SystemSParameters,object):
                 if len(d) == 1:
                     sm[sp.index(d[0].M)][sv.index(s)] = Z0
                 elif len(d) == 2:
-                    sm[sp.index(d[0].M)][sv.index(s)] = Z0
+                    sm[sp.index(d[0].M)][sv.index(s)] = nZ0
                     sm[sp.index(d[1].M)][sv.index(s)] = Z0
             elif d.Type == 'voltage source':
                 if len(d) == 1:
