@@ -351,8 +351,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             self.maxV+=rowsToPad*deltaY
 
         from scipy.ndimage.filters import convolve
-        bitmap=convolve(bitmaparray,kernelHarray,mode='wrap')
-        bitmap=convolve(bitmap,kernelVarray,mode='constant')
+        bitmap=bitmaparray
+        if kernelHarray.shape[1]!=0: bitmap=convolve(bitmaparray,kernelHarray,mode='wrap')
+        if kernelVarray.shape[0]!=0: bitmap=convolve(bitmap,kernelVarray,mode='constant')
         bitmap=bitmap/np.sum(bitmap)*self.Cols
         self.rawBitmap=bitmap
 
