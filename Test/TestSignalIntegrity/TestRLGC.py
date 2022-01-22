@@ -31,11 +31,6 @@ class TestRLGC(unittest.TestCase,si.test.SParameterCompareHelper,si.test.Callbac
         os.chdir(self.path)
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-1:]).replace('test','')
-    def testRLGC(self):
-        os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        spf=si.sp.SParameterFile('cable.s2p')
-        rlgc = si.sp.RLGC(spf,si.fd.FrequencyList(spf.m_f).TimeDescriptor())
-        pass
     def testRLGCFitFromFile(self):
         fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
         rlgc=si.fit.RLGCFitFromFile(fd,'../../SignalIntegrity/App/Examples/HDMICable/HDMIThruPortsPeeled.si').Fit()

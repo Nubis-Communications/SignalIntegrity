@@ -20,5 +20,4 @@ from __future__ import absolute_import
 # If not, see <https://www.gnu.org/licenses/>
 from .SParameterFile import SParameterFile
 from .SParameters import SParameters
-from .RLGC import RLGC
 from . import Devices as dev
