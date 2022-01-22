@@ -233,6 +233,19 @@ class EyeDiagramDialog(tk.Toplevel):
     def RemoveCallback(self):
         self.callback=None
 
+    def SimulatorDialog(self):
+        if not hasattr(self,'simulatorDialog'):
+            self.simulatorDialog=SimulatorDialog(self)
+        if self.simulatorDialog == None:
+            self.simulatorDialog=SimulatorDialog(self)
+        else:
+            if not self.simulatorDialog.winfo_exists():
+                self.simulatorDialog=SimulatorDialog(self)
+        return self.simulatorDialog
+
+    def UpdateWaveforms(self,outputWaveformList,outputWaveformLabels):
+        self.SimulatorDialog().UpdateWaveforms(outputWaveformList,outputWaveformLabels).state('normal')
+
     def CalculateEyeDiagram(self):
         self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
         if hasattr(self,'eyeDiagramMeasurementsDialog'):
@@ -304,4 +317,12 @@ class EyeDiagramDialog(tk.Toplevel):
             and bool(self.eyeDiagramMeasurementsDialog.winfo_exists())
         if not windowOpen:
             self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        self.EyeDiagramMeasurementsDialog().lift()
+
+    def onSimulatorDialog(self):
+        windowOpen=hasattr(self,'simulatorDialog')\
+            and (self.simulatorDialog != None)\
+            and bool(self.simulatorDialog.winfo_exists())
+        if not windowOpen:
+            self.simulatorDialog().UpdateMeasurements(self.eyeDiagram.measDict)
         self.EyeDiagramMeasurementsDialog().lift()

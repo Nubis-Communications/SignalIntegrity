@@ -172,3 +172,4 @@ class EyeDiagram(object):
         self.measDict=eyeDiagramBitmap.measDict
         self.rawBitmap=eyeDiagramBitmap.Bitmap()
         self.img=eyeDiagramBitmap.img
+        self.sampledWf=eyeDiagramBitmap.sampledWf
