@@ -209,12 +209,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there
         # is the assumption that there is a point at exactly time zero, and that is the center of the unit interval.
         # the amount of points to remove is trimmed from the left to make the very first sample at the center of a unit interval.
-        aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
-        aprbswf=WaveformTrimmer(C-int(round((aprbswf.td.H-math.floor(aprbswf.td.H/UI)*UI)*aprbswf.td.Fs)),0).TrimWaveform(aprbswf)
+        self.aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
+        self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
 
         if YAxisMode=='Auto':
-            maxV=max(aprbswf.Values())
-            minV=min(aprbswf.Values())
+            maxV=max(self.aprbswf.Values())
+            minV=min(self.aprbswf.Values())
             self.maxV=maxV+abs(maxV-minV)*.1
             self.minV=minV-abs(maxV-minV)*.1
         else:
@@ -234,13 +234,13 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         pixelator = Pixelator(R,C,steps,mode=enhancementMode)
 
         bitmap=np.zeros((R,C))
-        ri=(aprbswf[0]-self.minV)/DeltaV*R
+        ri=(self.aprbswf[0]-self.minV)/DeltaV*R
         ci=(0+midBin)%C
-        for k in range(1,aprbswf.td.K):
-            rf=(aprbswf[k]-self.minV)/DeltaV*R
+        for k in range(1,self.aprbswf.td.K):
+            rf=(self.aprbswf[k]-self.minV)/DeltaV*R
             cf=(k+midBin)%C
             if (not callback is None) and (k//C != (k-1)//C):
-                if not callback(k/aprbswf.td.K*100.):
+                if not callback(k/self.aprbswf.td.K*100.):
                     return
             results=pixelator.Results(ri, ci, rf, cf, k==0)
             for result in results:
@@ -252,6 +252,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         for c in range(C):
             self.rawBitmap[:,c]=self.rawBitmap[:,c]/sum(self.rawBitmap[:,c])
+
+        self.aprbswf=self.aprbswf.DelayBy(-UI/2)
+        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(self.aprbswf.td.H,self.aprbswf.td.K,self.BaudRate)).DelayBy(UI/2)
 
         # don't cache the waveform
         del self.prbswf
@@ -505,6 +508,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         for r in range(R):
             for c in range(C):
                 self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
+
+        H=self.aprbswf.td.H
+        self.aprbswf=self.aprbswf.DelayBy(-(columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(H,self.aprbswf.td.K,self.BaudRate))
+        self.sampledWf=self.sampledWf.DelayBy((columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.sampledWf.DelayBy(1./self.BaudRate/2.)
         return
 
     def Measure(self,

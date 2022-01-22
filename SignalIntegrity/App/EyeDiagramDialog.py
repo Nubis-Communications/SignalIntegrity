@@ -60,6 +60,7 @@ class EyeDiagramDialog(tk.Toplevel):
         # ------
         self.EyeMeasurementsDoer = Doer(self.onEyeMeasurements).AddHelpElement('Control-Help:Eye-Measurements').AddToolTip('View the eye measurements')
         self.BathtubCurveDoer = Doer(self.onBathtubCurve).AddHelpElement('Control-Help:Bathtub-Curve').AddToolTip('View the bathtub curves')
+        self.SampledWaveformsDoer = Doer(self.onSimulatorDialog).AddHelpElement('Control-Help:Sampled-Waveforms').AddToolTip('View sampled waveforms')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Eye-Diagram-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Eye-Diagram-Control-Help').AddToolTip('Get help on a control')
@@ -87,6 +88,7 @@ class EyeDiagramDialog(tk.Toplevel):
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
         self.EyeMeasurementsDoer.AddMenuElement(ViewMenu,label='Eye Measurements',underline=0)
         self.BathtubCurveDoer.AddMenuElement(ViewMenu,label='Bathtub Curve',underline=0)
+        self.SampledWaveformsDoer.AddMenuElement(ViewMenu,label='Sampled Waveforms',underline=0)
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
@@ -233,6 +235,17 @@ class EyeDiagramDialog(tk.Toplevel):
     def RemoveCallback(self):
         self.callback=None
 
+    def SimulatorDialog(self):
+        from SignalIntegrity.App.Simulator import SimulatorDialog
+        if not hasattr(self,'simulatorDialog'):
+            self.simulatorDialog=SimulatorDialog(self.parent)
+        if self.simulatorDialog == None:
+            self.simulatorDialog=SimulatorDialog(self.parent)
+        else:
+            if not self.simulatorDialog.winfo_exists():
+                self.simulatorDialog=SimulatorDialog(self.parent)
+        return self.simulatorDialog
+
     def CalculateEyeDiagram(self):
         self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
         if hasattr(self,'eyeDiagramMeasurementsDialog'):
@@ -243,6 +256,13 @@ class EyeDiagramDialog(tk.Toplevel):
             if self.bathtubCurveDialog != None:
                 if self.bathtubCurveDialog.winfo_exists():
                     self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+        if hasattr(self,'simulatorDialog'):
+            if self.simulatorDialog != None:
+                if self.simulatorDialog.winfo_exists():
+                    self.simulatorDialog.UpdateWaveforms(
+                        [self.eyeDiagram.prbswf,self.eyeDiagram.sampledWf],
+                        [self.name,self.name+'_sampled'],
+                        ['lines','dots']).state('normal')
         self.EyeMeasurementsDoer.Activate(not self.eyeDiagram.measDict is None)
         self.BathtubCurveDoer.Activate((not self.eyeDiagram.measDict is None) and ('Bathtub' in self.eyeDiagram.measDict.keys()))
         self.eyeCanvas.pack_forget()
@@ -269,7 +289,6 @@ class EyeDiagramDialog(tk.Toplevel):
             if not self.eyeDiagramMeasurementsDialog.winfo_exists():
                 self.eyeDiagramMeasurementsDialog=EyeDiagramMeasurementsDialog(self,self.name)
         return self.eyeDiagramMeasurementsDialog
-
 
     def UpdateWaveforms(self):
         self.eyeDiagram.prbswf=self.eyeArgs['Waveform']
@@ -305,3 +324,19 @@ class EyeDiagramDialog(tk.Toplevel):
         if not windowOpen:
             self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
         self.EyeDiagramMeasurementsDialog().lift()
+
+    def onSimulatorDialog(self):
+        windowOpen=hasattr(self,'simulatorDialog')\
+            and (self.simulatorDialog != None)\
+            and bool(self.simulatorDialog.winfo_exists())
+        if not windowOpen:
+            self.SimulatorDialog().title('Sampled Waveforms: '+self.name)
+            self.SimulatorDialog().CalculationPropertiesDoer.Activate(False)
+            self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(False)
+            self.SimulatorDialog().SimulateDoer.Activate(False)
+            self.SimulatorDialog().UpdateWaveforms(
+                [self.eyeDiagram.prbswf,self.eyeDiagram.sampledWf],
+                [self.name,self.name+'_sampled'],
+                ['lines','dots']).state('normal')
+            self.SimulatorDialog().update_idletasks()
+        self.SimulatorDialog().lift()
