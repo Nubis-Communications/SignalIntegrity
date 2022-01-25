@@ -161,6 +161,7 @@ class SimulatorDialog(tk.Toplevel):
 
         self.waveformList=None
         self.waveformNamesList=None
+        self.waveformTypesList=None
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         #canvas.show()
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
@@ -329,9 +330,11 @@ class SimulatorDialog(tk.Toplevel):
 
         return self
 
-    def UpdateWaveforms(self,waveformList, waveformNamesList):
+    def UpdateWaveforms(self,waveformList, waveformNamesList,waveformTypes=None):
+        # waveformTypes is either None, or a list of strings per waveform where each element is either 'dots' or 'lines'
         self.totalwaveformList=waveformList
         self.totalwaveformNamesList=waveformNamesList
+        self.totalwaveformTypesList=waveformTypes
         # ------
         self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.totalwaveformNamesList))]
         # ------
@@ -364,12 +367,14 @@ class SimulatorDialog(tk.Toplevel):
         self.waveformList=[]
         self.waveformNamesList=[]
         self.waveformColorIndexList=[]
+        self.waveformTypesList=[]
         colors=matplotlib.pyplot.rcParams['axes.prop_cycle'].by_key()['color']
         for si in range(len(self.SelectionDoerList)):
             if self.SelectionDoerList[si].Bool():
                 self.waveformList.append(self.totalwaveformList[si])
                 self.waveformNamesList.append(self.totalwaveformNamesList[si])
                 self.waveformColorIndexList.append(colors[si%len(colors)])
+                self.waveformTypesList.append(self.totalwaveformTypesList[si] if self.totalwaveformTypesList != None else 'lines')
 
         if len(self.waveformList) == 1:
             self.statusbar.set(ToSI(self.waveformList[0].td.K,'Pts')+' starting at '+ToSI(self.waveformList[0].td.H,'s')+' at '+
@@ -469,6 +474,8 @@ class SimulatorDialog(tk.Toplevel):
             wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
             wfColor=self.waveformColorIndexList[wfi]
+            wfLineStyle='None' if self.waveformTypesList[wfi] == 'dots' else 'solid'
+            wfMarkerStyle='o' if self.waveformTypesList[wfi] == 'dots' else 'None'
             plotlog=False
             plotdB=False
             if plotlog:
@@ -476,7 +483,7 @@ class SimulatorDialog(tk.Toplevel):
             elif plotdB:
                 self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
             else:
-                self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor)
+                self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor,linestyle=wfLineStyle,marker=wfMarkerStyle)
             minv=min(wfValues) if minv is None else min(minv,min(wfValues))
             maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 

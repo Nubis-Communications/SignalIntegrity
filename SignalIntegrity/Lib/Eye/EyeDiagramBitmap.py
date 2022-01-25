@@ -509,8 +509,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             for c in range(C):
                 self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
 
-        self.aprbswf=self.aprbswf.DelayBy(-columnAtEyeCenter/C/self.BaudRate)
-        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(self.aprbswf.td.H,self.aprbswf.td.K,self.BaudRate)).DelayBy(columnAtEyeCenter/C/self.BaudRate)
+        self.aprbswf=self.aprbswf.DelayBy(-(columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(self.aprbswf.td.H,self.aprbswf.td.K,self.BaudRate))
+        self.sampledWf=self.sampledWf.DelayBy((columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.sampledWf.DelayBy(1./self.BaudRate/2.)
         return
 
     def Measure(self,
