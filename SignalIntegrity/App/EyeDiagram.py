@@ -161,9 +161,10 @@ class EyeDiagram(object):
 
         if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
             try:
-                if self.config['Measure.Measure']:
+                if self.config['Measure.Measure'] and self.config['Mode'] == 'JitterNoise':
                     if not self.headless: self.parent.statusbar.set('Calculating Penalties')
-                    eyeDiagramBitmap.Penalties(self.config['Measure.NoisePenalty'])
+                    eyeDiagramBitmap.Penalties(NoiseSigma=self.config['JitterNoise.Noise'],
+                                               NoisePenaltydB=self.config['Measure.NoisePenalty'])
             except Exception as e:
                 pass
                 #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Penalties Calculation Failed.')

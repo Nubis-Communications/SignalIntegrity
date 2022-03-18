@@ -189,6 +189,14 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             except:
                 pass
             self.Line2(self.ParametersFrame,'')
+        self.SingleLine(self.ParametersFrame,'Signal Power',ToSI(self.meas['RMS'],'Vrms'))
+        self.SingleLine(self.ParametersFrame,'Noise',ToSI(self.meas['Noise'],'Vrms'))
+        self.SingleLine(self.ParametersFrame, 'Residual Error',ToSI(self.meas['NoiseResidual'],'Vrms'))
+        self.SingleLine(self.ParametersFrame,'SDR',ToSI(self.meas['SDR'],'dB'))
+        if not self.meas['SNR'] is None:
+            self.SingleLine(self.ParametersFrame,'SNR',ToSI(self.meas['SNR'],'dB'))
+            self.SingleLine(self.ParametersFrame, 'SNDR',ToSI(self.meas['SNDR'],'dB'))
+        self.Line2(self.ParametersFrame,'')
         self.SingleLine(self.ParametersFrame,'Vertical Resolution',ToSI(self.meas['VerticalResolution'],'V'))
         self.SingleLine(self.ParametersFrame,'Horizontal Resolution',ToSI(self.meas['HorizontalResolution'],'s'))
 

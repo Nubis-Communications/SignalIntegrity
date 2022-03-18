@@ -27,7 +27,6 @@ import math
 import copy
 import numpy as np
 import hashlib
-import scipy.special
 
 from PIL import Image
 
@@ -186,6 +185,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.EnhancementMode=EnhancementMode
         self.EnhancementSteps=EnhancementSteps
         self.BitsPerSymbol=BitsPerSymbol
+        self.NoiseSigma=0.
 
         self.BitmapLog=None
         self.measDict=None
@@ -292,6 +292,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @remark The shape of the bitmap is adjusted by padding rows based on the amount of vertical noise
         added.
         """
+        self.NoiseSigma=NoiseSigma
         UI=1./self.BaudRate
         deltaT=UI/self.Cols
         deltaY=(self.maxV-self.minV)/self.RowsSpecified
@@ -558,6 +559,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             - Mean - a dictionary containing the Bin and Volt of the mean vertical location of the level extent.
         * Linearity - The eye linearity calculated as the Min(AV)/Max(AV).  This is 100% for NRZ waveforms.
         * RLM - Relative Level Mismatch - only defined for PAM-4.
+        * RMS - Rms value of the waveform
+        * Noise - Rms value of the noise
+        * NoiseResidual - Rms value of the residual noise (ISI and linearity only - no noise added).
+        * SDR - Ratio of sampled ideal signal to residual error (noise) in dB (without noise added).
+        * SNR - Signal to noise ratio.
+        * SNDR - Signal to noise and distortion ratio.
         * VerticalResolution - the resolution, in V, for each row of the eye.
         * HorizontalResolution - the resolution in seconds, for each column of the eye.
         """
@@ -678,6 +685,25 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             if number == None: return number
             power = "{:e}".format(number).split('e')[1]
             return round(number, -(int(power) - digits))
+        # calculate the SDR -- this would be the power of the ideal sampled signal with respect to the power of the residual noise
+        levels = [eyeAverageLevels[i] for i in range(numberOfEyes+1)]
+        noiseWf=Waveform(self.sampledWf.td)
+        signalWf=Waveform(self.sampledWf.td)
+        for k in range(len(self.sampledWf)):
+            x=self.sampledWf[k]
+            distance=[abs(level-x) for level in levels] # list of minimum distances from levels
+            l=distance.index(min(distance)) # index of the ideal level
+            noiseWf[k]=x-levels[l] # error
+            signalWf[k]=levels[l] # signal (ideal)
+        # calculate the power of each
+        signalRms=math.sqrt(1./len(signalWf)*sum([x**2 for x in signalWf]))
+        noiseResidual=math.sqrt(1./len(noiseWf)*sum([x**2 for x in noiseWf]))
+        sdr=20.*math.log10(signalRms/noiseResidual)
+        if self.NoiseSigma==0.:
+            snr=None
+        else:
+            snr=20*math.log10(signalRms/self.NoiseSigma)
+        sndr=20.*math.log10(signalRms/math.sqrt(noiseResidual**2+self.NoiseSigma**2))
         self.measDict={'R':R,'C':C,'MinV':self.minV,'MaxV':self.maxV,'MinT':-C//2*UI,'MaxT':(C-1)//2*UI,'BERForMeasure':BERForMeasure,
                        'Eye':{i:{'Start':{'Bin':eyeHorizontalExtentsForMeasure[i][0],
                                           'Time':precision_round((eyeHorizontalExtentsForMeasure[i][0]-C/2)/C*UI)},
@@ -706,6 +732,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                                             'Volt':precision_round(eyeAverageLevels[i])}} for i in range(numberOfEyes+1)},
                         'Linearity':precision_round(EyeLinearity*100.)/100.,
                         'RLM':precision_round(RLM),
+                        'RMS':precision_round(signalRms),
+                        'Noise':precision_round(self.NoiseSigma),
+                        'NoiseResidual':precision_round(noiseResidual),
+                        'SDR':precision_round(sdr),
+                        'SNR':precision_round(snr),
+                        'SNDR':precision_round(sndr),
                         'VerticalResolution':precision_round((self.maxV-self.minV)/R),
                         'HorizontalResolution':precision_round(UI/C)}
         for i in range(numberOfEyes):
@@ -1227,9 +1259,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.image=copy.deepcopy(self.img)
 
     def Penalties(self,
+                  NoiseSigma=0,
                   NoisePenaltydB=0
                   ):
-        if self.NoiseSigma == 0:
+        if NoiseSigma == 0:
             if 'Penalties' in self.measDict.keys():
                 del self.measDict['Penalties']
         else:
@@ -1255,7 +1288,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
             NoisePenalty=10**(NoisePenaltydB/10.)
 
-            QFactorExpected=OMA/2/D/self.NoiseSigma*NoisePenalty
+            QFactorExpected=OMA/2/D/NoiseSigma*NoisePenalty
             BERexpected=F*scipy.special.erfc(1./math.sqrt(2.)*QFactorExpected)
             QFactorExpecteddB=10.*math.log10(QFactorExpected)
             QFactor=scipy.special.erfcinv(BERmeas/F)*math.sqrt(2)
@@ -1264,7 +1297,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             self.measDict['Penalties']={'PH':PH,'PL':PL,'MA':OMA,'QFactorExpected':QFactorExpected,'QFactorExpecteddB':QFactorExpecteddB,
                                         'BERMeasured':BERmeas,'BERExpected':BERexpected,
                                         'QFactor':QFactor,'QFactordB':QFactordB,'TxPenalty':TxPenalty,
-                                        'NoiseSigma':self.NoiseSigma,'NoisePenalty':NoisePenaltydB,
+                                        'NoiseSigma':NoiseSigma,'NoisePenalty':NoisePenaltydB,
                                         'Levels':{'Total':numLevels,'Inner':numInnerLevels,'Outer':numOuterLevels},
                                         'Eyes':numEyes,'ErrorCases':numErrorCases,
                                         'F':{'Numerical':F,'Numerator':FN,'Denominator':FD},

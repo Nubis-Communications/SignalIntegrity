@@ -70,8 +70,11 @@ class SParametersDialog(tk.Toplevel):
         self.standalone=standalone
         self.withdraw()
 
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.tk.call('wm', 'iconphoto', self._w, self.img)
+        try:
+            self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+            self.tk.call('wm', 'iconphoto', self._w, self.img)
+        except:
+            pass
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
@@ -946,6 +949,10 @@ class SParametersDialog(tk.Toplevel):
 
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
+# Consider adding this capability from the dialog.  It prevents step responses from slanting across
+# the screen when there is an offset in the impulse response.
+#         from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
+#         ir=ImpulseResponse(ir-ir[0])
 
         y=fr.Response('mag') if self.LinearVerticalScaleDoer.Bool() else fr.Response('dB')
 

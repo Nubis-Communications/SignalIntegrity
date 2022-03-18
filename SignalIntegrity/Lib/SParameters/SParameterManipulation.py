@@ -79,9 +79,9 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)): self.m_d[n][toPort][fromPort]=frv[n]
         return self
-    def WaveletDenoise(self,threshold=0.0001):
+    def WaveletDenoise(self,threshold=0.00001):
         """Denoises the s-parameters
-        @param threshold (optional) float threshold for the wavelets (defaults to 0.0001).
+        @param threshold (optional) float threshold for the wavelets (defaults to 0.00001).
         Denoises the s-parameter by computing the wavelet transform of the impulse response
         for each s-parameter from and to port combination and keeping only the wavelets whoe
         absolute value is above the threshold."""
