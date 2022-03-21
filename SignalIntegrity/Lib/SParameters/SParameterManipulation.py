@@ -248,3 +248,45 @@ class SParameterManipulation(object):
         self.EnforceReciprocity()
         self.EnforceBothPassivityAndCausality(causalityThreshold, maxIterations, maxSingularValue)
         return self
+    def RemoveImpulseResponseOffset(self,lengths=None):
+        """Removes offset in the impulse response.
+        @param lengths tuple or list of list of tuple impulse response lengths where the
+        tuple contains the negative time limit and the positive time limit.  The offset to remove
+        is the mean value of all areas of the impulse repsonse outside these limits
+        @return self (with impulse response offsets removed)
+        @remark if the lengths are a single number, it is assumed to be the single
+        length, otherwise if the lengths is a list of list, it is length to be enforced
+        for each port-port connection.
+        """
+        if lengths is None:
+            lengths=(-1e15,1e15)
+        if not isinstance(lengths,list):
+            lengths=[[lengths for _ in range(self.m_P)] for _ in range(self.m_P)]
+        for toPort in range(self.m_P):
+            for fromPort in range(self.m_P):
+                (negativeTimeLimit,positiveTimeLimit)=lengths[toPort][fromPort]
+                fr=self.FrequencyResponse(toPort+1,fromPort+1)
+                ir=fr.ImpulseResponse()
+                mean=0.
+                count=0
+                if ir is not None:
+                    t=ir.td
+                    for k in range(len(t)):
+                        if t[k]<=negativeTimeLimit:
+                            count+=1
+                            mean+=ir[k]
+                        if t[k]>=positiveTimeLimit:
+                            count+=1
+                            mean+=ir[k]
+                    if count==0:
+                        mean=(ir[0]+ir[-1])/2.
+                    else:
+                        mean=mean/count
+                    for k in range(len(t)):
+                        ir[k]-=mean
+                    fr=ir.FrequencyResponse()
+                    frv=fr.Response()
+                    for n in range(len(frv)):
+                        self.m_d[n][toPort][fromPort]=frv[n]
+        return self
+

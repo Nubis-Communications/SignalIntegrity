@@ -38,6 +38,7 @@ class SParametersParser(SParameters):
         @see EnforceAll
         @see LimitImpulseResponseLength
         @see SetReferenceImpedance
+        @see RemoveImpulseResponseOffset
         @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
@@ -64,6 +65,14 @@ class SParametersParser(SParameters):
                 elif tokens[1]=='limit':
                     self.LimitImpulseResponseLength((float(tokens[2]) if tokens[2]!='none' else -1e15,
                                                      float(tokens[3]) if tokens[3]!='none' else +1e15))
+                elif tokens[1]=='offset':
+                    if len(tokens)<= 2:
+                        self.RemoveImpulseResponseOffset()
+                    elif len(tokens)<=3:
+                        self.RemoveImpulseResponseOffset((float(tokens[2]) if tokens[2]!='none' else -1e15,+1e15))
+                    else:
+                        self.RemoveImpulseResponseOffset((float(tokens[2]) if tokens[2]!='none' else -1e15,
+                                                         float(tokens[3]) if tokens[3]!='none' else +1e15))
                 elif tokens[1]=='reference':
                     if tokens[2]=='impedance':
                         try:

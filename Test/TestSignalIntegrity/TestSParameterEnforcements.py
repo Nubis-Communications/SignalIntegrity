@@ -33,7 +33,7 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         self.assertTrue(any([sv > 1.+1e-15 for sv in sf._LargestSingularValues()]),' already passive')
         sf.EnforcePassivity(0.99999999999999)
         self.assertFalse(any([sv > 1.+1.e-15 for sv in sf._LargestSingularValues()]),' passivity not enforced')
-        self.CheckSParametersResult(sf, pefn, 'passivity enforced s-parameters incorrect')
+        self.CheckSParametersResult(sf, pefn, 'passivity enforced s-parameters')
     def testCausalityEnforcement(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
@@ -41,25 +41,25 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         self.assertFalse(sf.IsCausal(1e-9),' already causal')
         sf.EnforceCausality()
         self.assertTrue(sf.IsCausal(1e-9),' causality not enforced')
-        self.CheckSParametersResult(sf, cefn, 'causality enforced s-parameters incorrect')
+        self.CheckSParametersResult(sf, cefn, 'causality enforced s-parameters')
     def testWaveletDenoising(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
         wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.WaveletDenoise()
-        self.CheckSParametersResult(sf, wdfn, 'wavelet denoised s-parameters incorrect')
+        self.CheckSParametersResult(sf, wdfn, 'wavelet denoised s-parameters')
     def testImpulseResponseLimitingSingle(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
         wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.LimitImpulseResponseLength((-0.5e-12,3e-9))
-        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters incorrect')
+        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters')
     def testImpulseResponseLimitingList(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
         wdfn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.LimitImpulseResponseLength([[(-0.5e-12,3e-9),(-0.5e-12,5e-9)],[(-0.5e-12,5e-9),(-0.5e-12,3e-9)]])
-        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters incorrect')
+        self.CheckSParametersResult(sf, wdfn, 'impulse response limited s-parameters')
     def testDetermineImpulseResponseLimits(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
@@ -90,18 +90,18 @@ class TestSParameterEnforcements(unittest.TestCase,si.test.RoutineWriterTesterHe
         sf=si.sp.SParameterFile('filter.s2p')
         pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.EnforceReciprocity()
-        self.CheckSParametersResult(sf, pefn, 'reciprocity enforced s-parameters incorrect')
+        self.CheckSParametersResult(sf, pefn, 'reciprocity enforced s-parameters')
     def testBothPassivityAndCausalityEnforcement(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
         pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.EnforceBothPassivityAndCausality()
-        self.CheckSParametersResult(sf, pefn, 'passivity and reciprocity enforced s-parameters incorrect')
+        self.CheckSParametersResult(sf, pefn, 'passivity and reciprocity enforced s-parameters')
     def testAllEnforcement(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sf=si.sp.SParameterFile('filter.s2p')
         pefn='_'.join(self.id().split('.')[-2:])+'.s'+str(sf.m_P)+'p'
         sf.EnforceAll()
-        self.CheckSParametersResult(sf, pefn, 'all enforced s-parameters incorrect')
+        self.CheckSParametersResult(sf, pefn, 'all enforced s-parameters')
 if __name__ == "__main__":
     unittest.main()

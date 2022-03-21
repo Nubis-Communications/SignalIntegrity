@@ -90,6 +90,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceReciprocityDoer = Doer(self.onEnforceReciprocity).AddHelpElement('Control-Help:Enforce-Reciprocity').AddToolTip('Enforce reciprocity on s-parameters')
         self.EnforceAllDoer = Doer(self.onEnforceAll).AddHelpElement('Control-Help:Enforce-All').AddToolTip('Enforce passivity, reciprocity, and causality on s-parameters')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise').AddToolTip('Denoise s-parameters with wavelets')
+        self.RemoveOffsetDoer = Doer(self.onRemoveOffset).AddHelpElement('Control-Help:Remove-Offset').AddToolTip('Remove offset from impulse response in s-parameters')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help').AddToolTip('Get help on a control')
@@ -165,6 +166,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceReciprocityDoer.AddMenuElement(PropertiesMenu,label='Enforce Reciprocity',underline=8)
         self.EnforceAllDoer.AddMenuElement(PropertiesMenu,label='Enforce All',underline=8)
         self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
+        self.RemoveOffsetDoer.AddMenuElement(PropertiesMenu,label='Remove Impulse Response Offset',underline=25)
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
@@ -1497,6 +1499,11 @@ class SParametersDialog(tk.Toplevel):
 
     def onWaveletDenoise(self):
         self.sp.WaveletDenoise()
+        self.UpdatePropertiesFromSParameters()
+        self.PlotSParameter()
+
+    def onRemoveOffset(self):
+        self.sp.RemoveImpulseResponseOffset((-1e15,1e15))
         self.UpdatePropertiesFromSParameters()
         self.PlotSParameter()
 

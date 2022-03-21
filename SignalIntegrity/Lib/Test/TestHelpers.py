@@ -143,7 +143,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
             self.assertTrue(False, fileName + ' not found')
         regression=SParameterFile(fileName,50.)
         #os.chdir(path)
-        self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect')
+        self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect -- '+fileName)
 
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
