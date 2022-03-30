@@ -521,12 +521,12 @@ class SimulatorDialog(tk.Toplevel):
                 filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
             preferLeCroyWaveforms=SignalIntegrity.App.Preferences['ProjectFiles.PreferSaveWaveformsLeCroyFormat']
             if preferLeCroyWaveforms:
-                filename=AskSaveAsFilename(parent=self,filetypes=[('LeCroy','.trc'),('waveform', '.txt')],
+                filename=AskSaveAsFilename(parent=self,filetypes=[('LeCroy','.trc'),('waveform', '.txt'),('time/value','.csv')],
                                 defaultextension='.trc',
                                 initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
                                 initialfile=filename+'.trc')
             else:
-                filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt'),('LeCroy','.trc')],
+                filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt'),('LeCroy','.trc'),('time/value','.csv')],
                                 defaultextension='.txt',
                                 initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
                                 initialfile=filename+'.txt')
@@ -652,8 +652,6 @@ class Simulator(object):
         except si.SignalIntegrityException as e:
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
-
-        #self.transferMatrices.SParameters().WriteToFile('xfer.sXp')
 
         self.outputWaveformLabels=netList.OutputNames()
 

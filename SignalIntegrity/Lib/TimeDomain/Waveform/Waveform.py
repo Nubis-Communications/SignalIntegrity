@@ -268,6 +268,9 @@ class Waveform(list):
         if file_extension == '.trc':
             self.WriteLeCroyWaveform(fileName)
             return self
+        if file_extension == '.csv':
+            self.WriteCsvWaveform(fileName)
+            return self
         # pragma: include
         with open(fileName,"w") as f:
             td=self.td
@@ -439,6 +442,14 @@ class Waveform(list):
         """
         wf=from_trc(filename)
         self.__init__(wf)
+        return self
+    def WriteCsvWaveform(self,filename):
+        """Write waveform in csv format
+        @param filename String name of the filename to read.  Should have a .trc extension
+        @return self
+        """
+        with open(filename,'wt') as f:
+            f.writelines([f'{t} {v}\n' for t,v in zip(self.Times(),self.Values())])
         return self
 
 class WaveformFileAmplitudeOnly(Waveform):
