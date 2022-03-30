@@ -512,6 +512,8 @@ class SimulatorDialog(tk.Toplevel):
         return self
 
     def onWriteSimulatorToFile(self):
+        filetypes=[('LeCroy','.trc'),('waveform', '.txt'),('time/value','.csv')]
+        preferredExtension = '.trc' if SignalIntegrity.App.Preferences['ProjectFiles.PreferSaveWaveformsLeCroyFormat'] else '.txt'
         for wfi in range(len(self.waveformNamesList)):
             outputWaveformName=self.waveformNamesList[wfi]
             outputWaveform=self.waveformList[wfi]
@@ -519,19 +521,28 @@ class SimulatorDialog(tk.Toplevel):
                 filename=outputWaveformName
             else:
                 filename=self.parent.parent.fileparts.filename+'_'+outputWaveformName
-            preferLeCroyWaveforms=SignalIntegrity.App.Preferences['ProjectFiles.PreferSaveWaveformsLeCroyFormat']
-            if preferLeCroyWaveforms:
-                filename=AskSaveAsFilename(parent=self,filetypes=[('LeCroy','.trc'),('waveform', '.txt'),('time/value','.csv')],
-                                defaultextension='.trc',
-                                initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
-                                initialfile=filename+'.trc')
-            else:
-                filename=AskSaveAsFilename(parent=self,filetypes=[('waveform', '.txt'),('LeCroy','.trc'),('time/value','.csv')],
-                                defaultextension='.txt',
-                                initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
-                                initialfile=filename+'.txt')
+
+            # rearrange the file types list so that the preferred extension is the first in the list
+            rearrangedFileTypesExtension=[]
+            rearrangedFileTypesNotExtension=[]
+            for name,extension in filetypes:
+                if extension==preferredExtension:
+                    rearrangedFileTypesExtension.append((name,extension))
+                else:
+                    rearrangedFileTypesNotExtension.append((name,extension))
+            filetypes=rearrangedFileTypesExtension+rearrangedFileTypesNotExtension
+
+            filename=AskSaveAsFilename(parent=self,filetypes=filetypes,
+                            defaultextension=preferredExtension,
+                            initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                            initialfile=filename+preferredExtension)
             if filename is None:
                 continue
+
+            extension='.'+filename.split('.')[-1]
+            if extension in ['.trc','.txt','.csv']:
+                preferredExtension = extension
+
             outputWaveform.WriteToFile(filename)
 
     def onReadSimulatorFromFile(self):

@@ -163,7 +163,7 @@ class DeviceProperty(tk.Frame):
                 finally:
                     self.parent.parent.protocol("WM_DELETE_WINDOW", self.parent.parent.cancel)
             elif self.partProperty['PropertyName'] == 'waveformfilename':
-                filenametoshow=('/'.join(filename.split('\\'))).split('/')[-1]
+                filenametoshow=".".join(('/'.join(filename.split('\\'))).split('/')[-1].split('.')[0:-1])
                 if filenametoshow is None:
                     filenametoshow=''
                 try:
