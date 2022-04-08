@@ -215,7 +215,13 @@ def to_trc(wf,fname):
         # reload these to acquire the quantization effect of storing them in the descriptor
         vert_scale = desc["VERTICAL_GAIN"][0]
         vert_offset = -desc["VERTICAL_OFFSET"][0]
-        x_int = ((x - vert_offset)/vert_scale).astype(dtype="<i2")
+
+        # it seems that if vert_scale becomes zero, it's safe to just
+        # skip dividing by it.
+        if vert_scale==0.0:
+            x_int = (x - vert_offset).astype(dtype="<i2")
+        else:
+            x_int = ((x - vert_offset)/vert_scale).astype(dtype="<i2")
 
         # Write the values to file
         total_length = 2*len(x) + 346
