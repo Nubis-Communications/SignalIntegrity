@@ -56,11 +56,19 @@ class Schematic(object):
     def InputWaveforms(self):
         inputWaveformList=[]
         for device in self.deviceList:
-            if not device['partname']['Value'] == 'ImpulseResponseFilter':
+            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
                 wf = device.Waveform()
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    def OtherWaveforms(self):
+        otherWaveformList=[]
+        for device in self.deviceList:
+            if device['partname']['Value'] in ['EyeWaveform','Waveform']:
+                wf = device.Waveform()
+                if not wf is None:
+                    otherWaveformList.append(wf)
+        return otherWaveformList
     def Clear(self):
         self.deviceList = []
         if not SignalIntegrity.App.Project is None:

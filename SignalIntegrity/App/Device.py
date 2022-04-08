@@ -484,6 +484,31 @@ class DeviceOutput(Device):
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
+        self['ref']['Visible']=True
+
+class DeviceWaveform(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='waveform',showReference=True,showports=False)
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Waveforms'),
+                         PartPropertyPartName('Waveform'),
+                         PartPropertyHelp('device:Output-Waveform'),
+                         PartPropertyDefaultReferenceDesignator('VO?'),
+                         PartPropertyDescription('Output Waveform'),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0),
+                         PartPropertyWaveformFileName(),
+                         PartPropertyWaveformType('file'),
+                         PartPropertyWaveformProjectName('')],
+                        PartPictureVariableProbeWaveform())
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=False
+        self['wffile']['Visible']=True
+        self['wffile']['KeywordVisible']=False
+        self['ref']['Visible']=True
 
 class DeviceNetName(Device):
     def __init__(self):
@@ -1018,6 +1043,33 @@ class DeviceRelay(Device):
         self['term']['KeywordVisible']=True
         self['term']['Visible']=False
 
+class DeviceEyeWaveform(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(devicename='eyewaveform',showReference=True,showports=False)
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Waveforms'),
+                         PartPropertyPartName('EyeWaveform'),
+                         PartPropertyHelp('device:Eye-Waveform'),
+                         PartPropertyDefaultReferenceDesignator('Wf?'),
+                         PartPropertyDescription('Eye Waveform'),
+                         PartPropertyVoltageGain(1.0),
+                         PartPropertyVoltageOffset(0.0),
+                         PartPropertyDelay(0.0),
+                         PartPropertyBaudRate(),
+                         PartPropertyWaveformFileName(),
+                         PartPropertyWaveformType('file'),
+                         PartPropertyWaveformProjectName('')],
+                        PartPictureVariableEyeWaveform(),
+                        EyeDiagramConfiguration())
+        self['gain']['Visible']=False
+        self['offset']['Visible']=False
+        self['td']['Visible']=False
+        self['br']['Visible']=True
+        self['wffile']['Visible']=True
+        self['wffile']['KeywordVisible']=False
+        self['ref']['Visible']=True
+
 class DeviceEyeProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)
@@ -1039,6 +1091,7 @@ class DeviceEyeProbe(Device):
         self['offset']['Visible']=False
         self['td']['Visible']=True
         self['br']['Visible']=True
+        self['ref']['Visible']=True
 
 class DeviceDifferentialEyeProbe(Device):
     def __init__(self):
@@ -1061,6 +1114,7 @@ class DeviceDifferentialEyeProbe(Device):
         self['offset']['Visible']=False
         self['td']['Visible']=True
         self['br']['Visible']=True
+        self['ref']['Visible']=True
 
 class Devices(list):
     def __init__(self,devices):
@@ -1164,7 +1218,9 @@ DeviceList=Devices([
                 DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay()),
                 DeviceImpulseResponseFilter(),
                 DeviceEyeProbe(),
-                DeviceDifferentialEyeProbe()
+                DeviceDifferentialEyeProbe(),
+                DeviceEyeWaveform(),
+                DeviceWaveform()
                 ])
 
 

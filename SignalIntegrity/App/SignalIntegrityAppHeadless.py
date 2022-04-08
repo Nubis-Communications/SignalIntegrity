@@ -274,11 +274,23 @@ class SignalIntegrityAppHeadless(object):
                 #print 'integrate: '+outputWaveformLabels[r]
                 outputWaveformList[r]=outputWaveformList[r].Integral()
 
+        try:
+            outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabels=netList.WaveformNames()
+        except si.SignalIntegrityException as e:
+            return None
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = (outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
             for device in self.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
+                if device['partname'].GetValue() in ['Output',
+                                                     'DifferentialVoltageOutput',
+                                                     'CurrentOutput',
+                                                     'EyeProbe',
+                                                     'DifferentialEyeProbe',
+                                                     'EyeWaveform',
+                                                     'Waveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -292,17 +304,16 @@ class SignalIntegrityAppHeadless(object):
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
-                for wf in outputWaveformList]
+                for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
         if not EyeDiagrams:
-            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
-
+            return (sourceNames,outputWaveformLabels+otherWaveformLabels,transferMatrices,outputWaveformList)
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
             for device in self.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),

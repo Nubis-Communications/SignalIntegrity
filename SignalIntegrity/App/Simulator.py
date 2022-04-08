@@ -709,11 +709,24 @@ class Simulator(object):
                 #print 'integrate: '+self.outputWaveformLabels[r]
                 outputWaveformList[r]=outputWaveformList[r].Integral()
 
+        try:
+            outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabels=netList.WaveformNames()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            return
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
+                if device['partname'].GetValue() in ['Output',
+                                                     'DifferentialVoltageOutput',
+                                                     'CurrentOutput',
+                                                     'EyeProbe',
+                                                     'DifferentialEyeProbe',
+                                                     'EyeWaveform',
+                                                     'Waveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -724,26 +737,28 @@ class Simulator(object):
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
+
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
-                for wf in outputWaveformList]
+                for wf in outputWaveformList[:len(self.outputWaveformLabels)]]+outputWaveformList[len(self.outputWaveformLabels):]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
-        self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+        outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
+        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
         self.parent.root.update()
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
-            outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            outputWaveform=(outputWaveformList)[outputWaveformIndex]
+            outputWaveformLabel = (outputWaveformLabels)[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
+                if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         eyeDict={'Name':outputWaveformLabel,
                                  'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                 'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
                                  'Config':device.configuration}
                         eyeDiagramDict.append(eyeDict)
                         break

@@ -2249,6 +2249,17 @@ class PartPictureVariableEyeProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureEyeProbe'],1)
 
+class PartPictureEyeWaveform(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[],[(1,0),(3,2)],[(0,0),(4,2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'Eye')
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableEyeWaveform(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureEyeWaveform'],1)
+
 class PartPictureDifferentialEyeProbe(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0,1),(2,3)],[(0,0),(2.5,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
@@ -2260,5 +2271,17 @@ class PartPictureDifferentialEyeProbe(PartPictureBox):
 class PartPictureVariableDifferentialEyeProbe(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureDifferentialEyeProbe'],1)
+
+class PartPictureWaveform(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[],[(1,0),(3,2)],[(0,0),(4,2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'Wf')
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableProbeWaveform(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureWaveform'],1)
+
 
 

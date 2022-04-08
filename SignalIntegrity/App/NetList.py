@@ -33,6 +33,7 @@ class NetList(object):
     def __init__(self,schematic):
         self.textToShow=[]
         self.outputNames=[]
+        self.waveformNames=[]
         self.measureNames=[]
         self.sourceNames=[]
         self.stimNames=[]
@@ -295,6 +296,8 @@ class NetList(object):
                     endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
                 if tokens[0] == 'differentialeyeprobe':
                     endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 4')
+            if tokens[0] in ['eyewaveform','waveform']:
+                self.waveformNames.append(tokens[1])
             textToShow.append(line)
         self.textToShow=textToShow+endinglines
     def Text(self):
@@ -305,6 +308,8 @@ class NetList(object):
         return self.sourceNames
     def MeasureNames(self):
         return self.measureNames
+    def WaveformNames(self):
+        return self.waveformNames
 
 class NetListFrame(tk.Frame):
     def __init__(self,parent,textToShow):
