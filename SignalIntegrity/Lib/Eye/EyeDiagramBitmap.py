@@ -520,6 +520,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
     def Measure(self,
                 BERForMeasure=-6, # Exponent of probability contour to measure
                 DecisionMode='Mid', # Mid means middle of eye vertically, Best means least likely location
+                WaveformType='Voltage' # 'V', 'A', 'W', 'FW', 'FA', 'FV' (essentially the vertical units)
                 ):
         """Computes measurements on the eye diagram
         @param BERForMeasure float, defaults to -6, exponent of probability contour in eye to make measurements on.
@@ -542,6 +543,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         * MinT - Time defined by the column 0.
         * MaxT - Time defined by the last column.
         * BERForMeasure - BER, or probability, for contour for all of the eye measurements.
+        * WaveformType - Type of waveform as either V, A, W, FW, AW, VW
         * Eye - An array of parameters, one for each eye containing:
             - Start - a dictionary containing Bin and Time defining the pixel column of the horizontal start of the eye.
             - End - a dictionary containing Bin and Time defining the pixel column of the horizontal end of the eye.
@@ -704,7 +706,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         else:
             snr=20*math.log10(signalRms/self.NoiseSigma)
         sndr=20.*math.log10(signalRms/math.sqrt(noiseResidual**2+self.NoiseSigma**2))
-        self.measDict={'R':R,'C':C,'MinV':self.minV,'MaxV':self.maxV,'MinT':-C//2*UI,'MaxT':(C-1)//2*UI,'BERForMeasure':BERForMeasure,
+        self.measDict={'R':R,'C':C,'MinV':self.minV,'MaxV':self.maxV,'MinT':-C//2*UI,'MaxT':(C-1)//2*UI,'BERForMeasure':BERForMeasure,'WaveformType':WaveformType,
                        'Eye':{i:{'Start':{'Bin':eyeHorizontalExtentsForMeasure[i][0],
                                           'Time':precision_round((eyeHorizontalExtentsForMeasure[i][0]-C/2)/C*UI)},
                                  'End':{'Bin':eyeHorizontalExtentsForMeasure[i][1],
@@ -712,24 +714,24 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                                  'Width':{'Bin':(eyeHorizontalExtentsForMeasure[i][1]-eyeHorizontalExtentsForMeasure[i][0]+1),
                                           'Time':precision_round(eyeWidths[i])},
                                  'Low':{'Bin':eyeVerticalExtentsForMeasurement[i][0],
-                                        'Volt':precision_round(eyeVerticalExtentsForMeasurement[i][0]/R*deltaV+self.minV)},
+                                        'Value':precision_round(eyeVerticalExtentsForMeasurement[i][0]/R*deltaV+self.minV)},
                                  'High':{'Bin':eyeVerticalExtentsForMeasurement[i][1],
-                                         'Volt':precision_round(eyeVerticalExtentsForMeasurement[i][1]/R*deltaV+self.minV)},
+                                         'Value':precision_round(eyeVerticalExtentsForMeasurement[i][1]/R*deltaV+self.minV)},
                                  'Mid':{'Bin':int((eyeVerticalExtentsForMeasurement[i][0]+eyeVerticalExtentsForMeasurement[i][1])/2),
-                                        'Volt':precision_round(eyeMids[i])},
+                                        'Value':precision_round(eyeMids[i])},
                                  'Best':{'Bin':eyeDecisionPoints[i],
-                                        'Volt':precision_round(eyeDecisionPoints[i]/R*deltaV+self.minV)},
+                                        'Value':precision_round(eyeDecisionPoints[i]/R*deltaV+self.minV)},
                                  'Height':{'Bin':(eyeVerticalExtentsForMeasurement[i][1]-eyeVerticalExtentsForMeasurement[i][0]+1),
-                                           'Volt':precision_round(eyeHeights[i])},
-                                 'AV':{'Volt':precision_round(AV[i])}} for i in range(numberOfEyes)},
+                                           'Value':precision_round(eyeHeights[i])},
+                                 'AV':{'Value':precision_round(AV[i])}} for i in range(numberOfEyes)},
                         'Level':{i:{'Min':{'Bin':thresholdExtents[i][0],
-                                           'Volt':precision_round(thresholdExtents[i][0]/R*deltaV+self.minV)},
+                                           'Value':precision_round(thresholdExtents[i][0]/R*deltaV+self.minV)},
                                     'Max':{'Bin':thresholdExtents[i][1],
-                                           'Volt':precision_round(thresholdExtents[i][1]/R*deltaV+self.minV)},
+                                           'Value':precision_round(thresholdExtents[i][1]/R*deltaV+self.minV)},
                                     'Delta':{'Bin':(thresholdExtents[i][1]-thresholdExtents[i][0]),
-                                             'Volt':precision_round((thresholdExtents[i][1]-thresholdExtents[i][0])/R*deltaV)},
+                                             'Value':precision_round((thresholdExtents[i][1]-thresholdExtents[i][0])/R*deltaV)},
                                     'Mean':{'Bin':int((eyeAverageLevels[i]-self.minV)/deltaV*R+0.5),
-                                            'Volt':precision_round(eyeAverageLevels[i])}} for i in range(numberOfEyes+1)},
+                                            'Value':precision_round(eyeAverageLevels[i])}} for i in range(numberOfEyes+1)},
                         'Linearity':precision_round(EyeLinearity*100.)/100.,
                         'RLM':precision_round(RLM),
                         'RMS':precision_round(signalRms),
@@ -743,6 +745,131 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         for i in range(numberOfEyes):
             self.measDict['Eye'][i]['Decision']=self.measDict['Eye'][i]['Mid'] if DecisionMode=='Mid' else self.measDict['Eye'][i]['Best']
         self.BitmapLog = bitmapLog
+
+    def OpticalMeasure(self,WaveformType='W',PinW=None,
+                ):
+        """Computes optical measurements on the eye diagram
+        @param WaveformType, string definition of waveform type.  Can be 'W', 'FW', 'AW', 'VW', which stands for Power, Fractional power, Current proportional
+        to power, and Voltage proportional to power.  If 'V' or 'A' is specified, for voltage and current waveforms, this function exits with no results.
+
+        @param PinW float, optional defaults to None, input power in Watts, if known and applicable (i.e. is a transmitter measurement)
+
+        Computes optical measurements assuming an input waveform.  The most straightforward is for waveforms in Watts.  
+
+        Upon completion, the 'Optical' field in the member variable measDict contains a dictionary with the following elements:
+        * PL - low level.
+            - W - value in Watts.
+            - dBm - value in dBm.
+        * PH - High level.
+            - W - value in Watts.
+            - dBm - value in dBm.
+        * OMA - Optical modulation amplitude.
+            - W - value in Watts.
+            - dBm - value in dBm.
+        * Pavg - Average power.
+            - W - value in Watts.
+            - dBm - value in dBm.
+        * ER - Extinction ration.
+            - Linear - value as ratio.
+            - dB - value in dB.
+        (if input power supplied):
+        * Pin - Input power.
+            - W - value in Watts.
+            - dBm - value in dBm.
+        * TP - Transmission penalty.
+            - Linear - value as ratio.
+            - dB - value in dB.
+        * IL - Insertion loss
+            - Linear - value as ratio.
+            -dB - value in dB.
+        """
+        def W2dBm(W): return 10.*math.log10(W/1e-3)
+        def dBm2W(dBm): return 10.**(dBm/10.)*1e-3
+        def dB2Lin(dB): return 10**(dB/10.)
+        def Lin2dB(L): return 10*math.log10(L)
+
+        if not WaveformType in ['W','FW','AW','VW']:
+            del self.measDict['Optical']
+            return
+
+        verticalUnit={'W':'W','FW':'','AW':'A','VW':'V'}[WaveformType]
+        dBmUnit = {'W':'dBm','FW':'dB','AW':None,'VW':None}[WaveformType]
+
+        if WaveformType != 'W': PinW = None
+
+        def W2dBmUnit(W):
+            if W==None: return None
+            elif dBmUnit=='dBm': return W2dBm(W)
+            elif dBmUnit=='dB': return  Lin2dB(W)
+            else: return None
+
+        PLWraw=abs(self.measDict['Level'][0]['Mean']['Value'])
+        PHWraw=abs(self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Value'])
+        PHW=max(PLWraw,PHWraw)
+        PLW=min(PLWraw,PHWraw)
+        PLdBm=W2dBmUnit(PLW)
+        PHdBm=W2dBmUnit(PHW)
+        OMA=PHW-PLW
+        OMAdBm=W2dBmUnit(OMA)
+        PavgW=abs(np.mean(self.prbswf))
+        PavgdBm=W2dBmUnit(PavgW)
+        ER=PHW/PLW
+        ERdB=Lin2dB(ER)
+
+        self.measDict['Optical']={'PL':{'Linear':{'Unit':verticalUnit,'Value':PLW},'Log':{'Unit':dBmUnit,'Value':PLdBm}},
+                                  'PH':{'Linear':{'Unit':verticalUnit,'Value':PHW},'Log':{'Unit':dBmUnit,'Value':PHdBm}},
+                                  'OMA':{'Linear':{'Unit':verticalUnit,'Value':OMA},'Log':{'Unit':dBmUnit,'Value':OMAdBm}},
+                                  'Pavg':{'Linear':{'Unit':verticalUnit,'Value':PavgW},'Log':{'Unit':dBmUnit,'Value':PavgdBm}},
+                                  'ER':{'Linear':{'Unit':'','Value':ER},'Log':{'Unit':'dB','Value':ERdB}}}
+
+        if WaveformType == 'FW':
+            PinW = 1.
+
+        if PinW != None:
+            PindBm=W2dBmUnit(PinW)
+            TP=PinW/OMA
+            TPdB=Lin2dB(TP)
+            ILdB=PindBm-PHdBm
+            IL=dB2Lin(ILdB)
+            LossdB=PindBm-PavgdBm
+            LossW=dB2Lin(LossdB)
+            self.measDict['Optical'].update({'Pin':{'Linear':{'Unit':verticalUnit,'Value':PinW},'Log':{'Unit':dBmUnit,'Value':PindBm}},
+                                       'TP':{'Linear':{'Unit':'','Value':TP},'Log':{'Unit':'dB','Value':TPdB}},
+                                       'IL':{'Linear':{'Unit':'','Value':IL},'Log':{'Unit':'dB','Value':ILdB}},
+                                       'Loss':{'Linear':{'Unit':'','Value':LossW},'Log':{'Unit':'dB','Value':LossdB}}})
+
+        numLevels=2**self.BitsPerSymbol
+        numEyes=numLevels-1
+        numInnerLevels=numLevels-2
+        numOuterLevels=numLevels-numInnerLevels
+        numErrorCases=numOuterLevels+2*numInnerLevels
+        # expected BER is 1/BPS * 1/levels * cases * 1/2 * erfc( outer oma / eyes / sqrt(2) / 2 / sigma of noise )
+        # for NRZ this is 1/1 * 1/2 * 2 * 1/2 *erfc( OMA/1/sqrt(2)/2/sigma) = 1/2 * erfc( OMA/sqrt(2)/2/sigma)
+        # for PAM-4 this is 1/2 * 1/4 * 6 * 1/2 * erfc( OMA/3/sqrt(2)/2/sigma) = 3/8 * erfc( OMA/6/sqrt(2)/sigma )
+        # for PAM-8 this is 1/3 * 1/8 * 14 *1/2 * erfc( OMA/7/sqrt(2)/2/sigma ) =  7/24 * erfc( OMA/14/sqrt(2)/sigma )
+        # we simplify this to F * erfc( 1./sqrt(2) * OMA/2/D/sigma )
+        # where OMA/2/D/sigma is effectively the SNR
+        F= 1./self.BitsPerSymbol * 1./numLevels * numErrorCases * 1./2
+        (FN,FD)=Rat(F)
+        D = numEyes
+
+        if 'Probabilities' in self.measDict.keys():
+            import scipy.special
+            BERmeas=self.measDict['Probabilities']['ErrorRate']['Bit']['Gray']['Measured']
+            QFactor=min(scipy.special.erfcinv(BERmeas/F)*math.sqrt(2),1e9)
+            QFactordB=Lin2dB(QFactor)
+
+            self.measDict['Optical']['Q']={'QFactor':QFactor,'QFactordB':QFactordB,'BERMeasured':BERmeas,
+                                        'Levels':{'Total':numLevels,'Inner':numInnerLevels,'Outer':numOuterLevels},
+                                        'Eyes':numEyes,'ErrorCases':numErrorCases,
+                                        'F':{'Numerical':F,'Numerator':FN,'Denominator':FD},'D':D}
+            if self.NoiseSigma > 0.:
+                QFactorExpected=OMA/2/D/self.NoiseSigma
+                BERexpected=F*scipy.special.erfc(1./math.sqrt(2.)*QFactorExpected)
+                QFactorExpecteddB=Lin2dB(QFactorExpected)
+                Penalty=QFactorExpecteddB-QFactordB
+                self.measDict['Optical']['Q'].update({'QFactorExpected':QFactorExpected,'QFactorExpecteddB':QFactorExpecteddB,
+                                        'BERExpected':BERexpected,'TxPenalty':Penalty})
 
     def Bathtub(self,
                 DecadesFromJoin=0.25,
@@ -1281,8 +1408,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             (FN,FD)=Rat(F)
             D = numEyes
 
-            PH=self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Volt']
-            PL=self.measDict['Level'][0]['Mean']['Volt']
+            PH=self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Value']
+            PL=self.measDict['Level'][0]['Mean']['Value']
             OMA=PH-PL
             BERmeas=self.measDict['Probabilities']['ErrorRate']['Bit']['Gray']['Measured']
 

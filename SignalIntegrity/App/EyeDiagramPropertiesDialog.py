@@ -37,6 +37,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     HorizontalAlignmentModeChoices=[('MidPoint of Middle Eye','Middle'),('Midpoint of Widest Eye','Max')]
     ContourChoices=[('All Contours','All'),('Only Contours inside Eye','Eye')]
     DecisionChoices=[('Midpoint of Eye','Mid'),('Best Decision Point','Best')]
+    WaveformTypeChoices=[('Voltage','V'),('Current','A'),('Power','W'),('Fractional Power','FW'),('Current proportional to Power','AW'),('Voltage proportional to Power','VW')]
+    RxTxChoices=[('Receiver','Rx'),('Transmitter','Tx'),('Not Applicable','N/A')]
     def __init__(self,project,parent):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
         self.transient(parent)
@@ -56,7 +58,9 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.JitterNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.LogIntensityFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AutoAlignFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
+        self.InvertFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.InvertFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.AutoAlignFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
         self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.MeasurementsFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.MeasurementsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -74,9 +78,12 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.VerticalAlignmentMode=CalculationPropertyChoices(self.AutoAlignFrame,'Vertical Alignment',self.onUpdateFromChanges,None,self.VerticalAlignmentModeChoices,self.project,'Alignment.Vertical')
         self.HorizontalAlignmentMode=CalculationPropertyChoices(self.AutoAlignFrame,'Horizontal Alignment',self.onUpdateFromChanges,None,self.HorizontalAlignmentModeChoices,self.project,'Alignment.Horizontal')
         self.Measurements=CalculationPropertyTrueFalseButton(self.MeasurementsFrame,'Measure Eye Parameters',self.onUpdateFromChanges,None,self.project,'Measure.Measure')
+        self.WaveformType=CalculationPropertyChoices(self.MeasurementsFrame,'Waveform Type',self.onUpdateFromChanges,None,self.WaveformTypeChoices,self.project,'Measure.WaveformType')
+        self.RxTx=CalculationPropertyChoices(self.MeasurementsFrame,'Reciever or Transmitter',self.onUpdateFromChanges,None,self.RxTxChoices,self.project,'Measure.RxTx')
+        self.TxInputPowerAvailable=CalculationPropertyTrueFalseButton(self.MeasurementsFrame,'Input Power Available',self.onUpdateFromChanges,None,self.project,'Measure.TxInputPowerAvailable')
+        self.TxInputPowerW=CalculationPropertySI(self.MeasurementsFrame,'Input Power (W)',self.onUpdateFromChanges,None,self.project,'Measure.TxInputPowerW','W')
+        self.TxInputPowerdBm=CalculationPropertySI(self.MeasurementsFrame,'Input Power (dBm)',self.onUpdateInputPowerdBm,None,self.project,'Measure.TxInputPowerdBm','dBm')
         self.BERForMeasure=CalculationProperty(self.MeasurementsFrame,'BER Exponent for Measure',self.onUpdateFromChanges,None,self.project,'Measure.BERForMeasure')
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            self.NoisePenalty=CalculationPropertySI(self.MeasurementsFrame,'Noise Penalty',self.onUpdateFromChanges,None,self.project,'Measure.NoisePenalty','dB')
         self.DecisionMode=CalculationPropertyChoices(self.MeasurementsFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
         self.BathtubFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
         self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -101,11 +108,13 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MaxYFrame=CalculationPropertySI(self.YAxisFrame,'Maximum Y',self.onUpdateFromChanges,None,self.project,'YAxis.Max','V')
         self.MinYFrame=CalculationPropertySI(self.YAxisFrame,'Minimum Y',self.onUpdateFromChanges,None,self.project,'YAxis.Min','V')
         self.Mode=CalculationPropertyChoices(self.JitterNoiseFrame,'Eye Mode',self.onUpdateFromChanges,None,self.ModeChoices,self.project,'Mode')
+        verticalUnit=self.project['Measure.WaveformType']
+        noiseUnit = {'V':'Vrms','A':'Arms','W':'Wrms','FW':'','AW':'Arms','VW':'Vrms'}[verticalUnit]
         self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterS','s')
         self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterDeterministicPkS','s')
-        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateFromChanges,None,self.project,'JitterNoise.Noise','V')
+        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateFromChanges,None,self.project,'JitterNoise.Noise',noiseUnit)
         self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Kernel Pixels',self.onUpdateFromChanges,None,self.project,'JitterNoise.MaxKernelPixels','pixels')
-        self.Invert=CalculationPropertyTrueFalseButton(self.LeftFrame,'Invert Plot',self.onUpdateFromChanges,None,self.project,'Invert')
+        self.Invert=CalculationPropertyTrueFalseButton(self.InvertFrame,'Invert Plot',self.onUpdateFromChanges,None,self.project,'Invert')
         self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateFromChanges,None,self.project,'JitterNoise.LogIntensity.LogIntensity')
         self.MinExponent=CalculationProperty(self.LogIntensityFrame,'Min Exponent',self.onUpdateFromChanges,None,self.project,'JitterNoise.LogIntensity.MinExponent')
         self.MaxExponent=CalculationProperty(self.LogIntensityFrame,'Max Exponent',self.onUpdateFromChanges,None,self.project,'JitterNoise.LogIntensity.MaxExponent')
@@ -117,6 +126,10 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     def Finish(self):
         self.UpdateStrings()
         PropertiesDialog.Finish(self)
+    def onUpdateInputPowerdBm(self,_):
+        self.project['Measure.TxInputPowerW']=10.**(self.project['Measure.TxInputPowerdBm']/10.)*1e-3
+        self.TxInputPowerW.UpdateStrings()
+        self.UpdateStrings()
     def onUpdateUI(self,_):
         self.project['ScaleX']=self.pixelsX/(self.project['UI']*self.project['Columns'])*100.
         self.UpdateStrings()
@@ -135,6 +148,11 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     def onUpdateFromChanges(self,_):
         self.UpdateStrings()
     def UpdateStrings(self):
+        try:
+            self.project['Measure.TxInputPowerdBm']=max(-3000,10.*math.log10(self.project['Measure.TxInputPowerW']/1e-3))
+        except ValueError:
+            self.project['Measure.TxInputPowerdBm']=-3000.
+        self.TxInputPowerdBm.UpdateStrings()
         showEye=True
         autoAlign=self.project['Alignment.AutoAlign']
         auto=(self.project['YAxis.Mode']=='Auto' and showEye)
@@ -143,12 +161,17 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         annotate=self.project['Annotation.Annotate']
         contours=self.project['Annotation.Contours.Show']
         bathtub=self.project['Bathtub.Measure']
+        tx=measure and self.project['Measure.RxTx']=='Tx' and ('W' in self.project['Measure.WaveformType'])
+        txPower=tx and self.project['Measure.TxInputPowerAvailable']
         self.BathtubFrame.pack_forget()
         self.AnnotateFrame.pack_forget()
+        self.WaveformType.Show(measure)
+        self.RxTx.Show(measure)
+        self.TxInputPowerAvailable.Show(tx)
+        self.TxInputPowerW.Show(txPower)
+        self.TxInputPowerdBm.Show(txPower)
         self.DecisionMode.Show(measure)
         self.BERForMeasure.Show(measure)
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            self.NoisePenalty.Show(measure)
         if measure:
             self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
             self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)

@@ -77,8 +77,12 @@ class EyeMeasureConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Measure')
         self.Add(XMLPropertyDefaultBool('Measure',False))
+        self.Add(XMLPropertyDefaultString('WaveformType','Voltage')) # 'V', 'A', 'W', 'FW', 'FA', 'FV'
+        self.Add(XMLPropertyDefaultString('RxTx','Rx')) # 'Rx', 'Tx', 'N/A'
+        self.Add(XMLPropertyDefaultBool('TxInputPowerAvailable',False))
+        self.Add(XMLPropertyDefaultFloat('TxInputPowerW',0))
+        self.Add(XMLPropertyDefaultFloat('TxInputPowerdBm',0,write=False))
         self.Add(XMLPropertyDefaultFloat('BERForMeasure',-6))
-        self.Add(XMLPropertyDefaultFloat('NoisePenalty',0))
 
 class EyeContourConfiguration(XMLConfiguration):
     def __init__(self):
@@ -184,7 +188,6 @@ class Features(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
-        self.Add(XMLPropertyDefaultBool('OpticalMeasurements',False))
 
 class PreferencesFile(ProjectFileBase):
     def __init__(self):

@@ -109,7 +109,8 @@ class EyeDiagram(object):
                 if not self.headless: self.parent.statusbar.set('Measuring Eye Diagram')
                 eyeDiagramBitmap.Measure(
                     BERForMeasure=self.config['Measure.BERForMeasure'], # Exponent of probability contour to measure
-                    DecisionMode=self.config['Decision.Mode'] # 'Mid' or 'Best' for independent decision levels
+                    DecisionMode=self.config['Decision.Mode'], # 'Mid' or 'Best' for independent decision levels
+                    WaveformType=self.config['Measure.WaveformType'] # 'V','A','W','FW','AW','VW'
                     )
         except Exception as e:
             pass
@@ -125,6 +126,17 @@ class EyeDiagram(object):
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Bathtub Curves Failed.')
+
+        try:
+            if self.config['Measure.Measure'] and ('W' in self.config['Measure.WaveformType']):
+                if not self.headless: self.parent.statusbar.set('Performing Optical Measurements')
+                eyeDiagramBitmap.OpticalMeasure(
+                    self.config['Measure.WaveformType'],
+                    PinW=self.config['Measure.TxInputPowerW'] if (self.config['Measure.RxTx'] == 'Tx') and self.config['Measure.TxInputPowerAvailable'] else None # optical input power, if applicable
+                    )
+        except Exception as e:
+            pass
+            #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Optical Measurement Failed.')
 
         try:
             if self.config['Measure.Measure'] and self.config['Annotation.Annotate']:
@@ -158,16 +170,6 @@ class EyeDiagram(object):
         except Exception as e:
             pass
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Image Creation Failed.')
-
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            try:
-                if self.config['Measure.Measure'] and self.config['Mode'] == 'JitterNoise':
-                    if not self.headless: self.parent.statusbar.set('Calculating Penalties')
-                    eyeDiagramBitmap.Penalties(NoiseSigma=self.config['JitterNoise.Noise'],
-                                               NoisePenaltydB=self.config['Measure.NoisePenalty'])
-            except Exception as e:
-                pass
-                #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Penalties Calculation Failed.')
 
         if not self.headless: self.parent.statusbar.set('Calculation Complete')
         self.measDict=eyeDiagramBitmap.measDict

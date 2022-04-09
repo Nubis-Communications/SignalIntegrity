@@ -198,7 +198,7 @@ class BathtubCurveDialog(tk.Toplevel):
         self.leftPlot.semilogy(x,y,color='blue')
 
         for e in range(len(measDict['Eye'])):
-            self.leftPlot.axvline(x=measDict['Eye'][e]['Decision']['Volt']/voltLabelDivisor, color='red',linestyle='--')
+            self.leftPlot.axvline(x=measDict['Eye'][e]['Decision']['Value']/voltLabelDivisor, color='red',linestyle='--')
 
         self.leftLabel.config(text='Vertical Bathtub Curve')
 

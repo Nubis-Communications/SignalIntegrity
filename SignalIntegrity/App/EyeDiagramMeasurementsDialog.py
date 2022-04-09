@@ -60,11 +60,10 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.BERFrame=tk.Frame(self.tab2,relief=tk.RIDGE,borderwidth=5)
         self.BERFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
 
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            self.tab3=ttk.Frame(self.tabControl)
-            self.tabControl.add(self.tab3,text='Penalties')
-            self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
-            self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
+        self.tab3=ttk.Frame(self.tabControl)
+        self.tabControl.add(self.tab3,text='Optical')
+        self.OpticalFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
+        self.OpticalFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
 
         self.bind('<FocusIn>',self.onFocus)
         self.resizable(False, False)
@@ -86,29 +85,35 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         tk.Toplevel.destroy(self)
 
     def Line2(self,frame,text):
-        line=tk.Label(self.ParametersFrame,text=text,font='fixedsys')
+        line=tk.Label(frame,text=text,font='fixedsys')
         line.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
 
     def SingleLine(self,frame,label,textEntry):
+        if not isinstance(textEntry,list): textEntry=[textEntry]
+        if all([t==None for t in textEntry]):
+            return
         lineFrame=tk.Frame(frame)
         lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         text=label.ljust(self.labelwidth)
-        line=tk.Label(lineFrame,text=text,font='fixedsys',width=self.labelwidth)
+        line=tk.Label(lineFrame,text=text,width=self.labelwidth)
         line.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        entryFrame=tk.Frame(lineFrame,relief=tk.RIDGE,borderwidth=5)
-        entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        entry=tk.Label(entryFrame,width=self.entrywidth,text=textEntry)
-        entry.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-
+        for entry in textEntry:
+            if entry == None:
+                entryFrame=tk.Frame(lineFrame)
+            else:
+                entryFrame=tk.Frame(lineFrame,relief=tk.RIDGE,borderwidth=2)
+            entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            entry=tk.Label(entryFrame,width=self.entrywidth,text='' if entry == None else entry)
+            entry.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
     def Fields2(self,frame,category,parameter,subparameter,label,unit=None):
         lineFrame=tk.Frame(frame)
         lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         text=label.ljust(self.labelwidth)
-        line=tk.Label(lineFrame,text=text,font='fixedsys')
+        line=tk.Label(lineFrame,text=text,width=self.labelwidth)
         line.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         for e in range(len(self.meas[category])):
-            entryFrame=tk.Frame(lineFrame,relief=tk.RIDGE,borderwidth=5)
+            entryFrame=tk.Frame(lineFrame,relief=tk.RIDGE,borderwidth=2)
             entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
             entry=tk.Label(entryFrame,width=self.entrywidth,text=ToSI(self.meas[category][e][parameter][subparameter],unit))
             entry.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
@@ -120,19 +125,20 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         line=tk.Label(lineFrame,text=text,font='fixedsys')
         line.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         for e in elements:
-            entryFrame=tk.Frame(lineFrame,borderwidth=5)
+            entryFrame=tk.Frame(lineFrame,borderwidth=2)
             entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-            entry=tk.Label(entryFrame,width=self.entrywidth,text=e)
+            entry=tk.Label(entryFrame,width=self.entrywidth,text=e,anchor='center')
             entry.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            entry.configure(anchor="center")
 
     def AddText(self,frame,text,width):
-        entryFrame=tk.Frame(frame,borderwidth=5)
+        entryFrame=tk.Frame(frame,borderwidth=2)
         entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         line=tk.Label(entryFrame,text=text,width=width)
         line.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
     def AddEntry(self,frame,text,width=10):
-            entryFrame=tk.Frame(frame,relief=tk.RIDGE,borderwidth=5)
+            entryFrame=tk.Frame(frame,relief=tk.RIDGE,borderwidth=2)
             entryFrame.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
             entry=tk.Label(entryFrame,width=width,text=text)
             entry.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
@@ -143,20 +149,32 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         if self.meas==None:
             return
 
-        self.ParametersFrame.pack_forget()
+        self.tabControl.destroy()
+        self.tabControl=ttk.Notebook(self)
+
+        self.tab1=ttk.Frame(self.tabControl)
+        self.tabControl.add(self.tab1,text='Vertical/Horizontal')
+        self.tabControl.pack(expand=1,fill=tk.BOTH)
+        self.eyeStatus=StatusBar(self.tab1)
+        self.eyeStatus.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.ParametersFrame=tk.Frame(self.tab1,relief=tk.RIDGE,borderwidth=5)
         self.ParametersFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
 
-        self.BERFrame.pack_forget()
+        self.tab2=ttk.Frame(self.tabControl)
+        self.tabControl.add(self.tab2,text='Error Rates')
         self.BERFrame=tk.Frame(self.tab2,relief=tk.RIDGE,borderwidth=5)
         self.BERFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
 
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            self.PenaltiesFrame.pack_forget()
-            self.PenaltiesFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
-            self.PenaltiesFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
+        if 'Optical' in self.meas.keys():
+            self.tab3=ttk.Frame(self.tabControl)
+            self.tabControl.add(self.tab3,text='Optical')
+            self.OpticalFrame=tk.Frame(self.tab3,relief=tk.RIDGE,borderwidth=5)
+            self.OpticalFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
 
         self.eyeStatus.set(f"All Measurements Taken at: {10.0**meas['BERForMeasure']}")
+
+        verticalUnit={'V':'V','A':'A','W':'W','FW':'','AW':'A','VW':'V'}[meas['WaveformType']]
+        noiseUnit = {'V':'Vrms','A':'Arms','W':'Wrms','':'','AW':'Arms','VW':'Vrms'}[verticalUnit]
 
         #topline=''.join(['Eye'.ljust(self.labelwidth)]+[str(eye).center(self.entrywidth-1) for eye in range(len(self.meas['Eye']))]+[''.ljust(self.entrywidth-1)])
         self.Heading(self.ParametersFrame,'Eye',[str(e) for e in range(len(self.meas['Eye']))])
@@ -167,20 +185,20 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.Fields2(self.ParametersFrame,'Eye','Width','Time','Width','s')
         self.Line2(self.ParametersFrame,'')
         self.Line2(self.ParametersFrame,'Vertical')
-        self.Fields2(self.ParametersFrame,'Eye','Low','Volt','Low','V')
-        self.Fields2(self.ParametersFrame,'Eye','Mid','Volt','Midpoint','V')
-        self.Fields2(self.ParametersFrame,'Eye','Best','Volt','Best Decision Level','V')
-        self.Fields2(self.ParametersFrame,'Eye','High','Volt','High','V')
-        self.Fields2(self.ParametersFrame,'Eye','Height','Volt','Height','V')
-        self.Fields2(self.ParametersFrame,'Eye','AV','Volt','AV','V')
+        self.Fields2(self.ParametersFrame,'Eye','Low','Value','Low',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Eye','Mid','Value','Midpoint',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Eye','Best','Value','Best Decision Level',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Eye','High','Value','High',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Eye','Height','Value','Height',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Eye','AV','Value','AV',verticalUnit)
         self.Line2(self.ParametersFrame,'')
         #line=''.join(['Thresholds'.ljust(self.labelwidth)]+[str(th).center(self.entrywidth-1) for th in range(len(self.meas['Level']))])
         #self.Line2(line)
         self.Heading(self.ParametersFrame,'Extents',[str(th) for th in range(len(self.meas['Level']))])
-        self.Fields2(self.ParametersFrame,'Level','Min','Volt','Min','V')
-        self.Fields2(self.ParametersFrame,'Level', 'Max', 'Volt', 'Max','V')
-        self.Fields2(self.ParametersFrame,'Level', 'Delta', 'Volt', 'Delta','V')
-        self.Fields2(self.ParametersFrame,'Level', 'Mean', 'Volt', 'Mean','V')
+        self.Fields2(self.ParametersFrame,'Level','Min','Value','Min',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Level', 'Max', 'Value', 'Max',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Level', 'Delta', 'Value', 'Delta',verticalUnit)
+        self.Fields2(self.ParametersFrame,'Level', 'Mean', 'Value', 'Mean',verticalUnit)
         self.Line2(self.ParametersFrame,'')
         if len(meas['Eye'])>1:
             self.SingleLine(self.ParametersFrame,'Eye Linearity',ToSI(self.meas['Linearity']*100.,'%'))
@@ -189,15 +207,15 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             except:
                 pass
             self.Line2(self.ParametersFrame,'')
-        self.SingleLine(self.ParametersFrame,'Signal Power',ToSI(self.meas['RMS'],'Vrms'))
-        self.SingleLine(self.ParametersFrame,'Noise',ToSI(self.meas['Noise'],'Vrms'))
-        self.SingleLine(self.ParametersFrame, 'Residual Error',ToSI(self.meas['NoiseResidual'],'Vrms'))
+        self.SingleLine(self.ParametersFrame,'Signal Power',ToSI(self.meas['RMS'],noiseUnit))
+        self.SingleLine(self.ParametersFrame,'Noise',ToSI(self.meas['Noise'],noiseUnit))
+        self.SingleLine(self.ParametersFrame, 'Residual Error',ToSI(self.meas['NoiseResidual'],noiseUnit))
         self.SingleLine(self.ParametersFrame,'SDR',ToSI(self.meas['SDR'],'dB'))
         if not self.meas['SNR'] is None:
             self.SingleLine(self.ParametersFrame,'SNR',ToSI(self.meas['SNR'],'dB'))
             self.SingleLine(self.ParametersFrame, 'SNDR',ToSI(self.meas['SNDR'],'dB'))
         self.Line2(self.ParametersFrame,'')
-        self.SingleLine(self.ParametersFrame,'Vertical Resolution',ToSI(self.meas['VerticalResolution'],'V'))
+        self.SingleLine(self.ParametersFrame,'Vertical Resolution',ToSI(self.meas['VerticalResolution'],verticalUnit))
         self.SingleLine(self.ParametersFrame,'Horizontal Resolution',ToSI(self.meas['HorizontalResolution'],'s'))
 
         if 'Probabilities' in self.meas.keys():
@@ -329,43 +347,44 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             self.tabControl.tab(1,state='normal')
         else:
             self.tabControl.tab(1,state='disabled')
-#             self.measDict['Penalties']={'PH':PH,'PL':PL,'MA':OMA,'QFactorExpected':QFactorExpected,'QFactorExpecteddB':QFactorExpecteddB,
-#                                         'BERMeasured':BERmeas,'BERExpected':BERexpected,
-#                                         'QFactor':QFactor,'QFactordB':QFactordB,'TxPenalty':TxPenalty,
-#                                         'NoiseSigma':self.NoiseSigma,
-#                                         'Levels':{'Total':numLevels,'Inner':numInnerLevels,'Outer':numOuterLevels},
-#                                         'Eyes':numEyes,'ErrorCases':numErrorCases,
-#                                         'F':{'Numerical':F,'Numerator':FN,'Denominator':FD},
-#                                         'D':D}
 
-        if SignalIntegrity.App.Preferences['Features.OpticalMeasurements']:
-            if 'Penalties' in self.meas.keys():
-                PH=self.meas['Penalties']['PH']
-                self.SingleLine(self.PenaltiesFrame, 'High Level', ToSI(PH,round=6))
-                PL=self.meas['Penalties']['PL']
-                self.SingleLine(self.PenaltiesFrame, 'Low Level', ToSI(PL,round=6))
-                OMA=self.meas['Penalties']['MA']
-                self.SingleLine(self.PenaltiesFrame, 'Modulation Amplitude', ToSI(OMA,round=6))
-                sigma=self.meas['Penalties']['NoiseSigma']
-                self.SingleLine(self.PenaltiesFrame, 'Noise Sigma', ToSI(sigma,round=6))
-                noisePenaltydB=self.meas['Penalties']['NoisePenalty']
-                self.SingleLine(self.PenaltiesFrame, 'Noise Penalty', ToSI(noisePenaltydB,'dB',round=4))
-                QFactorExpected=self.meas['Penalties']['QFactorExpected']
-                self.SingleLine(self.PenaltiesFrame, 'Expected Q Factor', ToSI(QFactorExpected,round=6))
-                BERexpected=self.meas['Penalties']['BERExpected']
-                self.SingleLine(self.PenaltiesFrame, 'Expected BER', '{:.3E}'.format(BERexpected))
-                lineFrame=tk.Frame(self.PenaltiesFrame); lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-                self.AddText(lineFrame,'',self.entrywidth)
-                BERmeas=self.meas['Penalties']['BERMeasured']
-                self.SingleLine(self.PenaltiesFrame, 'Measured BER', '{:.3E}'.format(BERmeas))
-                QFactor=self.meas['Penalties']['QFactor']
-                self.SingleLine(self.PenaltiesFrame, 'Measured Q Factor', 'infinite' if math.isinf(QFactor) else ToSI(QFactor,round=6))
-                TxPenalty=self.meas['Penalties']['TxPenalty']
-                if BERexpected == 0 and BERmeas == 0:
-                    self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'unknown')
-                else:
-                    self.SingleLine(self.PenaltiesFrame, 'Tx Penalty (dB power)', 'infinite' if math.isinf(TxPenalty) else ToSI(TxPenalty,'dB',round=4))
-                self.tabControl.tab(2,state='normal')
-            else:
-                self.tabControl.tab(2,state='disabled')
+        if 'Optical' in self.meas.keys():
+            def ToSINone(d,sa): return None if d==None else ToSI(d,sa,round=3)
+            self.Line2(self.OpticalFrame,f'Optical Power: '+{'W':'W','FW':'Fractional Power','AW':'Current Proportional to Power','VW':'Voltage Proportional to Power'}[self.meas['WaveformType']])
+            if 'Pin' in self.meas['Optical'].keys():
+                self.SingleLine(self.OpticalFrame,'Input Power (Pin)', [ToSINone(self.meas['Optical']['Pin']['Linear']['Value'],self.meas['Optical']['Pin']['Linear']['Unit']),
+                                                                        ToSINone(self.meas['Optical']['Pin']['Log']['Value'],self.meas['Optical']['Pin']['Log']['Unit'])])
+            self.SingleLine(self.OpticalFrame, 'High Level (PH)', [ToSINone(self.meas['Optical']['PH']['Linear']['Value'],self.meas['Optical']['PH']['Linear']['Unit']),
+                                                                   ToSINone(self.meas['Optical']['PH']['Log']['Value'],self.meas['Optical']['PH']['Log']['Unit'])])
+            self.SingleLine(self.OpticalFrame, 'Low Level (PL)', [ToSINone(self.meas['Optical']['PL']['Linear']['Value'],self.meas['Optical']['PL']['Linear']['Unit']),
+                                                                  ToSINone(self.meas['Optical']['PL']['Log']['Value'],self.meas['Optical']['PL']['Log']['Unit'])])
+            self.SingleLine(self.OpticalFrame, 'Average Power (Pavg)', [ToSINone(self.meas['Optical']['Pavg']['Linear']['Value'],self.meas['Optical']['Pavg']['Linear']['Unit']),
+                                                                        ToSINone(self.meas['Optical']['Pavg']['Log']['Value'],self.meas['Optical']['Pavg']['Log']['Unit'])])
+            self.SingleLine(self.OpticalFrame, 'Modulation Amplitude (OMA)', [ToSINone(self.meas['Optical']['OMA']['Linear']['Value'],self.meas['Optical']['OMA']['Linear']['Unit']),
+                                                                              ToSINone(self.meas['Optical']['OMA']['Log']['Value'],self.meas['Optical']['OMA']['Log']['Unit'])])
+            self.SingleLine(self.OpticalFrame, 'Extinction Ratio (ER)', [ToSINone(self.meas['Optical']['ER']['Linear']['Value'],self.meas['Optical']['ER']['Linear']['Unit']),
+                                                                         ToSINone(self.meas['Optical']['ER']['Log']['Value'],self.meas['Optical']['ER']['Log']['Unit'])])
+            if 'IL' in self.meas['Optical'].keys():
+                self.SingleLine(self.OpticalFrame,'Insertion Loss (IL)', [ToSINone(self.meas['Optical']['IL']['Linear']['Value'],self.meas['Optical']['IL']['Linear']['Unit']),
+                                                                          ToSINone(self.meas['Optical']['IL']['Log']['Value'],self.meas['Optical']['IL']['Log']['Unit'])])
+            if 'Loss' in self.meas['Optical'].keys():
+                self.SingleLine(self.OpticalFrame,'Loss (Pin - Pavg)', [ToSINone(self.meas['Optical']['Loss']['Linear']['Value'],self.meas['Optical']['Loss']['Linear']['Unit']),
+                                                                        ToSINone(self.meas['Optical']['Loss']['Log']['Value'],self.meas['Optical']['Loss']['Log']['Unit'])])
+            if 'TP' in self.meas['Optical'].keys():
+                self.SingleLine(self.OpticalFrame,'Transmission Penalty (TP)', [ToSINone(self.meas['Optical']['TP']['Linear']['Value'],self.meas['Optical']['TP']['Linear']['Unit']),
+                                                                                ToSINone(self.meas['Optical']['TP']['Log']['Value'],self.meas['Optical']['TP']['Log']['Unit'])])
+
+            if 'Q' in self.meas['Optical'].keys():
+                self.Line2(self.OpticalFrame,'Q Measurements')
+                self.SingleLine(self.OpticalFrame, 'BER', '{:.3E}'.format(self.meas['Optical']['Q']['BERMeasured']))
+                self.SingleLine(self.OpticalFrame,'Q Factor', [ToSINone(self.meas['Optical']['Q']['QFactor'],''),ToSINone(self.meas['Optical']['Q']['QFactordB'],'dB')])
+
+                if 'QFactorExpected' in self.meas['Optical']['Q'].keys():
+                    self.SingleLine(self.OpticalFrame, 'BER Expected', '{:.3E}'.format(self.meas['Optical']['Q']['BERExpected']))
+                    self.SingleLine(self.OpticalFrame,'Q Factor Expected', [ToSINone(self.meas['Optical']['Q']['QFactorExpected'],''),ToSINone(self.meas['Optical']['Q']['QFactorExpecteddB'],'dB')])
+                    self.SingleLine(self.OpticalFrame,'Tx Penalty', ToSINone(self.meas['Optical']['Q']['TxPenalty'],'dB'))
+# 
+#             self.tabControl.tab(2,state='normal')
+#         else:
+#             self.tabControl.tab(2,state='disabled')
         self.deiconify()
