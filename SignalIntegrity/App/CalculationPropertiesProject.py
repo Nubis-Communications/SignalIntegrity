@@ -207,6 +207,8 @@ class CalculationPropertyChoices(tk.Frame):
             b = tk.Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed)
             b.pack(anchor=tk.W)
         if not ((self.project is None) or (self.projectPath is None)):
+            if not self.project[self.projectPath] in [enum for _,enum in self.choiceStrings]:
+                self.project[self.projectPath]=self.choiceStrings[0][1]
             self.SetString(str(self.project[self.projectPath]))
     def SetString(self,value):
         self.string.set(value)

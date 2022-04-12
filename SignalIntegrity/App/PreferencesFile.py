@@ -77,7 +77,7 @@ class EyeMeasureConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Measure')
         self.Add(XMLPropertyDefaultBool('Measure',False))
-        self.Add(XMLPropertyDefaultString('WaveformType','Voltage')) # 'V', 'A', 'W', 'FW', 'FA', 'FV'
+        self.Add(XMLPropertyDefaultString('WaveformType','V')) # 'V', 'A', 'W', 'FW', 'FA', 'FV'
         self.Add(XMLPropertyDefaultString('RxTx','Rx')) # 'Rx', 'Tx', 'N/A'
         self.Add(XMLPropertyDefaultBool('TxInputPowerAvailable',False))
         self.Add(XMLPropertyDefaultFloat('TxInputPowerW',0))

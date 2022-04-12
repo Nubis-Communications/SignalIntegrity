@@ -803,15 +803,26 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             elif dBmUnit=='dB': return  Lin2dB(W)
             else: return None
 
-        PLWraw=abs(self.measDict['Level'][0]['Mean']['Value'])
-        PHWraw=abs(self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Value'])
-        PHW=max(PLWraw,PHWraw)
-        PLW=min(PLWraw,PHWraw)
+        PLWraw=self.measDict['Level'][0]['Mean']['Value']
+        PHWraw=self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Value']
+        if WaveformType in ['AW','VW']:
+            PLWraw=abs(self.measDict['Level'][0]['Mean']['Value'])
+            PHWraw=abs(self.measDict['Level'][len(self.measDict['Level'])-1]['Mean']['Value'])
+            PHW=max(PLWraw,PHWraw)
+            PLW=min(PLWraw,PHWraw)
+        else:
+            PHW=PHWraw
+            PLW=PLWraw
+
         PLdBm=W2dBmUnit(PLW)
         PHdBm=W2dBmUnit(PHW)
         OMA=PHW-PLW
         OMAdBm=W2dBmUnit(OMA)
-        PavgW=abs(np.mean(self.prbswf))
+
+        PavgW=np.mean(self.prbswf)
+        if WaveformType in ['AW','VW']:
+            PavgW=abs(PavgW)
+
         PavgdBm=W2dBmUnit(PavgW)
         ER=PHW/PLW
         ERdB=Lin2dB(ER)
