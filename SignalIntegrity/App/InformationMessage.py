@@ -34,8 +34,12 @@ class InformationMessage(tk.Toplevel):
         #img = tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
         #self.tk.call('wm', 'iconphoto', self._w, img)
         #self.protocol("WM_DELETE_WINDOW", self.destroy)
-        self.infoimg=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
-        self.info=tk.Button(self,image=self.infoimg,borderwidth=0)
+        try:
+            self.infoimg=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
+            self.info=tk.Button(self,image=self.infoimg,borderwidth=0)
+        except AttributeError:
+            self.info=tk.Button(self)
+            pass
         self.info.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
         self.label=tk.Label(self,height=3,width=50,text=message)
         self.label.pack(side=tk.LEFT,expand=tk.YES, fill=tk.BOTH)

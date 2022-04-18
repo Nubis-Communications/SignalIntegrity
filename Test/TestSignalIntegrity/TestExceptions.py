@@ -26,9 +26,11 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         si.sd.Numeric.trySVD=True
+        si.sd.Numeric.checkConditionNumber=True
         unittest.TestCase.setUp(self)
     def tearDown(self):
         si.sd.Numeric.trySVD=True
+        si.sd.Numeric.checkConditionNumber=True
         unittest.TestCase.tearDown(self)
     def testSystemDescriptionCheckConnections(self):
         sdp=si.p.SystemDescriptionParser()
@@ -208,6 +210,7 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
             directSucceeded=False
 
         si.sd.Numeric.trySVD=True
+        si.sd.Numeric.checkConditionNumber=True
         # originally, I thought that when the direct method succeeded, that there was something wrong
         # with the block method.  But there was a condition number check on the block method and the
         # condition number was poor - I added a check in the direct method and now the direct method fails.

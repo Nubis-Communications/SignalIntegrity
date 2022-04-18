@@ -154,6 +154,7 @@ class Calculation(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Calculation')
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
+        self.Add(XMLPropertyDefaultBool('CheckConditionNumber',True))
         self.Add(XMLPropertyDefaultBool('UseSinX',True))
         self.Add(XMLPropertyDefaultBool('Enforce12458',True))
         self.Add(XMLPropertyDefaultFloat('MaximumWaveformSize',5e6))

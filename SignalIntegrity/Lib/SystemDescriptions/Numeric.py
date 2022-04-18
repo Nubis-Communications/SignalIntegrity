@@ -26,7 +26,7 @@ class Numeric(object):
     trySVD=True
     singularValueLimit=1e-10
     conditionNumberLimit=1e-10
-    #conditionNumberLimit=1e-6
+    checkConditionNumber=True
     def InstallSafeTees(self,Z=0.00001):
         """obsolete
         @deprecated this function is no longer needed with the svd calculation.
@@ -89,10 +89,11 @@ class Numeric(object):
         if isinstance(A,list): A=array(A)
         if not self.alwaysUseSVD:
             try:
-                # without this check, there is a gray zone where the matrix is really uninvertible
-                # yet, produces total garbage without raising the exception.
-                if 1.0/linalg.cond(A) < self.conditionNumberLimit:
-                    raise LinAlgError
+                if self.checkConditionNumber:
+                    # without this check, there is a gray zone where the matrix is really uninvertible
+                    # yet, produces total garbage without raising the exception.
+                    if 1.0/linalg.cond(A) < self.conditionNumberLimit:
+                        raise LinAlgError
 
                 Adagger=linalg.inv(A)
 

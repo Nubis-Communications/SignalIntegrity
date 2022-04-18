@@ -61,6 +61,8 @@ from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertie
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.PartProperty import *
+from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
+from SignalIntegrity.App.InformationMessage import InformationMessage
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
@@ -82,9 +84,6 @@ class SignalIntegrityApp(tk.Frame):
 
         tk.Frame.__init__(self, self.root)
         self.pack(fill=tk.BOTH, expand=tk.YES)
-        SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))+'/'
-        SignalIntegrity.App.IconsBaseDir=SignalIntegrity.App.InstallDir+'icons/png/'
-        SignalIntegrity.App.IconsDir=SignalIntegrity.App.IconsBaseDir+'16x16/actions/'
 
         self.root.title(__project__+' - '+__version__)
 
@@ -106,11 +105,16 @@ class SignalIntegrityApp(tk.Frame):
         self.RecentProject3Doer = Doer(self.onRecentProject3).Activate(False)
         self.NewProjectDoer = Doer(self.onNewProject).AddKeyBindElement(self.root,'<Control-n>').AddHelpElement('Control-Help:New-Project').AddToolTip('Creates a new project')
         self.OpenProjectDoer = Doer(self.onReadProjectFromFile).AddKeyBindElement(self.root,'<Control-o>').AddHelpElement('Control-Help:Open-Project').AddToolTip('Open an existing project')
+        self.CloseProjectDoer = Doer(self.onCloseProject).AddHelpElement('Control-Help:Close-Project').AddToolTip('Close the current project')
         self.SaveProjectDoer = Doer(self.onSaveProject).AddKeyBindElement(self.root,'<Control-s>').AddHelpElement('Control-Help:Save-Project').AddToolTip('Save the project with existing file name')
         self.SaveAsProjectDoer = Doer(self.onSaveAsProject).AddKeyBindElement(self.root,'<Control-Shift-s>').AddHelpElement('Control-Help:Save-As-Project').AddToolTip('Save the project with a new file name')
         self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('Control-Help:Clear-Schematic').AddToolTip('Clear the schematic')
         self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('Control-Help:Export-Netlist').AddToolTip('Export the netlist')
         self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('Control-Help:Export-LaTeX').AddToolTip('Export schematic as LaTeX')
+        self.ArchiveDoer = Doer(self.onArchive).AddHelpElement('Control-Help:Archive').AddToolTip('Archive project')
+        self.ExtractArchiveDoer = Doer(self.onExtractArchive).AddHelpElement('Control-Help:Extract-Archive').AddToolTip('Extract archived project')
+        self.FreshenArchiveDoer = Doer(self.onFreshenArchive).AddHelpElement('Control-Help:Freshen-Archive').AddToolTip('Freshen archived project')
+        self.UnExtractArchiveDoer = Doer(self.onUnExtractArchive).AddHelpElement('Control-Help:Unextract-Archive').AddToolTip('Unextract archived project')
         # ------
         self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('Control-Help:Undo').AddToolTip('Undo last edit')
         self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('Control-Help:Redo').AddToolTip('Redo undid edit')
@@ -182,13 +186,19 @@ class SignalIntegrityApp(tk.Frame):
         self.FileMenu.add_separator()
         self.NewProjectDoer.AddMenuElement(self.FileMenu,label="New Project",accelerator='Ctrl+N',underline=0)
         self.OpenProjectDoer.AddMenuElement(self.FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
+        self.CloseProjectDoer.AddMenuElement(self.FileMenu,label='Close Project',underline=0)
         self.SaveProjectDoer.AddMenuElement(self.FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
         self.SaveAsProjectDoer.AddMenuElement(self.FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
         self.FileMenu.add_separator()
-        self.ClearProjectDoer.AddMenuElement(self.FileMenu,label="Clear Schematic",underline=0)
+        self.ClearProjectDoer.AddMenuElement(self.FileMenu,label="Clear Schematic",underline=1)
         self.FileMenu.add_separator()
         self.ExportNetListDoer.AddMenuElement(self.FileMenu,label="Export NetList",underline=0)
         self.ExportTpXDoer.AddMenuElement(self.FileMenu,label="Export LaTeX (TikZ)",underline=7)
+        self.FileMenu.add_separator()
+        self.ArchiveDoer.AddMenuElement(self.FileMenu,label='Archive Project',underline=5)
+        self.ExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Extract Archived Project',underline=1)
+        self.FreshenArchiveDoer.AddMenuElement(self.FileMenu,label='Freshen Archived Project',underline=0)
+        self.UnExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Unextract Archived Project',underline=0)
         # ------
         EditMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
@@ -467,6 +477,18 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
         self.SaveProjectToFile(filename)
+
+    def onCloseProject(self):
+        if not self.CheckSaveCurrentProject():
+            return
+        self.simulator.DeleteDialogs()
+        SignalIntegrity.App.Project=ProjectFile()
+        self.Drawing.stateMachine.Nothing()
+        self.Drawing.schematic.Clear()
+        self.Drawing.DrawSchematic()
+        self.fileparts=FileParts()
+        self.root.title('SignalIntegrity')
+        self.Drawing.stateMachine.NoProject(True)
 
     def SaveProjectToFile(self,filename):
         self.Drawing.stateMachine.Nothing()
@@ -770,6 +792,7 @@ class SignalIntegrityApp(tk.Frame):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -888,6 +911,7 @@ class SignalIntegrityApp(tk.Frame):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -960,11 +984,16 @@ class SignalIntegrityApp(tk.Frame):
         if Doer.inHelp:
             self.NewProjectDoer.Activate(True)
             self.OpenProjectDoer.Activate(True)
+            self.CloseProjectDoer.Activate(True)
             self.SaveProjectDoer.Activate(True)
             self.SaveAsProjectDoer.Activate(True)
             self.ClearProjectDoer.Activate(True)
             self.ExportNetListDoer.Activate(True)
             self.ExportTpXDoer.Activate(True)
+            self.ArchiveDoer.Activate(True)
+            self.ExtractArchiveDoer.Activate(True)
+            self.FreshenArchiveDoer.Activate(True)
+            self.UnExtractArchiveDoer.Activate(True)
             # ------
             self.UndoDoer.Activate(True)
             self.RedoDoer.Activate(True)
@@ -998,6 +1027,7 @@ class SignalIntegrityApp(tk.Frame):
             self.PanDoer.Activate(True)
             # ------
             self.CalculationPropertiesDoer.Activate(True)
+            self.PostProcessingDoer.Activate(True)
             self.SParameterViewerDoer.Activate(True)
             self.CalculateDoer.Activate(True)
             self.CalculateSParametersDoer.Activate(True)
@@ -1176,6 +1206,7 @@ class SignalIntegrityApp(tk.Frame):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         etnp=si.p.CalibrationNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -1200,6 +1231,103 @@ class SignalIntegrityApp(tk.Frame):
     def onCalculateSParametersFromNetworkAnalyzerModel(self):
         self.onCalculateSParameters()
 
+    def onArchive(self):
+        fp=self.fileparts
+        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
+            if not messagebox.askokcancel('Archive', 'Are you sure.  The archive file exists?\nThis will overwrite the contents of the archive.'):
+                return
+        msg=InformationMessage(self,'Archiving','Archiving: '+self.fileparts.filename+'.siz\n Please wait.....')
+        archiveDict=Archive()
+        try:
+            # build archive dictionary
+            archiveDict.BuildArchiveDictionary(self)
+            if not archiveDict:
+                msg.destroy()
+                messagebox.showerror('Archiving','Nothing to archive')
+                return
+            self.update()
+            # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
+            archiveDir=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'_Archive'
+            archiveDict.CopyArchiveFilesToDestination(archiveDir)
+            archiveDict.ZipArchive(archiveName=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz', archiveDir=self.fileparts.filename+'_Archive')
+        except SignalIntegrityExceptionArchive as e:
+            msg.destroy()
+            messagebox.showerror('During archiving:',e.message)
+            return
+        except Exception as e:
+            msg.destroy()
+            messagebox.showerror('During archiving:','An unknown error occurred')
+            return
+        msg.destroy()
+        msg=messagebox.showinfo('Archive complete','Archive created: '+self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz')
+
+    def onExtractArchive(self):
+        if not self.CheckSaveCurrentProject():
+            return
+
+        filename=AskOpenFileName(filetypes=[('siz', '.siz')],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.fileparts.FileNameWithExtension('.siz'))
+        if filename is None:
+            return
+
+        msg=InformationMessage(self,'Extracting Archive','Extracting Archive: '+self.fileparts.filename+'.siz\n Please wait.....')
+
+        try:
+            Archive.ExtractArchive(filename)
+        except:
+            msg.destroy()
+            messagebox.showerror('During archive extraction:','Extraction Failed.')
+            return
+
+        msg.destroy()
+
+        fp=FileParts(filename)
+
+        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'):
+            filename=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'
+            msg=messagebox.showinfo('Archive Extraction','Archive Extraction Complete')
+        else:
+            filename=AskOpenFileName(title='Archive Extraction Complete',
+                                     filetypes=[('si', '.si')],
+                                     initialdir=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive',
+                                     initialfile=fp.FileNameTitle()+'.si')
+        if filename is None:
+            return
+
+        self.OpenProjectFile(filename)
+
+    def onFreshenArchive(self):
+        if not messagebox.askokcancel('Freshen Archive', 'Are you sure?\nThis will overwrite the contents of the archive.'):
+            return
+
+        msg=InformationMessage(self,'Archive Freshening','Freshening Archive. Please wait.....')
+        try:
+            Archive.Freshen(self.fileparts.FileNameWithExtension())
+        except:
+            msg.destroy()
+            messagebox.showerror('Archive Freshening','Freshening Failed')
+            return
+        msg.destroy()
+        msg=messagebox.showinfo('Archive Freshening','Archive Freshened')
+
+
+    def onUnExtractArchive(self):
+        if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
+            return
+        if not messagebox.askokcancel('Unexctract Archive', 'Are you absolutely sure?\nThis will delete all of the files in current directory'):
+            return
+        msg=InformationMessage(self,'Archive Unextract','Unextracting Archive. Please wait.....')
+        try:
+            self.onCloseProject()
+            Archive.UnExtractArchive(self.fileparts.AbsoluteFilePath())
+        except:
+            msg.destroy()
+            messagebox.showerror('Archive Unextract','Unextraction Failed')
+            return
+        msg.destroy()
+        msg=messagebox.showinfo('Archive Unextract','Archive Unextracted')
+
 def main():
     projectFileName = None
     external=False
@@ -1219,6 +1347,6 @@ if __name__ == '__main__': # pragma: no cover
 
         import pstats
         p = pstats.Stats('stats')
-        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+        p.strip_dirs().sort_stats('cumulative').print_stats(100)
     else:
         main()

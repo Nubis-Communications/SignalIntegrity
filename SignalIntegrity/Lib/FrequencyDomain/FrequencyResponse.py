@@ -131,8 +131,8 @@ class FrequencyResponse(FrequencyDomain):
         """
         fd=self.FrequencyList()
         if P == fd.N: X=self.Response()
-        elif P < fd.N: X=[self.Response()[n] for n in range(P+1)]
-        else: X=self.Response()+[0 for n in range(P-fd.N)]
+        elif P < fd.N: X=self.Response()[:P+1]
+        else: X=self.Response()+[0]*(P-fd.N)
         return FrequencyResponse(EvenlySpacedFrequencyList(P*fd.Fe/fd.N,P),X)
     def _Decimate(self,D):
         """decimates the frequency response
@@ -142,7 +142,8 @@ class FrequencyResponse(FrequencyDomain):
         N/D+1 is the number of points in the decimated frequency response.
         """
         fd=self.FrequencyList()
-        X=[self.Response()[n*D] for n in range(fd.N//D+1)]
+        R=self.Response()
+        X=[R[n*D] for n in range(fd.N//D+1)]
         return FrequencyResponse(EvenlySpacedFrequencyList(fd.N//D*D//fd.N*fd.Fe,fd.N//D),X)
     def _SplineResample(self,fdp):
         fd=self.FrequencyList()
@@ -167,6 +168,14 @@ class FrequencyResponse(FrequencyDomain):
         @see Spline
         """
         fd=self.FrequencyList()
+        # pragma: silent exclude
+        from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
+        if not fd.CheckEvenlySpaced():
+            if GenericFrequencyList([0]+fd).CheckEvenlySpaced():
+                # only the DC point is missing.  Restore that first
+                DCRestored=self._SplineResample(GenericFrequencyList([0]+fd))
+                return DCRestored.Resample(fdp)
+        # pragma: include
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
         if not evenlySpaced: return self._SplineResample(fdp)
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
