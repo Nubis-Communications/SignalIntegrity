@@ -73,6 +73,7 @@ class NetworkAnalyzerSimulator(object):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()+'_DUTSParameters'
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self.parent,"Calculating DUT S-parameters",spnp,spnp.SParameters,granularity=1.0)
@@ -117,6 +118,7 @@ class NetworkAnalyzerSimulator(object):
         #
         cacheFileName=self.parent.fileparts.FileNameTitle()+'_TransferMatrices' if SignalIntegrity.App.Preferences['Cache.CacheResults'] else None
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog = ProgressDialog(self.parent,"Calculating Transfer Matrices",snp,snp.TransferMatrices,granularity=1.0)
