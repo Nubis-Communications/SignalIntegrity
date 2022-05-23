@@ -29,6 +29,7 @@ from SignalIntegrity.App.NetList import NetList
 from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
+from SignalIntegrity.App.Archive import Archive
 import SignalIntegrity.App.Project
 
 class Schematic(object):
@@ -313,11 +314,16 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<Motion>',self.onMouseMotion_NoProject)
             self.parent.parent.NewProjectDoer.Activate(True)
             self.parent.parent.OpenProjectDoer.Activate(True)
+            self.parent.parent.CloseProjectDoer.Activate(False)
             self.parent.parent.SaveProjectDoer.Activate(False)
             self.parent.parent.SaveAsProjectDoer.Activate(False)
             self.parent.parent.ClearProjectDoer.Activate(False)
             self.parent.parent.ExportNetListDoer.Activate(False)
             self.parent.parent.ExportTpXDoer.Activate(False)
+            self.parent.parent.ArchiveDoer.Activate(False)
+            self.parent.parent.ExtractArchiveDoer.Activate(True)
+            self.parent.parent.FreshenArchiveDoer.Activate(False)
+            self.parent.parent.UnExtractArchiveDoer.Activate(False)
             self.parent.parent.UndoDoer.Activate(False)
             self.parent.parent.RedoDoer.Activate(False)
             self.parent.parent.DeleteSelectedDoer.Activate(False)
@@ -346,6 +352,7 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(False)
             self.parent.parent.PanDoer.Activate(False)
             self.parent.parent.CalculationPropertiesDoer.Activate(False)
+            self.parent.parent.PostProcessingDoer.Activate(False)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             self.parent.parent.CalculateDoer.Activate(False)
             self.parent.parent.CalculateSParametersDoer.Activate(False)
@@ -419,11 +426,17 @@ class DrawingStateMachine(object):
             self.parent.focus_set()
             self.parent.parent.NewProjectDoer.Activate(True)
             self.parent.parent.OpenProjectDoer.Activate(True)
+            self.parent.parent.CloseProjectDoer.Activate(True)
             self.parent.parent.SaveProjectDoer.Activate(True)
             self.parent.parent.SaveAsProjectDoer.Activate(True)
             self.parent.parent.ClearProjectDoer.Activate(True)
             self.parent.parent.ExportNetListDoer.Activate(True)
             self.parent.parent.ExportTpXDoer.Activate(True)
+            self.parent.parent.ArchiveDoer.Activate(True)
+            self.parent.parent.ExtractArchiveDoer.Activate(True)
+            inAnArchive=Archive.InAnArchive(self.parent.parent.fileparts.FullFilePathExtension())
+            self.parent.parent.FreshenArchiveDoer.Activate(inAnArchive)
+            self.parent.parent.UnExtractArchiveDoer.Activate(inAnArchive)
             #self.parent.parent.UndoDoer.Activate(False)
             #self.parent.parent.RedoDoer.Activate(False)
             self.parent.parent.DeleteSelectedDoer.Activate(False)
@@ -452,6 +465,7 @@ class DrawingStateMachine(object):
             self.parent.parent.ZoomOutDoer.Activate(True)
             self.parent.parent.PanDoer.Activate(True)
             self.parent.parent.CalculationPropertiesDoer.Activate(True)
+            self.parent.parent.PostProcessingDoer.Activate(True)
             self.parent.parent.SParameterViewerDoer.Activate(True)
             #self.parent.parent.CalculateDoer.Activate(False)
             #self.parent.parent.CalculateSParametersDoer.Activate(False)

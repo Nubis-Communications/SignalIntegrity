@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>861x371+2008+76</Geometry>
+			<Geometry>861x371+52+52</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>22</Originy>
@@ -395,7 +395,10 @@
 						<Measure>
 							<BERForMeasure>-6</BERForMeasure>
 							<Measure>True</Measure>
-							<NoisePenalty>0</NoisePenalty>
+							<RxTx>Rx</RxTx>
+							<TxInputPowerAvailable>False</TxInputPowerAvailable>
+							<TxInputPowerW>0</TxInputPowerW>
+							<WaveformType>Voltage</WaveformType>
 						</Measure>
 						<Mode>ISI</Mode>
 						<Rows>400</Rows>
@@ -507,7 +510,10 @@
 						<Measure>
 							<BERForMeasure>-6</BERForMeasure>
 							<Measure>True</Measure>
-							<NoisePenalty>0</NoisePenalty>
+							<RxTx>Rx</RxTx>
+							<TxInputPowerAvailable>False</TxInputPowerAvailable>
+							<TxInputPowerW>0</TxInputPowerW>
+							<WaveformType>Voltage</WaveformType>
 						</Measure>
 						<Mode>ISI</Mode>
 						<Rows>400</Rows>

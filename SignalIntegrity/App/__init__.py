@@ -20,3 +20,7 @@ from __future__ import absolute_import
 from .SignalIntegrityApp import SignalIntegrityApp
 from .SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from .Project import Project
+import os
+InstallDir=os.path.dirname(os.path.abspath(__file__))+'/'
+IconsBaseDir=InstallDir+'icons/png/'
+IconsDir=IconsBaseDir+'16x16/actions/'
