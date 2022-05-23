@@ -126,12 +126,13 @@ class CalculationPropertyFileNameSaveAs(CalculationProperty):
         self.UpdateStrings()
 
 class CalculationPropertySI(CalculationProperty):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None,tooltip=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None,tooltip=None,round=12):
         self.unitString=unit
+        self.round=round
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
     def SetString(self,value):
         try:
-            self.string.set(ToSI(value,self.unitString))
+            self.string.set(ToSI(value,self.unitString,round=self.round))
         except:
             pass
     def GetString(self):
