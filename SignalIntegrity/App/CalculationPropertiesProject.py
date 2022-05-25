@@ -64,23 +64,28 @@ class CalculationProperty(tk.Frame):
         self.SetReadOnly(False)
     def SetReadOnly(self,readOnly=False):
         self.entry.config(state='readonly' if readOnly else tk.NORMAL)
+        self.readonly=readOnly
     def SetString(self,value):
         self.string.set(value)
     def GetString(self):
         return self.string.get()
     def onEntered(self,event):
-        if not ((self.project is None) or (self.projectPath is None)):
-            if not self.GetString() is None:
-                self.project[self.projectPath]=self.GetString()
-        if not self.enteredCallback is None:
-            self.enteredCallback(event)
+        if not self.readonly:
+            if not ((self.project is None) or (self.projectPath is None)):
+                if not self.GetString() is None:
+                    self.project[self.projectPath]=self.GetString()
+            if not self.enteredCallback is None:
+                self.enteredCallback(event)
         return self.onUntouchedLoseFocus(event)
     def onTouched(self,event):
-        self.UpdateStrings()
+        if not self.readonly:
+            self.UpdateStrings()
     def onCleared(self,event):
-        self.string.set('')
+        if not self.readonly:
+            self.string.set('')
     def onUntouched(self,event):
-        self.UpdateStrings()
+        if not self.readonly:
+            self.UpdateStrings()
     def onUntouchedLoseFocus(self,event):
         self.parentFrame.focus()
         return "break"
