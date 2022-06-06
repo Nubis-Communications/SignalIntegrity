@@ -30,7 +30,7 @@
 %  <text x="96" y="-55" t="50.0 ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">36,-32 38,-34</polyline>
 %  <polyline lc="black">38,-34 40,-36</polyline>
-%  <text x="36" y="-31" t="gain 500.0 m" h="3" halign="r" lc="black"/>
+%  <text x="36" y="-31" t="gain 0.5 " h="3" halign="r" lc="black"/>
 %  <text x="36" y="-28" t="Vin" h="3" halign="r" lc="black"/>
 %  <rect x="136" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">132,-36 136,-36</polyline>
@@ -116,7 +116,7 @@
 \draw[black] (96,-55) node[anchor=base west]{50.0 ohm};
 \path[line width=0.9mm, draw=black] (36,-32) -- (38,-34);
 \path[line width=0.30mm, draw=black] (38,-34) -- (40,-36);
-\draw[black] (36,-31) node[anchor=base east]{gain 500.0 m};
+\draw[black] (36,-31) node[anchor=base east]{gain 0.5 };
 \draw[black] (36,-28) node[anchor=base east]{Vin};
 \path[line width=0.30mm, draw=black] (136,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (132,-36) -- (136,-36);

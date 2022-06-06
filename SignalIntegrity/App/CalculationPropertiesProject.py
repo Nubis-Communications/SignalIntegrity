@@ -144,8 +144,9 @@ class CalculationPropertySI(CalculationProperty):
         return FromSI(self.string.get(),self.unitString)
 
 class CalculationPropertyTrueFalseButton(tk.Frame):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None,truefalse=('True','False')):
         tk.Frame.__init__(self,parentFrame)
+        self.true,self.false=truefalse
         self.parentFrame=parentFrame
         self.enteredCallback=enteredCallback
         self.updateStringsCallback=updateStringsCallback
@@ -160,16 +161,16 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.entry.bind('<Return>',self.onPressed)
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project[self.projectPath]))
+            self.SetString(self.true if str(self.project[self.projectPath])==self.true else self.false)
     def SetString(self,value):
         self.string.set(value)
         self.entry.config(text=value)
     def GetString(self):
         return self.string.get()
     def onPressed(self,event=None):
-        self.SetString('False' if self.GetString()=='True' else 'True')
+        self.SetString(self.false if self.GetString()==self.true else self.true)
         if not ((self.project is None) or (self.projectPath is None)):
-            self.project[self.projectPath]=self.GetString()
+            self.project[self.projectPath]=self.GetString() == self.true
         if not self.enteredCallback is None:
             self.enteredCallback(event)
         self.UpdateStrings()
@@ -180,7 +181,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
             self.pack_forget()
     def UpdateStrings(self):
         if not ((self.project is None) or (self.projectPath is None)):
-            self.SetString(str(self.project[self.projectPath]))
+            self.SetString(self.true if self.project[self.projectPath] else self.false)
         if not self.updateStringsCallback is None:
             self.updateStringsCallback()
 

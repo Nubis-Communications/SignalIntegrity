@@ -116,7 +116,7 @@
 %  <polyline lc="black">72,-60 68,-60</polyline>
 %  <text x="69" y="-59" t="12" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-13" t="file wires_1mil_80um_3.8_3pair.txt" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-10" t="scale 1.0 m" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-10" t="scale 0.001 " h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -237,5 +237,5 @@
 \path[line width=0.30mm, draw=black] (72,-60) -- (68,-60);
 \draw[black] (69,-59) node[anchor=base west]{12};
 \draw[black] (64,-13) node[anchor=base]{file wires\textunderscore 1mil\textunderscore 80um\textunderscore 3.8\textunderscore 3pair.txt};
-\draw[black] (64,-10) node[anchor=base]{scale 1.0 m};
+\draw[black] (64,-10) node[anchor=base]{scale 0.001 };
 \end{tikzpicture}%

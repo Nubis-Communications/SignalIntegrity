@@ -33,7 +33,7 @@
 %  <text x="92" y="-39" t="90.0 ohm" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">44,-16 46,-18</polyline>
 %  <polyline lc="black">46,-18 48,-20</polyline>
-%  <text x="44" y="-15" t="gain 500.0 m" h="3" halign="r" lc="black"/>
+%  <text x="44" y="-15" t="gain 0.5 " h="3" halign="r" lc="black"/>
 %  <text x="44" y="-12" t="Vin" h="3" halign="r" lc="black"/>
 %  <ellipse x="48" y="-28" dx="-8" dy="-8" lc="black"/>
 %  <polyline lc="black">48.75,-25.5 47.25,-25.5</polyline>
@@ -69,8 +69,8 @@
 %  <polyline lc="black">140,-20 140,-28</polyline>
 %  <ellipse x="140" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="112" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="88" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="48" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="88" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -108,7 +108,7 @@
 \draw[black] (92,-39) node[anchor=base west]{90.0 ohm};
 \path[line width=0.9mm, draw=black] (44,-16) -- (46,-18);
 \path[line width=0.30mm, draw=black] (46,-18) -- (48,-20);
-\draw[black] (44,-15) node[anchor=base east]{gain 500.0 m};
+\draw[black] (44,-15) node[anchor=base east]{gain 0.5 };
 \draw[black] (44,-12) node[anchor=base east]{Vin};
 \path[line width=0.30mm, draw=black] (48,-28) ellipse (-4mm and -4mm);
 \path[line width=0.30mm, draw=black] (48.75,-25.5) -- (47.25,-25.5);
@@ -144,6 +144,6 @@
 \path[line width=0.30mm, draw=black] (140,-20) -- (140,-28);
 \path[line width=0.30mm, draw=black, fill=black] (140,-20) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (112,-20) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (88,-28) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (48,-20) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (88,-28) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

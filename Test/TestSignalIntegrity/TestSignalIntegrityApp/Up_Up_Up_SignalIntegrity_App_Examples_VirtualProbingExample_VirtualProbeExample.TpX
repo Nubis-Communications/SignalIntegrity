@@ -128,7 +128,7 @@
 %  <rect x="106" y="-52" w="4" h="-8" lc="black"/>
 %  <polyline lc="black">108,-64 108,-60</polyline>
 %  <polyline lc="black">108,-48 108,-52</polyline>
-%  <text x="112" y="-63" t="gain 500.0 m" h="3" halign="l" lc="black"/>
+%  <text x="112" y="-63" t="gain 0.5 " h="3" halign="l" lc="black"/>
 %  <text x="112" y="-60" t="td -1.43 ns" h="3" halign="l" lc="black"/>
 %  <text x="112" y="-57" t="Voutloaded2" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">107.25,-89.5 108.75,-89.5</polyline>
@@ -138,7 +138,7 @@
 %  <rect x="104" y="-88" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">108,-100 108,-96</polyline>
 %  <polyline lc="black">108,-84 108,-88</polyline>
-%  <text x="114" y="-102" t="gain 500.0 m" h="3" halign="l" lc="black"/>
+%  <text x="114" y="-102" t="gain 0.5 " h="3" halign="l" lc="black"/>
 %  <text x="114" y="-99" t="td -1.43 ns" h="3" halign="l" lc="black"/>
 %  <text x="114" y="-96" t="br 2.5 GBaud" h="3" halign="l" lc="black"/>
 %  <text x="114" y="-93" t="Vout2" h="3" halign="l" lc="black"/>
@@ -321,7 +321,7 @@
 \path[line width=0.30mm, draw=black] (106,-60) rectangle +(4,8);
 \path[line width=0.30mm, draw=black] (108,-64) -- (108,-60);
 \path[line width=0.30mm, draw=black] (108,-48) -- (108,-52);
-\draw[black] (112,-63) node[anchor=base west]{gain 500.0 m};
+\draw[black] (112,-63) node[anchor=base west]{gain 0.5 };
 \draw[black] (112,-60) node[anchor=base west]{td -1.43 ns};
 \draw[black] (112,-57) node[anchor=base west]{Voutloaded2};
 \path[line width=0.30mm, draw=black] (107.25,-89.5) -- (108.75,-89.5);
@@ -331,7 +331,7 @@
 \path[line width=0.30mm, draw=black] (104,-96) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (108,-100) -- (108,-96);
 \path[line width=0.30mm, draw=black] (108,-84) -- (108,-88);
-\draw[black] (114,-102) node[anchor=base west]{gain 500.0 m};
+\draw[black] (114,-102) node[anchor=base west]{gain 0.5 };
 \draw[black] (114,-99) node[anchor=base west]{td -1.43 ns};
 \draw[black] (114,-96) node[anchor=base west]{br 2.5 GBaud};
 \draw[black] (114,-93) node[anchor=base west]{Vout2};

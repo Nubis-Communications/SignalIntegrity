@@ -28,7 +28,7 @@
 %  <polyline lc="black">101.5,-24.5 105,-24.5</polyline>
 %  <polyline lc="black">115.5,-17.5 112,-17.5</polyline>
 %  <polyline lc="black">115.5,-24.5 112,-24.5</polyline>
-%  <text x="108.5" y="-13" t="gain -199.175765 m" h="3" halign="c" lc="black"/>
+%  <text x="108.5" y="-13" t="gain -0.199175765 " h="3" halign="c" lc="black"/>
 %  <text x="108.5" y="-10" t="zi 50.0 ohm" h="3" halign="c" lc="black"/>
 %  <polygon fill="black">99.167,-28 103.833,-28 101.5,-30.333 99.167,-28</polygon>
 %  <polyline lc="black">101.5,-24.5 101.5,-28</polyline>
@@ -71,7 +71,7 @@
 %  <polyline lc="black">101.5,-80.5 105,-80.5</polyline>
 %  <polyline lc="black">115.5,-73.5 112,-73.5</polyline>
 %  <polyline lc="black">115.5,-80.5 112,-80.5</polyline>
-%  <text x="108.5" y="-69" t="gain -19.02746 m" h="3" halign="c" lc="black"/>
+%  <text x="108.5" y="-69" t="gain -0.01902746 " h="3" halign="c" lc="black"/>
 %  <polyline lc="black">17.5,-10.5 28,-17.5 17.5,-24.5 17.5,-10.5</polyline>
 %  <polyline lc="black">14,-17.5 17.5,-17.5</polyline>
 %  <polyline lc="black">31.5,-17.5 28,-17.5</polyline>
@@ -91,8 +91,8 @@
 %  <polyline lc="black">129.5,-17.5 115.5,-17.5</polyline>
 %  <polyline lc="black">31.5,-17.5 31.5,-73.5</polyline>
 %  <polyline lc="black">31.5,-73.5 101.5,-73.5</polyline>
-%  <ellipse x="59.5" y="-17.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
 %  <ellipse x="31.5" y="-17.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="59.5" y="-17.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -125,7 +125,7 @@
 \path[line width=0.30mm, draw=black] (101.5,-24.5) -- (105,-24.5);
 \path[line width=0.30mm, draw=black] (115.5,-17.5) -- (112,-17.5);
 \path[line width=0.30mm, draw=black] (115.5,-24.5) -- (112,-24.5);
-\draw[black] (108.5,-13) node[anchor=base]{gain -199.175765 m};
+\draw[black] (108.5,-13) node[anchor=base]{gain -0.199175765 };
 \draw[black] (108.5,-10) node[anchor=base]{zi 50.0 ohm};
 \path[line width=0.30mm, fill=black] (99.167,-28) -- (103.833,-28) -- (101.5,-30.333) -- (99.167,-28) -- cycle;
 \path[line width=0.30mm, draw=black] (101.5,-24.5) -- (101.5,-28);
@@ -168,7 +168,7 @@
 \path[line width=0.30mm, draw=black] (101.5,-80.5) -- (105,-80.5);
 \path[line width=0.30mm, draw=black] (115.5,-73.5) -- (112,-73.5);
 \path[line width=0.30mm, draw=black] (115.5,-80.5) -- (112,-80.5);
-\draw[black] (108.5,-69) node[anchor=base]{gain -19.02746 m};
+\draw[black] (108.5,-69) node[anchor=base]{gain -0.01902746 };
 \path[line width=0.30mm, draw=black] (17.5,-10.5) -- (28,-17.5) -- (17.5,-24.5) -- (17.5,-10.5);
 \path[line width=0.30mm, draw=black] (14,-17.5) -- (17.5,-17.5);
 \path[line width=0.30mm, draw=black] (31.5,-17.5) -- (28,-17.5);
@@ -188,6 +188,6 @@
 \path[line width=0.30mm, draw=black] (129.5,-17.5) -- (115.5,-17.5);
 \path[line width=0.30mm, draw=black] (31.5,-17.5) -- (31.5,-73.5);
 \path[line width=0.30mm, draw=black] (31.5,-73.5) -- (101.5,-73.5);
-\path[line width=0.30mm, draw=black, fill=black] (59.5,-17.5) ellipse (0.438mm and -0.438mm);
 \path[line width=0.30mm, draw=black, fill=black] (31.5,-17.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (59.5,-17.5) ellipse (0.438mm and -0.438mm);
 \end{tikzpicture}%

@@ -129,7 +129,7 @@ def ToSI(d,sa='',letterPrefixes=True,round=12):
         sa=''
 
     # certain units should not be scaled to engineering notation
-    prohibitedUnits = (sa in ['dB','dBm'])
+    prohibitedUnits = (sa in ['dB','dBm']) or ((sa == '') and letterPrefixes)
 
     if degree!=0 and not exponentInUnit and not prohibitedUnits:
         ds = degree/math.fabs(degree)

@@ -51,7 +51,7 @@
 %  <rect x="57.5" y="-30" w="5" h="-10" lc="black"/>
 %  <polyline lc="black">60,-45 60,-40</polyline>
 %  <polyline lc="black">60,-25 60,-30</polyline>
-%  <text x="65" y="-42" t="gain 500.0 m" h="3" halign="l" lc="black"/>
+%  <text x="65" y="-42" t="gain 0.5 " h="3" halign="l" lc="black"/>
 %  <text x="65" y="-39" t="td 1.47 ns" h="3" halign="l" lc="black"/>
 %  <text x="65" y="-36" t="Vin" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">149.062,-31.875 150.938,-31.875</polyline>
@@ -102,13 +102,13 @@
 %  <polyline lc="black">190,-55 190,-40</polyline>
 %  <polyline lc="black">190,-40 200,-40</polyline>
 %  <ellipse x="165" y="-55" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="60" y="-55" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="165" y="-15" dx="1.25" dy="-1.25" lc="black" fill="black"/>
-%  <ellipse x="165" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="150" y="-15" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="60" y="-15" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="165" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="220" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="150" y="-55" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="60" y="-55" dx="1.25" dy="-1.25" lc="black" fill="black"/>
+%  <ellipse x="165" y="-15" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %  <ellipse x="40" y="-35" dx="1.25" dy="-1.25" lc="black" fill="black"/>
 %</TpX>
 \centering
@@ -165,7 +165,7 @@
 \path[line width=0.30mm, draw=black] (57.5,-40) rectangle +(5,10);
 \path[line width=0.30mm, draw=black] (60,-45) -- (60,-40);
 \path[line width=0.30mm, draw=black] (60,-25) -- (60,-30);
-\draw[black] (65,-42) node[anchor=base west]{gain 500.0 m};
+\draw[black] (65,-42) node[anchor=base west]{gain 0.5 };
 \draw[black] (65,-39) node[anchor=base west]{td 1.47 ns};
 \draw[black] (65,-36) node[anchor=base west]{Vin};
 \path[line width=0.30mm, draw=black] (149.062,-31.875) -- (150.938,-31.875);
@@ -216,12 +216,12 @@
 \path[line width=0.30mm, draw=black] (190,-55) -- (190,-40);
 \path[line width=0.30mm, draw=black] (190,-40) -- (200,-40);
 \path[line width=0.30mm, draw=black, fill=black] (165,-55) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-55) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (165,-15) ellipse (0.625mm and -0.625mm);
-\path[line width=0.30mm, draw=black, fill=black] (165,-35) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (150,-15) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (60,-15) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (165,-35) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (220,-35) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (150,-55) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-55) ellipse (0.625mm and -0.625mm);
+\path[line width=0.30mm, draw=black, fill=black] (165,-15) ellipse (0.625mm and -0.625mm);
 \path[line width=0.30mm, draw=black, fill=black] (40,-35) ellipse (0.625mm and -0.625mm);
 \end{tikzpicture}%

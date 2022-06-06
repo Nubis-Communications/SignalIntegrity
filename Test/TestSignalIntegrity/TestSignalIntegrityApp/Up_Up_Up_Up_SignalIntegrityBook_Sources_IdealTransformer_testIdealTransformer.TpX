@@ -31,7 +31,7 @@
 %  <polyline lc="black">68,-32 72,-32</polyline>
 %  <polyline lc="black">84,-24 80,-24</polyline>
 %  <polyline lc="black">84,-32 80,-32</polyline>
-%  <text x="76" y="-21" t="500.0 m" h="3" halign="c" lc="black"/>
+%  <text x="76" y="-21" t="0.5 " h="3" halign="c" lc="black"/>
 %  <polygon fill="black">65.333,-36 70.667,-36 68,-38.667 65.333,-36</polygon>
 %  <polyline lc="black">68,-32 68,-36</polyline>
 %  <polygon fill="black">81.333,-36 86.667,-36 84,-38.667 81.333,-36</polygon>
@@ -62,8 +62,8 @@
 %  <polyline lc="black">40,-24 44,-24</polyline>
 %  <polyline lc="black">84,-24 92,-24</polyline>
 %  <polyline lc="black">108,-24 120,-24</polyline>
-%  <ellipse x="40" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="120" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="40" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -99,7 +99,7 @@
 \path[line width=0.30mm, draw=black] (68,-32) -- (72,-32);
 \path[line width=0.30mm, draw=black] (84,-24) -- (80,-24);
 \path[line width=0.30mm, draw=black] (84,-32) -- (80,-32);
-\draw[black] (76,-21) node[anchor=base]{500.0 m};
+\draw[black] (76,-21) node[anchor=base]{0.5 };
 \path[line width=0.30mm, fill=black] (65.333,-36) -- (70.667,-36) -- (68,-38.667) -- (65.333,-36) -- cycle;
 \path[line width=0.30mm, draw=black] (68,-32) -- (68,-36);
 \path[line width=0.30mm, fill=black] (81.333,-36) -- (86.667,-36) -- (84,-38.667) -- (81.333,-36) -- cycle;
@@ -130,6 +130,6 @@
 \path[line width=0.30mm, draw=black] (40,-24) -- (44,-24);
 \path[line width=0.30mm, draw=black] (84,-24) -- (92,-24);
 \path[line width=0.30mm, draw=black] (108,-24) -- (120,-24);
-\path[line width=0.30mm, draw=black, fill=black] (40,-24) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (120,-24) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (40,-24) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

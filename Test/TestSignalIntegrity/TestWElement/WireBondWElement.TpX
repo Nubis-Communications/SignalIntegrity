@@ -72,7 +72,7 @@
 %  <polyline lc="black">68,-36 64,-36</polyline>
 %  <text x="65" y="-35" t="4" h="3" halign="l" lc="black"/>
 %  <text x="60" y="-21" t="file WireBond.txt" h="3" halign="c" lc="black"/>
-%  <text x="60" y="-18" t="scale 1.0 m" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-18" t="scale 0.001 " h="3" halign="c" lc="black"/>
 %  <polyline lc="black">32,-28 52,-28</polyline>
 %  <polyline lc="black">52,-36 32,-36</polyline>
 %  <polyline lc="black">68,-28 80,-28</polyline>
@@ -157,7 +157,7 @@
 \path[line width=0.30mm, draw=black] (68,-36) -- (64,-36);
 \draw[black] (65,-35) node[anchor=base west]{4};
 \draw[black] (60,-21) node[anchor=base]{file WireBond.txt};
-\draw[black] (60,-18) node[anchor=base]{scale 1.0 m};
+\draw[black] (60,-18) node[anchor=base]{scale 0.001 };
 \path[line width=0.30mm, draw=black] (32,-28) -- (52,-28);
 \path[line width=0.30mm, draw=black] (52,-36) -- (32,-36);
 \path[line width=0.30mm, draw=black] (68,-28) -- (80,-28);

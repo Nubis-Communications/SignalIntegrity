@@ -36,7 +36,7 @@
 %  <polyline lc="black">86,-18 88,-20</polyline>
 %  <polyline lw="2" lc="red">87.5,-19.5 88.5,-20.5</polyline>
 %  <polyline lw="2" lc="red">88.5,-19.5 87.5,-20.5</polyline>
-%  <text x="84" y="-15" t="gain 500.0 m" h="3" halign="r" lc="black"/>
+%  <text x="84" y="-15" t="gain 0.5 " h="3" halign="r" lc="black"/>
 %  <text x="84" y="-12" t="Vin" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">30,-77.5 29.5,-77.5 28.5,-74.5 27.5,-74.5 26.5,-77.5 26,-77.5</polyline>
 %  <polyline lc="black">30,-74.5 29.5,-74.5 28.5,-77.5 27.5,-77.5 26.5,-74.5 26,-74.5</polyline>
@@ -102,7 +102,7 @@
 %  <polyline lc="black">86,-58 88,-60</polyline>
 %  <polyline lw="2" lc="red">87.5,-59.5 88.5,-60.5</polyline>
 %  <polyline lw="2" lc="red">88.5,-59.5 87.5,-60.5</polyline>
-%  <text x="84" y="-55" t="gain 500.0 m" h="3" halign="r" lc="black"/>
+%  <text x="84" y="-55" t="gain 0.5 " h="3" halign="r" lc="black"/>
 %  <text x="84" y="-52" t="VO2" h="3" halign="r" lc="black"/>
 %  <rect x="216" y="-60" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">212,-64 216,-64</polyline>
@@ -216,7 +216,7 @@
 \path[line width=0.30mm, draw=black] (86,-18) -- (88,-20);
 \path[line width=0.6mm, draw=red] (87.5,-19.5) -- (88.5,-20.5);
 \path[line width=0.6mm, draw=red] (88.5,-19.5) -- (87.5,-20.5);
-\draw[black] (84,-15) node[anchor=base east]{gain 500.0 m};
+\draw[black] (84,-15) node[anchor=base east]{gain 0.5 };
 \draw[black] (84,-12) node[anchor=base east]{Vin};
 \path[line width=0.30mm, draw=black] (30,-77.5) -- (29.5,-77.5) -- (28.5,-74.5) -- (27.5,-74.5) -- (26.5,-77.5) -- (26,-77.5);
 \path[line width=0.30mm, draw=black] (30,-74.5) -- (29.5,-74.5) -- (28.5,-77.5) -- (27.5,-77.5) -- (26.5,-74.5) -- (26,-74.5);
@@ -282,7 +282,7 @@
 \path[line width=0.30mm, draw=black] (86,-58) -- (88,-60);
 \path[line width=0.6mm, draw=red] (87.5,-59.5) -- (88.5,-60.5);
 \path[line width=0.6mm, draw=red] (88.5,-59.5) -- (87.5,-60.5);
-\draw[black] (84,-55) node[anchor=base east]{gain 500.0 m};
+\draw[black] (84,-55) node[anchor=base east]{gain 0.5 };
 \draw[black] (84,-52) node[anchor=base east]{VO2};
 \path[line width=0.30mm, draw=black] (216,-68) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (212,-64) -- (216,-64);
