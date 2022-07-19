@@ -69,7 +69,13 @@ class CalculationProperty(tk.Frame):
         self.string.set(value)
     def GetString(self):
         return self.string.get()
-    def onEntered(self,event):
+    def Set(self,value):
+        self.SetString(value)
+        self.onEntered()
+        return self
+    def Get(self):
+        return self.GetString()
+    def onEntered(self,event=None):
         if not self.readonly:
             if not ((self.project is None) or (self.projectPath is None)):
                 if not self.GetString() is None:
@@ -167,6 +173,13 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.entry.config(text=value)
     def GetString(self):
         return self.string.get()
+    def Set(self,value):
+        if self.GetString() != value:
+            self.onPressed()
+        if self.GetString() != value:
+            raise ValueError
+    def Get(self):
+        return self.GetString()
     def onPressed(self,event=None):
         self.SetString(self.false if self.GetString()==self.true else self.true)
         if not ((self.project is None) or (self.projectPath is None)):
@@ -222,6 +235,12 @@ class CalculationPropertyChoices(tk.Frame):
         #self.entry.config(text=value)
     def GetString(self):
         return self.string.get()
+    def Set(self,value):
+        self.SetString(value)
+        self.onPressed()
+        return self
+    def Get(self):
+        return self.GetString()
     def onPressed(self,event=None):
         if not ((self.project is None) or (self.projectPath is None)):
             self.project[self.projectPath]=self.GetString()
