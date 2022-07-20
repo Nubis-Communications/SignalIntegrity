@@ -168,6 +168,10 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         if not ((self.project is None) or (self.projectPath is None)):
             self.SetString(self.true if str(self.project[self.projectPath])==self.true else self.false)
+        self.SetReadOnly(False)
+    def SetReadOnly(self,readOnly=False):
+        self.entry.config(state='disabled' if readOnly else 'normal')
+        self.readonly=readOnly
     def SetString(self,value):
         self.string.set(value)
         self.entry.config(text=value)
@@ -181,12 +185,13 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
     def Get(self):
         return self.GetString()
     def onPressed(self,event=None):
-        self.SetString(self.false if self.GetString()==self.true else self.true)
-        if not ((self.project is None) or (self.projectPath is None)):
-            self.project[self.projectPath]=self.GetString() == self.true
-        if not self.enteredCallback is None:
-            self.enteredCallback(event)
-        self.UpdateStrings()
+        if not self.readonly:
+            self.SetString(self.false if self.GetString()==self.true else self.true)
+            if not ((self.project is None) or (self.projectPath is None)):
+                self.project[self.projectPath]=self.GetString() == self.true
+            if not self.enteredCallback is None:
+                self.enteredCallback(event)
+            self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
             self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
