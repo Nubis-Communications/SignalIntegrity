@@ -70,14 +70,24 @@ class SParameterFile(SParameters):
         self.m_f=[]
         numbersList=[]
         # pragma: silent exclude
+        self.header=[]
         try:
         # pragma: include outdent
             spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
         # pragma: silent exclude indent
         except IOError:
             raise SignalIntegrityExceptionSParameterFile(name+' not found')
+        readHeader=True
         # pragma: include
         for line in spfile:
+            # pragma: silent exclude
+            if readHeader:
+                if line[0] in ['!',' ','#']:
+                    if line[0] == '!':
+                        self.header.append(line[1:-1]+'\n')
+                else:
+                    readHeader = False
+            # pragma: include
             lineList = str.lower(line).split('!')[0].split()
             if len(lineList)>0:
                 if lineList[0] == '#':

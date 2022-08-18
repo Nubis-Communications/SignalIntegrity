@@ -279,6 +279,14 @@ class DeviceProperties(tk.Frame):
         tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Frame(self.rotationFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         tk.Button(self.rotationFrame,text='help',command=self.onHelp).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        if isinstance(self.device,SignalIntegrity.App.Device.DeviceFile):
+            try:
+                extension = self.device['file']['Value'].split('.')[-1]
+                if extension[0].lower() == 's' and extension[-1].lower() == 'p' and int(extension[1:-1]) > 0:
+                    tk.Frame(self.rotationFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+                    tk.Button(self.rotationFrame,text='header',command=self.onHeader).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            except:
+                pass
         self.mirrorFrame=tk.Frame(propertyListFrame)
         self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         mirrorLabel = tk.Label(self.mirrorFrame,text='mirror: ')
@@ -355,6 +363,20 @@ class DeviceProperties(tk.Frame):
                 Doer.helpKeys.Open(self.device['help'].GetValue())
             except:
                 pass
+
+    def onHeader(self):
+        from SignalIntegrity.App.HeaderDialog import HeaderDialog
+        try:
+            if not hasattr(self, 'headerDialog'):
+                self.headerDialog = HeaderDialog(self.parent,FileParts(self.device['file']['Value']).FileNameWithExtension(),FileParts(self.device['file']['Value']))
+            if self.headerDialog == None:
+                self.headerDialog = HeaderDialog(self.parent,FileParts(self.device['file']['Value']).FileNameWithExtension(),FileParts(self.device['file']['Value']))
+            else:
+                if not self.headerDialog.winfo_exists():
+                    self.headerDialog = HeaderDialog(self.parent,FileParts(self.device['file']['Value']).FileNameWithExtension(),FileParts(self.device['file']['Value']))
+            self.headerDialog.lift(self)
+        except:
+            pass
 
     def onOrientationChange(self):
         self.device.partPicture.current.ApplyOrientation(self.rotationString.get(),bool(self.mirrorHorizontallyVar.get()),bool(self.mirrorVerticallyVar.get()))

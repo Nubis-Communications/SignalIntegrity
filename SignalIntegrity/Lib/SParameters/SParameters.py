@@ -35,8 +35,6 @@ from SignalIntegrity.__about__ import __project__,__version__,__description__,__
 
 class SParameters(SParameterManipulation):
     """Class containing s-parameters"""
-    header=['File created by '+__project__+' v'+ __version__+': '+__description__,
-        __url__]
     maxTokensOnLine=4
     numDigits=6
     def __init__(self,f,data,Z0=50.0):
@@ -45,6 +43,10 @@ class SParameters(SParameterManipulation):
         @param data list of list of list matrices were each element is a list of list s-parameter matrix.
         @param Z0 (optional) real or complex reference impedance
         """
+        # pragma: silent exclude
+        self.header=['File created by '+__project__+' v'+\
+                    __version__+': '+__description__, __url__]
+        # pragma: include
         self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
         self.m_f=FrequencyList(f)
         if not data is None:

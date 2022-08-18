@@ -96,6 +96,7 @@ class SParametersDialog(tk.Toplevel):
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help').AddToolTip('Get help on a control')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:S-Parameter-Viewer-Preferences').AddToolTip('Edit the preferences')
         # ------
+        self.ShowHeaderDoer = Doer(self.onShowHeader).AddHelpElement('Control-Help:Show-Header').AddToolTip('Show Header Information')
         self.ShowGridsDoer = Doer(self.onShowGrids).AddHelpElement('Control-Help:Show-Grids').AddToolTip('Show grids in plots')
         self.VariableLineWidthDoer = Doer(self.onVariableLineWidth).AddHelpElement('Control-Help:Variable-Line-Width').AddToolTip('Variable line width in plots')
         self.ShowPassivityViolationsDoer = Doer(self.onShowPassivityViolations).AddHelpElement('Control-Help:Show-Passivity-Violations').AddToolTip('Show passivity violations in plots')
@@ -170,6 +171,7 @@ class SParametersDialog(tk.Toplevel):
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
+        self.ShowHeaderDoer.AddMenuElement(ViewMenu,label='Show Header Information',underline=5)
         self.ShowGridsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Grids',underline=5)
         self.VariableLineWidthDoer.AddCheckButtonMenuElement(ViewMenu,label='Variable Line Width',underline=9)
         self.ShowPassivityViolationsDoer.AddCheckButtonMenuElement(ViewMenu,label='Show Passivity Violations',underline=5)
@@ -422,6 +424,20 @@ class SParametersDialog(tk.Toplevel):
         self.toPort = 1
         self.LimitChangeLock=False
         self.onSelection(0)
+
+    def onShowHeader(self):
+        from SignalIntegrity.App.HeaderDialog import HeaderDialog
+        try:
+            if not hasattr(self, 'headerDialog'):
+                self.headerDialog = HeaderDialog(self,self.filename,self.sp.header)
+            if self.headerDialog == None:
+                self.headerDialog = HeaderDialog(self,self.filename,self.sp.header)
+            else:
+                if not self.headerDialog.winfo_exists():
+                    self.headerDialog = HeaderDialog(self,self.filename,self.sp.header)
+            self.headerDialog.lift(self)
+        except:
+            pass
 
     def onShowGrids(self):
         SignalIntegrity.App.Preferences['Appearance.GridsOnPlots']=self.ShowGridsDoer.Bool()
