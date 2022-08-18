@@ -477,6 +477,7 @@ class DeviceOutput(Device):
                          PartPropertyHelp('device:Output-Probe'),
                          PartPropertyDefaultReferenceDesignator('VO?'),
                          PartPropertyDescription('Output'),
+                         PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0)],
@@ -485,6 +486,7 @@ class DeviceOutput(Device):
         self['offset']['Visible']=False
         self['td']['Visible']=False
         self['ref']['Visible']=True
+        self['state']['Visible']=False
 
 class DeviceWaveform(Device):
     def __init__(self):
@@ -496,6 +498,7 @@ class DeviceWaveform(Device):
                          PartPropertyHelp('device:Output-Waveform'),
                          PartPropertyDefaultReferenceDesignator('VO?'),
                          PartPropertyDescription('Output Waveform'),
+                         PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
@@ -509,6 +512,7 @@ class DeviceWaveform(Device):
         self['wffile']['Visible']=True
         self['wffile']['KeywordVisible']=False
         self['ref']['Visible']=True
+        self['state']['Visible']=False
 
 class DeviceNetName(Device):
     def __init__(self):
@@ -669,6 +673,7 @@ class DeviceVoltageOutputProbe(Device):
                          PartPropertyHelp('device:Voltage-Diff-Probe'),
                          PartPropertyDefaultReferenceDesignator('VO?'),
                          PartPropertyDescription('Differential Voltage Probe'),
+                         PartPropertyOnOff('on'),
                          PartPropertyPorts(2),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
@@ -677,6 +682,7 @@ class DeviceVoltageOutputProbe(Device):
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
+        self['state']['Visible']=False
 
 class DeviceCurrentOutputProbe(Device):
     def __init__(self):
@@ -688,6 +694,7 @@ class DeviceCurrentOutputProbe(Device):
                          PartPropertyHelp('device:Current-Probe'),
                          PartPropertyDefaultReferenceDesignator('IO?'),
                          PartPropertyDescription('Current Probe'),
+                         PartPropertyOnOff('on'),
                          PartPropertyPorts(2),
                          PartPropertyTransresistance(1.0),
                          PartPropertyVoltageOffset(0.0),
@@ -696,6 +703,7 @@ class DeviceCurrentOutputProbe(Device):
         self['gain']['Visible']=False
         self['offset']['Visible']=False
         self['td']['Visible']=False
+        self['state']['Visible']=False
 
 class DeviceNPNTransistor(Device):
     def __init__(self,propertiesList):
@@ -1053,6 +1061,7 @@ class DeviceEyeWaveform(Device):
                          PartPropertyHelp('device:Eye-Waveform'),
                          PartPropertyDefaultReferenceDesignator('Wf?'),
                          PartPropertyDescription('Eye Waveform'),
+                         PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
@@ -1069,6 +1078,7 @@ class DeviceEyeWaveform(Device):
         self['wffile']['Visible']=True
         self['wffile']['KeywordVisible']=False
         self['ref']['Visible']=True
+        self['state']['Visible']=False
 
 class DeviceEyeProbe(Device):
     def __init__(self):
@@ -1080,6 +1090,7 @@ class DeviceEyeProbe(Device):
                          PartPropertyHelp('device:Eye-Probe'),
                          PartPropertyDefaultReferenceDesignator('Vo?'),
                          PartPropertyDescription('Eye Probe'),
+                         PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
@@ -1092,6 +1103,7 @@ class DeviceEyeProbe(Device):
         self['td']['Visible']=True
         self['br']['Visible']=True
         self['ref']['Visible']=True
+        self['state']['Visible']=False
 
 class DeviceDifferentialEyeProbe(Device):
     def __init__(self):
@@ -1103,6 +1115,7 @@ class DeviceDifferentialEyeProbe(Device):
                          PartPropertyHelp('device:Differential-Eye-Probe'),
                          PartPropertyDefaultReferenceDesignator('Vo?'),
                          PartPropertyDescription('Differential Eye Probe'),
+                         PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
@@ -1115,6 +1128,7 @@ class DeviceDifferentialEyeProbe(Device):
         self['td']['Visible']=True
         self['br']['Visible']=True
         self['ref']['Visible']=True
+        self['state']['Visible']=False
 
 class Devices(list):
     def __init__(self,devices):

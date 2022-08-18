@@ -51,6 +51,7 @@ from TestNewtonsMethod import *
 from TestPI import *
 from TestPowerDelivery import *
 from TestPRBS import *
+from TestProbeOnOff import *
 from TestRefImp import *
 from TestRLGC import *
 from TestRLGCLevMar import *

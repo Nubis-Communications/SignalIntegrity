@@ -162,6 +162,7 @@ class NetList(object):
             portList=[]
             stimList=[]
             # gather up list of all measures, outputs, and ports
+            accumulatedNet=[]
             for devicePin in net:
                 deviceIndex=devicePin[0]
                 pinIndex=devicePin[1]
@@ -169,12 +170,25 @@ class NetList(object):
                 thisDevicePartName = thisDevice['partname'].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
-                elif thisDevicePartName in ['Output','EyeProbe']:
-                    outputList.append(devicePin)
+                    accumulatedNet.append(devicePin)
+                elif thisDevicePartName in ['Output','EyeProbe','DifferentialVoltageOutput','DifferentialEyeProbe']:
+                    if thisDevice['state'] == None: # pragma: no cover
+                        outputList.append(devicePin) 
+                        accumulatedNet.append(devicePin)
+                    else:
+                        if thisDevice['state']['Value']=='on':
+                            if not thisDevicePartName in ['DifferentialVoltageOutput','DifferentialEyeProbe']:
+                                outputList.append(devicePin)
+                            accumulatedNet.append(devicePin)
                 elif thisDevicePartName == 'Measure':
                     measureList.append(devicePin)
+                    accumulatedNet.append(devicePin)
                 elif thisDevicePartName == 'Stim':
                     stimList.append(devicePin)
+                    accumulatedNet.append(devicePin)
+                else:
+                    accumulatedNet.append(devicePin)
+            net=accumulatedNet
             #remove all of the ports, outputs, measures and stims from the net
             net = list(set(net)-set(measureList)-set(portList)-set(outputList)-set(stimList))
             if len(net) > 0:
@@ -282,24 +296,55 @@ class NetList(object):
         textToShow=[]
         for line in self.textToShow:
             tokens = line.split(' ')
-            if tokens[0] == 'currentoutput':
-                line = 'device '+tokens[1]+' 4 currentcontrolledvoltagesource 1.0'
-            if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe']:
-                line = 'device '+tokens[1]+' 4 voltagecontrolledvoltagesource 1.0'
-            if tokens[0] in ['currentoutput','differentialvoltageoutput','differentialeyeprobe']:
-                self.outputNames.append(tokens[1])
-                endinglines.append('device '+tokens[1]+'_2 1 ground')
-                endinglines.append('device '+tokens[1]+'_3 1 open')
-                endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
-                endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
-                if tokens[0] in ['currentoutput','differentialvoltageoutput']:
-                    endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
-                if tokens[0] == 'differentialeyeprobe':
-                    endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 4')
-            if tokens[0] in ['eyewaveform','waveform']:
-                self.waveformNames.append(tokens[1])
-            textToShow.append(line)
+            if tokens[0] in ['currentoutput','differentialvoltageoutput','differentialeyeprobe','eyewaveform','waveform']:
+
+                # need to see if these are actually on, for whether to attach the output into the netlist
+                probeDevice = None
+                for device in deviceList:
+                    if not device['ref'] == None:
+                        if tokens[1] == device['ref']['Value']:
+                            probeDevice = device
+                            break
+
+                if probeDevice['state'] == None: 
+                    connectIt = True # pragma: no cover
+                else:
+                    if probeDevice['state']['Value']=='on':
+                        connectIt=True
+                    else:
+                        connectIt=False
+
+                if tokens[0] == 'currentoutput':
+                    if connectIt:
+                        line = 'device '+tokens[1]+' 4 currentcontrolledvoltagesource 1.0'
+                    else:
+                        line = 'device '+tokens[1]+' 2 tline zc 50 td 0'
+                if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe']:
+                    if connectIt:
+                        line = 'device '+tokens[1]+' 4 voltagecontrolledvoltagesource 1.0'
+                if tokens[0] in ['currentoutput','differentialvoltageoutput','differentialeyeprobe']:
+                    if connectIt:
+                        endinglines.append('device '+tokens[1]+'_2 1 ground')
+                        endinglines.append('device '+tokens[1]+'_3 1 open')
+                        endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
+                        endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
+
+                if connectIt:
+                    if tokens[0] in ['currentoutput','differentialvoltageoutput']:
+                        self.outputNames.append(tokens[1])
+                        endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
+                    if tokens[0] == 'differentialeyeprobe':
+                        self.outputNames.append(tokens[1])
+                        endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 4')
+                    if tokens[0] in ['eyewaveform','waveform']:
+                        self.waveformNames.append(tokens[1])
+                else:
+                    if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe','eyewaveform','waveform']:
+                        line = None
+            if not line == None:
+                textToShow.append(line)
         self.textToShow=textToShow+endinglines
+
     def Text(self):
         return self.textToShow
     def OutputNames(self):

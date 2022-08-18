@@ -307,8 +307,9 @@ class SignalIntegrityAppHeadless(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
+        outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
         if not EyeDiagrams:
-            return (sourceNames,outputWaveformLabels+otherWaveformLabels,transferMatrices,outputWaveformList)
+            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):

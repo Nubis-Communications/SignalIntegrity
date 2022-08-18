@@ -66,9 +66,10 @@ class Schematic(object):
         otherWaveformList=[]
         for device in self.deviceList:
             if device['partname']['Value'] in ['EyeWaveform','Waveform']:
-                wf = device.Waveform()
-                if not wf is None:
-                    otherWaveformList.append(wf)
+                if device['state']['Value'] == 'on':
+                    wf = device.Waveform()
+                    if not wf is None:
+                        otherWaveformList.append(wf)
         return otherWaveformList
     def Clear(self):
         self.deviceList = []
