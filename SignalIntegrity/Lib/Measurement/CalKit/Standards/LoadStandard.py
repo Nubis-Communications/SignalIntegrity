@@ -32,7 +32,7 @@ class LoadStandard(SParameters):
         @param f list of frequencies
         @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
         @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)
-        @param offsetLoss (optional) float loss due to skin-effect defined in Gohms/s at f0 (defaults to 0).
+        @param offsetLoss (optional) float loss due to skin-effect defined in ohms/s at f0 (defaults to 0).
         @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).
         @param terminationZ (optional) float real impedance of termination.
         The result is that the class becomes the base-class SParameters with the s-parameters
