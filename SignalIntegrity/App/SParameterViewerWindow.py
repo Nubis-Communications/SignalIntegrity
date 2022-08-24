@@ -909,9 +909,12 @@ class SParametersDialog(tk.Toplevel):
                 spChanged=True
 
         if self.properties['ReferenceImpedance'] != self.sp.m_Z0:
-            if msg is None:
-                msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
-            self.sp.SetReferenceImpedance(self.properties['ReferenceImpedance'])
+            try:
+                if msg is None:
+                    msg=InformationMessage(self,'S-parameters : '+self.fileparts.FileNameWithExtension(), 'recalculating s-parameters based on changes\n Please wait.....')
+                self.sp.SetReferenceImpedance(self.properties['ReferenceImpedance'])
+            except:
+                messagebox.showerror('S-parameters','Reference impedance could not be changed to '+ToSI(self.properties['ReferenceImpedance'],'ohm'))
             spChanged=True
 
         if spChanged:
