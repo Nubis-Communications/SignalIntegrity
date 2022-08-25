@@ -75,6 +75,6 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
             # pragma: include
         self.transferMatrices=TransferMatrices(self.m_f,result)
         # pragma: silent exclude
-        self.CacheResult()
+        self.CacheResult(['transferMatrices','m_sd'])
         # pragma: include
         return self.transferMatrices

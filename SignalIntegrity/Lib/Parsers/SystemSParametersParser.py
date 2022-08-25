@@ -84,6 +84,6 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
             td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]
             self.sf=PeeledLaunches(self.sf,td,method='exact')
         self.sf = SParametersParser(self.sf,self.m_ul)
-        self.CacheResult()
+        self.CacheResult(['sf'])
         # pragma: include
         return self.sf

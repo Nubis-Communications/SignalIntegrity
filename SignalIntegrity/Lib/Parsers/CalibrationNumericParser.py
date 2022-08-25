@@ -57,6 +57,6 @@ class CalibrationNumericParser(CalibrationParser,CallBacker,LinesCache):
         self.SystemDescription()
         self.calibration.CalculateErrorTerms()
         # pragma: silent exclude
-        self.CacheResult()
+        self.CacheResult(['calibration'])
         # pragma: include
         return self.calibration

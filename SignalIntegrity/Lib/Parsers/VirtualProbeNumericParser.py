@@ -75,6 +75,6 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
             # pragma: include
         self.transferMatrices=TransferMatrices(self.m_f,result)
         # pragma: silent exclude
-        self.CacheResult()
+        self.CacheResult(['transferMatrices'])
         # pragma: include
         return self.transferMatrices

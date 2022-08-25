@@ -88,6 +88,6 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
         self.sf=[SParametersParser(SParameters(self.m_f,r),self.m_ul) for r in result]
         if len(self.sf)==1: self.sf=self.sf[0]
         # pragma: silent exclude
-        self.CacheResult()
+        self.CacheResult(['sf','m_sd'])
         # pragma: include
         return self.sf

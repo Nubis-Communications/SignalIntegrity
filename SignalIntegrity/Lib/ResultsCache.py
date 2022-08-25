@@ -69,8 +69,9 @@ class ResultsCache(object):
             return False
         except:
             return False
-    def CacheResult(self):
+    def CacheResult(self,keeperList=None):
         """Caches a calculated result
+        @param keeperList (optional, defaults to None) list of members to keep in the cache
         @return self
         @note that the hash value for the result was generated through a previous call to CheckCache().
         In other words, each cached value must be stored with a hash corresponding to the definition that generated
@@ -83,6 +84,14 @@ class ResultsCache(object):
 
         members = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("__")]
         pickleDict = {x:self.__dict__[x] for x in members}
+
+        if not keeperList == None:
+            keeperList.append('hash')
+            dictKeys=[key for key in pickleDict]
+            for item in dictKeys:
+                if not item in keeperList:
+                    del pickleDict[item]
+
         with open(self.filename+self.extra, 'wb') as f: pickle.dump(pickleDict, f, 2)
         return self
     def FileTime(self,filename):
