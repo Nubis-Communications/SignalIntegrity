@@ -100,7 +100,8 @@ class TestProbeOnOffTest(unittest.TestCase,
                 copyConditional(probeName, 'png', testname)
                 copyConditional(probeName, 'txt', testname)
 
-        app.SaveProjectToFile(testFileName)
+        if not os.path.exists(testFileName):
+            app.SaveProjectToFile(testFileName)
 
         try:
             if not (probeState['EyeIn'] or probeState['I'] or probeState['Vd'] or probeState['EyeOut'] or probeState['Vin']):
