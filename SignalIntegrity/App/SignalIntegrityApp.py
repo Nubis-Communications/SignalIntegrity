@@ -111,6 +111,7 @@ class SignalIntegrityApp(tk.Frame):
         self.ClearProjectDoer = Doer(self.onClearSchematic).AddHelpElement('Control-Help:Clear-Schematic').AddToolTip('Clear the schematic')
         self.ExportNetListDoer = Doer(self.onExportNetlist).AddHelpElement('Control-Help:Export-Netlist').AddToolTip('Export the netlist')
         self.ExportTpXDoer = Doer(self.onExportTpX).AddHelpElement('Control-Help:Export-LaTeX').AddToolTip('Export schematic as LaTeX')
+        self.ExportPngDoer = Doer(self.onExportPng).AddHelpElement('Control-Help:Export-Png').AddToolTip('Export schematic as Png')
         self.ArchiveDoer = Doer(self.onArchive).AddHelpElement('Control-Help:Archive').AddToolTip('Archive project')
         self.ExtractArchiveDoer = Doer(self.onExtractArchive).AddHelpElement('Control-Help:Extract-Archive').AddToolTip('Extract archived project')
         self.FreshenArchiveDoer = Doer(self.onFreshenArchive).AddHelpElement('Control-Help:Freshen-Archive').AddToolTip('Freshen archived project')
@@ -194,6 +195,7 @@ class SignalIntegrityApp(tk.Frame):
         self.FileMenu.add_separator()
         self.ExportNetListDoer.AddMenuElement(self.FileMenu,label="Export NetList",underline=0)
         self.ExportTpXDoer.AddMenuElement(self.FileMenu,label="Export LaTeX (TikZ)",underline=7)
+        self.ExportPngDoer.AddMenuElement(self.FileMenu,label='Export Bitmap Image',underline=7)
         self.FileMenu.add_separator()
         self.ArchiveDoer.AddMenuElement(self.FileMenu,label='Archive Project',underline=5)
         self.ExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Extract Archived Project',underline=1)
@@ -620,6 +622,25 @@ class SignalIntegrityApp(tk.Frame):
         except:
             messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
 
+    def onExportPng(self):
+        self.Drawing.stateMachine.Nothing()
+        filename=AskSaveAsFilename(filetypes=[('png', '.png')],
+                                   defaultextension='.png',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.fileparts.filename+'.png')
+        if filename is None:
+            return
+        try:
+            from PIL import ImageGrab
+            borderwidth=4
+            x=self.root.winfo_rootx()+self.Drawing.winfo_x()+borderwidth
+            y=self.root.winfo_rooty()+self.Drawing.winfo_y()+borderwidth
+            x1=x+self.Drawing.winfo_width()-2*borderwidth
+            y1=y+self.Drawing.winfo_height()-2*borderwidth
+            ImageGrab.grab().crop((x,y,x1,y1)).save(filename)
+        except:
+            messagebox.showerror('Export Bitmap Image','Image could not be generated or written ')
+
     def onAddPart(self):
         self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
 
@@ -993,6 +1014,7 @@ class SignalIntegrityApp(tk.Frame):
             self.ClearProjectDoer.Activate(True)
             self.ExportNetListDoer.Activate(True)
             self.ExportTpXDoer.Activate(True)
+            self.ExportPngDoer.Activate(True)
             self.ArchiveDoer.Activate(True)
             self.ExtractArchiveDoer.Activate(True)
             self.FreshenArchiveDoer.Activate(True)
