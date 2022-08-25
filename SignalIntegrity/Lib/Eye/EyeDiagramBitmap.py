@@ -520,7 +520,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
     def Measure(self,
                 BERForMeasure=-6, # Exponent of probability contour to measure
                 DecisionMode='Mid', # Mid means middle of eye vertically, Best means least likely location
-                WaveformType='Voltage' # 'V', 'A', 'W', 'FW', 'FA', 'FV' (essentially the vertical units)
+                WaveformType='V' # 'V', 'A', 'W', 'FW', 'FA', 'FV' (essentially the vertical units)
                 ):
         """Computes measurements on the eye diagram
         @param BERForMeasure float, defaults to -6, exponent of probability contour in eye to make measurements on.
