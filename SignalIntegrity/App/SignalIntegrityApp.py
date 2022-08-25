@@ -336,7 +336,10 @@ class SignalIntegrityApp(tk.Frame):
 
         if not projectFileName == None:
             try:
-                self.OpenProjectFile(projectFileName,False)
+                fileparts=FileParts(projectFileName)
+                ext=fileparts.fileext
+                if ext in ['.si','']:
+                    self.OpenProjectFile(projectFileName,False)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
