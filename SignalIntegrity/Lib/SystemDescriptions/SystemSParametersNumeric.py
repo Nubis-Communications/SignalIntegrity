@@ -79,6 +79,36 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
             return array(Wba).tolist()
         I=identity(len(Wxx))
         # pragma: silent exclude
+        XNnzcWbx=[XN[nzcWbx] for nzcWbx in NonZeroColumns(Wbx)]
+        XNzcWbx=[XN[zcWbx] for zcWbx in ZeroColumns(Wbx)]
+        XNnzrWxa=[XN[nzrWxa] for nzrWxa in NonZeroRows(Wxa)]
+        XNzrWxa=[XN[zrWxa] for zrWxa in ZeroRows(Wxa)]
+        Wxx11=self.WeightsMatrix(XNnzrWxa,XNnzcWbx)
+        Wxx12=self.WeightsMatrix(XNnzrWxa,XNzcWbx)
+        Wxx21=self.WeightsMatrix(XNzrWxa,XNnzcWbx)
+#       Wxx22=self.WeightsMatrix(XNzrWxa,XNzcWbx)
+        Wbx1=self.WeightsMatrix(BN,XNnzcWbx)
+#       Wbx2=self.WeightsMatrix(BN,XNzcWbx)
+        Wxa1=self.WeightsMatrix(XNnzrWxa,AN)
+#       Wxa2=self.WeightsMatrix(XNzrWxa,AN)
+        I11=[[1 if roele == coele else 0 for coele in XNnzcWbx] for roele in XNnzrWxa]
+        I12=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNnzrWxa]
+        I21=[[1 if roele == coele else 0 for coele in XNnzcWbx] for roele in XNzrWxa]
+#       I22=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNzrWxa]
+        if XNzcWbx != []:
+            if AllZeroMatrix(I12) and AllZeroMatrix(Wxx12):
+                Wbx=Wbx1
+                Wxa=Wxa1
+                I=I11
+                Wxx=Wxx11
+        if XNzrWxa != []:
+            if AllZeroMatrix(I21) and AllZeroMatrix(Wxx21):
+                Wbx=Wbx1
+                Wxa=Wxa1
+                I=I11
+                Wxx=Wxx11
+        # pragma: include
+        # pragma: silent exclude
         try:
         # pragma: include outdent
             # Wba+Wbx*[(I-Wxx)^-1]*Wxa
