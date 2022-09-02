@@ -23,6 +23,7 @@ from .SeriesL import SeriesL
 from .TerminationC import TerminationC
 from .TerminationL import TerminationL
 from .TLineLossless import TLineLossless
+from .TLineLossy import TLineLossy
 from .Mutual import Mutual
 from .TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
 from .TLineTwoPortRLGC import TLineTwoPortRLGC

@@ -49,6 +49,7 @@ from .TLineTwoPort import TLineTwoPort
 from .TLineFourPort import TLineFourPort
 from .TLineFourPortLossless import TLineFourPortLossless
 from .TLineTwoPortLossless import TLineTwoPortLossless
+from .TLineTwoPortLossy import TLineTwoPortLossy
 from .OperationalAmplifier import OperationalAmplifier
 from .DirectionalCoupler import DirectionalCoupler
 from .SeriesRse import SeriesRse

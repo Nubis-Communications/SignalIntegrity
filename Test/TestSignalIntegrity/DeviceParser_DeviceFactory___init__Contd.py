@@ -4,6 +4,10 @@ class DeviceFactory(list):
         list.__init__(self,list(self+[
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
+        ParserDevice('tlinelossy',2,False,{'zc':50.,'td':0.,'ldbperhzpers':0,
+            'ldbperroothzpers':0},True,
+            "TLineLossy(f,float(arg['zc']),float(arg['td']),\
+            float(arg['ldbperhzpers']),float(arg['ldbperroothzpers']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
             'g':0.,'z0':50.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
             float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\

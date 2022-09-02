@@ -513,3 +513,10 @@ class PartPropertyDerivative(PartProperty):
     def __init__(self,state='false'):
         PartProperty.__init__(self,'derivative',type='enum',keyword='derivative',description='calculate derivative',value=state,visible=False,keywordVisible=False)
 
+class PartPropertyLossdBPerHzPers(PartProperty):
+    def __init__(self,loss=0.0):
+        PartProperty.__init__(self,'ldbperhzpers',type='float',unit='dB/Hz/s',keyword='ldbperhzpers',description='linear loss (dB/Hz/s)',value=loss,visible=True, keywordVisible=True)
+
+class PartPropertyLossdBPerrootHzPers(PartProperty):
+    def __init__(self,loss=0.0):
+        PartProperty.__init__(self,'ldbperroothzpers',type='float',unit='dB/sqrt(Hz)/s',keyword='ldbperroothzpers',description='skin-effect loss (dB/sqrt(Hz)/s)',value=loss,visible=True, keywordVisible=True)

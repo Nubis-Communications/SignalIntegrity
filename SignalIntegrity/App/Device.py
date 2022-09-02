@@ -610,7 +610,24 @@ class DeviceTransresistanceAmplifierFourPort(Device):
 class DeviceTransmissionLine(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='tline',values=[('zc',True),('td',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),PartPropertyPartName('TransmissionLine'),PartPropertyHelp('device:Transmission-Line'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyDelay(),PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('TransmissionLine'),
+                                      PartPropertyHelp('device:Transmission-Line'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyDelay(),
+                                      PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
+
+class DeviceTransmissionLineLossy(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(partname='tlinelossy',values=[('zc',True),('td',True),('ldbperhzpers',True),('ldbperroothzpers',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('TransmissionLineLossy'),
+                                      PartPropertyHelp('device:Transmission-Line'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyDelay(),
+                                      PartPropertyCharacteristicImpedance(),
+                                      PartPropertyLossdBPerHzPers(),
+                                      PartPropertyLossdBPerrootHzPers()]+propertiesList,partPicture)
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1158,6 +1175,7 @@ DeviceList=Devices([
                 DeviceDirectionalCoupler([PartPropertyDescription('Four Port Directional Coupler'),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
+                DeviceTransmissionLineLossy([PartPropertyDescription('Two Port Lossy Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherFourPort([PartPropertyDescription('Four Port Telegrapher'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineDifferential()),
                 DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
