@@ -59,14 +59,14 @@ class ResultsCache(object):
         if not self.CheckTimes(self.filename+self.extra):
             return False
         try:
-            with open(self.filename+self.extra,'rb') as f: tmp_dict = pickle.load(f)
-        except:
-            return False
-        try:
-            if tmp_dict['hash'] == self.hash:
-                self.__dict__.update(tmp_dict)
-                return True
-            return False
+            with open(self.filename+self.extra,'rb') as f:
+                hash = pickle.load(f)
+                if hash == self.hash:
+                    tmp_dict = pickle.load(f)
+                    self.__dict__.update(tmp_dict)
+                    return True
+                else:
+                    return False
         except:
             return False
     def CacheResult(self,keeperList=None):
@@ -92,7 +92,9 @@ class ResultsCache(object):
                 if not item in keeperList:
                     del pickleDict[item]
 
-        with open(self.filename+self.extra, 'wb') as f: pickle.dump(pickleDict, f, 2)
+        with open(self.filename+self.extra, 'wb') as f:
+            pickle.dump(pickleDict['hash'], f, 2)
+            pickle.dump(pickleDict, f, 2)
         return self
     def FileTime(self,filename):
         """Modification time of a file.
