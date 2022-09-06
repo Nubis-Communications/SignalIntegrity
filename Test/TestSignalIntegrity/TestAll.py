@@ -77,6 +77,7 @@ from TDRSimulationFourPort import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
 from TestSParametersParser import *
+from TestWaveformOnlySimulations import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
 from TestVNACalibrationObject import *

@@ -235,49 +235,58 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()
         si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
-        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
-        if not callback == None:
-            snp.InstallCallback(callback)
-        snp.AddLines(netListText)
-        try:
-            transferMatrices=snp.TransferMatrices()
-        except si.SignalIntegrityException as e:
-            return None
+        # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
+        # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
+        # parameters and there are eye waveforms, just skip over the transfer parameter generation.
+        if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
+            snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
+            if not callback == None:
+                snp.InstallCallback(callback)
+            snp.AddLines(netListText)
+            try:
+                transferMatrices=snp.TransferMatrices()
+            except si.SignalIntegrityException as e:
+                return None
 
-        outputWaveformLabels=netList.OutputNames()
+            outputWaveformLabels=netList.OutputNames()
 
-        try:
-            inputWaveformList=self.Drawing.schematic.InputWaveforms()
-            sourceNames=netList.SourceNames()
-        except si.SignalIntegrityException as e:
-            return None
+            try:
+                inputWaveformList=self.Drawing.schematic.InputWaveforms()
+                sourceNames=netList.SourceNames()
+            except si.SignalIntegrityException as e:
+                return None
 
-        if TransferMatricesOnly:
-            return (sourceNames,outputWaveformLabels,transferMatrices)
+            if TransferMatricesOnly:
+                return (sourceNames,outputWaveformLabels,transferMatrices)
 
-        diresp=None
-        for r in range(len(outputWaveformLabels)):
-            for c in range(len(inputWaveformList)):
-                if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='d/':
-                    if diresp == None:
-                        diresp=si.fd.Differentiator(fd).Response()
-                    #print 'differentiate: '+outputWaveformLabels[r]
-                    for n in range(len(transferMatrices)):
-                        transferMatrices[n][r][c]=transferMatrices[n][r][c]*diresp[n]
+            diresp=None
+            for r in range(len(outputWaveformLabels)):
+                for c in range(len(inputWaveformList)):
+                    if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='d/':
+                        if diresp == None:
+                            diresp=si.fd.Differentiator(fd).Response()
+                        #print 'differentiate: '+outputWaveformLabels[r]
+                        for n in range(len(transferMatrices)):
+                            transferMatrices[n][r][c]=transferMatrices[n][r][c]*diresp[n]
 
-        transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
+            transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
+            si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+            si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
-        try:
-            outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
-        except si.SignalIntegrityException as e:
-            return None
+            try:
+                outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
+            except si.SignalIntegrityException as e:
+                return None
 
-        for r in range(len(outputWaveformList)):
-            if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='i/':
-                #print 'integrate: '+outputWaveformLabels[r]
-                outputWaveformList[r]=outputWaveformList[r].Integral()
+            for r in range(len(outputWaveformList)):
+                if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='i/':
+                    #print 'integrate: '+outputWaveformLabels[r]
+                    outputWaveformList[r]=outputWaveformList[r].Integral()
+        else:
+            outputWaveformList = []
+            outputWaveformLabels = []
+            sourceNames = []
+            transferMatrices = []
 
         try:
             outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
