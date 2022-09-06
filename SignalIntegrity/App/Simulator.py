@@ -658,57 +658,64 @@ class Simulator(object):
         si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
-        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
-        try:
-            self.transferMatrices=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
+        # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
+        # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
+        # parameters and there are eye waveforms, just skip over the transfer parameter generation.
+        if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
+            progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
+            try:
+                self.transferMatrices=progressDialog.GetResult()
+            except si.SignalIntegrityException as e:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                return
 
-        self.outputWaveformLabels=netList.OutputNames()
+            self.outputWaveformLabels=netList.OutputNames()
 
-        try:
-            self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
-            self.sourceNames=netList.SourceNames()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
+            try:
+                self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+                self.sourceNames=netList.SourceNames()
+            except si.SignalIntegrityException as e:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                return
 
-        if TransferMatricesOnly:
-            buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
-            maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
-            buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
-            sp=self.transferMatrices.SParameters()
-            SParametersDialog(self.parent,sp,
-                              self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                              'Transfer Parameters',buttonLabelList)
-            return
+            if TransferMatricesOnly:
+                buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
+                maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
+                buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
+                sp=self.transferMatrices.SParameters()
+                SParametersDialog(self.parent,sp,
+                                  self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                                  'Transfer Parameters',buttonLabelList)
+                return
 
-        diresp=None
-        for r in range(len(self.outputWaveformLabels)):
-            for c in range(len(self.inputWaveformList)):
-                if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='d/':
-                    if diresp == None:
-                        diresp=si.fd.Differentiator(fd).Response()
-                    #print 'differentiate: '+self.outputWaveformLabels[r]
-                    for n in range(len(self.transferMatrices)):
-                        self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]
+            diresp=None
+            for r in range(len(self.outputWaveformLabels)):
+                for c in range(len(self.inputWaveformList)):
+                    if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='d/':
+                        if diresp == None:
+                            diresp=si.fd.Differentiator(fd).Response()
+                        #print 'differentiate: '+self.outputWaveformLabels[r]
+                        for n in range(len(self.transferMatrices)):
+                            self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]
 
-        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
+            self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+            si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
+            si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
-        progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
-        try:
-            outputWaveformList = progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
+            progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+            try:
+                outputWaveformList = progressDialog.GetResult()
+            except si.SignalIntegrityException as e:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                return
 
-        for r in range(len(outputWaveformList)):
-            if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
-                #print 'integrate: '+self.outputWaveformLabels[r]
-                outputWaveformList[r]=outputWaveformList[r].Integral()
+            for r in range(len(outputWaveformList)):
+                if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
+                    #print 'integrate: '+self.outputWaveformLabels[r]
+                    outputWaveformList[r]=outputWaveformList[r].Integral()
+        else:
+            outputWaveformList = []
+            self.outputWaveformLabels = []
 
         try:
             outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
