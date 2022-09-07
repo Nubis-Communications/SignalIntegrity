@@ -798,6 +798,8 @@ class Simulator(object):
         si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
         si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
 
+        self.outputWaveformLabels=netList.OutputNames()
+
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
             self.sourceNames=netList.MeasureNames()
@@ -813,6 +815,7 @@ class Simulator(object):
             SParametersDialog(self.parent,sp,
                               self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                               'Transfer Parameters',buttonLabelList)
+            return
 
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
@@ -821,13 +824,24 @@ class Simulator(object):
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
-        self.outputWaveformLabels=netList.OutputNames()
+        try:
+            outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabels=netList.WaveformNames()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Simulator',e.parameter+': '+e.message)
+            return
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
+                if device['partname'].GetValue() in ['Output',
+                                                     'DifferentialVoltageOutput',
+                                                     'CurrentOutput',
+                                                     'EyeProbe',
+                                                     'DifferentialEyeProbe',
+                                                     'EyeWaveform',
+                                                     'Waveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
                         gainProperty = device['gain']
@@ -845,13 +859,14 @@ class Simulator(object):
         self.SimulatorDialog().title('Virtual Probe: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
-        self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+        outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
+        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
         self.SimulatorDialog().update_idletasks()
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:

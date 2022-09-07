@@ -391,9 +391,15 @@ class SignalIntegrityAppHeadless(object):
         if TransferMatricesOnly:
             return (sourceNames,outputWaveformLabels,transferMatrices)
 
+        try:
+            outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabels=netList.WaveformNames()
+        except si.SignalIntegrityException as e:
+            return None
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            outputWaveformLabel = (outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
             for device in self.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
@@ -410,6 +416,7 @@ class SignalIntegrityAppHeadless(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList]
+        outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
         if not EyeDiagrams:
             return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
 
