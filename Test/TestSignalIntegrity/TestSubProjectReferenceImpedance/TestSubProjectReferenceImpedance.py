@@ -60,7 +60,8 @@ class TestSubProjectReferenceImpedanceTest(unittest.TestCase,
         si.test.RoutineWriterTesterHelper.__init__(self)
     def testSubProjectReferenceImpedance(self):
         self.SParameterResultsChecker('toptoplevel.si')
-
+    def testSubProjectReferenceImpedanceRLGC(self):
+        self.SParameterResultsChecker('rlgc.si')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
