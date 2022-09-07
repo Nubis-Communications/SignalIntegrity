@@ -24,6 +24,7 @@ class SignalIntegrityAppTestHelper:
     plotErrors=False
     forceWritePictures=False
     SPCompareResolution=1e-3
+    allowReferenceImpedanceTranslation=True
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
@@ -118,10 +119,12 @@ class SignalIntegrityAppTestHelper:
         currentDirectory=os.getcwd()
         os.chdir(self.path)
         if not os.path.exists(spfilename):
-            sp.WriteToFile(spfilename)
+            sp.WriteToFile(spfilename,'R '+str(sp.m_Z0))
             if not self.relearn:
                 self.assertTrue(False, spfilename + ' not found')
         regression=SParameterFile(spfilename)
+        if (sp.m_Z0 != regression.m_Z0) and self.allowReferenceImpedanceTranslation:
+            sp.SetReferenceImpedance(regression.m_Z0)
         SpAreEqual=self.SParametersAreEqual(sp, regression,self.SPCompareResolution)
         if not SpAreEqual:
             if SignalIntegrityAppTestHelper.plotErrors:

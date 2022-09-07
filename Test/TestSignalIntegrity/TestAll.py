@@ -65,6 +65,7 @@ from TestSParameterFile import *
 from TestSParametersParser import *
 from TestSplines import *
 from TestSubcircuit import *
+from TestSubProjectReferenceImpedance import *
 from TestSystemDescription import *
 from TestTDRErrorTerms import *
 from TestTeeProblem import *
