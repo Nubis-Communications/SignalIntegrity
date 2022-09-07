@@ -881,7 +881,7 @@ class SignalIntegrityApp(tk.Frame):
 #         print "shunt capacitance: "+ToSI(C,'F')
 #         print "skin-effect resistance: "+ToSI(Rse,'ohm/sqrt(Hz)')
 #         print "dissipation factor: "+ToSI(df,'')
-        fitsp=si.sp.SParameters(sp.f(),[s for s in si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)])
+        fitsp=si.sp.SParameters(sp.f(),[s for s in si.sp.dev.TLineTwoPortRLGC(sp.f(),R,Rse,L,G,C,df,sp.m_Z0)],sp.m_Z0)
         SParametersDialog(self,fitsp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
         for deviceToCheck in DeviceList:
