@@ -35,7 +35,7 @@ class CreditsDialog(tk.Toplevel):
         self.parent=parent
         textToShow = [' '+__project__+' was written by:','','\t {} \t <{}>'.format(__author__,__email__)]
         tk.Toplevel.__init__(self, parent)
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('Credits')
@@ -72,8 +72,8 @@ class LicenseDialog(tk.Toplevel):
             'You should have received a copy of the GNU General Public License along with this program.',
             'If not, see <https://www.gnu.org/licenses/>']
         tk.Toplevel.__init__(self, parent)
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.gnuimg=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'gpl.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
+        self.gnuimg=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'gpl.gif', master=self)
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('License')
@@ -101,8 +101,8 @@ class AboutDialog(tk.Toplevel):
 
         tk.Toplevel.__init__(self, parent)
 
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-        self.img2 = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'tlecroy-logo-15.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
+        self.img2 = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'tlecroy-logo-15.gif', master=self)
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
         self.title('About '+__project__)

@@ -71,7 +71,7 @@ class SParametersDialog(tk.Toplevel):
         self.withdraw()
 
         try:
-            self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+            self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
             self.tk.call('wm', 'iconphoto', self._w, self.img)
         except:
             pass
