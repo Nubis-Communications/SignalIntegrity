@@ -69,7 +69,7 @@ class BathtubCurveDialog(tk.Toplevel):
         self.withdraw()
         self.name=name
         self.title('Bathtub Curve: '+name)
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
         self.dialogFrame = tk.Frame(self, borderwidth=5)

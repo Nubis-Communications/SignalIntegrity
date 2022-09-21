@@ -109,7 +109,7 @@ class CheckButtonMenuElement(object):
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         if 'iconfile' in kw:
-            self.icon = tk.PhotoImage(file=kw['iconfile'])
+            self.icon = tk.PhotoImage(file=kw['iconfile'], master=frame)
             del kw['iconfile']
             kw['image']=self.icon
         self.button=tk.Button(frame,kw)

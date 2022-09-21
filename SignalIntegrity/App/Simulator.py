@@ -57,7 +57,7 @@ class SimulatorDialog(tk.Toplevel):
         self.parent=parent
         self.withdraw()
         self.title('Simulation')
-        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif', master=self)
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 

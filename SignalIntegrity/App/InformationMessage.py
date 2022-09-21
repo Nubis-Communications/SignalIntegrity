@@ -31,11 +31,11 @@ class InformationMessage(tk.Toplevel):
         self.withdraw()
         self.parent=parent
         self.title(title)
-        #img = tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
+        #img = tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif', master=self)
         #self.tk.call('wm', 'iconphoto', self._w, img)
         #self.protocol("WM_DELETE_WINDOW", self.destroy)
         try:
-            self.infoimg=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
+            self.infoimg=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif', master=self)
             self.info=tk.Button(self,image=self.infoimg,borderwidth=0)
         except AttributeError:
             self.info=tk.Button(self)
