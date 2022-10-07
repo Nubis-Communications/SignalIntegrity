@@ -74,9 +74,9 @@ class WElement(SParameters):
         @param R list of float DC resistance of wire (ohms)
         @param Rse list of float skin-effect resistance of wire (ohms/sqrt(Hz))
         @param df list of list of float dissipation factor (loss-tangent) of capacitance (unitless)
-        @param C list of list of float mutual capacitance (self capacitance on diagonal) (F)
-        @param G list of list of float mutual conductance (self conductance on diagonal) (S)
-        @param L list of list of float mutual inductance (self inductance on diagonal) (H)
+        @param Cm list of list of float mutual capacitance (self capacitance on diagonal) (F)
+        @param Gm list of list of float mutual conductance (self conductance on diagonal) (S)
+        @param Lm list of list of float mutual inductance (self inductance on diagonal) (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param K (optional) integer number of sections (defaults to 0)
         @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
@@ -196,11 +196,12 @@ class WElementFile(WElement):
     """W element file."""
     def __init__(self,f,filename,df=0.,Z0=50., K=0, scale=1.):
         """Constructor
-        @param string filename of W element file.
-        @param float (optional, defaults to 0.) dissipation factor to be added to W elements.
-        @param float (optional, defaults to 50.) reference impedance.
-        @param int (optional, defaults to 0.) number of sections to be used for approximation.
-        @param float (optional, defaults to 1.) scale factor to scale result by.
+        @param f list of frequencies
+        @param filename string W element file.
+        @param df float (optional, defaults to 0.) dissipation factor to be added to W elements.
+        @param Z0 float (optional, defaults to 50.) reference impedance.
+        @param K int (optional, defaults to 0.) number of sections to be used for approximation.
+        @param scale float (optional, defaults to 1.) scale factor to scale result by.
         @remark dissipation factor does not seem to be included in W elements, which is surprising, which
         neccessitates the addition through an argument until I better understand this.
         @remark If sections are specified as 0, the number of sections used for the approximation will be determined

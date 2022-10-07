@@ -29,7 +29,7 @@ def TLineTwoPortLossy(Zc,Td,f,LdBperHzpers=0,LdBperrootHzpers=0,Z0=50.):
     @param Td float electrical length (or time delay through the device)
     @param f float frequency
     @param LdBperHzpers float (optional, defaults to zero) loss in dB/Hz/s
-    @parem LdBperrootHzpers float (optional,defaults to zero) skin-effect loss in dB/sqrt(Hz)/s
+    @param LdBperrootHzpers float (optional,defaults to zero) skin-effect loss in dB/sqrt(Hz)/s
     @param Z0 (optional) float or complex characteristic impedance (defaults to 50)
     @note losses are positive numbers for actual loss -- negative numbers are gain.
     @return list of list s-parameters of two-port lossless transmission line

@@ -28,9 +28,11 @@ class ImpulseResponseFilter(SParameters):
     def __init__(self,filename,wfProjName=None,normalizedDCGain=None,multiplyByTs=True,derivative=False):
         """Constructor
         @param filename string file name of s-parameter file to read.
-        @param normalizedDCGain (optional, defaults to None) DC gain to normalize response to.
-        @param multiplyByTs (optional, defaults to True) whether to multiply the waveform by the sample period
-        @param derivative (optional, defaults to False) whether to use the derivative of the waveform
+        @param wfProjName string (optional, defaults to None) name of waveform reference designator in project
+        if the filename parameter is of a project that generates waveforms.
+        @param normalizedDCGain float (optional, defaults to None) DC gain to normalize response to.
+        @param multiplyByTs bool (optional, defaults to True) whether to multiply the waveform by the sample period
+        @param derivative bool (optional, defaults to False) whether to use the derivative of the waveform
 
         Reads the waveform file and produces SParameters.
 

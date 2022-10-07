@@ -26,7 +26,7 @@ class TLineLossy(SParameters):
         @param Zc float or complex characteristic impedance
         @param Td float electrical length (propagation time)
         @param LdBperHzpers float (optional, defaults to zero) loss in dB/Hz/s
-        @parem LdBperrootHzpers float (optional,defaults to zero) skin-effect loss in dB/sqrt(Hz)/s
+        @param LdBperrootHzpers float (optional,defaults to zero) skin-effect loss in dB/sqrt(Hz)/s
         @param Z0 (optional) float or complex reference impedance (defaults to 50 ohms) 
         @note losses are positive numbers for actual loss -- negative numbers are gain.
         """

@@ -29,9 +29,9 @@ def IdealRelay(ports,position,termination='open',Z0=50.):
     Valid terminations are the string 'open', or a number indicating the impedance of the unconnected
     port.  This impedance is also applied to the common, when no ports are connected.
     @param ports int number of ports in the relay (including the common).
-    @parem position int number from 0 to ports-1 indicating the relay position.
-    @param float or string (optional, defaults to 'open' termination applied to unconnected ports.
-    @param float (optional, defaults to 50) reference impedance.
+    @param position int number from 0 to ports-1 indicating the relay position.
+    @param termination float or string (optional, defaults to 'open' termination applied to unconnected ports.
+    @param Z0 float (optional, defaults to 50) reference impedance.
     @returns the list of list s-parameter matrix of the ideal relay in the position specified.
     """
     if termination == 'open': rho=1.

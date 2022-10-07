@@ -47,6 +47,7 @@ class BesselLowPassFilter(ClassicalFilter):
         @param f list of float frequencies
         @param order int filter order
         @param f0 float cutoff frequency (Hz)
+        @param Z0 float (optional, defaults to 50) reference impedance
         @note This device requires installation of the scipy package
         """
         try:
@@ -63,6 +64,7 @@ class ButterworthLowPassFilter(ClassicalFilter):
         @param f list of float frequencies
         @param order int filter order
         @param f0 float cutoff frequency (Hz)
+        @param Z0 float (optional, defaults to 50) reference impedance
         @note This device requires installation of the scipy package
         """
         try:

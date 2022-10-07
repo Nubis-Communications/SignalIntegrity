@@ -124,6 +124,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is
         not aligned -- it assumes that the unit interval starts at zero time. (see AutoAlign for alignment).
         This class allows for caching of the bitmap if the cacheFileName is provided.
+        @param callback function reference (optional, defaults to None) callback function to call during calculation.
+        If a callback function is supplied, it should take one argument, being the percentage of the calculation progress.
         @param cacheFileName string file name (defaults to None) containing the base cached file name.
         Usually, this file name is the name of the project file joined to the name of the waveform with an
         underscore.
@@ -138,7 +140,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         is provided as 'Fixed'.  If YAxisMode is auto, this parameter is ignored.
         @param Rows int, defaults to None, defining the number of rows in the eye diagram bitmap.
         @param Cols int, defaults to None, defining the number of columns in the eye diagram bitmap.
-        @param Baudrate float, defaults to None, Baud or symbol rate for the waveform.
+        @param BaudRate float, defaults to None, Baud or symbol rate for the waveform.
         @param prbswf instance of class Waveform, defaults to None, containing the serial data waveform used
         to generate the bitmap.
         @param EnhancementMode string, defaults to 'Auto', containing the enhancement mode -- can be 'Auto',
@@ -518,16 +520,24 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         return
 
     def Measure(self,
-                BERForMeasure=-6, # Exponent of probability contour to measure
-                DecisionMode='Mid', # Mid means middle of eye vertically, Best means least likely location
-                WaveformType='V' # 'V', 'A', 'W', 'FW', 'FA', 'FV' (essentially the vertical units)
+                BERForMeasure=-6,
+                DecisionMode='Mid',
+                WaveformType='V'
                 ):
         """Computes measurements on the eye diagram
         @param BERForMeasure float, defaults to -6, exponent of probability contour in eye to make measurements on.
         @param DecisionMode string, 'Mid' or 'Best', defaults to 'Mid' to determine where the decision point is.
         If 'Mid', the decision point is the vertical middle of the eye.  If 'Best' is specified, it is the least likey
         point in the middle of the eye.  If the probability goes to zero in the middle, it is the midpoint of the middle
-        zero locations.  
+        zero locations.
+        @param WaveformType string (optional, defaults to 'V') indicator of the type of waveform being measured.
+        Valid waveform types are:
+        * 'V' -- voltage, in volts
+        * 'A' -- current, in amperes
+        * 'W' -- power, in watts
+        * 'FW' -- fractional power, in fractions of watts
+        * 'FA' -- fractional current, in fractions of amperes
+        * 'FV' -- fractional voltage, in fractions of volts
 
         Measurements are made by first determining a probablity contour in the eye such that everything inside the contour
         is lower probability than the contour edge, which is above the probability of the BERForMeasure.  The vertical extents
@@ -749,7 +759,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
     def OpticalMeasure(self,WaveformType='W',PinW=None,
                 ):
         """Computes optical measurements on the eye diagram
-        @param WaveformType, string definition of waveform type.  Can be 'W', 'FW', 'AW', 'VW', which stands for Power, Fractional power, Current proportional
+        @param WaveformType string definition of waveform type.  Can be 'W', 'FW', 'AW', 'VW', which stands for Power, Fractional power, Current proportional
         to power, and Voltage proportional to power.  If 'V' or 'A' is specified, for voltage and current waveforms, this function exits with no results.
 
         @param PinW float, optional defaults to None, input power in Watts, if known and applicable (i.e. is a transmitter measurement)

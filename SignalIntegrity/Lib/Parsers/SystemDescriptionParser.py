@@ -30,8 +30,8 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
     def __init__(self,f=None,args=None):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
-        @param f (optional) list of frequencies
-        @param args (optional) string arguments for the circuit.
+        @param f (optional, defaults to None) list of frequencies
+        @param args (optional, defaults to None) string arguments for the circuit.
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
         self.m_sd = None
