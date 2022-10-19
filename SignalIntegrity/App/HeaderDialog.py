@@ -42,7 +42,7 @@ class HeaderDialog(tk.Toplevel):
                     keepGoing = True
                     while keepGoing:
                         line = f.readline()
-                        if line[0] in ['!',' ','#']:
+                        if line[0] in ['!',' ','#','\n']:
                             if line[0] == '!':
                                 lines=lines+line[1:-1]+'\n'
                                 width=max(len(line),width)
