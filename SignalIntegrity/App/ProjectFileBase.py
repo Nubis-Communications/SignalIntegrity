@@ -60,7 +60,7 @@ class XMLProperty(object):
                 lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
             lines=lines+[indent+'</'+self.dict['name']+'>']
         else:
-            lines=[indent+'<'+self.dict['name']+'>'+str(elementPropertyValue)+'</'+self.dict['name']+'>']
+            lines=[indent+'<'+self.dict['name']+'>'+str(et._escape_attrib(elementPropertyValue))+'</'+self.dict['name']+'>']
         return lines
 
     def InitFromXML(self,element):
