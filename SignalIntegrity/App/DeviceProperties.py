@@ -93,6 +93,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')
             filetypename='calibration file'
+        elif self.partProperty['PropertyName'] == 'wfilename':
+            extension=('.txt')
+            filetypename='w element file'
         else:
             extension=('')
             filetypename='all'
