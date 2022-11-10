@@ -342,6 +342,8 @@ class SignalIntegrityApp(tk.Frame):
                 ext=fileparts.fileext
                 if ext in ['.si','']:
                     self.OpenProjectFile(projectFileName,False)
+                elif ext in ['.siz']:
+                    self.ExtractArchive(projectFileName)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
@@ -1286,13 +1288,7 @@ class SignalIntegrityApp(tk.Frame):
         msg.destroy()
         msg=messagebox.showinfo('Archive complete','Archive created: '+self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz')
 
-    def onExtractArchive(self):
-        if not self.CheckSaveCurrentProject():
-            return
-
-        filename=AskOpenFileName(filetypes=[('siz', '.siz')],
-                                 initialdir=self.fileparts.AbsoluteFilePath(),
-                                 initialfile=self.fileparts.FileNameWithExtension('.siz'))
+    def ExtractArchive(self,filename):
         if filename is None:
             return
 
@@ -1321,6 +1317,16 @@ class SignalIntegrityApp(tk.Frame):
             return
 
         self.OpenProjectFile(filename)
+
+    def onExtractArchive(self):
+        if not self.CheckSaveCurrentProject():
+            return
+
+        filename=AskOpenFileName(filetypes=[('siz', '.siz')],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),
+                                 initialfile=self.fileparts.FileNameWithExtension('.siz'))
+
+        self.ExtractArchive(filename)
 
     def onFreshenArchive(self):
         if not messagebox.askokcancel('Freshen Archive', 'Are you sure?\nThis will overwrite the contents of the archive.'):

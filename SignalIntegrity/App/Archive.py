@@ -103,12 +103,12 @@ class Archive(dict):
         try:
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             self.srcList=[filename for filename in self.keys()]
-            self.common=os.path.dirname(os.path.commonprefix(self.srcList))
+            self.common=os.path.dirname(self.srcList[0])
             try:
                 shutil.rmtree(archiveDir)
             except FileNotFoundError:
                 pass
-            self.destList=[filename.replace(self.common,archiveDir) for filename in self.srcList]
+            self.destList=[archiveDir+'\\'+os.path.relpath(filename, self.common).replace('/','\\').replace('..\\','up\\') for filename in self.srcList]
             for srcfile,destfile in zip(self.srcList,self.destList):
                 self[destfile]=self[srcfile]
                 del self[srcfile]
@@ -128,7 +128,7 @@ class Archive(dict):
                         return self
                     self.update()
                     for device in deviceList:
-                        app.Device(device['Ref'])[device['Keyword']]['Value']=os.path.relpath(device['File'],os.getcwd())
+                        app.Device(device['Ref'])[device['Keyword']]['Value']=app.Device(device['Ref'])[device['Keyword']]['Value'].replace('/','\\').replace('..\\','up\\')
                     app.SaveProject()
                     app.projectStack.Pull()
         finally:
