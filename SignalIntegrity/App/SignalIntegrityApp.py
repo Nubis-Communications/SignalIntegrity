@@ -1329,6 +1329,9 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchive(filename)
 
     def onFreshenArchive(self):
+        if not self.CheckSaveCurrentProject():
+            return
+
         if not messagebox.askokcancel('Freshen Archive', 'Are you sure?\nThis will overwrite the contents of the archive.'):
             return
 
@@ -1346,6 +1349,7 @@ class SignalIntegrityApp(tk.Frame):
     def onUnExtractArchive(self):
         if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
             return
+
         if not messagebox.askokcancel('Unexctract Archive', 'Are you absolutely sure?\nThis will delete all of the files in current directory'):
             return
         msg=InformationMessage(self,'Archive Unextract','Unextracting Archive. Please wait.....')

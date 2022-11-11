@@ -152,7 +152,28 @@ class Archive(dict):
     @staticmethod
     def ExtractArchive(filename):
         fp=FileParts(filename)
-        shutil.unpack_archive(filename,fp.AbsoluteFilePath(),format='zip')
+        projectName=fp.FileNameTitle()
+        archiveDir=projectName+'_Archive'
+
+        zipdata = zipfile.ZipFile(filename)
+        zipinfos = zipdata.infolist()
+        oldArchiveDir=zipinfos[0].filename.split('/')[0]
+        oldProjectName=oldArchiveDir[:-len('_Archive')]
+
+        if (projectName == oldProjectName) and (archiveDir == oldArchiveDir):
+            zipdata.close()
+            shutil.unpack_archive(filename,fp.AbsoluteFilePath(),format='zip')
+        else:
+            # iterate through each file
+            for zipinfo in zipinfos:
+                # This will do the renaming
+                zipfilename=zipinfo.filename.split('/')
+                zipfilename[0]=archiveDir
+                if len(zipfilename)==2 and zipfilename[1] == oldProjectName+'.si':
+                    zipfilename[1]=projectName+'.si'
+                zipinfo.filename='/'.join(zipfilename)
+                zipdata.extract(zipinfo,path=fp.AbsoluteFilePath())
+            zipdata.close()
 
     @staticmethod
     def InAnArchive(ProjectName):
