@@ -56,12 +56,12 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
     def loop(n,SD,spc,solvetype):
         for d in range(len(spc)):
             if not spc[d][0] is None:
-                SD.AssignSParameters(spc[d][0],spc[d][1][n])
+                SD.AssignSParameters(spc[d][0],spc[d][1])
         result=(SystemSParametersNumeric(SD).SParameters(
             solvetype=solvetype))
         return n,result
     # pragma: include
-    def SParameters(self,solvetype='block',multicore=False):
+    def SParameters(self,solvetype='block',multicore=True):
         """compute the s-parameters of the netlist.
         @param solvetype (optional) string how to solve it. (defaults to 'block').
         @param multicore (optional) whether to solve multi core (defaults to 'false')
@@ -91,8 +91,9 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
             except:
                 multicore=False
         if multicore:
-            with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
-                futures = {executor.submit(self.loop,n,self.m_sd,spc,solvetype) for n in range(len(self.m_f))}
+            with concurrent.futures.ProcessPoolExecutor(max_workers=2) as executor:
+                spclist=[[(spc[d][0],None if spc[d][0] == None else spc[d][1][n]) for d in range(len(spc))] for n in range(len(self.m_f))]
+                futures = {executor.submit(self.loop,n,self.m_sd,spclist[n],solvetype): n for n in range(len(self.m_f))}
                 for future in concurrent.futures.as_completed(futures):
                     n,res = future.result()
                     result[n]=res
