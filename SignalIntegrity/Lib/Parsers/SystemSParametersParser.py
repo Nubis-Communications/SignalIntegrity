@@ -53,15 +53,17 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         # pragma: include
     # pragma: silent exclude
     @staticmethod
-    def loop(n,SD,spc,solvetype):
-        for d in range(len(spc)):
-            if not spc[d][0] is None:
-                SD.AssignSParameters(spc[d][0],spc[d][1])
-        result=(SystemSParametersNumeric(SD).SParameters(
-            solvetype=solvetype))
-        return n,result
+    def loop(ranges,SD,spc,solvetype):
+        result=[None for r in range(len(ranges))]
+        for r in ranges:
+            for d in range(len(spc)):
+                if not spc[d][0] is None:
+                    SD.AssignSParameters(spc[d][0],spc[d][1][r])
+            result[r-ranges[0]]=(SystemSParametersNumeric(SD).SParameters(
+                solvetype=solvetype))
+        return ranges,result
     # pragma: include
-    def SParameters(self,solvetype='block',multicore=True):
+    def SParameters(self,solvetype='block',multicore=False):
         """compute the s-parameters of the netlist.
         @param solvetype (optional) string how to solve it. (defaults to 'block').
         @param multicore (optional) whether to solve multi core (defaults to 'false')
@@ -91,14 +93,34 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
             except:
                 multicore=False
         if multicore:
-            with concurrent.futures.ProcessPoolExecutor(max_workers=2) as executor:
-                spclist=[[(spc[d][0],None if spc[d][0] == None else spc[d][1][n]) for d in range(len(spc))] for n in range(len(self.m_f))]
-                futures = {executor.submit(self.loop,n,self.m_sd,spclist[n],solvetype): n for n in range(len(self.m_f))}
+            numCores=2
+            resultsPerCore=len(result)//numCores # nominal results produced per core
+            residual=len(result)-resultsPerCore*numCores # how many extra points must be produced
+            # all of the initial cores produce one more point, until extra points are taken care of
+            resultsPerCore=[resultsPerCore + (1 if c < residual else 0) for c in range(numCores)]
+            if sum(resultsPerCore) != len(result): # this is an error
+                # the calculation failed to figure out how to produce all of the points
+                multicore=False
+            else:
+                # create a range of frequencies for each core to produce
+                ranges=[None for c in range(numCores)]
+                i=0
+                for c in range(numCores):
+                    ranges[c]=range(i,i+resultsPerCore[c])
+                    i+=resultsPerCore[c]
+        if multicore:
+            with concurrent.futures.ProcessPoolExecutor(max_workers=numCores) as executor:
+                futures = {executor.submit(self.loop,ranges[c],self.m_sd,spc,solvetype): c for c in range(numCores)}
+                c=0
                 for future in concurrent.futures.as_completed(futures):
-                    n,res = future.result()
-                    result[n]=res
+                    c+=1
+                    ranges,res = future.result()
+#                 results=[self.loop(ranges[c],self.m_sd,spc,solvetype) for c in range(numCores)]
+#                 for ranges,res in results:
+                    for r in ranges:
+                        result[r]=res[r-ranges[0]]
                     if self.HasACallBack():
-                        progress=self.m_f[n]/self.m_f[-1]*100.0
+                        progress=c/numCores*100.0
                         if not self.CallBack(progress):
                             raise SignalIntegrityExceptionSParameters('calculation aborted')
         else:
