@@ -11,3 +11,4 @@ SignalIntegrity.egg-info/
 Doc/xhtml
 build/
 dist/
+Test/.coverage
