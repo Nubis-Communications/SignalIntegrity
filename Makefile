@@ -32,3 +32,4 @@ update:
 
 update-pre:
 	pre-commit autoupdate --bleeding-edge
+
