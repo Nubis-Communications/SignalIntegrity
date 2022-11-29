@@ -72,8 +72,7 @@ class NetworkAnalyzerSimulator(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()+'_DUTSParameters'
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self.parent,"Calculating DUT S-parameters",spnp,spnp.SParameters,granularity=1.0)
@@ -117,8 +116,7 @@ class NetworkAnalyzerSimulator(object):
         # using the network analyzer model.
         #
         cacheFileName=self.parent.fileparts.FileNameTitle()+'_TransferMatrices' if SignalIntegrity.App.Preferences['Cache.CacheResults'] else None
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog = ProgressDialog(self.parent,"Calculating Transfer Matrices",snp,snp.TransferMatrices,granularity=1.0)
@@ -187,8 +185,7 @@ class NetworkAnalyzerSimulator(object):
         # self.outputwflist.
         #
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
         try:
             outputWaveformList = progressDialog.GetResult()

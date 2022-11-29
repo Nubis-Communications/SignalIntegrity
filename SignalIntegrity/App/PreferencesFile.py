@@ -158,6 +158,14 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('UseSinX',True))
         self.Add(XMLPropertyDefaultBool('Enforce12458',True))
         self.Add(XMLPropertyDefaultFloat('MaximumWaveformSize',5e6))
+        self.Add(XMLPropertyDefaultBool('MultiPortTee',True))
+    def ApplyPreferences(self):
+        import SignalIntegrity.Lib as si
+        si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
+        si.td.wf.Waveform.maximumWaveformSize = self['MaximumWaveformSize']
+        si.sd.Numeric.trySVD=self['TrySVD']
+        si.sd.Numeric.checkConditionNumber=self['CheckConditionNumber']
+        si.p.SystemDescriptionParser.MultiPortTee=self['MultiPortTee']
 
 class Cache(XMLConfiguration):
     def __init__(self):

@@ -817,8 +817,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -936,8 +935,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -1232,8 +1230,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         etnp=si.p.CalibrationNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],

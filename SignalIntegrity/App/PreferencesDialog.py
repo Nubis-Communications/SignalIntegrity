@@ -32,6 +32,7 @@ class PreferencesDialog(PropertiesDialog):
         self.useSinX=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use SinX/X for resampling (otherwise linear)',None,self.onUpdatePreferences,preferences,'Calculation.UseSinX')
         self.trySVD=CalculationPropertyTrueFalseButton(self.propertyListFrame,'try SVD in calculations (experimental)',None,self.onUpdatePreferences,preferences,'Calculation.TrySVD')
         self.checkConditionNumber=CalculationPropertyTrueFalseButton(self.propertyListFrame,'check the condition number in calculations',None,self.onUpdatePreferences,preferences,'Calculation.CheckConditionNumber')
+        self.multiPortTee=CalculationPropertyTrueFalseButton(self.propertyListFrame,'employ multi-port tee elements',None,self.onUpdatePreferences,preferences,'Calculation.MultiPortTee')
         self.enforce12458=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enforce 12458 sequence in calculation properties',None,self.onUpdatePreferences,preferences,'Calculation.Enforce12458')
         self.maximumWaveformSize=CalculationPropertySI(self.propertyListFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
         self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')

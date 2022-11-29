@@ -20,6 +20,7 @@
  
 from SignalIntegrity.Lib.Parsers.ParserFile import ParserFile
 from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
+from SignalIntegrity.Lib.Devices import Tee
 
 class SystemDescriptionParser(ParserFile,ParserArgs):
     """Parses netlists and produces system descriptions..
@@ -27,6 +28,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
     This class provides a mechanism for producing system descriptions from netlists
     rather than by scripting the adding of devices, ports, device connections, etc.
     """
+    MultiPortTee=False
     def __init__(self,f=None,args=None):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
@@ -112,9 +114,22 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 self.m_spc.append((lineList[1],dev.m_spf))
                 self.m_spcl.append([lineList[2]]+argList)
         elif lineList[0] == 'connect':
-            for i in range(3,len(lineList),2):
-                self.m_sd.ConnectDevicePort(lineList[1],int(lineList[2]),
-                    lineList[i],int(lineList[i+1]))
+            # pragma: silent exclude
+            numConnections=(len(lineList)-1)//2
+            if numConnections > 2 and self.MultiPortTee:
+                # more than two device ports being connected -- use a multiport tee
+                teeName=self.m_sd.m_UniqueDevice.Name()
+                self.m_sd.AddDevice(teeName,numConnections)
+                self.m_sd.AssignSParameters(teeName,Tee(numConnections))
+                for i in range(1,len(lineList),2):
+                    # hook the tee up to all of the connections
+                    self.m_sd.ConnectDevicePort(lineList[i],int(lineList[i+1]),teeName, (i-1)//2+1)
+            else:
+            # pragma: silent include outdent
+                for i in range(3,len(lineList),2):
+                    self.m_sd.ConnectDevicePort(lineList[1],int(lineList[2]),
+                        lineList[i],int(lineList[i+1]))
+            # pragma: indent
         elif lineList[0] == 'port':
             i=1
             while i < len(lineList):

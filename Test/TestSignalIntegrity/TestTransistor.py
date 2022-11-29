@@ -18,10 +18,39 @@ TestTransistor.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 
 import SignalIntegrity.Lib as si
 
 class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper):
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.TrySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=True
+        self.CheckConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=True
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        self.MultiPortTee=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
+        SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=self.CheckConditionNumber
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

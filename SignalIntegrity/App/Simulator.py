@@ -654,8 +654,7 @@ class Simulator(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
@@ -699,8 +698,7 @@ class Simulator(object):
                             self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]
 
             self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-            si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-            si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
+            SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
             progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
             try:
@@ -779,8 +777,7 @@ class Simulator(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
-        si.sd.Numeric.trySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
-        si.sd.Numeric.checkConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
             si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
@@ -795,8 +792,7 @@ class Simulator(object):
             return
 
         self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-        si.td.wf.Waveform.adaptionStrategy='SinX' if SignalIntegrity.App.Preferences['Calculation.UseSinX'] else 'Linear'
-        si.td.wf.Waveform.maximumWaveformSize = SignalIntegrity.App.Preferences['Calculation.MaximumWaveformSize']
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         self.outputWaveformLabels=netList.OutputNames()
 

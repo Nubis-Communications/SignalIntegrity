@@ -83,14 +83,12 @@ class ResultsCache(object):
             return
 
         members = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("__")]
-        pickleDict = {x:self.__dict__[x] for x in members}
 
         if not keeperList == None:
             keeperList.append('hash')
-            dictKeys=[key for key in pickleDict]
-            for item in dictKeys:
-                if not item in keeperList:
-                    del pickleDict[item]
+            members=[attr for attr in members if attr in keeperList]
+
+        pickleDict = {x:self.__dict__[x] for x in members}
 
         with open(self.filename+self.extra, 'wb') as f:
             pickle.dump(pickleDict['hash'], f, 2)
