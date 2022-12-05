@@ -46,6 +46,8 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -54,6 +56,8 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testFourPortTLineTest(self):
         self.SimulationResultsChecker('FourPortTLineTest.si')
     def testFilterTest(self):

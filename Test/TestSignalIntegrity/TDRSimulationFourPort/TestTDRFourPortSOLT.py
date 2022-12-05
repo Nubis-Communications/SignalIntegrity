@@ -47,6 +47,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -55,6 +57,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def GetSimulationResultsCheck(self,filename):
         if not hasattr(TestTDRFourPortTest, 'simdict'):
             TestTDRFourPortTest.simdict=dict()

@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>-2e-09</Value>

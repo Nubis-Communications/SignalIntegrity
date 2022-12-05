@@ -36,6 +36,7 @@ class NetList(object):
         self.waveformNames=[]
         self.measureNames=[]
         self.sourceNames=[]
+        self.sourceNamesToShow=[]
         self.stimNames=[]
         self.definingStimList=[]
         deviceList = schematic.deviceList
@@ -46,6 +47,9 @@ class NetList(object):
                 self.textToShow.append(device.NetListLine())
                 if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     self.sourceNames.append(device['ref'].GetValue())
+                    if not device['show'] == None:
+                        if device['show']['Value'] == 'true':
+                            self.sourceNamesToShow.append(device['ref'].GetValue())
         # gather up all device pin coordinates
         devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
         devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
@@ -355,6 +359,8 @@ class NetList(object):
         return self.measureNames
     def WaveformNames(self):
         return self.waveformNames
+    def SourceNamesToShow(self):
+        return self.sourceNamesToShow
 
 class NetListFrame(tk.Frame):
     def __init__(self,parent,textToShow):

@@ -47,6 +47,8 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -55,6 +57,8 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testAAAADoThisFirst(self):
         proj=siapp.SignalIntegrityAppHeadless()
         self.assertTrue(proj.OpenProjectFile('TDRModel.si'))

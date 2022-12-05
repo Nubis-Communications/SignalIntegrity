@@ -438,6 +438,11 @@ class PartPropertyOnOff(PartProperty):
     def __init__(self,state='Off'):
         PartProperty.__init__(self,'state',type='enum',keyword='state',description='state',value=state,visible=True,keywordVisible=True)
 
+class PartPropertyShow(PartProperty):
+    validEntries=['true','false']
+    def __init__(self,show='false'):
+        PartProperty.__init__(self,'show',type='enum',keyword='show',description='show',value=show,visible=False,keywordVisible=True)
+
 class PartPropertyStimulusType(PartProperty):
     validEntries=['CW','TDRStep','TDRImpulse']
     def __init__(self,type='CW'):

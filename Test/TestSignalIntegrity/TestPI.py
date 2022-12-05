@@ -40,6 +40,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         self.MultiPortTee=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -52,6 +53,7 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testRLCOnePort(self):
         # one port impedance calculation based on s11
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

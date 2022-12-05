@@ -288,6 +288,10 @@ class SignalIntegrityAppHeadless(object):
         try:
             outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
             otherWaveformLabels=netList.WaveformNames()
+
+            sourceNamesToShow=netList.SourceNamesToShow()
+            otherWaveformLabels+=sourceNamesToShow
+            outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
             return None
 
@@ -389,6 +393,10 @@ class SignalIntegrityAppHeadless(object):
         try:
             outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
             otherWaveformLabels=netList.WaveformNames()
+
+            sourceNamesToShow=netList.SourceNamesToShow()
+            otherWaveformLabels+=sourceNamesToShow
+            outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
             return None
 

@@ -336,6 +336,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>-1.0000000000000001e-07</Value>
@@ -389,6 +395,12 @@
 						<Origin>(38, -5)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -690,6 +702,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>-1.0000000000000001e-07</Value>
@@ -929,6 +947,12 @@
 						<Origin>(39, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>

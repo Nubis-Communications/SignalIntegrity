@@ -41,6 +41,8 @@ class TestEyeDiagramTest(unittest.TestCase,
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -49,6 +51,8 @@ class TestEyeDiagramTest(unittest.TestCase,
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

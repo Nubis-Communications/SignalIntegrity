@@ -327,6 +327,7 @@ class DeviceVoltageSource(Device):
             PartPropertyHelp('device:Voltage-Source'),
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyWaveformFileName(),
+            PartPropertyShow(),
             PartPropertyWaveformType('file'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
@@ -338,6 +339,7 @@ class DeviceVoltageStepGenerator(Device):
             PartPropertyPartName('Voltage Step Generator'),
             PartPropertyHelp('device:Voltage-Step-Generator'),
             PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
             PartPropertyHorizontalOffset(),
             PartPropertyDuration(),
             PartPropertyStartTime(),
@@ -367,6 +369,7 @@ class DeviceVoltagePulseGenerator(Device):
             PartPropertyPartName('Voltage Pulse Generator'),
             PartPropertyHelp('device:Voltage-Pulse-Generator'),
             PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
             PartPropertyHorizontalOffset(),
             PartPropertyDuration(),
             PartPropertyStartTime(),
@@ -380,8 +383,21 @@ class DeviceVoltagePulseGenerator(Device):
 class DeviceVoltagePRBSGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage PRBS Generator'),PartPropertyHelp('device:Voltage-PRBS-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyBitRate(),PartPropertyRisetime(),PartPropertyPRBSPolynomial(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('prbs')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage PRBS Generator'),
+            PartPropertyHelp('device:Voltage-PRBS-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyBitRate(),
+            PartPropertyRisetime(),
+            PartPropertyPRBSPolynomial(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('prbs')]+propertiesList,partPicture)
 
 class DeviceVoltageMultiLevelWaveformGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -391,6 +407,7 @@ class DeviceVoltageMultiLevelWaveformGenerator(Device):
             PartPropertyPartName('Voltage Multi Level Waveform Generator'),
             PartPropertyHelp('device:Voltage-Multi-Level-Waveform-Generator'),
             PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
             PartPropertyHorizontalOffset(),
             PartPropertyDuration(),
             PartPropertyStartTime(),
@@ -405,26 +422,69 @@ class DeviceVoltageMultiLevelWaveformGenerator(Device):
 class DeviceVoltageClockGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Clock Generator'),PartPropertyHelp('device:Voltage-Clock-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyFrequency(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyWaveformType('clock')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Clock Generator'),
+            PartPropertyHelp('device:Voltage-Clock-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyFrequency(),
+            PartPropertyRisetime(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('clock')]+propertiesList,partPicture)
 
 class DeviceVoltageSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Sine Generator'),PartPropertyHelp('device:Voltage-Sine-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(-100.),PartPropertyStopTime(100.),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Sine Generator'),
+            PartPropertyHelp('device:Voltage-Sine-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyFrequency(),
+            PartPropertyStartTime(-100.),
+            PartPropertyStopTime(100.),
+            PartPropertyPhase(),
+            PartPropertyWaveformType('sine')]+propertiesList,partPicture)
         self['t0']['Visible']=False; self['tf']['Visible']=False
 
 class DeviceCurrentSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Sources'),PartPropertyPartName('Current Source'),PartPropertyHelp('device:Current-Source'),PartPropertyDefaultReferenceDesignator('CS?'),PartPropertyWaveformFileName(),PartPropertyWaveformType('file'),PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Current Source'),
+            PartPropertyHelp('device:Current-Source'),
+            PartPropertyDefaultReferenceDesignator('CS?'),
+            PartPropertyWaveformFileName(),
+            PartPropertyShow(),
+            PartPropertyWaveformType('file'),
+            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
 class DeviceCurrentStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Step Generator'),PartPropertyHelp('device:Current-Step-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Step Generator'),
+            PartPropertyHelp('device:Current-Step-Generator'),
+            PartPropertyDefaultReferenceDesignator('CG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyRisetime(),
+            PartPropertySampleRate(),
+            PartPropertyCurrentAmplitude(),PartPropertyWaveformType('step')]+propertiesList,partPicture)
 
 class DeviceCurrentDCSource(Device):
     def __init__(self,propertiesList,partPicture):
@@ -442,14 +502,39 @@ class DeviceCurrentDCSource(Device):
 class DeviceCurrentPulseGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Pulse Generator'),PartPropertyHelp('device:Current-Pulse-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertyStartTime(),PartPropertyRisetime(),PartPropertyPulseWidth(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyWaveformType('pulse')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Pulse Generator'),
+            PartPropertyHelp('device:Current-Pulse-Generator'),
+            PartPropertyDefaultReferenceDesignator('CG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyRisetime(),
+            PartPropertyPulseWidth(),
+            PartPropertySampleRate(),
+            PartPropertyCurrentAmplitude(),
+            PartPropertyWaveformType('pulse')]+propertiesList,partPicture)
 
 class DeviceCurrentSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='currentsource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Current Sine Generator'),PartPropertyHelp('device:Current-Sine-Generator'),PartPropertyDefaultReferenceDesignator('CG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyCurrentAmplitude(),PartPropertyFrequency(),PartPropertyStartTime(-100.),PartPropertyStopTime(100.),PartPropertyPhase(),PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Sine Generator'),
+            PartPropertyHelp('device:Current-Sine-Generator'),
+            PartPropertyDefaultReferenceDesignator('CG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertySampleRate(),
+            PartPropertyCurrentAmplitude(),
+            PartPropertyFrequency(),
+            PartPropertyStartTime(-100.),
+            PartPropertyStopTime(100.),
+            PartPropertyPhase(),
+            PartPropertyWaveformType('sine')]+propertiesList,partPicture)
         self['t0']['Visible']=False; self['tf']['Visible']=False
 
 class DeviceMeasurement(Device):
@@ -677,8 +762,17 @@ class DeviceTelegrapherFourPort(Device):
 class DeviceVoltageNoiseSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
-        Device.__init__(self,netlist,[PartPropertyCategory('Generators'),PartPropertyPartName('Voltage Noise Source'),PartPropertyHelp('device:Voltage-Noise-Generator'),PartPropertyDefaultReferenceDesignator('VG?'),
-        PartPropertyHorizontalOffset(),PartPropertyDuration(),PartPropertySampleRate(),PartPropertyVoltageRms(),PartPropertyWaveformType('noise')]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Noise Source'),
+            PartPropertyHelp('device:Voltage-Noise-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageRms(),
+            PartPropertyWaveformType('noise')]+propertiesList,partPicture)
 
 class DeviceVoltageOutputProbe(Device):
     def __init__(self):

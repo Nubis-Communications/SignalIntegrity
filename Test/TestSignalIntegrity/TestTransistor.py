@@ -39,6 +39,7 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         self.MultiPortTee=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -51,6 +52,7 @@ class TestTransistor(unittest.TestCase,si.test.SourcesTesterHelper,si.test.Routi
         SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)

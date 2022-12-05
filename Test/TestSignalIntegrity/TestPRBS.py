@@ -64,6 +64,8 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -72,6 +74,8 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
     def testPRBS7(self):

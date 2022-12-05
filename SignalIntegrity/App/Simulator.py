@@ -718,6 +718,10 @@ class Simulator(object):
         try:
             outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
             otherWaveformLabels=netList.WaveformNames()
+
+            sourceNamesToShow=netList.SourceNamesToShow()
+            otherWaveformLabels+=sourceNamesToShow
+            outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
@@ -823,6 +827,10 @@ class Simulator(object):
         try:
             outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
             otherWaveformLabels=netList.WaveformNames()
+
+            sourceNamesToShow=netList.SourceNamesToShow()
+            otherWaveformLabels+=sourceNamesToShow
+            outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
