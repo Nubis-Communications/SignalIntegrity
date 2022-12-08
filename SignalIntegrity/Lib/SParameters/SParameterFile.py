@@ -82,7 +82,7 @@ class SParameterFile(SParameters):
         for line in spfile:
             # pragma: silent exclude
             if readHeader:
-                if line[0] in ['!',' ','#']:
+                if line[0] in ['!',' ','#','\n']:
                     if line[0] == '!':
                         self.header.append(line[1:-1]+'\n')
                 else:
