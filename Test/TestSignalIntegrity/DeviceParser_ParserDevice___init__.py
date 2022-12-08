@@ -3,6 +3,7 @@ class ParserDevice(object):
         self.devicename=devicename
         self.ports=ports
         self.arginname=arginname
+        defaults['z0']=50.
         self.defaults=defaults
         self.frequencyDependent=frequencyDependent
         self.func=func

@@ -518,9 +518,8 @@ class DeviceProperties(tk.Frame):
         netList=varLines+[deviceLine,portLine]
         import SignalIntegrity.Lib as si
         spnp=si.p.SystemSParametersNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']))
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         spnp.AddLines(netList)
         try:
             sp=spnp.SParameters()

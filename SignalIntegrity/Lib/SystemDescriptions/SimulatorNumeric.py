@@ -35,8 +35,9 @@ class SimulatorNumeric(Simulator,Numeric):
         @param sd (optional) instance of class SystemDescription
         """
         Simulator.__init__(self,sd)
-    def TransferMatrix(self):
+    def TransferMatrix(self,Z0=50.):
         """TransferMatrix
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @return list of list transfer matrix that for O output waveforms
         and I input waveforms is OxI and be considered as multiplied by
         a vector of input waveforms to produce a vector of output waveforms.
@@ -45,6 +46,6 @@ class SimulatorNumeric(Simulator,Numeric):
         self.Check()
         VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
         SIPrime=array(self.SIPrime(Left=VE_o))
-        sm=array(self.SourceToStimsPrimeMatrix())
+        sm=array(self.SourceToStimsPrimeMatrix(Z0=Z0))
         Result=[list(v) for v in list(VE_o.dot(SIPrime).dot(sm))]
         return Result

@@ -129,8 +129,9 @@ class CalculationPropertiesBase(XMLConfiguration):
     defaultLogarithmicEndFrequency=20e9
     defaultLogarithmicPointsPerDecade=10
     def __init__(self,Name,preferences=False):
+        self.preferences=preferences
         XMLConfiguration.__init__(self,Name)
-        if not preferences:
+        if not self.preferences:
             self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
             self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
             self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
@@ -140,6 +141,7 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
             self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
             self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
+            self.Add(XMLPropertyDefaultFloat('ReferenceImpedance',50.)) 
             self.Add(XMLPropertyDefaultString('UnderlyingType','Linear')) # will be 'Linear' or 'Logarithmic'
             self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',self.defaultLogarithmicStartFrequency))
             self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',self.defaultLogarithmicEndFrequency))
@@ -173,15 +175,16 @@ class CalculationPropertiesBase(XMLConfiguration):
         self.CalculateOthersFromBaseInformation()
         return self
     def Dictionary(self):
-        dict = {name:self[name] for name in ['EndFrequency',
+        calc_dict = {name:self[name] for name in ['EndFrequency',
                                              'FrequencyPoints',
                                              'UserSampleRate']}
         if self['UnderlyingType'] != 'Linear':
-            dict.update({name:self[name] for name in ['UnderlyingType',
+            calc_dict.update({name:self[name] for name in ['UnderlyingType',
                                                   'LogarithmicStartFrequency',
                                                  'LogarithmicEndFrequency',
                                                  'LogarithmicPointsPerDecade']})
-        return dict
+        calc_dict.update({'ReferenceImpedance':self['ReferenceImpedance']})
+        return calc_dict
     def IsEvenlySpaced(self):
         return (self['UnderlyingType'] == 'Linear')
     def FrequencyList(self,force_evenly_spaced=False):
@@ -195,14 +198,16 @@ class CalculationPropertiesBase(XMLConfiguration):
                     self['LogarithmicEndFrequency'],
                     self['LogarithmicPointsPerDecade'])
     def OutputXML(self,indent):
-        if all([self['UnderlyingType'] == 'Linear',
-                self['LogarithmicStartFrequency'] == self.defaultLogarithmicStartFrequency,
-                self['LogarithmicEndFrequency'] == self.defaultLogarithmicEndFrequency,
-                self['LogarithmicPointsPerDecade'] == self.defaultLogarithmicPointsPerDecade]):
-            self.dict['UnderlyingType'].dict['write'] = False
-            self.dict['LogarithmicStartFrequency'].dict['write'] = False
-            self.dict['LogarithmicEndFrequency'].dict['write'] = False
-            self.dict['LogarithmicPointsPerDecade'].dict['write'] = False
+        if not self.preferences:
+            is_default_linear = all([self['UnderlyingType'] == 'Linear',
+                    self['LogarithmicStartFrequency'] == self.defaultLogarithmicStartFrequency,
+                    self['LogarithmicEndFrequency'] == self.defaultLogarithmicEndFrequency,
+                    self['LogarithmicPointsPerDecade'] == self.defaultLogarithmicPointsPerDecade])
+            self.dict['UnderlyingType'].dict['write'] = not is_default_linear
+            self.dict['LogarithmicStartFrequency'].dict['write'] = not is_default_linear
+            self.dict['LogarithmicEndFrequency'].dict['write'] = not is_default_linear
+            self.dict['LogarithmicPointsPerDecade'].dict['write'] = not is_default_linear
+            self.dict['ReferenceImpedance'].dict['write'] = self['ReferenceImpedance'] != 50.
         return XMLConfiguration.OutputXML(self,indent)
 
 class CalculationProperties(CalculationPropertiesBase):

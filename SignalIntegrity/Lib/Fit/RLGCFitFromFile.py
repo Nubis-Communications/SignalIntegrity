@@ -24,12 +24,12 @@ from SignalIntegrity.Lib.Fit.RLGC import RLGCFitter
 
 class RLGCFitFromFile(object):
     """fits a two-port RLGC model to s-parameters from a file"""
-    def __init__(self,f,filename,scale=1,Z0=None,**kwargs):
+    def __init__(self,f,filename,scale=1,Z0=50.,**kwargs):
         """Constructor
         @param f list of float frequencies
         @param filename string name of s-parameter file or project that produces s-parameters
         @param scale float (optional, defaults to 1.0) scaling to be applied on resulting fit
-        @param Z0 float (optional, defaults to None) reference impedance
+        @param Z0 float (optional, defaults to 50) reference impedance
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         @note fitting is not performed until an item from the fitted model is requested
         """
@@ -63,7 +63,7 @@ class RLGCFitFromFile(object):
 #         print "skin-effect resistance: "+ToSI(Rse,'ohm/sqrt(Hz)')
 #         print "dissipation factor: "+ToSI(df,'')
         s=self.scale
-        self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R*s, Rse*s, L*s, G*s, C*s, df, Z0=50.)
+        self.RLGC=TLineTwoPortRLGCAnalytic(self.m_f, R*s, Rse*s, L*s, G*s, C*s, df, Z0=self.Z0)
         return self.RLGC
     def __getitem__(self,item):
         """overloads [n]

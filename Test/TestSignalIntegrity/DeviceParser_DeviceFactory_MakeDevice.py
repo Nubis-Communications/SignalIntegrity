@@ -1,6 +1,6 @@
 class DeviceFactory(list):
 ...
-    def MakeDevice(self,ports,callback, argsList,f):
+    def MakeDevice(self,ports,callback, argsList, f, Z0=50.):
         self.dev=None
         if len(argsList) == 0:
             return False

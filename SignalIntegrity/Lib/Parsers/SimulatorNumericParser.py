@@ -27,18 +27,19 @@ from SignalIntegrity.Lib.ResultsCache import LinesCache
 
 class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
     """performs numeric simulations from netlists"""
-    def __init__(self, f=None, args=None,  callback=None, cacheFileName=None):
+    def __init__(self, f=None, args=None,  callback=None, cacheFileName=None, Z0=50.):
         """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.  
         The optional callback is used as described in the class CallBacker.  
         The use of the cacheFileName is described in the class LineCache.
         """
-        SimulatorParser.__init__(self, f, args)
+        SimulatorParser.__init__(self, f, args, Z0=Z0)
         self.transferMatrices = None
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
@@ -69,7 +70,7 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
             for d in range(len(self.m_spc)):
                 if not spc[d][0] is None:
                     self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
-            tm=SimulatorNumeric(self.m_sd).TransferMatrix()
+            tm=SimulatorNumeric(self.m_sd).TransferMatrix(Z0=self.m_Z0)
             result.append(tm)
             # pragma: silent exclude
             if self.HasACallBack():

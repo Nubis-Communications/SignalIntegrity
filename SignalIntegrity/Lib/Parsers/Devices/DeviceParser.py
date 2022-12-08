@@ -40,6 +40,7 @@ class ParserDevice(object):
         self.devicename=devicename
         self.ports=ports
         self.arginname=arginname
+        defaults['z0']=50.
         self.defaults=defaults
         self.frequencyDependent=frequencyDependent
         self.func=func
@@ -49,7 +50,7 @@ class DeviceFactory(list):
     def __init__(self):
         """Constructor
         list of devices
-
+        todo: fill in reference impedance arguments in table
         | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
         |:-------------------------------------:|:---:|:-------:|:---------------------------------------------------------------------------------------------:|:-------------------:|:------------------------------------------------------------------------------------------------|
         |file                                   |any  |True     |filename=None                                                                                  | True                |sp.dev.SParameterFile(filename,50.,callback)                                                     |
@@ -106,21 +107,28 @@ class DeviceFactory(list):
         """
         list.__init__(self,[
         ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
-            ,None,callback,**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
-        ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
+            ,None,callback,**extraArgs).Resample(f).\
+            SetReferenceImpedance(float(arg['z0']))"),
+        ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
-        ParserDevice('c',2,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
+        ParserDevice('c',2,True,{'':None,'df':0.,'esr':0.},True,
             "SeriesC(f,float(arg['']),float(arg['z0']),float(arg['df']),\
             float(arg['esr']))"),
-        ParserDevice('l',1,True,{'':None},True,"TerminationL(f,float(arg['']))"),
-        ParserDevice('l',2,True,{'':None},True,"SeriesL(f,float(arg['']))"),
-        ParserDevice('r',1,True,{'':None},False,"TerminationZ(float(arg['']))"),
-        ParserDevice('r',2,True,{'':None},False,"SeriesZ(float(arg['']))"),
-        ParserDevice('rse',2,True,{'':None},True,"SeriesRse(f,float(arg['']))"),
+        ParserDevice('l',1,True,{'':None},True,
+                     "TerminationL(f,float(arg['']),float(arg['z0']))"),
+        ParserDevice('l',2,True,{'':None},True,
+                     "SeriesL(f,float(arg['']),float(arg['z0']))"),
+        ParserDevice('r',1,True,{'':None},False,
+                     "TerminationZ(float(arg['']),Z0=float(arg['z0']))"),
+        ParserDevice('r',2,True,{'':None},False,
+                     "SeriesZ(float(arg['']),Z0=float(arg['z0']))"),
+        ParserDevice('rse',2,True,{'':None},True,
+                     "SeriesRse(f,float(arg['']),Z0=float(arg['z0']))"),
         ParserDevice('shunt','2-4',True,{'':None},False,
-            "ShuntZ(ports,float(arg['']))"),
-        ParserDevice('m',4,True,{'':None},True,"Mutual(f,float(arg['']))"),
+            "ShuntZ(ports,float(arg['']),Z0=float(arg['z0']))"),
+        ParserDevice('m',4,True,{'':None},True,
+                     "Mutual(f,float(arg['']),Z0=float(arg['z0']))"),
         ParserDevice('ground',1,False,{},False,"Ground()"),
         ParserDevice('open',1,False,{},False,"Open()"),
         ParserDevice('thru',2,False,{},False,"Thru()"),
@@ -139,22 +147,24 @@ class DeviceFactory(list):
         ParserDevice('currentcontrolledcurrentsource',4,True,{'':None},False,
             "CurrentControlledCurrentSource(float(arg['']))"),
         ParserDevice('currentcontrolledvoltagesource',4,True,{'':None},False,
-            "CurrentControlledVoltageSource(float(arg['']))"),
+            "CurrentControlledVoltageSource(float(arg['']),Z0=float(arg['z0']))"),
         ParserDevice('voltagecontrolledcurrentsource',4,True,{'':None},False,
-            "VoltageControlledCurrentSource(float(arg['']))"),
-        ParserDevice('voltageamplifier','2-4',False,{'gain':None,'zo':0,'zi':1e8,
-            'z0':50.},False,"VoltageAmplifier(ports,float(arg['gain']),\
-            float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('currentamplifier','2-4',False,{'gain':None,'zo':1e8,'zi':0,
-            'z0':50.},False,"CurrentAmplifier(ports,float(arg['gain']),\
-            float(arg['zi']),float(arg['zo']))"),
+            "VoltageControlledCurrentSource(float(arg['']),Z0=float(arg['z0']))"),
+        ParserDevice('voltageamplifier','2-4',False,{'gain':None,'zo':0,'zi':1e8},
+            False,"VoltageAmplifier(ports,float(arg['gain']),\
+            float(arg['zi']),float(arg['zo']),Z0=float(arg['z0']))"),
+        ParserDevice('currentamplifier','2-4',False,{'gain':None,'zo':1e8,'zi':0},
+            False,"CurrentAmplifier(ports,float(arg['gain']),\
+            float(arg['zi']),float(arg['zo']),Z0=float(arg['z0']))"),
         ParserDevice('transresistanceamplifier','2-4',False,{'gain':None,'zo':0.,
-            'zi':0.,'z0':50.},False,"TransresistanceAmplifier(ports,\
-            float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
+            'zi':0.},False,"TransresistanceAmplifier(ports,\
+            float(arg['gain']),float(arg['zi']),float(arg['zo']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('transconductanceamplifier','2-4',False,{'gain':None,'zo':1e8,
-            'zi':1e8,'z0':50.},False,"TransconductanceAmplifier(ports,\
-            float(arg['gain']),float(arg['zi']),float(arg['zo']))"),
-        ParserDevice('opamp',3,False,{'zi':1e8,'zd':1e8,'zo':0.,'gain':1e8,'z0':50.},
+            'zi':1e8},False,"TransconductanceAmplifier(ports,\
+            float(arg['gain']),float(arg['zi']),float(arg['zo']),\
+            Z0=float(arg['z0']))"),
+        ParserDevice('opamp',3,False,{'zi':1e8,'zd':1e8,'zo':0.,'gain':1e8},
             False,"OperationalAmplifier(float(arg['zi']),float(arg['zd']),\
             float(arg['zo']),float(arg['gain']),float(arg['z0']))")])
         # pragma: silent exclude
@@ -163,47 +173,49 @@ class DeviceFactory(list):
     def __init__Contd(self):
         list.__init__(self,list(self+[
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
-            "TLineLossless(f,ports,float(arg['zc']),float(arg['td']))"),
+            "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('tlinelossy',2,False,{'zc':50.,'td':0.,'ldbperhzpers':0,
             'ldbperroothzpers':0},True,
             "TLineLossy(f,float(arg['zc']),float(arg['td']),\
-            float(arg['ldbperhzpers']),float(arg['ldbperroothzpers']))"),
+            float(arg['ldbperhzpers']),float(arg['ldbperroothzpers']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
-            'g':0.,'z0':50.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
+            'g':0.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
             float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
             float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']),\
             float(arg['scale']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
-            'cm':0.,'dfm':0.,'gm':0.,'z0':50.,'sect':0,'scale':1.},
+            'cm':0.,'dfm':0.,'gm':0.,'sect':0,'scale':1.},
             True,"TLineDifferentialRLGC(f, float(arg['rp']),float(arg['rsep']),\
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']),\
             float(arg['scale']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
+        ParserDevice('rlgcfit',2,False,{'file':None,'scale':1},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
-            'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),50.,\
-            int(arg['sect']),float(arg['scale']))"),
+            'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),\
+            float(arg['z0']),int(arg['sect']),float(arg['scale']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
             float(arg['f0']),float(arg['l0']),float(arg['l1']),float(arg['l2']),\
-            float(arg['l3']))"),
+            float(arg['l3']),Z0=float(arg['z0']))"),
         ParserDevice('openstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'c0':0.0,'c1':0.0,'c2':0.0,'c3':0.0},True,
             "OpenStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
             float(arg['f0']),float(arg['c0']),float(arg['c1']),float(arg['c2']),\
-            float(arg['c3']))"),
+            float(arg['c3']),Z0=float(arg['z0']))"),
         ParserDevice('loadstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,'tz':50.0},
             True,"LoadStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['f0']),float(arg['tz']))"),
+            float(arg['f0']),float(arg['tz']),Z0=float(arg['z0']))"),
         ParserDevice('thrustd',2,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9},
             True,"ThruStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
-            float(arg['f0']))")
+            float(arg['f0']),Z0=float(arg['z0']))")
         ]))
         # pragma: silent exclude
         self.__init__Contd2()
@@ -214,29 +226,31 @@ class DeviceFactory(list):
             'cd':'calculate'},True,"NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],\
             (not arg['cd']=='uncalculate'),callback,**extraArgs)"),
         ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],\
-            50.,callback,**extraArgs).Resample(f)"),
+            None,callback,**extraArgs).Resample(f).SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
-            "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
+            "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),Z0=float(arg['z0']))"),
         ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
-            "ButterworthLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
+            "ButterworthLowPassFilter(f,int(arg['order']),float(arg['fc']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('ctle',2,False,{'gdc':None,'gdc2':None,'fz':None,'flf':None,
             'fp1':None,'fp2':None},True,"CTLE(f,float(arg['gdc']),float(arg['gdc2']),\
-            float(arg['fz']),float(arg['flf']),float(arg['fp1']),float(arg['fp2']),50.)"),
+            float(arg['fz']),float(arg['flf']),float(arg['fp1']),float(arg['fp2']),\
+            Z0=float(arg['z0']))"),
         ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,\
-            float(arg['td']),eval(arg['']),eval(arg['pre']),50.)"),
-        ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),50.)"),
-        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9,
-            'z0':50.},False,"IdealRelay(ports,int(arg['']),float(arg['term']),\
-            float(arg['z0']))"),
+            float(arg['td']),eval(arg['']),eval(arg['pre']),Z0=float(arg['z0']))"),
+        ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),\
+            Z0=float(arg['z0']))"),
+        ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9},
+            False,"IdealRelay(ports,int(arg['']),float(arg['term']),float(arg['z0']))"),
         ParserDevice('impulseresponsefilter',2,True,
             {'':None,'wfprojname':'None','dcgain':None,'mults':True,'derivative':False},True,
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],int(arg['sect']),50.,**extraArgs)")
+                     "Parallel(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)")
         ]))
-    def MakeDevice(self,ports,callback, argsList,f):
+    def MakeDevice(self,ports,callback, argsList, f, Z0=50.):
         """makes a device from a set of arguments
         The device is assigned to self.dev and self.frequencyDependent determines whether the
         device is frequency dependent.  Frequency dependent devices are assumed to be instances
@@ -248,6 +262,7 @@ class DeviceFactory(list):
         the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the
         keyword is a string and the value is the value of the keyword.
         @param f list of frequencies
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @return boolean whether the device was created.
         @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
         """
@@ -357,6 +372,7 @@ class DeviceFactory(list):
                     'mandatory keyword(s) not supplied: '+str(argNotProvidedList)+' for '+name)
             # pragma: include
             # pragma: silent exclude
+            arg['z0']=Z0
             try:
             # pragma: include outdent
                 self.dev=eval(device.func)
@@ -385,7 +401,7 @@ class DeviceFactory(list):
 class DeviceParser():
     """contains s-parameters of devices made from a netlist line"""
     deviceFactory=DeviceFactory()
-    def __init__(self,f,ports,callback,argsList):
+    def __init__(self,f,ports,callback,argsList, Z0=50.):
         """Constructor
         makes a device from a set of arguments
 
@@ -405,6 +421,7 @@ class DeviceParser():
         @param callback function pointer callback function (use None for no callback).
         @param argsList list of arguments.  The name of the device is the
         first argument.
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         If the device has no keyword for the argument, then that argument is next. 
         Otherwise, besides the name and the argument with no keyword, the
         remaining arguments come in keyword/value pairs where the
@@ -431,7 +448,7 @@ class DeviceParser():
             self.m_spf=SubCircuit(self.m_f,argsList[1],
             ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))
             return
-        if self.deviceFactory.MakeDevice(ports, callback, argsList, f):
+        if self.deviceFactory.MakeDevice(ports, callback, argsList, f, Z0=Z0):
             if self.deviceFactory.frequencyDependent:
                 self.m_spf=self.deviceFactory.dev
             else:

@@ -23,20 +23,21 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityException,SignalIntegri
 
 class DUTSParametersNumericParser(SystemSParametersNumericParser):
     """generates s-parameters of a DUT from a network analyzer model netlist"""
-    def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
+    def __init__(self, f=None, args=None, callback=None, cacheFileName=None, Z0=50.):
         """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.  
         The optional callback is used as described in the class CallBacker.  
         The use of the cacheFileName is described in the class LineCache  
         """
         self.NetworkAnalyzerProjectFile=None
         self.NetworkAnalyzerPortConnectionList=None
-        SystemSParametersNumericParser.__init__(self, f, args, callback, cacheFileName)
+        SystemSParametersNumericParser.__init__(self, f, args, callback, cacheFileName, Z0)
     def HashValue(self,stuffToHash=''):
         """Generates the hash for a definition.  
         It is formed by hashing the port connection with whatever else is hashed.

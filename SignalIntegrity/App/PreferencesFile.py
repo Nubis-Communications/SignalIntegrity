@@ -169,6 +169,7 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('MultiPortTee',True))
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
+        self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'

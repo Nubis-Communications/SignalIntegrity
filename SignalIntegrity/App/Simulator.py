@@ -669,7 +669,7 @@ class Simulator(object):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
+        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         snp.AddLines(netListText)
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
@@ -836,7 +836,8 @@ class Simulator(object):
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
-            cacheFileName=cacheFileName)
+            cacheFileName=cacheFileName,
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
         try:

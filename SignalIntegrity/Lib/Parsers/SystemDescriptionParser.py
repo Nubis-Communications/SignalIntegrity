@@ -29,11 +29,12 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
     rather than by scripting the adding of devices, ports, device connections, etc.
     """
     MultiPortTee=False
-    def __init__(self,f=None,args=None):
+    def __init__(self,f=None,args=None,Z0=50.):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional, defaults to None) list of frequencies
         @param args (optional, defaults to None) string arguments for the circuit.
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
         self.m_sd = None
@@ -43,6 +44,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.AssignArguments(args)
         self.known=None
         self.callback=None
+        self.m_Z0=Z0
     def SystemDescription(self):
         """calculates and gets the system description
         @return instance of class SystemDescription
@@ -107,9 +109,11 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         elif lineList[0] == 'device':
             argList = lineList[3:]
             if [lineList[2]]+argList in self.m_spcl:
-                dev = DeviceParser(self.m_f,int(lineList[2]),self.callback,None)
+                dev = DeviceParser(self.m_f,int(lineList[2]),self.callback,None,
+                                   Z0=self.m_Z0)
                 dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
-            else: dev=DeviceParser(self.m_f,int(lineList[2]),self.callback,argList)
+            else: dev=DeviceParser(self.m_f,int(lineList[2]),self.callback,argList,
+                                   Z0=self.m_Z0)
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))

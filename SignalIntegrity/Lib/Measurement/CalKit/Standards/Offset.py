@@ -28,7 +28,7 @@ class Offset(SParameters):
     # pragma: silent exclude
     calcZc=False
     # pragma: include
-    def __init__(self,fList,offsetDelay,offsetZ0,offsetLoss,f0=1e9):
+    def __init__(self,fList,offsetDelay,offsetZ0,offsetLoss,f0=1e9,Z0=50.):
         """Constructor
         @param fList list of frequencies
         @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
@@ -39,7 +39,6 @@ class Offset(SParameters):
         of an offset, which is a common portion of a calibration standard.
         """
         data=[]
-        Z0=50.
         Zc=offsetZ0
         Td=offsetDelay
         R0=offsetLoss
@@ -63,4 +62,4 @@ class Offset(SParameters):
             S11=rho*(1-cmath.exp(-2*y))/D
             S21=(1-rho*rho)*cmath.exp(-y)/D
             data.append([[S11,S21],[S21,S11]])
-        SParameters.__init__(self,fList,data)
+        SParameters.__init__(self,fList,data,Z0)

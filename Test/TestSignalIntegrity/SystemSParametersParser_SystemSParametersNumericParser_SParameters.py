@@ -1,6 +1,7 @@
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
-    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None):
-        SystemDescriptionParser.__init__(self,f,args)
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None,
+                 Z0=50.):
+        SystemDescriptionParser.__init__(self,f,args,Z0=Z0)
         self.sf = None
         self.efl = efl
     def SParameters(self,solvetype='block'):
@@ -14,5 +15,5 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
                     self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
             result.append(SystemSParametersNumeric(self.m_sd).SParameters(
                 solvetype=solvetype))
-        self.sf = SParameters(self.m_f, result)
+        self.sf = SParameters(self.m_f, result,self.m_Z0)
         return self.sf

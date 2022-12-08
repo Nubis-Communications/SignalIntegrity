@@ -20,9 +20,9 @@ SubCircuit.py
 from SignalIntegrity.Lib.SParameters import SParameters
 
 class SubCircuit(SParameters):
-    def __init__(self,f,fileName,args):
+    def __init__(self,f,fileName,args,Z0=50.):
         # pragma: silent exclude
         from SignalIntegrity.Lib.Parsers import SystemSParametersNumericParser
         # pragma: include
-        sspnp=SystemSParametersNumericParser(f,args).File(fileName)
+        sspnp=SystemSParametersNumericParser(f,args,Z0=Z0).File(fileName)
         SParameters.__init__(self,f,sspnp.SParameters())

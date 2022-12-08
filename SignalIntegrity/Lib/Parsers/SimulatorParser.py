@@ -24,14 +24,15 @@ import copy
 
 class SimulatorParser(SystemDescriptionParser):
     """base class for netlist based simulation solutions"""
-    def __init__(self, f=None, args=None):
+    def __init__(self, f=None, args=None, Z0=50.):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
-        SystemDescriptionParser.__init__(self, f, args)
+        SystemDescriptionParser.__init__(self, f, args, Z0=Z0)
     def _ProcessSimulatorLine(self,line):
         """processes a line of a netlist, handing simulator specific commands  
         Lines that can be processed at this level are processed and lines that

@@ -1,7 +1,6 @@
 class Offset(SParameters):
-    def __init__(self,fList,offsetDelay,offsetZ0,offsetLoss,f0=1e9):
+    def __init__(self,fList,offsetDelay,offsetZ0,offsetLoss,f0=1e9,Z0=50.):
         data=[]
-        Z0=50.
         Zc=offsetZ0
         Td=offsetDelay
         R0=offsetLoss
@@ -18,4 +17,4 @@ class Offset(SParameters):
             S11=rho*(1-cmath.exp(-2*y))/D
             S21=(1-rho*rho)*cmath.exp(-y)/D
             data.append([[S11,S21],[S21,S11]])
-        SParameters.__init__(self,fList,data)
+        SParameters.__init__(self,fList,data,Z0)

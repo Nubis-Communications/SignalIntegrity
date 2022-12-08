@@ -29,7 +29,8 @@ from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
-    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None):
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None,
+                 Z0=50.):
         """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
@@ -38,10 +39,11 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         @param cacheFileName (optional) string name of file used to cache results
         @param efl (optional) instance of class FrequencyList containing the evenly space frequency list
         to use for resampling in cases where time-domain transformations are required
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         The optional callback is used as described in the class CallBacker.
         """
-        SystemDescriptionParser.__init__(self,f,args)
+        SystemDescriptionParser.__init__(self,f,args,Z0=Z0)
         self.sf = None
         self.efl = efl
         # pragma: silent exclude
@@ -81,7 +83,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
                 if not self.CallBack(progress):
                     raise SignalIntegrityExceptionSParameters('calculation aborted')
             # pragma: include
-        self.sf = SParameters(self.m_f, result)
+        self.sf = SParameters(self.m_f, result,self.m_Z0)
         # pragma: silent exclude
         if hasattr(self, 'delayDict'):
             td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]

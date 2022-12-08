@@ -883,7 +883,8 @@ class SignalIntegrityApp(tk.Frame):
         spnp=si.p.SystemSParametersNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName,
-            efl=efl)
+            efl=efl,
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
@@ -1004,7 +1005,8 @@ class SignalIntegrityApp(tk.Frame):
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
                 SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
-                cacheFileName=cacheFileName)
+                cacheFileName=cacheFileName,
+                Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         dnp.AddLines(netList)
 
         progressDialog = ProgressDialog(self,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)

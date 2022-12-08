@@ -1,6 +1,6 @@
 class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
-    def __init__(self, f=None, args=None, callback=None, cacheFileName=None):
-        VirtualProbeParser.__init__(self, f, args)
+    def __init__(self, f=None, args=None, callback=None, cacheFileName=None, Z0=50.):
+        VirtualProbeParser.__init__(self, f, args, Z0=Z0)
         self.transferMatrices = None
         self.m_tm=None
     def TransferMatrices(self):

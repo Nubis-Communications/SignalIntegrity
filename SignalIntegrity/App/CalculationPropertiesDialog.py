@@ -32,23 +32,31 @@ class CalculationPropertiesDialog(PropertiesDialog):
     def __init__(self,parent):
         PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['CalculationProperties'],parent,'Calculation Properties')
         self.transient(parent)
-        self.endFrequency=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
-        self.frequencyPoints=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
-        self.frequencyResolution=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
-        self.userSampleRate=CalculationPropertySI(self.propertyListFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
-        self.userSamplePeriod=CalculationPropertySI(self.propertyListFrame,'User Sample Period',self.onuserSamplePeriodEntered,None,self.project,'UserSamplePeriod','s')
-        self.baseSampleRate=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
-        self.baseSamplePeriod=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
-        self.timePoints=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
-        self.impulseResponseLength=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
-        if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
-            self.underlyingType=CalculationPropertyChoices(self.propertyListFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
+        self.TimeAndFrequencyFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.TimeAndFrequencyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.endFrequency=CalculationPropertySI(self.TimeAndFrequencyFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
+        self.frequencyPoints=CalculationProperty(self.TimeAndFrequencyFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
+        self.frequencyResolution=CalculationPropertySI(self.TimeAndFrequencyFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
+        self.userSampleRate=CalculationPropertySI(self.TimeAndFrequencyFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
+        self.userSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'User Sample Period',self.onuserSamplePeriodEntered,None,self.project,'UserSamplePeriod','s')
+        self.baseSampleRate=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
+        self.baseSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
+        self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
+        self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
+            self.underlyingType=CalculationPropertyChoices(self.logarithmicFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
+        self.logarithmicInformationFrame=tk.Frame(self.logarithmicFrame)
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
-        if showLogarithmic: self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.logarithmicStartFrequency = CalculationPropertySI(self.logarithmicFrame,'Logarithmic Start Frequency',None,None,self.project,'LogarithmicStartFrequency','Hz')
-        self.logarithmicEndFrequency = CalculationPropertySI(self.logarithmicFrame,'Logarithmic End Frequency',None,None,self.project,'LogarithmicEndFrequency','Hz')
-        self.logarithmicPointsPerDecade = CalculationProperty(self.logarithmicFrame,'Logarithmic Points Per Decade',None,None,self.project,'LogarithmicPointsPerDecade')
+        if showLogarithmic: self.logarithmicInformationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.logarithmicStartFrequency = CalculationPropertySI(self.logarithmicInformationFrame,'Logarithmic Start Frequency',None,None,self.project,'LogarithmicStartFrequency','Hz')
+        self.logarithmicEndFrequency = CalculationPropertySI(self.logarithmicInformationFrame,'Logarithmic End Frequency',None,None,self.project,'LogarithmicEndFrequency','Hz')
+        self.logarithmicPointsPerDecade = CalculationProperty(self.logarithmicInformationFrame,'Logarithmic Points Per Decade',None,None,self.project,'LogarithmicPointsPerDecade')
+        self.ReferenceImpedanceFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.ReferenceImpedanceFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        if SignalIntegrity.App.Preferences['Calculation.Non50OhmSolutions'] or self.project['ReferenceImpedance'] != 50.:
+            self.referenceImpedance=CalculationPropertySI(self.ReferenceImpedanceFrame,'Reference Impedance',None,None,self.project,'ReferenceImpedance','ohm')
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
         PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
@@ -124,9 +132,13 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.timePoints.UpdateStrings()
         self.impulseResponseLength.UpdateStrings()
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
-        self.logarithmicFrame.pack_forget()
+        self.logarithmicInformationFrame.pack_forget()
         if showLogarithmic:
-            self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.logarithmicInformationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        showReferenceImpedance = SignalIntegrity.App.Preferences['Calculation.Non50OhmSolutions'] or self.project['ReferenceImpedance'] != 50.
+        self.ReferenceImpedanceFrame.pack_forget()
+        if showReferenceImpedance:
+            self.ReferenceImpedanceFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
     def onClosing(self):
         self.ok(None)

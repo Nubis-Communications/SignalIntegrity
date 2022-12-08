@@ -247,7 +247,8 @@ class SignalIntegrityAppHeadless(object):
         spnp=si.p.SystemSParametersNumericParser(
                 SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
                 cacheFileName=cacheFileName,
-                efl=efl)
+                efl=efl,
+                Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         if not callback == None:
             spnp.InstallCallback(callback)
         spnp.AddLines(netListText)
@@ -277,7 +278,7 @@ class SignalIntegrityAppHeadless(object):
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
         # parameters and there are eye waveforms, just skip over the transfer parameter generation.
         if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
-            snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName)
+            snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
             if not callback == None:
                 snp.InstallCallback(callback)
             snp.AddLines(netListText)
@@ -414,7 +415,8 @@ class SignalIntegrityAppHeadless(object):
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
-            cacheFileName=cacheFileName)
+            cacheFileName=cacheFileName,
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         if not callback == None:
             snp.InstallCallback(callback)
         snp.AddLines(netListText)
@@ -532,7 +534,8 @@ class SignalIntegrityAppHeadless(object):
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
-            cacheFileName=cacheFileName)
+            cacheFileName=cacheFileName,
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         if not callback == None:
             dnp.InstallCallback(callback)
         dnp.AddLines(netListText)

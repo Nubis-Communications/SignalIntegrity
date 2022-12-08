@@ -24,7 +24,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
     """performs numeric simulations from netlists"""
-    def __init__(self, f=None, DUTSParameters=None, PortConnectionList=None ,args=None,  callback=None, cacheFileName=None):
+    def __init__(self, f=None, DUTSParameters=None, PortConnectionList=None ,args=None,  callback=None, cacheFileName=None, Z0=50.):
         """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
@@ -37,6 +37,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
         @param cacheFileName (optional) string name of file used to cache results
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
 
         Arguments are provided on a line as pairs of names and values separated by a space.
 
@@ -47,7 +48,7 @@ class NetworkAnalyzerSimulationNumericParser(SimulatorNumericParser):
         """
         self.PortConnectionList=PortConnectionList
         self.DutSParameters=SParameters(DUTSParameters.m_f,DUTSParameters.m_d)
-        SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName)
+        SimulatorNumericParser.__init__(self,f,args,callback,cacheFileName,Z0)
     def HashValue(self,stuffToHash=''):
         """Generates the hash for a definition  
         It is formed by hashing the port connection with whatever else is hashed

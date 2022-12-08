@@ -6,11 +6,11 @@ class Simulator(SystemSParameters,object):
             if d.Type == 'current source' or d.Type == 'voltage source':
                 sv.append(d.Name)
         return sv
-    def SourceToStimsPrimeMatrix(self,symbolic=False):
+    def SourceToStimsPrimeMatrix(self,symbolic=False,Z0=50.):
         sv=self.SourceVector()
         sp=self.StimsPrime()
-        Z0='Z0' if symbolic else 50.
-        nZ0='-Z0' if symbolic else -50.
+        Z0='Z0' if symbolic else Z0
+        nZ0='-Z0' if symbolic else -Z0
         sm = [[0]*len(sv) for r in range(len(sp))]
         for s in sv:
             d=self[self.IndexOfDevice(s)]

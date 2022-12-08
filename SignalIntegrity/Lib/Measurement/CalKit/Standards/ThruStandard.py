@@ -23,7 +23,7 @@ from SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset import Offset
 class ThruStandard(Offset):
     """Class providing the s-parameters of a thru standard as commonly defined
     for a calibration kit."""
-    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,f0=1e9):
+    def __init__(self,f,offsetDelay=0.0,offsetZ0=50.0,offsetLoss=0.0,f0=1e9,Z0=50.):
         """Constructor
         @param f list of frequencies
         @param offsetDelay (optional) float electrical length of offset in s (defaults to 0 s)
@@ -32,4 +32,4 @@ class ThruStandard(Offset):
         @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).
         The result is that the class becomes the base-class SParameters with the s-parameters
         of a thru standard."""
-        Offset.__init__(self,f,offsetDelay,offsetZ0,offsetLoss,f0)
+        Offset.__init__(self,f,offsetDelay,offsetZ0,offsetLoss,f0,Z0=50.)

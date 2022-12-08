@@ -27,14 +27,15 @@ import copy
 
 class CalibrationParser(SystemDescriptionParser):
     """base class for netlist based error terms solutions"""
-    def __init__(self, f=None, args=None):
+    def __init__(self, f=None, args=None, Z0=50.):
         """Constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @remark Arguments are provided on a line as pairs of names and values separated by a space.
         """
-        SystemDescriptionParser.__init__(self, f, args)
+        SystemDescriptionParser.__init__(self, f, args, Z0=Z0)
         self.ports=0
         self.calibrationMeasurementList=None
     def _ProcessCalibrationLine(self,line):

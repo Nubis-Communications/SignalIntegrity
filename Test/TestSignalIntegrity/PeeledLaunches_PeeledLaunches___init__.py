@@ -9,4 +9,4 @@ class PeeledLaunches(SParameters):
         for n in range(len(sp)):
             for p in range(sp.m_P): sddn.AssignSParameters('D'+str(p+1),spp[p][n])
             spd.append(sddn.CalculateUnknown(sp[n]))
-        SParameters.__init__(self,sp.m_f,spd)
+        SParameters.__init__(self,sp.m_f,spd,sp.m_Z0)

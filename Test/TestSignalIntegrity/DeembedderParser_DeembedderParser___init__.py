@@ -1,11 +1,11 @@
 class DeembedderParser(SystemDescriptionParser):
-    def __init__(self, f=None, args=None):
-        SystemDescriptionParser.__init__(self, f, args)
+    def __init__(self, f=None, args=None, Z0=50.):
+        SystemDescriptionParser.__init__(self, f, args, Z0)
     def _ProcessDeembedderLine(self,line):
         lineList=self.ReplaceArgs(line.split())
         if len(lineList) == 0: return
         if lineList[0] == 'system':
-            dev=DeviceParser(self.m_f,None,None,lineList[1:])
+            dev=DeviceParser(self.m_f,None,None,lineList[1:],Z0=self.m_Z0)
             if not dev.m_spf is None:
                 self.m_spc.append(('system',dev.m_spf))
         elif lineList[0] == 'unknown':
