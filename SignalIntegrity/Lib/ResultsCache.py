@@ -156,6 +156,8 @@ class LinesCache(ResultsCache):
                         fileList.append(lineList[7])
                     elif lineList[3]=='networkanalyzermodel':
                         fileList.append(lineList[5])
+                    elif lineList[3] == 'parallel':
+                        fileList.append(lineList[5])
             elif lineList[0] == 'calibration':
                 fileList.append(lineList[3])
                 if '.' in lineList[5]:

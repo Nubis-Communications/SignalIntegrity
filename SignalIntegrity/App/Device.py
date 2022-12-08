@@ -236,7 +236,12 @@ class DeviceFromProject(object):
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(values=[('file',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Files'),PartPropertyPartName('File'),PartPropertyHelp('device:File'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName()]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Files'),
+            PartPropertyPartName('File'),
+            PartPropertyHelp('device:File'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyFileName()]+propertiesList,partPicture)
 
 class DeviceUnknown(Device):
     def __init__(self,propertiesList,partPicture):
@@ -306,12 +311,24 @@ class Port(Device):
 class DeviceGround(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='ground')
-        Device.__init__(self,netlist,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Ground'),PartPropertyHelp('device:Ground'),PartPropertyDefaultReferenceDesignator('G?'),PartPropertyDescription('Ground'),PartPropertyPorts(1)],partPicture=PartPictureVariableGround())
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Miscellaneous'),
+            PartPropertyPartName('Ground'),
+            PartPropertyHelp('device:Ground'),
+            PartPropertyDefaultReferenceDesignator('G?'),
+            PartPropertyDescription('Ground'),
+            PartPropertyPorts(1)],partPicture=PartPictureVariableGround())
 
 class DeviceOpen(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='open')
-        Device.__init__(self,netlist,[PartPropertyCategory('Miscellaneous'),PartPropertyPartName('Open'),PartPropertyHelp('device:Open'),PartPropertyDefaultReferenceDesignator('O?'),PartPropertyDescription('Open'),PartPropertyPorts(1)],partPicture=PartPictureVariableOpen())
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Miscellaneous'),
+            PartPropertyPartName('Open'),
+            PartPropertyHelp('device:Open'),
+            PartPropertyDefaultReferenceDesignator('O?'),
+            PartPropertyDescription('Open'),
+            PartPropertyPorts(1)],partPicture=PartPictureVariableOpen())
 
 class DeviceDirectionalCoupler(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1191,6 +1208,19 @@ class DeviceEyeWaveform(Device):
         self['ref']['Visible']=True
         self['state']['Visible']=False
 
+class DeviceParallel(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='parallel',values=[('file',True),('sect',True)])
+        Device.__init__(self,netlist,[
+            PartPropertyDescription('Parallel Devices'),
+            PartPropertyCategory('Miscellaneous'),
+            PartPropertyPorts(2),
+            PartPropertyPartName('Parallel'),
+            PartPropertyHelp('device:Parallel'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertySections(1),
+            PartPropertyFileName()],PartPictureVariableParallel())
+
 class DeviceEyeProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)
@@ -1346,7 +1376,8 @@ DeviceList=Devices([
                 DeviceEyeProbe(),
                 DeviceDifferentialEyeProbe(),
                 DeviceEyeWaveform(),
-                DeviceWaveform()
+                DeviceWaveform(),
+                DeviceParallel()
                 ])
 
 

@@ -2283,5 +2283,12 @@ class PartPictureVariableProbeWaveform(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureWaveform'],1)
 
+class PartPictureParallel(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='=')
+
+class PartPictureVariableParallel(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureParallel'],2)
 
 

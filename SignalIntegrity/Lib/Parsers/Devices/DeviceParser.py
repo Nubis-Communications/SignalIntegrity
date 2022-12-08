@@ -106,7 +106,7 @@ class DeviceFactory(list):
         """
         list.__init__(self,[
         ParserDevice('file',None,True,{'':None},True,
-            "SParameterFile(arg[''],50.).Resample(f)"),
+            "SParameterFile(arg['']).Resample(f).SetReferenceImpedance(50.)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
@@ -232,7 +232,9 @@ class DeviceFactory(list):
             {'':None,'wfprojname':'None','dcgain':None,'mults':True,'derivative':False},True,
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
-            derivative=(arg['derivative']=='true')).Resample(f)")
+            derivative=(arg['derivative']=='true')).Resample(f)"),
+        ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
+                     "Parallel(f,arg['file'],int(arg['sect']),50.)")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
@@ -295,6 +297,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
         from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
+        from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
         # pragma: include
         self.dev=None
         if len(argsList) == 0:
