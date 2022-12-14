@@ -96,8 +96,8 @@ class DeviceFactory(list):
         |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
         |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
-        |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(filename,dcGain,mulTs,derivative                                    |
-
+        |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
+        |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,50.)                                                                 |
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
         @note frequency dependent devices usually come from 'sp.dev' meaning SParameters.Devices package.  Devices that are not frequency dependent

@@ -423,7 +423,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'relay',3,default='2',term='50.')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,46)
+        self.assertEqual(L,47)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,[],[1,2,3]))

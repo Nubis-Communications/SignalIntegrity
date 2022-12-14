@@ -2,7 +2,7 @@ class DeviceFactory(list):
     def __init__(self):
         list.__init__(self,[
         ParserDevice('file',None,True,{'':None},True,
-            "SParameterFile(arg[''],50.).Resample(f)"),
+            "SParameterFile(arg['']).Resample(f).SetReferenceImpedance(50.)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
