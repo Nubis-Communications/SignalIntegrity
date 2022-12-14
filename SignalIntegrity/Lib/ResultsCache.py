@@ -26,6 +26,7 @@ class ResultsCache(object):
     @note derived class must implement the function HashValue(), which determines the hash
     corresponding to a definition.
     """
+    logging=False
     def __init__(self,name,filename=None):
         """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
@@ -53,21 +54,30 @@ class ResultsCache(object):
         self.hash=self.HashValue()
         import os
         if self.filename is None:
+            if self.logging: print('no filename')
             return False
-        if not os.path.exists(self.filename+self.extra):
+        filename=self.filename+self.extra
+        if not os.path.exists(filename):
+            if self.logging: print(filename+' does not exist')
             return False
-        if not self.CheckTimes(self.filename+self.extra):
+        if not self.CheckTimes(filename):
+            if self.logging: print(filename + ' older')
             return False
         try:
-            with open(self.filename+self.extra,'rb') as f:
+            with open(filename,'rb') as f:
                 hash = pickle.load(f)
                 if hash == self.hash:
                     tmp_dict = pickle.load(f)
                     self.__dict__.update(tmp_dict)
                     return True
                 else:
+                    if self.logging:
+                        print(filename+' hash incorrect')
+                        print(filename+' hash value = '+hash)
+                        print('expecting: '+self.hash)
                     return False
         except:
+            if self.logging: print(filename+' could not be unpickled')
             return False
     def CacheResult(self,keeperList=None):
         """Caches a calculated result
@@ -91,6 +101,7 @@ class ResultsCache(object):
         pickleDict = {x:self.__dict__[x] for x in members}
 
         with open(self.filename+self.extra, 'wb') as f:
+            if self.logging: print('caching '+self.filename+self.extra+' with hash value:'+pickleDict['hash'])
             pickle.dump(pickleDict['hash'], f, 2)
             pickle.dump(pickleDict, f, 2)
         return self
@@ -130,7 +141,29 @@ class LinesCache(ResultsCache):
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
-        return ResultsCache.HashValue(self,repr(self.m_lines)+repr(self.m_f)+repr(self.m_args)+stuffToHash)
+        def ReorderLexicographically(lines):
+            # lexicographical reordering of the netlist helps ensure that caching of the
+            # netlist line remains predictable
+            linesSplit=[line.split(' ') for line in lines]
+            linesKeyValue=[]
+            for lineList in linesSplit:
+                if len(lineList)>0:
+                    if len(lineList)>1:
+                        lineList=(lineList[0],' '.join(lineList[1:]))
+                    else:
+                        lineList=(lineList[0],'')
+                    linesKeyValue.append(lineList)
+            keyList=sorted(list(set([key for key,_ in linesKeyValue])))
+            keyLineList={key:[] for key in keyList}
+            for key,value in linesKeyValue:
+                keyLineList[key].append(value)
+            reorderedText=[]
+            for key in keyLineList.keys():
+                linelist=sorted(keyLineList[key])
+                for line in linelist:
+                    reorderedText.append(key+' '+line)
+            return reorderedText
+        return ResultsCache.HashValue(self,repr(ReorderLexicographically(self.m_lines))+repr(self.m_f)+repr(self.m_args)+stuffToHash)
     def CheckTimes(self,cacheFilename):
         """Checks the times for files associated with a netlist.\n
         In netlist devices listed as either file or system devices (i.e. are s-parameter files on the disk) are
