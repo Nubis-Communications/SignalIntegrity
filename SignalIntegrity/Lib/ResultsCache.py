@@ -98,7 +98,15 @@ class ResultsCache(object):
             keeperList.append('hash')
             members=[attr for attr in members if attr in keeperList]
 
-        pickleDict = {x:self.__dict__[x] for x in members}
+        try:
+            pickleDict = {x:self.__dict__[x] for x in members}
+        except KeyError:
+            pickleDict = {}
+            for x in members:
+                try:
+                    pickleDict[x] = self.__dict__[x]
+                except KeyError:
+                    pass
 
         with open(self.filename+self.extra, 'wb') as f:
             if self.logging: print('caching '+self.filename+self.extra+' with hash value:'+pickleDict['hash'])
