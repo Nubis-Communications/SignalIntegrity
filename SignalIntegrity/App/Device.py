@@ -220,6 +220,9 @@ class DeviceFromProject(object):
                 for propertyItemName in partPropertyProject.dict:
                     if partPropertyProject.dict[propertyItemName].dict['write']:
                         devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
+                if devicePartProperty['Type'] == 'file':
+                    # keep Linux file system format
+                    devicePartProperty['Value']=devicePartProperty['Value'].replace('\\','/')
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
         if not self.result.configuration is None:
