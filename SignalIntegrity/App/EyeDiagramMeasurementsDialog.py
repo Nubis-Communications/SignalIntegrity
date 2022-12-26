@@ -121,7 +121,7 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
     def Heading(self,frame,label,elements):
         lineFrame=tk.Frame(frame)
         lineFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        text=label.center(self.labelwidth)
+        text=label.center(self.labelwidth-5)
         line=tk.Label(lineFrame,text=text,font='fixedsys')
         line.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         for e in elements:
