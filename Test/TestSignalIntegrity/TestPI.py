@@ -28,10 +28,11 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
         unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        si.td.wf.Waveform.adaptionStrategy='SinX'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        self.AdaptionStrategy=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         self.TrySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
         SignalIntegrity.App.Preferences['Calculation.TrySVD']=True
         self.CheckConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
@@ -44,10 +45,10 @@ class TestPI(unittest.TestCase,si.test.SourcesTesterHelper,si.test.ResponseTeste
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
-        si.td.wf.Waveform.adaptionStrategy='SinX'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.AdaptionStrategy
         SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
         SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=self.CheckConditionNumber
         SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
