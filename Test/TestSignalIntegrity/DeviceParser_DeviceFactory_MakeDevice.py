@@ -28,7 +28,7 @@ class DeviceFactory(list):
             if device.arginname:
                 if len(argsList) > 0:
                     argsList=['']+argsList
-            argsProvidedDict = {argsList[i].lower():argsList[i+1]
+            argsProvidedDict = {argsList[i]:argsList[i+1]
                                 for i in range(0,len(argsList),2)}
             arg=copy.copy(device.defaults)
             arg.update(argsProvidedDict)

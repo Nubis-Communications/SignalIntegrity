@@ -18,8 +18,10 @@ ProjectFile.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
+from SignalIntegrity.App.ToSI import ToSI
 
 import copy
+import os
 
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
@@ -82,6 +84,7 @@ class DeviceConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('ClassName'))
         self.SubDir(PartPictureConfiguration())
         self.Add(XMLProperty('PartProperties',[PartPropertyConfiguration() for _ in range(0)],'array',arrayType=PartPropertyConfiguration()))
+        self.SubDir(VariablesConfiguration())
         self.SubDir(DeviceNetListConfiguration())
         import SignalIntegrity.App.Preferences
         for key in SignalIntegrity.App.Preferences['Devices'].dict.keys():
@@ -161,6 +164,8 @@ class CalculationPropertiesBase(XMLConfiguration):
         self['UserSampleRate']=userSampleRate
         self.CalculateOthersFromBaseInformation()
         return self
+    def Dictionary(self):
+        return {name:self[name] for name in ['EndFrequency','FrequencyPoints','UserSampleRate']}
 
 class CalculationProperties(CalculationPropertiesBase):
     def __init__(self):
@@ -213,12 +218,147 @@ class PostProcessingConfiguration(XMLConfiguration):
         else:
             return []
 
+class VariableConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Variable')
+        self.Add(XMLPropertyDefaultString('Description',''))
+        self.Add(XMLPropertyDefaultBool('Visible',True))
+        self.Add(XMLPropertyDefaultString('Name',''))
+        self.Add(XMLPropertyDefaultString('Type','float'))
+        self.Add(XMLPropertyDefaultString('Value',None))
+        self.Add(XMLPropertyDefaultString('Default','=None'))
+        self.Add(XMLPropertyDefaultString('Units',''))
+        self.Add(XMLPropertyDefaultBool('ReadOnly',False))
+    def InitFromPartProperty(self,variableName,partProperty):
+        self['Visible']=partProperty['Visible']
+        self['Description']=partProperty['Description']
+        self['Name']=variableName
+        self['Type']=partProperty['Type']
+        self['Value']=partProperty['Value']
+        self['Default']=partProperty['Value']
+        self['Units']=partProperty['Unit']
+        if self['Units']==None:
+            self['Units']=''
+        self['ReadOnly']=False
+        return self
+    def CheckValidity(self):
+        if not isinstance(self['Description'],str): return False
+        if not isinstance(self['Name'],str): return False
+        if len(self['Name']) == 0: return False
+        if not isinstance(self['Type'],str): return False
+        if not self['Type'] in ['int','float','string']: return False
+        if not isinstance(self['Value'],str): return False
+        if (len(self['Value'])>0) and (self['Value'][0]== '=') and (len(self['Value']) == 1): return False
+        if not isinstance(self['Units'],str): return False
+        return True
+    def Value(self,forDisplay=False,resolveVariable=True):
+        value=self.GetValue('Value')
+        type=self.GetValue('Type')
+        if resolveVariable and (len(value)>0) and (value[0]=='='):
+            import SignalIntegrity.App.Project
+            if value[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                value=SignalIntegrity.App.Project['Variables'].VariableByName(value[1:]).Value(forDisplay,False)
+        if type=='file':
+            value=('/'.join(str(value).split('\\')))
+        if forDisplay and (type=='float'):
+            value = str(ToSI(float(value),self.GetValue('Units')))
+        return value
+    def NetListLine(self):
+        value=str(self.GetValue('Value'))
+        if (self['Type'] == 'float'):
+            try:
+                value = str(ToSI(float(value),self.GetValue('Unit'),letterPrefixes=False))
+            except:
+                value = ''
+        elif self['Type'] == 'int':
+            value = str(int(value))
+        elif self['Type'] == 'file':
+            value=('/'.join(str(os.path.abspath(value)).split('\\')))
+            if ' ' in value:
+                value="'"+value+"'"
+        if value != '':
+            return '$'+self['Name']+'$ '+ value
+        else:
+            return value
+    def DisplayString(self,displayVariable=True,resolveVariable=True,visible=True):
+        result=''
+        if visible or self.GetValue('Visible'):
+            if displayVariable and (self.GetValue('Name') != None) and (self.GetValue('Name') != 'None'):
+                result=result+self.GetValue('Name')
+            value=self.GetValue('Value')
+            type=self.GetValue('Type')
+            prefix,suffix='',''
+            if (len(value)>0) and (value[0]=='='):
+                if resolveVariable and displayVariable:
+                    result=result+value+' '
+                    import SignalIntegrity.App.Project
+                    if value[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                        value = SignalIntegrity.App.Project['Variables'].VariableByName(value[1:]).DisplayString(False,False)
+                        if (len(value)>0) and (value[0]=='='):
+                            value=value[1:]
+                        result=result+'('+value+')'
+                        return result
+            elif displayVariable:
+                result=result+' '
+            if (len(value)>0) and (value[0]=='='):
+                value=value[1:]
+                prefix,suffix='(',')'
+                result=result+' ('+value+')'
+                return result
+            elif type == 'file':
+                value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
+            elif type == 'float':
+                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units')))
+            if not value == None:
+                result=result+prefix+value+suffix
+        return result
+
+class VariablesConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Variables')
+        self.Add(XMLProperty('Items',[VariableConfiguration() for _ in range(0)],'array',arrayType=VariableConfiguration()))
+    def NetListLines(self):
+        return ['var '+variable.NetListLine() for variable in self['Items']]
+    def Names(self):
+        return [variable['Name'] for variable in self['Items']]
+    def VariableByName(self,name):
+        return self['Items'][self.Names().index(name)]
+    def OutputXML(self,indent):
+        if len(self['Items']) > 0:
+            return XMLConfiguration.OutputXML(self, indent)
+        else:
+            return []
+    def DisplayStrings(self,displayVariable=True,resolveVariable=True,visible=True):
+        result=[]
+        for variable in self['Items']:
+            displayString=variable.DisplayString(displayVariable,resolveVariable,visible)
+            if displayString != '':
+                result.append(displayString)
+        return result
+    def LoadDefaultValues(self):
+        for variable in self['Items']:
+            variable['Value']=variable['Default']
+        return self
+    def Dictionary(self,variableList=None):
+        if variableList == None:
+            variableList=self['Items']
+        args={}
+        for variable in variableList:
+            name=variable['Name']
+            value=variable.Value()
+            if variable['Type'] == 'file':
+                value=os.path.abspath(value)
+            args[name]=value
+        return args
+
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        self.SubDir(VariablesConfiguration())
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
@@ -254,6 +394,7 @@ class ProjectFile(ProjectFileBase):
             partPictureProject['MirroredVertically']=partPicture.current.mirroredVertically
             partPictureProject['MirroredHorizontally']=partPicture.current.mirroredHorizontally
             deviceProject['PartProperties']=device.propertiesList
+            deviceProject['Variables']['Items']=device.variablesList
             deviceNetListProject=deviceProject['DeviceNetList']
             deviceNetList=device.netlist
             for n in deviceNetList.dict:

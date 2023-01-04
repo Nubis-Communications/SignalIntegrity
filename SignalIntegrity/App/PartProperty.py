@@ -16,8 +16,17 @@ PartProperty.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+
+import sys
+from tkinter.constants import SCROLL
+if sys.version_info.major < 3:
+    import tkMessageBox as messagebox
+else:
+    from tkinter import messagebox
+
 from SignalIntegrity.App.ToSI import ToSI,FromSI
 from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
+import SignalIntegrity.App.Project
 
 class PartProperty(PartPropertyConfiguration):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True,inProjectFile=True):
@@ -38,19 +47,29 @@ class PartProperty(PartPropertyConfiguration):
             if self.GetValue('Visible') and not self.GetValue('Hidden'):
                 if self.GetValue('KeywordVisible'):
                     if self.GetValue('Keyword') != None and self.GetValue('Keyword') != 'None':
-                        result=result+self.GetValue('Keyword')+' '
-                if self.GetValue('Type')=='string':
-                    value = self.GetValue('Value')
-                elif self.GetValue('Type')=='file':
-                    value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
-                elif self.GetValue('Type')=='int':
-                    value = self.GetValue('Value')
-                elif self.GetValue('Type')=='float':
-                    value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
-                else:
-                    value = str(self.GetValue('Value'))
-                if not value == None:
+                        result=result+self.GetValue('Keyword')
+                value=self.GetValue('Value')
+                type=self.GetValue('Type')
+                prefix,suffix='',''
+                if (len(value)>0) and (value[0]=='='):
                     result=result+value
+                    import SignalIntegrity.App.Project
+                    if value[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                        value = SignalIntegrity.App.Project['Variables'].VariableByName(value[1:]).DisplayString(False,False)
+                        if (len(value)>0) and (value[0]=='='):
+                            value=value[1:]
+                        result=result+' ('+value+')'
+                    return result
+                if self.GetValue('KeywordVisible'):
+                    result=result+' '
+                if type =='file':
+                    value=('/'.join(str(value).split('\\'))).split('/')[-1]
+                elif type=='float':
+                    value = str(ToSI(float(value),self.GetValue('Unit')))
+                else:
+                    value = str(value)
+                if not value == None:
+                    result=result+prefix+value+suffix
             return result
         elif stype == 'raw':
             if self.GetValue('Type')=='string':
@@ -79,38 +98,53 @@ class PartProperty(PartPropertyConfiguration):
             elif self.GetValue('Type')=='int':
                 value = str(self.GetValue('Value'))
             elif self.GetValue('Type')=='float':
-                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
+                value=self.GetValue('Value')
+                if (len(value)>0) and (value[0]=='='):
+                    pass
+                else:
+                    value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit')))
             else:
                 value = str(self.GetValue('Value'))
             return value
         elif stype == 'netlist':
-            if self.GetValue('Type')=='string':
-                value = self.GetValue('Value')
+            value=self.GetValue('Value')
+            if (value != None) and (len(value)>0) and (value[0]=='='):
+                value='$'+value[1:]+'$'
             elif self.GetValue('Type')=='file':
-                value=self.GetValue('Value')
                 if not value is None:
                     if ' ' in value:
                         value = "'"+value+"'"
             elif self.GetValue('Type')=='int':
-                value = self.GetValue('Value')
+                value = str(int(value))
             elif self.GetValue('Type')=='float':
-                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Unit'),letterPrefixes=False))
+                value = str(ToSI(float(value),self.GetValue('Unit'),letterPrefixes=False))
             else:
-                value = str(self.GetValue('Value'))
+                value = str(value)
             return value
         else:
             raise ValueError
             return str(self['Value'])
-    def SetValueFromString(self,string):
-        if self['Type']=='string' or self['Type']=='enum':
+    def SetValueFromString(self,string,askToAdd=False):
+        if (len(string)>0) and (string[0]=='='):
+            self['Value'] = string
+            if askToAdd and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
+                doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?')
+                if doit:
+                    from SignalIntegrity.App.ProjectFile import VariableConfiguration
+                    SignalIntegrity.App.Project['Variables.Items'].append(
+                        VariableConfiguration().InitFromPartProperty(string[1:],type(self)()))
+        elif self['Type']=='string' or self['Type']=='enum':
             self['Value']=str(string)
         elif self.GetValue('Type')=='file':
             self['Value']=str(string)
         elif self.GetValue('Type')=='int':
-            try:
-                self['Value']=int(string)
-            except ValueError:
-                self['Value']=0
+            if (len(string)>0) and (string[0]=='='):
+                self['Value'] = string
+            else:
+                try:
+                    self['Value']=int(string)
+                except ValueError:
+                    self['Value']=0
         elif self['Type']=='float':
             value = FromSI(string,self['Unit'])
             if value is not None:
@@ -123,12 +157,17 @@ class PartProperty(PartPropertyConfiguration):
         if not name is None:
             return PartPropertyConfiguration.GetValue(self,name)
 
+        rawValue=self.GetValue('Value')
+        if (len(rawValue)>0) and (rawValue[0]=='='):
+            if rawValue[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                rawValue=SignalIntegrity.App.Project['Variables'].VariableByName(rawValue[1:])['Value']
+
         if self.GetValue('Type')=='int':
-            return int(self.GetValue('Value'))
+            return int(rawValue)
         elif self.GetValue('Type')=='float':
-            return float(self.GetValue('Value'))
+            return float(rawValue)
         else:
-            return self.GetValue('Value')
+            return rawValue
 
 class PartPropertyReadOnly(PartProperty):
     def __init__(self,propertyName,type=None,unit=None,keyword=None,description=None,value=None,hidden=False,visible=False,keywordVisible=True):
@@ -481,7 +520,7 @@ class PartPropertyFfeTaps(PartProperty):
         PartProperty.__init__(self,'taps',type='string',unit=None,keyword='taps',description='tap values []',value=taps,visible=True,keywordVisible=True)
 
 class PartPropertyFfePre(PartProperty):
-    def __init__(self,pre):
+    def __init__(self,pre=0):
         PartProperty.__init__(self,'pre',type='int',unit=None,keyword='pre',description='number of precursor taps',value=pre,visible=False, keywordVisible=False)
 
 class PartPropertyFfeTd(PartProperty):
@@ -525,3 +564,9 @@ class PartPropertyLossdBPerHzPers(PartProperty):
 class PartPropertyLossdBPerrootHzPers(PartProperty):
     def __init__(self,loss=0.0):
         PartProperty.__init__(self,'ldbperroothzpers',type='float',unit='dB/sqrt(Hz)/s',keyword='ldbperroothzpers',description='skin-effect loss (dB/sqrt(Hz)/s)',value=loss,visible=True, keywordVisible=True)
+
+class PartPropertyCalculationProperties(PartProperty):
+    validEntries=['true','false']
+    def __init__(self,state='false'):
+        PartProperty.__init__(self,'calcprop',type='enum',keyword='calcprop',description='use project calculation properties',value=state,visible=False,keywordVisible=False)
+

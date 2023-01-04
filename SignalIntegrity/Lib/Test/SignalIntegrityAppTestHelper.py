@@ -191,19 +191,19 @@ class SignalIntegrityAppTestHelper:
         regression=Waveform().ReadFromFile(wffilename)
         self.assertTrue(wf==regression,wffilename + ' incorrect')
         os.chdir(currentDirectory)
-    def Preliminary(self,filename,checkPicture=True,checkNetlist=True):
+    def Preliminary(self,filename,checkPicture=True,checkNetlist=True,args={}):
         os.chdir(self.path)
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         pysi=SignalIntegrityAppHeadless()
-        self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename)),filename + ' couldnt be opened')
+        self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
         #pysi.SaveProject()
         if checkPicture:
             self.PictureChecker(pysi,filename)
         if checkNetlist:
             self.NetListChecker(pysi,filename)
         return pysi
-    def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}):
+        pysi=self.Preliminary(filename, checkPicture, checkNetlist, args)
         result=pysi.CalculateSParameters()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)

@@ -29,25 +29,28 @@ class SignalIntegrityExceptionArchive(SignalIntegrityException):
     def __init__(self,message=''):
         SignalIntegrityException.__init__(self,'Archive',message)
 
-class Archive(dict):
+class Archive(list):
     def __init__(self):
-        dict.__init__(self,{})
+        list.__init__(self,[])
     def Archivable(self):
-        return self != {}
+        return self != []
     def BuildArchiveDictionary(self,parent):
+        import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         currentPath=os.getcwd()
         try:
             if not isinstance(parent,str):
                 thisFile=os.path.abspath(parent.fileparts.FileNameWithExtension())
                 app=parent
+                fileargs={}
             else:
                 thisFile=parent
                 app=SignalIntegrityAppHeadless()
                 app.projectStack.Push()
-                if not app.OpenProjectFile(thisFile):
+                fileargs=SignalIntegrity.App.Project['Variables'].Dictionary()
+                if not app.OpenProjectFile(thisFile,args=fileargs):
                     app.projectStack.Pull()
-                    dict.__init__(self,{})
+                    list.__init__(self,[])
                     return self
  
             initial=True
@@ -56,14 +59,16 @@ class Archive(dict):
             while not done:
                 if not initial:
                     done=True
-                    for thisFile in self.keys():
-                        if not self[thisFile]['descended']:
+                    for element in self:
+                        thisFile=element['file']
+                        if not element['descended']:
                             done=False
                             break
                     if not done:
                         app=SignalIntegrityAppHeadless()
                         app.projectStack.Push()
-                        if not app.OpenProjectFile(thisFile):
+                        fileargs=element['args']
+                        if not app.OpenProjectFile(thisFile,args=fileargs):
                             app.projectStack.Pull()
                             dict.__init__(self,{})
                             raise SignalIntegrityExceptionArchive('During archiving:',thisFile+' could not be opened')
@@ -74,61 +79,123 @@ class Archive(dict):
                     initial=False
                 if not done:
                     for device in app.Drawing.schematic.deviceList:
+                        args={}
+                        for variable in device.variablesList:
+                            name=variable['Name']
+                            value=variable.Value()
+                            if variable['Type'] == 'file':
+                                value=os.path.abspath(value)
+                            args[name]=value
                         for property in device.propertiesList:
                             if property['Type']=='file':
-                                filename=os.path.abspath(property['Value'])
+                                filename=os.path.abspath(property.GetValue())
                                 if len(filename.split(os.path.sep)[-1].split('.')) != 2:
                                     continue # file name does not have an extension
-                                if not thisFile in self.keys():
-                                    self[thisFile]={'descended':True,'devices':[{'Ref':device['ref']['Value'],'Keyword':property['Keyword'],'File':filename}]}
+                                if not thisFile in [fileelement['file'] for fileelement in self]:
+                                    element={'file':thisFile,
+                                             'descended':True,
+                                             'devices':[{'Ref':device['ref']['Value'],
+                                                         'Keyword':property['Keyword'],
+                                                         'File':filename,
+                                                         'args':args}],
+                                             'args':fileargs}
+                                    self.append(element)
                                 else:
-                                    self[thisFile]['devices'].append({'Ref':device['ref']['Value'],'Keyword':property['Keyword'],'File':filename})
-                                if not filename in self.keys():
-                                    self[filename]={'descended':(not filename.endswith('.si')),'devices':[]}
-                    if not thisFile in self.keys(): # does not reference any files
-                        self[thisFile]={'descended':True,'devices':[]}
-
-                    self[thisFile]['descended']=True # done searching for file devices in this project
-
+                                    element['devices'].append({'Ref':device['ref']['Value'],
+                                                               'Keyword':property['Keyword'],
+                                                               'File':filename,
+                                                               'args':args})
+                                if not filename in [fileelement['file'] for fileelement in self]:
+                                    self.append({'file':filename,
+                                                 'descended':(not filename.endswith('.si')),
+                                                 'devices':[],
+                                                 'args':args})
+                                else:
+                                    # this file is in the list, but now a check is made to ensure that the file, if a project file
+                                    # was opened with the same arguments.  If not, we must add a duplicate file to the list with the
+                                    # new, different set of arguments.
+                                    for newElement in self:
+                                        if newElement['file'] == filename:
+                                            if newElement['args'] != args:
+                                                self.append({'file':filename,
+                                                             'descended':(not filename.endswith('.si')),
+                                                             'devices':[],
+                                                             'args':args})
+                                                break
+                    if not thisFile in [fileelement['file'] for fileelement in self]: # does not reference any files
+                        self.append({'file':thisFile,
+                                     'descended':True,
+                                     'devices':[],
+                                     'args':{}})
+                    element['descended']=True # done searching for file devices in this project
                     if hasattr(app, 'projectStack'):
                         app.projectStack.Pull()
+        except Exception as e:
+            print(e)
+            raise(e)
         finally:
             os.chdir(currentPath)
         return self
     def CopyArchiveFilesToDestination(self,archiveDir):
+        import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         if not self.Archivable():
             return self
         currentPath=os.getcwd()
         try:
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
-            self.srcList=[filename for filename in self.keys()]
+            self.srcList=[element['file'].replace('\\','/') for element in self]
             self.common=os.path.dirname(self.srcList[0])
             try:
                 shutil.rmtree(archiveDir)
             except FileNotFoundError:
                 pass
-            self.destList=[archiveDir+'\\'+os.path.relpath(filename, self.common).replace('/','\\').replace('..\\','up\\') for filename in self.srcList]
-            for srcfile,destfile in zip(self.srcList,self.destList):
-                self[destfile]=self[srcfile]
-                del self[srcfile]
-                for device in self[destfile]['devices']:
+            self.destList=[(archiveDir+'/'+os.path.relpath(filename, self.common)).replace('\\','/').replace('../','up/') for filename in self.srcList]
+            for element,srcfile,destfile in zip(self,self.srcList,self.destList):
+                element['file']=destfile
+                for device in element['devices']:
                     device['File']=device['File'].replace(self.common,archiveDir)
                 os.makedirs(os.path.dirname(destfile),exist_ok=True)
-                shutil.copy(src=srcfile,dst=destfile)
+                try:
+                    if not os.path.exists(destfile):
+                        shutil.copy(src=srcfile,dst=destfile)
+                except Exception as e:
+                    print(e)
             # go through all of the files, straightening out the relative path references
-            for file in self.keys():
-                deviceList=self[file]['devices']
+            for element in self:
+                file=element['file']
+                deviceList=element['devices']
                 if len(deviceList)>0:
                     app=SignalIntegrityAppHeadless()
                     app.projectStack.Push()
-                    if not app.OpenProjectFile(file):
+                    if not app.OpenProjectFile(file,element['args'] if 'args' in element else {}):
                         app.projectStack.Pull()
                         raise SignalIntegrityExceptionArchive('During archiving:',file+' could not be opened')
                         return self
-                    self.update()
+                    for variable in SignalIntegrity.App.Project['Variables.Items']:
+                        if variable['Type'] == 'file':
+                            try:
+                                filename=os.path.abspath(variable['Value'].replace('\\','/').replace('../','up/'))
+                                if os.path.exists(filename):
+                                    variable['Value']=os.path.relpath(filename)
+                            except (AttributeError,TypeError):
+                                pass
+                            try:
+                                filename=os.path.abspath(variable['Default'].replace('\\','/').replace('../','up/'))
+                                if os.path.exists(filename):
+                                    variable['Default']=os.path.relpath(filename)
+                            except (AttributeError,TypeError):
+                                pass
                     for device in deviceList:
-                        app.Device(device['Ref'])[device['Keyword']]['Value']=app.Device(device['Ref'])[device['Keyword']]['Value'].replace('/','\\').replace('..\\','up\\')
+                        filename=app.Device(device['Ref'])[device['Keyword']]['Value']
+                        if (filename != None) and (len(filename)>0) and (filename[0]=='='):
+                            import SignalIntegrity.App.Project
+                            if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                                variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
+                                if variable.Value() != None:
+                                    variable['Value']=os.path.relpath(os.path.abspath(variable.Value())).replace('\\','/').replace('../','up/')
+                        else:
+                            app.Device(device['Ref'])[device['Keyword']]['Value']=os.path.relpath(os.path.abspath(app.Device(device['Ref'])[device['Keyword']]['Value'])).replace('\\','/').replace('../','up/')
                     app.SaveProject()
                     app.projectStack.Pull()
         finally:

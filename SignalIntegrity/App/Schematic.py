@@ -30,6 +30,7 @@ from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.Archive import Archive
+from SignalIntegrity.App.PartPicture import PartPicture
 import SignalIntegrity.App.Project
 
 class Schematic(object):
@@ -362,6 +363,8 @@ class DrawingStateMachine(object):
             self.parent.parent.TransferParametersDoer.Activate(False)
             self.parent.parent.VirtualProbeDoer.Activate(False)
             self.parent.parent.DeembedDoer.Activate(False)
+            self.parent.parent.VariablesDoer.Activate(False)
+            self.parent.parent.EquationsDoer.Activate(False)
             self.parent.parent.HelpDoer.Activate(True)
             self.parent.parent.ControlHelpDoer.Activate(True)
             self.parent.parent.EscapeDoer.Activate(True)
@@ -476,6 +479,8 @@ class DrawingStateMachine(object):
             #self.parent.parent.TransferParametersDoer.Activate(False)
             #self.parent.parent.VirtualProbeDoer.Activate(False)
             #self.parent.parent.DeembedDoer.Activate(False)
+            self.parent.parent.VariablesDoer.Activate(True)
+            self.parent.parent.EquationsDoer.Activate(True)
             self.parent.parent.HelpDoer.Activate(True)
             self.parent.parent.ControlHelpDoer.Activate(True)
             self.parent.parent.EscapeDoer.Activate(False)
@@ -1626,6 +1631,14 @@ class Drawing(tk.Frame):
         grid=drawingPropertiesProject['Grid']
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
+
+        schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
+        V=len(schematicPropertiesList)
+        locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
+
+        for v in range(V):
+            canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
+
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         numPortsFound=0
         foundAPort=False

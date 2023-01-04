@@ -18,6 +18,7 @@ DeviceProperties.py
 # If not, see <https://www.gnu.org/licenses/>
 import os
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
     import tkMessageBox as messagebox
@@ -32,6 +33,7 @@ from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.Simulator import SimulatorDialog
 from SignalIntegrity.App.Device import Device
+from SignalIntegrity.App.VariablesDialog import VariablesDialog
 import SignalIntegrity.App.Project
 
 class DeviceProperty(tk.Frame):
@@ -137,7 +139,23 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if FileParts(filename).fileext == '.si':
-                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'" --external')
+                def fileTreatment(value,typeString):
+                    if typeString == 'file':
+                        value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
+                        if ' ' in value:
+                            value='"'+value+'"'
+                    return value
+
+                kwPairs=' '.join([v['Name']+' '+fileTreatment(v.Value(False,True),v['Type']) for v in self.device.variablesList])
+
+                try:
+                    useCalculationProperties=(self.device['calcprop']['Value'] == 'true')
+                except TypeError:
+                    useCalculationProperties=False
+                if useCalculationProperties:
+                    calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
+                    kwPairs+=' '+' '.join([propertyName+' '+str(calculationProperties[propertyName]) for propertyName in ['EndFrequency','FrequencyPoints','UserSampleRate']])
+                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'" --external '+kwPairs)
                 if result != 0:
                     messagebox.showerror('ProjectFile','could not be opened')
                     return
@@ -210,7 +228,7 @@ class DeviceProperty(tk.Frame):
         self.partProperty['KeywordVisible']=bool(self.keywordVisible.get())
         self.callBack()
     def onEntered(self,event):
-        self.partProperty.SetValueFromString(self.propertyString.get())
+        self.partProperty.SetValueFromString(self.propertyString.get(),True)
         if self.partProperty['PropertyName'] == 'waveformfilename':
             filename=self.partProperty.GetValue()
             isProject=FileParts(filename).fileext == '.si'
@@ -236,19 +254,25 @@ class DeviceProperties(tk.Frame):
         self.parent=parent
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
+        self.isAProjectDevice=False
+        partViewFrame=tk.Frame(self)
+        partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
+        self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
         if isinstance(self.device,Device): # part other than file - allow viewing
-            if not 'file name' in [property['Description'] for property in self.device.propertiesList]:
+            fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
+            if len(fileTypeKeywords) == 1:
+                self.isAProjectDevice = self.device[fileTypeKeywords[0]]['Value'].split('.')[-1]=='si'
+            else:
                 if self.device.netlist['DeviceName']=='device':
-                    partViewFrame=tk.Frame(self)
-                    partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
-                    self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC':
-                        partViewFrame=tk.Frame(self)
-                        partViewFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
-                        self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        try:
+            self.device['calcprop']['Hidden']= not self.isAProjectDevice
+        except TypeError:
+            pass
         keywords = [property['Keyword'] for property in self.device.propertiesList]
         if 'wffile' in keywords:
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
@@ -260,6 +284,15 @@ class DeviceProperties(tk.Frame):
         self.propertyFrameList=[]
         for partProperty in self.device.propertiesList:
             self.propertyFrameList.append(DeviceProperty(propertyListFrame,self,partProperty))
+        self.variablesFrame = tk.Frame(propertyListFrame)
+        self.variablesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.variablesButton = tk.Button(self.variablesFrame,
+                      text='Variables',
+                      command=self.onVariables)
+        if self.isAProjectDevice:
+            self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
+        else:
+            self.variablesButton.pack_forget()
         self.configurationFrame = tk.Frame(propertyListFrame)
         self.configurationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if not device.configuration is None:
@@ -329,6 +362,16 @@ class DeviceProperties(tk.Frame):
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
 
+    def onVariables(self):
+        if self.device['file'] != None:
+            filename=self.device['file']['Value']
+        elif self.device['wffile'] != None:
+            filename=self.device['wffile']['Value']
+        else:
+            filename=None
+        if filename != None:
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+
     def UpdatePicture(self):
         self.partPictureCanvas.delete(tk.ALL)
         if not self.device['ports'] is None:
@@ -342,14 +385,36 @@ class DeviceProperties(tk.Frame):
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
         # also update part properties as some may have become hidden or unhidden
+        self.variablesFrame.pack_forget()
         self.configurationFrame.pack_forget()
         self.mirrorFrame.pack_forget()
         self.rotationFrame.pack_forget()
+        self.partViewButton.pack_forget()
+        self.waveformViewButton.pack_forget()
+        self.variablesButton.pack_forget()
+        self.isAProjectDevice=False
+        if isinstance(self.device,Device): # part other than file - allow viewing
+            fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
+            if len(fileTypeKeywords) == 1:
+                self.isAProjectDevice = self.device[fileTypeKeywords[0]]['Value'].split('.')[-1]=='si'
+            else:
+                if self.device.netlist['DeviceName']=='device':
+                    self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
+                    if not self.device['wftype'].GetValue() == 'DC':
+                        self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        if self.isAProjectDevice:
+            self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
+        try:
+            self.device['calcprop']['Hidden']= not self.isAProjectDevice
+        except TypeError:
+            pass
         for propertyFrame in self.propertyFrameList:
             propertyFrame.pack_forget()
         for propertyFrame in self.propertyFrameList:
             if not propertyFrame.partProperty['Hidden']:
                 propertyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.variablesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.configurationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.rotationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.mirrorFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
@@ -417,13 +482,14 @@ class DeviceProperties(tk.Frame):
     def onPartView(self):
         self.focus()
         device=self.device
+        varLines=SignalIntegrity.App.Project['Variables'].NetListLines()
         numPorts=device['ports'].GetValue()
         referenceDesignator=device['ref'].GetValue()
         portLine='port'
         for port in range(numPorts):
             portLine=portLine+' '+str(port+1)+' '+referenceDesignator+' '+str(port+1)
         deviceLine=device.NetListLine()
-        netList=[deviceLine,portLine]
+        netList=varLines+[deviceLine,portLine]
         import SignalIntegrity.Lib as si
         spnp=si.p.SystemSParametersNumericParser(
             si.fd.EvenlySpacedFrequencyList(

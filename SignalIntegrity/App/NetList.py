@@ -41,6 +41,8 @@ class NetList(object):
         self.definingStimList=[]
         deviceList = schematic.deviceList
         equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
+        # put in system variables
+        self.textToShow+=SignalIntegrity.App.Project['Variables'].NetListLines()
         # put all devices in the net list
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:

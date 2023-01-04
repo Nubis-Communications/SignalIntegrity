@@ -31,6 +31,7 @@ from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 from SignalIntegrity.App.TikZ import TikZ
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
+from SignalIntegrity.App.PartPicture import PartPicture
 
 import SignalIntegrity.App.Project
 
@@ -67,6 +68,14 @@ class DrawingHeadless(object):
         grid=drawingPropertiesProject['Grid']
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
+
+        schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
+        V=len(schematicPropertiesList)
+        locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
+
+        for v in range(V):
+            canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
+
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         foundAPort=False
         foundASource=False
@@ -142,7 +151,20 @@ class SignalIntegrityAppHeadless(object):
     def NullCommand(self):
         pass
 
-    def OpenProjectFile(self,filename):
+    def SetVariables(self,args,reportMissing=False):
+        variableNames = SignalIntegrity.App.Project['Variables'].Names()
+        calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
+        calculationPropertyNames = calculationProperties.dict.keys()
+        for key in args.keys():
+            if key in variableNames:
+                SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
+            elif key in calculationPropertyNames:
+                calculationProperties.SetValue(key,args[key])
+            elif reportMissing:
+                print('variable '+key+' not in project')
+        calculationProperties.CalculateOthersFromBaseInformation()
+
+    def OpenProjectFile(self,filename,args={}):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -155,6 +177,7 @@ class SignalIntegrityAppHeadless(object):
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
             SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.SetVariables(args, True)
             self.Drawing.InitFromProject()
         except:
             return False
@@ -737,12 +760,12 @@ class SignalIntegrityAppHeadless(object):
             sp=si.sp.SParameters(frequencyList,data)
             return sp
 
-def ProjectSParameters(filename):
+def ProjectSParameters(filename,**kwargs):
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename)):
+        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(SParameters=True)
@@ -761,12 +784,12 @@ def ProjectSParameters(filename):
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     return sp
 
-def ProjectWaveform(filename,wfname):
+def ProjectWaveform(filename,wfname,**kwargs):
     level=SignalIntegrityAppHeadless.projectStack.Push()
     wf=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename)):
+        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             result=None
             if app.Drawing.canSimulate:
@@ -782,12 +805,12 @@ def ProjectWaveform(filename,wfname):
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     return wf
 
-def ProjectCalibration(filename):
+def ProjectCalibration(filename,**kwargs):
     level=SignalIntegrityAppHeadless.projectStack.Push()
     result=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename)):
+        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
                 result=app.CalculateErrorTerms()[0]

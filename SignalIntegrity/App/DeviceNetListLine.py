@@ -45,7 +45,7 @@ class DeviceNetListLine(DeviceNetListConfiguration):
             if not returnstring=='':
                 returnstring=returnstring+' '
             returnstring=returnstring+device['ports'].PropertyString(stype='raw')
-        if not self['PartName'] is None:
+        if not self['PartName'] in [None,'None']:
             if not returnstring=='':
                 returnstring=returnstring+' '
             returnstring=returnstring+self['PartName']

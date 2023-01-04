@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>802x381+-1116+645</Geometry>
+			<Geometry>802x381+156+156</Geometry>
 			<Grid>16</Grid>
 			<Originx>-13</Originx>
 			<Originy>3</Originy>
@@ -60,6 +60,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>VD</Value>
@@ -72,6 +78,20 @@
 							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Default>1</Default>
+								<Description>relay position</Description>
+								<Name>Path</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>int</Type>
+								<Units></Units>
+								<Value>=Path</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageMultiLevelWaveformGenerator</ClassName>
@@ -306,6 +326,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>VC</Value>
@@ -318,6 +344,20 @@
 							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Default>1</Default>
+								<Description>relay position</Description>
+								<Name>Path</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>int</Type>
+								<Units></Units>
+								<Value>=Path</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageMixedModeConverter</ClassName>
@@ -533,6 +573,12 @@
 						<Origin>(41, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -786,4 +832,18 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Variables>
+		<Items>
+			<Variable>
+				<Default>1</Default>
+				<Description>relay position</Description>
+				<Name>Path</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>int</Type>
+				<Units></Units>
+				<Value>4</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

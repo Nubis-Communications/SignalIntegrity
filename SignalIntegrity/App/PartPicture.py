@@ -2206,7 +2206,10 @@ class PartPictureRelay(PartPictureBox):
         PartPictureBox.__init__(self,origin,[PartPin(p+1,(0,p*2+1),'l',True,True,True) for p in range(ports-1)]+[PartPin(ports,(4,ports-1),'r',True,True,True)],[(1,0),(3,(ports-1)*2)],[(0,0),(4,(ports-1)*2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
     def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
-        position=int(device['pos']['Value'])
+        try:
+            position=device['pos'].GetValue()
+        except:
+            position=0
         ports=len(self.pinListSupplied)
         if 0 < position < ports:
             lx=(drawingOrigin[0]+self.origin[0]+1)*grid

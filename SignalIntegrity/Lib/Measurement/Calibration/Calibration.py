@@ -136,7 +136,7 @@ class Calibration(object):
         with open(filename,'w') as f:
             f.writelines(lines)
         return self
-    def ReadFromFile(self,filename):
+    def ReadFromFile(self,filename,**kwargs):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
         @return self
@@ -149,7 +149,7 @@ class Calibration(object):
         ext=str.lower(filename).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectCalibration
-            calibration=ProjectCalibration(filename)
+            calibration=ProjectCalibration(filename,**kwargs)
             if not calibration is None:
                 self.ports=calibration.ports
                 self.f=calibration.f

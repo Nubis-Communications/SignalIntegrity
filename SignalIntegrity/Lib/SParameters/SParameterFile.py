@@ -32,7 +32,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
-    def __init__(self,name,Z0=None):
+    def __init__(self,name,Z0=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
         @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
@@ -47,7 +47,7 @@ class SParameterFile(SParameters):
         ext=str.lower(name).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
-            sp=ProjectSParameters(name)
+            sp=ProjectSParameters(name,**kwargs)
             if not sp is None:
                 SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
                 self.SetReferenceImpedance(Z0)

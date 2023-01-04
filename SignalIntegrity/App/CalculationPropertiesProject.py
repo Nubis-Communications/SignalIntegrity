@@ -109,45 +109,55 @@ class CalculationProperty(tk.Frame):
 class CalculationPropertyFileName(CalculationProperty):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None,tooltip=None):
         self.fileparts=fileparts
-        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
+        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath,tooltip)
     def onTouched(self,event):
-        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
-        filename=AskOpenFileName(filetypes=[('txt', '.txt'),('trc','.trc')],
-                                initialdir=fp.AbsoluteFilePath(),
-                                initialfile=fp.FileNameWithExtension('txt'))
-        if filename is None:
-            return
-        filename=ConvertFileNameToRelativePath(filename)
-        self.project[self.projectPath]=filename
-        self.UpdateStrings()
+        if not self.readonly:
+            fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
+            filename=AskOpenFileName(filetypes=[('txt', '.txt'),('trc','.trc')],
+                                    initialdir=fp.AbsoluteFilePath(),
+                                    initialfile=fp.FileNameWithExtension('txt'))
+            if filename is None:
+                return
+            filename=ConvertFileNameToRelativePath(filename)
+            self.project[self.projectPath]=filename
+            self.UpdateStrings()
 
 class CalculationPropertyFileNameSaveAs(CalculationProperty):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,fileparts,project=None,projectPath=None,tooltip=None):
         self.fileparts=fileparts
-        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
+        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath,tooltip)
     def onTouched(self,event):
-        fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
-        filename=AskSaveAsFilename(filetypes=[('txt', '.txt')],
-                                   initialdir=fp.AbsoluteFilePath(),
-                                   initialfile=fp.FileNameWithExtension('txt'))
-        if filename is None:
-            return
-        filename=ConvertFileNameToRelativePath(filename)
-        self.project[self.projectPath]=filename
-        self.UpdateStrings()
+        if not self.readonly:
+            fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
+            filename=AskSaveAsFilename(filetypes=[('txt', '.txt')],
+                                       initialdir=fp.AbsoluteFilePath(),
+                                       initialfile=fp.FileNameWithExtension('txt'))
+            if filename is None:
+                return
+            filename=ConvertFileNameToRelativePath(filename)
+            self.project[self.projectPath]=filename
+            self.UpdateStrings()
 
 class CalculationPropertySI(CalculationProperty):
-    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None,tooltip=None,round=12):
+    def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,unit=None,tooltip=None,round=12,allowEquals=False):
         self.unitString=unit
         self.round=round
-        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath)
+        self.allowEquals=allowEquals
+        CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath,tooltip)
     def SetString(self,value):
-        try:
-            self.string.set(ToSI(value,self.unitString,round=self.round))
-        except:
-            pass
+        if self.allowEquals and isinstance(value,str) and (len(value)>0) and (value[0]=='='):
+            self.string.set(value)
+        else:
+            try:
+                self.string.set(ToSI(float(value),self.unitString,round=self.round))
+            except:
+                pass
     def GetString(self):
-        return FromSI(self.string.get(),self.unitString)
+        value=self.string.get()
+        if self.allowEquals and (len(value)>0) and (value[0]=='='):
+            return value
+        else:
+            return FromSI(self.string.get(),self.unitString)
 
 class CalculationPropertyTrueFalseButton(tk.Frame):
     def __init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project=None,projectPath=None,tooltip=None,truefalse=('True','False')):
@@ -338,5 +348,4 @@ class PropertiesDialog(tk.Toplevel):
         self.withdraw()
         self.destroy()
     def destroy(self):
-        tk.Toplevel.withdraw(self)
         tk.Toplevel.destroy(self)

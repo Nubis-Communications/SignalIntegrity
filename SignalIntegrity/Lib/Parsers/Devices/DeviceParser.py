@@ -105,8 +105,8 @@ class DeviceFactory(list):
         @note Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used.
         """
         list.__init__(self,[
-        ParserDevice('file',None,True,{'':None},True,
-            "SParameterFile(arg['']).Resample(f).SetReferenceImpedance(50.)"),
+        ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
+            ,None,**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
@@ -184,7 +184,7 @@ class DeviceFactory(list):
             float(arg['scale']))"),
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
-            Z0=float(arg['z0']))"),
+            Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
             'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),50.,\
             int(arg['sect']),float(arg['scale']))"),
@@ -212,9 +212,9 @@ class DeviceFactory(list):
         list.__init__(self,list(self+[
         ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,
             'cd':'calculate'},True,"NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],\
-            not arg['cd']=='uncalculate')"),
+            (not arg['cd']=='uncalculate'),**extraArgs)"),
         ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],\
-            50.).Resample(f)"),
+            50.,**extraArgs).Resample(f)"),
         ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
             "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
         ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
@@ -232,9 +232,9 @@ class DeviceFactory(list):
             {'':None,'wfprojname':'None','dcgain':None,'mults':True,'derivative':False},True,
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
-            derivative=(arg['derivative']=='true')).Resample(f)"),
+            derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],int(arg['sect']),50.)")
+                     "Parallel(f,arg['file'],int(arg['sect']),50.,**extraArgs)")
         ]))
     def MakeDevice(self,ports,argsList,f):
         """makes a device from a set of arguments
@@ -331,16 +331,19 @@ class DeviceFactory(list):
                 raise SignalIntegrityExceptionDeviceParser(
                     'arguments must come in keyword pairs: '+name+' '+' '.join(argsList))
             # pragma: include
-            argsProvidedDict = {argsList[i].lower():argsList[i+1]
+            argsProvidedDict = {argsList[i]:argsList[i+1]
                                 for i in range(0,len(argsList),2)}
             # pragma: silent exclude
+            extraArgs={}
             if not all(key in device.defaults for key in argsProvidedDict.keys()):
                 invalidKeyList=[]
                 for key in argsProvidedDict.keys():
                     if key not in device.defaults:
                         invalidKeyList.append(key)
-                raise SignalIntegrityExceptionDeviceParser(
-                    'argument keyword(s) invalid: '+str(invalidKeyList)+' for '+name)
+                        extraArgs[key]=argsProvidedDict[key]
+                if not '**extraArgs' in device.func:
+                    raise SignalIntegrityExceptionDeviceParser(
+                        'argument keyword(s) invalid: '+str(invalidKeyList)+' for '+name)
             # pragma: include
             arg=copy.copy(device.defaults)
             arg.update(argsProvidedDict)

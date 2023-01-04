@@ -61,7 +61,10 @@ class XMLProperty(object):
                     lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
                 lines=lines+[indent+'</'+self.dict['name']+'>']
         else:
-            lines=[indent+'<'+self.dict['name']+'>'+str(et._escape_attrib(elementPropertyValue))+'</'+self.dict['name']+'>']
+            try:
+                lines=[indent+'<'+self.dict['name']+'>'+str(et._escape_attrib(elementPropertyValue))+'</'+self.dict['name']+'>']
+            except Exception as e:
+                lines=[indent+'<'+self.dict['name']+'>'+'</'+self.dict['name']+'>']
         return lines
 
     def InitFromXML(self,element):
@@ -80,11 +83,12 @@ class XMLProperty(object):
         if not 'value' in self.dict:
             self.value = None
         elif 'type' in self.dict:
+            elementPropertyType = self.dict['type']
             elementPropertyValue = self.dict['value']
-            if elementPropertyValue in ['None',None]:
+            isstring = (elementPropertyType == 'string')
+            if elementPropertyValue == None or ((elementPropertyType != 'string') and (elementPropertyValue == 'None')):
                 self.value = None
                 return self
-            elementPropertyType = self.dict['type']
             if elementPropertyType == 'int':
                 self.value = int(float(elementPropertyValue))
             elif elementPropertyType == 'float':

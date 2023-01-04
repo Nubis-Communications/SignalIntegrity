@@ -1,0 +1,21 @@
+var $Risetime$ 0
+var $SampleRate$ 40.0e9
+var $Amplitude$ 1.0
+var $Frequency$ 1.0e9
+var $Phase$ 0
+var $Source$ 1
+var $Route$ 3
+var $R$ 50.0
+var $C$ 5.0e-12
+var $Td$ 200.0e-12
+var $Zc$ 60.0
+var $Rterm$ 50.0
+var $T1td$ 500.0e-12
+var $T1zc$ 55.0
+var $R1r$ 50.0
+voltagesource VS1 1
+device T1 2 tline zc $T1zc$ td $T1td$
+device R1 1 R $R1r$
+connect T1 1 VS1 1
+voltageoutput VO T1 2
+connect T1 2 R1 1

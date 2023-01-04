@@ -1,8 +1,9 @@
-device F1 2 impulseresponsefilter WaveformViewer.si wfprojname VD dcgain 0 mults true derivative true
+var $Path$ 4
+device F1 2 impulseresponsefilter WaveformViewer.si wfprojname VD dcgain 0 mults true derivative true Path $Path$
 voltagesource VG1 1
 device R1 1 R 50.0
 device MM1 4 mixedmode voltage
-device F2 2 impulseresponsefilter WaveformViewer.si wfprojname VC dcgain 0 mults true derivative true
+device F2 2 impulseresponsefilter WaveformViewer.si wfprojname VC dcgain 0 mults true derivative true Path $Path$
 device MM2 4 mixedmode voltage
 device R2 1 R 50.0
 device G1 1 ground

@@ -23,11 +23,12 @@ from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
 import math
 
 class Device(object):
-    def __init__(self,netlist,propertiesList,partPicture,configuration=None):
+    def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=[]):
         self.netlist=netlist
         if propertiesList==None:
             propertiesList=[]
         self.propertiesList=propertiesList
+        self.variablesList=variablesList
         self.partPicture=partPicture
         self.configuration=configuration
         self.selected=False
@@ -65,7 +66,7 @@ class Device(object):
                 return
         raise ValueError
     def NetListLine(self):
-        return self.netlist.NetListLine(self)
+        return self.netlist.NetListLine(self)+self.VariablesNetlistLine()
     def PinCoordinates(self):
         return self.partPicture.current.PinCoordinates()
     def CreateVisiblePropertiesList(self):
@@ -74,6 +75,10 @@ class Device(object):
             propertyString=partProperty.PropertyString(stype='attr')
             if propertyString != '':
                 visiblePartPropertyList.append(propertyString)
+        for variable in self.variablesList:
+            displayString=variable.DisplayString(True,True,False)
+            if displayString != '':
+                visiblePartPropertyList.insert(0,displayString)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def SetWaveform(self,wf):
         self.Wf=wf
@@ -91,10 +96,19 @@ class Device(object):
                 waveform = None
             elif wfType=='file':
                 fileName = self['wffile'].PropertyString(stype='raw')
+                if (len(fileName)>0) and (fileName[0]=='='):
+                    import SignalIntegrity.App.Project
+                    variables = SignalIntegrity.App.Project['Variables']
+                    if fileName[1:] in variables.Names():
+                        fileName=variables.VariableByName(fileName[1:]).Value()
                 ext=str.lower(fileName).split('.')[-1]
                 if ext == 'si':
                     from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
-                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue())
+                    import SignalIntegrity.App.Project
+                    args=SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
+                    if self['calcprop'].GetValue() == 'true':
+                        args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue(),**args)
                     if waveform is None:
                         raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:
@@ -172,7 +186,31 @@ class Device(object):
             else:
                 self.configuration.InitializeFromPreferences()
         return self
-
+    def VariablesNetlistLine(self):
+        variablesLine=''
+        for variable in self.variablesList:
+            token=''
+            value=variable.GetValue('Value')
+            if (len(value)>0) and (value[0]=='='):
+                value='$'+value[1:]+'$'
+                token=variable.GetValue('Name')+' '+value
+            elif variable.GetValue('Type') == 'int':
+                value = str(int(value))
+                token=variable.GetValue('Name')+' '+value
+            elif variable.GetValue('Type')=='float':
+                value = str(ToSI(float(value),variable.GetValue('Unit'),letterPrefixes=False))
+                token=variable.GetValue('Name')+' '+value
+            elif variable.GetValue('Type')=='file':
+                if ' ' in value:
+                    value='"'+value+'"'
+                token=variable.GetValue('Name')+' '+value
+            variablesLine+=(' '+token)
+        if not self['calcprop'] == None:
+            if self['calcprop']['Value']=='true':
+                calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
+                for propertyName in ['EndFrequency','FrequencyPoints','UserSampleRate']:
+                    variablesLine+=(' '+propertyName+' '+str(calculationProperties[propertyName]))
+        return variablesLine
 
 class DeviceFromProject(object):
     def __init__(self,deviceProject):
@@ -224,6 +262,7 @@ class DeviceFromProject(object):
                     if isinstance(devicePartProperty['Value'],str):
                         # keep Linux file system format
                         devicePartProperty['Value']=devicePartProperty['Value'].replace('\\','/')
+        self.result.variablesList=deviceProject['Variables']['Items']
         partPictureList=self.result.partPicture.partPictureClassList
         self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
         if not self.result.configuration is None:
@@ -244,6 +283,7 @@ class DeviceFile(Device):
             PartPropertyCategory('Files'),
             PartPropertyPartName('File'),
             PartPropertyHelp('device:File'),
+            PartPropertyCalculationProperties(),
             PartPropertyDefaultReferenceDesignator('D?'),
             PartPropertyFileName()]+propertiesList,partPicture)
 
@@ -255,7 +295,12 @@ class DeviceUnknown(Device):
 class DeviceSystem(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='system',showReference=False,showports=False,values=[('file',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Systems'),PartPropertyPartName('System'),PartPropertyHelp('device:System'),PartPropertyDefaultReferenceDesignator('D?'),PartPropertyFileName()]+propertiesList,partPicture)
+        Device.__init__(self,netlist,[PartPropertyCategory('Systems'),
+                                      PartPropertyPartName('System'),
+                                      PartPropertyHelp('device:System'),
+                                      PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyCalculationProperties(),
+                                      PartPropertyFileName()]+propertiesList,partPicture)
 
 class DeviceResistor(Device):
     def __init__(self,propertiesList,partPicture):
@@ -349,6 +394,7 @@ class DeviceVoltageSource(Device):
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
+            PartPropertyCalculationProperties(),
             PartPropertyWaveformType('file'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
@@ -489,6 +535,7 @@ class DeviceCurrentSource(Device):
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
+            PartPropertyCalculationProperties(),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
 class DeviceCurrentStepGenerator(Device):
@@ -570,6 +617,7 @@ class DeviceMeasurement(Device):
                          PartPropertyDescription('Measure'),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                         PartPictureVariableMeasureProbe())
 
@@ -608,6 +656,7 @@ class DeviceWaveform(Device):
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
                          PartPropertyWaveformProjectName('')],
@@ -845,7 +894,14 @@ class DeviceNPNTransistor(Device):
 class DeviceRLGCFitFromFile(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
-        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),PartPropertyPorts(2),PartPropertyCategory('Transmission Lines'),PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),PartPropertyDefaultReferenceDesignator('T?'),PartPropertyFileName(),PartPropertyScale(scale=1)],PartPictureVariableTransmissionLineTwoPort())
+        Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),
+                                      PartPropertyPorts(2),PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyCalculationProperties(),
+                                      PartPropertyFileName(),
+                                      PartPropertyScale(scale=1)],
+                            PartPictureVariableTransmissionLineTwoPort())
 
 class DeviceNetworkAnalyzer(Device):
     def __init__(self,ports=4):
@@ -859,7 +915,8 @@ class DeviceNetworkAnalyzer(Device):
                                       PartPropertyErrorTermsFileName(),
                                       PartPropertyPortsList(','.join([str(p+1) for p in range(ports)])),
                                       PartPropertyDescription('Calibrated Port Network Analyzer'),
-                                      PartPropertyPorts(ports,False)],
+                                      PartPropertyPorts(ports,False),
+                                      PartPropertyCalculationProperties()],
                                 PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerModel(Device):
@@ -871,7 +928,8 @@ class DeviceNetworkAnalyzerModel(Device):
                                       PartPropertyDefaultReferenceDesignator('D?'),
                                       PartPropertyFileName(),
                                       PartPropertyDescription('Network Analyzer Model'),
-                                      PartPropertyPorts(ports,False)],
+                                      PartPropertyPorts(ports,False),
+                                      PartPropertyCalculationProperties()],
                                       PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerDeviceUnderTest(Device):
@@ -883,7 +941,8 @@ class DeviceNetworkAnalyzerDeviceUnderTest(Device):
                                       PartPropertyDefaultReferenceDesignator('D?'),
                                       PartPropertyFileName(),
                                       PartPropertyDescription('Network Analyzer Device-Under-Test'),
-                                      PartPropertyPorts(ports,False)],
+                                      PartPropertyPorts(ports,False),
+                                      PartPropertyCalculationProperties()],
                                       PartPictureVariableDeviceUnderTest())
 
 class DeviceShortStandard(Device):
@@ -976,7 +1035,8 @@ class DeviceReflectCalibrationMeasurement(Device):
                          PartPropertyDefaultReferenceDesignator('Meas?'),
                          PartPropertyFileName(),
                          PartPropertyStandardFileName(),
-                         PartPropertyPortNumber(1)],
+                         PartPropertyPortNumber(1),
+                         PartPropertyCalculationProperties()],
                         PartPictureVariableMeasurementOnePort())
 
 class DeviceThruCalibrationMeasurement(Device):
@@ -994,7 +1054,8 @@ class DeviceThruCalibrationMeasurement(Device):
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1),
                          PartPropertyOtherPortNumber(2),
-                         PartPropertyThruCalculationType()],
+                         PartPropertyThruCalculationType(),
+                         PartPropertyCalculationProperties()],
                         PartPictureVariableMeasurementTwoPort())
 
 class DeviceXtalkCalibrationMeasurement(Device):
@@ -1010,7 +1071,8 @@ class DeviceXtalkCalibrationMeasurement(Device):
                          PartPropertyDefaultReferenceDesignator('Meas?'),
                          PartPropertyFileName(),
                          PartPropertyPortNumber(1),
-                         PartPropertyOtherPortNumber(2)],
+                         PartPropertyOtherPortNumber(2),
+                         PartPropertyCalculationProperties()],
                         PartPictureVariableMeasurementTwoPort())
 
 class DeviceNetworkAnalyzerStimulus(Device):
@@ -1145,6 +1207,7 @@ class DeviceImpulseResponseFilter(Device):
                          PartPropertyDCGain(),
                          PartPropertyMulTs(),
                          PartPropertyDerivative(),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                          PartPictureVariableImpulseResponseFilter())
         self['wffile']['Description']='impulse response file name'
@@ -1200,6 +1263,7 @@ class DeviceEyeWaveform(Device):
                          PartPropertyBaudRate(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                         PartPictureVariableEyeWaveform(),
                         EyeDiagramConfiguration())
@@ -1222,6 +1286,7 @@ class DeviceParallel(Device):
             PartPropertyPartName('Parallel'),
             PartPropertyHelp('device:Parallel'),
             PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
             PartPropertySections(1),
             PartPropertyFileName()],PartPictureVariableParallel())
 
@@ -1356,7 +1421,7 @@ DeviceList=Devices([
                 DeviceTransresistanceAmplifierFourPort([PartPropertyDescription('Four Port Transresistance Amplifier'),PartPropertyPorts(4)]),
                 DeviceCurrentOutputProbe(),
                 DeviceVoltageOutputProbe(),
-                #DeviceNPNTransistor([PartPropertyDescription('NPN Transistor')])
+                #DeviceNPNTransistor([PartPropertyDescription('NPN Transistor')]),
                 DeviceRLGCFitFromFile(),
                 DeviceNetworkAnalyzer(),
                 DeviceNetworkAnalyzerModel(),

@@ -52,3 +52,7 @@ def AskOpenFileName(**kw):
                     kw['filetypes']=[filetypes[extindex]]+filetypes[0:extindex]+filetypes[extindex+1:]
     filename=filedialog.askopenfilename(**kw)
     return _FileNameChecker(filename)
+
+def AskOpenDirectory(**kw):
+    filedir=filedialog.askdirectory(**kw)
+    return _FileNameChecker(filedir)

@@ -25,7 +25,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile
 
 class ImpulseResponseFilter(SParameters):
     """class for impulse response filter"""
-    def __init__(self,filename,wfProjName=None,normalizedDCGain=None,multiplyByTs=True,derivative=False):
+    def __init__(self,filename,wfProjName=None,normalizedDCGain=None,multiplyByTs=True,derivative=False,**kwargs):
         """Constructor
         @param filename string file name of s-parameter file to read.
         @param wfProjName string (optional, defaults to None) name of waveform reference designator in project
@@ -52,7 +52,7 @@ class ImpulseResponseFilter(SParameters):
         ext=str.lower(filename).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
-            wf=ProjectWaveform(filename,wfProjName)
+            wf=ProjectWaveform(filename,wfProjName,**kwargs)
             if wf == None:
                 raise SignalIntegrityExceptionWaveformFile('waveform could not be produced by '+filename)
         else:

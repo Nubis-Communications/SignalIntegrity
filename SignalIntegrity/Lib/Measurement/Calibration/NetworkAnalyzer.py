@@ -25,7 +25,7 @@ class NetworkAnalyzer(SParameters):
     """produces calibrated or uncalibrated s-parameters from a network analyzer.  
     The usual use of this class is to provide calibrated s-parameters, given raw s-parameters
     and error terms, but it can also be used to go the reverse direction."""
-    def __init__(self,f,filename,etfilename,portListstring=None,calculate=True):
+    def __init__(self,f,filename,etfilename,portListstring=None,calculate=True,**kwargs):
         """Constructor  
         Calculates calibrated or raw s-parameters from a network analyzer.
         @param f list of frequencies to calculate s-parameters
@@ -44,8 +44,8 @@ class NetworkAnalyzer(SParameters):
         if portListstring!=None:
             portlist=[int(p)-1 for p in portListstring.split(',')]
         else: portlist=None
-        spraw=SParameterFile(filename).Resample(f)
-        calibration=Calibration(0,0).ReadFromFile(etfilename)
+        spraw=SParameterFile(filename,None,**kwargs).Resample(f)
+        calibration=Calibration(0,0).ReadFromFile(etfilename,**kwargs)
         fixtures=calibration.Fixtures()
         fixtures=[fixture.Resample(f) for fixture in fixtures]
         calibration.InitializeFromFixtures(fixtures)

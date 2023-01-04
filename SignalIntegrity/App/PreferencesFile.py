@@ -150,6 +150,11 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('GridsOnPlots',True))
         self.SubDir(Color())
 
+class Variables(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Variables')
+        self.Add(XMLPropertyDefaultBool('ParameterizeOnlyVisible',True))
+
 class Calculation(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Calculation')
@@ -209,5 +214,6 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Calculation())
         self.SubDir(SParameterProperties(preferences=True))
         self.SubDir(DeviceConfigurations())
+        self.SubDir(Variables())
         self.SubDir(Features())
 

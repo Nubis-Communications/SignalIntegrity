@@ -1,16 +1,18 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="Path 4" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-37" t="IR" h="3" halign="c" lc="black"/>
 %  <rect x="60" y="-32" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">56,-36 60,-36</polyline>
 %  <text x="59" y="-35" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">72,-36 68,-36</polyline>
 %  <text x="69" y="-35" t="2" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-29" t="WaveformViewer.si" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-26" t="dcgain 0 " h="3" halign="c" lc="black"/>
-%  <text x="64" y="-23" t="mults true" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-20" t="derivative true" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-17" t="wfprojname VD" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-14" t="ref F1" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-29" t="Path=Path (4)" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-26" t="WaveformViewer.si" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-23" t="dcgain 0 " h="3" halign="c" lc="black"/>
+%  <text x="64" y="-20" t="mults true" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-17" t="derivative true" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-14" t="wfprojname VD" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-11" t="ref F1" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">14,-45.5 14.5,-45.5 15.5,-42.5 16.5,-42.5 17.5,-45.5 18,-45.5</polyline>
 %  <polyline lc="black">14,-42.5 14.5,-42.5 15.5,-45.5 16.5,-45.5 17.5,-42.5 18,-42.5</polyline>
 %  <ellipse x="16" y="-44" dx="8" dy="-8" lc="black"/>
@@ -49,6 +51,7 @@
 %  <text x="59" y="-43" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">72,-44 68,-44</polyline>
 %  <text x="69" y="-43" t="2" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-71" t="Path=Path (4)" h="3" halign="c" lc="black"/>
 %  <text x="64" y="-68" t="WaveformViewer.si" h="3" halign="c" lc="black"/>
 %  <text x="64" y="-65" t="dcgain 0 " h="3" halign="c" lc="black"/>
 %  <text x="64" y="-62" t="mults true" h="3" halign="c" lc="black"/>
@@ -141,18 +144,20 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{Path 4};
 \draw[black] (64,-37) node[anchor=base]{IR};
 \path[line width=0.30mm, draw=black] (60,-40) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (56,-36) -- (60,-36);
 \draw[black] (59,-35) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (72,-36) -- (68,-36);
 \draw[black] (69,-35) node[anchor=base west]{2};
-\draw[black] (64,-29) node[anchor=base]{WaveformViewer.si};
-\draw[black] (64,-26) node[anchor=base]{dcgain 0 };
-\draw[black] (64,-23) node[anchor=base]{mults true};
-\draw[black] (64,-20) node[anchor=base]{derivative true};
-\draw[black] (64,-17) node[anchor=base]{wfprojname VD};
-\draw[black] (64,-14) node[anchor=base]{ref F1};
+\draw[black] (64,-29) node[anchor=base]{Path=Path (4)};
+\draw[black] (64,-26) node[anchor=base]{WaveformViewer.si};
+\draw[black] (64,-23) node[anchor=base]{dcgain 0 };
+\draw[black] (64,-20) node[anchor=base]{mults true};
+\draw[black] (64,-17) node[anchor=base]{derivative true};
+\draw[black] (64,-14) node[anchor=base]{wfprojname VD};
+\draw[black] (64,-11) node[anchor=base]{ref F1};
 \path[line width=0.30mm, draw=black] (14,-45.5) -- (14.5,-45.5) -- (15.5,-42.5) -- (16.5,-42.5) -- (17.5,-45.5) -- (18,-45.5);
 \path[line width=0.30mm, draw=black] (14,-42.5) -- (14.5,-42.5) -- (15.5,-45.5) -- (16.5,-45.5) -- (17.5,-42.5) -- (18,-42.5);
 \path[line width=0.30mm, draw=black] (16,-44) ellipse (4mm and -4mm);
@@ -191,6 +196,7 @@
 \draw[black] (59,-43) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (72,-44) -- (68,-44);
 \draw[black] (69,-43) node[anchor=base west]{2};
+\draw[black] (64,-69) node[anchor=north]{Path=Path (4)};
 \draw[black] (64,-66) node[anchor=north]{WaveformViewer.si};
 \draw[black] (64,-63) node[anchor=north]{dcgain 0 };
 \draw[black] (64,-60) node[anchor=north]{mults true};

@@ -63,12 +63,14 @@ from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesD
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage
+from SignalIntegrity.App.VariablesDialog import VariablesDialog
+from SignalIntegrity.App.ProjectFile import VariableConfiguration
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(tk.Frame):
-    def __init__(self,projectFileName=None,runMainLoop=True,external=False):
+    def __init__(self,projectFileName=None,runMainLoop=True,external=False,args={}):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
@@ -161,6 +163,10 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculateErrorTermsDoer = Doer(self.onCalculateErrorTerms).AddHelpElement('Control-Help:Calculate-Error-Terms')
         self.SimulateNetworkAnalyzerModelDoer = Doer(self.onSimulateNetworkAnalyzerModel).AddHelpElement('Control-Help:Simulate-Network-Analyzer-Model')
         self.CalculateSParametersFromNetworkAnalyzerModelDoer = Doer(self.onCalculateSParametersFromNetworkAnalyzerModel).AddHelpElement('Control-Help:Calculate-S-Parameters-From-Network-Analyzer-Model').AddToolTip('Calculate s-parameters from a netowrk analyzer')
+        # ------
+        self.VariablesDoer = Doer(self.onVariables).AddHelpElement('Control-Help:Schematic-Variables').AddToolTip('Edit Schematic Variables')
+        self.EquationsDoer = Doer(self.onEquations).AddHelpElement('Control-Help:Edit-Schematic-Equations').AddToolTip('Edit Schematic Equations')
+        self.ParameterizeDoer = Doer(self.onParameterizeProject).AddHelpElement('Control-Help:Parameterize-Project').AddToolTip('Parameterize Project')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File').AddToolTip('Open the help system in a browser')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences').AddToolTip('Edit the preferences')
@@ -262,6 +268,13 @@ class SignalIntegrityApp(tk.Frame):
         #self.CalculateSParametersFromNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Calculate S-parameters from VNA Model')
         #self.SimulateNetworkAnalyzerModelDoer.AddMenuElement(CalcMenu,label='Simulate VNA Model')
         # ------
+        VariablesMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='Variables',menu=VariablesMenu,underline=2)
+        self.VariablesDoer.AddMenuElement(VariablesMenu,label='Schematic Variables',underline=10)
+        self.EquationsDoer.AddMenuElement(VariablesMenu,label='Schematic Equations',underline=10)
+        VariablesMenu.add_separator()
+        self.ParameterizeDoer.AddMenuElement(VariablesMenu,label='Parameterize Schematic',underline=0)
+        # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
@@ -341,9 +354,9 @@ class SignalIntegrityApp(tk.Frame):
                 fileparts=FileParts(projectFileName)
                 ext=fileparts.fileext
                 if ext in ['.si','']:
-                    self.OpenProjectFile(projectFileName,False)
+                    self.OpenProjectFile(projectFileName,False,args)
                 elif ext in ['.siz']:
-                    self.ExtractArchive(projectFileName)
+                    self.ExtractArchive(projectFileName,args)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
@@ -360,12 +373,13 @@ class SignalIntegrityApp(tk.Frame):
                     self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
                     self.ViewCalibration(self.calibration)
                 elif len(ext) >= 4: # for '.sXp' at the minimum
+                    isSpFile=False
                     if (ext[0:2] == '.s') and (ext[-1] == 'p'):
                         try:
                             int(ext[2:-1])
                             isSpFile=True
                         except:
-                            isSpFile=False
+                            pass
                     if isSpFile:
                         deiconify=False # since running standalone
                         import SignalIntegrity.Lib as si
@@ -439,7 +453,20 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.OpenProjectFile(filename)
 
-    def OpenProjectFile(self,filename,showError=True):
+    def SetVariables(self,args,reportMissing=False):
+        variableNames = SignalIntegrity.App.Project['Variables'].Names()
+        calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
+        calculationPropertyNames = calculationProperties.dict.keys()
+        for key in args.keys():
+            if key in variableNames:
+                SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
+            elif key in calculationPropertyNames:
+                calculationProperties.SetValue(key,args[key])
+            elif reportMissing:
+                print('variable '+key+' not in project')
+        calculationProperties.CalculateOthersFromBaseInformation()
+
+    def OpenProjectFile(self,filename,showError=True,args={}):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -456,6 +483,7 @@ class SignalIntegrityApp(tk.Frame):
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
             SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.SetVariables(args, reportMissing=True)
             self.Drawing.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.stateMachine.Nothing()
@@ -985,6 +1013,51 @@ class SignalIntegrityApp(tk.Frame):
             sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
             SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
+    def onVariables(self):
+        self.Drawing.stateMachine.Nothing()
+        if not hasattr(self, 'variablesDialog'):
+            self.variablesDialog = VariablesDialog(self)
+        if self.variablesDialog == None:
+            self.variablesDialog= VariablesDialog(self)
+        else:
+            if not self.variablesDialog.winfo_exists():
+                self.variablesDialog=VariablesDialog(self)
+        self.variablesDialog.grab_set()
+
+    def onParameterizeProject(self):
+        self.history.Event('parameterize project')
+        self.Drawing.stateMachine.Nothing()
+        variables=SignalIntegrity.App.Project['Variables']
+        for device in self.Drawing.schematic.deviceList:
+            ref=device['ref']
+            if ref != None:
+                prefix=ref['Value']
+                if prefix == None:
+                    prefix=''
+                for prop in device.propertiesList:
+                    if (not SignalIntegrity.App.Preferences['Variables.ParameterizeOnlyVisible'] or prop['Visible']) and (not prop['Hidden']) and prop['InProjectFile'] and (not prop['Keyword'] in ['ref','ports','file']):
+                        varName=prefix+prop['Keyword']
+                        varValue=prop['Value']
+                        if (not ((len(varValue)>1) and (varValue[0]=='='))):
+                            if not (varName in variables.Names()):
+                                variable=VariableConfiguration().InitFromPartProperty(varName,prop)
+                                variables['Items'].append(variable)
+                            prop.SetValueFromString('='+varName)
+                for variable in device.variablesList:
+                    varName=prefix+variable['Name']
+                    varValue=variable['Value']
+                    if (not ((len(varValue)>1) and (varValue[0]=='='))):
+                        if not (varName in variables.Names()):
+                            newVariable=copy.deepcopy(variable)
+                            newVariable['Name']=varName
+                            newVariable['Value']=varValue
+                            variables['Items'].append(newVariable)
+                        variable['Value']=('='+varName)
+            self.Drawing.DrawSchematic()
+
+    def onEquations(self):
+        pass
+
     def onHelp(self):
         if Doer.helpKeys is None:
             messagebox.showerror('Help System','Cannot find or open this help element')
@@ -1064,6 +1137,9 @@ class SignalIntegrityApp(tk.Frame):
             self.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(True)
             self.SimulateNetworkAnalyzerModelDoer.Activate(True)
             # ------
+            self.VariablesDoer.Activate(True)
+            self.EquationsDoer.Activate(True)
+            # ------
             self.HelpDoer.Activate(True)
             self.ControlHelpDoer.Activate(True)
             # ------
@@ -1106,23 +1182,23 @@ class SignalIntegrityApp(tk.Frame):
         w=tk.Button(self.root)
 
         backgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Background']
-        if backgroundColor is None:
+        if backgroundColor in [None,'None']:
             backgroundColor=w['background']
 
         foregroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Foreground']
-        if foregroundColor is None:
+        if foregroundColor in [None,'None']:
             foregroundColor=w['foreground']
 
         activeForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveForeground']
-        if activeForegroundColor is None:
+        if activeForegroundColor in [None,'None']:
             activeForegroundColor=w['activeforeground']
 
         activeBackgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveBackground']
-        if activeBackgroundColor is None:
+        if activeBackgroundColor in [None,'None']:
             activeBackgroundColor=w['activebackground']
 
         disabledForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.DisabledForeground']
-        if disabledForegroundColor is None:
+        if disabledForegroundColor in [None,'None']:
             disabledForegroundColor=w['disabledforeground']
 
         try:
@@ -1285,7 +1361,7 @@ class SignalIntegrityApp(tk.Frame):
         msg.destroy()
         msg=messagebox.showinfo('Archive complete','Archive created: '+self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz')
 
-    def ExtractArchive(self,filename):
+    def ExtractArchive(self,filename,args={}):
         if filename is None:
             return
 
@@ -1313,7 +1389,7 @@ class SignalIntegrityApp(tk.Frame):
         if filename is None:
             return
 
-        self.OpenProjectFile(filename)
+        self.OpenProjectFile(filename,args)
 
     def onExtractArchive(self):
         if not self.CheckSaveCurrentProject():
@@ -1363,12 +1439,17 @@ class SignalIntegrityApp(tk.Frame):
 def main():
     projectFileName = None
     external=False
+    argsDict={}
     if len(sys.argv) >= 2:
         projectFileName=sys.argv[1]
-    for arg in sys.argv[2:]:
-        if arg=='--external':
-            external=True
-    SignalIntegrityApp(projectFileName,external=external)
+
+    if len(sys.argv) >= 3:
+        if sys.argv[2] == '--external':
+            external = True
+
+        argsDict=dict(zip(sys.argv[3::2],sys.argv[4::2]))
+
+    SignalIntegrityApp(projectFileName,external=external,args=argsDict)
 
 if __name__ == '__main__': # pragma: no cover
     runProfiler=False

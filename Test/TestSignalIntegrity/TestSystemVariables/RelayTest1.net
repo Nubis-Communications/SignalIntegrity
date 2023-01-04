@@ -1,0 +1,18 @@
+var $Route$ 1
+var $R$ 50.0
+var $C$ 5.0e-12
+var $Td$ 200.0e-12
+var $Zc$ 60.0
+device K1 4 relay $Route$ term 1.0e9
+device K2 4 relay $Route$ term 1.0e9
+device Tline 2 tline zc $Zc$ td $Td$
+device RCNetwork 2 file RCFilter/RCTest.si R $R$ C $C$
+device RCNetwork2 2 file RCFilter/RCTest.si R 500.0 C 5.0e-12
+connect Tline 1 K1 1
+connect K1 2 RCNetwork 1
+connect K1 3 RCNetwork2 1
+port 1 td 0 K1 4
+connect K2 1 Tline 2
+connect K2 2 RCNetwork 2
+connect RCNetwork2 2 K2 3
+port 2 td 0 K2 4

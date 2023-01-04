@@ -1,5 +1,5 @@
 class SParameterFile(SParameters):
-    def __init__(self,name,Z0=None):
+    def __init__(self,name,Z0=None,**kwargs):
         self.m_sToken='S'
         self.m_Z0=Z0
         self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
