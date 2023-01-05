@@ -204,6 +204,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -239,6 +245,12 @@
 						<Origin>(4, -8)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -384,6 +396,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -420,6 +438,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -455,6 +479,12 @@
 						<Origin>(36, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -606,6 +636,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -720,6 +756,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -755,6 +797,12 @@
 						<Origin>(0, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -1001,6 +1049,12 @@
 						<Origin>(24, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -1272,8 +1326,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

@@ -216,6 +216,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -224,7 +230,7 @@
 						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -258,6 +264,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -266,7 +278,7 @@
 						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value></Value>
+							<Value>None</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -438,6 +450,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -473,6 +491,12 @@
 						<Origin>(23, 20)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -658,8 +682,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

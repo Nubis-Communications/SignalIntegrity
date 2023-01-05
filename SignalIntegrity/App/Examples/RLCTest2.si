@@ -96,6 +96,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>-5.5e-08</Value>
@@ -198,6 +204,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
@@ -234,6 +246,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>1.0</Value>
@@ -269,6 +287,12 @@
 						<Origin>(10, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -312,6 +336,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -347,6 +377,12 @@
 						<Origin>(6, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -434,8 +470,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

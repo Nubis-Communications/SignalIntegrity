@@ -30,6 +30,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -305,8 +311,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

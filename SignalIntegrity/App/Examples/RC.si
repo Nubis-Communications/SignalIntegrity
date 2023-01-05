@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>-1e-07</Value>
@@ -162,6 +168,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -197,6 +209,12 @@
 						<Origin>(10, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -268,8 +286,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

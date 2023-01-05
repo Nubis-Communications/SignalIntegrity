@@ -696,6 +696,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -731,6 +737,12 @@
 						<Origin>(13, 16)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -803,6 +815,12 @@
 						<Origin>(22, 20)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -887,7 +905,10 @@
 						<Measure>
 							<BERForMeasure>-6</BERForMeasure>
 							<Measure>False</Measure>
-							<NoisePenalty>0</NoisePenalty>
+							<RxTx>Rx</RxTx>
+							<TxInputPowerAvailable>False</TxInputPowerAvailable>
+							<TxInputPowerW>0</TxInputPowerW>
+							<WaveformType>V</WaveformType>
 						</Measure>
 						<Mode>ISI</Mode>
 						<Rows>200</Rows>
@@ -909,6 +930,12 @@
 						<Origin>(22, 29)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -1244,8 +1271,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

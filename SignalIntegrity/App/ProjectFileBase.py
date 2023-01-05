@@ -55,10 +55,11 @@ class XMLProperty(object):
         else:
             elementPropertyValue = None
         if isinstance(elementPropertyValue,list):
-            lines=lines+[indent+'<'+self.dict['name']+'>']
-            for item in elementPropertyValue:
-                lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
-            lines=lines+[indent+'</'+self.dict['name']+'>']
+            if len(elementPropertyValue) > 0:
+                lines=lines+[indent+'<'+self.dict['name']+'>']
+                for item in elementPropertyValue:
+                    lines=lines+item.OutputXML(indent+ProjectFileBase.indent)
+                lines=lines+[indent+'</'+self.dict['name']+'>']
         else:
             lines=[indent+'<'+self.dict['name']+'>'+str(et._escape_attrib(elementPropertyValue))+'</'+self.dict['name']+'>']
         return lines

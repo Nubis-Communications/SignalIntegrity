@@ -12,14 +12,6 @@
 			<Originy>2</Originy>
 		</DrawingProperties>
 		<Schematic>
-			<Devices>
-			</Devices>
-			<Wires>
-			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

@@ -1694,12 +1694,6 @@
 					</PartProperties>
 				</Device>
 			</Devices>
-			<Wires>
-			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

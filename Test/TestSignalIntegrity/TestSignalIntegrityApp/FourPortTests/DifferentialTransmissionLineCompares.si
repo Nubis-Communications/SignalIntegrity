@@ -41,12 +41,6 @@
 							<Value>1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -76,12 +70,6 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -113,12 +101,6 @@
 							<Value>3</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -148,12 +130,6 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -305,12 +281,6 @@
 							<Value>5</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -340,12 +310,6 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>6</Value>
 							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -377,12 +341,6 @@
 							<Value>7</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -412,12 +370,6 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>8</Value>
 							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -554,12 +506,6 @@
 					</PartProperties>
 				</Device>
 			</Devices>
-			<Wires>
-			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

@@ -54,6 +54,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>0.5</Value>
@@ -161,7 +167,10 @@
 						<Measure>
 							<BERForMeasure>-6</BERForMeasure>
 							<Measure>True</Measure>
-							<NoisePenalty>0</NoisePenalty>
+							<RxTx>Rx</RxTx>
+							<TxInputPowerAvailable>False</TxInputPowerAvailable>
+							<TxInputPowerW>0</TxInputPowerW>
+							<WaveformType>V</WaveformType>
 						</Measure>
 						<Mode>ISI</Mode>
 						<Rows>200</Rows>
@@ -183,6 +192,12 @@
 						<Origin>(16, -14)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -364,6 +379,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>-1.0000000000000001e-07</Value>
@@ -520,6 +541,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>-1.0000000000000001e-07</Value>
@@ -669,6 +696,12 @@
 						<Origin>(-1, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -887,8 +920,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

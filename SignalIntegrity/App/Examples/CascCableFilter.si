@@ -101,12 +101,6 @@
 							<Value>1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 				<Device>
@@ -137,21 +131,9 @@
 							<Value>2</Value>
 							<Visible>True</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
-							<Visible>False</Visible>
-						</PartProperty>
 					</PartProperties>
 				</Device>
 			</Devices>
-			<Wires>
-			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

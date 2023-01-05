@@ -207,6 +207,11 @@ class PostProcessingConfiguration(XMLConfiguration):
         except:
             goodlines=[]
         return goodlines
+    def OutputXML(self,indent):
+        if len(self['Lines']) > 0:
+            return XMLConfiguration.OutputXML(self, indent)
+        else:
+            return []
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):

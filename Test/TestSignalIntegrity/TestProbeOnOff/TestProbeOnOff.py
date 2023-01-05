@@ -92,9 +92,10 @@ class TestProbeOnOffTest(unittest.TestCase,
             if os.path.exists('ProbeCircuit_' + probe + '.' + ext):
                 shutil.copy('ProbeCircuit_' + probe + '.' + ext, testname + '_' + probeName + '.' + ext)
 
-        def cleanupFiles(probe, ext, test):
-            if os.path.exists(testname + '_' + probeName + '.' + ext):
-                os.remove(testname + '_' + probeName + '.' + ext)
+        def cleanupFiles(probeName, ext, test):
+            probeString = '' if probeName is None else  ('_' + probeName)
+            if os.path.exists(testname + probeString + '.' + ext):
+                os.remove(testname + probeString + '.' + ext)
 
         for probeName in probeState.keys():
             app.Device(probeName)['state']['Value'] = 'on' if probeState[probeName] else 'off'
@@ -119,6 +120,7 @@ class TestProbeOnOffTest(unittest.TestCase,
                 cleanupFiles(probeName, 'npy', testname)
                 cleanupFiles(probeName, 'png', testname)
                 cleanupFiles(probeName, 'txt', testname)
+                cleanupFiles(None, 'si', testname)
 
     def testAAAProbe(self):
         app = SignalIntegrityAppHeadless()

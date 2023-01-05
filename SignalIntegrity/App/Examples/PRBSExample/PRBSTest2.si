@@ -90,6 +90,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -130,6 +136,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>PRBSGenerator.si</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>wftype</Keyword>
@@ -306,6 +318,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
@@ -348,6 +366,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
@@ -389,6 +413,12 @@
 						<Origin>(47, -10)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -664,8 +694,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>
