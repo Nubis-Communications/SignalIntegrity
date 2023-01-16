@@ -34,18 +34,22 @@ class SParameters(SParameterManipulation):
             mat=self[n]
             if Z0 != self.m_Z0: mat=ReferenceImpedance(mat,Z0,self.m_Z0)
             if self.m_P == 2: mat=array(mat).transpose().tolist()
+            def phase(value):
+                ph=cmath.phase(val)
+                if ph == -math.pi: ph=math.pi
+                return ph
             for r in range(self.m_P):
                 for c in range(self.m_P):
                     val = mat[r][c]
                     if cpxType == 'MA':
                         line.append(str(round(abs(val),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                        line.append(str(round(phase(val)*180./math.pi,digits)))
                     elif cpxType == 'RI':
                         line.append(str(round(val.real,digits)))
                         line.append(str(round(val.imag,digits)))
                     elif cpxType == 'DB':
                         line.append(str(round(20*math.log10(abs(val)),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                        line.append(str(round(phase(val)*180./math.pi,digits)))
             pline = ' '.join(line)+'\n'
             lines.append(pline)
         return lines

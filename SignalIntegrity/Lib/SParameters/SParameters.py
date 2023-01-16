@@ -113,6 +113,10 @@ class SParameters(SParameterManipulation):
             # pragma: silent exclude
             tokensOnLine=0
             digits=self.numDigits
+            def phase(value):
+                ph=cmath.phase(val)
+                if ph == -math.pi: ph=math.pi
+                return ph
             # pragma: include
             for r in range(self.m_P):
                 for c in range(self.m_P):
@@ -124,13 +128,13 @@ class SParameters(SParameterManipulation):
                     val = mat[r][c]
                     if cpxType == 'MA':
                         line.append(str(round(abs(val),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                        line.append(str(round(phase(val)*180./math.pi,digits)))
                     elif cpxType == 'RI':
                         line.append(str(round(val.real,digits)))
                         line.append(str(round(val.imag,digits)))
                     elif cpxType == 'DB':
                         line.append(str(round(20*math.log10(abs(val)),digits)))
-                        line.append(str(round(cmath.phase(val)*180./math.pi,digits)))
+                        line.append(str(round(phase(val)*180./math.pi,digits)))
                     # pragma: silent exclude
                     tokensOnLine=tokensOnLine+1
                     # pragma: include
