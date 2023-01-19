@@ -58,13 +58,26 @@ class Spline(object):
             Ai.append(P[i][2]+x[i]*3.*P[i][3])
             Ai.append(P[i][3])
             self.m_A.append(Ai)
-    def Interval(self,x):
-        if x<self.m_t[0]:
-            return 0
-        for i in range(1,len(self.m_t)):
-            if x < self.m_t[i]:
-                return i-1
-        return len(self.m_t)-1
+    def Interval(self,x,newWay=True):
+        try:
+            import bisect
+        except:
+            newWay=False
+        if newWay:
+            import bisect
+            if x < self.m_t[0]:
+                return 0
+            elif x < self.m_t[-1]:
+                return bisect.bisect_right(self.m_t,x)-1
+            else:
+                return len(self.m_t)-1
+        else:
+            if x<self.m_t[0]:
+                return 0
+            for i in range(1,len(self.m_t)):
+                if x < self.m_t[i]:
+                    return i-1
+            return len(self.m_t)-1
     def Evaluate(self,x):
         i = self.Interval(x)
         xi = (x-self.m_t[i])

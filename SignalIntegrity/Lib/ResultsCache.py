@@ -178,6 +178,8 @@ class LinesCache(ResultsCache):
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         for line in self.m_lines:
             lineList=LineSplitter(line)
+            self.ProcessVariables(lineList)
+            lineList=self.ReplaceArgs(lineList)
             if len(lineList) == 0: # pragma: no cover
                 pass
             elif lineList[0] == 'device':
