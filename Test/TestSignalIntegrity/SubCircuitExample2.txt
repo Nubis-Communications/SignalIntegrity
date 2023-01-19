@@ -1,2 +1,2 @@
-device D 2 subcircuit cascade.sub DL 'file cable.s2p' DR 'file filter.s2p'
+device D 2 subcircuit cascade.sub DL 'file,cable.s2p' DR 'file,filter.s2p'
 port 1 D 1 2 D 2
