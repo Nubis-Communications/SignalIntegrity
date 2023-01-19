@@ -107,7 +107,7 @@ class TestSubcircuit(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test
         sdp.WriteToFile('cascade.sub')
     def testSubCircuitUserNetlistGenerator2(self):
         sdp = si.p.SystemDescriptionParser()
-        sdp.AddLines(['device D 2 subcircuit cascade.sub DL \'file,cable.s2p\' DR \'file,filter.s2p\'',
+        sdp.AddLines(['device D 2 subcircuit cascade.sub DL \'file;cable.s2p\' DR \'file;filter.s2p\'',
                       'port 1 D 1 2 D 2'])
         sdp.WriteToFile('SubCircuitExample2.txt')
     def testSubCircuitExample2(self):

@@ -35,7 +35,7 @@ class ParserArgs():
                 replacedOne=True
                 lineList[i] = self.m_vars[lineList[i]]
         if replacedOne:
-            lineList=','.join(lineList).split(',')
+            lineList=';'.join(lineList).split(';')
         return lineList
     def ProcessVariables(self,lineList):
         if lineList[0] == 'var':
