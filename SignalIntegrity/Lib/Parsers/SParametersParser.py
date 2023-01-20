@@ -81,8 +81,8 @@ class SParametersParser(SParameters):
                             raise IndexError
                     else:
                         raise IndexError
-                elif tokens[1]=='!':
-                    self.header.append(line[len('post ! '):])
+                elif tokens[1][0]=='!':
+                    self.header.append(line[len('post !'):])
                 else:
                     raise IndexError
             except:
