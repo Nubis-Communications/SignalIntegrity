@@ -26,7 +26,6 @@ else:
     import tkinter as tk
     from tkinter import  messagebox
 
-import matplotlib
 import math
 import numpy as np
 
@@ -46,27 +45,12 @@ import SignalIntegrity.App.Project
 
 import SignalIntegrity.Lib as si
 
-if not 'matplotlib.backends' in sys.modules:
-    matplotlib.use('TkAgg')
-
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-
-from matplotlib.figure import Figure
-from matplotlib.collections import LineCollection
-
-from matplotlib import rcParams
-rcParams.update({'figure.autolayout': True})
-
-class NavigationToolbar(NavigationToolbar2Tk):
-    def __init__(self, canvas, window,homeCallback=None):
-        NavigationToolbar2Tk.__init__(self,canvas,window)
-
 class BathtubCurveDialog(tk.Toplevel):
     def __init__(self, parent, name):
         tk.Toplevel.__init__(self, parent)
         self.parent=parent
         self.withdraw()
+
         self.name=name
         self.title('Bathtub Curve: '+name)
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
@@ -85,6 +69,23 @@ class BathtubCurveDialog(tk.Toplevel):
         tk.Toplevel.destroy(self)
 
     def UpdateMeasurements(self,measDict):
+        import matplotlib
+        if not 'matplotlib.backends' in sys.modules:
+            matplotlib.use('TkAgg')
+
+        from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+
+        from matplotlib import rcParams
+        rcParams.update({'figure.autolayout': True})
+
+        class NavigationToolbar(NavigationToolbar2Tk):
+            def __init__(self, canvas, window,homeCallback=None):
+                NavigationToolbar2Tk.__init__(self,canvas,window)
+
+        from matplotlib.figure import Figure
+        from matplotlib.collections import LineCollection
+
         if (measDict is None) or (not 'Bathtub' in measDict.keys()):
             self.withdraw()
             return

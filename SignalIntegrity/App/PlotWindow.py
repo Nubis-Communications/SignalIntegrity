@@ -27,14 +27,6 @@ import matplotlib
 
 import sys
 
-if not 'matplotlib.backends' in sys.modules:
-    matplotlib.use('TkAgg')
-
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-
-from matplotlib.figure import Figure
-
 class PlotDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent)
@@ -44,6 +36,14 @@ class PlotDialog(tk.Toplevel):
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.destroy)
+
+        if not 'matplotlib.backends' in sys.modules:
+            matplotlib.use('TkAgg')
+
+        from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+
+        from matplotlib.figure import Figure
 
         self.f = Figure(figsize=(5,4), dpi=100)
         self.plt = self.f.add_subplot(111)

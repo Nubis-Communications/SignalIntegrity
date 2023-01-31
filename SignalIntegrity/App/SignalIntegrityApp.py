@@ -31,8 +31,8 @@ else:
 import copy
 import os
 
-import matplotlib
-matplotlib.use('TkAgg')
+# import matplotlib
+# matplotlib.use('TkAgg')
 
 from SignalIntegrity.App.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture

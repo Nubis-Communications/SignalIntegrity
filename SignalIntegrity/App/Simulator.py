@@ -37,17 +37,6 @@ from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
 
 import SignalIntegrity.App.Project
 
-import matplotlib
-import matplotlib.pyplot
-
-if not 'matplotlib.backends' in sys.modules:
-    matplotlib.use('TkAgg')
-
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
-
-from matplotlib.figure import Figure
-
 import math
 from numpy import mean,std
 
@@ -60,6 +49,16 @@ class SimulatorDialog(tk.Toplevel):
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
+
+        import matplotlib.pyplot
+        import matplotlib
+        if not 'matplotlib.backends' in sys.modules:
+            matplotlib.use('TkAgg')
+
+        from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+        from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
+
+        from matplotlib.figure import Figure
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.WaveformSaveDoer = Doer(self.onWriteSimulatorToFile).AddHelpElement('Control-Help:Save-Waveforms').AddToolTip('Save waveforms to files')
@@ -368,6 +367,7 @@ class SimulatorDialog(tk.Toplevel):
         self.waveformNamesList=[]
         self.waveformColorIndexList=[]
         self.waveformTypesList=[]
+        import matplotlib
         colors=matplotlib.pyplot.rcParams['axes.prop_cycle'].by_key()['color']
         for si in range(len(self.SelectionDoerList)):
             if self.SelectionDoerList[si].Bool():
