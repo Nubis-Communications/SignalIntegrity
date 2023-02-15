@@ -137,6 +137,8 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         self.CalibrationResultsChecker('TDRCalibration.si')
     def testTDRCalculation(self):
         self.SParameterResultsChecker('TDRCalculation.si')
+    def testTDRCalculationArchive(self):
+        self.SParameterResultsChecker('TDRCalculation.si',archive=True)
 
 if __name__ == "__main__": # pragma: no cover
     runProfiler=False

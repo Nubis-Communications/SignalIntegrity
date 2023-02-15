@@ -69,6 +69,7 @@ class ResultsCache(object):
                 if hash == self.hash:
                     tmp_dict = pickle.load(f)
                     self.__dict__.update(tmp_dict)
+                    if self.logging: print(filename + ' passes cache check')
                     return True
                 else:
                     if self.logging:

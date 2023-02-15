@@ -29,11 +29,11 @@ class SignalIntegrityAppTestHelper:
         self.path=path
     def FileNameForTest(self,filename):
         return filename.replace('..', 'Up').replace('/','_').split('.')[0]
-    def PictureChecker(self,pysi,filename):
+    def PictureChecker(self,pysi,filename,archive=False):
         if not self.checkPictures:
             return
         currentDirectory=os.getcwd()
-        os.chdir(self.path)
+        os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
         testFilename=self.FileNameForTest(filename)+'.TpX'
         try:
             from SignalIntegrity.App.TpX import TpX
@@ -43,6 +43,7 @@ class SignalIntegrityAppTestHelper:
             tpx.lineList=tpx.lineList+tikz.lineList
         except:
             self.assertTrue(False,filename + ' couldnt be drawn')
+        os.chdir(self.path)
         if not os.path.exists(testFilename) or self.forceWritePictures:
             tpx.WriteToFile(testFilename)
             if not self.relearn:
@@ -67,9 +68,9 @@ class SignalIntegrityAppTestHelper:
             self.assertTrue(foundOne,testFilename + ' incorrect')
         print(testFilename+' okay, but in different order')
         os.chdir(currentDirectory)
-    def NetListChecker(self,pysi,filename):
+    def NetListChecker(self,pysi,filename,archive=False):
         currentDirectory=os.getcwd()
-        os.chdir(self.path)
+        os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
         testFilename=self.FileNameForTest(filename)+'.net'
         if isinstance(pysi,list):
             netlist=pysi
@@ -79,6 +80,7 @@ class SignalIntegrityAppTestHelper:
             except:
                 self.assertTrue(False,filename + ' couldnt produce netlist')
         netlist=[line+'\n' for line in netlist]
+        os.chdir(self.path)
         if not os.path.exists(testFilename):
             with open(testFilename,"w") as f:
                 for line in netlist:
@@ -191,19 +193,34 @@ class SignalIntegrityAppTestHelper:
         regression=Waveform().ReadFromFile(wffilename)
         self.assertTrue(wf==regression,wffilename + ' incorrect')
         os.chdir(currentDirectory)
-    def Preliminary(self,filename,checkPicture=True,checkNetlist=True,args={}):
-        os.chdir(self.path)
+    def ArchiveStart(self,filename,args={},archive=False):
+        if archive:
+            os.chdir(self.path)
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            app=SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
+            self.assertTrue(app.Archive(),filename + ' couldnt be archived')
+            self.assertTrue(app.ExtractArchive(os.path.splitext(filename)[0]+'.siz', args))
+    def ArchiveCleanup(self,filename,app,archive=False):
+        if archive:
+            os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
+            self.assertTrue(app.FreshenArchive())
+            self.assertTrue(app.UnExtractArchive())
+            os.remove(os.path.splitext(filename)[0]+'.siz')
+    def Preliminary(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
+        self.ArchiveStart(filename, args, archive)
+        os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         pysi=SignalIntegrityAppHeadless()
         self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
         #pysi.SaveProject()
         if checkPicture:
-            self.PictureChecker(pysi,filename)
+            self.PictureChecker(pysi,filename,archive)
         if checkNetlist:
-            self.NetListChecker(pysi,filename)
+            self.NetListChecker(pysi,filename,archive)
         return pysi
-    def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist, args)
+    def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
+        pysi=self.Preliminary(filename, checkPicture, checkNetlist, args, archive)
         result=pysi.CalculateSParameters()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
@@ -211,6 +228,7 @@ class SignalIntegrityAppTestHelper:
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result[0]
         self.SParameterRegressionChecker(sp, spfilename)
+        self.ArchiveCleanup(filename,pysi,archive)
         return result
     def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
@@ -222,8 +240,8 @@ class SignalIntegrityAppTestHelper:
         cal=result[0]
         self.CalibrationRegressionChecker(cal,calfilename)
         return result
-    def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False):
+        pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
         result=pysi.Simulate()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
@@ -244,6 +262,7 @@ class SignalIntegrityAppTestHelper:
             wf=outputWaveforms[i]
             wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
+        self.ArchiveCleanup(filename,pysi,archive)
         return result
     def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)

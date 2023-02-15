@@ -294,6 +294,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -334,6 +340,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -378,6 +390,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -418,6 +436,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -462,6 +486,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -502,6 +532,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -558,6 +594,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -598,6 +640,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -642,6 +690,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -682,6 +736,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>3</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -726,6 +786,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -768,6 +834,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -808,6 +880,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>4</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -864,6 +942,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -916,6 +1000,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>SOLT</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>
@@ -972,6 +1062,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -1026,6 +1122,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -1078,6 +1180,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>SOLT</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ref</Keyword>

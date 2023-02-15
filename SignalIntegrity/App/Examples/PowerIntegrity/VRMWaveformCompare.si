@@ -36,6 +36,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -146,6 +152,12 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
@@ -264,6 +276,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
@@ -374,6 +392,12 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>

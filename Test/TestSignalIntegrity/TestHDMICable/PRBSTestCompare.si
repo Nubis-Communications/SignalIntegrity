@@ -126,6 +126,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>HDMICableDeembeddedMM.si</Value>
@@ -341,6 +347,12 @@
 						<Origin>(47, -14)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -690,6 +702,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>FFE.si</Value>
@@ -833,6 +851,12 @@
 						<Origin>(27, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>

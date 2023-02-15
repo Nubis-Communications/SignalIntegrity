@@ -198,6 +198,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>

@@ -32,7 +32,7 @@ from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 from SignalIntegrity.App.TikZ import TikZ
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
 from SignalIntegrity.App.PartPicture import PartPicture
-from SignalIntegrity.App.Archive import Archive
+from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.Lib.Exception import SignalIntegrityException
 import SignalIntegrity.App.Project
 
@@ -762,7 +762,6 @@ class SignalIntegrityAppHeadless(object):
             return sp
 
     def Archive(self,overrideExistance=True):
-        self.Drawing.stateMachine.Nothing()
         self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
         fp=self.fileparts
         if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
@@ -803,19 +802,19 @@ class SignalIntegrityAppHeadless(object):
 
         return self.OpenProjectFile(filename,args)
 
-    def onFreshenArchive(self):
+    def FreshenArchive(self):
         try:
             Archive.Freshen(self.fileparts.FileNameWithExtension())
         except:
             return False
         return True
 
-    def onUnExtractArchive(self):
+    def UnExtractArchive(self):
         if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
             return False
 
         try:
-            self.onCloseProject()
+#             self.onCloseProject()
             Archive.UnExtractArchive(self.fileparts.AbsoluteFilePath())
         except:
             return False

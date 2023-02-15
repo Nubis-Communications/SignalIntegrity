@@ -1,0 +1,39 @@
+var $VDDH$ 3.3
+var $VDDL$ 1.8
+var $PDNwirebond_l$ 2.0e-9
+var $PDNwirebond_esr$ 3.1
+device PDN 6 file PDN.si wirebond_l $PDNwirebond_l$ wirebond_esr $PDNwirebond_esr$ EndFrequency 50000000000.0 FrequencyPoints 2000 UserSampleRate 40000000000.0
+voltagesource VS1 1
+device G1 1 ground
+device D_VDDH 4 voltagecontrolledvoltagesource 1.0
+currentsource D_IDDH 2 gain -10.0e-3 a 1.0 dc 50.0e-3
+device D_VDDH_Decap 2 file Decap.si c 200.0e-12 esr 100.0e-3 EndFrequency 50000000000.0 FrequencyPoints 2000 UserSampleRate 40000000000.0
+device L1 2 L 250.0e-15
+device L2 2 L 250.0e-15
+device D_VDDL 4 voltagecontrolledvoltagesource 1.0
+currentsource D_IDDL 2 gain -10.0e-3 a 1.0 dc 50.0e-3
+device D_VDDL_Decap 2 file Decap.si c 180.0e-12 esr 100.0e-3 EndFrequency 50000000000.0 FrequencyPoints 2000 UserSampleRate 40000000000.0
+device L3 2 L 250.0e-15
+device L4 2 L 250.0e-15
+voltagesource VS2 1
+connect G1 1 PDN 1
+connect PDN 3 VS2 1
+connect VS1 1 PDN 5
+connect L3 2 D_VDDL_Decap 1 PDN 4
+connect L1 2 D_VDDH_Decap 1 PDN 6
+connect D_IDDH 2 L2 1 D_VDDH 1
+connect D_VDDH 2 D_IDDH 1 L1 1
+connect D_IDDL 2 L4 1 D_VDDL 1
+connect D_VDDL 2 D_IDDL 1 L3 1
+voltageoutput D_GND L4 2
+connect L4 2 L2 2 PDN 2 D_VDDL_Decap 2 D_VDDH_Decap 2
+device D_VDDH_2 1 ground
+device D_VDDH_3 1 open
+connect D_VDDH 3 D_VDDH_2 1
+connect D_VDDH 4 D_VDDH_3 1
+voltageoutput D_VDDH D_VDDH 4
+device D_VDDL_2 1 ground
+device D_VDDL_3 1 open
+connect D_VDDL 3 D_VDDL_2 1
+connect D_VDDL 4 D_VDDL_3 1
+voltageoutput D_VDDL D_VDDL 4

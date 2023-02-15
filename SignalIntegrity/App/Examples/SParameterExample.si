@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>Examples/Sparq_demo_16.s4p</Value>

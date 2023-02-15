@@ -6192,6 +6192,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>FourPortDUT.s4p</Value>
@@ -6221,6 +6227,12 @@
 						<Origin>(44, 3)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -6252,6 +6264,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>FourPortDUT.s4p</Value>
@@ -6281,6 +6299,12 @@
 						<Origin>(44, 39)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>

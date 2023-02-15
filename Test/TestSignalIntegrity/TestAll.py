@@ -49,6 +49,7 @@ from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestPI import *
+from TestPDN import *
 from TestPowerDelivery import *
 from TestPRBS import *
 from TestProbeOnOff import *

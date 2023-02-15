@@ -1,0 +1,133 @@
+var $BaudRate$ 56.0e9
+var $FiberGain$ 501.187233627e-3
+var $GratingCouplerGain$ 510.87714796e-3
+var $SmartConnectorGain$ 831.763771103e-3
+var $PDResponsivity$ 900.0e-3
+var $PDRs$ 29.0522762641
+var $PDTransitOrder$ 1
+var $PDTransitFc$ 60.0e9
+var $PDCj$ 28.0244545288e-15
+var $PDRsi$ 1.42e3
+var $PDCox$ 34.0e-15
+var $PDCp$ 7.0e-15
+var $ButterworthOrder$ 20
+var $Butterworthfc$ 50.0e9
+var $BesselOrder$ 4
+var $Besselfc$ 33.6e9
+var $Rf$ 750.0
+var $Cout$ 20.0e-15
+var $Rbump$ 10.0e-3
+var $Lbump$ 50.0e-12
+var $Cbump$ 7.7e-15
+var $TIAgain$ 10.0
+var $TIAzo$ 40.0
+var $Cin$ 20.0e-15
+var $ResonantPath$ 1
+var $Resonanteq$ (s*s+1.238043176072649e+23)/(s*s+s*351858377202.0568/2.0+1.238043176072649e+23)
+var $Cicpad$ 9.7e-15
+var $Lseries$ 160.0e-12
+var $Rwire$ 100.0e-3
+var $VGAGain$ 10.0
+var $VGAzo$ 50.0
+var $TIASpFile$ 'C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestPDN/System Simulation/TIA/TIA_xRC_tia7_ctle3_vga3_outcm4_tt_040622.s3p'
+var $TIAPath$ 2
+var $IdealTIAgain$ -10.0e3
+var $IdealTIAzi$ 0
+var $IdealTIAzo$ 0
+var $IdealTIABesselLPorder$ 4
+var $IdealTIABesselLPfc$ 40.0e9
+var $IdealTIAOutputgain$ 1.0
+var $IdealTIAOutputzi$ 100.0e6
+var $IdealTIAOutputzo$ 50.0
+var $ElecRoute$ 1
+var $ElecIdealZc$ 50.0
+var $ElecIdealTd$ 30.0e-12
+var $PicRoutingPath$ 1
+var $PicRoutingIdealTd$ 10.0e-12
+var $PicRoutingIdealZc$ 50.0
+var $PicRoutingSpFile$ C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestPDN/ElectricalChannels/SParameters/pic_routing-wirebond_to_pic.s16p
+var $WirebondPath$ 1
+var $WirebondIdealTd$ 10.0e-12
+var $WirebondIdealZc$ 80.0
+var $WirebondSpFile$ C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestPDN/ElectricalChannels/SParameters/300umt-pic_to_substrate.s16p
+var $SubstratePath$ 1
+var $SubstrateIdealTd$ 10.0e-12
+var $SubstrateIdealZc$ 50.0
+var $SubstrateSpFile$ C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestPDN/ElectricalChannels/SParameters/substrate_routing-substate_to_ic.s16p
+var $RxSerdesCTLEgdc$ -1.0
+var $RxSerdesCTLEgdc2$ -2.0
+var $RxSerdesCTLEfz$ 22.4e9
+var $RxSerdesCTLEflf$ 700.0e6
+var $RxSerdesCTLEfp1$ 22.4e9
+var $RxSerdesCTLEfp2$ 56.0e9
+var $RxSerdesLPForder$ 1
+var $RxSerdesLPFfc$ 42.0e9
+var $RxSerdesFFEtaps$ [1.0]
+var $RxSerdesFFEtd$ 17.8571428571e-12
+var $RxSerdesFFEpre$ 0
+var $Idark$ 10.0e-9
+var $Bypass$ 1
+var $RxBypassGain$ 2.5e3
+var $RxBypassZi$ 100.0e6
+var $RxBypassZo$ 0
+voltagesource VS1 1
+device RxElectricalChannel 8 file ElectricalChannels/RxElectricalChannel.si route $ElecRoute$ IdealZc $ElecIdealZc$ IdealTd $ElecIdealTd$ PicRoutingPath $PicRoutingPath$ PicRoutingIdealTd $PicRoutingIdealTd$ PicRoutingIdealZc $PicRoutingIdealZc$ PicRoutingSpFile $PicRoutingSpFile$ WirebondPath $WirebondPath$ WirebondIdealTd $WirebondIdealTd$ WirebondIdealZc $WirebondIdealZc$ WirebondSpFile $WirebondSpFile$ SubstrateRoutingPath $SubstratePath$ SubstrateRoutingIdealTd $SubstrateIdealTd$ SubstrateRoutingIdealZc $SubstrateIdealZc$ SubstrateRoutingSpFile $SubstrateSpFile$ EndFrequency 112000000000.0 FrequencyPoints 224 UserSampleRate 224000000000.0
+device O2 1 open
+currentsource Idark 1
+device OpticalLoss 2 file OpticalLoss.si FiberGain $FiberGain$ RxGratingCouplerGain $GratingCouplerGain$ RxSmartConnectorGain $SmartConnectorGain$ EndFrequency 112000000000.0 FrequencyPoints 224 UserSampleRate 224000000000.0
+device PD 4 file Photodetector.si Responsivity $PDResponsivity$ Rs $PDRs$ TransitOrder $PDTransitOrder$ TransitFc $PDTransitFc$ Cj $PDCj$ Rsi $PDRsi$ Cox $PDCox$ Cp $PDCp$ EndFrequency 112000000000.0 FrequencyPoints 224 UserSampleRate 224000000000.0
+voltagesource VS2 1
+device R2 1 R 50.0
+device R4 1 R 50.0
+device R5 1 R 50.0
+device R1 1 R 50.0
+device Bypass 3 relay $Bypass$ term 1.0e9
+device RxBypass 4 voltageamplifier gain $RxBypassGain$ zi $RxBypassZi$ zo $RxBypassZo$
+device G1 1 ground
+device D2 4 currentcontrolledvoltagesource 1.0
+device O3 1 open
+device Ipd 4 voltagecontrolledvoltagesource 1.0
+device G2 1 ground
+device G4 1 ground
+device TIA 3 file TIAModel.si ButterworthOrder $ButterworthOrder$ Butterworthfc $Butterworthfc$ BesselOrder $BesselOrder$ Besselfc $Besselfc$ Rf $Rf$ Cout $Cout$ Rbump $Rbump$ Lbump $Lbump$ Cbump $Cbump$ TIAgain $TIAgain$ TIAzo $TIAzo$ Cin $Cin$ ResonantPath $ResonantPath$ Resonanteq $Resonanteq$ Cicpad $Cicpad$ Lseries $Lseries$ Rwire $Rwire$ VGAGain $VGAGain$ VGAzo $VGAzo$ SpFile $TIASpFile$ Path $TIAPath$ IdealTIATIAgain $IdealTIAgain$ IdealTIATIAzi $IdealTIAzi$ IdealTIATIAzo $IdealTIAzo$ IdealTIABesselLPorder $IdealTIABesselLPorder$ IdealTIABesselLPfc $IdealTIABesselLPfc$ IdealTIAOutputgain $IdealTIAOutputgain$ IdealTIAOutputzi $IdealTIAOutputzi$ IdealTIAOutputzo $IdealTIAOutputzo$ EndFrequency 112000000000.0 FrequencyPoints 224 UserSampleRate 224000000000.0
+device VoTIA 4 voltagecontrolledvoltagesource 1.0
+device ViSerdes 4 voltagecontrolledvoltagesource 1.0
+device RxSerdes 3 file RxSerdes.si CTLEgdc $RxSerdesCTLEgdc$ CTLEgdc2 $RxSerdesCTLEgdc2$ CTLEfz $RxSerdesCTLEfz$ CTLEflf $RxSerdesCTLEflf$ CTLEfp1 $RxSerdesCTLEfp1$ CTLEfp2 $RxSerdesCTLEfp2$ LPForder $RxSerdesLPForder$ LPFfc $RxSerdesLPFfc$ FFEtaps $RxSerdesFFEtaps$ FFEtd $RxSerdesFFEtd$ FFEpre $RxSerdesFFEpre$ EndFrequency 112000000000.0 FrequencyPoints 224 UserSampleRate 224000000000.0
+connect OpticalLoss 1 VS1 1
+connect RxElectricalChannel 1 VoTIA 2 TIA 1
+connect TIA 2 VoTIA 1 RxElectricalChannel 3
+connect RxElectricalChannel 5 R2 1
+connect RxElectricalChannel 7 R4 1
+connect RxSerdes 1 RxElectricalChannel 2 ViSerdes 2
+connect RxSerdes 2 ViSerdes 1 RxElectricalChannel 4
+connect RxElectricalChannel 6 R5 1
+connect RxElectricalChannel 8 R1 1
+eyeprobe Vo Bypass 3
+connect Bypass 3 O2 1
+connect TIA 3 D2 2
+connect PD 3 Idark 1
+eyeprobe Vin RxBypass 1
+connect RxBypass 1 OpticalLoss 2 PD 1
+connect VS2 1 PD 2
+connect D2 1 PD 4
+connect RxSerdes 3 Bypass 1
+connect Bypass 2 RxBypass 3
+connect RxBypass 2 G4 1
+connect RxBypass 4 G1 1
+connect G2 1 D2 3 Ipd 1
+connect O3 1 D2 4 Ipd 2
+device Ipd_2 1 ground
+device Ipd_3 1 open
+connect Ipd 3 Ipd_2 1
+connect Ipd 4 Ipd_3 1
+eyeprobe Ipd Ipd 4
+device VoTIA_2 1 ground
+device VoTIA_3 1 open
+connect VoTIA 3 VoTIA_2 1
+connect VoTIA 4 VoTIA_3 1
+eyeprobe VoTIA VoTIA 4
+device ViSerdes_2 1 ground
+device ViSerdes_3 1 open
+connect ViSerdes 3 ViSerdes_2 1
+connect ViSerdes 4 ViSerdes_3 1
+eyeprobe ViSerdes ViSerdes 4

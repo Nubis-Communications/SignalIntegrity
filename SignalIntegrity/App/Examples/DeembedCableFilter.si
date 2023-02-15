@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable.s2p</Value>
@@ -137,6 +143,12 @@
 						<Origin>(4, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>

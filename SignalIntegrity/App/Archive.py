@@ -128,7 +128,7 @@ class Archive(list):
                                      'devices':[],
                                      'args':{}})
                     element['descended']=True # done searching for file devices in this project
-                    if hasattr(app, 'projectStack'):
+                    if hasattr(app, 'projectStack') and (app.projectStack.stack != []):
                         app.projectStack.Pull()
         except Exception as e:
             print(e)
@@ -145,7 +145,7 @@ class Archive(list):
         try:
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             self.srcList=[element['file'].replace('\\','/') for element in self]
-            self.common=os.path.dirname(self.srcList[0])
+            self.common=os.path.dirname(self.srcList[0]).replace('\\','/')
             try:
                 shutil.rmtree(archiveDir)
             except FileNotFoundError:

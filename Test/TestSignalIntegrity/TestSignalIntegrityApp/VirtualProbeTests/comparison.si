@@ -84,6 +84,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>st20.s1p</Value>
@@ -113,6 +119,12 @@
 						<Origin>(45, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -144,6 +156,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>atten6db1.s2p</Value>
@@ -173,6 +191,12 @@
 						<Origin>(14, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -204,6 +228,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable1.s2p</Value>
@@ -233,6 +263,12 @@
 						<Origin>(35, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -264,6 +300,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable1.s2p</Value>
@@ -293,6 +335,12 @@
 						<Origin>(35, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -324,6 +372,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>XRAY041.s4p</Value>
@@ -353,6 +407,12 @@
 						<Origin>(27, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -384,6 +444,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>L24dd.s2p</Value>
@@ -413,6 +479,12 @@
 						<Origin>(14, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -444,6 +516,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>atten6db1.s2p</Value>
@@ -473,6 +551,12 @@
 						<Origin>(19, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -504,6 +588,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable1.s2p</Value>
@@ -533,6 +623,12 @@
 						<Origin>(19, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -564,6 +660,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable1.s2p</Value>
@@ -593,6 +695,12 @@
 						<Origin>(14, 20)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -624,6 +732,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>atten6db1.s2p</Value>
@@ -653,6 +767,12 @@
 						<Origin>(14, 28)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -684,6 +804,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>atten6db1.s2p</Value>
@@ -713,6 +839,12 @@
 						<Origin>(19, 28)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -744,6 +876,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>cable1.s2p</Value>
@@ -774,6 +912,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>st20.s1p</Value>
@@ -803,6 +947,12 @@
 						<Origin>(45, 30)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -1254,6 +1404,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>st20.s1p</Value>
@@ -1283,6 +1439,12 @@
 						<Origin>(45, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -1409,6 +1571,12 @@
 						<Origin>(27, 20)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>False</KeywordVisible>
@@ -1704,6 +1872,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>None</Value>
@@ -1737,6 +1911,12 @@
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>file</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

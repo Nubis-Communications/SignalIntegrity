@@ -77,6 +77,8 @@ class TestHDMICableTest(unittest.TestCase,
         return '_'.join(self.id().split('.')[-2:])
     def testPRBSTest(self):
         self.SimulationResultsChecker('PRBSTest.si')
+    def testPRBSTestArchive(self):
+        self.SimulationResultsChecker('PRBSTest.si',archive=True)
     def testPRBSTestCompare(self):
         self.SimulationResultsChecker('PRBSTestCompare.si')
     def testFFE(self):
