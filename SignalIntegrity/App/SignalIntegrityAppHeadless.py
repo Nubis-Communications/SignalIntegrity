@@ -32,7 +32,8 @@ from SignalIntegrity.App.ProjectFile import ProjectFile,CalculationProperties
 from SignalIntegrity.App.TikZ import TikZ
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
 from SignalIntegrity.App.PartPicture import PartPicture
-
+from SignalIntegrity.App.Archive import Archive
+from SignalIntegrity.Lib.Exception import SignalIntegrityException
 import SignalIntegrity.App.Project
 
 class ProjectStack(object):
@@ -759,6 +760,66 @@ class SignalIntegrityAppHeadless(object):
                 data[n]=(array(B).dot(inv(array(A)))).tolist()
             sp=si.sp.SParameters(frequencyList,data)
             return sp
+
+    def Archive(self,overrideExistance=True):
+        self.Drawing.stateMachine.Nothing()
+        self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
+        fp=self.fileparts
+        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
+            if not overrideExistance:
+                return False
+        archiveDict=Archive()
+        try:
+            # build archive dictionary
+            archiveDict.BuildArchiveDictionary(self)
+            if not archiveDict:
+                return False
+            # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
+            archiveDir=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'_Archive'
+            archiveDict.CopyArchiveFilesToDestination(archiveDir)
+            archiveDict.ZipArchive(archiveName=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz', archiveDir=self.fileparts.filename+'_Archive')
+        except SignalIntegrityExceptionArchive as e:
+            return False
+        except Exception as e:
+            return False
+        return True
+
+    def ExtractArchive(self,filename,args={}):
+        if filename is None:
+            return False
+
+        try:
+            Archive.ExtractArchive(filename)
+        except:
+            return False
+
+        fp=FileParts(filename)
+
+        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'):
+            filename=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'
+
+        if filename is None:
+            return False
+
+        return self.OpenProjectFile(filename,args)
+
+    def onFreshenArchive(self):
+        try:
+            Archive.Freshen(self.fileparts.FileNameWithExtension())
+        except:
+            return False
+        return True
+
+    def onUnExtractArchive(self):
+        if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
+            return False
+
+        try:
+            self.onCloseProject()
+            Archive.UnExtractArchive(self.fileparts.AbsoluteFilePath())
+        except:
+            return False
+        return True
 
 def ProjectSParameters(filename,**kwargs):
     level=SignalIntegrityAppHeadless.projectStack.Push()

@@ -24,7 +24,7 @@ class DeviceFactory(list):
             float(arg['scale']))"),
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1,'z0':50},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
-            Z0=float(arg['z0']))"),
+            Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
             'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),50.,\
             int(arg['sect']),float(arg['scale']))"),

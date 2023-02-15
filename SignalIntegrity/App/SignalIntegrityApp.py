@@ -868,7 +868,7 @@ class SignalIntegrityApp(tk.Frame):
             sp=self.CalculateSParameters()
         if sp is None:
             return
-        self.spd=SParametersDialog(self,sp,filename=self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+        self.spd=SParametersDialog(self,sp,filename=copy.copy(self.fileparts).FullFilePathExtension('s'+str(sp.m_P)+'p'))
 
     def onPostProcessing(self):
         PostProcessingDialog(self)
@@ -1332,6 +1332,8 @@ class SignalIntegrityApp(tk.Frame):
         self.onCalculateSParameters()
 
     def onArchive(self):
+        self.Drawing.stateMachine.Nothing()
+        self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
         fp=self.fileparts
         if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
             if not messagebox.askokcancel('Archive', 'Are you sure.  The archive file exists?\nThis will overwrite the contents of the archive.'):
