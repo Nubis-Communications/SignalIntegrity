@@ -32,6 +32,8 @@ from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
 from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame
+from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.App.FilePicker import AskOpenFileName
 
 class VariablePropertyDialog(PropertiesDialog):
 
@@ -169,11 +171,73 @@ class VariablesDialog(PropertiesDialog):
                                           variable['Units'], variable['Description'],
                                           allowEquals=True))
             elif (variable['Type'] in ['int','string','enum','file']):
+                if variable['Type'] == 'file':
+                    # Don't expose file view because it's difficult to determine how the best way to deal with this is for variables.
+                    # The main problem is for projects that are typically opened from devices with the device arguments.  Here, we have
+                    # no real context for the arguments, so let them be viewed for now only from the device itself that references this
+                    # variable.
+                    # self.propertyFileViewButton = tk.Button(variableFrame,text='view',command=lambda v=v: self.onFileView(v))
+                    # self.propertyFileViewButton.pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X)
+                    self.propertyFileBrowseButton = tk.Button(variableFrame,text='browse',command=lambda v=v: self.onFileBrowse(v))
+                    self.propertyFileBrowseButton.pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X)
+
                 self.variableFrameList.append(CalculationProperty(variableFrame,
                                                                   variable['Name'],
                                                                   self.onVariableEntered,
                                                                   None, self.project[v],
                                                                   'Value', variable['Description']))
+
+    def onFileBrowse(self,v):
+        variable=self.project[v]
+        filename=variable['Value']
+        if isinstance(filename,str):
+            extension=os.path.splitext(filename)[-1]
+            if (len(extension)>=4) and (extension[0:2] in ['.s','.S']) and (extension[-1] in ['p','P']):
+                try:
+                    ports=int(extension[2:-1])
+                    filetypename='s-parameters'
+                    fileextension=('.s'+str(ports)+'p','.S'+str(ports)+'P')
+                except ValueError:
+                    filetypename='all'
+                    fileextension=('.*')
+            elif extension in ['.txt','.trc']:
+                fileextension=('.txt','.trc')
+                filetypename='waveforms'
+            elif extension == '.cal':
+                fileextension=('.cal')
+                filetypename='calibration file'
+            else:
+                filetypename='all'
+                fileextension=('.*')
+        else:
+            filetypename='all'
+            fileextension=('.*')
+        currentFileParts=FileParts(filename)
+        extension=currentFileParts.fileext
+        if currentFileParts.filename=='':
+            initialDirectory=self.top.fileparts.AbsoluteFilePath()
+            initialFile=''
+        else:
+            initialDirectory=currentFileParts.AbsoluteFilePath()
+            if currentFileParts.fileext in ['.si',extension]:
+                initialFile=currentFileParts.FileNameWithExtension()
+            else:
+                initialFile=currentFileParts.filename+extension
+        filename=AskOpenFileName(parent=self,
+                                 filetypes=[(filetypename,fileextension),('project','.si'),('all','.*')],
+                                 initialdir=initialDirectory,
+                                 initialfile=initialFile)
+        if filename is None:
+            filename=''
+        if isinstance(filename,tuple):
+            filename=''
+        filename=str(filename)
+        if filename != '':
+            filename=FileParts(filename).FullFilePathExtension()
+            variable['Value']=filename
+            self.variableFrameList[v].UpdateStrings()
+    def onFileView(self,v):
+        pass
 
     def onParameterizeProject(self):
         device = self.parent.device
@@ -183,6 +247,8 @@ class VariablesDialog(PropertiesDialog):
             prefix=ref['Value']
             if prefix == None:
                 prefix=''
+            else:
+                prefix += '_'
             for prop in device.propertiesList:
                 if (not SignalIntegrity.App.Preferences['Variables.ParameterizeOnlyVisible'] or prop['Visible']) and (not prop['Hidden']) and prop['InProjectFile'] and (not prop['Keyword'] in ['ref','ports','file']):
                     varName=prefix+prop['Keyword']

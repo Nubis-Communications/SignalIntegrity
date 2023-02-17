@@ -90,6 +90,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>PRBSGenerator.si</Value>
@@ -98,12 +104,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
@@ -144,6 +144,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>PRBSGenerator.si</Value>
@@ -152,12 +158,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>

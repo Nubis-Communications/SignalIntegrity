@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>558x413+78+78</Geometry>
+			<Geometry>603x413+234+234</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>11</Originy>
@@ -23,6 +23,12 @@
 						<Origin>(7, -1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -42,6 +48,40 @@
 							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Default>1.0</Default>
+								<Description>voltage gain (V/V)</Description>
+								<Name>P</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_P</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Default>1.0</Default>
+								<Description>voltage gain (V/V)</Description>
+								<Name>I</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_I</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Default>1.0</Default>
+								<Description>voltage gain (V/V)</Description>
+								<Name>D</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_D</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageOutputProbe</ClassName>
@@ -50,9 +90,15 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, -3)</Origin>
+						<Origin>(14, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -92,9 +138,15 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, 1)</Origin>
+						<Origin>(14, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -134,9 +186,15 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, 5)</Origin>
+						<Origin>(14, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -172,13 +230,19 @@
 				<Device>
 					<ClassName>DeviceFile</ClassName>
 					<PartPicture>
-						<Index>0</Index>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(20, -4)</Origin>
+						<Origin>(22, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -206,7 +270,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, 10)</Origin>
+						<Origin>(15, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -224,7 +288,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(16, -4)</Origin>
+						<Origin>(18, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -254,54 +318,6 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceOpen</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>180</Orientation>
-						<Origin>(11, 0)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>O1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceOpen</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>180</Orientation>
-						<Origin>(11, 4)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>O2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceVoltagePulseGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
@@ -311,6 +327,12 @@
 						<Origin>(-2, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -368,8 +390,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VG1</Value>
-							<Visible>False</Visible>
+							<Value>Vin</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -380,14 +402,20 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(20, -8)</Origin>
+						<Origin>(22, -8)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>file</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>Plant.si</Value>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>file</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>Plant.si</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -410,7 +438,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(22, -8)</Origin>
+						<Origin>(26, -8)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -434,9 +462,15 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(26, -4)</Origin>
+						<Origin>(28, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -470,9 +504,15 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(24, -8)</Origin>
+						<Origin>(28, -8)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -506,45 +546,15 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(-1, -1)</Origin>
+						<Origin>(15, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
-							<Keyword>gain</Keyword>
+							<Keyword>state</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>on</Value>
 							<Visible>False</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>offset</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>td</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>Vin</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
-					<ClassName>DeviceOutput</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(13, -4)</Origin>
-					</PartPicture>
-					<PartProperties>
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -576,10 +586,13 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
+							<Coord>(15, -3)</Coord>
+						</Vertex>
+						<Vertex>
 							<Coord>(13, -3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, -3)</Coord>
+							<Coord>(13, 0)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(11, 0)</Coord>
@@ -592,10 +605,13 @@
 							<Coord>(11, 2)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 1)</Coord>
+							<Coord>(13, 2)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(13, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -605,17 +621,20 @@
 							<Coord>(11, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 5)</Coord>
+							<Coord>(13, 4)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(13, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(13, 9)</Coord>
+							<Coord>(15, 9)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(7, 9)</Coord>
@@ -628,27 +647,27 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(13, -3)</Coord>
+							<Coord>(15, -3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(17, -3)</Coord>
+							<Coord>(19, -3)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
-						<Vertex>
-							<Coord>(24, -3)</Coord>
-						</Vertex>
 						<Vertex>
 							<Coord>(26, -3)</Coord>
 						</Vertex>
+						<Vertex>
+							<Coord>(28, -3)</Coord>
+						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(14, 11)</Coord>
+							<Coord>(16, 11)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(5, 11)</Coord>
@@ -684,13 +703,13 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(26, -3)</Coord>
+							<Coord>(28, -3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(26, 11)</Coord>
+							<Coord>(28, 11)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(14, 11)</Coord>
+							<Coord>(16, 11)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -703,25 +722,65 @@
 							<Coord>(-1, -7)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, -7)</Coord>
+							<Coord>(22, -7)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(17, -3)</Coord>
+							<Coord>(19, -3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(20, -3)</Coord>
+							<Coord>(22, -3)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(28, -7)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(26, -7)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
+	<Variables>
+		<Items>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_P</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>60.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_I</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>500.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_D</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>15.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

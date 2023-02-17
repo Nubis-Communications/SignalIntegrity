@@ -427,9 +427,9 @@ class DeviceVoltageSource(Device):
             PartPropertyPartName('Voltage Source'),
             PartPropertyHelp('device:Voltage-Source'),
             PartPropertyDefaultReferenceDesignator('VS?'),
+            PartPropertyCalculationProperties(),
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
-            PartPropertyCalculationProperties(),
             PartPropertyWaveformType('file'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
@@ -567,10 +567,10 @@ class DeviceCurrentSource(Device):
             PartPropertyPartName('Current Source'),
             PartPropertyHelp('device:Current-Source'),
             PartPropertyDefaultReferenceDesignator('CS?'),
+            PartPropertyCalculationProperties(),
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
-            PartPropertyCalculationProperties(),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
 class DeviceCurrentStepGenerator(Device):
@@ -650,9 +650,9 @@ class DeviceMeasurement(Device):
                          PartPropertyHelp('device:Measure-Probe'),
                          PartPropertyDefaultReferenceDesignator('VM?'),
                          PartPropertyDescription('Measure'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
-                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                         PartPictureVariableMeasureProbe())
 
@@ -687,11 +687,11 @@ class DeviceWaveform(Device):
                          PartPropertyHelp('device:Output-Waveform'),
                          PartPropertyDefaultReferenceDesignator('VO?'),
                          PartPropertyDescription('Output Waveform'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
                          PartPropertyDelay(0.0),
-                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
                          PartPropertyWaveformProjectName('')],
@@ -1038,8 +1038,10 @@ class DeviceRLGCFitFromFile(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
         Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),
-                                      PartPropertyPorts(2),PartPropertyCategory('Transmission Lines'),
-                                      PartPropertyPartName('RLGC Fit'),PartPropertyHelp('device:RLGC-Fit'),
+                                      PartPropertyPorts(2),
+                                      PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('RLGC Fit'),
+                                      PartPropertyHelp('device:RLGC-Fit'),
                                       PartPropertyDefaultReferenceDesignator('T?'),
                                       PartPropertyCalculationProperties(),
                                       PartPropertyFileName(),
@@ -1053,13 +1055,13 @@ class DeviceNetworkAnalyzer(Device):
                                       PartPropertyPartName('NetworkAnalyzer'),
                                       PartPropertyHelp('device:Network-Analyzer'),
                                       PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyCalculationProperties(),
                                       PartPropertyCalculationDirection(),
                                       PartPropertyFileName(),
                                       PartPropertyErrorTermsFileName(),
                                       PartPropertyPortsList(','.join([str(p+1) for p in range(ports)])),
                                       PartPropertyDescription('Calibrated Port Network Analyzer'),
-                                      PartPropertyPorts(ports,False),
-                                      PartPropertyCalculationProperties()],
+                                      PartPropertyPorts(ports,False)],
                                 PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerModel(Device):
@@ -1069,10 +1071,10 @@ class DeviceNetworkAnalyzerModel(Device):
                                       PartPropertyPartName('NetworkAnalyzerModel'),
                                       PartPropertyHelp('device:Network-Analyzer-Model'),
                                       PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyCalculationProperties(),
                                       PartPropertyFileName(),
                                       PartPropertyDescription('Network Analyzer Model'),
-                                      PartPropertyPorts(ports,False),
-                                      PartPropertyCalculationProperties()],
+                                      PartPropertyPorts(ports,False)],
                                       PartPictureVariableNetworkAnalyzer())
 
 class DeviceNetworkAnalyzerDeviceUnderTest(Device):
@@ -1082,10 +1084,10 @@ class DeviceNetworkAnalyzerDeviceUnderTest(Device):
                                       PartPropertyPartName('DeviceUnderTest'),
                                       PartPropertyHelp('device:Device-Under-Test'),
                                       PartPropertyDefaultReferenceDesignator('D?'),
+                                      PartPropertyCalculationProperties(),
                                       PartPropertyFileName(),
                                       PartPropertyDescription('Network Analyzer Device-Under-Test'),
-                                      PartPropertyPorts(ports,False),
-                                      PartPropertyCalculationProperties()],
+                                      PartPropertyPorts(ports,False)],
                                       PartPictureVariableDeviceUnderTest())
 
 class DeviceShortStandard(Device):
@@ -1176,10 +1178,10 @@ class DeviceReflectCalibrationMeasurement(Device):
                          PartPropertyPartName('ReflectMeasurement'),
                          PartPropertyHelp('device:Reflect-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyFileName(),
                          PartPropertyStandardFileName(),
-                         PartPropertyPortNumber(1),
-                         PartPropertyCalculationProperties()],
+                         PartPropertyPortNumber(1)],
                         PartPictureVariableMeasurementOnePort())
 
 class DeviceThruCalibrationMeasurement(Device):
@@ -1193,12 +1195,12 @@ class DeviceThruCalibrationMeasurement(Device):
                          PartPropertyPartName('ThruMeasurement'),
                          PartPropertyHelp('device:Thru-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyFileName(),
                          PartPropertyStandardFileName(),
                          PartPropertyPortNumber(1),
                          PartPropertyOtherPortNumber(2),
-                         PartPropertyThruCalculationType(),
-                         PartPropertyCalculationProperties()],
+                         PartPropertyThruCalculationType()],
                         PartPictureVariableMeasurementTwoPort())
 
 class DeviceXtalkCalibrationMeasurement(Device):
@@ -1212,10 +1214,10 @@ class DeviceXtalkCalibrationMeasurement(Device):
                          PartPropertyPartName('XtalkMeasurement'),
                          PartPropertyHelp('device:Xtalk-Measurement'),
                          PartPropertyDefaultReferenceDesignator('Meas?'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyFileName(),
                          PartPropertyPortNumber(1),
-                         PartPropertyOtherPortNumber(2),
-                         PartPropertyCalculationProperties()],
+                         PartPropertyOtherPortNumber(2)],
                         PartPictureVariableMeasurementTwoPort())
 
 class DeviceNetworkAnalyzerStimulus(Device):
@@ -1345,12 +1347,12 @@ class DeviceImpulseResponseFilter(Device):
                          PartPropertyPartName('ImpulseResponseFilter'),
                          PartPropertyHelp('device:ImpulseResponseFilter'),
                          PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
                          PartPropertyDCGain(),
                          PartPropertyMulTs(),
                          PartPropertyDerivative(),
-                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                          PartPictureVariableImpulseResponseFilter())
         self['wffile']['Description']='impulse response file name'
@@ -1399,6 +1401,7 @@ class DeviceEyeWaveform(Device):
                          PartPropertyHelp('device:Eye-Waveform'),
                          PartPropertyDefaultReferenceDesignator('Wf?'),
                          PartPropertyDescription('Eye Waveform'),
+                         PartPropertyCalculationProperties(),
                          PartPropertyOnOff('on'),
                          PartPropertyVoltageGain(1.0),
                          PartPropertyVoltageOffset(0.0),
@@ -1406,7 +1409,6 @@ class DeviceEyeWaveform(Device):
                          PartPropertyBaudRate(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
-                         PartPropertyCalculationProperties(),
                          PartPropertyWaveformProjectName('')],
                         PartPictureVariableEyeWaveform(),
                         EyeDiagramConfiguration())

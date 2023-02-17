@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>655x498+182+182</Geometry>
+			<Geometry>655x498+26+26</Geometry>
 			<Grid>16</Grid>
 			<Originx>-4</Originx>
 			<Originy>8</Originy>
@@ -26,7 +26,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>60.0</Value>
+							<Value>=P</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -68,7 +68,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>15.0</Value>
+							<Value>=D</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -110,7 +110,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>500.0</Value>
+							<Value>=I</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -542,8 +542,8 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>D2</Value>
-							<Visible>False</Visible>
+							<Value>Comparator</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -954,8 +954,38 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
+	<Variables>
+		<Items>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>P</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>60.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>I</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>500.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Default>1.0</Default>
+				<Description>voltage gain (V/V)</Description>
+				<Name>D</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>15.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

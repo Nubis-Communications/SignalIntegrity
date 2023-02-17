@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>530x465+130+130</Geometry>
+			<Geometry>530x465+78+78</Geometry>
 			<Grid>16</Grid>
 			<Originx>-38</Originx>
 			<Originy>10</Originy>
@@ -170,8 +170,4 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
-	<PostProcessing>
-		<Lines>
-		</Lines>
-	</PostProcessing>
 </Project>

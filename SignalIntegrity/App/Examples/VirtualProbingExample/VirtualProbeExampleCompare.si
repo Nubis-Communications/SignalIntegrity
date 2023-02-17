@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>VirtualProbeExampleSimulation2_Vinsim.txt</Value>
@@ -32,12 +38,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
@@ -144,6 +144,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>VirtualProbeExample_Vin.txt</Value>
@@ -152,12 +158,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
@@ -264,6 +264,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>VirtualProbeExampleSimulation2_Voutsim.txt</Value>
@@ -272,12 +278,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
@@ -384,6 +384,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>VirtualProbeExample_Vout.txt</Value>
@@ -392,12 +398,6 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>

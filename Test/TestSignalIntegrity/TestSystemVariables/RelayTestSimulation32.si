@@ -24,6 +24,12 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>true</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>RelayTestSource.si</Value>
@@ -33,12 +39,6 @@
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>calcprop</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

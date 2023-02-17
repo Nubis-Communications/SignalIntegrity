@@ -1034,6 +1034,8 @@ class SignalIntegrityApp(tk.Frame):
                 prefix=ref['Value']
                 if prefix == None:
                     prefix=''
+                else:
+                    prefix += '_'
                 for prop in device.propertiesList:
                     if (not SignalIntegrity.App.Preferences['Variables.ParameterizeOnlyVisible'] or prop['Visible']) and (not prop['Hidden']) and prop['InProjectFile'] and (not prop['Keyword'] in ['ref','ports','file']):
                         varName=prefix+prop['Keyword']
