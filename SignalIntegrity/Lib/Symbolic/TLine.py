@@ -21,10 +21,8 @@ TLine.py
 from SignalIntegrity.Lib.Helpers.lfrac import lfrac
 
 def TLine(P,rho,gamma):
-    """symbolic two-port transmission
-
-    symbolic two and four port single-ended transmission line based on rho and gamma
-
+    """symbolic two-port transmission line  
+    symbolic two and four port single-ended transmission line based on rho and gamma  
     @param P integer number of ports (2 or 4)\n
     for two ports, returns SignalIntegrity.Symbolic.TLine.TLineTwoPort\n
     for four ports, return SignalIntegrity.Symbolic.TLine.TLineFourPort\n

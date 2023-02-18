@@ -139,6 +139,7 @@ class Calibration(object):
     def ReadFromFile(self,filename,**kwargs):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
+        @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         @return self
 
         The LeCroy format is for each row, for each column, for each error-term,

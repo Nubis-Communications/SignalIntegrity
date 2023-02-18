@@ -1140,7 +1140,8 @@ class SignalIntegrityApp(tk.Frame):
             self.SimulateNetworkAnalyzerModelDoer.Activate(True)
             # ------
             self.VariablesDoer.Activate(True)
-            self.EquationsDoer.Activate(True)
+            self.EquationsDoer.Activate(False)
+            self.ParameterizeDoer.Activate(True)
             # ------
             self.HelpDoer.Activate(True)
             self.ControlHelpDoer.Activate(True)

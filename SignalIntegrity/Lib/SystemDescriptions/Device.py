@@ -24,8 +24,7 @@ from .Port import Port
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSystemDescription
 
 class Device(list):
-    """device in system descriptions
-
+    """device in system descriptions  
     a device is fundamentally a list of ports
     """
     def __init__(self,Name,Ports,Type='device'):
@@ -57,7 +56,6 @@ class Device(list):
     @staticmethod
     def SymbolicMatrix(Name,Rows,Columns=-1):
         """creates a symbolic matrix
-
         The matrix is of a simple form.  It is a list of list of strings where the
         string is either:
         - rows=columns=1 - [[name]]

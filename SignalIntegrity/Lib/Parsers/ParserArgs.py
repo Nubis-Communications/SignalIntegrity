@@ -20,7 +20,12 @@ ParserArgs.py
 from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 
 class ParserArgs():
+    """argument handling base class for parsers"""
     def AssignArguments(self,args):
+        """assigns arguments
+        @param args list of arguments as name,value pairs
+        The arguments are stored as a dictionary of values corresponding to the keyword names
+        """
         self.m_vars=dict()
         if args is None:
             self.m_args=[]
@@ -29,6 +34,11 @@ class ParserArgs():
             self.m_args = dict([('$'+args[i]+'$',args[i+1])
                 for i in range(0,len(args),2)])
     def ReplaceArgs(self,lineList):
+        """replaces arguments in a line list with the actual values
+        @param lineList list of tokens in a line to process
+        If any token is surrounded by '$' and it's name is in the variable dictionary, then
+        the token is replaced with the value in the variable dictionary.
+        """
         replacedOne=False
         for i in range(len(lineList)):
             if lineList[i] in self.m_vars:
@@ -38,6 +48,11 @@ class ParserArgs():
             lineList=';'.join(lineList).split(';')
         return lineList
     def ProcessVariables(self,lineList):
+        """processes lines insofar as arguments are concerned.
+        @param lineList list of tokens in a line to process
+        If the first token is 'var', then the keyword,value pairs are placed in
+        the variable dictionary
+        """
         if lineList[0] == 'var':
             variables=dict([(lineList[i*2+1],lineList[i*2+2])
                 for i in range((len(lineList)-1)//2)])

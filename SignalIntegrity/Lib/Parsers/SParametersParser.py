@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
 
 class SParametersParser(SParameters):
@@ -39,7 +39,6 @@ class SParametersParser(SParameters):
         @see LimitImpulseResponseLength
         @see SetReferenceImpedance
         @see RemoveImpulseResponseOffset
-        @todo For some reason the documentation does not show this class deriving from SParameters and needs to be fixed
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         for line in lines:

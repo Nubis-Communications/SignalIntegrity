@@ -40,6 +40,7 @@ class NetworkAnalyzer(SParameters):
         raw s-parameters to calibrated s-parameters.  In the unusual situation where calculate is False, the direction
         is reversed and the assumption is that the s-parameters provided are calibrated and the goal is to convert the
         calibrated s-parameters to raw s-parameters.
+        @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the files
         """
         if portListstring!=None:
             portlist=[int(p)-1 for p in portListstring.split(',')]

@@ -28,6 +28,7 @@ class Parallel(SParameters):
         @param name string file name of s-parameter file to read
         @param numberInParallel int number of instances to place in parallel
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
+        @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         """
         self.m_K=numberInParallel
         # pragma: silent exclude

@@ -33,6 +33,7 @@ class ImpulseResponseFilter(SParameters):
         @param normalizedDCGain float (optional, defaults to None) DC gain to normalize response to.
         @param multiplyByTs bool (optional, defaults to True) whether to multiply the waveform by the sample period
         @param derivative bool (optional, defaults to False) whether to use the derivative of the waveform
+        @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
 
         Reads the waveform file and produces SParameters.
 

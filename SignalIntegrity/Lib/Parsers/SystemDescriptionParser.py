@@ -160,3 +160,8 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 self.m_spc.append((None,self.known[key].Resample(self.m_f)))
         for line in self.m_lines: self._ProcessLine(line,exclusionList)
         return self
+    ## @var MultiPortTee
+    # bool Whether to employ the multi-port tee.  
+    # @note Tee elements are generally assigned as one three-port tee at a time.
+    # If multi-port tees are employed, all of the nodes joined in a 'connect' keyword
+    # are joined to one, single, large multi-port tee.
