@@ -1,4 +1,4 @@
 <map id="FrequencyResponse" name="FrequencyResponse">
-<area shape="rect" id="node1" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="9,248,172,384"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" title="base class for frequency domain elements." alt="" coords="5,5,176,200"/>
+<area shape="rect" id="node1" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="9,248,156,384"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml" title="base class for frequency domain elements." alt="" coords="5,5,160,200"/>
 </map>

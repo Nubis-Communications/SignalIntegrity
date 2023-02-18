@@ -1,5 +1,5 @@
 <map id="ClockWaveform" name="ClockWaveform">
-<area shape="rect" id="node1" title="a clock waveform" alt="" coords="41,461,168,539"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="25,321,184,413"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,204,273"/>
+<area shape="rect" id="node1" title="a clock waveform" alt="" coords="36,461,151,539"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="22,321,165,413"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,181,273"/>
 </map>

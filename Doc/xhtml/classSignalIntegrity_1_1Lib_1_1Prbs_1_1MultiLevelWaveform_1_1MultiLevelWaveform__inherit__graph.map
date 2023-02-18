@@ -1,4 +1,4 @@
 <map id="MultiLevelWaveform" name="MultiLevelWaveform">
-<area shape="rect" id="node1" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="25,321,184,399"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,204,273"/>
+<area shape="rect" id="node1" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="23,321,163,399"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,181,273"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml" title="Frequency lists." alt="" coords="5,31,117,57"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="165,5,368,32"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="185,56,348,83"/>
+<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml" title="Frequency lists." alt="" coords="5,31,109,57"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="157,5,345,32"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="177,56,326,83"/>
 </map>

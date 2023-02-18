@@ -1,9 +1,10 @@
 <map id="SimulatorNumericParser" name="SimulatorNumericParser">
-<area shape="rect" id="node1" title="performs numeric simulations from netlists" alt="" coords="175,631,356,723"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions" alt="" coords="35,469,162,561"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="5,145,192,399"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="39,5,158,97"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="187,447,344,583"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="369,461,495,568"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="368,182,496,362"/>
+<area shape="rect" id="node1" title="performs numeric simulations from netlists" alt="" coords="205,675,369,767"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions" alt="" coords="76,513,191,605"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,443"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,20,112,112"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,5,280,127"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="215,491,358,627"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="382,505,498,612"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="381,211,499,406"/>
 </map>

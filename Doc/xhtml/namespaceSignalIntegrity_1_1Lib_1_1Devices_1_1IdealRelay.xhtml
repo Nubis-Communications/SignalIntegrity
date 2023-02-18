@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -131,9 +131,10 @@ Functions</h2></td></tr>
 <p><a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml">IdealRelay</a> An ideal relay with a given number of ports, where the common is always the last port. </p>
 <p>I.e. for a given number ports P, port P is always the common connection and ports 1 through P-1 are the throws of the relay (the ports that get connected to the common) in port order. The position value ranges from 0 to P-1, where 0 says that none of the throws are connected to the common, and a value from 1 to P-1 indicates the throw port connected to the common. Valid terminations are the string 'open', or a number indicating the impedance of the unconnected port. This impedance is also applied to the common, when no ports are connected. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ports</td><td>int number of ports in the relay (including the common). @parem position int number from 0 to ports-1 indicating the relay position. </td></tr>
-    <tr><td class="paramname">float</td><td>or string (optional, defaults to 'open' termination applied to unconnected ports. </td></tr>
-    <tr><td class="paramname">float</td><td>(optional, defaults to 50) reference impedance. </td></tr>
+    <tr><td class="paramname">ports</td><td>int number of ports in the relay (including the common). </td></tr>
+    <tr><td class="paramname">position</td><td>int number from 0 to ports-1 indicating the relay position. </td></tr>
+    <tr><td class="paramname">termination</td><td>float or string (optional, defaults to 'open' termination applied to unconnected ports. </td></tr>
+    <tr><td class="paramname">Z0</td><td>float (optional, defaults to 50) reference impedance. </td></tr>
   </table>
   </dd>
 </dl>

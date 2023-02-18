@@ -1,4 +1,4 @@
 <map id="SystemSParameters" name="SystemSParameters">
-<area shape="rect" id="node1" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="15,277,169,443"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,179,229"/>
+<area shape="rect" id="node1" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="13,277,155,443"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,163,229"/>
 </map>

@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -108,23 +108,23 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">import</span> sys</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordflow">if</span> <span class="keywordflow">not</span> <span class="stringliteral">&#39;matplotlib.backends&#39;</span> <span class="keywordflow">in</span> sys.modules:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    matplotlib.use(<span class="stringliteral">&#39;TkAgg&#39;</span>)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">from</span> matplotlib.backends.backend_tkagg <span class="keyword">import</span> FigureCanvasTkAgg</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">from</span> matplotlib.backends.backend_tkagg <span class="keyword">import</span> NavigationToolbar2Tk</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">from</span> matplotlib.figure <span class="keyword">import</span> Figure</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">class </span>PlotDialog(tk.Toplevel):</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">def </span>__init__(self, parent):</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        tk.Toplevel.__init__(self, parent)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.parent=parent</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.withdraw()</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.title(<span class="stringliteral">&#39;Results&#39;</span>)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+<span class="stringliteral">&#39;AppIcon2.gif&#39;</span>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.tk.call(<span class="stringliteral">&#39;wm&#39;</span>, <span class="stringliteral">&#39;iconphoto&#39;</span>, self._w, self.img)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.protocol(<span class="stringliteral">&quot;WM_DELETE_WINDOW&quot;</span>, self.destroy)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">class </span>PlotDialog(tk.Toplevel):</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span>__init__(self, parent):</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        tk.Toplevel.__init__(self, parent)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.parent=parent</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.withdraw()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.title(<span class="stringliteral">&#39;Results&#39;</span>)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+<span class="stringliteral">&#39;AppIcon2.gif&#39;</span>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.tk.call(<span class="stringliteral">&#39;wm&#39;</span>, <span class="stringliteral">&#39;iconphoto&#39;</span>, self._w, self.img)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.protocol(<span class="stringliteral">&quot;WM_DELETE_WINDOW&quot;</span>, self.destroy)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> <span class="stringliteral">&#39;matplotlib.backends&#39;</span> <span class="keywordflow">in</span> sys.modules:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            matplotlib.use(<span class="stringliteral">&#39;TkAgg&#39;</span>)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">from</span> matplotlib.backends.backend_tkagg <span class="keyword">import</span> FigureCanvasTkAgg</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">from</span> matplotlib.backends.backend_tkagg <span class="keyword">import</span> NavigationToolbar2Tk</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">from</span> matplotlib.figure <span class="keyword">import</span> Figure</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.f = Figure(figsize=(5,4), dpi=100)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.plt = self.f.add_subplot(111)</div>

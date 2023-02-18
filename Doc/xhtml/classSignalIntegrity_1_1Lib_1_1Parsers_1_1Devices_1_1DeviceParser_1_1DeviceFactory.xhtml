@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -91,7 +91,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for DeviceFactory:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory__coll__graph.svg" width="184" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory__coll__graph.svg" width="166" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -212,9 +212,11 @@ Public Attributes</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">tline </td><td class="markdownTableBodyCenter">2,4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">zc=50 td=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineLossless(f,ports,zc,td)  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">tlinelossy </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">zc=50 td=0 LdBperHzpers=0 LdBperrootHzpers=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineLossy(f,ports,zc,td,LdBperHzpers,LdBperrootHzpers)  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">telegrapher </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TLineTwoPortRLGC(<br  />
  f,r,rse,l,g,c,df,z0,sect,scale)  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">telegrapher </td><td class="markdownTableBodyCenter">4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">rp=0 rsep=0 lp=0 cp=0<br  />
  dfp=0 gp=0 rn=0 rsen=0<br  />
  ln=0 cn=0 dfn=0 gn=0<br  />
@@ -223,36 +225,38 @@ Public Attributes</h2></td></tr>
  f,rp,rsep,lp,gp,cp,dfp,<br  />
  rn,rsen,ln,gn,cn,dfn,<br  />
  cm,dfm,gm,lm,z0,sect,scale)  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter">rlgcfit </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">file=None scale=1.0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">fit.RLGCFitFromFile(f,file,scale,Z0)  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter">w </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None df=0 scale=1.0 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.WElementFile(f,filename,df,50.,sect,scale)  </td></tr>
+<td class="markdownTableBodyCenter">rlgcfit </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">file=None scale=1.0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">fit.RLGCFitFromFile(f,file,scale,Z0)  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">w </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None df=0 scale=1.0 sect=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.WElementFile(f,filename,df,50.,sect,scale)  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">shortstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9<br  />
  l0=0 l1=0.0 l2=0 l3=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.ShortStandard(f,od,oz0,ol,f0,l0,l1,l2,l3)  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">openstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9<br  />
  c0=0 c1=0 c2=0 c3=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.OpenStandard(f,od,oz0,ol,f0,c0,c1,c2,c3)  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">loadstd </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9 tz=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.LoadStandard(f,od,oz0,ol,f0,tz0)  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">thrustd </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">od=0 oz0=50 ol=0 f0=1e9 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.calkit.std.ThruStandard(f,od,oz0,ol,f0)  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">networkanalyzer </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">file=None, et=None, pl=None, cd=calculate </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">m.cal.NetworkAnalyzer(f,file,et,pl,not cd=='uncalculate')  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">bessellp </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">order=4 fc=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.BesselLowPassFilter(f,order,fc,50.)  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">butterworthlp </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">order=4 fc=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.BesselLowPassFilter(f,order,fc,50.)  </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter">ctle </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">gdc=None gdc2=None fz=None flf=None fp1=None fp2=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)  </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">ffe </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">taps='[1.0]' td=None pre=0 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.FFE(f,td,taps,pre,50.)  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter">laplace </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">eq </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.Laplace(f,eq)  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter">relay </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">pos=0 term=1e9 Z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealRelay(ports,pos,term,z0)  </td></tr>
+<td class="markdownTableBodyCenter">laplace </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">eq </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.Laplace(f,eq)  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter">impulseresponsefilter </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None wfprojname=None dcGain=None mulTs=True derivative=False </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.ImpulseResponseFilter(filename,dcGain,mulTs,derivative  </td></tr>
+<td class="markdownTableBodyCenter">relay </td><td class="markdownTableBodyCenter">2-16 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">pos=0 term=1e9 Z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealRelay(ports,pos,term,z0)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">impulseresponsefilter </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None wfprojname=None dcGain=None mulTs=True derivative=False </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">parallel </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">filename=None sect=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.Parallel(f,file,sect,50.)  </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>ports any mean None supplied. comma or dash separated ports are supplied as a string. </dd>
 <dd>
@@ -262,7 +266,7 @@ frequency dependent devices usually come from 'sp.dev' meaning <a class="el" hre
 <dd>
 Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00111">111</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00112">112</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -323,7 +327,7 @@ Usually when an argument is defaulted to None, the device production will fail i
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00253">253</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00260">260</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -341,7 +345,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 </div><div class="memdoc">
 <p>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> or list of list matrix when not frequency dependent. </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00300">300</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00309">309</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -358,7 +362,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 </div><div class="memdoc">
 <p>boolean whether dev is frequency dependent. pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00358">358</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00370">370</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -85,7 +85,9 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af4ca2c2f9204e620238936595f887167"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1TLine.xhtml#af4ca2c2f9204e620238936595f887167">TLine</a> (P, rho, gamma)</td></tr>
-<tr class="memdesc:af4ca2c2f9204e620238936595f887167"><td class="mdescLeft">&#160;</td><td class="mdescRight">symbolic two-port transmission  <a href="namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1TLine.xhtml#af4ca2c2f9204e620238936595f887167">More...</a><br /></td></tr>
+<tr class="memdesc:af4ca2c2f9204e620238936595f887167"><td class="mdescLeft">&#160;</td><td class="mdescRight">symbolic two-port transmission line <br  />
+ symbolic two and four port single-ended transmission line based on rho and gamma <br  />
+  <a href="namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1TLine.xhtml#af4ca2c2f9204e620238936595f887167">More...</a><br /></td></tr>
 <tr class="separator:af4ca2c2f9204e620238936595f887167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01f964344f22bb6c90c65594379b26fd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1TLine.xhtml#a01f964344f22bb6c90c65594379b26fd">TLineRho</a> (Zc, ports=2)</td></tr>
 <tr class="memdesc:a01f964344f22bb6c90c65594379b26fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">string representation of rho from the characteristic impedance  <a href="namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1TLine.xhtml#a01f964344f22bb6c90c65594379b26fd">More...</a><br /></td></tr>
@@ -134,23 +136,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>symbolic two-port transmission </p>
-<pre class="fragment">symbolic two and four port single-ended transmission line based on rho and gamma
+<p>symbolic two-port transmission line <br  />
+ symbolic two and four port single-ended transmission line based on rho and gamma <br  />
+ </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">P</td><td>integer number of ports (2 or 4)<br  />
+ for two ports, returns SignalIntegrity.Symbolic.TLine.TLineTwoPort<br  />
+ for four ports, return SignalIntegrity.Symbolic.TLine.TLineFourPort<br  />
+</td></tr>
+    <tr><td class="paramname">rho</td><td>string reflection coefficient </td></tr>
+    <tr><td class="paramname">gamma</td><td>string gamma </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>list of list of string s-parameter matrix containing LaTeX or ASCII strings for each element. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>strings can be any valid LaTeX </dd>
+<dd>
+use SignalIntegrity.Symbolic.TLine.TLineRho if you want to enter the string representation of rho based on the characteristic impedance. </dd>
+<dd>
+use SignalIntegrity.Symbolic.TLine.TLineGamma if you want to enter the string representation of gamma based on a time delay </dd></dl>
 
-@param P integer number of ports (2 or 4)\n
-for two ports, returns SignalIntegrity.Symbolic.TLine.TLineTwoPort\n
-for four ports, return SignalIntegrity.Symbolic.TLine.TLineFourPort\n
-@param rho string reflection coefficient
-@param gamma string gamma
-@return list of list of string s-parameter matrix
-containing LaTeX or ASCII strings for each element.
-@note strings can be any valid LaTeX
-@note use SignalIntegrity.Symbolic.TLine.TLineRho if you want to enter the string
-representation of rho based on the characteristic impedance.
-@note use SignalIntegrity.Symbolic.TLine.TLineGamma if you want to enter the string
-representation of gamma based on a time delay
-</pre> 
-<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00043">43</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00041">41</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
 
 </div>
 </div>
@@ -197,7 +204,7 @@ use SignalIntegrity.Symbolic.TLine.TLineGamma if you want to enter the string re
 <dd>
 this is the symbolic version of <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TLineFourPort.xhtml#a3911d2fb126685ab8cb271bd5ac7d241" title="TLineFourPort Ideal Four-port Transmission Line.">SignalIntegrity.Lib.Devices.TLineFourPort.TLineFourPort</a> except that by default it's base on rho for symbolic simplicity (Zc complicates the look of things). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00105">105</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00103">103</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
 
 </div>
 </div>
@@ -226,7 +233,7 @@ this is the symbolic version of <a class="el" href="namespaceSignalIntegrity_1_1
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string LaTeX representation of gamma (as a function of frequency) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00066">66</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00064">64</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
 
 </div>
 </div>
@@ -267,7 +274,7 @@ this is the symbolic version of <a class="el" href="namespaceSignalIntegrity_1_1
 <dl class="section return"><dt>Returns</dt><dd>string LaTeX representation of rho </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>that rho is different for a four-port single-ended transmission line. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00056">56</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00054">54</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
 
 </div>
 </div>
@@ -314,7 +321,7 @@ use SignalIntegrity.Symbolic.TLine.TLineGamma if you want to enter the string re
 <dd>
 this is the symbolic version of <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TLineTwoPort.xhtml#a7939a0952b89a85b0e0c43866fdad8e6" title="TLineTwoPort Ideal Two-port Transmission Line.">SignalIntegrity.Lib.Devices.TLineTwoPort.TLineTwoPort</a> except that by default it's base on rho for symbolic simplicity (Zc complicates the look of things). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00083">83</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TLine_8py_source.xhtml#l00081">81</a> of file <a class="el" href="TLine_8py_source.xhtml">TLine.py</a>.</p>
 
 </div>
 </div>

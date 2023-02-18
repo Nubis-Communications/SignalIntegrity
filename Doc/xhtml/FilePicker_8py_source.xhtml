@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -133,6 +133,10 @@ $(function() {
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    kw[<span class="stringliteral">&#39;filetypes&#39;</span>]=[filetypes[extindex]]+filetypes[0:extindex]+filetypes[extindex+1:]</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    filename=filedialog.askopenfilename(**kw)</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> _FileNameChecker(filename)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">def </span>AskOpenDirectory(**kw):</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    filedir=filedialog.askdirectory(**kw)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> _FileNameChecker(filedir)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1Files_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1Files.xhtml">SignalIntegrity.App.Files</a></div><div class="ttdef"><b>Definition:</b> <a href="Files_8py_source.xhtml#l00001">Files.py:1</a></div></div>
 <!-- start footer part -->

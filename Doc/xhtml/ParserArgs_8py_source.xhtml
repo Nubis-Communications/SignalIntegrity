@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -100,37 +100,57 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1LineSplitter.xhtml">SignalIntegrity.Lib.Helpers.LineSplitter</a> <span class="keyword">import</span> LineSplitter</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>ParserArgs():</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">def </span>AssignArguments(self,args):</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        self.m_vars=dict()</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> args <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            self.m_args=[]</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            args=LineSplitter(args)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            self.m_args = dict([(<span class="stringliteral">&#39;$&#39;</span>+args[i]+<span class="stringliteral">&#39;$&#39;</span>,args[i+1])</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(0,len(args),2)])</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">def </span>ReplaceArgs(self,lineList):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        replacedOne=<span class="keyword">False</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(lineList)):</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">if</span> lineList[i] <span class="keywordflow">in</span> self.m_vars:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                replacedOne=<span class="keyword">True</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                lineList[i] = self.m_vars[lineList[i]]</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> replacedOne:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            lineList=<span class="stringliteral">&#39; &#39;</span>.join(lineList).split()</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> lineList</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">def </span>ProcessVariables(self,lineList):</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> lineList[0] == <span class="stringliteral">&#39;var&#39;</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            variables=dict([(lineList[i*2+1],lineList[i*2+2])</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range((len(lineList)-1)//2)])</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">for</span> key <span class="keywordflow">in</span> self.m_args:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">if</span> key <span class="keywordflow">in</span> variables:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    variables[key]=self.m_args[key]</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.m_vars=dict(list(self.m_vars.items())+list(variables.items()))</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml">ParserArgs</a>():</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;argument handling base class for parsers&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">def </span>AssignArguments(self,args):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;assigns arguments</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml">   26</a></span>&#160;<span class="stringliteral">        @param args list of arguments as name,value pairs</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">        The arguments are stored as a dictionary of values corresponding to the keyword names</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">m_vars</a>=dict()</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> args <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a5cc9c2eb05c53ffe2051963964fc1945">m_args</a>=[]</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#acda22d4b2b57169147598215ec9b688a">   32</a></span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            args=LineSplitter(args)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a5cc9c2eb05c53ffe2051963964fc1945">m_args</a> = dict([(<span class="stringliteral">&#39;$&#39;</span>+args[i]+<span class="stringliteral">&#39;$&#39;</span>,args[i+1])</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(0,len(args),2)])</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#aa526e9c58a0f534dc6097112c51df9af">ReplaceArgs</a>(self,lineList):</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;replaces arguments in a line list with the actual values</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral">        @param lineList list of tokens in a line to process</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        If any token is surrounded by &#39;$&#39; and it&#39;s name is in the variable dictionary, then</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        the token is replaced with the value in the variable dictionary.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        replacedOne=<span class="keyword">False</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(lineList)):</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> lineList[i] <span class="keywordflow">in</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">m_vars</a>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                replacedOne=<span class="keyword">True</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#aa526e9c58a0f534dc6097112c51df9af">   46</a></span>&#160;                lineList[i] = self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">m_vars</a>[lineList[i]]</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> replacedOne:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            lineList=<span class="stringliteral">&#39;;&#39;</span>.join(lineList).split(<span class="stringliteral">&#39;;&#39;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> lineList</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#af674b6e8761e003dd8774c4ac5af57e6">ProcessVariables</a>(self,lineList):</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;processes lines insofar as arguments are concerned.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="stringliteral">        @param lineList list of tokens in a line to process</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">        If the first token is &#39;var&#39;, then the keyword,value pairs are placed in</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">        the variable dictionary</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> lineList[0] == <span class="stringliteral">&#39;var&#39;</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            variables=dict([(lineList[i*2+1],lineList[i*2+2])</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range((len(lineList)-1)//2)])</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">for</span> key <span class="keywordflow">in</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a5cc9c2eb05c53ffe2051963964fc1945">m_args</a>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="keywordflow">if</span> key <span class="keywordflow">in</span> variables:</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#af674b6e8761e003dd8774c4ac5af57e6">   61</a></span>&#160;                    variables[key]=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a5cc9c2eb05c53ffe2051963964fc1945">m_args</a>[key]</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">m_vars</a>=dict(list(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">m_vars</a>.items())+list(variables.items()))</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml">SignalIntegrity.Lib.Parsers.ParserArgs.ParserArgs</a></div><div class="ttdoc">argument handling base class for parsers</div><div class="ttdef"><b>Definition:</b> <a href="ParserArgs_8py_source.xhtml#l00026">ParserArgs.py:26</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs_xhtml_a5cc9c2eb05c53ffe2051963964fc1945"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a5cc9c2eb05c53ffe2051963964fc1945">SignalIntegrity.Lib.Parsers.ParserArgs.ParserArgs.m_args</a></div><div class="ttdeci">m_args</div><div class="ttdef"><b>Definition:</b> <a href="ParserArgs_8py_source.xhtml#l00035">ParserArgs.py:35</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs_xhtml_af674b6e8761e003dd8774c4ac5af57e6"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#af674b6e8761e003dd8774c4ac5af57e6">SignalIntegrity.Lib.Parsers.ParserArgs.ParserArgs.ProcessVariables</a></div><div class="ttdeci">def ProcessVariables(self, lineList)</div><div class="ttdoc">processes lines insofar as arguments are concerned.</div><div class="ttdef"><b>Definition:</b> <a href="ParserArgs_8py_source.xhtml#l00061">ParserArgs.py:61</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1LineSplitter_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Helpers_1_1LineSplitter.xhtml">SignalIntegrity.Lib.Helpers.LineSplitter</a></div><div class="ttdef"><b>Definition:</b> <a href="LineSplitter_8py_source.xhtml#l00001">LineSplitter.py:1</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs_xhtml_a66bd8a1a9457295804c7b211a4511bd1"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#a66bd8a1a9457295804c7b211a4511bd1">SignalIntegrity.Lib.Parsers.ParserArgs.ParserArgs.m_vars</a></div><div class="ttdeci">m_vars</div><div class="ttdef"><b>Definition:</b> <a href="ParserArgs_8py_source.xhtml#l00033">ParserArgs.py:33</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs_xhtml_aa526e9c58a0f534dc6097112c51df9af"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml#aa526e9c58a0f534dc6097112c51df9af">SignalIntegrity.Lib.Parsers.ParserArgs.ParserArgs.ReplaceArgs</a></div><div class="ttdeci">def ReplaceArgs(self, lineList)</div><div class="ttdoc">replaces arguments in a line list with the actual values</div><div class="ttdef"><b>Definition:</b> <a href="ParserArgs_8py_source.xhtml#l00046">ParserArgs.py:46</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

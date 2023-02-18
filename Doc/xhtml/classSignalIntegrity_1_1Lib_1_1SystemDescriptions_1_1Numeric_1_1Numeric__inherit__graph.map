@@ -1,7 +1,7 @@
 <map id="Numeric" name="Numeric">
-<area shape="rect" id="node1" title="handles numeric details of derived class solutions" alt="" coords="279,5,461,156"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title=" " alt="" coords="5,204,175,296"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml" title="class for performing numeric simulations" alt="" coords="199,204,341,296"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="365,204,575,296"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="599,204,757,296"/>
+<area shape="rect" id="node1" title="handles numeric details of derived class solutions" alt="" coords="252,5,423,171"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title=" " alt="" coords="5,219,157,311"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorNumeric_1_1SimulatorNumeric.xhtml" title="class for performing numeric simulations" alt="" coords="182,219,309,311"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="333,219,525,311"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="550,219,693,311"/>
 </map>

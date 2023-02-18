@@ -1,8 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="5,107,81,133"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies14.xhtml" title="14 tap Daubechies wavelet transformer" alt="" coords="129,5,297,32"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml" title="16 tap Daubechies wavelet transformer" alt="" coords="129,56,297,83"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml" title="4 tap Daubechies wavelet transformer" alt="" coords="133,107,293,133"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml" title="8 tap Daubechies wavelet transformer" alt="" coords="133,157,293,184"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml" title="2 tap Haar wavelet transformer" alt="" coords="160,208,267,235"/>
-</map>

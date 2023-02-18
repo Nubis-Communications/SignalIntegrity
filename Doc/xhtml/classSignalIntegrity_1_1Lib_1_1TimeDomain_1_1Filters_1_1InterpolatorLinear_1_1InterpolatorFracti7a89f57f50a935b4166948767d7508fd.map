@@ -1,4 +1,4 @@
 <map id="InterpolatorFractionalDelayFilterLinear" name="InterpolatorFractionalDelayFilterLinear">
-<area shape="rect" id="node1" title="combination linear fractional delay and interpolating filter" alt="" coords="5,131,205,267"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="23,5,188,83"/>
+<area shape="rect" id="node1" title="combination linear fractional delay and interpolating filter" alt="" coords="5,131,184,267"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="20,5,169,83"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="TerminationPolynomial" name="TerminationPolynomial">
-<area shape="rect" id="node1" title="Base class for terminations for calibration standards." alt="" coords="111,5,283,141"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial.xhtml" title="Class for capacitive terminations for open calibration standards." alt="" coords="5,189,187,296"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationLPolynomial.xhtml" title="Class for inductive terminations for short calibration standards." alt="" coords="211,189,389,296"/>
+<area shape="rect" id="node1" title="Base class for terminations for calibration standards." alt="" coords="102,5,255,141"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial.xhtml" title="Class for capacitive terminations for open calibration standards." alt="" coords="5,189,168,296"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationLPolynomial.xhtml" title="Class for inductive terminations for short calibration standards." alt="" coords="192,189,352,296"/>
 </map>

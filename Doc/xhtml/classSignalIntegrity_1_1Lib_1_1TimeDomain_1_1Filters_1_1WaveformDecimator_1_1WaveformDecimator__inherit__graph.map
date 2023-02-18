@@ -1,5 +1,5 @@
 <map id="WaveformDecimator" name="WaveformDecimator">
-<area shape="rect" id="node1" title="decimates waveforms" alt="" coords="61,277,239,399"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" title="FilterDescriptor.py." alt="" coords="5,5,127,229"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="151,79,317,156"/>
+<area shape="rect" id="node1" title="decimates waveforms" alt="" coords="59,277,217,399"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" title="FilterDescriptor.py." alt="" coords="5,5,116,229"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="141,79,290,156"/>
 </map>

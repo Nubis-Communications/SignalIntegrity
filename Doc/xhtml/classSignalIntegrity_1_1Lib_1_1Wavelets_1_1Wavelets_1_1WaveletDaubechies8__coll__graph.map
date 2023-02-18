@@ -1,4 +1,4 @@
 <map id="WaveletDaubechies8" name="WaveletDaubechies8">
-<area shape="rect" id="node1" title="8 tap Daubechies wavelet transformer" alt="" coords="5,204,165,281"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="37,5,133,156"/>
+<area shape="rect" id="node1" title="8 tap Daubechies wavelet transformer" alt="" coords="5,204,151,281"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="35,5,121,156"/>
 </map>

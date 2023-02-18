@@ -1,4 +1,4 @@
 <map id="WaveletHaar" name="WaveletHaar">
-<area shape="rect" id="node1" title="2 tap Haar wavelet transformer" alt="" coords="5,204,112,281"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="11,5,107,156"/>
+<area shape="rect" id="node1" title="2 tap Haar wavelet transformer" alt="" coords="5,204,103,281"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="11,5,97,156"/>
 </map>
