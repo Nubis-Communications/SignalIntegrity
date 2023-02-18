@@ -18,7 +18,7 @@ PartProperty.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import sys
-from tkinter.constants import SCROLL
+
 if sys.version_info.major < 3:
     import tkMessageBox as messagebox
 else:

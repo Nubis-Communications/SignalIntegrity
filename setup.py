@@ -51,8 +51,8 @@ setup(
     author_email=__email__,
     url=__url__,
     package_dir={'SignalIntegrity':'SignalIntegrity',
-				'SignalIntegrity.Lib':'SignalIntegrity/Lib',
-				'SignalIntegrity.App':'SignalIntegrity/App'},
+                 'SignalIntegrity.Lib':'SignalIntegrity/Lib',
+                 'SignalIntegrity.App':'SignalIntegrity/App'},
     packages=find_packages('.'),
     include_package_data=True,
     data_files=[('.',['LICENSE.txt','README.md']),
@@ -89,7 +89,7 @@ setup(
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    python_requires='>=2.7.11,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*',
+    python_requires='>=3.6',
     entry_points={
       'console_scripts': [
           'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main']},
@@ -100,8 +100,6 @@ setup(
         __license__,
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
