@@ -555,6 +555,8 @@ class SignalIntegrityApp(tk.Frame):
     def onClearSchematic(self):
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
+        SignalIntegrity.App.Project['Variables'].__init__()
+        SignalIntegrity.App.Project['PostProcessing'].__init__()
         self.history.Event('clear project')
         self.Drawing.DrawSchematic()
         #self.fileparts=FileParts()

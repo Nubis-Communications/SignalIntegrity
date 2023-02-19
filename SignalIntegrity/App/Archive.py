@@ -123,10 +123,11 @@ class Archive(list):
                                                              'args':args})
                                                 break
                     if not thisFile in [fileelement['file'] for fileelement in self]: # does not reference any files
-                        self.append({'file':thisFile,
+                        element = {'file':thisFile,
                                      'descended':True,
                                      'devices':[],
-                                     'args':{}})
+                                     'args':{}}
+                        self.append(element)
                     element['descended']=True # done searching for file devices in this project
                     if hasattr(app, 'projectStack') and (app.projectStack.stack != []):
                         app.projectStack.Pull()
