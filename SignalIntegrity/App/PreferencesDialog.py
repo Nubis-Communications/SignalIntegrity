@@ -26,6 +26,8 @@ class PreferencesDialog(PropertiesDialog):
         self.initialGridFrame=CalculationProperty(self.propertyListFrame,'initial grid',None,self.onUpdatePreferences,preferences,'Appearance.InitialGrid')
         self.backgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'background color',None,self.onUpdateColors,preferences,'Appearance.Color.Background')
         self.foregroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.Foreground')
+        self.roundDisplayedValues=CalculationProperty(self.propertyListFrame,'digits to round displayed values',None,self.onUpdatePreferences,preferences,'Appearance.RoundDisplayedValues')
+        self.limitText=CalculationProperty(self.propertyListFrame,'limit text in displayed values',None,self.onUpdatePreferences,preferences,'Appearance.LimitText')
         #self.activeBackgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'active background color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveBackground')
         #self.activeForegroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'active foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveForeground')
         self.showAllPinNumbers=CalculationPropertyTrueFalseButton(self.propertyListFrame,'show all pin numbers',None,self.onUpdatePreferences,preferences,'Appearance.AllPinNumbersVisible')

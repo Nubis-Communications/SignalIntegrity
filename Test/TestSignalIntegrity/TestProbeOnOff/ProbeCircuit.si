@@ -507,6 +507,7 @@
 							</Contours>
 							<EyeHeight>True</EyeHeight>
 							<EyeWidth>True</EyeWidth>
+							<LabelMeanLevels>False</LabelMeanLevels>
 							<LevelExtents>False</LevelExtents>
 							<MeanLevels>True</MeanLevels>
 						</Annotation>
@@ -628,6 +629,7 @@
 							</Contours>
 							<EyeHeight>True</EyeHeight>
 							<EyeWidth>True</EyeWidth>
+							<LabelMeanLevels>False</LabelMeanLevels>
 							<LevelExtents>False</LevelExtents>
 							<MeanLevels>True</MeanLevels>
 						</Annotation>
@@ -749,6 +751,7 @@
 							</Contours>
 							<EyeHeight>True</EyeHeight>
 							<EyeWidth>True</EyeWidth>
+							<LabelMeanLevels>False</LabelMeanLevels>
 							<LevelExtents>False</LevelExtents>
 							<MeanLevels>True</MeanLevels>
 						</Annotation>
@@ -1161,4 +1164,7 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 </Project>

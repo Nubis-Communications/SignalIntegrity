@@ -84,7 +84,7 @@ class TestLaplaceTest(unittest.TestCase,
 
     def testzdomain(self):
         eq='-0.1*z**(-10)+0.7*z+-0.2*z**10'
-        eq=eq.replace('s','(j*2*pi*f)')
+        eq=eq.replace('z','cmath.exp(j*2*pi*f/Fs)')
         fd=si.fd.EvenlySpacedFrequencyList(200e9,200)
         sp=si.sp.dev.Laplace(fd,eq)
         self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')

@@ -118,6 +118,9 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<PostProcessing>
 		<Lines>
 			<PostProcessingLine>

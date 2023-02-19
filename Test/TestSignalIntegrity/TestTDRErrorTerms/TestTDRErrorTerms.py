@@ -307,17 +307,20 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
+        tdrsim=siapp.SignalIntegrityAppHeadless()
         simName=projName='Load'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
+        tdrsim=siapp.SignalIntegrityAppHeadless()
         projName='Thru'
         simName=projName+'1'
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
+        tdrsim=siapp.SignalIntegrityAppHeadless()
         projName='Thru'
         simName=projName+'2'
         print(simName)

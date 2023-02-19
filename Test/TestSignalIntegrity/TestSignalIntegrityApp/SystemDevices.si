@@ -2752,4 +2752,7 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 </Project>

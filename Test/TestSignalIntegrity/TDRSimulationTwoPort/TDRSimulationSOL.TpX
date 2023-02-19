@@ -73,7 +73,7 @@
 %  <polyline lc="black">168,-108 168,-112</polyline>
 %  <polygon fill="black">165.333,-112 170.667,-112 168,-114.667 165.333,-112</polygon>
 %  <polyline lc="black">168,-96 168,-100</polyline>
-%  <text x="172" y="-107" t="50.00001 ohm" h="3" halign="l" lc="black"/>
+%  <text x="172" y="-107" t="50.0 ohm" h="3" halign="l" lc="black"/>
 %  <ellipse x="80" y="-96" dx="2" dy="-4" lc="black"/>
 %  <polyline lc="black">87,-98 87.07,-97.995 87.139,-97.981 87.206,-97.957 87.271,-97.925 87.333,-97.886 87.391,-97.841 87.446,-97.79 87.497,-97.735 87.545,-97.677 87.589,-97.617 87.629,-97.556 87.665,-97.494 87.698,-97.432 87.728,-97.37 87.756,-97.309 87.781,-97.25 87.803,-97.191 87.824,-97.134 87.842,-97.078 87.859,-97.024 87.874,-96.971 87.888,-96.92 87.901,-96.87 87.912,-96.821 87.922,-96.774 87.931,-96.728 87.94,-96.683 87.948,-96.639 87.954,-96.596 87.961,-96.555 87.966,-96.514 87.972,-96.474 87.976,-96.435 87.98,-96.396 87.984,-96.358 87.987,-96.321 87.99,-96.284 87.992,-96.247 87.994,-96.211 87.996,-96.176 87.998,-96.14 87.999,-96.105 87.999,-96.07 88,-96.035 88,-96 88,-95.965 87.999,-95.93 87.999,-95.895 87.998,-95.86 87.996,-95.824 87.994,-95.789 87.992,-95.753 87.99,-95.716 87.987,-95.679 87.984,-95.642 87.98,-95.604 87.976,-95.565 87.972,-95.526 87.966,-95.486 87.961,-95.445 87.954,-95.404 87.948,-95.361 87.94,-95.317 87.931,-95.272 87.922,-95.226 87.912,-95.179 87.901,-95.13 87.888,-95.08 87.874,-95.029 87.859,-94.976 87.842,-94.922 87.824,-94.866 87.803,-94.809 87.781,-94.75 87.756,-94.691 87.728,-94.63 87.698,-94.568 87.665,-94.506 87.629,-94.444 87.589,-94.383 87.545,-94.323 87.497,-94.265 87.446,-94.21 87.391,-94.159 87.333,-94.114 87.271,-94.075 87.206,-94.043 87.139,-94.019 87.07,-94.005 87,-94</polyline>
 %  <polyline lc="black">80,-94 87,-94</polyline>
@@ -258,21 +258,21 @@
 %  <polyline lc="black">28,-96 28,-56</polyline>
 %  <polyline lc="black">28,-56 28,-16</polyline>
 %  <polyline lc="black">28,-16 52,-16</polyline>
-%  <ellipse x="120" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="28" y="-96" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="28" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="28" y="-140" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="120" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="120" y="-104" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="120" y="-148" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="136" y="-104" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="96" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="96" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="136" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="136" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="28" y="-140" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="120" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="136" y="-148" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="96" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="136" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="96" y="-140" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="96" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="120" y="-104" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="28" y="-96" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="136" y="-104" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="120" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="28" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="96" y="-96" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="120" y="-148" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -350,7 +350,7 @@
 \path[line width=0.30mm, draw=black] (168,-108) -- (168,-112);
 \path[line width=0.30mm, fill=black] (165.333,-112) -- (170.667,-112) -- (168,-114.667) -- (165.333,-112) -- cycle;
 \path[line width=0.30mm, draw=black] (168,-96) -- (168,-100);
-\draw[black] (172,-107) node[anchor=base west]{50.00001 ohm};
+\draw[black] (172,-107) node[anchor=base west]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (80,-96) ellipse (1mm and -2mm);
 \path[line width=0.30mm, draw=black] (87,-98) -- (87.07,-97.995) -- (87.139,-97.981) -- (87.206,-97.957) -- (87.271,-97.925) -- (87.333,-97.886) -- (87.391,-97.841) -- (87.446,-97.79) -- (87.497,-97.735) -- (87.545,-97.677) -- (87.589,-97.617) -- (87.629,-97.556) -- (87.665,-97.494) -- (87.698,-97.432) -- (87.728,-97.37) -- (87.756,-97.309) -- (87.781,-97.25) -- (87.803,-97.191) -- (87.824,-97.134) -- (87.842,-97.078) -- (87.859,-97.024) -- (87.874,-96.971) -- (87.888,-96.92) -- (87.901,-96.87) -- (87.912,-96.821) -- (87.922,-96.774) -- (87.931,-96.728) -- (87.94,-96.683) -- (87.948,-96.639) -- (87.954,-96.596) -- (87.961,-96.555) -- (87.966,-96.514) -- (87.972,-96.474) -- (87.976,-96.435) -- (87.98,-96.396) -- (87.984,-96.358) -- (87.987,-96.321) -- (87.99,-96.284) -- (87.992,-96.247) -- (87.994,-96.211) -- (87.996,-96.176) -- (87.998,-96.14) -- (87.999,-96.105) -- (87.999,-96.07) -- (88,-96.035) -- (88,-96) -- (88,-95.965) -- (87.999,-95.93) -- (87.999,-95.895) -- (87.998,-95.86) -- (87.996,-95.824) -- (87.994,-95.789) -- (87.992,-95.753) -- (87.99,-95.716) -- (87.987,-95.679) -- (87.984,-95.642) -- (87.98,-95.604) -- (87.976,-95.565) -- (87.972,-95.526) -- (87.966,-95.486) -- (87.961,-95.445) -- (87.954,-95.404) -- (87.948,-95.361) -- (87.94,-95.317) -- (87.931,-95.272) -- (87.922,-95.226) -- (87.912,-95.179) -- (87.901,-95.13) -- (87.888,-95.08) -- (87.874,-95.029) -- (87.859,-94.976) -- (87.842,-94.922) -- (87.824,-94.866) -- (87.803,-94.809) -- (87.781,-94.75) -- (87.756,-94.691) -- (87.728,-94.63) -- (87.698,-94.568) -- (87.665,-94.506) -- (87.629,-94.444) -- (87.589,-94.383) -- (87.545,-94.323) -- (87.497,-94.265) -- (87.446,-94.21) -- (87.391,-94.159) -- (87.333,-94.114) -- (87.271,-94.075) -- (87.206,-94.043) -- (87.139,-94.019) -- (87.07,-94.005) -- (87,-94);
 \path[line width=0.30mm, draw=black] (80,-94) -- (87,-94);
@@ -535,19 +535,19 @@
 \path[line width=0.30mm, draw=black] (28,-96) -- (28,-56);
 \path[line width=0.30mm, draw=black] (28,-56) -- (28,-16);
 \path[line width=0.30mm, draw=black] (28,-16) -- (52,-16);
-\path[line width=0.30mm, draw=black, fill=black] (120,-24) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (28,-96) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (28,-56) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (28,-140) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (120,-64) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (120,-104) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (120,-148) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (136,-104) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (96,-16) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (96,-56) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (136,-64) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (136,-24) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (28,-140) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (120,-24) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (136,-148) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (96,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (136,-24) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (96,-140) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (96,-16) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (120,-104) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (28,-96) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (136,-104) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (120,-64) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (28,-56) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (96,-96) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (120,-148) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

@@ -1,0 +1,9 @@
+var $L$ 1.0e-3
+var $D$ 50.0e-6
+var $material$ gold
+var $rho$ 22.4e-9
+var $ur$ 999.96e-3
+var $valid$ True
+device D1 2 file RoundWireBondRho.si L $L$ D $D$ ur $ur$ rho $rho$ EndFrequency 100000000000.0 FrequencyPoints 400 UserSampleRate 40000000000.0
+port 1 td 0 D1 1
+port 2 td 0 D1 2

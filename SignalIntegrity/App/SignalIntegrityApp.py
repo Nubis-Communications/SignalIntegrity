@@ -47,6 +47,7 @@ from SignalIntegrity.App.NetworkAnalyzer import NetworkAnalyzerSimulator
 from SignalIntegrity.App.NetList import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
+from SignalIntegrity.App.EquationsDialog import EquationsDialog
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.History import History
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
@@ -307,6 +308,9 @@ class SignalIntegrityApp(tk.Frame):
         self.CalculateDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'system-run-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.SParameterViewerDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'sp-view.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
+        self.VariablesDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'variables-view.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.EquationsDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'equations-view.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
@@ -841,10 +845,18 @@ class SignalIntegrityApp(tk.Frame):
     def onDeleteSelectedWire(self):
         self.Drawing.DeleteSelectedWire()
 
+    def CheckEquations(self):
+        if not SignalIntegrity.App.Project['Equations.Valid']:
+            messagebox.showerror('Project','Equations Are Invalid')
+            return False
+        else:
+            return True
+
     def CalculateSParameters(self,netList=None):
         if netList==None:
             self.Drawing.stateMachine.Nothing()
             netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+        if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -876,6 +888,9 @@ class SignalIntegrityApp(tk.Frame):
 
     def onPostProcessing(self):
         PostProcessingDialog(self)
+
+    def onEquations(self):
+        EquationsDialog(self)
 
     def PrintProgress(self,iteration):
         self.statusbar.set('Fitting - iteration:'+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.m_mse))
@@ -952,6 +967,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onVirtualProbe(self,TransferMatricesOnly=False):
         self.Drawing.stateMachine.Nothing()
+        if not self.CheckEquations(): return None
         self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
 
     def onTransferParameters(self):
@@ -963,6 +979,7 @@ class SignalIntegrityApp(tk.Frame):
     def onDeembed(self):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+        if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -1061,9 +1078,6 @@ class SignalIntegrityApp(tk.Frame):
                         variable['Value']=('='+varName)
             self.Drawing.DrawSchematic()
 
-    def onEquations(self):
-        pass
-
     def onHelp(self):
         if Doer.helpKeys is None:
             messagebox.showerror('Help System','Cannot find or open this help element')
@@ -1144,7 +1158,7 @@ class SignalIntegrityApp(tk.Frame):
             self.SimulateNetworkAnalyzerModelDoer.Activate(True)
             # ------
             self.VariablesDoer.Activate(True)
-            self.EquationsDoer.Activate(False)
+            self.EquationsDoer.Activate(True)
             self.ParameterizeDoer.Activate(True)
             # ------
             self.HelpDoer.Activate(True)
@@ -1309,6 +1323,7 @@ class SignalIntegrityApp(tk.Frame):
     def CalculateErrorTerms(self):
         self.Drawing.stateMachine.Nothing()
         netList=self.Drawing.schematic.NetList().Text()
+        if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:

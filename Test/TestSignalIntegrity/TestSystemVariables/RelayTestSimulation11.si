@@ -69,7 +69,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>0.0</Default>
 								<Description>risetime (s)</Description>
 								<Name>Risetime</Name>
 								<ReadOnly>False</ReadOnly>
@@ -79,7 +78,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>40000000000.0</Default>
 								<Description>Sample Rate (S/s)</Description>
 								<Name>SampleRate</Name>
 								<ReadOnly>False</ReadOnly>
@@ -89,7 +87,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage amplitude (V)</Description>
 								<Name>Amplitude</Name>
 								<ReadOnly>False</ReadOnly>
@@ -99,7 +96,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1000000000.0</Default>
 								<Description>frequency (Hz)</Description>
 								<Name>Frequency</Name>
 								<ReadOnly>False</ReadOnly>
@@ -109,7 +105,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.0</Default>
 								<Description>phase (degrees)</Description>
 								<Name>Phase</Name>
 								<ReadOnly>False</ReadOnly>
@@ -119,7 +114,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1</Default>
 								<Description>relay position</Description>
 								<Name>Source</Name>
 								<ReadOnly>False</ReadOnly>
@@ -129,7 +123,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>3</Default>
 								<Description>relay position</Description>
 								<Name>Route</Name>
 								<ReadOnly>False</ReadOnly>
@@ -139,7 +132,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>None</Default>
 								<Description>resistance (ohms)</Description>
 								<Name>R</Name>
 								<ReadOnly>False</ReadOnly>
@@ -149,7 +141,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>None</Default>
 								<Description>capacitance (F)</Description>
 								<Name>C</Name>
 								<ReadOnly>False</ReadOnly>
@@ -159,7 +150,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>2e-10</Default>
 								<Description>delay (s)</Description>
 								<Name>Td</Name>
 								<ReadOnly>False</ReadOnly>
@@ -169,7 +159,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>50.0</Default>
 								<Description>characteristic impedance (ohms)</Description>
 								<Name>Zc</Name>
 								<ReadOnly>False</ReadOnly>
@@ -179,7 +168,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>50.0</Default>
 								<Description>resistance (ohms)</Description>
 								<Name>Rterm</Name>
 								<ReadOnly>False</ReadOnly>
@@ -327,10 +315,12 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Variables>
 		<Items>
 			<Variable>
-				<Default>0.0</Default>
 				<Description>risetime (s)</Description>
 				<Name>Risetime</Name>
 				<ReadOnly>False</ReadOnly>
@@ -340,7 +330,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>40000000000.0</Default>
 				<Description>Sample Rate (S/s)</Description>
 				<Name>SampleRate</Name>
 				<ReadOnly>False</ReadOnly>
@@ -350,7 +339,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage amplitude (V)</Description>
 				<Name>Amplitude</Name>
 				<ReadOnly>False</ReadOnly>
@@ -360,7 +348,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1000000000.0</Default>
 				<Description>frequency (Hz)</Description>
 				<Name>Frequency</Name>
 				<ReadOnly>False</ReadOnly>
@@ -370,7 +357,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>0.0</Default>
 				<Description>phase (degrees)</Description>
 				<Name>Phase</Name>
 				<ReadOnly>False</ReadOnly>
@@ -380,7 +366,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1</Default>
 				<Description>relay position</Description>
 				<Name>Source</Name>
 				<ReadOnly>False</ReadOnly>
@@ -390,7 +375,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>3</Default>
 				<Description>relay position</Description>
 				<Name>Route</Name>
 				<ReadOnly>False</ReadOnly>
@@ -400,7 +384,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>None</Default>
 				<Description>resistance (ohms)</Description>
 				<Name>R</Name>
 				<ReadOnly>False</ReadOnly>
@@ -410,7 +393,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>None</Default>
 				<Description>capacitance (F)</Description>
 				<Name>C</Name>
 				<ReadOnly>False</ReadOnly>
@@ -420,7 +402,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>2e-10</Default>
 				<Description>delay (s)</Description>
 				<Name>Td</Name>
 				<ReadOnly>False</ReadOnly>
@@ -430,7 +411,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>50.0</Default>
 				<Description>characteristic impedance (ohms)</Description>
 				<Name>Zc</Name>
 				<ReadOnly>False</ReadOnly>
@@ -440,7 +420,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>50.0</Default>
 				<Description>resistance (ohms)</Description>
 				<Name>Rterm</Name>
 				<ReadOnly>False</ReadOnly>
@@ -450,7 +429,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>5e-10</Default>
 				<Description>delay (s)</Description>
 				<Name>T1td</Name>
 				<ReadOnly>False</ReadOnly>
@@ -460,7 +438,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>55.0</Default>
 				<Description>characteristic impedance (ohms)</Description>
 				<Name>T1zc</Name>
 				<ReadOnly>False</ReadOnly>
@@ -470,7 +447,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>50.0</Default>
 				<Description>resistance (ohms)</Description>
 				<Name>R1r</Name>
 				<ReadOnly>False</ReadOnly>

@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>951x259+78+107</Geometry>
+			<Geometry>696x212+26+26</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(24, 3)</Origin>
+						<Origin>(19, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -50,7 +50,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(28, 3)</Origin>
+						<Origin>(23, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -80,7 +80,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(27, 3)</Origin>
+						<Origin>(22, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -92,7 +92,7 @@
 						<PartProperty>
 							<Keyword>eq</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>111036345.083127*(s+1043517065940.07)/(s**2+s*(399666919596.745/1.41865904825535)+399666919596.745**2)</Value>
+							<Value>=eq</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -106,4 +106,61 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+		<Lines>
+			<EquationLine>
+				<Line>eq=f'{A}*(s+{wz})/(s**2+s*({w0}/{Q})+{w0}**2)'</Line>
+			</EquationLine>
+		</Lines>
+	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>Gain</Description>
+				<Name>A</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>111036345.083127</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>zero frequency</Description>
+				<Name>wz</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>rad/s</Units>
+				<Value>1043517065940.07</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>resonant frequency</Description>
+				<Name>w0</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>rad/s</Units>
+				<Value>399666919596.745</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>Quality factor</Description>
+				<Name>Q</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>1.41865904825535</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>Laplace equation</Description>
+				<Name>eq</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>111036345.083127*(s+1043517065940.07)/(s**2+s*(399666919596.745/1.41865904825535)+399666919596.745**2)</Value>
+				<Visible>False</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

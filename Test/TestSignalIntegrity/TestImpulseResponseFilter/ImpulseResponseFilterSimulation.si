@@ -81,7 +81,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1</Default>
 								<Description>relay position</Description>
 								<Name>Path</Name>
 								<ReadOnly>False</ReadOnly>
@@ -347,7 +346,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1</Default>
 								<Description>relay position</Description>
 								<Name>Path</Name>
 								<ReadOnly>False</ReadOnly>
@@ -832,10 +830,12 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Variables>
 		<Items>
 			<Variable>
-				<Default>1</Default>
 				<Description>relay position</Description>
 				<Name>Path</Name>
 				<ReadOnly>False</ReadOnly>

@@ -4,13 +4,13 @@
 %  <polyline lc="black">60,-38 63,-38</polyline>
 %  <polyline lc="black">60,-42 63,-42</polyline>
 %  <polyline lc="black">56,-40 60,-40</polyline>
-%  <text x="64" y="-35" t="od 29.243 ps" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-35" t="od 29.24 ps" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-32" t="oz0 50.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-29" t="ol 2.2 Gohm/s" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-26" t="c0 49.43 fF" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-23" t="c1 -310.13 e-27 F/Hz" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-20" t="c2 23.1682 e-36 F/Hz^2" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-17" t="c3 0.15966 e-45 F/Hz^3" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-23" t="c1 -310.1 e-27 F/Hz" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-20" t="c2 23.17 e-36 F/Hz^2" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-17" t="c3 0.1597 e-45 F/Hz^3" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-14" t="Open" h="3" halign="l" lc="black"/>
 %  <text x="40" y="-45" t="VNA" h="3" halign="c" lc="black"/>
 %  <rect x="36" y="-28" w="8" h="-32" lc="black"/>
@@ -38,13 +38,13 @@
 \path[line width=0.30mm, draw=black] (60,-38) -- (63,-38);
 \path[line width=0.30mm, draw=black] (60,-42) -- (63,-42);
 \path[line width=0.30mm, draw=black] (56,-40) -- (60,-40);
-\draw[black] (64,-35) node[anchor=base west]{od 29.243 ps};
+\draw[black] (64,-35) node[anchor=base west]{od 29.24 ps};
 \draw[black] (64,-32) node[anchor=base west]{oz0 50.0 ohm};
 \draw[black] (64,-29) node[anchor=base west]{ol 2.2 Gohm/s};
 \draw[black] (64,-26) node[anchor=base west]{c0 49.43 fF};
-\draw[black] (64,-23) node[anchor=base west]{c1 -310.13 e-27 F/Hz};
-\draw[black] (64,-20) node[anchor=base west]{c2 23.1682 e-36 F/Hz^2};
-\draw[black] (64,-17) node[anchor=base west]{c3 0.15966 e-45 F/Hz^3};
+\draw[black] (64,-23) node[anchor=base west]{c1 -310.1 e-27 F/Hz};
+\draw[black] (64,-20) node[anchor=base west]{c2 23.17 e-36 F/Hz^2};
+\draw[black] (64,-17) node[anchor=base west]{c3 0.1597 e-45 F/Hz^3};
 \draw[black] (64,-14) node[anchor=base west]{Open};
 \draw[black] (40,-45) node[anchor=base]{VNA};
 \path[line width=0.30mm, draw=black] (36,-60) rectangle +(8,32);

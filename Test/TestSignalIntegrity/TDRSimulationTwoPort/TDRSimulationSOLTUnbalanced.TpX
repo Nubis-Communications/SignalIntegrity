@@ -73,7 +73,7 @@
 %  <polyline lc="black">108,-104 108,-108</polyline>
 %  <polygon fill="black">110.667,-108 105.333,-108 108,-110.667 110.667,-108</polygon>
 %  <polyline lc="black">108,-92 108,-96</polyline>
-%  <text x="104" y="-103" t="50.00001 ohm" h="3" halign="r" lc="black"/>
+%  <text x="104" y="-103" t="50.0 ohm" h="3" halign="r" lc="black"/>
 %  <ellipse x="48" y="-92" dx="2" dy="-4" lc="black"/>
 %  <polyline lc="black">55,-94 55.07,-93.995 55.139,-93.981 55.206,-93.957 55.271,-93.925 55.333,-93.886 55.391,-93.841 55.446,-93.79 55.497,-93.735 55.545,-93.677 55.589,-93.617 55.629,-93.556 55.665,-93.494 55.698,-93.432 55.728,-93.37 55.756,-93.309 55.781,-93.25 55.803,-93.191 55.824,-93.134 55.842,-93.078 55.859,-93.024 55.874,-92.971 55.888,-92.92 55.901,-92.87 55.912,-92.821 55.922,-92.774 55.931,-92.728 55.94,-92.683 55.948,-92.639 55.954,-92.596 55.961,-92.555 55.966,-92.514 55.972,-92.474 55.976,-92.435 55.98,-92.396 55.984,-92.358 55.987,-92.321 55.99,-92.284 55.992,-92.247 55.994,-92.211 55.996,-92.176 55.998,-92.14 55.999,-92.105 55.999,-92.07 56,-92.035 56,-92 56,-91.965 55.999,-91.93 55.999,-91.895 55.998,-91.86 55.996,-91.824 55.994,-91.789 55.992,-91.753 55.99,-91.716 55.987,-91.679 55.984,-91.642 55.98,-91.604 55.976,-91.565 55.972,-91.526 55.966,-91.486 55.961,-91.445 55.954,-91.404 55.948,-91.361 55.94,-91.317 55.931,-91.272 55.922,-91.226 55.912,-91.179 55.901,-91.13 55.888,-91.08 55.874,-91.029 55.859,-90.976 55.842,-90.922 55.824,-90.866 55.803,-90.809 55.781,-90.75 55.756,-90.691 55.728,-90.63 55.698,-90.568 55.665,-90.506 55.629,-90.444 55.589,-90.383 55.545,-90.323 55.497,-90.265 55.446,-90.21 55.391,-90.159 55.333,-90.114 55.271,-90.075 55.206,-90.043 55.139,-90.019 55.07,-90.005 55,-90</polyline>
 %  <polyline lc="black">48,-90 55,-90</polyline>
@@ -176,7 +176,7 @@
 %  <polyline lc="black">144,-104 144,-108</polyline>
 %  <polygon fill="black">141.333,-108 146.667,-108 144,-110.667 141.333,-108</polygon>
 %  <polyline lc="black">144,-92 144,-96</polyline>
-%  <text x="148" y="-103" t="50.00001 ohm" h="3" halign="l" lc="black"/>
+%  <text x="148" y="-103" t="50.0 ohm" h="3" halign="l" lc="black"/>
 %  <ellipse x="156" y="-308" dx="-2" dy="-4" lc="black"/>
 %  <polyline lc="black">149,-310 148.93,-309.995 148.861,-309.981 148.794,-309.957 148.729,-309.925 148.667,-309.886 148.609,-309.841 148.554,-309.79 148.503,-309.735 148.455,-309.677 148.411,-309.617 148.371,-309.556 148.335,-309.494 148.302,-309.432 148.272,-309.37 148.244,-309.309 148.219,-309.25 148.197,-309.191 148.176,-309.134 148.158,-309.078 148.141,-309.024 148.126,-308.971 148.112,-308.92 148.099,-308.87 148.088,-308.821 148.078,-308.774 148.069,-308.728 148.06,-308.683 148.052,-308.639 148.046,-308.596 148.039,-308.555 148.034,-308.514 148.028,-308.474 148.024,-308.435 148.02,-308.396 148.016,-308.358 148.013,-308.321 148.01,-308.284 148.008,-308.247 148.006,-308.211 148.004,-308.176 148.002,-308.14 148.001,-308.105 148.001,-308.07 148,-308.035 148,-308 148,-307.965 148.001,-307.93 148.001,-307.895 148.002,-307.86 148.004,-307.824 148.006,-307.789 148.008,-307.753 148.01,-307.716 148.013,-307.679 148.016,-307.642 148.02,-307.604 148.024,-307.565 148.028,-307.526 148.034,-307.486 148.039,-307.445 148.046,-307.404 148.052,-307.361 148.06,-307.317 148.069,-307.272 148.078,-307.226 148.088,-307.179 148.099,-307.13 148.112,-307.08 148.126,-307.029 148.141,-306.976 148.158,-306.922 148.176,-306.866 148.197,-306.809 148.219,-306.75 148.244,-306.691 148.272,-306.63 148.302,-306.568 148.335,-306.506 148.371,-306.444 148.411,-306.383 148.455,-306.323 148.503,-306.265 148.554,-306.21 148.609,-306.159 148.667,-306.114 148.729,-306.075 148.794,-306.043 148.861,-306.019 148.93,-306.005 149,-306</polyline>
 %  <polyline lc="black">156,-306 149,-306</polyline>
@@ -1057,70 +1057,70 @@
 %  <polyline lc="black">228,-164 236,-164</polyline>
 %  <polyline lc="black">236,-164 236,-92</polyline>
 %  <polyline lc="black">12,-128 12,-92</polyline>
-%  <ellipse x="168" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="192" y="-128" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="236" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="236" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="184" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="12" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="236" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="168" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="68" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="184" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="236" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="12" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="236" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="236" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="12" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="236" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="68" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="236" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="12" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="68" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="12" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-128" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-208" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="84" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="168" y="-172" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="12" y="-128" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="184" y="-136" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="68" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="60" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
-%  <ellipse x="192" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-244" dx="1" dy="-1" lc="black" fill="black"/>
 %  <ellipse x="84" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-128" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-164" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-236" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="12" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-280" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="68" y="-316" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-20" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="236" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="192" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="236" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="168" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-64" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="184" y="-100" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-272" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="60" y="-308" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="84" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="12" y="-92" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="12" y="-128" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="12" y="-200" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -1198,7 +1198,7 @@
 \path[line width=0.30mm, draw=black] (108,-104) -- (108,-108);
 \path[line width=0.30mm, fill=black] (110.667,-108) -- (105.333,-108) -- (108,-110.667) -- (110.667,-108) -- cycle;
 \path[line width=0.30mm, draw=black] (108,-92) -- (108,-96);
-\draw[black] (104,-103) node[anchor=base east]{50.00001 ohm};
+\draw[black] (104,-103) node[anchor=base east]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (48,-92) ellipse (1mm and -2mm);
 \path[line width=0.30mm, draw=black] (55,-94) -- (55.07,-93.995) -- (55.139,-93.981) -- (55.206,-93.957) -- (55.271,-93.925) -- (55.333,-93.886) -- (55.391,-93.841) -- (55.446,-93.79) -- (55.497,-93.735) -- (55.545,-93.677) -- (55.589,-93.617) -- (55.629,-93.556) -- (55.665,-93.494) -- (55.698,-93.432) -- (55.728,-93.37) -- (55.756,-93.309) -- (55.781,-93.25) -- (55.803,-93.191) -- (55.824,-93.134) -- (55.842,-93.078) -- (55.859,-93.024) -- (55.874,-92.971) -- (55.888,-92.92) -- (55.901,-92.87) -- (55.912,-92.821) -- (55.922,-92.774) -- (55.931,-92.728) -- (55.94,-92.683) -- (55.948,-92.639) -- (55.954,-92.596) -- (55.961,-92.555) -- (55.966,-92.514) -- (55.972,-92.474) -- (55.976,-92.435) -- (55.98,-92.396) -- (55.984,-92.358) -- (55.987,-92.321) -- (55.99,-92.284) -- (55.992,-92.247) -- (55.994,-92.211) -- (55.996,-92.176) -- (55.998,-92.14) -- (55.999,-92.105) -- (55.999,-92.07) -- (56,-92.035) -- (56,-92) -- (56,-91.965) -- (55.999,-91.93) -- (55.999,-91.895) -- (55.998,-91.86) -- (55.996,-91.824) -- (55.994,-91.789) -- (55.992,-91.753) -- (55.99,-91.716) -- (55.987,-91.679) -- (55.984,-91.642) -- (55.98,-91.604) -- (55.976,-91.565) -- (55.972,-91.526) -- (55.966,-91.486) -- (55.961,-91.445) -- (55.954,-91.404) -- (55.948,-91.361) -- (55.94,-91.317) -- (55.931,-91.272) -- (55.922,-91.226) -- (55.912,-91.179) -- (55.901,-91.13) -- (55.888,-91.08) -- (55.874,-91.029) -- (55.859,-90.976) -- (55.842,-90.922) -- (55.824,-90.866) -- (55.803,-90.809) -- (55.781,-90.75) -- (55.756,-90.691) -- (55.728,-90.63) -- (55.698,-90.568) -- (55.665,-90.506) -- (55.629,-90.444) -- (55.589,-90.383) -- (55.545,-90.323) -- (55.497,-90.265) -- (55.446,-90.21) -- (55.391,-90.159) -- (55.333,-90.114) -- (55.271,-90.075) -- (55.206,-90.043) -- (55.139,-90.019) -- (55.07,-90.005) -- (55,-90);
 \path[line width=0.30mm, draw=black] (48,-90) -- (55,-90);
@@ -1301,7 +1301,7 @@
 \path[line width=0.30mm, draw=black] (144,-104) -- (144,-108);
 \path[line width=0.30mm, fill=black] (141.333,-108) -- (146.667,-108) -- (144,-110.667) -- (141.333,-108) -- cycle;
 \path[line width=0.30mm, draw=black] (144,-92) -- (144,-96);
-\draw[black] (148,-103) node[anchor=base west]{50.00001 ohm};
+\draw[black] (148,-103) node[anchor=base west]{50.0 ohm};
 \path[line width=0.30mm, draw=black] (156,-308) ellipse (-1mm and -2mm);
 \path[line width=0.30mm, draw=black] (149,-310) -- (148.93,-309.995) -- (148.861,-309.981) -- (148.794,-309.957) -- (148.729,-309.925) -- (148.667,-309.886) -- (148.609,-309.841) -- (148.554,-309.79) -- (148.503,-309.735) -- (148.455,-309.677) -- (148.411,-309.617) -- (148.371,-309.556) -- (148.335,-309.494) -- (148.302,-309.432) -- (148.272,-309.37) -- (148.244,-309.309) -- (148.219,-309.25) -- (148.197,-309.191) -- (148.176,-309.134) -- (148.158,-309.078) -- (148.141,-309.024) -- (148.126,-308.971) -- (148.112,-308.92) -- (148.099,-308.87) -- (148.088,-308.821) -- (148.078,-308.774) -- (148.069,-308.728) -- (148.06,-308.683) -- (148.052,-308.639) -- (148.046,-308.596) -- (148.039,-308.555) -- (148.034,-308.514) -- (148.028,-308.474) -- (148.024,-308.435) -- (148.02,-308.396) -- (148.016,-308.358) -- (148.013,-308.321) -- (148.01,-308.284) -- (148.008,-308.247) -- (148.006,-308.211) -- (148.004,-308.176) -- (148.002,-308.14) -- (148.001,-308.105) -- (148.001,-308.07) -- (148,-308.035) -- (148,-308) -- (148,-307.965) -- (148.001,-307.93) -- (148.001,-307.895) -- (148.002,-307.86) -- (148.004,-307.824) -- (148.006,-307.789) -- (148.008,-307.753) -- (148.01,-307.716) -- (148.013,-307.679) -- (148.016,-307.642) -- (148.02,-307.604) -- (148.024,-307.565) -- (148.028,-307.526) -- (148.034,-307.486) -- (148.039,-307.445) -- (148.046,-307.404) -- (148.052,-307.361) -- (148.06,-307.317) -- (148.069,-307.272) -- (148.078,-307.226) -- (148.088,-307.179) -- (148.099,-307.13) -- (148.112,-307.08) -- (148.126,-307.029) -- (148.141,-306.976) -- (148.158,-306.922) -- (148.176,-306.866) -- (148.197,-306.809) -- (148.219,-306.75) -- (148.244,-306.691) -- (148.272,-306.63) -- (148.302,-306.568) -- (148.335,-306.506) -- (148.371,-306.444) -- (148.411,-306.383) -- (148.455,-306.323) -- (148.503,-306.265) -- (148.554,-306.21) -- (148.609,-306.159) -- (148.667,-306.114) -- (148.729,-306.075) -- (148.794,-306.043) -- (148.861,-306.019) -- (148.93,-306.005) -- (149,-306);
 \path[line width=0.30mm, draw=black] (156,-306) -- (149,-306);
@@ -2182,68 +2182,68 @@
 \path[line width=0.30mm, draw=black] (228,-164) -- (236,-164);
 \path[line width=0.30mm, draw=black] (236,-164) -- (236,-92);
 \path[line width=0.30mm, draw=black] (12,-128) -- (12,-92);
-\path[line width=0.30mm, draw=black, fill=black] (168,-28) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (192,-128) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-100) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-164) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (236,-164) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-136) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-200) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-172) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-236) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (236,-236) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-208) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-272) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-136) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-244) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-28) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-172) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-64) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-208) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (184,-244) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-280) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-64) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-100) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-136) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-172) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-208) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (12,-272) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-20) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-308) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (236,-308) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-280) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (168,-316) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-100) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-136) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (68,-172) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (184,-316) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-56) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-316) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-136) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (236,-56) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-236) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-172) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-28) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-92) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-20) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-280) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-316) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-100) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-64) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-28) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-208) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-244) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (12,-272) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (236,-164) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-100) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-208) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (236,-92) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (12,-92) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (236,-308) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-200) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-272) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-244) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (68,-208) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-308) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-100) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-280) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-272) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-200) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-164) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (236,-236) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-172) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (12,-200) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-64) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (68,-244) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-92) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (12,-56) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-64) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-136) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-308) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-128) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-64) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-208) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-164) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (84,-28) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (168,-172) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-136) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (12,-128) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (184,-136) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-280) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (68,-100) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-20) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (60,-56) ellipse (0.5mm and -0.5mm);
-\path[line width=0.30mm, draw=black, fill=black] (192,-236) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-244) ellipse (0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black, fill=black] (84,-280) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-316) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-92) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-128) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-164) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-200) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-236) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (12,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-280) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (68,-316) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-20) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (236,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (192,-92) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-28) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (236,-92) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (168,-64) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-28) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-64) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (184,-100) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-272) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (60,-308) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (84,-28) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (12,-92) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (12,-128) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (12,-200) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

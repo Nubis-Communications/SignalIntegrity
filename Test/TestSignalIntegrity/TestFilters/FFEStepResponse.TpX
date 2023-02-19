@@ -23,7 +23,7 @@
 %  <polyline lc="black">80,-28 76,-28</polyline>
 %  <text x="77" y="-27" t="2" h="3" halign="l" lc="black"/>
 %  <text x="72" y="-21" t="taps [-0.1,1.3,-0.2]" h="3" halign="c" lc="black"/>
-%  <text x="72" y="-18" t="td 17.85714 ps" h="3" halign="c" lc="black"/>
+%  <text x="72" y="-18" t="td 17.86 ps" h="3" halign="c" lc="black"/>
 %  <ellipse x="80" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
 %</TpX>
 \centering
@@ -52,6 +52,6 @@
 \path[line width=0.30mm, draw=black] (80,-28) -- (76,-28);
 \draw[black] (77,-27) node[anchor=base west]{2};
 \draw[black] (72,-21) node[anchor=base]{taps [-0.1,1.3,-0.2]};
-\draw[black] (72,-18) node[anchor=base]{td 17.85714 ps};
+\draw[black] (72,-18) node[anchor=base]{td 17.86 ps};
 \path[line width=0.30mm, draw=black, fill=black] (80,-28) ellipse (0.5mm and -0.5mm);
 \end{tikzpicture}%

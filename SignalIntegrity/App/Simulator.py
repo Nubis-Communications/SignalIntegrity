@@ -488,7 +488,7 @@ class SimulatorDialog(tk.Toplevel):
             maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
 
         self.plt.set_xlabel('time ('+timeLabel+')',fontsize=10)
-        self.plt.legend(loc='upper right',labelspacing=0.1)
+        if len(self.waveformList)>0: self.plt.legend(loc='upper right',labelspacing=0.1)
 
         if not self.ZoomsInitialized:
             self.miny=minv

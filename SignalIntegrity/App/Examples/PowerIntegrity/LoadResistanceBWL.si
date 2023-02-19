@@ -14,4 +14,7 @@
 		<Schematic>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 </Project>

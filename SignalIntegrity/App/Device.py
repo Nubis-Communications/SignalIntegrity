@@ -70,14 +70,21 @@ class Device(object):
     def PinCoordinates(self):
         return self.partPicture.current.PinCoordinates()
     def CreateVisiblePropertiesList(self):
+        import SignalIntegrity.App.Project
+        textLimit = SignalIntegrity.App.Preferences['Appearance.LimitText']
         visiblePartPropertyList=[]
         for partProperty in self.propertiesList:
             propertyString=partProperty.PropertyString(stype='attr')
             if propertyString != '':
+                if propertyString != '':
+                    if len(propertyString) > textLimit:
+                        propertyString = propertyString[:textLimit]+'...'
                 visiblePartPropertyList.append(propertyString)
         for variable in self.variablesList:
             displayString=variable.DisplayString(True,True,False)
             if displayString != '':
+                if len(displayString) > textLimit:
+                    displayString = displayString[:textLimit]+'...'
                 visiblePartPropertyList.insert(0,displayString)
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def SetWaveform(self,wf):

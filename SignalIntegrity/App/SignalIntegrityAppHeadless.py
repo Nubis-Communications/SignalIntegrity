@@ -69,7 +69,7 @@ class DrawingHeadless(object):
         grid=drawingPropertiesProject['Grid']
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
-
+        SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
         locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
@@ -208,10 +208,17 @@ class SignalIntegrityAppHeadless(object):
     def config(self,cursor=None):
         pass
 
+    def CheckEquations(self):
+        if not SignalIntegrity.App.Project['Equations.Valid']:
+            return False
+        else:
+            return True
+
     def CalculateSParameters(self,callback=None):
         import SignalIntegrity.Lib as si
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
+        if not self.CheckEquations(): return None
         if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
             try:
                 sp=self.SimulateNetworkAnalyzerModel(SParameters=True)
@@ -248,6 +255,7 @@ class SignalIntegrityAppHeadless(object):
         elif not self.Drawing.canSimulate:
             return None
         netList=self.Drawing.schematic.NetList()
+        if not self.CheckEquations(): return None
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
@@ -375,6 +383,7 @@ class SignalIntegrityAppHeadless(object):
 
     def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         netList=self.Drawing.schematic.NetList()
+        if not self.CheckEquations(): return None
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         cacheFileName=None
@@ -475,6 +484,7 @@ class SignalIntegrityAppHeadless(object):
     def TransferParameters(self,callback=None,):
         if not hasattr(self.Drawing,'canGenerateTransferMatrices'):
             self.Drawing.DrawSchematic()
+        if not self.CheckEquations(): return None
         if not self.Drawing.canGenerateTransferMatrices:
             return None
         if self.Drawing.canSimulate:
@@ -486,6 +496,7 @@ class SignalIntegrityAppHeadless(object):
 
     def Deembed(self):
         netListText=self.NetListText()
+        if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -521,6 +532,7 @@ class SignalIntegrityAppHeadless(object):
     def CalculateErrorTerms(self):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
+        if not self.CheckEquations(): return None
         if not self.Drawing.canCalculateErrorTerms:
             return None
         netList=self.Drawing.schematic.NetList()
@@ -561,6 +573,7 @@ class SignalIntegrityAppHeadless(object):
 
     def SimulateNetworkAnalyzerModel(self,SParameters=False):
         netList=self.Drawing.schematic.NetList().Text()
+        if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         fd=si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],

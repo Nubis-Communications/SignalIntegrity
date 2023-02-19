@@ -65,7 +65,8 @@ class PartProperty(PartPropertyConfiguration):
                 if type =='file':
                     value=('/'.join(str(value).split('\\'))).split('/')[-1]
                 elif type=='float':
-                    value = str(ToSI(float(value),self.GetValue('Unit')))
+                    import SignalIntegrity.App.Project
+                    value = str(ToSI(float(value),self.GetValue('Unit'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
                 else:
                     value = str(value)
                 if not value == None:

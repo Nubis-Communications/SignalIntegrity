@@ -149,6 +149,8 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('PlotCursorValues',False))
         self.Add(XMLPropertyDefaultBool('AllPinNumbersVisible',False))
         self.Add(XMLPropertyDefaultBool('GridsOnPlots',True))
+        self.Add(XMLPropertyDefaultInt('RoundDisplayedValues',4))
+        self.Add(XMLPropertyDefaultInt('LimitText',60))
         self.SubDir(Color())
 
 class Variables(XMLConfiguration):

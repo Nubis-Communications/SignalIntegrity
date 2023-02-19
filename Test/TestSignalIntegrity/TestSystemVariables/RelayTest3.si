@@ -219,7 +219,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>None</Default>
 								<Description>resistance (ohms)</Description>
 								<Name>R</Name>
 								<ReadOnly>False</ReadOnly>
@@ -229,7 +228,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>None</Default>
 								<Description>capacitance (F)</Description>
 								<Name>C</Name>
 								<ReadOnly>False</ReadOnly>
@@ -279,7 +277,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>None</Default>
 								<Description>resistance (ohms)</Description>
 								<Name>R</Name>
 								<ReadOnly>False</ReadOnly>
@@ -289,7 +286,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>None</Default>
 								<Description>capacitance (F)</Description>
 								<Name>C</Name>
 								<ReadOnly>False</ReadOnly>
@@ -390,10 +386,12 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Variables>
 		<Items>
 			<Variable>
-				<Default>3</Default>
 				<Description>relay position</Description>
 				<Name>Route</Name>
 				<ReadOnly>False</ReadOnly>
@@ -403,7 +401,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>None</Default>
 				<Description>resistance (ohms)</Description>
 				<Name>R</Name>
 				<ReadOnly>False</ReadOnly>
@@ -413,7 +410,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>None</Default>
 				<Description>capacitance (F)</Description>
 				<Name>C</Name>
 				<ReadOnly>False</ReadOnly>
@@ -423,7 +419,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>2e-10</Default>
 				<Description>delay (s)</Description>
 				<Name>Td</Name>
 				<ReadOnly>False</ReadOnly>
@@ -433,7 +428,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>50.0</Default>
 				<Description>characteristic impedance (ohms)</Description>
 				<Name>Zc</Name>
 				<ReadOnly>False</ReadOnly>

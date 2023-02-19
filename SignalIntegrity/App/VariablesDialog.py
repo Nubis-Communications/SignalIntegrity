@@ -48,7 +48,7 @@ class VariablePropertyDialog(PropertiesDialog):
         self.Type = CalculationProperty(self.propertyListFrame, 'Type', None, None, self.project, 'Type')
         self.Value = CalculationProperty(self.propertyListFrame, 'Value', None, None, self.project, 'Value')
         self.Units = CalculationProperty(self.propertyListFrame, 'Units', None, None, self.project, 'Units')
-        self.ReadOnly = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'ReadOnly', None, None, self.project, 'ReadOnly')
+        self.ReadOnly = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'Output Variable', None, None, self.project, 'ReadOnly')
         PropertiesDialog.bind(self, '<Return>', self.ok)
         PropertiesDialog.bind(self, '<Escape>', self.cancel)
         PropertiesDialog.protocol(self, "WM_DELETE_WINDOW", self.onClosing)
@@ -97,11 +97,20 @@ class VariablesDialog(PropertiesDialog):
         self.filename=filename
         self.savedVariables=copy.deepcopy(self.project)
 
-        self.container=ScrollableFrame(self.propertyListFrame)
-        self.container.pack(side=tk.TOP, fill=tk.Y,expand=tk.NO)
+        self.useScrollbar=(len(self.project)>30)
 
-        self.controlFrame = tk.Frame(self.container.scrollable_frame)
-        self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
+        if self.useScrollbar:
+            self.container=ScrollableFrame(self.propertyListFrame)
+        else:
+            self.container=tk.Frame(self.propertyListFrame)
+        self.container.pack(side=tk.TOP, fill=tk.BOTH,expand=tk.YES)
+
+        if self.useScrollbar:
+            self.controlFrame = tk.Frame(self.container.scrollable_frame)
+        else:
+            self.controlFrame = tk.Frame(self.container)
+
+        self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
         self.addButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'edit-add-2.gif')
         self.upButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'up.gif')
@@ -122,6 +131,7 @@ class VariablesDialog(PropertiesDialog):
         PropertiesDialog.bind(self, '<Escape>', self.cancel)
         PropertiesDialog.protocol(self, "WM_DELETE_WINDOW", self.onClosing)
         self.attributes('-topmost', True)
+        self.minsize(200, 1)
         # self.Save()
         self.Finish()
 
@@ -129,7 +139,10 @@ class VariablesDialog(PropertiesDialog):
         if hasattr(self, 'variablesFrame'):
             self.variablesFrame.pack_forget()
 
-        self.variablesFrame = tk.Frame(self.container.scrollable_frame)
+        if self.useScrollbar:
+            self.variablesFrame = tk.Frame(self.container.scrollable_frame)
+        else:
+            self.variablesFrame = tk.Frame(self.container)
         self.variablesFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
 
         self.variableFrameList = []
@@ -138,23 +151,23 @@ class VariablesDialog(PropertiesDialog):
             variable = self.project[v]
 
             variableFrame = tk.Frame(self.variablesFrame)
-            variableFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
+            variableFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
             editButton = tk.Button(variableFrame)
             editButton.configure(width=self.editButtonGraphic.width(),height=self.editButtonGraphic.height(), image=self.editButtonGraphic, command=lambda v=v: self.onEditVariable(v))
-            editButton.pack(side=tk.LEFT)
+            editButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
             delButton = tk.Button(variableFrame)
             delButton.configure(width=self.delButtonGraphic.width(),height=self.delButtonGraphic.height(), image=self.delButtonGraphic, command=lambda v=v: self.onDeleteVariable(v))
-            delButton.pack(side=tk.LEFT)
+            delButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
             upButton = tk.Button(variableFrame)
             upButton.configure(width=self.upButtonGraphic.width(),height=self.upButtonGraphic.height(), image=self.upButtonGraphic, command=lambda v=v: self.onUpVariable(v))
-            upButton.pack(side=tk.LEFT)
+            upButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
             downButton = tk.Button(variableFrame)
             downButton.configure(width=self.downButtonGraphic.width(),height=self.downButtonGraphic.height(), image=self.downButtonGraphic, command=lambda v=v: self.onDownVariable(v))
-            downButton.pack(side=tk.LEFT)
+            downButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
             visible=tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v))
             visible.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
@@ -185,6 +198,7 @@ class VariablesDialog(PropertiesDialog):
                                                                   self.onVariableEntered,
                                                                   None, self.project[v],
                                                                   'Value', variable['Description']))
+            self.variableFrameList[-1].SetReadOnly(variable['ReadOnly'])
 
     def onFileBrowse(self,v):
         variable=self.project[v]
@@ -334,7 +348,7 @@ class VariablesDialog(PropertiesDialog):
             projectVariables=SignalIntegrity.App.Project['Variables.Items']
             currentNames=[variable['Name'] for variable in self.project]
             for variable in projectVariables:
-                if not variable['Name'] in currentNames:
+                if (not variable['ReadOnly']) and (not variable['Name'] in currentNames):
                     self.project.append(variable)
         except:
             InformationMessage(self,"Schematic Variables Import","The project could not be opened and the import failed")

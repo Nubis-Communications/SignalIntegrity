@@ -51,7 +51,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1.05e-09</Default>
 								<Description>inductance (H)</Description>
 								<Name>wirebond_l</Name>
 								<ReadOnly>False</ReadOnly>
@@ -61,7 +60,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.31</Default>
 								<Description>resistance (ohms)</Description>
 								<Name>wirebond_esr</Name>
 								<ReadOnly>False</ReadOnly>
@@ -237,7 +235,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>-0.01</Default>
 								<Description>transconductance (A/V)</Description>
 								<Name>gain</Name>
 								<ReadOnly>False</ReadOnly>
@@ -247,7 +244,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage amplitude (V)</Description>
 								<Name>a</Name>
 								<ReadOnly>False</ReadOnly>
@@ -257,7 +253,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.05</Default>
 								<Description>current amplitude (A)</Description>
 								<Name>dc</Name>
 								<ReadOnly>False</ReadOnly>
@@ -307,7 +302,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1e-12</Default>
 								<Description>capacitance (F)</Description>
 								<Name>c</Name>
 								<ReadOnly>False</ReadOnly>
@@ -317,7 +311,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.0</Default>
 								<Description>ESR (ohms)</Description>
 								<Name>esr</Name>
 								<ReadOnly>False</ReadOnly>
@@ -493,7 +486,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>-0.01</Default>
 								<Description>transconductance (A/V)</Description>
 								<Name>gain</Name>
 								<ReadOnly>False</ReadOnly>
@@ -503,7 +495,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage amplitude (V)</Description>
 								<Name>a</Name>
 								<ReadOnly>False</ReadOnly>
@@ -513,7 +504,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.05</Default>
 								<Description>current amplitude (A)</Description>
 								<Name>dc</Name>
 								<ReadOnly>False</ReadOnly>
@@ -563,7 +553,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1e-12</Default>
 								<Description>capacitance (F)</Description>
 								<Name>c</Name>
 								<ReadOnly>False</ReadOnly>
@@ -573,7 +562,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>0.0</Default>
 								<Description>ESR (ohms)</Description>
 								<Name>esr</Name>
 								<ReadOnly>False</ReadOnly>
@@ -1080,10 +1068,12 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Variables>
 		<Items>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage amplitude (V)</Description>
 				<Name>VDDH</Name>
 				<ReadOnly>False</ReadOnly>
@@ -1093,7 +1083,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage amplitude (V)</Description>
 				<Name>VDDL</Name>
 				<ReadOnly>False</ReadOnly>
@@ -1103,7 +1092,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1.05e-09</Default>
 				<Description>inductance (H)</Description>
 				<Name>PDNwirebond_l</Name>
 				<ReadOnly>False</ReadOnly>
@@ -1113,7 +1101,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>0.31</Default>
 				<Description>resistance (ohms)</Description>
 				<Name>PDNwirebond_esr</Name>
 				<ReadOnly>False</ReadOnly>

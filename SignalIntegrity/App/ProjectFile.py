@@ -306,7 +306,8 @@ class VariableConfiguration(XMLConfiguration):
             elif type == 'file':
                 value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
             elif type == 'float':
-                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units')))
+                import SignalIntegrity.App.Project
+                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
             if not value == None:
                 result=result+prefix+value+suffix
         return result
@@ -327,10 +328,14 @@ class VariablesConfiguration(XMLConfiguration):
         else:
             return []
     def DisplayStrings(self,displayVariable=True,resolveVariable=True,visible=True):
+        import SignalIntegrity.App.Project
+        textLimit = SignalIntegrity.App.Preferences['Appearance.LimitText']
         result=[]
         for variable in self['Items']:
             displayString=variable.DisplayString(displayVariable,resolveVariable,visible)
             if displayString != '':
+                if len(displayString) > textLimit:
+                    displayString = displayString[:textLimit]+'...'
                 result.append(displayString)
         return result
     def Dictionary(self,variableList=None):
@@ -345,6 +350,39 @@ class VariablesConfiguration(XMLConfiguration):
             args[name]=value
         return args
 
+class EquationLineConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'EquationLine')
+        self.Add(XMLPropertyDefaultString('Line',''))
+
+class EquationsConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Equations')
+        self.Add(XMLPropertyDefaultBool('AutoDebug',True))
+        self.Add(XMLPropertyDefaultBool('Valid',False,write=False))
+        self.Add(XMLProperty('Lines',[EquationLineConfiguration() for _ in range(0)],'array',arrayType=EquationLineConfiguration()))
+    def GetTextString(self):
+        try:
+            lines=[ppline['Line'] for ppline in self['Lines']]
+            goodlines=[]
+            for line in lines:
+                if not line is None:
+                    goodlines.append(line)
+            textstr='\n'.join(goodlines)
+        except:
+            textstr=''
+        return textstr
+    def PutTextString(self,textstr):
+        lines=textstr.split('\n')
+        lines=[str(line) for line in lines]
+        goodlines=[]
+        for line in lines:
+            if line != '':
+                goodlines.append(line)
+        pplines=[EquationLineConfiguration() for line in goodlines]
+        for l in range(len(goodlines)):
+            pplines[l]['Line']=lines[l]
+        self['Lines']=pplines
 
 class ProjectFile(ProjectFileBase):
     def __init__(self):
@@ -353,6 +391,7 @@ class ProjectFile(ProjectFileBase):
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
         self.SubDir(VariablesConfiguration())
+        self.SubDir(EquationsConfiguration())
         # for backwards compatibility with projects with global eye diagram configurations, allow for these projects to be
         # read properly - the eye diagram configuration will then be assigned to each device, and when the project file is
         # saved, the global eye diagram configuration will be removed
@@ -396,3 +435,58 @@ class ProjectFile(ProjectFileBase):
         if not filename is None:
             ProjectFileBase.Write(self,filename)
         return self
+
+    @staticmethod
+    def EvaluateSafely(equations,sendargs,returnargs):
+        for argkey in sendargs.keys():
+            arg=sendargs[argkey]
+            if isinstance(arg,str):
+                exec(argkey+' = "'+arg+'"')
+            else:
+                exec(argkey+' = '+str(arg))
+        exec(equations)
+        for argkey in returnargs.keys():
+            try:
+                exec(str("returnargs[argkey] = eval(argkey)"))
+            except NameError:
+                pass
+        return returnargs
+
+    def EvaluateEquations(self,equations=None):
+        if (equations != None) or (self['Equations.Lines'] != []):
+            variablesDefinition=[(variable['Name'],variable['Value']) for variable in self['Variables.Items']]
+            equationsDefinition=self['Equations'].GetTextString() if equations == None else equations
+            try:
+                calculate = (variablesDefinition != self.variablesDefinition) or (equationsDefinition != self.equationsDefinition)
+            except:
+                calculate=True
+            if calculate:
+                self['Equations.Valid']=True
+                self.variablesDefinition = variablesDefinition
+                self.equationsDefinition = equationsDefinition
+                self['Equations.Valid']=False
+                sendargs={}; returnargs={}
+                for variable in self['Variables.Items']:
+                    if variable['ReadOnly']:
+                        returnargs[variable['Name']]=None
+                    if not variable['ReadOnly']:
+                        if variable['Type'] in ['file','string']:
+                            sendargs[variable['Name']]=str(variable['Value'])
+                        elif variable['Type'] == 'float':
+                            sendargs[variable['Name']]=float(variable['Value'])
+                        elif variable['Type'] == 'int':
+                            sendargs[variable['Name']]=int(variable['Value'])
+                try:
+                    if equations == None:
+                        equations=self['Equations'].GetTextString()
+                    returnargs=self.EvaluateSafely(equations,sendargs,returnargs)
+                except Exception as e:
+                    print(e)
+                    return e
+                for variable in self['Variables.Items']:
+                    if variable['ReadOnly'] and returnargs[variable['Name']] != None:
+                        variable['Value']=returnargs[variable['Name']]
+                self['Equations.Valid']=True
+        else:
+            self['Equations.Valid']=True
+        return None

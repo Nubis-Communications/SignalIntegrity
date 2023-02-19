@@ -4,12 +4,12 @@
 %  <polyline lc="black">60,-38 63,-38</polyline>
 %  <polyline lc="black">60,-42 63,-42</polyline>
 %  <polyline lc="black">56,-40 60,-40</polyline>
-%  <text x="64" y="-35" t="od 31.785 ps" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-35" t="od 31.78 ps" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-32" t="oz0 50.0 ohm" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-29" t="ol 2.36 Gohm/s" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-26" t="l0 2.0765 pH" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-23" t="l1 -108.54 e-24 H/Hz" h="3" halign="l" lc="black"/>
-%  <text x="64" y="-20" t="l2 2.1705 e-33 H/Hz^2" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-26" t="l0 2.076 pH" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-23" t="l1 -108.5 e-24 H/Hz" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-20" t="l2 2.171 e-33 H/Hz^2" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-17" t="l3 -0.1001 e-42 H/Hz^3" h="3" halign="l" lc="black"/>
 %  <text x="64" y="-14" t="Short" h="3" halign="l" lc="black"/>
 %  <text x="32" y="-29" t="VNA" h="3" halign="c" lc="black"/>
@@ -38,12 +38,12 @@
 \path[line width=0.30mm, draw=black] (60,-38) -- (63,-38);
 \path[line width=0.30mm, draw=black] (60,-42) -- (63,-42);
 \path[line width=0.30mm, draw=black] (56,-40) -- (60,-40);
-\draw[black] (64,-35) node[anchor=base west]{od 31.785 ps};
+\draw[black] (64,-35) node[anchor=base west]{od 31.78 ps};
 \draw[black] (64,-32) node[anchor=base west]{oz0 50.0 ohm};
 \draw[black] (64,-29) node[anchor=base west]{ol 2.36 Gohm/s};
-\draw[black] (64,-26) node[anchor=base west]{l0 2.0765 pH};
-\draw[black] (64,-23) node[anchor=base west]{l1 -108.54 e-24 H/Hz};
-\draw[black] (64,-20) node[anchor=base west]{l2 2.1705 e-33 H/Hz^2};
+\draw[black] (64,-26) node[anchor=base west]{l0 2.076 pH};
+\draw[black] (64,-23) node[anchor=base west]{l1 -108.5 e-24 H/Hz};
+\draw[black] (64,-20) node[anchor=base west]{l2 2.171 e-33 H/Hz^2};
 \draw[black] (64,-17) node[anchor=base west]{l3 -0.1001 e-42 H/Hz^3};
 \draw[black] (64,-14) node[anchor=base west]{Short};
 \draw[black] (32,-29) node[anchor=base]{VNA};

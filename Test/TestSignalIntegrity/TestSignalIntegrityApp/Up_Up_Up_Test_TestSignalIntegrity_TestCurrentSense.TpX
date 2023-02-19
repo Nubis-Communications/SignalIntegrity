@@ -89,7 +89,7 @@
 %  <polyline lc="black">72,-48 72,-52</polyline>
 %  <polyline lc="black">80,-64 80,-60</polyline>
 %  <polyline lc="black">80,-48 80,-52</polyline>
-%  <text x="86" y="-57" t="gain 1000000000.0 " h="3" halign="l" lc="black"/>
+%  <text x="86" y="-57" t="gain 1e+09.0 " h="3" halign="l" lc="black"/>
 %  <polygon fill="black">69.333,-68 74.667,-68 72,-70.667 69.333,-68</polygon>
 %  <polyline lc="black">72,-64 72,-68</polyline>
 %  <polygon fill="black">77.333,-68 82.667,-68 80,-70.667 77.333,-68</polygon>
@@ -206,7 +206,7 @@
 \path[line width=0.30mm, draw=black] (72,-48) -- (72,-52);
 \path[line width=0.30mm, draw=black] (80,-64) -- (80,-60);
 \path[line width=0.30mm, draw=black] (80,-48) -- (80,-52);
-\draw[black] (86,-57) node[anchor=base west]{gain 1000000000.0 };
+\draw[black] (86,-57) node[anchor=base west]{gain 1e+09.0 };
 \path[line width=0.30mm, fill=black] (69.333,-68) -- (74.667,-68) -- (72,-70.667) -- (69.333,-68) -- cycle;
 \path[line width=0.30mm, draw=black] (72,-64) -- (72,-68);
 \path[line width=0.30mm, fill=black] (77.333,-68) -- (82.667,-68) -- (80,-70.667) -- (77.333,-68) -- cycle;

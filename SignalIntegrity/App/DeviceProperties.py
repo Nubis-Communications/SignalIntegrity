@@ -262,7 +262,14 @@ class DeviceProperties(tk.Frame):
         if isinstance(self.device,Device): # part other than file - allow viewing
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
-                self.isAProjectDevice = self.device[fileTypeKeywords[0]]['Value'].split('.')[-1]=='si'
+                filename=self.device[fileTypeKeywords[0]]['Value']
+                if (len(filename)>1) and (filename[0]=='='):
+                    import SignalIntegrity.App.Project
+                    if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                        filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
+                        if filename == None:
+                            filename=''
+                self.isAProjectDevice = filename.split('.')[-1]=='si'
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -315,7 +322,8 @@ class DeviceProperties(tk.Frame):
         tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Frame(self.rotationFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         tk.Button(self.rotationFrame,text='help',command=self.onHelp).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        if isinstance(self.device,SignalIntegrity.App.Device.DeviceFile):
+        from SignalIntegrity.App.Device import DeviceFile
+        if isinstance(self.device,DeviceFile):
             try:
                 extension = self.device['file']['Value'].split('.')[-1]
                 if extension[0].lower() == 's' and extension[-1].lower() == 'p' and int(extension[1:-1]) > 0:
@@ -396,7 +404,14 @@ class DeviceProperties(tk.Frame):
         if isinstance(self.device,Device): # part other than file - allow viewing
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
-                self.isAProjectDevice = self.device[fileTypeKeywords[0]]['Value'].split('.')[-1]=='si'
+                filename=self.device[fileTypeKeywords[0]]['Value']
+                if (len(filename)>1) and (filename[0]=='='):
+                    import SignalIntegrity.App.Project
+                    if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                        filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
+                        if filename == None:
+                            filename=''
+                self.isAProjectDevice = filename.split('.')[-1]=='si'
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)

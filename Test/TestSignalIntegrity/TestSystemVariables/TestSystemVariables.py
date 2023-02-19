@@ -78,6 +78,8 @@ class TestSystemVariablesTest(unittest.TestCase,
         return filename
     def testRelayTestSimulation11(self):
         self.SimulationResultsChecker(self.RelayTestSimulation(1,1))
+    def testRelayTestSimulation11Archive(self):
+        self.SimulationResultsChecker(self.RelayTestSimulation(1,1),archive=True)
     def testRelayTestSimulation21(self):
         self.SimulationResultsChecker(self.RelayTestSimulation(2,1))
     def testRelayTestSimulation31(self):
@@ -88,7 +90,40 @@ class TestSystemVariablesTest(unittest.TestCase,
         self.SimulationResultsChecker(self.RelayTestSimulation(2,2))
     def testRelayTestSimulation32(self):
         self.SimulationResultsChecker(self.RelayTestSimulation(3,2))
-
+    def WirebondTest(self,number,length,diameter,material):
+        app=siapp.SignalIntegrityAppHeadless()
+        app.OpenProjectFile('RoundWireBondMaterial.si',
+                            {'L':length,
+                             'D':diameter,
+                             'material':material})
+        filename='RoundWireBondMaterialTest_'+str(number)+'.si'
+        app.SaveProjectToFile(filename)
+        return filename
+    def testWireBond_0(self):
+        self.SParameterResultsChecker(self.WirebondTest(int(self.id().split('_')[-1]),
+                                                        length=0.001,
+                                                        diameter=0.00005,
+                                                        material='gold'))
+    def testWireBond_1(self):
+        self.SParameterResultsChecker(self.WirebondTest(int(self.id().split('_')[-1]),
+                                                        length=0.002,
+                                                        diameter=0.00003,
+                                                        material='silver'))
+    def testWireBond_2(self):
+        self.SParameterResultsChecker(self.WirebondTest(int(self.id().split('_')[-1]),
+                                                        length=0.0015,
+                                                        diameter=0.0004,
+                                                        material='copper'))
+    def testWireBond_3(self):
+        self.SParameterResultsChecker(self.WirebondTest(int(self.id().split('_')[-1]),
+                                                        length=0.0012,
+                                                        diameter=0.0006,
+                                                        material='aluminum'))
+    def testWireBond_4(self):
+        self.SParameterResultsChecker(self.WirebondTest(int(self.id().split('_')[-1]),
+                                                        length=0.009,
+                                                        diameter=0.0005,
+                                                        material='nickel'))
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

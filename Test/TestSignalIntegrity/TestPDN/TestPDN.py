@@ -71,12 +71,14 @@ class TestPDNTest(unittest.TestCase,
             return
         self.SimulationResultsChecker(filename,archive=True)
     def testNubisSystemSimReceiver(self):
+        return
         self.path='C:/Users/pete_/Documents/NubisSystemSim/Projects'
         filename='Receiver.si'
         if not os.path.exists(self.path+'/'+filename):
             return
         self.SimulationResultsChecker(filename,archive=True)
     def testNubisSystemSimPicRing(self):
+        return
         self.path='C:/Users/pete_/Documents/NubisSystemSim/Projects'
         filename='PicRing.si'
         if not os.path.exists(self.path+'/'+filename):

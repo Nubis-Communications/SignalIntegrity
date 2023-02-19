@@ -164,7 +164,7 @@ def FromSI(string,unit=None):
         return float(string)
     except ValueError:
         if unit is not None and unit != '':
-            string=string.split(unit)[0]
+            string=''.join(string.rsplit(unit,1))
         try:
             return float(string)
         except ValueError:

@@ -1,0 +1,47 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="L 9.0 mm" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="D 500.0 um" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-8.75" t="material nickel" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-11.75" t="rho 68.4 nohm.m" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-14.75" t="ur 600.0 " h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-17.75" t="valid True" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">50,-30 52,-32 50,-34</polyline>
+%  <polyline lc="black">56,-32 52,-32</polyline>
+%  <text x="50" y="-33" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">78,-30 76,-32 78,-34</polyline>
+%  <polyline lc="black">72,-32 76,-32</polyline>
+%  <text x="78" y="-33" t="2" h="3" halign="l" lc="black"/>
+%  <rect x="60" y="-28" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">56,-32 60,-32</polyline>
+%  <text x="59" y="-31" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">72,-32 68,-32</polyline>
+%  <text x="69" y="-31" t="2" h="3" halign="l" lc="black"/>
+%  <text x="64" y="-25" t="rho=rho (68.4 nohm.m)" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-22" t="ur=ur (600.0 )" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-19" t="D=D (500.0 um)" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-16" t="L=L (9.0 mm)" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{L 9.0 mm};
+\draw[black] (1.75,-5.75) node[anchor=base west]{D 500.0 um};
+\draw[black] (1.75,-8.75) node[anchor=base west]{material nickel};
+\draw[black] (1.75,-11.75) node[anchor=base west]{rho 68.4 nohm.m};
+\draw[black] (1.75,-14.75) node[anchor=base west]{ur 600.0 };
+\draw[black] (1.75,-17.75) node[anchor=base west]{valid True};
+\path[line width=0.30mm, draw=black] (50,-30) -- (52,-32) -- (50,-34);
+\path[line width=0.30mm, draw=black] (56,-32) -- (52,-32);
+\draw[black] (50,-33) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (78,-30) -- (76,-32) -- (78,-34);
+\path[line width=0.30mm, draw=black] (72,-32) -- (76,-32);
+\draw[black] (78,-33) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (60,-36) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (56,-32) -- (60,-32);
+\draw[black] (59,-31) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (72,-32) -- (68,-32);
+\draw[black] (69,-31) node[anchor=base west]{2};
+\draw[black] (64,-25) node[anchor=base]{rho=rho (68.4 nohm.m)};
+\draw[black] (64,-22) node[anchor=base]{ur=ur (600.0 )};
+\draw[black] (64,-19) node[anchor=base]{D=D (500.0 um)};
+\draw[black] (64,-16) node[anchor=base]{L=L (9.0 mm)};
+\end{tikzpicture}%
