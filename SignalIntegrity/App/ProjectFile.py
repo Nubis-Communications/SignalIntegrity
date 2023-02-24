@@ -225,8 +225,7 @@ class VariableConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('Visible',True))
         self.Add(XMLPropertyDefaultString('Name',''))
         self.Add(XMLPropertyDefaultString('Type','float'))
-        self.Add(XMLPropertyDefaultString('Value',None))
-        self.Add(XMLPropertyDefaultString('Default','=None'))
+        self.Add(XMLPropertyDefaultString('Value','0'))
         self.Add(XMLPropertyDefaultString('Units',''))
         self.Add(XMLPropertyDefaultBool('ReadOnly',False))
     def InitFromPartProperty(self,variableName,partProperty):
@@ -235,7 +234,6 @@ class VariableConfiguration(XMLConfiguration):
         self['Name']=variableName
         self['Type']=partProperty['Type']
         self['Value']=partProperty['Value']
-        self['Default']=partProperty['Value']
         self['Units']=partProperty['Unit']
         if self['Units']==None:
             self['Units']=''
@@ -246,7 +244,7 @@ class VariableConfiguration(XMLConfiguration):
         if not isinstance(self['Name'],str): return False
         if len(self['Name']) == 0: return False
         if not isinstance(self['Type'],str): return False
-        if not self['Type'] in ['int','float','string']: return False
+        if not self['Type'] in ['int','float','string','file']: return False
         if not isinstance(self['Value'],str): return False
         if (len(self['Value'])>0) and (self['Value'][0]== '=') and (len(self['Value']) == 1): return False
         if not isinstance(self['Units'],str): return False
@@ -335,10 +333,6 @@ class VariablesConfiguration(XMLConfiguration):
             if displayString != '':
                 result.append(displayString)
         return result
-    def LoadDefaultValues(self):
-        for variable in self['Items']:
-            variable['Value']=variable['Default']
-        return self
     def Dictionary(self,variableList=None):
         if variableList == None:
             variableList=self['Items']

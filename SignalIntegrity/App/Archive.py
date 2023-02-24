@@ -181,12 +181,6 @@ class Archive(list):
                                     variable['Value']=os.path.relpath(filename)
                             except (AttributeError,TypeError):
                                 pass
-                            try:
-                                filename=os.path.abspath(variable['Default'].replace('\\','/').replace('../','up/'))
-                                if os.path.exists(filename):
-                                    variable['Default']=os.path.relpath(filename)
-                            except (AttributeError,TypeError):
-                                pass
                     for device in deviceList:
                         filename=app.Device(device['Ref'])[device['Keyword']]['Value']
                         if (filename != None) and (len(filename)>0) and (filename[0]=='='):

@@ -47,7 +47,6 @@ class VariablePropertyDialog(PropertiesDialog):
         self.SavedName=self.project['Name']
         self.Type = CalculationProperty(self.propertyListFrame, 'Type', None, None, self.project, 'Type')
         self.Value = CalculationProperty(self.propertyListFrame, 'Value', None, None, self.project, 'Value')
-        self.Default = CalculationProperty(self.propertyListFrame, 'Default', None, None, self.project, 'Default')
         self.Units = CalculationProperty(self.propertyListFrame, 'Units', None, None, self.project, 'Units')
         self.ReadOnly = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'ReadOnly', None, None, self.project, 'ReadOnly')
         PropertiesDialog.bind(self, '<Return>', self.ok)

@@ -40,7 +40,7 @@ class PreferencesDialog(PropertiesDialog):
         self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
         self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.propertyListFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
         self.cacheResult=CalculationPropertyTrueFalseButton(self.propertyListFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
-        self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
+        self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
         self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
         self.Finish()

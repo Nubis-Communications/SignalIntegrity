@@ -488,7 +488,9 @@ class SignalIntegrityApp(tk.Frame):
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
-            self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle())
+            self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle()+(' (Archive)'
+                                                                                if Archive.InAnArchive(self.fileparts.FullFilePathExtension())
+                                                                                else ''))
         except:
             os.chdir(cd)
             if showError:
