@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,41 +1073,47 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-26.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--4.html#next">Prev</a> PostProcessing</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Standard Preferences <a class="next" name="next" href="Help-Subsection--5.html#prev">Next</a></span>
+<span class="next">Preferences <a class="next" name="next" href="Help-Section-28.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-27"></a>Preferences<a class="Label" name="sec:Preferences"> </a>
+<a class="toc" name="toc-Section-27"></a>Waveform<a class="Label" name="sec:Waveform"> </a>
 </h1>
 <div class="Standard">
-in <b><i>SignalIntegrityApp</i></b>, there are a number of preferences that can be set by the user that alter the appearance, calculations, file handling, etc. When the application is opened for the first time, a default preference file is created with the default settings. These are located at:
+A Waveform consists of a sequence of points representing either voltage or current. It is defined by:
 </div>
 <ul>
 <li>
-On Windows machines - c:\LeCroy\SignalIntegrity\preferences.xml.
+The <i>horizontal offset</i>. The horizontal offset is simply the time of the first point in the waveform.
 </li>
 <li>
-On Linux Machines - ~/.signalIntegrity/preferences.xml.
+The number of points in the waveform.
+</li>
+<li>
+The sample rate.
+</li>
+<li>
+A sequence of points representing voltage or current.
 </li>
 
 </ul>
 <div class="Standard">
-Currently, the preferences are broken into two groups:
+Thus, for a horizontal offset <span class="formula"><i>h</i></span>, a number of points <span class="formula"><i>K</i></span>, and a sample rate <span class="formula"><i>Fs</i></span> and a sequence of <span class="formula"><i>K</i></span> points, for <span class="formula"><i>k</i> ∈ 0…<i>K</i> − 1</span>, we have the voltage or current value specified as <span class="formula"><i>v</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> and a time <span class="formula"><i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span></span> where:
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection--5.html#sub:Standard-Preferences">Standard Preferences↓</a> - Preferences that govern the basic operation of the schematic editor, file system, calculations, and help system.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection--21.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences↓</a> - Preferences that govern the display of the s-parameters in the s-parameter viewer.
-</li>
+<div class="Standard">
+<div class="formula">
+<i>t</i><span class="symbol">[</span><i>k</i><span class="symbol">]</span> = <i>k</i>⋅<span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Fs</i></span><span class="ignored">)</span></span> + <i>h</i>
+</div>
 
-</ul>
+</div>
+<div class="Standard">
+A waveform file is a text file where the first line contains the horizontal offset, in seconds, the second line contains the integer number of points in the waveform, the third line contains the sample rate in samples per second, and the remaining lines contain the waveform values.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-26.html#next">Prev</a> Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--4.html#next">Prev</a> PostProcessing</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Standard Preferences <a class="next" name="next" href="Help-Subsection--5.html#prev">Next</a></span>
+<span class="next">Preferences <a class="next" name="next" href="Help-Section-28.html#prev">Next</a></span>
 </div>
 
 </div>

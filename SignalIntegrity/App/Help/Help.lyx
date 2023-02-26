@@ -15116,8 +15116,11 @@ Selects the mode of viewing waveforms as time domain.
  
 \end_layout
 
-\begin_layout Subsubsection
-Log Frequency Scale
+\begin_layout Subparagraph
+Log Frequency ScaleX```
+\end_layout
+
+\begin_layout Subparagraph
 \begin_inset CommandInset label
 LatexCommand label
 name "Control-Help:Sim-Log-Scale"
@@ -15657,391 +15660,14 @@ reference "Control-Help:Simulator-Preferences"
 
 \end_inset
 
- - for editing any simulator preferences.
-\end_layout
-
-\begin_layout Subsubsection
-Open Help File
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Simulator-Open-Help-File"
-
-\end_inset
-
-
+ - for editing any sim><654
 \end_layout
 
 \begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
 
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulator-Dialog"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Simulator-Help"
-
-\end_inset
-
- ▸ Open Help File
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+H,O
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename help-contents-5.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This command opens the help system to the 
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulator-Dialog"
-
-\end_inset
-
- section.
-\end_layout
-
-\begin_layout Subsubsection
-Control Help
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Simulator-Control-Help"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Dialog
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "sec:Simulator-Dialog"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Menu System
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset CommandInset ref
-LatexCommand nameref
-reference "subsec:Simulator-Help"
-
-\end_inset
-
-▸ Control Help
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Navigation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Alt+H,C
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Key Binding
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-None
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Toolbar
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename help-3.png
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\emph on
-Availability
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Always
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Control help allows you to get help on any command.
-\end_layout
-
-\begin_layout Standard
-When in control help, all of the commands are activated.
- This includes key bindings, toolbar buttons, and menu elements.
- However, issuing any of the possible commands takes you to a location in
- the help system corresponding to the desired control instead of actually
- issuing the command.
-\end_layout
-
-\begin_layout Standard
-Control help stays active until you either press the escape key, or touch
- somewhere in the canvas.
-\end_layout
-
-\begin_layout Subsubsection
-Preferences
-\begin_inset CommandInset label
-LatexCommand label
-name "Control-Help:Simulator-Preferences"
-
-\end_inset
-
+\backslash
+6S U
+\backslash
 
 \end_layout
 
@@ -16246,7 +15872,7 @@ reference "subsec:File"
 
 \end_inset
 
- - tasks for dealing with the project file.
+ – tasks for dealing with the project file.
 \end_layout
 
 \begin_layout Itemize
@@ -16256,7 +15882,7 @@ reference "subsec:Edit"
 
 \end_inset
 
- - tasks for undoing and redoing tasks in the schematic.
+ – tasks for undoing and redoing tasks in the schematic.
 \end_layout
 
 \begin_layout Itemize
@@ -16266,7 +15892,7 @@ reference "subsec:Parts"
 
 \end_inset
 
- - tasks for dealing with schematic elements in the drawing.
+ – tasks for dealing with schematic elements in the drawing.
 \end_layout
 
 \begin_layout Itemize
@@ -16276,7 +15902,7 @@ reference "subsec:Wires"
 
 \end_inset
 
- - tasks for dealing with wires connecting schematic elements.
+ – tasks for dealing with wires connecting schematic elements.
 \end_layout
 
 \begin_layout Itemize
@@ -16286,7 +15912,7 @@ reference "subsec:View"
 
 \end_inset
 
-- tasks for controlling the view of the schematic.
+ – tasks for controlling the view of the schematic.
 \end_layout
 
 \begin_layout Itemize
@@ -16296,7 +15922,20 @@ reference "subsec:Calculate"
 
 \end_inset
 
- - tasks for performing calculations on the schematic.
+ – tasks for performing calculations on the schematic.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – tasks for dealing with schematic variables.
 \end_layout
 
 \begin_layout Itemize
@@ -16306,7 +15945,7 @@ reference "subsec:Help"
 
 \end_inset
 
- - tasks dealing with the help system.
+ – tasks dealing with the help system.
 \end_layout
 
 \begin_layout Subsection
@@ -16338,6 +15977,19 @@ Dealing with the project file.
 
 \begin_layout Itemize
 Exporting netlists and pictures of the drawing.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Archiving"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ the project.
 \end_layout
 
 \begin_layout Standard
@@ -16418,6 +16070,58 @@ reference "Control-Help:Export-Netlist"
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "Control-Help:Export-LaTeX"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Extract-Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Freshen-Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Unextract-Archive"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -18075,6 +17779,911 @@ In the future, a .png or some other rasterized graphics version should be
  created, but believe it or not, this is more difficult.
  For now, you're left with the screen capture methods built into the operating
  system to get this.
+\end_layout
+
+\begin_layout Subsubsection
+Archive Project
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Archive"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:File"
+
+\end_inset
+
+ ▸ Archive Project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the project is not empty
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Archiving a project takes the project file and all files referenced by it,
+ either directly or indirectly and creates a zipped file containing all
+ of these files.
+ Furthermore, all of the project files that are moved to the archive will
+ have their file references modified so that when the archive is extracted,
+ the file references point to the correct location in the extracted archive.
+\end_layout
+
+\begin_layout Standard
+An example is shown below that highlights how this works.
+ First, let's examine the directory structure prior to archiving.
+ Here, the project to archive is called Project.si and it is located in the
+ DirBBB directory.
+ Project.si references two files: the project file bbb.si in the DirDDD directory
+ below and aaa.trc located in the DirCCC directory.
+ The project file bbb.si further references the file ccc.s2p located in the
+ DirBBB directory above.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ArchiveDirectoryStart.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After archiving, an archive file is created using the name of the project
+ with the file extension .siz.
+ The file is actually a zip file.
+ Many file systems recognize it as a zip file, and if you wanted, you could
+ change the extension to .zip.
+ The .siz extension tells SignalIntegrity that it is a special type of zip
+ file with a certain directory structure:
+\end_layout
+
+\begin_layout Itemize
+The top directory is the name of the archive file with '_Archive' appended
+ to it.
+\end_layout
+
+\begin_layout Itemize
+Inside the top directory will be found the project file with the same name
+ as the archive.
+\end_layout
+
+\begin_layout Standard
+Note that the archive structure did something special with the DirCCC directory.
+ Because it's relative path involved a path above the project file, it creates
+ directories named 'up' for every directory needed above the project file,
+ and it appears in the archive below the archive directory.
+\end_layout
+
+\begin_layout Standard
+After archiving, an information box is presented showing the exact location
+ of the archive:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ArchiveComplete.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When extracted (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Extract-Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the exact directory structure will be created alongside the archive file.
+\end_layout
+
+\begin_layout Subsubsection
+Extract Archived Project
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Extract-Archive"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:File"
+
+\end_inset
+
+ ▸ Extract Archived Project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the project is not empty
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This command extracts an archived project.
+ Executing this causes a browser to open allowing you to browse to the desired
+ archive file.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ExtractArchive.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The following picture shows the result of extracting an archive:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ExtractArchiveDirectory.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the left is shown an archive structure that was used as an example for
+ archiving (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and the file is shown before extraction.
+ After extraction, the directory structure in the archive file is dropped
+ at the same location of the archive file and the project file inside of
+ the archive is opened.
+\end_layout
+
+\begin_layout Standard
+Note that when a project is opened that is underneath a directory of the
+ same name, with the suffix '_Archive', it is considered in an archive,
+ which is shown in the title of the project.
+\end_layout
+
+\begin_layout Subsubsection
+Freshen Archived Project
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Freshen-Archive"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:File"
+
+\end_inset
+
+ ▸ Freshen Archived Project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,F
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the open project is in a directory below its archive
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When a project is open whereby the directory location of the project is
+ the project name with the suffix '_Archive' appended, the project is considered
+ in an archive.
+ This is usually the result of performing an 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Extract-Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ previously, on an archive file with the same name as the current project
+ with the extension .siz.
+\end_layout
+
+\begin_layout Standard
+After extraction, the archive might be adjusted by dragging some new files
+ in, or producing some results that you want to keep with the archive.
+\end_layout
+
+\begin_layout Standard
+Freshening the archive takes the entire directory structure including all
+ files at and below the current project and places this in an archive file
+ above the current directory, replacing the .siz file that might exist there
+ and that was presumably used for extraction.
+\end_layout
+
+\begin_layout Standard
+Note that the entire archive is completely replaced by these contents.
+ This is shown graphically below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename FresheningArchive.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Unextract Archived Project
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Unextract-Archive"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:File"
+
+\end_inset
+
+ ▸ Unextract Archived Project
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+F,U
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When the open project is in a directory below its archive
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When a project is open underneath a directory of the same name with '_Archive'
+ appended, it is presumed to be in an archive.
+ Usually, in this case, there is an archive file above this directory of
+ the same name, with the .siz extension.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename UnextractingArchive.png
+	lyxscale 25
+	scale 25
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unextracting the archive deletes the project file and the entire directory
+ structure at and below the project file.
+ Usually, this is performed after a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Freshen-Archive"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ operation.
+ It is a dangerous operation.
 \end_layout
 
 \begin_layout Subsection
@@ -27093,6 +27702,1152 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsection
+Variables
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Variables"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Variables tasks are a category in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+ for dealing with the variables defined for the schematic:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Schematic-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - Edit schematic variables.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Schematic-Equations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - Edit schematic equations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Parameterize-Project"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ - Parameterize the project.
+\end_layout
+
+\begin_layout Subsubsection
+Schematic Variables
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Schematic-Variables"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Schematic Variables
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+R,V
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Invoking the Schematic Variables brings up a dialog containing the currently
+ defined variables.
+ If none have been defined, the dialog looks like this:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename SchematicVariablesDialogNone.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If there are variables defined, the dialog looks something like shown in
+ the example below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename schematicvariablesdialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These are global variables defined for the entire system.
+\end_layout
+
+\begin_layout Standard
+From within this dialog, you can:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "par:Add-Schematic-Variable"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+– Add a variable by pressing 
+\begin_inset Graphics
+	filename edit-add-2.png
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "par:Edit-the-Value"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Edit the value of a variable by entering a new value in the entry box.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "par:Edit-a-Variable"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – Edit a variable definition by pressing 
+\begin_inset Graphics
+	filename edit-3.png
+
+\end_inset
+
+ next to the desired variable.
+\end_layout
+
+\begin_layout Itemize
+Delete a Variable – Delete a variable by pressing 
+\begin_inset Graphics
+	filename edit-delete-6.png
+
+\end_inset
+
+ next to the desired variable.
+\end_layout
+
+\begin_layout Itemize
+Move a Variable Up – Move a variable up in the list by pressing 
+\begin_inset Graphics
+	filename up.png
+
+\end_inset
+
+ next to the desired variable.
+\end_layout
+
+\begin_layout Itemize
+Move a Variable Down – Move a variable down in the list by pressing 
+\begin_inset Graphics
+	filename down.png
+
+\end_inset
+
+ next to the desired variable.
+\end_layout
+
+\begin_layout Paragraph
+Add Schematic Variables
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Add-Schematic-Variable"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that it is rare to add a schematic variable directly.
+ Most variables are added as a result of the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Parameterize-Project"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command, or by issuing Parameterize Project from the variables dialog for
+ a device.
+\end_layout
+
+\begin_layout Standard
+Pressing 
+\begin_inset Graphics
+	filename edit-add-2.png
+
+\end_inset
+
+ in the Variables dialog pops up a new dialog containing the properties
+ of the variable to add:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename AddSchematicVariable.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Description – This is what will be shown on the tooltip when hovering over
+ the entry box for the variable in the Variables dialog.
+\end_layout
+
+\begin_layout Itemize
+Name – This is the name of the variable
+\end_layout
+
+\begin_layout Itemize
+Type – This is the type of the variable.
+ Recognized types are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+float – (default) a floating point number.
+\end_layout
+
+\begin_layout Itemize
+int – an integer number.
+\end_layout
+
+\begin_layout Itemize
+file – a name of a file.
+\end_layout
+
+\begin_layout Itemize
+string – a text string.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Value – (0 by default) The value of the variable.
+ When the value of a variable is entered from this dialog, they are entered
+ without any SI units, like they are usually entered.
+ For example, a capacitance like 10 pF would be entered as 10e-12.
+\end_layout
+
+\begin_layout Itemize
+Output Variable –(False by default) whether the variable is an output variable.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Equations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the usage of output variables.
+\end_layout
+
+\begin_layout Standard
+Before a variable is added, it is checked for validity, meaning mostly that
+ it has a variable name.
+\end_layout
+
+\begin_layout Paragraph
+Edit the Value of a Variable
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Edit-the-Value"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename schematicvariablesdialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When in the schematic variable dialog, enter variables directly in the entry
+ box.
+ If they have units, you should use SI units.
+ For example, the capacitance 10 pF can be entered as 10p.
+\end_layout
+
+\begin_layout Standard
+Files will have a browse button that allows you to browse to the file chosen.
+\end_layout
+
+\begin_layout Paragraph
+Edit a Variable Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Edit-a-Variable"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename EditSchematicVariableDefinition.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pressing 
+\begin_inset Graphics
+	filename edit-3.png
+
+\end_inset
+
+ next to the desired variable allows you to edit the definition.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "par:Add-Schematic-Variable"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for a discussion of these entries.
+\end_layout
+
+\begin_layout Subsubsection
+Schematic Equations
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Edit-Schematic-Equations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Schematic Equations
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+R,E
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not Available
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This let's you edit a schematic equation (script).
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Equations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for a complete discussion.
+\end_layout
+
+\begin_layout Standard
+This opens a text editor dialog that looks like this:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WirebondModelEquations.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It allows the editing of a script that connects the input variables to the
+ output variables (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Schematic-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), whereby both input and output variables can be referenced by elements
+ within the schematic.
+\end_layout
+
+\begin_layout Standard
+The example shown assumes that the input variables are L, D, and ur.
+ It assumes that possible output variables are A, H, and R.
+\end_layout
+
+\begin_layout Subsubsection
+Parameterize Schematic
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Parameterize-Project"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ ▸ Parameterize Schematic
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+R,P
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Not Available
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Parameterizing the schematic is the primary way of adding schematic variables
+ to a project (as opposed to the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "par:Add-Schematic-Variable"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ method).
+\end_layout
+
+\begin_layout Standard
+Below is an example of a schematic prior to parameterization:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ProjectPriorToParameterization.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:ParameterizeOnlyVisible"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ preference is set to True, then only the visible device properties will
+ be parameterized, otherwise, all device properties will be parameterized.
+\end_layout
+
+\begin_layout Standard
+The result of parameterizing this schematic with the parameterization of
+ only visible device properties set is shown below:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ProjectAfterParameterization.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here, we can see that every property in every device created a visible schematic
+ variable that is visible and shown in the upper left of the schematic.
+ Each variable name was created from a concatenation of the reference designator
+ and the property name with an underscore in between.
+ Note also that device property value was copied to the schematic variable
+ and the device property now references the schematic variable.
+\end_layout
+
+\begin_layout Standard
+In this particular case, we wanted all of the R, C, td, zc and pos values
+ to be the same.
+ To do this, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Schematic-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ dialog is opened, and the variables are edited to remove the reference
+ designator, with duplicate variable names deleted 
+\bar under
+after
+\bar default
+ the renaming of the variables.
+ This is because as each variable is renamed, the reference to that variable
+ is automatically modified on the device property.
+ Afterwards, the schematic looks like this:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ProjectAfterParameterizationFixup.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note the steps to produce this desired result:
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+K1_pos
+\family default
+ was renamed to 
+\family typewriter
+Route
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+K2_pos
+\family default
+ was renamed to 
+\family typewriter
+Route
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+One of the duplicate 
+\family typewriter
+Route
+\family default
+ variables was deleted.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+RCNetwork2_R
+\family default
+ was deleted.
+ This caused the value of 
+\family typewriter
+R
+\family default
+ on 
+\family typewriter
+RCNetwork2
+\family default
+ to revert back to being a constant.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+RCNetwork2_C
+\family default
+ was deleted.
+ This caused the value of 
+\family typewriter
+C
+\family default
+ on 
+\family typewriter
+RCNetwork2
+\family default
+ to revert back to being a constant.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+RCNetwork_R
+\family default
+ was renamed to 
+\family typewriter
+R
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+RCNetwork_C
+\family default
+ was renamed to 
+\family typewriter
+C
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Tline_td
+\family default
+ was renamed to 
+\family typewriter
+td
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+Tline_zc was renamed to zc.
+\end_layout
+
+\begin_layout Subsection
 Help
 \begin_inset CommandInset label
 LatexCommand label
@@ -27132,6 +28887,23 @@ reference "Control-Help:Control-Help"
 \end_inset
 
  - for help on any menu elements or toolbar buttons.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Software-Documentation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ – for accessing the 
+\emph on
+SignalIntegrity
+\emph default
+ library Python technical documentation.
 \end_layout
 
 \begin_layout Itemize
@@ -27537,6 +29309,198 @@ When in control help, all of the commands are activated.
 \begin_layout Standard
 Control help stays active until you either press the escape key, or touch
  somewhere in the canvas.
+\end_layout
+
+\begin_layout Subsubsection
+Software Documentation
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Software-Documentation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Main-Schematic-Dialog"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:S-parameter-Viewer"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Help"
+
+\end_inset
+
+▸ Software Documentation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+H,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This opens a web browser, leading the user to the software documentation.
+ This is not the help file, but is the Python documentation for the 
+\emph on
+SignalIntegrity
+\emph default
+ library.
+ In other words, it is a technical manual for the software.
 \end_layout
 
 \begin_layout Subsubsection
@@ -42401,6 +44365,10 @@ reference "device:ImpulseResponseFilter"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Waveforms
 \end_layout
 
 \begin_layout Standard
@@ -72359,6 +74327,167 @@ reference "subsec:PostProcessing"
 \end_layout
 
 \begin_layout Section
+Equations
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Equations"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Equations allow for the running of a (small) Python script.
+ The idea is that the script takes in input variables (non-output variables)
+ and calculates a bunch of new variables (with some of these being output
+ variables).
+\end_layout
+
+\begin_layout Standard
+The input and output variables are held inside the schematic variables.
+ Opening the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Schematic-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ shows the schematic variables.
+ For example, take the following schematic that utilizes equations:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WirebondModelSchematic.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This schematic is intended to take in the variables for a round wire bond:
+\end_layout
+
+\begin_layout Itemize
+L – the length of the wire bond, in m.
+\end_layout
+
+\begin_layout Itemize
+D – the diameter of the wire bond, in m.
+\end_layout
+
+\begin_layout Itemize
+ur – the relative permeability of the material used for the wire bond.
+\end_layout
+
+\begin_layout Itemize
+rho – the resistivity of the material used for the wire bond, in ohm∙m.
+\end_layout
+
+\begin_layout Standard
+The idea is to compute the following:
+\end_layout
+
+\begin_layout Itemize
+H – the inductance of the wire bond, in H.
+\end_layout
+
+\begin_layout Itemize
+R – the resistance of the wire bond, in ohms.
+\end_layout
+
+\begin_layout Standard
+You can see that the schematic is parameterized, such that the resistance
+ and inductance are based on the values of R and H.
+\end_layout
+
+\begin_layout Standard
+Opening the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Schematic-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, reveals the following dialog:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WirebondModelVariables.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here, the variables H and R are grayed out, indicating that they are not
+ writable and and are output variables.
+ Editing H, for example, shows this:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WirebondModelVariableH.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, for this example, We can see that there are input variables L, D, and
+ ur, along with output variables H, and R, which are referenced in the schematic.
+ The equations are what connects these two sets of variables.
+ Opening the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Edit-Schematic-Equations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ allows editing of the equations:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WirebondModelEquations.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here, we see that the script assumes that the variables L, D, and ur are
+ defined prior to the script running.
+ All the script does is produce the intermediate value A, along with the
+ two variables H and R.
+ When this script exits, the output variables H and R are updated, and any
+ references to these values in the schematics are used.
+\end_layout
+
+\begin_layout Section
 Errors and Exceptions
 \begin_inset CommandInset label
 LatexCommand label
@@ -73501,7 +75630,7 @@ The standard preferences are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="16" columns="4">
+<lyxtabular version="3" rows="20" columns="4">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -73874,6 +76003,100 @@ True
 \begin_inset Text
 
 \begin_layout Plain Layout
+check condition number in calculations
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.CheckConditionNumber"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+employ mult-port tee elements
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:MultiPortTee"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 enforce 12458 sequence in calculation properties
 \end_layout
 
@@ -73918,7 +76141,7 @@ True
 \begin_inset Text
 
 \begin_layout Plain Layout
-maximum waveform points
+maximum waveform size
 \end_layout
 
 \end_inset
@@ -74083,13 +76306,60 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
 True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+prefer saving waveforms in LeCroy format
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:PreferSaveWaveformsLeCroyFormat"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
 \end_layout
 
 \end_inset
@@ -74175,12 +76445,59 @@ Bool
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \noindent
 \align left
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+parameterize visible properties only
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:ParameterizeOnlyVisible"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 True
 \end_layout
 
@@ -75354,6 +77671,248 @@ simulations with voltage sources shorted to ground.
 \end_layout
 
 \begin_layout Subsection*
+Calculation.CheckConditionNumber
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Calculation.CheckConditionNumber"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+check condition number in calculations
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Calculation.CheckConditionNumber"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Calculation.MultiPortTee
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:MultiPortTee"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+employ mult-port tee elements
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:MultiPortTee"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
 Calculation.Enforce12458
 \begin_inset CommandInset label
 LatexCommand label
@@ -75654,7 +78213,7 @@ To protect things, a maximum value is set in the preferences for the sizes
 \end_layout
 
 \begin_layout Subsection*
-RetainLastFilesOpened
+ProjectFiles.RetainLastFilesOpened
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:RetainLastFilesOpened"
@@ -75805,7 +78364,7 @@ reference "subsec:OpenLastFile"
 \end_layout
 
 \begin_layout Subsection*
-OpenLastFile
+ProjectFiles.OpenLastFile
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:OpenLastFile"
@@ -75939,7 +78498,7 @@ reference "subsec:RetainLastFilesOpened"
 \end_layout
 
 \begin_layout Subsection*
-AskToSaveCurrentFile
+ProjectFiles.AskToSaveCurrentFile
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:AskToSaveCurrentFile"
@@ -76064,6 +78623,150 @@ This preference determines whether the application will unconditionally
 
 \begin_layout Standard
 Currently, it has no knowledge of whether the project was recently changed.
+\end_layout
+
+\begin_layout Subsection*
+ProjectFiles.PreferSaveWaveformsLeCroyFormat
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:PreferSaveWaveformsLeCroyFormat"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ask to save current file
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:PreferSaveWaveformsLeCroyFormat"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Usually, waveforms are saved in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Waveform"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ format with the .txt extension.
+\end_layout
+
+\begin_layout Standard
+SignalIntegrity can also read and save files in the native format used by
+ LeCroy oscilloscopes.
+ This format is proprietary and produces smaller but slightly less accurate
+ representations of waveforms.
+\end_layout
+
+\begin_layout Standard
+When saving waveforms, they can always be saved in any format.
+ Only the type preferred is controlled by this preference.
 \end_layout
 
 \begin_layout Subsection*
@@ -76624,6 +79327,143 @@ rity/App'.
  Note that in this case the actual base of the help system will be at '/home/pet
 erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.\SpecialChar LyX
 conv/Help.html'.
+\end_layout
+
+\begin_layout Subsection*
+Variables.ParameterizeOnlyVisible
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:ParameterizeOnlyVisible"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+parameterize visible properties only
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:ParameterizeOnlyVisible"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Parameterize-Project"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ command, usually only the visible device properties are parameterized.
+\end_layout
+
+\begin_layout Standard
+Setting this preference to false causes all device properties to be parameterize
+d.
 \end_layout
 
 \begin_layout Subsection*

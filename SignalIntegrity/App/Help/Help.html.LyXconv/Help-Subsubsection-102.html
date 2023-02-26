@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,41 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Nominal Error Rates</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Bathtub Curves Dialog <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Vertical</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-103.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-102"></a>Measured Error Rates<a class="Label" name="pc:Measured-Error-Rates"> </a>
+<a class="toc" name="toc-Subsubsection-102"></a>Linearity<a class="Label" name="sub:Linearity"> </a>
 </h3>
 <div class="Standard">
-The measured error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:
+Linearity is only defined for PAM-4 and above. It is a measure of the similarity in height of the eyes, or more properly, the evenness in the level extents.
 </div>
-<ul>
+<div class="Standard">
+There are two measures, where 100% is the best, and 0% is the worst:
+</div>
+<ol>
 <li>
-Probability — the probability that a given symbol is transmitted. This probability is the measured probability for each symbol in the measured eye.
+Eye Linearity — This is the simplest and preferred measurement. It is the ratio of the minimum Delta Extent to the maximum Delta Extent (expressed as a percentage).
 </li>
 <li>
-SER — the symbol error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.
-</li>
-<li>
-BER — the bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.
-</li>
-<li>
-Gray BER — the Gray coded bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-100.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.
+RLM (Relative Level Mismatch) — Defined according to a complicated formula according to AN-835, 2019.03.12 from Intel. Assuming that the four level extents for PAM-4 are denoted <span class="formula"><i>V</i><sub>0</sub></span>, <span class="formula"><i>V</i><sub>1</sub></span>, <span class="formula"><i>V</i><sub>2</sub></span>, and <span class="formula"><i>V</i><sub>3</sub></span>, and that <span class="formula"><i>V</i><sub><i>min</i></sub> = <span class="symbol">(</span><i>V</i><sub>0</sub> + <i>V</i><sub>3</sub><span class="symbol">)</span> ⁄ 2</span>. We define <span class="formula"><i>ES</i>1 = <span class="symbol">(</span><i>V</i><sub>1</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>0</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span> and <span class="formula"><i>ES</i>2 = <span class="symbol">(</span><i>V</i><sub>2</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>3</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span>. RLM is defined as:<div class="Standard">
+<div class="center">
+<span class="formula"><i>RLM</i> = min<span class="symbol">(</span>3⋅<i>ES</i>1, 3⋅<i>ES</i>2, 2 − 3⋅<i>ES</i>1, 2 − 3⋅<i>ES</i>2<span class="symbol">)</span></span>
+</div>
+
+</div>
+<div class="Standard">
+expressed as a percentage.
+</div>
+
 </li>
 
-</ul>
-<div class="Standard">
-At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.
-</div>
+</ol>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Nominal Error Rates</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Bathtub Curves Dialog <a class="next" name="next" href="Help-Section-19.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-101.html#next">Prev</a> Vertical</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-103.html#prev">Next</a></span>
 </div>
 
 </div>

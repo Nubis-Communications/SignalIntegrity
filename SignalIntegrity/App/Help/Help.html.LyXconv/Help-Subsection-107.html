@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Voltage Mixed Mode Converter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Power Mixed Mode Converter</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="next">Relay <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-107"></a>Relay<a class="Label" name="device:Relay"> </a>
+<a class="toc" name="toc-Subsection-107"></a>Voltage Mixed Mode Converter<a class="Label" name="device:Voltage-Mixed-Mode-Converter"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="Relay.png" alt="figure Relay.png" style="width: 829px; max-width: 2765px; height: 219px; max-height: 732px;"/>
+<img class="embedded" src="VoltageMixedModeConverter.png" alt="figure VoltageMixedModeConverter.png" style="max-width: 152px; max-height: 144px;"/>
 
 </div>
 <div class="Standard">
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-K?
+D?
 </td>
 
 </tr>
@@ -1154,43 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-K1
-</td>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-position
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-int
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-pos
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-termination
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-term
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-ohms
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1e9
 </td>
 
 </tr>
@@ -1199,21 +1163,33 @@ ohms
 
 </div>
 <div class="Standard">
-Ideal relay with a given number of ports. For a given number of ports <span class="formula"><i>P</i></span>, port <span class="formula"><i>P</i></span> is always the common and ports 1 through <span class="formula"><i>P</i> − 1</span> are the throws of the relay.
+The voltage mixed mode converter is one that defines differential and common mode voltage with respect to positive and negative voltages as:
 </div>
 <div class="Standard">
-Ports may be specified from 2 to 16.
+<div class="formula">
+<i>V</i><sub><i>d</i></sub> = <i>V</i><sub> + </sub> − <i>V</i><sub> − </sub>
+</div>
+
 </div>
 <div class="Standard">
-The position keyword determines the position of the relay contact, meaning which throw is connected to the common. A position of 0 means nothing is connected. A position of 1 through <span class="formula"><i>P</i> − 1</span> indicates which port is connected to the common on port <span class="formula"><i>P</i></span>.
+<div class="formula">
+<i>V</i><sub><i>c</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> + <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span>
+</div>
+
 </div>
 <div class="Standard">
-Any unconnected port (including the common) is terminated in the resistance supplied by the term keyword.
+This is the standard definition in industry for the time-domain and this device is used primarily to expose differential- and common-mode voltages in time-domain simulation or virtual probing applications.
+</div>
+<div class="Standard">
+The other kind of mixed-mode converter is the <a class="Reference" href="Help-Subsection-106.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↑</a>.
+</div>
+<div class="Standard">
+See <a class="Reference" href="Help-Subsection-25.html#sub:Virtual-Probing-Example">Virtual Probing Example↑</a> for an example of this type of device is used.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Voltage Mixed Mode Converter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-106.html#next">Prev</a> Power Mixed Mode Converter</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
+<span class="next">Relay <a class="next" name="next" href="Help-Subsection-108.html#prev">Next</a></span>
 </div>
 
 </div>

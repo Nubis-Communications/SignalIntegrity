@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Measure Bathtub Curves</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Decision Level</span>
 <span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Minimum Points for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="next">Decades Above for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-84"></a>Decades Above for Fit<a class="Label" name="sub:Decades-Above-for"> </a>
+<a class="toc" name="toc-Subsection-84"></a>Measure Bathtub Curves<a class="Label" name="sub:Measure-Bathtub-Curves"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,16 +1099,23 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Decades Above for Fit
+Measure Bathtub Curves
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Bathtub.DeadesFromJoinForFit
+EyeDiagram.Bathtub.Measure
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Float
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-0.5
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+True or False<br/>
+False is default
+</div>
+
 </td>
 
 </tr>
@@ -1117,18 +1124,24 @@ Float
 
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-83.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↑</a> is set to True, <a class="Reference" href="Help-Subsection-84.html#sub:Decades-Above-for">Decades Above for Fit↑</a> specifies how many decades above the location where the histograms overlap to begin fitting the histogram. 
+When <a class="Reference" href="Help-Subsection-84.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↑</a> is set to True, bathtub curves are calculated and accessed through the <a class="Reference" href="Help-Subsubsection-97.html#Control-Help:Bathtub-Curve">Bathtub Curve↑</a> command in the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a>, and <a class="Reference" href="Help-Subsection--2.html#sub:Error-Rates">Error Rates↑</a> measurements tab in the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>.
 </div>
 <div class="Standard">
-This is used because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. 
+The bathtub curve measurement properties are:
 </div>
-<div class="Standard">
-Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
-</div>
+<ul>
+<li>
+<a class="Reference" href="Help-Subsection-85.html#sub:Decades-Above-for">Decades Above for Fit↓</a> — Because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. The parameter specifies how many decades above the location where the histograms overlap to begin fitting the histogram. Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-86.html#sub:Minimum-Points-for-Fit">Minimum Points for Fit↓</a> — This is the number of points on the tail of the histogram to use for the fit. At least three points are needed (a quadratic is fit). A few more points are better to provide an overconstrained fit, but too many points cause the fit to deviate from the tail of the histogram. It is desirable to fit the tail.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Measure Bathtub Curves</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-83.html#next">Prev</a> Decision Level</span>
 <span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Minimum Points for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
+<span class="next">Decades Above for Fit <a class="next" name="next" href="Help-Subsection-85.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Export Netlist</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Freshen Archived Project</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
 <span class="next">Edit <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-48"></a>Export LaTeX (TikZ)<a class="Label" name="Control-Help:Export-LaTeX"> </a>
+<a class="toc" name="toc-Subsubsection-48"></a>Unextract Archived Project<a class="Label" name="Control-Help:Unextract-Archive"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Export LaTeX (TikZ)
+<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Unextract Archived Project
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,L
+Alt+F,U
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the project is not empty
+When the open project is in a directory below its archive
 </td>
 
 </tr>
@@ -1141,19 +1141,20 @@ When the project is not empty
 
 </div>
 <div class="Standard">
-This causes the current schematic to be output in a graphical file format called <a class="URL" href="https://www.ctan.org/pkg/pgf?lang=en">TikZ</a> which is interpreted in TeX and LaTeX based documents (see <a class="URL" href="https://tug.org/">TeX Users Group (TUG)</a>.
+When a project is open underneath a directory of the same name with ’_Archive’ appended, it is presumed to be in an archive. Usually, in this case, there is an archive file above this directory of the same name, with the .siz extension.
 </div>
 <div class="Standard">
-While the TikZ file is directly importable into a LaTeX based document, it is difficult to edit. Fortunately a (old) free tool exists called <a class="URL" href="http://tpx.sourceforge.net/">TpX</a> for creating graphics. The file format of a TpX file is actual TikZ code for the drawing with the TpX drawing information <i>commented out</i>. Thus, a TpX file is directly importable into a LaTeX based document and only the TikZ code is interpreted. <b><i>SignalIntegrityApp</i></b> outputs the schematic this way, in TpX format so you can either directly import the schematic into a LaTeX based document, or if you install TpX, you can actually edit the schematic and save it as TikZ again.
+<div class="center">
+<img class="embedded" src="UnextractingArchive.png" alt="figure UnextractingArchive.png" style="width: 716px; max-width: 2866px; height: 329px; max-height: 1318px;"/>
+
+</div>
+
 </div>
 <div class="Standard">
-Because of differences between graphics drawing commands, the TpX and TikZ will vary slightly from the actual schematic shown in <b><i>SignalIntegrityApp</i></b>.
-</div>
-<div class="Standard">
-In the future, a .png or some other rasterized graphics version should be created, but believe it or not, this is more difficult. For now, you’re left with the screen capture methods built into the operating system to get this.
+Unextracting the archive deletes the project file and the entire directory structure at and below the project file. Usually, this is performed after a <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Freshen-Archive">Freshen Archived Project↑</a> operation. It is a dangerous operation.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Export Netlist</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Freshen Archived Project</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
 <span class="next">Edit <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
 </div>

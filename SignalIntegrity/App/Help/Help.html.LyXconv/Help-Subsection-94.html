@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,112 +1073,49 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-22.html#next">Prev</a> Built-in Devices (Parts)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-95.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-93.html#next">Prev</a> Annotate Contour</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-22.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-94"></a>File<a class="Label" name="device:File"> </a>
+<a class="toc" name="toc-Subsection-94"></a>Which Contours to Show<a class="Label" name="sub:Which-Contours-to-Show"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="OnePort.png" alt="figure OnePort.png" style="max-width: 116px; max-height: 116px;"/>
-<img class="embedded" src="TwoPort.png" alt="figure TwoPort.png" style="max-width: 152px; max-height: 116px;"/>
-<img class="embedded" src="TwoPortAlt.png" alt="figure TwoPortAlt.png" style="max-width: 116px; max-height: 180px;"/>
-<img class="embedded" src="ThreePort.png" alt="figure ThreePort.png" style="max-width: 152px; max-height: 180px;"/>
-<img class="embedded" src="ThreePortAlt.png" alt="figure ThreePortAlt.png" style="max-width: 116px; max-height: 244px;"/>
-<img class="embedded" src="FourPort.png" alt="figure FourPort.png" style="max-width: 152px; max-height: 180px;"/>
-<img class="embedded" src="FourPortAlt.png" alt="figure FourPortAlt.png" style="max-width: 116px; max-height: 308px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-Property Name
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Type
+<b>Type</b>
 </td>
-<td align="center" valign="top" style="width: 2cm;">
-Keyword
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Units
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-(Default) Value
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
 </td>
 
 </tr>
 <tr>
-<td align="center" valign="top" style="width: 4cm;">
-category
+<td align="center" valign="top" style="width: 8cm;">
+Which Contours to Show
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+EyeDiagram.Annotation.Contours.Which
 </td>
 <td align="center" valign="top" style="width: 2cm;">
+Enum
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="PlainVisible">
 
-</td>
-<td align="center" valign="top" style="width: 2cm;">
+</div>
+<div class="PlainVisible">
+Eye or All<br/>
+Eye is default
+</div>
 
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Files
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-default reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-D?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-file name
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-None
 </td>
 
 </tr>
@@ -1187,18 +1124,21 @@ None
 
 </div>
 <div class="Standard">
-File Devices are the most generic. They take an s-parameter file name in the file name property. The in the Part Properties Dialog, you can browse to the file and view the file in the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a> if you want.
+When <a class="Reference" href="Help-Subsection-87.html#sub:Annotate-Eye-with-Measurements">Annotate Eye with Measurements↑</a> is set to True, and <a class="Reference" href="Help-Subsection-93.html#sub:Annotate-Contour">Annotate Contour↑</a> is set to True, <a class="Reference" href="Help-Subsection-94.html#sub:Which-Contours-to-Show">Which Contours to Show↑</a> specifies how the contour will be drawn:
 </div>
-<div class="Standard">
-When files read in during calculations, file devices are resampled according to the <a class="Reference" href="Help-Subsubsection-76.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
-</div>
-<div class="Standard">
-File names can be projects. When browsing for file names, the default files type shown will be s-parameter files, but you can click on the files type and the choice of project files is shown. Then other projects can be selected as the source of the s-parameters. This allows nesting of projects. When you do this, you must ensure that the project you select for the s-parameter file is a project that produces s-parameters (i.e. a de-embedding or s-parameter generation project) and that the number of ports in the s-parameters produced matches the number of ports in your file type.
-</div>
+<ul>
+<li>
+All Contours -- at the perimeter of any probability contour having the probability specified. This performs better on more closed eyes.
+</li>
+<li>
+Only Contours inside Eye — at the perimeter of the contour bounded by the eye height and width. This performs better on more open eyes.
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-22.html#next">Prev</a> Built-in Devices (Parts)</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Resistor <a class="next" name="next" href="Help-Subsection-95.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-93.html#next">Prev</a> Annotate Contour</span>
+<span class="up"><a class="up" name="up" href="Help-Section-21.html">Up</a> Eye Diagram Properties</span>
+<span class="next">Built-in Devices (Parts) <a class="next" name="next" href="Help-Section-22.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,26 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Measurement Properties</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> Error Rates</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
+<span class="next">Nominal Error Rates <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-104"></a>Bathtub Curve Measurement Properties<a class="Label" name="pc:Bathtub-Curve-Measurement-Properties"> </a>
+<a class="toc" name="toc-Subsubsection-104"></a>Interpretation<a class="Label" name="pc:Interpretation"> </a>
 </h3>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-83.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves↓</a> is set to True, bathtub curves are calculated and accessed through the <a class="Reference" href="Help-Subsubsection-93.html#Control-Help:Bathtub-Curve">Bathtub Curve↑</a> command in the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a>, and <a class="Reference" href="Help-Subsection--2.html#sub:Error-Rates">Error Rates↑</a> measurements tab in the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>.
+The interpretation table has the symbol transmitted along each row and the probability of the symbol interpretation along each column. If PAM-4 and above are employed, then Gray coding information is also provided (with the normal bit identification as 00, 01, 10, 11 first, with the Gray code as 00, 01, 11, 10, second).
 </div>
 <div class="Standard">
-The bathtub curve measurement properties are:
+If the user is unfamiliar with Gray coding, it is a method of encoding the bits employed so that on each side of a symbol, there is only a single bit transition. Gray coding is always employed for PAM-4 and above and tends to make the BER identical the SER divided by the <a class="Reference" href="Help-Subsection-54.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↓</a>. This is because symbol errors are usually such that a symbol is accidentally interpreted as an adjacent Gray coded symbol, thus causing a single bit error.
 </div>
-<ul>
-<li>
-<a class="Reference" href="Help-Subsection-84.html#sub:Decades-Above-for">Decades Above for Fit↓</a> — Because many bathtub curves intersect vertically, at some point, meaning the channel is not error free, it becomes somewhat difficult to separate the histograms representing each bit being transmitted. The parameter specifies how many decades above the location where the histograms overlap to begin fitting the histogram. Larger numbers mean that the fit is performed higher on the histogram with less interaction of the other overlapping histogram. Smaller numbers mean that the fit is performed closer to the overlap point. Larger is better, but specifying this as too large may cause the measurement to fail. If so, set this to a small number (like zero) to debug the situation.
-</li>
-<li>
-<a class="Reference" href="Help-Subsection-85.html#sub:Minimum-Points-for-Fit">Minimum Points for Fit↓</a> — This is the number of points on the tail of the histogram to use for the fit. At least three points are needed (a quadratic is fit). A few more points are better to provide an overconstrained fit, but too many points cause the fit to deviate from the tail of the histogram. It is desirable to fit the tail.
-</li>
-
-</ul>
+<div class="Standard">
+The probabilities for interpretation is derived from the vertical bathtub curve (see <a class="Reference" href="Help-Section-19.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog↓</a>). 
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-103.html#next">Prev</a> Eye Measurement Properties</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-51.html">Up</a> Eye Diagram Measurement Properties</span>
-<span class="next">Eye Annotation Properties <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--2.html#next">Prev</a> Error Rates</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
+<span class="next">Nominal Error Rates <a class="next" name="next" href="Help-Subsubsection-105.html#prev">Next</a></span>
 </div>
 
 </div>

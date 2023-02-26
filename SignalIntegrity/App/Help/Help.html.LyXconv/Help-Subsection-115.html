@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Current Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-115"></a>Voltage DC Source<a class="Label" name="device:Voltage-DC-Source"> </a>
+<a class="toc" name="toc-Subsection-115"></a>Current Source<a class="Label" name="device:Current-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSourceDC.png" alt="figure VoltageSourceDC.png" style="width: 377px; max-width: 1508px; height: 118px; max-height: 475px;"/>
+<img class="embedded" src="CurrentSourceOnePort.png" alt="figure CurrentSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
+<img class="embedded" src="CurrentSourceTwoPort.png" alt="figure CurrentSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1136,7 +1137,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VS?
+CS?
 </td>
 
 </tr>
@@ -1154,25 +1155,25 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VS1
+
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-amplitude
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-a
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-V
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 V
+None
 </td>
 
 </tr>
@@ -1181,15 +1182,15 @@ V
 
 </div>
 <div class="Standard">
-The DC voltage source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC voltage.
+The current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a current <a class="Reference" href="Help-Section-27.html#sec:Waveform">Waveform↓</a> specified by the file name to the system.
 </div>
 <div class="Standard">
-The DC voltage source is handled specially in that it does not provide a waveform, but rather a number representing the DC voltage. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the voltage specified. The transfer characteristics of a DC voltage source through the system is to take the DC response of the system.
+The <a class="Reference" href="Help-Section-27.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-64.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Current Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2021-12-28"/>
+<meta name="create-date" content="2023-02-26"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-87.html#next">Prev</a> Control Help</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-44.html">Up</a> Help</span>
-<span class="next">Eye Diagram Dialog <a class="next" name="next" href="Help-Section-16.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-87.html#next">Prev</a> Schematic Equations</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-44.html">Up</a> Variables</span>
+<span class="next">Help <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-88"></a>Preferences<a class="Label" name="Control-Help:Preferences"> </a>
+<a class="toc" name="toc-Subsubsection-88"></a>Parameterize Schematic<a class="Label" name="Control-Help:Parameterize-Project"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-44.html#sub:Help">Help↑</a>▸ Preferences
+<a class="Reference" href="Help-Subsection-44.html#sub:Variables">Variables↑</a> ▸ Parameterize Schematic
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+H,P
+Alt+R,P
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+Not Available
 </td>
 
 </tr>
@@ -1141,12 +1141,81 @@ Always
 
 </div>
 <div class="Standard">
-Preferences allows editing of any of the various global <a class="Reference" href="Help-Section-27.html#sec:Preferences">Preferences↓</a> for the application.
+Parameterizing the schematic is the primary way of adding schematic variables to a project (as opposed to the <a class="Reference" href="Help-Subsubsection-86.html#par:Add-Schematic-Variable">Add Schematic Variables↑</a> method).
 </div>
+<div class="Standard">
+Below is an example of a schematic prior to parameterization:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="ProjectPriorToParameterization.png" alt="figure ProjectPriorToParameterization.png" style="max-width: 530px; max-height: 496px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+When the <a class="Reference" href="Help-Subsection--24.html#sub:ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↓</a> preference is set to True, then only the visible device properties will be parameterized, otherwise, all device properties will be parameterized.
+</div>
+<div class="Standard">
+The result of parameterizing this schematic with the parameterization of only visible device properties set is shown below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="ProjectAfterParameterization.png" alt="figure ProjectAfterParameterization.png" style="max-width: 530px; max-height: 496px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Here, we can see that every property in every device created a visible schematic variable that is visible and shown in the upper left of the schematic. Each variable name was created from a concatenation of the reference designator and the property name with an underscore in between. Note also that device property value was copied to the schematic variable and the device property now references the schematic variable.
+</div>
+<div class="Standard">
+In this particular case, we wanted all of the R, C, td, zc and pos values to be the same. To do this, the <a class="Reference" href="Help-Subsubsection-86.html#Control-Help:Schematic-Variables">Schematic Variables↑</a> dialog is opened, and the variables are edited to remove the reference designator, with duplicate variable names deleted <u>after</u> the renaming of the variables. This is because as each variable is renamed, the reference to that variable is automatically modified on the device property. Afterwards, the schematic looks like this:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="ProjectAfterParameterizationFixup.png" alt="figure ProjectAfterParameterizationFixup.png" style="max-width: 530px; max-height: 496px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Note the steps to produce this desired result:
+</div>
+<ol>
+<li>
+<tt>K1_pos</tt> was renamed to <tt>Route</tt>.
+</li>
+<li>
+<tt>K2_pos</tt> was renamed to <tt>Route</tt>.
+</li>
+<li>
+One of the duplicate <tt>Route</tt> variables was deleted.
+</li>
+<li>
+<tt>RCNetwork2_R</tt> was deleted. This caused the value of <tt>R</tt> on <tt>RCNetwork2</tt> to revert back to being a constant.
+</li>
+<li>
+<tt>RCNetwork2_C</tt> was deleted. This caused the value of <tt>C</tt> on <tt>RCNetwork2</tt> to revert back to being a constant.
+</li>
+<li>
+<tt>RCNetwork_R</tt> was renamed to <tt>R</tt>.
+</li>
+<li>
+<tt>RCNetwork_C</tt> was renamed to <tt>C</tt>.
+</li>
+<li>
+<tt>Tline_td</tt> was renamed to <tt>td</tt>.
+</li>
+<li>
+Tline_zc was renamed to zc.
+</li>
+
+</ol>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-87.html#next">Prev</a> Control Help</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-44.html">Up</a> Help</span>
-<span class="next">Eye Diagram Dialog <a class="next" name="next" href="Help-Section-16.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-87.html#next">Prev</a> Schematic Equations</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-44.html">Up</a> Variables</span>
+<span class="next">Help <a class="next" name="next" href="Help-Subsection-45.html#prev">Next</a></span>
 </div>
 
 </div>
