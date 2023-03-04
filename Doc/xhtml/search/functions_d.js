@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['offsetby_1158',['OffsetBy',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml#a2410e463585763a64dcd8dfe62528134',1,'SignalIntegrity::Lib::TimeDomain::Waveform::Waveform::Waveform']]],
-  ['open_1159',['Open',['../namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1Open.xhtml#a6c3bdb020c22f1836892526bdf440ae9',1,'SignalIntegrity::Lib::Devices::Open']]],
-  ['operationalamplifier_1160',['OperationalAmplifier',['../namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1OperationalAmplifier.xhtml#ae1b30fee13b43cdc76b77fea303ffaed',1,'SignalIntegrity.Lib.Devices.OperationalAmplifier.OperationalAmplifier()'],['../namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1OperationalAmplifier.xhtml#ae3955ac6a9b22bf6e720ff109ce7458e',1,'SignalIntegrity.Lib.Symbolic.OperationalAmplifier.OperationalAmplifier()']]],
-  ['opticalmeasure_1161',['OpticalMeasure',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a409fede69bfb7cd95c08ed90ddecd1a5',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]],
-  ['order_1162',['Order',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0178916f92e31f28755fe139e6185c66',1,'SignalIntegrity::Lib::Prbs::PseudoRandomPolynomial::PseudoRandomPolynomial']]]
+  ['offsetby_1162',['OffsetBy',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml#a2410e463585763a64dcd8dfe62528134',1,'SignalIntegrity::Lib::TimeDomain::Waveform::Waveform::Waveform']]],
+  ['open_1163',['Open',['../namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1Open.xhtml#a6c3bdb020c22f1836892526bdf440ae9',1,'SignalIntegrity::Lib::Devices::Open']]],
+  ['operationalamplifier_1164',['OperationalAmplifier',['../namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1OperationalAmplifier.xhtml#ae1b30fee13b43cdc76b77fea303ffaed',1,'SignalIntegrity.Lib.Devices.OperationalAmplifier.OperationalAmplifier()'],['../namespaceSignalIntegrity_1_1Lib_1_1Symbolic_1_1OperationalAmplifier.xhtml#ae3955ac6a9b22bf6e720ff109ce7458e',1,'SignalIntegrity.Lib.Symbolic.OperationalAmplifier.OperationalAmplifier()']]],
+  ['opticalmeasure_1165',['OpticalMeasure',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a409fede69bfb7cd95c08ed90ddecd1a5',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]],
+  ['order_1166',['Order',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0178916f92e31f28755fe139e6185c66',1,'SignalIntegrity::Lib::Prbs::PseudoRandomPolynomial::PseudoRandomPolynomial']]]
 ];
