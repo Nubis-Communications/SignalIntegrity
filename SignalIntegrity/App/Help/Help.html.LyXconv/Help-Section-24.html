@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,59 +1073,56 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--3.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> Impulse Response Filter</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Equations <a class="next" name="next" href="Help-Section-25.html#prev">Next</a></span>
+<span class="next">device <a class="next" name="next" href="Help-Subsection-165.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-24"></a>Post-Processing<a class="Label" name="sec:Post-Processing"> </a>
+<a class="toc" name="toc-Section-24"></a>Netlist<a class="Label" name="sec:Netlist"> </a>
 </h1>
 <div class="Standard">
-Post-processing commands are commands to be executed after a <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> or <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> calculation completes.
+Netlists are the internal text based format of the schematic. There is a one-to-one correspondence between the netlist and the schematic from a device and connectivity standpoint.
 </div>
 <div class="Standard">
-These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
-</div>
-<div class="Standard">
-All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-23.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--3.html#sub:post">post↑</a> added when putting the commands in the netlist.
-</div>
-<div class="Standard">
-Because they are in the netlist, one is able to make scripted solutions with post-processing, and the cache coherency of the calculated result is maintained (i.e. changes to the netlist change the validity of cached results).
-</div>
-<div class="Standard">
-Valid post-processing commands are:
+each line in the netlist starts with one of the following keywords:
 </div>
 <ul>
 <li>
-enforce causality - is the same as issuing <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-165.html#sub:device">device↓</a>- specifies one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </li>
 <li>
-enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-166.html#sub:connect">connect↓</a>- specifies one or more device pin connections.
 </li>
 <li>
-enforce both passivity and causality — is the same as issuing <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-167.html#sub:port">port↓</a>- specifies a <a class="Reference" href="Help-Subsection-129.html#device:Port">Port↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> and <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
 </li>
 <li>
-enforce reciprocity - is the same as issuing <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-168.html#sub:meas">meas↓</a>- specifies a <a class="Reference" href="Help-Subsection-130.html#device:Measure-Probe">Voltage Measure Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
 </li>
 <li>
-enforce all — is the same as issuing <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Enforce-All">Enforce All↑</a> on the final result.
+<a class="Reference" href="Help-Subsection-169.html#sub:output">output↓</a>- specifies an <a class="Reference" href="Help-Subsection-131.html#device:Output-Probe">Voltage Output Probe↑</a> and it’s connection to a device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications).
 </li>
 <li>
-limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
+<a class="Reference" href="Help-Subsection-170.html#sub:stim">stim↓</a>- specifies a <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↑</a> and it’s associated device pin. (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
 </li>
 <li>
-reference impedance &lt;value&gt; — sets the resulting s-parameter calculation reference impedance according to the value specified.
+<a class="Reference" href="Help-Subsection-171.html#sub:stimdef">stimdef↓</a>- specifies the relationship between defining and dependent stims (see <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↑</a>). (used only for <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> applications).
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-172.html#sub:unknown">unknown↓</a>- specifies an <a class="Reference" href="Help-Subsection-146.html#device:Unknown">Unknown↑</a> device (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
+</li>
+<li>
+<a class="Reference" href="Help-Subsection-173.html#sub:system">system↓</a>- specifies a <a class="Reference" href="Help-Subsection-147.html#device:System">System↑</a> device (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications).
+</li>
+<li>
+<a class="Reference" href="Help-Subsection--3.html#sub:post">post↓</a>- specifies <a class="Reference" href="Help-Section-25.html#sec:Post-Processing">Post-Processing↓</a> of a resulting s-parameter file (used only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> and <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> applications).
 </li>
 
 </ul>
-<div class="Standard">
-If the post-processing commands are not recognized or cannot be parsed, the <a class="Reference" href="Help-Subsection--4.html#sub:PostProcessing">PostProcessing↓</a> exception is raised
-</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--3.html#next">Prev</a> post</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-164.html#next">Prev</a> Impulse Response Filter</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Equations <a class="next" name="next" href="Help-Section-25.html#prev">Next</a></span>
+<span class="next">device <a class="next" name="next" href="Help-Subsection-165.html#prev">Next</a></span>
 </div>
 
 </div>

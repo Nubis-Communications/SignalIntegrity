@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Current DC Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-118"></a>Voltage Noise Generator<a class="Label" name="device:Voltage-Noise-Generator"> </a>
+<a class="toc" name="toc-Subsection-118"></a>Current DC Source<a class="Label" name="device:Current-DC-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageNoiseGeneratorOnePort.png" alt="figure VoltageNoiseGeneratorOnePort.png" style="max-width: 200px; max-height: 176px;"/>
-<img class="embedded" src="VoltageNoiseGeneratorTwoPort.png" alt="figure VoltageNoiseGeneratorTwoPort.png" style="max-width: 200px; max-height: 176px;"/>
+<img class="embedded" src="CurrentSourceDC.png" alt="figure CurrentSourceDC.png" style="width: 276px; max-width: 1105px; height: 115px; max-height: 463px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Generators
+Sources
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VG?
+CS?
 </td>
 
 </tr>
@@ -1155,7 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+CS1
 </td>
 
 </tr>
@@ -1167,85 +1166,13 @@ amplitude
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-vrms
+a
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<span class="formula"><span class="mathrm">V<sub>rms</sub></span></span>
+A
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<span class="formula">0 <i>V</i><sub><i>rms</i></sub></span>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-sample rate
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-fs
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-S/s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-40.0 GS/s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-duration
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-dur
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-200.0 ns
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-horizontal offset
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ho
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100.0 ns
+1.0 A
 </td>
 
 </tr>
@@ -1254,12 +1181,15 @@ s
 
 </div>
 <div class="Standard">
-The voltage noise generator generates random, normally distributed, zero-mean noise with an rms voltage as specified.
+The DC current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC current.
+</div>
+<div class="Standard">
+The DC current source is handled specially in that it does not provide a waveform, but rather a number representing the DC current. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the current specified. The transfer characteristics of a DC current source through the system is to take the DC response of the system.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Current DC Source</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Step Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Voltage DC Source</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 
 </div>

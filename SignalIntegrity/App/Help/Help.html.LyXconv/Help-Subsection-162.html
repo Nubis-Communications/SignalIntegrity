@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Bessel Low-Pass Filter</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Impulse Response Filter <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Butterworth Low-Pass Filter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Laplace <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-162"></a>Laplace<a class="Label" name="device:Laplace"> </a>
+<a class="toc" name="toc-Subsection-162"></a>Bessel Low-Pass Filter<a class="Label" name="device:BesselLp"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="Laplace.png" alt="figure Laplace.png" style="width: 400px; max-width: 1336px; height: 104px; max-height: 347px;"/>
+<img class="embedded" src="LPF.png" alt="figure LPF.png" style="width: 126px; max-width: 420px; height: 149px; max-height: 497px;"/>
 
 </div>
 <div class="Standard">
@@ -1173,21 +1173,42 @@ F1
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-eq
+cutoff frequency
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-eq
+fc
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Hz
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GHz
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+order
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+order
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-’’
+4
 </td>
 
 </tr>
@@ -1196,27 +1217,21 @@ eq
 
 </div>
 <div class="Standard">
-This is a Laplace domain device.
+This is a Bessel filter of the specified order and cutoff frequency, where it reaches -3 dB.
 </div>
 <div class="Standard">
-The equation supplied is typically an equation in <span class="formula"><i>s</i></span> that gets directly evaluated in Python (so you have to know a little Python equation syntax, but as you can see in the example, it’s straightforward). To facilitate more versatility, equations can be supplied in <span class="formula"><i>s</i></span>, <span class="formula"><i>ω</i></span> (w), and <span class="formula"><i>f</i></span>, as well as <span class="formula"><i>z</i></span> where, during evaluation, <span class="formula"><i>ω</i> = 2⋅<i>π</i>⋅<i>f</i></span>, <span class="formula"><i>s</i> = <i>j</i>⋅<i>ω</i></span>, and <span class="formula"><i>z</i> = <i>e</i><sup><i>s</i>⋅<i>Ts</i></sup></span>. <span class="formula"><i>Fs</i></span> is twice the last frequency point supplied in the list (the end frequency), and <span class="formula"><i>Ts</i></span>, the sample period, is <span class="formula">1 ⁄ <i>Fs</i></span>.
-</div>
-<div class="Standard">
-Normally in Python, the complex variable must be supplied as 1j, but that is not necessary here. Similarly, <span class="formula"><i>π</i></span> is defined as the variable pi.
-</div>
-<div class="Standard">
-It is built as an analog system whose frequency response is sampled.
+It is built as an analog filter whose frequency response is sampled.
 </div>
 <div class="Standard">
 The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
 </div>
 <div class="Standard">
-Note that the variables Fs, Ts, pi, w, j, s, and z are defined prior to equation evaluation and are reserved variables. Your equation should use any of these.
+Note: This element requires the installation of the scipy package, which is not automatically installed by this software.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Bessel Low-Pass Filter</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Impulse Response Filter <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Butterworth Low-Pass Filter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Laplace <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 
 </div>

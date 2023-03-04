@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> W Element</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-114"></a>Voltage Source<a class="Label" name="device:Voltage-Source"> </a>
+<a class="toc" name="toc-Subsection-114"></a>W Element<a class="Label" name="device:W-Element"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSourceOnePort.png" alt="figure VoltageSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
-<img class="embedded" src="VoltageSourceTwoPort.png" alt="figure VoltageSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
+<img class="embedded" src="WElement.png" alt="figure WElement.png" style="width: 126px; max-width: 420px; height: 264px; max-height: 882px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Sources
+Transmission Lines
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VS?
+W?
 </td>
 
 </tr>
@@ -1155,7 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+W1
 </td>
 
 </tr>
@@ -1177,20 +1176,101 @@ None
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+dissipation factor
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+df
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+scale
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+scale
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+sections
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+sect
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+4
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-The voltage source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage <a class="Reference" href="Help-Section-27.html#sec:Waveform">Waveform↓</a> specified by the file name to the system.
+W elements are distributed transmission lines. A two-port W element is equivalent to an <a class="Reference" href="Help-Subsection-111.html#device:Telegrapher---Two-Port">Telegrapher - Two Port↑</a> transmission line and a four-port W element is equivalent to a <a class="Reference" href="Help-Subsection-112.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↑</a>. Usually the transmission line model is provided numerically with values per meter. So if you want something different from 1 meter, you must scale the line.
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Section-27.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-64.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
+The user can specify the number of sections to be utilized for analytic approximation, but 0 is recommended. When zero sections are specified, the number of sections is intelligently calculated based on the fastest risetime possible (based on the end frequency used in the calculation) and the worst case electrical length possible determined from the inductance and capacitance values in the model.
+</div>
+<div class="Standard">
+The number of ports should always be even and match those in the W element file name specified. The transmission line elements in the model are always such that for <span class="formula"><i>P</i></span> ports, transmission line <span class="formula"><i>m</i></span> goes from port <span class="formula"><i>m</i></span> to port <span class="formula"><i>P</i> ⁄ 2 + <i>m</i></span> .
+</div>
+<div class="Standard">
+Because the model does not seem to support dissipation factor, it can be entered globally for the model.
+</div>
+<div class="Standard">
+More documentation on this device may be found here: <a class="FlexURL" href="http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf">http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf</a>
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> W Element</span>
-<span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-113.html#next">Prev</a> RLGC Fit</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-115.html#prev">Next</a></span>
 </div>
 
 </div>

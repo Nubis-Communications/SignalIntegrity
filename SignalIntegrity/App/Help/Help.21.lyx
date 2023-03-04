@@ -12575,6 +12575,8 @@ name "sec:Simulator-Dialog"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
 \begin_inset Graphics
 	filename SimulatorExampleStep24.png
 
@@ -28023,6 +28025,23 @@ The example shown assumes that the input variables are L, D, and ur.
  It assumes that possible output variables are A, H, and R.
 \end_layout
 
+\begin_layout Standard
+Note the status bar at the bottom, if in the Debug menu, Auto debug is selected
+\begin_inset Graphics
+	filename DebugAutoDebug.png
+
+\end_inset
+
+, then each time you edit something in the script, the script is checked
+ for errors, and the errors are shown on the status bar.
+ If no errors are detected, 'No Errors' is shown.
+\end_layout
+
+\begin_layout Standard
+Also, the script can be forcibly executed from inside the equation editor
+ to see the effect directly on the parent schematic.
+\end_layout
+
 \begin_layout Subsubsection
 Parameterize Schematic
 \begin_inset CommandInset label
@@ -30002,6 +30021,16 @@ reference "Control-Help:Bathtub-Curve"
  - for viewing bathtub curves.
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Sampled-Waveforms"
+
+\end_inset
+
+ -- for view waveforms overlaid with the sample points.
+\end_layout
+
 \begin_layout Subsubsection
 Eye Measurements
 \begin_inset CommandInset label
@@ -30358,6 +30387,185 @@ reference "sec:Bathtub-Curves-Dialog"
 \end_inset
 
  for viewing bathtub curves.
+\end_layout
+
+\begin_layout Subsubsection
+Sampled Waveforms
+\begin_inset CommandInset label
+LatexCommand label
+name "Control-Help:Sampled-Waveforms"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Dialog
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Menu System
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Eye-Diagram-View"
+
+\end_inset
+
+ ▸ Sampled Waveforms
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Navigation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alt+V,S
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Key Binding
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Toolbar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+None
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\emph on
+Availability
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Issuing this command brings up the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Sampled-Waveforms-Dialog"
+
+\end_inset
+
+ for viewing the waveform overlaid with the sample points.
 \end_layout
 
 \begin_layout Subsection
@@ -32244,6 +32452,64 @@ reference "sub:Decision-Level"
 \end_layout
 
 \begin_layout Section
+Sampled Waveforms Dialog
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Sampled-Waveforms-Dialog"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename SampledWaveformDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This dialog is a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulator-Dialog"
+
+\end_inset
+
+ showing two waveforms:
+\end_layout
+
+\begin_layout Itemize
+The underlying waveform used to measure the eye.
+\end_layout
+
+\begin_layout Itemize
+The sampled waveform, where the samples are taken at the sample location
+ at the middle of the eye.
+\end_layout
+
+\begin_layout Standard
+If desired, the underlying waveform can be turned off to reveal only the
+ samples taken in a so-called constellation plot:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename ConstellationPlot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Eye Diagram Properties Dialog
 \begin_inset CommandInset label
 LatexCommand label
@@ -33430,7 +33696,7 @@ The Eye Diagram Properties are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="42" columns="5">
+<lyxtabular version="3" rows="43" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -35433,6 +35699,60 @@ True
 
 \begin_layout Plain Layout
 Measure Eye Parameters is True and Annotate Eye with Measurements is True
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Label Mean Levels
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Label-Mean-Levels"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Measure Eye Parameters is True and Annotate Eye with Measurements is True
+ and Annotate Mean Levels is True
 \end_layout
 
 \end_inset
@@ -40906,6 +41226,17 @@ reference "sub:Annotate-Mean-Levels"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
+reference "sub:Label-Mean-Levels"
+
+\end_inset
+
+ -- label the level of the horizontal line through the most probable levels
+ at each bit.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset ref
+LatexCommand nameref
 reference "sub:Annotate-Levels-Extents"
 
 \end_inset
@@ -41249,6 +41580,139 @@ reference "sub:Annotate-Mean-Levels"
 
  specifies whether to draw a horizontal line through the most probable levels
  at each bit.
+\end_layout
+
+\begin_layout Subsection
+Label Mean Levels
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Label-Mean-Levels"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Annotate Mean Levels
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EyeDiagram.Annotation.MeanLevels
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True or False
+\end_layout
+
+\begin_layout Plain Layout
+True is default
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Annotate-Mean-Levels"
+
+\end_inset
+
+ is set to True, 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Label-Mean-Levels"
+
+\end_inset
+
+ specifies whether to label the level of the most probable levels at each
+ bit.
 \end_layout
 
 \begin_layout Subsection

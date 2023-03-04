@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,96 +1073,59 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--3.html#next">Prev</a> post</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-26.html#prev">Next</a></span>
+<span class="next">Equations <a class="next" name="next" href="Help-Section-26.html#prev">Next</a></span>
 </div>
 <h1 class="Section">
-<a class="toc" name="toc-Section-25"></a>Equations<a class="Label" name="sec:Equations"> </a>
+<a class="toc" name="toc-Section-25"></a>Post-Processing<a class="Label" name="sec:Post-Processing"> </a>
 </h1>
 <div class="Standard">
-Equations allow for the running of a (small) Python script. The idea is that the script takes in input variables (non-output variables) and calculates a bunch of new variables (with some of these being output variables).
+Post-processing commands are commands to be executed after a <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> or <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a> calculation completes.
 </div>
 <div class="Standard">
-The input and output variables are held inside the schematic variables. Opening the <a class="Reference" href="Help-Subsubsection-86.html#Control-Help:Schematic-Variables">Schematic Variables↑</a> shows the schematic variables. For example, take the following schematic that utilizes equations:
+These commands are entered as text in the order that they are to be executed in a dialog opened by the <a class="Reference" href="Help-Subsubsection-77.html#Control-Help:Post-Processing">Post-Processing↑</a>. command.
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="WirebondModelSchematic.png" alt="figure WirebondModelSchematic.png" style="max-width: 547px; max-height: 270px;"/>
-
-</div>
-
+All of the post-processing commands are appended to the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a> generated for calculation and can be seen when you issue <a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Export-Netlist">Export Netlist↑</a>, with the caveat that commands are entered directly in the post-processing dialog, but have the keyword <a class="Reference" href="Help-Subsection--3.html#sub:post">post↑</a> added when putting the commands in the netlist.
 </div>
 <div class="Standard">
-This schematic is intended to take in the variables for a round wire bond:
+Because they are in the netlist, one is able to make scripted solutions with post-processing, and the cache coherency of the calculated result is maintained (i.e. changes to the netlist change the validity of cached results).
+</div>
+<div class="Standard">
+Valid post-processing commands are:
 </div>
 <ul>
 <li>
-L — the length of the wire bond, in m.
+enforce causality - is the same as issuing <a class="Reference" href="Help-Subsubsection-5.html#Control-Help:Enforce-Causality">Enforce Causality↑</a> on the final result.
 </li>
 <li>
-D — the diameter of the wire bond, in m.
+enforce passivity - is the same as issuing <a class="Reference" href="Help-Subsubsection-4.html#Control-Help:Enforce-Passivity">Enforce Passivity↑</a> on the final result.
 </li>
 <li>
-ur — the relative permeability of the material used for the wire bond.
+enforce both passivity and causality — is the same as issuing <a class="Reference" href="Help-Subsubsection-6.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity↑</a> on the final result.
 </li>
 <li>
-rho — the resistivity of the material used for the wire bond, in ohm∙m.
+enforce reciprocity - is the same as issuing <a class="Reference" href="Help-Subsubsection-7.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity↑</a> on the final result.
+</li>
+<li>
+enforce all — is the same as issuing <a class="Reference" href="Help-Subsubsection-8.html#Control-Help:Enforce-All">Enforce All↑</a> on the final result.
+</li>
+<li>
+limit &lt;negative&gt; &lt;positive&gt; - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
+</li>
+<li>
+reference impedance &lt;value&gt; — sets the resulting s-parameter calculation reference impedance according to the value specified.
 </li>
 
 </ul>
 <div class="Standard">
-The idea is to compute the following:
-</div>
-<ul>
-<li>
-H — the inductance of the wire bond, in H.
-</li>
-<li>
-R — the resistance of the wire bond, in ohms.
-</li>
-
-</ul>
-<div class="Standard">
-You can see that the schematic is parameterized, such that the resistance and inductance are based on the values of R and H.
-</div>
-<div class="Standard">
-Opening the <a class="Reference" href="Help-Subsubsection-86.html#Control-Help:Schematic-Variables">Schematic Variables↑</a>, reveals the following dialog:
-</div>
-<div class="Standard">
-<div class="center">
-<img class="embedded" src="WirebondModelVariables.png" alt="figure WirebondModelVariables.png" style="max-width: 732px; max-height: 227px;"/>
-
-</div>
-
-</div>
-<div class="Standard">
-Here, the variables H and R are grayed out, indicating that they are not writable and and are output variables. Editing H, for example, shows this:
-</div>
-<div class="Standard">
-<div class="center">
-<img class="embedded" src="WirebondModelVariableH.png" alt="figure WirebondModelVariableH.png" style="max-width: 622px; max-height: 211px;"/>
-
-</div>
-
-</div>
-<div class="Standard">
-So, for this example, We can see that there are input variables L, D, and ur, along with output variables H, and R, which are referenced in the schematic. The equations are what connects these two sets of variables. Opening the <a class="Reference" href="Help-Subsubsection-87.html#Control-Help:Edit-Schematic-Equations">Schematic Equations↑</a> allows editing of the equations:
-</div>
-<div class="Standard">
-<div class="center">
-<img class="embedded" src="WirebondModelEquations.png" alt="figure WirebondModelEquations.png" style="max-width: 666px; max-height: 185px;"/>
-
-</div>
-
-</div>
-<div class="Standard">
-Here, we see that the script assumes that the variables L, D, and ur are defined prior to the script running. All the script does is produce the intermediate value A, along with the two variables H and R. When this script exits, the output variables H and R are updated, and any references to these values in the schematics are used.
+If the post-processing commands are not recognized or cannot be parsed, the <a class="Reference" href="Help-Subsection--4.html#sub:PostProcessing">PostProcessing↓</a> exception is raised
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Post-Processing</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--3.html#next">Prev</a> post</span>
 <span class="up"><a class="up" name="up" href="Help.html">Up</a> Main page</span>
-<span class="next">Errors and Exceptions <a class="next" name="next" href="Help-Section-26.html#prev">Next</a></span>
+<span class="next">Equations <a class="next" name="next" href="Help-Section-26.html#prev">Next</a></span>
 </div>
 
 </div>

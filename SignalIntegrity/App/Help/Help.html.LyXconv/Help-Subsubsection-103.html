@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-02-26"/>
+<meta name="create-date" content="2023-03-04"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,29 +1073,41 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Linearity</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Vertical</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
-<span class="next">Error Rates <a class="next" name="next" href="Help-Subsection--2.html#prev">Next</a></span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-104.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-103"></a>Resolution<a class="Label" name="sub:Resolution"> </a>
+<a class="toc" name="toc-Subsubsection-103"></a>Linearity<a class="Label" name="sub:Linearity"> </a>
 </h3>
 <div class="Standard">
-The vertical and horizontal resolution is shown at the bottom:
+Linearity is only defined for PAM-4 and above. It is a measure of the similarity in height of the eyes, or more properly, the evenness in the level extents.
 </div>
-<ul>
+<div class="Standard">
+There are two measures, where 100% is the best, and 0% is the worst:
+</div>
+<ol>
 <li>
-Vertical Resolution — the vertical height of each pixel in the eye diagram. Vertical resolution can be improved by increasing <a class="Reference" href="Help-Subsection-57.html#sub:Number-of-Rows">Number of Rows↓</a>.
+Eye Linearity — This is the simplest and preferred measurement. It is the ratio of the minimum Delta Extent to the maximum Delta Extent (expressed as a percentage).
 </li>
 <li>
-Horizontal Resolution — the horizontal width of each pixel in the eye diagram. Horizontal resolution can be improved by increasing <a class="Reference" href="Help-Subsection-58.html#sub:Number-of-Columns">Number of Columns↓</a>.
+RLM (Relative Level Mismatch) — Defined according to a complicated formula according to AN-835, 2019.03.12 from Intel. Assuming that the four level extents for PAM-4 are denoted <span class="formula"><i>V</i><sub>0</sub></span>, <span class="formula"><i>V</i><sub>1</sub></span>, <span class="formula"><i>V</i><sub>2</sub></span>, and <span class="formula"><i>V</i><sub>3</sub></span>, and that <span class="formula"><i>V</i><sub><i>min</i></sub> = <span class="symbol">(</span><i>V</i><sub>0</sub> + <i>V</i><sub>3</sub><span class="symbol">)</span> ⁄ 2</span>. We define <span class="formula"><i>ES</i>1 = <span class="symbol">(</span><i>V</i><sub>1</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>0</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span> and <span class="formula"><i>ES</i>2 = <span class="symbol">(</span><i>V</i><sub>2</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span> ⁄ <span class="symbol">(</span><i>V</i><sub>3</sub> − <i>V</i><sub><i>min</i></sub><span class="symbol">)</span></span>. RLM is defined as:<div class="Standard">
+<div class="center">
+<span class="formula"><i>RLM</i> = min<span class="symbol">(</span>3⋅<i>ES</i>1, 3⋅<i>ES</i>2, 2 − 3⋅<i>ES</i>1, 2 − 3⋅<i>ES</i>2<span class="symbol">)</span></span>
+</div>
+
+</div>
+<div class="Standard">
+expressed as a percentage.
+</div>
+
 </li>
 
-</ul>
+</ol>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Linearity</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-102.html#next">Prev</a> Vertical</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
-<span class="next">Error Rates <a class="next" name="next" href="Help-Subsection--2.html#prev">Next</a></span>
+<span class="next">Resolution <a class="next" name="next" href="Help-Subsubsection-104.html#prev">Next</a></span>
 </div>
 
 </div>
