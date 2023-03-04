@@ -77,7 +77,7 @@ class EyeMeasureConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('Measure')
         self.Add(XMLPropertyDefaultBool('Measure',False))
-        self.Add(XMLPropertyDefaultString('WaveformType','V')) # 'V', 'A', 'W', 'FW', 'FA', 'FV'
+        self.Add(XMLPropertyDefaultString('WaveformType','V')) # 'V', 'A', 'W', 'FW', 'AW', 'VW'
         self.Add(XMLPropertyDefaultString('RxTx','Rx')) # 'Rx', 'Tx', 'N/A'
         self.Add(XMLPropertyDefaultBool('TxInputPowerAvailable',False))
         self.Add(XMLPropertyDefaultFloat('TxInputPowerW',0))
@@ -96,6 +96,7 @@ class EyeAnnotationConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('Annotate',False))
         self.Add(XMLPropertyDefaultString('Color','#ffffff'))
         self.Add(XMLPropertyDefaultBool('MeanLevels',True))
+        self.Add(XMLPropertyDefaultBool('LabelMeanLevels',False))
         self.Add(XMLPropertyDefaultBool('LevelExtents',False))
         self.Add(XMLPropertyDefaultBool('EyeWidth',True))
         self.Add(XMLPropertyDefaultBool('EyeHeight',True))

@@ -94,7 +94,10 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Annotate=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye with Measurements',self.onUpdateFromChanges,None,self.project,'Annotation.Annotate')
         self.AnnotationColor=CalculationPropertyColor(self.AnnotateFrame,'Annotation Color',self.onUpdateFromChanges,None,self.project,'Annotation.Color')
-        self.AnnotateMeanLevels=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Mean Levels',self.onUpdateFromChanges,None,self.project,'Annotation.MeanLevels')
+        self.MeanLevelsFrame=tk.Frame(self.AnnotateFrame, relief=tk.RIDGE, borderwidth=5)
+        self.MeanLevelsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.AnnotateMeanLevels=CalculationPropertyTrueFalseButton(self.MeanLevelsFrame,'Annotate Mean Levels',self.onUpdateFromChanges,None,self.project,'Annotation.MeanLevels')
+        self.LabelMeanLevels=CalculationPropertyTrueFalseButton(self.MeanLevelsFrame,'Label Mean Levels',self.onUpdateFromChanges,None,self.project,'Annotation.LabelMeanLevels')
         self.AnnotateLevelExtents=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Level Extents',self.onUpdateFromChanges,None,self.project,'Annotation.LevelExtents')
         self.AnnotateEyeWidth=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye Width',self.onUpdateFromChanges,None,self.project,'Annotation.EyeWidth')
         self.AnnotateEyeHeight=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye Height',self.onUpdateFromChanges,None,self.project,'Annotation.EyeHeight')
@@ -159,6 +162,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         showEnhancedPrecisionSteps = (self.project['EnhancedPrecision.Mode'] == 'Fixed')
         measure=self.project['Measure.Measure']
         annotate=self.project['Annotation.Annotate']
+        annotateMeanLevels=self.project['Annotation.MeanLevels']
         contours=self.project['Annotation.Contours.Show']
         bathtub=self.project['Bathtub.Measure']
         tx=measure and self.project['Measure.RxTx']=='Tx' and ('W' in self.project['Measure.WaveformType'])
@@ -182,6 +186,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.ContoursFrame.pack_forget()
         self.AnnotationColor.Show(measure and annotate)
         self.AnnotateMeanLevels.Show(measure and annotate)
+        self.LabelMeanLevels.Show(measure and annotate and annotateMeanLevels)
         self.AnnotateLevelExtents.Show(measure and annotate)
         self.AnnotateEyeWidth.Show(measure and annotate)
         self.AnnotateEyeHeight.Show(measure and annotate)

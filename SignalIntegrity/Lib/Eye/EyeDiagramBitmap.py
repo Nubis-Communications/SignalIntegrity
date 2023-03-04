@@ -22,6 +22,7 @@ from SignalIntegrity.Lib.ResultsCache import ResultsCache
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
 from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor,Waveform
 from SignalIntegrity.Lib.Rat.Rat import Rat
+from SignalIntegrity.App.ToSI import ToSI
 
 import math
 import copy
@@ -1310,6 +1311,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     AnnotationColor='#000000',
                     ScaleX=100.,
                     ScaleY=100.,
+                    LabelMeanLevels=False
                     ):
         """Creates the image (picture) from the raw bitmap and the annotation bit map.  
         @param LogIntensity bool, defaults to False, whether to generate the eye diagram with a logarithmic intensity.  This allows better
@@ -1331,6 +1333,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param ScaleY float, defaults to 100, scaling of the y axis of the image after construction. 
         Scaling allows for lower resolution images, requiring less processing, to create larger, beautiful eye diagrams.  
         Upon completion, the image is held in the image member variable.
+        @param LabelMeanLevels bool, defaults to false, whether to label the mean levels in the image.  Note that it can onl try to do this.  If
+        annotations are not made, then it will be unable to do this.
         """
         bitmap=self.Bitmap().copy()
         (R,C)=bitmap.shape
@@ -1404,7 +1408,22 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         C=int(C*ScaleX/100.); R=int(self.RowsSpecified*ScaleY/100.)
         self.img=self.img.resize((C,R))
+
         self.image=copy.deepcopy(self.img)
+
+        if LabelMeanLevels:
+            try:
+                from PIL import ImageDraw
+                draw = ImageDraw.Draw(self.image)
+                if self.measDict['WaveformType'][0] in ['V','A','W']:
+                    unit=self.measDict['WaveformType'][0]
+                else:
+                    unit=''
+                for levelIdx in range(len(self.measDict['Level'])):
+                    draw.text((int(10*ScaleX/100.),int((self.measDict['R']-self.measDict['Level'][levelIdx]['Mean']['Bin'])*R/self.measDict['R'])),
+                               ToSI(self.measDict['Level'][levelIdx]['Mean']['Value'],unit,round=4), fill=(r,g,b))
+            except:
+                pass
 
     def Penalties(self,
                   NoiseSigma=0,

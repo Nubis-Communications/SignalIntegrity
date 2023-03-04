@@ -165,7 +165,8 @@ class EyeDiagram(object):
                         Color=self.config['Color'],
                         AnnotationColor=self.config['Annotation.Color'],
                         ScaleX=self.config['ScaleX'],
-                        ScaleY=self.config['ScaleY']
+                        ScaleY=self.config['ScaleY'],
+                        LabelMeanLevels=self.config['Annotation.LabelMeanLevels']
                         )
         except Exception as e:
             pass
@@ -174,5 +175,5 @@ class EyeDiagram(object):
         if not self.headless: self.parent.statusbar.set('Calculation Complete')
         self.measDict=eyeDiagramBitmap.measDict
         self.rawBitmap=eyeDiagramBitmap.Bitmap()
-        self.img=eyeDiagramBitmap.img
+        self.img=eyeDiagramBitmap.image
         self.sampledWf=eyeDiagramBitmap.sampledWf
