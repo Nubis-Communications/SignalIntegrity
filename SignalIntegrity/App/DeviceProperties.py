@@ -378,6 +378,12 @@ class DeviceProperties(tk.Frame):
         else:
             filename=None
         if filename != None:
+            if (len(filename)>1) and (filename[0]=='='):
+                import SignalIntegrity.App.Project
+                if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                    filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
+                    if filename == None:
+                        filename=''
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
 
     def UpdatePicture(self):
