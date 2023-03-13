@@ -175,7 +175,7 @@ class LinesCache(ResultsCache):
         exception, then  False is returned.
         """
         import os
-        fileList=[]
+        fileList={}
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
         for line in self.m_lines:
             lineList=LineSplitter(line)
@@ -187,29 +187,48 @@ class LinesCache(ResultsCache):
                 # todo:  this is wrong - must parse tokens
                 if len(lineList)>=5:
                     if lineList[3]=='file':
-                        fileList.append(lineList[4])
+                        fileList[lineList[4]]={lineList[k]:lineList[k+1] for k in range(5,len(lineList),2)}
                     elif lineList[3] == 'networkanalyzer':
-                        fileList.append(lineList[5])
-                        fileList.append(lineList[7])
+                        fileList[lineList[5]]={key:value
+                                               for key,value in [(lineList[k],lineList[k+1])
+                                                                 for k in range(8,len(lineList),2)]
+                                               if key not in ['et','pl','cd']}
+                        fileList[lineList[7]]=fileList[lineList[5]]
                     elif lineList[3]=='networkanalyzermodel':
-                        fileList.append(lineList[5])
+                        # I don't think this can ever happen
+                        fileList[lineList[5]]={key:value
+                                               for key,value in [(lineList[k],lineList[k+1])
+                                                                 for k in range(6,len(lineList),2)]}
                     elif lineList[3] == 'parallel':
-                        fileList.append(lineList[5])
+                        fileList[lineList[5]]={key:value
+                                               for key,value in [(lineList[k],lineList[k+1])
+                                                                 for k in range(6,len(lineList),2)]
+                                               if key not in ['sect']}
+                    elif lineList[3] == 'rlgcfit':
+                        fileList[lineList[5]]={key:value
+                                               for key,value in [(lineList[k],lineList[k+1])
+                                                                 for k in range(6,len(lineList),2)]
+                                               if key not in ['scale']}
             elif lineList[0] == 'calibration':
-                fileList.append(lineList[3])
+                fileList[lineList[3]]={key:value
+                                       for key,value in [(lineList[k],lineList[k+1])
+                                                         for k in range(4,len(lineList),2)]
+                                       if key not in ['std','pn','opn','ct']}
                 if '.' in lineList[5]:
-                    fileList.append(lineList[5])
+                    fileList[lineList[5]]=fileList[lineList[3]]
             elif lineList[0] == 'system':
-                fileList.append(lineList[2])
+                fileList[lineList[2]]={key:value
+                                       for key,value in [(lineList[k],lineList[k+1])
+                                                         for k in range(3,len(lineList),2)]}
         try:
             cacheFileTime = os.path.getmtime(cacheFilename)
         except:
             return False
         modificationTimeDict=[]
-        for fileName in fileList:
+        for fileName in fileList.keys():
             try:
                 from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectModificationTime
-                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName)
+                modificationTimeDict = ProjectModificationTime(modificationTimeDict,fileName,fileList[fileName])
                 if modificationTimeDict == None:
                     return False
             except:

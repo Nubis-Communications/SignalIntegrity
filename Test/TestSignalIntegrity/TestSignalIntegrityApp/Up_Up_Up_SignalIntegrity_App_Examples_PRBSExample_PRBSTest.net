@@ -6,13 +6,13 @@ device R4 1 R 90.0
 voltagesource VS1 1
 device D2 2 file FFE.si
 device R9 1 R 50.0
-output R1 1
-connect R1 1 VS1 1
+voltageoutput Vin VS1 1
+connect VS1 1 R1 1
 connect R1 2 D4 1
-output R2 1
-connect R2 1 D4 2 D2 1
+voltageoutput Vdiff R2 1
+connect R2 1 D2 1 D4 2
 connect D4 3 R3 1
-output D4 4
+voltageoutput Vcommon D4 4
 connect D4 4 R4 1
-output R9 1
-connect R9 1 D2 2
+voltageoutput Veq D2 2
+connect D2 2 R9 1

@@ -892,7 +892,7 @@ def ProjectCalibration(filename,**kwargs):
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     return result
 
-def ProjectModificationTime(modificationTimeDict,fileName):
+def ProjectModificationTime(modificationTimeDict,fileName,args=None):
     #print(os.path.abspath(fileName))
     if modificationTimeDict == None:
         return None
@@ -911,33 +911,52 @@ def ProjectModificationTime(modificationTimeDict,fileName):
             for cacheName in ['SParameters','TransferMatrices','Calibration']:
                 cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                 if os.path.exists(cacheFileName):
-                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
+                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
         level=SignalIntegrityAppHeadless.projectStack.Push()
         result=0
         try:
             app=SignalIntegrityAppHeadless()
-            if not app.OpenProjectFile(os.path.realpath(fileName)):
+            if not app.OpenProjectFile(os.path.realpath(fileName),args):
                 raise ValueError
             app.Drawing.DrawSchematic()
+            import SignalIntegrity.App.Project
+            SignalIntegrity.App.Project.EvaluateEquations()
+            if not app.CheckEquations():
+                raise ValueError
             if not app.Drawing.canCalculate:
                 raise ValueError
             deviceList=app.Drawing.schematic.deviceList
             for device in deviceList:
+                args={}
+                for variable in device.variablesList:
+                    name=variable['Name']
+                    value=variable.Value()
+                    if variable['Type'] == 'file':
+                        value=os.path.abspath(value)
+                    args[name]=value
                 propertiesList = device.propertiesList
                 for property in propertiesList:
                     if property['Type']=='file':
                         filename=property['Value']
+                        if (filename != None) and (len(filename)>0) and (filename[0]=='='):
+                            import SignalIntegrity.App.Project
+                            if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                                variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
+                                filename=variable['Value']
+                            else:
+                                raise ValueError
                         if filename.endswith('.si'):
-                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename)
+                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename,args)
                             filenamenoext=FileParts(filename).FileNameTitle()
                             for postfix in ['','_DUTSParameters','_TransferMatrices']:
                                 for cacheName in ['SParameters','TransferMatrices','Calibration']:
                                     cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                                     if os.path.exists(cacheFileName):
-                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName)
+                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
                         else:
                             if '.' in filename:
                                 modificationTimeDict.append({'name':os.path.abspath(filename),
+                                                             'args':args,
                                                              'time':os.path.getmtime(os.path.abspath(filename)),
                                                              'traversed':True})
                         if modificationTimeDict==None:

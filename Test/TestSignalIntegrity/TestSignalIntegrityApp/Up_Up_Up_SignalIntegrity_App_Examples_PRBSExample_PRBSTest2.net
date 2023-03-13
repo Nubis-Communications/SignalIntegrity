@@ -11,23 +11,23 @@ device Vin 4 voltagecontrolledvoltagesource 1.0
 device Vout 4 voltagecontrolledvoltagesource 1.0
 device D3 3 file CommonModeProbe.si
 device O1 1 open
-connect VS2 2 R1 1 Vin 2
+connect Vin 2 VS2 2 R1 1
 connect R1 2 D4 1
-connect R3 2 D4 2
-connect D4 3 R2 2 Vout 2 D3 1
-connect Vout 1 D4 4 R4 1 D3 2
-connect VS1 2 VS2 1 G1 1
-connect Vin 1 VS1 1 R3 1
-connect G2 1 R2 1 R4 2
-output D3 3
+connect D4 2 R3 2
+connect R2 2 D3 1 D4 3 Vout 2
+connect D3 2 D4 4 R4 1 Vout 1
+connect G1 1 VS2 1 VS1 2
+connect VS1 1 Vin 1 R3 1
+connect R4 2 G2 1 R2 1
+voltageoutput Vcommon D3 3
 connect D3 3 O1 1
 device Vin_2 1 ground
 device Vin_3 1 open
 connect Vin 3 Vin_2 1
 connect Vin 4 Vin_3 1
-output Vin 4
+voltageoutput Vin Vin 4
 device Vout_2 1 ground
 device Vout_3 1 open
 connect Vout 3 Vout_2 1
 connect Vout 4 Vout_3 1
-output Vout 4
+voltageoutput Vout Vout 4
