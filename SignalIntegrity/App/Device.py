@@ -204,6 +204,9 @@ class Device(object):
             elif variable.GetValue('Type') == 'int':
                 value = str(int(value))
                 token=variable.GetValue('Name')+' '+value
+            elif variable.GetValue('Type') == 'string':
+                value = str(value)
+                token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type')=='float':
                 value = str(ToSI(float(value),variable.GetValue('Unit'),letterPrefixes=False))
                 token=variable.GetValue('Name')+' '+value
