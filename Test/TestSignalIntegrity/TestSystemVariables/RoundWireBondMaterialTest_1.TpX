@@ -4,7 +4,6 @@
 %  <text x="1.75" y="-8.75" t="material silver" h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-11.75" t="rho 15.86 nohm.m" h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-14.75" t="ur 1.0 " h="3" halign="l" lc="black"/>
-%  <text x="1.75" y="-17.75" t="valid True" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">50,-30 52,-32 50,-34</polyline>
 %  <polyline lc="black">56,-32 52,-32</polyline>
 %  <text x="50" y="-33" t="1" h="3" halign="r" lc="black"/>
@@ -28,7 +27,6 @@
 \draw[black] (1.75,-8.75) node[anchor=base west]{material silver};
 \draw[black] (1.75,-11.75) node[anchor=base west]{rho 15.86 nohm.m};
 \draw[black] (1.75,-14.75) node[anchor=base west]{ur 1.0 };
-\draw[black] (1.75,-17.75) node[anchor=base west]{valid True};
 \path[line width=0.30mm, draw=black] (50,-30) -- (52,-32) -- (50,-34);
 \path[line width=0.30mm, draw=black] (56,-32) -- (52,-32);
 \draw[black] (50,-33) node[anchor=base east]{1};

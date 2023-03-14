@@ -177,49 +177,52 @@ class LinesCache(ResultsCache):
         import os
         fileList={}
         from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
-        for line in self.m_lines:
-            lineList=LineSplitter(line)
-            self.ProcessVariables(lineList)
-            lineList=self.ReplaceArgs(lineList)
-            if len(lineList) == 0: # pragma: no cover
-                pass
-            elif lineList[0] == 'device':
-                # todo:  this is wrong - must parse tokens
-                if len(lineList)>=5:
-                    if lineList[3]=='file':
-                        fileList[lineList[4]]={lineList[k]:lineList[k+1] for k in range(5,len(lineList),2)}
-                    elif lineList[3] == 'networkanalyzer':
-                        fileList[lineList[5]]={key:value
-                                               for key,value in [(lineList[k],lineList[k+1])
-                                                                 for k in range(8,len(lineList),2)]
-                                               if key not in ['et','pl','cd']}
-                        fileList[lineList[7]]=fileList[lineList[5]]
-                    elif lineList[3]=='networkanalyzermodel':
-                        # I don't think this can ever happen
-                        fileList[lineList[5]]={key:value
-                                               for key,value in [(lineList[k],lineList[k+1])
-                                                                 for k in range(6,len(lineList),2)]}
-                    elif lineList[3] == 'parallel':
-                        fileList[lineList[5]]={key:value
-                                               for key,value in [(lineList[k],lineList[k+1])
-                                                                 for k in range(6,len(lineList),2)]
-                                               if key not in ['sect']}
-                    elif lineList[3] == 'rlgcfit':
-                        fileList[lineList[5]]={key:value
-                                               for key,value in [(lineList[k],lineList[k+1])
-                                                                 for k in range(6,len(lineList),2)]
-                                               if key not in ['scale']}
-            elif lineList[0] == 'calibration':
-                fileList[lineList[3]]={key:value
-                                       for key,value in [(lineList[k],lineList[k+1])
-                                                         for k in range(4,len(lineList),2)]
-                                       if key not in ['std','pn','opn','ct']}
-                if '.' in lineList[5]:
-                    fileList[lineList[5]]=fileList[lineList[3]]
-            elif lineList[0] == 'system':
-                fileList[lineList[2]]={key:value
-                                       for key,value in [(lineList[k],lineList[k+1])
-                                                         for k in range(3,len(lineList),2)]}
+        try:
+            for line in self.m_lines:
+                lineList=LineSplitter(line)
+                self.ProcessVariables(lineList)
+                lineList=self.ReplaceArgs(lineList)
+                if len(lineList) == 0: # pragma: no cover
+                    pass
+                elif lineList[0] == 'device':
+                    # todo:  this is wrong - must parse tokens
+                    if len(lineList)>=5:
+                        if lineList[3]=='file':
+                            fileList[lineList[4]]={lineList[k]:lineList[k+1] for k in range(5,len(lineList),2)}
+                        elif lineList[3] == 'networkanalyzer':
+                            fileList[lineList[5]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(8,len(lineList),2)]
+                                                   if key not in ['et','pl','cd']}
+                            fileList[lineList[7]]=fileList[lineList[5]]
+                        elif lineList[3]=='networkanalyzermodel':
+                            # I don't think this can ever happen
+                            fileList[lineList[5]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(6,len(lineList),2)]}
+                        elif lineList[3] == 'parallel':
+                            fileList[lineList[5]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(6,len(lineList),2)]
+                                                   if key not in ['sect']}
+                        elif lineList[3] == 'rlgcfit':
+                            fileList[lineList[5]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(6,len(lineList),2)]
+                                                   if key not in ['scale']}
+                elif lineList[0] == 'calibration':
+                    fileList[lineList[3]]={key:value
+                                           for key,value in [(lineList[k],lineList[k+1])
+                                                             for k in range(4,len(lineList),2)]
+                                           if key not in ['std','pn','opn','ct']}
+                    if '.' in lineList[5]:
+                        fileList[lineList[5]]=fileList[lineList[3]]
+                elif lineList[0] == 'system':
+                    fileList[lineList[2]]={key:value
+                                           for key,value in [(lineList[k],lineList[k+1])
+                                                             for k in range(3,len(lineList),2)]}
+        except IndexError:
+            return False
         try:
             cacheFileTime = os.path.getmtime(cacheFilename)
         except:

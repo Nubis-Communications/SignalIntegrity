@@ -27,7 +27,7 @@ else:
 
 import copy
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, CalculationPropertyTrueFalseButton, CalculationPropertySI, CalculationProperty
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, CalculationPropertyTrueFalseButton, CalculationPropertySI, CalculationProperty, CalculationPropertyChoices
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
@@ -45,15 +45,21 @@ class VariablePropertyDialog(PropertiesDialog):
         self.Description = CalculationProperty(self.propertyListFrame, 'Description', None, None, self.project, 'Description')
         self.Name = CalculationProperty(self.propertyListFrame, 'Name', self.onEnteredName, None, self.project, 'Name')
         self.SavedName=self.project['Name']
-        self.Type = CalculationProperty(self.propertyListFrame, 'Type', None, None, self.project, 'Type')
+        self.Type = CalculationPropertyChoices(self.propertyListFrame, 'Type', None, self.onType, [('integer','int'),('float','float'),('string','string'),('enum','enum'),('file','file')], self.project, 'Type')
         self.Value = CalculationProperty(self.propertyListFrame, 'Value', None, None, self.project, 'Value')
         self.Units = CalculationProperty(self.propertyListFrame, 'Units', None, None, self.project, 'Units')
         self.ReadOnly = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'Output Variable', None, None, self.project, 'ReadOnly')
+        self.onType()
         PropertiesDialog.bind(self, '<Return>', self.ok)
         PropertiesDialog.bind(self, '<Escape>', self.cancel)
         PropertiesDialog.protocol(self, "WM_DELETE_WINDOW", self.onClosing)
         self.attributes('-topmost', True)
         self.Finish()
+
+    def onType(self):
+        self.ReadOnly.Show(False)
+        self.Units.Show(self.project['Type']=='float')
+        self.ReadOnly.Show(True)
 
     def onEnteredName(self,event):
         newVariableName=self.project['Name']

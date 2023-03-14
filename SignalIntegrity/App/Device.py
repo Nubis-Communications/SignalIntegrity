@@ -202,13 +202,19 @@ class Device(object):
                 value='$'+value[1:]+'$'
                 token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type') == 'int':
-                value = str(int(value))
+                try:
+                    value = str(int(value))
+                except ValueError:
+                    value = 'Invalid'
                 token=variable.GetValue('Name')+' '+value
-            elif variable.GetValue('Type') == 'string':
+            elif variable.GetValue('Type') in ['string','enum']:
                 value = str(value)
                 token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type')=='float':
-                value = str(ToSI(float(value),variable.GetValue('Unit'),letterPrefixes=False))
+                try:
+                    value = str(ToSI(float(value),variable.GetValue('Unit'),letterPrefixes=False))
+                except ValueError:
+                    value = 'Invalid'
                 token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type')=='file':
                 if ' ' in value:

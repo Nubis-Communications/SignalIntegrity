@@ -244,7 +244,7 @@ class VariableConfiguration(XMLConfiguration):
         if not isinstance(self['Name'],str): return False
         if len(self['Name']) == 0: return False
         if not isinstance(self['Type'],str): return False
-        if not self['Type'] in ['int','float','string','file']: return False
+        if not self['Type'] in ['int','float','string','enum','file']: return False
         if not isinstance(self['Value'],str): return False
         if (len(self['Value'])>0) and (self['Value'][0]== '=') and (len(self['Value']) == 1): return False
         if not isinstance(self['Units'],str): return False
@@ -266,10 +266,13 @@ class VariableConfiguration(XMLConfiguration):
         if (self['Type'] == 'float'):
             try:
                 value = str(ToSI(float(value),self.GetValue('Unit'),letterPrefixes=False))
-            except:
+            except ValueError:
                 value = ''
         elif self['Type'] == 'int':
-            value = str(int(value))
+            try:
+                value = str(int(value))
+            except ValueError:
+                value = ''
         elif self['Type'] == 'file':
             value=('/'.join(str(os.path.abspath(value)).split('\\')))
             if ' ' in value:
@@ -307,7 +310,10 @@ class VariableConfiguration(XMLConfiguration):
                 value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
             elif type == 'float':
                 import SignalIntegrity.App.Project
-                value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
+                try:
+                    value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
+                except ValueError:
+                    value = 'Invalid'
             if not value == None:
                 result=result+prefix+value+suffix
         return result
@@ -470,7 +476,7 @@ class ProjectFile(ProjectFileBase):
                     if variable['ReadOnly']:
                         returnargs[variable['Name']]=None
                     if not variable['ReadOnly']:
-                        if variable['Type'] in ['file','string']:
+                        if variable['Type'] in ['file','string','enum']:
                             sendargs[variable['Name']]=str(variable['Value'])
                         elif variable['Type'] == 'float':
                             sendargs[variable['Name']]=float(variable['Value'])

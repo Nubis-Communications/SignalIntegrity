@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>100000000000.0</EndFrequency>
-		<FrequencyPoints>400</FrequencyPoints>
+		<FrequencyPoints>200</FrequencyPoints>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>508x216+63+94</Geometry>
+			<Geometry>508x216+182+182</Geometry>
 			<Grid>16</Grid>
 			<Originx>-5</Originx>
 			<Originy>4</Originy>
@@ -156,9 +156,6 @@
 		<AutoDebug>True</AutoDebug>
 		<Lines>
 			<EquationLine>
-				<Line>valid='False'</Line>
-			</EquationLine>
-			<EquationLine>
 				<Line>resdict={'copper':{'rho':1.678e-8,'ur':0.9999906},</Line>
 			</EquationLine>
 			<EquationLine>
@@ -174,28 +171,10 @@
 				<Line>&#09;&#09;&#09;&#09;'nickel':{'rho':6.84e-8,'ur':600}}</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>rho=0</Line>
+				<Line>rho=resdict[material]['rho']</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>ur=1</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>if material in resdict.keys():</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>&#09;rho=resdict[material]['rho']</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>&#09;ur=resdict[material]['ur']</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>&#09;valid='True'</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>else:</Line>
-			</EquationLine>
-			<EquationLine>
-				<Line>&#09;print('no material')</Line>
+				<Line>ur=resdict[material]['ur']</Line>
 			</EquationLine>
 		</Lines>
 	</Equations>
@@ -257,15 +236,6 @@
 				<Type>float</Type>
 				<Units></Units>
 				<Value>0.99996</Value>
-				<Visible>True</Visible>
-			</Variable>
-			<Variable>
-				<Description>Validity</Description>
-				<Name>valid</Name>
-				<ReadOnly>True</ReadOnly>
-				<Type>string</Type>
-				<Units></Units>
-				<Value>True</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>
