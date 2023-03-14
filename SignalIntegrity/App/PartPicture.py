@@ -600,6 +600,13 @@ class PartPictureSpecifiedPortsSide(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(p+1,(0,p*2+1),'l',True,True,True) for p in range(ports)],[(1,0),(3,ports*2)],[(0,0),(4,ports*2)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
 
+class PartPicture2PortsBend(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,2),'l',True,True,True),
+                                             PartPin(2,(2,4),'b',True,True,True)],
+                                             [(1,1),(3,3)],
+                                             [(0,0),(4,4)],(2,0.5),orientation,mirroredHorizontally,mirroredVertically)
+
 class PartPicture3PortsAllSides1(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(0,2),'l',True,True,True),
@@ -640,7 +647,8 @@ class PartPictureVariableSpecifiedPorts(PartPictureVariable):
                       'PartPictureSpecifiedPortsAcross',
                       'PartPictureSpecifiedPortsDownAndUp',
                       'PartPictureSpecifiedPortsSide']
-        if ports == 3: partPictures+=['PartPicture3PortsAllSides1','PartPicture3PortsAllSides2']
+        if ports == 2: partPictures+=['PartPicture2PortsBend']
+        elif ports == 3: partPictures+=['PartPicture3PortsAllSides1','PartPicture3PortsAllSides2']
         elif ports == 4: partPictures+=['PartPicture4PortsAllSides1','PartPicture4PortsAllSides2']
         PartPictureVariable.__init__(self,partPictures,ports)
 
