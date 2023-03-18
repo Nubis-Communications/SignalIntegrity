@@ -6,6 +6,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         self.m_addThru = False
         self.AssignArguments(args)
         self.known=None
+        self.callback=None
     def SystemDescription(self):
         if self.m_sd is None: self._ProcessLines()
         return self.m_sd
@@ -30,9 +31,9 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         elif lineList[0] == 'device':
             argList = lineList[3:]
             if [lineList[2]]+argList in self.m_spcl:
-                dev = DeviceParser(self.m_f,int(lineList[2]),None)
+                dev = DeviceParser(self.m_f,int(lineList[2]),self.callback,None)
                 dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
-            else: dev=DeviceParser(self.m_f,int(lineList[2]),argList)
+            else: dev=DeviceParser(self.m_f,int(lineList[2]),self.callback,argList)
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))
@@ -48,7 +49,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 dev=lineList[i+1]; devPort=int(lineList[i+2])
                 self.m_sd.AddPort(dev,devPort,port,self.m_addThru)
                 i=i+3
-        else: self.m_ul.append(line)
+        else: self.m_ul.append(' '.join(lineList))
     def _ProcessLines(self,exclusionList=[]):
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]

@@ -115,7 +115,7 @@ class Device(object):
                     args=SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
                     if self['calcprop'].GetValue() == 'true':
                         args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
-                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue(),**args)
+                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue(),None,**args)
                     if waveform is None:
                         raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:

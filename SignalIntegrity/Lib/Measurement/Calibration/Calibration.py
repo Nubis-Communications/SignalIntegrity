@@ -136,11 +136,17 @@ class Calibration(object):
         with open(filename,'w') as f:
             f.writelines(lines)
         return self
-    def ReadFromFile(self,filename,**kwargs):
+    def ReadFromFile(self,filename,callback,**kwargs):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
+        @param callback function ptr (optional, defaults to None) callback function.
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         @return self
+
+        The callback function is used to pass down into s-parameter files that are actually
+        SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
+        updated.  The callback function should have a signature like Callback(self,number,name=None),
+        where the number is the progress in percent and the name is the name of the file being processed.  
 
         The LeCroy format is for each row, for each column, for each error-term,
         for each frequency point, the error term is written on a line as the real and imaginary part.
@@ -150,7 +156,7 @@ class Calibration(object):
         ext=str.lower(filename).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectCalibration
-            calibration=ProjectCalibration(filename,**kwargs)
+            calibration=ProjectCalibration(filename,callback,**kwargs)
             if not calibration is None:
                 self.ports=calibration.ports
                 self.f=calibration.f

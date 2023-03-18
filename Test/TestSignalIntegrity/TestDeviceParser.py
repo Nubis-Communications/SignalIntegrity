@@ -426,10 +426,10 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.assertEqual(L,47)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
-        self.assertFalse(df.MakeDevice(2,[],[1,2,3]))
+        self.assertFalse(df.MakeDevice(2,None,[],[1,2,3]))
     def testMakeDeviceArgs(self):
         df=si.p.dev.DeviceFactory()
-        self.assertTrue(df.MakeDevice(2,['r','50.'],[1,2,3]))
+        self.assertTrue(df.MakeDevice(2,None,['r','50.'],[1,2,3]))
 
 if __name__ == '__main__':
     unittest.main()

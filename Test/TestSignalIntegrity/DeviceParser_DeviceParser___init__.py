@@ -1,5 +1,5 @@
 class DeviceParser():
-    def __init__(self,f,ports,argsList):
+    def __init__(self,f,ports,callback,argsList):
         self.m_f=f
         self.m_sp=None
         self.m_spf=None
@@ -11,7 +11,7 @@ class DeviceParser():
             self.m_spf=SubCircuit(self.m_f,argsList[1],
             ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))
             return
-        if self.deviceFactory.MakeDevice(ports, argsList, f):
+        if self.deviceFactory.MakeDevice(ports, callback, argsList, f):
             if self.deviceFactory.frequencyDependent:
                 self.m_spf=self.deviceFactory.dev
             else:

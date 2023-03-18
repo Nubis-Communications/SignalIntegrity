@@ -37,7 +37,7 @@ class Parallel(SParameters):
         from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include
         sdp=SystemDescriptionParser().AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])
-        sp=SParameterFile(name,None,**kwargs).Resample(f)
+        sp=SParameterFile(name,None,None,**kwargs).Resample(f)
         self.m_sspn1=SystemSParametersNumeric(sdp.SystemDescription())
         self.m_dev=sp
         sdp=SystemDescriptionParser().AddLines(['device D 4','device O1 1 open','device O2 1 open',

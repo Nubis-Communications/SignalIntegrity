@@ -48,6 +48,7 @@ class ProgressDialog(tk.Toplevel):
         self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)
         self.stopCommand=False
         self.isShowing=False
+        self.titleList=[title]
         self.thingToDo = thingToDo
         self.classOfThing = classOfThing
         self.currentPercent = -1
@@ -60,18 +61,27 @@ class ProgressDialog(tk.Toplevel):
         self.grab_set()
     def onStop(self):
         self.stopCommand=True
-    def Callback(self,number):
-        #return True
-        if self.stopCommand:
-            self.destroy()
-            return False
+    def Callback(self,number,name=None):
         if not self.isShowing:
-            pass
+            if self.stopCommand:
+                self.destroy()
+                return False
         self.isShowing=True
+        if name != None and len(name) > 0:
+            if name[0] == '+':
+                self.titleList.append(name[1:])
+            elif name[0] == '-':
+                self.titleList=self.titleList[:-1]
+            if len(self.titleList) > 0:
+                self.title(self.titleList[-1])
         if floor(number/self.granularity) != self.currentPercent:
             self.currentPercent = floor(number/self.granularity)  
             self.bar.create_rectangle(0,0,600*number/100.0,10,fill='blue')
+            self.bar.create_rectangle(600*number/100.0,0,600,10,fill='white',outline='white')
             self.update()
+        if self.stopCommand:
+            self.destroy()
+            return False
         return True
     def GetResult(self):
         self.classOfThing.InstallCallback(self.Callback)

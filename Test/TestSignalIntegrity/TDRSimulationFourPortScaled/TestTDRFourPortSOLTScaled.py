@@ -2703,7 +2703,7 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         # test whether calibration file that was written can be read and is correct
         cm3=si.m.cal.Calibration(ports,fixtureList[0].m_f)
-        cm3.ReadFromFile('testCalibration.l12t')
+        cm3.ReadFromFile('testCalibration.l12t',None)
         Fixture3=cm3.Fixtures()
 
         for p in range(ports):

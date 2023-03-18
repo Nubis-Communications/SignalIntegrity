@@ -52,7 +52,7 @@ class DeviceFactory(list):
 
         | name                                  |ports|arginname| defaults                                                                                      |frequency\n dependent|device                                                                                           |
         |:-------------------------------------:|:---:|:-------:|:---------------------------------------------------------------------------------------------:|:-------------------:|:------------------------------------------------------------------------------------------------|
-        |file                                   |any  |True     |filename=None                                                                                  | True                |sp.dev.SParameterFile(filename,50.)                                                              |
+        |file                                   |any  |True     |filename=None                                                                                  | True                |sp.dev.SParameterFile(filename,50.,callback)                                                     |
         |c                                      |1    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.TerminationC(f,c,z0,df,esr)                                                               |
         |c                                      |2    |True     |c=None df=0 esr=0 z0=50                                                                        | True                |sp.dev.SeriesC(f,c,z0,df,esr)                                                                    |
         |l                                      |1    |True     |l=None                                                                                         | True                |sp.dev.TerminationL(f,l,z0)                                                                      |
@@ -106,7 +106,7 @@ class DeviceFactory(list):
         """
         list.__init__(self,[
         ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
-            ,None,**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
+            ,None,callback,**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),
@@ -212,9 +212,9 @@ class DeviceFactory(list):
         list.__init__(self,list(self+[
         ParserDevice('networkanalyzer',None,False,{'file':None,'et':None,'pl':None,
             'cd':'calculate'},True,"NetworkAnalyzer(f,arg['file'],arg['et'],arg['pl'],\
-            (not arg['cd']=='uncalculate'),**extraArgs)"),
+            (not arg['cd']=='uncalculate'),callback,**extraArgs)"),
         ParserDevice('dut',None,True,{'':None},True,"SParameterFile(arg[''],\
-            50.,**extraArgs).Resample(f)"),
+            50.,callback,**extraArgs).Resample(f)"),
         ParserDevice('bessellp',2,False,{'order':4,'fc':None},True,
             "BesselLowPassFilter(f,int(arg['order']),float(arg['fc']),50.)"),
         ParserDevice('butterworthlp',2,False,{'order':4,'fc':None},True,
@@ -236,7 +236,7 @@ class DeviceFactory(list):
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
                      "Parallel(f,arg['file'],int(arg['sect']),50.,**extraArgs)")
         ]))
-    def MakeDevice(self,ports,argsList,f):
+    def MakeDevice(self,ports,callback, argsList,f):
         """makes a device from a set of arguments
         The device is assigned to self.dev and self.frequencyDependent determines whether the
         device is frequency dependent.  Frequency dependent devices are assumed to be instances
@@ -385,7 +385,7 @@ class DeviceFactory(list):
 class DeviceParser():
     """contains s-parameters of devices made from a netlist line"""
     deviceFactory=DeviceFactory()
-    def __init__(self,f,ports,argsList):
+    def __init__(self,f,ports,callback,argsList):
         """Constructor
         makes a device from a set of arguments
 
@@ -402,12 +402,16 @@ class DeviceParser():
 
         @param f list of frequencies
         @param ports integer number of ports
+        @param callback function pointer callback function (use None for no callback).
         @param argsList list of arguments.  The name of the device is the
         first argument.
         If the device has no keyword for the argument, then that argument is next. 
         Otherwise, besides the name and the argument with no keyword, the
         remaining arguments come in keyword/value pairs where the
-        keyword is a string and the value is the value of the keyword.
+        keyword is a string and the value is the value of the keyword.  
+        The callback function is used to pass down into s-parameter files that are actually
+        SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
+        updated.
         @return None
         @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
         @see SignalIntegrity.Parsers.SystemDescriptionParser
@@ -427,7 +431,7 @@ class DeviceParser():
             self.m_spf=SubCircuit(self.m_f,argsList[1],
             ' '.join([x if len(x.split())==1 else "\'"+x+"\'" for x in argsList[2:]]))
             return
-        if self.deviceFactory.MakeDevice(ports, argsList, f):
+        if self.deviceFactory.MakeDevice(ports, callback, argsList, f):
             if self.deviceFactory.frequencyDependent:
                 self.m_spf=self.deviceFactory.dev
             else:

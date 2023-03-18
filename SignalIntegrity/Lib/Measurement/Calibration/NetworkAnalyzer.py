@@ -25,7 +25,7 @@ class NetworkAnalyzer(SParameters):
     """produces calibrated or uncalibrated s-parameters from a network analyzer.  
     The usual use of this class is to provide calibrated s-parameters, given raw s-parameters
     and error terms, but it can also be used to go the reverse direction."""
-    def __init__(self,f,filename,etfilename,portListstring=None,calculate=True,**kwargs):
+    def __init__(self,f,filename,etfilename,portListstring=None,calculate=True,callback=None,**kwargs):
         """Constructor  
         Calculates calibrated or raw s-parameters from a network analyzer.
         @param f list of frequencies to calculate s-parameters
@@ -40,13 +40,18 @@ class NetworkAnalyzer(SParameters):
         raw s-parameters to calibrated s-parameters.  In the unusual situation where calculate is False, the direction
         is reversed and the assumption is that the s-parameters provided are calibrated and the goal is to convert the
         calibrated s-parameters to raw s-parameters.
+        @param callback function ptr (optional, defaults to None) callback function.
+        The callback function is used to pass down into s-parameter files that are actually
+        SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
+        updated.  The callback function should have a signature like Callback(self,number,name=None),
+        where the number is the progress in percent and the name is the name of the file being processed.
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the files
         """
         if portListstring!=None:
             portlist=[int(p)-1 for p in portListstring.split(',')]
         else: portlist=None
-        spraw=SParameterFile(filename,None,**kwargs).Resample(f)
-        calibration=Calibration(0,0).ReadFromFile(etfilename,**kwargs)
+        spraw=SParameterFile(filename,None,callback,**kwargs).Resample(f)
+        calibration=Calibration(0,0).ReadFromFile(etfilename,callback,**kwargs)
         fixtures=calibration.Fixtures()
         fixtures=[fixture.Resample(f) for fixture in fixtures]
         calibration.InitializeFromFixtures(fixtures)

@@ -221,7 +221,7 @@ class SignalIntegrityAppHeadless(object):
         if not self.CheckEquations(): return None
         if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
             try:
-                sp=self.SimulateNetworkAnalyzerModel(SParameters=True)
+                sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)
             except si.SignalIntegrityException as e:
                 return None
             return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
@@ -251,7 +251,7 @@ class SignalIntegrityAppHeadless(object):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if self.Drawing.canSimulateNetworkAnalyzerModel:
-            return self.SimulateNetworkAnalyzerModel(SParameters=False)
+            return self.SimulateNetworkAnalyzerModel(callback,SParameters=False)
         elif not self.Drawing.canSimulate:
             return None
         netList=self.Drawing.schematic.NetList()
@@ -494,7 +494,7 @@ class SignalIntegrityAppHeadless(object):
         else:
             return None
 
-    def Deembed(self):
+    def Deembed(self,callback=None):
         netListText=self.NetListText()
         if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
@@ -508,6 +508,8 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
             ),
                 cacheFileName=cacheFileName)
+        if not callback == None:
+            dnp.InstallCallback(callback)
         dnp.AddLines(netListText)
 
         try:
@@ -529,7 +531,7 @@ class SignalIntegrityAppHeadless(object):
                 filename.append(self.fileparts.filename+'_'+filename)
         return (unknownNames,sp,filename)
 
-    def CalculateErrorTerms(self):
+    def CalculateErrorTerms(self,callback=None):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if not self.CheckEquations(): return None
@@ -547,6 +549,8 @@ class SignalIntegrityAppHeadless(object):
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
             cacheFileName=cacheFileName)
+        if not callback == None:
+            etnp.InstallCallback(callback)
         etnp.AddLines(netListText)
         try:
             cal=etnp.CalculateCalibration()
@@ -571,7 +575,7 @@ class SignalIntegrityAppHeadless(object):
                     return device
         return None
 
-    def SimulateNetworkAnalyzerModel(self,SParameters=False):
+    def SimulateNetworkAnalyzerModel(self,callback=None,SParameters=False):
         netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
@@ -583,6 +587,8 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()+'_DUTSParameters'
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
+        if not callback == None:
+            spnp.InstallCallback(callback)
         spnp.AddLines(netList)
         try:
             (DUTSp,NetworkAnalyzerProjectFile)=spnp.SParameters()
@@ -614,6 +620,8 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
+        if not callback == None:
+            snp.InstallCallback(callback)
         snp.AddLines(netListText)
         level=SignalIntegrityAppHeadless.projectStack.Push()
         try:
@@ -833,7 +841,10 @@ class SignalIntegrityAppHeadless(object):
             return False
         return True
 
-def ProjectSParameters(filename,**kwargs):
+def ProjectSParameters(filename,callback,**kwargs):
+    if callback != None:
+        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
+            return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
@@ -841,23 +852,29 @@ def ProjectSParameters(filename,**kwargs):
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
-                result = app.SimulateNetworkAnalyzerModel(SParameters=True)
+                result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
                 if not result is None:
                     sp=result
             if app.Drawing.canCalculateSParameters:
-                result=app.CalculateSParameters()
+                result=app.CalculateSParameters(callback)
                 if not result is None:
                     sp=result[0]
             elif app.Drawing.canDeembed:
-                result=app.Deembed()
+                result=app.Deembed(callback)
                 if not result is None:
                     sp=result[1][0]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
+    if callback != None:
+        if not callback(0,'-'):
+            return None
     return sp
 
-def ProjectWaveform(filename,wfname,**kwargs):
+def ProjectWaveform(filename,wfname,callback,**kwargs):
+    if callback != None:
+        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
+            return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     wf=None
     try:
@@ -866,9 +883,9 @@ def ProjectWaveform(filename,wfname,**kwargs):
             app.Drawing.DrawSchematic()
             result=None
             if app.Drawing.canSimulate:
-                result=app.Simulate()
+                result=app.Simulate(callback)
             elif app.Drawing.canVirtualProbe:
-                result=app.VirtualProbe()
+                result=app.VirtualProbe(callback)
             if not result is None:
                 (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=result
                 if wfname in outputWaveformLabels:
@@ -876,9 +893,15 @@ def ProjectWaveform(filename,wfname,**kwargs):
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
+    if callback != None:
+        if not callback(0,'-'):
+            return None
     return wf
 
-def ProjectCalibration(filename,**kwargs):
+def ProjectCalibration(filename,callback,**kwargs):
+    if callback != None:
+        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
+            return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     result=None
     try:
@@ -886,10 +909,13 @@ def ProjectCalibration(filename,**kwargs):
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
-                result=app.CalculateErrorTerms()[0]
+                result=app.CalculateErrorTerms(callback)[0]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
+    if callback != None:
+        if not callback(0,'-'):
+            return None
     return result
 
 def ProjectModificationTime(modificationTimeDict,fileName,args=None):

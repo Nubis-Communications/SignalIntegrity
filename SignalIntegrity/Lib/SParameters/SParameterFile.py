@@ -32,24 +32,30 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
-    def __init__(self,name,Z0=None,**kwargs):
+    def __init__(self,name,Z0=None,callback=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
         @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
+        @param callback function ptr (optional, defaults to None) callback function.
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
 
         Reads the s-parameter file and produces an instance of its base class SParameters.  
 
         If the reference impedance of the Touchstone 1.0 file read is not the reference
         impedance specified, then the reference impedance of the s-parameters are converted
-        to the reference impedance specified."""
+        to the reference impedance specified. 
+
+        The callback function is used to pass down into s-parameter files that are actually
+        SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
+        updated.  The callback function should have a signature like Callback(self,number,name=None),
+        where the number is the progress in percent and the name is the name of the file being processed."""
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
         ext=str.lower(name).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
-            sp=ProjectSParameters(name,**kwargs)
+            sp=ProjectSParameters(name,callback,**kwargs)
             if not sp is None:
                 SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
                 self.SetReferenceImpedance(Z0)

@@ -53,7 +53,7 @@ class ImpulseResponseFilter(SParameters):
         ext=str.lower(filename).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
-            wf=ProjectWaveform(filename,wfProjName,**kwargs)
+            wf=ProjectWaveform(filename,wfProjName,None,**kwargs)
             if wf == None:
                 raise SignalIntegrityExceptionWaveformFile('waveform could not be produced by '+filename)
         else:

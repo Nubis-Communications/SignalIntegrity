@@ -174,7 +174,7 @@ class SignalIntegrityAppTestHelper:
             cal.WriteToFile(calfilename)
             if not self.relearn:
                 self.assertTrue(False, calfilename + ' not found')
-        regression=Calibration(0,0).ReadFromFile(calfilename)
+        regression=Calibration(0,0).ReadFromFile(calfilename,None)
 
         regressionFixtures=regression.Fixtures()
         calFixtures=cal.Fixtures()
