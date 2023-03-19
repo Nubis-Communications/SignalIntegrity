@@ -173,10 +173,18 @@ class Archive(list):
                         app.projectStack.Pull()
                         raise SignalIntegrityExceptionArchive('During archiving:',file+' could not be opened')
                         return self
+                    def NewRelativePath(path):
+                        # calculate relative path to archive (replacing remaining ../ with up/
+                        path=os.path.relpath(os.path.abspath(path),archiveDir).replace('\\','/').replace('../','up/')
+                        # calculate resulting absolute path
+                        path=os.path.join(archiveDir,path)
+                        # calculate new relative path from where device was pointing
+                        path=os.path.relpath(path).replace('\\','/')
+                        return path
                     for variable in SignalIntegrity.App.Project['Variables.Items']:
                         if variable['Type'] == 'file':
                             try:
-                                filename=os.path.abspath(variable['Value'].replace('\\','/').replace('../','up/'))
+                                filename=NewRelativePath(variable['Value'])
                                 if os.path.exists(filename):
                                     variable['Value']=os.path.relpath(filename)
                             except (AttributeError,TypeError):
@@ -188,9 +196,9 @@ class Archive(list):
                             if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
                                 variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
                                 if variable.Value() != None:
-                                    variable['Value']=os.path.relpath(os.path.abspath(variable.Value())).replace('\\','/').replace('../','up/')
+                                    variable['Value']=NewRelativePath(variable['Value'])
                         else:
-                            app.Device(device['Ref'])[device['Keyword']]['Value']=os.path.relpath(os.path.abspath(app.Device(device['Ref'])[device['Keyword']]['Value'])).replace('\\','/').replace('../','up/')
+                            app.Device(device['Ref'])[device['Keyword']]['Value'] = NewRelativePath(app.Device(device['Ref'])[device['Keyword']]['Value'])
                     app.SaveProject()
                     app.projectStack.Pull()
         finally:
