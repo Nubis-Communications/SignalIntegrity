@@ -23,19 +23,19 @@ import shutil
 import zipfile
 
 root=os.path.dirname(os.path.realpath(__file__))
-fileList=[os.path.join(path, name) for path, subdirs, files in os.walk(root) for name in files]
+fileList=[os.path.join(path, name).replace('\\','/') for path, subdirs, files in os.walk(root) for name in files]
 filteredFileList=[]
 for fullFileName in fileList:
-    filenameWithExtension=os.path.basename(fullFileName)
+    filenameWithExtension=os.path.basename(fullFileName).replace('\\','/')
     filename,fileextension = os.path.splitext(filenameWithExtension)
-    relpath=os.path.relpath(fullFileName, root)
+    relpath=os.path.relpath(fullFileName, root).replace('\\','/')
     if relpath == filenameWithExtension: # this is a file in the root directory
         if fileextension != '.py': # not a python file
             if filenameWithExtension not in ['LICENSE.txt','README.md']:
                 continue
     if filename[0]=='.': # hidden directory
         continue
-    if relpath.startswith('.git'):
+    if relpath.startswith('.'):
         continue
     if fileextension == '.pyc':
         continue
@@ -44,6 +44,10 @@ for fullFileName in fileList:
     if fileextension == '.p':
         continue
     if relpath.startswith('SignalIntegrity.egg-info/'):
+        continue
+    if relpath.startswith('build/'):
+        continue
+    if relpath.startswith('dist/'):
         continue
     if filenameWithExtension in ['LinkDoc.sh',
                                  'LinkHelp.sh',
@@ -79,10 +83,11 @@ for input,output in zip(filteredFileList,destFileList):
 zipf = zipfile.ZipFile(os.path.abspath(os.path.join(root,'../SignalIntegrity-'+__version__+'.zip')), 'w', zipfile.ZIP_DEFLATED)
 for input,output in zip(filteredFileList,destFileList):
     zipf.write(output,os.path.join('SignalIntegrity-'+__version__,os.path.relpath(input, root)))
+zipf.close()
 os.chdir(os.path.abspath(os.path.join(root,'../SignalIntegrity-'+__version__)))
-result = os.system('python3 setup.py bdist_wheel --universal')
-# os.system('twine upload dist/*')
-# os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
+result = os.system('python setup.py bdist_wheel --universal')
+#os.system('twine upload dist/*')
+#os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
 pass
 
 
