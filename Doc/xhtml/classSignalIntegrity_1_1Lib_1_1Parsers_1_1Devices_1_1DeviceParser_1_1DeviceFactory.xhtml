@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.3.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -99,9 +99,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae64f0875afe3067b97ba370b354b9213"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ae64f0875afe3067b97ba370b354b9213">__init__</a> (self)</td></tr>
 <tr class="memdesc:ae64f0875afe3067b97ba370b354b9213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor list of devices.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ae64f0875afe3067b97ba370b354b9213">More...</a><br /></td></tr>
 <tr class="separator:ae64f0875afe3067b97ba370b354b9213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84bd6828768b3a1677c71d39f3cb91dd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#a84bd6828768b3a1677c71d39f3cb91dd">MakeDevice</a> (self, ports, argsList, f)</td></tr>
-<tr class="memdesc:a84bd6828768b3a1677c71d39f3cb91dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">makes a device from a set of arguments The device is assigned to self.dev and self.frequencyDependent determines whether the device is frequency dependent.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#a84bd6828768b3a1677c71d39f3cb91dd">More...</a><br /></td></tr>
-<tr class="separator:a84bd6828768b3a1677c71d39f3cb91dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac166a957897ea098010f081c4e58d09f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ac166a957897ea098010f081c4e58d09f">MakeDevice</a> (self, ports, callback, argsList, f)</td></tr>
+<tr class="memdesc:ac166a957897ea098010f081c4e58d09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">makes a device from a set of arguments The device is assigned to self.dev and self.frequencyDependent determines whether the device is frequency dependent.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml#ac166a957897ea098010f081c4e58d09f">More...</a><br /></td></tr>
+<tr class="separator:ac166a957897ea098010f081c4e58d09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -137,7 +137,7 @@ Public Attributes</h2></td></tr>
 <th class="markdownTableHeadCenter">name </th><th class="markdownTableHeadCenter">ports </th><th class="markdownTableHeadCenter">arginname </th><th class="markdownTableHeadCenter">defaults </th><th class="markdownTableHeadCenter">frequency<br  />
  dependent </th><th class="markdownTableHeadLeft">device  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter">file </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SParameterFile(filename,50.)  </td></tr>
+<td class="markdownTableBodyCenter">file </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">filename=None </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.SParameterFile(filename,50.,callback)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">c </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">c=None df=0 esr=0 z0=50 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.TerminationC(f,c,z0,df,esr)  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -271,8 +271,8 @@ Usually when an argument is defaulted to None, the device production will fail i
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a84bd6828768b3a1677c71d39f3cb91dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84bd6828768b3a1677c71d39f3cb91dd">&#9670;&nbsp;</a></span>MakeDevice()</h2>
+<a id="ac166a957897ea098010f081c4e58d09f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac166a957897ea098010f081c4e58d09f">&#9670;&nbsp;</a></span>MakeDevice()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,6 +288,12 @@ Usually when an argument is defaulted to None, the device production will fail i
           <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>ports</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

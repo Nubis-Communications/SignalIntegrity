@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.3.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -124,7 +124,7 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Fits a two-port RLGC model for the specified s-parameter file</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="stringliteral">        @see see RLGC</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        sp=<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml">SParameterFile</a>(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#ab4fdcf83705c5f83f71347694f2d6e21">spfile</a>,self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#a2aa00f07810917a73f2d69df4f6435e5">Z0</a>,**self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#aca174a4ca5cbfb3d1b2873c5e38f50aa">kwargs</a>)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        sp=<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml">SParameterFile</a>(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#ab4fdcf83705c5f83f71347694f2d6e21">spfile</a>,self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#a2aa00f07810917a73f2d69df4f6435e5">Z0</a>,<span class="keywordtype">None</span>,**self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Fit_1_1RLGCFitFromFile_1_1RLGCFitFromFile.xhtml#aca174a4ca5cbfb3d1b2873c5e38f50aa">kwargs</a>)</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(len(stepResponse)):</div>

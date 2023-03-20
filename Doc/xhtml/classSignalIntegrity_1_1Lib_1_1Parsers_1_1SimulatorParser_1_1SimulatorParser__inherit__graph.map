@@ -1,8 +1,8 @@
 <map id="SimulatorParser" name="SimulatorParser">
-<area shape="rect" id="node1" title="base class for netlist based simulation solutions" alt="" coords="76,491,191,583"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="51,631,215,723"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,443"/>
+<area shape="rect" id="node1" title="base class for netlist based simulation solutions" alt="" coords="76,505,191,597"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="51,645,215,737"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,457"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,20,112,112"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,5,280,127"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="42,771,225,980"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="42,785,225,995"/>
 </map>

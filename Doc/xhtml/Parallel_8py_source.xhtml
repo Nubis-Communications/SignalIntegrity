@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.3.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -118,7 +118,7 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml">SignalIntegrity.Lib.Parsers.SystemDescriptionParser</a> <span class="keyword">import</span> SystemDescriptionParser</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="comment"># pragma: include</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sdp=SystemDescriptionParser().AddLines([<span class="stringliteral">&#39;device D 2&#39;</span>,<span class="stringliteral">&#39;port 1 D 1 2 D 2 3 D 1 4 D 2&#39;</span>])</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp=<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml">SParameterFile</a>(name,<span class="keywordtype">None</span>,**kwargs).<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a115ed63524d00ebadce833c2106fc7e9">Resample</a>(f)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp=<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile.xhtml">SParameterFile</a>(name,<span class="keywordtype">None</span>,<span class="keywordtype">None</span>,**kwargs).<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a115ed63524d00ebadce833c2106fc7e9">Resample</a>(f)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a2d2ac2d8b50c1f6a5a5eea1f38dd0e16">m_sspn1</a>=SystemSParametersNumeric(sdp.SystemDescription())</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a0b53b52ee021aad7c93166c0d78d0926">m_dev</a>=sp</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sdp=SystemDescriptionParser().AddLines([<span class="stringliteral">&#39;device D 4&#39;</span>,<span class="stringliteral">&#39;device O1 1 open&#39;</span>,<span class="stringliteral">&#39;device O2 1 open&#39;</span>,</div>

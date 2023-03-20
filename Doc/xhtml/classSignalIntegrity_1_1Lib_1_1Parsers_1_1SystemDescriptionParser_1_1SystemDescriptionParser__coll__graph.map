@@ -1,5 +1,5 @@
 <map id="SystemDescriptionParser" name="SystemDescriptionParser">
-<area shape="rect" id="node1" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,443"/>
+<area shape="rect" id="node1" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,457"/>
 <area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,20,112,112"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,5,280,127"/>
 </map>
