@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>623x475+182+182</Geometry>
+			<Geometry>623x475+522+242</Geometry>
 			<Grid>16</Grid>
 			<Originx>-31</Originx>
 			<Originy>7</Originy>
@@ -494,16 +494,25 @@
 				<Line>ur=resdict[metal]['ur']</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>u0=1.25663706e-6</Line>
+				<Line>c=3e8</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>e0=8.85418782e-12</Line>
+				<Line>u0=4*pi*1e-7</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>L=u0*d</Line>
+				<Line>e0=1/(u0*c**2)</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>C=e0*er*W*W/d</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>v=c/sqrt(er)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>td=W/v</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>L=(td**2)/C</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>R=rho/t</Line>
@@ -588,7 +597,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>F</Units>
-				<Value>2.9218819806e-17</Value>
+				<Value>2.9178406233514136e-17</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -597,7 +606,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>H</Units>
-				<Value>1.25663706e-10</Value>
+				<Value>1.2566370614359172e-10</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>

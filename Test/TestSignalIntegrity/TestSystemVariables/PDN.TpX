@@ -1,0 +1,132 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="4" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none">
+%  <rect x="20" y="70" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="20" y="75" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="25" y="70" w="5" h="5" ha="4" fill="silver"/>
+%  <polygon ha="4" fill="silver">25,75 25,80 30,75</polygon>
+%  <polygon ha="4" fill="silver">30,70 30,65 25,70</polygon>
+%  <polygon ha="4" fill="silver">30,70 30,75 35,70</polygon>
+%  <rect x="30" y="65" w="5" h="5" ha="4" fill="silver"/>
+%  <polygon ha="4" fill="silver">35,65 35,60 30,65</polygon>
+%  <rect x="35" y="65" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="35" y="60" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="40" y="65" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="40" y="60" w="5" h="5" ha="4" fill="silver"/>
+%  <polygon ha="4" fill="silver">45,60 45,55 40,60</polygon>
+%  <polygon ha="4" fill="silver">50,55 50,50 45,55</polygon>
+%  <rect x="45" y="65" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="45" y="60" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="45" y="55" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="50" y="50" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="50" y="55" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="50" y="60" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="55" y="45" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="55" y="50" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="55" y="55" w="5" h="5" ha="4" fill="silver"/>
+%  <polygon ha="4" fill="silver">50,65 50,70 55,65</polygon>
+%  <polygon ha="4" fill="silver">55,60 55,65 60,60</polygon>
+%  <polygon ha="4" fill="silver">55,50 55,45 50,50</polygon>
+%  <polygon ha="4" fill="silver">60,45 60,40 55,45</polygon>
+%  <rect x="60" y="45" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="60" y="40" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="65" y="45" w="5" h="5" ha="4" fill="silver"/>
+%  <rect x="65" y="40" w="5" h="5" ha="4" fill="silver"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=0.90mm, y=0.90mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (18.00,38.00) rectangle +(54.00,44.00);
+\definecolor{F}{rgb}{0.753,0.753,0.753}
+\path[fill=F] (20.00,75.00) [rotate around={270:(20.00,75.00)}] rectangle +(5.00,5.00);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.14mm, draw=L]  (20.00,73.74) -- (21.26,75.00) (20.00,70.91) -- (24.09,75.00) (21.92,70.00) -- (25.00,73.08) (24.75,70.00) -- (25.00,70.25);
+\path[line width=0.27mm, draw=L] (20.00,75.00) [rotate around={270:(20.00,75.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (20.00,80.00) [rotate around={270:(20.00,80.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (20.00,79.40) -- (20.60,80.00) (20.00,76.57) -- (23.43,80.00) (21.26,75.00) -- (25.00,78.74) (24.09,75.00) -- (25.00,75.91);
+\path[line width=0.27mm, draw=L] (20.00,80.00) [rotate around={270:(20.00,80.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (25.00,75.00) [rotate around={270:(25.00,75.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (25.00,73.08) -- (26.92,75.00) (25.00,70.25) -- (29.75,75.00) (27.57,70.00) -- (30.00,72.43);
+\path[line width=0.27mm, draw=L] (25.00,75.00) [rotate around={270:(25.00,75.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (25.00,75.00) -- (25.00,80.00) -- (30.00,75.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (25.00,78.74) -- (25.63,79.37) (25.00,75.91) -- (27.04,77.96) (26.92,75.00) -- (28.46,76.54) (29.75,75.00) -- (29.87,75.13);
+\path[line width=0.27mm, draw=L] (25.00,75.00) -- (25.00,80.00) -- (30.00,75.00) -- cycle;
+\path[fill=F] (30.00,70.00) -- (30.00,65.00) -- (25.00,70.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (26.29,68.71) -- (27.57,70.00) (27.70,67.30) -- (30.00,69.60) (29.12,65.88) -- (30.00,66.77);
+\path[line width=0.27mm, draw=L] (30.00,70.00) -- (30.00,65.00) -- (25.00,70.00) -- cycle;
+\path[fill=F] (30.00,70.00) -- (30.00,75.00) -- (35.00,70.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (30.00,72.43) -- (31.29,73.71) (30.40,70.00) -- (32.70,72.30) (33.23,70.00) -- (34.12,70.88);
+\path[line width=0.27mm, draw=L] (30.00,70.00) -- (30.00,75.00) -- (35.00,70.00) -- cycle;
+\path[fill=F] (30.00,70.00) [rotate around={270:(30.00,70.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (30.00,69.60) -- (30.40,70.00) (30.00,66.77) -- (33.23,70.00) (31.06,65.00) -- (35.00,68.94) (33.89,65.00) -- (35.00,66.11);
+\path[line width=0.27mm, draw=L] (30.00,70.00) [rotate around={270:(30.00,70.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (35.00,65.00) -- (35.00,60.00) -- (30.00,65.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (30.53,64.47) -- (31.06,65.00) (31.94,63.06) -- (33.89,65.00) (33.36,61.64) -- (35.00,63.28) (34.77,60.23) -- (35.00,60.46);
+\path[line width=0.27mm, draw=L] (35.00,65.00) -- (35.00,60.00) -- (30.00,65.00) -- cycle;
+\path[fill=F] (35.00,70.00) [rotate around={270:(35.00,70.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (35.00,68.94) -- (36.06,70.00) (35.00,66.11) -- (38.89,70.00) (36.72,65.00) -- (40.00,68.28) (39.54,65.00) -- (40.00,65.46);
+\path[line width=0.27mm, draw=L] (35.00,70.00) [rotate around={270:(35.00,70.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (35.00,65.00) [rotate around={270:(35.00,65.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (35.00,63.28) -- (36.72,65.00) (35.00,60.46) -- (39.54,65.00) (37.37,60.00) -- (40.00,62.63);
+\path[line width=0.27mm, draw=L] (35.00,65.00) [rotate around={270:(35.00,65.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (40.00,70.00) [rotate around={270:(40.00,70.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (40.00,68.28) -- (41.72,70.00) (40.00,65.46) -- (44.54,70.00) (42.37,65.00) -- (45.00,67.63);
+\path[line width=0.27mm, draw=L] (40.00,70.00) [rotate around={270:(40.00,70.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (40.00,65.00) [rotate around={270:(40.00,65.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (40.00,62.63) -- (42.37,65.00) (40.20,60.00) -- (45.00,64.80) (43.03,60.00) -- (45.00,61.97);
+\path[line width=0.27mm, draw=L] (40.00,65.00) [rotate around={270:(40.00,65.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (45.00,60.00) -- (45.00,55.00) -- (40.00,60.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (40.10,59.90) -- (40.20,60.00) (41.51,58.49) -- (43.03,60.00) (42.93,57.07) -- (45.00,59.14) (44.34,55.66) -- (45.00,56.31);
+\path[line width=0.27mm, draw=L] (45.00,60.00) -- (45.00,55.00) -- (40.00,60.00) -- cycle;
+\path[fill=F] (50.00,55.00) -- (50.00,50.00) -- (45.00,55.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (45.76,54.24) -- (46.51,55.00) (47.17,52.83) -- (49.34,55.00) (48.59,51.41) -- (50.00,52.83);
+\path[line width=0.27mm, draw=L] (50.00,55.00) -- (50.00,50.00) -- (45.00,55.00) -- cycle;
+\path[fill=F] (45.00,70.00) [rotate around={270:(45.00,70.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (45.00,67.63) -- (47.37,70.00) (45.20,65.00) -- (50.00,69.80) (48.03,65.00) -- (50.00,66.97);
+\path[line width=0.27mm, draw=L] (45.00,70.00) [rotate around={270:(45.00,70.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (45.00,65.00) [rotate around={270:(45.00,65.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (45.00,64.80) -- (45.20,65.00) (45.00,61.97) -- (48.03,65.00) (45.86,60.00) -- (50.00,64.14) (48.69,60.00) -- (50.00,61.31);
+\path[line width=0.27mm, draw=L] (45.00,65.00) [rotate around={270:(45.00,65.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (45.00,60.00) [rotate around={270:(45.00,60.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (45.00,59.14) -- (45.86,60.00) (45.00,56.31) -- (48.69,60.00) (46.51,55.00) -- (50.00,58.49) (49.34,55.00) -- (50.00,55.66);
+\path[line width=0.27mm, draw=L] (45.00,60.00) [rotate around={270:(45.00,60.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (50.00,55.00) [rotate around={270:(50.00,55.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (50.00,52.83) -- (52.17,55.00) (50.00,50.00) -- (55.00,55.00) (52.83,50.00) -- (55.00,52.17);
+\path[line width=0.27mm, draw=L] (50.00,55.00) [rotate around={270:(50.00,55.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (50.00,60.00) [rotate around={270:(50.00,60.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (50.00,58.49) -- (51.51,60.00) (50.00,55.66) -- (54.34,60.00) (52.17,55.00) -- (55.00,57.83);
+\path[line width=0.27mm, draw=L] (50.00,60.00) [rotate around={270:(50.00,60.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (50.00,65.00) [rotate around={270:(50.00,65.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (50.00,64.14) -- (50.86,65.00) (50.00,61.31) -- (53.69,65.00) (51.51,60.00) -- (55.00,63.49) (54.34,60.00) -- (55.00,60.66);
+\path[line width=0.27mm, draw=L] (50.00,65.00) [rotate around={270:(50.00,65.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (55.00,50.00) [rotate around={270:(55.00,50.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (55.00,49.34) -- (55.66,50.00) (55.00,46.51) -- (58.49,50.00) (56.31,45.00) -- (60.00,48.69) (59.14,45.00) -- (60.00,45.86);
+\path[line width=0.27mm, draw=L] (55.00,50.00) [rotate around={270:(55.00,50.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (55.00,55.00) [rotate around={270:(55.00,55.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (55.00,52.17) -- (57.83,55.00) (55.66,50.00) -- (60.00,54.34) (58.49,50.00) -- (60.00,51.51);
+\path[line width=0.27mm, draw=L] (55.00,55.00) [rotate around={270:(55.00,55.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (55.00,60.00) [rotate around={270:(55.00,60.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (55.00,57.83) -- (57.17,60.00) (55.00,55.00) -- (60.00,60.00) (57.83,55.00) -- (60.00,57.17);
+\path[line width=0.27mm, draw=L] (55.00,60.00) [rotate around={270:(55.00,60.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (50.00,65.00) -- (50.00,70.00) -- (55.00,65.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (50.00,69.80) -- (50.10,69.90) (50.00,66.97) -- (51.51,68.49) (50.86,65.00) -- (52.93,67.07) (53.69,65.00) -- (54.34,65.66);
+\path[line width=0.27mm, draw=L] (50.00,65.00) -- (50.00,70.00) -- (55.00,65.00) -- cycle;
+\path[fill=F] (55.00,60.00) -- (55.00,65.00) -- (60.00,60.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (55.00,63.49) -- (55.76,64.24) (55.00,60.66) -- (57.17,62.83) (57.17,60.00) -- (58.59,61.41);
+\path[line width=0.27mm, draw=L] (55.00,60.00) -- (55.00,65.00) -- (60.00,60.00) -- cycle;
+\path[fill=F] (55.00,50.00) -- (55.00,45.00) -- (50.00,50.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (51.41,48.59) -- (52.83,50.00) (52.83,47.17) -- (55.00,49.34) (54.24,45.76) -- (55.00,46.51);
+\path[line width=0.27mm, draw=L] (55.00,50.00) -- (55.00,45.00) -- (50.00,50.00) -- cycle;
+\path[fill=F] (60.00,45.00) -- (60.00,40.00) -- (55.00,45.00) -- cycle;
+\path[line width=0.14mm, draw=L]  (55.66,44.34) -- (56.31,45.00) (57.07,42.93) -- (59.14,45.00) (58.49,41.51) -- (60.00,43.03) (59.90,40.10) -- (60.00,40.20);
+\path[line width=0.27mm, draw=L] (60.00,45.00) -- (60.00,40.00) -- (55.00,45.00) -- cycle;
+\path[fill=F] (60.00,50.00) [rotate around={270:(60.00,50.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (60.00,48.69) -- (61.31,50.00) (60.00,45.86) -- (64.14,50.00) (61.97,45.00) -- (65.00,48.03) (64.80,45.00) -- (65.00,45.20);
+\path[line width=0.27mm, draw=L] (60.00,50.00) [rotate around={270:(60.00,50.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (60.00,45.00) [rotate around={270:(60.00,45.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (60.00,43.03) -- (61.97,45.00) (60.00,40.20) -- (64.80,45.00) (62.63,40.00) -- (65.00,42.37);
+\path[line width=0.27mm, draw=L] (60.00,45.00) [rotate around={270:(60.00,45.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (65.00,50.00) [rotate around={270:(65.00,50.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (65.00,48.03) -- (66.97,50.00) (65.00,45.20) -- (69.80,50.00) (67.63,45.00) -- (70.00,47.37);
+\path[line width=0.27mm, draw=L] (65.00,50.00) [rotate around={270:(65.00,50.00)}] rectangle +(5.00,5.00);
+\path[fill=F] (65.00,45.00) [rotate around={270:(65.00,45.00)}] rectangle +(5.00,5.00);
+\path[line width=0.14mm, draw=L]  (65.00,42.37) -- (67.63,45.00) (65.46,40.00) -- (70.00,44.54) (68.28,40.00) -- (70.00,41.72);
+\path[line width=0.27mm, draw=L] (65.00,45.00) [rotate around={270:(65.00,45.00)}] rectangle +(5.00,5.00);
+\end{tikzpicture}%
