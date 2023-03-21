@@ -34,6 +34,7 @@ class TestProbeOnOffTest(unittest.TestCase,
     checkPictures = True
     keepNewFormats = False
     ProbeNames = ['EyeIn', 'I', 'Vd', 'EyeOut', 'Vin', 'Eye', 'Waveform']
+    runQuickly=True
 
     def __init__(self, methodName='runTest'):
         si.test.SParameterCompareHelper.__init__(self)
@@ -80,13 +81,22 @@ class TestProbeOnOffTest(unittest.TestCase,
         testNumber = int(self.id().split('_')[-1])
         testname = self.TestName(testNumber)
 
-        app = SignalIntegrityAppHeadless()
-        app.OpenProjectFile('ProbeCircuit.si')
-
         testFileName = testname + '.si'
         probeState = self.ProbeDict(testNumber)
 
-        print('Probe Test: '+str(testNumber)+' '+ str(probeState))
+        if self.runQuickly:
+            # only run tests with all on or off, or only 1 off or only one on
+            runit=sum([1 if on else 0 for on in probeState.values()]) in [0,1,6,7]
+        else:
+            runit=True # perform exhaustive test
+
+        print('Probe Test: '+str(testNumber)+' '+ str(probeState)+' '+str(runit))
+
+        if not runit:
+            return
+
+        app = SignalIntegrityAppHeadless()
+        app.OpenProjectFile('ProbeCircuit.si')
 
         def copyConditional(probe, ext, test):
             if os.path.exists('ProbeCircuit_' + probe + '.' + ext):

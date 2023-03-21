@@ -10,7 +10,7 @@
 %  <polyline lc="black">28,-40 28,-44</polyline>
 %  <text x="34" y="-61" t="t0 0 s" h="3" halign="l" lc="black"/>
 %  <text x="34" y="-58" t="br 56.0 GBaud" h="3" halign="l" lc="black"/>
-%  <text x="34" y="-55" t="prbs 31" h="3" halign="l" lc="black"/>
+%  <text x="34" y="-55" t="prbs 7" h="3" halign="l" lc="black"/>
 %  <text x="34" y="-52" t="bps 2" h="3" halign="l" lc="black"/>
 %  <text x="34" y="-49" t="a 1.0 V" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">61.25,-37.5 62.75,-37.5</polyline>
@@ -150,7 +150,7 @@
 \path[line width=0.30mm, draw=black] (28,-40) -- (28,-44);
 \draw[black] (34,-61) node[anchor=base west]{t0 0 s};
 \draw[black] (34,-58) node[anchor=base west]{br 56.0 GBaud};
-\draw[black] (34,-55) node[anchor=base west]{prbs 31};
+\draw[black] (34,-55) node[anchor=base west]{prbs 7};
 \draw[black] (34,-52) node[anchor=base west]{bps 2};
 \draw[black] (34,-49) node[anchor=base west]{a 1.0 V};
 \path[line width=0.30mm, draw=black] (61.25,-37.5) -- (62.75,-37.5);

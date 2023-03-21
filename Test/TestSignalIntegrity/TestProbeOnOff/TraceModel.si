@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>940x407+182+182</Geometry>
+			<Geometry>940x407+156+156</Geometry>
 			<Grid>16</Grid>
 			<Originx>-14</Originx>
 			<Originy>-7</Originy>
@@ -406,4 +406,14 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 </Project>

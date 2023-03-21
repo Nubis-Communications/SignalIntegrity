@@ -97,8 +97,19 @@ class FrequencyResponse(FrequencyDomain):
         if not evenlySpaced and not td is None:
             newfd = td.FrequencyList()
             oldfd = fd
-            Poly=Spline(oldfd,self.Response())
-            newresp=[Poly.Evaluate(f) if f <= oldfd[-1] else 0.0001 for f in newfd]
+            # pragma: silent exclude
+            oldSpline=True
+            if oldSpline:
+            # pragma: silent include outdent
+                Poly=Spline(oldfd,self.Response())
+                newresp=[Poly.Evaluate(f) if f <= oldfd[-1] else 0.0001 for f in newfd]
+            # pragma: silent exclude
+            else:
+                from scipy.interpolate import CubicSpline
+                cs=CubicSpline(oldfd,self.Response())
+                newresp=cs(newfd)
+                newresp=[nr if f <= oldfd[-1] else 0.0001 for f,nr in zip(newfd,newresp)]
+            # pragma: silent include indent
             newfr=FrequencyResponse(newfd,newresp)
             return newfr.ImpulseResponse(None,adjustDelay)
         if evenlySpaced and td is None and not adjustDelay:

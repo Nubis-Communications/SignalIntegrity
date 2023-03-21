@@ -279,15 +279,15 @@ class SignalIntegrityAppHeadless(object):
                 return None
 
             outputWaveformLabels=netList.OutputNames()
-
-            try:
-                inputWaveformList=self.Drawing.schematic.InputWaveforms()
-                sourceNames=netList.SourceNames()
-            except si.SignalIntegrityException as e:
-                return None
+            sourceNames=netList.SourceNames()
 
             if TransferMatricesOnly:
                 return (sourceNames,outputWaveformLabels,transferMatrices)
+
+            try:
+                inputWaveformList=self.Drawing.schematic.InputWaveforms()
+            except si.SignalIntegrityException as e:
+                return None
 
             diresp=None
             for r in range(len(outputWaveformLabels)):
@@ -407,21 +407,17 @@ class SignalIntegrityAppHeadless(object):
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
-        try:
-            inputWaveformList=self.Drawing.schematic.InputWaveforms()
-            sourceNames=netList.MeasureNames()
-        except si.SignalIntegrityException as e:
-            return None
-
-        try:
-            outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
-        except si.SignalIntegrityException as e:
-            return None
-
+        sourceNames=netList.MeasureNames()
         outputWaveformLabels=netList.OutputNames()
 
         if TransferMatricesOnly:
             return (sourceNames,outputWaveformLabels,transferMatrices)
+
+        try:
+            inputWaveformList=self.Drawing.schematic.InputWaveforms()
+            outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
+        except si.SignalIntegrityException as e:
+            return None
 
         try:
             outputWaveformList+=self.Drawing.schematic.OtherWaveforms()

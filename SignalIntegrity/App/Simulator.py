@@ -669,13 +669,7 @@ class Simulator(object):
                 return
 
             self.outputWaveformLabels=netList.OutputNames()
-
-            try:
-                self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
-                self.sourceNames=netList.SourceNames()
-            except si.SignalIntegrityException as e:
-                messagebox.showerror('Simulator',e.parameter+': '+e.message)
-                return
+            self.sourceNames=netList.SourceNames()
 
             if TransferMatricesOnly:
                 buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
@@ -685,6 +679,12 @@ class Simulator(object):
                 SParametersDialog(self.parent,sp,
                                   self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                                   'Transfer Parameters',buttonLabelList)
+                return
+
+            try:
+                self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+            except si.SignalIntegrityException as e:
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
             diresp=None
@@ -799,13 +799,7 @@ class Simulator(object):
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         self.outputWaveformLabels=netList.OutputNames()
-
-        try:
-            self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
-            self.sourceNames=netList.MeasureNames()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            return
+        self.sourceNames=netList.MeasureNames()
 
         if TransferMatricesOnly:
             buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
@@ -815,6 +809,12 @@ class Simulator(object):
             SParametersDialog(self.parent,sp,
                               self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                               'Transfer Parameters',buttonLabelList)
+            return
+
+        try:
+            self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
         progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)

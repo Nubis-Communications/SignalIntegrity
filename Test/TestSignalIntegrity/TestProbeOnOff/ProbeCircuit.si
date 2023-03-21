@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>112000000000.0</EndFrequency>
-		<FrequencyPoints>224</FrequencyPoints>
+		<FrequencyPoints>1120</FrequencyPoints>
 		<UserSampleRate>224000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>962x462+78+78</Geometry>
+			<Geometry>962x462+26+26</Geometry>
 			<Grid>16</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -38,7 +38,7 @@
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2e-08</Value>
+							<Value>1.5000000000000002e-08</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -62,7 +62,7 @@
 						<PartProperty>
 							<Keyword>prbs</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>31</Value>
+							<Value>7</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -242,7 +242,7 @@
 						<PartProperty>
 							<Keyword>calcprop</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
