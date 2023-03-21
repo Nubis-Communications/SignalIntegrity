@@ -305,9 +305,12 @@ class DrawingStateMachine(object):
             self.UnselectAllWires()
             Doer.inHelp = False
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_NoProject)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_NoProject)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_NoProject)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_NoProject)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_NoProject)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_NoProject)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_NoProject)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_NoProject)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_NoProject)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_NoProject)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_NoProject)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_NoProject)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_NoProject)
@@ -374,11 +377,17 @@ class DrawingStateMachine(object):
 
     def onMouseButton1_NoProject(self,event):
         pass
-    def onCtrlMouseButton1_NoProject(self,event):
+    def onShiftMouseButton1_NoProject(self,event):
         pass
-    def onCtrlMouseButton1Motion_NoProject(self,event):
+    def onShiftMouseButton1Motion_NoProject(self,event):
         pass
-    def onCtrlMouseButton1Release_NoProject(self,event):
+    def onShiftMouseButton1Release_NoProject(self,event):
+        pass
+    def onControlMouseButton1_NoProject(self,event):
+        pass
+    def onControlMouseButton1Motion_NoProject(self,event):
+        pass
+    def onControlMouseButton1Release_NoProject(self,event):
         pass
     def onMouseButton3_NoProject(self,event):
         pass
@@ -415,9 +424,12 @@ class DrawingStateMachine(object):
             Doer.inHelp = False
             self.parent.parent.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Nothing)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_Nothing)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_Nothing)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_Nothing)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_Nothing)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_Nothing)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_Nothing)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_Nothing)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_Nothing)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_Nothing)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_Nothing)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_Nothing)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_Nothing)
@@ -493,13 +505,20 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.onMouseButton1TryToSelectSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1_Nothing(self,event):
-        if not self.Locked():
-            self.onMouseButton1_Nothing(event)
-            self.Unlock()
-    def onCtrlMouseButton1Motion_Nothing(self,event):
+    def onShiftMouseButton1_Nothing(self,event):
+        self.onMouseButton1_Nothing(event)
+    def onShiftMouseButton1Motion_Nothing(self,event):
         pass
-    def onCtrlMouseButton1Release_Nothing(self,event):
+    def onShiftMouseButton1Release_Nothing(self,event):
+        pass
+    def onControlMouseButton1_Nothing(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_Nothing(self,event):
+        pass
+    def onControlMouseButton1Release_Nothing(self,event):
         pass
     def onMouseButton3_Nothing(self,event):
         pass
@@ -537,9 +556,12 @@ class DrawingStateMachine(object):
                     self.parent.coordInPart = device.WhereInPart(self.parent.Button1Coord)
             self.parent.canvas.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_DeviceSelected)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_DeviceSelected)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_DeviceSelected)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_DeviceSelected)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_DeviceSelected)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_DeviceSelected)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_DeviceSelected)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_DeviceSelected)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_DeviceSelected)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_DeviceSelected)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_DeviceSelected)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_DeviceSelected)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_DeviceSelected)
@@ -572,17 +594,26 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.onMouseButton1TryToSelectSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1_DeviceSelected(self,event):
+    def onShiftMouseButton1_DeviceSelected(self,event):
         if not self.Locked():
             self.onMouseButton1TryToToggleSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1Motion_DeviceSelected(self,event):
+    def onShiftMouseButton1Motion_DeviceSelected(self,event):
         pass
-    def onCtrlMouseButton1Release_DeviceSelected(self,event):
+    def onShiftMouseButton1Release_DeviceSelected(self,event):
         if not self.Locked():
             self.parent.schematic.Consolidate()
             self.parent.DrawSchematic()
             self.Unlock()
+    def onControlMouseButton1_DeviceSelected(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_DeviceSelected(self,event):
+        pass
+    def onControlMouseButton1Release_DeviceSelected(self,event):
+        pass
     def onMouseButton3_DeviceSelected(self,event):
         if not self.Locked():
             self.SaveButton2Coordinates(event)
@@ -659,9 +690,12 @@ class DrawingStateMachine(object):
                         self.parent.v = v
             self.parent.canvas.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_WireSelected)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_WireSelected)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_WireSelected)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_WireSelected)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_WireSelected)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_WireSelected)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_WireSelected)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_WireSelected)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_WireSelected)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_WireSelected)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_WireSelected)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_WireSelected)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_WireSelected)
@@ -694,13 +728,22 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.onMouseButton1TryToSelectSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1_WireSelected(self,event):
+    def onShiftMouseButton1_WireSelected(self,event):
         if not self.Locked():
             self.onMouseButton1TryToToggleSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1Motion_WireSelected(self,event):
+    def onShiftMouseButton1Motion_WireSelected(self,event):
         pass
-    def onCtrlMouseButton1Release_WireSelected(self,event):
+    def onShiftMouseButton1Release_WireSelected(self,event):
+        pass
+    def onControlMouseButton1_WireSelected(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_WireSelected(self,event):
+        pass
+    def onControlMouseButton1Release_WireSelected(self,event):
         pass
     def onMouseButton3_WireSelected(self,event):
         pass
@@ -754,9 +797,12 @@ class DrawingStateMachine(object):
             self.UnselectAllWires()
             self.state='PartLoaded'
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_PartLoaded)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_PartLoaded)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_PartLoaded)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_PartLoaded)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_PartLoaded)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_PartLoaded)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_PartLoaded)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_PartLoaded)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_PartLoaded)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_PartLoaded)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_PartLoaded)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_PartLoaded)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_PartLoaded)
@@ -794,11 +840,20 @@ class DrawingStateMachine(object):
             self.DeviceSelected()
             self.parent.parent.history.Event('part added')
             self.Unlock()
-    def onCtrlMouseButton1_PartLoaded(self,event):
+    def onShiftMouseButton1_PartLoaded(self,event):
         pass
-    def onCtrlMouseButton1Motion_PartLoaded(self,event):
+    def onShiftMouseButton1Motion_PartLoaded(self,event):
         pass
-    def onCtrlMouseButton1Release_PartLoaded(self,event):
+    def onShiftMouseButton1Release_PartLoaded(self,event):
+        pass
+    def onControlMouseButton1_PartLoaded(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_PartLoaded(self,event):
+        pass
+    def onControlMouseButton1Release_PartLoaded(self,event):
         pass
     def onMouseButton3_PartLoaded(self,event):
         if not self.Locked():
@@ -840,9 +895,12 @@ class DrawingStateMachine(object):
             self.UnselectAllDevices()
             self.UnselectAllWires()
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_WireLoaded)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_WireLoaded)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_WireLoaded)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_WireLoaded)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_WireLoaded)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_WireLoaded)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_WireLoaded)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_WireLoaded)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_WireLoaded)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_WireLoaded)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_WireLoaded)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_WireLoaded)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_WireLoaded)
@@ -877,11 +935,20 @@ class DrawingStateMachine(object):
             self.parent.wireLoaded['Vertices'][-1]['Coord']=self.parent.Button1Coord
             self.parent.DrawSchematic()
             self.Unlock()
-    def onCtrlMouseButton1_WireLoaded(self,event):
+    def onShiftMouseButton1_WireLoaded(self,event):
         pass
-    def onCtrlMouseButton1Motion_WireLoaded(self,event):
+    def onShiftMouseButton1Motion_WireLoaded(self,event):
         pass
-    def onCtrlMouseButton1Release_WireLoaded(self,event):
+    def onShiftMouseButton1Release_WireLoaded(self,event):
+        pass
+    def onControlMouseButton1_WireLoaded(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_WireLoaded(self,event):
+        pass
+    def onControlMouseButton1Release_WireLoaded(self,event):
         pass
     def onMouseButton3_WireLoaded(self,event):
         pass
@@ -944,9 +1011,12 @@ class DrawingStateMachine(object):
             self.UnselectAllWires()
             self.parent.canvas.config(cursor='fleur')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Panning)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_Panning)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_Panning)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_Panning)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_Panning)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_Panning)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_Panning)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_Panning)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_Panning)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_Panning)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_Panning)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_Panning)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_Panning)
@@ -979,11 +1049,17 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.SaveButton1Coordinates(event)
             self.Unlock()
-    def onCtrlMouseButton1_Panning(self,event):
+    def onShiftMouseButton1_Panning(self,event):
         pass
-    def onCtrlMouseButton1Motion_Panning(self,event):
+    def onShiftMouseButton1Motion_Panning(self,event):
         pass
-    def onCtrlMouseButton1Release_Panning(self,event):
+    def onShiftMouseButton1Release_Panning(self,event):
+        pass
+    def onControlMouseButton1_Panning(self,event):
+        pass
+    def onControlMouseButton1Motion_Panning(self,event):
+        pass
+    def onControlMouseButton1Release_Panning(self,event):
         pass
     def onMouseButton3_Panning(self,event):
         pass
@@ -1041,9 +1117,12 @@ class DrawingStateMachine(object):
             self.UnselectAllDevices()
             self.UnselectAllWires()
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Selecting)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_Selecting)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_Selecting)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_Selecting)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_Selecting)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_Selecting)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_Selecting)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_Selecting)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_Selecting)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_Selecting)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_Selecting)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_Selecting)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_Selecting)
@@ -1076,11 +1155,11 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.SaveButton1Coordinates(event)
             self.Unlock()
-    def onCtrlMouseButton1_Selecting(self,event):
+    def onShiftMouseButton1_Selecting(self,event):
         if not self.Locked():
             self.SaveButton1Coordinates(event)
             self.Unlock()
-    def onCtrlMouseButton1Motion_Selecting(self,event):
+    def onShiftMouseButton1Motion_Selecting(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
             coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
@@ -1105,7 +1184,7 @@ class DrawingStateMachine(object):
                                                 (coord[1]+coordAugmentor[1]+originy)*grid,
                                                 dash=(1,5))
             self.Unlock()
-    def onCtrlMouseButton1Release_Selecting(self,event):
+    def onShiftMouseButton1Release_Selecting(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
             coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
@@ -1121,6 +1200,15 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.DispatchBasedOnSelections()
             self.Unlock()
+    def onControlMouseButton1_Selecting(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_Selecting(self,event):
+        pass
+    def onControlMouseButton1Release_Selecting(self,event):
+        pass
     def onMouseButton3_Selecting(self,event):
         pass
     def onMouseButton1Motion_Selecting(self,event):
@@ -1188,9 +1276,12 @@ class DrawingStateMachine(object):
             self.parent.OriginalWireCoordinates = [[(self.parent.Button1Coord[0]-vertex['Coord'][0],
                                                      self.parent.Button1Coord[1]-vertex['Coord'][1]) for vertex in wire['Vertices']] for wire in SignalIntegrity.App.Project['Drawing.Schematic.Wires']]
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_MultipleSelections)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_MultipleSelections)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_MultipleSelections)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_MultipleSelections)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_MultipleSelections)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_MultipleSelections)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_MultipleSelections)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_MultipleSelections)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_MultipleSelections)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_MultipleSelections)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_MultipleSelections)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_MultipleSelections)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_MultipleSelections)
@@ -1232,7 +1323,7 @@ class DrawingStateMachine(object):
                 if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1) and device.selected:
                     inSelection=True
                     break
-            
+
             for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
                 for vertexProject in wireProject['Vertices']:
                     if vertexProject.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.2) and vertexProject['Selected']:
@@ -1247,20 +1338,29 @@ class DrawingStateMachine(object):
                             break
                     if inSelection:
                         break
-    
+
             if not inSelection:
                 self.onMouseButton1TryToSelectSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1_MultipleSelections(self,event):
+    def onShiftMouseButton1_MultipleSelections(self,event):
         if not self.Locked():
             self.onMouseButton1TryToToggleSomething(event)
             self.Unlock()
-    def onCtrlMouseButton1Motion_MultipleSelections(self,event):
+    def onShiftMouseButton1Motion_MultipleSelections(self,event):
         pass
-    def onCtrlMouseButton1Release_MultipleSelections(self,event):
+    def onShiftMouseButton1Release_MultipleSelections(self,event):
         if not self.Locked():
             self.MultipleSelections()
             self.Unlock()
+    def onControlMouseButton1_MultipleSelections(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_MultipleSelections(self,event):
+        pass
+    def onControlMouseButton1Release_MultipleSelections(self,event):
+        pass
     def onMouseButton3_MultipleSelections(self,event):
         if not self.Locked():
             self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
@@ -1321,9 +1421,12 @@ class DrawingStateMachine(object):
             self.state='Selecting More'
             self.parent.canvas.config(cursor='left_ptr')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_SelectingMore)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_SelectingMore)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_SelectingMore)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_SelectingMore)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_SelectingMore)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_SelectingMore)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_SelectingMore)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_SelectingMore)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_SelectingMore)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_SelectingMore)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_SelectingMore)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_SelectingMore)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_SelectingMore)
@@ -1356,11 +1459,11 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.SaveButton1Coordinates(event)
             self.Unlock()
-    def onCtrlMouseButton1_SelectingMore(self,event):
+    def onShiftMouseButton1_SelectingMore(self,event):
         if not self.Locked():
             self.SaveButton1Coordinates(event)
             self.Unlock()
-    def onCtrlMouseButton1Motion_SelectingMore(self,event):
+    def onShiftMouseButton1Motion_SelectingMore(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
             coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
@@ -1391,7 +1494,7 @@ class DrawingStateMachine(object):
                                                 (coord[1]+originy)*grid,
                                                 dash=(1,5))
             self.Unlock()
-    def onCtrlMouseButton1Release_SelectingMore(self,event):
+    def onShiftMouseButton1Release_SelectingMore(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
             coordAugmentor=self.parent.AugmentorToGridCoordinate(event.x,event.y)
@@ -1413,6 +1516,15 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.DispatchBasedOnSelections()
             self.Unlock()
+    def onControlMouseButton1_SelectingMore(self,event):
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            self.parent.EditSelectedDevice()
+            self.Unlock()
+    def onControlMouseButton1Motion_SelectingMore(self,event):
+        pass
+    def onControlMouseButton1Release_SelectingMore(self,event):
+        pass
     def onMouseButton3_SelectingMore(self,event):
         pass
     def onMouseButton1Motion_SelectingMore(self,event):
@@ -1441,9 +1553,12 @@ class DrawingStateMachine(object):
             self.state='MultipleItemsOnClipboard'
             self.parent.canvas.config(cursor='hand2')
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_MultipleItemsOnClipboard)
-            self.parent.canvas.bind('<Control-Button-1>',self.onCtrlMouseButton1_MultipleItemsOnClipboard)
-            self.parent.canvas.bind('<Control-B1-Motion>',self.onCtrlMouseButton1Motion_MultipleItemsOnClipboard)
-            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onCtrlMouseButton1Release_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Shift-ButtonRelease-1>',self.onShiftMouseButton1Release_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Control-Button-1>',self.onControlMouseButton1_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Control-B1-Motion>',self.onControlMouseButton1Motion_MultipleItemsOnClipboard)
+            self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_MultipleItemsOnClipboard)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_MultipleItemsOnClipboard)
@@ -1524,11 +1639,17 @@ class DrawingStateMachine(object):
             self.parent.parent.history.Event('add multiple items')
             self.DispatchBasedOnSelections()
             self.Unlock()
-    def onCtrlMouseButton1_MultipleItemsOnClipboard(self,event):
+    def onShiftMouseButton1_MultipleItemsOnClipboard(self,event):
         pass
-    def onCtrlMouseButton1Motion_MultipleItemsOnClipboard(self,event):
+    def onShiftMouseButton1Motion_MultipleItemsOnClipboard(self,event):
         pass
-    def onCtrlMouseButton1Release_MultipleItemsOnClipboard(self,event):
+    def onShiftMouseButton1Release_MultipleItemsOnClipboard(self,event):
+        pass
+    def onControlMouseButton1_MultipleItemsOnClipboard(self,event):
+        pass
+    def onControlMouseButton1Motion_MultipleItemsOnClipboard(self,event):
+        pass
+    def onControlMouseButton1Release_MultipleItemsOnClipboard(self,event):
         pass
     def onMouseButton3_MultipleItemsOnClipboard(self,event):
         self.DispatchBasedOnSelections()
