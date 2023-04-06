@@ -155,4 +155,4 @@ class TextEditorDialog(tk.Toplevel):
         self.TextArea.event_generate("<<Paste>>")
 
     def onTouched(self,event):
-        print('touched')
+        pass

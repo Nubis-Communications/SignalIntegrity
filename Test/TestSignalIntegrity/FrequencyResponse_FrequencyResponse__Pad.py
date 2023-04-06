@@ -1,5 +1,4 @@
 class FrequencyResponse(FrequencyDomain):
-...
     def _Pad(self,P):
         fd=self.FrequencyList()
         if P == fd.N: X=self.Response()

@@ -103,6 +103,11 @@ class SParameterZoomProperties(XMLConfiguration):
         self.SubDir(ZoomTimesProperties())
         self.SubDir(ZoomVerticalProperties())
 
+class Enforcements(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Enforcements')
+        self.Add(XMLPropertyDefaultBool('PreserveDC',False))
+
 class SParameterProperties(CalculationPropertiesBase):
     def __init__(self,preferences=False):
         CalculationPropertiesBase.__init__(self,'SParameterProperties',preferences)
@@ -114,7 +119,8 @@ class SParameterProperties(CalculationPropertiesBase):
             self.SubDir(SParameterZoomProperties())
             self.Add(XMLPropertyDefaultInt('SignificantDigits',6))
         self.SubDir(PlotProperties(preferences))
-            
+        self.SubDir(Enforcements())
+
 class SParameterPropertiesProject(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'sp')

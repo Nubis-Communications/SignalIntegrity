@@ -19,6 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from numpy import linalg,dot,diag,array
+from SignalIntegrity.Lib.TimeDomain.Waveform import ImpulseResponse
 import math
 
 class SParameterManipulation(object):
@@ -64,17 +65,23 @@ class SParameterManipulation(object):
                             if abs(ir[k])>threshold:
                                 return False
         return True
-    def EnforceCausality(self):
+    def EnforceCausality(self,preserveDC=False):
         """Enforces causality by setting all of the values before time zero in the impulse
-        responses of the s-parameters to zero."""
+        responses of the s-parameters to zero.
+        @param preserveDC (optional, defaults to False) boolean whether to preserve the DC point in causality enforcement
+        """
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
                 ir=fr.ImpulseResponse()
+                dc=sum(ir)
                 if ir is not None:
                     t=ir.td; Ts=1./ir.td.Fs
                     for k in range(len(t)):
                         if t[k]<=-Ts: ir[k]=0.
+                    newdc=sum(ir)
+                    if preserveDC and (newdc != 0):
+                        ir=ir*(dc/newdc)
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()
                     for n in range(len(frv)): self.m_d[n][toPort][fromPort]=frv[n]
@@ -207,7 +214,7 @@ class SParameterManipulation(object):
                         self.m_d[n][r][c]=(self.m_d[n][r][c]+self.m_d[n][c][r])/2.
                         self.m_d[n][c][r]=self.m_d[n][r][c]
         return self
-    def EnforceBothPassivityAndCausality(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
+    def EnforceBothPassivityAndCausality(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.,preserveDC=False):
         """Enforces both passivity and causality on the s-parameters.  
         Affects self.  
         For up to the maxIterations specified, alternately enforces passivity, to the maxSingularValue and
@@ -216,6 +223,7 @@ class SParameterManipulation(object):
         @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
         @param maxIterations (optional, defaults to 30) maximum iterations
         @param causalityThreshold (optional, defaults to 0) positive float threshold for causality detection
+        @param preserveDC (optional, defaults to False) boolean whether to preserve the DC point in causality enforcement
         @return self
         @see EnforcePassivity
         @see EnforceCausality
@@ -224,13 +232,13 @@ class SParameterManipulation(object):
         keepGoing=True
         while keepGoing:
             self.EnforcePassivity(maxSingularValue)
-            self.EnforceCausality()
+            self.EnforceCausality(preserveDC)
             iterationCount=iterationCount+1
             if iterationCount >= maxIterations: keepGoing=False
             elif self.IsCausal(causalityThreshold): keepGoing=False
             else: keepGoing = True
         return self
-    def EnforceAll(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.):
+    def EnforceAll(self,causalityThreshold=0.,maxIterations=30,maxSingularValue=1.,preserveDC=False):
         """Enforces both reciprocity, passivity and causality on the s-parameters.  
         Affects self.  
         First enforces reciprocity, then...  
@@ -240,13 +248,14 @@ class SParameterManipulation(object):
         @param maxSingularValue (optional, defaults to 1) float maximumum singular value allowed
         @param maxIterations (optional, defaults to 30) maximum iterations
         @param causalityThreshold (optional, defaults to 0) positive float threshold for causality detection
+        @param preserveDC (optional, defaults to False) boolean whether to preserve the DC point in causality enforcement
         @return self
         @see EnforceReciprocity
         @see EnforcePassivity
         @see EnforceCausality
         """
         self.EnforceReciprocity()
-        self.EnforceBothPassivityAndCausality(causalityThreshold, maxIterations, maxSingularValue)
+        self.EnforceBothPassivityAndCausality(causalityThreshold, maxIterations, maxSingularValue,preserveDC)
         return self
     def RemoveImpulseResponseOffset(self,lengths=None):
         """Removes offset in the impulse response.

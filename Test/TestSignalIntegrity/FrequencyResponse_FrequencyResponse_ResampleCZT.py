@@ -1,5 +1,4 @@
 class FrequencyResponse(FrequencyDomain):
-...
     def ResampleCZT(self,fdp,speedy=True):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()

@@ -3,7 +3,9 @@ class Waveform(list):
         if isinstance(other,WaveformProcessor):
             return other.ProcessWaveform(self)
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v*other.real for v in self])
+            result=copy(self)
+            for k in range(len(result)): result[k]*=other.real
+            return result
         elif isinstance(other,Waveform):
             [s,o]=AdaptedWaveforms([self,other])
             return Waveform(s.td,[s[k]*o[k] for k in range(len(s))])

@@ -38,6 +38,7 @@ class FrequencyResponse(FrequencyDomain):
     instance of class FrequencyContent, would filter the waveform in the frequency-domain.
     @see ImpulseResponse
     """
+    oldSpline=True
     def __init__(self,f=None,resp=None):
         """Constructor
         @param f instance of class FrequencyList
@@ -98,8 +99,7 @@ class FrequencyResponse(FrequencyDomain):
             newfd = td.FrequencyList()
             oldfd = fd
             # pragma: silent exclude
-            oldSpline=True
-            if oldSpline:
+            if self.oldSpline:
             # pragma: silent include outdent
                 Poly=Spline(oldfd,self.Response())
                 newresp=[Poly.Evaluate(f) if f <= oldfd[-1] else 0.0001 for f in newfd]
@@ -158,8 +158,18 @@ class FrequencyResponse(FrequencyDomain):
         return FrequencyResponse(EvenlySpacedFrequencyList(fd.N//D*D//fd.N*fd.Fe,fd.N//D),X)
     def _SplineResample(self,fdp):
         fd=self.FrequencyList()
-        Poly=Spline(fd,self.Response())
-        newresp=[Poly.Evaluate(f) if f <= fd[-1] else 0.0001 for f in fdp]
+        # pragma: silent exclude
+        if self.oldSpline:
+        # pragma: silent include outdent
+            Poly=Spline(fd,self.Response())
+            newresp=[Poly.Evaluate(f) if f <= fd[-1] else 0.0001 for f in fdp]
+        # pragma: silent exclude
+        else:
+            from scipy.interpolate import CubicSpline
+            cs=CubicSpline(fd,self.Response())
+            newresp=cs(fdp)
+            newresp=[nr if f <= fd[-1] else 0.0001 for f,nr in zip(fdp,newresp)]
+        # pragma: silent include indent
         return FrequencyResponse(fdp,newresp)
     def Resample(self,fdp):
         """Resamples to a different set of frequencies

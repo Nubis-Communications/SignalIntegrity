@@ -92,6 +92,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceAllDoer = Doer(self.onEnforceAll).AddHelpElement('Control-Help:Enforce-All').AddToolTip('Enforce passivity, reciprocity, and causality on s-parameters')
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise').AddToolTip('Denoise s-parameters with wavelets')
         self.RemoveOffsetDoer = Doer(self.onRemoveOffset).AddHelpElement('Control-Help:Remove-Offset').AddToolTip('Remove offset from impulse response in s-parameters')
+        self.PreserveDCDoer = Doer(self.onPreserveDC).AddHelpElement('Control-Help:Preserve-DC').AddToolTip('Preserve DC in causality enforcement')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help').AddToolTip('Get help on a control')
@@ -169,6 +170,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceAllDoer.AddMenuElement(PropertiesMenu,label='Enforce All',underline=8)
         self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
         self.RemoveOffsetDoer.AddMenuElement(PropertiesMenu,label='Remove Impulse Response Offset',underline=25)
+        self.PreserveDCDoer.AddCheckButtonMenuElement(PropertiesMenu,label='Preserve DC in Causality Enforcement',underline=9)
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
@@ -401,6 +403,7 @@ class SParametersDialog(tk.Toplevel):
         self.EnforceBothPassivityAndCausalityDoer.Activate(areSParameters)
         self.EnforceReciprocityDoer.Activate(areSParameters)
         self.EnforceAllDoer.Activate(areSParameters)
+        self.PreserveDCDoer.Activate(areSParameters)
         self.WaveletDenoiseDoer.Activate(areSParameters)
         self.ReadSParametersFromFileDoer.Activate(areSParameters or isCalibration)
         self.Zoom['AreSParameterLike']=(areSParameters or isCalibration)
@@ -496,6 +499,10 @@ class SParametersDialog(tk.Toplevel):
         SignalIntegrity.App.Preferences['SParameterProperties.Plot.LinearVerticalScale']=self.LinearVerticalScaleDoer.Bool()
         SignalIntegrity.App.Preferences.SaveToFile()
         self.PlotSParameter()
+
+    def onPreserveDC(self):
+        SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC']=self.PreserveDCDoer.Bool()
+        SignalIntegrity.App.Preferences.SaveToFile()
 
     def ZoomJoinActivations(self):
         self.Zoom['Frequencies']['Join']['All'].Activate(self.Zoom['Frequencies']['JoinWithOthers'].Bool())
@@ -853,6 +860,7 @@ class SParametersDialog(tk.Toplevel):
         self.ShowExcessCapacitanceDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.ShowExcessCapacitance'])
         self.LogScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LogScale'])
         self.LinearVerticalScaleDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Plot.LinearVerticalScale'])
+        self.PreserveDCDoer.Set(SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC'])
         self.Zoom['Frequencies']['JoinWithin'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithin'])
         self.Zoom['Times']['JoinWithin'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Times.JoinWithin'])
         self.Zoom['Frequencies']['JoinWithOthers'].Set(SignalIntegrity.App.Preferences['SParameterProperties.Zoom.Frequencies.JoinWithOthers'])
@@ -1434,7 +1442,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.topLeftFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_Magnitude.tex', '').replace('Magnitude.tex', ''))
         filename=fp.filename
 
@@ -1448,7 +1456,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.topRightFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_Phase.tex', '').replace('Phase.tex', ''))
         filename=fp.filename
 
@@ -1462,7 +1470,7 @@ class SParametersDialog(tk.Toplevel):
         try:
             si.test.PlotTikZ(filename,self.bottomLeftFigure)
         except:
-            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')                
+            messagebox.showerror('Export LaTeX','LaTeX could not be generated or written ')
         fp=FileParts(filename.replace('_ImpulseResponse.tex', '').replace('ImpulseResponse.tex', ''))
         filename=fp.filename
 
@@ -1498,14 +1506,18 @@ class SParametersDialog(tk.Toplevel):
         self.PlotSParameter()
 
     def onEnforceCausality(self):
-        self.sp.EnforceCausality()
-        self.UpdatePropertiesFromSParameters()
-        self.PlotSParameter()
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.EnforceCausality(preserveDC=SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC'])
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
 
     def onEnforceBothPassivityAndCausality(self):
-        self.sp.EnforceBothPassivityAndCausality(maxIterations=30,causalityThreshold=1e-5)
-        self.UpdatePropertiesFromSParameters()
-        self.PlotSParameter()
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.EnforceBothPassivityAndCausality(maxIterations=30,
+                                                     causalityThreshold=1e-5,
+                                                     preserveDC=SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC'])
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
 
     def onEnforceReciprocity(self):
         self.sp.EnforceReciprocity()
@@ -1513,19 +1525,24 @@ class SParametersDialog(tk.Toplevel):
         self.PlotSParameter()
 
     def onEnforceAll(self):
-        self.sp.EnforceAll(maxIterations=30,causalityThreshold=1e-5)
-        self.UpdatePropertiesFromSParameters()
-        self.PlotSParameter()
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.EnforceAll(maxIterations=30,
+                               causalityThreshold=1e-5,
+                               preserveDC=SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC'])
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
 
     def onWaveletDenoise(self):
-        self.sp.WaveletDenoise()
-        self.UpdatePropertiesFromSParameters()
-        self.PlotSParameter()
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.WaveletDenoise()
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
 
     def onRemoveOffset(self):
-        self.sp.RemoveImpulseResponseOffset((-1e15,1e15))
-        self.UpdatePropertiesFromSParameters()
-        self.PlotSParameter()
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.RemoveImpulseResponseOffset((-1e15,1e15))
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
 
     def onPreferences(self):
         if not hasattr(self, 'preferencesDialog'):

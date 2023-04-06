@@ -1,5 +1,4 @@
 class FrequencyResponse(FrequencyDomain):
-...
     def Resample(self,fdp):
         fd=self.FrequencyList()
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()

@@ -1,5 +1,4 @@
 class FrequencyResponse(FrequencyDomain):
-...
     def ImpulseResponse(self,td=None,adjustDelay=True):
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):

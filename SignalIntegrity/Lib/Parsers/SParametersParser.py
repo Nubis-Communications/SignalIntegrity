@@ -41,6 +41,7 @@ class SParametersParser(SParameters):
         @see RemoveImpulseResponseOffset
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+        self.preserveDC = False
         for line in lines:
             tokens=line.split()
             if len(tokens)>=0:
@@ -50,15 +51,26 @@ class SParametersParser(SParameters):
             try:
                 if tokens[1]=='enforce':
                     if tokens[2]=='causality':
-                        self.EnforceCausality()
+                        self.EnforceCausality(preserveDC=self.preserveDC)
                     elif tokens[2]=='passivity':
                         self.EnforcePassivity()
                     elif tokens[2]=='reciprocity':
                         self.EnforceReciprocity()
                     elif tokens[2]=='both':
-                        self.EnforceBothPassivityAndCausality(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)
+                        self.EnforceBothPassivityAndCausality(causalityThreshold=10e-6,
+                                                              maxIterations=30,
+                                                              maxSingularValue=1.,
+                                                              preserveDC=self.preserveDC)
                     elif tokens[2]=='all':
-                        self.EnforceAll(causalityThreshold=10e-6,maxIterations=30,maxSingularValue=1.)
+                        self.EnforceAll(causalityThreshold=10e-6,
+                                        maxIterations=30,
+                                        maxSingularValue=1.,
+                                        preserveDC=self.preserveDC)
+                    else:
+                        raise IndexError
+                elif tokens[1] == 'preserve':
+                    if tokens[2] in ['dc','DC']:
+                        self.preserveDC = True
                     else:
                         raise IndexError
                 elif tokens[1]=='limit':
