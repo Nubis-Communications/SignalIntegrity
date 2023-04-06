@@ -475,7 +475,8 @@ class DeviceVoltageDCSource(Device):
             PartPropertyHelp('device:Voltage-DC-Source'),
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('DC')]+propertiesList,
+            PartPropertyWaveformType('DC'),
+            PartPropertyShow()]+propertiesList,
             partPicture)
         self['a']['KeywordVisible']=False
 
@@ -614,7 +615,8 @@ class DeviceCurrentDCSource(Device):
             PartPropertyHelp('device:Current-DC-Source'),
             PartPropertyDefaultReferenceDesignator('CS?'),
             PartPropertyCurrentAmplitude(),
-            PartPropertyWaveformType('DC')]+propertiesList,
+            PartPropertyWaveformType('DC'),
+            PartPropertyShow()]+propertiesList,
             partPicture)
         self['a']['KeywordVisible']=False
 

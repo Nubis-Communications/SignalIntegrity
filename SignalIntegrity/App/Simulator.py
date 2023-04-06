@@ -377,8 +377,11 @@ class SimulatorDialog(tk.Toplevel):
                 self.waveformTypesList.append(self.totalwaveformTypesList[si] if self.totalwaveformTypesList != None else 'lines')
 
         if len(self.waveformList) == 1:
-            self.statusbar.set(ToSI(self.waveformList[0].td.K,'Pts')+' starting at '+ToSI(self.waveformList[0].td.H,'s')+' at '+
-                                    ToSI(self.waveformList[0].td.Fs,'S/s')+' (T = '+ToSI(1./self.waveformList[0].td.Fs,'s')+')')
+            if isinstance(self.waveformList[0],float):
+                self.statusbar.set('DC waveform  = '+str(self.waveformList[0]))
+            else:
+                self.statusbar.set(ToSI(self.waveformList[0].td.K,'Pts')+' starting at '+ToSI(self.waveformList[0].td.H,'s')+' at '+
+                                        ToSI(self.waveformList[0].td.Fs,'S/s')+' (T = '+ToSI(1./self.waveformList[0].td.Fs,'s')+')')
         elif len(self.waveformList) == 0:
             self.statusbar.set('No Waveforms')
         else:
@@ -436,7 +439,10 @@ class SimulatorDialog(tk.Toplevel):
         maxt=None
         for wfi in range(len(self.waveformList)):
             wf=self.waveformList[wfi]
-            wfTimes=wf.Times()
+            try:
+                wfTimes=wf.Times()
+            except AttributeError:
+                continue
             if len(wfTimes)==0:
                 continue
             wfValues=wf.Values()
@@ -468,24 +474,34 @@ class SimulatorDialog(tk.Toplevel):
         maxv=None
         for wfi in range(len(self.waveformList)):
             wf=self.waveformList[wfi]
-            wfTimes=wf.Times(timeLabelDivisor)
-            if len(wfTimes)==0:
-                continue
-            wfValues=wf.Values()
             wfName=str(self.waveformNamesList[wfi])
             wfColor=self.waveformColorIndexList[wfi]
             wfLineStyle='None' if self.waveformTypesList[wfi] == 'dots' else 'solid'
             wfMarkerStyle='o' if self.waveformTypesList[wfi] == 'dots' else 'None'
             plotlog=False
             plotdB=False
-            if plotlog:
-                self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName,c=wfColor)
-            elif plotdB:
-                self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
-            else:
-                self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor,linestyle=wfLineStyle,marker=wfMarkerStyle)
-            minv=min(wfValues) if minv is None else min(minv,min(wfValues))
-            maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
+            try:
+                wfTimes=wf.Times(timeLabelDivisor)
+                if len(wfTimes)==0:
+                    continue
+                wfValues=wf.Values()
+                if plotlog:
+                    self.plt.semilogy(wfTimes,wf.Values('abs'),label=wfName,c=wfColor)
+                elif plotdB:
+                    self.plt.plot(wfTimes,[max(20.*math.log10(abs(a)),-200.) for a in wf.Values('abs')],label=wfName,c=wfColor)
+                else:
+                    self.plt.plot(wfTimes,wfValues,label=wfName,c=wfColor,linestyle=wfLineStyle,marker=wfMarkerStyle)
+                minv=min(wfValues) if minv is None else min(minv,min(wfValues))
+                maxv=max(wfValues) if maxv is None else max(maxv,max(wfValues))
+            except AttributeError:
+                if plotlog:
+                    self.plt.axhline(math.log10(abs(wf)),label=wfName,c=wfColor)
+                elif plotdB:
+                    self.plt.axhline(max(20.*math.log10(abs(wf)),-200.),label=wfName,c=wfColor)
+                else:
+                    self.plt.axhline(wf,label=wfName,c=wfColor,linestyle=wfLineStyle,marker=wfMarkerStyle)
+                minv=wf if minv is None else min(minv,wf)
+                maxv=wf if maxv is None else max(maxv,wf)
 
         self.plt.set_xlabel('time ('+timeLabel+')',fontsize=10)
         if len(self.waveformList)>0: self.plt.legend(loc='upper right',labelspacing=0.1)
