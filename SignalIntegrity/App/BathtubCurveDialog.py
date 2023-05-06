@@ -84,7 +84,6 @@ class BathtubCurveDialog(tk.Toplevel):
                 NavigationToolbar2Tk.__init__(self,canvas,window)
 
         from matplotlib.figure import Figure
-        from matplotlib.collections import LineCollection
 
         if (measDict is None) or (not 'Bathtub' in measDict.keys()):
             self.withdraw()

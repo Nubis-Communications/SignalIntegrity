@@ -57,7 +57,6 @@ class SParametersDialog(tk.Toplevel):
         from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
         from matplotlib.figure import Figure
-        from matplotlib.collections import LineCollection
 
         from matplotlib import rcParams
         rcParams.update({'figure.autolayout': True})
@@ -960,6 +959,7 @@ class SParametersDialog(tk.Toplevel):
             sys.exit()
 
     def PlotSParameter(self):
+        from matplotlib.collections import LineCollection
         self.topLeftPlot.cla()
         self.topRightPlot.cla()
         self.bottomLeftPlot.cla()
