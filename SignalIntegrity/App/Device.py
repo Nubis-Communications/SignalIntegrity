@@ -120,7 +120,10 @@ class Device(object):
                     if waveform is None:
                         raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:
-                    waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+                    try:
+                        waveform = si.td.wf.Waveform().ReadFromFile(fileName)
+                    except:
+                        raise si.SignalIntegrityExceptionWaveform('waveform file: '+fileName+' could not be read')
             elif wfType == 'step':
                 amplitude=float(self['a'].GetValue())
                 startTime=float(self['t0'].GetValue())

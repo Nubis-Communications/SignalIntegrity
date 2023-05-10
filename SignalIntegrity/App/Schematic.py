@@ -18,6 +18,7 @@ Schematic.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
+
 if sys.version_info.major < 3:
     import Tkinter as tk
 else:
@@ -67,6 +68,12 @@ class Schematic(CallBacker):
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    def ThereAreOtherWaveforms(self):
+        for device in self.deviceList:
+            if device['partname']['Value'] in ['EyeWaveform','Waveform']:
+                if device['state']['Value'] == 'on':
+                    return True
+        return False
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:
@@ -435,6 +442,15 @@ class DrawingStateMachine(object):
             self.UnselectAllWires()
             Doer.inHelp = False
             self.parent.parent.config(cursor='left_ptr')
+
+            import platform
+            thisOS=platform.system()
+            if thisOS == 'Linux':
+                self.parent.canvas.bind('<Button-4>',self.onMouseWheel_Nothing)
+                self.parent.canvas.bind('<Button-5>',self.onMouseWheel_Nothing)
+            elif thisOS == 'Windows':
+                self.parent.canvas.bind('<MouseWheel>',self.onMouseWheel_Nothing)
+
             self.parent.canvas.bind('<Button-1>',self.onMouseButton1_Nothing)
             self.parent.canvas.bind('<Shift-Button-1>',self.onShiftMouseButton1_Nothing)
             self.parent.canvas.bind('<Shift-B1-Motion>',self.onShiftMouseButton1Motion_Nothing)
@@ -512,7 +528,41 @@ class DrawingStateMachine(object):
             self.parent.parent.EscapeDoer.Activate(False)
             self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.clear()
+            self.parent.parent.CreateTemporaryFile()
             self.parent.DrawSchematic()
+    def onMouseWheel_Nothing(self,event):
+        '''
+        This zooms by altering the grid, of course, but the trick is to adjust the drawing origin so that canvas coordinate of the point
+        where the mouse is remains constant throughout the zoom.
+        if X,Y are grid coordinates on the schematic, then
+        x=(X+originx)*grid,y=(Y=originy)*grid are the coordinates on the canvas.  So, if we zoom by an amount, then the following equation must
+        be obeyed:
+            (X+originx.initial)*grid = (X+originx.final)*(grid+amount).
+        Solving for originx.final:
+            originx.final=(grid*originx.initial-X*amount)/(grid+amount).
+        but X, from the original equation is:
+            X=(x-grid*originx)/grid,
+        so substituting for X:
+            originx.final=(grid*originx.initial-[(x-grid*originx)/grid]*amount)/(grid+amount),
+        which simpifies to:
+            originx.final=(grid^2*originx.initial-amount*x+amount*grid*originx.initial)/(grid*(grid+amount)).
+        Very confusing, which is why I documented this here.
+        '''
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        grid=float(drawingPropertiesProject['Grid'])
+        originx=float(drawingPropertiesProject['Originx'])
+        originy=float(drawingPropertiesProject['Originy'])
+        zoom_granularity=1
+        amount=0.0
+        if event.num == 5 or event.delta == -120:
+            amount=-zoom_granularity
+        if event.num == 4 or event.delta == 120:
+            amount=+zoom_granularity
+        drawingPropertiesProject['Originx']=((originx*grid**2+amount*originx*grid-amount*float(event.x))/(grid*(grid+amount)))
+        drawingPropertiesProject['Originy']=((originy*grid**2+amount*originy*grid-amount*float(event.y))/(grid*(grid+amount)))
+        drawingPropertiesProject['Originx']=int(round(drawingPropertiesProject['Originx']*1))/1
+        drawingPropertiesProject['Originy']=int(round(drawingPropertiesProject['Originy']*1))/1
+        self.parent.parent.Zoom(amount)
     def onMouseButton1_Nothing(self,event):
         if not self.Locked():
             self.onMouseButton1TryToSelectSomething(event)
@@ -533,7 +583,14 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_Nothing(self,event):
         pass
     def onMouseButton3_Nothing(self,event):
-        pass
+        if not self.Locked():
+            self.onMouseButton1TryToSelectSomething(event)
+            if self.parent.stateMachine.state=='DeviceSelected':
+                self.parent.stateMachine.onMouseButton3Release_DeviceSelected(event)
+            else:
+                self.SaveButton1Coordinates(event)
+                self.Panning()
+            self.Unlock()
     def onMouseButton1Motion_Nothing(self,event):
         pass
     def onMouseButton1Release_Nothing(self,event):
@@ -1031,6 +1088,7 @@ class DrawingStateMachine(object):
             self.parent.canvas.bind('<Control-ButtonRelease-1>',self.onControlMouseButton1Release_Panning)
             self.parent.canvas.bind('<Button-3>',self.onMouseButton3_Panning)
             self.parent.canvas.bind('<B1-Motion>',self.onMouseButton1Motion_Panning)
+            self.parent.canvas.bind('<B3-Motion>',self.onMouseButton1Motion_Panning)
             self.parent.canvas.bind('<ButtonRelease-1>',self.onMouseButton1Release_Panning)
             self.parent.canvas.bind('<ButtonRelease-3>',self.onMouseButton3Release_Panning)
             self.parent.canvas.bind('<Double-Button-1>',self.onMouseButton1Double_Panning)
