@@ -103,9 +103,10 @@ class SParameterPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
 
     def onNegativeTimeLimitEntered(self,event):
-        if self.project['TimeLimitNegative']>0.:
-            self.project['TimeLimitNegative']=0.0
-            self.negativeTimeFrame.UpdateStrings()
+#         if self.project['TimeLimitNegative']>0.:
+#             self.project['TimeLimitNegative']=0.0
+#             self.negativeTimeFrame.UpdateStrings()
+        pass
 
     def onPositiveTimeLimitEntered(self,event):
         if self.project['TimeLimitPositive']<0.:

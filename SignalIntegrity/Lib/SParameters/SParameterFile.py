@@ -43,12 +43,17 @@ class SParameterFile(SParameters):
 
         If the reference impedance of the Touchstone 1.0 file read is not the reference
         impedance specified, then the reference impedance of the s-parameters are converted
-        to the reference impedance specified. 
+        to the reference impedance specified.
 
         The callback function is used to pass down into s-parameter files that are actually
         SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
         updated.  The callback function should have a signature like Callback(self,number,name=None),
-        where the number is the progress in percent and the name is the name of the file being processed."""
+        where the number is the progress in percent and the name is the name of the file being processed.
+
+        If the name is the name of an s-parameter file and one of the kwarg keywords is 'text', then
+        the item associated with the keyword is assumed be a text stream containing s-parameter data to
+        directly fill in.  In this case, the file name is used only to determine the number of ports.
+        """
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
@@ -80,13 +85,16 @@ class SParameterFile(SParameters):
         # pragma: silent exclude
         self.header=[]
         try:
-        # pragma: include outdent
-            spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
-        # pragma: silent exclude indent
+            if 'text' in kwargs:
+                spfile=kwargs['text']
+            else:
+        # pragma: include outdent outdent
+                spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
+        # pragma: silent exclude
         except IOError:
             raise SignalIntegrityExceptionSParameterFile(name+' not found')
         readHeader=True
-        # pragma: include
+        # pragma: include indent indent
         for line in spfile:
             # pragma: silent exclude
             if readHeader:
@@ -111,7 +119,11 @@ class SParameterFile(SParameters):
                     if not self.m_sToken.lower() in lineList:
                         sp=False
                 else: numbersList.extend(lineList)
-        spfile.close()
+        # pragma: silent exclude
+        if not 'text' in kwargs:
+        # pragma: silent include outdent
+            spfile.close()
+        # pragma: indent
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
         frequencies = len(numbersList)//(1+self.m_P*self.m_P*2)
