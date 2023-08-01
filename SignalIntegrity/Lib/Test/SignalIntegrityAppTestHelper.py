@@ -198,7 +198,7 @@ class SignalIntegrityAppTestHelper:
             os.chdir(self.path)
             from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
             app=SignalIntegrityAppHeadless()
-            self.assertTrue(app.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
+            self.assertTrue(app.OpenProjectFile(os.path.realpath(filename),args=args),filename + ' couldnt be opened')
             self.assertTrue(app.Archive(),filename + ' couldnt be archived')
             self.assertTrue(app.ExtractArchive(os.path.splitext(filename)[0]+'.siz', args))
     def ArchiveCleanup(self,filename,app,archive=False):
@@ -212,7 +212,7 @@ class SignalIntegrityAppTestHelper:
         os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         pysi=SignalIntegrityAppHeadless()
-        self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
+        self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename),args=args),filename + ' couldnt be opened')
         #pysi.SaveProject()
         if checkPicture:
             self.PictureChecker(pysi,filename,archive)

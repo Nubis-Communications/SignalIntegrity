@@ -60,7 +60,7 @@ class TestSystemVariablesTest(unittest.TestCase,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def RelayTest(self,route):
         app=siapp.SignalIntegrityAppHeadless()
-        app.OpenProjectFile('RelayTest.si',{'Route':route})
+        app.OpenProjectFile('RelayTest.si',args={'Route':route})
         filename='RelayTest'+str(route)+'.si'
         app.SaveProjectToFile(filename)
         return filename
@@ -72,7 +72,7 @@ class TestSystemVariablesTest(unittest.TestCase,
         self.SParameterResultsChecker(self.RelayTest(3))
     def RelayTestSimulation(self,route,source):
         app=siapp.SignalIntegrityAppHeadless()
-        app.OpenProjectFile('RelayTestSimulation.si',{'Route':route,'Source':source})
+        app.OpenProjectFile('RelayTestSimulation.si',args={'Route':route,'Source':source})
         filename='RelayTestSimulation'+str(route)+str(source)+'.si'
         app.SaveProjectToFile(filename)
         return filename
@@ -93,7 +93,7 @@ class TestSystemVariablesTest(unittest.TestCase,
     def WirebondTest(self,number,length,diameter,material):
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile('RoundWireBondMaterial.si',
-                            {'L':length,
+                            args={'L':length,
                              'D':diameter,
                              'material':material})
         filename='RoundWireBondMaterialTest_'+str(number)+'.si'

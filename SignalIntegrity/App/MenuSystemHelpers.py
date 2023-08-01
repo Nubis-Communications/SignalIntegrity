@@ -225,6 +225,7 @@ class StatusBar(tk.Frame):
         self.label.pack(fill=tk.X)
     def set(self, format, *args):
         self.label.config(text=format % args)
+        self.label.update()
         self.label.update_idletasks()
     def clear(self):
         self.label.config(text="")

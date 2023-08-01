@@ -407,12 +407,16 @@ class ProjectFile(ProjectFileBase):
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
-    def Read(self,filename=None):
-        if not filename is None:
-            ProjectFileBase.Read(self, filename)
+    def FromText(self,text):
+        ProjectFileBase.FromText(self, text)
         return self
 
-    def Write(self,app,filename=None):
+    def Read(self,filename=None,pwd=None):
+        if filename != None:
+            ProjectFileBase.Read(self, filename, pwd)
+        return self
+
+    def Write(self,app,filename=None,password=None):
         self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
         for d in range(len(self['Drawing.Schematic.Devices'])):
             deviceProject=self['Drawing.Schematic.Devices'][d]
@@ -439,7 +443,7 @@ class ProjectFile(ProjectFileBase):
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
         if not filename is None:
-            ProjectFileBase.Write(self,filename)
+            ProjectFileBase.Write(self,filename,password)
         return self
 
     @staticmethod

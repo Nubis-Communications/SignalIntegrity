@@ -17,6 +17,7 @@ ProjectFileBase.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
+import os
 
 class XMLProperty(object):
     def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None):
@@ -359,20 +360,47 @@ class ProjectFileBase(object):
         except:
             return True
 
-    def Write(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
-        with open(filename,'w') as f:
-            f.writelines(self.LinesToWrite())
+    def Write(self,filename,password=None):
+        fullName,ext=os.path.splitext(filename)
+        baseName=os.path.basename(fullName)
+        if ext == '.zip':
+            import zipfile
+            zipf = zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED)
+            zipf.setpassword(None if password == None else password.encode())
+            zipf.writestr(baseName+'.si', ''.join(self.LinesToWrite()))
+            zipf.close()
+        else:
+            if ext != self.ext:
+                filename=filename.split('.')[0]+'.'+self.ext
+            with open(filename,'w') as f:
+                f.writelines(self.LinesToWrite())
         return self
 
-    def Read(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
-        tree=et.parse(filename)
+    def FromText(self,text):
+        xmlstring=''.join(text)
+        tree=et.ElementTree(et.fromstring(xmlstring))
         root=tree.getroot()
         self.Parse(root)
         self.SetChanged(True)
+        return self
+
+    def Read(self,filename,pwd=None):
+        ext=filename.split('.')[-1]
+        if ext == 'zip':
+            import zipfile
+            zipdata = zipfile.ZipFile(filename)
+            zipinfos=zipdata.infolist()
+            if len(zipinfos) != 1:
+                raise ValueError
+            zipitem=zipinfos[0]
+            password = pwd.encode() if pwd != None else None
+            text = [str(line,'UTF-8').strip() for line in zipdata.open(zipitem.filename, pwd = password).readlines()]
+        else:
+            if ext != self.ext:
+                filename=filename+'.'+self.ext
+            with open(filename,'r') as f:
+                text=f.readlines()
+        self.FromText(text)
         return self
 
     def Parse(self,element):

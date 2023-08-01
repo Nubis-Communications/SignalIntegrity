@@ -71,7 +71,7 @@ from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(tk.Frame):
-    def __init__(self,projectFileName=None,runMainLoop=True,external=False,args={}):
+    def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={}):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
@@ -355,12 +355,12 @@ class SignalIntegrityApp(tk.Frame):
 
         if not projectFileName == None:
             try:
-                fileparts=FileParts(projectFileName)
+                fileparts=FileParts(projectFileName,pwd)
                 ext=fileparts.fileext
-                if ext in ['.si','']:
-                    self.OpenProjectFile(projectFileName,False,args)
+                if ext in ['.si','','.zip']:
+                    self.OpenProjectFile(projectFileName,pwd=pwd,showError=False,args=args)
                 elif ext in ['.siz']:
-                    self.ExtractArchive(projectFileName,args)
+                    self.ExtractArchive(projectFileName,args=args)
             except:
                 self.onClearSchematic()
                 self.Drawing.stateMachine.NoProject(True)
@@ -371,7 +371,7 @@ class SignalIntegrityApp(tk.Frame):
         deiconify=True # assume s-parameter viewer will not run standalone
         if not projectFileName == None:
             if self.Drawing.stateMachine.state == 'NoProject':
-                fileparts=FileParts(projectFileName)
+                fileparts=FileParts(projectFileName,pwd)
                 ext=fileparts.fileext
                 if ext=='.cal':
                     self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
@@ -450,12 +450,24 @@ class SignalIntegrityApp(tk.Frame):
         if not self.CheckSaveCurrentProject():
             return
 
-        filename=AskOpenFileName(filetypes=[('si', '.si')],
-                                 initialdir=self.fileparts.AbsoluteFilePath(),
-                                 initialfile=self.fileparts.FileNameWithExtension('.si'))
+        initialfile=self.fileparts.FileNameWithExtension()
+        if not self.fileparts.fileext in ['.si','.zip']:
+            initialfile=self.fileparts.FileNameWithExtension('si')
+
+        filename = AskOpenFileName(filetypes=[('si', '.si'),('zip','.zip')],
+                                   initialdir=self.fileparts.AbsoluteFilePath(),
+                                   initialfile=initialfile)
+
         if filename is None:
             return
-        self.OpenProjectFile(filename)
+
+        password=None
+        if os.path.splitext(filename)[-1]=='.zip':
+            password=tk.simpledialog.askstring('password', 'enter a password for the file')
+
+        if password == '': password=None
+
+        self.OpenProjectFile(filename,pwd=password)
 
     def SetVariables(self,args,reportMissing=False):
         variableNames = SignalIntegrity.App.Project['Variables'].Names()
@@ -470,7 +482,7 @@ class SignalIntegrityApp(tk.Frame):
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,showError=True,args={}):
+    def OpenProjectFile(self,filename,pwd=None,showError=True,args={}):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -483,13 +495,16 @@ class SignalIntegrityApp(tk.Frame):
 
         try:
             cd=os.getcwd()
-            self.fileparts=FileParts(filename)
+            self.fileparts=FileParts(filename,pwd)
             os.chdir(self.fileparts.AbsoluteFilePath())
-            self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.fileparts=FileParts(filename,pwd)
+            if self.fileparts.fileext in ['.si','.zip']:
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension(),pwd=pwd)
+            else:
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
             self.SetVariables(args, reportMissing=True)
             self.Drawing.InitFromProject()
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+            self.AnotherFileOpened(self.fileparts.FullFilePathExtension())
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
             self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle()+(' (Archive)'
@@ -503,12 +518,18 @@ class SignalIntegrityApp(tk.Frame):
     def onNewProject(self):
         if not self.CheckSaveCurrentProject():
             return
-        filename=AskSaveAsFilename(filetypes=[('si', '.si')],
+        filename=AskSaveAsFilename(filetypes=[('si', '.si'),('zip','.zip')],
                                    defaultextension='.si',
                                    initialdir=self.fileparts.AbsoluteFilePath(),
                                    title='new project file')
         if filename is None:
             return
+
+        password=None
+        if os.path.splitext(filename)[-1]=='.zip':
+            password=tk.simpledialog.askstring('password', 'enter a password for the file')
+
+        if password == '': password=None
 
         self.simulator.DeleteDialogs()
 
@@ -517,7 +538,7 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.InitFromProject()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
-        self.SaveProjectToFile(filename)
+        self.SaveProjectToFile(filename,password)
 
     def onCloseProject(self):
         if not self.CheckSaveCurrentProject():
@@ -531,12 +552,12 @@ class SignalIntegrityApp(tk.Frame):
         self.root.title('SignalIntegrity')
         self.Drawing.stateMachine.NoProject(True)
 
-    def SaveProjectToFile(self,filename):
+    def SaveProjectToFile(self,filename,password=None):
         self.Drawing.stateMachine.Nothing()
-        self.fileparts=FileParts(filename)
+        self.fileparts=FileParts(filename,password)
         os.chdir(self.fileparts.AbsoluteFilePath())
-        self.fileparts=FileParts(filename)
-        SignalIntegrity.App.Project.Write(self,filename)
+        self.fileparts=FileParts(filename,password)
+        SignalIntegrity.App.Project.Write(self,filename,password)
         filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
         self.root.title("SignalIntegrity: "+self.fileparts.FileNameTitle())
@@ -545,17 +566,34 @@ class SignalIntegrityApp(tk.Frame):
     def onSaveProject(self):
         if self.fileparts.filename=='':
             return
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
-        self.SaveProjectToFile(filename)
+        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension()
+        password=self.fileparts.Password()
+        self.SaveProjectToFile(filename,password)
 
     def onSaveAsProject(self):
-        filename=AskSaveAsFilename(filetypes=[('si', '.si')],
+
+        initialfile=self.fileparts.FileNameWithExtension()
+        if not self.fileparts.fileext in ['.si','.zip']:
+            initialfile=self.fileparts.FileNameWithExtension('si')
+
+        if self.fileparts.fileext == '.zip':
+            filetypes=[('zip','.zip'),('si', '.si')]
+        else:
+            filetypes=[('si', '.si'),('zip','.zip')]
+
+        filename=AskSaveAsFilename(filetypes=filetypes,
                                    defaultextension='.si',
-                                   initialfile=self.fileparts.FileNameWithExtension('.si'),
+                                   initialfile=initialfile,
                                    initialdir=self.fileparts.AbsoluteFilePath())
         if filename is None:
             return False
-        self.SaveProjectToFile(filename)
+
+        password=None
+        if os.path.splitext(filename)[-1]=='.zip':
+            password=tk.simpledialog.askstring('password', 'enter a password for the file')
+
+        if password == '': password=None
+        self.SaveProjectToFile(filename,password)
         return True
 
     def onClearSchematic(self):
@@ -1413,7 +1451,7 @@ class SignalIntegrityApp(tk.Frame):
         if filename is None:
             return
 
-        self.OpenProjectFile(filename,args)
+        self.OpenProjectFile(filename,args=args)
 
     def onExtractArchive(self):
         if not self.CheckSaveCurrentProject():
@@ -1461,19 +1499,29 @@ class SignalIntegrityApp(tk.Frame):
         msg=messagebox.showinfo('Archive Unextract','Archive Unextracted')
 
 def main():
-    projectFileName = None
-    external=False
-    argsDict={}
-    if len(sys.argv) >= 2:
-        projectFileName=sys.argv[1]
+    import argparse
+    parser = argparse.ArgumentParser(
+                    prog='SignalIntegrity',
+                    description='Signal and Power Integrity Tools',
+                    epilog='SignalIntegrity')
+    parser.add_argument('filename',nargs='?',default=None)           # positional argument
+    parser.add_argument('-pwd', '--pwd')      # option that takes a value
+    parser.add_argument('-e', '--external', action='store_true')  # on/off flag
+    args, unknown = parser.parse_known_args()
 
-    if len(sys.argv) >= 3:
-        if sys.argv[2] == '--external':
-            external = True
+#     dictStart = 1
+#     if args.filename != None:
+#         dictStart+=1
+#     if args.external:
+#         dictStart+=1
+#     if args.pwd != None:
+#         dictStart+=2
+# 
+#     argsDict=dict(zip(sys.argv[dictStart::2],sys.argv[(dictStart+1)::2]))
 
-        argsDict=dict(zip(sys.argv[3::2],sys.argv[4::2]))
+    argsDict=dict(zip(unknown[0::2],unknown[1::2]))
 
-    SignalIntegrityApp(projectFileName,external=external,args=argsDict)
+    SignalIntegrityApp(args.filename,pwd=args.pwd,external=args.external,args=argsDict)
 
 if __name__ == '__main__': # pragma: no cover
     runProfiler=False

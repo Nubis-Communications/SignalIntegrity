@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+27+56</Geometry>
+			<Geometry>711x363+78+78</Geometry>
 			<Grid>24.0</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -24,7 +24,19 @@
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>file</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pwd</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>None</Value>
 							<Visible>False</Visible>
@@ -214,4 +226,7 @@
 			</Devices>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 </Project>

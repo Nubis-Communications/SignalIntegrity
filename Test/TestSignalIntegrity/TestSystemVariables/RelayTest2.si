@@ -204,6 +204,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
@@ -260,6 +266,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>RCFilter/RCTest.si</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value></Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>

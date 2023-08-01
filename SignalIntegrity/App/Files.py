@@ -28,7 +28,10 @@ def ConvertFileNameToRelativePath(filename):
     return filename
 
 class FileParts(object):
-    def __init__(self,filename=None):
+    def __init__(self,filename=None,password=None):
+        if password in ['','None',None]:
+            password=None
+        self.password=password
         if not filename is None:
             filename=str(filename)
         else:
@@ -80,6 +83,8 @@ class FileParts(object):
         return self.filepath
     def AbsoluteFilePath(self):
         return os.path.abspath(self.filepath)
+    def Password(self):
+        return self.password
 
 
 

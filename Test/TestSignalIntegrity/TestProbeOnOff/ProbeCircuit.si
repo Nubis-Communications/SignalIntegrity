@@ -252,6 +252,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>4</Value>

@@ -195,6 +195,10 @@ class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'filename',type='file',unit=None,keyword='file',description='file name',value=fileName)
 
+class PartPropertyPassword(PartProperty):
+    def __init__(self,password=''):
+        PartProperty.__init__(self,'password',type='string',unit=None,keyword='pwd',description='password',value=password)
+
 class PartPropertyErrorTermsFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'errorterms',type='file',unit=None,keyword='et',description='error terms',value=fileName)

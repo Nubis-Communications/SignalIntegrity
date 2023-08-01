@@ -105,8 +105,8 @@ class DeviceFactory(list):
         @note Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used.
         """
         list.__init__(self,[
-        ParserDevice('file',None,True,{'':None},True,"SParameterFile(arg['']\
-            ,None,callback,**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
+        ParserDevice('file',None,True,{'':None,'pwd':''},True,"SParameterFile(arg['']\
+            ,None,callback,None,arg['pwd'],**extraArgs).Resample(f).SetReferenceImpedance(50.)"),
         ParserDevice('c',1,True,{'':None,'df':0.,'esr':0.,'z0':50.},True,
             "TerminationC(f,float(arg['']),float(arg['z0']),\
             float(arg['df']),float(arg['esr']))"),

@@ -165,7 +165,7 @@ class SignalIntegrityAppHeadless(object):
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,args={}):
+    def OpenProjectFile(self,filename,pwd=None,args={}):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -174,10 +174,13 @@ class SignalIntegrityAppHeadless(object):
         if filename=='':
             return False
         try:
-            self.fileparts=FileParts(filename)
+            self.fileparts=FileParts(filename,pwd)
             os.chdir(self.fileparts.AbsoluteFilePath())
-            self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.fileparts=FileParts(filename,pwd)
+            if self.fileparts.fileext in ['.si','.zip']:
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension(),pwd)
+            else:
+                SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
             self.SetVariables(args, True)
             self.Drawing.InitFromProject()
         except:
@@ -185,22 +188,23 @@ class SignalIntegrityAppHeadless(object):
         self.Drawing.schematic.Consolidate()
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
+            device.CreateVisiblePropertiesList()
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             for vertexProject in wireProject['Vertices']:
                 vertexProject['Selected']=False
         return True
 
-    def SaveProjectToFile(self,filename):
-        self.fileparts=FileParts(filename)
+    def SaveProjectToFile(self,filename,password=None):
+        self.fileparts=FileParts(filename,password)
         os.chdir(self.fileparts.AbsoluteFilePath())
-        self.fileparts=FileParts(filename)
-        SignalIntegrity.App.Project.Write(self,filename)
+        self.fileparts=FileParts(filename,password)
+        SignalIntegrity.App.Project.Write(self,filename,password)
 
     def SaveProject(self):
         if self.fileparts.filename=='':
             return
         filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
-        self.SaveProjectToFile(filename)
+        self.SaveProjectToFile(filename,self.fileparts.Password())
 
     def NetListText(self):
         return self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
@@ -817,7 +821,7 @@ class SignalIntegrityAppHeadless(object):
         if filename is None:
             return False
 
-        return self.OpenProjectFile(filename,args)
+        return self.OpenProjectFile(filename,args=args)
 
     def FreshenArchive(self):
         try:
@@ -837,15 +841,15 @@ class SignalIntegrityAppHeadless(object):
             return False
         return True
 
-def ProjectSParameters(filename,callback,**kwargs):
+def ProjectSParameters(filename,pwd=None,callback=None,**kwargs):
     if callback != None:
-        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
+        if not callback(0,'+'+FileParts(filename,pwd).FileNameTitle()):
             return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+        if app.OpenProjectFile(os.path.realpath(filename),pwd=pwd,args=kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
@@ -875,7 +879,7 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
     wf=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+        if app.OpenProjectFile(os.path.realpath(filename),args=kwargs):
             app.Drawing.DrawSchematic()
             result=None
             if app.Drawing.canSimulate:
@@ -902,7 +906,7 @@ def ProjectCalibration(filename,callback,**kwargs):
     result=None
     try:
         app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+        if app.OpenProjectFile(os.path.realpath(filename),args=kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
                 result=app.CalculateErrorTerms(callback)[0]
@@ -938,7 +942,7 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
         result=0
         try:
             app=SignalIntegrityAppHeadless()
-            if not app.OpenProjectFile(os.path.realpath(fileName),args):
+            if not app.OpenProjectFile(os.path.realpath(fileName),args=args):
                 raise ValueError
             app.Drawing.DrawSchematic()
             import SignalIntegrity.App.Project

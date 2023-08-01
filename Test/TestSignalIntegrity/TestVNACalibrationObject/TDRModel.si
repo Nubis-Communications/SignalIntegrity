@@ -504,6 +504,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>3</Value>
@@ -538,6 +544,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>TDRPort2Model.si</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -792,6 +804,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>3</Value>
@@ -1042,6 +1060,12 @@
 							<KeywordVisible>False</KeywordVisible>
 							<Value>TDRPort2Model.si</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pwd</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>None</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>

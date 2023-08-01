@@ -107,12 +107,12 @@ class DeviceProperty(tk.Frame):
             initialFile=''
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
-            if currentFileParts.fileext in ['.si',extension[0]]:
+            if currentFileParts.fileext in ['.si','.zip',extension[0]]:
                 initialFile=currentFileParts.FileNameWithExtension()
             else:
                 initialFile=currentFileParts.filename+extension[0]
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension),('project','.si')],
+                                 filetypes=[(filetypename,extension),('project','.si'),('zipped','.zip')],
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -127,7 +127,7 @@ class DeviceProperty(tk.Frame):
             self.callBack()
         if self.partProperty['PropertyName'] == 'waveformfilename':
             filename=self.partProperty.GetValue()
-            isProject=FileParts(filename).fileext == '.si'
+            isProject=FileParts(filename).fileext in ['.si','.zip']
             for propertyFrame in self.parent.propertyFrameList:
                 if propertyFrame.partProperty['PropertyName']=='wfprojname':
                     propertyFrame.partProperty['Hidden']=not isProject
@@ -138,7 +138,7 @@ class DeviceProperty(tk.Frame):
         filename=self.partProperty.GetValue()
         if filename != '':
             import SignalIntegrity.Lib as si
-            if FileParts(filename).fileext == '.si':
+            if FileParts(filename).fileext in ['.si','.zip']:
                 def fileTreatment(value,typeString):
                     if typeString == 'file':
                         value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
@@ -155,7 +155,15 @@ class DeviceProperty(tk.Frame):
                 if useCalculationProperties:
                     calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
                     kwPairs+=' '+' '.join([propertyName+' '+str(calculationProperties[propertyName]) for propertyName in ['EndFrequency','FrequencyPoints','UserSampleRate']])
-                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'" --external '+kwPairs)
+
+                try:
+                    password = self.device['pwd']['Value']
+                except:
+                    password = None
+
+                passwordString = '-pwd '+password+' ' if password not in [None,'','None'] else ''
+
+                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'" --external '+passwordString+kwPairs)
                 if result != 0:
                     messagebox.showerror('ProjectFile','could not be opened')
                     return
@@ -231,7 +239,7 @@ class DeviceProperty(tk.Frame):
         self.partProperty.SetValueFromString(self.propertyString.get(),True)
         if self.partProperty['PropertyName'] == 'waveformfilename':
             filename=self.partProperty.GetValue()
-            isProject=FileParts(filename).fileext == '.si'
+            isProject=FileParts(filename).fileext in ['.si','.zip']
             for propertyFrame in self.parent.propertyFrameList:
                 if propertyFrame.partProperty['PropertyName']=='wfprojname':
                     propertyFrame.partProperty['Hidden']=not isProject
@@ -284,7 +292,7 @@ class DeviceProperties(tk.Frame):
         if 'wffile' in keywords:
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
             ext=str.lower(fileName).split('.')[-1]
-            self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')
+            self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext not in ['si','zip'])
         propertyListFrame = tk.Frame(self)
         propertyListFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         propertyListFrame.bind("<Return>", parent.ok)

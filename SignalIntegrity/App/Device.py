@@ -21,6 +21,7 @@ from SignalIntegrity.App.PartPicture import *
 from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
 from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
 import math
+import os
 
 class Device(object):
     def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=[]):
@@ -109,7 +110,7 @@ class Device(object):
                     if fileName[1:] in variables.Names():
                         fileName=variables.VariableByName(fileName[1:]).Value()
                 ext=str.lower(fileName).split('.')[-1]
-                if ext == 'si':
+                if ext in ['si','zip']:
                     from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
                     import SignalIntegrity.App.Project
                     args=SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
@@ -294,14 +295,26 @@ class DeviceFromProject(object):
 
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(values=[('file',True)])
+        netlist=DeviceNetListLine(values=[('file',True),('pwd',True)])
         Device.__init__(self,netlist,[
             PartPropertyCategory('Files'),
             PartPropertyPartName('File'),
             PartPropertyHelp('device:File'),
             PartPropertyCalculationProperties(),
             PartPropertyDefaultReferenceDesignator('D?'),
-            PartPropertyFileName()]+propertiesList,partPicture)
+            PartPropertyFileName(),
+            PartPropertyPassword()]+propertiesList,partPicture)
+    def CreateVisiblePropertiesList(self):
+        values=[('file',True)]
+        if os.path.splitext(self['file']['Value'])[-1] == '.zip':
+            self['pwd']['Hidden']=False
+            if self['pwd']['Value'] not in ['None','']:
+                values+=[('pwd',True)]
+        else:
+            self['pwd']['Hidden']=True
+        self.netlist = DeviceNetListLine(values=values)
+        Device.CreateVisiblePropertiesList(self)
+
 
 class DeviceUnknown(Device):
     def __init__(self,propertiesList,partPicture):
@@ -447,7 +460,18 @@ class DeviceVoltageSource(Device):
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
-            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+            PartPropertyWaveformProjectName(''),
+            PartPropertyPassword()]+propertiesList,partPicture)
+    def CreateVisiblePropertiesList(self):
+        values=[('file',True)]
+#         if os.path.splitext(self['file']['Value'])[-1] == '.zip':
+#             self['pwd']['Hidden']=False
+#             if self['pwd']['Value'] not in ['None','']:
+#                 values+=[('pwd',True)]
+#         else:
+#             self['pwd']['Hidden']=True
+#         self.netlist = DeviceNetListLine(values=values)
+        Device.CreateVisiblePropertiesList(self)
 
 class DeviceVoltageStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -588,7 +612,8 @@ class DeviceCurrentSource(Device):
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
-            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+            PartPropertyWaveformProjectName(''),
+            PartPropertyPassword()]+propertiesList,partPicture)
 
 class DeviceCurrentStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -671,7 +696,8 @@ class DeviceMeasurement(Device):
                          PartPropertyCalculationProperties(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
-                         PartPropertyWaveformProjectName('')],
+                         PartPropertyWaveformProjectName(''),
+                         PartPropertyPassword()],
                         PartPictureVariableMeasureProbe())
 
 class DeviceOutput(Device):
@@ -712,7 +738,8 @@ class DeviceWaveform(Device):
                          PartPropertyDelay(0.0),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
-                         PartPropertyWaveformProjectName('')],
+                         PartPropertyWaveformProjectName(''),
+                         PartPropertyPassword()],
                         PartPictureVariableProbeWaveform())
         self['gain']['Visible']=False
         self['offset']['Visible']=False
@@ -1371,7 +1398,8 @@ class DeviceImpulseResponseFilter(Device):
                          PartPropertyDCGain(),
                          PartPropertyMulTs(),
                          PartPropertyDerivative(),
-                         PartPropertyWaveformProjectName('')],
+                         PartPropertyWaveformProjectName(''),
+                         PartPropertyPassword()],
                          PartPictureVariableImpulseResponseFilter())
         self['wffile']['Description']='impulse response file name'
 
@@ -1427,7 +1455,8 @@ class DeviceEyeWaveform(Device):
                          PartPropertyBaudRate(),
                          PartPropertyWaveformFileName(),
                          PartPropertyWaveformType('file'),
-                         PartPropertyWaveformProjectName('')],
+                         PartPropertyWaveformProjectName(''),
+                         PartPropertyPassword()],
                         PartPictureVariableEyeWaveform(),
                         EyeDiagramConfiguration())
         self['gain']['Visible']=False

@@ -32,14 +32,22 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
-    def __init__(self,name,Z0=None,callback=None,**kwargs):
+    def __init__(self,name,Z0=None,callback=None,text=None,pwd=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
         @param Z0 (optional) real or complex reference impedance desired (defaults to 50 ohms).
         @param callback function ptr (optional, defaults to None) callback function.
+        @param text string (optional, defaults to None) text to be directly filled in.  See below.
+        @param pwd string (optionsl, defaults to None) password for decrypting .zip files.
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
 
-        Reads the s-parameter file and produces an instance of its base class SParameters.  
+        Reads the s-parameter file and produces an instance of its base class SParameters.
+
+        valid file extensions are .sNp (i.e. Touchstone file), .si (SignalIntegrity project
+        file, or .zip.
+
+        if the extension is .zip, then there must be exactly one file in the zip, and this file
+        must be either .sNp or .si, where the appropriate action is taken.
 
         If the reference impedance of the Touchstone 1.0 file read is not the reference
         impedance specified, then the reference impedance of the s-parameters are converted
@@ -50,23 +58,50 @@ class SParameterFile(SParameters):
         updated.  The callback function should have a signature like Callback(self,number,name=None),
         where the number is the progress in percent and the name is the name of the file being processed.
 
-        If the name is the name of an s-parameter file and one of the kwarg keywords is 'text', then
+        If the name is the name of an s-parameter file and text is not None, then
         the item associated with the keyword is assumed be a text stream containing s-parameter data to
         directly fill in.  In this case, the file name is used only to determine the number of ports.
         """
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
+        if pwd == '': pwd = None
         ext=str.lower(name).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
-            sp=ProjectSParameters(name,callback,**kwargs)
+            sp=ProjectSParameters(name,pwd=pwd,callback=callback,**kwargs)
             if not sp is None:
                 SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
                 self.SetReferenceImpedance(Z0)
                 return
             else:
                 raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)
+        # pragma: silent exclude
+        elif ext == 'zip':
+            # special handling of zip file
+            import zipfile
+            try:
+                zipdata = zipfile.ZipFile(name)
+                zipinfos=zipdata.infolist()
+                if len(zipinfos) != 1:
+                    raise ValueError
+                zipitem=zipinfos[0]
+                ext=str.lower(zipitem.filename).split('.')[-1]
+                if ext == 'si':
+                    from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
+                    sp=ProjectSParameters(name,pwd=pwd,callback=callback,**kwargs)
+                    if not sp is None:
+                        SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+                        self.SetReferenceImpedance(Z0)
+                        return
+                    else:
+                        raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)
+                else:
+                    password = pwd.encode() if pwd != None else None
+                    text = [str(line,'UTF-8').strip() for line in zipdata.open(zipitem.filename, pwd = password).readlines()]
+                    self.m_P=int(str.lower(zipitem.filename).split('.')[-1].split('s')[1].split('p')[0])
+            except:
+                raise SignalIntegrityExceptionSParameterFile('cannot read s-parameters in '+name)
         else:
             try:
             # pragma: include outdent outdent
@@ -85,8 +120,8 @@ class SParameterFile(SParameters):
         # pragma: silent exclude
         self.header=[]
         try:
-            if 'text' in kwargs:
-                spfile=kwargs['text']
+            if text != None:
+                spfile=text
             else:
         # pragma: include outdent outdent
                 spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
@@ -120,7 +155,7 @@ class SParameterFile(SParameters):
                         sp=False
                 else: numbersList.extend(lineList)
         # pragma: silent exclude
-        if not 'text' in kwargs:
+        if text == None:
         # pragma: silent include outdent
             spfile.close()
         # pragma: indent
