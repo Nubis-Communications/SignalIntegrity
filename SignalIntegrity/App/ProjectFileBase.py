@@ -17,6 +17,8 @@ ProjectFileBase.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
+import os
+from SignalIntegrity.App.Encryption import Encryption
 
 class XMLProperty(object):
     def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None):
@@ -325,10 +327,10 @@ class ProjectFileBase(object):
         return lines
 
     def LinesInFile(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
-        with open(filename,'r') as f:
-            lines=f.readlines()
+        filenamebase,ext=os.path.splitext(filename)
+        if ext != '.'+self.ext:
+            filename=filenamebase+'.'+self.ext
+        lines=Encryption().ReadEncryptedLines(filename,split=True)
         return lines
 
     def CheckFileChanged(self,filename):
@@ -359,20 +361,28 @@ class ProjectFileBase(object):
         except:
             return True
 
+
     def Write(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
-        with open(filename,'w') as f:
-            f.writelines(self.LinesToWrite())
+        filenamebase,ext=os.path.splitext(filename)
+        if ext != '.'+self.ext:
+            filename=filenamebase+'.'+self.ext
+        Encryption().WriteEncryptedLines(filename,self.LinesToWrite())
         return self
 
-    def Read(self,filename):
-        if not filename.split('.')[-1] == self.ext:
-            filename=filename+'.'+self.ext
-        tree=et.parse(filename)
+    def FromText(self,text):
+        xmlstring=''.join(text)
+        tree=et.ElementTree(et.fromstring(xmlstring))
         root=tree.getroot()
         self.Parse(root)
         self.SetChanged(True)
+        return self
+
+    def Read(self,filename):
+        filenamebase,ext=os.path.splitext(filename)
+        if ext != '.'+self.ext:
+            filename=filenamebase+'.'+self.ext
+        text=Encryption().ReadEncryptedLines(filename,split=False)
+        self.FromText(text)
         return self
 
     def Parse(self,element):

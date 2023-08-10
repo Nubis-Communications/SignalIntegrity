@@ -84,15 +84,14 @@ class SParameterFile(SParameters):
         numbersList=[]
         # pragma: silent exclude
         self.header=[]
-        try:
-            if 'text' in kwargs:
-                spfile=kwargs['text']
-            else:
-        # pragma: include outdent outdent
-                spfile=open(name,'rU' if sys.version_info.major < 3 else 'r')
-        # pragma: silent exclude
-        except IOError:
-            raise SignalIntegrityExceptionSParameterFile(name+' not found')
+        if 'text' in kwargs:
+            spfile=kwargs['text']
+        else:
+            try:
+                from SignalIntegrity.App.Encryption import Encryption
+                spfile=Encryption().ReadEncryptedLines(name)
+            except IOError:
+                raise SignalIntegrityExceptionSParameterFile(name+' not found')
         readHeader=True
         # pragma: include indent indent
         for line in spfile:
@@ -119,11 +118,6 @@ class SParameterFile(SParameters):
                     if not self.m_sToken.lower() in lineList:
                         sp=False
                 else: numbersList.extend(lineList)
-        # pragma: silent exclude
-        if not 'text' in kwargs:
-        # pragma: silent include outdent
-            spfile.close()
-        # pragma: indent
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
         frequencies = len(numbersList)//(1+self.m_P*self.m_P*2)

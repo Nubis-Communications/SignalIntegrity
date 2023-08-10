@@ -66,12 +66,13 @@ from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
+from SignalIntegrity.App.Encryption import Encryption
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(tk.Frame):
-    def __init__(self,projectFileName=None,runMainLoop=True,external=False,args={}):
+    def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={}):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
 
@@ -329,6 +330,18 @@ class SignalIntegrityApp(tk.Frame):
 
         SignalIntegrity.App.Project=ProjectFile()
         self.Drawing.InitFromProject()
+
+        if pwd == None:
+            pwd = SignalIntegrity.App.Preferences['ProjectFiles.Encryption.Password']
+            if pwd in ['','None',None]:
+                pwd = None
+        ending = SignalIntegrity.App.Preferences['ProjectFiles.Encryption.Ending']
+        if ending in ['','None',None]:
+            ending = '$'
+            SignalIntegrity.App.Preferences['ProjectFiles.Encryption.Ending'] = ending
+            SignalIntegrity.App.Preferences.SaveToFile()
+
+        Encryption(pwd=pwd,ending=ending)
 
         # The Simulator Dialog
         self.simulator = Simulator(self)
@@ -1461,20 +1474,19 @@ class SignalIntegrityApp(tk.Frame):
         msg=messagebox.showinfo('Archive Unextract','Archive Unextracted')
 
 def main():
-    projectFileName = None
-    external=False
-    argsDict={}
-    if len(sys.argv) >= 2:
-        projectFileName=sys.argv[1]
+    import argparse
+    parser = argparse.ArgumentParser(
+                    prog='SignalIntegrity',
+                    description='Signal and Power Integrity Tools',
+                    epilog='SignalIntegrity')
+    parser.add_argument('filename',nargs='?',default=None)           # positional argument
+    parser.add_argument('-pwd', '--pwd')      # option that takes a value
+    parser.add_argument('-e', '--external', action='store_true')  # on/off flag
+    args, unknown = parser.parse_known_args()
 
-    if len(sys.argv) >= 3:
-        if sys.argv[2] == '--external':
-            external = True
-
-        argsDict=dict(zip(sys.argv[3::2],sys.argv[4::2]))
-
-    SignalIntegrityApp(projectFileName,external=external,args=argsDict)
-
+    argsDict=dict(zip(unknown[0::2],unknown[1::2]))
+    SignalIntegrityApp(args.filename,pwd=args.pwd,external=args.external,args=argsDict)
+ 
 if __name__ == '__main__': # pragma: no cover
     runProfiler=False
 

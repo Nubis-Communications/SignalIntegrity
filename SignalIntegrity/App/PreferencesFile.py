@@ -186,6 +186,15 @@ class LastFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Name'))
         self.Add(XMLPropertyDefaultString('Directory'))
 
+class Encryption(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Encryption')
+        self.Add(XMLPropertyDefaultString('Password',''))
+        self.Add(XMLPropertyDefaultString('Ending','$'))
+    def ApplyPreferences(self):
+        from SignalIntegrity.App.Encryption import Encryption
+        Encryption(pwd=self['Password'],ending=self['Ending'])
+
 class ProjectFiles(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'ProjectFiles')
@@ -194,6 +203,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
+        self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):
     def __init__(self):
@@ -219,4 +229,7 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(DeviceConfigurations())
         self.SubDir(Variables())
         self.SubDir(Features())
+    def ApplyPreferences(self):
+        self['Calculation'].ApplyPreferences()
+        self['ProjectFiles.Encryption'].ApplyPreferences()
 

@@ -226,9 +226,11 @@ class StatusBar(tk.Frame):
     def set(self, format, *args):
         self.label.config(text=format % args)
         self.label.update_idletasks()
+        self.label.update()
     def clear(self):
         self.label.config(text="")
         self.label.update_idletasks()
+        self.label.update()
 
 class ScrollableFrame(ttk.Frame):
     def __init__(self, container, *args, **kwargs):

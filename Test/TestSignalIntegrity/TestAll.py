@@ -34,6 +34,7 @@ from TestDeembedding import *
 from TestDwellTime import *
 from TestDescriptors import *
 from TestDeviceParser import *
+from TestEncryption import *
 from TestExceptions import *
 from TestEyeDiagram import *
 from TestFilters import *

@@ -32,6 +32,7 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyRespo
 from SignalIntegrity.Lib.SParameters.SParameterManipulation import SParameterManipulation
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 from SignalIntegrity.__about__ import __project__,__version__,__description__,__url__
+from SignalIntegrity.App.Encryption import Encryption
 
 class SParameters(SParameterManipulation):
     """Class containing s-parameters"""
@@ -102,8 +103,10 @@ class SParameters(SParameterManipulation):
                 if 'ri' in lineList: cpxType = 'RI'
                 if 'db' in lineList: cpxType = 'DB'
                 if 'r' in lineList: Z0=float(lineList[lineList.index('r')+1])
-        for lin in self.header: lines.append(
-            ('! '+lin if ((len(lin) > 0) and (lin[0] != '!')) else lin)+'\n')
+        for lin in self.header:
+            if lin.startswith(' '): lines.append('!'+lin+'\n')
+            elif lin.startswith('!'): lines.append(lin+'\n')
+            else: lines.append('! '+lin+'\n')
         lines.append('# '+fToken+' '+self.m_sToken+' '+cpxType+' R '+str(Z0)+'\n')
         for n in range(len(self.m_f)):
             line=[str(self.m_f[n]/freqMul)]
@@ -171,8 +174,7 @@ class SParameters(SParameterManipulation):
             raise SignalIntegrityExceptionSParameterFile('incorrect extension in s-parameter file name in '+name)
         # pragma: include
         lines=self.Text(formatString)
-        with open(name,'w') as f:
-            f.writelines(lines)
+        Encryption().WriteEncryptedLines(name, lines)
         return self
     def Resample(self,fl):
         """Resamples the s-parameters onto a new frequency scale

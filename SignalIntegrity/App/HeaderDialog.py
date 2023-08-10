@@ -30,6 +30,7 @@ import SignalIntegrity.App.Project
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.App.Encryption import Encryption
 
 class HeaderDialog(tk.Toplevel):
     def __init__(self,parent, titleName=None, fileparts=None):
@@ -38,16 +39,14 @@ class HeaderDialog(tk.Toplevel):
             lines=''
             width=0
             try:
-                with open(fileparts.FullFilePathExtension(),'rt') as f:
-                    keepGoing = True
-                    while keepGoing:
-                        line = f.readline()
-                        if line[0] in ['!',' ','#','\n']:
-                            if line[0] == '!':
-                                lines=lines+line[1:-1]+'\n'
-                                width=max(len(line),width)
-                        else:
-                            keepGoing = False
+                spFileLines=Encryption().ReadEncryptedLines(fileparts.FullFilePathExtension())
+                for line in spFileLines:
+                    if line[0] in ['!',' ','#','\n']:
+                        if line[0] == '!':
+                            lines=lines+line[1:-1]+'\n'
+                            width=max(len(line),width)
+                    else:
+                        break
             except:
                 return
         elif isinstance(fileparts,list):

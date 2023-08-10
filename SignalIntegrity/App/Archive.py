@@ -34,7 +34,7 @@ class Archive(list):
         list.__init__(self,[])
     def Archivable(self):
         return self != []
-    def BuildArchiveDictionary(self,parent):
+    def BuildArchiveDictionary(self,parent,external=False):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         currentPath=os.getcwd()
@@ -47,10 +47,13 @@ class Archive(list):
                 thisFile=parent
                 app=SignalIntegrityAppHeadless()
                 app.projectStack.Push()
-                fileargs=SignalIntegrity.App.Project['Variables'].Dictionary()
+                if external:
+                    external=False
+                    fileargs={}
+                else:
+                    fileargs=SignalIntegrity.App.Project['Variables'].Dictionary()
                 if not app.OpenProjectFile(thisFile,args=fileargs):
                     app.projectStack.Pull()
-                    list.__init__(self,[])
                     return self
  
             initial=True

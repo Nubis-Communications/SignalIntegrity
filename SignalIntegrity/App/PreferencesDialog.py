@@ -18,6 +18,7 @@ PreferencesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
+from SignalIntegrity.App.Encryption import Encryption
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
@@ -43,9 +44,12 @@ class PreferencesDialog(PropertiesDialog):
         self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.propertyListFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
         self.cacheResult=CalculationPropertyTrueFalseButton(self.propertyListFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
         self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
+        self.encryptionPassword = CalculationProperty(self.propertyListFrame,'Password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
+        self.encryptionEnding = CalculationProperty(self.propertyListFrame,'File ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
         self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
         self.Finish()
+
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
         self.project.SaveToFile()
@@ -54,6 +58,18 @@ class PreferencesDialog(PropertiesDialog):
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()
+
+    def onUpdatePassword(self):
+        pwd = self.project['ProjectFiles.Encryption.Password']
+        if pwd in ['','None',None]:
+            pwd = None
+        ending = self.project['ProjectFiles.Encryption.Ending']
+        if ending in ['','None',None]:
+            ending = '$'
+            self.project['ProjectFiles.Encryption.Ending'] = ending
+        Encryption(pwd=pwd,ending=ending)
+        self.onUpdatePreferences()
+
     def Finish(self):
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
         PropertiesDialog.Finish(self)
