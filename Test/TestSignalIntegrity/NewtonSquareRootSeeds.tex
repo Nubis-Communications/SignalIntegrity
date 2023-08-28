@@ -1,16 +1,27 @@
-% This file was created by tikzplotlib v0.9.2.
+% This file was created with tikzplotlib v0.10.1.
 \begin{tikzpicture}
+
+\definecolor{darkgray176}{RGB}{176,176,176}
+\definecolor{gray}{RGB}{128,128,128}
+\definecolor{lightgray204}{RGB}{204,204,204}
 
 \begin{axis}[
 legend cell align={left},
-legend style={fill opacity=0.8, draw opacity=1, text opacity=1, at={(0.97,0.03)}, anchor=south east, draw=white!80!black},
+legend style={
+  fill opacity=0.8,
+  draw opacity=1,
+  text opacity=1,
+  at={(0.97,0.03)},
+  anchor=south east,
+  draw=lightgray204
+},
 tick align=outside,
 tick pos=left,
-x grid style={white!69.0196078431373!black},
+x grid style={darkgray176},
 xlabel={y},
 xmin=0.5, xmax=1,
 xtick style={color=black},
-y grid style={white!69.0196078431373!black},
+y grid style={darkgray176},
 ylabel={values},
 ymin=0.7, ymax=1,
 ytick style={color=black}
@@ -1019,7 +1030,7 @@ table {%
 0.9995 0.993
 };
 \addlegendentry{seed value}
-\addplot [semithick, white!50.1960784313725!black]
+\addplot [semithick, gray]
 table {%
 0.5 0.707106781186548
 0.5005 0.70746024623296

@@ -40,6 +40,8 @@ class TestLaplaceTest(unittest.TestCase,
         pysi=SignalIntegrityAppHeadless()
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        self.TextCharacters = SignalIntegrity.App.Preferences['Appearance.LimitText']
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=60
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -50,6 +52,7 @@ class TestLaplaceTest(unittest.TestCase,
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextCharacters
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

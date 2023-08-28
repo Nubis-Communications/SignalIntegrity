@@ -85,7 +85,7 @@ for input,output in zip(filteredFileList,destFileList):
     zipf.write(output,os.path.join('SignalIntegrity-'+__version__,os.path.relpath(input, root)))
 zipf.close()
 os.chdir(os.path.abspath(os.path.join(root,'../SignalIntegrity-'+__version__)))
-result = os.system('python setup.py bdist_wheel --universal')
+result = os.system('python setup.py bdist_wheel')
 #os.system('twine upload dist/*')
 #os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
 pass
