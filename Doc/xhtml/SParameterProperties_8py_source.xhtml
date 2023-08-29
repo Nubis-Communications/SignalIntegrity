@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.2</span>
+   &#160;<span id="projectnumber">1.3.3</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -184,22 +184,28 @@ $(function() {
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        self.SubDir(ZoomTimesProperties())</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.SubDir(ZoomVerticalProperties())</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">class </span>SParameterProperties(CalculationPropertiesBase):</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        CalculationPropertiesBase.__init__(self,<span class="stringliteral">&#39;SParameterProperties&#39;</span>,preferences)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;ReferenceImpedance&#39;</span>,50.0))</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitNegative&#39;</span>,-100e-12))</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitPositive&#39;</span>,10e-9))</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            self.SubDir(SParameterZoomProperties())</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            self.Add(XMLPropertyDefaultInt(<span class="stringliteral">&#39;SignificantDigits&#39;</span>,6))</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        self.SubDir(PlotProperties(preferences))</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">class </span>SParameterPropertiesProject(ProjectFileBase):</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        ProjectFileBase.__init__(self,<span class="stringliteral">&#39;sp&#39;</span>)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        self.SubDir(SParameterProperties(preferences=<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">class </span>Enforcements(XMLConfiguration):</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        super().__init__(<span class="stringliteral">&#39;Enforcements&#39;</span>)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;PreserveDC&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">class </span>SParameterProperties(CalculationPropertiesBase):</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        CalculationPropertiesBase.__init__(self,<span class="stringliteral">&#39;SParameterProperties&#39;</span>,preferences)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;ReferenceImpedance&#39;</span>,50.0))</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitNegative&#39;</span>,-100e-12))</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitPositive&#39;</span>,10e-9))</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            self.SubDir(SParameterZoomProperties())</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            self.Add(XMLPropertyDefaultInt(<span class="stringliteral">&#39;SignificantDigits&#39;</span>,6))</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        self.SubDir(PlotProperties(preferences))</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        self.SubDir(Enforcements())</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">class </span>SParameterPropertiesProject(ProjectFileBase):</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        ProjectFileBase.__init__(self,<span class="stringliteral">&#39;sp&#39;</span>)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        self.SubDir(SParameterProperties(preferences=<span class="keyword">False</span>))</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFileBase_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFileBase.xhtml">SignalIntegrity.App.ProjectFileBase</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFileBase_8py_source.xhtml#l00001">ProjectFileBase.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFile_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFile_8py_source.xhtml#l00001">ProjectFile.py:1</a></div></div>

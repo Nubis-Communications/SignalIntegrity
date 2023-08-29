@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.2</span>
+   &#160;<span id="projectnumber">1.3.3</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -88,7 +88,8 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for SParameterManipulation:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="5572" height="1124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation__inherit__graph.svg" width="5572" height="1124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <div class="dynheader">
 Collaboration diagram for SParameterManipulation:</div>
@@ -104,10 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4bb07518fdccfa71483dc4e98eb83083"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a4bb07518fdccfa71483dc4e98eb83083">IsCausal</a> (self, threshold=0.)</td></tr>
 <tr class="memdesc:a4bb07518fdccfa71483dc4e98eb83083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the s-parameters are causal.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a4bb07518fdccfa71483dc4e98eb83083">More...</a><br /></td></tr>
 <tr class="separator:a4bb07518fdccfa71483dc4e98eb83083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0534e987c24d15ff3bcba7ef74ec1d1"><td class="memItemLeft" align="right" valign="top"><a id="ab0534e987c24d15ff3bcba7ef74ec1d1"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab0534e987c24d15ff3bcba7ef74ec1d1">EnforceCausality</a> (self)</td></tr>
-<tr class="memdesc:ab0534e987c24d15ff3bcba7ef74ec1d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces causality by setting all of the values before time zero in the impulse responses of the s-parameters to zero. <br /></td></tr>
-<tr class="separator:ab0534e987c24d15ff3bcba7ef74ec1d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0de00b27713df04eb51373e3076773"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#acb0de00b27713df04eb51373e3076773">EnforceCausality</a> (self, preserveDC=False)</td></tr>
+<tr class="memdesc:acb0de00b27713df04eb51373e3076773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces causality by setting all of the values before time zero in the impulse responses of the s-parameters to zero.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#acb0de00b27713df04eb51373e3076773">More...</a><br /></td></tr>
+<tr class="separator:acb0de00b27713df04eb51373e3076773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1a7d5f1f86019b82b3d88b59c25e3a8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ac1a7d5f1f86019b82b3d88b59c25e3a8">WaveletDenoise</a> (self, threshold=0.00001)</td></tr>
 <tr class="memdesc:ac1a7d5f1f86019b82b3d88b59c25e3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Denoises the s-parameters.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ac1a7d5f1f86019b82b3d88b59c25e3a8">More...</a><br /></td></tr>
 <tr class="separator:ac1a7d5f1f86019b82b3d88b59c25e3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,12 +123,12 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="memitem:a966ad7b2c2e5ded9c2c34d146381a034"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a966ad7b2c2e5ded9c2c34d146381a034">EnforceReciprocity</a> (self)</td></tr>
 <tr class="memdesc:a966ad7b2c2e5ded9c2c34d146381a034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces reciprocity on the s-parameters affects self.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a966ad7b2c2e5ded9c2c34d146381a034">More...</a><br /></td></tr>
 <tr class="separator:a966ad7b2c2e5ded9c2c34d146381a034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5b218e8e7454681cb528837371433c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#af5b218e8e7454681cb528837371433c9">EnforceBothPassivityAndCausality</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1.)</td></tr>
-<tr class="memdesc:af5b218e8e7454681cb528837371433c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both passivity and causality on the s-parameters.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#af5b218e8e7454681cb528837371433c9">More...</a><br /></td></tr>
-<tr class="separator:af5b218e8e7454681cb528837371433c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab03ec93ae9915311d87b800dd52b11f7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab03ec93ae9915311d87b800dd52b11f7">EnforceAll</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1.)</td></tr>
-<tr class="memdesc:ab03ec93ae9915311d87b800dd52b11f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both reciprocity, passivity and causality on the s-parameters.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab03ec93ae9915311d87b800dd52b11f7">More...</a><br /></td></tr>
-<tr class="separator:ab03ec93ae9915311d87b800dd52b11f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d49f6798537890dbf6e7cb83115e08c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a0d49f6798537890dbf6e7cb83115e08c">EnforceBothPassivityAndCausality</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1., preserveDC=False)</td></tr>
+<tr class="memdesc:a0d49f6798537890dbf6e7cb83115e08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both passivity and causality on the s-parameters.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a0d49f6798537890dbf6e7cb83115e08c">More...</a><br /></td></tr>
+<tr class="separator:a0d49f6798537890dbf6e7cb83115e08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ebf7e5182ad735b5b9715905c8acb0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a51ebf7e5182ad735b5b9715905c8acb0">EnforceAll</a> (self, causalityThreshold=0., maxIterations=30, maxSingularValue=1., preserveDC=False)</td></tr>
+<tr class="memdesc:a51ebf7e5182ad735b5b9715905c8acb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enforces both reciprocity, passivity and causality on the s-parameters.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a51ebf7e5182ad735b5b9715905c8acb0">More...</a><br /></td></tr>
+<tr class="separator:a51ebf7e5182ad735b5b9715905c8acb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2ba6618f29cfb50068f0d442b7323f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#abf2ba6618f29cfb50068f0d442b7323f">RemoveImpulseResponseOffset</a> (self, lengths=None)</td></tr>
 <tr class="memdesc:abf2ba6618f29cfb50068f0d442b7323f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes offset in the impulse response.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#abf2ba6618f29cfb50068f0d442b7323f">More...</a><br /></td></tr>
 <tr class="separator:abf2ba6618f29cfb50068f0d442b7323f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +136,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for manipulations on s-parameters involving passivity, causality, etc. </p>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00028">28</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00029">29</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4976e854764ebdc65229e9f99f68f577"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4976e854764ebdc65229e9f99f68f577">&#9670;&nbsp;</a></span>DetermineImpulseResponseLength()</h2>
@@ -180,12 +180,12 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns a list of list of tuples as stated for each impulse response. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00141">141</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00148">148</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
-<a id="ab03ec93ae9915311d87b800dd52b11f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab03ec93ae9915311d87b800dd52b11f7">&#9670;&nbsp;</a></span>EnforceAll()</h2>
+<a id="a51ebf7e5182ad735b5b9715905c8acb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ebf7e5182ad735b5b9715905c8acb0">&#9670;&nbsp;</a></span>EnforceAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +212,13 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>&#160;</td>
+          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preserveDC</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -231,6 +237,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
     <tr><td class="paramname">maxSingularValue</td><td>(optional, defaults to 1) float maximumum singular value allowed </td></tr>
     <tr><td class="paramname">maxIterations</td><td>(optional, defaults to 30) maximum iterations </td></tr>
     <tr><td class="paramname">causalityThreshold</td><td>(optional, defaults to 0) positive float threshold for causality detection </td></tr>
+    <tr><td class="paramname">preserveDC</td><td>(optional, defaults to False) boolean whether to preserve the DC point in causality enforcement </td></tr>
   </table>
   </dd>
 </dl>
@@ -239,14 +246,14 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dd>
 <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a39c856ddb77d77db3db1944a18fe6009" title="Enforces passivity on the s-parameters.">EnforcePassivity</a> </dd>
 <dd>
-<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab0534e987c24d15ff3bcba7ef74ec1d1" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
+<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#acb0de00b27713df04eb51373e3076773" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00260">260</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00269">269</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
-<a id="af5b218e8e7454681cb528837371433c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5b218e8e7454681cb528837371433c9">&#9670;&nbsp;</a></span>EnforceBothPassivityAndCausality()</h2>
+<a id="a0d49f6798537890dbf6e7cb83115e08c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d49f6798537890dbf6e7cb83115e08c">&#9670;&nbsp;</a></span>EnforceBothPassivityAndCausality()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,7 +280,13 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>&#160;</td>
+          <td class="paramname"><em>maxSingularValue</em> = <code>1.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preserveDC</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -291,15 +304,54 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
     <tr><td class="paramname">maxSingularValue</td><td>(optional, defaults to 1) float maximumum singular value allowed </td></tr>
     <tr><td class="paramname">maxIterations</td><td>(optional, defaults to 30) maximum iterations </td></tr>
     <tr><td class="paramname">causalityThreshold</td><td>(optional, defaults to 0) positive float threshold for causality detection </td></tr>
+    <tr><td class="paramname">preserveDC</td><td>(optional, defaults to False) boolean whether to preserve the DC point in causality enforcement </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a39c856ddb77d77db3db1944a18fe6009" title="Enforces passivity on the s-parameters.">EnforcePassivity</a> </dd>
 <dd>
-<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#ab0534e987c24d15ff3bcba7ef74ec1d1" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
+<a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#acb0de00b27713df04eb51373e3076773" title="Enforces causality by setting all of the values before time zero in the impulse responses of the s-pa...">EnforceCausality</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00234">234</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00242">242</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+
+</div>
+</div>
+<a id="acb0de00b27713df04eb51373e3076773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb0de00b27713df04eb51373e3076773">&#9670;&nbsp;</a></span>EnforceCausality()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def EnforceCausality </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>preserveDC</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enforces causality by setting all of the values before time zero in the impulse responses of the s-parameters to zero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">preserveDC</td><td>(optional, defaults to False) boolean whether to preserve the DC point in causality enforcement </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00078">78</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -338,7 +390,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </dl>
 <p>the optional maximum value allows for adjusting devices with gain to a maximum value. For passive devices, the maximum singular value is the default value of 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00042">42</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00043">43</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -361,7 +413,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>Enforces reciprocity on the s-parameters affects self. </p>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00213">213</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00220">220</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -401,7 +453,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dl class="section return"><dt>Returns</dt><dd>boolean True if the absolute value of all values in the impulse response of each s-parameter before time zero are less than the threshold provided otherwise returns False.</dd></dl>
 <p>This is checked by generating the impulse response corresponding to the frequency response of each s-parameter from and to port combination. </p>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00058">58</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00059">59</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -441,7 +493,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dl class="section return"><dt>Returns</dt><dd>self (with impulse responses limited) </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>if the lengths are a single number, it is assumed to be the single length, otherwise if the lengths is a list of list, it is length to be enforced for each port-port connection. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00187">187</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00194">194</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -480,7 +532,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new instance of reordered s-parameters </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00123">123</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00130">130</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -520,7 +572,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <dl class="section return"><dt>Returns</dt><dd>self (with impulse response offsets removed) </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>if the lengths are a single number, it is assumed to be the single length, otherwise if the lengths is a list of list, it is length to be enforced for each port-port connection. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00274">274</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00283">283</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>
@@ -558,7 +610,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00094">94</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterManipulation_8py_source.xhtml#l00101">101</a> of file <a class="el" href="SParameterManipulation_8py_source.xhtml">SParameterManipulation.py</a>.</p>
 
 </div>
 </div>

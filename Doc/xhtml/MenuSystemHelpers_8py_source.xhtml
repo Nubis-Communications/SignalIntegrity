@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.2</span>
+   &#160;<span id="projectnumber">1.3.3</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -307,30 +307,32 @@ $(function() {
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">def </span>set(self, format, *args):</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        self.label.config(text=format % args)</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        self.label.update_idletasks()</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">def </span>clear(self):</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        self.label.config(text=<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        self.label.update_idletasks()</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">class </span>ScrollableFrame(ttk.Frame):</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">def </span>__init__(self, container, *args, **kwargs):</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        super().__init__(container, *args, **kwargs)</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        canvas = tk.Canvas(self)</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        scrollbar = ttk.Scrollbar(self, orient=<span class="stringliteral">&quot;vertical&quot;</span>, command=canvas.yview)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        self.scrollable_frame = ttk.Frame(canvas)</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        self.scrollable_frame.bind(</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="stringliteral">&quot;&lt;Configure&gt;&quot;</span>,</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keyword">lambda</span> e: canvas.configure(</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                scrollregion=canvas.bbox(<span class="stringliteral">&quot;all&quot;</span>),width=e.width,height=e.height</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            )</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        )</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        canvas.create_window((0, 0), window=self.scrollable_frame, anchor=<span class="stringliteral">&quot;nw&quot;</span>)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        self.label.update()</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keyword">def </span>clear(self):</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        self.label.config(text=<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        self.label.update_idletasks()</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        self.label.update()</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keyword">class </span>ScrollableFrame(ttk.Frame):</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">def </span>__init__(self, container, *args, **kwargs):</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        super().__init__(container, *args, **kwargs)</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        canvas = tk.Canvas(self)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        scrollbar = ttk.Scrollbar(self, orient=<span class="stringliteral">&quot;vertical&quot;</span>, command=canvas.yview)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        self.scrollable_frame = ttk.Frame(canvas)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        self.scrollable_frame.bind(</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            <span class="stringliteral">&quot;&lt;Configure&gt;&quot;</span>,</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            <span class="keyword">lambda</span> e: canvas.configure(</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                scrollregion=canvas.bbox(<span class="stringliteral">&quot;all&quot;</span>),width=e.width,height=e.height</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            )</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        )</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        canvas.configure(yscrollcommand=scrollbar.set)</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        canvas.create_window((0, 0), window=self.scrollable_frame, anchor=<span class="stringliteral">&quot;nw&quot;</span>)</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        canvas.pack(side=<span class="stringliteral">&quot;left&quot;</span>, fill=<span class="stringliteral">&quot;both&quot;</span>, expand=<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        scrollbar.pack(side=<span class="stringliteral">&quot;right&quot;</span>, fill=<span class="stringliteral">&quot;y&quot;</span>)</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        canvas.configure(yscrollcommand=scrollbar.set)</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        canvas.pack(side=<span class="stringliteral">&quot;left&quot;</span>, fill=<span class="stringliteral">&quot;both&quot;</span>, expand=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        scrollbar.pack(side=<span class="stringliteral">&quot;right&quot;</span>, fill=<span class="stringliteral">&quot;y&quot;</span>)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1App_1_1MenuSystemHelpers_1_1ToolTip_xhtml_a60d5947424f4fcd4ca9ed05e6dc43227"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1MenuSystemHelpers_1_1ToolTip.xhtml#a60d5947424f4fcd4ca9ed05e6dc43227">SignalIntegrity.App.MenuSystemHelpers.ToolTip.widget</a></div><div class="ttdeci">widget</div><div class="ttdef"><b>Definition:</b> <a href="MenuSystemHelpers_8py_source.xhtml#l00046">MenuSystemHelpers.py:46</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1App_1_1MenuSystemHelpers_1_1ToolTip_xhtml_a2fb1c5cf58867b5bbc9a1b145a86f3a0"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1MenuSystemHelpers_1_1ToolTip.xhtml#a2fb1c5cf58867b5bbc9a1b145a86f3a0">SignalIntegrity.App.MenuSystemHelpers.ToolTip.y</a></div><div class="ttdeci">y</div><div class="ttdef"><b>Definition:</b> <a href="MenuSystemHelpers_8py_source.xhtml#l00049">MenuSystemHelpers.py:49</a></div></div>

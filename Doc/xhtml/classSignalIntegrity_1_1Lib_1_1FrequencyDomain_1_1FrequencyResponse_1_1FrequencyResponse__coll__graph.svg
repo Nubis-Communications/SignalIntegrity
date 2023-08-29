@@ -16,7 +16,7 @@
 <polygon fill="#bfbfbf" stroke="black" points="3,-0.5 3,-101.5 113,-101.5 113,-0.5 3,-0.5"/>
 <text text-anchor="middle" x="58" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">FrequencyResponse</text>
 <polyline fill="none" stroke="black" points="3,-82.5 113,-82.5 "/>
-<text text-anchor="middle" x="58" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="11" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ oldSpline</text>
 <polyline fill="none" stroke="black" points="3,-63.5 113,-63.5 "/>
 <text text-anchor="start" x="11" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>
 <text text-anchor="start" x="11" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Response()</text>
