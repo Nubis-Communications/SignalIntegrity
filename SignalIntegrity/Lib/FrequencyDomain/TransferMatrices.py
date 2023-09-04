@@ -19,9 +19,11 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
+from SignalIntegrity.Lib.CallBacker import CallBacker
+
 from numpy import zeros
 
-class TransferMatrices(list):
+class TransferMatrices(list,CallBacker):
     """Class that is used for processing waveforms in simulation."""
     def __init__(self,f,d):
         """Constructor
@@ -41,8 +43,12 @@ class TransferMatrices(list):
         """
         self.f=FrequencyList(f)
         list.__init__(self,d)
+        CallBacker.__init__(self)
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
+        self.fr=None
+        self.ir=None
+        self.td=None
     def SParameters(self):
         """SParameters
         @return list of list of lists representing the transfer matrices as s-parameters.
@@ -81,8 +87,11 @@ class TransferMatrices(list):
         # pragma: silent exclude
         from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
         # pragma: include
-        return FrequencyResponse(self.f,[Matrix[o-1][i-1]
-            for Matrix in self])
+        if self.fr == None:
+            return FrequencyResponse(self.f,[Matrix[o-1][i-1]
+                                             for Matrix in self])
+        else:
+            return self.fr[o-1][i-1]
     def FrequencyResponses(self):
         """frequency responses of filters
         @return list of list of instances of class FrequencyResponse
@@ -92,8 +101,15 @@ class TransferMatrices(list):
         input i to an output o.
         @see FrequencyResponse()
         """
-        return [[self.FrequencyResponse(o+1,s+1)
-            for s in range(self.Inputs)] for o in range(self.Outputs)]
+        if self.fr==None:
+            fr = [[None for s in range(self.Inputs)] for o in range(self.Outputs)]
+            for o in range(self.Outputs):
+                for s in range(self.Inputs):
+                    fr[o][s] = self.FrequencyResponse(o+1,s+1)
+                    if not self.CallBack((o*self.Inputs+s)/(self.Inputs*self.Outputs)*100.0):
+                        return None
+            self.fr = fr
+        return self.fr
     def ImpulseResponses(self,td=None):
         """impulse responses of filters
         @return list of list of instances of class ImpulseResponse
@@ -104,9 +120,24 @@ class TransferMatrices(list):
         """
         fr = self.FrequencyResponses()
         if td is None or isinstance(td,float) or isinstance(td,int):
-            td = [td for m in range(len(fr[0]))]
-        return [[fro[m].ImpulseResponse(td[m]) for m in range(len(fro))]
-            for fro in fr]
+            td = [td for _ in range(self.Inputs)]
+        if fr == None:
+            return None
+        if self.td == td and self.ir != None:
+            return self.ir
+
+        ir = [[None for s in range(self.Inputs)] for o in range(self.Outputs)]
+
+        for o in range(self.Outputs):
+            for s in range(self.Inputs):
+                ir[o][s] = fr[o][s].ImpulseResponse(td[s])
+                if not self.CallBack((o*self.Inputs+s)/(self.Inputs*self.Outputs)*100.0):
+                    return None
+
+        self.ir = ir
+        self.td = td
+        return self.ir
+
     def Resample(self,fdp):
         """Resamples to a different set of frequencies
         @param fdp instance of class FrequencyList to resample to

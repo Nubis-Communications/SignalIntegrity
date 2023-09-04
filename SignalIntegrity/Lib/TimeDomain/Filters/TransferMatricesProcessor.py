@@ -39,6 +39,10 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
         # pragma: include
+    def PrecalculateFrequencyResponses(self):
+        return self.TransferMatrices.FrequencyResponses()
+    def PrecalculateImpulseResponses(self,td=None):
+        return self.TransferMatrices.ImpulseResponses(td)
     def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
         """processes input waveforms and produces output waveforms
         @param wfl list of Waveform input waveforms to process.  If numbers are in the

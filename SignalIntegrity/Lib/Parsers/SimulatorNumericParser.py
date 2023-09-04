@@ -54,8 +54,12 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
         """
         # pragma: silent exclude
         if self.CheckCache():
-            self.CallBack(100.0)
-            return self.transferMatrices
+            if hasattr(self.transferMatrices, 'callback'):
+                self.CallBack(100.0)
+                return self.transferMatrices
+            else:
+                self.transferMatrices = None
+                self.m_sd = None
         # pragma: include
         self.SystemDescription()
         self.m_sd.CheckConnections()

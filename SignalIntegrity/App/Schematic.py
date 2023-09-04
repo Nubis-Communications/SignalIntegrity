@@ -32,10 +32,13 @@ from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.Archive import Archive
 from SignalIntegrity.App.PartPicture import PartPicture
 import SignalIntegrity.App.Project
+from SignalIntegrity.Lib.CallBacker import CallBacker
 
-class Schematic(object):
+class Schematic(CallBacker):
     def __init__(self):
         self.deviceList = []
+        super().__init__(self)
+
     def InitFromProject(self):
         self.__init__()
         if SignalIntegrity.App.Project is None:
@@ -59,7 +62,7 @@ class Schematic(object):
         inputWaveformList=[]
         for device in self.deviceList:
             if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
-                wf = device.Waveform()
+                wf = device.Waveform(self.callback)
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList

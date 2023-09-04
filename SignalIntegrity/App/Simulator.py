@@ -659,6 +659,7 @@ class Simulator(object):
                 return
     def _ProcessWaveforms(self,callback=None):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
+
     def Simulate(self,TransferMatricesOnly=False):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
@@ -694,8 +695,9 @@ class Simulator(object):
                                   'Transfer Parameters',buttonLabelList)
                 return
 
+            progressDialog=ProgressDialog(self.parent,"Input Waveforms",self.parent.Drawing.schematic,self.parent.Drawing.schematic.InputWaveforms, granularity=1.0)
             try:
-                self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
+                self.inputWaveformList=progressDialog.GetResult()
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
@@ -716,6 +718,29 @@ class Simulator(object):
 
             self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
             SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+
+            progressDialog = ProgressDialog(self.parent,"Frequency Responses",self.transferMatriceProcessor.TransferMatrices,self.transferMatriceProcessor.PrecalculateFrequencyResponses)
+            try:
+                result = progressDialog.GetResult()
+                if result == None:
+                    raise ValueError
+            except:
+                messagebox.showerror('Simulator','Frequency responses were not calculated')
+                return
+
+            def _PrecalculateImpulseReseponses():
+                from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+                return self.transferMatriceProcessor.PrecalculateImpulseResponses(
+                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList])
+
+            progressDialog = ProgressDialog(self.parent,"Impulse Responses",self.transferMatriceProcessor.TransferMatrices,_PrecalculateImpulseReseponses)
+            try:
+                result = progressDialog.GetResult()
+                if result == None:
+                    raise ValueError
+            except:
+                messagebox.showerror('Simulator','Impulse responses were not calculated')
+                return
 
             progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
             try:

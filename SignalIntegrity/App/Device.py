@@ -89,7 +89,7 @@ class Device(object):
         self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
     def SetWaveform(self,wf):
         self.Wf=wf
-    def Waveform(self):
+    def Waveform(self,callback=None):
         import SignalIntegrity.Lib as si
         wfTypeProperty=self['wftype']
         if wfTypeProperty is None:
@@ -115,7 +115,7 @@ class Device(object):
                     args=SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
                     if self['calcprop'].GetValue() == 'true':
                         args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
-                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue(),None,**args)
+                    waveform=ProjectWaveform(fileName,self['wfprojname'].GetValue(),callback,**args)
                     if waveform is None:
                         raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:

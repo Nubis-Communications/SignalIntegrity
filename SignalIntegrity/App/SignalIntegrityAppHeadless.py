@@ -281,6 +281,7 @@ class SignalIntegrityAppHeadless(object):
             if TransferMatricesOnly:
                 return (sourceNames,outputWaveformLabels,transferMatrices)
 
+            self.Drawing.schematic.InstallCallback(callback)
             try:
                 inputWaveformList=self.Drawing.schematic.InputWaveforms()
             except si.SignalIntegrityException as e:
