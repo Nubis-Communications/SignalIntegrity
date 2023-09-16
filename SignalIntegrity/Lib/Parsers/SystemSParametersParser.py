@@ -29,18 +29,21 @@ from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
-    def __init__(self,f=None,args=None,callback=None,cacheFileName=None):
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None):
         """constructor  
         frequencies may be provided at construction time (or not for symbolic solutions).
         @param f (optional) list of frequencies
         @param args (optional) string arguments for the circuit.
         @param callback (optional) function taking one argument as a callback
-        @param cacheFileName (optional) string name of file used to cache results  
-        @remark Arguments are provided on a line as pairs of names and values separated by a space.  
+        @param cacheFileName (optional) string name of file used to cache results
+        @param efl (optional) instance of class FrequencyList containing the evenly space frequency list
+        to use for resampling in cases where time-domain transformations are required
+        @remark Arguments are provided on a line as pairs of names and values separated by a space.
         The optional callback is used as described in the class CallBacker.
         """
         SystemDescriptionParser.__init__(self,f,args)
         self.sf = None
+        self.efl = efl
         # pragma: silent exclude
         CallBacker.__init__(self,callback)
         LinesCache.__init__(self,'SParameters',cacheFileName)
@@ -74,7 +77,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
                 solvetype=solvetype))
             # pragma: silent exclude
             if self.HasACallBack():
-                progress=self.m_f[n]/self.m_f[-1]*100.0
+                progress=(n+1)/len(self.m_f)*100.0
                 if not self.CallBack(progress):
                     raise SignalIntegrityExceptionSParameters('calculation aborted')
             # pragma: include
@@ -83,7 +86,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         if hasattr(self, 'delayDict'):
             td=[self.delayDict[p+1] if p+1 in self.delayDict else 0.0 for p in range(self.sf.m_P)]
             self.sf=PeeledLaunches(self.sf,td,method='exact')
-        self.sf = SParametersParser(self.sf,self.m_ul)
+        self.sf = SParametersParser(self.sf,self.m_ul,self.efl)
         self.CacheResult(['sf'])
         # pragma: include
         return self.sf

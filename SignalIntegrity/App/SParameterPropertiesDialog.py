@@ -31,20 +31,20 @@ class SParameterPropertiesDialog(PropertiesDialog):
         PropertiesDialog.__init__(self,parent,project,parent,'S-parameter Properties')
         self.inheritButton=tk.Button(self.propertyListFrame,text='Inherit Properties from Calculation Properties',command=self.onInherit)
         self.inheritButton.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.endFrequencyFrame=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
-        self.frequencyPointsFrame=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
-        self.frequencyResolutionFrame=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
-        self.baseSampleRateFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
-        self.baseSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
-        self.timePointsFrame=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
-        self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
+        self.endFrequency=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
+        self.frequencyPoints=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
+        self.frequencyResolution=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
+        self.baseSampleRate=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
+        self.baseSamplePeriod=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
+        self.timePoints=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
+        self.impulseResponseLength=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
         self.referenceImpedanceEntryFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.referenceImpedanceEntryFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.referenceImpedanceFrame=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.onReferenceImpedanceEntered,None,self.project,'ReferenceImpedance','ohm')
+        self.referenceImpedance=CalculationPropertySI(self.referenceImpedanceEntryFrame,'Reference Impedance',self.onReferenceImpedanceEntered,None,self.project,'ReferenceImpedance','ohm')
         self.timeLimitsFrame = tk.Frame(self,relief=tk.RIDGE, borderwidth=5)
         self.timeLimitsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.negativeTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Negative Time Limit',self.onNegativeTimeLimitEntered,None,self.project,'TimeLimitNegative','s')
-        self.positiveTimeFrame=CalculationPropertySI(self.timeLimitsFrame,'Positive Time Limit',self.onPositiveTimeLimitEntered,None,self.project,'TimeLimitPositive','s')
+        self.negativeTime=CalculationPropertySI(self.timeLimitsFrame,'Negative Time Limit',self.onNegativeTimeLimitEntered,None,self.project,'TimeLimitNegative','s')
+        self.positiveTime=CalculationPropertySI(self.timeLimitsFrame,'Positive Time Limit',self.onPositiveTimeLimitEntered,None,self.project,'TimeLimitPositive','s')
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
         PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
@@ -105,27 +105,27 @@ class SParameterPropertiesDialog(PropertiesDialog):
     def onNegativeTimeLimitEntered(self,event):
 #         if self.project['TimeLimitNegative']>0.:
 #             self.project['TimeLimitNegative']=0.0
-#             self.negativeTimeFrame.UpdateStrings()
+#             self.negativeTime.UpdateStrings()
         pass
 
     def onPositiveTimeLimitEntered(self,event):
         if self.project['TimeLimitPositive']<0.:
             self.project['TimeLimitPositive']=0.
-            self.positiveTimeFrame.UpdateStrings()
+            self.positiveTime.UpdateStrings()
 
     def onReferenceImpedanceEntered(self,event):
         self.UpdateStrings()
 
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
-        self.endFrequencyFrame.UpdateStrings()
-        self.frequencyPointsFrame.UpdateStrings()
-        self.frequencyResolutionFrame.UpdateStrings()
-        self.baseSampleRateFrame.UpdateStrings()
-        self.baseSamplePeriodFrame.UpdateStrings()
-        self.timePointsFrame.UpdateStrings()
-        self.impulseResponseLengthFrame.UpdateStrings()
-        self.referenceImpedanceFrame.UpdateStrings()
+        self.endFrequency.UpdateStrings()
+        self.frequencyPoints.UpdateStrings()
+        self.frequencyResolution.UpdateStrings()
+        self.baseSampleRate.UpdateStrings()
+        self.baseSamplePeriod.UpdateStrings()
+        self.timePoints.UpdateStrings()
+        self.impulseResponseLength.UpdateStrings()
+        self.referenceImpedance.UpdateStrings()
 
     def destroy(self):
         PropertiesDialog.destroy(self)

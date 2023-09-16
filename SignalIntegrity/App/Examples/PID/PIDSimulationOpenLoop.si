@@ -2,11 +2,15 @@
 	<CalculationProperties>
 		<EndFrequency>25000000.0</EndFrequency>
 		<FrequencyPoints>5000</FrequencyPoints>
+		<LogarithmicEndFrequency>100000000000.0</LogarithmicEndFrequency>
+		<LogarithmicPointsPerDecade>10</LogarithmicPointsPerDecade>
+		<LogarithmicStartFrequency>10000.0</LogarithmicStartFrequency>
+		<UnderlyingType>Logarithmic</UnderlyingType>
 		<UserSampleRate>50000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>505x412+234+234</Geometry>
+			<Geometry>505x412+104+104</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>11</Originy>
@@ -26,7 +30,7 @@
 						<PartProperty>
 							<Keyword>calcprop</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -48,6 +52,37 @@
 							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage gain (V/V)</Description>
+								<Name>P</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_P</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>voltage gain (V/V)</Description>
+								<Name>I</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_I</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>voltage gain (V/V)</Description>
+								<Name>D</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=PID_D</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceVoltageOutputProbe</ClassName>
@@ -56,7 +91,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, -3)</Origin>
+						<Origin>(15, -3)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -104,7 +139,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, 1)</Origin>
+						<Origin>(15, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -152,7 +187,7 @@
 						<MirroredHorizontally>True</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(12, 5)</Origin>
+						<Origin>(15, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -296,7 +331,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, -4)</Origin>
+						<Origin>(16, -4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -360,10 +395,13 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(13, -3)</Coord>
+							<Coord>(16, -3)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, -3)</Coord>
+							<Coord>(14, -3)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(14, 0)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(11, 0)</Coord>
@@ -376,10 +414,13 @@
 							<Coord>(11, 2)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 1)</Coord>
+							<Coord>(14, 2)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(13, 1)</Coord>
+							<Coord>(14, 1)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 1)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -389,17 +430,20 @@
 							<Coord>(11, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(11, 5)</Coord>
+							<Coord>(14, 4)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(13, 5)</Coord>
+							<Coord>(14, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(16, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(13, 9)</Coord>
+							<Coord>(16, 9)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(7, 9)</Coord>
@@ -442,4 +486,38 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_P</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>60.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_I</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>500.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>voltage gain (V/V)</Description>
+				<Name>PID_D</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>15.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

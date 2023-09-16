@@ -81,7 +81,7 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
             for u in range(NumUnknowns): result[u].append(unl[u])
             # pragma: silent exclude
             if self.HasACallBack():
-                progress = self.m_f[n]/self.m_f[-1]*100.0
+                progress = (n+1)/len(self.m_f)*100.0
                 if not self.CallBack(progress):
                     raise SignalIntegrityExceptionDeembedder('calculation aborted')
             # pragma: include

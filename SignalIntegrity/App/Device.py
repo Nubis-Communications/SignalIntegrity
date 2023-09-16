@@ -224,7 +224,7 @@ class Device(object):
         if not self['calcprop'] == None:
             if self['calcprop']['Value']=='true':
                 calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
-                for propertyName in ['EndFrequency','FrequencyPoints','UserSampleRate']:
+                for propertyName in calculationProperties.Dictionary().keys():
                     variablesLine+=(' '+propertyName+' '+str(calculationProperties[propertyName]))
         return variablesLine
 

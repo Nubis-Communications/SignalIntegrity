@@ -663,10 +663,7 @@ class Simulator(object):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
-        fd=si.fd.EvenlySpacedFrequencyList(
-            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
-            )
+        fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
@@ -712,6 +709,10 @@ class Simulator(object):
                         #print 'differentiate: '+self.outputWaveformLabels[r]
                         for n in range(len(self.transferMatrices)):
                             self.transferMatrices[n][r][c]=self.transferMatrices[n][r][c]*diresp[n]
+
+            if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
+                fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
+                self.transferMatrices=self.transferMatrices.Resample(fd)
 
             self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
             SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -809,9 +810,7 @@ class Simulator(object):
             cacheFileName=self.parent.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         snp.AddLines(netListText)
         progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
@@ -820,9 +819,6 @@ class Simulator(object):
         except si.SignalIntegrityException as e:
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
-
-        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
-        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         self.outputWaveformLabels=netList.OutputNames()
         self.sourceNames=netList.MeasureNames()
@@ -836,6 +832,13 @@ class Simulator(object):
                               self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                               'Transfer Parameters',buttonLabelList)
             return
+
+        if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
+            fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
+            self.transferMatrices=self.transferMatrices.Resample(fd)
+
+        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(self.transferMatrices)
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()

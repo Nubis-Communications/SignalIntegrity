@@ -205,3 +205,29 @@ class GenericFrequencyList(FrequencyList):
         """
         FrequencyList.__init__(self)
         self.SetList(fl)
+
+class LogarithmicallySpacedFrequencyList(FrequencyList):
+    """a logarithmically spaced frequency list"""
+    def __init__(self,start_frequency,end_frequency,points_per_decade):
+        """Constructor
+        @param start_frequency float start frequency
+        @param end_frequency float end frequency
+        @param points_per_decade integer number of points per decade
+        Intitializes the frequency list with the list of frequencies
+
+        The list of frequencies is constructed by first determining the list of frequencies in a decade based
+        on the number of points per decade specified.  Then, for each decade, all of the points are retained
+        that are above the start frequency and below the end frequency.  Finally, the start and end frequencies
+        are tacked onto the list.
+        """
+        import math
+        decade_list = [10.**(k/points_per_decade) for k in range(points_per_decade+1)]
+        frequency_list=[start_frequency]
+        for d in range(math.floor(math.log10(start_frequency)),math.ceil(math.log10(end_frequency))):
+            for k in range(points_per_decade+1):
+                this_frequency = decade_list[k] * math.pow(10.,d)
+                if (this_frequency > frequency_list[-1]) and (this_frequency < end_frequency):
+                    frequency_list.append(this_frequency)
+        if end_frequency > frequency_list[-1]:
+            frequency_list.append(end_frequency)
+        FrequencyList.__init__(self,frequency_list)

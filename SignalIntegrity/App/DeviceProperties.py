@@ -154,7 +154,7 @@ class DeviceProperty(tk.Frame):
                     useCalculationProperties=False
                 if useCalculationProperties:
                     calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
-                    kwPairs+=' '+' '.join([propertyName+' '+str(calculationProperties[propertyName]) for propertyName in ['EndFrequency','FrequencyPoints','UserSampleRate']])
+                    kwPairs+=' '+' '.join([propertyName+' '+str(calculationProperties[propertyName]) for propertyName in calculationProperties.Dictionary().keys()])
                 from SignalIntegrity.App.Encryption import Encryption
                 pwdArgString = '' if Encryption.password == None else ' --pwd "'+Encryption.password+'" '
                 result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'"'+pwdArgString+' --external '+kwPairs)

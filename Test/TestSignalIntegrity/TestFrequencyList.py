@@ -148,7 +148,18 @@ class TestFrequencyList(unittest.TestCase,si.test.SParameterCompareHelper):
         esfl=si.fd.EvenlySpacedFrequencyList(Fe,N)/1e9
         esfl2=si.fd.EvenlySpacedFrequencyList(Fe/1e9,N)
         self.assertTrue(esfl==esfl2,self.id()+' result incorrect')
-
+    def testLogarithmicallySpaced(self):
+        frequency_start=2.5e6
+        frequency_end=3.e9
+        points_per_decade=10
+        frequency_list = si.fd.LogarithmicallySpacedFrequencyList(frequency_start,
+                                                                  frequency_end,
+                                                                  points_per_decade)
+        error_message = 'logarithmically space frequency list incorrect'
+        self.assertEquals(frequency_list[0], frequency_start, error_message)
+        self.assertEquals(frequency_list[-1], frequency_end, error_message)
+        delta=[math.log10(frequency_list[kk+1])-math.log10(frequency_list[kk]) for kk in range(len(frequency_list)-1)]
+        self.assertTrue(all([abs(v-1./points_per_decade)<1e-10 for v in delta[1:-2]]), error_message)
 if __name__ == '__main__':
     unittest.main()
 

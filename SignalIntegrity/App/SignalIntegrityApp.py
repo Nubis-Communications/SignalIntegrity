@@ -875,11 +875,11 @@ class SignalIntegrityApp(tk.Frame):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+        efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
         spnp=si.p.SystemSParametersNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
-            cacheFileName=cacheFileName)
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            cacheFileName=cacheFileName,
+            efl=efl)
         spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
@@ -999,9 +999,7 @@ class SignalIntegrityApp(tk.Frame):
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+                SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
                 cacheFileName=cacheFileName)
         dnp.AddLines(netList)
 
@@ -1343,9 +1341,7 @@ class SignalIntegrityApp(tk.Frame):
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         etnp=si.p.CalibrationNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         etnp.AddLines(netList)
         progressDialog = ProgressDialog(self,"Calculating Error Terms",etnp,etnp.CalculateCalibration,granularity=1.0)

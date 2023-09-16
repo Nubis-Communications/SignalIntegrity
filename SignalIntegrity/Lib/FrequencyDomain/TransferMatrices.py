@@ -107,3 +107,29 @@ class TransferMatrices(list):
             td = [td for m in range(len(fr[0]))]
         return [[fro[m].ImpulseResponse(td[m]) for m in range(len(fro))]
             for fro in fr]
+    def Resample(self,fdp):
+        """Resamples to a different set of frequencies
+        @param fdp instance of class FrequencyList to resample to
+        @return instance of class FrequencyResponse containing resampled self
+        @remark
+        Resampling first attempts to find a ratio of numbers of points
+        to resample to.  If a reasonable ratio is found, pure DFT and IDFT
+        methods are utilized along with padding and decimation.
+
+        Otherwise, the chirp z transform is used to resample.
+
+        If the points are unevenly spaced, there is no choice but to resample with
+        splines.
+
+        @see FrequencyResponse.ResampleCZT()
+        @see Spline
+        """
+        fr = self.FrequencyResponses()
+        fr = [[fr[o][s].Resample(fdp)
+            for s in range(self.Inputs)]
+               for o in range(self.Outputs)]
+        d = [[[fr[o][s][n]
+               for s in range(self.Inputs)]
+                    for o in range(self.Outputs)]
+                        for n in range(len(fdp))]
+        return TransferMatrices(fdp,d)

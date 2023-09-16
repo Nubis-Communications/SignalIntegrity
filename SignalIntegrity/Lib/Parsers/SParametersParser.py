@@ -20,14 +20,17 @@
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionPostProcessing
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 
 class SParametersParser(SParameters):
     """parses a list of commands to process s-parameters"""
-    def __init__(self,sp,lines):
+    def __init__(self,sp,lines,efl=None):
         """Constructor
         Takes a set of s-parameters along with a list of command lines to process the s-parameters
         @param sp instance of SParameters to process
         @param lines list of lines with commands indicating the processing, in order
+        @param efl (optional, defaults to None) instance of class FrequencyList containing the
+        evenly spaced frequency list to use when time-domain transformations are required.
         @remark For causality checks, the threshold for causality is 10e-6 (-100 dB).  
         The maximum number of iterations is 30.  
         the Largest singular value is 1.  
@@ -42,6 +45,11 @@ class SParametersParser(SParameters):
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         self.preserveDC = False
+        # evenlySpaced=FrequencyList(self.m_f).EvenlySpaced()
+        # todo - probably should use whether evenly spaced frequency list is supplied (i.e. not None for this
+        # determination
+        self.efl=efl
+        self.uefl = None if efl is None else sp.m_f
         for line in lines:
             tokens=line.split()
             if len(tokens)>=0:

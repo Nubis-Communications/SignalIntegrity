@@ -232,12 +232,11 @@ class SignalIntegrityAppHeadless(object):
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+        efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
         spnp=si.p.SystemSParametersNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
-            ),
-                cacheFileName=cacheFileName)
+                SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+                cacheFileName=cacheFileName,
+                efl=efl)
         if not callback == None:
             spnp.InstallCallback(callback)
         spnp.AddLines(netListText)
@@ -258,9 +257,7 @@ class SignalIntegrityAppHeadless(object):
         if not self.CheckEquations(): return None
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
-        fd=si.fd.EvenlySpacedFrequencyList(
-            SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-            SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
+        fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
@@ -298,6 +295,10 @@ class SignalIntegrityAppHeadless(object):
                         #print 'differentiate: '+outputWaveformLabels[r]
                         for n in range(len(transferMatrices)):
                             transferMatrices[n][r][c]=transferMatrices[n][r][c]*diresp[n]
+
+            if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
+                fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
+                transferMatrices=transferMatrices.Resample(fd)
 
             transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
             SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -400,10 +401,7 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
-            ),
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         if not callback == None:
             snp.InstallCallback(callback)
@@ -413,14 +411,18 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return None
 
-        transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
-        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-
         sourceNames=netList.MeasureNames()
         outputWaveformLabels=netList.OutputNames()
 
         if TransferMatricesOnly:
             return (sourceNames,outputWaveformLabels,transferMatrices)
+
+        if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
+            fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
+            self.transferMatrices=self.transferMatrices.Resample(fd)
+
+        transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         try:
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
@@ -517,11 +519,8 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']
-            ),
-                cacheFileName=cacheFileName)
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            cacheFileName=cacheFileName)
         if not callback == None:
             dnp.InstallCallback(callback)
         dnp.AddLines(netListText)
@@ -559,9 +558,7 @@ class SignalIntegrityAppHeadless(object):
             cacheFileName=self.fileparts.FileNameTitle()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         etnp=si.p.CalibrationNumericParser(
-            si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints']),
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         if not callback == None:
             etnp.InstallCallback(callback)
@@ -593,9 +590,7 @@ class SignalIntegrityAppHeadless(object):
         netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
-        fd=si.fd.EvenlySpacedFrequencyList(
-                SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
-                SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
+        fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()+'_DUTSParameters'
@@ -707,7 +702,11 @@ class SignalIntegrityAppHeadless(object):
             for port in range(snp.simulationNumPorts):
                 app.Device(sourceNames[port])['state']['Value']=stateList[port]
 
-        self.transferMatriceProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
+        if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
+            fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
+            self.transferMatrices=self.transferMatrices.Resample(fd)
+
+        self.transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         try:

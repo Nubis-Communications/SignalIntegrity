@@ -69,7 +69,7 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
             result.append(tm)
             # pragma: silent exclude
             if self.HasACallBack():
-                progress = self.m_f[n]/self.m_f[-1]*100.0
+                progress = (n+1)/len(self.m_f)*100.0
                 if not self.CallBack(progress):
                     raise SignalIntegrityExceptionSimulator('calculation aborted')
             # pragma: include

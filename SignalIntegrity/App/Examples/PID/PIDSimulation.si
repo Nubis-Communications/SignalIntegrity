@@ -2,11 +2,15 @@
 	<CalculationProperties>
 		<EndFrequency>25000000.0</EndFrequency>
 		<FrequencyPoints>5000</FrequencyPoints>
+		<LogarithmicEndFrequency>100000000000.0</LogarithmicEndFrequency>
+		<LogarithmicPointsPerDecade>10</LogarithmicPointsPerDecade>
+		<LogarithmicStartFrequency>10000.0</LogarithmicStartFrequency>
+		<UnderlyingType>Logarithmic</UnderlyingType>
 		<UserSampleRate>50000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>603x413+234+234</Geometry>
+			<Geometry>603x413+78+78</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>11</Originy>
@@ -26,7 +30,7 @@
 						<PartProperty>
 							<Keyword>calcprop</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -51,7 +55,6 @@
 					<Variables>
 						<Items>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage gain (V/V)</Description>
 								<Name>P</Name>
 								<ReadOnly>False</ReadOnly>
@@ -61,7 +64,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage gain (V/V)</Description>
 								<Name>I</Name>
 								<ReadOnly>False</ReadOnly>
@@ -71,7 +73,6 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Default>1.0</Default>
 								<Description>voltage gain (V/V)</Description>
 								<Name>D</Name>
 								<ReadOnly>False</ReadOnly>
@@ -240,7 +241,7 @@
 						<PartProperty>
 							<Keyword>calcprop</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -330,7 +331,7 @@
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -408,7 +409,7 @@
 						<PartProperty>
 							<Keyword>calcprop</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>false</Value>
+							<Value>true</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -749,10 +750,12 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Variables>
 		<Items>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage gain (V/V)</Description>
 				<Name>PID_P</Name>
 				<ReadOnly>False</ReadOnly>
@@ -762,7 +765,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage gain (V/V)</Description>
 				<Name>PID_I</Name>
 				<ReadOnly>False</ReadOnly>
@@ -772,7 +774,6 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Default>1.0</Default>
 				<Description>voltage gain (V/V)</Description>
 				<Name>PID_D</Name>
 				<ReadOnly>False</ReadOnly>

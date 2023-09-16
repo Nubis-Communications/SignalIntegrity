@@ -20,10 +20,23 @@
 
 from numpy import linalg,dot,diag,array
 from SignalIntegrity.Lib.TimeDomain.Waveform import ImpulseResponse
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 import math
 
 class SParameterManipulation(object):
     """Class for manipulations on s-parameters involving passivity, causality, etc."""
+    def ResampleToEvenlySpaced(self):
+        if hasattr(self,'efl') and not self.efl is None:
+            sp=self.Resample(self.efl)
+            from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+            SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+        return self
+    def ResampleToUnevenlySpaced(self):
+        if hasattr(self,'uefl') and not self.uefl is None:
+            sp=self.Resample(self.uefl)
+            from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+            SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+        return self
     # locations where the largest singular value exceeds 1 are locations
     # where there are passivity violations
     def _LargestSingularValues(self):
@@ -70,6 +83,7 @@ class SParameterManipulation(object):
         responses of the s-parameters to zero.
         @param preserveDC (optional, defaults to False) boolean whether to preserve the DC point in causality enforcement
         """
+        self.ResampleToEvenlySpaced()
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
@@ -85,6 +99,7 @@ class SParameterManipulation(object):
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()
                     for n in range(len(frv)): self.m_d[n][toPort][fromPort]=frv[n]
+        self.ResampleToUnevenlySpaced()
         return self
     def WaveletDenoise(self,threshold=0.00001):
         """Denoises the s-parameters
@@ -92,6 +107,7 @@ class SParameterManipulation(object):
         Denoises the s-parameter by computing the wavelet transform of the impulse response
         for each s-parameter from and to port combination and keeping only the wavelets whoe
         absolute value is above the threshold."""
+        self.ResampleToEvenlySpaced()
         from SignalIntegrity.Lib.Wavelets import WaveletDaubechies4
         w=WaveletDaubechies4()
         for toPort in range(self.m_P):
@@ -114,6 +130,7 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        self.ResampleToUnevenlySpaced()
         return self
     def PortReorder(self,pr):
         """Reorders the ports to port ordering of the port numbers supplied.
@@ -183,6 +200,7 @@ class SParameterManipulation(object):
         for each port-port connection.
         """
         if lengths is None: return self
+        self.ResampleToEvenlySpaced()
         if not isinstance(lengths,list):
             lengths=[[lengths for _ in range(self.m_P)] for _ in range(self.m_P)]
         for toPort in range(self.m_P):
@@ -201,6 +219,7 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        self.ResampleToUnevenlySpaced()
         return self
     def EnforceReciprocity(self):
         """ Enforces reciprocity on the s-parameters
@@ -267,6 +286,7 @@ class SParameterManipulation(object):
         length, otherwise if the lengths is a list of list, it is length to be enforced
         for each port-port connection.
         """
+        self.ResampleToEvenlySpaced()
         if lengths is None:
             lengths=(-1e15,1e15)
         if not isinstance(lengths,list):
@@ -297,5 +317,6 @@ class SParameterManipulation(object):
                     frv=fr.Response()
                     for n in range(len(frv)):
                         self.m_d[n][toPort][fromPort]=frv[n]
+        self.ResampleToUnevenlySpaced()
         return self
 

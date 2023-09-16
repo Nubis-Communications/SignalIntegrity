@@ -19,6 +19,7 @@ ProjectFile.py
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 from SignalIntegrity.App.ToSI import ToSI
+import SignalIntegrity.Lib as si
 
 import copy
 import os
@@ -136,6 +137,10 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultInt('TimePoints',write=False))
             self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
             self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
+            self.Add(XMLPropertyDefaultString('UnderlyingType','Linear')) # will be 'Linear' or 'Logarithmic'
+            self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',1e6))
+            self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',20e9))
+            self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',10))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
@@ -165,7 +170,25 @@ class CalculationPropertiesBase(XMLConfiguration):
         self.CalculateOthersFromBaseInformation()
         return self
     def Dictionary(self):
-        return {name:self[name] for name in ['EndFrequency','FrequencyPoints','UserSampleRate']}
+        return {name:self[name] for name in ['EndFrequency',
+                                             'FrequencyPoints',
+                                             'UserSampleRate',
+                                             'UnderlyingType',
+                                             'LogarithmicStartFrequency',
+                                             'LogarithmicEndFrequency',
+                                             'LogarithmicPointsPerDecade']}
+    def IsEvenlySpaced(self):
+        return (self['UnderlyingType'] == 'Linear')
+    def FrequencyList(self,force_evenly_spaced=False):
+        if (self['UnderlyingType'] == 'Linear') or force_evenly_spaced:
+            return si.fd.EvenlySpacedFrequencyList(
+                self['EndFrequency'],
+                self['FrequencyPoints'])
+        else:
+            return si.fd.LogarithmicallySpacedFrequencyList(
+                    self['LogarithmicStartFrequency'],
+                    self['LogarithmicEndFrequency'],
+                    self['LogarithmicPointsPerDecade'])
 
 class CalculationProperties(CalculationPropertiesBase):
     def __init__(self):

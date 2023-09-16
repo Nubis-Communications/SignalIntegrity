@@ -17,24 +17,37 @@ CalculationPropertiesDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty,CalculationPropertyChoices
 from SignalIntegrity.App.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
+
+import sys
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
 
 class CalculationPropertiesDialog(PropertiesDialog):
     def __init__(self,parent):
         PropertiesDialog.__init__(self,parent,SignalIntegrity.App.Project['CalculationProperties'],parent,'Calculation Properties')
         self.transient(parent)
-        self.endFrequencyFrame=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
-        self.frequencyPointsFrame=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
-        self.frequencyResolutionFrame=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
-        self.userSampleRateFrame=CalculationPropertySI(self.propertyListFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
-        self.userSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'User Sample Period',self.onuserSamplePeriodEntered,None,self.project,'UserSamplePeriod','s')
-        self.baseSampleRateFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
-        self.baseSamplePeriodFrame=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
-        self.timePointsFrame=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
-        self.impulseResponseLengthFrame=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')  
+        self.endFrequency=CalculationPropertySI(self.propertyListFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
+        self.frequencyPoints=CalculationProperty(self.propertyListFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
+        self.frequencyResolution=CalculationPropertySI(self.propertyListFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
+        self.userSampleRate=CalculationPropertySI(self.propertyListFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
+        self.userSamplePeriod=CalculationPropertySI(self.propertyListFrame,'User Sample Period',self.onuserSamplePeriodEntered,None,self.project,'UserSamplePeriod','s')
+        self.baseSampleRate=CalculationPropertySI(self.propertyListFrame,'Base Sample Rate',self.onbaseSampleRateEntered,None,self.project,'BaseSampleRate','S/s')
+        self.baseSamplePeriod=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
+        self.timePoints=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
+        self.impulseResponseLength=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
+        self.underlyingType=CalculationPropertyChoices(self.propertyListFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
+        self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
+        if showLogarithmic: self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.logarithmicStartFrequency = CalculationPropertySI(self.logarithmicFrame,'Logarithmic Start Frequency',None,None,self.project,'LogarithmicStartFrequency','Hz')
+        self.logarithmicEndFrequency = CalculationPropertySI(self.logarithmicFrame,'Logarithmic End Frequency',None,None,self.project,'LogarithmicEndFrequency','Hz')
+        self.logarithmicPointsPerDecade = CalculationProperty(self.logarithmicFrame,'Logarithmic Points Per Decade',None,None,self.project,'LogarithmicPointsPerDecade')
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
         PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)
@@ -95,17 +108,24 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
+    def onunderlyingTypeEntered(self,event):
+        self.UpdateStrings()
+
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
-        self.endFrequencyFrame.UpdateStrings()
-        self.frequencyPointsFrame.UpdateStrings()
-        self.frequencyResolutionFrame.UpdateStrings()
-        self.userSampleRateFrame.UpdateStrings()
-        self.userSamplePeriodFrame.UpdateStrings()
-        self.baseSampleRateFrame.UpdateStrings()
-        self.baseSamplePeriodFrame.UpdateStrings()
-        self.timePointsFrame.UpdateStrings()
-        self.impulseResponseLengthFrame.UpdateStrings()
+        self.endFrequency.UpdateStrings()
+        self.frequencyPoints.UpdateStrings()
+        self.frequencyResolution.UpdateStrings()
+        self.userSampleRate.UpdateStrings()
+        self.userSamplePeriod.UpdateStrings()
+        self.baseSampleRate.UpdateStrings()
+        self.baseSamplePeriod.UpdateStrings()
+        self.timePoints.UpdateStrings()
+        self.impulseResponseLength.UpdateStrings()
+        showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
+        self.logarithmicFrame.pack_forget()
+        if showLogarithmic:
+            self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
     def onClosing(self):
         self.ok(None)
