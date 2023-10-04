@@ -318,9 +318,18 @@ class SignalIntegrityAppHeadless(object):
             transferMatrices = []
 
         try:
-            outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
-            otherWaveformLabels=netList.WaveformNames()
+            otherWaveformsTemp=self.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabelsTemp=netList.WaveformNames()
+            otherWaveforms=[]
+            otherWaveformLabels=[]
+            for wi in range(len(otherWaveformsTemp)):
+                if not otherWaveformsTemp[wi] is None:
+                    otherWaveforms.append(otherWaveformsTemp[wi])
+                    otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
+            del otherWaveformsTemp
+            del otherWaveformLabelsTemp
 
+            outputWaveformList+=otherWaveforms
             sourceNamesToShow=netList.SourceNamesToShow()
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
@@ -420,9 +429,18 @@ class SignalIntegrityAppHeadless(object):
             return None
 
         try:
-            outputWaveformList+=self.Drawing.schematic.OtherWaveforms()
-            otherWaveformLabels=netList.WaveformNames()
+            otherWaveformsTemp=self.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabelsTemp=netList.WaveformNames()
+            otherWaveforms=[]
+            otherWaveformLabels=[]
+            for wi in range(len(otherWaveformsTemp)):
+                if not otherWaveformsTemp[wi] is None:
+                    otherWaveforms.append(otherWaveformsTemp[wi])
+                    otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
+            del otherWaveformsTemp
+            del otherWaveformLabelsTemp
 
+            outputWaveformList+=otherWaveforms
             sourceNamesToShow=netList.SourceNamesToShow()
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]

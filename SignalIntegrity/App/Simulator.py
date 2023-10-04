@@ -732,8 +732,18 @@ class Simulator(object):
             self.outputWaveformLabels = []
 
         try:
-            outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
-            otherWaveformLabels=netList.WaveformNames()
+            otherWaveformsTemp=self.parent.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabelsTemp=netList.WaveformNames()
+            otherWaveforms=[]
+            otherWaveformLabels=[]
+            for wi in range(len(otherWaveformsTemp)):
+                if not otherWaveformsTemp[wi] is None:
+                    otherWaveforms.append(otherWaveformsTemp[wi])
+                    otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
+            del otherWaveformsTemp
+            del otherWaveformLabelsTemp
+
+            outputWaveformList+=otherWaveforms
 
             sourceNamesToShow=netList.SourceNamesToShow()
             otherWaveformLabels+=sourceNamesToShow
@@ -841,9 +851,18 @@ class Simulator(object):
             return
 
         try:
-            outputWaveformList+=self.parent.Drawing.schematic.OtherWaveforms()
-            otherWaveformLabels=netList.WaveformNames()
+            otherWaveformsTemp=self.parent.Drawing.schematic.OtherWaveforms()
+            otherWaveformLabelsTemp=netList.WaveformNames()
+            otherWaveforms=[]
+            otherWaveformLabels=[]
+            for wi in range(len(otherWaveformsTemp)):
+                if not otherWaveformsTemp[wi] is None:
+                    otherWaveforms.append(otherWaveformsTemp[wi])
+                    otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
+            del otherWaveformsTemp
+            del otherWaveformLabelsTemp
 
+            outputWaveformList+=otherWaveforms
             sourceNamesToShow=netList.SourceNamesToShow()
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]

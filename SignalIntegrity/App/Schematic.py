@@ -68,7 +68,15 @@ class Schematic(object):
         for device in self.deviceList:
             if device['partname']['Value'] in ['EyeWaveform','Waveform']:
                 if device['state']['Value'] == 'on':
-                    wf = device.Waveform()
+                    try:
+                        wf = device.Waveform()
+                    except Exception as e:
+                        import SignalIntegrity.App.Project
+                        if SignalIntegrity.App.Preferences['Calculation.IgnoreMissingOtherWaveforms']:
+                            otherWaveformList.append(None)
+                            break
+                        else:
+                            raise
                     if not wf is None:
                         otherWaveformList.append(wf)
         return otherWaveformList
