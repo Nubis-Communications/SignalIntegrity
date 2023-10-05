@@ -560,7 +560,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         parser.AddLine('device D1 2 file cable.s2p')
         parser.AddLine('port 1 D1 1 2 D1 2')
         parser.SParameters()
-        self.assertTrue(self.CheckCallbackTesterResults([201,0.,100.]),'S-parameter parser callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([201,1./201.*100.,100.]),'S-parameter parser callback incorrect')
     def testSParameterCallbackAbort(self):
         self.InitCallbackTester(50)
         freq=[0.1e9*i for i in range(201)]
@@ -570,7 +570,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         with self.assertRaises(si.SignalIntegrityException) as cm:
             parser.SParameters()
         self.assertEqual(cm.exception.parameter,'S-Parameters')
-        self.assertTrue(self.CheckCallbackTesterResults([50,0.,24.5]),'S-parameter parser callback abort incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([50,1./201.*100.,50./201.*100.]),'S-parameter parser callback abort incorrect')
     def testSParameterCallbackRemoval(self):
         self.InitCallbackTester()
         freq=[0.1e9*i for i in range(201)]
@@ -652,7 +652,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
         parser.AddLine('system file '+systemSParametersFileName)
         si.sp.SParameters(freq,parser.Deembed(system))
         os.remove(systemSParametersFileName)
-        self.assertTrue(self.CheckCallbackTesterResults([201,0.,100.]),'Deembedder parser callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([201,1./201*100.,100.]),'Deembedder parser callback incorrect')
     def testDeembedCallbackAbort(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         self.InitCallbackTester(abortOn=50)
@@ -677,7 +677,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,si.te
             si.sp.SParameters(freq,parser.Deembed(system))
         self.assertEqual(cm.exception.parameter,'Deembedder')
         os.remove(systemSParametersFileName)
-        self.assertTrue(self.CheckCallbackTesterResults([50,0.,24.5]),'Deembedder parser callback abort incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([50,1./201.*100.,50./201.*100.]),'Deembedder parser callback abort incorrect')
 # Incorrect S-parameter file extensions on write
     def testMissingExtension(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))

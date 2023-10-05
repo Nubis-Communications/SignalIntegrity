@@ -1,7 +1,8 @@
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
-    def __init__(self,f=None,args=None,callback=None,cacheFileName=None):
+    def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None):
         SystemDescriptionParser.__init__(self,f,args)
         self.sf = None
+        self.efl = efl
     def SParameters(self,solvetype='block'):
         self.SystemDescription()
         self.m_sd.CheckConnections()

@@ -106,7 +106,8 @@ class TransferMatrices(list,CallBacker):
             for o in range(self.Outputs):
                 for s in range(self.Inputs):
                     fr[o][s] = self.FrequencyResponse(o+1,s+1)
-                    if not self.CallBack((o*self.Inputs+s)/(self.Inputs*self.Outputs)*100.0):
+                    if not self.CallBack((o*self.Inputs+s)/
+                                         (self.Inputs*self.Outputs)*100.0):
                         return None
             self.fr = fr
         return self.fr
@@ -131,7 +132,8 @@ class TransferMatrices(list,CallBacker):
         for o in range(self.Outputs):
             for s in range(self.Inputs):
                 ir[o][s] = fr[o][s].ImpulseResponse(td[s])
-                if not self.CallBack((o*self.Inputs+s)/(self.Inputs*self.Outputs)*100.0):
+                if not self.CallBack((o*self.Inputs+s)/
+                                     (self.Inputs*self.Outputs)*100.0):
                     return None
 
         self.ir = ir

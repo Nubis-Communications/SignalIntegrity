@@ -629,6 +629,8 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         firstDef='__init__'
         allfuncs=self.EntireListOfClassFunctions(fileName,className)
         allfuncs.remove(firstDef)
+        allfuncs.remove('PrecalculateFrequencyResponses')
+        allfuncs.remove('PrecalculateImpulseResponses')
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteMixedModeConverter(self):

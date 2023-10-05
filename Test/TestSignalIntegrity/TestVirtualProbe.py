@@ -341,7 +341,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
 ##        plt.plot(fp,o2mag,label=labels[1])
 ##        plt.legend(loc='upper left')
 ##        plt.show()
-        self.assertTrue(self.CheckCallbackTesterResults([200,0.,100.]),'virtual probe transfer matrix callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([200,1./200*100.,100.]),'virtual probe transfer matrix callback incorrect')
     def testVirtualProbeBalunAbort(self):
         self.InitCallbackTester(abortOn=50)
         f=[float(i)/200*3e9 for i in range(200)]
@@ -369,7 +369,7 @@ class TestVirtualProbe(unittest.TestCase,si.test.CallbackTesterHelper):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             vpp.TransferMatrices()
         self.assertEqual(cm.exception,'VirtualProbe') 
-        self.assertTrue(self.CheckCallbackTesterResults([50, 0.0, 24.623115577889447]),'virtual probe transfer matrix callback abort incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([50, 1./200.*100, 50/200.*100.]),'virtual probe transfer matrix callback abort incorrect')
 
 if __name__ == '__main__':
     unittest.main()

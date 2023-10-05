@@ -1118,13 +1118,13 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         #self.CheckSParametersResult(tmsp,spFileName,spFileName)
-        self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([N+1,1./(N+1)*100.,100.]),'simulator transfer matrix callback incorrect')
         self.InitCallbackTester()
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(HO,Kw,Fs))
         tmp=si.td.f.TransferMatricesProcessor(tm,callback=self.CallbackTester)
         srs=tmp.ProcessWaveforms([stepin])
         self.assertTrue(self.CheckCallbackTesterResults([2,0.,50.]),'simulator callback incorrect')
-        #self.CheckWaveformResult(srs,'Waveform_'+fileNameBase+'.txt','Waveform_'+fileNameBase+'.txt')        
+        #self.CheckWaveformResult(srs,'Waveform_'+fileNameBase+'.txt','Waveform_'+fileNameBase+'.txt')
     def testSimulatorCallbackAbortTransferMatrix(self):
         self.InitCallbackTester(abortOn=3)
         Fs=40e9
@@ -1139,7 +1139,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         with self.assertRaises(si.SignalIntegrityException) as cm:
             tm=snp.TransferMatrices()
         self.assertEqual(cm.exception.parameter,'Simulator')
-        self.assertTrue(self.CheckCallbackTesterResults([3,0.,10.]),'simulator transfer matrix processing abort callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([3,1./(N+1)*100.,3./(N+1)*100.]),'simulator transfer matrix processing abort callback incorrect')
     def testSimulatorCallbackAbortWaveformProcessing(self):
         self.InitCallbackTester()
         Fs=40e9
@@ -1157,7 +1157,7 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         fileNameBase = self.id().split('.')[-1].replace('test','')
         spFileName = fileNameBase +'.s'+str(ports)+'p'
         #self.CheckSParametersResult(tmsp,spFileName,spFileName)
-        self.assertTrue(self.CheckCallbackTesterResults([21,0.,100.]),'simulator transfer matrix callback incorrect')
+        self.assertTrue(self.CheckCallbackTesterResults([N+1,1./(N+1)*100.,100.]),'simulator transfer matrix callback incorrect')
         self.InitCallbackTester(abortOn=1)
         stepin=si.td.wf.StepWaveform(si.td.wf.TimeDescriptor(HO,Kw,Fs))
         tmp=si.td.f.TransferMatricesProcessor(tm,callback=self.CallbackTester)

@@ -713,7 +713,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             outputwflist=[]
             for port in range(len(self.wflist)):
-                outputwflist.append(self.transferMatriceProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
+                outputwflist.append(self.transferMatricesProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
         except si.SignalIntegrityException as e:
             return None
         #

@@ -125,6 +125,9 @@ class DrawingConfiguration(XMLConfiguration):
         self.SubDir(SchematicConfiguration())
 
 class CalculationPropertiesBase(XMLConfiguration):
+    defaultLogarithmicStartFrequency=1e6
+    defaultLogarithmicEndFrequency=20e9
+    defaultLogarithmicPointsPerDecade=10
     def __init__(self,Name,preferences=False):
         XMLConfiguration.__init__(self,Name)
         if not preferences:
@@ -138,9 +141,9 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('FrequencyResolution',write=False))
             self.Add(XMLPropertyDefaultFloat('ImpulseResponseLength',write=False))
             self.Add(XMLPropertyDefaultString('UnderlyingType','Linear')) # will be 'Linear' or 'Logarithmic'
-            self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',1e6))
-            self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',20e9))
-            self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',10))
+            self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',self.defaultLogarithmicStartFrequency))
+            self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',self.defaultLogarithmicEndFrequency))
+            self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',self.defaultLogarithmicPointsPerDecade))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
@@ -170,13 +173,15 @@ class CalculationPropertiesBase(XMLConfiguration):
         self.CalculateOthersFromBaseInformation()
         return self
     def Dictionary(self):
-        return {name:self[name] for name in ['EndFrequency',
+        dict = {name:self[name] for name in ['EndFrequency',
                                              'FrequencyPoints',
-                                             'UserSampleRate',
-                                             'UnderlyingType',
-                                             'LogarithmicStartFrequency',
-                                             'LogarithmicEndFrequency',
-                                             'LogarithmicPointsPerDecade']}
+                                             'UserSampleRate']}
+        if self['UnderlyingType'] != 'Linear':
+            dict.update({name:self[name] for name in ['UnderlyingType',
+                                                  'LogarithmicStartFrequency',
+                                                 'LogarithmicEndFrequency',
+                                                 'LogarithmicPointsPerDecade']})
+        return dict
     def IsEvenlySpaced(self):
         return (self['UnderlyingType'] == 'Linear')
     def FrequencyList(self,force_evenly_spaced=False):
@@ -189,6 +194,16 @@ class CalculationPropertiesBase(XMLConfiguration):
                     self['LogarithmicStartFrequency'],
                     self['LogarithmicEndFrequency'],
                     self['LogarithmicPointsPerDecade'])
+    def OutputXML(self,indent):
+        if all([self['UnderlyingType'] == 'Linear',
+                self['LogarithmicStartFrequency'] == self.defaultLogarithmicStartFrequency,
+                self['LogarithmicEndFrequency'] == self.defaultLogarithmicEndFrequency,
+                self['LogarithmicPointsPerDecade'] == self.defaultLogarithmicPointsPerDecade]):
+            self.dict['UnderlyingType'].dict['write'] = False
+            self.dict['LogarithmicStartFrequency'].dict['write'] = False
+            self.dict['LogarithmicEndFrequency'].dict['write'] = False
+            self.dict['LogarithmicPointsPerDecade'].dict['write'] = False
+        return XMLConfiguration.OutputXML(self,indent)
 
 class CalculationProperties(CalculationPropertiesBase):
     def __init__(self):

@@ -1,5 +1,7 @@
 class SParameterManipulation(object):
+...
     def EnforceCausality(self,preserveDC=False):
+        self.ResampleToEvenlySpaced()
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
@@ -15,5 +17,6 @@ class SParameterManipulation(object):
                     fr=ir.FrequencyResponse()
                     frv=fr.Response()
                     for n in range(len(frv)): self.m_d[n][toPort][fromPort]=frv[n]
+        self.ResampleToUnevenlySpaced()
         return self
 ...

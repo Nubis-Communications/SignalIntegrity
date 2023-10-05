@@ -6,5 +6,5 @@ class SimulatorNumeric(Simulator,Numeric):
         VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
         SIPrime=array(self.SIPrime(Left=VE_o))
         sm=array(self.SourceToStimsPrimeMatrix())
-        Result=VE_o.dot(SIPrime).dot(sm)
+        Result=[list(v) for v in list(VE_o.dot(SIPrime).dot(sm))]
         return Result

@@ -1,4 +1,5 @@
 class SParameterManipulation(object):
+...
     def EnforceReciprocity(self):
         for n in range(len(self.m_d)):
             for r in range(len(self.m_d[n])):

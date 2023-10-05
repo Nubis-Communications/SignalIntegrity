@@ -1,4 +1,5 @@
 class SParameterManipulation(object):
+...
     def _LargestSingularValues(self):
         return [linalg.svd(m,full_matrices=False,compute_uv=False)[0]
             for m in self.m_d]
