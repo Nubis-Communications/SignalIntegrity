@@ -41,7 +41,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod=CalculationPropertySI(self.propertyListFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePoints=CalculationProperty(self.propertyListFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.propertyListFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
-        self.underlyingType=CalculationPropertyChoices(self.propertyListFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
+        if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
+            self.underlyingType=CalculationPropertyChoices(self.propertyListFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
         if showLogarithmic: self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)

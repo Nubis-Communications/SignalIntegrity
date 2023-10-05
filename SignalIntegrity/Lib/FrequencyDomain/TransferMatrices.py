@@ -139,7 +139,6 @@ class TransferMatrices(list,CallBacker):
         self.ir = ir
         self.td = td
         return self.ir
-
     def Resample(self,fdp):
         """Resamples to a different set of frequencies
         @param fdp instance of class FrequencyList to resample to
