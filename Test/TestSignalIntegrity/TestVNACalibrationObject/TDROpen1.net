@@ -1,3 +1,4 @@
+var $Noise$ 0
 device Open 1 openstd od 29.243e-12 oz0 50.0 ol 2.2e9 f0 1.0e9 c0 49.43e-15 c1 -310.13e-27 c2 23.1682e-36 c3 0.15966e-45
-device D1 4 networkanalyzermodel file TDRModel.si
+device D1 4 networkanalyzermodel file TDRModel.si Noise $Noise$
 connect D1 1 Open 1

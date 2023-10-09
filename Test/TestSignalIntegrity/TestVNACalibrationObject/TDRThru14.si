@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>503x287+78+107</Geometry>
+			<Geometry>503x287+2038+147</Geometry>
 			<Grid>16</Grid>
 			<Originx>4</Originx>
 			<Originy>0</Originy>
@@ -96,6 +96,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 			</Devices>
 			<Wires>
@@ -140,4 +153,17 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage (Vrms)</Description>
+				<Name>Noise</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>Vrms</Units>
+				<Value>6e-06</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

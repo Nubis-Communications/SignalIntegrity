@@ -613,7 +613,14 @@ class SignalIntegrityAppHeadless(object):
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
-                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
+                for device in self.Drawing.schematic.deviceList:
+                    if device['partname']['Value']=='NetworkAnalyzerModel':
+                        variablesList=device.variablesList
+                        break
+                args=SignalIntegrity.App.Project['Variables'].Dictionary(variablesList)
+                if device['calcprop'].GetValue() == 'true':
+                    args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile),args=args):
                     app.Drawing.DrawSchematic()
                     netList=app.Drawing.schematic.NetList()
                     netListText=netList.Text()
@@ -654,7 +661,14 @@ class SignalIntegrityAppHeadless(object):
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
-                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile)):
+                for device in self.Drawing.schematic.deviceList:
+                    if device['partname']['Value']=='NetworkAnalyzerModel':
+                        variablesList=device.variablesList
+                        break
+                args=SignalIntegrity.App.Project['Variables'].Dictionary(variablesList)
+                if device['calcprop'].GetValue() == 'true':
+                    args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+                if app.OpenProjectFile(os.path.realpath(NetworkAnalyzerProjectFile),args=args):
                     app.Drawing.DrawSchematic()
                     # get output gain, offset, delay
                     for name in [rdn[2] for rdn in snp.m_sd.pOutputList]:

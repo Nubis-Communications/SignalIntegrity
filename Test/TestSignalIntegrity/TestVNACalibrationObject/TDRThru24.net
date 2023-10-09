@@ -1,4 +1,5 @@
+var $Noise$ 0
 device Thru 2 thrustd od 94.75e-12 oz0 50.0 ol 2.52e9 f0 1.0e9
-device D1 4 networkanalyzermodel file TDRModel.si
-connect Thru 1 D1 2
+device D1 4 networkanalyzermodel file TDRModel.si Noise $Noise$
+connect D1 2 Thru 1
 connect Thru 2 D1 4

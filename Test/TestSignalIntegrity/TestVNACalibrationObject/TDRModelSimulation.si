@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>509x370+78+107</Geometry>
+			<Geometry>509x370+1983+94</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>4</Originy>
@@ -23,6 +23,12 @@
 						<Origin>(5, 0)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -42,6 +48,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceFile</ClassName>
@@ -53,6 +72,12 @@
 						<Origin>(12, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
 						<PartProperty>
 							<Keyword>file</Keyword>
 							<KeywordVisible>True</KeywordVisible>
@@ -104,4 +129,20 @@
 			</Wires>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage (Vrms)</Description>
+				<Name>Noise</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>Vrms</Units>
+				<Value>6e-06</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

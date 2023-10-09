@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1055x743+127+143</Geometry>
+			<Geometry>1250x743+1993+102</Geometry>
 			<Grid>16</Grid>
 			<Originx>-2</Originx>
 			<Originy>7</Originy>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 4)</Origin>
+						<Origin>(51, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -92,7 +92,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(54, 4)</Origin>
+						<Origin>(62, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -164,7 +164,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(43, 11)</Origin>
+						<Origin>(51, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -218,7 +218,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(54, 11)</Origin>
+						<Origin>(62, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -306,6 +306,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -354,6 +367,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -402,6 +428,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -410,7 +449,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(15, 1)</Origin>
+						<Origin>(17, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -450,6 +489,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -458,7 +510,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(15, 6)</Origin>
+						<Origin>(17, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -498,6 +550,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -506,7 +571,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(15, 11)</Origin>
+						<Origin>(17, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -546,6 +611,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -606,6 +684,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -614,7 +705,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 1)</Origin>
+						<Origin>(28, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -654,6 +745,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -662,7 +766,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(30, 6)</Origin>
+						<Origin>(38, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -702,6 +806,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -710,7 +827,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 11)</Origin>
+						<Origin>(28, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -750,6 +867,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -758,7 +888,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(30, 1)</Origin>
+						<Origin>(38, 1)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -798,6 +928,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -806,7 +949,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 6)</Origin>
+						<Origin>(28, 6)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -846,6 +989,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceReflectCalibrationMeasurement</ClassName>
@@ -854,7 +1010,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(30, 11)</Origin>
+						<Origin>(38, 11)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -894,6 +1050,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -954,6 +1123,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -962,7 +1144,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 32)</Origin>
+						<Origin>(21, 32)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1014,6 +1196,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -1022,7 +1217,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(18, 18)</Origin>
+						<Origin>(21, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1074,6 +1269,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -1082,7 +1290,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(23, 25)</Origin>
+						<Origin>(27, 25)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1134,6 +1342,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceThruCalibrationMeasurement</ClassName>
@@ -1142,7 +1363,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(26, 18)</Origin>
+						<Origin>(32, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1194,6 +1415,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 			</Devices>
 		</Schematic>
@@ -1201,4 +1435,17 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage (Vrms)</Description>
+				<Name>Noise</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>Vrms</Units>
+				<Value>6e-06</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

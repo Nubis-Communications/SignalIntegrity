@@ -57,16 +57,20 @@ class CalibrationParser(SystemDescriptionParser):
                 if self.calibrationMeasurementList is None: self.calibrationMeasurementList=[]
                 measDict={}
                 measDict['type']=lineList[1]
+                # do this twice -- so that we can gather up the arguments before calling any SParameterFile
+                args={}
                 for i in range(2,len(lineList),2):
                     tokenName,tokenValue = lineList[i],lineList[i+1]
                     if tokenName == 'file':
-                        measDict['raw']=SParameterFile(tokenValue).Resample(self.m_f)
+                        # measDict['raw']=SParameterFile(tokenValue).Resample(self.m_f)
+                        pass
                     elif tokenName == 'std':
-                        if tokenValue == 'None':
-                            self.m_spc[tokenValue] = None
-                        elif not tokenValue in self.m_spc:
-                            self.m_spc[tokenValue] = SParameterFile(tokenValue).Resample(self.m_f)
-                        measDict['std']=self.m_spc[tokenValue]
+                        # if tokenValue == 'None':
+                        #     self.m_spc[tokenValue] = None
+                        # elif not tokenValue in self.m_spc:
+                        #     self.m_spc[tokenValue] = SParameterFile(tokenValue).Resample(self.m_f)
+                        # measDict['std']=self.m_spc[tokenValue]
+                        pass
                     elif tokenName == 'pn':
                         measDict['driven']=port=int(tokenValue)
                         self.ports=max(port,self.ports)
@@ -75,6 +79,30 @@ class CalibrationParser(SystemDescriptionParser):
                         self.ports=max(port,self.ports)
                     elif tokenName == 'ct':
                         measDict['thrutype']=tokenValue
+                    elif '$'+tokenName+'$' in self.m_vars.keys():
+                        args[tokenName]=self.m_vars['$'+tokenName+'$']
+                # second time, with args defined
+                for i in range(2,len(lineList),2):
+                    tokenName,tokenValue = lineList[i],lineList[i+1]
+                    if tokenName == 'file':
+                        measDict['raw']=SParameterFile(tokenValue,None,None,**args).Resample(self.m_f)
+                    elif tokenName == 'std':
+                        if tokenValue == 'None':
+                            self.m_spc[tokenValue] = None
+                        elif not tokenValue in self.m_spc:
+                            self.m_spc[tokenValue] = SParameterFile(tokenValue,None,None,**args).Resample(self.m_f)
+                        measDict['std']=self.m_spc[tokenValue]
+                    elif tokenName == 'pn':
+                        # measDict['driven']=port=int(tokenValue)
+                        # self.ports=max(port,self.ports)
+                        pass
+                    elif tokenName == 'opn':
+                        # measDict['other']=port=int(tokenValue)
+                        # self.ports=max(port,self.ports)
+                        pass
+                    elif tokenName == 'ct':
+                        # measDict['thrutype']=tokenValue
+                        pass
                 if measDict['type']=='reflect':
                     self.calibrationMeasurementList.append(ReflectCalibrationMeasurement(measDict['raw'].FrequencyResponse(1,1),
                         measDict['std'],

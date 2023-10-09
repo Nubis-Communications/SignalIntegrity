@@ -136,7 +136,7 @@ class Calibration(object):
         with open(filename,'w') as f:
             f.writelines(lines)
         return self
-    def ReadFromFile(self,filename,callback,**kwargs):
+    def ReadFromFile(self,filename,callback=None,**kwargs):
         """Reads the error terms to a file in LeCroy format
         @param filename name of file to read the error terms from
         @param callback function ptr (optional, defaults to None) callback function.

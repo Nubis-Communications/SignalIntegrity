@@ -52,6 +52,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
             return TestTDRTwoPortTest.simdict[filename]
         TestTDRTwoPortTest.simdict[filename] = self.SimulationResultsChecker(filename)
         return TestTDRTwoPortTest.simdict[filename]
+
     def testTDRSOLPerfectButWithLength(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -297,8 +298,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-6),'s-parameters not equal')
         return
-        
-        
+
         cl=[si.m.cal.ReflectCalibrationMeasurement(spRawShort,si.m.calkit.std.ShortStandard(f),1,'s'),
             si.m.cal.ReflectCalibrationMeasurement(spRawOpen,si.m.calkit.std.OpenStandard(f),1,'o'),
             si.m.cal.ReflectCalibrationMeasurement(spRawLoad,si.m.calkit.std.LoadStandard(f),1,'l')]
@@ -306,6 +306,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
         et=cm.ErrorTerms()
         pass
+
     def testVNASOLImperfect(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -485,6 +486,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         os.chdir(currentDirectory)
     def NameForTest(self):
         return '_'.join(self.id().split('.')[-2:])
+
     def testTDRSOLPerfectButWithLengthDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -863,6 +865,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
         et=cm.ErrorTerms()
         pass
+
     def testVNASOLImperfectDelay(self):
         # pragma: exclude
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -1262,6 +1265,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(DUTActualSP, self.NameForTest()+'_Actual.s1p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSP, 1e-3),'s-parameters not equal')
 
+
     def testTDRSimulationSOL(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOL.si')
         sourceNames=result[0]
@@ -1313,6 +1317,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
 
     def testTDRSimulationSOLT(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnly.si')
@@ -1450,17 +1455,24 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
     def testThruStandard(self):
         Fe=20e9
         N=200
         sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
         self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
+
     def testThruStandardCalcZc(self):
-        si.m.calkit.std.Offset.calcZc=True
-        Fe=20e9
-        N=200
-        sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
-        self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
+        calcZcSave=si.m.calkit.std.Offset.calcZc
+        try:
+            si.m.calkit.std.Offset.calcZc=True
+            Fe=20e9
+            N=200
+            sp=si.m.calkit.ThruStandard([n*Fe/N for n in range(N+1)],offsetDelay=100e-12,offsetZ0=60,offsetLoss=2.0e9)
+            self.SParameterRegressionChecker(sp, self.NameForTest()+'.s2p')
+        finally:
+            si.m.calkit.std.Offset.calcZc=calcZcSave
+
     def testTDRSimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
         sourceNames=result[0]
@@ -1626,6 +1638,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
 
     def testTDRSimulationSOLTTwoPortEQ(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
@@ -1811,6 +1824,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         DUTActualSp=si.m.calkit.ThruStandard(f,offsetDelay=200e-12,offsetZ0=60.0)
         self.SParameterRegressionChecker(DUTActualSp, self.NameForTest()+'_Actual.s2p')
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+
     def testCalkitWrite(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         calkit = si.m.calkit.CalibrationKit()
@@ -1855,6 +1869,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         self.SParameterRegressionChecker(calkit.openStandard, self.NameForTest()+'_OpenStandard.s1p')
         self.SParameterRegressionChecker(calkit.loadStandard, self.NameForTest()+'_LoadStandard.s1p')
         self.SParameterRegressionChecker(calkit.thruStandard, self.NameForTest()+'_ThruStandard.s2p')
+
     def testVNASimulationSOLT(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
         sourceNames=result[0]
@@ -1896,7 +1911,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         AThru11=fr[outputNames.index('AThru11')][sourceNames.index('VGLeft')]
         AThru21=fr[outputNames.index('AThru21')][sourceNames.index('VGLeft')]
         AThru12=fr[outputNames.index('AThru12')][sourceNames.index('VGRight')]
-        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]     
+        AThru22=fr[outputNames.index('AThru22')][sourceNames.index('VGRight')]
         BThru11=fr[outputNames.index('BThru11')][sourceNames.index('VGLeft')]
         BThru21=fr[outputNames.index('BThru21')][sourceNames.index('VGLeft')]
         BThru12=fr[outputNames.index('BThru12')][sourceNames.index('VGRight')]
@@ -1908,7 +1923,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         ADut11=fr[outputNames.index('ADut11')][sourceNames.index('VGLeft')]
         ADut21=fr[outputNames.index('ADut21')][sourceNames.index('VGLeft')]
         ADut12=fr[outputNames.index('ADut12')][sourceNames.index('VGRight')]
-        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]     
+        ADut22=fr[outputNames.index('ADut22')][sourceNames.index('VGRight')]
         BDut11=fr[outputNames.index('BDut11')][sourceNames.index('VGLeft')]
         BDut21=fr[outputNames.index('BDut21')][sourceNames.index('VGLeft')]
         BDut12=fr[outputNames.index('BDut12')][sourceNames.index('VGRight')]
@@ -1920,7 +1935,7 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         AEx11=fr[outputNames.index('AEx11')][sourceNames.index('VGLeft')]
         AEx21=fr[outputNames.index('AEx21')][sourceNames.index('VGLeft')]
         AEx12=fr[outputNames.index('AEx12')][sourceNames.index('VGRight')]
-        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]     
+        AEx22=fr[outputNames.index('AEx22')][sourceNames.index('VGRight')]
         BEx11=fr[outputNames.index('BEx11')][sourceNames.index('VGLeft')]
         BEx21=fr[outputNames.index('BEx21')][sourceNames.index('VGLeft')]
         BEx12=fr[outputNames.index('BEx12')][sourceNames.index('VGRight')]

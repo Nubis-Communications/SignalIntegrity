@@ -59,44 +59,33 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+    def DeleteCache(self):
+        import glob
+        # Get a list of all cached files
+        fileList = glob.glob('*_cache*')
+        # Iterate over the list of filepaths & remove each file.
+        for filePath in fileList:
+            try:
+                os.remove(filePath)
+            except:
+                print("Error while deleting file : ", filePath)
     def testAAAADoThisFirst(self):
-        proj=siapp.SignalIntegrityAppHeadless()
-        self.assertTrue(proj.OpenProjectFile('TDRModel.si'))
-        proj.Device('N1')['vrms']['Value']=0.0
-        proj.Device('N2')['vrms']['Value']=0.0
-        proj.Device('N3')['vrms']['Value']=0.0
-        proj.Device('N4')['vrms']['Value']=0.0
-        proj.SaveProjectToFile('TDRModel.si')
         if self.deleteCache:
-            import glob
-            # Get a list of all cached files
-            fileList = glob.glob('*_cache*')
-            # Iterate over the list of filepaths & remove each file.
-            for filePath in fileList:
-                try:
-                    os.remove(filePath)
-                except:
-                    print("Error while deleting file : ", filePath)
-    def testZZZZDoThisLast(self):
-        proj=siapp.SignalIntegrityAppHeadless()
-        self.assertTrue(proj.OpenProjectFile('TDRModel.si'))
-        proj.Device('N1')['vrms']['Value']=6e-6
-        proj.Device('N2')['vrms']['Value']=6e-6
-        proj.Device('N3')['vrms']['Value']=6e-6
-        proj.Device('N4')['vrms']['Value']=6e-6
-        proj.SaveProjectToFile('TDRModel.si')
+            self.DeleteCache()
     def testSIUnits(self):
         unit='e-27 F/Hz'
         number=-310.13
         self.assertEqual(number,siapp.ToSI.FromSI(siapp.ToSI.ToSI(number,unit),unit),'si with exponent converted incorrectly')
+    def Args(self):
+        return {'Noise':0.0}
     def TestCal(self,testid):
         filename=testid.split('.')[-1].replace('test','')+'.si'
-        self.SParameterResultsChecker(filename)
-        self.SimulationResultsChecker(filename)
+        self.SParameterResultsChecker(filename,args=self.Args())
+        self.SimulationResultsChecker(filename,args=self.Args())
         if self.deleteCache:
             # checks caching
-            self.SParameterResultsChecker(filename)
-            self.SimulationResultsChecker(filename)
+            self.SParameterResultsChecker(filename,args=self.Args())
+            self.SimulationResultsChecker(filename,args=self.Args())
     def testTDRShort1(self):
         self.TestCal(self.id())
     def testTDROpen1(self):
@@ -134,11 +123,11 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
     def testTDRThru34(self):
         self.TestCal(self.id())
     def testTDRCalibration(self):
-        self.CalibrationResultsChecker('TDRCalibration.si')
+        self.CalibrationResultsChecker('TDRCalibration.si',args=self.Args())
     def testTDRCalculation(self):
-        self.SParameterResultsChecker('TDRCalculation.si')
+        self.SParameterResultsChecker('TDRCalculation.si',args=self.Args())
     def testTDRCalculationArchive(self):
-        self.SParameterResultsChecker('TDRCalculation.si',archive=True)
+        self.SParameterResultsChecker('TDRCalculation.si',args=self.Args(),archive=True)
 
 if __name__ == "__main__": # pragma: no cover
     runProfiler=False

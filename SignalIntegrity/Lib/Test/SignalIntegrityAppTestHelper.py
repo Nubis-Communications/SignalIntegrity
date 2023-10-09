@@ -230,8 +230,8 @@ class SignalIntegrityAppTestHelper:
         self.SParameterRegressionChecker(sp, spfilename)
         self.ArchiveCleanup(filename,pysi,archive)
         return result
-    def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True, args={}):
+        pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args)
         result=pysi.CalculateErrorTerms()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)

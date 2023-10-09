@@ -1,3 +1,4 @@
+var $Noise$ 0
 device Load 1 loadstd od 0 oz0 50.0 ol 0 f0 1.0e9 tz 50.0
-device D1 4 networkanalyzermodel file TDRModel.si
+device D1 4 networkanalyzermodel file TDRModel.si Noise $Noise$
 connect D1 4 Load 1

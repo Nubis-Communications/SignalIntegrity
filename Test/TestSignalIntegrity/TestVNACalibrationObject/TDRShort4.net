@@ -1,3 +1,4 @@
+var $Noise$ 0
 device Short 1 shortstd od 31.785e-12 oz0 50.0 ol 2.36e9 f0 1.0e9 l0 2.0765e-12 l1 -108.54e-24 l2 2.1705e-33 l3 -0.1001e-42
-device D1 4 networkanalyzermodel file TDRModel.si
+device D1 4 networkanalyzermodel file TDRModel.si Noise $Noise$
 connect D1 4 Short 1

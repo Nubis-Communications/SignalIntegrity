@@ -6,10 +6,10 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>520x238+381+164</Geometry>
+			<Geometry>520x238+1948+57</Geometry>
 			<Grid>16</Grid>
-			<Originx>1</Originx>
-			<Originy>4</Originy>
+			<Originx>8</Originx>
+			<Originy>5</Originy>
 		</DrawingProperties>
 		<Schematic>
 			<Devices>
@@ -66,6 +66,19 @@
 							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>voltage (Vrms)</Description>
+								<Name>Noise</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Vrms</Units>
+								<Value>=Noise</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>Port</ClassName>
@@ -140,4 +153,17 @@
 			</PostProcessingLine>
 		</Lines>
 	</PostProcessing>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage (Vrms)</Description>
+				<Name>Noise</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>Vrms</Units>
+				<Value>6e-06</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

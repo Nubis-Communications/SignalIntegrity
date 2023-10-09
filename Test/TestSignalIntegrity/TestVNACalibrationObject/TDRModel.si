@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>868x448+688+62</Geometry>
+			<Geometry>868x448+2033+144</Geometry>
 			<Grid>16</Grid>
 			<Originx>0</Originx>
 			<Originy>10</Originy>
@@ -362,7 +362,7 @@
 						<PartProperty>
 							<Keyword>vrms</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>6e-06</Value>
+							<Value>=Noise</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -422,7 +422,7 @@
 						<PartProperty>
 							<Keyword>vrms</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>6e-06</Value>
+							<Value>=Noise</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -746,7 +746,7 @@
 						<PartProperty>
 							<Keyword>vrms</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>6e-06</Value>
+							<Value>=Noise</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -998,7 +998,7 @@
 						<PartProperty>
 							<Keyword>vrms</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>6e-06</Value>
+							<Value>=Noise</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -1157,4 +1157,17 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>voltage (Vrms)</Description>
+				<Name>Noise</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>Vrms</Units>
+				<Value>6e-06</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>
