@@ -22,9 +22,11 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.CallBacker import CallBacker
 
 from numpy import zeros
+import copy
 
 class TransferMatrices(list,CallBacker):
     """Class that is used for processing waveforms in simulation."""
+    cacheResponses=True
     def __init__(self,f,d):
         """Constructor
         @param f instance of class FrequencyList
@@ -87,11 +89,11 @@ class TransferMatrices(list,CallBacker):
         # pragma: silent exclude
         from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
         # pragma: include
-        if self.fr == None:
+        if not self.cacheResponses or self.fr == None:
             return FrequencyResponse(self.f,[Matrix[o-1][i-1]
                                              for Matrix in self])
         else:
-            return self.fr[o-1][i-1]
+            return copy.deepcopy(self.fr[o-1][i-1])
     def FrequencyResponses(self):
         """frequency responses of filters
         @return list of list of instances of class FrequencyResponse
@@ -101,7 +103,7 @@ class TransferMatrices(list,CallBacker):
         input i to an output o.
         @see FrequencyResponse()
         """
-        if self.fr==None:
+        if not self.cacheResponses or self.fr==None:
             fr = [[None for s in range(self.Inputs)] for o in range(self.Outputs)]
             for o in range(self.Outputs):
                 for s in range(self.Inputs):
@@ -109,8 +111,10 @@ class TransferMatrices(list,CallBacker):
                     if not self.CallBack((o*self.Inputs+s)/
                                          (self.Inputs*self.Outputs)*100.0):
                         return None
+            if not self.cacheResponses:
+                return fr
             self.fr = fr
-        return self.fr
+        return copy.deepcopy(self.fr)
     def ImpulseResponses(self,td=None):
         """impulse responses of filters
         @return list of list of instances of class ImpulseResponse
@@ -124,7 +128,8 @@ class TransferMatrices(list,CallBacker):
             td = [td for _ in range(self.Inputs)]
         if fr == None:
             return None
-        if self.td == td and self.ir != None:
+
+        if self.cacheResponses and self.td == td and self.ir != None:
             return self.ir
 
         ir = [[None for s in range(self.Inputs)] for o in range(self.Outputs)]
@@ -136,9 +141,12 @@ class TransferMatrices(list,CallBacker):
                                      (self.Inputs*self.Outputs)*100.0):
                     return None
 
+        if not self.cacheResponses:
+            return ir
+
         self.ir = ir
         self.td = td
-        return self.ir
+        return copy.deepcopy(self.ir)
     def Resample(self,fdp):
         """Resamples to a different set of frequencies
         @param fdp instance of class FrequencyList to resample to
