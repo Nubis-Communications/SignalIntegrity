@@ -25,3 +25,13 @@ import os
 InstallDir=os.path.dirname(os.path.abspath(__file__))+'/'
 IconsBaseDir=InstallDir+'icons/png/'
 IconsDir=IconsBaseDir+'16x16/actions/'
+import logging
+import platform
+thisOS=platform.system()
+if thisOS == 'Linux':
+    pathToLogFile = os.path.expanduser('~')+'/.signalintegrity'
+else:
+    pathToLogFile = 'c:/LeCroy/SignalIntegrity'
+logging.basicConfig(filename=os.path.join(pathToLogFile,'.log.log'),level=logging.DEBUG)
+logging.getLogger("matplotlib").setLevel(logging.WARNING)
+logging.getLogger('PIL').setLevel(logging.WARNING)
