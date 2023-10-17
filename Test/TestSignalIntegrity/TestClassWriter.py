@@ -774,5 +774,18 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         className='WaveletDaubechies4'
         defName=['__init__']
         self.WriteClassCode(fileName,className,defName)
+    def testWriteParallel(self):
+        fileName="../../SignalIntegrity/Lib/SParameters/Devices/Parallel.py"
+        className='Parallel'
+        firstDef='__init__'
+        allfuncs=self.EntireListOfClassFunctions(fileName,className)
+        allfuncs.remove(firstDef)
+        defName=[firstDef]+allfuncs
+        try:
+            maxLineLength=si.test.RoutineWriterTesterHelper.maxLineLength
+            si.test.RoutineWriterTesterHelper.maxLineLength=maxLineLength+20
+            self.WriteClassCode(fileName,className,defName)
+        finally:
+            si.test.RoutineWriterTesterHelper.maxLineLength=maxLineLength
 if __name__ == '__main__':
     unittest.main()
