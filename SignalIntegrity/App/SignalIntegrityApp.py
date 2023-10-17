@@ -474,6 +474,10 @@ class SignalIntegrityApp(tk.Frame):
         variableNames = SignalIntegrity.App.Project['Variables'].Names()
         calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
         calculationPropertyNames = calculationProperties.dict.keys()
+        # if an end frequency and frequency points are passed in, but not an underlying type, then assume the underlying
+        # type is linear
+        if all([prop in args.keys() for prop in ['EndFrequency','FrequencyPoints']]) and not 'UnderlyingType' in args.keys():
+            args['UnderlyingType'] = 'Linear'
         for key in args.keys():
             if key in variableNames:
                 SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
