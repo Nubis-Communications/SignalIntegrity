@@ -190,6 +190,17 @@ class SignalIntegrityAppHeadless(object):
                 vertexProject['Selected']=False
         return True
 
+    def OpenDevice(self,device,filename):
+        try:
+            args=SignalIntegrity.App.Project['Variables'].Dictionary(device.variablesList)
+            if device['calcprop'].GetValue() == 'true':
+                args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(filename),args):
+                return app
+        except:
+            return None
+
     def SaveProjectToFile(self,filename):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())

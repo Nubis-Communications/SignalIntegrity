@@ -159,7 +159,9 @@ class LinesCache(ResultsCache):
                 if len(lineList)>0: linesKeyValue.append((lineList[0],' '.join(lineList[1:])))
             keyList=sorted(list(set([key for key,_ in linesKeyValue])))
             keyLineList={key:[] for key in keyList}
-            for key,value in linesKeyValue: keyLineList[key].append(value)
+            for key,value in linesKeyValue:
+                if not (key == 'var' and 'nocache' in value):
+                    keyLineList[key].append(value)
             reorderedText=[]
             for key in keyLineList.keys():
                 linelist=sorted(keyLineList[key])

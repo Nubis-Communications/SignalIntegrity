@@ -266,6 +266,7 @@ class VariableConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Value','0'))
         self.Add(XMLPropertyDefaultString('Units',''))
         self.Add(XMLPropertyDefaultBool('ReadOnly',False))
+        self.Add(XMLPropertyDefaultBool('InCache',True))
     def InitFromPartProperty(self,variableName,partProperty):
         self['Visible']=partProperty['Visible']
         self['Description']=partProperty['Description']
@@ -276,6 +277,7 @@ class VariableConfiguration(XMLConfiguration):
         if self['Units']==None:
             self['Units']=''
         self['ReadOnly']=False
+        self['InCache']=True
         return self
     def CheckValidity(self):
         if not isinstance(self['Description'],str): return False
@@ -315,10 +317,11 @@ class VariableConfiguration(XMLConfiguration):
             value=('/'.join(str(os.path.abspath(value)).split('\\')))
             if ' ' in value:
                 value="'"+value+"'"
+        noCacheString = '' if self['InCache']  else ' nocache'
         if value != '':
-            return '$'+self['Name']+'$ '+ value
+            return '$'+self['Name']+'$ '+ value + noCacheString
         else:
-            return value
+            return '$'+self['Name']+'$ '+ 'None' + noCacheString
     def DisplayString(self,displayVariable=True,resolveVariable=True,visible=True):
         result=''
         if visible or self.GetValue('Visible'):

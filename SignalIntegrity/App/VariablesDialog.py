@@ -49,6 +49,7 @@ class VariablePropertyDialog(PropertiesDialog):
         self.Value = CalculationProperty(self.propertyListFrame, 'Value', None, None, self.project, 'Value')
         self.Units = CalculationProperty(self.propertyListFrame, 'Units', None, None, self.project, 'Units')
         self.ReadOnly = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'Output Variable', None, None, self.project, 'ReadOnly')
+        self.InCache = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'In Cache Calculation', None, None, self.project, 'InCache')
         self.onType()
         PropertiesDialog.bind(self, '<Return>', self.ok)
         PropertiesDialog.bind(self, '<Escape>', self.cancel)
