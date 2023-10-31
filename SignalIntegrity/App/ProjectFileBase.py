@@ -21,19 +21,21 @@ import os
 from SignalIntegrity.App.Encryption import Encryption
 
 class XMLProperty(object):
-    def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None):
+    def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None,writeDefault=True):
         self.dict={}
         if not propertyValue == None:
             if propertyType == None:
-                self.Default(propertyName,propertyValue,'string',write,arrayType)
+                self.Default(propertyName,propertyValue,'string',write,arrayType,writeDefault)
             else:
-                self.Default(propertyName,propertyValue,propertyType,write,arrayType)
-    def Default(self,propertyName,propertyValue,propertyType,write,arrayType):
+                self.Default(propertyName,propertyValue,propertyType,write,arrayType,writeDefault)
+    def Default(self,propertyName,propertyValue,propertyType,write,arrayType,writeDefault):
+        self.dict['default']=propertyValue
         self.dict['name']=propertyName
         self.dict['type']=propertyType
         self.dict['value']=propertyValue
         self.dict['arrayType']=arrayType
         self.dict['write']=write
+        self.dict['writeDefault']=writeDefault
         self.UpdateValue()
 
     def Changed(self,changed):
@@ -48,6 +50,10 @@ class XMLProperty(object):
         if 'write' in self.dict:
             if not self.dict['write']:
                 return lines
+        if 'writeDefault' in self.dict and 'value' in self.dict and 'default' in self.dict:
+            if not self.dict['writeDefault']:
+                if self.dict['value'] == self.dict['default']:
+                    return lines
         if 'type' in self.dict:
             elementPropertyType = self.dict['type']
         else:
@@ -158,36 +164,36 @@ class XMLProperty(object):
         return self.SetValue(path,value)
 
 class XMLPropertyDefault(XMLProperty):
-    def __init__(self,name,typeString,value=None,write=True,arrayType=None):
+    def __init__(self,name,typeString,value=None,write=True,arrayType=None,writeDefault=True):
         if value==None:
             strValue='None'
         else:
             strValue = str(value)
-        XMLProperty.__init__(self,name,strValue,typeString,write,arrayType)
+        XMLProperty.__init__(self,name,strValue,typeString,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultFloat(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'float',value,write,arrayType)
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'float',value,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultInt(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'int',value,write,arrayType)
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'int',value,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultString(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'string',value,write,arrayType)
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'string',value,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultBool(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'bool',value,write,arrayType)
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'bool',value,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultArray(XMLPropertyDefault):
-    def __init__(self,name,value=None,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'array',value,arrayType)
+    def __init__(self,name,value=None,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'array',value,arrayType,writeDefault)
 
 class XMLPropertyDefaultCoord(XMLPropertyDefault):
-    def __init__(self,name,value=None,write=True,arrayType=None):
-        XMLPropertyDefault.__init__(self,name,'coord',value,write,arrayType)
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'coord',value,write,arrayType,writeDefault)
 
 class XMLConfiguration(object):
     def __init__(self,name,write=True):

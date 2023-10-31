@@ -266,7 +266,7 @@ class VariableConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Value','0'))
         self.Add(XMLPropertyDefaultString('Units',''))
         self.Add(XMLPropertyDefaultBool('ReadOnly',False))
-        self.Add(XMLPropertyDefaultBool('InCache',True))
+        self.Add(XMLPropertyDefaultBool('InCache',True,writeDefault=False))
     def InitFromPartProperty(self,variableName,partProperty):
         self['Visible']=partProperty['Visible']
         self['Description']=partProperty['Description']
