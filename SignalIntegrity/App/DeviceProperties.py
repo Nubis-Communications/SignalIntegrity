@@ -141,7 +141,10 @@ class DeviceProperty(tk.Frame):
             if FileParts(filename).fileext == '.si':
                 def fileTreatment(value,typeString):
                     if typeString == 'file':
-                        value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
+                        try:
+                            value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
+                        except ValueError: # occurs when drive name is different
+                            value=value.replace('\\','/')
                         if ' ' in value:
                             value='"'+value+'"'
                     return value
