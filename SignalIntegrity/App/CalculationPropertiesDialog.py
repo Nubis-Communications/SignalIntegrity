@@ -18,7 +18,7 @@ CalculationPropertiesDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty,CalculationPropertyChoices
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty,CalculationPropertyChoices,CalculationPropertyTrueFalseButton
 from SignalIntegrity.App.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
@@ -36,6 +36,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.TimeAndFrequencyFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.TimeAndFrequencyFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.endFrequency=CalculationPropertySI(self.TimeAndFrequencyFrame,'End Frequency',self.onendFrequencyEntered,None,self.project,'EndFrequency','Hz')
+        self.fixedEndFrequency=CalculationPropertyTrueFalseButton(self.TimeAndFrequencyFrame,'Fixed End Frequency',None,None,self.project,'FixedEndFrequency')
         self.frequencyPoints=CalculationProperty(self.TimeAndFrequencyFrame,'Frequency Points',self.onfrequencyPointsEntered,None,self.project,'FrequencyPoints')
         self.frequencyResolution=CalculationPropertySI(self.TimeAndFrequencyFrame,'Frequency Resolution',self.onfrequencyResolutionEntered,None,self.project,'FrequencyResolution','Hz')
         self.userSampleRate=CalculationPropertySI(self.TimeAndFrequencyFrame,'User Sample Rate',self.onuserSampleRateEntered,None,self.project,'UserSampleRate','S/s')
@@ -44,6 +45,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
+        self.fixedImpulseResponseLength=CalculationPropertyTrueFalseButton(self.TimeAndFrequencyFrame,'Fixed Impulse Response Length',None,None,self.project,'FixedImpulseResponseLength')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
