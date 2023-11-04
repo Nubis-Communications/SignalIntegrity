@@ -472,18 +472,40 @@ class SignalIntegrityApp(tk.Frame):
         self.OpenProjectFile(filename)
 
     def SetVariables(self,args,reportMissing=False):
+        args=copy.deepcopy(args) # so that we don't modify them
         variableNames = SignalIntegrity.App.Project['Variables'].Names()
         calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
         calculationPropertyNames = calculationProperties.dict.keys()
         # if an end frequency and frequency points are passed in, but not an underlying type, then assume the underlying
         # type is linear
-        if all([prop in args.keys() for prop in ['EndFrequency','FrequencyPoints']]) and not 'UnderlyingType' in args.keys():
-            args['UnderlyingType'] = 'Linear'
+        if all([prop in args.keys() for prop in ['EndFrequency','FrequencyPoints']]):
+            impulseResponseLength=float(args['FrequencyPoints'])/float(args['EndFrequency'])
+            del args['FrequencyPoints']
+            args['ImpulseResponseLength']=str(impulseResponseLength)
+            if not 'UnderlyingType' in args.keys():
+                args['UnderlyingType'] = 'Linear'
         for key in args.keys():
             if key in variableNames:
                 SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
             elif key in calculationPropertyNames:
-                calculationProperties.SetValue(key,args[key])
+                setIt=True
+                if key == 'EndFrequency' and calculationProperties['FixedEndFrequency']:
+                    setIt=False
+                elif key == 'ImpulseResponseLength' and calculationProperties['FixedImpulseResponseLength']:
+                    setIt=False
+                if setIt:
+                    calculationProperties.SetValue(key,args[key])
+                    if key == 'ImpulseResponseLength':
+                        def NextHigher12458(x):
+                            """helper function that allows turning this off, depending on preferences"""
+                            if SignalIntegrity.App.Preferences['Calculation.Enforce12458']:
+                                from SignalIntegrity.App.ToSI import nextHigher12458
+                                return nextHigher12458(x)
+                            else:
+                                return x
+                        calculationProperties['TimePoints']=int(calculationProperties['ImpulseResponseLength']*calculationProperties['BaseSampleRate']+0.5)
+                        calculationProperties['FrequencyPoints']=int(NextHigher12458(calculationProperties['TimePoints']/2))
+                        calculationProperties['FrequencyPoints']=max(1,calculationProperties['FrequencyPoints'])
             elif reportMissing:
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
