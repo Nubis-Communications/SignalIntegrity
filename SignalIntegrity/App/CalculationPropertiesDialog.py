@@ -46,8 +46,6 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
         self.fixedImpulseResponseLength=CalculationPropertyTrueFalseButton(self.TimeAndFrequencyFrame,'Fixed Impulse Response Length',None,None,self.project,'FixedImpulseResponseLength')
-        if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
-            self.underlyingType=CalculationPropertyChoices(self.propertyListFrame,'Frequency List Type',self.onunderlyingTypeEntered,None,[('Linear','Linear'),('Logarithmic','Logarithmic')],self.project,'UnderlyingType')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
@@ -62,6 +60,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.ReferenceImpedanceFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.Non50OhmSolutions'] or self.project['ReferenceImpedance'] != 50.:
             self.referenceImpedance=CalculationPropertySI(self.ReferenceImpedanceFrame,'Reference Impedance',None,None,self.project,'ReferenceImpedance','ohm')
+            self.fixedReferenceImpedance=CalculationPropertyTrueFalseButton(self.ReferenceImpedanceFrame,'Fixed Reference Impedance',None,None,self.project,'FixedReferenceImpedance')
         PropertiesDialog.bind(self,'<Return>',self.ok)
         PropertiesDialog.bind(self,'<Escape>',self.cancel)
         PropertiesDialog.protocol(self,"WM_DELETE_WINDOW", self.onClosing)

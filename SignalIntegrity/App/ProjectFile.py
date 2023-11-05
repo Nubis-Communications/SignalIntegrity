@@ -149,6 +149,7 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',self.defaultLogarithmicPointsPerDecade))
             self.Add(XMLPropertyDefaultBool('FixedEndFrequency',False,writeDefault=False))
             self.Add(XMLPropertyDefaultBool('FixedImpulseResponseLength',False,writeDefault=False))
+            self.Add(XMLPropertyDefaultBool('FixedReferenceImpedance',False,writeDefault=False))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)

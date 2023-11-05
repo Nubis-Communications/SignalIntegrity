@@ -493,6 +493,8 @@ class SignalIntegrityApp(tk.Frame):
                     setIt=False
                 elif key == 'ImpulseResponseLength' and calculationProperties['FixedImpulseResponseLength']:
                     setIt=False
+                elif key == 'ReferenceImpedance' and calculationProperties['FixedReferenceImpedance']:
+                    setIt=False
                 if setIt:
                     calculationProperties.SetValue(key,args[key])
                     if key == 'ImpulseResponseLength':
