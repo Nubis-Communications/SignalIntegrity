@@ -167,6 +167,7 @@ class SignalIntegrityAppHeadless(object):
             args['ImpulseResponseLength']=str(impulseResponseLength)
             if not 'UnderlyingType' in args.keys():
                 args['UnderlyingType'] = 'Linear'
+        calculationPropertyArgs=[]
         for key in args.keys():
             if key in variableNames:
                 SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
@@ -176,21 +177,28 @@ class SignalIntegrityAppHeadless(object):
                     setIt=False
                 elif key == 'ImpulseResponseLength' and calculationProperties['FixedImpulseResponseLength']:
                     setIt=False
+                elif key == 'ReferenceImpedance' and calculationProperties['FixedReferenceImpedance']:
+                    setIt=False
                 if setIt:
-                    calculationProperties.SetValue(key,args[key])
-                    if key == 'ImpulseResponseLength':
-                        def NextHigher12458(x):
-                            """helper function that allows turning this off, depending on preferences"""
-                            if SignalIntegrity.App.Preferences['Calculation.Enforce12458']:
-                                from SignalIntegrity.App.ToSI import nextHigher12458
-                                return nextHigher12458(x)
-                            else:
-                                return x
-                        calculationProperties['TimePoints']=int(calculationProperties['ImpulseResponseLength']*calculationProperties['BaseSampleRate']+0.5)
-                        calculationProperties['FrequencyPoints']=int(NextHigher12458(calculationProperties['TimePoints']/2))
-                        calculationProperties['FrequencyPoints']=max(1,calculationProperties['FrequencyPoints'])
+                    calculationPropertyArgs.append((key,args[key]))
             elif reportMissing:
                 print('variable '+key+' not in project')
+            for key,value in calculationPropertyArgs:
+                if key != 'ImpulseResponseLength':
+                    calculationProperties.SetValue(key,value)
+            for key,value in calculationPropertyArgs:
+                if key == 'ImpulseResponseLength':
+                    calculationProperties.SetValue(key,value)
+                    def NextHigher12458(x):
+                        """helper function that allows turning this off, depending on preferences"""
+                        if SignalIntegrity.App.Preferences['Calculation.Enforce12458']:
+                            from SignalIntegrity.App.ToSI import nextHigher12458
+                            return nextHigher12458(x)
+                        else:
+                            return x
+                    calculationProperties['TimePoints']=int(calculationProperties['ImpulseResponseLength']*calculationProperties['BaseSampleRate']+0.5)
+                    calculationProperties['FrequencyPoints']=int(NextHigher12458(calculationProperties['TimePoints']/2))
+                    calculationProperties['FrequencyPoints']=max(1,calculationProperties['FrequencyPoints'])
         calculationProperties.CalculateOthersFromBaseInformation()
 
     def OpenProjectFile(self,filename,args={}):
