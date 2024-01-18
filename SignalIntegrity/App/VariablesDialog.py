@@ -92,7 +92,7 @@ class VariablePropertyDialog(PropertiesDialog):
 
 class VariablesDialog(PropertiesDialog):
 
-    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None):
+    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None, parameterizable = False):
         # the system variables are edited when no project is supplied, otherwise these are device variables
         self.systemVariables=(project == None)
         if project == None: project = SignalIntegrity.App.Project['Variables.Items']
@@ -131,6 +131,8 @@ class VariablesDialog(PropertiesDialog):
 
         if self.filename != None:
             tk.Button(self.controlFrame, text='import from project', command=self.onImportFromProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+            tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        elif parameterizable:
             tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
 
         PropertiesDialog.bind(self, '<Return>', self.ok)
@@ -395,4 +397,3 @@ class VariablesDialog(PropertiesDialog):
     def cancel(self, event):
         self.project=self.savedVariables
         PropertiesDialog.destroy(self)
-

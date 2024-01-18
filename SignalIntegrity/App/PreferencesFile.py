@@ -79,6 +79,8 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('DefaultTimeBefore0',1e-9))
         self.Add(XMLPropertyDefaultBool('AllowParallelization',False))
         self.Add(XMLPropertyDefaultBool('AllowMaximumImpulseResponseLength',False))
+        self.Add(XMLPropertyDefaultBool('AutoshutoffIterations', False))
+        self.Add(XMLPropertyDefaultFloat('AutoshutoffThreshold', 1E-3))
 
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
@@ -130,6 +132,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
         self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',False))
         self.Add(XMLPropertyDefaultBool('ArchiveNonRelativeFiles',False))
+        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):

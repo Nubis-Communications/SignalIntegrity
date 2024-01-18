@@ -87,7 +87,7 @@ class NetList(object):
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:
                 self.textToShow.append(device.NetListLine())
-                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource']:
+                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','nonlinearsource']:
                     ref_name=device['ref'].GetValue()
                     if device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                         if device['ports']['Value'] == '4':
@@ -452,8 +452,34 @@ class NetList(object):
                     self.noiseSourceNames = [s for s in self.noiseSourceNames if s != ref] + [ref]
                     endinglines.append('currentnoisesource '+ref+' 1')
                     endinglines.append('connect '+ref+' 1 '+tokens[1]+' 5 '+tokens[1]+' 6')
+            elif tokens[0] in ['nonlinearsource']:
+                
+                #REplace nonlinear source with an open circuit and a voltage source on node 2
+                #Do not have the code to support a two port open circuit, so for now doing a hack of using a very large resistor instead. 
+                #line = 'device ' + tokens[1] + ' 2 R inf'
+                numports = int(tokens[2])
+                numinputs = numports - 1 #Currently hardcoded for only 1 output, can change to differential output in future!
+                line1 = 'voltagesource ' + tokens[1] + 's 1'
+                line2 = 'device ' + tokens[1] + ' ' + str(numports) + ' open'
+                line = [line1, line2]
+
+                endinglines.append('connect ' + tokens[1] + 's 1 ' + tokens[1] + ' ' + str(numports)) #Connect new voltage source to output pin
+                for i in range(numinputs):
+                    if i == 0:
+                        probename = tokens[1]
+                    else:
+                        probename = tokens[1] + '_' + str(i+1)
+                    endinglines.append('voltageoutput ' + probename + ' ' + tokens[1] + ' ' + str(i + 1)) #Connect voltage probe to input pin
+
+                    self.outputNames.append(probename) #Add port name to list of output names
+
+                #Todo, add probe
+                #print(tokens)
             if not line == None:
-                textToShow.append(line)
+                if (isinstance(line, list)):
+                    textToShow += line #Enables substituting multiple lines for single lines 
+                else:
+                    textToShow.append(line)
         self.textToShow=textToShow+endinglines+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
 
     def Text(self):
