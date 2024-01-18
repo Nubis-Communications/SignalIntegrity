@@ -1,0 +1,12 @@
+var $tf_fn$ scale_nonlin.py
+var $NLS1_test_int$ 3
+voltagesource VS1 1
+device R2 2 R 50.0
+device R4 1 R 50.0
+voltagesource VS2 2
+device O1 1 open
+connect VS2 1 VS1 1
+voltageoutput VO1 VS2 2
+connect VS2 2 R2 1
+voltageoutput VO3 R4 1
+connect R4 1 R2 2 O1 1

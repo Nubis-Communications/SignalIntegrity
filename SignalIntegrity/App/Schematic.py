@@ -67,6 +67,14 @@ class Schematic(CallBacker):
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    
+    def HasDependentSource(self):
+        for device in self.deviceList:
+            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
+                wftype = device['wftype']
+                if wftype != None and wftype.GetValue() == 'Depen':
+                    return True
+        return False
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:
@@ -1785,6 +1793,7 @@ class Drawing(tk.Frame):
         foundACalibration=False
         foundANetworkAnalyzerModel=False
         foundAWaveform=False
+        foundDependentSource = False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1806,12 +1815,15 @@ class Drawing(tk.Frame):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerport']:
+            elif device.netlist['DeviceName'] in ['voltagesource','currentsource','networkanalyzerport', 'nonlinearsource']:
                 foundASource = True
+                if device['wftype'] != None and device['wftype'].GetValue() == 'Depen':
+                    foundDependentSource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True
             elif deviceType == 'NetworkAnalyzerModel':
                 foundANetworkAnalyzerModel=True
+
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
@@ -1821,12 +1833,12 @@ class Drawing(tk.Frame):
                                     (dot[0]+originx)*grid+size,(dot[1]+originy)*grid+size,
                                     fill='black',outline='black')
         canSimulate = ((foundASource and foundAnOutput) or foundAWaveform) and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
-        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform
+        canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform and not foundDependentSource
         canRLGC=canCalculateSParameters and (numPortsFound == 2)
         canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
         canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration and not foundAWaveform
         canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundAWaveform
-        canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration  and not foundAWaveform
+        canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundDependentSource and not foundAWaveform
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         canGenerateTransferMatrices = (canSimulate and foundASource and foundAnOutput) or canVirtualProbe

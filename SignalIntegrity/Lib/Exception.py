@@ -100,3 +100,7 @@ class SignalIntegrityExceptionNetworkAnalyzer(SignalIntegrityException):
 class SignalIntegrityExceptionEyeDiagram(SignalIntegrityException):
     def __init__(self,message=''):
         SignalIntegrityException.__init__(self,'EyeDiagram',message)
+
+class SignalIntegrityExceptionDependentWaveform(SignalIntegrityException):
+    def __init__(self,message=''):
+        SignalIntegrityException.__init__(self,'DependentWaveform',message)

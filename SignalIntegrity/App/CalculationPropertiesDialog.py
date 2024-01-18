@@ -44,6 +44,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.numIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Iterations', self.onnumIterationsEntered, None, self.project,'NumIterations')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
@@ -118,6 +120,10 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
+    def onnumIterationsEntered(self, event):
+        self.project['NumIterations'] = int(self.project['NumIterations'])
+        self.UpdateStrings()
+
     def onunderlyingTypeEntered(self,event):
         self.UpdateStrings()
 
@@ -132,6 +138,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod.UpdateStrings()
         self.timePoints.UpdateStrings()
         self.impulseResponseLength.UpdateStrings()
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.numIterations.UpdateStrings()
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
         self.logarithmicInformationFrame.pack_forget()
         if showLogarithmic:
@@ -156,7 +164,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
     def Save(self):
         self.saved={'EndFrequency':self.project['EndFrequency'],
                     'FrequencyPoints':self.project['FrequencyPoints'],
-                    'UserSampleRate':self.project['UserSampleRate']}
+                    'UserSampleRate':self.project['UserSampleRate'],
+                    'NumIterations':self.project['NumIterations']}
 
     def Restore(self):
         for key in self.saved:

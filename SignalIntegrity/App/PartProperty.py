@@ -204,6 +204,15 @@ class PartPropertyWaveformFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'waveformfilename',type='file',unit=None,keyword='wffile',description='file name',value=fileName)
 
+class PartPropertyTransformFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'transformfilename',type='file',unit=None,keyword='trfile',description='transform file name',value=fileName)
+
+class PartPropertyDependentProbe(PartProperty):
+    def __init__(self,dependentprobe=''):
+        PartProperty.__init__(self,'dependentprobe',type='string',unit=None,keyword='depen',description='dependent probe',value=dependentprobe)
+
+
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
         PartProperty.__init__(self,'resistance',type='float',unit='ohm',keyword=keyword,description=descriptionPrefix+'resistance (ohms)',value=resistance,visible=True,keywordVisible=False)
