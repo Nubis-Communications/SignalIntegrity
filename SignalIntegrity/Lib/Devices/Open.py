@@ -1,6 +1,7 @@
 """
 Open.py
 """
+import numpy
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.

@@ -47,6 +47,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
                 tooltip='Cap the impulse response length by reducing the number of frequency points.\nThe cap is approximate - the number of points is kept integer to the end frequency.')
             self.maximumImpulseResponseLength=CalculationPropertySI(self.MaximumImpulseResponseLengthFrame,'Maximum Impulse Response Length',self.onmaximumImpulseLengthEntered,None,self.project,'MaximumImpulseResponseLength','s')
             self.maximumImpulseResponseLength.Show(self.project['LimitImpulseResponseLength'])
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.ProcessingIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Processing Iterations', self.onProcessingIterationsEntered, None, self.project,'ProcessingIterations')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
@@ -132,6 +134,10 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
+    def onProcessingIterationsEntered(self, event):
+        self.project['ProcessingIterations'] = int(self.project['ProcessingIterations'])
+        self.UpdateStrings()
+
     def onunderlyingTypeEntered(self,event):
         self.UpdateStrings()
 
@@ -161,6 +167,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod.UpdateStrings()
         self.timePoints.UpdateStrings()
         self.impulseResponseLength.UpdateStrings()
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.ProcessingIterations.UpdateStrings()
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
         self.logarithmicInformationFrame.pack_forget()
         if showLogarithmic:
@@ -199,7 +207,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
                     'FrequencyPoints':self.project['FrequencyPoints'],
                     'UserSampleRate':self.project['UserSampleRate'],
                     'LimitImpulseResponseLength':self.project['LimitImpulseResponseLength'],
-                    'MaximumImpulseResponseLength':self.project['MaximumImpulseResponseLength']}
+                    'MaximumImpulseResponseLength':self.project['MaximumImpulseResponseLength'],
+                    'ProcessingIterations':self.project['ProcessingIterations']}
 
     def Restore(self):
         for key in self.saved:

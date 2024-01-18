@@ -61,9 +61,17 @@ class Variables(XMLConfiguration):
         super().__init__('Variables')
         self.Add(XMLPropertyDefaultBool('ParameterizeOnlyVisible',True))
 
+class Processing(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Processing')
+        self.Add(XMLPropertyDefaultBool('StopOnConvergence', False))
+        self.Add(XMLPropertyDefaultFloat('ConvergenceThreshold', 1E-3))
+        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
+
 class Calculation(XMLConfiguration):
     def __init__(self):
         super().__init__('Calculation')
+        self.SubDir(Processing())
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
         self.Add(XMLPropertyDefaultBool('AllowNonUniqueSolutions',False))
         self.Add(XMLPropertyDefaultBool('CheckConditionNumber',True))
@@ -79,7 +87,6 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('DefaultTimeBefore0',1e-9))
         self.Add(XMLPropertyDefaultBool('AllowParallelization',False))
         self.Add(XMLPropertyDefaultBool('AllowMaximumImpulseResponseLength',False))
-
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
@@ -181,4 +188,3 @@ class PreferencesFile(ProjectFileBase):
         self['Calculation'].ApplyPreferences()
         self['ProjectFiles.Encryption'].ApplyPreferences()
         self['Cache'].ApplyPreferences()
-
