@@ -92,6 +92,7 @@ class Device(object):
         self.Wf=wf
     def Waveform(self,callback=None):
         import SignalIntegrity.Lib as si
+
         wfTypeProperty=self['wftype']
         if wfTypeProperty is None:
             waveform = None
@@ -179,6 +180,11 @@ class Device(object):
             elif wfType == 'DC':
                 amplitude=float(self['a'].GetValue())
                 waveform=amplitude
+            elif wfType == 'Depen':
+                import SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform
+                #TODO: Clean up syntax here it is not corect
+                waveform = si.td.wf.DependentWaveform.DependentWaveform(self['depen'].GetValue(), self['trfile'].GetValue())
+                waveform = 0
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si
@@ -448,8 +454,24 @@ class DeviceVoltageSource(Device):
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyCalculationProperties(),
             PartPropertyWaveformFileName(),
-            PartPropertyShow(),
+            PartPropertyShow(2),
             PartPropertyWaveformType('file'),
+            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+
+class DeviceDependentVoltageSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('Dependant Voltage Source'),
+            PartPropertyHelp('device:Dependant-Voltage-Source'),
+            PartPropertyDefaultReferenceDesignator('DVS?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyTransformFileName(),
+            #PartPropertyWaveformFileName(),
+            PartPropertyDependentProbe(),
+            PartPropertyShow(),
+            PartPropertyWaveformType('Depen'),
             PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
 
 class DeviceVoltageStepGenerator(Device):
@@ -1588,6 +1610,7 @@ DeviceList=Devices([
                 DeviceTelegrapherFourPort([PartPropertyDescription('Four Port Telegrapher'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineDifferential()),
                 DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
                 DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
+                DeviceDependentVoltageSource([PartPropertyDescription('Two Port Dependent Voltage Source'),PartPropertyPorts(2)],PartPictureDependentVariableVoltageSourceTwoPort()),
                 DeviceVoltageNoiseSource([PartPropertyDescription('One Port Voltage Noise Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),
                 DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),

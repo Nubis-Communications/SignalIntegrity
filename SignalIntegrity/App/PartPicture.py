@@ -1156,9 +1156,21 @@ class PartPictureVoltageSourceTwoPort(PartPicture):
         PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
         PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,False,connected)
 
+class PartPictureDependentVoltageSourceTwoPort(PartPicture):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(2,(1,0),'t',False,True,True),PartPin(1,(1,4),'b',False,True,True)],[(0,1),(2,3)],[(0,0),(2,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,False,connected)
+
 class PartPictureVariableVoltageSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceTwoPort'],2)
+
+class PartPictureDependentVariableVoltageSourceTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureDependentVoltageSourceTwoPort'],2)
 
 class PartPictureVoltageSourceStepGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
