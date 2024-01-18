@@ -1,0 +1,99 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="NLS1_scale 8.0 " h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="tf_fn scale_nonlin_error.py" h="3" halign="l" lc="black"/>
+%  <ellipse x="56" y="-80" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">55.25,-77.5 56.75,-77.5</polyline>
+%  <polyline lc="black">56,-76.75 56,-78.25</polyline>
+%  <polyline lc="black">55.25,-82.5 56.75,-82.5</polyline>
+%  <polyline lc="black">56,-84 56,-88</polyline>
+%  <polygon fill="black">53.333,-88 58.667,-88 56,-90.667 53.333,-88</polygon>
+%  <polyline lc="black">56,-72 56,-76</polyline>
+%  <polyline lw="3" lc="black">60,-52 58,-54</polyline>
+%  <polyline lc="black">58,-54 56,-56</polyline>
+%  <text x="60" y="-51" t="VO1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">68,-56 69,-54 70,-58 71,-54 72,-58 73,-54 74,-58 75,-54 76,-56</polyline>
+%  <polyline lc="black">64,-56 68,-56</polyline>
+%  <polyline lc="black">80,-56 76,-56</polyline>
+%  <text x="72" y="-51" t="50.0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">84,-52 82,-54</polyline>
+%  <polyline lc="black">82,-54 80,-56</polyline>
+%  <text x="84" y="-51" t="VO3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">88,-60 86,-61 90,-62 86,-63 90,-64 86,-65 90,-66 86,-67 88,-68</polyline>
+%  <polyline lc="black">88,-68 88,-72</polyline>
+%  <polygon fill="black">85.333,-72 90.667,-72 88,-74.667 85.333,-72</polygon>
+%  <polyline lc="black">88,-56 88,-60</polyline>
+%  <text x="92" y="-67" t="50.0 ohm" h="3" halign="l" lc="black"/>
+%  <ellipse x="56" y="-64" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">55.25,-61.5 56.75,-61.5</polyline>
+%  <polyline lc="black">56,-60.75 56,-62.25</polyline>
+%  <polyline lc="black">55.25,-66.5 56.75,-66.5</polyline>
+%  <polyline lc="black">56,-56 56,-60</polyline>
+%  <polyline lc="black">56,-72 56,-68</polyline>
+%  <text x="62" y="-65" t="0 V" h="3" halign="l" lc="black"/>
+%  <text x="96" y="-57" t="N" h="3" halign="c" lc="black"/>
+%  <rect x="92" y="-52" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">88,-56 92,-56</polyline>
+%  <text x="91" y="-55" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">104,-56 100,-56</polyline>
+%  <text x="101" y="-55" t="2" h="3" halign="l" lc="black"/>
+%  <text x="96" y="-49" t="scale=NLS1_scale (8.0 )" h="3" halign="c" lc="black"/>
+%  <text x="96" y="-46" t="trfile=tf_fn (scale_nonlin_error.py)" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">108,-52 106,-54</polyline>
+%  <polyline lc="black">106,-54 104,-56</polyline>
+%  <text x="108" y="-51" t="VO2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">64,-56 56,-56</polyline>
+%  <polyline lc="black">80,-56 88,-56</polyline>
+%  <ellipse x="56" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="80" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%  <ellipse x="88" y="-56" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{NLS1\textunderscore scale 8.0 };
+\draw[black] (1.75,-5.75) node[anchor=base west]{tf\textunderscore fn scale\textunderscore nonlin\textunderscore error.py};
+\path[line width=0.30mm, draw=black] (56,-80) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (55.25,-77.5) -- (56.75,-77.5);
+\path[line width=0.30mm, draw=black] (56,-76.75) -- (56,-78.25);
+\path[line width=0.30mm, draw=black] (55.25,-82.5) -- (56.75,-82.5);
+\path[line width=0.30mm, draw=black] (56,-84) -- (56,-88);
+\path[line width=0.30mm, fill=black] (53.333,-88) -- (58.667,-88) -- (56,-90.667) -- (53.333,-88) -- cycle;
+\path[line width=0.30mm, draw=black] (56,-72) -- (56,-76);
+\path[line width=0.9mm, draw=black] (60,-52) -- (58,-54);
+\path[line width=0.30mm, draw=black] (58,-54) -- (56,-56);
+\draw[black] (60,-51) node[anchor=base west]{VO1};
+\path[line width=0.30mm, draw=black] (68,-56) -- (69,-54) -- (70,-58) -- (71,-54) -- (72,-58) -- (73,-54) -- (74,-58) -- (75,-54) -- (76,-56);
+\path[line width=0.30mm, draw=black] (64,-56) -- (68,-56);
+\path[line width=0.30mm, draw=black] (80,-56) -- (76,-56);
+\draw[black] (72,-51) node[anchor=base]{50.0 ohm};
+\path[line width=0.9mm, draw=black] (84,-52) -- (82,-54);
+\path[line width=0.30mm, draw=black] (82,-54) -- (80,-56);
+\draw[black] (84,-51) node[anchor=base west]{VO3};
+\path[line width=0.30mm, draw=black] (88,-60) -- (86,-61) -- (90,-62) -- (86,-63) -- (90,-64) -- (86,-65) -- (90,-66) -- (86,-67) -- (88,-68);
+\path[line width=0.30mm, draw=black] (88,-68) -- (88,-72);
+\path[line width=0.30mm, fill=black] (85.333,-72) -- (90.667,-72) -- (88,-74.667) -- (85.333,-72) -- cycle;
+\path[line width=0.30mm, draw=black] (88,-56) -- (88,-60);
+\draw[black] (92,-67) node[anchor=base west]{50.0 ohm};
+\path[line width=0.30mm, draw=black] (56,-64) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (55.25,-61.5) -- (56.75,-61.5);
+\path[line width=0.30mm, draw=black] (56,-60.75) -- (56,-62.25);
+\path[line width=0.30mm, draw=black] (55.25,-66.5) -- (56.75,-66.5);
+\path[line width=0.30mm, draw=black] (56,-56) -- (56,-60);
+\path[line width=0.30mm, draw=black] (56,-72) -- (56,-68);
+\draw[black] (62,-65) node[anchor=base west]{0 V};
+\draw[black] (96,-57) node[anchor=base]{N};
+\path[line width=0.30mm, draw=black] (92,-60) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (88,-56) -- (92,-56);
+\draw[black] (91,-55) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (104,-56) -- (100,-56);
+\draw[black] (101,-55) node[anchor=base west]{2};
+\draw[black] (96,-49) node[anchor=base]{scale=NLS1\textunderscore scale (8.0 )};
+\draw[black] (96,-46) node[anchor=base]{trfile=tf\textunderscore fn (scale\textunderscore nonlin\textunderscore error.py)};
+\path[line width=0.9mm, draw=black] (108,-52) -- (106,-54);
+\path[line width=0.30mm, draw=black] (106,-54) -- (104,-56);
+\draw[black] (108,-51) node[anchor=base west]{VO2};
+\path[line width=0.30mm, draw=black] (64,-56) -- (56,-56);
+\path[line width=0.30mm, draw=black] (80,-56) -- (88,-56);
+\path[line width=0.30mm, draw=black, fill=black] (56,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (80,-56) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black, fill=black] (88,-56) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%
