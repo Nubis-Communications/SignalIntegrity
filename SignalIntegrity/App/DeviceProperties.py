@@ -30,6 +30,8 @@ from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
+from SignalIntegrity.App.EquationsDialog import EquationsDialog
+
 import SignalIntegrity.App.Project
 
 class DevicePartPictureCanvas(tk.Canvas):
@@ -266,11 +268,15 @@ class DeviceProperty(tk.Frame):
         if self.partProperty['Type'] == 'file':
             self.propertyFileBrowseButton = tk.Button(self,text='browse',command=self.onFileBrowse)
             self.propertyFileBrowseButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-            if self.partProperty['PropertyName'] in ['filename','waveformfilename','errorterms']:
+            if self.partProperty['PropertyName'] in ['filename','waveformfilename','errorterms','transformfilename']:
                 # this feature is disabled for the moment
                 # self.propertyFileCalcButton = tk.Button(self,text='calc',command=self.onFileCalc)
                 # self.propertyFileCalcButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-                self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
+                if self.partProperty['PropertyName'] == 'transformfilename':
+                    command = self.onTransformFileView
+                else:
+                    command = self.onFileView
+                self.propertyFileViewButton = tk.Button(self,text='view',command=command)
                 self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
     def onFileBrowse(self):
@@ -300,6 +306,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'wfilename':
             extension=('.txt')
             filetypename='w element file'
+        elif self.partProperty['PropertyName'] == 'transformfilename':
+            extension=('.py')
+            filetypename='python file'
         else:
             extension=('')
             filetypename='all'
@@ -337,6 +346,32 @@ class DeviceProperty(tk.Frame):
                 if propertyFrame.partProperty['PropertyName']=='wfprojname':
                     propertyFrame.partProperty['Hidden']=not isProject
         self.callBack()
+
+    def onTransformFileView(self):
+        self.parentFrame.focus()
+        filename=self.partProperty.GetValue()
+        if filename != '':
+            import os.path
+            if (os.path.isfile(filename)):
+                try:
+                    #very ugly way to get to SignalIntegrity app, is this necessary
+                    EquationsDialog(self.parent.parent, "Transform File", None, filename)
+                except FileNotFoundError:
+                    messagebox.showerror('ProjectFile','could not be opened')
+            else:
+                res=messagebox.askquestion('File not found', 'Would you like to create file: ' + filename)
+                if (res == 'yes'):
+                    device_ref = self.device['ref'].GetValue()
+                    default_file_contents = f"inputWaveform = {device_ref}\noutputWaveform = inputWaveform\n"
+                    f = open(filename, mode='w')
+                    f.write(default_file_contents)
+                    f.close()
+
+                    try:
+                        #very ugly way to get to SignalIntegrity app, is this necessary
+                        EquationsDialog(self.parent.parent, "Transform File", None, filename)
+                    except FileNotFoundError:
+                        messagebox.showerror('ProjectFile','could not be opened')
 
     def onFileView(self):
         self.parentFrame.focus()
@@ -500,7 +535,7 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -537,7 +572,7 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or (self.device['wftype'] != None and self.device['wftype'].GetValue() == 'Depen'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -626,6 +661,10 @@ class DeviceProperties(tk.Frame):
                     if filename == None:
                         filename=''
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        elif self.device['wftype'].GetValue() == 'Depen':
+            #Dependent devices have variables without an associated filename
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=None, parameterizable=True)
+        
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(tk.ALL)
@@ -663,11 +702,11 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or (self.device['wftype'] is not None and self.device['wftype'].GetValue() == 'Depen'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice

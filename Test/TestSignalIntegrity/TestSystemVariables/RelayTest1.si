@@ -2,6 +2,7 @@
 	<CalculationProperties>
 		<EndFrequency>20000000000.0</EndFrequency>
 		<FrequencyPoints>200</FrequencyPoints>
+		<NumIterations>1</NumIterations>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>

@@ -96,8 +96,10 @@ class PreferencesDialog(PropertiesDialog):
         self.multiPortTee=CalculationPropertyTrueFalseButton(self.calculationFrame,'employ multi-port tee elements',None,self.onUpdatePreferences,preferences,'Calculation.MultiPortTee')
         self.ignoreMissingOtherWaveforms=CalculationPropertyTrueFalseButton(self.calculationFrame,'ignore missing other waveforms in calculations',None,self.onUpdatePreferences,preferences,'Calculation.IgnoreMissingOtherWaveforms')
         self.maximumWaveformSize=CalculationPropertySI(self.calculationFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
-
-
+        if (self.parent.Drawing.schematic.HasDependentSource()): #Only include these options if have a dependent source
+            self.plotAllIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'plot all iterations', None, self.onUpdatePreferences,preferences, 'ProjectFiles.PlotAllIterations')
+            self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
+            self.autoshutoffThreshold = CalculationPropertySI(self.calculationTab, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
         self.Finish()
 
 

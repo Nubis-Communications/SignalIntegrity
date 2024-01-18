@@ -92,7 +92,7 @@ class VariablePropertyDialog(PropertiesDialog):
 
 class VariablesDialog(PropertiesDialog):
 
-    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None):
+    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None, parameterizable = False):
         if project == None: project = SignalIntegrity.App.Project['Variables.Items']
         if top == None: top = parent
         PropertiesDialog.__init__(self, parent, project, top, title)
@@ -129,6 +129,8 @@ class VariablesDialog(PropertiesDialog):
 
         if self.filename != None:
             tk.Button(self.controlFrame, text='import from project', command=self.onImportFromProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+            tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        elif parameterizable:
             tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
 
         PropertiesDialog.bind(self, '<Return>', self.ok)
