@@ -57,6 +57,14 @@ class Schematic(CallBacker):
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    
+    def HasDependentSource(self):
+        for device in self.deviceList:
+            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
+                wftype = device['wftype']
+                if wftype != None and wftype.GetValue() == 'Depen':
+                    return True
+        return False
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:

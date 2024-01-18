@@ -1,0 +1,38 @@
+device L1 2 L 440.0e-9
+device C1 1 C 400.0e-6 esr 0 df 0
+device R1 1 R 207.0e-3
+device R3 2 R 10.0e-3
+currentsource CG1 1
+device Vl 3 voltagetovoltageconverter
+device D1 3 file FeedbackNetwork.si EndFrequency 5000000.0 FrequencyPoints 10000 UserSampleRate 10000000.0 ReferenceImpedance 50.0
+device Il 3 currenttovoltageconverter
+device Ic 3 currenttovoltageconverter
+device Io 3 currenttovoltageconverter
+voltagesource VG1 1
+voltagesource NLS1s 1
+device NLS1 2 open
+connect Il 2 L1 1
+connect L1 2 R3 1
+connect C1 1 Ic 2
+connect Io 2 R1 1 CG1 1
+voltageoutput Vo Io 1
+connect Io 1 Ic 1 D1 2 R3 2 Vl 1
+voltageoutput Vi Il 1
+connect Il 1 Vl 2 NLS1 2
+connect VG1 1 D1 1
+voltageoutput VO1 D1 3
+connect D1 3 NLS1 1
+device Vl_3 1 open
+connect Vl 3 Vl_3 1
+voltageoutput Vl Vl 3
+device Il_3 1 open
+connect Il 3 Il_3 1
+voltageoutput Il Il 3
+device Ic_3 1 open
+connect Ic 3 Ic_3 1
+voltageoutput Ic Ic 3
+device Io_3 1 open
+connect Io 3 Io_3 1
+voltageoutput Io Io 3
+connect NLS1s 1 NLS1 2
+voltageoutput NLS1 NLS1 1

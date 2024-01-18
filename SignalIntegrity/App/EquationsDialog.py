@@ -30,13 +30,13 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 import re
 
 class EquationsDialog(tk.Toplevel):
-    def __init__(self,parent):
+    def __init__(self,parent, titleText='Equations', project='Equations', filename = ''):
         tk.Toplevel.__init__(self, parent)
-        self.project='Equations'
-        self.titleText='Equations'
+        self.project=project
+        self.titleText=titleText
         self.parent=parent
         self.__root = self
-        self.withdraw()
+        #self.withdraw()
 
         self.statusbar=StatusBar(self)
 
@@ -56,16 +56,29 @@ class EquationsDialog(tk.Toplevel):
 
         self.AboutDoer = Doer(self.onAbout).AddHelpElement('sec:Equations')
 
+        if (project == None):
+            #If no project, then will be reading text from a file (such as a transform funciton)
+            self.__file = filename
+
+            file = open(filename,"r") 
+            text_str = file.read()
+            file.close()
+        else:
+            self.__file = None
         # The menu system
+            
         TheMenu=tk.Menu(self)
         self.config(menu=TheMenu)
-#         FileMenu=tk.Menu(self)
-#         TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
-#         self.NewFileDoer.AddMenuElement(FileMenu,label="New",accelerator='Ctrl+N',underline=0)
-#         self.OpenFileDoer.AddMenuElement(FileMenu,label="Open",accelerator='Ctrl+O',underline=0)
-#         self.SaveFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
-#         FileMenu.add_separator()
-#         self.ExitDoer.AddMenuElement(FileMenu,label="Exit",accelerator='Ctrl+X',underline=1)
+
+
+        if (project == None):
+            FileMenu=tk.Menu(self)
+            TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
+            self.NewFileDoer.AddMenuElement(FileMenu,label="New",accelerator='Ctrl+N',underline=0)
+            self.OpenFileDoer.AddMenuElement(FileMenu,label="Open",accelerator='Ctrl+O',underline=0)
+            self.SaveFileDoer.AddMenuElement(FileMenu,label="Save",accelerator='Ctrl+S',underline=0)
+            FileMenu.add_separator()
+            self.ExitDoer.AddMenuElement(FileMenu,label="Exit",accelerator='Ctrl+X',underline=1)
         # ------
         EditMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
@@ -73,17 +86,18 @@ class EquationsDialog(tk.Toplevel):
         self.CopyDoer.AddMenuElement(EditMenu,label="Copy",accelerator='Ctrl+X',underline=1)
         self.PasteDoer.AddMenuElement(EditMenu,label="Paste",accelerator='Ctrl+V',underline=0)
         # ------
-        DebugMenu=tk.Menu(self)
-        TheMenu.add_cascade(label='Debug',menu=DebugMenu,underline=0)
-        self.ExcuteDoer.AddMenuElement(DebugMenu,label='Execute script',underline=0)
-        DebugMenu.add_separator()
-        self.AutoDebugDoer.AddCheckButtonMenuElement(DebugMenu,label='Auto debug',underline=0)
-        self.AutoDebugDoer.Set(SignalIntegrity.App.Project['Equations.AutoDebug'])
+        if (project != None):
+            DebugMenu=tk.Menu(self)
+            TheMenu.add_cascade(label='Debug',menu=DebugMenu,underline=0)
+            self.ExcuteDoer.AddMenuElement(DebugMenu,label='Execute script',underline=0)
+            DebugMenu.add_separator()
+            self.AutoDebugDoer.AddCheckButtonMenuElement(DebugMenu,label='Auto debug',underline=0)
+            self.AutoDebugDoer.Set(SignalIntegrity.App.Project['Equations.AutoDebug'])
         # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
-
+        
         # text area
         use_chlorophyll=True
         if use_chlorophyll:
@@ -101,10 +115,19 @@ class EquationsDialog(tk.Toplevel):
         # Set Tab size
         tab_size = thisfont.measure('    ')
         self.TextArea.config(tabs=tab_size)
-        self.__file = None
-        self.__root.title(self.titleText) 
-        self.TextArea.insert(1.0,SignalIntegrity.App.Project[self.project].GetTextString())
-        self.TextArea.config(height=min(25,max(1,len(SignalIntegrity.App.Project[self.project]['Lines']))))
+        #self.__file = None
+        if(filename != ""):
+            self.__root.title(self.titleText + " - " + filename)
+        else:
+            self.__root.title(self.titleText) 
+        if (project != None):
+            self.TextArea.insert(1.0,SignalIntegrity.App.Project[self.project].GetTextString())
+            self.TextArea.config(height=min(25,max(1,len(SignalIntegrity.App.Project[self.project]['Lines']))))
+        else:
+            #if project is None, then assumed to be passed in lines directly
+            self.TextArea.insert(1.0,text_str)
+            self.TextArea.config(height=min(25,max(1,len(text_str))))  
+        
         self.protocol("WM_DELETE_WINDOW", self.onExit)
         self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
         # self.TextArea.bind(":", self.autoindent)
@@ -133,25 +156,24 @@ class EquationsDialog(tk.Toplevel):
         return "break"
 
     def onExit(self):
-        SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
-        self.parent.statusbar.set(self.titleText+' Modified')
-        self.parent.history.Event('modify '+self.titleText)
+        if (self.project != None):
+            SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
+            self.parent.statusbar.set(self.titleText+' Modified')
+            self.parent.history.Event('modify '+self.titleText)
+            #self.__root.destroy()
+            self.parent.Drawing.DrawSchematic()
         self.__root.destroy()
-        self.parent.Drawing.DrawSchematic()
+
 
     def onAbout(self): 
         self.AboutDoer.OpenHelp()
 
     def onOpenFile(self): 
-        self.__file = AskOpenFileName(defaultextension=".txt", 
+        new_file = AskOpenFileName(defaultextension=".txt", 
                                     filetypes=[("All Files","*.*"), 
                                         ("Text Documents","*.txt")]) 
-        if self.__file == "": 
-            # no file to open 
-            self.__file = None
-        else:
-            # Try to open the file 
-            # set the window title 
+        if new_file != "" and new_file != None: 
+            self.__file = new_file
             self.__root.title(os.path.basename(self.__file) + " - Notepad") 
             self.TextArea.delete(1.0,tk.END) 
 
@@ -167,13 +189,12 @@ class EquationsDialog(tk.Toplevel):
         self.TextArea.delete(1.0,tk.END) 
 
     def onSaveFile(self): 
-
         if self.__file == None: 
             # Save as new file 
-            self.__file = AskSaveAsFilename(initialfile='Untitled.txt', 
-                                            defaultextension=".txt", 
+            self.__file = AskSaveAsFilename(initialfile='Untitled.py', 
+                                            defaultextension=".py", 
                                             filetypes=[("All Files","*.*"), 
-                                                ("Text Documents","*.txt")]) 
+                                                ("Python Files","*.py")]) 
 
             if self.__file == "": 
                 self.__file = None
@@ -199,16 +220,18 @@ class EquationsDialog(tk.Toplevel):
         self.TextArea.event_generate("<<Paste>>")
 
     def onAutoDebug(self):
-        SignalIntegrity.App.Project['Equations.AutoDebug']=self.AutoDebugDoer.Bool()
-        self.onTouched()
+        if (self.project != None):
+            SignalIntegrity.App.Project['Equations.AutoDebug']=self.AutoDebugDoer.Bool()
+            self.onTouched()
 
     def onExecute(self):
         self.onTouched(None,True)
-        SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
-        self.parent.Drawing.DrawSchematic()
+        if (self.project != None):
+            SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
+            self.parent.Drawing.DrawSchematic()
 
     def onTouched(self,event=None,force=False):
-        if force or SignalIntegrity.App.Project['Equations.AutoDebug']:
+        if self.project != None and (force or SignalIntegrity.App.Project['Equations.AutoDebug']):
             result=SignalIntegrity.App.Project.EvaluateEquations(self.TextArea.get(1.0,tk.END))
             if result == None:
                 self.statusbar.set('No Errors')
