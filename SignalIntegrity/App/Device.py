@@ -184,7 +184,7 @@ class Device(object):
                 import SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform
                 #TODO: Clean up syntax here it is not corect
                 waveform = si.td.wf.DependentWaveform.DependentWaveform(self['depen'].GetValue(), self['trfile'].GetValue())
-                waveform = 0
+                #waveform = 0
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si

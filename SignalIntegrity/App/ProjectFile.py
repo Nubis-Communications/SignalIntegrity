@@ -136,6 +136,7 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
             self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
             self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+            self.Add(XMLPropertyDefaultInt('NumIterations', 1))
             self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
             self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))
             self.Add(XMLPropertyDefaultFloat('BaseSamplePeriod',write=False))

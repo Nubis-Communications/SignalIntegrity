@@ -35,6 +35,7 @@ from SignalIntegrity.Lib.ToSI import FromSI,ToSI
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
 from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ
+from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
 
 import SignalIntegrity.App.Project
 
@@ -742,65 +743,80 @@ class Simulator(object):
             except:
                 messagebox.showerror('Simulator','Impulse responses were not calculated')
                 return
+        #Outer iterations loop for iterative nonlinear solutions - will repeat the processing of waveforms (convolution of input wavefrom to output) on 
+        #each iteration and update values of dependent waveforms.
+        #Have to repeat the above if statement at the beginning here since we want to only contain the ProcessWaveforms in the bottom loop - UGLY - see if necessary t 
+        
+        iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
+        if iterations == None:
+            iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
+        for i in range(int(iterations)):
+            if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
+                progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+                try:
+                    outputWaveformList = progressDialog.GetResult()
+                except si.SignalIntegrityException as e:
+                    messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                    return
 
-            progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+                for r in range(len(outputWaveformList)):
+                    if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
+                        #print 'integrate: '+self.outputWaveformLabels[r]
+                        outputWaveformList[r]=outputWaveformList[r].Integral()
+            else:
+                outputWaveformList = []
+                self.outputWaveformLabels = []
+
             try:
-                outputWaveformList = progressDialog.GetResult()
+                otherWaveformsTemp=self.parent.Drawing.schematic.OtherWaveforms()
+                otherWaveformLabelsTemp=netList.WaveformNames()
+                otherWaveforms=[]
+                otherWaveformLabels=[]
+                for wi in range(len(otherWaveformsTemp)):
+                    if not otherWaveformsTemp[wi] is None:
+                        otherWaveforms.append(otherWaveformsTemp[wi])
+                        otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
+                del otherWaveformsTemp
+                del otherWaveformLabelsTemp
+
+                outputWaveformList+=otherWaveforms
+
+                sourceNamesToShow=netList.SourceNamesToShow()
+                otherWaveformLabels+=sourceNamesToShow
+                outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
-            for r in range(len(outputWaveformList)):
-                if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':
-                    #print 'integrate: '+self.outputWaveformLabels[r]
-                    outputWaveformList[r]=outputWaveformList[r].Integral()
-        else:
-            outputWaveformList = []
-            self.outputWaveformLabels = []
+            for outputWaveformIndex in range(len(outputWaveformList)):
+                outputWaveform=outputWaveformList[outputWaveformIndex]
+                outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
+                for device in self.parent.Drawing.schematic.deviceList:
+                    if device['partname'].GetValue() in ['Output',
+                                                        'DifferentialVoltageOutput',
+                                                        'CurrentOutput',
+                                                        'EyeProbe',
+                                                        'DifferentialEyeProbe',
+                                                        'EyeWaveform',
+                                                        'Waveform']:
+                        if device['ref'].GetValue() == outputWaveformLabel:
+                            # probes may have different kinds of gain specified
+                            gainProperty = device['gain']
+                            gain=gainProperty.GetValue()
+                            offset=device['offset'].GetValue()
+                            delay=device['td'].GetValue()
+                            if gain != 1.0 or offset != 0.0 or delay != 0.0:
+                                outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                            outputWaveformList[outputWaveformIndex]=outputWaveform
+                            break
 
-        try:
-            otherWaveformsTemp=self.parent.Drawing.schematic.OtherWaveforms()
-            otherWaveformLabelsTemp=netList.WaveformNames()
-            otherWaveforms=[]
-            otherWaveformLabels=[]
-            for wi in range(len(otherWaveformsTemp)):
-                if not otherWaveformsTemp[wi] is None:
-                    otherWaveforms.append(otherWaveformsTemp[wi])
-                    otherWaveformLabels.append(otherWaveformLabelsTemp[wi])
-            del otherWaveformsTemp
-            del otherWaveformLabelsTemp
+            #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
+            for inputWaveform in self.inputWaveformList:
+                if isinstance(inputWaveform, DependentWaveform):
+                    inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
 
-            outputWaveformList+=otherWaveforms
 
-            sourceNamesToShow=netList.SourceNamesToShow()
-            otherWaveformLabels+=sourceNamesToShow
-            outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
-
-        for outputWaveformIndex in range(len(outputWaveformList)):
-            outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
-                if device['partname'].GetValue() in ['Output',
-                                                     'DifferentialVoltageOutput',
-                                                     'CurrentOutput',
-                                                     'EyeProbe',
-                                                     'DifferentialEyeProbe',
-                                                     'EyeWaveform',
-                                                     'Waveform']:
-                    if device['ref'].GetValue() == outputWaveformLabel:
-                        # probes may have different kinds of gain specified
-                        gainProperty = device['gain']
-                        gain=gainProperty.GetValue()
-                        offset=device['offset'].GetValue()
-                        delay=device['td'].GetValue()
-                        if gain != 1.0 or offset != 0.0 or delay != 0.0:
-                            outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
-                        outputWaveformList[outputWaveformIndex]=outputWaveform
-                        break
-
+        #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))

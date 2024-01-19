@@ -19,6 +19,7 @@ StepWaveform.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 import math
 import numpy as np
 
@@ -29,14 +30,14 @@ class DependentWaveform(Waveform):
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
         @param outputPortName output port whose voltage is taken as input into transformation function
         @param transformFN file name of function which transforms ouptutPort's voltage into the new voltage of this waveform.
-        """
+        """ 
         self.OutputPortName = OutputPortName
         self.TransformFN = TransformFN
-        super().__init__()
+        super().__init__(TimeDescriptor(0, 1, 100E9)) #Default is a blank waveform
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
         if (self.OutputPortName in OutputWaveformLabels):
-            inputWaveform = OutputWaveformList[np.where(OutputWaveformLabels == self.OutputPortName)]
+            inputWaveform = OutputWaveformList[OutputWaveformLabels.index(self.OutputPortName)]
             #Todo - call file on function to take in that input 
             super().__init__(x=inputWaveform)
         else:

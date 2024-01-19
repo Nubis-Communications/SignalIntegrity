@@ -59,6 +59,9 @@ class TransferMatricesProcessor(CallBacker):
         input waveforms must be provided in that order and the output waveforms are
         produced in that order.
         """
+
+        #Replace any 1 sample waveforms with floats - so they are handled as DC values 
+        wfl = [wflm if len(wflm) > 1 else wflm[0] for wflm in wfl]
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td)
