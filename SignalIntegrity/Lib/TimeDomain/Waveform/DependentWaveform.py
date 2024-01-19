@@ -20,6 +20,7 @@ StepWaveform.py
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+import SignalIntegrity.App.ProjectFile
 import math
 import numpy as np
 
@@ -37,9 +38,32 @@ class DependentWaveform(Waveform):
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
         if (self.OutputPortName in OutputWaveformLabels):
+            #Get desired output waveform to perform transformation on 
             inputWaveform = OutputWaveformList[OutputWaveformLabels.index(self.OutputPortName)]
-            #Todo - call file on function to take in that input 
-            super().__init__(x=inputWaveform)
+            
+            #Set up arguments
+            sendargs = {'inputWaveform': inputWaveform}
+            returnargs = {'outputWaveform': Waveform()}
+            file = open(self.TransformFN,"r") 
+            equations = file.read()
+            #Perform transformatoin
+            returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
+            
+            super().__init__(x=returnargs['outputWaveform'])
         else:
             #Todo - throw some kind of error
             print('ERROR: TO IMPLEMENT')
+
+    @staticmethod
+    def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):
+        #Assumes input waveform called inputWaveform in file, and output waveform stored in variable outputVariable
+        for argkey in sendargs.keys():
+            #arg=sendargs[argkey]
+            exec(argkey+' = sendargs[argkey]')
+        exec(equations)
+        for argkey in returnargs.keys():
+            try:
+                exec(str("returnargs[argkey] = eval(argkey)"))
+            except NameError:
+                pass
+        return returnargs 
