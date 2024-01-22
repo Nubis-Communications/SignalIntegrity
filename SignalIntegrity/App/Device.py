@@ -463,16 +463,15 @@ class DeviceDependentVoltageSource(Device):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[
             PartPropertyCategory('Sources'),
-            PartPropertyPartName('Dependant Voltage Source'),
-            PartPropertyHelp('device:Dependant-Voltage-Source'),
+            PartPropertyPartName('Dependent Voltage Source'),
+            PartPropertyHelp('device:Dependent-Voltage-Source'),
             PartPropertyDefaultReferenceDesignator('DVS?'),
             PartPropertyCalculationProperties(),
             PartPropertyTransformFileName(),
             #PartPropertyWaveformFileName(),
             PartPropertyDependentProbe(),
             PartPropertyShow(),
-            PartPropertyWaveformType('Depen'),
-            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+            PartPropertyWaveformType('Depen')]+propertiesList,partPicture)
 
 class DeviceVoltageStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):

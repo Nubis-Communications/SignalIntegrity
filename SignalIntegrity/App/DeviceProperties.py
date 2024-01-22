@@ -99,6 +99,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'wfilename':
             extension=('.txt')
             filetypename='w element file'
+        elif self.partProperty['PropertyName'] == 'transformfilename':
+            extension=('.py')
+            filetypename='python file'
         else:
             extension=('')
             filetypename='all'
@@ -280,7 +283,7 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
@@ -428,7 +431,7 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         if self.isAProjectDevice:
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)

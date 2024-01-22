@@ -43,6 +43,8 @@ class DependentWaveform(Waveform):
             
             #Set up arguments
             sendargs = {'inputWaveform': inputWaveform}
+            sendargs['systemVars'] = SignalIntegrity.App.Project['Variables'].Dictionary()
+ 
             returnargs = {'outputWaveform': Waveform()}
             file = open(self.TransformFN,"r") 
             equations = file.read()

@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1689x958+130+130</Geometry>
+			<Geometry>1689x959+799+85</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -116,7 +116,7 @@
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
-						<Orientation>180</Orientation>
+						<Orientation>0</Orientation>
 						<Origin>(23, 10)</Origin>
 					</PartPicture>
 					<PartProperties>
@@ -129,7 +129,7 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>C:/Users/danie/Documents/GitHub/SignalIntegrity/Test/TestSignalIntegrity/TestNonlinearIteration/scale_function.py</Value>
+							<Value>scale_function.py</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -148,12 +148,6 @@
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>Depen</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>wfprojname</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>None</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -300,4 +294,18 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>scale_factor</Description>
+				<InCache>False</InCache>
+				<Name>scale</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>2</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>
