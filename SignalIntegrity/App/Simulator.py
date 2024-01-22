@@ -811,10 +811,13 @@ class Simulator(object):
                             break
 
             #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
-            for inputWaveform in self.inputWaveformList:
-                if isinstance(inputWaveform, DependentWaveform):
-                    inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
-
+            try:
+                for inputWaveform in self.inputWaveformList:
+                    if isinstance(inputWaveform, DependentWaveform):
+                        inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
+            except si.SignalIntegrityException as e: 
+                messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                return
 
         #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']

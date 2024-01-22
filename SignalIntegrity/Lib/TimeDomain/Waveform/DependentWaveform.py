@@ -20,6 +20,7 @@ StepWaveform.py
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
 import SignalIntegrity.App.ProjectFile
 import math
 import numpy as np
@@ -37,24 +38,39 @@ class DependentWaveform(Waveform):
         super().__init__(TimeDescriptor(0, 1, 100E9)) #Default is a blank waveform
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
-        if (self.OutputPortName in OutputWaveformLabels):
-            #Get desired output waveform to perform transformation on 
-            inputWaveform = OutputWaveformList[OutputWaveformLabels.index(self.OutputPortName)]
+
+        allOutputPorts =  [s.strip() for s in self.OutputPortName.split(',')] #Get all port names
+
+        #Dictionary of input waveforms to send to function
+        #Using dictionary to support being dependent on multiple input waveforms
+        inputWaveforms = {}
+
+        #Read in all of the input waveforms into inputWaveforms dictionary
+        for i in range(len(allOutputPorts)):
+            if (allOutputPorts[i] in OutputWaveformLabels):
+                inputWaveforms[allOutputPorts[i]] = OutputWaveformList[OutputWaveformLabels.index(allOutputPorts[i])]
+            else:
+                raise SignalIntegrityExceptionDependentWaveform(
+                    'dependent output port not found: ' + (allOutputPorts[i]))
+                return
             
-            #Set up arguments
-            sendargs = {'inputWaveform': inputWaveform}
-            sendargs['systemVars'] = SignalIntegrity.App.Project['Variables'].Dictionary()
+        #Set up arguments ot pass to transform function 
+        sendargs = {'inputWaveforms': inputWaveforms}
+        sendargs['systemVars'] = SignalIntegrity.App.Project['Variables'].Dictionary()
  
-            returnargs = {'outputWaveform': Waveform()}
+        returnargs = {'outputWaveform': Waveform()}
+
+        #Read in transform function
+        try:
             file = open(self.TransformFN,"r") 
-            equations = file.read()
-            #Perform transformatoin
-            returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
+        except FileNotFoundError:
+            raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
+            return
+        equations = file.read()
+        #Perform transformation
+        returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             
-            super().__init__(x=returnargs['outputWaveform'])
-        else:
-            #Todo - throw some kind of error
-            print('ERROR: TO IMPLEMENT')
+        super().__init__(x=returnargs['outputWaveform'])
 
     @staticmethod
     def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):
@@ -62,10 +78,16 @@ class DependentWaveform(Waveform):
         for argkey in sendargs.keys():
             #arg=sendargs[argkey]
             exec(argkey+' = sendargs[argkey]')
-        exec(equations)
+        try:
+            exec(equations)
+        except Exception:
+            import traceback
+            #Handles arbitrary excpetion since any could occur realistically
+            raise SignalIntegrityExceptionDependentWaveform('Excpetion occured in trnasform file: ' + traceback.format_exc())
         for argkey in returnargs.keys():
             try:
                 exec(str("returnargs[argkey] = eval(argkey)"))
             except NameError:
+                raise SignalIntegrityExceptionDependentWaveform('Transform file does not set output variable: ' +argkey)
                 pass
         return returnargs 
