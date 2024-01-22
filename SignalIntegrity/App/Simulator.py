@@ -750,6 +750,14 @@ class Simulator(object):
         iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
         if iterations == None:
             iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
+
+        DISP_EVERY_ITERATION = True and iterations > 1 # Currently hardcoded, TODO add into gui somewhere
+
+        if (DISP_EVERY_ITERATION):
+            allOutputWaveformList = []
+            allOutputWaveformLabel = []
+
+
         for i in range(int(iterations)):
             if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
                 progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
@@ -819,16 +827,42 @@ class Simulator(object):
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
+            if (DISP_EVERY_ITERATION):
+                #Add all waveforms, both main output and "other" waveforms (manually loaded waveforms + displayed input waveforms)
+                #This is for displaying all at end, mostly for debugging purposes
+                allOutputWaveformList.append(outputWaveformList)
+                allOutputWaveformLabel.append(self.outputWaveformLabels + otherWaveformLabels)
         #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
+            
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(self.outputWaveformLabels)]]+outputWaveformList[len(self.outputWaveformLabels):]
+        outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
+
+        if (DISP_EVERY_ITERATION):
+            #Unpacks the saved intermiate interatoin values one iteration at a time
+            #Don't do final iteration since that will be "output values"
+            for i in range(iterations-1):
+                currOutputWaveformList = allOutputWaveformList[i]
+                currOutputWaveformLabels = allOutputWaveformLabel[i]
+
+                #Code could be cleaned up here so above lines aren't copy pasted
+                currOutputWaveformList = [wf.Adapt(
+                    si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
+                        for wf in currOutputWaveformList[:len(self.outputWaveformLabels)]]+currOutputWaveformList[len(self.outputWaveformLabels):]
+                currOutputWaveformLabels = [currLabel + f"_it_{i}" for currLabel in currOutputWaveformLabels]
+
+                #Now assign this to overall outputWaveformList + outputWaveformLabels which will be plotted 
+                outputWaveformList += currOutputWaveformList
+                outputWaveformLabels += currOutputWaveformLabels
+
+        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
+
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
-        outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
-        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
+
         self.parent.root.update()
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
@@ -837,7 +871,15 @@ class Simulator(object):
             outputWaveformLabel = (outputWaveformLabels)[outputWaveformIndex]
             for device in self.parent.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
-                    if device['ref'].GetValue() == outputWaveformLabel:
+                    matched = device['ref'].GetValue() == outputWaveformLabel
+                    if (DISP_EVERY_ITERATION and not matched):
+                        for i in range(iterations):
+                            #Check if match to "saved" waveform from previous iteration
+                            #Not cleanest way to do this but not sure of an easy alternative
+                            if (device['ref'].GetValue() + f"_it_{i}" == outputWaveformLabel):
+                                matched = True
+                                break
+                    if matched:
                         if device['eyestate'].GetValue() == 'on':
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
@@ -845,6 +887,10 @@ class Simulator(object):
                                      'Config':device.configuration}
                             eyeDiagramDict.append(eyeDict)
                         break
+
+                    #If saving intermiedate iterations - check for output match to an intermediate iteraiton and plot
+
+
         self.UpdateEyeDiagrams(eyeDiagramDict)
 
     def VirtualProbe(self,TransferMatricesOnly=False):
