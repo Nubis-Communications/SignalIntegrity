@@ -178,6 +178,8 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
         self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
+        self.Add(XMLPropertyDefaultBool('AutoshutoffIterations', False))
+        self.Add(XMLPropertyDefaultFloat('AutoshutoffThreshold', 1E-3))
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
@@ -215,6 +217,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
+        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):

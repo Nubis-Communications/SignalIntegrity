@@ -751,9 +751,9 @@ class Simulator(object):
         if iterations == None:
             iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
 
-        DISP_EVERY_ITERATION = True and iterations > 1 # Currently hardcoded, TODO add into gui somewhere
-
-        if (DISP_EVERY_ITERATION):
+        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['ProjectFiles.PlotAllIterations'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations'] and iterations > 1
+        if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
             allOutputWaveformList = []
             allOutputWaveformLabel = []
 
@@ -827,13 +827,47 @@ class Simulator(object):
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
-            if (DISP_EVERY_ITERATION):
+            if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
                 #Add all waveforms, both main output and "other" waveforms (manually loaded waveforms + displayed input waveforms)
                 #This is for displaying all at end, mostly for debugging purposes
                 allOutputWaveformList.append(outputWaveformList)
                 allOutputWaveformLabel.append(self.outputWaveformLabels + otherWaveformLabels)
+
+                if (AUTOSHUTOFF_ITERATION and i > 0): #If not on first iterations, compare to previous iteration to see if reached the end
+                    converged = True
+                    lastOuptutWaveformList = allOutputWaveformList[i-1]
+                    for j in range(len(outputWaveformList)):
+                        import numpy
+                        #Go thorugh each waveform and calculate magnitude of change 
+                        diffWvfm = outputWaveformList[j] - lastOuptutWaveformList[j]
+                        magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
+
+                        #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
+                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOuptutWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
+
+                        print(f"Iteration: {i}, Wvfm {j}, Change: {magnChange}, Threshold: {threshold}")
+
+
+                        #Minimum threshold to avoid issue with close to 0 waveforms - kinda arbitrary
+                        MIN_THRESHOLD = 1E-7
+                        threshold = numpy.max([MIN_THRESHOLD, threshold])
+
+
+                        #If change bigger than threshold, did not converge, so exit out
+                        if (magnChange > threshold):
+                            converged = False
+                            break
+                    
+                    #If converged, can exit out of iteration script
+                    if (converged):
+                        #Update iteraitons to account for number of iterations actually done now
+                        iterations = i + 1
+                        break
+
+
+                
         #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
-            
+
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
