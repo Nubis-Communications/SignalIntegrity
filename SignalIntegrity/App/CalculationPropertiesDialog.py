@@ -44,7 +44,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
-        self.numIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Iterations', self.onnumIterationsEntered, None, self.project,'NumIterations')
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.numIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Iterations', self.onnumIterationsEntered, None, self.project,'NumIterations')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':

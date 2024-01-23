@@ -747,9 +747,13 @@ class Simulator(object):
         #each iteration and update values of dependent waveforms.
         #Have to repeat the above if statement at the beginning here since we want to only contain the ProcessWaveforms in the bottom loop - UGLY - see if necessary t 
         
-        iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
-        if iterations == None:
-            iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
+        if(self.parent.Drawing.schematic.HasDependentSource()): #If have dependent source, do iterations
+            iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
+            if iterations == None:
+                iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
+        else:
+            #Otherwise no iterations
+            iterations = 1
 
         DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['ProjectFiles.PlotAllIterations'] and iterations > 1
         AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations'] and iterations > 1

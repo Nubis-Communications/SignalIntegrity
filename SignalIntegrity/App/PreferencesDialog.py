@@ -56,6 +56,10 @@ class PreferencesDialog(PropertiesDialog):
         self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
         self.autoshutoffThreshold = CalculationPropertySI(self.propertyListFrame, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
+        if (self.parent.Drawing.schematic.HasDependentSource()): #Only include these options if have a dependent source
+            self.plotAllIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'plot all iterations', None, self.onUpdatePreferences,preferences, 'ProjectFiles.PlotAllIterations')
+            self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
+            self.autoshutoffThreshold = CalculationPropertySI(self.propertyListFrame, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
         self.Finish()
 
     def onUpdatePreferences(self):

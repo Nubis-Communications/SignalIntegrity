@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1707x976+26+26</Geometry>
+			<Geometry>1707x976+78+78</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -163,6 +163,19 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>scale</Description>
+								<Name>scale</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>4.0</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
@@ -432,18 +445,4 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
-	<Variables>
-		<Items>
-			<Variable>
-				<Description>scale_factor</Description>
-				<InCache>False</InCache>
-				<Name>scale</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>float</Type>
-				<Units></Units>
-				<Value>3.0</Value>
-				<Visible>True</Visible>
-			</Variable>
-		</Items>
-	</Variables>
 </Project>

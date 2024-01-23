@@ -67,6 +67,14 @@ class Schematic(CallBacker):
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    
+    def HasDependentSource(self):
+        for device in self.deviceList:
+            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
+                wftype = device['wftype']
+                if wftype != None and wftype.GetValue() == 'Depen':
+                    return True
+        return False
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:
@@ -1785,6 +1793,7 @@ class Drawing(tk.Frame):
         foundACalibration=False
         foundANetworkAnalyzerModel=False
         foundAWaveform=False
+        foundADependentSource = False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -1812,6 +1821,7 @@ class Drawing(tk.Frame):
                 foundACalibration=True
             elif deviceType == 'NetworkAnalyzerModel':
                 foundANetworkAnalyzerModel=True
+
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             foundSomething=True
             wireProject.DrawWire(canvas,grid,originx,originy)
