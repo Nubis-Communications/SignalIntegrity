@@ -305,7 +305,7 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.device['wftype'].GetValue() == 'Depen':
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -394,6 +394,10 @@ class DeviceProperties(tk.Frame):
                     if filename == None:
                         filename=''
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        elif self.device['wftype'].GetValue() == 'Depen':
+            #Dependent devices have variables without an associated filename
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(tk.ALL)
@@ -433,7 +437,7 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.device['wftype'].GetValue() == 'Depen':
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice

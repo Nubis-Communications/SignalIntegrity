@@ -6,18 +6,14 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 # outputs: outputWaveform - set to transformed Waveform
 
 #Check if scale variable initialized (passed in)
-if 'scale' in systemVars:
-    scale = float(systemVars['scale'])
-    print('Read in scale facto from system var')
-else:
+try:
+    print(f"Scale factor: {scale}")
+except NameError:
+    print('Scale not passed in!')
     scale = 2
-    print('Default scale factor')
 
-if (len(inputWaveforms) > 1):
-    print('Undefined behavior for > 1 input waveform!')
+inputWaveform = VO1 
 
-inputWaveform = inputWaveforms[list(inputWaveforms.keys())[0]] #Assuming only 1 waveform input, will pick out that waveform
-                                                        #if multiple, then will just pick a random one to scale
 outputWaveform = inputWaveform*scale
 print('RAN IT')
 

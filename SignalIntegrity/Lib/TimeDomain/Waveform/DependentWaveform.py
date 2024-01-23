@@ -27,14 +27,16 @@ import numpy as np
 
 class DependentWaveform(Waveform):
     """step waveform"""
-    def __init__(self, OutputPortName, TransformFN):
+    def __init__(self, OutputPortName, TransformFN, VariablesList = []):
         """Constructor  
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
         @param outputPortName output port whose voltage is taken as input into transformation function
         @param transformFN file name of function which transforms ouptutPort's voltage into the new voltage of this waveform.
+        @param VaraiblesList list of device variables that can be utilized by transform file
         """ 
         self.OutputPortName = OutputPortName
         self.TransformFN = TransformFN
+        self.VariablesList = VariablesList
         super().__init__(TimeDescriptor(0, 1, 100E9)) #Default is a blank waveform
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
@@ -42,7 +44,6 @@ class DependentWaveform(Waveform):
         allOutputPorts =  [s.strip() for s in self.OutputPortName.split(',')] #Get all port names
 
         #Dictionary of input waveforms to send to function
-        #Using dictionary to support being dependent on multiple input waveforms
         inputWaveforms = {}
 
         #Read in all of the input waveforms into inputWaveforms dictionary
@@ -55,9 +56,19 @@ class DependentWaveform(Waveform):
                 return
             
         #Set up arguments ot pass to transform function 
-        sendargs = {'inputWaveforms': inputWaveforms}
-        sendargs['systemVars'] = SignalIntegrity.App.Project['Variables'].Dictionary()
- 
+        sendargs = inputWaveforms
+        
+        #Transferring variables list to a dictionary
+        for i in range(len(self.VariablesList)):
+            variable = self.VariablesList[i]
+            if variable['Type'] in ['file','string','enum']:
+                sendargs[variable['Name']]=str(variable['Value'])
+            elif variable['Type'] == 'float':
+                sendargs[variable['Name']]=float(variable['Value'])
+            elif variable['Type'] == 'int':
+                sendargs[variable['Name']]=int(variable['Value'])
+
+
         returnargs = {'outputWaveform': Waveform()}
 
         #Read in transform function

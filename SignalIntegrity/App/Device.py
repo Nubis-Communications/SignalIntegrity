@@ -183,7 +183,7 @@ class Device(object):
             elif wfType == 'Depen':
                 import SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform
                 #TODO: Clean up syntax here it is not corect
-                waveform = si.td.wf.DependentWaveform.DependentWaveform(self['depen'].GetValue(), self['trfile'].GetValue())
+                waveform = si.td.wf.DependentWaveform.DependentWaveform(self['depen'].GetValue(), self['trfile'].GetValue(), self.variablesList)
                 #waveform = 0
         return waveform
     def WaveformTimeDescriptor(self):
