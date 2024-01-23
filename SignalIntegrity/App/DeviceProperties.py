@@ -35,6 +35,8 @@ from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.Simulator import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
+from SignalIntegrity.App.EquationsDialog import EquationsDialog
+
 import SignalIntegrity.App.Project
 
 class DeviceProperty(tk.Frame):
@@ -72,8 +74,12 @@ class DeviceProperty(tk.Frame):
         if self.partProperty['Type'] == 'file':
             self.propertyFileBrowseButton = tk.Button(self,text='browse',command=self.onFileBrowse)
             self.propertyFileBrowseButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-            if self.partProperty['PropertyName'] in ['filename','waveformfilename','errorterms']:
-                self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
+            if self.partProperty['PropertyName'] in ['filename','waveformfilename','errorterms', 'transformfilename']:
+                if self.partProperty['PropertyName'] == 'transformfilename':
+                    command = self.onTransformFileView
+                else:
+                    command = self.onFileView
+                self.propertyFileViewButton = tk.Button(self,text='view',command=command)
                 self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
@@ -137,6 +143,15 @@ class DeviceProperty(tk.Frame):
                     propertyFrame.partProperty['Hidden']=not isProject
         self.callBack()
 
+    def onTransformFileView(self):
+        self.parentFrame.focus()
+        filename=self.partProperty.GetValue()
+        if filename != '':
+            try:
+                #very ugly way to get to SignalIntegrity app, is this necessary
+                EquationsDialog(self.parent.parent, "Transform File", None, filename)
+            except FileNotFoundError:
+                messagebox.showerror('ProjectFile','could not be opened')
     def onFileView(self):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
