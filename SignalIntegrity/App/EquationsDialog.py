@@ -162,27 +162,24 @@ class EquationsDialog(tk.Toplevel):
         return "break"
 
     def onExit(self):
-        self.__root.destroy()
         if (self.project != None):
             SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
             self.parent.statusbar.set(self.titleText+' Modified')
             self.parent.history.Event('modify '+self.titleText)
             #self.__root.destroy()
             self.parent.Drawing.DrawSchematic()
+        self.__root.destroy()
+
 
     def onAbout(self): 
         self.AboutDoer.OpenHelp()
 
     def onOpenFile(self): 
-        self.__file = AskOpenFileName(defaultextension=".txt", 
+        new_file = AskOpenFileName(defaultextension=".txt", 
                                     filetypes=[("All Files","*.*"), 
                                         ("Text Documents","*.txt")]) 
-        if self.__file == "": 
-            # no file to open 
-            self.__file = None
-        else:
-            # Try to open the file 
-            # set the window title 
+        if new_file != "" and new_file != None: 
+            self.__file = new_file
             self.__root.title(os.path.basename(self.__file) + " - Notepad") 
             self.TextArea.delete(1.0,tk.END) 
 
@@ -200,10 +197,10 @@ class EquationsDialog(tk.Toplevel):
     def onSaveFile(self): 
         if self.__file == None: 
             # Save as new file 
-            self.__file = AskSaveAsFilename(initialfile='Untitled.txt', 
-                                            defaultextension=".txt", 
+            self.__file = AskSaveAsFilename(initialfile='Untitled.py', 
+                                            defaultextension=".py", 
                                             filetypes=[("All Files","*.*"), 
-                                                ("Text Documents","*.txt")]) 
+                                                ("Python Files","*.py")]) 
 
             if self.__file == "": 
                 self.__file = None
