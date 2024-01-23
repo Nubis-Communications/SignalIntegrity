@@ -36,10 +36,10 @@ from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 import re
 
 class EquationsDialog(tk.Toplevel):
-    def __init__(self,parent):
+    def __init__(self,parent, titleText='Equations', project='Equations', text_str = ""):
         tk.Toplevel.__init__(self, parent)
-        self.project='Equations'
-        self.titleText='Equations'
+        self.project=project
+        self.titleText=titleText
         self.parent=parent
         self.__root = self
         self.withdraw()

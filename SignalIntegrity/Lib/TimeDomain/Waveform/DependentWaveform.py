@@ -61,12 +61,23 @@ class DependentWaveform(Waveform):
         #Transferring variables list to a dictionary
         for i in range(len(self.VariablesList)):
             variable = self.VariablesList[i]
+            value = variable['Value']
+            if value[0] == "=":
+                #Check if a system variable 
+
+                projectVariables=SignalIntegrity.App.Project['Variables'].Dictionary()
+                if (value[1:] in projectVariables):
+                    value = projectVariables[value[1:]]
+                else:
+                    raise SignalIntegrityExceptionDependentWaveform(
+                        f"Systtem variable not found: {value}"
+                    )
             if variable['Type'] in ['file','string','enum']:
-                sendargs[variable['Name']]=str(variable['Value'])
+                sendargs[variable['Name']]=str(value)
             elif variable['Type'] == 'float':
-                sendargs[variable['Name']]=float(variable['Value'])
+                sendargs[variable['Name']]=float(value)
             elif variable['Type'] == 'int':
-                sendargs[variable['Name']]=int(variable['Value'])
+                sendargs[variable['Name']]=int(value)
 
 
         returnargs = {'outputWaveform': Waveform()}

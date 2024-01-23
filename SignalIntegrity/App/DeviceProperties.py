@@ -396,7 +396,7 @@ class DeviceProperties(tk.Frame):
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
         elif self.device['wftype'].GetValue() == 'Depen':
             #Dependent devices have variables without an associated filename
-            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=None, parameterizable=True)
         
 
     def UpdatePicture(self):
