@@ -90,6 +90,7 @@ class DrawingHeadless(object):
         foundACalibration=False
         foundANetworkAnalyzerModel=False
         foundAWaveform=False
+        foundDependentSource = False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             foundSomething=True
@@ -110,8 +111,10 @@ class DrawingHeadless(object):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
+            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource', 'nonlinearsource']:
                 foundASource = True
+                if device['wftype'] != None and device['wftype'].GetValue() == 'Depen':
+                    foundDependentSource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True
             elif deviceType == 'NetworkAnalyzerModel':
@@ -126,11 +129,11 @@ class DrawingHeadless(object):
                                     fill='black',outline='black')
         self.foundSomething=foundSomething
         self.canSimulate = ((foundASource and foundAnOutput) or foundAWaveform) and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundACalibration
-        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform
+        self.canCalculateSParameters = foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform and not foundDependentSource
         self.canVirtualProbe = foundAStim and foundAnOutput and foundAMeasure and not foundAPort and not foundASource and not foundAnUnknown and not foundASystem and not foundACalibration
         self.canDeembed = foundAPort and foundAnUnknown and foundASystem and not foundAStim and not foundAMeasure and not foundAnOutput and not foundACalibration and not foundAWaveform
         self.canCalculateErrorTerms = foundACalibration and not foundASource and not foundAnOutput and not foundAPort and not foundAStim and not foundAMeasure and not foundAnUnknown and not foundASystem and not foundAWaveform
-        self.canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform
+        self.canSimulateNetworkAnalyzerModel = foundANetworkAnalyzerModel and not foundAPort and not foundAnOutput and not foundAMeasure and not foundAStim and not foundAnUnknown and not foundASystem and not foundACalibration and not foundAWaveform and not foundDependentSource
         self.canCalculateSParametersFromNetworkAnalyzerModel = self.canSimulateNetworkAnalyzerModel
         self.canCalculate = self.canSimulate or self.canCalculateSParameters or self.canVirtualProbe or self.canDeembed or self.canCalculateErrorTerms or self.canSimulateNetworkAnalyzerModel or self.canCalculateSParametersFromNetworkAnalyzerModel
         self.canGenerateTransferMatrices = (self.canSimulate and foundASource and foundAnOutput) or self.canVirtualProbe

@@ -183,7 +183,12 @@ class Device(object):
             elif wfType == 'Depen':
                 import SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform
                 #TODO: Clean up syntax here it is not corect
-                waveform = si.td.wf.DependentWaveform.DependentWaveform(self['depen'].GetValue(), self['trfile'].GetValue(), self.variablesList)
+
+                if(self['depen'] == None):
+                    probeName = self['ref'].GetValue()
+                else:
+                    probeName = self['depen'].GetValue()
+                waveform = si.td.wf.DependentWaveform.DependentWaveform(probeName, self['trfile'].GetValue(), self.variablesList)
                 #waveform = 0
         return waveform
     def WaveformTimeDescriptor(self):
@@ -472,6 +477,22 @@ class DeviceDependentVoltageSource(Device):
             PartPropertyDependentProbe(),
             PartPropertyShow(),
             PartPropertyWaveformType('Depen')]+propertiesList,partPicture)
+        
+class DeviceNonlinearSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='nonlinearsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Sources'),
+            PartPropertyPartName('NonlinearSource'),
+            PartPropertyHelp('device:Nonlinear-Source'),
+            PartPropertyDefaultReferenceDesignator('NLS?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyTransformFileName(),
+            #PartPropertyWaveformFileName(),
+            #PartPropertyDependentProbe(),
+            PartPropertyShow(),
+            PartPropertyWaveformType('Depen')]+propertiesList,partPicture)
+
 
 class DeviceVoltageStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1610,6 +1631,7 @@ DeviceList=Devices([
                 DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
                 DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
                 DeviceDependentVoltageSource([PartPropertyDescription('Two Port Dependent Voltage Source'),PartPropertyPorts(2)],PartPictureDependentVariableVoltageSourceTwoPort()),
+                DeviceNonlinearSource([PartPropertyDescription('Nonlinear Source'), PartPropertyPorts(2)],PartPictureVariableNonlinear(2)),
                 DeviceVoltageNoiseSource([PartPropertyDescription('One Port Voltage Noise Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),
                 DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),

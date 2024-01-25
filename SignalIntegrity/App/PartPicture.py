@@ -1986,6 +1986,38 @@ class PartPictureVariableUnknown(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureUnknown','PartPictureUnknownAcross','PartPictureUnknownDownAndUp','PartPictureUnknownSide'],ports)
 
+class PartPictureNonlinear(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureNonlinearAcross(PartPictureSpecifiedPortsAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsAcross.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureNonlinearDownAndUp(PartPictureSpecifiedPortsDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureNonlinearSide(PartPictureSpecifiedPortsSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsSide.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableNonlinear(PartPictureVariable):
+    def __init__(self,ports=1):
+        PartPictureVariable.__init__(self,['PartPictureNonlinear','PartPictureNonlinearAcross','PartPictureNonlinearDownAndUp','PartPictureNonlinearSide'],ports)
+
 
 class PartPictureVoltageProbe(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

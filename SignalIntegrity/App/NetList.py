@@ -48,7 +48,7 @@ class NetList(object):
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:
                 self.textToShow.append(device.NetListLine())
-                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
+                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource', 'nonlinearsource']:
                     self.sourceNames.append(device['ref'].GetValue())
                     if not device['show'] == None:
                         if device['show']['Value'] == 'true':
@@ -345,8 +345,28 @@ class NetList(object):
                 else:
                     if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe','eyewaveform','waveform']:
                         line = None
+
+            if tokens[0] in ['nonlinearsource']:
+                
+                #REplace nonlinear source with an open circuit and a voltage source on node 2
+                #Do not have the code to support a two port open circuit, so for now doing a hack of using a very large resistor instead. 
+                #line = 'device ' + tokens[1] + ' 2 R inf'
+                line1 = 'voltagesource ' + tokens[1] + 's 1'
+                line2 = 'device ' + tokens[1] + ' 2 open'
+                line = [line1, line2]
+
+                endinglines.append('connect ' + tokens[1] + 's 1 ' + tokens[1] + ' 2') #Connect new voltage source to output pin
+                endinglines.append('voltageoutput ' + tokens[1] + ' ' + tokens[1] + ' 1') #Connect voltage probe to input pin
+
+                self.outputNames.append(tokens[1]) #Add port name to list of output names
+
+                #Todo, add probe
+                #print(tokens)
             if not line == None:
-                textToShow.append(line)
+                if (isinstance(line, list)):
+                    textToShow += line #Enables substituting multiple lines for single lines 
+                else:
+                    textToShow.append(line)
         self.textToShow=textToShow+endinglines
 
     def Text(self):

@@ -320,7 +320,7 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice or self.device['wftype'].GetValue() == 'Depen':
+        if self.isAProjectDevice or (self.device['wftype'] != None and self.device['wftype'].GetValue() == 'Depen'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
