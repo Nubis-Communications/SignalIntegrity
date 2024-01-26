@@ -52,6 +52,7 @@ from TestLaplace import *
 from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
+from TestNonlinearIteration import *
 from TestPI import *
 from TestPDN import *
 from TestPowerDelivery import *

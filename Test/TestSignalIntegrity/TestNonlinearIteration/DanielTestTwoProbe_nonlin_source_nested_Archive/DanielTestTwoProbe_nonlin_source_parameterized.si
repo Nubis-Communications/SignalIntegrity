@@ -2,12 +2,12 @@
 	<CalculationProperties>
 		<EndFrequency>112000000000.0</EndFrequency>
 		<FrequencyPoints>224</FrequencyPoints>
-		<NumIterations>2.0</NumIterations>
+		<NumIterations>10</NumIterations>
 		<UserSampleRate>224000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1707x976+26+26</Geometry>
+			<Geometry>1707x976+78+78</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -33,8 +33,8 @@
 						<PartProperty>
 							<Keyword>wffile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>DanielTestTwoProbe_nonlin_source_parameterized.si</Value>
-							<Visible>True</Visible>
+							<Value>VoWf.txt</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>show</Keyword>
@@ -51,8 +51,8 @@
 						<PartProperty>
 							<Keyword>wfprojname</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VO2</Value>
-							<Visible>True</Visible>
+							<Value>None</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -67,28 +67,6 @@
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
-					<Variables>
-						<Items>
-							<Variable>
-								<Description>scale</Description>
-								<Name>NLS1_scale</Name>
-								<ReadOnly>False</ReadOnly>
-								<Type>float</Type>
-								<Units></Units>
-								<Value>=VS1_NLS1_scale</Value>
-								<Visible>True</Visible>
-							</Variable>
-							<Variable>
-								<Description>tf_fn</Description>
-								<Name>tf_fn</Name>
-								<ReadOnly>False</ReadOnly>
-								<Type>string</Type>
-								<Units></Units>
-								<Value>=VS1_tf_fn</Value>
-								<Visible>True</Visible>
-							</Variable>
-						</Items>
-					</Variables>
 				</Device>
 				<Device>
 					<ClassName>DeviceOutput</ClassName>
@@ -279,7 +257,7 @@
 				<Device>
 					<ClassName>DeviceNonlinearSource</ClassName>
 					<PartPicture>
-						<Index>0</Index>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
@@ -295,8 +273,8 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>scale_nonlin.py</Value>
-							<Visible>False</Visible>
+							<Value>=tf_fn</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>show</Keyword>
@@ -410,26 +388,8 @@
 	<Variables>
 		<Items>
 			<Variable>
-				<Description>file name</Description>
-				<Name>VS1_wffile</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>file</Type>
-				<Units>None</Units>
-				<Value>DanielTestTwoProbe_nonlin_source_parameterized.si</Value>
-				<Visible>True</Visible>
-			</Variable>
-			<Variable>
-				<Description>waveform project name</Description>
-				<Name>VS1_wfprojname</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>string</Type>
-				<Units>None</Units>
-				<Value>VO2</Value>
-				<Visible>True</Visible>
-			</Variable>
-			<Variable>
 				<Description>scale</Description>
-				<Name>VS1_NLS1_scale</Name>
+				<Name>NLS1_scale</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units></Units>
@@ -438,20 +398,11 @@
 			</Variable>
 			<Variable>
 				<Description>tf_fn</Description>
-				<Name>VS1_tf_fn</Name>
+				<Name>tf_fn</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
 				<Value>scale_nonlin.py</Value>
-				<Visible>True</Visible>
-			</Variable>
-			<Variable>
-				<Description>scale</Description>
-				<Name>NLS1_scale</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>float</Type>
-				<Units></Units>
-				<Value>4</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>

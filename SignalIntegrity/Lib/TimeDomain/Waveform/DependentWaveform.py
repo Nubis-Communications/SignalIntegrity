@@ -87,8 +87,8 @@ class DependentWaveform(Waveform):
             file = open(self.TransformFN,"r") 
         except FileNotFoundError:
             raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
-            return
         equations = file.read()
+        file.close()
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             
@@ -111,5 +111,4 @@ class DependentWaveform(Waveform):
                 exec(str("returnargs[argkey] = eval(argkey)"))
             except NameError:
                 raise SignalIntegrityExceptionDependentWaveform('Transform file does not set output variable: ' +argkey)
-                pass
         return returnargs 

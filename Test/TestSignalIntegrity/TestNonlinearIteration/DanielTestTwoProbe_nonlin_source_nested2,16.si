@@ -433,7 +433,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units></Units>
-				<Value>4</Value>
+				<Value>16</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -451,7 +451,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units></Units>
-				<Value>4</Value>
+				<Value>2</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>
