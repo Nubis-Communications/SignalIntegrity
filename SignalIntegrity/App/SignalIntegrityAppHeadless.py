@@ -391,9 +391,10 @@ class SignalIntegrityAppHeadless(object):
 
             #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
             try:
-                for inputWaveform in  inputWaveformList:
-                    if isinstance(inputWaveform, DependentWaveform):
-                        inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList)
+                if (iterations > 1): #only update if iterations > 1 i.e. you have dependent sources nad have to
+                    for inputWaveform in  inputWaveformList:
+                        if isinstance(inputWaveform, DependentWaveform):
+                            inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList)
             except si.SignalIntegrityException as e: 
                 return None
             

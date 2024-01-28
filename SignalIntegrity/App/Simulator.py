@@ -824,9 +824,10 @@ class Simulator(object):
 
             #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
             try:
-                for inputWaveform in self.inputWaveformList:
-                    if isinstance(inputWaveform, DependentWaveform):
-                        inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
+                if (iterations > 1):
+                    for inputWaveform in self.inputWaveformList:
+                        if isinstance(inputWaveform, DependentWaveform):
+                            inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
             except si.SignalIntegrityException as e: 
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
