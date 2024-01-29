@@ -30,18 +30,26 @@ class DependentWaveform(Waveform):
     def __init__(self, OutputPortName, TransformFN, VariablesList = []):
         """Constructor  
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
-        @param outputPortName output port whose voltage is taken as input into transformation function
+        @param outputPortName output port whose voltage is taken as input into transformation function 
+            Expects either string of port names separated by comma, or a list of strings with each port name
         @param transformFN file name of function which transforms ouptutPort's voltage into the new voltage of this waveform.
         @param VaraiblesList list of device variables that can be utilized by transform file
         """ 
-        self.OutputPortName = OutputPortName
+        if (isinstance(OutputPortName, str)):
+            self.OutputPortName = [s.strip() for s in OutputPortName.split(',')]
+        elif (isinstance(OutputPortName, list) and isinstance(OutputPortName[0], str)):
+            self.OutputPortName = OutputPortName
+        else:
+            raise SignalIntegrityExceptionDependentWaveform(
+                    'Incorrect argumetn type for OutputPortName: ' + (OutputPortName))
+        
         self.TransformFN = TransformFN
         self.VariablesList = VariablesList
         super().__init__(TimeDescriptor(0, 1, 100E9)) #Default is a blank waveform
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
 
-        allOutputPorts =  [s.strip() for s in self.OutputPortName.split(',')] #Get all port names
+        allOutputPorts =  self.OutputPortName #Get all port names
 
         #Dictionary of input waveforms to send to function
         inputWaveforms = {}

@@ -138,7 +138,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod.UpdateStrings()
         self.timePoints.UpdateStrings()
         self.impulseResponseLength.UpdateStrings()
-        self.numIterations.UpdateStrings()
+        if (self.parent.Drawing.schematic.HasDependentSource()):
+            self.numIterations.UpdateStrings()
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
         self.logarithmicInformationFrame.pack_forget()
         if showLogarithmic:

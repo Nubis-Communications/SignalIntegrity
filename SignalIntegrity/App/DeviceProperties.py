@@ -452,7 +452,7 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice or self.device['wftype'].GetValue() == 'Depen':
+        if self.isAProjectDevice or (self.device['wftype'] is not None and self.device['wftype'].GetValue() == 'Depen'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice

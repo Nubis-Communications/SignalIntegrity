@@ -155,6 +155,9 @@ class TestNonlinearIterationTest(unittest.TestCase,
     
     def testNonlinParmetersNested2(self):
         self.SimulationResultsChecker(self.NonlinNestedParameterTest(scale1 = 2, scale2 = 16),)
+
+    def testNonlinParmetersNested2(self):
+        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_twoport_source.si')
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
