@@ -400,17 +400,21 @@ class SignalIntegrityAppHeadless(object):
             
             if (AUTOSHUTOFF_ITERATION): #If not on first iterations, compare to previous iteration to see if reached the end
                 if (i > 0):
+                    fullLabels = outputWaveformLabels+otherWaveformLabels
                     converged = True
                     for j in range(len(outputWaveformList)):
                         import numpy
                         #Go thorugh each waveform and calculate magnitude of change 
                         diffWvfm = outputWaveformList[j] - lastOutputWaveformList[j]
-                        magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
-
-                        #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
-                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
-
-                        print(f"Iteration: {i}, Wvfm {j}, Change: {magnChange}, Threshold: {threshold}")
+                        if (len(diffWvfm) > 0):
+                            magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
+                            #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
+                            threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
+                        else:
+                            #Edge case handling empty waveforms - just assume thye are converged
+                            magnChange = 0
+                            threshold = 1
+                        print(f"{j} Label: {fullLabels[j]} Iteration: {i}, Wvfm {j}, Change: {magnChange}, Threshold: {threshold}")
 
                         #Minimum threshold to avoid issue with close to 0 waveforms - kinda arbitrary
                         MIN_THRESHOLD = 1E-7

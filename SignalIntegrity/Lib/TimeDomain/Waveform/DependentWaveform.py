@@ -109,7 +109,7 @@ class DependentWaveform(Waveform):
             #arg=sendargs[argkey]
             exec(argkey+' = sendargs[argkey]')
         try:
-            exec(equations)
+            exec(str(equations), locals())
         except Exception:
             import traceback
             #Handles arbitrary excpetion since any could occur realistically
