@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1707x976+78+78</Geometry>
+			<Geometry>1707x976+401+11</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -257,7 +257,7 @@
 				<Device>
 					<ClassName>DeviceNonlinearSource</ClassName>
 					<PartPicture>
-						<Index>1</Index>
+						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
@@ -273,7 +273,7 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>=tf_fn</Value>
+							<Value>testnotthere.py</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -309,7 +309,7 @@
 								<ReadOnly>False</ReadOnly>
 								<Type>float</Type>
 								<Units></Units>
-								<Value>=NLS1_scale</Value>
+								<Value>4</Value>
 								<Visible>True</Visible>
 							</Variable>
 						</Items>
@@ -385,26 +385,4 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
-	<Variables>
-		<Items>
-			<Variable>
-				<Description>scale</Description>
-				<Name>NLS1_scale</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>float</Type>
-				<Units></Units>
-				<Value>4</Value>
-				<Visible>True</Visible>
-			</Variable>
-			<Variable>
-				<Description>tf_fn</Description>
-				<Name>tf_fn</Name>
-				<ReadOnly>False</ReadOnly>
-				<Type>string</Type>
-				<Units></Units>
-				<Value>scale_nonlin.py</Value>
-				<Visible>True</Visible>
-			</Variable>
-		</Items>
-	</Variables>
 </Project>

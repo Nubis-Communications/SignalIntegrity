@@ -733,7 +733,7 @@ class Simulator(object):
             def _PrecalculateImpulseReseponses():
                 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
                 return self.transferMatriceProcessor.PrecalculateImpulseResponses(
-                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList])
+                    [wflm.td.Fs if isinstance(wflm,Waveform) and wflm.td is not None else None for wflm in self.inputWaveformList])
 
             progressDialog = ProgressDialog(self.parent,"Impulse Responses",self.transferMatriceProcessor.TransferMatrices,_PrecalculateImpulseReseponses)
             try:

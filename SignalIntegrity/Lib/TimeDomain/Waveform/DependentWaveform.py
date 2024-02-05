@@ -45,7 +45,9 @@ class DependentWaveform(Waveform):
         
         self.TransformFN = TransformFN
         self.VariablesList = VariablesList
-        super().__init__(TimeDescriptor(0, 1, 100E9)) #Default is a blank waveform
+
+        self.td = None
+        list.__init__(self, [0]) #Default is a blank waveform
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
 

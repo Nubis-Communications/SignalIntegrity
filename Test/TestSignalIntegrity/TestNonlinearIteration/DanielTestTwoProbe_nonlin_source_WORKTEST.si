@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1707x976+78+78</Geometry>
+			<Geometry>1707x976+401+11</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -273,7 +273,7 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>crap.py</Value>
+							<Value>testnotthere.py</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
