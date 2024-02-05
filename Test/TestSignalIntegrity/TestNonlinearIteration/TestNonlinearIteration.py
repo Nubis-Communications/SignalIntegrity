@@ -158,6 +158,13 @@ class TestNonlinearIterationTest(unittest.TestCase,
 
     def testNonlinParmetersNested2(self):
         self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_twoport_source.si')
+
+    def testNotLongEnoughWaveform(self):
+        filename = 'TestNotLongEnoughWaveform.si'
+        pysi=self.Preliminary(filename)
+        result=pysi.Simulate()
+        self.assertIsNone(result, filename+' produced something - this is unexpected')
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

@@ -825,12 +825,24 @@ class Simulator(object):
             #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
             try:
                 if (iterations > 1):
+                    #First check output waveforms to see if they are all empty - implies impulse respones too long
+                    allOutputsEmpty = True
+                    for outputWaveform in outputWaveformList:
+                        if (len(outputWaveform) > 1):
+                            allOutputsEmpty = False
+                            break
+                    if (allOutputsEmpty):
+                        messagebox.showerror('Simulator', 'Output waveforms empty: Decrease impulse response or increase waveform duration')
+                        return
+                    #Now if that is fine - try to update the waveform list
                     for inputWaveform in self.inputWaveformList:
                         if isinstance(inputWaveform, DependentWaveform):
                             inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
+
             except si.SignalIntegrityException as e: 
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
+
 
             if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
                 #Add all waveforms, both main output and "other" waveforms (manually loaded waveforms + displayed input waveforms)

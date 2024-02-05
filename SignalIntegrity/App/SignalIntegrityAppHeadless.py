@@ -392,6 +392,15 @@ class SignalIntegrityAppHeadless(object):
             #Having calculated intermediate output waveform values, can update all dependent waveforms now. 
             try:
                 if (iterations > 1): #only update if iterations > 1 i.e. you have dependent sources nad have to
+                    #First check output waveforms to see if they are all empty - implies impulse respones too long
+                    allOutputsEmpty = True
+                    for outputWaveform in outputWaveformList:
+                        if (len(outputWaveform) > 1):
+                            allOutputsEmpty = False
+                            break
+                    if (allOutputsEmpty):
+                        raise si.SignalIntegrityExceptionSimulator('Output waveforms empty: Decrease impulse response or increase waveform duration')
+                    
                     for inputWaveform in  inputWaveformList:
                         if isinstance(inputWaveform, DependentWaveform):
                             inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList)
