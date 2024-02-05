@@ -147,11 +147,28 @@ class DeviceProperty(tk.Frame):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
         if filename != '':
-            try:
-                #very ugly way to get to SignalIntegrity app, is this necessary
-                EquationsDialog(self.parent.parent, "Transform File", None, filename)
-            except FileNotFoundError:
-                messagebox.showerror('ProjectFile','could not be opened')
+            import os.path
+            if (os.path.isfile(filename)):
+                try:
+                    #very ugly way to get to SignalIntegrity app, is this necessary
+                    EquationsDialog(self.parent.parent, "Transform File", None, filename)
+                except FileNotFoundError:
+                    messagebox.showerror('ProjectFile','could not be opened')
+            else:
+                res=messagebox.askquestion('File not found', 'Would you like to create file: ' + filename)
+                if (res == 'yes'):
+                    device_ref = self.device['ref'].GetValue()
+                    default_file_contents = f"inputWaveform = {device_ref}\noutputWaveform = inputWaveform\n"
+                    f = open(filename, mode='w')
+                    f.write(default_file_contents)
+                    f.close()
+
+                    try:
+                        #very ugly way to get to SignalIntegrity app, is this necessary
+                        EquationsDialog(self.parent.parent, "Transform File", None, filename)
+                    except FileNotFoundError:
+                        messagebox.showerror('ProjectFile','could not be opened')
+
     def onFileView(self):
         self.parentFrame.focus()
         filename=self.partProperty.GetValue()
