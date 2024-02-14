@@ -19,7 +19,7 @@
 
 from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGCAnalytic import TLineTwoPortRLGCAnalytic
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
-from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+from SignalIntegrity.Lib.SParameters.Devices import TLineLossless
 from SignalIntegrity.Lib.Fit.RLGC import RLGCFitter
 
 class RLGCFitFromFile(object):
@@ -39,6 +39,8 @@ class RLGCFitFromFile(object):
         self.spfile=filename
         self.RLGC=None
         self.kwargs=kwargs
+        if scale == 0.0:
+            self.RLGC=TLineLossless(self.m_f,2,50.0,0.0,self.Z0)
     def Fit(self):
         """Fits a two-port RLGC model for the specified s-parameter file
         @see see RLGC
