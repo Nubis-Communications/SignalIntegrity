@@ -402,6 +402,8 @@ class EquationLineConfiguration(XMLConfiguration):
         XMLConfiguration.__init__(self,'EquationLine')
         self.Add(XMLPropertyDefaultString('Line',''))
 
+
+
 class EquationsConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Equations')
@@ -415,6 +417,8 @@ class EquationsConfiguration(XMLConfiguration):
             for line in lines:
                 if not line is None:
                     goodlines.append(line)
+                else:
+                    goodlines.append('') #None corresponds to newline
             textstr='\n'.join(goodlines)
         except:
             textstr=''
@@ -422,12 +426,8 @@ class EquationsConfiguration(XMLConfiguration):
     def PutTextString(self,textstr):
         lines=textstr.split('\n')
         lines=[str(line) for line in lines]
-        goodlines=[]
-        for line in lines:
-            if line != '':
-                goodlines.append(line)
-        pplines=[EquationLineConfiguration() for line in goodlines]
-        for l in range(len(goodlines)):
+        pplines=[EquationLineConfiguration() for line in lines]
+        for l in range(len(lines)):
             pplines[l]['Line']=lines[l]
         self['Lines']=pplines
 
