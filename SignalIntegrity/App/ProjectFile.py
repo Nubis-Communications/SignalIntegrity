@@ -518,11 +518,11 @@ class ProjectFile(ProjectFileBase):
                         returnargs[variable['Name']]=None
                     if not variable['ReadOnly']:
                         if variable['Type'] in ['file','string','enum']:
-                            sendargs[variable['Name']]=str(variable['Value'])
+                            sendargs[variable['Name']]=str(variable.Value())
                         elif variable['Type'] == 'float':
-                            sendargs[variable['Name']]=float(variable['Value'])
+                            sendargs[variable['Name']]=float(variable.Value())
                         elif variable['Type'] == 'int':
-                            sendargs[variable['Name']]=int(variable['Value'])
+                            sendargs[variable['Name']]=int(variable.Value())
                 try:
                     if equations == None:
                         equations=self['Equations'].GetTextString()
