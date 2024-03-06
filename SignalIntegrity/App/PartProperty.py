@@ -571,3 +571,22 @@ class PartPropertyCalculationProperties(PartProperty):
     def __init__(self,state='false'):
         PartProperty.__init__(self,'calcprop',type='enum',keyword='calcprop',description='use project calculation properties',value=state,visible=False,keywordVisible=False)
 
+class PartPropertyCOMgamma0(PartProperty):
+    def __init__(self,gamma0=0):
+        PartProperty.__init__(self,'gamma0',type='float',unit='',keyword='gamma0',description='gamma0 (in units 1/mm)',value=gamma0,visible=True, keywordVisible=True)
+
+class PartPropertyCOMa1(PartProperty):
+    def __init__(self,a1=0):
+        PartProperty.__init__(self,'a1',type='float',unit='',keyword='a1',description='a1 (in units sqrt(ns)/mm)',value=a1,visible=True, keywordVisible=True)
+
+class PartPropertyCOMa2(PartProperty):
+    def __init__(self,a2=0):
+        PartProperty.__init__(self,'a2',type='float',unit='',keyword='a2',description='a2 (in units ns/mm)',value=a2,visible=True, keywordVisible=True)
+
+class PartPropertyCOMtau(PartProperty):
+    def __init__(self,tau=0):
+        PartProperty.__init__(self,'tau',type='float',unit='',keyword='tau',description='tau (in units ns/mm)',value=tau,visible=True, keywordVisible=True)
+
+class PartPropertyCOMd(PartProperty):
+    def __init__(self,d=0):
+        PartProperty.__init__(self,'d',type='float',unit='m',keyword='d',description='length (called d in COM)',value=d,visible=True, keywordVisible=True)

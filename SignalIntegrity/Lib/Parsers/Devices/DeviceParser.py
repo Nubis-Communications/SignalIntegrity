@@ -81,6 +81,7 @@ class DeviceFactory(list):
         |transconductance\n amplifier           |2-4  |False    |gain=None zo=1e8 zi=1e8 z0=50                                                                  | False               |dev.TransconductanceAmplifier(ports,gain,zi,zo)                                                  |
         |opamp                                  |3    |False    |zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50                                                              | False               |dev.OperationalAmplifier(zi,zd,zo,gain,z0)                                                       |
         |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
+        |tlineCOM                               |2    |False    |gamma0=0 a1=0 a2=0 tau=0 zc=50 d=0 z0=50                                                       | True                |sp.dev.TLineTwoPortCOM(f,gamma0,a1,a2,tau,zc,d/1e-3,z0)                                       |
         |tlinelossy                             |2    |False    |zc=50 td=0 LdBperHzpers=0 LdBperrootHzpers=0                                                   | True                |sp.dev.TLineLossy(f,ports,zc,td,LdBperHzpers,LdBperrootHzpers)                                   |
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
         |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
@@ -175,6 +176,10 @@ class DeviceFactory(list):
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('tlinecom',2,False,{'gamma0':0,'a1':0,'a2':0,'tau':0,'zc':50,
+            'd':0,'z0':50},True,
+            "TLineTwoPortCOM(f,float(arg['gamma0']),float(arg['a1']),float(arg['a2']),\
+            float(arg['tau']),float(arg['zc']),float(arg['d'])/1e-3,float(arg['z0']))"),
         ParserDevice('tlinelossy',2,False,{'zc':50.,'td':0.,'ldbperhzpers':0,
             'ldbperroothzpers':0},True,
             "TLineLossy(f,float(arg['zc']),float(arg['td']),\
@@ -298,6 +303,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.TerminationL import TerminationL
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossless import TLineLossless
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossy import TLineLossy
+        from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortCOM import TLineTwoPortCOM
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
         from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeviceParser
         from SignalIntegrity.Lib.Measurement.CalKit.Standards.ShortStandard import ShortStandard

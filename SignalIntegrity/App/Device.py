@@ -925,6 +925,16 @@ class DeviceTransmissionLine(Device):
                                       PartPropertyDelay(),
                                       PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
 
+class DeviceCOMTransmissionLine(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(partname='tlinecom',values=[('gamma0',True),('a1',True),('a2',True),('tau',True),('zc',True),('d',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('TransmissionLineCOM'),
+                                      PartPropertyHelp('device:Transmission-Line-COM'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyCOMgamma0(),PartPropertyCOMa1(),PartPropertyCOMa2(),PartPropertyCOMtau(),PartPropertyCOMd(),
+                                      PartPropertyCharacteristicImpedance()]+propertiesList,partPicture)
+
 class DeviceTransmissionLineLossy(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='tlinelossy',values=[('zc',True),('td',True),('ldbperhzpers',True),('ldbperroothzpers',True)])
@@ -1531,6 +1541,7 @@ DeviceList=Devices([
                 DeviceDirectionalCoupler([PartPropertyDescription('Four Port Directional Coupler'),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
+                DeviceCOMTransmissionLine([PartPropertyDescription('Two Port COM Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLineLossy([PartPropertyDescription('Two Port Lossy Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherFourPort([PartPropertyDescription('Four Port Telegrapher'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineDifferential()),
