@@ -18,9 +18,8 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg,dot,diag,array
-from SignalIntegrity.Lib.TimeDomain.Waveform import ImpulseResponse
-from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
+from numpy import linalg,dot,diag
+import numpy as np
 import math
 
 class SParameterManipulation(object):
@@ -137,15 +136,12 @@ class SParameterManipulation(object):
         @param pr list of integer one-based port numbers
         @return new instance of reordered s-parameters
         """
-        import copy
-        sp=copy.deepcopy(self)
+        from SignalIntegrity.Lib.SParameters.SParameters import SParameters
         pr=[p-1 for p in pr] # convert to 0 based indices
-        sp.m_d=[[[sp.m_d[n][pr[r]][pr[c]]
+        return SParameters(self.m_f,[[[self.m_d[n][pr[r]][pr[c]]
                 for c in range(len(pr))]
                     for r in range(len(pr))]
-                        for n in range(len(sp.m_d))]
-        sp.m_P=len(pr)
-        return sp
+                        for n in range(len(self.m_d))],self.m_Z0)
     def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False):
         """determines the impulse response lengths of the ports by comparing impulse response to threshold.
         @param epsilon (optional, defaults to 1e-6) absolute threshold on impulse response.
