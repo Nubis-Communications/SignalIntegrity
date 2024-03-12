@@ -1,0 +1,21 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="40" y="-41" t="Wf" h="3" halign="c" lc="black"/>
+%  <rect x="36" y="-36" w="8" h="-8" lc="black"/>
+%  <text x="40" y="-33" t="state on" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-29.75" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="40" y="-26.5" t="offset 0 V" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-23.25" t="td 0 s" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-20" t="wffile waveform.txt" h="3" halign="c" lc="black"/>
+%  <text x="40" y="-16.75" t="VO1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (40,-41) node[anchor=base]{Wf};
+\path[line width=0.30mm, draw=black] (36,-44) rectangle +(8,8);
+\draw[black] (40,-33) node[anchor=base]{state on};
+\draw[black] (40,-29.75) node[anchor=base]{gain 1.0 };
+\draw[black] (40,-26.5) node[anchor=base]{offset 0 V};
+\draw[black] (40,-23.25) node[anchor=base]{td 0 s};
+\draw[black] (40,-20) node[anchor=base]{wffile waveform.txt};
+\draw[black] (40,-16.75) node[anchor=base]{VO1};
+\end{tikzpicture}%
