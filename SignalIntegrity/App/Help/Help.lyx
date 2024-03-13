@@ -26424,6 +26424,13 @@ When chosen, a frequency grid is chosen starting at the decade at or below
 \end_layout
 
 \begin_layout Standard
+For s-parameter calculations, the results are provided on this logarithmic
+ scale, but for simulation calculations, the resulting logarithmically spaced
+ solution is resampled onto the linear scale that is specified prior to
+ convolution.
+\end_layout
+
+\begin_layout Standard
 This is all explained in 
 \begin_inset Flex URL
 status open
@@ -45519,7 +45526,7 @@ noprefix "false"
 \begin_layout Itemize
 \begin_inset CommandInset ref
 LatexCommand nameref
-reference "subsec:Output-Waveform"
+reference "device:Waveform"
 plural "false"
 caps "false"
 noprefix "false"
@@ -69651,11 +69658,169 @@ on
 
 \end_layout
 
+\begin_layout Standard
+The waveform is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to specify waveforms to be directly read in after a simulation
+ and added to the waveform list.
+\end_layout
+
+\begin_layout Standard
+When the waveforms are not resampled using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but you have the capability of applying gain, offset and delay to the
+ resulting waveform.
+ If the state is set to off, the waveform is not read in.
+ If the waveform is not found at the end of the simulation, the simulation
+ will fail, unless the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ preference in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Standard-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is true.
+ In that case, the missing waveform is ignored.
+\end_layout
+
+\begin_layout Standard
+If the state is set to off, the waveform is not read in and processed.
+\end_layout
+
+\begin_layout Standard
+In addition to reading in waveforms, eye diagrams are produced as a result
+ of the calculation.
+ As such, this device behaves exactly like a 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Waveform"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with the addition of the eye diagram.
+\end_layout
+
+\begin_layout Standard
+When placing an eye waveform, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing an eye waveform device will assign the value VO3
+ to the device reference designator.
+ This, of course, can be changed by the user.
+\end_layout
+
+\begin_layout Standard
+If the state is set to off, the waveform is not calculated.
+\end_layout
+
+\begin_layout Standard
+When simulations are complete, for each eye waveform, the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is opened, and an eye diagram calculated, using the specified baud rate
+ to determine the unit interval.
+\end_layout
+
+\begin_layout Standard
+The eye diagram and other post-processing is performed according to the
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, that are unique for each eye waveform, and can be accessed through the
+ eye diagram configuration in the eye waveform properties dialog in the
+ button below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename EyeWaveformPropertiesDialog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When adding an eye waveform, the default values are read from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ If you don't like these default values, you are free to set these preferences
+ from the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Eye-Diagram-Properties-Dialog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ permanently, so that all newly added eye probes inherit these default values.
+\end_layout
+
 \begin_layout Subsection
 Waveform
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Output-Waveform"
+name "device:Waveform"
 
 \end_inset
 
@@ -69675,7 +69840,7 @@ name "subsec:Output-Waveform"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="9" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -70012,7 +70177,7 @@ V
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -70021,7 +70186,7 @@ voltage gain
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -70030,11 +70195,58 @@ float
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 gain
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string (on or off)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+state
 \end_layout
 
 \end_inset
@@ -70052,7 +70264,7 @@ gain
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.0
+on
 \end_layout
 
 \end_inset
@@ -70063,6 +70275,74 @@ gain
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The waveform is used in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ applications to specify waveforms to be directly read in after a simulation
+ and added to the waveform list.
+\end_layout
+
+\begin_layout Standard
+When the waveforms are not resampled using the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but you have the capability of applying gain, offset and delay to the
+ resulting waveform.
+ If the state is set to off, the waveform is not read in.
+ If the waveform is not found at the end of the simulation, the simulation
+ will fail, unless the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ preference in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Standard-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is true.
+ In that case, the missing waveform is ignored.
+ 
+\end_layout
+
+\begin_layout Standard
+When placing a waveform, the default reference other references prefixed
+ with 'VO' and the first value not found will be inserted as the reference.
+ For example, if three other probes are in the circuit with references VO1,
+ VO2, V08, then placing a waveform will assign the value VO3 to the waveform
+ reference designator.
+ This, of course, can be changed by the user.
 \end_layout
 
 \begin_layout Subsection
@@ -83449,6 +83729,25 @@ True
 
 \end_layout
 
+\begin_layout Standard
+Originally, whenever multiple device ports were connected in a schematic
+ (denoted by a dot), a three-port tee was placed.
+ If there were more than three device ports connected, multiple three-port
+ tees were employed.
+ It was found that in certain solutions, this caused the solution complexity
+ to increase by up to a factor of three.
+ To avoid this complexity, the possibility exists to make multiple device
+ port connections with a multi-port tee, which can speed up the simulation
+ significantly.
+\end_layout
+
+\begin_layout Standard
+There is no drawback of the multi-port tee, which is why the preference
+ defaults to True.
+ The old way is retained simply for testing compatibility and will be removed
+ at a later date.
+\end_layout
+
 \begin_layout Subsection*
 Calculation.Enforce12458
 \begin_inset CommandInset label
@@ -83715,6 +84014,46 @@ False
 
 \end_layout
 
+\begin_layout Standard
+Normally, solutions are performed on a linear frequency scale, as defined
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Sometimes, however, it is useful to preform the solution on a logarithmic
+ scale.
+ This is the case for solutions whose results are best viewed on a Bode
+ plot, especially PDN type simulations.
+\end_layout
+
+\begin_layout Standard
+If this preference is set to True, then the possibility for logarithmically
+ spaced frequency point solutions is enabled.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Logarithmically-Spaced-Frequencies-Solutions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Be warned that this preference is experimental in nature and might not provide
+ proper results.
+\end_layout
+
 \begin_layout Subsection*
 Calculation.Non50OhmSolutions
 \begin_inset CommandInset label
@@ -83836,6 +84175,51 @@ False
 
 \end_layout
 
+\begin_layout Standard
+Normally all solutions are performed in a 
+\begin_inset Formula $50\,\Omega$
+\end_inset
+
+ reference impedance.
+ In certain situations, especially in PDN analysis, it is helpful to perform
+ the entire calculation in a different, specified reference impedance which
+ can be specified in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If this preference is set to True, the possibility to perform simulations
+ in a specified reference impedance is enabled.
+\end_layout
+
+\begin_layout Standard
+Keep in mind, it usually sufficient to solve the system in a 
+\begin_inset Formula $50\,\Omega$
+\end_inset
+
+ reference impedance, and convert the result to a new reference impedance
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection*
 Calculation.IgnoreMissingOtherWaveforms
 \begin_inset CommandInset label
@@ -83955,6 +84339,47 @@ True
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This preference allows 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Virtual-Probing"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Simulation"
+
+\end_inset
+
+ calculations to complete, even if missing waveforms specified by the special
+ devices 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Waveform"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "device:Eye-Waveform"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are not found on the disk.
+ If this preference is false, missing waveforms specified by these devices
+ cause the calculation to fail.
 \end_layout
 
 \begin_layout Subsection*
