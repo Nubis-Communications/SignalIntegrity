@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>106250000000.0</EndFrequency>
-		<FrequencyPoints>531</FrequencyPoints>
+		<EndFrequency>100000000000.0</EndFrequency>
+		<FrequencyPoints>500</FrequencyPoints>
 		<UserSampleRate>425000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1367x379+52+52</Geometry>
+			<Geometry>1367x379+2050+159</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>-2</Originx>
 			<Originy>0</Originy>
@@ -1005,16 +1005,16 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>package tl tau</Description>
+				<Description>package tl tau (ns/mm)</Description>
 				<Name>package_tl_tau</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
-				<Units>s/mm</Units>
-				<Value>6.448e-12</Value>
+				<Units></Units>
+				<Value>6.448e-3</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>package tl gamma0</Description>
+				<Description>package tl gamma0 (1/mm)</Description>
 				<Name>package_tl_gamma0</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
@@ -1023,7 +1023,7 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>package tl a1</Description>
+				<Description>package tl a1 (sqrt(ns)/mm)</Description>
 				<Name>package_tl_a1</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
@@ -1032,7 +1032,7 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>package tl a2</Description>
+				<Description>package tl a2 (ns/mm)</Description>
 				<Name>package_tl_a2</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>

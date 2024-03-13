@@ -1,16 +1,16 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>25000000.0</EndFrequency>
-		<FrequencyPoints>5000</FrequencyPoints>
+		<FrequencyPoints>25000</FrequencyPoints>
 		<LogarithmicEndFrequency>100000000000.0</LogarithmicEndFrequency>
 		<LogarithmicPointsPerDecade>10</LogarithmicPointsPerDecade>
-		<LogarithmicStartFrequency>10000.0</LogarithmicStartFrequency>
+		<LogarithmicStartFrequency>100.0</LogarithmicStartFrequency>
 		<UnderlyingType>Logarithmic</UnderlyingType>
 		<UserSampleRate>50000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>603x413+104+104</Geometry>
+			<Geometry>603x413+1964+50</Geometry>
 			<Grid>16</Grid>
 			<Originx>5</Originx>
 			<Originy>11</Originy>
@@ -337,13 +337,13 @@
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-0.00015</Value>
+							<Value>-0.00115</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0003</Value>
+							<Value>0.0023</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
