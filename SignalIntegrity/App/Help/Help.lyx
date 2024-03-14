@@ -225,8 +225,7 @@ SignalIntegrity
 \end_layout
 
 \begin_layout Standard
-This software is release as open-source software with permission of Teledyne
- LeCroy according to the 
+This software is release as open-source software according to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:License"
@@ -234,16 +233,6 @@ reference "sec:License"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Graphics
-	filename tlecroy-logo-15.png
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -260,8 +249,8 @@ status open
 
 
 \backslash
-href{mailto:PeterP@LeCroy.com?subject=SignalIntegrity Project}{pete_pope@hotmail.c
-om}
+href{mailto:Pete@Nubis-Communications.com?subject=SignalIntegrity Project}{pete_p
+ope@hotmail.com}
 \end_layout
 
 \end_inset
@@ -299,7 +288,7 @@ status open
 
 \begin_layout Plain Layout
 
-https://github.com/TeledyneLeCroy/SignalIntegrity
+https://github.com/Nubis-Communications/SignalIntegrity
 \end_layout
 
 \end_inset
@@ -328,7 +317,11 @@ name "sec:License"
 \end_layout
 
 \begin_layout Standard
-Copyright (c) 2018 Teledyne LeCroy, Inc.
+Copyright (c) 2021 Nubis Communications, Inc.
+\end_layout
+
+\begin_layout Standard
+Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 \end_layout
 
 \begin_layout Standard
@@ -9362,6 +9355,13 @@ When s-parameter files are being viewed
 
 \end_layout
 
+\begin_layout Standard
+Sometimes an s-parameter, when viewed in the time-domain, has a DC offset
+ of the impulse response leading to a tilt in the step response.
+ Sometimes, this offset can be removed and the tilt in the step response
+ corrected by employing this correction.
+\end_layout
+
 \begin_layout Subsubsection
 Preserve DC in Causality Enforcement
 \begin_inset CommandInset label
@@ -9516,6 +9516,16 @@ When s-parameter files are being viewed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Causality enforcement involves zeroing out all of the portion of the time-domain
+ views of the s-parameters that represents negative time.
+ Sometimes, when doing this, the DC response is affected.
+ In most applications, this is not a big effect, but for PDN analysis, it
+ is critical to preserve the DC response.
+ Checking this selection causes the causality enforcement to preserve the
+ DC response behavior.
 \end_layout
 
 \begin_layout Subsection
@@ -79445,6 +79455,11 @@ Valid post-processing commands are:
 \end_layout
 
 \begin_layout Itemize
+preserve DC - this causes causality enforcement to preserve the DC response
+ behavior.
+\end_layout
+
+\begin_layout Itemize
 enforce causality - is the same as issuing 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -82067,7 +82082,7 @@ String
 \begin_layout Plain Layout
 \noindent
 \align left
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App
 \end_layout
 
 \end_inset
@@ -83606,6 +83621,20 @@ True
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+During calculations, many matrices require inversion.
+ In some cases, matrices are ill-conditioned, meaning that although they
+ invert, the result of the inversion, and therefore the solution result
+ is questionable, or probably, incorrect.
+ Setting this preference to True forces a check of the condition number
+ during solution.
+ If the condition number is very high, then the calculation fails with an
+ error reported to the user.
+ Otherwise, the solutions grind through to completion and the user must
+ decide whether the results are valid.
+ 
 \end_layout
 
 \begin_layout Subsection*
@@ -85625,6 +85654,30 @@ None
 
 \end_layout
 
+\begin_layout Standard
+When encrypting a file with the correct name ending (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Encryption.Ending"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) or decrypting a file employing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Encryption"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this is the password used.
+\end_layout
+
 \begin_layout Subsection*
 Encryption.Ending
 \begin_inset CommandInset label
@@ -85741,6 +85794,22 @@ $
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is the file name ending used to determine whether to encrypt a project
+ file when it is saved.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Encryption"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for more details.
 \end_layout
 
 \begin_layout Subsection*
@@ -85987,7 +86056,7 @@ String
 \begin_layout Plain Layout
 \noindent
 \align left
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App
 \end_layout
 
 \end_inset
@@ -86009,8 +86078,8 @@ This preference is created for the unlikely event that the online software
 \end_layout
 
 \begin_layout Standard
-Currently, the help system is located online at: 'http://teledynelecroy.github.io/
-SignalIntegrity/SignalIntegrity/App'.
+Currently, the help system is located online at: 'http://nubis-communications.git
+hub.io/SignalIntegrity/SignalIntegrity/App'.
 \end_layout
 
 \begin_layout Standard
@@ -86020,10 +86089,10 @@ That being said, in a complicated manner, the help system can be retrieved
  This is especially useful for debugging as the help system is being modified.
  For example, if a git repository has been created in the directory 'SignalInteg
 rityPages' and the gh-pages master branch pulled, the local help system
- can be accessed from 'file:///home/peterp/Work/SignalIntegrityPages/SignalInteg
-rity/App'.
- Note that in this case the actual base of the help system will be at '/home/pet
-erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.\SpecialChar LyX
+ can be accessed from the location of your SignalIntegrity/App folder under
+ SignalIntegrity.
+ Note that in this case the actual base of the help system will be below
+ this directory at Help/Help.html.\SpecialChar LyX
 conv/Help.html'.
 \end_layout
 
@@ -87499,8 +87568,38 @@ scrypt
 \end_layout
 
 \begin_layout Standard
-Any files subsequently saved whose name ends in the ending specified are
- AES encrypted using the password supplied in the preferences.
+Any files subsequently saved whose name ends in the ending specified (see
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Encryption.Ending"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) are AES encrypted using the password supplied (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Encryption.Password"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Standard-Preferences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
