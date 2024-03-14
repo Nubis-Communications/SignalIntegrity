@@ -322,6 +322,9 @@ class VariableConfiguration(XMLConfiguration):
             value=('/'.join(str(os.path.abspath(value)).split('\\')))
             if ' ' in value:
                 value="'"+value+"'"
+        elif self['Type'] == 'string':
+            if ' ' in value:
+                value="'"+value+"'"
         noCacheString = '' if self['InCache']  else ' nocache'
         if value != '':
             return '$'+self['Name']+'$ '+ value + noCacheString
