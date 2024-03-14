@@ -3,7 +3,8 @@ WaveletDenoiser
 @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.

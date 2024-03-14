@@ -1,7 +1,8 @@
 """
 PreferencesFile.py
 """
-# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -212,7 +213,7 @@ class OnlineHelp(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'OnlineHelp')
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
-        self.Add(XMLPropertyDefaultString('URL','https://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App'))
+        self.Add(XMLPropertyDefaultString('URL','https://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App'))
 
 class Features(XMLConfiguration):
     def __init__(self):

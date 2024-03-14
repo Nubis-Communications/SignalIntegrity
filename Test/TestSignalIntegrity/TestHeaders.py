@@ -2,7 +2,8 @@
 TestHeaders.py
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -25,7 +26,8 @@ exclusionList=[
     'doxypy.py','Zoomer.py']
 
 license=[
-    '# Copyright (c) 2018 Teledyne LeCroy, Inc.\n',
+    '# Copyright (c) 2021 Nubis Communications, Inc.\n',
+    '# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.\n',
     '# All rights reserved worldwide.\n',
     '#\n',
     '# This file is part of SignalIntegrity.\n',
@@ -72,8 +74,21 @@ class TestHeadersTest(unittest.TestCase):
                         if len(file.split('_'))>1:
                             continue
                 if True:
+                    foundone=False
+                    newlines=[]
                     with open(pythonFileName) as f:
                         lines=f.readlines()
+
+                        for line in lines:
+                            if line == '# Copyright (c) 2018 Teledyne LeCroy, Inc.\n':
+                                foundone=True
+                                newlines.append('# Copyright (c) 2021 Nubis Communications, Inc.\n')
+                                newlines.append('# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.\n')
+                            else:
+                                newlines.append(line)
+                    if foundone:
+                        with open(pythonFileName,'w') as f:
+                            f.writelines(newlines)
                     inquotes=False
                     donequotes=False
                     quotesLineStart=0

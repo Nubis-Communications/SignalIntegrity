@@ -1,7 +1,8 @@
 """
 Converts power-wave s-parameters to pseudo-wave s-parameters
 """
-# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.

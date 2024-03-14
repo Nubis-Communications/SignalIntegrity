@@ -2,7 +2,8 @@
 __about__.py
 """
 
-# Copyright (c) 2018 Teledyne LeCroy, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -24,9 +25,9 @@ __project__ = "SignalIntegrity"
 __description__ = "Signal and Power Integrity Tools"
 __author__ = "Peter J. Pupalaikis"
 __email__ = "pete_pope@hotmail.com"
-__organization__ = "Teledyne LeCroy, Inc."
-__url__ = "https://github.com/TeledyneLeCroy/SignalIntegrity"
-__copyright__ = u"Copyright {} 2018,2019,2020,2021,2022,2023 {}".format(u"\u00A9",__organization__)
+__organization__ = "Nubis Communications, Inc."
+__url__ = "https://github.com/Nubis-Communications/SignalIntegrity"
+__copyright__ = u"Copyright {} 2021 {}".format(u"\u00A9",__organization__)
 __license__ = "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
 __version__ = "1.3.5"
 __status__ = "Development Status :: 5 - Production/Stable"
