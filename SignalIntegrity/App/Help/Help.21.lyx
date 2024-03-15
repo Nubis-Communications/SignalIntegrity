@@ -217,8 +217,7 @@ SignalIntegrity
 \end_layout
 
 \begin_layout Standard
-This software is release as open-source software with permission of Teledyne
- LeCroy according to the 
+This software is release as open-source software according to the 
 \begin_inset CommandInset ref
 LatexCommand nameref
 reference "sec:License"
@@ -226,16 +225,6 @@ reference "sec:License"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Graphics
-	filename tlecroy-logo-15.png
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -252,8 +241,8 @@ status open
 
 
 \backslash
-href{mailto:PeterP@LeCroy.com?subject=SignalIntegrity Project}{pete_pope@hotmail.c
-om}
+href{mailto:Pete@Nubis-Communications.com?subject=SignalIntegrity Project}{pete_p
+ope@hotmail.com}
 \end_layout
 
 \end_inset
@@ -291,7 +280,7 @@ status open
 
 \begin_layout Plain Layout
 
-https://github.com/TeledyneLeCroy/SignalIntegrity
+https://github.com/Nubis-Communications/SignalIntegrity
 \end_layout
 
 \end_inset
@@ -320,7 +309,11 @@ name "sec:License"
 \end_layout
 
 \begin_layout Standard
-Copyright (c) 2018 Teledyne LeCroy, Inc.
+Copyright (c) 2021 Nubis Communications, Inc.
+\end_layout
+
+\begin_layout Standard
+Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 \end_layout
 
 \begin_layout Standard
@@ -9133,6 +9126,13 @@ When s-parameter files are being viewed
 
 \end_layout
 
+\begin_layout Standard
+Sometimes an s-parameter, when viewed in the time-domain, has a DC offset
+ of the impulse response leading to a tilt in the step response.
+ Sometimes, this offset can be removed and the tilt in the step response
+ corrected by employing this correction.
+\end_layout
+
 \begin_layout Subsubsection
 Preserve DC in Causality Enforcement
 \begin_inset CommandInset label
@@ -9287,6 +9287,16 @@ When s-parameter files are being viewed
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Causality enforcement involves zeroing out all of the portion of the time-domain
+ views of the s-parameters that represents negative time.
+ Sometimes, when doing this, the DC response is affected.
+ In most applications, this is not a big effect, but for PDN analysis, it
+ is critical to preserve the DC response.
+ Checking this selection causes the causality enforcement to preserve the
+ DC response behavior.
 \end_layout
 
 \begin_layout Subsection
@@ -26019,6 +26029,13 @@ When chosen, a frequency grid is chosen starting at the decade at or below
  (inclusive) are chosen, and if needed, the start and end frequencies are
  tacked on to the beginning and end of the frequency list, respectively,
  if needed.
+\end_layout
+
+\begin_layout Standard
+For s-parameter calculations, the results are provided on this logarithmic
+ scale, but for simulation calculations, the resulting logarithmically spaced
+ solution is resampled onto the linear scale that is specified prior to
+ convolution.
 \end_layout
 
 \begin_layout Standard
@@ -77475,6 +77492,11 @@ Valid post-processing commands are:
 \end_layout
 
 \begin_layout Itemize
+preserve DC - this causes causality enforcement to preserve the DC response
+ behavior.
+\end_layout
+
+\begin_layout Itemize
 enforce causality - is the same as issuing 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -80055,7 +80077,7 @@ String
 \begin_layout Plain Layout
 \noindent
 \align left
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App
 \end_layout
 
 \end_inset
@@ -81581,6 +81603,20 @@ True
 
 \end_layout
 
+\begin_layout Standard
+During calculations, many matrices require inversion.
+ In some cases, matrices are ill-conditioned, meaning that although they
+ invert, the result of the inversion, and therefore the solution result
+ is questionable, or probably, incorrect.
+ Setting this preference to True forces a check of the condition number
+ during solution.
+ If the condition number is very high, then the calculation fails with an
+ error reported to the user.
+ Otherwise, the solutions grind through to completion and the user must
+ decide whether the results are valid.
+ 
+\end_layout
+
 \begin_layout Subsection*
 Calculation.MultiPortTee
 \begin_inset CommandInset label
@@ -81697,6 +81733,25 @@ True
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Originally, whenever multiple device ports were connected in a schematic
+ (denoted by a dot), a three-port tee was placed.
+ If there were more than three device ports connected, multiple three-port
+ tees were employed.
+ It was found that in certain solutions, this caused the solution complexity
+ to increase by up to a factor of three.
+ To avoid this complexity, the possibility exists to make multiple device
+ port connections with a multi-port tee, which can speed up the simulation
+ significantly.
+\end_layout
+
+\begin_layout Standard
+There is no drawback of the multi-port tee, which is why the preference
+ defaults to True.
+ The old way is retained simply for testing compatibility and will be removed
+ at a later date.
 \end_layout
 
 \begin_layout Subsection*
@@ -81962,6 +82017,40 @@ False
 
 \end_layout
 
+\begin_layout Standard
+Normally, solutions are performed on a linear frequency scale, as defined
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
+ Sometimes, however, it is useful to preform the solution on a logarithmic
+ scale.
+ This is the case for solutions whose results are best viewed on a Bode
+ plot, especially PDN type simulations.
+\end_layout
+
+\begin_layout Standard
+If this preference is set to True, then the possibility for logarithmically
+ spaced frequency point solutions is enabled.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Logarithmically-Spaced-Frequencies-Solutions"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Be warned that this preference is experimental in nature and might not provide
+ proper results.
+\end_layout
+
 \begin_layout Subsection*
 Calculation.Non50OhmSolutions
 \begin_inset CommandInset label
@@ -82078,6 +82167,45 @@ False
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Normally all solutions are performed in a 
+\begin_inset Formula $50\,\Omega$
+\end_inset
+
+ reference impedance.
+ In certain situations, especially in PDN analysis, it is helpful to perform
+ the entire calculation in a different, specified reference impedance which
+ can be specified in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Control-Help:Calculation-Properties"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If this preference is set to True, the possibility to perform simulations
+ in a specified reference impedance is enabled.
+\end_layout
+
+\begin_layout Standard
+Keep in mind, it usually sufficient to solve the system in a 
+\begin_inset Formula $50\,\Omega$
+\end_inset
+
+ reference impedance, and convert the result to a new reference impedance
+ using 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Post-Processing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection*
@@ -83461,6 +83589,24 @@ None
 
 \end_layout
 
+\begin_layout Standard
+When encrypting a file with the correct name ending (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Encryption.Ending"
+
+\end_inset
+
+) or decrypting a file employing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Encryption"
+
+\end_inset
+
+, this is the password used.
+\end_layout
+
 \begin_layout Subsection*
 Encryption.Ending
 \begin_inset CommandInset label
@@ -83577,6 +83723,19 @@ $
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is the file name ending used to determine whether to encrypt a project
+ file when it is saved.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:Encryption"
+
+\end_inset
+
+ for more details.
 \end_layout
 
 \begin_layout Subsection*
@@ -83823,7 +83982,7 @@ String
 \begin_layout Plain Layout
 \noindent
 \align left
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App
 \end_layout
 
 \end_inset
@@ -83845,8 +84004,8 @@ This preference is created for the unlikely event that the online software
 \end_layout
 
 \begin_layout Standard
-Currently, the help system is located online at: 'http://teledynelecroy.github.io/
-SignalIntegrity/SignalIntegrity/App'.
+Currently, the help system is located online at: 'http://nubis-communications.git
+hub.io/SignalIntegrity/SignalIntegrity/App'.
 \end_layout
 
 \begin_layout Standard
@@ -83856,11 +84015,10 @@ That being said, in a complicated manner, the help system can be retrieved
  This is especially useful for debugging as the help system is being modified.
  For example, if a git repository has been created in the directory 'SignalInteg
 rityPages' and the gh-pages master branch pulled, the local help system
- can be accessed from 'file:///home/peterp/Work/SignalIntegrityPages/SignalInteg
-rity/App'.
- Note that in this case the actual base of the help system will be at '/home/pet
-erp/Work/SignalIntegrityPages/SignalIntegrity/App/Help/Help.html.LyX
-conv/Help.html'.
+ can be accessed from the location of your SignalIntegrity/App folder under
+ SignalIntegrity.
+ Note that in this case the actual base of the help system will be below
+ this directory at Help/Help.html.LyXconv/Help.html'.
 \end_layout
 
 \begin_layout Subsection*
@@ -85323,8 +85481,29 @@ scrypt
 \end_layout
 
 \begin_layout Standard
-Any files subsequently saved whose name ends in the ending specified are
- AES encrypted using the password supplied in the preferences.
+Any files subsequently saved whose name ends in the ending specified (see
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Encryption.Ending"
+
+\end_inset
+
+) are AES encrypted using the password supplied (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Encryption.Password"
+
+\end_inset
+
+) in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Standard-Preferences"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

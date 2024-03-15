@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--18.html#next">Prev</a> ProjectFiles.OpenLastFile</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--18.html#next">Prev</a> Calculation.LogarithmicSolutions</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.PreferSaveWaveformsLeCroyFormat <a class="next" name="next" href="Help-Subsection--20.html#prev">Next</a></span>
+<span class="next">Calculation.IgnoreMissingOtherWaveforms <a class="next" name="next" href="Help-Subsection--20.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--19"></a>ProjectFiles.AskToSaveCurrentFile<a class="Label" name="sub:AskToSaveCurrentFile"> </a>
+<a class="toc" name="toc-Subsection--19"></a>Calculation.Non50OhmSolutions<a class="Label" name="sub:Calculation.Non50OhmSolutions"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-ask to save current file
+enable non 50 ohm solutions
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--19.html#sub:AskToSaveCurrentFile">ProjectFiles.AskToSaveCurrentFile↑</a>
+<a class="Reference" href="Help-Subsection--19.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-True
+False
 </div>
 
 </td>
@@ -1120,15 +1120,18 @@ True
 
 </div>
 <div class="Standard">
-This preference determines whether the application will unconditionally ask whether you want to save the changes to the current project file prior to exiting the application.
+Normally all solutions are performed in a <span class="formula">50 Ω</span> reference impedance. In certain situations, especially in PDN analysis, it is helpful to perform the entire calculation in a different, specified reference impedance which can be specified in the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
 </div>
 <div class="Standard">
-Currently, it has no knowledge of whether the project was recently changed.
+If this preference is set to True, the possibility to perform simulations in a specified reference impedance is enabled.
+</div>
+<div class="Standard">
+Keep in mind, it usually sufficient to solve the system in a <span class="formula">50 Ω</span> reference impedance, and convert the result to a new reference impedance using <a class="Reference" href="Help-Section-25.html#sec:Post-Processing">Post-Processing↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--18.html#next">Prev</a> ProjectFiles.OpenLastFile</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--18.html#next">Prev</a> Calculation.LogarithmicSolutions</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.PreferSaveWaveformsLeCroyFormat <a class="next" name="next" href="Help-Subsection--20.html#prev">Next</a></span>
+<span class="next">Calculation.IgnoreMissingOtherWaveforms <a class="next" name="next" href="Help-Subsection--20.html#prev">Next</a></span>
 </div>
 
 </div>

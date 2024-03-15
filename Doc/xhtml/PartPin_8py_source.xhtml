@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.3</span>
+   &#160;<span id="projectnumber">1.3.5</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -83,100 +83,101 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="stringliteral">PartPin.py</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># Copyright (c) 2018 Teledyne LeCroy, Inc.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a> <span class="keyword">import</span> PartPinConfiguration</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"># pinOrientation is &#39;t&#39;,&#39;b&#39;,&#39;l&#39;,&#39;r&#39;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"># coordinates are relative to part</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>PartPin(PartPinConfiguration):</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">def </span>__init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True, numberSide=&#39;n&#39;):</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        PartPinConfiguration.__init__(self)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self[<span class="stringliteral">&#39;Number&#39;</span>]=pinNumber</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self[<span class="stringliteral">&#39;ConnectionPoint&#39;</span>]=str(pinConnectPoint)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self[<span class="stringliteral">&#39;Orientation&#39;</span>]=pinOrientation</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self[<span class="stringliteral">&#39;NumberVisible&#39;</span>]=pinNumberVisible</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self[<span class="stringliteral">&#39;Visible&#39;</span>]=pinVisible</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>]=pinNumberingMatters</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self[<span class="stringliteral">&#39;NumberSide&#39;</span>]=numberSide</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">def </span>DrawPin(self,canvas,grid,partOrigin,color,connected):</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        pinConnectionPoint=self[<span class="stringliteral">&#39;ConnectionPoint&#39;</span>]</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        startx=(pinConnectionPoint[0]+partOrigin[0])*grid</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        starty=(pinConnectionPoint[1]+partOrigin[1])*grid</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        endx=startx</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        endy=starty</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        textGrid=16</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        pinOrientation=self[<span class="stringliteral">&#39;Orientation&#39;</span>]</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        numberSide=self[<span class="stringliteral">&#39;NumberSide&#39;</span>]</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> pinOrientation == <span class="stringliteral">&#39;t&#39;</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            anchorString=<span class="stringliteral">&#39;s&#39;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            endy=endy+grid</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            texty=starty+textGrid</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;br&#39;</span>,<span class="stringliteral">&#39;tl&#39;</span>,<span class="stringliteral">&#39;rt&#39;</span>,<span class="stringliteral">&#39;lb&#39;</span>]:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                textx=startx+textGrid/2</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                textx=startx+textGrid/2</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                texty=starty+textGrid/4</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                textx=startx-textGrid/2</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">elif</span> pinOrientation == <span class="stringliteral">&#39;b&#39;</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            anchorString=<span class="stringliteral">&#39;n&#39;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            endy=endy-grid</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            texty=starty-textGrid</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;bl&#39;</span>,<span class="stringliteral">&#39;tr&#39;</span>,<span class="stringliteral">&#39;rb&#39;</span>,<span class="stringliteral">&#39;lt&#39;</span>]:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                textx=startx+textGrid/2</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                textx=startx+textGrid/2</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                texty=starty-textGrid/4</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                textx=startx-textGrid/2</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">elif</span> pinOrientation == <span class="stringliteral">&#39;l&#39;</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            anchorString=<span class="stringliteral">&#39;e&#39;</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            endx=endx+grid</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            textx=startx+textGrid*3/4</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;tl&#39;</span>,<span class="stringliteral">&#39;br&#39;</span>,<span class="stringliteral">&#39;rt&#39;</span>,<span class="stringliteral">&#39;lb&#39;</span>]:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                texty=starty-textGrid/2</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                texty=starty-textGrid/2</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                textx=startx-textGrid/4</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                texty=starty+textGrid/2</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">elif</span> pinOrientation ==<span class="stringliteral">&#39;r&#39;</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            anchorString=<span class="stringliteral">&#39;w&#39;</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            endx=endx-grid</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            textx=startx-textGrid*3/4</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;tr&#39;</span>,<span class="stringliteral">&#39;bl&#39;</span>,<span class="stringliteral">&#39;rb&#39;</span>,<span class="stringliteral">&#39;lt&#39;</span>]:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                texty=starty-textGrid/2</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                texty=starty-textGrid/2</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                textx=startx+textGrid/4</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                texty=starty+textGrid/2</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;Visible&#39;</span>]:</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            canvas.create_line(startx,starty,endx,endy,fill=color)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> connected <span class="keywordflow">and</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            size=max(1,grid/8)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment"># comment this in for editing book</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">#if self.pinNumberingMatters:</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">#    self.pinNumberVisible=True</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;NumberVisible&#39;</span>] <span class="keywordflow">or</span> (self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>] <span class="keywordflow">and</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]):</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            canvas.create_text(textx,texty,text=str(self[<span class="stringliteral">&#39;Number&#39;</span>]),anchor=anchorString,fill=color)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># Copyright (c) 2021 Nubis Communications, Inc.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># Copyright (c) 2018-2020 Teledyne LeCroy, Inc.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a> <span class="keyword">import</span> PartPinConfiguration</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"># pinOrientation is &#39;t&#39;,&#39;b&#39;,&#39;l&#39;,&#39;r&#39;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"># coordinates are relative to part</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>PartPin(PartPinConfiguration):</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">def </span>__init__(self,pinNumber,pinConnectPoint,pinOrientation,pinNumberVisible=True,pinVisible=True, pinNumberingMatters=True, numberSide=&#39;n&#39;):</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        PartPinConfiguration.__init__(self)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self[<span class="stringliteral">&#39;Number&#39;</span>]=pinNumber</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self[<span class="stringliteral">&#39;ConnectionPoint&#39;</span>]=str(pinConnectPoint)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self[<span class="stringliteral">&#39;Orientation&#39;</span>]=pinOrientation</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self[<span class="stringliteral">&#39;NumberVisible&#39;</span>]=pinNumberVisible</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self[<span class="stringliteral">&#39;Visible&#39;</span>]=pinVisible</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>]=pinNumberingMatters</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self[<span class="stringliteral">&#39;NumberSide&#39;</span>]=numberSide</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>DrawPin(self,canvas,grid,partOrigin,color,connected):</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        pinConnectionPoint=self[<span class="stringliteral">&#39;ConnectionPoint&#39;</span>]</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        startx=(pinConnectionPoint[0]+partOrigin[0])*grid</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        starty=(pinConnectionPoint[1]+partOrigin[1])*grid</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        endx=startx</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        endy=starty</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        textGrid=16</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        pinOrientation=self[<span class="stringliteral">&#39;Orientation&#39;</span>]</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        numberSide=self[<span class="stringliteral">&#39;NumberSide&#39;</span>]</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> pinOrientation == <span class="stringliteral">&#39;t&#39;</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            anchorString=<span class="stringliteral">&#39;s&#39;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            endy=endy+grid</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            texty=starty+textGrid</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;br&#39;</span>,<span class="stringliteral">&#39;tl&#39;</span>,<span class="stringliteral">&#39;rt&#39;</span>,<span class="stringliteral">&#39;lb&#39;</span>]:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                textx=startx+textGrid/2</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                textx=startx+textGrid/2</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                texty=starty+textGrid/4</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                textx=startx-textGrid/2</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">elif</span> pinOrientation == <span class="stringliteral">&#39;b&#39;</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            anchorString=<span class="stringliteral">&#39;n&#39;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            endy=endy-grid</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            texty=starty-textGrid</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;bl&#39;</span>,<span class="stringliteral">&#39;tr&#39;</span>,<span class="stringliteral">&#39;rb&#39;</span>,<span class="stringliteral">&#39;lt&#39;</span>]:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                textx=startx+textGrid/2</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                textx=startx+textGrid/2</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                texty=starty-textGrid/4</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                textx=startx-textGrid/2</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">elif</span> pinOrientation == <span class="stringliteral">&#39;l&#39;</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            anchorString=<span class="stringliteral">&#39;e&#39;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            endx=endx+grid</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            textx=startx+textGrid*3/4</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;tl&#39;</span>,<span class="stringliteral">&#39;br&#39;</span>,<span class="stringliteral">&#39;rt&#39;</span>,<span class="stringliteral">&#39;lb&#39;</span>]:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                texty=starty-textGrid/2</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                texty=starty-textGrid/2</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                textx=startx-textGrid/4</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                texty=starty+textGrid/2</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">elif</span> pinOrientation ==<span class="stringliteral">&#39;r&#39;</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            anchorString=<span class="stringliteral">&#39;w&#39;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            endx=endx-grid</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            textx=startx-textGrid*3/4</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">if</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;n&#39;</span>,<span class="stringliteral">&#39;tr&#39;</span>,<span class="stringliteral">&#39;bl&#39;</span>,<span class="stringliteral">&#39;rb&#39;</span>,<span class="stringliteral">&#39;lt&#39;</span>]:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                texty=starty-textGrid/2</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">elif</span> numberSide <span class="keywordflow">in</span> [<span class="stringliteral">&#39;nx&#39;</span>]:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                texty=starty-textGrid/2</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                textx=startx+textGrid/4</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                texty=starty+textGrid/2</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;Visible&#39;</span>]:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            canvas.create_line(startx,starty,endx,endy,fill=color)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> connected <span class="keywordflow">and</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            size=max(1,grid/8)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment"># comment this in for editing book</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">#if self.pinNumberingMatters:</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">#    self.pinNumberVisible=True</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;NumberVisible&#39;</span>] <span class="keywordflow">or</span> (self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>] <span class="keywordflow">and</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]):</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            canvas.create_text(textx,texty,text=str(self[<span class="stringliteral">&#39;Number&#39;</span>]),anchor=anchorString,fill=color)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFile_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFile_8py_source.xhtml#l00001">ProjectFile.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1Preferences_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a></div><div class="ttdef"><b>Definition:</b> <a href="Preferences_8py_source.xhtml#l00001">Preferences.py:1</a></div></div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-17.html#next">Prev</a> Log Frequency Scale</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-17.html#next">Prev</a> Show Excess Inductance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">S-Parameter Viewer Zoom Menu <a class="next" name="next" href="Help-Subsection-32.html#prev">Next</a></span>
+<span class="next">Log Frequency Scale <a class="next" name="next" href="Help-Subsubsection-19.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-18"></a>Linear Vertical Scale<a class="Label" name="Control-Help:Linear-Vertical-Scale"> </a>
+<a class="toc" name="toc-Subsubsection-18"></a>Show Excess Capacitance<a class="Label" name="Control-Help:Show-Excess-Capacitance"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ S-parameter Viewer Dialog
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-View ▸ Linear Vertical Scale
+View ▸ Show Excess Capacitance
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ View ▸ Linear Vertical Scale
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+V,e
+Alt+V,C
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-Always
+When s-parameter files are being viewed
 </td>
 
 </tr>
@@ -1140,16 +1140,25 @@ Always
 </table>
 
 </div>
-<div class="--Separator--">
+<div class="Standard">
+This setting causes the step responses (the lower right plot) to be displayed as excess capacitance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess capacitance is another way of plotting the impedance profile shown when setting <a class="Reference" href="Help-Subsubsection-16.html#Control-Help:Show-Impedance">Show Impedance↑</a>. For a given impedance <span class="formula"><i>Z</i></span>, a given reference impedance <span class="formula"><i>Z</i>0</span>, and a given impedance profile time per section <span class="formula"><i>T</i></span>, the excess capacitance is given as:
+</div>
+<div class="Standard">
+<div class="formula">
+Δ<i>C</i> = <i>C</i> − <i>C</i>0 = <span class="array"><span class="arrayrow"><span class="bracket align-left">⎛</span></span><span class="arrayrow"><span class="bracket align-left">⎝</span></span></span><span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i></span><span class="ignored">)</span></span> − <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator"><i>Z</i>0</span><span class="ignored">)</span></span><span class="array"><span class="arrayrow"><span class="bracket align-right">⎞</span></span><span class="arrayrow"><span class="bracket align-right">⎠</span></span></span>⋅<i>T</i>
+</div>
 
 </div>
 <div class="Standard">
-Shows frequency domain magnitudes, which are usually in dB, on a linear vertical scale. This mode is particularly useful for PDN analysis.
+Note that excess capacitance becomes more negative as the impedance rises above <span class="formula"><i>Z</i>0</span>.
+</div>
+<div class="Standard">
+The choice of showing excess capacitance is held in the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a> and persists over different sessions.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-17.html#next">Prev</a> Log Frequency Scale</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-17.html#next">Prev</a> Show Excess Inductance</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-31.html">Up</a> S-Parameter Viewer View Menu</span>
-<span class="next">S-Parameter Viewer Zoom Menu <a class="next" name="next" href="Help-Subsection-32.html#prev">Next</a></span>
+<span class="next">Log Frequency Scale <a class="next" name="next" href="Help-Subsubsection-19.html#prev">Next</a></span>
 </div>
 
 </div>

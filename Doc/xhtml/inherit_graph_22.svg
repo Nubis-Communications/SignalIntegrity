@@ -78,9 +78,9 @@
 <path fill="none" stroke="midnightblue" d="M385.74,-68.6C435.54,-58.46 528.11,-45.28 603,-67 634.97,-76.27 666.48,-100.69 682.37,-114.36"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="384.84,-65.22 375.78,-70.71 386.29,-72.07 384.84,-65.22"/>
 </g>
-<!-- Node52 -->
+<!-- Node51 -->
 <g id="node6" class="node">
-<title>Node52</title>
+<title>Node51</title>
 <g id="a_node6"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" target="_top" xlink:title="base class for all symbolic solutions.">
 <polygon fill="white" stroke="black" points="161,-247.5 161,-266.5 218,-266.5 218,-247.5 161,-247.5"/>
 <text text-anchor="middle" x="189.5" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">Symbolic</text>
@@ -96,9 +96,9 @@
 </a>
 </g>
 </g>
-<!-- Node52&#45;&gt;Node4 -->
+<!-- Node51&#45;&gt;Node4 -->
 <g id="edge5" class="edge">
-<title>Node52&#45;&gt;Node4</title>
+<title>Node51&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M228.19,-254.88C287.6,-251.53 403.36,-245.02 472.36,-241.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="227.91,-251.39 218.12,-255.45 228.3,-258.38 227.91,-251.39"/>
 </g>
@@ -111,9 +111,9 @@
 </a>
 </g>
 </g>
-<!-- Node52&#45;&gt;Node11 -->
+<!-- Node51&#45;&gt;Node11 -->
 <g id="edge6" class="edge">
-<title>Node52&#45;&gt;Node11</title>
+<title>Node51&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M228.32,-261.56C243.5,-263.39 261.5,-265.57 278.87,-267.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="228.64,-258.08 218.3,-260.35 227.8,-265.03 228.64,-258.08"/>
 </g>

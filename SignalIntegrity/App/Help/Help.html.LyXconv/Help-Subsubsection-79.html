@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,81 +1073,62 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-78.html#next">Prev</a> S-parameter Viewer</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-78.html#next">Prev</a> Calculation Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Calculate S-parameters <a class="next" name="next" href="Help-Subsubsection-80.html#prev">Next</a></span>
+<span class="next">Non 50 Ohm Reference Impedance <a class="next" name="next" href="Help-Subsubsection-80.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-79"></a>Calculate<a class="Label" name="Control-Help:Calculate-Button"> </a>
+<a class="toc" name="toc-Subsubsection-79"></a>Logarithmically Spaced Frequencies Solutions<a class="Label" name="sub:Logarithmically-Spaced-Frequencies-Solutions"> </a>
 </h3>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top">
-<i>Dialog</i>
-</td>
-<td align="center" valign="top">
-<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Menu System</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Navigation</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Key Binding</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Toolbar</i>
-</td>
-<td align="center" valign="top">
-<img class="embedded" src="system-run-3.png" alt="figure system-run-3.png" style="max-width: 16px; max-height: 16px;"/>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Availability</i>
-</td>
-<td align="center" valign="top">
-When there is something to calculate
-</td>
-
-</tr>
-
-</table>
-
+Logarithmically spaced frequencies solutions can only be selected if the <a class="Reference" href="Help-Subsection--18.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions↓</a> preference is set to True. (They may still be available if you open a project for which logarithmically spaced frequencies have been chosen).
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Subsubsection-79.html#Control-Help:Calculate-Button">Calculate↑</a> toolbar button is ganged to perform whatever calculation makes sense based on the schematic configuration. If it is enabled, you can see which calculation will take place by looking at which calculation is enabled under <a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a>.
+It was found that for certain solutions, something other than linear frequency spacing might be useful. The characteristics that dictate a need for something other than linear frequency spacing would be especially when:
+</div>
+<ul>
+<li>
+the end frequency must be set to a high frequency, and
+</li>
+<li>
+the need to retain low frequency behavior required a very low frequency point, right after the DC point.
+</li>
+
+</ul>
+<div class="Standard">
+Since <i>SignalIntegrity</i> performs time-domain convolution for simulations, the frequency domain result must be placed on a linear scale for use with the discrete Fourier transform to obtain an impulse response, and the need for a very low frequency point automatically dictates possibly an unreasonable frequency resolution, leading to a huge number of frequency points, and an unreasonably long simulation.
+</div>
+<div class="Standard">
+With logarithmic frequency spacing, an effort was made to solve the transfer parameters or s-parameters on a logarithmically spaced grid, and resample these onto a linearly spaced grid at the end. If logarithmic frequency spacing is selected, the user is able to choose:
+</div>
+<ul>
+<li>
+the logarithmic start frequency,
+</li>
+<li>
+the logarithmic end frequency,
+</li>
+<li>
+the points per decade.
+</li>
+
+</ul>
+<div class="Standard">
+When chosen, a frequency grid is chosen starting at the decade at or below the logarithmic start frequency, ending with the decade at or above the logarithmic end frequency, with frequencies at a log-linear spacing for each decade given by the points per decade. Then, only those frequencies between the logarithmic start and end frequencies (inclusive) are chosen, and if needed, the start and end frequencies are tacked on to the beginning and end of the frequency list, respectively, if needed.
+</div>
+<div class="Standard">
+For s-parameter calculations, the results are provided on this logarithmic scale, but for simulation calculations, the resulting logarithmically spaced solution is resampled onto the linear scale that is specified prior to convolution.
+</div>
+<div class="Standard">
+This is all explained in <a class="FlexURL" href="https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis">https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis</a>
+</div>
+<div class="Standard">
+Logarithmic frequencies is experimental, and in development, and should not be used, as the results were not satisfactory.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-78.html#next">Prev</a> S-parameter Viewer</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-78.html#next">Prev</a> Calculation Properties</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Calculate S-parameters <a class="next" name="next" href="Help-Subsubsection-80.html#prev">Next</a></span>
+<span class="next">Non 50 Ohm Reference Impedance <a class="next" name="next" href="Help-Subsubsection-80.html#prev">Next</a></span>
 </div>
 
 </div>

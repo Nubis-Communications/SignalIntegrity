@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> Calculate S-parameters</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Variables <a class="next" name="next" href="Help-Subsection-44.html#prev">Next</a></span>
+<span class="next">Virtual Probe <a class="next" name="next" href="Help-Subsubsection-86.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-85"></a>Calculate Error Terms<a class="Label" name="Control-Help:Calculate-Error-Terms"> </a>
+<a class="toc" name="toc-Subsubsection-85"></a>Simulate<a class="Label" name="Control-Help:Simulate"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a> ▸ Calculate Error Terms
+<a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a> ▸ Simulate
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+C,E
+Alt+C,S
 </td>
 
 </tr>
@@ -1123,7 +1123,8 @@ None
 <i>Toolbar</i>
 </td>
 <td align="center" valign="top">
-None
+<img class="embedded" src="system-run-3.png" alt="figure system-run-3.png" style="max-width: 16px; max-height: 16px;"/>
+
 </td>
 
 </tr>
@@ -1132,7 +1133,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the project is a calibration project
+When the schematic can be simulated
 </td>
 
 </tr>
@@ -1141,18 +1142,12 @@ When the project is a calibration project
 
 </div>
 <div class="Standard">
-Invoking this command computes error terms in a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> project used in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>.
-</div>
-<div class="Standard">
-Whether this command is available is based on whether the project can be identified as a <i>calibration</i> project. This identification is determined automatically by the presence of a calibration measurement (either a <a class="Reference" href="Help-Subsection-152.html#device:Reflect-Measurement">Reflect Measurement↓</a> or <a class="Reference" href="Help-Subsection-153.html#device:Thru-Measurement">Thru Measurement↓</a>), and nonexistence of any other unrelated devices like ports, probes, etc.
-</div>
-<div class="Standard">
-If the command completes, the error terms are shown in the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>, which allows writing the calibration file to the disk for subsequent use in <a class="Reference" href="Help-Subsection-27.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement↑</a>.
+This invokes a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a>. See <a class="Reference" href="Help-Subsection-10.html#sub:Simulating">Simulating↑</a> for what happens when invoked and for the conditions for enabling this.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-84.html#next">Prev</a> Calculate S-parameters</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Variables <a class="next" name="next" href="Help-Subsection-44.html#prev">Next</a></span>
+<span class="next">Virtual Probe <a class="next" name="next" href="Help-Subsubsection-86.html#prev">Next</a></span>
 </div>
 
 </div>

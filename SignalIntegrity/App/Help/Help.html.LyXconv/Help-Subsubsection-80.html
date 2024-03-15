@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,81 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-79.html#next">Prev</a> Calculate</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-79.html#next">Prev</a> Logarithmically Spaced Frequencies Solutions</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Simulate <a class="next" name="next" href="Help-Subsubsection-81.html#prev">Next</a></span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Subsubsection-81.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-80"></a>Calculate S-parameters<a class="Label" name="Control-Help:Calculate-S-parameters"> </a>
+<a class="toc" name="toc-Subsubsection-80"></a>Non 50 Ohm Reference Impedance<a class="Label" name="sub:Non-50-Ohm-Reference-Impedance"> </a>
 </h3>
 <div class="Standard">
-<table>
-<tr>
-<td align="center" valign="top">
-<i>Dialog</i>
-</td>
-<td align="center" valign="top">
-<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Menu System</i>
-</td>
-<td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-43.html#sub:Calculate">Calculate↑</a> ▸ Calculate S-parameters
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Navigation</i>
-</td>
-<td align="center" valign="top">
-Alt+C,C
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Key Binding</i>
-</td>
-<td align="center" valign="top">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Toolbar</i>
-</td>
-<td align="center" valign="top">
-<img class="embedded" src="system-run-3.png" alt="figure system-run-3.png" style="max-width: 16px; max-height: 16px;"/>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top">
-<i>Availability</i>
-</td>
-<td align="center" valign="top">
-When s-parameters can be calculated
-</td>
-
-</tr>
-
-</table>
-
+Non 50 ohm reference impedance can only be selected if the <a class="Reference" href="Help-Subsection--19.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions↓</a> preference is set to True. (It may still be available if you open a project for which a non 50 ohm solution has been previously chosen).
 </div>
 <div class="Standard">
-This invokes the <a class="Reference" href="Help-Section-7.html#sec:S-parameter-Generation">S-Parameter Generation↑</a>. See <a class="Reference" href="Help-Subsection-4.html#sub:Calculating-S-parameters">Calculating S-parameters↑</a> for what happens when invoked and for the conditions for enabling this.
+In the past, within <i>SignalIntegrity</i>, when solving, all devices were read in, converted to 50 ohms reference impedance, and all solutions provided were in a 50 ohm reference impedance. The result could be converted to a non 50 ohm reference impedance, if desired, using <a class="Reference" href="Help-Subsubsection-81.html#Control-Help:Post-Processing">Post-Processing↓</a> and <a class="Reference" href="Help-Section-25.html#sec:Post-Processing">Post-Processing↓</a> commands, namely the ’reference impedance’ command.
+</div>
+<div class="Standard">
+Later, it was found that, especially with regards to resampling of s-parameters, that it was important to resample the s-parameters in a reference impedance that was favorable. In other words, in some reference impedances, like 50 ohms, the s-parameters might be seen to be insufficiently sampled, however, in other reference impedances, they were sufficiently sampled.
+</div>
+<div class="Standard">
+Now, all s-parameter reference impedances read in are honored, resampled in their native reference impedance, and converted to the reference impedance specified for the project. This reference impedance may be specified in the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
+</div>
+<div class="Standard">
+This is all explained in <a class="FlexURL" href="https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis">https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis</a>
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-79.html#next">Prev</a> Calculate</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-79.html#next">Prev</a> Logarithmically Spaced Frequencies Solutions</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-43.html">Up</a> Calculate</span>
-<span class="next">Simulate <a class="next" name="next" href="Help-Subsubsection-81.html#prev">Next</a></span>
+<span class="next">Post-Processing <a class="next" name="next" href="Help-Subsubsection-81.html#prev">Next</a></span>
 </div>
 
 </div>

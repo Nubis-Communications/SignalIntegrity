@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1081,20 +1081,20 @@ a:visited {
 <a class="toc" name="toc-Subsection-24"></a>Virtual Probing<a class="Label" name="sub:Virtual-Probing"> </a>
 </h2>
 <div class="Standard">
-After creating the schematic for virtual probing and setting the calculation properties, the calculation is run using either the <a class="Reference" href="Help-Subsubsection-82.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> command or the <a class="Reference" href="Help-Subsubsection-79.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
+After creating the schematic for virtual probing and setting the calculation properties, the calculation is run using either the <a class="Reference" href="Help-Subsubsection-86.html#Control-Help:Virtual-Probe">Virtual Probe↓</a> command or the <a class="Reference" href="Help-Subsubsection-83.html#Control-Help:Calculate-Button">Calculate↓</a> toolbar button.
 </div>
 <div class="Standard">
 Note that virtual probing will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for virtual probing. This criteria for the schematic regarding elements are that the schematic must:
 </div>
 <ul>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-130.html#device:Measure-Probe">Voltage Measure Probe↓</a>.
+have at least one <a class="Reference" href="Help-Subsection-133.html#device:Measure-Probe">Voltage Measure Probe↓</a>.
 </li>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-131.html#device:Output-Probe">Voltage Output Probe↓</a>.
+have at least one <a class="Reference" href="Help-Subsection-134.html#device:Output-Probe">Voltage Output Probe↓</a>.
 </li>
 <li>
-have at least one <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↓</a>
+have at least one <a class="Reference" href="Help-Subsection-135.html#device:Stim">Stim↓</a>
 </li>
 <li>
 not have any other elements that don’t make sense for virtual probing including:<ul>
@@ -1114,7 +1114,7 @@ system devices
 
 </ul>
 <div class="Standard">
-In virtual probing, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-43.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
+In virtual probing, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a> for more information on the net list and see <a class="Reference" href="Help-Subsubsection-45.html#Control-Help:Export-Netlist">Export Netlist↓</a> on ways of viewing and exporting the net lists.
 </div>
 <div class="Standard">
 The net list is passed to a <b>VirtualProbeNumericParser</b> class as described in the software documentation after which the transfer parameters are extracted.

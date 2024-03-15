@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--19.html#next">Prev</a> ProjectFiles.AskToSaveCurrentFile</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--19.html#next">Prev</a> Calculation.Non50OhmSolutions</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--21.html#prev">Next</a></span>
+<span class="next">Calculation.MaximumWaveformPoints <a class="next" name="next" href="Help-Subsection--21.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--20"></a>ProjectFiles.PreferSaveWaveformsLeCroyFormat<a class="Label" name="sub:PreferSaveWaveformsLeCroyFormat"> </a>
+<a class="toc" name="toc-Subsection--20"></a>Calculation.IgnoreMissingOtherWaveforms<a class="Label" name="sub:Calculation.IgnoreMissingOtherWaveforms"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-ask to save current file
+ignore missing other waveforms in calculations
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--20.html#sub:PreferSaveWaveformsLeCroyFormat">ProjectFiles.PreferSaveWaveformsLeCroyFormat↑</a>
+<a class="Reference" href="Help-Subsection--20.html#sub:Calculation.IgnoreMissingOtherWaveforms">Calculation.IgnoreMissingOtherWaveforms↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-False
+True
 </div>
 
 </td>
@@ -1120,18 +1120,12 @@ False
 
 </div>
 <div class="Standard">
-Usually, waveforms are saved in the <a class="Reference" href="Help-Subsection-176.html#sub:Waveform">Waveform↑</a> format with the .txt extension.
-</div>
-<div class="Standard">
-SignalIntegrity can also read and save files in the native format used by LeCroy oscilloscopes. This format is proprietary and produces smaller but slightly less accurate representations of waveforms.
-</div>
-<div class="Standard">
-When saving waveforms, they can always be saved in any format. Only the type preferred is controlled by this preference.
+This preference allows <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> calculations to complete, even if missing waveforms specified by the special devices <a class="Reference" href="Help-Subsection-150.html#device:Waveform">Waveform↑</a> and <a class="Reference" href="Help-Subsection-149.html#device:Eye-Waveform">Eye Waveform↑</a> are not found on the disk. If this preference is false, missing waveforms specified by these devices cause the calculation to fail.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--19.html#next">Prev</a> ProjectFiles.AskToSaveCurrentFile</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--19.html#next">Prev</a> Calculation.Non50OhmSolutions</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--21.html#prev">Next</a></span>
+<span class="next">Calculation.MaximumWaveformPoints <a class="next" name="next" href="Help-Subsection--21.html#prev">Next</a></span>
 </div>
 
 </div>

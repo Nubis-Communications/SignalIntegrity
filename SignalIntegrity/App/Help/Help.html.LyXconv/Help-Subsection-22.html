@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1090,14 +1090,14 @@ Virtual probing operates in theory by accounting for all of the <i>waves</i> flo
 For a properly constrained system, you should have as many measurement probes as stimuli. For example, barring other sorts of numerical problems, for a single-ended transmitter, one measurement probe and one stimulus is enough. If the system contains a differential transmitter, two stimulus are required. Two measurement probes are required, or some assumptions are needed to further constrain the stimuli is required. Constraining stimuli is performed using independent and dependent stimuli and specifying the constraints through interconnections and weights.
 </div>
 <div class="Standard">
-To place an independent stimulus, use <a class="Reference" href="Help-Subsubsection-60.html#Control-Help:Add-Stim">Add Stim↓</a>, leave the weight as 1.0, and place the tip of the arrow directly on the port of a device as shown:
+To place an independent stimulus, use <a class="Reference" href="Help-Subsubsection-62.html#Control-Help:Add-Stim">Add Stim↓</a>, leave the weight as 1.0, and place the tip of the arrow directly on the port of a device as shown:
 </div>
 <div class="Standard">
 <img class="embedded" src="IndependentStimInCircuit.png" alt="figure IndependentStimInCircuit.png" style="max-width: 488px; max-height: 257px;"/>
 
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↓</a> must be connected to one and only one device port, as shown above. This means that if two device ports are connected together, you must separate them with a small bit of wire, and connect the <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↓</a> to the device port you intend. In other words, don’t do this:
+The <a class="Reference" href="Help-Subsection-135.html#device:Stim">Stim↓</a> must be connected to one and only one device port, as shown above. This means that if two device ports are connected together, you must separate them with a small bit of wire, and connect the <a class="Reference" href="Help-Subsection-135.html#device:Stim">Stim↓</a> to the device port you intend. In other words, don’t do this:
 </div>
 <div class="Standard">
 <div class="Ovalbox" style="width: 100%;">
@@ -1123,7 +1123,7 @@ The <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↓</a>
 
 </div>
 <div class="Standard">
-Remember, a <a class="Reference" href="Help-Subsection-132.html#device:Stim">Stim↓</a> defines the place of wave emanation from a port. Connecting it to two device ports, or in the middle of a wire, does not specify a device port from which waves emanate.
+Remember, a <a class="Reference" href="Help-Subsection-135.html#device:Stim">Stim↓</a> defines the place of wave emanation from a port. Connecting it to two device ports, or in the middle of a wire, does not specify a device port from which waves emanate.
 </div>
 <div class="Standard">
 If you have a situation where you have have more stimuli than measurements, you can make the stimuli connected directly to the device ports <i>dependent</i> on an independent stimulus.
@@ -1146,7 +1146,7 @@ We can rectify the situation by adding an independent stim and making the two st
 
 </div>
 <div class="Standard">
-Although the two stims at the transmitter only showed one connection point at the arrow tip, the back of the arrow can also be connected. When the back of a stim is connected through a wire to arrow tip of another stim, it becomes dependent on it by an amount defined by the weight of the dependent stim. We change the weight by invoking <a class="Reference" href="Help-Subsubsection-64.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the stim selected.
+Although the two stims at the transmitter only showed one connection point at the arrow tip, the back of the arrow can also be connected. When the back of a stim is connected through a wire to arrow tip of another stim, it becomes dependent on it by an amount defined by the weight of the dependent stim. We change the weight by invoking <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Edit-Properties">Edit Properties↓</a> with the stim selected.
 </div>
 <div class="Standard">
 This arrangement says that the top stim is now the same as the independent stim and that the bottom stim is the negative of the independent stim. Since we now have only one independent stim, the system is solvable.

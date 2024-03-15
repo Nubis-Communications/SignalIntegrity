@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,41 +1073,26 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-177.html#next">Prev</a> SystemDescription</span>
-<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="Help-Subsection-179.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-177.html#next">Prev</a> unknown</span>
+<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
+<span class="next">post <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-178"></a>Simulator<a class="Label" name="sub:Simulator"> </a>
+<a class="toc" name="toc-Subsection-178"></a>system<a class="Label" name="sub:system"> </a>
 </h2>
 <div class="Standard">
-<b>No Outputs</b>
+A netlist line beginning with the keyword <i>system</i> defines an <a class="Reference" href="Help-Subsection-152.html#device:System">System↑</a> in the schematic.
 </div>
 <div class="Standard">
-There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
+This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
 </div>
 <div class="Standard">
-By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>No Sources</b>
-</div>
-<div class="Standard">
-There are no sources in the circuit. This type of error ought to be impossible to create from the application because the application checks for the existence of at least one source prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. If it is not connected, it ought to generate an Unconnected Device Ports error.
-</div>
-<div class="Standard">
-By looking at your schematic, you can see this, because unconnected sources will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a source makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
-</div>
-<div class="Standard">
-<b>Numerical Error</b>
-</div>
-<div class="Standard">
-This is the same error as Cannot Invert I-W or I-Wxx while calculating the simulator transfer parameters. It indicates pathological problems in the system described. In many cases this can be resolved using the <a class="Reference" href="Help-Subsection--12.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a> preference in the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>.
+The syntax is the keyword <i>system</i> followed by the reference designator followed by the number of ports followed by the keyword <i>file</i> followed by the name of the file containing s-parameters that define the <a class="Reference" href="Help-Subsection-152.html#device:System">System↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-177.html#next">Prev</a> SystemDescription</span>
-<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="Help-Subsection-179.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-177.html#next">Prev</a> unknown</span>
+<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
+<span class="next">post <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
 </div>
 
 </div>

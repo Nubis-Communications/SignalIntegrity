@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,13 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Simulator Dialog Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Cache.CacheResults</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Appearance.PlotWidth <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
+<span class="next">Encryption.Password <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--27"></a>Plot Window Preferences<a class="Label" name="sub:Plot-Window-Preferences"> </a>
+<a class="toc" name="toc-Subsection--27"></a>Variables.ParameterizeOnlyVisible<a class="Label" name="sub:Variables.ParameterizeOnlyVisible"> </a>
 </h2>
-<div class="Standard">
-The plot window preferences are:
-</div>
 <div class="Standard">
 <table>
 <tr>
@@ -1102,97 +1099,19 @@ The plot window preferences are:
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-plot width
+parameterize visible properties only
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--28.html#sub:Appearance.PlotWidth">Appearance.PlotWidth↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-5
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-plot height
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--29.html#sub:Appearance.PlotHeight">Appearance.PlotHeight↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Float
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-2
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-plot dpi
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--30.html#sub:Appearance.PlotDPI">Appearance.PlotDPI↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-100
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-plot color
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--31.html#sub:Appearance.Color.Plot">Appearance.Color.Plot↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-String
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-gray
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-show cursor values on plots
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--32.html#sub:Appearance.PlotCursorValues">Appearance.PlotCursorValues↓</a>
+<a class="Reference" href="Help-Subsection--27.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-False
+True
 </div>
 
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-significant digits
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--33.html#sub:SParameterProperties.SignificantDigits">SParameterProperties.SignificantDigits↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Int
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-6
 </td>
 
 </tr>
@@ -1201,12 +1120,15 @@ Int
 
 </div>
 <div class="Standard">
-These preferences apply to the plot windows in both the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a> and those in the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>, although in the <a class="Reference" href="Help-Section-13.html#sec:S-parameter-Viewer">S-parameter Viewer↑</a>, the sizes are per window.
+When using the <a class="Reference" href="Help-Subsubsection-92.html#Control-Help:Parameterize-Project">Parameterize Schematic↑</a> command, usually only the visible device properties are parameterized.
+</div>
+<div class="Standard">
+Setting this preference to false causes all device properties to be parameterized.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Simulator Dialog Preferences</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Cache.CacheResults</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Appearance.PlotWidth <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
+<span class="next">Encryption.Password <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 
 </div>

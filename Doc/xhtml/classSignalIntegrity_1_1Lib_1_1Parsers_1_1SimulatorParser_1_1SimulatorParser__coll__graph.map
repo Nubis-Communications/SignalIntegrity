@@ -1,6 +1,6 @@
 <map id="SimulatorParser" name="SimulatorParser">
-<area shape="rect" id="node1" title="base class for netlist based simulation solutions" alt="" coords="76,505,191,597"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,457"/>
+<area shape="rect" id="node1" title="base class for netlist based simulation solutions" alt="" coords="76,520,191,612"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,175,219,472"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,20,112,112"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,5,280,127"/>
 </map>

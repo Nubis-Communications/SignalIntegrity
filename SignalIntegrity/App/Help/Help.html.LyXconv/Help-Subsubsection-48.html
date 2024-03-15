@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Freshen Archived Project</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Archive Project</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Edit <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
+<span class="next">Freshen Archived Project <a class="next" name="next" href="Help-Subsubsection-49.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-48"></a>Unextract Archived Project<a class="Label" name="Control-Help:Unextract-Archive"> </a>
+<a class="toc" name="toc-Subsubsection-48"></a>Extract Archived Project<a class="Label" name="Control-Help:Extract-Archive"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Unextract Archived Project
+<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Extract Archived Project
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,U
+Alt+F,X
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the open project is in a directory below its archive
+When the project is not empty
 </td>
 
 </tr>
@@ -1141,22 +1141,35 @@ When the open project is in a directory below its archive
 
 </div>
 <div class="Standard">
-When a project is open underneath a directory of the same name with ’_Archive’ appended, it is presumed to be in an archive. Usually, in this case, there is an archive file above this directory of the same name, with the .siz extension.
+This command extracts an archived project. Executing this causes a browser to open allowing you to browse to the desired archive file.
 </div>
 <div class="Standard">
 <div class="center">
-<img class="embedded" src="UnextractingArchive.png" alt="figure UnextractingArchive.png" style="width: 716px; max-width: 2866px; height: 329px; max-height: 1318px;"/>
+<img class="embedded" src="ExtractArchive.png" alt="figure ExtractArchive.png" style="max-width: 667px; max-height: 307px;"/>
 
 </div>
 
 </div>
 <div class="Standard">
-Unextracting the archive deletes the project file and the entire directory structure at and below the project file. Usually, this is performed after a <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Freshen-Archive">Freshen Archived Project↑</a> operation. It is a dangerous operation.
+The following picture shows the result of extracting an archive:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="ExtractArchiveDirectory.png" alt="figure ExtractArchiveDirectory.png" style="width: 1155px; max-width: 4620px; height: 619px; max-height: 2478px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+On the left is shown an archive structure that was used as an example for archiving (see <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Archive">Archive Project↑</a>) and the file is shown before extraction. After extraction, the directory structure in the archive file is dropped at the same location of the archive file and the project file inside of the archive is opened.
+</div>
+<div class="Standard">
+Note that when a project is opened that is underneath a directory of the same name, with the suffix ’_Archive’, it is considered in an archive, which is shown in the title of the project.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Freshen Archived Project</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-47.html#next">Prev</a> Archive Project</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Edit <a class="next" name="next" href="Help-Subsection-39.html#prev">Next</a></span>
+<span class="next">Freshen Archived Project <a class="next" name="next" href="Help-Subsubsection-49.html#prev">Next</a></span>
 </div>
 
 </div>

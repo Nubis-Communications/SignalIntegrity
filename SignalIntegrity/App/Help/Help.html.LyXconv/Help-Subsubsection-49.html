@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,26 +1073,96 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-39.html#next">Prev</a> Edit</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Undo <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Extract Archived Project</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
+<span class="next">Unextract Archived Project <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-49"></a>History Buffer<a class="Label" name="sub:History-Buffer"> </a>
+<a class="toc" name="toc-Subsubsection-49"></a>Freshen Archived Project<a class="Label" name="Control-Help:Freshen-Archive"> </a>
 </h3>
 <div class="Standard">
-The <b><i>SignalIntegrityApp</i></b> maintains a buffer containing the history of changes made to the project since the application started.
+<table>
+<tr>
+<td align="center" valign="top">
+<i>Dialog</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="Help-Section-15.html#sec:Main-Schematic-Dialog">Main Schematic Dialog↑</a>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Menu System</i>
+</td>
+<td align="center" valign="top">
+<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Freshen Archived Project
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Navigation</i>
+</td>
+<td align="center" valign="top">
+Alt+F,F
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Key Binding</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Toolbar</i>
+</td>
+<td align="center" valign="top">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+<i>Availability</i>
+</td>
+<td align="center" valign="top">
+When the open project is in a directory below its archive
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Currently it records the last 100 changes.
+When a project is open whereby the directory location of the project is the project name with the suffix ’_Archive’ appended, the project is considered in an archive. This is usually the result of performing an <a class="Reference" href="Help-Subsubsection-48.html#Control-Help:Extract-Archive">Extract Archived Project↑</a> previously, on an archive file with the same name as the current project with the extension .siz.
 </div>
 <div class="Standard">
-Each change is labelled, so as a change is undid and redid, the name of the event that is undid is displayed in the status message area.
+After extraction, the archive might be adjusted by dragging some new files in, or producing some results that you want to keep with the archive.
+</div>
+<div class="Standard">
+Freshening the archive takes the entire directory structure including all files at and below the current project and places this in an archive file above the current directory, replacing the .siz file that might exist there and that was presumably used for extraction.
+</div>
+<div class="Standard">
+Note that the entire archive is completely replaced by these contents. This is shown graphically below:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="FresheningArchive.png" alt="figure FresheningArchive.png" style="width: 645px; max-width: 2580px; height: 329px; max-height: 1318px;"/>
+
+</div>
+
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-39.html#next">Prev</a> Edit</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection-39.html">Up</a> Edit</span>
-<span class="next">Undo <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-48.html#next">Prev</a> Extract Archived Project</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
+<span class="next">Unextract Archived Project <a class="next" name="next" href="Help-Subsubsection-50.html#prev">Next</a></span>
 </div>
 
 </div>

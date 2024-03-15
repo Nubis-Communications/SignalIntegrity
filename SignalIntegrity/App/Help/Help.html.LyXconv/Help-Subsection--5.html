@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1171,10 +1171,40 @@ black
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
+round displayed values
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--10.html#sub:Appearance.RoundDisplayedValues">Appearance.RoundDisplayedValues↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+4
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+limit text in displayed values
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--11.html#sub:Appearance.LimitText">Appearance.RoundDisplayedValues↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+60
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
 show all pin numbers
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--10.html#sub:Appearance.ShowAllPinNumbers">Appearance.ShowAllPinNumbers↓</a>
+<a class="Reference" href="Help-Subsection--10.html#sub:Appearance.RoundDisplayedValues">Appearance.RoundDisplayedValues↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1189,7 +1219,7 @@ False
 use SinX/X for resampling
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--11.html#sub:Calculation.UseSinX">Calculation.UseSinX/X↓</a>
+<a class="Reference" href="Help-Subsection--13.html#sub:Calculation.UseSinX">Calculation.UseSinX/X↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1204,7 +1234,7 @@ True
 try SVD in calculations (experimental)
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--12.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a>
+<a class="Reference" href="Help-Subsection--14.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1222,7 +1252,7 @@ True
 check condition number in calculations
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--13.html#sub:Calculation.CheckConditionNumber">Calculation.CheckConditionNumber↓</a>
+<a class="Reference" href="Help-Subsection--15.html#sub:Calculation.CheckConditionNumber">Calculation.CheckConditionNumber↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1237,7 +1267,7 @@ True
 employ mult-port tee elements
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--14.html#sub:MultiPortTee">Calculation.MultiPortTee↓</a>
+<a class="Reference" href="Help-Subsection--16.html#sub:Calculation.MultiPortTee">Calculation.MultiPortTee↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1252,7 +1282,7 @@ True
 enforce 12458 sequence in calculation properties
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--15.html#sub:Calculation.Enforce12458">Calculation.Enforce12458↓</a>
+<a class="Reference" href="Help-Subsection--17.html#sub:Calculation.Enforce12458">Calculation.Enforce12458↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1264,10 +1294,58 @@ True
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
+enable logarithmically spaced frequencies solutions
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--18.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+enable non 50 ohm solutions
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--19.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+ignore missing other waveforms in calculations
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--20.html#sub:Calculation.IgnoreMissingOtherWaveforms">Calculation.IgnoreMissingOtherWaveforms↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
 maximum waveform size
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--16.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints↓</a>
+<a class="Reference" href="Help-Subsection--21.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Float
@@ -1282,7 +1360,7 @@ Float
 retain recent project files
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--17.html#sub:RetainLastFilesOpened">ProjectFiles.RetainLastFilesOpened↓</a>
+<a class="Reference" href="Help-Subsection--22.html#sub:RetainLastFilesOpened">ProjectFiles.RetainLastFilesOpened↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1300,7 +1378,7 @@ True
 open last file on start
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--18.html#sub:OpenLastFile">ProjectFiles.OpenLastFile↓</a>
+<a class="Reference" href="Help-Subsection--23.html#sub:OpenLastFile">ProjectFiles.OpenLastFile↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1318,7 +1396,7 @@ True
 ask to save current file
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--19.html#sub:AskToSaveCurrentFile">ProjectFiles.AskToSaveCurrentFile↓</a>
+<a class="Reference" href="Help-Subsection--24.html#sub:AskToSaveCurrentFile">ProjectFiles.AskToSaveCurrentFile↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1336,7 +1414,7 @@ True
 prefer saving waveforms in LeCroy format
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--20.html#sub:PreferSaveWaveformsLeCroyFormat">ProjectFiles.PreferSaveWaveformsLeCroyFormat↓</a>
+<a class="Reference" href="Help-Subsection--25.html#sub:PreferSaveWaveformsLeCroyFormat">ProjectFiles.PreferSaveWaveformsLeCroyFormat↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1351,25 +1429,7 @@ False
 cache results
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--21.html#sub:Cache.CacheResults">Cache.CacheResults↓</a>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-Bool
-</td>
-<td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 8cm;">
-use online help
-</td>
-<td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--22.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
+<a class="Reference" href="Help-Subsection--26.html#sub:Cache.CacheResults">Cache.CacheResults↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1387,13 +1447,70 @@ True
 parameterize visible properties only
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--24.html#sub:ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↓</a>
+<a class="Reference" href="Help-Subsection--27.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
+<div class="left">
 True
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+password for encryption
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--28.html#sub:Encryption.Password">Encryption.Password↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+String
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+None
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+file ending for encryption
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--29.html#sub:Encryption.Ending">Encryption.Ending↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+String
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+$
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+use online help
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--30.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+True
+</div>
+
 </td>
 
 </tr>
@@ -1402,14 +1519,14 @@ True
 online help url
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--23.html#sub:OnlineHelp.URL">OnlineHelp.URL↓</a>
+<a class="Reference" href="Help-Subsection--31.html#sub:OnlineHelp.URL">OnlineHelp.URL↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Bool
+String
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App
+http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App
 </div>
 
 </td>

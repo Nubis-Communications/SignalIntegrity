@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--17.html#next">Prev</a> ProjectFiles.RetainLastFilesOpened</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--17.html#next">Prev</a> Calculation.Enforce12458</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.AskToSaveCurrentFile <a class="next" name="next" href="Help-Subsection--19.html#prev">Next</a></span>
+<span class="next">Calculation.Non50OhmSolutions <a class="next" name="next" href="Help-Subsection--19.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--18"></a>ProjectFiles.OpenLastFile<a class="Label" name="sub:OpenLastFile"> </a>
+<a class="toc" name="toc-Subsection--18"></a>Calculation.LogarithmicSolutions<a class="Label" name="sub:Calculation.LogarithmicSolutions"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-open last file on start
+enable logarithmically spaced frequencies solutions
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--18.html#sub:OpenLastFile">ProjectFiles.OpenLastFile↑</a>
+<a class="Reference" href="Help-Subsection--18.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-True
+False
 </div>
 
 </td>
@@ -1120,15 +1120,18 @@ True
 
 </div>
 <div class="Standard">
-This preference determines whether the last file edited will be opened whenever the application is started.
+Normally, solutions are performed on a linear frequency scale, as defined in the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>. Sometimes, however, it is useful to preform the solution on a logarithmic scale. This is the case for solutions whose results are best viewed on a Bode plot, especially PDN type simulations.
 </div>
 <div class="Standard">
-It depends on the preference <a class="Reference" href="Help-Subsection--17.html#sub:RetainLastFilesOpened">ProjectFiles.RetainLastFilesOpened↑</a> being set to True.
+If this preference is set to True, then the possibility for logarithmically spaced frequency point solutions is enabled. See <a class="Reference" href="Help-Subsubsection-79.html#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions↑</a>.
+</div>
+<div class="Standard">
+Be warned that this preference is experimental in nature and might not provide proper results.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--17.html#next">Prev</a> ProjectFiles.RetainLastFilesOpened</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--17.html#next">Prev</a> Calculation.Enforce12458</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.AskToSaveCurrentFile <a class="next" name="next" href="Help-Subsection--19.html#prev">Next</a></span>
+<span class="next">Calculation.Non50OhmSolutions <a class="next" name="next" href="Help-Subsection--19.html#prev">Next</a></span>
 </div>
 
 </div>

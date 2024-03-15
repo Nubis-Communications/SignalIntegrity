@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Voltage Noise Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Current Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Pulse Generator <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
+<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-120"></a>Voltage Step Generator<a class="Label" name="device:Voltage-Step-Generator"> </a>
+<a class="toc" name="toc-Subsection-120"></a>Voltage DC Source<a class="Label" name="device:Voltage-DC-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageStepGeneratorOnePort.png" alt="figure VoltageStepGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="VoltageStepGeneratorTwoPort.png" alt="figure VoltageStepGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="VoltageSourceDC.png" alt="figure VoltageSourceDC.png" style="width: 377px; max-width: 1508px; height: 118px; max-height: 475px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Generators
+Sources
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VG?
+VS?
 </td>
 
 </tr>
@@ -1155,7 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+VS1
 </td>
 
 </tr>
@@ -1179,91 +1178,19 @@ V
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-sample rate
+show
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+bool
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-fs
+show
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-S/s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-40.0 GS/s
-</td>
 
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-start time
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-risetime
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-rt
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-duration
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-dur
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-200.0 ns
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-horizontal offset
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ho
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100.0 ns
+true
 </td>
 
 </tr>
@@ -1272,21 +1199,18 @@ s
 
 </div>
 <div class="Standard">
-The voltage step generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage step <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
+The DC voltage source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC voltage.
 </div>
 <div class="Standard">
-The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
+The DC voltage source is handled specially in that it does not provide a waveform, but rather a number representing the DC voltage. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the voltage specified. The transfer characteristics of a DC voltage source through the system is to take the DC response of the system.
 </div>
 <div class="Standard">
-If zero risetime is specified, the waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the remaining duration of the waveform.
-</div>
-<div class="Standard">
-If a nonzero risetime is specified, the edge crosses 50% at the start time. The risetime is implemented as a raised-cosine.
+If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Voltage Noise Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Current Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Pulse Generator <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
+<span class="next">Current DC Source <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
 </div>
 
 </div>

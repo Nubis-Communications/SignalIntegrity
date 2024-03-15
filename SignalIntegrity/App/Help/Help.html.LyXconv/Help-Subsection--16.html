@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> Calculation.Enforce12458</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> Calculation.CheckConditionNumber</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
+<span class="next">Calculation.Enforce12458 <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--16"></a>Calculation.MaximumWaveformPoints<a class="Label" name="sub:Calculation.MaximumWaveformPoints"> </a>
+<a class="toc" name="toc-Subsection--16"></a>Calculation.MultiPortTee<a class="Label" name="sub:Calculation.MultiPortTee"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-maximum waveform points
+employ mult-port tee elements
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--16.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints↑</a>
+<a class="Reference" href="Help-Subsection--16.html#sub:Calculation.MultiPortTee">Calculation.MultiPortTee↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Float
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-5 Mpts
+True
 </div>
 
 </td>
@@ -1120,15 +1120,15 @@ Float
 
 </div>
 <div class="Standard">
-Sometimes waveforms are just too big to process, and instead of needing to kill the program, it would be better if the program just threw a <a class="Reference" href="Help-Subsection-176.html#sub:Waveform">Waveform↑</a> exception. Pathological cases also occur accidentally, especially with regard to upsampling and <a class="Reference" href="Help-Section-17.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation↑</a>.
+Originally, whenever multiple device ports were connected in a schematic (denoted by a dot), a three-port tee was placed. If there were more than three device ports connected, multiple three-port tees were employed. It was found that in certain solutions, this caused the solution complexity to increase by up to a factor of three. To avoid this complexity, the possibility exists to make multiple device port connections with a multi-port tee, which can speed up the simulation significantly.
 </div>
 <div class="Standard">
-To protect things, a maximum value is set in the preferences for the sizes of waveforms. The user can set this value as high as desired, but setting it to a reasonably sized number is advised.
+There is no drawback of the multi-port tee, which is why the preference defaults to True. The old way is retained simply for testing compatibility and will be removed at a later date.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> Calculation.Enforce12458</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--15.html#next">Prev</a> Calculation.CheckConditionNumber</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">ProjectFiles.RetainLastFilesOpened <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
+<span class="next">Calculation.Enforce12458 <a class="next" name="next" href="Help-Subsection--17.html#prev">Next</a></span>
 </div>
 
 </div>

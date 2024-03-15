@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,38 +1073,78 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-105.html#next">Prev</a> Interpretation</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Measured Error Rates <a class="next" name="next" href="Help-Subsubsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-105.html#next">Prev</a> Timing</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Linearity <a class="next" name="next" href="Help-Subsubsection-107.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-106"></a>Nominal Error Rates<a class="Label" name="pc:Nominal-Error-Rates"> </a>
+<a class="toc" name="toc-Subsubsection-106"></a>Vertical<a class="Label" name="sub:Vertical"> </a>
 </h3>
 <div class="Standard">
-The nominal error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:
+<div class="center">
+<img class="embedded" src="EyeMeasureVert.png" alt="figure EyeMeasureVert.png" style="width: 524px; max-width: 1747px; height: 537px; max-height: 1792px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+Vertical measurements are made from a line that spans the contour vertically. The extents of the line is based on the <a class="Reference" href="Help-Subsection-82.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a>. See <a class="Reference" href="Help-Subsubsection-112.html#pc:Eye-Measurement-Properties">Eye Measurement Properties↓</a>. Each column in the vertical measurements contains, for each eye:
 </div>
 <ul>
 <li>
-Probability — the probability that a given symbol is transmitted. Nominally, this is the reciprocal of the <a class="Reference" href="Help-Subsection-54.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↓</a>.
+Low -- the lowest point of the eye (where the vertical line touches the contour).
 </li>
 <li>
-SER — the symbol error rate. Based on the <a class="Reference" href="Help-Subsubsection-105.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.
+Midpoint — the midpoint of the eye (the average of the Low and the High).
 </li>
 <li>
-BER — the bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-105.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.
+Best Decision Level — the location along the line where the probability is the minimum. This is deemed the best threshold to employ, if possible, to sample the waveform.
 </li>
 <li>
-Gray BER — the Gray coded bit error rate. Based on the <a class="Reference" href="Help-Subsubsection-105.html#pc:Interpretation">Interpretation↑</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.
+High — the highest point of the eye (where the vertical line touches the contour).
+</li>
+<li>
+Height — the difference between the High and the Low.
+</li>
+<li>
+AV — This is the distance between the mean levels. This is explained better in Extents below.
 </li>
 
 </ul>
 <div class="Standard">
-At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.
+<b><span class="large">(Vertical) Extents</span></b>
+</div>
+<div class="Standard">
+The vertical extents are measurements made not directly from the eye itself, but from the vertical levels that surround the eye. These levels are the intended voltages representing each bit. The measurements are made vertically between probabilities based on the <a class="Reference" href="Help-Subsection-82.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↓</a>. See <a class="Reference" href="Help-Subsubsection-112.html#pc:Eye-Measurement-Properties">Eye Measurement Properties↓</a>.
+</div>
+<div class="Standard">
+There are <span class="formula">2<sup><i>BitsPerSymbol</i></sup></span> vertical extents. The lowest extent is extent zero.
+</div>
+<div class="Standard">
+For each extent, the following measurements are made:
+</div>
+<ul>
+<li>
+Min — the lowest level of the extent, where it touches the lowest vertical value below the BER specified, or the top of the eye below.
+</li>
+<li>
+Max — the highest level of the extent, where it touches the highest vertical value below the BER specified, or the bottom of the eye above.
+</li>
+<li>
+Delta — the difference between the Max and Min.
+</li>
+<li>
+Mean — the mean vertical value between the Max and the Min. This is not the average of the Max and the Min. It is the best value to describe the level based on the probabilities in the vertical histogram slice through the eye.
+</li>
+
+</ul>
+<div class="Standard">
+Note that normally, in serial data testing, these extents are measured using a specific pattern to estimate the intended transmitted levels. This software tries to measure these extents statistically from the eye.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-105.html#next">Prev</a> Interpretation</span>
-<span class="up"><a class="up" name="up" href="Help-Subsection--2.html">Up</a> Error Rates</span>
-<span class="next">Measured Error Rates <a class="next" name="next" href="Help-Subsubsection-107.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-105.html#next">Prev</a> Timing</span>
+<span class="up"><a class="up" name="up" href="Help-Subsection-50.html">Up</a> Vertical/Horizontal</span>
+<span class="next">Linearity <a class="next" name="next" href="Help-Subsubsection-107.html#prev">Next</a></span>
 </div>
 
 </div>

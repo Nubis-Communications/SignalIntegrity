@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.3</span>
+   &#160;<span id="projectnumber">1.3.5</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -84,133 +84,134 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="stringliteral">@see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># Copyright (c) 2018 Teledyne LeCroy, Inc.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets.xhtml">SignalIntegrity.Lib.Wavelets.Wavelets</a> <span class="keyword">import</span> WaveletDaubechies16</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">SignalIntegrity.Lib.TimeDomain.Waveform.Waveform</a> <span class="keyword">import</span> Waveform</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer</a> <span class="keyword">import</span> WaveformTrimmer</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">import</span> math,cmath</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> std,log2</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">WaveletDenoiser</a>(object):</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;performs wavelet denoising</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    wavelet=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml">WaveletDaubechies16</a>()</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">   35</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">DenoisedWaveform</a>(wf,pct=30.,mult=5.,isDerivative=True):</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#a418447a6c9ca9b7731a1ffe89731a5c6">   36</a></span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Denoises a waveform.</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">        @details The noise is estimated by the amount of noise in the last pct percent of the</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral">        last scale of the wavelet transform.  The threshold is set as a multiplier on</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        the noise, generally 5 is used.  Thus wavelets more than 5 times the noise floor</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        are kept, while all others are deleted (this is called hard-thresholding).\n</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        Usually this algorithm is used to denoise TDR waveforms, which are usually steps</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">        and the denoising is performed on the derivative of the step waveform.  Therefore,</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="stringliteral">        the noise threshold needs to be shaped based on the effect of the derivative on</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="stringliteral">        the noise shape.  For impulsive waveforms, no derivative is performed and</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="stringliteral">        isDerivative is set to False, causing a white noise threshold to be assumed.</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="stringliteral">        @param wf instance of class Waveform to be denoised.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="stringliteral">        @param pct (optional) float percentage (defaults to 30).</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="stringliteral">        @param mult (optional) float noise multiplier for threshold (defaults to 5).</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="stringliteral">        @param isDerivative (optional) bool whether the waveform is a derivative</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="stringliteral">        (defaults to True).</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="stringliteral">        @return the denoised waveform.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="stringliteral">        @remark the algorithm assumes there is no signal in the last pct percent</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">        of the last scale of the dwt</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">        @see Wavelet</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        w=WaveletDenoiser.wavelet</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        Ki=wf.td.K; Kf=int(pow(2,math.ceil(log2(wf.td.K))))</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        PadLeft=Kf-Ki; pct=pct*Ki/Kf; pwf=wf*<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">WaveformTrimmer</a>(-PadLeft,0)</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">   59</a></span>&#160;        X=w.DWT(pwf.Values())</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        T=WaveletDenoiser.DerivativeThresholdCalc(X,w.h,pct,isDerivative)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">#         import matplotlib.pyplot as plt</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">#         plt.clf()</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">#         plt.title(&#39;denoising&#39;)</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">#         plt.loglog([k for k in range(len(X))],[abs(x) for x in X],label=&#39;dwt&#39;)</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">#         plt.loglog([k for k in range(len(X))],[t*mult for t in T],label=&#39;threshold&#39;)</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">#         plt.xlabel(&#39;samples&#39;)</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">#         plt.ylabel(&#39;amplitude&#39;)</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">#         plt.legend(loc=&#39;upper right&#39;)</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">#         plt.grid(True)</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">#         plt.show()</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="comment"># pragma: include</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        dwf=<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">Waveform</a>(pwf.td,w.IDWT(</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            [0 <span class="keywordflow">if</span> abs(x) &lt; t*mult <span class="keywordflow">else</span> x <span class="keywordflow">for</span> (x,t) <span class="keywordflow">in</span> zip(X,T)]))</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> dwf*<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">WaveformTrimmer</a>(PadLeft,0)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment"># pragma: include</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">def </span>DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        L=len(h)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        K=len(X)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        N=K//2</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        B=int(log2(K)-log2(L))+1</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">if</span> isDerivative:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1)]</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            TS=WaveletDenoiser.DWTNoiseShapeCalc(E,h)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            TS=[1 <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1)]</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        P=int(math.floor(pct/100.*K/2.))</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        sigmaw=std(X[K-P:K])</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        sigma=sigmaw*math.sqrt(N)/TS[B-1]</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        th=[sigma/math.sqrt(N) <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(K)]</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(K):</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="comment"># warning - seems to depend on L a power of 2</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            b=int(math.floor(log2(max(L//2,k)))-log2(L//2))</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            th[k]=th[k]*TS[b]</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> th</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    @staticmethod</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">def </span>DWTNoiseShapeCalc(E,h):</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        L=len(h)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        N=len(E)-1</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        B=int(log2(N)-log2(L)+2)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        S=[0 <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(B)]</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(B-1):</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            accn=0.</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1):</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                acc=0.</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="keywordflow">for</span> l <span class="keywordflow">in</span> range(L):</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    acc=acc+pow(-1,l)*h[L-1-l]*cmath.exp(-1j*math.pi*n*l/N)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                accn=accn+pow(abs(E[n])*abs(acc),2)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            S[B-1-i]=math.sqrt(accn)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N//2+1):</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                accl=0</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                accr=0</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                <span class="keywordflow">for</span> l <span class="keywordflow">in</span> range(L):</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                    accl=accl+h[l]*cmath.exp(-1j*math.pi*n*l/N)</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    accr=accr+h[l]*cmath.exp(-1j*math.pi*(N-n)*l/N)</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                E[n]=math.sqrt(pow(abs(E[n])*abs(accl),2.)+pow(abs(E[N-n])*abs(accr),2.))</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            N=N//2</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        acc=0</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1):</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            acc=acc+pow(abs(E[n]),2)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        S[0]=math.sqrt(acc)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> S</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># Copyright (c) 2021 Nubis Communications, Inc.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># Copyright (c) 2018-2020 Teledyne LeCroy, Inc.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets.xhtml">SignalIntegrity.Lib.Wavelets.Wavelets</a> <span class="keyword">import</span> WaveletDaubechies16</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">SignalIntegrity.Lib.TimeDomain.Waveform.Waveform</a> <span class="keyword">import</span> Waveform</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer</a> <span class="keyword">import</span> WaveformTrimmer</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">import</span> math,cmath</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> std,log2</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">WaveletDenoiser</a>(object):</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;performs wavelet denoising</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @see [US patent 8,843,335 B2](https://patents.google.com/patent/US8843335B2)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    wavelet=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml">WaveletDaubechies16</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">   36</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">DenoisedWaveform</a>(wf,pct=30.,mult=5.,isDerivative=True):</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#a418447a6c9ca9b7731a1ffe89731a5c6">   37</a></span>&#160;        <span class="stringliteral">&quot;&quot;&quot;Denoises a waveform.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral">        @details The noise is estimated by the amount of noise in the last pct percent of the</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        last scale of the wavelet transform.  The threshold is set as a multiplier on</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        the noise, generally 5 is used.  Thus wavelets more than 5 times the noise floor</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        are kept, while all others are deleted (this is called hard-thresholding).\n</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">        Usually this algorithm is used to denoise TDR waveforms, which are usually steps</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="stringliteral">        and the denoising is performed on the derivative of the step waveform.  Therefore,</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="stringliteral">        the noise threshold needs to be shaped based on the effect of the derivative on</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="stringliteral">        the noise shape.  For impulsive waveforms, no derivative is performed and</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="stringliteral">        isDerivative is set to False, causing a white noise threshold to be assumed.</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="stringliteral">        @param wf instance of class Waveform to be denoised.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="stringliteral">        @param pct (optional) float percentage (defaults to 30).</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="stringliteral">        @param mult (optional) float noise multiplier for threshold (defaults to 5).</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="stringliteral">        @param isDerivative (optional) bool whether the waveform is a derivative</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="stringliteral">        (defaults to True).</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="stringliteral">        @return the denoised waveform.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">        @remark the algorithm assumes there is no signal in the last pct percent</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">        of the last scale of the dwt</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="stringliteral">        @see Wavelet</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        w=WaveletDenoiser.wavelet</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        Ki=wf.td.K; Kf=int(pow(2,math.ceil(log2(wf.td.K))))</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        PadLeft=Kf-Ki; pct=pct*Ki/Kf; pwf=wf*<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">WaveformTrimmer</a>(-PadLeft,0)</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">   60</a></span>&#160;        X=w.DWT(pwf.Values())</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        T=WaveletDenoiser.DerivativeThresholdCalc(X,w.h,pct,isDerivative)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">#         import matplotlib.pyplot as plt</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">#         plt.clf()</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">#         plt.title(&#39;denoising&#39;)</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">#         plt.loglog([k for k in range(len(X))],[abs(x) for x in X],label=&#39;dwt&#39;)</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">#         plt.loglog([k for k in range(len(X))],[t*mult for t in T],label=&#39;threshold&#39;)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">#         plt.xlabel(&#39;samples&#39;)</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">#         plt.ylabel(&#39;amplitude&#39;)</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">#         plt.legend(loc=&#39;upper right&#39;)</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">#         plt.grid(True)</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">#         plt.show()</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        dwf=<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">Waveform</a>(pwf.td,w.IDWT(</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            [0 <span class="keywordflow">if</span> abs(x) &lt; t*mult <span class="keywordflow">else</span> x <span class="keywordflow">for</span> (x,t) <span class="keywordflow">in</span> zip(X,T)]))</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> dwf*<a class="code" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">WaveformTrimmer</a>(PadLeft,0)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">def </span>DerivativeThresholdCalc(X,h,pct=30.,isDerivative=True):</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        L=len(h)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        K=len(X)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        N=K//2</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        B=int(log2(K)-log2(L))+1</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> isDerivative:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            E=[math.sqrt(2.*(1-math.cos(math.pi*n/N))) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1)]</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            TS=WaveletDenoiser.DWTNoiseShapeCalc(E,h)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            TS=[1 <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1)]</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        P=int(math.floor(pct/100.*K/2.))</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        sigmaw=std(X[K-P:K])</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        sigma=sigmaw*math.sqrt(N)/TS[B-1]</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        th=[sigma/math.sqrt(N) <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(K)]</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(K):</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="comment"># warning - seems to depend on L a power of 2</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            b=int(math.floor(log2(max(L//2,k)))-log2(L//2))</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            th[k]=th[k]*TS[b]</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">return</span> th</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    @staticmethod</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">def </span>DWTNoiseShapeCalc(E,h):</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        L=len(h)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        N=len(E)-1</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        B=int(log2(N)-log2(L)+2)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        S=[0 <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(B)]</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(B-1):</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            accn=0.</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1):</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                acc=0.</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                <span class="keywordflow">for</span> l <span class="keywordflow">in</span> range(L):</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    acc=acc+pow(-1,l)*h[L-1-l]*cmath.exp(-1j*math.pi*n*l/N)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                accn=accn+pow(abs(E[n])*abs(acc),2)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            S[B-1-i]=math.sqrt(accn)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N//2+1):</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                accl=0</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                accr=0</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">for</span> l <span class="keywordflow">in</span> range(L):</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    accl=accl+h[l]*cmath.exp(-1j*math.pi*n*l/N)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    accr=accr+h[l]*cmath.exp(-1j*math.pi*(N-n)*l/N)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                E[n]=math.sqrt(pow(abs(E[n])*abs(accl),2.)+pow(abs(E[N-n])*abs(accr),2.))</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            N=N//2</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        acc=0</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">for</span> n <span class="keywordflow">in</span> range(N+1):</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            acc=acc+pow(abs(E[n]),2)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        S[0]=math.sqrt(acc)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">return</span> S</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    </div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser_xhtml_aae070b9960acd470d7655cab70b22e06"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">SignalIntegrity.Lib.Wavelets.WaveletDenoiser.WaveletDenoiser.DenoisedWaveform</a></div><div class="ttdeci">def DenoisedWaveform(wf, pct=30., mult=5., isDerivative=True)</div><div class="ttdoc">Denoises a waveform.</div><div class="ttdef"><b>Definition:</b> <a href="WaveletDenoiser_8py_source.xhtml#l00059">WaveletDenoiser.py:59</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer.WaveformTrimmer</a></div><div class="ttdoc">trims waveforms</div><div class="ttdef"><b>Definition:</b> <a href="WaveformTrimmer_8py_source.xhtml#l00028">WaveformTrimmer.py:28</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser_xhtml_aae070b9960acd470d7655cab70b22e06"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml#aae070b9960acd470d7655cab70b22e06">SignalIntegrity.Lib.Wavelets.WaveletDenoiser.WaveletDenoiser.DenoisedWaveform</a></div><div class="ttdeci">def DenoisedWaveform(wf, pct=30., mult=5., isDerivative=True)</div><div class="ttdoc">Denoises a waveform.</div><div class="ttdef"><b>Definition:</b> <a href="WaveletDenoiser_8py_source.xhtml#l00060">WaveletDenoiser.py:60</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml">SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer.WaveformTrimmer</a></div><div class="ttdoc">trims waveforms</div><div class="ttdef"><b>Definition:</b> <a href="WaveformTrimmer_8py_source.xhtml#l00029">WaveformTrimmer.py:29</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets.xhtml">SignalIntegrity.Lib.Wavelets.Wavelets</a></div><div class="ttdef"><b>Definition:</b> <a href="Wavelets_8py_source.xhtml#l00001">Wavelets.py:1</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">SignalIntegrity.Lib.Wavelets.WaveletDenoiser.WaveletDenoiser</a></div><div class="ttdoc">performs wavelet denoising</div><div class="ttdef"><b>Definition:</b> <a href="WaveletDenoiser_8py_source.xhtml#l00035">WaveletDenoiser.py:35</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml">SignalIntegrity.Lib.Wavelets.Wavelets.WaveletDaubechies16</a></div><div class="ttdoc">16 tap Daubechies wavelet transformer</div><div class="ttdef"><b>Definition:</b> <a href="Wavelets_8py_source.xhtml#l00102">Wavelets.py:102</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">SignalIntegrity.Lib.TimeDomain.Waveform.Waveform.Waveform</a></div><div class="ttdoc">base class for all waveforms</div><div class="ttdef"><b>Definition:</b> <a href="Waveform_8py_source.xhtml#l00035">Waveform.py:35</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1WaveletDenoiser_1_1WaveletDenoiser.xhtml">SignalIntegrity.Lib.Wavelets.WaveletDenoiser.WaveletDenoiser</a></div><div class="ttdoc">performs wavelet denoising</div><div class="ttdef"><b>Definition:</b> <a href="WaveletDenoiser_8py_source.xhtml#l00036">WaveletDenoiser.py:36</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml">SignalIntegrity.Lib.Wavelets.Wavelets.WaveletDaubechies16</a></div><div class="ttdoc">16 tap Daubechies wavelet transformer</div><div class="ttdef"><b>Definition:</b> <a href="Wavelets_8py_source.xhtml#l00103">Wavelets.py:103</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml">SignalIntegrity.Lib.TimeDomain.Waveform.Waveform.Waveform</a></div><div class="ttdoc">base class for all waveforms</div><div class="ttdef"><b>Definition:</b> <a href="Waveform_8py_source.xhtml#l00036">Waveform.py:36</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

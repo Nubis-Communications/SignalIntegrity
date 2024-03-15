@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Extract Archived Project</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Export LaTeX (TikZ)</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Unextract Archived Project <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
+<span class="next">Extract Archived Project <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
 </div>
 <h3 class="Subsubsection">
-<a class="toc" name="toc-Subsubsection-47"></a>Freshen Archived Project<a class="Label" name="Control-Help:Freshen-Archive"> </a>
+<a class="toc" name="toc-Subsubsection-47"></a>Archive Project<a class="Label" name="Control-Help:Archive"> </a>
 </h3>
 <div class="Standard">
 <table>
@@ -1096,7 +1096,7 @@ a:visited {
 <i>Menu System</i>
 </td>
 <td align="center" valign="top">
-<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Freshen Archived Project
+<a class="Reference" href="Help-Subsection-38.html#sub:File">File↑</a> ▸ Archive Project
 </td>
 
 </tr>
@@ -1105,7 +1105,7 @@ a:visited {
 <i>Navigation</i>
 </td>
 <td align="center" valign="top">
-Alt+F,F
+Alt+F,V
 </td>
 
 </tr>
@@ -1132,7 +1132,7 @@ None
 <i>Availability</i>
 </td>
 <td align="center" valign="top">
-When the open project is in a directory below its archive
+When the project is not empty
 </td>
 
 </tr>
@@ -1141,28 +1141,50 @@ When the open project is in a directory below its archive
 
 </div>
 <div class="Standard">
-When a project is open whereby the directory location of the project is the project name with the suffix ’_Archive’ appended, the project is considered in an archive. This is usually the result of performing an <a class="Reference" href="Help-Subsubsection-46.html#Control-Help:Extract-Archive">Extract Archived Project↑</a> previously, on an archive file with the same name as the current project with the extension .siz.
+Archiving a project takes the project file and all files referenced by it, either directly or indirectly and creates a zipped file containing all of these files. Furthermore, all of the project files that are moved to the archive will have their file references modified so that when the archive is extracted, the file references point to the correct location in the extracted archive.
 </div>
 <div class="Standard">
-After extraction, the archive might be adjusted by dragging some new files in, or producing some results that you want to keep with the archive.
-</div>
-<div class="Standard">
-Freshening the archive takes the entire directory structure including all files at and below the current project and places this in an archive file above the current directory, replacing the .siz file that might exist there and that was presumably used for extraction.
-</div>
-<div class="Standard">
-Note that the entire archive is completely replaced by these contents. This is shown graphically below:
+An example is shown below that highlights how this works. First, let’s examine the directory structure prior to archiving. Here, the project to archive is called Project.si and it is located in the DirBBB directory. Project.si references two files: the project file bbb.si in the DirDDD directory below and aaa.trc located in the DirCCC directory. The project file bbb.si further references the file ccc.s2p located in the DirBBB directory above.
 </div>
 <div class="Standard">
 <div class="center">
-<img class="embedded" src="FresheningArchive.png" alt="figure FresheningArchive.png" style="width: 645px; max-width: 2580px; height: 329px; max-height: 1318px;"/>
+<img class="embedded" src="ArchiveDirectoryStart.png" alt="figure ArchiveDirectoryStart.png" style="width: 1270px; max-width: 5080px; height: 599px; max-height: 2398px;"/>
 
 </div>
 
+</div>
+<div class="Standard">
+After archiving, an archive file is created using the name of the project with the file extension .siz. The file is actually a zip file. Many file systems recognize it as a zip file, and if you wanted, you could change the extension to .zip. The .siz extension tells SignalIntegrity that it is a special type of zip file with a certain directory structure:
+</div>
+<ul>
+<li>
+The top directory is the name of the archive file with ’_Archive’ appended to it.
+</li>
+<li>
+Inside the top directory will be found the project file with the same name as the archive.
+</li>
+
+</ul>
+<div class="Standard">
+Note that the archive structure did something special with the DirCCC directory. Because it’s relative path involved a path above the project file, it creates directories named ’up’ for every directory needed above the project file, and it appears in the archive below the archive directory.
+</div>
+<div class="Standard">
+After archiving, an information box is presented showing the exact location of the archive:
+</div>
+<div class="Standard">
+<div class="center">
+<img class="embedded" src="ArchiveComplete.png" alt="figure ArchiveComplete.png" style="max-width: 370px; max-height: 160px;"/>
+
+</div>
+
+</div>
+<div class="Standard">
+When extracted (see <a class="Reference" href="Help-Subsubsection-48.html#Control-Help:Extract-Archive">Extract Archived Project↓</a>), the exact directory structure will be created alongside the archive file.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Extract Archived Project</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsubsection-46.html#next">Prev</a> Export LaTeX (TikZ)</span>
 <span class="up"><a class="up" name="up" href="Help-Subsection-38.html">Up</a> File</span>
-<span class="next">Unextract Archived Project <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
+<span class="next">Extract Archived Project <a class="next" name="next" href="Help-Subsubsection-48.html#prev">Next</a></span>
 </div>
 
 </div>

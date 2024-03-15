@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.3</span>
+   &#160;<span id="projectnumber">1.3.5</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -83,47 +83,48 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="stringliteral">IdealRelay.py</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># Copyright (c) 2018 Teledyne LeCroy, Inc.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TerminationZ.xhtml">SignalIntegrity.Lib.Devices.TerminationZ</a> <span class="keyword">import</span> TerminationZ</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">IdealRelay</a>(ports,position,termination=&#39;open&#39;,Z0=50.):</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;IdealRelay</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="stringliteral">    An ideal relay with a given number of ports, where the common is always the last port.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="stringliteral">    I.e. for a given number ports P, port P is always the common connection and ports 1 through</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="stringliteral">    P-1 are the throws of the relay (the ports that get connected to the common) in port order.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">    The position value ranges from 0 to P-1, where 0 says that none of the throws are connected to</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    the common, and a value from 1 to P-1 indicates the throw port connected to the common.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    Valid terminations are the string &#39;open&#39;, or a number indicating the impedance of the unconnected</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    port.  This impedance is also applied to the common, when no ports are connected.</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    @param ports int number of ports in the relay (including the common).</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @param position int number from 0 to ports-1 indicating the relay position.</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    @param termination float or string (optional, defaults to &#39;open&#39; termination applied to unconnected ports.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    @param Z0 float (optional, defaults to 50) reference impedance.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral">    @returns the list of list s-parameter matrix of the ideal relay in the position specified.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> termination == <span class="stringliteral">&#39;open&#39;</span>: rho=1.</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">else</span>: rho=TerminationZ(termination,Z0)[0][0]</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">   39</a></span>&#160;    S=[[rho <span class="keywordflow">if</span> r==c <span class="keywordflow">else</span> 0 <span class="keywordflow">for</span> c <span class="keywordflow">in</span> range(ports)] <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(ports)]</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> 0 &lt; position &lt; ports:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        S[position-1][position-1] = 0;  S[position-1][ports-1] = 1.</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        S[ports-1][position-1] =    1.; S[ports-1][ports-1] =    0</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> S</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># Copyright (c) 2021 Nubis Communications, Inc.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># Copyright (c) 2018-2020 Teledyne LeCroy, Inc.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># All rights reserved worldwide.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># This file is part of SignalIntegrity.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># SignalIntegrity is free software: You can redistribute it and/or modify it under the terms</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># of the GNU General Public License as published by the Free Software Foundation, either</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># version 3 of the License, or any later version.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># See the GNU General Public License for more details.</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TerminationZ.xhtml">SignalIntegrity.Lib.Devices.TerminationZ</a> <span class="keyword">import</span> TerminationZ</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">IdealRelay</a>(ports,position,termination=&#39;open&#39;,Z0=50.):</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;IdealRelay</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="stringliteral">    An ideal relay with a given number of ports, where the common is always the last port.</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="stringliteral">    I.e. for a given number ports P, port P is always the common connection and ports 1 through</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">    P-1 are the throws of the relay (the ports that get connected to the common) in port order.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    The position value ranges from 0 to P-1, where 0 says that none of the throws are connected to</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    the common, and a value from 1 to P-1 indicates the throw port connected to the common.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    Valid terminations are the string &#39;open&#39;, or a number indicating the impedance of the unconnected</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    port.  This impedance is also applied to the common, when no ports are connected.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @param ports int number of ports in the relay (including the common).</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    @param position int number from 0 to ports-1 indicating the relay position.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    @param termination float or string (optional, defaults to &#39;open&#39; termination applied to unconnected ports.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral">    @param Z0 float (optional, defaults to 50) reference impedance.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">    @returns the list of list s-parameter matrix of the ideal relay in the position specified.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> termination == <span class="stringliteral">&#39;open&#39;</span>: rho=1.</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">else</span>: rho=TerminationZ(termination,Z0)[0][0]</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">   40</a></span>&#160;    S=[[rho <span class="keywordflow">if</span> r==c <span class="keywordflow">else</span> 0 <span class="keywordflow">for</span> c <span class="keywordflow">in</span> range(ports)] <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(ports)]</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> 0 &lt; position &lt; ports:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        S[position-1][position-1] = 0;  S[position-1][ports-1] = 1.</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        S[ports-1][position-1] =    1.; S[ports-1][ports-1] =    0</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> S</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay_xhtml_acff579cb09a749fc6efb66f6670ddd9d"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">SignalIntegrity.Lib.Devices.IdealRelay.IdealRelay</a></div><div class="ttdeci">def IdealRelay(ports, position, termination='open', Z0=50.)</div><div class="ttdoc">IdealRelay An ideal relay with a given number of ports, where the common is always the last port.</div><div class="ttdef"><b>Definition:</b> <a href="IdealRelay_8py_source.xhtml#l00039">IdealRelay.py:39</a></div></div>
+<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay_xhtml_acff579cb09a749fc6efb66f6670ddd9d"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1IdealRelay.xhtml#acff579cb09a749fc6efb66f6670ddd9d">SignalIntegrity.Lib.Devices.IdealRelay.IdealRelay</a></div><div class="ttdeci">def IdealRelay(ports, position, termination='open', Z0=50.)</div><div class="ttdoc">IdealRelay An ideal relay with a given number of ports, where the common is always the last port.</div><div class="ttdef"><b>Definition:</b> <a href="IdealRelay_8py_source.xhtml#l00040">IdealRelay.py:40</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TerminationZ_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Devices_1_1TerminationZ.xhtml">SignalIntegrity.Lib.Devices.TerminationZ</a></div><div class="ttdef"><b>Definition:</b> <a href="TerminationZ_8py_source.xhtml#l00001">TerminationZ.py:1</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

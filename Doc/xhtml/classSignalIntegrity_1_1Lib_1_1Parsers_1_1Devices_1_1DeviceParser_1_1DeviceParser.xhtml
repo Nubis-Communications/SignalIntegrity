@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.3</span>
+   &#160;<span id="projectnumber">1.3.5</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -89,14 +89,15 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for DeviceParser:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser__coll__graph.svg" width="127" height="132"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser__coll__graph.svg" width="127" height="132"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a60f2f3a64bd9f9c3c042b82c4de4ab62"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a60f2f3a64bd9f9c3c042b82c4de4ab62">__init__</a> (self, f, ports, callback, argsList)</td></tr>
-<tr class="memdesc:a60f2f3a64bd9f9c3c042b82c4de4ab62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor makes a device from a set of arguments.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#a60f2f3a64bd9f9c3c042b82c4de4ab62">More...</a><br /></td></tr>
-<tr class="separator:a60f2f3a64bd9f9c3c042b82c4de4ab62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcb2635afed0bd84dc4e73101a781a2c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#adcb2635afed0bd84dc4e73101a781a2c">__init__</a> (self, f, ports, callback, argsList, Z0=50.)</td></tr>
+<tr class="memdesc:adcb2635afed0bd84dc4e73101a781a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor makes a device from a set of arguments.  <a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml#adcb2635afed0bd84dc4e73101a781a2c">More...</a><br /></td></tr>
+<tr class="separator:adcb2635afed0bd84dc4e73101a781a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -110,10 +111,10 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>contains s-parameters of devices made from a netlist line </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00394">394</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00418">418</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a60f2f3a64bd9f9c3c042b82c4de4ab62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60f2f3a64bd9f9c3c042b82c4de4ab62">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="adcb2635afed0bd84dc4e73101a781a2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcb2635afed0bd84dc4e73101a781a2c">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +147,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>argsList</em>&#160;</td>
+          <td class="paramname"><em>argsList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -164,7 +171,8 @@ Public Attributes</h2></td></tr>
     <tr><td class="paramname">f</td><td>list of frequencies </td></tr>
     <tr><td class="paramname">ports</td><td>integer number of ports </td></tr>
     <tr><td class="paramname">callback</td><td>function pointer callback function (use None for no callback). </td></tr>
-    <tr><td class="paramname">argsList</td><td>list of arguments. The name of the device is the first argument. If the device has no keyword for the argument, then that argument is next. Otherwise, besides the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the keyword is a string and the value is the value of the keyword. <br  />
+    <tr><td class="paramname">argsList</td><td>list of arguments. The name of the device is the first argument. </td></tr>
+    <tr><td class="paramname">Z0</td><td>float (optional, defaults to 50.) reference impedance for the calculation If the device has no keyword for the argument, then that argument is next. Otherwise, besides the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the keyword is a string and the value is the value of the keyword. <br  />
  The callback function is used to pass down into s-parameter files that are actually <a class="el" href="namespaceSignalIntegrity.xhtml">SignalIntegrity</a> projects so that progress can be tracked and the UI thread can be kept updated. </td></tr>
   </table>
   </dd>
@@ -178,7 +186,7 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd>SignalIntegrity.Parsers.SystemDescriptionParser </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00427">427</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00452">452</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -196,7 +204,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>list of frequencies pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00432">432</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00457">457</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -213,7 +221,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>None if device is frequency dependent otherwise an instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00433">433</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00458">458</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -230,7 +238,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>None if device is not frequency dependent otherwise a list of list s-parameter matrix </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00434">434</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00459">459</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

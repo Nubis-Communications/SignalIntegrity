@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> Calculation.UseSinX/X</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> Appearance.RoundDisplayedValues</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Calculation.CheckConditionNumber <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--12"></a>Calculation.TrySVD<a class="Label" name="sub:Calculation.TrySVD"> </a>
+<a class="toc" name="toc-Subsection--12"></a>Appearance.ShowAllPinNumbers<a class="Label" name="sub:Appearance.ShowAllPinNumbers-1"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,19 +1099,16 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-try SVD in calculations (experimental)
+show all pin numbers
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--12.html#sub:Calculation.TrySVD">Calculation.TrySVD↑</a>
+<a class="Reference" href="Help-Subsection--12.html#sub:Appearance.ShowAllPinNumbers-1">Appearance.ShowAllPinNumbers↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="left">
-True
-</div>
-
+False
 </td>
 
 </tr>
@@ -1120,52 +1117,12 @@ True
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="Diabolicalpng.png" alt="figure Diabolicalpng.png" style="max-width: 477px; max-height: 496px;"/>
-
+By default, pin numbers are shown only for devices that require them, namely all devices that take in a file. In these cases, the pin numbering must match the port numbering of the file being read. Otherwise, internal devices known by the application have their pin numbers inherent in the symbol and therefore it is not really necessary to know how the pins are numbered. That being said, when viewing the s-parameters of the device, or when simply checking the symbol versus the s-parameters, it is sometimes useful to see this numbering. Setting this preference to True causes almost all devices to show pin numbers. Devices that will not show pin numbers ever are devices that are perfectly symmetric.
 </div>
-
-</div>
-<div class="Standard">
-Sometimes, there are circuit configurations that have valid answers, but cannot be calculated in traditional ways. A good example of such a circuit is shown above where there is a zero-length transmission line in parallel with a wire between two ports. Without try SVD set, this s-parameter calculation fails because the <i>weights matrix</i> cannot be inverted. Essentially, what this means is that the value of each and every node in the system cannot be calculated. Here, however, we are concerned only with the port-port behavior. Although the wave propagation through every path cannot be computed in this circuit, it is known that this circuit is essentially a zero length wire and the s-parameters of such a circuit is well known.
-</div>
-<div class="Standard">
-Try SVD allows the use of singular value decomposition in the inversion of the weights matrix. Singular value decomposition is a decomposition of the matrix into several others. While the decomposition itself does not enable inversion, the side matrices can be combined with any matrices that multiply on the sides, allowing portions of the matrix to be ignored. This is the same as saying that despite the fact that the inverse of the matrix does not exist, some of the elements of the matrix inverse can be calculated.
-</div>
-<div class="Standard">
-While the SVD is only necessary in somewhat odd situations, it does enable computation of the result. The reason why it’s experimental is that in some cases it computes nonsense answers.
-</div>
-<div class="Standard">
-Here are some of the reasons to use it:
-</div>
-<ul>
-<li>
-circuits containing parallel loops of wires causing indeterminate internal current flow.
-</li>
-<li>
-circuits where all nodes do not have a good ground reference.
-</li>
-<li>
-simulations involving current or differential voltage measurements where the circuit has no absolute ground reference.
-</li>
-
-</ul>
-<div class="Standard">
-Some failures of this method are:
-</div>
-<ul>
-<li>
-simulations determining the current in parallel loops of wire.
-</li>
-<li>
-simulations with voltage sources shorted to ground.
-</li>
-
-</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> Calculation.UseSinX/X</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--11.html#next">Prev</a> Appearance.RoundDisplayedValues</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Calculation.CheckConditionNumber <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
+<span class="next">Calculation.UseSinX/X <a class="next" name="next" href="Help-Subsection--13.html#prev">Next</a></span>
 </div>
 
 </div>

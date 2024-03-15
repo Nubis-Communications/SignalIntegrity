@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2023-03-04"/>
+<meta name="create-date" content="2024-03-15"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,56 +1073,65 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--24.html#next">Prev</a> Variables.ParameterizeOnlyVisible</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--24.html#next">Prev</a> ProjectFiles.AskToSaveCurrentFile</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Simulator Dialog Preferences <a class="next" name="next" href="Help-Subsection--26.html#prev">Next</a></span>
+<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--26.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--25"></a>S-Parameter Viewer Preferences<a class="Label" name="sub:S-Parameter-Viewer-Preferences"> </a>
+<a class="toc" name="toc-Subsection--25"></a>ProjectFiles.PreferSaveWaveformsLeCroyFormat<a class="Label" name="sub:PreferSaveWaveformsLeCroyFormat"> </a>
 </h2>
 <div class="Standard">
-The s-parameter viewer preferences are:
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+ask to save current file
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--25.html#sub:PreferSaveWaveformsLeCroyFormat">ProjectFiles.PreferSaveWaveformsLeCroyFormat↑</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+False
 </div>
-<ul>
-<li>
-The <a class="Reference" href="Help-Subsection--27.html#sub:Plot-Window-Preferences">Plot Window Preferences↓</a>.
-</li>
-<li>
-All of the zoom settings in the <a class="Reference" href="Help-Subsection-32.html#Control-Help:S-Parameter-Viewer-Zoom">S-Parameter Viewer Zoom Menu↑</a> are held in <b>SParameterProperties.Zoom</b>:
-</li>
-<li>
-All of the view settings in the <a class="Reference" href="Help-Subsection-31.html#sub:S-Parameter-Viewer-View">S-Parameter Viewer View Menu↑</a>.<ul>
-<li>
-<b>SParameterProperties.Plot.LogScale</b> - see <a class="Reference" href="Help-Subsubsection-17.html#Control-Help:SP-Log-Scale">Log Frequency Scale↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowCausalityViolations</b> - see <a class="Reference" href="Help-Subsubsection-13.html#Control-Help:Show-Causality-Violations">Show Causality Violations↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowExcessCapacitance</b> - see <a class="Reference" href="Help-Subsubsection-16.html#Control-Help:Show-Excess-Capacitance">Show Excess Capacitance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowExcessInductance</b> - see <a class="Reference" href="Help-Subsubsection-15.html#Control-Help:Show-Excess-Inductance">Show Excess Inductance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowImpedance</b> - see <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:Show-Impedance">Show Impedance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowPassivityViolations</b> - see <a class="Reference" href="Help-Subsubsection-12.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.VariableLineWidth</b> - see <a class="Reference" href="Help-Subsubsection-11.html#Control-Help:Variable-Line-Width">Variable Line Width↑</a>
-</li>
 
-</ul>
+</td>
 
-</li>
+</tr>
 
-</ul>
+</table>
+
+</div>
+<div class="Standard">
+Usually, waveforms are saved in the <a class="Reference" href="Help-Subsection-181.html#sub:Waveform">Waveform↑</a> format with the .txt extension.
+</div>
+<div class="Standard">
+SignalIntegrity can also read and save files in the native format used by LeCroy oscilloscopes. This format is proprietary and produces smaller but slightly less accurate representations of waveforms.
+</div>
+<div class="Standard">
+When saving waveforms, they can always be saved in any format. Only the type preferred is controlled by this preference.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--24.html#next">Prev</a> Variables.ParameterizeOnlyVisible</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--24.html#next">Prev</a> ProjectFiles.AskToSaveCurrentFile</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Simulator Dialog Preferences <a class="next" name="next" href="Help-Subsection--26.html#prev">Next</a></span>
+<span class="next">Cache.CacheResults <a class="next" name="next" href="Help-Subsection--26.html#prev">Next</a></span>
 </div>
 
 </div>
