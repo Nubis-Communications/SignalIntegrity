@@ -479,6 +479,11 @@ class PartPropertyOnOff(PartProperty):
     def __init__(self,state='Off'):
         PartProperty.__init__(self,'state',type='enum',keyword='state',description='state',value=state,visible=True,keywordVisible=True)
 
+class PartPropertyEyeOnOff(PartProperty):
+    validEntries=['on','off']
+    def __init__(self,state='on'):
+        PartProperty.__init__(self,'eyestate',type='enum',keyword='eyestate',description='eye state',value=state,visible=False,keywordVisible=False)
+
 class PartPropertyShow(PartProperty):
     validEntries=['true','false']
     def __init__(self,show='false'):

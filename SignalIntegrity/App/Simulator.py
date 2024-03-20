@@ -819,11 +819,12 @@ class Simulator(object):
             for device in self.parent.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
-                        eyeDict={'Name':outputWaveformLabel,
-                                 'BaudRate':device['br'].GetValue(),
-                                 'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
-                                 'Config':device.configuration}
-                        eyeDiagramDict.append(eyeDict)
+                        if device['eyestate'].GetValue() == 'on':
+                            eyeDict={'Name':outputWaveformLabel,
+                                     'BaudRate':device['br'].GetValue(),
+                                     'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
+                                     'Config':device.configuration}
+                            eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)
 
@@ -939,11 +940,12 @@ class Simulator(object):
             for device in self.parent.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
-                        eyeDict={'Name':outputWaveformLabel,
-                                 'BaudRate':device['br'].GetValue(),
-                                 'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
-                                 'Config':device.configuration}
-                        eyeDiagramDict.append(eyeDict)
+                        if device['eyestate'].GetValue() == 'on':
+                            eyeDict={'Name':outputWaveformLabel,
+                                     'BaudRate':device['br'].GetValue(),
+                                     'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                     'Config':device.configuration}
+                            eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)
 
