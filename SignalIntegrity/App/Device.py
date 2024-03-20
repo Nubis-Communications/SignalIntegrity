@@ -181,7 +181,7 @@ class Device(object):
                 waveform=amplitude
         return waveform
     def WaveformTimeDescriptor(self):
-        import SignalIntegrity as si
+        import SignalIntegrity.Lib as si
         Fs=float(self['fs'].GetValue())
         K=int(math.ceil(Fs*float(self['dur'].GetValue())))
         horOffset=float(self['ho'].GetValue())

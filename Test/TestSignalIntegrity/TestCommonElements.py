@@ -24,6 +24,7 @@ import SignalIntegrity.Lib as si
 
 from numpy import linalg,array,identity
 from numpy.linalg import inv
+import os
 
 class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
@@ -33,9 +34,12 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def setUp(self):
         si.sd.Numeric.trySVD=True
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
         unittest.TestCase.setUp(self)
     def tearDown(self):
         si.sd.Numeric.trySVD=True
+        os.chdir(self.cwd)
         unittest.TestCase.tearDown(self)
     def testDeviceShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()

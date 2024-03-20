@@ -97,3 +97,16 @@ class TestFiltersTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.
         self.SimulationResultsChecker(self.testName().replace('test',''))
     def testCTLEStepResponse(self):
         self.SimulationResultsChecker(self.testName().replace('test',''))
+
+if __name__ == "__main__": # pragma: no cover
+    runProfiler=False
+
+    if runProfiler:
+        import cProfile
+        cProfile.run('unittest.main()','stats')
+
+        import pstats
+        p = pstats.Stats('stats')
+        p.strip_dirs().sort_stats('cumulative').print_stats(30)
+    else:
+        unittest.main()

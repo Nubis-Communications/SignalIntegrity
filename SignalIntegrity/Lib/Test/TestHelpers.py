@@ -29,7 +29,7 @@ else:
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
-from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
+
 
 def PlotTikZ(filename,plot2save,scale=None):
     try:
@@ -137,6 +137,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         #os.chdir(path)
         return regression
     def CheckSParametersResult(self,sp,fileName,text):
+        from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
         #path=os.getcwd()
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         if not os.path.exists(fileName):

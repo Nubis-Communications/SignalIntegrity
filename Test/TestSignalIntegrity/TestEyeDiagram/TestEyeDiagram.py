@@ -20,7 +20,7 @@ TestEyeDiagram.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import math
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import numpy as np
 import os
 

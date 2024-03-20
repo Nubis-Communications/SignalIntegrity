@@ -572,6 +572,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>eyestate</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -692,6 +698,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>on</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>eyestate</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>gain</Keyword>
@@ -818,6 +830,12 @@
 						<PartProperty>
 							<Keyword>state</Keyword>
 							<KeywordVisible>True</KeywordVisible>
+							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>eyestate</Keyword>
+							<KeywordVisible>False</KeywordVisible>
 							<Value>on</Value>
 							<Visible>False</Visible>
 						</PartProperty>

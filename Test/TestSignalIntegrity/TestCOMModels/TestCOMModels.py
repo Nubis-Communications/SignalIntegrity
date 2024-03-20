@@ -19,7 +19,7 @@ TestCOMModels.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import os
 
 class TestCOMModelsTest(unittest.TestCase,
@@ -144,3 +144,6 @@ class TestCOMModelsTest(unittest.TestCase,
     def testTransmissionLineModel1Project(self):
         self.SParameterResultsChecker('COMTransmissionLineModel_Package_12.si')
 
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
+    unittest.main()

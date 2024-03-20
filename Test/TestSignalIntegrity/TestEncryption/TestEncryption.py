@@ -20,7 +20,7 @@ TestEncryption.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import math
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 import numpy as np
 import os
 from SignalIntegrity.App.Encryption import Encryption
@@ -137,13 +137,18 @@ class TestEncryptionTest(unittest.TestCase,
         pysi.SaveProjectToFile('tlinetest$.si')
         self.SParameterResultsChecker('tlinetest$.si')
     def testEncriptedInternalProject(self):
+        import SignalIntegrity.App as siapp
         Encryption(pwd='test',ending='$')
         pysi=self.Preliminary('tlinetest.si')
         internalFile=pysi.Device('D1')['file']['Value']
         self.assertEqual(internalFile, 'TLineModelDiffModeOnly.si', 'internal device incorrect for test')
         pysi.Device('D1')['file']['Value']='TLineModelDiffModeOnly$.si'
         pysi.SaveProjectToFile('tlinetest2$.si')
-        pysi=si.App.SignalIntegrityAppHeadless()
+        pysi=siapp.SignalIntegrityAppHeadless()
         pysi.OpenProjectFile(internalFile)
         pysi.SaveProjectToFile('TLineModelDiffModeOnly$.si')
         self.SParameterResultsChecker('tlinetest2$.si')
+
+if __name__ == "__main__": # pragma: no cover
+    #import sys;sys.argv = ['', 'Test.testName']
+    unittest.main()

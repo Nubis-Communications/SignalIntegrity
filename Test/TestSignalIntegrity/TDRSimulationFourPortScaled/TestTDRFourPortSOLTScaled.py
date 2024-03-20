@@ -3647,7 +3647,7 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         self.assertTrue(SpAreEqual,'s-parameters not equal')
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     runProfiler=False
     if runProfiler:
         import cProfile
