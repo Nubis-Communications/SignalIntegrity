@@ -106,7 +106,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
                     repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
-                    repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)
+                    repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)+repr(self.recover_clock)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
 
     def __init__(self,callback=None,
@@ -121,6 +121,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  EnhancementMode='Auto', # can be Auto, Fixed, or None
                  EnhancementSteps=10, # ignored unless EnhancementMode is Fixed
                  BitsPerSymbol=1, # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
+                 recover_clock=False # whether to recover the clock
                  ):
         """Constructor
         Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is
@@ -157,7 +158,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         step size and is the recommended mode.
         @param EnhancementSteps int, defaults to 10, fixed number of steps to be used in 'Fixed' EnhancementMode.
         @param BitsPerSymbol int, defaults to 1, number of bits per symbol.  One bit per symbol is NRZ, or PAM-2.
-        Two bits per symbol is PAM-4, etc.  
+        Two bits per symbol is PAM-4, etc. 
+        @param recover_clock bool, defaults to False, whether to recover the clock from the data. This is a special
+        situation used mostly when using waveforms directly from the oscilloscope. 
 
         At the end of construction, the bitmap can be accessed through a call to Bitmap.  
         The construction initializes several member variables that contain computed or partially computed results
@@ -190,11 +193,19 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.EnhancementSteps=EnhancementSteps
         self.BitsPerSymbol=BitsPerSymbol
         self.NoiseSigma=0.
+        self.recover_clock=recover_clock
 
         self.BitmapLog=None
         self.measDict=None
         self.annotationBitmap=None
         self.img=None
+
+        if recover_clock:
+            from SignalIntegrity.Lib.Eye import ClockRecoveredWaveform
+            crwf=ClockRecoveredWaveform(prbswf,BaudRate)
+            # we update the prbswf reference to affect all things that reference this waveform
+            prbswf.td=crwf.td
+            list.__init__(prbswf,crwf.Values())
 
         CallBacker.__init__(self,callback)
         ResultsCache.__init__(self,'EyeDiagramBitMap',cacheFileName)
@@ -204,10 +215,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             self.CallBack(100.0)
             return
 
-        baudRate=BaudRate
-        UI=1./baudRate
+        UI=1./BaudRate
         R=Rows; C=Cols
-        Fs=baudRate*C
+        Fs=BaudRate*C
         UpsampleFactor=Fs/prbswf.td.Fs
 
         # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there

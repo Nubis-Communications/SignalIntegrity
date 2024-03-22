@@ -516,6 +516,9 @@
 							<Measure>True</Measure>
 							<MinPointsForFit>6</MinPointsForFit>
 						</Bathtub>
+						<ClockRecovery>
+							<Recover>False</Recover>
+						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>100</Columns>
 						<Decision>
@@ -644,6 +647,9 @@
 							<Measure>True</Measure>
 							<MinPointsForFit>6</MinPointsForFit>
 						</Bathtub>
+						<ClockRecovery>
+							<Recover>False</Recover>
+						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>100</Columns>
 						<Decision>
@@ -772,6 +778,9 @@
 							<Measure>True</Measure>
 							<MinPointsForFit>6</MinPointsForFit>
 						</Bathtub>
+						<ClockRecovery>
+							<Recover>False</Recover>
+						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>200</Columns>
 						<Decision>

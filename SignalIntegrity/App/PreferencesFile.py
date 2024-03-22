@@ -103,6 +103,11 @@ class EyeAnnotationConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('EyeHeight',True))
         self.SubDir(EyeContourConfiguration())
 
+class ClockRecoveryConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('ClockRecovery')
+        self.Add(XMLPropertyDefaultBool('Recover',False))
+
 class EyeConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('EyeDiagram')
@@ -115,6 +120,7 @@ class EyeConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('ScaleY',150.))
         self.Add(XMLPropertyDefaultString('Mode','ISI'))
         self.Add(XMLPropertyDefaultBool('Invert',True))
+        self.SubDir(ClockRecoveryConfiguration())
         self.SubDir(EyeYAxisConfiguration())
         self.SubDir(EyeJitterNoiseConfiguration())
         self.SubDir(EyeAlignmentConfiguration())

@@ -29,6 +29,7 @@ from TestBookDevices import *
 from TestCascading import *
 from TestChirpZTransform import *
 from TestClassWriter import *
+from TestClockRecovery import *
 from TestCOMModels import *
 from TestCommonElements import *
 from TestConversions import *

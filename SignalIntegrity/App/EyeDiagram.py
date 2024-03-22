@@ -70,6 +70,7 @@ class EyeDiagram(object):
                 EnhancementMode=self.config['EnhancedPrecision.Mode'],
                 EnhancementSteps=self.config['EnhancedPrecision.FixedEnhancement'],
                 BitsPerSymbol=self.config['Alignment.BitsPerSymbol'], # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
+                recover_clock=self.config['ClockRecovery.Recover']
                 )
         except Exception as e:
             raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Creation Failed.')

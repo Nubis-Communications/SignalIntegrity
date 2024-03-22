@@ -1,10 +1,8 @@
 """
 __init__.py
 """
-from __future__ import absolute_import
 
-# Copyright (c) 2021 Nubis Communications, Inc.
-# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -20,5 +18,6 @@ from __future__ import absolute_import
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from .EyeDiagramBitmap import EyeDiagramBitmap
-from .ClockRecovery import ClockRecoveredWaveform
+from __future__ import absolute_import
+
+from .TestClockRecovery import TestClockRecoveryTest
