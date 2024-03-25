@@ -19,6 +19,7 @@ ClockRecovery.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor,Waveform
+from SignalIntegrity.Lib.TimeDomain.Filters import WaveformTrimmer
 
 import numpy as np
 from copy import deepcopy
@@ -133,16 +134,18 @@ class ClockRecoveredWaveform(Waveform):
         te_waveform=Waveform(TimeDescriptor(adapted_waveform.td.H+(Nf//2+1)/adapted_waveform.td.Fs,te.shape[0],adapted_waveform.td.Fs),
                              (te/adapted_waveform.td.Fs).tolist())
 
+        # trim some points to try to keep the time error in range
+        te_waveform*=WaveformTrimmer(trim_left_right,trim_left_right)
+
         # upsample the time error to the sample rate of the input waveform
         te_waveform=te_waveform.Adapt(TimeDescriptor(te_waveform.td.H,te_waveform.td.K*input_waveform.td.Fs/te_waveform.td.Fs,input_waveform.td.Fs))
-        self.te_waveform=te_waveform
 
         # interpolate the input waveform, removing the timing error
         f1 = interpolate.interp1d(input_waveform.Times(),input_waveform.Values(), "cubic")
         retimed_waveform_values=f1([t-e for t,e in zip(te_waveform.Times(),te_waveform.Values())])
         retimed_waveform=Waveform(te_waveform.TimeDescriptor(),retimed_waveform_values.tolist())
 
-        # The interpolation will have failed if trim_left_right (the points trimmed from the left and right of xg_1 above) is insufficient.
+        # The interpolation will have failed if trim_left_right is insufficient.
         Waveform.__init__(self,retimed_waveform.TimeDescriptor(),retimed_waveform.Values())
 
 #         retimed_waveform.WriteToFile('retimed.txt')
