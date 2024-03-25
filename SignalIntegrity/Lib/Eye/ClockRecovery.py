@@ -27,11 +27,14 @@ from scipy import interpolate
 class ClockRecoveredWaveform(Waveform):
     """Resamples an input waveform using clock recovery
         """
-    def __init__(self,input_waveform,baudrate,):
+    def __init__(self,input_waveform,baudrate,trim_left_right=20):
         """Generates a resampled waveform using clock recovery  
         It is formed by hashing the bitmap definition with whatever else is hashed.
         @param input_waveform instance of class Waveform, waveform to resample 
-        @param baudrate float, symbol rate of the waveform
+        @param baudrate float, symbol rate of the waveform.
+        @param trim_left_right int, defaults to 20, number of points to trim from the two samples per
+        UI waveform that determines the time error for the clock recovery.  This must be enough points so that when
+        interpolating, the timing error does not try to interpolate beyond the boundaries of the input waveform.
         """
         Fs=baudrate*2. # we want a waveform that contains two samples per unit interval
         UpsampleFactor=Fs/input_waveform.td.Fs
@@ -120,10 +123,10 @@ class ClockRecoveredWaveform(Waveform):
         xg_inter = xg_1 + te
 
         f1 = interpolate.interp1d(xg_inter, samples[xg[0] : xg[-1] + 1], "cubic")
-        samples = f1(xg_1[1:-20])
+        samples = f1(xg_1[trim_left_right:-trim_left_right])
 
-# Originally, this was the timing corrected waveform.  The problem with it is that it is the input waveform downsampled to two samples per UI
-# For now, I comment this out and try to reconstitute the input waveform that is timing corrected.
+        # Originally, this was the timing corrected waveform.  The problem with it is that it is the input waveform downsampled to two samples per UI
+        # For now, I comment this out and try to reconstitute the input waveform that is timing corrected.
 #         Waveform.__init__(self,TimeDescriptor(adapted_waveform.td.H+(xg_1[1])/adapted_waveform.td.Fs,samples.shape[0],adapted_waveform.td.Fs),samples.tolist())
 
         # calculate the time error waveform on the two samples per UI timing grid
@@ -139,9 +142,7 @@ class ClockRecoveredWaveform(Waveform):
         retimed_waveform_values=f1([t-e for t,e in zip(te_waveform.Times(),te_waveform.Values())])
         retimed_waveform=Waveform(te_waveform.TimeDescriptor(),retimed_waveform_values.tolist())
 
-        # I'm surprised that this doesn't fail.  It ought to, if the timing error ever wanders beyond the range of the input waveform.
-        # It generally doesn't because of the limitation of xg_1[1:20] above.  TODO: This should be figured out more intelligently.
-        # I'll debug this when that ever happens.
+        # The interpolation will have failed if trim_left_right (the points trimmed from the left and right of xg_1 above) is insufficient.
         Waveform.__init__(self,retimed_waveform.TimeDescriptor(),retimed_waveform.Values())
 
 #         retimed_waveform.WriteToFile('retimed.txt')

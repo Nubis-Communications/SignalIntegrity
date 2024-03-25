@@ -106,7 +106,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
                     repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
-                    repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)+repr(self.recover_clock)
+                    repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)+repr(self.recover_clock)+\
+                    repr(self.clock_recovery_trim_left_right)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
 
     def __init__(self,callback=None,
@@ -121,7 +122,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  EnhancementMode='Auto', # can be Auto, Fixed, or None
                  EnhancementSteps=10, # ignored unless EnhancementMode is Fixed
                  BitsPerSymbol=1, # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
-                 recover_clock=False # whether to recover the clock
+                 recover_clock=False, # whether to recover the clock
+                 clock_recovery_trim_left_right=20 # points to trim from left and right of resampled, clock recovered waveform
                  ):
         """Constructor
         Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is
@@ -160,7 +162,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param BitsPerSymbol int, defaults to 1, number of bits per symbol.  One bit per symbol is NRZ, or PAM-2.
         Two bits per symbol is PAM-4, etc. 
         @param recover_clock bool, defaults to False, whether to recover the clock from the data. This is a special
-        situation used mostly when using waveforms directly from the oscilloscope. 
+        situation used mostly when using waveforms directly from the oscilloscope.
+        @param clock_recovery_trim_left_right int, defaults to 20, number of points to trim from the two samples per
+        UI waveform that determines the time error for the clock recovery.  This must be enough points so that when
+        interpolating, the timing error does not try to interpolate beyond the boundaries of the input waveform.
 
         At the end of construction, the bitmap can be accessed through a call to Bitmap.  
         The construction initializes several member variables that contain computed or partially computed results
@@ -194,6 +199,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.BitsPerSymbol=BitsPerSymbol
         self.NoiseSigma=0.
         self.recover_clock=recover_clock
+        self.clock_recovery_trim_left_right = clock_recovery_trim_left_right
 
         self.BitmapLog=None
         self.measDict=None
@@ -202,7 +208,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         if recover_clock:
             from SignalIntegrity.Lib.Eye import ClockRecoveredWaveform
-            crwf=ClockRecoveredWaveform(prbswf,BaudRate)
+            crwf=ClockRecoveredWaveform(prbswf,BaudRate,clock_recovery_trim_left_right)
             # we update the prbswf reference to affect all things that reference this waveform
             prbswf.td=crwf.td
             list.__init__(prbswf,crwf.Values())

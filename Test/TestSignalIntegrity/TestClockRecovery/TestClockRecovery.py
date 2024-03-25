@@ -39,7 +39,6 @@ class TestClockRecoveryTest(unittest.TestCase,si.test.SParameterCompareHelper,
         unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
         os.chdir(self.path)
-        self.book=os.path.exists('../../../../SignalIntegrityBook/')
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()

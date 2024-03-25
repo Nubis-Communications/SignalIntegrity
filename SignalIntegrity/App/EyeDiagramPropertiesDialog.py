@@ -76,6 +76,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.ScaleXFrame=CalculationPropertySI(self.GeneralFrame,'Scale X',self.onUpdateScaleX,None,self.project,'ScaleX','%')
         self.ScaleYFrame=CalculationPropertySI(self.GeneralFrame,'Scale Y',self.onUpdateScaleY,None,self.project,'ScaleY','%')
         self.RecoverClock=CalculationPropertyTrueFalseButton(self.ClockRecoveryFrame,'Recover Clock',self.onUpdateFromChanges,None,self.project,'ClockRecovery.Recover')
+        self.RecoverClockTrimLeftRight=CalculationProperty(self.ClockRecoveryFrame,'Points to Trim From Both Sides',self.onUpdateFromChanges,None,self.project,'ClockRecovery.TrimLeftRight')
         self.AutoAlign=CalculationPropertyTrueFalseButton(self.AutoAlignFrame,'Auto Align Eye',self.onUpdateFromChanges,None,self.project,'Alignment.AutoAlign')
         self.BERExponent=CalculationProperty(self.AutoAlignFrame,'BER Exponent for Alignment',self.onUpdateFromChanges,None,self.project,'Alignment.BERForAlignment')
         self.AlignmentMode=CalculationPropertyChoices(self.AutoAlignFrame,'Alignment Mode',self.onUpdateFromChanges,None,self.AlignmentModeChoices,self.project,'Alignment.Mode')
@@ -226,5 +227,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         logIntensity=self.project['JitterNoise.LogIntensity.LogIntensity']
         self.MinExponent.Show(logIntensity)
         self.MaxExponent.Show(logIntensity)
+        showClockRecovery=self.project['ClockRecovery.Recover']
+        self.RecoverClockTrimLeftRight.Show(showClockRecovery)
     def onSaveToPreferences(self):
         self.parent.device.configuration.SaveToPreferences()

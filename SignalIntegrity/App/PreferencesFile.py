@@ -107,6 +107,7 @@ class ClockRecoveryConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('ClockRecovery')
         self.Add(XMLPropertyDefaultBool('Recover',False))
+        self.Add(XMLPropertyDefaultInt('TrimLeftRight',20))
 
 class EyeConfiguration(XMLConfiguration):
     def __init__(self):
