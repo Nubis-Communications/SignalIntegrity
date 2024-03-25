@@ -75,5 +75,7 @@ class TestClockRecoveryTest(unittest.TestCase,si.test.SParameterCompareHelper,
             pass
 
         self.SimulationEyeDiagramResultsChecker('ClockRecoveryCompare.si')
+
+        # run this again to make sure the cached values match
         self.SimulationEyeDiagramResultsChecker('ClockRecoveryCompare.si')
 

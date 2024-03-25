@@ -122,13 +122,29 @@ class ClockRecoveredWaveform(Waveform):
         f1 = interpolate.interp1d(xg_inter, samples[xg[0] : xg[-1] + 1], "cubic")
         samples = f1(xg_1[1:-20])
 
-        Waveform.__init__(self,TimeDescriptor(adapted_waveform.td.H+(xg_1[1])/adapted_waveform.td.Fs,samples.shape[0],adapted_waveform.td.Fs),samples.tolist())
+# Originally, this was the timing corrected waveform.  The problem with it is that it is the input waveform downsampled to two samples per UI
+# For now, I comment this out and try to reconstitute the input waveform that is timing corrected.
+#         Waveform.__init__(self,TimeDescriptor(adapted_waveform.td.H+(xg_1[1])/adapted_waveform.td.Fs,samples.shape[0],adapted_waveform.td.Fs),samples.tolist())
 
+        # calculate the time error waveform on the two samples per UI timing grid
         te_waveform=Waveform(TimeDescriptor(adapted_waveform.td.H+(Nf//2+1)/adapted_waveform.td.Fs,te.shape[0],adapted_waveform.td.Fs),
                              (te/adapted_waveform.td.Fs).tolist())
+
+        # upsample the time error to the sample rate of the input waveform
         te_waveform=te_waveform.Adapt(TimeDescriptor(te_waveform.td.H,te_waveform.td.K*input_waveform.td.Fs/te_waveform.td.Fs,input_waveform.td.Fs))
         self.te_waveform=te_waveform
 
+        # interpolate the input waveform, removing the timing error
+        f1 = interpolate.interp1d(input_waveform.Times(),input_waveform.Values(), "cubic")
+        retimed_waveform_values=f1([t-e for t,e in zip(te_waveform.Times(),te_waveform.Values())])
+        retimed_waveform=Waveform(te_waveform.TimeDescriptor(),retimed_waveform_values.tolist())
+
+        # I'm surprised that this doesn't fail.  It ought to, if the timing error ever wanders beyond the range of the input waveform.
+        # It generally doesn't because of the limitation of xg_1[1:20] above.  TODO: This should be figured out more intelligently.
+        # I'll debug this when that ever happens.
+        Waveform.__init__(self,retimed_waveform.TimeDescriptor(),retimed_waveform.Values())
+
+#         retimed_waveform.WriteToFile('retimed.txt')
 #         import matplotlib.pyplot as plt
 #         plt.plot(te_waveform.Times('ns'),[v/1e-12 for v in te_waveform.Values()])
 #         plt.xlabel('time (ns)')
