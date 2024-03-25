@@ -54,16 +54,16 @@ class TestFiltersTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-    def testName(self):
+    def NameForTest(self):
         return '_'.join(unittest.TestCase.id(self).split('.')[-1:])
     def testBesselLowPassFilter(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
         sp=si.sp.dev.BesselLowPassFilter(f,4,0.6*56e9)
-        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
     def testButterworthLowPassFilter(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
         sp=si.sp.dev.ButterworthLowPassFilter(f,12,1.25*56e9)
-        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
     def testFFE(self):
         Fbaud=56e9
         samplesPerUI=5
@@ -74,7 +74,7 @@ class TestFiltersTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.
         numPreCursorTaps=1
         f=si.fd.EvenlySpacedFrequencyList(Fe,Fe*ResponseLength)
         sp=si.sp.dev.FFE(f,Td,taps,numPreCursorTaps,Z0=50.)
-        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
     def testCTLE(self):
         Fbaud=56e9
         samplesPerUI=5
@@ -88,15 +88,15 @@ class TestFiltersTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test.
         fLF=Fbaud/80.
         f=si.fd.EvenlySpacedFrequencyList(Fe,Fe*ResponseLength)
         sp=si.sp.dev.CTLE(f,gDC,gDC2,fz,fLF,fp1,fp2,Z0=50.)
-        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
     def testBesselLowPassFilterStepResponse(self):
-        self.SimulationResultsChecker(self.testName().replace('test',''))
+        self.SimulationResultsChecker(self.NameForTest().replace('test',''))
     def testButterworthLowPassFilterStepResponse(self):
-        self.SimulationResultsChecker(self.testName().replace('test',''))
+        self.SimulationResultsChecker(self.NameForTest().replace('test',''))
     def testFFEStepResponse(self):
-        self.SimulationResultsChecker(self.testName().replace('test',''))
+        self.SimulationResultsChecker(self.NameForTest().replace('test',''))
     def testCTLEStepResponse(self):
-        self.SimulationResultsChecker(self.testName().replace('test',''))
+        self.SimulationResultsChecker(self.NameForTest().replace('test',''))
 
 if __name__ == "__main__": # pragma: no cover
     runProfiler=False

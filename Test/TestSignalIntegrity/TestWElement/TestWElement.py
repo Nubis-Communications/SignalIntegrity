@@ -35,7 +35,7 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
-    def testName(self):
+    def NameForTest(self):
         return '_'.join(unittest.TestCase.id(self).split('.')[-2:])
     def tearDown(self):
         pass
@@ -47,18 +47,18 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         for r in range(len(Cm)):
             for c in range(len(Cm[r])):
                 self.assertAlmostEqual(Cm[r][c],Cm2[r][c],6,'Maxwell matrix incorrect')
-        self.NetListChecker(sp.NetList(),self.testName())
-        self.SParameterRegressionChecker(sp,self.testName()+'.s12p')
+        self.NetListChecker(sp.NetList(),self.NameForTest())
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s12p')
     def testWElementWireBond(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
         sp=si.sp.dev.WElementFile(f,'WireBond.txt',df=0.001,Z0=50,scale=1./1000.)
-        self.NetListChecker(sp.NetList(),self.testName())
-        self.SParameterRegressionChecker(sp,self.testName()+'.s4p')
+        self.NetListChecker(sp.NetList(),self.NameForTest())
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s4p')
     def testWElementMicrostrip(self):
         f=si.fd.EvenlySpacedFrequencyList(20e9,1000)
         sp=si.sp.dev.WElementFile(f,'microstrip.hspice-w.rlgc',df=0.01,Z0=50,scale=200./1000.)
-        self.NetListChecker(sp.NetList(),self.testName())
-        self.SParameterRegressionChecker(sp,self.testName()+'.s2p')
+        self.NetListChecker(sp.NetList(),self.NameForTest())
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
     def testWElement3PairsMixedMode(self):
         self.SParameterResultsChecker('WireBond3Pairs.si')
     def testWElementWireBondMixedMode(self):
@@ -82,5 +82,5 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         self.SParameterResultsChecker('WireBondWElement.si')
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
+    #import sys;sys.argv = ['', 'Test.NameForTest']
     unittest.main()

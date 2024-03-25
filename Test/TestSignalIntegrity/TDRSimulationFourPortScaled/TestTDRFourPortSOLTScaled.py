@@ -3113,8 +3113,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             newfilename='TDRSimulationFourPortDut'+drivenPortName+'.si'
             pysi.SaveProjectToFile(newfilename)
 
+    @unittest.skip('this test doesnt test anything special - I just want to keep it')
     def testTDRTwoPortNoGain(self):
-        return unittest.skip('this test doesnt test anything special - I just want to keep it')
         self.ConvertToNoGain()
         ports=2
         reflectNames=['Short','Open','Load']
@@ -3226,8 +3226,8 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                         plt.show()
 
         self.assertTrue(self.SParametersAreEqual(DUTCalcSp, DUTActualSp, 1e-3),'s-parameters not equal')
+    @unittest.skip('this test doesnt test anything special - I just want to keep it')
     def testVNATwoPortBAInverseNoGain(self):
-        return unittest.SkipTest('this test doesnt test anything special - I just want to keep it')
         self.ConvertToNoGain()
         ports=2
         reflectNames=['Short','Open','Load']

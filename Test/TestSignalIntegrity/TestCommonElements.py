@@ -33,14 +33,35 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def setUp(self):
-        si.sd.Numeric.trySVD=True
+        unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        unittest.TestCase.setUp(self)
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.TrySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=True
+        self.CheckConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
+        SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=True
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        self.MultiPortTee=False
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
-        si.sd.Numeric.trySVD=True
-        os.chdir(self.cwd)
         unittest.TestCase.tearDown(self)
+        os.chdir(self.cwd)
+        si.td.wf.Waveform.adaptionStrategy='SinX'
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
+        SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=self.CheckConditionNumber
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testDeviceShuntFourPort(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])
