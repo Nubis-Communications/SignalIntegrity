@@ -9,9 +9,9 @@ Then, all of the elements from within SignalIntegrity are accessible using si as
 
     si.dev.CurrentAmplifier()
 
-All of the namespaces for these packages are listed at [Packages](http://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/namespaces.xhtml).
+All of the namespaces for these packages are listed at [Packages](http://nubis-communications.github.io/SignalIntegrity/Doc/xhtml/namespaces.xhtml).
 
-All of the classes available to you are located at [Class List](http://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/annotated.xhtml) along with the [Class Hierarchy](http://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/inherits.xhtml).
+All of the classes available to you are located at [Class List](http://nubis-communications.github.io/SignalIntegrity/Doc/xhtml/annotated.xhtml) along with the [Class Hierarchy](http://nubis-communications.github.io/SignalIntegrity/Doc/xhtml/inherits.xhtml).
 
 The table of codes corresponding to each namespace is:
 
@@ -51,7 +51,7 @@ si.wl | SignalIntegrity.Lib.Wavelets | Wavelets
 The package documentation is generated using a tool called [Doxygen](http://www.doxygen.nl/).
 Unfortunately, Doxygen is a tool made for C++ and Java and is not perfect for Python.  I chose it originally because it is capable of creating [LaTeX](https://www.latex-project.org/) documentation that was originally intended with my book - that idea was abandoned.  But still, it produces a very good documentation system.
 
-When properly set up, it is invoked from the [Doc](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc) directory using:
+When properly set up, it is invoked from the [Doc](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc) directory using:
 
     doxygen SignalIntegrityWindows
 
@@ -64,7 +64,7 @@ or:
 
 depending on which platform you're on.
 
-This uses the configuration provided in the [SignalIntegrityWindows](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/SignalIntegrityWindows) or [SignalIntegrityLinux](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/SignalIntegrityLinux) configuration file and creates a directory called xhtml with the web documentation.  Both need to use a hack of [doxypy.py](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/doxypy.py) that strips the triple quoted header required at the top of each Python file prior to processing.  This filter is specified in the [SignalIntegrityLinux](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/SignalIntegrityLinux) as:
+This uses the configuration provided in the [SignalIntegrityWindows](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/SignalIntegrityWindows) or [SignalIntegrityLinux](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/SignalIntegrityLinux) configuration file and creates a directory called xhtml with the web documentation.  Both need to use a hack of [doxypy.py](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/doxypy.py) that strips the triple quoted header required at the top of each Python file prior to processing.  This filter is specified in the [SignalIntegrityLinux](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/SignalIntegrityLinux) as:
 
     # The INPUT_FILTER tag can be used to specify a program that doxygen should
     # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -89,11 +89,11 @@ This uses the configuration provided in the [SignalIntegrityWindows](https://git
 
 Usually, Doxygen can find the hacked doxypy.py in the /SignalIntegrity/Doc/ directory - if it can't you might need to specify the path to this file directly.
 
-In [SignalIntegrityWindows](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/SignalIntegrityWindows) this needs to be specified as:
+In [SignalIntegrityWindows](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/SignalIntegrityWindows) this needs to be specified as:
 
     INPUT_FILTER           = doxypy.bat
 
-Which uses the local [doxypy.bat](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Doc/doxypy.bat), which simply calls the input filter file.
+Which uses the local [doxypy.bat](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/doxypy.bat), which simply calls the input filter file.
 
 In order to render any equations in the documentation, you must have [GhostScript](https://www.ghostscript.com/download/gsdnld.html) installed.
 

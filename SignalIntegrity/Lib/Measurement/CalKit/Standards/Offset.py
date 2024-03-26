@@ -36,6 +36,7 @@ class Offset(SParameters):
         @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)
         @param offsetLoss (optional) float loss due to skin-effect defined in ohms/s at f0 (defaults to 0).
         @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).
+        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation.
         The result is that the class becomes the base-class SParameters with the s-parameters
         of an offset, which is a common portion of a calibration standard.
         """

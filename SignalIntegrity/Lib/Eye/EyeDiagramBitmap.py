@@ -123,7 +123,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  EnhancementSteps=10, # ignored unless EnhancementMode is Fixed
                  BitsPerSymbol=1, # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
                  recover_clock=False, # whether to recover the clock
-                 clock_recovery_trim_left_right=20 # points to trim from left and right of resampled, clock recovered waveform
+                 clock_recovery_trim_left_right=20 # points to trim from left and right
                  ):
         """Constructor
         Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is

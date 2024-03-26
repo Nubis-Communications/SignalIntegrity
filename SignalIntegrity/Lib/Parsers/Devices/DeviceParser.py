@@ -264,6 +264,7 @@ class DeviceFactory(list):
         of the class SParameters.  Otherwise, they are list of list matrices.
 
         @param ports integer number of ports
+        @param callback function ptr (optional, defaults to None) callback function.
         @param argsList list of arguments.  The name of the device is the first argument.
         If the device has no keyword for the argument, then that argument is next.  Otherwise, besides
         the name and the argument with no keyword, the remaining arguments come in keyword/value pairs where the
@@ -271,7 +272,12 @@ class DeviceFactory(list):
         @param f list of frequencies
         @param Z0 float (optional, defaults to 50.) reference impedance for the calculation
         @return boolean whether the device was created.
-        @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.
+        @throw SignalIntegrityExceptionDeviceParser if the device cannot be created.  
+
+        The callback function is used to pass down into s-parameter files that are actually
+        SignalIntegrity projects so that progress can be tracked and the UI thread can be kept
+        updated.  The callback function should have a signature like Callback(self,number,name=None),
+        where the number is the progress in percent and the name is the name of the file being processed. 
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.SParameters import SParameterFile

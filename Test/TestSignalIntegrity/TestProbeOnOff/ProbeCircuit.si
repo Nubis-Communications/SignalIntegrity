@@ -518,6 +518,7 @@
 						</Bathtub>
 						<ClockRecovery>
 							<Recover>False</Recover>
+							<TrimLeftRight>20</TrimLeftRight>
 						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>100</Columns>
@@ -649,6 +650,7 @@
 						</Bathtub>
 						<ClockRecovery>
 							<Recover>False</Recover>
+							<TrimLeftRight>20</TrimLeftRight>
 						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>100</Columns>
@@ -780,6 +782,7 @@
 						</Bathtub>
 						<ClockRecovery>
 							<Recover>False</Recover>
+							<TrimLeftRight>20</TrimLeftRight>
 						</ClockRecovery>
 						<Color>#f8f59a</Color>
 						<Columns>200</Columns>
