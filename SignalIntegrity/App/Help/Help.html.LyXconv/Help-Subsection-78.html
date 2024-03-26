@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-77.html#next">Prev</a> BER Exponent for Alignment</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-77.html#next">Prev</a> Invert Plot</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Horizontal Alignment <a class="next" name="next" href="Help-Subsection-79.html#prev">Next</a></span>
+<span class="next">BER Exponent for Alignment <a class="next" name="next" href="Help-Subsection-79.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-78"></a>Alignment Mode<a class="Label" name="sub:Alignment-Mode"> </a>
+<a class="toc" name="toc-Subsection-78"></a>Auto Align Eye<a class="Label" name="sub:Auto-Align-Eye"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,21 +1099,21 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Alignment Mode
+Auto Align Eye
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Alignment.Mode
+EyeDiagram.Alignment.AutoAlign
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Enum
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="PlainVisible">
 
 </div>
 <div class="PlainVisible">
-Horizontal or Vertical<br/>
-Horizontal is default
+True or False<br/>
+False is default
 </div>
 
 </td>
@@ -1124,11 +1124,17 @@ Horizontal is default
 
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-76.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, there are four options for alignment in the <a class="Reference" href="Help-Subsection-78.html#sub:Alignment-Mode">Alignment Mode↑</a>:
+The simplest way to generate eye diagrams is to ensure that the waveform passes through the midpoint of the eye at zero time. In this situation, eye alignment is unnecessary. It is, however, very convenient to have the eye aligned automatically. Setting <a class="Reference" href="Help-Subsection-78.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> to True, enables this and shows a number of other parameters in the dialog.
+</div>
+<div class="Standard">
+Eye alignment is performed using measurements on a contour of the eye at a certain probability, specified by the <a class="Reference" href="Help-Subsection-79.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↓</a>. Usually, this is set to -3 (i.e. the contour used is at the internal boundary of the eye with a probability of one in <span class="formula">10<sup> − 3</sup></span>. Using a relatively high probability allows for eyes to be aligned even in extreme cases where the BER is very poor.
+</div>
+<div class="Standard">
+In the case of PAM-2, the algorithm searches the vertical extents of these contours searching for the single widest opening. For PAM-2, it searches for the widest minimum opening. Once the horizontal location of these vertical extents are found, there are four options for alignment in the <a class="Reference" href="Help-Subsection-80.html#sub:Alignment-Mode">Alignment Mode↓</a>:
 </div>
 <ul>
 <li>
-Horizontal Alignment — the eye is aligned based on horizontal measurements using the <a class="Reference" href="Help-Subsection-79.html#sub:Horizontal-Alignment">Horizontal Alignment↓</a> mode:<ul>
+Horizontal Alignment — the eye is aligned based on horizontal measurements using the <a class="Reference" href="Help-Subsection-81.html#sub:Horizontal-Alignment">Horizontal Alignment↓</a> mode:<ul>
 <li>
 Middle — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the middle eye, then computing the horizontal midpoint.
 </li>
@@ -1140,7 +1146,7 @@ Max — The center of the eye is found by first computing the vertical location 
 
 </li>
 <li>
-Vertical Alignment — the eye is aligned based on vertical measurements using the <a class="Reference" href="Help-Subsection-80.html#sub:Vertical-Alignment">Vertical Alignment↓</a> mode:<ul>
+Vertical Alignment — the eye is aligned based on vertical measurements using the <a class="Reference" href="Help-Subsection-82.html#sub:Vertical-Alignment">Vertical Alignment↓</a> mode:<ul>
 <li>
 MaxMin — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for the narrowest eye.
 </li>
@@ -1153,10 +1159,13 @@ Max — The center of the eye is found by finding the horizontal location where 
 </li>
 
 </ul>
+<div class="Standard">
+If auto alignment fails, the eye is still produced, but not aligned. In these cases, try making the <a class="Reference" href="Help-Subsection-79.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↓</a> larger.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-77.html#next">Prev</a> BER Exponent for Alignment</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-77.html#next">Prev</a> Invert Plot</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Horizontal Alignment <a class="next" name="next" href="Help-Subsection-79.html#prev">Next</a></span>
+<span class="next">BER Exponent for Alignment <a class="next" name="next" href="Help-Subsection-79.html#prev">Next</a></span>
 </div>
 
 </div>

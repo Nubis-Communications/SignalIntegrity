@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -112,13 +112,14 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">        @param offsetLoss (optional) float loss due to skin-effect defined in ohms/s at f0 (defaults to 0).</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">        @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">        The result is that the class becomes the base-class SParameters with the s-parameters</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral">        of a thru standard.&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        Offset.__init__(self,f,offsetDelay,offsetZ0,offsetLoss,f0,Z0=50.)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral">        The result is that the class becomes the base-class SParameters with the s-parameters</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">        of a thru standard.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        Offset.__init__(self,f,offsetDelay,offsetZ0,offsetLoss,f0,Z0=50.)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml">SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard.ThruStandard</a></div><div class="ttdoc">Class providing the s-parameters of a thru standard as commonly defined for a calibration kit.</div><div class="ttdef"><b>Definition:</b> <a href="ThruStandard_8py_source.xhtml#l00029">ThruStandard.py:29</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml">SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset.Offset</a></div><div class="ttdoc">class providing the s-parameters of an offset portion of the various calibration standards for a cali...</div><div class="ttdef"><b>Definition:</b> <a href="Offset_8py_source.xhtml#l00031">Offset.py:31</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard_xhtml_a55a282511753f3e986601077fd94a7c3"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml#a55a282511753f3e986601077fd94a7c3">SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard.ThruStandard.__init__</a></div><div class="ttdeci">def __init__(self, f, offsetDelay=0.0, offsetZ0=50.0, offsetLoss=0.0, f0=1e9, Z0=50.)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="ThruStandard_8py_source.xhtml#l00039">ThruStandard.py:39</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard_xhtml_a55a282511753f3e986601077fd94a7c3"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1ThruStandard_1_1ThruStandard.xhtml#a55a282511753f3e986601077fd94a7c3">SignalIntegrity.Lib.Measurement.CalKit.Standards.ThruStandard.ThruStandard.__init__</a></div><div class="ttdeci">def __init__(self, f, offsetDelay=0.0, offsetZ0=50.0, offsetLoss=0.0, f0=1e9, Z0=50.)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="ThruStandard_8py_source.xhtml#l00040">ThruStandard.py:40</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

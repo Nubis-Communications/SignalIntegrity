@@ -34265,6 +34265,62 @@ noprefix "false"
 \begin_layout Standard
 
 \series bold
+Clock Recovery
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:clock-recovery"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Normally, the sample clock is assumed to be perfectly aligned with the clock
+ assumed for the data.
+ In other words, it is assumed that there are exactly a certain number of
+ sample points (not necessarily integer) that make up one unit interval,
+ or one symbol.
+ This usually ensured in the simulation environment.
+ Sometimes, however, waveforms are acquired by an oscilloscope, and there
+ is some, generally small, inaccuracy between the sample clock and the data
+ clock.
+ In this case, drawing the eye will result in a smeared out useless eye.
+\end_layout
+
+\begin_layout Standard
+When waveforms are acquired by an oscilloscope, setting 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Recover-Clock"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to True enables the simulator to recover the clock for the data, and resample
+ the waveform such that it this clock inaccuracy is removed.
+ In such case, the waveforms are resampled to a sample rate equivalent to
+ two samples per unit interval, and a timing error waveform is generated.
+ To avoid failure from the resampling to reach beyond the extents of the
+ input waveform, set 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Points-to-Trim"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to some number (like 20) to trim the edge points, making the waveform smaller,
+ but avoiding failure.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
 Enhanced Precision Mode
 \end_layout
 
@@ -35360,7 +35416,7 @@ The Eye Diagram Properties are:
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="43" columns="5">
+<lyxtabular version="3" rows="45" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="8cm">
 <column alignment="center" valignment="top" width="8cm">
@@ -36053,6 +36109,118 @@ Float
 
 \begin_layout Plain Layout
 Y Axis is Fixed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Recover Clock
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Recover-Clock"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+False
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Always
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Points to Trim From Both Side
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Points-to-Trim"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Recover Clock is True
 \end_layout
 
 \end_inset
@@ -38900,6 +39068,277 @@ noprefix "false"
  The actual size depends on your monitor.
  The default value causes the image to be relatively small but nice sized
  initially on most monitors and a good initial size for scaling.
+\end_layout
+
+\begin_layout Subsection
+Recover Clock
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Recover-Clock"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Recover Clock
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EyeDiagram.ClockRecovery.Recover
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bool
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+False
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This sets the eye diagram to be calculated only after the data clock is
+ recovered and the waveform is resampled.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:clock-recovery"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Points to Trim From Both Sides
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Points-to-Trim"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="8cm">
+<column alignment="center" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="18cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Preference Name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+(Default) Value
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Points to Trim From Both Sides
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EyeDiagram.ClockRecovery.TrimLeftRight
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Int
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+\align left
+20
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:Recover-Clock"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is set to True, this sets the number of points of the clock recovery waveform
+ to trim from the left and the right of the waveform after the timing error
+ is calculated.
+ The timing error generates an error that, during interpolation of the resampled
+ waveform, might reach beyond the extents of the input waveform, causing
+ the calculation to fail.
+ If this happens, increase the number of points to trim to avoid this failure.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "subsec:clock-recovery"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -64931,7 +65370,7 @@ name "device:Eye-Probe"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="10" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -65315,11 +65754,58 @@ gain
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string (on or off)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+on
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+eye state
 \end_layout
 
 \end_inset
@@ -65337,7 +65823,7 @@ string (on or off)
 \begin_inset Text
 
 \begin_layout Plain Layout
-state
+eyestate
 \end_layout
 
 \end_inset
@@ -65449,6 +65935,11 @@ If the state is set to off, the waveform is not calculated.
 \end_layout
 
 \begin_layout Standard
+If the state is set to on, but the eyestate is set to off, the waveform
+ is produced, but the eye diagram is not.
+\end_layout
+
+\begin_layout Standard
 When simulations are complete, for each Eye Probe, the 
 \begin_inset CommandInset ref
 LatexCommand nameref
@@ -65539,7 +66030,7 @@ name "device:Differential-Eye-Probe"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="9" columns="5">
+<lyxtabular version="3" rows="10" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -65923,11 +66414,58 @@ gain
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string (on or off)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+on
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+eye state
 \end_layout
 
 \end_inset
@@ -65945,7 +66483,7 @@ string (on or off)
 \begin_inset Text
 
 \begin_layout Plain Layout
-state
+eyestate
 \end_layout
 
 \end_inset
@@ -65995,6 +66533,11 @@ There are some special prefixes on the reference that cause the calculation
 
 \begin_layout Standard
 If the state is set to off, the waveform is not calculated.
+\end_layout
+
+\begin_layout Standard
+If the state is set to on, but the eyestate is set to off, the waveform
+ is produced, but the eye diagram is not.
 \end_layout
 
 \begin_layout Standard
@@ -66068,7 +66611,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename DifferentialEyeProbePropertiesdialog.png.png
+	filename DifferentialEyeProbePropertiesdialog.png
 
 \end_inset
 
@@ -69184,7 +69727,7 @@ name "device:Eye-Waveform"
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="10" columns="5">
+<lyxtabular version="3" rows="11" columns="5">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="4cm">
 <column alignment="center" valignment="top" width="2cm">
@@ -69615,11 +70158,58 @@ gain
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+string (on or off)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+state
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+on
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+eye state
 \end_layout
 
 \end_inset
@@ -69637,7 +70227,7 @@ string (on or off)
 \begin_inset Text
 
 \begin_layout Plain Layout
-state
+eyestate
 \end_layout
 
 \end_inset
@@ -69728,6 +70318,11 @@ noprefix "false"
 
 \begin_layout Standard
 If the state is set to off, the waveform is not read in and processed.
+\end_layout
+
+\begin_layout Standard
+If the state is set to on, but the eyestate is set to off, the waveform
+ is produced, but the eye diagram is not.
 \end_layout
 
 \begin_layout Standard

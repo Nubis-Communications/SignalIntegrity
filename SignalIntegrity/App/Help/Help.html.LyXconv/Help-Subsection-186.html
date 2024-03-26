@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,56 +1073,62 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-185.html#next">Prev</a> Numeric</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-185.html#next">Prev</a> Simulator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">PostProcessing <a class="next" name="next" href="Help-Subsection--4.html#prev">Next</a></span>
+<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-187.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-186"></a>DeviceParser<a class="Label" name="sub:DeviceParser"> </a>
+<a class="toc" name="toc-Subsection-186"></a>VirtualProbe<a class="Label" name="sub:VirtualProbe"> </a>
 </h2>
 <div class="Standard">
-This error class is for errors parsing <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a> lines with the <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a> keyword.
+<b>No Measures</b>
 </div>
 <div class="Standard">
-<b>Mandatory Keywords Not Supplied</b>
+There are no measure probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one measure probe prior to enabling the simulation calculation, but it does not check whether the measure probe is actually connected to anything. 
 </div>
 <div class="Standard">
-This error message states that mandatory keywords and values were not supplied to the device parser for a particular <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>. This would be an internal error to the application because you cannot really control this.
+By looking at your schematic, you can see this, because unconnected measure probes will have a red x on their connection pins. That being said, simply connecting a wire to the measure probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
 </div>
 <div class="Standard">
-The keyword error looks like: [’keyword1’,’keyword2’,…] for ’deviceName’ where ’keyword1’ and ’keyword2’ are representative of keywords that must be defined for the device and ’deviceName’ is representative of the name of the device.
+<b>No Outputs</b>
 </div>
 <div class="Standard">
-If a keyword is ’’, then the device takes an argument without a keyword (the keyword is inherent - see <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a>).
+There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
 </div>
 <div class="Standard">
-For example, an error message that says that the keywords not supplied are: [’’] for file, this means that the file name (which is not specified with a keyword) was not supplied.
+By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
 </div>
 <div class="Standard">
-When entering netlists by hand, it is easy to forget a mandatory keyword, but in <b><i>SignalIntegrityApp</i></b>, this is difficult since the application creates the netlist entry from the instantiated part in the schematic.
+<b>No Sources</b>
 </div>
 <div class="Standard">
-<b>Arguments Must Come in Keyword Pairs</b>
+There are no sources in the circuit. In the context of <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="Help-Subsection-137.html#device:Stim">Stim↑</a> defined by a <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="Help-Subsection-177.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
 </div>
 <div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that it was expecting the arguments to come in keyword/value pairs. This would be an internal error to the application because you cannot really control this.
+By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
 </div>
 <div class="Standard">
-<b>Device Could Not Be Instantiated</b>
+Stims also require that the end of the arrow is connected directly to a device port. This is because unlike waves which are present along a wire, stims represent waves that emanate from a device port. Unfortunately, the schematic editor allows you to make this mistake.
 </div>
 <div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and the result of trying to create a device with the given name and arguments failed. This would be an internal error to the application because you cannot really control this.
+Also, stims must be connected to only one device port. While the schematic editor allows device ports to be connected directly together, when a stim is connected to a device port, the device port must be separated from others in the schematic by a small piece of wire.
 </div>
 <div class="Standard">
-<b>Device Not Found</b>
+<b>Numerical Error</b>
 </div>
 <div class="Standard">
-This error message states that the netlist <a class="Reference" href="Help-Subsection-170.html#sub:device">device↑</a> line in the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a>, defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> was formed incorrectly and that the device name specified is unknown. This would be an internal error to the application because you cannot really control this.
+This is the same error as Cannot Invert I-W or I-Wxx while calculating the virtual probe transfer parameters. It indicates pathological problems in the system described.
+</div>
+<div class="Standard">
+<b>Incorrect Matrix Alignment</b>
+</div>
+<div class="Standard">
+This cryptic error is an all encompassing error to indicate that something is wrong with the number of stims or measures in your system. In virtual probing, the number of independent stims (stims without the non-arrow side connected) must be less than or equal to the number of measure probes in the system. This error probably indicates that this is not the case (I say probably because there are other sources of this error especially when hand created netlists are entered into the system).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-185.html#next">Prev</a> Numeric</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-185.html#next">Prev</a> Simulator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">PostProcessing <a class="next" name="next" href="Help-Subsection--4.html#prev">Next</a></span>
+<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-187.html#prev">Next</a></span>
 </div>
 
 </div>

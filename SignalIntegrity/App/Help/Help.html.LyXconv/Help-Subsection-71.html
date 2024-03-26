@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Noise</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Random Jitter</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Log Intensity <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
+<span class="next">Noise <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-71"></a>Max Kernel Pixels<a class="Label" name="sub:Max-Kernel-Pixels"> </a>
+<a class="toc" name="toc-Subsection-71"></a>Deterministic Jitter<a class="Label" name="sub:Deterministic-Jitter"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Max Window Dimensions
+Deterministic Jitter
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-71.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↑</a>
+<a class="Reference" href="Help-Subsection-71.html#sub:Deterministic-Jitter">Deterministic Jitter↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Int
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-100,000
+0 s
 </div>
 
 </td>
@@ -1120,15 +1120,21 @@ Int
 
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-67.html#sub:Eye-Mode">Eye Mode↑</a> is set to Jitter &amp; Noise, a kernel is created and convolved with the ISI only eye diagram to create the jitter and noise effect. To protect against pathological cases where this kernel grows too large, a limit is set on its number of pixels. The default value is nearly a kernel that is 300 x 300 pixels.
+In the industry, (at least pertaining to the dual-Dirac model), deterministic jitter generally refers to the dual-Dirac delta functions, that are convolved with the <a class="Reference" href="Help-Subsection-70.html#sub:Random-Jitter">Random Jitter↑</a>.
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-67.html#sub:Eye-Mode">Eye Mode↑</a> is set to ISI Only, no kernel is used and this value is not shown.
+When the <a class="Reference" href="Help-Subsection-69.html#sub:Eye-Mode">Eye Mode↑</a> is set to Jitter &amp; Noise, this jitter forms the dual-Dirac delta portion.
+</div>
+<div class="Standard">
+The deterministic jitter is the pk-pk separation of the dual-Dirac deltas.
+</div>
+<div class="Standard">
+When <a class="Reference" href="Help-Subsection-69.html#sub:Eye-Mode">Eye Mode↑</a> is set to ISI Only, this jitter value is not used and not shown.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Noise</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-70.html#next">Prev</a> Random Jitter</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Log Intensity <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
+<span class="next">Noise <a class="next" name="next" href="Help-Subsection-72.html#prev">Next</a></span>
 </div>
 
 </div>

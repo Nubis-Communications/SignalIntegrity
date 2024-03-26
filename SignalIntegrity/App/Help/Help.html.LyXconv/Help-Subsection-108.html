@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,17 +1073,13 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Directional Coupler</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Relay <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="next">Power Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-108"></a>Voltage Mixed Mode Converter<a class="Label" name="device:Voltage-Mixed-Mode-Converter"> </a>
+<a class="toc" name="toc-Subsection-108"></a>Net Name<a class="Label" name="device:Net-Name"> </a>
 </h2>
-<div class="Standard">
-<img class="embedded" src="VoltageMixedModeConverter.png" alt="figure VoltageMixedModeConverter.png" style="max-width: 152px; max-height: 144px;"/>
-
-</div>
 <div class="Standard">
 <table>
 <tr>
@@ -1124,37 +1120,19 @@ Miscellaneous
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-default reference
+Net Name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+netname
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-reference
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-
+???
 </td>
 
 </tr>
@@ -1163,33 +1141,22 @@ string
 
 </div>
 <div class="Standard">
-The voltage mixed mode converter is one that defines differential and common mode voltage with respect to positive and negative voltages as:
+A net name is shown with text and a single connection point. When the connection point is joined to a device pin or wire in the same manner any other device is joined, the net assumes that name. Thus multiple connections of net names with the same name essentially joins the nets.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>V</i><sub><i>d</i></sub> = <i>V</i><sub> + </sub> − <i>V</i><sub> − </sub>
+The net names do not appear in the netlist. Only the fact that the device pins are connected together will be obvious.
 </div>
+<div class="Standard">
+Net names have no effect on the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a> generated.
+</div>
+<div class="Standard">
+<img class="embedded" src="NetName.png" alt="figure NetName.png" style="max-width: 567px; max-height: 319px;"/>
 
-</div>
-<div class="Standard">
-<div class="formula">
-<i>V</i><sub><i>c</i></sub> = <span class="fraction"><span class="ignored">(</span><span class="numerator"><i>V</i><sub> + </sub> + <i>V</i><sub> − </sub></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span>
-</div>
-
-</div>
-<div class="Standard">
-This is the standard definition in industry for the time-domain and this device is used primarily to expose differential- and common-mode voltages in time-domain simulation or virtual probing applications.
-</div>
-<div class="Standard">
-The other kind of mixed-mode converter is the <a class="Reference" href="Help-Subsection-107.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↑</a>.
-</div>
-<div class="Standard">
-See <a class="Reference" href="Help-Subsection-25.html#sub:Virtual-Probing-Example">Virtual Probing Example↑</a> for an example of this type of device is used.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Power Mixed Mode Converter</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-107.html#next">Prev</a> Directional Coupler</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Relay <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
+<span class="next">Power Mixed Mode Converter <a class="next" name="next" href="Help-Subsection-109.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-118.html#next">Prev</a> Voltage Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-118.html#next">Prev</a> RLGC Fit</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-120.html#prev">Next</a></span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-120.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-119"></a>Current Source<a class="Label" name="device:Current-Source"> </a>
+<a class="toc" name="toc-Subsection-119"></a>W Element<a class="Label" name="device:W-Element"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CurrentSourceOnePort.png" alt="figure CurrentSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
-<img class="embedded" src="CurrentSourceTwoPort.png" alt="figure CurrentSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
+<img class="embedded" src="WElement.png" alt="figure WElement.png" style="width: 126px; max-width: 420px; height: 264px; max-height: 882px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Sources
+Transmission Lines
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-CS?
+W?
 </td>
 
 </tr>
@@ -1155,7 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+W1
 </td>
 
 </tr>
@@ -1179,55 +1178,73 @@ None
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-show
+dissipation factor
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-bool
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-show
+df
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-true
+0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-waveform project name
+scale
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-wfprojname
+scale
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+1.0
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-use project calculation properties
+sections
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-bool
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-calcprop
+sect
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-false
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+4
 </td>
 
 </tr>
@@ -1236,21 +1253,24 @@ false
 
 </div>
 <div class="Standard">
-The current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a current <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> specified by the file name to the system. When <a class="Reference" href="Help-Subsection-10.html#sub:Simulating">Simulating↑</a>, the waveform is read in and sampled to base sample rate specified in the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
+W elements are distributed transmission lines. A two-port W element is equivalent to an <a class="Reference" href="Help-Subsection-114.html#device:Transmission-Line-COM">COM Transmission Line↑</a> transmission line and a four-port W element is equivalent to a <a class="Reference" href="Help-Subsection-117.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↑</a>. Usually the transmission line model is provided numerically with values per meter. So if you want something different from 1 meter, you must scale the line.
 </div>
 <div class="Standard">
-The <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
+The user can specify the number of sections to be utilized for analytic approximation, but 0 is recommended. When zero sections are specified, the number of sections is intelligently calculated based on the fastest risetime possible (based on the end frequency used in the calculation) and the worst case electrical length possible determined from the inductance and capacitance values in the model.
 </div>
 <div class="Standard">
-If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
+The number of ports should always be even and match those in the W element file name specified. The transmission line elements in the model are always such that for <span class="formula"><i>P</i></span> ports, transmission line <span class="formula"><i>m</i></span> goes from port <span class="formula"><i>m</i></span> to port <span class="formula"><i>P</i> ⁄ 2 + <i>m</i></span> .
 </div>
 <div class="Standard">
-For the file name, a user may specify another <i>SignalIntegrity</i> project, which ought to be a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> project that produces waveforms. In this case, two additional properties must be chosen: The name of the probe that produces the <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> in the project, and whether to perform that simulation in that project using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> of the current project.
+Because the model does not seem to support dissipation factor, it can be entered globally for the model.
+</div>
+<div class="Standard">
+More documentation on this device may be found here: <a class="FlexURL" href="http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf">http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf</a>
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-118.html#next">Prev</a> Voltage Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-118.html#next">Prev</a> RLGC Fit</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-120.html#prev">Next</a></span>
+<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-120.html#prev">Next</a></span>
 </div>
 
 </div>

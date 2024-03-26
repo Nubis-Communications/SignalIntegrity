@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-78.html#next">Prev</a> Alignment Mode</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-78.html#next">Prev</a> Auto Align Eye</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Vertical Alignment <a class="next" name="next" href="Help-Subsection-80.html#prev">Next</a></span>
+<span class="next">Alignment Mode <a class="next" name="next" href="Help-Subsection-80.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-79"></a>Horizontal Alignment<a class="Label" name="sub:Horizontal-Alignment"> </a>
+<a class="toc" name="toc-Subsection-79"></a>BER Exponent for Alignment<a class="Label" name="sub:BER-Exponent-for-Alignment"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,23 +1099,16 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Horizonal Alignment
+BER Exponent for Alignment
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Alignment.Horizontal
+EyeDiagram.BERForAlignment
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Enum
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="PlainVisible">
-
-</div>
-<div class="PlainVisible">
-Middle or Max<br/>
-Middle is default
-</div>
-
+-3
 </td>
 
 </tr>
@@ -1124,24 +1117,12 @@ Middle is default
 
 </div>
 <div class="Standard">
-When <a class="Reference" href="Help-Subsection-76.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, and the <a class="Reference" href="Help-Subsection-78.html#sub:Alignment-Mode">Alignment Mode↑</a> is set to Horizontal, 
+If <a class="Reference" href="Help-Subsection-78.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, eye alignment is performed using measurements on a contour of the eye at a certain probability, specified by the <a class="Reference" href="Help-Subsection-79.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↑</a>. Usually, this is set to -3 (i.e. the contour used is at the internal boundary of the eye with a probability of one in <span class="formula">10<sup> − 3</sup></span>. Using a relatively high probability allows for eyes to be aligned even in extreme cases where the BER is very poor.
 </div>
-<div class="Standard">
-the eye is aligned based on horizontal measurements using the <a class="Reference" href="Help-Subsection-79.html#sub:Horizontal-Alignment">Horizontal Alignment↑</a> mode:
-</div>
-<ul>
-<li>
-Middle — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the middle eye, then computing the horizontal midpoint.
-</li>
-<li>
-Max — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the widest eye, then computing the horizontal midpoint.
-</li>
-
-</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-78.html#next">Prev</a> Alignment Mode</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-78.html#next">Prev</a> Auto Align Eye</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Vertical Alignment <a class="next" name="next" href="Help-Subsection-80.html#prev">Next</a></span>
+<span class="next">Alignment Mode <a class="next" name="next" href="Help-Subsection-80.html#prev">Next</a></span>
 </div>
 
 </div>

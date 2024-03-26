@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,17 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-158.html#next">Prev</a> Thru Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-158.html#next">Prev</a> Thru Standard</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-160.html#prev">Next</a></span>
+<span class="next">Thru Measurement <a class="next" name="next" href="Help-Subsection-160.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-159"></a>Xtalk Measurement<a class="Label" name="device:Xtalk-Measurement"> </a>
+<a class="toc" name="toc-Subsection-159"></a>Reflect Measurement<a class="Label" name="device:Reflect-Measurement"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="XtalkMeasurement.png" alt="figure XtalkMeasurement.png" style="width: 176px; max-width: 707px; height: 104px; max-height: 417px;"/>
+<img class="embedded" src="ShortMeasure.png" alt="figure ShortMeasure.png" style="width: 192px; max-width: 770px; height: 96px; max-height: 387px;"/>
+<img class="embedded" src="OpenMeasure.png" alt="figure OpenMeasure.png" style="width: 192px; max-width: 770px; height: 96px; max-height: 387px;"/>
+<img class="embedded" src="LoadMeasure.png" alt="figure LoadMeasure.png" style="width: 198px; max-width: 793px; height: 96px; max-height: 387px;"/>
 
 </div>
 <div class="Standard">
@@ -1149,6 +1151,27 @@ None
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
+cal standard file name
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string or file
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+std
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
 port number
 </div>
 
@@ -1167,47 +1190,23 @@ pn
 </td>
 
 </tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-other port number
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-int
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-opn
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-2
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>.
+Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a one-port calibration standard, specified as s-parameters, a project producing s-parameters, or as a calibration standard such as a <a class="Reference" href="Help-Subsection-155.html#device:Short-Standard">Short Standard↑</a>, <a class="Reference" href="Help-Subsection-156.html#device:Open-Standard">Open Standard↑</a>, or a <a class="Reference" href="Help-Subsection-157.html#device:Load-Standard">Load Standard↑</a>.
 </div>
 <div class="Standard">
-The file name refers to a two-port s-parameter file, or a project producing one-port s-parameters.
+The file name refers to a one-port s-parameter file, or a project producing one-port s-parameters, or as the reference designator of a calibration standard placed in a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> project.
 </div>
 <div class="Standard">
-The port number corresponds to the port of a network analyzer where port 1 of the thru standard is connected and to port 1 of the two-port raw s-parameter measurement. The other port number corresponds to the port of the network analyzer where port 2 of the thru standard is connected and to port 2 of the two-port raw s-parameter measurement.
-</div>
-<div class="Standard">
-Ideally, the ports are not connected during a crosstalk measurement.
+The port number corresponds to the port of a network analyzer where the reflect measurement is made.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-158.html#next">Prev</a> Thru Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-158.html#next">Prev</a> Thru Standard</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-160.html#prev">Next</a></span>
+<span class="next">Thru Measurement <a class="next" name="next" href="Help-Subsection-160.html#prev">Next</a></span>
 </div>
 
 </div>

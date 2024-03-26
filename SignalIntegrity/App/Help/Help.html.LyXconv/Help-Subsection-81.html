@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> Vertical Alignment</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> Alignment Mode</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">BER Exponent for Measure <a class="next" name="next" href="Help-Subsection-82.html#prev">Next</a></span>
+<span class="next">Vertical Alignment <a class="next" name="next" href="Help-Subsection-82.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-81"></a>Measure Eye Parameters<a class="Label" name="sub:Measure-Eye-Parameters"> </a>
+<a class="toc" name="toc-Subsection-81"></a>Horizontal Alignment<a class="Label" name="sub:Horizontal-Alignment"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,10 +1099,10 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Measure Eye Parameters
+Horizonal Alignment
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.Measure.Measure
+EyeDiagram.Alignment.Horizontal
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Enum
@@ -1112,8 +1112,8 @@ Enum
 
 </div>
 <div class="PlainVisible">
-True or False<br/>
-False is default
+Middle or Max<br/>
+Middle is default
 </div>
 
 </td>
@@ -1124,27 +1124,24 @@ False is default
 
 </div>
 <div class="Standard">
-If <a class="Reference" href="Help-Subsection-81.html#sub:Measure-Eye-Parameters">Measure Eye Parameters↑</a> is set to False, no measurements are made on the eye. Turn this to False when debugging eye diagram creation that is failing due to any inability to perform eye diagram measurements.
+When <a class="Reference" href="Help-Subsection-78.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, and the <a class="Reference" href="Help-Subsection-80.html#sub:Alignment-Mode">Alignment Mode↑</a> is set to Horizontal, 
 </div>
 <div class="Standard">
-Setting <a class="Reference" href="Help-Subsection-81.html#sub:Measure-Eye-Parameters">Measure Eye Parameters↑</a> to True enables a large amount of other parameter choices:
+the eye is aligned based on horizontal measurements using the <a class="Reference" href="Help-Subsection-81.html#sub:Horizontal-Alignment">Horizontal Alignment↑</a> mode:
 </div>
 <ul>
 <li>
-<a class="Reference" href="Help-Subsubsection-112.html#pc:Eye-Measurement-Properties">Eye Measurement Properties↑</a> — the properties that determine how <a class="Reference" href="Help-Subsection-50.html#sub:Vertical/Horizontal">Vertical/Horizontal↑</a> eye measurements are made. These measurements appear in the left tab of the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>.
+Middle — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the middle eye, then computing the horizontal midpoint.
 </li>
 <li>
-<a class="Reference" href="Help-Subsubsection-113.html#pc:Bathtub-Curve-Measurement-Properties">Bathtub Curve Measurement Properties↑</a> — The properties that determine the bathtub curve generation, which allows the <a class="Reference" href="Help-Subsection--2.html#sub:Error-Rates">Error Rates↑</a> measurements. These measurements appear in the right tab of the <a class="Reference" href="Help-Section-18.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog↑</a>. These can be analyzed looking at the <a class="Reference" href="Help-Section-19.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog↑</a>.
-</li>
-<li>
-<a class="Reference" href="Help-Subsubsection-114.html#pc:Eye-Annotation-Properties">Eye Annotation Properties↑</a> — measurements made on the eye can be shown by painting directly on the eye.
+Max — The center of the eye is found by first computing the vertical location of the widest horizontal opening of the widest eye, then computing the horizontal midpoint.
 </li>
 
 </ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> Vertical Alignment</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-80.html#next">Prev</a> Alignment Mode</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">BER Exponent for Measure <a class="next" name="next" href="Help-Subsection-82.html#prev">Next</a></span>
+<span class="next">Vertical Alignment <a class="next" name="next" href="Help-Subsection-82.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -262,7 +262,7 @@ $(function() {
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                waveform=amplitude</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">return</span> waveform</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keyword">def </span>WaveformTimeDescriptor(self):</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">import</span> SignalIntegrity <span class="keyword">as</span> si</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib.xhtml">SignalIntegrity.Lib</a> <span class="keyword">as</span> si</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        Fs=float(self[<span class="stringliteral">&#39;fs&#39;</span>].GetValue())</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        K=int(math.ceil(Fs*float(self[<span class="stringliteral">&#39;dur&#39;</span>].GetValue())))</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        horOffset=float(self[<span class="stringliteral">&#39;ho&#39;</span>].GetValue())</div>
@@ -1513,215 +1513,218 @@ $(function() {
 <div class="line"><a name="l01432"></a><span class="lineno"> 1432</span>&#160;                         PartPropertyDescription(<span class="stringliteral">&#39;Eye Waveform&#39;</span>),</div>
 <div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;                         PartPropertyCalculationProperties(),</div>
 <div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;                         PartPropertyOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
-<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
-<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
-<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;                         PartPropertyDelay(0.0),</div>
-<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;                         PartPropertyBaudRate(),</div>
-<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;                         PartPropertyWaveformFileName(),</div>
-<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;                         PartPropertyWaveformType(<span class="stringliteral">&#39;file&#39;</span>),</div>
-<div class="line"><a name="l01441"></a><span class="lineno"> 1441</span>&#160;                         PartPropertyWaveformProjectName(<span class="stringliteral">&#39;&#39;</span>)],</div>
-<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;                        PartPictureVariableEyeWaveform(),</div>
-<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;                        EyeDiagramConfiguration())</div>
-<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;        self[<span class="stringliteral">&#39;wffile&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;        self[<span class="stringliteral">&#39;wffile&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160; </div>
-<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;<span class="keyword">class </span>DeviceParallel(Device):</div>
-<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;        netlist=DeviceNetListLine(partname=<span class="stringliteral">&#39;parallel&#39;</span>,values=[(<span class="stringliteral">&#39;file&#39;</span>,<span class="keyword">True</span>),(<span class="stringliteral">&#39;sect&#39;</span>,<span class="keyword">True</span>)])</div>
-<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;        Device.__init__(self,netlist,[</div>
-<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;            PartPropertyDescription(<span class="stringliteral">&#39;Parallel Devices&#39;</span>),</div>
-<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;            PartPropertyCategory(<span class="stringliteral">&#39;Miscellaneous&#39;</span>),</div>
-<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;            PartPropertyPorts(2),</div>
-<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;            PartPropertyPartName(<span class="stringliteral">&#39;Parallel&#39;</span>),</div>
-<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160;            PartPropertyHelp(<span class="stringliteral">&#39;device:Parallel&#39;</span>),</div>
-<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;            PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;D?&#39;</span>),</div>
-<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;            PartPropertyCalculationProperties(),</div>
-<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;            PartPropertySections(1),</div>
-<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160;            PartPropertyFileName()],PartPictureVariableParallel())</div>
-<div class="line"><a name="l01466"></a><span class="lineno"> 1466</span>&#160; </div>
-<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160;<span class="keyword">class </span>DeviceEyeProbe(Device):</div>
-<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l01469"></a><span class="lineno"> 1469</span>&#160;        netlist=DeviceNetListLine(devicename=<span class="stringliteral">&#39;eyeprobe&#39;</span>,showReference=<span class="keyword">True</span>,showports=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160;        Device.__init__(self,</div>
-<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160;                        netlist,</div>
-<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;                        [PartPropertyCategory(<span class="stringliteral">&#39;Ports and Probes&#39;</span>),</div>
-<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160;                         PartPropertyPartName(<span class="stringliteral">&#39;EyeProbe&#39;</span>),</div>
-<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;                         PartPropertyHelp(<span class="stringliteral">&#39;device:Eye-Probe&#39;</span>),</div>
-<div class="line"><a name="l01475"></a><span class="lineno"> 1475</span>&#160;                         PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;Vo?&#39;</span>),</div>
-<div class="line"><a name="l01476"></a><span class="lineno"> 1476</span>&#160;                         PartPropertyDescription(<span class="stringliteral">&#39;Eye Probe&#39;</span>),</div>
-<div class="line"><a name="l01477"></a><span class="lineno"> 1477</span>&#160;                         PartPropertyOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
-<div class="line"><a name="l01478"></a><span class="lineno"> 1478</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
-<div class="line"><a name="l01479"></a><span class="lineno"> 1479</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
-<div class="line"><a name="l01480"></a><span class="lineno"> 1480</span>&#160;                         PartPropertyDelay(0.0),</div>
-<div class="line"><a name="l01481"></a><span class="lineno"> 1481</span>&#160;                         PartPropertyBaudRate(),</div>
-<div class="line"><a name="l01482"></a><span class="lineno"> 1482</span>&#160;                         PartPropertyPorts(1)],</div>
-<div class="line"><a name="l01483"></a><span class="lineno"> 1483</span>&#160;                        PartPictureVariableEyeProbe(),</div>
-<div class="line"><a name="l01484"></a><span class="lineno"> 1484</span>&#160;                        EyeDiagramConfiguration())</div>
-<div class="line"><a name="l01485"></a><span class="lineno"> 1485</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01486"></a><span class="lineno"> 1486</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01487"></a><span class="lineno"> 1487</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01488"></a><span class="lineno"> 1488</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01489"></a><span class="lineno"> 1489</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01490"></a><span class="lineno"> 1490</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01491"></a><span class="lineno"> 1491</span>&#160; </div>
-<div class="line"><a name="l01492"></a><span class="lineno"> 1492</span>&#160;<span class="keyword">class </span>DeviceDifferentialEyeProbe(Device):</div>
-<div class="line"><a name="l01493"></a><span class="lineno"> 1493</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l01494"></a><span class="lineno"> 1494</span>&#160;        netlist=DeviceNetListLine(devicename=<span class="stringliteral">&#39;differentialeyeprobe&#39;</span>,showReference=<span class="keyword">True</span>,showports=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l01495"></a><span class="lineno"> 1495</span>&#160;        Device.__init__(self,</div>
-<div class="line"><a name="l01496"></a><span class="lineno"> 1496</span>&#160;                        netlist,</div>
-<div class="line"><a name="l01497"></a><span class="lineno"> 1497</span>&#160;                        [PartPropertyCategory(<span class="stringliteral">&#39;Ports and Probes&#39;</span>),</div>
-<div class="line"><a name="l01498"></a><span class="lineno"> 1498</span>&#160;                         PartPropertyPartName(<span class="stringliteral">&#39;DifferentialEyeProbe&#39;</span>),</div>
-<div class="line"><a name="l01499"></a><span class="lineno"> 1499</span>&#160;                         PartPropertyHelp(<span class="stringliteral">&#39;device:Differential-Eye-Probe&#39;</span>),</div>
-<div class="line"><a name="l01500"></a><span class="lineno"> 1500</span>&#160;                         PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;Vo?&#39;</span>),</div>
-<div class="line"><a name="l01501"></a><span class="lineno"> 1501</span>&#160;                         PartPropertyDescription(<span class="stringliteral">&#39;Differential Eye Probe&#39;</span>),</div>
-<div class="line"><a name="l01502"></a><span class="lineno"> 1502</span>&#160;                         PartPropertyOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
-<div class="line"><a name="l01503"></a><span class="lineno"> 1503</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
-<div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
-<div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;                         PartPropertyDelay(0.0),</div>
-<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;                         PartPropertyBaudRate(),</div>
-<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;                         PartPropertyPorts(2)],</div>
-<div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;                        PartPictureVariableDifferentialEyeProbe(),</div>
-<div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;                        EyeDiagramConfiguration())</div>
-<div class="line"><a name="l01510"></a><span class="lineno"> 1510</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01511"></a><span class="lineno"> 1511</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01512"></a><span class="lineno"> 1512</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01513"></a><span class="lineno"> 1513</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01514"></a><span class="lineno"> 1514</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l01515"></a><span class="lineno"> 1515</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
-<div class="line"><a name="l01516"></a><span class="lineno"> 1516</span>&#160; </div>
-<div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;<span class="keyword">class </span>Devices(list):</div>
-<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;    <span class="keyword">def </span>__init__(self,devices):</div>
-<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160;        list.__init__(self,devices)</div>
-<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;    <span class="keyword">def </span>Enable(self,DeviceName,enable):</div>
-<div class="line"><a name="l01521"></a><span class="lineno"> 1521</span>&#160;        <span class="keywordflow">for</span> device <span class="keywordflow">in</span> self:</div>
-<div class="line"><a name="l01522"></a><span class="lineno"> 1522</span>&#160;            <span class="keywordflow">if</span> device[<span class="stringliteral">&#39;partname&#39;</span>][<span class="stringliteral">&#39;Value&#39;</span>]==DeviceName:</div>
-<div class="line"><a name="l01523"></a><span class="lineno"> 1523</span>&#160;                device.enabled=enable</div>
-<div class="line"><a name="l01524"></a><span class="lineno"> 1524</span>&#160; </div>
-<div class="line"><a name="l01525"></a><span class="lineno"> 1525</span>&#160;DeviceList=Devices([</div>
-<div class="line"><a name="l01526"></a><span class="lineno"> 1526</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;One Port File&#39;</span>),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),</div>
-<div class="line"><a name="l01527"></a><span class="lineno"> 1527</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Two Port File&#39;</span>),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),</div>
-<div class="line"><a name="l01528"></a><span class="lineno"> 1528</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Three Port File&#39;</span>),PartPropertyPorts(3)],PartPictureVariableSpecifiedPorts(3)),</div>
-<div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Four Port File&#39;</span>),PartPropertyPorts(4)],PartPictureVariableSpecifiedPorts(4)),</div>
-<div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port File&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableSpecifiedPorts()),</div>
-<div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;                DeviceResistor([PartPropertyDescription(<span class="stringliteral">&#39;One Port Resistor to Ground&#39;</span>),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),</div>
-<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;                DeviceResistor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Resistor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),</div>
-<div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;                DeviceSkinEffectResistor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Skin-Effect Resistor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),</div>
-<div class="line"><a name="l01534"></a><span class="lineno"> 1534</span>&#160;                DeviceCapacitor([PartPropertyDescription(<span class="stringliteral">&#39;One Port Capacitor to Ground&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),</div>
-<div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;                DeviceCapacitor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Capacitor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),</div>
-<div class="line"><a name="l01536"></a><span class="lineno"> 1536</span>&#160;                DeviceInductor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Inductor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),</div>
-<div class="line"><a name="l01537"></a><span class="lineno"> 1537</span>&#160;                DeviceMutual(),</div>
-<div class="line"><a name="l01538"></a><span class="lineno"> 1538</span>&#160;                DeviceIdealTransformer(),</div>
-<div class="line"><a name="l01539"></a><span class="lineno"> 1539</span>&#160;                DeviceGround(),</div>
-<div class="line"><a name="l01540"></a><span class="lineno"> 1540</span>&#160;                DeviceOpen(),</div>
-<div class="line"><a name="l01541"></a><span class="lineno"> 1541</span>&#160;                DeviceDirectionalCoupler([PartPropertyDescription(<span class="stringliteral">&#39;Three Port Directional Coupler&#39;</span>),PartPropertyPorts(3)],PartPictureVariableDirectionalCouplerThreePort()),</div>
-<div class="line"><a name="l01542"></a><span class="lineno"> 1542</span>&#160;                DeviceDirectionalCoupler([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Directional Coupler&#39;</span>),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),</div>
-<div class="line"><a name="l01543"></a><span class="lineno"> 1543</span>&#160;                DeviceTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
-<div class="line"><a name="l01544"></a><span class="lineno"> 1544</span>&#160;                DeviceTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transmission Line&#39;</span>),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),</div>
-<div class="line"><a name="l01545"></a><span class="lineno"> 1545</span>&#160;                DeviceCOMTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Two Port COM Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
-<div class="line"><a name="l01546"></a><span class="lineno"> 1546</span>&#160;                DeviceTransmissionLineLossy([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Lossy Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
-<div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;                DeviceTelegrapherTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Telegrapher&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
-<div class="line"><a name="l01548"></a><span class="lineno"> 1548</span>&#160;                DeviceTelegrapherFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Telegrapher&#39;</span>),PartPropertyPorts(4)],PartPictureVariableTransmissionLineDifferential()),</div>
-<div class="line"><a name="l01549"></a><span class="lineno"> 1549</span>&#160;                DeviceVoltageSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Source&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),</div>
-<div class="line"><a name="l01550"></a><span class="lineno"> 1550</span>&#160;                DeviceVoltageSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Source&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),</div>
-<div class="line"><a name="l01551"></a><span class="lineno"> 1551</span>&#160;                DeviceVoltageNoiseSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Noise Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),</div>
-<div class="line"><a name="l01552"></a><span class="lineno"> 1552</span>&#160;                DeviceVoltageNoiseSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Noise Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),</div>
-<div class="line"><a name="l01553"></a><span class="lineno"> 1553</span>&#160;                DeviceVoltageStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Step Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),</div>
-<div class="line"><a name="l01554"></a><span class="lineno"> 1554</span>&#160;                DeviceVoltageStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Step Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceStepGeneratorTwoPort()),</div>
-<div class="line"><a name="l01555"></a><span class="lineno"> 1555</span>&#160;                DeviceVoltageDCSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage DC Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableDCVoltageSourceOnePort()),</div>
-<div class="line"><a name="l01556"></a><span class="lineno"> 1556</span>&#160;                DeviceVoltageDCSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage DC Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),</div>
-<div class="line"><a name="l01557"></a><span class="lineno"> 1557</span>&#160;                DeviceVoltagePulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Pulse Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),</div>
-<div class="line"><a name="l01558"></a><span class="lineno"> 1558</span>&#160;                DeviceVoltagePulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Pulse Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),</div>
-<div class="line"><a name="l01559"></a><span class="lineno"> 1559</span>&#160;                DeviceVoltagePRBSGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage PRBS Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),</div>
-<div class="line"><a name="l01560"></a><span class="lineno"> 1560</span>&#160;                DeviceVoltagePRBSGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage PRBS Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),</div>
-<div class="line"><a name="l01561"></a><span class="lineno"> 1561</span>&#160;                DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Multi Level Waveform Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),</div>
-<div class="line"><a name="l01562"></a><span class="lineno"> 1562</span>&#160;                DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Multi Level Waveform Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),</div>
-<div class="line"><a name="l01563"></a><span class="lineno"> 1563</span>&#160;                DeviceVoltageClockGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Clock Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceClockGeneratorOnePort()),</div>
-<div class="line"><a name="l01564"></a><span class="lineno"> 1564</span>&#160;                DeviceVoltageClockGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Clock Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceClockGeneratorTwoPort()),</div>
-<div class="line"><a name="l01565"></a><span class="lineno"> 1565</span>&#160;                DeviceVoltageSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Sine Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceSineGeneratorOnePort()),</div>
-<div class="line"><a name="l01566"></a><span class="lineno"> 1566</span>&#160;                DeviceVoltageSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Sine Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceSineGeneratorTwoPort()),</div>
-<div class="line"><a name="l01567"></a><span class="lineno"> 1567</span>&#160;                DeviceCurrentSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Source&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),</div>
-<div class="line"><a name="l01568"></a><span class="lineno"> 1568</span>&#160;                DeviceCurrentSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Source&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),</div>
-<div class="line"><a name="l01569"></a><span class="lineno"> 1569</span>&#160;                DeviceCurrentStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Step Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceStepGeneratorOnePort()),</div>
-<div class="line"><a name="l01570"></a><span class="lineno"> 1570</span>&#160;                DeviceCurrentStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Step Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceStepGeneratorTwoPort()),</div>
-<div class="line"><a name="l01571"></a><span class="lineno"> 1571</span>&#160;                DeviceCurrentDCSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current DC Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),</div>
-<div class="line"><a name="l01572"></a><span class="lineno"> 1572</span>&#160;                DeviceCurrentDCSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current DC Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),</div>
-<div class="line"><a name="l01573"></a><span class="lineno"> 1573</span>&#160;                DeviceCurrentPulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Pulse Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),</div>
-<div class="line"><a name="l01574"></a><span class="lineno"> 1574</span>&#160;                DeviceCurrentPulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Pulse Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),</div>
-<div class="line"><a name="l01575"></a><span class="lineno"> 1575</span>&#160;                DeviceCurrentSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Sine Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),</div>
-<div class="line"><a name="l01576"></a><span class="lineno"> 1576</span>&#160;                DeviceCurrentSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Sine Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),</div>
-<div class="line"><a name="l01577"></a><span class="lineno"> 1577</span>&#160;                Port(),</div>
-<div class="line"><a name="l01578"></a><span class="lineno"> 1578</span>&#160;                DeviceMeasurement(),</div>
-<div class="line"><a name="l01579"></a><span class="lineno"> 1579</span>&#160;                DeviceOutput(),</div>
-<div class="line"><a name="l01580"></a><span class="lineno"> 1580</span>&#160;                DeviceNetName(),</div>
-<div class="line"><a name="l01581"></a><span class="lineno"> 1581</span>&#160;                DeviceStim(),</div>
-<div class="line"><a name="l01582"></a><span class="lineno"> 1582</span>&#160;                DevicePowerMixedModeConverter(),</div>
-<div class="line"><a name="l01583"></a><span class="lineno"> 1583</span>&#160;                DeviceVoltageMixedModeConverter(),</div>
-<div class="line"><a name="l01584"></a><span class="lineno"> 1584</span>&#160;                DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Controlled Voltage Source&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01585"></a><span class="lineno"> 1585</span>&#160;                DeviceVoltageAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
-<div class="line"><a name="l01586"></a><span class="lineno"> 1586</span>&#160;                DeviceVoltageAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01587"></a><span class="lineno"> 1587</span>&#160;                DeviceOperationalAmplifier([PartPropertyDescription(<span class="stringliteral">&#39;Operational Amplifier&#39;</span>),PartPropertyPorts(3)]),</div>
-<div class="line"><a name="l01588"></a><span class="lineno"> 1588</span>&#160;                DeviceCurrentControlledCurrentSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Controlled Current Source&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01589"></a><span class="lineno"> 1589</span>&#160;                DeviceCurrentAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
-<div class="line"><a name="l01590"></a><span class="lineno"> 1590</span>&#160;                DeviceCurrentAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01591"></a><span class="lineno"> 1591</span>&#160;                DeviceVoltageControlledCurrentSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Controlled Current Source&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01592"></a><span class="lineno"> 1592</span>&#160;                DeviceTransconductanceAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transconductance Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
-<div class="line"><a name="l01593"></a><span class="lineno"> 1593</span>&#160;                DeviceTransconductanceAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transconductance Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01594"></a><span class="lineno"> 1594</span>&#160;                DeviceCurrentControlledVoltageSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Controlled Voltage Source&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01595"></a><span class="lineno"> 1595</span>&#160;                DeviceTransresistanceAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transresistance Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
-<div class="line"><a name="l01596"></a><span class="lineno"> 1596</span>&#160;                DeviceTransresistanceAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transresistance Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
-<div class="line"><a name="l01597"></a><span class="lineno"> 1597</span>&#160;                DeviceCurrentOutputProbe(),</div>
-<div class="line"><a name="l01598"></a><span class="lineno"> 1598</span>&#160;                DeviceVoltageOutputProbe(),</div>
-<div class="line"><a name="l01599"></a><span class="lineno"> 1599</span>&#160;                <span class="comment">#DeviceNPNTransistor([PartPropertyDescription(&#39;NPN Transistor&#39;)]),</span></div>
-<div class="line"><a name="l01600"></a><span class="lineno"> 1600</span>&#160;                DeviceRLGCFitFromFile(),</div>
-<div class="line"><a name="l01601"></a><span class="lineno"> 1601</span>&#160;                DeviceNetworkAnalyzer(),</div>
-<div class="line"><a name="l01602"></a><span class="lineno"> 1602</span>&#160;                DeviceNetworkAnalyzerModel(),</div>
-<div class="line"><a name="l01603"></a><span class="lineno"> 1603</span>&#160;                DeviceShortStandard(),</div>
-<div class="line"><a name="l01604"></a><span class="lineno"> 1604</span>&#160;                DeviceOpenStandard(),</div>
-<div class="line"><a name="l01605"></a><span class="lineno"> 1605</span>&#160;                DeviceLoadStandard(),</div>
-<div class="line"><a name="l01606"></a><span class="lineno"> 1606</span>&#160;                DeviceThruStandard(),</div>
-<div class="line"><a name="l01607"></a><span class="lineno"> 1607</span>&#160;                DeviceReflectCalibrationMeasurement(),</div>
-<div class="line"><a name="l01608"></a><span class="lineno"> 1608</span>&#160;                DeviceThruCalibrationMeasurement(),</div>
-<div class="line"><a name="l01609"></a><span class="lineno"> 1609</span>&#160;                DeviceXtalkCalibrationMeasurement(),</div>
-<div class="line"><a name="l01610"></a><span class="lineno"> 1610</span>&#160;                DeviceNetworkAnalyzerStimulus(),</div>
-<div class="line"><a name="l01611"></a><span class="lineno"> 1611</span>&#160;                DeviceNetworkAnalyzerDeviceUnderTest(),</div>
-<div class="line"><a name="l01612"></a><span class="lineno"> 1612</span>&#160;                DeviceCTLE(),</div>
-<div class="line"><a name="l01613"></a><span class="lineno"> 1613</span>&#160;                DeviceFFE(),</div>
-<div class="line"><a name="l01614"></a><span class="lineno"> 1614</span>&#160;                DeviceBesselLpFilter(),</div>
-<div class="line"><a name="l01615"></a><span class="lineno"> 1615</span>&#160;                DeviceButterworthLpFilter(),</div>
-<div class="line"><a name="l01616"></a><span class="lineno"> 1616</span>&#160;                DeviceLaplace(),</div>
-<div class="line"><a name="l01617"></a><span class="lineno"> 1617</span>&#160;                DeviceWElement([PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableWElement()),</div>
-<div class="line"><a name="l01618"></a><span class="lineno"> 1618</span>&#160;                DeviceRelay([PartPropertyPorts(3,<span class="keyword">False</span>)],PartPictureVariableRelay()),</div>
-<div class="line"><a name="l01619"></a><span class="lineno"> 1619</span>&#160;                DeviceImpulseResponseFilter(),</div>
-<div class="line"><a name="l01620"></a><span class="lineno"> 1620</span>&#160;                DeviceEyeProbe(),</div>
-<div class="line"><a name="l01621"></a><span class="lineno"> 1621</span>&#160;                DeviceDifferentialEyeProbe(),</div>
-<div class="line"><a name="l01622"></a><span class="lineno"> 1622</span>&#160;                DeviceEyeWaveform(),</div>
-<div class="line"><a name="l01623"></a><span class="lineno"> 1623</span>&#160;                DeviceWaveform(),</div>
-<div class="line"><a name="l01624"></a><span class="lineno"> 1624</span>&#160;                DeviceParallel()</div>
-<div class="line"><a name="l01625"></a><span class="lineno"> 1625</span>&#160;                ])</div>
-<div class="line"><a name="l01626"></a><span class="lineno"> 1626</span>&#160; </div>
-<div class="line"><a name="l01627"></a><span class="lineno"> 1627</span>&#160; </div>
-<div class="line"><a name="l01628"></a><span class="lineno"> 1628</span>&#160;DeviceListUnknown = Devices([</div>
-<div class="line"><a name="l01629"></a><span class="lineno"> 1629</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;One Port Unknown&#39;</span>),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),</div>
-<div class="line"><a name="l01630"></a><span class="lineno"> 1630</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Unknown&#39;</span>),PartPropertyPorts(2)],PartPictureVariableUnknown(2)),</div>
-<div class="line"><a name="l01631"></a><span class="lineno"> 1631</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Three Port Unknown&#39;</span>),PartPropertyPorts(3)],PartPictureVariableUnknown(3)),</div>
-<div class="line"><a name="l01632"></a><span class="lineno"> 1632</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Unknown&#39;</span>),PartPropertyPorts(4)],PartPictureVariableUnknown(4)),</div>
-<div class="line"><a name="l01633"></a><span class="lineno"> 1633</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port Unknown&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableUnknown()),</div>
-<div class="line"><a name="l01634"></a><span class="lineno"> 1634</span>&#160;                ])</div>
-<div class="line"><a name="l01635"></a><span class="lineno"> 1635</span>&#160; </div>
-<div class="line"><a name="l01636"></a><span class="lineno"> 1636</span>&#160;DeviceListSystem = Devices([</div>
-<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;One Port System&#39;</span>),PartPropertyPorts(1)],PartPictureVariableSystem(1)),</div>
-<div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Two Port System&#39;</span>),PartPropertyPorts(2)],PartPictureVariableSystem(2)),</div>
-<div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Three Port System&#39;</span>),PartPropertyPorts(3)],PartPictureVariableSystem(3)),</div>
-<div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Four Port System&#39;</span>),PartPropertyPorts(4)],PartPictureVariableSystem(4)),</div>
-<div class="line"><a name="l01641"></a><span class="lineno"> 1641</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port System&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableSystem()),</div>
-<div class="line"><a name="l01642"></a><span class="lineno"> 1642</span>&#160;                ])</div>
-<div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160; </div>
+<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;                         PartPropertyEyeOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
+<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
+<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
+<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;                         PartPropertyDelay(0.0),</div>
+<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;                         PartPropertyBaudRate(),</div>
+<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;                         PartPropertyWaveformFileName(),</div>
+<div class="line"><a name="l01441"></a><span class="lineno"> 1441</span>&#160;                         PartPropertyWaveformType(<span class="stringliteral">&#39;file&#39;</span>),</div>
+<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;                         PartPropertyWaveformProjectName(<span class="stringliteral">&#39;&#39;</span>)],</div>
+<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;                        PartPictureVariableEyeWaveform(),</div>
+<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;                        EyeDiagramConfiguration())</div>
+<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;        self[<span class="stringliteral">&#39;wffile&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;        self[<span class="stringliteral">&#39;wffile&#39;</span>][<span class="stringliteral">&#39;KeywordVisible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160; </div>
+<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;<span class="keyword">class </span>DeviceParallel(Device):</div>
+<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;        netlist=DeviceNetListLine(partname=<span class="stringliteral">&#39;parallel&#39;</span>,values=[(<span class="stringliteral">&#39;file&#39;</span>,<span class="keyword">True</span>),(<span class="stringliteral">&#39;sect&#39;</span>,<span class="keyword">True</span>)])</div>
+<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;        Device.__init__(self,netlist,[</div>
+<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;            PartPropertyDescription(<span class="stringliteral">&#39;Parallel Devices&#39;</span>),</div>
+<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;            PartPropertyCategory(<span class="stringliteral">&#39;Miscellaneous&#39;</span>),</div>
+<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;            PartPropertyPorts(2),</div>
+<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160;            PartPropertyPartName(<span class="stringliteral">&#39;Parallel&#39;</span>),</div>
+<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;            PartPropertyHelp(<span class="stringliteral">&#39;device:Parallel&#39;</span>),</div>
+<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;            PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;D?&#39;</span>),</div>
+<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;            PartPropertyCalculationProperties(),</div>
+<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160;            PartPropertySections(1),</div>
+<div class="line"><a name="l01466"></a><span class="lineno"> 1466</span>&#160;            PartPropertyFileName()],PartPictureVariableParallel())</div>
+<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160; </div>
+<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;<span class="keyword">class </span>DeviceEyeProbe(Device):</div>
+<div class="line"><a name="l01469"></a><span class="lineno"> 1469</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160;        netlist=DeviceNetListLine(devicename=<span class="stringliteral">&#39;eyeprobe&#39;</span>,showReference=<span class="keyword">True</span>,showports=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160;        Device.__init__(self,</div>
+<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;                        netlist,</div>
+<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160;                        [PartPropertyCategory(<span class="stringliteral">&#39;Ports and Probes&#39;</span>),</div>
+<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;                         PartPropertyPartName(<span class="stringliteral">&#39;EyeProbe&#39;</span>),</div>
+<div class="line"><a name="l01475"></a><span class="lineno"> 1475</span>&#160;                         PartPropertyHelp(<span class="stringliteral">&#39;device:Eye-Probe&#39;</span>),</div>
+<div class="line"><a name="l01476"></a><span class="lineno"> 1476</span>&#160;                         PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;Vo?&#39;</span>),</div>
+<div class="line"><a name="l01477"></a><span class="lineno"> 1477</span>&#160;                         PartPropertyDescription(<span class="stringliteral">&#39;Eye Probe&#39;</span>),</div>
+<div class="line"><a name="l01478"></a><span class="lineno"> 1478</span>&#160;                         PartPropertyOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
+<div class="line"><a name="l01479"></a><span class="lineno"> 1479</span>&#160;                         PartPropertyEyeOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
+<div class="line"><a name="l01480"></a><span class="lineno"> 1480</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
+<div class="line"><a name="l01481"></a><span class="lineno"> 1481</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
+<div class="line"><a name="l01482"></a><span class="lineno"> 1482</span>&#160;                         PartPropertyDelay(0.0),</div>
+<div class="line"><a name="l01483"></a><span class="lineno"> 1483</span>&#160;                         PartPropertyBaudRate(),</div>
+<div class="line"><a name="l01484"></a><span class="lineno"> 1484</span>&#160;                         PartPropertyPorts(1)],</div>
+<div class="line"><a name="l01485"></a><span class="lineno"> 1485</span>&#160;                        PartPictureVariableEyeProbe(),</div>
+<div class="line"><a name="l01486"></a><span class="lineno"> 1486</span>&#160;                        EyeDiagramConfiguration())</div>
+<div class="line"><a name="l01487"></a><span class="lineno"> 1487</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01488"></a><span class="lineno"> 1488</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01489"></a><span class="lineno"> 1489</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01490"></a><span class="lineno"> 1490</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01491"></a><span class="lineno"> 1491</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01492"></a><span class="lineno"> 1492</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01493"></a><span class="lineno"> 1493</span>&#160; </div>
+<div class="line"><a name="l01494"></a><span class="lineno"> 1494</span>&#160;<span class="keyword">class </span>DeviceDifferentialEyeProbe(Device):</div>
+<div class="line"><a name="l01495"></a><span class="lineno"> 1495</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l01496"></a><span class="lineno"> 1496</span>&#160;        netlist=DeviceNetListLine(devicename=<span class="stringliteral">&#39;differentialeyeprobe&#39;</span>,showReference=<span class="keyword">True</span>,showports=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l01497"></a><span class="lineno"> 1497</span>&#160;        Device.__init__(self,</div>
+<div class="line"><a name="l01498"></a><span class="lineno"> 1498</span>&#160;                        netlist,</div>
+<div class="line"><a name="l01499"></a><span class="lineno"> 1499</span>&#160;                        [PartPropertyCategory(<span class="stringliteral">&#39;Ports and Probes&#39;</span>),</div>
+<div class="line"><a name="l01500"></a><span class="lineno"> 1500</span>&#160;                         PartPropertyPartName(<span class="stringliteral">&#39;DifferentialEyeProbe&#39;</span>),</div>
+<div class="line"><a name="l01501"></a><span class="lineno"> 1501</span>&#160;                         PartPropertyHelp(<span class="stringliteral">&#39;device:Differential-Eye-Probe&#39;</span>),</div>
+<div class="line"><a name="l01502"></a><span class="lineno"> 1502</span>&#160;                         PartPropertyDefaultReferenceDesignator(<span class="stringliteral">&#39;Vo?&#39;</span>),</div>
+<div class="line"><a name="l01503"></a><span class="lineno"> 1503</span>&#160;                         PartPropertyDescription(<span class="stringliteral">&#39;Differential Eye Probe&#39;</span>),</div>
+<div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160;                         PartPropertyOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
+<div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;                         PartPropertyEyeOnOff(<span class="stringliteral">&#39;on&#39;</span>),</div>
+<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;                         PartPropertyVoltageGain(1.0),</div>
+<div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;                         PartPropertyVoltageOffset(0.0),</div>
+<div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;                         PartPropertyDelay(0.0),</div>
+<div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;                         PartPropertyBaudRate(),</div>
+<div class="line"><a name="l01510"></a><span class="lineno"> 1510</span>&#160;                         PartPropertyPorts(2)],</div>
+<div class="line"><a name="l01511"></a><span class="lineno"> 1511</span>&#160;                        PartPictureVariableDifferentialEyeProbe(),</div>
+<div class="line"><a name="l01512"></a><span class="lineno"> 1512</span>&#160;                        EyeDiagramConfiguration())</div>
+<div class="line"><a name="l01513"></a><span class="lineno"> 1513</span>&#160;        self[<span class="stringliteral">&#39;gain&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01514"></a><span class="lineno"> 1514</span>&#160;        self[<span class="stringliteral">&#39;offset&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01515"></a><span class="lineno"> 1515</span>&#160;        self[<span class="stringliteral">&#39;td&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01516"></a><span class="lineno"> 1516</span>&#160;        self[<span class="stringliteral">&#39;br&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;        self[<span class="stringliteral">&#39;ref&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;        self[<span class="stringliteral">&#39;state&#39;</span>][<span class="stringliteral">&#39;Visible&#39;</span>]=<span class="keyword">False</span></div>
+<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160; </div>
+<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;<span class="keyword">class </span>Devices(list):</div>
+<div class="line"><a name="l01521"></a><span class="lineno"> 1521</span>&#160;    <span class="keyword">def </span>__init__(self,devices):</div>
+<div class="line"><a name="l01522"></a><span class="lineno"> 1522</span>&#160;        list.__init__(self,devices)</div>
+<div class="line"><a name="l01523"></a><span class="lineno"> 1523</span>&#160;    <span class="keyword">def </span>Enable(self,DeviceName,enable):</div>
+<div class="line"><a name="l01524"></a><span class="lineno"> 1524</span>&#160;        <span class="keywordflow">for</span> device <span class="keywordflow">in</span> self:</div>
+<div class="line"><a name="l01525"></a><span class="lineno"> 1525</span>&#160;            <span class="keywordflow">if</span> device[<span class="stringliteral">&#39;partname&#39;</span>][<span class="stringliteral">&#39;Value&#39;</span>]==DeviceName:</div>
+<div class="line"><a name="l01526"></a><span class="lineno"> 1526</span>&#160;                device.enabled=enable</div>
+<div class="line"><a name="l01527"></a><span class="lineno"> 1527</span>&#160; </div>
+<div class="line"><a name="l01528"></a><span class="lineno"> 1528</span>&#160;DeviceList=Devices([</div>
+<div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;One Port File&#39;</span>),PartPropertyPorts(1)],PartPictureVariableSpecifiedPorts(1)),</div>
+<div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Two Port File&#39;</span>),PartPropertyPorts(2)],PartPictureVariableSpecifiedPorts(2)),</div>
+<div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Three Port File&#39;</span>),PartPropertyPorts(3)],PartPictureVariableSpecifiedPorts(3)),</div>
+<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Four Port File&#39;</span>),PartPropertyPorts(4)],PartPictureVariableSpecifiedPorts(4)),</div>
+<div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;                DeviceFile([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port File&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableSpecifiedPorts()),</div>
+<div class="line"><a name="l01534"></a><span class="lineno"> 1534</span>&#160;                DeviceResistor([PartPropertyDescription(<span class="stringliteral">&#39;One Port Resistor to Ground&#39;</span>),PartPropertyPorts(1)],PartPictureVariableResistorOnePort()),</div>
+<div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;                DeviceResistor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Resistor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),</div>
+<div class="line"><a name="l01536"></a><span class="lineno"> 1536</span>&#160;                DeviceSkinEffectResistor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Skin-Effect Resistor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableResistorTwoPort()),</div>
+<div class="line"><a name="l01537"></a><span class="lineno"> 1537</span>&#160;                DeviceCapacitor([PartPropertyDescription(<span class="stringliteral">&#39;One Port Capacitor to Ground&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCapacitorOnePort()),</div>
+<div class="line"><a name="l01538"></a><span class="lineno"> 1538</span>&#160;                DeviceCapacitor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Capacitor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCapacitorTwoPort()),</div>
+<div class="line"><a name="l01539"></a><span class="lineno"> 1539</span>&#160;                DeviceInductor([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Inductor&#39;</span>),PartPropertyPorts(2)],PartPictureVariableInductorTwoPort()),</div>
+<div class="line"><a name="l01540"></a><span class="lineno"> 1540</span>&#160;                DeviceMutual(),</div>
+<div class="line"><a name="l01541"></a><span class="lineno"> 1541</span>&#160;                DeviceIdealTransformer(),</div>
+<div class="line"><a name="l01542"></a><span class="lineno"> 1542</span>&#160;                DeviceGround(),</div>
+<div class="line"><a name="l01543"></a><span class="lineno"> 1543</span>&#160;                DeviceOpen(),</div>
+<div class="line"><a name="l01544"></a><span class="lineno"> 1544</span>&#160;                DeviceDirectionalCoupler([PartPropertyDescription(<span class="stringliteral">&#39;Three Port Directional Coupler&#39;</span>),PartPropertyPorts(3)],PartPictureVariableDirectionalCouplerThreePort()),</div>
+<div class="line"><a name="l01545"></a><span class="lineno"> 1545</span>&#160;                DeviceDirectionalCoupler([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Directional Coupler&#39;</span>),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),</div>
+<div class="line"><a name="l01546"></a><span class="lineno"> 1546</span>&#160;                DeviceTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
+<div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;                DeviceTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transmission Line&#39;</span>),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),</div>
+<div class="line"><a name="l01548"></a><span class="lineno"> 1548</span>&#160;                DeviceCOMTransmissionLine([PartPropertyDescription(<span class="stringliteral">&#39;Two Port COM Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
+<div class="line"><a name="l01549"></a><span class="lineno"> 1549</span>&#160;                DeviceTransmissionLineLossy([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Lossy Transmission Line&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
+<div class="line"><a name="l01550"></a><span class="lineno"> 1550</span>&#160;                DeviceTelegrapherTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Telegrapher&#39;</span>),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),</div>
+<div class="line"><a name="l01551"></a><span class="lineno"> 1551</span>&#160;                DeviceTelegrapherFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Telegrapher&#39;</span>),PartPropertyPorts(4)],PartPictureVariableTransmissionLineDifferential()),</div>
+<div class="line"><a name="l01552"></a><span class="lineno"> 1552</span>&#160;                DeviceVoltageSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Source&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),</div>
+<div class="line"><a name="l01553"></a><span class="lineno"> 1553</span>&#160;                DeviceVoltageSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Source&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),</div>
+<div class="line"><a name="l01554"></a><span class="lineno"> 1554</span>&#160;                DeviceVoltageNoiseSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Noise Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),</div>
+<div class="line"><a name="l01555"></a><span class="lineno"> 1555</span>&#160;                DeviceVoltageNoiseSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Noise Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),</div>
+<div class="line"><a name="l01556"></a><span class="lineno"> 1556</span>&#160;                DeviceVoltageStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Step Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),</div>
+<div class="line"><a name="l01557"></a><span class="lineno"> 1557</span>&#160;                DeviceVoltageStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Step Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceStepGeneratorTwoPort()),</div>
+<div class="line"><a name="l01558"></a><span class="lineno"> 1558</span>&#160;                DeviceVoltageDCSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage DC Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableDCVoltageSourceOnePort()),</div>
+<div class="line"><a name="l01559"></a><span class="lineno"> 1559</span>&#160;                DeviceVoltageDCSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage DC Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),</div>
+<div class="line"><a name="l01560"></a><span class="lineno"> 1560</span>&#160;                DeviceVoltagePulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Pulse Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),</div>
+<div class="line"><a name="l01561"></a><span class="lineno"> 1561</span>&#160;                DeviceVoltagePulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Pulse Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),</div>
+<div class="line"><a name="l01562"></a><span class="lineno"> 1562</span>&#160;                DeviceVoltagePRBSGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage PRBS Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),</div>
+<div class="line"><a name="l01563"></a><span class="lineno"> 1563</span>&#160;                DeviceVoltagePRBSGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage PRBS Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),</div>
+<div class="line"><a name="l01564"></a><span class="lineno"> 1564</span>&#160;                DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Multi Level Waveform Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),</div>
+<div class="line"><a name="l01565"></a><span class="lineno"> 1565</span>&#160;                DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Multi Level Waveform Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),</div>
+<div class="line"><a name="l01566"></a><span class="lineno"> 1566</span>&#160;                DeviceVoltageClockGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Clock Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceClockGeneratorOnePort()),</div>
+<div class="line"><a name="l01567"></a><span class="lineno"> 1567</span>&#160;                DeviceVoltageClockGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Clock Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceClockGeneratorTwoPort()),</div>
+<div class="line"><a name="l01568"></a><span class="lineno"> 1568</span>&#160;                DeviceVoltageSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Voltage Sine Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableVoltageSourceSineGeneratorOnePort()),</div>
+<div class="line"><a name="l01569"></a><span class="lineno"> 1569</span>&#160;                DeviceVoltageSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Sine Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableVoltageSourceSineGeneratorTwoPort()),</div>
+<div class="line"><a name="l01570"></a><span class="lineno"> 1570</span>&#160;                DeviceCurrentSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Source&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),</div>
+<div class="line"><a name="l01571"></a><span class="lineno"> 1571</span>&#160;                DeviceCurrentSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Source&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),</div>
+<div class="line"><a name="l01572"></a><span class="lineno"> 1572</span>&#160;                DeviceCurrentStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Step Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceStepGeneratorOnePort()),</div>
+<div class="line"><a name="l01573"></a><span class="lineno"> 1573</span>&#160;                DeviceCurrentStepGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Step Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceStepGeneratorTwoPort()),</div>
+<div class="line"><a name="l01574"></a><span class="lineno"> 1574</span>&#160;                DeviceCurrentDCSource([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current DC Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceOnePort()),</div>
+<div class="line"><a name="l01575"></a><span class="lineno"> 1575</span>&#160;                DeviceCurrentDCSource([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current DC Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),</div>
+<div class="line"><a name="l01576"></a><span class="lineno"> 1576</span>&#160;                DeviceCurrentPulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Pulse Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),</div>
+<div class="line"><a name="l01577"></a><span class="lineno"> 1577</span>&#160;                DeviceCurrentPulseGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Pulse Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),</div>
+<div class="line"><a name="l01578"></a><span class="lineno"> 1578</span>&#160;                DeviceCurrentSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;One Port Current Sine Generator&#39;</span>),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),</div>
+<div class="line"><a name="l01579"></a><span class="lineno"> 1579</span>&#160;                DeviceCurrentSineGenerator([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Sine Generator&#39;</span>),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),</div>
+<div class="line"><a name="l01580"></a><span class="lineno"> 1580</span>&#160;                Port(),</div>
+<div class="line"><a name="l01581"></a><span class="lineno"> 1581</span>&#160;                DeviceMeasurement(),</div>
+<div class="line"><a name="l01582"></a><span class="lineno"> 1582</span>&#160;                DeviceOutput(),</div>
+<div class="line"><a name="l01583"></a><span class="lineno"> 1583</span>&#160;                DeviceNetName(),</div>
+<div class="line"><a name="l01584"></a><span class="lineno"> 1584</span>&#160;                DeviceStim(),</div>
+<div class="line"><a name="l01585"></a><span class="lineno"> 1585</span>&#160;                DevicePowerMixedModeConverter(),</div>
+<div class="line"><a name="l01586"></a><span class="lineno"> 1586</span>&#160;                DeviceVoltageMixedModeConverter(),</div>
+<div class="line"><a name="l01587"></a><span class="lineno"> 1587</span>&#160;                DeviceVoltageControlledVoltageSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Controlled Voltage Source&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01588"></a><span class="lineno"> 1588</span>&#160;                DeviceVoltageAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Voltage Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
+<div class="line"><a name="l01589"></a><span class="lineno"> 1589</span>&#160;                DeviceVoltageAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01590"></a><span class="lineno"> 1590</span>&#160;                DeviceOperationalAmplifier([PartPropertyDescription(<span class="stringliteral">&#39;Operational Amplifier&#39;</span>),PartPropertyPorts(3)]),</div>
+<div class="line"><a name="l01591"></a><span class="lineno"> 1591</span>&#160;                DeviceCurrentControlledCurrentSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Controlled Current Source&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01592"></a><span class="lineno"> 1592</span>&#160;                DeviceCurrentAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Current Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
+<div class="line"><a name="l01593"></a><span class="lineno"> 1593</span>&#160;                DeviceCurrentAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01594"></a><span class="lineno"> 1594</span>&#160;                DeviceVoltageControlledCurrentSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Voltage Controlled Current Source&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01595"></a><span class="lineno"> 1595</span>&#160;                DeviceTransconductanceAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transconductance Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
+<div class="line"><a name="l01596"></a><span class="lineno"> 1596</span>&#160;                DeviceTransconductanceAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transconductance Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01597"></a><span class="lineno"> 1597</span>&#160;                DeviceCurrentControlledVoltageSourceFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Current Controlled Voltage Source&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01598"></a><span class="lineno"> 1598</span>&#160;                DeviceTransresistanceAmplifierTwoPort([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Transresistance Amplifier&#39;</span>),PartPropertyPorts(2)]),</div>
+<div class="line"><a name="l01599"></a><span class="lineno"> 1599</span>&#160;                DeviceTransresistanceAmplifierFourPort([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Transresistance Amplifier&#39;</span>),PartPropertyPorts(4)]),</div>
+<div class="line"><a name="l01600"></a><span class="lineno"> 1600</span>&#160;                DeviceCurrentOutputProbe(),</div>
+<div class="line"><a name="l01601"></a><span class="lineno"> 1601</span>&#160;                DeviceVoltageOutputProbe(),</div>
+<div class="line"><a name="l01602"></a><span class="lineno"> 1602</span>&#160;                <span class="comment">#DeviceNPNTransistor([PartPropertyDescription(&#39;NPN Transistor&#39;)]),</span></div>
+<div class="line"><a name="l01603"></a><span class="lineno"> 1603</span>&#160;                DeviceRLGCFitFromFile(),</div>
+<div class="line"><a name="l01604"></a><span class="lineno"> 1604</span>&#160;                DeviceNetworkAnalyzer(),</div>
+<div class="line"><a name="l01605"></a><span class="lineno"> 1605</span>&#160;                DeviceNetworkAnalyzerModel(),</div>
+<div class="line"><a name="l01606"></a><span class="lineno"> 1606</span>&#160;                DeviceShortStandard(),</div>
+<div class="line"><a name="l01607"></a><span class="lineno"> 1607</span>&#160;                DeviceOpenStandard(),</div>
+<div class="line"><a name="l01608"></a><span class="lineno"> 1608</span>&#160;                DeviceLoadStandard(),</div>
+<div class="line"><a name="l01609"></a><span class="lineno"> 1609</span>&#160;                DeviceThruStandard(),</div>
+<div class="line"><a name="l01610"></a><span class="lineno"> 1610</span>&#160;                DeviceReflectCalibrationMeasurement(),</div>
+<div class="line"><a name="l01611"></a><span class="lineno"> 1611</span>&#160;                DeviceThruCalibrationMeasurement(),</div>
+<div class="line"><a name="l01612"></a><span class="lineno"> 1612</span>&#160;                DeviceXtalkCalibrationMeasurement(),</div>
+<div class="line"><a name="l01613"></a><span class="lineno"> 1613</span>&#160;                DeviceNetworkAnalyzerStimulus(),</div>
+<div class="line"><a name="l01614"></a><span class="lineno"> 1614</span>&#160;                DeviceNetworkAnalyzerDeviceUnderTest(),</div>
+<div class="line"><a name="l01615"></a><span class="lineno"> 1615</span>&#160;                DeviceCTLE(),</div>
+<div class="line"><a name="l01616"></a><span class="lineno"> 1616</span>&#160;                DeviceFFE(),</div>
+<div class="line"><a name="l01617"></a><span class="lineno"> 1617</span>&#160;                DeviceBesselLpFilter(),</div>
+<div class="line"><a name="l01618"></a><span class="lineno"> 1618</span>&#160;                DeviceButterworthLpFilter(),</div>
+<div class="line"><a name="l01619"></a><span class="lineno"> 1619</span>&#160;                DeviceLaplace(),</div>
+<div class="line"><a name="l01620"></a><span class="lineno"> 1620</span>&#160;                DeviceWElement([PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableWElement()),</div>
+<div class="line"><a name="l01621"></a><span class="lineno"> 1621</span>&#160;                DeviceRelay([PartPropertyPorts(3,<span class="keyword">False</span>)],PartPictureVariableRelay()),</div>
+<div class="line"><a name="l01622"></a><span class="lineno"> 1622</span>&#160;                DeviceImpulseResponseFilter(),</div>
+<div class="line"><a name="l01623"></a><span class="lineno"> 1623</span>&#160;                DeviceEyeProbe(),</div>
+<div class="line"><a name="l01624"></a><span class="lineno"> 1624</span>&#160;                DeviceDifferentialEyeProbe(),</div>
+<div class="line"><a name="l01625"></a><span class="lineno"> 1625</span>&#160;                DeviceEyeWaveform(),</div>
+<div class="line"><a name="l01626"></a><span class="lineno"> 1626</span>&#160;                DeviceWaveform(),</div>
+<div class="line"><a name="l01627"></a><span class="lineno"> 1627</span>&#160;                DeviceParallel()</div>
+<div class="line"><a name="l01628"></a><span class="lineno"> 1628</span>&#160;                ])</div>
+<div class="line"><a name="l01629"></a><span class="lineno"> 1629</span>&#160; </div>
+<div class="line"><a name="l01630"></a><span class="lineno"> 1630</span>&#160; </div>
+<div class="line"><a name="l01631"></a><span class="lineno"> 1631</span>&#160;DeviceListUnknown = Devices([</div>
+<div class="line"><a name="l01632"></a><span class="lineno"> 1632</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;One Port Unknown&#39;</span>),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),</div>
+<div class="line"><a name="l01633"></a><span class="lineno"> 1633</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Two Port Unknown&#39;</span>),PartPropertyPorts(2)],PartPictureVariableUnknown(2)),</div>
+<div class="line"><a name="l01634"></a><span class="lineno"> 1634</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Three Port Unknown&#39;</span>),PartPropertyPorts(3)],PartPictureVariableUnknown(3)),</div>
+<div class="line"><a name="l01635"></a><span class="lineno"> 1635</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Four Port Unknown&#39;</span>),PartPropertyPorts(4)],PartPictureVariableUnknown(4)),</div>
+<div class="line"><a name="l01636"></a><span class="lineno"> 1636</span>&#160;                DeviceUnknown([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port Unknown&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableUnknown()),</div>
+<div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;                ])</div>
+<div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160; </div>
+<div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;DeviceListSystem = Devices([</div>
+<div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;One Port System&#39;</span>),PartPropertyPorts(1)],PartPictureVariableSystem(1)),</div>
+<div class="line"><a name="l01641"></a><span class="lineno"> 1641</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Two Port System&#39;</span>),PartPropertyPorts(2)],PartPictureVariableSystem(2)),</div>
+<div class="line"><a name="l01642"></a><span class="lineno"> 1642</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Three Port System&#39;</span>),PartPropertyPorts(3)],PartPictureVariableSystem(3)),</div>
+<div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Four Port System&#39;</span>),PartPropertyPorts(4)],PartPictureVariableSystem(4)),</div>
+<div class="line"><a name="l01644"></a><span class="lineno"> 1644</span>&#160;                DeviceSystem([PartPropertyDescription(<span class="stringliteral">&#39;Variable Port System&#39;</span>),PartPropertyPorts(4,<span class="keyword">False</span>)],PartPictureVariableSystem()),</div>
+<div class="line"><a name="l01645"></a><span class="lineno"> 1645</span>&#160;                ])</div>
+<div class="line"><a name="l01646"></a><span class="lineno"> 1646</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1SignalIntegrityAppHeadless_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1SignalIntegrityAppHeadless.xhtml">SignalIntegrity.App.SignalIntegrityAppHeadless</a></div><div class="ttdef"><b>Definition:</b> <a href="SignalIntegrityAppHeadless_8py_source.xhtml#l00001">SignalIntegrityAppHeadless.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1PartProperty_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1PartProperty.xhtml">SignalIntegrity.App.PartProperty</a></div><div class="ttdef"><b>Definition:</b> <a href="PartProperty_8py_source.xhtml#l00001">PartProperty.py:1</a></div></div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-66.html#next">Prev</a> Minimum Y</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-66.html#next">Prev</a> Y Axis</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-68.html#prev">Next</a></span>
+<span class="next">Minimum Y <a class="next" name="next" href="Help-Subsection-68.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-67"></a>Eye Mode<a class="Label" name="sub:Eye-Mode"> </a>
+<a class="toc" name="toc-Subsection-67"></a>Maximum Y<a class="Label" name="sub:Maximum-Y"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,23 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-Eye Mode
+Maximum Y
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection-67.html#sub:Eye-Mode">Eye Mode↑</a>
+EyeDiagram.YAxis.Max
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Enum
+Float
 </td>
 <td align="left" valign="top" style="width: 18cm;">
-<div class="PlainVisible">
 <div class="left">
-ISI Only or Jitter &amp; Noise
-</div>
-
-</div>
-<div class="PlainVisible">
-Default is ISI Only
+1.0
 </div>
 
 </td>
@@ -1126,23 +1120,15 @@ Default is ISI Only
 
 </div>
 <div class="Standard">
-<div class="center">
-<img class="embedded" src="ISIOnly.png" alt="figure ISIOnly.png" style="max-width: 450px; max-height: 300px;"/>
-  <img class="embedded" src="JitterNoise.png" alt="figure JitterNoise.png" style="max-width: 450px; max-height: 300px;"/>
-
-</div>
-
+If <a class="Reference" href="Help-Subsection-66.html#sub:Y-Axis">Y Axis↑</a> mode is set to Fixed, this value sets the maximum vertical extent of the eye diagram.
 </div>
 <div class="Standard">
-If this mode is set to ISI Only, then the eye diagram is produced with the waveform exactly as presented with no additional noise or jitter added to it. This is the default mode. If this mode is set to Jitter &amp; Noise, then a kernel is created (with a maximum number of pixels specified by <a class="Reference" href="Help-Subsection-71.html#sub:Max-Kernel-Pixels">Max Kernel Pixels↓</a>) with Gaussian <a class="Reference" href="Help-Subsection-70.html#sub:Noise">Noise↓</a> added vertically, and <a class="Reference" href="Help-Subsection-69.html#sub:Deterministic-Jitter">Deterministic Jitter↓</a> (dual-dirac) and <a class="Reference" href="Help-Subsection-68.html#sub:Random-Jitter">Random Jitter↓</a> (Gaussian, unbounded) horizontally, which is convolved with the ISI only eye diagram. This creates a blurry, statistical eye diagram.
-</div>
-<div class="Standard">
-In the above plots, the left plot is ISI Only, and the right plot is Jitter &amp; Noise.
+If <a class="Reference" href="Help-Subsection-66.html#sub:Y-Axis">Y Axis↑</a> mode is set to Auto, this value is unused and is not shown in the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-66.html#next">Prev</a> Minimum Y</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-66.html#next">Prev</a> Y Axis</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Random Jitter <a class="next" name="next" href="Help-Subsection-68.html#prev">Next</a></span>
+<span class="next">Minimum Y <a class="next" name="next" href="Help-Subsection-68.html#prev">Next</a></span>
 </div>
 
 </div>

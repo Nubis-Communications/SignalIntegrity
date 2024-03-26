@@ -43,7 +43,7 @@
 <text text-anchor="start" x="8" y="-362.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EnhancementMode</text>
 <text text-anchor="start" x="8" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ EnhancementSteps</text>
 <text text-anchor="start" x="8" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ BitsPerSymbol</text>
-<text text-anchor="start" x="8" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 12 more...</text>
+<text text-anchor="start" x="8" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 14 more...</text>
 <polyline fill="none" stroke="black" points="0,-322.5 111,-322.5 "/>
 <text text-anchor="start" x="8" y="-310.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HashValue()</text>
 <text text-anchor="start" x="8" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>

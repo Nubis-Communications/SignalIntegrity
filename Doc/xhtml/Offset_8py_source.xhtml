@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.3.5</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -117,39 +117,40 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">        @param offsetZ0 (optional) float real characteristic impedance of offset (defaults to 50 ohms)</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">        @param offsetLoss (optional) float loss due to skin-effect defined in ohms/s at f0 (defaults to 0).</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral">        @param f0 (optional) float frequency where the offset loss is defined (defaults to 1e9).</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        The result is that the class becomes the base-class SParameters with the s-parameters</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        of an offset, which is a common portion of a calibration standard.</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        data=[]</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Zc=offsetZ0</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        Td=offsetDelay</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#aa045f2219b761078ae36ab544db15655">   45</a></span>&#160;        R0=offsetLoss</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        L=Td*Zc</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        C=Td/Zc</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        G=0</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> fList:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            R=R0*Td*cmath.sqrt(f/f0)*(1+1j)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            Z=R+1j*2*cmath.pi*f*L</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            Y=G+1j*2*cmath.pi*f*C</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            y=cmath.sqrt(Z*Y)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="comment"># pragma: silent exclude</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#a47ae707d6a22b64f2250f132781a4cb0">calcZc</a>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    Zc=cmath.sqrt(Z/Y)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                Zc=offsetZ0</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment"># pragma: include</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            rho=(Zc-Z0)/(Zc+Z0)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            D=(1-rho*rho*cmath.exp(-2*y))</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            S11=rho*(1-cmath.exp(-2*y))/D</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            S21=(1-rho*rho)*cmath.exp(-y)/D</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            data.append([[S11,S21],[S21,S11]])</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        SParameters.__init__(self,fList,data,Z0)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">        @param Z0 float (optional, defaults to 50.) reference impedance for the calculation.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        The result is that the class becomes the base-class SParameters with the s-parameters</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        of an offset, which is a common portion of a calibration standard.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        data=[]</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        Zc=offsetZ0</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        Td=offsetDelay</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#aa045f2219b761078ae36ab544db15655">   46</a></span>&#160;        R0=offsetLoss</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        L=Td*Zc</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        C=Td/Zc</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        G=0</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> f <span class="keywordflow">in</span> fList:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            R=R0*Td*cmath.sqrt(f/f0)*(1+1j)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            Z=R+1j*2*cmath.pi*f*L</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            Y=G+1j*2*cmath.pi*f*C</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            y=cmath.sqrt(Z*Y)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#a47ae707d6a22b64f2250f132781a4cb0">calcZc</a>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    Zc=cmath.sqrt(Z/Y)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                Zc=offsetZ0</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            rho=(Zc-Z0)/(Zc+Z0)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            D=(1-rho*rho*cmath.exp(-2*y))</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            S11=rho*(1-cmath.exp(-2*y))/D</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            S21=(1-rho*rho)*cmath.exp(-y)/D</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            data.append([[S11,S21],[S21,S11]])</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        SParameters.__init__(self,fList,data,Z0)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SignalIntegrity.Lib.SParameters.SParameters.SParameters</a></div><div class="ttdoc">Class containing s-parameters.</div><div class="ttdef"><b>Definition:</b> <a href="SParameters_8py_source.xhtml#l00042">SParameters.py:42</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml">SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset.Offset</a></div><div class="ttdoc">class providing the s-parameters of an offset portion of the various calibration standards for a cali...</div><div class="ttdef"><b>Definition:</b> <a href="Offset_8py_source.xhtml#l00031">Offset.py:31</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_xhtml_a47ae707d6a22b64f2250f132781a4cb0"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#a47ae707d6a22b64f2250f132781a4cb0">SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset.Offset.calcZc</a></div><div class="ttdeci">bool calcZc</div><div class="ttdef"><b>Definition:</b> <a href="Offset_8py_source.xhtml#l00033">Offset.py:33</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_xhtml_aa045f2219b761078ae36ab544db15655"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#aa045f2219b761078ae36ab544db15655">SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset.Offset.__init__</a></div><div class="ttdeci">def __init__(self, fList, offsetDelay, offsetZ0, offsetLoss, f0=1e9, Z0=50.)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="Offset_8py_source.xhtml#l00045">Offset.py:45</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset_xhtml_aa045f2219b761078ae36ab544db15655"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml#aa045f2219b761078ae36ab544db15655">SignalIntegrity.Lib.Measurement.CalKit.Standards.Offset.Offset.__init__</a></div><div class="ttdeci">def __init__(self, fList, offsetDelay, offsetZ0, offsetLoss, f0=1e9, Z0=50.)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="Offset_8py_source.xhtml#l00046">Offset.py:46</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

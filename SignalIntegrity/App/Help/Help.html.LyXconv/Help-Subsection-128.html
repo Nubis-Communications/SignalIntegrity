@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-127.html#next">Prev</a> Voltage Clock Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-127.html#next">Prev</a> Voltage PRBS Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-129.html#prev">Next</a></span>
+<span class="next">Voltage Clock Generator <a class="next" name="next" href="Help-Subsection-129.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-128"></a>Voltage Sine Generator<a class="Label" name="device:Voltage-Sine-Generator"> </a>
+<a class="toc" name="toc-Subsection-128"></a>Voltage Multi-Level Waveform Generator<a class="Label" name="device:Voltage-Multi-Level-Waveform-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSineGeneratorOnePort.png" alt="figure VoltageSineGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="VoltageSineGeneratorTwoPort.png" alt="figure VoltageSineGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="MultiLevelWaveform.png" alt="figure MultiLevelWaveform.png" style="width: 421px; max-width: 1405px; height: 287px; max-height: 958px;"/>
 
 </div>
 <div class="Standard">
@@ -1161,42 +1160,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-phase
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ph
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-deg
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 deg
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-frequency
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-f
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Hz
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 MHz
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1228,6 +1191,96 @@ S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 40.0 GS/s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+prbs
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+prbs
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+7
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+bits per symbol
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+bps
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+baudrate
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Baud
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 GBaud
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+start time
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+t0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
 </td>
 
 </tr>
@@ -1269,42 +1322,6 @@ s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-stop time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-tf
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 show
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1326,24 +1343,33 @@ true
 
 </div>
 <div class="Standard">
-The voltage sine generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage sine <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage multi-level waveform generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage pseudo-random PAM <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
+</div>
+<div class="Standard">
+The bits per symbol dictates the type of PAM waveform generated, with 1 specifying NRZ, 2 specifying PAM-4, 3 specifying PAM-8, etc.
 </div>
 <div class="Standard">
 The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
-The waveform is such that it has the frequency specified and has the phase specified at time zero.
+The waveform uses the PRBS polynomial specified at the baud rate specified. For PAM waveforms, bits of the polynomial are grouped to produce the PAM waveform. For example, for PAM-4, the first two bits of the polynomial form the two bit specification of the PAM level.
 </div>
 <div class="Standard">
-When the sine wave is active can be controlled by the start and stop time. Before the start time and after the stop time, the waveform is zero.
+If a nonzero risetime is specified, the first edge crosses 50% at the start time.
+</div>
+<div class="Standard">
+The maximum risetime is 59% of the unit interval (the reciprocal of the baud rate).
+</div>
+<div class="Standard">
+The PRBS pattern calculated is such that the entire duration of the waveform contains however many bits of the PRBS polynomial dictated sequence fits into the waveform. If the waveform starts at zero, this is what would be expected, but if it starts at negative time, the negative time contains the PRBS bits wrapped around.
 </div>
 <div class="Standard">
 If show is true, when the simulation completes, the <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-127.html#next">Prev</a> Voltage Clock Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-127.html#next">Prev</a> Voltage PRBS Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-129.html#prev">Next</a></span>
+<span class="next">Voltage Clock Generator <a class="next" name="next" href="Help-Subsection-129.html#prev">Next</a></span>
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-120.html#next">Prev</a> Voltage DC Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-120.html#next">Prev</a> Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-122.html#prev">Next</a></span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-122.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-121"></a>Current DC Source<a class="Label" name="device:Current-DC-Source"> </a>
+<a class="toc" name="toc-Subsection-121"></a>Current Source<a class="Label" name="device:Current-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CurrentSourceDC.png" alt="figure CurrentSourceDC.png" style="width: 276px; max-width: 1105px; height: 115px; max-height: 463px;"/>
+<img class="embedded" src="CurrentSourceOnePort.png" alt="figure CurrentSourceOnePort.png" style="max-width: 129px; max-height: 169px;"/>
+<img class="embedded" src="CurrentSourceTwoPort.png" alt="figure CurrentSourceTwoPort.png" style="max-width: 129px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1154,25 +1155,25 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-CS1
+
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-amplitude
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-a
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-A
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 A
+None
 </td>
 
 </tr>
@@ -1194,23 +1195,62 @@ true
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+waveform project name
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wfprojname
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+use project calculation properties
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+bool
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+calcprop
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+false
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-The DC current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a DC current.
+The current source is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a current <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> specified by the file name to the system. When <a class="Reference" href="Help-Subsection-10.html#sub:Simulating">Simulating↑</a>, the waveform is read in and sampled to base sample rate specified in the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>.
 </div>
 <div class="Standard">
-The DC current source is handled specially in that it does not provide a waveform, but rather a number representing the DC current. Unlike other waveforms applied to the system, it has no startup effects, and in fact, no concept of a time axis - it simply is the current specified. The transfer characteristics of a DC current source through the system is to take the DC response of the system.
+The <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> file can be viewed using <a class="Reference" href="Help-Subsubsection-66.html#Control-Help:Edit-Properties">Edit Properties↑</a> with the device selected and pressing the View button on the Part Properties dialog.
 </div>
 <div class="Standard">
-If show is true, when the simulation completes, the <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
+If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
+</div>
+<div class="Standard">
+For the file name, a user may specify another <i>SignalIntegrity</i> project, which ought to be a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> project that produces waveforms. In this case, two additional properties must be chosen: The name of the probe that produces the <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> in the project, and whether to perform that simulation in that project using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> of the current project.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-120.html#next">Prev</a> Voltage DC Source</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-120.html#next">Prev</a> Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Noise Generator <a class="next" name="next" href="Help-Subsection-122.html#prev">Next</a></span>
+<span class="next">Voltage DC Source <a class="next" name="next" href="Help-Subsection-122.html#prev">Next</a></span>
 </div>
 
 </div>

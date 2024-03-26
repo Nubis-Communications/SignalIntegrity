@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-81.html#next">Prev</a> Measure Eye Parameters</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-81.html#next">Prev</a> Horizontal Alignment</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Decision Level <a class="next" name="next" href="Help-Subsection-83.html#prev">Next</a></span>
+<span class="next">Measure Eye Parameters <a class="next" name="next" href="Help-Subsection-83.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-82"></a>BER Exponent for Measure<a class="Label" name="sub:BER-Exponent-for-Measure"> </a>
+<a class="toc" name="toc-Subsection-82"></a>Vertical Alignment<a class="Label" name="sub:Vertical-Alignment"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,16 +1099,23 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-BER Exponent for Measure
+Vertical Alignment
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.BERForMeasure
+EyeDiagram.Alignment.Vertical
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Float
+Enum
 </td>
 <td align="left" valign="top" style="width: 18cm;">
--6
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+MaxMin or Max<br/>
+MaxMin is default
+</div>
+
 </td>
 
 </tr>
@@ -1117,12 +1124,24 @@ Float
 
 </div>
 <div class="Standard">
-If <a class="Reference" href="Help-Subsection-81.html#sub:Measure-Eye-Parameters">Measure Eye Parameters↑</a> is set to True, the <a class="Reference" href="Help-Subsection-82.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure↑</a> is the probability contour on each eye where the measurements are made. This is usually at the BER specified by a given standard.
+When <a class="Reference" href="Help-Subsection-78.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, and the <a class="Reference" href="Help-Subsection-80.html#sub:Alignment-Mode">Alignment Mode↑</a> is set to Vertical, 
 </div>
+<div class="Standard">
+the eye is aligned based on vertical measurements using the <a class="Reference" href="Help-Subsection-82.html#sub:Vertical-Alignment">Vertical Alignment↑</a> mode:
+</div>
+<ul>
+<li>
+MaxMin — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for the narrowest eye.
+</li>
+<li>
+Max — The center of the eye is found by finding the horizontal location where the vertical opening is maximized for any eye. 
+</li>
+
+</ul>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-81.html#next">Prev</a> Measure Eye Parameters</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-81.html#next">Prev</a> Horizontal Alignment</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Decision Level <a class="next" name="next" href="Help-Subsection-83.html#prev">Next</a></span>
+<span class="next">Measure Eye Parameters <a class="next" name="next" href="Help-Subsection-83.html#prev">Next</a></span>
 </div>
 
 </div>

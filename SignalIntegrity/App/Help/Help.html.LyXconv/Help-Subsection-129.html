@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-128.html#next">Prev</a> Voltage Sine Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-128.html#next">Prev</a> Voltage Multi-Level Waveform Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Pulse Generator <a class="next" name="next" href="Help-Subsection-130.html#prev">Next</a></span>
+<span class="next">Voltage Sine Generator <a class="next" name="next" href="Help-Subsection-130.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-129"></a>Current Step Generator<a class="Label" name="device:Current-Step-Generator"> </a>
+<a class="toc" name="toc-Subsection-129"></a>Voltage Clock Generator<a class="Label" name="device:Voltage-Clock-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CurrentStepGeneratorOnePort.png" alt="figure CurrentStepGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="CurrentStepGeneratorTwoPort.png" alt="figure CurrentStepGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="VoltageClockGenerator.png" alt="figure VoltageClockGenerator.png" style="max-width: 305px; max-height: 202px;"/>
 
 </div>
 <div class="Standard">
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-CG?
+VG?
 </td>
 
 </tr>
@@ -1170,10 +1169,10 @@ float
 a
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-A
+V
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-1.0 A
+1.0 V
 </td>
 
 </tr>
@@ -1197,13 +1196,13 @@ S/s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-start time
+risetime
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-t0
+rt
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 s
@@ -1215,13 +1214,31 @@ s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-risetime
+frequency
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-rt
+f
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Hz
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 MHz
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+start time
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+t0
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 s
@@ -1290,24 +1307,24 @@ true
 
 </div>
 <div class="Standard">
-The current step generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a current step <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage clock generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage clock <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
 </div>
 <div class="Standard">
-The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
-</div>
-<div class="Standard">
-The waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for the remaining duration of the waveform.
+The waveform created has a clock rate as specified and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
 If a nonzero risetime is specified, the first edge crosses 50% at the start time.
 </div>
 <div class="Standard">
+The maximum risetime is 59% of the clock period.
+</div>
+<div class="Standard">
 If show is true, when the simulation completes, the <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-128.html#next">Prev</a> Voltage Sine Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-128.html#next">Prev</a> Voltage Multi-Level Waveform Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Pulse Generator <a class="next" name="next" href="Help-Subsection-130.html#prev">Next</a></span>
+<span class="next">Voltage Sine Generator <a class="next" name="next" href="Help-Subsection-130.html#prev">Next</a></span>
 </div>
 
 </div>

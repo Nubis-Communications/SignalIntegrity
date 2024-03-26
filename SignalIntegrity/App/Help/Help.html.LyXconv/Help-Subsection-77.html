@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-15"/>
+<meta name="create-date" content="2024-03-25"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,12 +1073,12 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-76.html#next">Prev</a> Auto Align Eye</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-76.html#next">Prev</a> Min Exponent</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Alignment Mode <a class="next" name="next" href="Help-Subsection-78.html#prev">Next</a></span>
+<span class="next">Auto Align Eye <a class="next" name="next" href="Help-Subsection-78.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-77"></a>BER Exponent for Alignment<a class="Label" name="sub:BER-Exponent-for-Alignment"> </a>
+<a class="toc" name="toc-Subsection-77"></a>Invert Plot<a class="Label" name="sub:Invert-Plot"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,16 +1099,25 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-BER Exponent for Alignment
+Invert Plot
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-EyeDiagram.BERForAlignment
+EyeDiagram.Invert
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Float
+Bool
 </td>
 <td align="left" valign="top" style="width: 18cm;">
--3
+<div class="PlainVisible">
+<div class="left">
+True or False
+</div>
+
+</div>
+<div class="PlainVisible">
+True is default
+</div>
+
 </td>
 
 </tr>
@@ -1117,12 +1126,12 @@ Float
 
 </div>
 <div class="Standard">
-If <a class="Reference" href="Help-Subsection-76.html#sub:Auto-Align-Eye">Auto Align Eye↑</a> is set to True, eye alignment is performed using measurements on a contour of the eye at a certain probability, specified by the <a class="Reference" href="Help-Subsection-77.html#sub:BER-Exponent-for-Alignment">BER Exponent for Alignment↑</a>. Usually, this is set to -3 (i.e. the contour used is at the internal boundary of the eye with a probability of one in <span class="formula">10<sup> − 3</sup></span>. Using a relatively high probability allows for eyes to be aligned even in extreme cases where the BER is very poor.
+If Invert is set to True, then the background is black and the eye diagram traces are shown in the color specified by the <a class="Reference" href="Help-Subsection-54.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↑</a>. Otherwise, if Invert is set to False, the background is set to the color specified by the <a class="Reference" href="Help-Subsection-54.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol↑</a> and the eye diagram traces are shown in black.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-76.html#next">Prev</a> Auto Align Eye</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-76.html#next">Prev</a> Min Exponent</span>
 <span class="up"><a class="up" name="up" href="Help-Section-22.html">Up</a> Eye Diagram Properties</span>
-<span class="next">Alignment Mode <a class="next" name="next" href="Help-Subsection-78.html#prev">Next</a></span>
+<span class="next">Auto Align Eye <a class="next" name="next" href="Help-Subsection-78.html#prev">Next</a></span>
 </div>
 
 </div>
