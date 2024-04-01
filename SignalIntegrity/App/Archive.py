@@ -77,11 +77,15 @@ class Archive(list):
                             dict.__init__(self,{})
                             raise SignalIntegrityExceptionArchive('During archiving:',thisFile+' could not be opened')
                             return self
+
+
                     else: # done building the archive dictionary
                         done=True
                 else:
                     initial=False
                 if not done:
+                    #Force equations to evaluate so that variabels are propagated correctly
+                    SignalIntegrity.App.Project.EvaluateEquations()
                     for device in app.Drawing.schematic.deviceList:
                         args={}
                         for variable in device.variablesList:
