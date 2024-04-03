@@ -19,7 +19,7 @@ ProjectFileBase.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 import os
-from SignalIntegrity.App.Encryption import Encryption
+from SignalIntegrity.Lib.Encryption import Encryption
 
 class XMLProperty(object):
     def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None,writeDefault=True):

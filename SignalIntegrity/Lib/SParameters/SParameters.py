@@ -33,7 +33,7 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyRespo
 from SignalIntegrity.Lib.SParameters.SParameterManipulation import SParameterManipulation
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 from SignalIntegrity.__about__ import __project__,__version__,__description__,__url__
-from SignalIntegrity.App.Encryption import Encryption
+from SignalIntegrity.Lib.Encryption import Encryption
 
 class SParameters(SParameterManipulation):
     """Class containing s-parameters"""

@@ -31,7 +31,7 @@ import SignalIntegrity.App.Project
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.Files import FileParts
-from SignalIntegrity.App.Encryption import Encryption
+from SignalIntegrity.Lib.Encryption import Encryption
 
 class HeaderDialog(tk.Toplevel):
     def __init__(self,parent, titleName=None, fileparts=None):

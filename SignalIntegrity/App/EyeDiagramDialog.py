@@ -33,7 +33,7 @@ from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.EyeDiagramMeasurementsDialog import EyeDiagramMeasurementsDialog
 from SignalIntegrity.App.EyeDiagram import EyeDiagram
 from SignalIntegrity.App.BathtubCurveDialog import BathtubCurveDialog
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences

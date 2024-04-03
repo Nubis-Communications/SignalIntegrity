@@ -23,7 +23,7 @@ import math
 import SignalIntegrity.Lib as si
 import numpy as np
 import os
-from SignalIntegrity.App.Encryption import Encryption
+from SignalIntegrity.Lib.Encryption import Encryption
 
 class TestEncryptionTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):

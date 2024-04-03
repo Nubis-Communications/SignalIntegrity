@@ -19,7 +19,7 @@ ProjectFile.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 import SignalIntegrity.Lib as si
 
 import copy

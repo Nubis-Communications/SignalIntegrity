@@ -31,7 +31,7 @@ from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
-from SignalIntegrity.App.ToSI import FromSI,ToSI
+from SignalIntegrity.Lib.ToSI import FromSI,ToSI
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
 from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
 from SignalIntegrity.Lib.Test.TestHelpers import PlotTikZ

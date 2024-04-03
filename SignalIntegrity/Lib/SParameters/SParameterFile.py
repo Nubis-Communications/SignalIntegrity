@@ -89,7 +89,7 @@ class SParameterFile(SParameters):
             spfile=kwargs['text']
         else:
             try:
-                from SignalIntegrity.App.Encryption import Encryption
+                from SignalIntegrity.Lib.Encryption import Encryption
                 spfile=Encryption().ReadEncryptedLines(name)
             except IOError:
                 raise SignalIntegrityExceptionSParameterFile(name+' not found')

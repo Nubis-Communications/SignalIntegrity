@@ -23,7 +23,7 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial import PseudoRandomPolynomial
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveform,SignalIntegrityException
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 
 class SerialDataWaveform(Waveform):
     """a serial data NRZ waveform"""

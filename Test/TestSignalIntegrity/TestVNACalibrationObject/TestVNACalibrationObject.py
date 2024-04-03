@@ -76,7 +76,7 @@ class TestVNACalibrationObjectTest(unittest.TestCase,
     def testSIUnits(self):
         unit='e-27 F/Hz'
         number=-310.13
-        self.assertEqual(number,siapp.ToSI.FromSI(siapp.ToSI.ToSI(number,unit),unit),'si with exponent converted incorrectly')
+        self.assertEqual(number,si.ToSI.FromSI(si.ToSI.ToSI(number,unit),unit),'si with exponent converted incorrectly')
     def Args(self):
         return {'Noise':0.0}
     def TestCal(self,testid):

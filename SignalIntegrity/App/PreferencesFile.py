@@ -203,7 +203,7 @@ class Encryption(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Password',''))
         self.Add(XMLPropertyDefaultString('Ending','$'))
     def ApplyPreferences(self):
-        from SignalIntegrity.App.Encryption import Encryption
+        from SignalIntegrity.Lib.Encryption import Encryption
         Encryption(pwd=self['Password'],ending=self['Ending'])
 
 class ProjectFiles(XMLConfiguration):

@@ -31,7 +31,7 @@ import math
 from SignalIntegrity.App.MenuSystemHelpers import StatusBar
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 
 class EyeDiagramMeasurementsDialog(tk.Toplevel):
     labelwidth=25

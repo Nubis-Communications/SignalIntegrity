@@ -24,7 +24,7 @@ else:
     import tkinter as tk
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty
-from SignalIntegrity.App.ToSI import nextHigher12458
+from SignalIntegrity.Lib.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
 
 class SParameterPropertiesDialog(PropertiesDialog):

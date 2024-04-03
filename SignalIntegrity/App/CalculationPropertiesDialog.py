@@ -19,7 +19,7 @@ CalculationPropertiesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertySI,CalculationProperty,CalculationPropertyChoices
-from SignalIntegrity.App.ToSI import nextHigher12458
+from SignalIntegrity.Lib.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
 

@@ -27,7 +27,7 @@ else:
     from tkinter import colorchooser
 
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
-from SignalIntegrity.App.ToSI import FromSI,ToSI
+from SignalIntegrity.Lib.ToSI import FromSI,ToSI
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.MenuSystemHelpers import ToolTip
 

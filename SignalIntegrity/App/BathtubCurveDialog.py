@@ -34,7 +34,7 @@ from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyRefer
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
-from SignalIntegrity.App.ToSI import ToSI,FromSI
+from SignalIntegrity.Lib.ToSI import ToSI,FromSI
 from SignalIntegrity.App.SParameterProperties import SParameterProperties,SParameterPlotsConfiguration
 from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
 from SignalIntegrity.App.InformationMessage import InformationMessage

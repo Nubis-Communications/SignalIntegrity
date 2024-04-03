@@ -35,7 +35,7 @@ import os
 # import matplotlib
 # matplotlib.use('TkAgg')
 
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
@@ -67,7 +67,7 @@ from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
-from SignalIntegrity.App.Encryption import Encryption
+from SignalIntegrity.Lib.Encryption import Encryption
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project

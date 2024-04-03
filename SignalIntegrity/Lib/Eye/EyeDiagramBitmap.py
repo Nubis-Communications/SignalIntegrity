@@ -23,7 +23,7 @@ from SignalIntegrity.Lib.ResultsCache import ResultsCache
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
 from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor,Waveform
 from SignalIntegrity.Lib.Rat.Rat import Rat
-from SignalIntegrity.App.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI
 
 import math
 import copy

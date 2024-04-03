@@ -25,7 +25,7 @@ if sys.version_info.major < 3:
 else:
     from tkinter import messagebox
 
-from SignalIntegrity.App.ToSI import ToSI,FromSI
+from SignalIntegrity.Lib.ToSI import ToSI,FromSI
 from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
 import SignalIntegrity.App.Project
 
