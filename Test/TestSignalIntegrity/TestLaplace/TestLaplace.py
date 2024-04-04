@@ -43,6 +43,8 @@ class TestLaplaceTest(unittest.TestCase,
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
         self.TextCharacters = SignalIntegrity.App.Preferences['Appearance.LimitText']
         SignalIntegrity.App.Preferences['Appearance.LimitText']=60
+        self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

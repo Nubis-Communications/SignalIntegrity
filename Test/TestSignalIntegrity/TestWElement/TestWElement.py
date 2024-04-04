@@ -35,10 +35,31 @@ class TestWElementTest(unittest.TestCase,si.test.SParameterCompareHelper,si.test
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
         os.chdir(self.path)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
+        self.TextLimit=SignalIntegrity.App.Preferences['Appearance.LimitText']
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=60
+        self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def NameForTest(self):
         return '_'.join(unittest.TestCase.id(self).split('.')[-2:])
     def tearDown(self):
-        pass
+        unittest.TestCase.tearDown(self)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
+        SignalIntegrity.App.Preferences.SaveToFile()
+        pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testWElement3Pairs(self):
         f=si.fd.EvenlySpacedFrequencyList(100e9,100)
         sp=si.sp.dev.WElementFile(f,'wires_1mil_80um_3.8_3pair.txt',df=0.001,Z0=50,scale=1./1000.)

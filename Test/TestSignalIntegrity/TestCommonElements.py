@@ -45,7 +45,7 @@ class TestCommonElements(unittest.TestCase,si.test.SourcesTesterHelper,si.test.R
         self.CheckConditionNumber=SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']
         SignalIntegrity.App.Preferences['Calculation.CheckConditionNumber']=True
         self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
-        self.MultiPortTee=False
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

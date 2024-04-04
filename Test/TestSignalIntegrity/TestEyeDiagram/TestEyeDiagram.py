@@ -41,6 +41,10 @@ class TestEyeDiagramTest(unittest.TestCase,
         pysi=SignalIntegrityAppHeadless()
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
+        self.TextLimit=SignalIntegrity.App.Preferences['Appearance.LimitText']
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=60
+        self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -51,6 +55,8 @@ class TestEyeDiagramTest(unittest.TestCase,
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

@@ -51,6 +51,10 @@ class TestEncryptionTest(unittest.TestCase,
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         self.Caching=SignalIntegrity.App.Preferences['Cache.CacheResults']
         SignalIntegrity.App.Preferences['Cache.CacheResults']=False
+        self.TextLimit=SignalIntegrity.App.Preferences['Appearance.LimitText']
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=60
+        self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -68,6 +72,8 @@ class TestEncryptionTest(unittest.TestCase,
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences['Cache.CacheResults']=self.Caching
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

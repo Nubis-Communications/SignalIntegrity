@@ -48,21 +48,23 @@ class TestCOMModelsTest(unittest.TestCase,
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         self.Caching=SignalIntegrity.App.Preferences['Cache.CacheResults']
         SignalIntegrity.App.Preferences['Cache.CacheResults']=False
+        self.TextLimit=SignalIntegrity.App.Preferences['Appearance.LimitText']
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=60
+        self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
-        self.removeFile('CoupledMM$.s4p')
-        self.removeFile('tlinetest$.si')
-        self.removeFile('tlinetest2$.si')
-        self.removeFile('TLineModelDiffModeOnly$.si')
         os.chdir(self.cwd)
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences['Cache.CacheResults']=self.Caching
+        SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
+        SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
