@@ -25,6 +25,19 @@ import SignalIntegrity.Lib as si
 import copy
 import os
 
+class TextLineConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'EquationLine')
+        self.Add(XMLPropertyDefaultString('Line',''))
+
+class TextConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Text')
+        self.Add(XMLPropertyDefaultString('Title','Note:'))
+        self.Add(XMLPropertyDefaultCoord('Location',(0,0)))
+        self.Add(XMLPropertyDefaultInt('Width',30))
+        self.Add(XMLProperty('Lines',[TextLineConfiguration() for _ in range(0)],'array',arrayType=TextLineConfiguration()))
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -123,6 +136,7 @@ class SchematicConfiguration(XMLConfiguration):
         XMLConfiguration.__init__(self,'Schematic')
         self.Add(XMLProperty('Devices',[DeviceConfiguration() for _ in range(0)],'array',arrayType=DeviceConfiguration()))
         self.Add(XMLProperty('Wires',[WireConfiguration() for _ in range(0)],'array',arrayType=WireConfiguration()))
+        self.Add(XMLProperty('Text',[TextConfiguration() for _ in range(0)],'array',arrayType=TextConfiguration()))
     def Device(self,name):
         for device in self['Devices']:
             for part_property in device.dict['PartProperties']['value']:
@@ -441,8 +455,6 @@ class EquationLineConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'EquationLine')
         self.Add(XMLPropertyDefaultString('Line',''))
-
-
 
 class EquationsConfiguration(XMLConfiguration):
     def __init__(self):
