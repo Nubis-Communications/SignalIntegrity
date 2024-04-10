@@ -288,6 +288,7 @@ class SParametersDialog(tk.Toplevel):
         self.topRightCanvasControlsFrame=tk.Frame(topRightFrame)
         self.topRightCanvasControlsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
         tk.Button(self.topRightCanvasControlsFrame,text='unwrap',command=self.onUnwrap).pack(side=tk.LEFT,expand=tk.NO,fill=tk.NONE)
+        tk.Button(self.topRightCanvasControlsFrame,text='Auto',command=self.onAutoDelay).pack(side=tk.RIGHT,expand=tk.NO,fill=tk.NONE)
         self.delayViewerProperty=CalculationPropertySI(self.topRightCanvasControlsFrame,'Delay',self.onDelayEntered,None,None,None,'s')
         self.delayViewerProperty.label.config(width=10)
 
@@ -1302,6 +1303,16 @@ class SParametersDialog(tk.Toplevel):
         self.plt.autoscale(True)
         self.f.canvas.draw()
 
+    def onAutoDelay(self):
+        import numpy as np
+        fr = self.sp.FrequencyResponse(self.toPort,self.fromPort)
+        x = fr.Frequencies('GHz')
+        y = fr.Response('deg')
+        z = np.polyfit(x=x, y=np.unwrap(y, period=360), deg=1)
+        delay = -z[0]/360*1e-9
+        self.delayViewerProperty.SetString(delay)
+        self.delayViewerProperty.onEntered(None)
+    
     def onUnwrap(self):
         fr=self.sp.FrequencyResponse(self.toPort,self.fromPort)
         ir=fr.ImpulseResponse()
