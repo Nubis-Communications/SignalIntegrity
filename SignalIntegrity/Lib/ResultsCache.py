@@ -73,7 +73,7 @@ class ResultsCache(object):
                     if self.logging: print(filename + ' passes cache check')
                     return True
                 else:
-                    if self.logging:
+                    if self.logging: # pragma: no cover
                         print(filename+' hash incorrect')
                         print(filename+' hash value = '+hash)
                         print('expecting: '+self.hash)
@@ -115,15 +115,6 @@ class ResultsCache(object):
             pickle.dump(pickleDict['hash'], f, 2)
             pickle.dump(pickleDict, f, 2)
         return self
-    def FileTime(self,filename):
-        """Modification time of a file.
-        @param filename string name of file on the disk.
-        @note the filename must contain a path that can be directly navigated to from the current directory.
-        @return the last modification time of the file.
-        """
-        import os
-        modificationTime = os.path.getmtime(filename)
-        return modificationTime
     def CheckTimes(self,cacheFilename):
         """Base class function to check times of various components.
         If a project does not have any file components or time dependencies, this can be ignored, otherwise
