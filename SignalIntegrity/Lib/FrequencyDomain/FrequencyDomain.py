@@ -162,6 +162,34 @@ class FrequencyDomain(list):
         fl.CheckEvenlySpaced()
         FrequencyDomain.__init__(self,fl,self[0:numPts+1])
         return self
+    def FixDCPhase(self,dc_phase_deg=0,min_abs=0.001):
+        """Fixes the DC phase  
+        Usually, frequency responses start with a phase of zero or 180 degrees.
+        If this is not the case, real valued waveforms are not possible.  This fixes the DC point.
+        @param dc_phase_deg float, defaults to 0, phase to set the DC point to.  180 or 0 are the only real logical choices.
+        @return self (with dc phases fixed)
+        @remark phases are only fixed in off diagonal elements by unwrapping the phase, moving the phase up or down, and restoring
+        the phase delay
+        @note this function raises an exception if there is no DC point already, or the points are not evenly spaced.
+        """
+        if self.m_f.CheckEvenlySpaced():
+            if abs(self[0]) > min_abs:
+                deg_list=self.Response('deg')
+                phase_delta=dc_phase_deg-deg_list[0]
+                fr_list=[m*cmath.exp(1j*(d+phase_delta)*math.pi/180.) for m,d in zip(self.Response('mag'),deg_list)]
+                list.__init__(self,fr_list)
+        return self
+    def PrincipalDelay(self):
+        """Returns the principal delay of the impulse response  
+        The principal delay is the location of the largest absolute value of the impulse response waveform.
+        @return the principal delay
+        """
+        ir=self.ImpulseResponse()
+        if ir is not None:
+            TD=ir.PrincipalDelay()
+        else:
+            TD=0.
+        return TD
     ##
     # @var m_f
     # instance of class FrequencyList

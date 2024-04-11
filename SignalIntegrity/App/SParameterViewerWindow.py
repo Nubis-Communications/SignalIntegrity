@@ -93,6 +93,7 @@ class SParametersDialog(tk.Toplevel):
         self.WaveletDenoiseDoer = Doer(self.onWaveletDenoise).AddHelpElement('Control-Help:Wavelet-Denoise').AddToolTip('Denoise s-parameters with wavelets')
         self.RemoveOffsetDoer = Doer(self.onRemoveOffset).AddHelpElement('Control-Help:Remove-Offset').AddToolTip('Remove offset from impulse response in s-parameters')
         self.PreserveDCDoer = Doer(self.onPreserveDC).AddHelpElement('Control-Help:Preserve-DC').AddToolTip('Preserve DC in causality enforcement')
+        self.FixDCPhaseDoer = Doer(self.onFixDCPhase).AddHelpElement('Control-Help:Fix-DC-Phase').AddToolTip('Fix DC Phase')
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:S-Parameter-Viewer-Control-Help').AddToolTip('Get help on a control')
@@ -171,6 +172,7 @@ class SParametersDialog(tk.Toplevel):
         self.WaveletDenoiseDoer.AddMenuElement(PropertiesMenu,label='Wavelet Denoise',underline=0)
         self.RemoveOffsetDoer.AddMenuElement(PropertiesMenu,label='Remove Impulse Response Offset',underline=25)
         self.PreserveDCDoer.AddCheckButtonMenuElement(PropertiesMenu,label='Preserve DC in Causality Enforcement',underline=9)
+        self.FixDCPhaseDoer.AddMenuElement(PropertiesMenu,label='Fix DC Phase',underline=0)
         # ------
         ViewMenu=tk.Menu(self)
         TheMenu.add_cascade(label='View',menu=ViewMenu,underline=0)
@@ -1517,6 +1519,12 @@ class SParametersDialog(tk.Toplevel):
             self.sp.EnforceBothPassivityAndCausality(maxIterations=30,
                                                      causalityThreshold=1e-5,
                                                      preserveDC=SignalIntegrity.App.Preferences['SParameterProperties.Enforcements.PreserveDC'])
+            self.UpdatePropertiesFromSParameters()
+            self.PlotSParameter()
+
+    def onFixDCPhase(self):
+        if self.sp.f().CheckEvenlySpaced():
+            self.sp.FixDCPhase(0)
             self.UpdatePropertiesFromSParameters()
             self.PlotSParameter()
 

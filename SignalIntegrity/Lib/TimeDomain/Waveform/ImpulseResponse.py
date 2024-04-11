@@ -208,9 +208,17 @@ class ImpulseResponse(Waveform):
             endidx-startidx+1,td.Fs),
             [x[k] for k in range(startidx,endidx+1)])
     def FirFilter(self):
-        """FIR filter equivalent of impulse response for processing
-        
+        """FIR filter equivalent of impulse response for processing  
         @return an instance of class FirFilter that can be convolved with a waveform
         """
         td=self.td
         return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())
+    def PrincipalDelay(self):
+        """Returns the principal delay of the impulse response  
+        The principal delay is the location of the largest absolute value of the waveform.
+        @return the principal delay
+        """
+        abs_list=self.Values('abs')
+        idx = abs_list.index(max(abs_list))
+        TD = self.Times()[idx] # the time of the main peak
+        return TD
