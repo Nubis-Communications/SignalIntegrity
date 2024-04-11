@@ -316,4 +316,25 @@ class SParameterManipulation(object):
                         self.m_d[n][toPort][fromPort]=frv[n]
         self.ResampleToUnevenlySpaced()
         return self
-
+    def FixDCPhase(self,dc_phase = 0):
+        """Fixes the DC phase  
+        Usually s-parameters, after DC point restoration (or if they have the DC point) start with a phase of zero or 180 degrees.
+        If this is not the case, real valued waveforms are not possible.  This fixes the DC point.
+        @param dc_phase float, defaults to 0, phase to set the DC point to.  180 or 0 are the only real logical choices.
+        @return self (with dc phases fixed)
+        @remark phases are only fixed in off diagonal elements by unwrapping the phase, moving the phase up or down, and restoring
+        the phase delay
+        @note this function raises an exception if there is no DC point already, or the points are not evenly spaced.
+        """
+        pass
+    def TimeBeforeZero(self,time_before_zero):
+        """Specifies the interpretation of how much time is before time zero.  
+        Normally, s-parameters are interpreted as half the time is before zero and half is after.  This can be onerous and can cause
+        misinterpretation when other tools don't adhere to this convention.  Here, the user can specify an amount of time that is before
+        zero time.  This causes the impulse responses to have the amount of time earlier than the amount specified to be appended to the
+        end of the impulse response.  When this is done, the impulse response must be resampled such that the time to the left and right
+        are equal again, by increasing the size of the impulse response.
+        @return self with time before zero enforced.
+        @note this function raises an exception if there is no DC point already, or if the points are not evenly spaced.
+        """
+        pass
