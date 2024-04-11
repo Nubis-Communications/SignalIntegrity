@@ -107,9 +107,10 @@ class SParameterPropertiesDialog(PropertiesDialog):
         pass
 
     def onPositiveTimeLimitEntered(self,event):
-        if self.project['TimeLimitPositive']<0.:
-            self.project['TimeLimitPositive']=0.
-            self.positiveTime.UpdateStrings()
+#         if self.project['TimeLimitPositive']<0.:
+#             self.project['TimeLimitPositive']=0.
+#             self.positiveTime.UpdateStrings()
+        pass
 
     def onReferenceImpedanceEntered(self,event):
         self.UpdateStrings()
