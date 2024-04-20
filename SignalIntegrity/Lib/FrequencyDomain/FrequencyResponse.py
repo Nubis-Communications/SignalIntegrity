@@ -39,7 +39,8 @@ class FrequencyResponse(FrequencyDomain):
     instance of class FrequencyContent, would filter the waveform in the frequency-domain.
     @see ImpulseResponse
     """
-    oldSpline=True
+    oldSpline=False
+    remove_principal_delay=True
     def __init__(self,f=None,resp=None):
         """Constructor
         @param f instance of class FrequencyList
@@ -195,11 +196,29 @@ class FrequencyResponse(FrequencyDomain):
         if not fd.CheckEvenlySpaced():
             if GenericFrequencyList([0]+fd).CheckEvenlySpaced():
                 # only the DC point is missing.  Restore that first
-                DCRestored=self._SplineResample(GenericFrequencyList([0]+fd))
-                return DCRestored.Resample(fdp)
+                if self.remove_principal_delay:
+                    # first, remove the principal delay
+                    Td=self.PrincipalDelay(fd=True)
+                else:
+                    Td=0
+                fr=self._DelayBy(-Td)
+                DCRestored=fr._SplineResample(GenericFrequencyList([0]+fd))
+                fr=DCRestored._DelayBy(Td)
+                return fr.Resample(fdp)
         # pragma: include
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
-        if not evenlySpaced: return self._SplineResample(fdp)
+        if not evenlySpaced:
+            if self.remove_principal_delay:
+                # first, remove the principal delay
+                Td=self.PrincipalDelay(fd=True)
+            else:
+                Td=0
+            fr=self._DelayBy(-Td)
+            fr.WriteToFile('test.txt')
+            frDelayed=fr._SplineResample(fdp)
+            frDelayed.WriteToFile('test_res.txt')
+            fr=frDelayed._DelayBy(Td)
+            return fr
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
         if ND1 < fd.N: R=Rat(fd.Fe/fdp.Fe*fdp.N/fd.N); ND1=R[0]*fd.N; D2=R[1]
         if  ND1 > 50000: return self.ResampleCZT(fdp)

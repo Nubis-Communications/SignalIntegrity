@@ -199,16 +199,31 @@ class FrequencyDomain(list):
                 fr_list=[m*cmath.exp(1j*(d+phase_delta)*math.pi/180.) for m,d in zip(self.Response('mag'),deg_list)]
                 list.__init__(self,fr_list)
         return self
-    def PrincipalDelay(self):
+    def PrincipalDelay(self,fd=True):
         """Returns the principal delay of the impulse response  
         The principal delay is the location of the largest absolute value of the impulse response waveform.
         @return the principal delay
         """
-        ir=self.ImpulseResponse()
-        if ir is not None:
-            TD=ir.PrincipalDelay()
+        TD=0
+        if fd or not self.m_f.CheckEvenlySpaced():
+            # perform the calculation in the frequency domain
+            if len(self)>=3:
+                deg=[cmath.phase(v) for v in self]
+                ddeg = [0 for _ in range(len(self)-1)]
+                nn_range=range(1,len(self)-1)
+                for nn in nn_range:
+                    ddegf=(deg[nn]-deg[nn-1])/(2.*math.pi*(self.m_f[nn]-self.m_f[nn-1]))
+                    ddegb=(deg[nn+1]-deg[nn])/(2.*math.pi*(self.m_f[nn+1]-self.m_f[nn]))
+                    ddeg[nn]=ddegb if abs(ddegf) >= abs(ddegb) else ddegf
+                W=[abs(v) for v in self]
+                try:
+                    TD=-sum([W[nn]*ddeg[nn] for nn in nn_range])/sum([W[nn] for nn in nn_range])
+                except:
+                    pass
         else:
-            TD=0.
+            ir=self.ImpulseResponse()
+            if ir is not None:
+                TD=ir.PrincipalDelay()
         return TD
     ##
     # @var m_f
