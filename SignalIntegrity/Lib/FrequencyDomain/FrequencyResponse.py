@@ -214,9 +214,9 @@ class FrequencyResponse(FrequencyDomain):
             else:
                 Td=0
             fr=self._DelayBy(-Td)
-            fr.WriteToFile('test.txt')
+            # fr.WriteToFile('test.txt')
             frDelayed=fr._SplineResample(fdp)
-            frDelayed.WriteToFile('test_res.txt')
+            # frDelayed.WriteToFile('test_res.txt')
             fr=frDelayed._DelayBy(Td)
             return fr
         R=Rat(fd.Fe/fdp.Fe*fdp.N); ND1=R[0]; D2=R[1]
