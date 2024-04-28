@@ -143,7 +143,7 @@ class TestEncryptionTest(unittest.TestCase,
         pysi.SaveProjectToFile('tlinetest$.si')
         self.SParameterResultsChecker('tlinetest$.si')
     def testEncriptedInternalProject(self):
-        import SignalIntegrity.App as siapp
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         Encryption(pwd='test',ending='$')
         pysi=self.Preliminary('tlinetest.si')
         internalFile=pysi.Device('D1')['file']['Value']

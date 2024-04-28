@@ -20,7 +20,7 @@ TestTDRErrorTerms.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App as siapp
+import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
 
 import os
 
@@ -74,128 +74,133 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
-        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project['CalculationProperties.UserSampleRate']=Project['CalculationProperties.BaseSampleRate']
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         tdrsim.Device('V1')['gain']['Value']=self.g1
         tdrsim.Device('V2')['gain']['Value']=self.g2
         tdrsim.Device('DUT')['file']['Value']=simName+'.si'
         tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG1')['rt']['Value']=risetime
-        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG2')['rt']['Value']=risetime
-        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Open'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
-        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project['CalculationProperties.UserSampleRate']=Project['CalculationProperties.BaseSampleRate']
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         tdrsim.Device('V1')['gain']['Value']=self.g1
         tdrsim.Device('V2')['gain']['Value']=self.g2
         tdrsim.Device('DUT')['file']['Value']=simName+'.si'
         tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG1')['rt']['Value']=risetime
-        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG2')['rt']['Value']=risetime
-        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Load'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
-        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project['CalculationProperties.UserSampleRate']=Project['CalculationProperties.BaseSampleRate']
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         tdrsim.Device('V1')['gain']['Value']=self.g1
         tdrsim.Device('V2')['gain']['Value']=self.g2
         tdrsim.Device('DUT')['file']['Value']=simName+'.si'
         tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG1')['rt']['Value']=risetime
-        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG2')['rt']['Value']=risetime
-        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName='Thru'
         projName=simName+'1'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
-        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project['CalculationProperties.UserSampleRate']=Project['CalculationProperties.BaseSampleRate']
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         tdrsim.Device('V1')['gain']['Value']=self.g1
         tdrsim.Device('V2')['gain']['Value']=self.g2
         tdrsim.Device('DUT')['file']['Value']=simName+'.si'
         tdrsim.Device('VG1')['a']['Value']=self.V1 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG1')['rt']['Value']=risetime
-        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['a']['Value']=0.0
         tdrsim.Device('VG2')['rt']['Value']=risetime
-        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
         simName='Thru'
         projName=simName+'2'
         print(simName)
         tdrsim=siapp.SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
-        siapp.Project['CalculationProperties.UserSampleRate']=siapp.Project['CalculationProperties.BaseSampleRate']
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project['CalculationProperties.UserSampleRate']=Project['CalculationProperties.BaseSampleRate']
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()        
         tdrsim.Device('V1')['gain']['Value']=self.g1
         tdrsim.Device('V2')['gain']['Value']=self.g2
         tdrsim.Device('DUT')['file']['Value']=simName+'.si'
         tdrsim.Device('VG1')['a']['Value']=0.0
         tdrsim.Device('VG1')['rt']['Value']=risetime
-        tdrsim.Device('VG1')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG1')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG1')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['a']['Value']=self.V2 * (1. if risetime == 0.0 else 2.)
         tdrsim.Device('VG2')['rt']['Value']=risetime
-        tdrsim.Device('VG2')['fs']['Value']=siapp.Project['CalculationProperties.BaseSampleRate']
-        HorizontalOffset=WaveformStartTime-siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['fs']['Value']=Project['CalculationProperties.BaseSampleRate']
+        HorizontalOffset=WaveformStartTime-Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.Device('VG2')['ho']['Value']=HorizontalOffset
-        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+siapp.Project['CalculationProperties.ImpulseResponseLength']/2.
+        tdrsim.Device('VG2')['dur']['Value']=WaveformEndTime-HorizontalOffset+Project['CalculationProperties.ImpulseResponseLength']/2.
         tdrsim.SaveProjectToFile('TDRSimulation'+projName+'.si')
     def DoSimulation(self):
         resDict=TestTDRErrorTermsTest.resDict
@@ -209,9 +214,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
@@ -220,9 +226,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
@@ -231,9 +238,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
@@ -242,9 +250,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
@@ -253,9 +262,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName]=sp
@@ -264,9 +274,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
@@ -276,9 +287,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
@@ -288,9 +300,10 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'.si'
         spProj=siapp.SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        siapp.Project['CalculationProperties.EndFrequency']=self.fd.Fe
-        siapp.Project['CalculationProperties.FrequencyPoints']=self.fd.N
-        siapp.Project['CalculationProperties'].CalculateOthersFromBaseInformation()
+        Project = siapp.SignalIntegrity.App.Project 
+        Project['CalculationProperties.EndFrequency']=self.fd.Fe
+        Project['CalculationProperties.FrequencyPoints']=self.fd.N
+        Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
         (sp,name)=spProj.CalculateSParameters()
         resDict[simName+'1']=sp.PortReorder([0])
@@ -299,18 +312,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         tdrsim=siapp.SignalIntegrityAppHeadless()
         simName=projName='Short'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
+        Project = siapp.SignalIntegrity.App.Project 
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=siapp.SignalIntegrityAppHeadless()
         simName=projName='Open'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
+        Project = siapp.SignalIntegrity.App.Project 
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=siapp.SignalIntegrityAppHeadless()
         simName=projName='Load'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
+        Project = siapp.SignalIntegrity.App.Project 
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
@@ -319,6 +335,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName=projName+'1'
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
+        Project = siapp.SignalIntegrity.App.Project 
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=siapp.SignalIntegrityAppHeadless()
@@ -326,6 +343,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName=projName+'2'
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
+        Project = siapp.SignalIntegrity.App.Project 
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         print('converting TDR')

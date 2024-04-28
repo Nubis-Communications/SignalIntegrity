@@ -20,7 +20,7 @@ TestPowerDelivery.py
 import unittest
 
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App as siapp
+import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
 from random import random
 from numpy import array
 from math import sqrt

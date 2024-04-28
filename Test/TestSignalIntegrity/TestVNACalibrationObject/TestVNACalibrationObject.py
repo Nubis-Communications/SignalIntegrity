@@ -20,7 +20,7 @@ TestVNACalibrationObject.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App as siapp
+import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
 
 import os
 

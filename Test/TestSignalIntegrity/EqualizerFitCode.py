@@ -1,5 +1,5 @@
 def EqualizerFit(project,waveform,delay,bitrate):
-    import SignalIntegrity.App as siapp
+    import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
     import SignalIntegrity.Lib as si
     app=siapp.SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)

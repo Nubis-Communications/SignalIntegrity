@@ -23,7 +23,7 @@ import os
 import unittest
 
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App as siapp
+import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
 
 class TestSystemVariablesTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):

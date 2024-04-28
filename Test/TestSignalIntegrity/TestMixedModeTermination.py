@@ -108,7 +108,7 @@ class TestMixedModeTermination(unittest.TestCase,si.test.RoutineWriterTesterHelp
     def testPiTerminationSymbolicCode(self):
         self.WriteCode('TestMixedModeTermination.py','testPiTerminationMixedModeSymbolic(self)',self.standardHeader)
     def testMixedModeConversion(self):
-        import SignalIntegrity.App as siapp
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         pysi=siapp.SignalIntegrityAppHeadless()
         pysi.OpenProjectFile('MixedMode.si')
         netlist=[line.replace(' file None','') for line in pysi.Drawing.schematic.NetList().Text()]

@@ -22,7 +22,7 @@ import sys
 import os
 import unittest
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App as siapp
+import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
 from numpy import array
 
 class EqualizerFitter(si.fit.LevMar):
@@ -201,7 +201,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     @staticmethod
     def EyePattern(project,waveform,delay,bitrate):
         import numpy as np
-        import SignalIntegrity.App as siapp
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
@@ -223,7 +223,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         # pragma: silent exclude
     @staticmethod
     def EqualizerFit(project,waveform,delay,bitrate):
-        import SignalIntegrity.App as siapp
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         import SignalIntegrity.Lib as si
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
@@ -257,7 +257,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def ZeroForcingEqualizer(self,project,waveform,bitrate,value,pre,taps):
-        import SignalIntegrity.App as siapp; from numpy import array
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp; from numpy import array
         from numpy.linalg import inv
         app=siapp.SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)

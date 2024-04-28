@@ -18,8 +18,6 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .SignalIntegrityApp import SignalIntegrityApp
-from .SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from .Project import Project
 import os
 InstallDir=os.path.dirname(os.path.abspath(__file__))+'/'
