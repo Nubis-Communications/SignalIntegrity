@@ -55,7 +55,8 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
         simulation.
         """
         # pragma: silent exclude
-        if self.CheckCache():
+        checkCache=self.CheckCache()
+        if checkCache:
             if hasattr(self.transferMatrices, 'callback'):
                 self.CallBack(100.0)
                 return self.transferMatrices
@@ -66,6 +67,8 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
         self.SystemDescription()
         self.m_sd.CheckConnections()
         spc=self.m_spc
+        from SignalIntegrity.Lib.Dispatcher import SimulatorDispatcher
+        SimulatorDispatcher(self.m_sd,self.m_spc)
         result=[]
         sn=SimulatorNumeric(self.m_sd)
         for n in range(len(self.m_f)):
