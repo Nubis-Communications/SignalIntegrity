@@ -1,8 +1,8 @@
 device R1 1 R 50.0
-device T1 2 tline zc 50.0 td 0.0
+device T1 2 tline zc 50.0 td 0
 device R2 1 R 50.0
 meas T1 1
 connect T1 1 R1 1
 stim m1 R1 1
-output R2 1
-connect R2 1 T1 2
+voltageoutput VO1 T1 2
+connect T1 2 R2 1

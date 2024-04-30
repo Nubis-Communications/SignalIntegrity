@@ -3,13 +3,13 @@ device D2 4 currentcontrolledvoltagesource 1.0
 device G2 1 ground
 device O2 1 open
 voltagesource VG1 1
-device L4 2 L 0.00022
-device C3 2 C 4.7e-06
+device L4 2 L 220.0e-6
+device C3 2 C 4.7e-6 esr 0 df 0
 currentsource CG2 1
-output D2 2
-connect D2 2 CG2 1 R1 1
-connect C3 2 D2 1 L4 2
-connect G2 1 D2 3
-output D2 4
+voltageoutput Vout CG2 1
+connect CG2 1 D2 2 R1 1
+connect L4 2 D2 1 C3 2
+connect D2 3 G2 1
+voltageoutput Iout D2 4
 connect D2 4 O2 1
-connect C3 1 L4 1 VG1 1
+connect L4 1 C3 1 VG1 1

@@ -3,6 +3,6 @@ var $D$ 500.0e-6
 var $material$ nickel
 var $rho$ 68.4e-9
 var $ur$ 600.0
-device D1 2 file RoundWireBondRho.si L $L$ D $D$ ur $ur$ rho $rho$ EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 40000000000.0
+device D1 2 file RoundWireBondRho.si L $L$ D $D$ ur $ur$ rho $rho$ EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 40000000000.0 ReferenceImpedance 50.0
 port 1 td 0 D1 1
 port 2 td 0 D1 2

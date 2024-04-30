@@ -3,11 +3,11 @@ device C1 1 C 400.0e-6 esr 0 df 0
 device R1 1 R 207.0e-3
 device R3 2 R 10.0e-3
 currentsource CG1 1
-device Vl 4 voltagecontrolledvoltagesource 1.0
+device Vl 3 voltagetovoltageconverter
 device D1 3 file FeedbackNetwork.s3p
-device Il 4 currentcontrolledvoltagesource 1.0
-device Ic 4 currentcontrolledvoltagesource 1.0
-device Io 4 currentcontrolledvoltagesource 1.0
+device Il 3 currenttovoltageconverter
+device Ic 3 currenttovoltageconverter
+device Io 3 currenttovoltageconverter
 voltagesource VG1 1
 connect Il 2 L1 1
 connect L1 2 R3 1
@@ -18,23 +18,15 @@ connect Io 1 Ic 1 D1 2 R3 2 Vl 1
 voltageoutput Vi D1 3
 connect D1 3 Il 1 Vl 2
 connect VG1 1 D1 1
-device Vl_2 1 ground
 device Vl_3 1 open
-connect Vl 3 Vl_2 1
-connect Vl 4 Vl_3 1
-voltageoutput Vl Vl 4
-device Il_2 1 ground
+connect Vl 3 Vl_3 1
+voltageoutput Vl Vl 3
 device Il_3 1 open
-connect Il 3 Il_2 1
-connect Il 4 Il_3 1
-voltageoutput Il Il 4
-device Ic_2 1 ground
+connect Il 3 Il_3 1
+voltageoutput Il Il 3
 device Ic_3 1 open
-connect Ic 3 Ic_2 1
-connect Ic 4 Ic_3 1
-voltageoutput Ic Ic 4
-device Io_2 1 ground
+connect Ic 3 Ic_3 1
+voltageoutput Ic Ic 3
 device Io_3 1 open
-connect Io 3 Io_2 1
-connect Io 4 Io_3 1
-voltageoutput Io Io 4
+connect Io 3 Io_3 1
+voltageoutput Io Io 3

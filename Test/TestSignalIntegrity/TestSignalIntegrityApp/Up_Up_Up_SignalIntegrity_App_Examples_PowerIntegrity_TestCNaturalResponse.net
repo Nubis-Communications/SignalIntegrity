@@ -1,11 +1,11 @@
-device C1 1 C 1e-06
+device C1 1 C 1.0e-6 esr 0 df 0
 device R1 1 R 1.0
 currentsource CG1 1
-device C2 1 C 1e-06
+device C2 1 C 1.0e-6 esr 0 df 0
 device R2 1 R 1.0
 voltagesource VG1 2
-output CG1 1
-connect CG1 1 R1 1 C1 1
+voltageoutput VO1 R1 1
+connect R1 1 CG1 1 C1 1
 connect C2 1 VG1 1
-output VG1 2
+voltageoutput VO2 VG1 2
 connect VG1 2 R2 1

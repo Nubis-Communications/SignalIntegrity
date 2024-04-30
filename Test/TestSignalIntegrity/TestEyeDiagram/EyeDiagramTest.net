@@ -5,7 +5,7 @@ device MM1 4 mixedmode voltage
 device MM2 4 mixedmode voltage
 device R2 1 R 50.0
 device R3 1 R 50.0
-device Veq2 4 voltagecontrolledvoltagesource 1.0
+device Veq2 3 voltagetovoltageconverter
 voltageoutput Vin R1 1
 connect R1 1 VG2 1
 connect R1 2 MM1 3
@@ -15,8 +15,6 @@ connect Veq2 2 MM1 1 MM2 1
 connect MM2 2 Veq2 1 MM1 2
 connect MM1 4 R2 1
 connect MM2 4 R3 1
-device Veq2_2 1 ground
 device Veq2_3 1 open
-connect Veq2 3 Veq2_2 1
-connect Veq2 4 Veq2_3 1
-eyeprobe Veq2 Veq2 4
+connect Veq2 3 Veq2_3 1
+eyeprobe Veq2 Veq2 3

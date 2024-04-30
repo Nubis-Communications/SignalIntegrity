@@ -6,33 +6,33 @@ device R4 1 R 50.0
 voltagesource VG1 1
 device D1 2 file FFE.si
 device R5 1 R 50.0
-device D2 2 voltageamplifier gain 1.0 zi 100000000.0 zo 50.0
+device D2 2 voltageamplifier gain 1.0 zi 100.0e6 zo 50.0
 device R6 2 R 50.0
 device R7 1 R 50.0
 device R8 1 R 50.0
 device R9 1 R 50.0
 device D5 2 file FFE.si
 device R10 1 R 50.0
-device D6 2 voltageamplifier gain 1.0 zi 100000000.0 zo 50.0
+device D6 2 voltageamplifier gain 1.0 zi 100.0e6 zo 50.0
 device D7 4 file HDMICableRawMeasurement.s4p
 device MM1 4 mixedmode
 device MM2 4 mixedmode
-connect R1 1 D2 2
+connect D2 2 R1 1
 connect R1 2 D4 1
-output R2 1
-connect R2 1 D1 1 D4 2
+voltageoutput Vdiffde R2 1
+connect R2 1 D4 2 D1 1
 connect D4 3 R3 1
 connect D4 4 R4 1
-connect D2 1 VG1 1 D6 1
-connect D1 2 R5 1
-connect D6 2 R6 1
-connect R6 2 MM2 3
-output D5 1
-connect D5 1 R7 1 MM1 3
+connect VG1 1 D6 1 D2 1
+connect R5 1 D1 2
+connect R6 1 D6 2
+connect MM2 3 R6 2
+voltageoutput Vdiff R7 1
+connect R7 1 D5 1 MM1 3
 connect MM2 4 R8 1
-connect MM1 4 R9 1
-connect R10 1 D5 2
+connect R9 1 MM1 4
+connect D5 2 R10 1
 connect MM2 1 D7 1
-connect MM2 2 D7 2
+connect D7 2 MM2 2
 connect D7 4 MM1 1
 connect D7 3 MM1 2

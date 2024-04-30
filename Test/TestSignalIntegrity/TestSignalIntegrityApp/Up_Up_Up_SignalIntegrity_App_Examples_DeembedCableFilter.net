@@ -1,6 +1,6 @@
 device D1 2 file cable.s2p
 unknown Filter 2
 system file CascCableFilter.s2p
-port 1 D1 1
+port 1 td 0 D1 1
 connect D1 2 Filter 1
-port 2 Filter 2
+port 2 td 0 Filter 2

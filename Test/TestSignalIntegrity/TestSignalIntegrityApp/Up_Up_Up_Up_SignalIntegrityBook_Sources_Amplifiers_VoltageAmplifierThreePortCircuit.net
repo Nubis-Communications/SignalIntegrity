@@ -1,9 +1,9 @@
 device $\alpha$ 4 voltagecontrolledvoltagesource 1.0
 device $Z_i$ 2 R 50.0
-device $Z_o$ 2 R 0.0
-port 3 $Z_i$ 1
-connect $Z_i$ 1 $\alpha$ 1 $\alpha$ 3
-port 1 $\alpha$ 2
+device $Z_o$ 2 R 0
+port 3 td 0 $Z_i$ 1
+connect $Z_i$ 1 $\alpha$ 3 $\alpha$ 1
+port 1 td 0 $\alpha$ 2
 connect $\alpha$ 2 $Z_i$ 2
-connect $Z_o$ 1 $\alpha$ 4
-port 2 $Z_o$ 2
+connect $\alpha$ 4 $Z_o$ 1
+port 2 td 0 $Z_o$ 2

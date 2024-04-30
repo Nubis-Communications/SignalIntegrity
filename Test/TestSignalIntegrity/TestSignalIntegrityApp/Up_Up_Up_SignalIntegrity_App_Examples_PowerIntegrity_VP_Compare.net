@@ -2,7 +2,7 @@ voltagesource Il_calc 1
 device O1 1 open
 voltagesource Il_meas 1
 device O2 1 open
-output O1 1
+voltageoutput Il_calc O1 1
 connect O1 1 Il_calc 1
-output Il_meas 1
-connect Il_meas 1 O2 1
+voltageoutput Il_meas O2 1
+connect O2 1 Il_meas 1

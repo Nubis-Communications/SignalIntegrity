@@ -3,7 +3,7 @@ device D1 4 voltageamplifier gain 1.0 zi 100.0e6 zo 0
 device G1 1 ground
 device R1 2 R 46.25
 device R2 2 R 46.25
-device D2 4 file TraceModel.si EndFrequency 112000000000.0 FrequencyPoints 1120 UserSampleRate 224000000000.0
+device D2 4 file TraceModel.si EndFrequency 112000000000.0 FrequencyPoints 1120 UserSampleRate 224000000000.0 ReferenceImpedance 50.0
 device R3 2 R 46.25
 device R4 2 R 46.25
 device G2 1 ground

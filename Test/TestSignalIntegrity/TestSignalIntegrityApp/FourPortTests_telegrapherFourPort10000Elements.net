@@ -1,5 +1,5 @@
-device T1 4 telegrapher rp 0.0 lp 5e-08 gp 0.0 cp 2e-11 rn 0.0 ln 5e-08 gn 0.0 cn 2e-11 lm 0.0 gm 1e-11 cm 0.0 sect 10000
-port 1 T1 1
-port 2 T1 3
-port 3 T1 2
-port 4 T1 4
+device T1 4 telegrapher rp 0 rsep 0 lp 50.0e-9 gp 0 cp 20.0e-12 dfp 0 rn 0 rsen 0 ln 50.0e-9 gn 0 cn 20.0e-12 dfn 0 lm 0 gm 10.0e-12 cm 0 dfm 0 scale 1.0 sect 10000
+port 1 td 0 T1 1
+port 2 td 0 T1 3
+port 3 td 0 T1 2
+port 4 td 0 T1 4

@@ -13,7 +13,7 @@ var $Rterm$ 50.0
 var $T1td$ 500.0e-12
 var $T1zc$ 55.0
 var $R1r$ 50.0
-voltagesource VS1 1
+voltagesource VS1 1 Risetime $Risetime$ SampleRate $SampleRate$ Amplitude $Amplitude$ Frequency $Frequency$ Phase $Phase$ Source $Source$ Route $Route$ R $R$ C $C$ Td $Td$ Zc $Zc$ Rterm $Rterm$ EndFrequency 20000000000.0 FrequencyPoints 200 UserSampleRate 40000000000.0 ReferenceImpedance 50.0
 device T1 2 tline zc $T1zc$ td $T1td$
 device R1 1 R $R1r$
 connect T1 1 VS1 1

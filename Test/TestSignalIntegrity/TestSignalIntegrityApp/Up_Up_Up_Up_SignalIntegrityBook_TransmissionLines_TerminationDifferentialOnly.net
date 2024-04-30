@@ -1,6 +1,6 @@
 device R1 2 R 100.0
 device MM1 4 mixedmode
-connect R1 1 MM1 2
+connect MM1 2 R1 1
 connect R1 2 MM1 1
-port 1 MM1 3
-port 2 MM1 4
+port 1 td 0 MM1 3
+port 2 td 0 MM1 4

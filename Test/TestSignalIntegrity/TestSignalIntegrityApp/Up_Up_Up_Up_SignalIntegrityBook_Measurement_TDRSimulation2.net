@@ -1,23 +1,21 @@
 device R1 2 R 40.0
-device T1 2 tline zc 60.0 td 2e-10
-device I 4 currentcontrolledvoltagesource 1.0
+device T1 2 tline zc 60.0 td 200.0e-12
+device I 3 currenttovoltageconverter
 device R2 1 R 20.0
 device R3 1 R 50.0
 device R4 1 R 50.0
 device D3 4 directionalcoupler
 voltagesource VG2 1
 connect VG2 1 R1 1
-output R1 2
+voltageoutput V R1 2
 connect R1 2 I 1
 connect T1 1 D3 2
 connect T1 2 R2 1
 connect D3 1 I 2
-output D3 3
-connect D3 3 R3 1
-output D3 4
-connect D3 4 R4 1
-device I_2 1 ground
+voltageoutput A R3 1
+connect R3 1 D3 3
+voltageoutput B R4 1
+connect R4 1 D3 4
 device I_3 1 open
-connect I 3 I_2 1
-connect I 4 I_3 1
-output I 4
+connect I 3 I_3 1
+voltageoutput I I 3

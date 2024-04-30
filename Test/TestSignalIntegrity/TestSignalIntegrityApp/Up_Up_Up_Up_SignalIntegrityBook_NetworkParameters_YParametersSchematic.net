@@ -4,8 +4,8 @@ device D7 4 voltagecontrolledcurrentsource 1.0
 device D8 4 voltagecontrolledcurrentsource 1.0
 device G3 1 ground
 device G5 1 ground
-port 1 D6 3
-port 2 D6 3
-connect D6 3 D6 2 D5 2 D8 2 D5 3 D7 3 D8 3 D7 2
-connect D6 1 D5 4 D6 4 D5 1 G3 1
-connect D8 1 D7 1 G5 1 D7 4 D8 4
+port 1 td 0 D7 2
+port 2 td 0 D7 2
+connect D7 2 D5 2 D7 3 D6 2 D8 2 D5 3 D6 3 D8 3
+connect D5 4 D6 4 D5 1 G3 1 D6 1
+connect D7 4 D8 4 G5 1 D7 1 D8 1

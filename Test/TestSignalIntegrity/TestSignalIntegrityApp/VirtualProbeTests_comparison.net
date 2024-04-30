@@ -38,80 +38,72 @@ device MM2 4 mixedmode
 device MM3 4 mixedmode
 device MM4 4 mixedmode
 device D27 4 file xraymmde.s4p
-device DPD 4 voltagecontrolledvoltagesource 1.0
-device DC 4 voltagecontrolledvoltagesource 1.0
-device DD 4 voltagecontrolledvoltagesource 1.0
+device DPD 3 voltagetovoltageconverter
+device DC 3 voltagetovoltageconverter
+device DD 3 voltagetovoltageconverter
 device R11 1 R 50.0
 device R12 1 R 50.0
-device Din 4 voltagecontrolledvoltagesource 1.0
-connect R1 1 D3 1
+device Din 3 voltagetovoltageconverter
+connect D3 1 R1 1
 stim m1 R1 1
 connect R2 1 D4 1
 stim m2 R2 1
 connect D1 1 DC 2 D6 2
-connect D2 1 DC 1 D8 2
+connect D8 2 DC 1 D2 1
 connect D3 2 D5 1
 connect D4 2 D7 1
-connect D15 1 D5 2
+connect D5 2 D15 1
 connect D6 1 D15 3
-connect D7 2 D15 2
+connect D15 2 D7 2
 connect D8 1 D15 4
 connect D16 1 MM1 4
-connect MM2 4 D16 2
-connect MM1 3 D17 1
+connect D16 2 MM2 4
+connect D17 1 MM1 3
 connect MM2 3 D17 2
-connect D20 1 R3 1
+connect R3 1 D20 1
 stim m3 R3 1
-connect D20 2 D22 1
-connect D21 1 R4 1
+connect D22 1 D20 2
+connect R4 1 D21 1
 stim m4 R4 1
 connect D21 2 D24 1
-connect MM1 1 D22 2
+connect D22 2 MM1 1
 connect D23 1 MM2 1
-connect D23 2 D18 1 DPD 2
-connect MM1 2 D24 2
+connect DPD 2 D18 1 D23 2
+connect D24 2 MM1 2
 connect D25 1 MM2 2
-connect DPD 1 D25 2 D19 1
-connect D30 1 R5 1
+connect D19 1 DPD 1 D25 2
+connect R5 1 D30 1
 stim m5 R5 1
-connect D30 2 MM3 1
-connect R6 1 D31 1
+connect MM3 1 D30 2
+connect D31 1 R6 1
 stim m6 R6 1
 connect D31 2 MM3 2
-connect D9 1 R9 1
+connect R9 1 D9 1
 stim m7 R9 1
-connect D9 2 D11 1
+connect D11 1 D9 2
 connect D10 1 R10 1
 stim m8 R10 1
 connect D10 2 D12 1
 meas D13 1
 connect D13 1 D11 2 Din 2
-meas D12 2
-connect D12 2 D14 1 Din 1
-connect D27 1 MM3 3
-connect MM3 4 D27 3
-connect MM4 1 DD 2 R11 1
+meas D14 1
+connect D14 1 D12 2 Din 1
+connect MM3 3 D27 1
+connect D27 3 MM3 4
+connect DD 2 R11 1 MM4 1
 connect MM4 2 R12 1 DD 1
 connect D27 2 MM4 3
-connect MM4 4 D27 4
+connect D27 4 MM4 4
 stimdef [[1.0, 0], [0, 1.0], [1.0, 0], [0, 1.0], [1.0, 0], [0, 1.0], [1.0, 0], [0, 1.0]]
-device DPD_2 1 ground
 device DPD_3 1 open
-connect DPD 3 DPD_2 1
-connect DPD 4 DPD_3 1
-output DPD 4
-device DC_2 1 ground
+connect DPD 3 DPD_3 1
+voltageoutput DPD DPD 3
 device DC_3 1 open
-connect DC 3 DC_2 1
-connect DC 4 DC_3 1
-output DC 4
-device DD_2 1 ground
+connect DC 3 DC_3 1
+voltageoutput DC DC 3
 device DD_3 1 open
-connect DD 3 DD_2 1
-connect DD 4 DD_3 1
-output DD 4
-device Din_2 1 ground
+connect DD 3 DD_3 1
+voltageoutput DD DD 3
 device Din_3 1 open
-connect Din 3 Din_2 1
-connect Din 4 Din_3 1
-output Din 4
+connect Din 3 Din_3 1
+voltageoutput Din Din 3

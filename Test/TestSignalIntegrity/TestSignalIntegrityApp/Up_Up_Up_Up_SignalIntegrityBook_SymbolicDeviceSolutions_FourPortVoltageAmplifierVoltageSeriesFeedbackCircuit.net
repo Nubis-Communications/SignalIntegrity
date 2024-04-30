@@ -1,6 +1,6 @@
 device D3 4 file None
-device D4 4 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
-device D5 4 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
-connect D4 1 D5 4
+device D4 4 voltageamplifier gain 1.0 zi 100.0e6 zo 0
+device D5 4 voltageamplifier gain 1.0 zi 100.0e6 zo 0
+connect D4 2 D5 3
 connect D4 3 D5 1
 connect D4 4 D5 2

@@ -20,33 +20,33 @@ device D4 4 currentcontrolledvoltagesource 1.0
 device G4 1 ground
 device O3 1 open
 device O4 1 open
-connect MM1 1 Z1 2
+connect Z1 2 MM1 1
 connect MM1 2 Z2 1
-output MM1 3
+voltageoutput Vd MM1 3
 connect MM1 3 D1 2
-output MM1 4
-connect MM1 4 D2 2
-connect Z3 1 Z1 1 Z2 2
+voltageoutput Vc D2 2
+connect D2 2 MM1 4
+connect Z1 1 Z2 2 Z3 1
 connect D3 2 MM2 1
 connect D4 2 MM2 2
-connect MM2 3 D1 1
+connect D1 1 MM2 3
 connect D2 1 MM2 4
 connect Z0p 1 Vsp 1
-output Z0p 2
-connect Z0p 2 D3 1
+voltageoutput Vp D3 1
+connect D3 1 Z0p 2
 connect VG1 2 Z0n 1
-output Z0n 2
+voltageoutput Vn Z0n 2
 connect Z0n 2 D4 1
-connect G1 1 D1 3
-output D1 4
-connect D1 4 O1 1
-connect D2 3 G2 1
-output D2 4
+connect D1 3 G1 1
+voltageoutput Id O1 1
+connect O1 1 D1 4
+connect G2 1 D2 3
+voltageoutput Ic D2 4
 connect D2 4 O2 1
-connect Vsn 1 VG1 1
+connect VG1 1 Vsn 1
 connect D3 3 G3 1
-output O3 1
-connect O3 1 D3 4
+voltageoutput Ip D3 4
+connect D3 4 O3 1
 connect D4 3 G4 1
-output D4 4
-connect D4 4 O4 1
+voltageoutput In O4 1
+connect O4 1 D4 4

@@ -82,7 +82,7 @@ class DeviceFactory(list):
         |transconductance\n amplifier           |2-4  |False    |gain=None zo=1e8 zi=1e8 z0=50                                                                  | False               |dev.TransconductanceAmplifier(ports,gain,zi,zo)                                                  |
         |opamp                                  |3    |False    |zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50                                                              | False               |dev.OperationalAmplifier(zi,zd,zo,gain,z0)                                                       |
         |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
-        |tlineCOM                               |2    |False    |gamma0=0 a1=0 a2=0 tau=0 zc=50 d=0 z0=50                                                       | True                |sp.dev.TLineTwoPortCOM(f,gamma0,a1,a2,tau,zc,d/1e-3,z0)                                       |
+        |tlineCOM                               |2    |False    |gamma0=0 a1=0 a2=0 tau=0 zc=50 d=0 z0=50                                                       | True                |sp.dev.TLineTwoPortCOM(f,gamma0,a1,a2,tau,zc,d/1e-3,z0)                                          |
         |tlinelossy                             |2    |False    |zc=50 td=0 LdBperHzpers=0 LdBperrootHzpers=0                                                   | True                |sp.dev.TLineLossy(f,ports,zc,td,LdBperHzpers,LdBperrootHzpers)                                   |
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
         |telegrapher                            |4    |False    |rp=0 rsep=0 lp=0 cp=0\n dfp=0 gp=0 rn=0 rsen=0\n ln=0 cn=0 dfn=0 gn=0\n lm 0 gm=0 z0=50\n scale=1.0 sect=0 | True    |sp.dev.TLineDifferentialRLGC(\n f,rp,rsep,lp,gp,cp,dfp,\n rn,rsen,ln,gn,cn,dfn,\n cm,dfm,gm,lm,z0,sect,scale) |
@@ -100,7 +100,9 @@ class DeviceFactory(list):
         |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
-        |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,50.)                                                                 |
+        |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
+        |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |   
+        |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                           |   
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
         @note frequency dependent devices usually come from 'sp.dev' meaning SParameters.Devices package.  Devices that are not frequency dependent
@@ -255,7 +257,11 @@ class DeviceFactory(list):
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)")
+                     "Parallel(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)"),
+        ParserDevice('currenttovoltageconverter',3,False,{},False,
+                     "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),
+        ParserDevice('voltagetovoltageconverter',3,False,{},False,
+                     "IdealVoltageToVoltageConverter()")
         ]))
     def MakeDevice(self,ports,callback, argsList, f, Z0=50.):
         """makes a device from a set of arguments
@@ -302,6 +308,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.Devices.VoltageControlledVoltageSource import VoltageControlledVoltageSource
         from SignalIntegrity.Lib.Devices.VoltageControlledCurrentSource import VoltageControlledCurrentSource
         from SignalIntegrity.Lib.Devices.IdealRelay import IdealRelay
+        from SignalIntegrity.Lib.Devices.Converters import IdealCurrentToVoltageConverter,IdealVoltageToVoltageConverter
         from SignalIntegrity.Lib.Fit.RLGCFitFromFile import RLGCFitFromFile
         from SignalIntegrity.Lib.SParameters.Devices.SeriesRse import SeriesRse
         from SignalIntegrity.Lib.SParameters.Devices.Mutual import Mutual

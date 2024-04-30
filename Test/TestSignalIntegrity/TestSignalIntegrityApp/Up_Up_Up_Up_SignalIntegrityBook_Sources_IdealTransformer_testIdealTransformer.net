@@ -1,27 +1,23 @@
 voltagesource VG1 1
 device R1 2 R 50.0
-device D1 4 idealtransformer 0.5
+device D1 4 idealtransformer 500.0e-3
 device G1 1 ground
 device G2 1 ground
 device R2 1 R 12.5
-device Iin 4 currentcontrolledvoltagesource 1.0
-device Iout 4 currentcontrolledvoltagesource 1.0
+device Iin 3 currenttovoltageconverter
+device Iout 3 currenttovoltageconverter
 connect R1 1 VG1 1
-output Iin 1
-connect Iin 1 R1 2
-connect Iin 2 D1 1
-connect G1 1 D1 2
+voltageoutput Vin R1 2
+connect R1 2 Iin 1
+connect D1 1 Iin 2
+connect D1 2 G1 1
 connect Iout 1 D1 3
 connect D1 4 G2 1
-output Iout 2
+voltageoutput Vout Iout 2
 connect Iout 2 R2 1
-device Iin_2 1 ground
 device Iin_3 1 open
-connect Iin 3 Iin_2 1
-connect Iin 4 Iin_3 1
-output Iin 4
-device Iout_2 1 ground
+connect Iin 3 Iin_3 1
+voltageoutput Iin Iin 3
 device Iout_3 1 open
-connect Iout 3 Iout_2 1
-connect Iout 4 Iout_3 1
-output Iout 4
+connect Iout 3 Iout_3 1
+voltageoutput Iout Iout 3

@@ -1,9 +1,9 @@
 device a 4 currentcontrolledcurrentsource 1.0
 device a 4 voltagecontrolledvoltagesource 1.0
-port 3 a 1
+port 3 td 0 a 1
 connect a 2 a 4
-port 2 a 1
+port 2 td 0 a 1
 connect a 1 a 3
-port 1 a 4
-connect a 4 a 2
-port 4 a 3
+port 1 td 0 a 2
+connect a 2 a 4
+port 4 td 0 a 3
