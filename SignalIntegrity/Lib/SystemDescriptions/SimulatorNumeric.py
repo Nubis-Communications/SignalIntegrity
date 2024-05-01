@@ -19,13 +19,14 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import array
+from numpy import array,zeros
 
 from SignalIntegrity.Lib.SystemDescriptions.Simulator import Simulator
 from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
 
 
 class SimulatorNumeric(Simulator,Numeric):
+    fasterway=True
     """class for performing numeric simulations
     @note For the purposes of this class, the numerical simulation work
     has been performed by returning the transfer matrix.  Transfer matrices
@@ -45,9 +46,21 @@ class SimulatorNumeric(Simulator,Numeric):
 
         The transfer matrix provided is for a single frequency."""
         self.Check()
-        if not hasattr(self, 'VE_o'):
-            self.VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
-            self.sm=array(self.SourceToStimsPrimeMatrix(Z0=Z0))
-        SIPrime=array(self.SIPrime(Left=self.VE_o))
-        Result=[list(v) for v in list(self.VE_o.dot(SIPrime).dot(self.sm))]
+        # pragma: silent exclude
+        if not self.fasterway:
+        # pragma: include outdent
+            if not hasattr(self, 'VE_o'):
+                self.VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
+                self.sm=array(self.SourceToStimsPrimeMatrix(Z0=Z0))
+            SIPrime=array(self.SIPrime(Left=self.VE_o))
+            Result=[list(v) for v in list(self.VE_o.dot(SIPrime).dot(self.sm))]
+        # pragma: silent exclude indent
+        else:
+            if not hasattr(self, 'VE'):
+                self.VE_o=array(self.VoltageExtractionMatrix(self.m_ol))
+                self.VE=array(self.VoltageExtractionList(self.m_ol))
+                self.sm=array(self.SourceToStimsPrimeMatrix(Z0=Z0))
+            SIPrime=array(self.SIPrime(Left=self.VE_o))
+            Result=[list(v) for v in list(self.Extract(self.VE,SIPrime).dot(self.sm))]
+        # pragma: include
         return Result

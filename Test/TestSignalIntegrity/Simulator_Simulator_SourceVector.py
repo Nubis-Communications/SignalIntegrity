@@ -60,6 +60,6 @@ class Simulator(SystemSParameters,object):
         result=[[0]*len(n) for r in range(len(nl))]
         for r in range(len(nl)):
             dp=self[self.DeviceNames().index(nl[r][0])][nl[r][1]-1]
-            result[r][n.index(dp.A)]=1
-            result[r][n.index(dp.B)]=1
+            result[r][n.index(dp.A)]=1; result[r][n.index(dp.B)]=1
         return result
+...

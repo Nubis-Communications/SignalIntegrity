@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import array
+from numpy import array,empty
 from numpy import identity
 
 from SignalIntegrity.Lib.SystemDescriptions.SystemSParameters import SystemSParameters
@@ -144,6 +144,19 @@ class Simulator(SystemSParameters,object):
         result=[[0]*len(n) for r in range(len(nl))]
         for r in range(len(nl)):
             dp=self[self.DeviceNames().index(nl[r][0])][nl[r][1]-1]
-            result[r][n.index(dp.A)]=1
-            result[r][n.index(dp.B)]=1
+            result[r][n.index(dp.A)]=1; result[r][n.index(dp.B)]=1
         return result
+    def VoltageExtractionList(self,nl):
+        n=self.NodeVector()
+        result=[[0]*2 for r in range(len(nl))]
+        for r in range(len(nl)):
+            dp=self[self.DeviceNames().index(nl[r][0])][nl[r][1]-1]
+            result[r][0]=n.index(dp.A); result[r][1]=n.index(dp.B)
+        return result
+    def Extract(self,vel,sip):
+        result=empty((vel.shape[0],sip.shape[1]),dtype=complex)
+        for r in range(vel.shape[0]):
+            for c in range(sip.shape[1]):
+                result[r][c]=sip[vel[r][0],c]+sip[vel[r][1],c]
+        return result
+        
