@@ -24,7 +24,7 @@ import SignalIntegrity.App.Project
 class HistoryElement(object):
     def __init__(self,eventName,project):
         self.eventName=eventName
-        self.project=copy.deepcopy(project)
+        self.project=project
 
 class History(object):
     def __init__(self,parent):
@@ -45,7 +45,7 @@ class History(object):
         else: # somewhere in the middle due to a previous undo
             self.history=self.history[:self.current+1]
             self.current=len(self.history)-1
-        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent))
+        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent).LinesToWrite())
         self.history.append(element)
         self.current=self.current+1
         self.FigureState()
@@ -54,8 +54,8 @@ class History(object):
             return
         undoMessage=self.history[self.current].eventName
         self.current=self.current-1
-        element=copy.deepcopy(self.history[self.current])
-        SignalIntegrity.App.Project = element.project.Read()
+        element=self.history[self.current]
+        SignalIntegrity.App.Project.FromText(element.project)
         self.parent.Drawing.InitFromProject()
         self.parent.Drawing.stateMachine.state='Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
@@ -67,8 +67,8 @@ class History(object):
         if self.current+1 == len(self.history):
             return
         self.current=self.current+1
-        element=copy.deepcopy(self.history[self.current])
-        SignalIntegrity.App.Project = element.project.Read()
+        element=self.history[self.current]
+        SignalIntegrity.App.Project.FromText(element.project)
         self.parent.Drawing.InitFromProject()
         self.parent.Drawing.stateMachine.state = 'Nothing'
         self.parent.Drawing.stateMachine.ForceIntializeState()
