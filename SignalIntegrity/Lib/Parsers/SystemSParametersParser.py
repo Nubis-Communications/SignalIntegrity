@@ -72,12 +72,12 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         self.m_sd.CheckConnections()
         spc=self.m_spc
         result = []
+        sspn=SystemSParametersNumeric(self.m_sd)
         for n in range(len(self.m_f)):
             for d in range(len(spc)):
                 if not spc[d][0] is None:
                     self.m_sd.AssignSParameters(spc[d][0],spc[d][1][n])
-            result.append(SystemSParametersNumeric(self.m_sd).SParameters(
-                solvetype=solvetype))
+            result.append(sspn.SParameters(solvetype=solvetype))
             # pragma: silent exclude
             if self.HasACallBack():
                 progress=(n+1)/len(self.m_f)*100.0
