@@ -214,6 +214,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
+        self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):

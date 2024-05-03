@@ -21,6 +21,7 @@ Archive.py
 import os
 import shutil
 import zipfile
+import glob
 
 from SignalIntegrity.App.Files import FileParts
 
@@ -167,7 +168,21 @@ class Archive(list):
                 os.makedirs(os.path.dirname(destfile),exist_ok=True)
                 try:
                     if not os.path.exists(destfile):
-                        shutil.copy(src=srcfile,dst=destfile)
+                        shutil.copy2(src=srcfile,dst=destfile)
+                        shutil.copystat(src=srcfile,dst=destfile)
+                        if SignalIntegrity.App.Preferences['ProjectFiles.ArchiveCachedResults']:
+                            srcpath,srcfile_for_cache=os.path.split(srcfile)
+                            srcfile_for_cache,srcext=os.path.splitext(srcfile_for_cache)
+                            cache_types=['_cachedTransferMatrices.p','_cachedSParameters.p','*_cachedEyeDiagramBitMap.p']
+                            dstpath,_=os.path.split(destfile)
+                            for cachefile_suffix in cache_types:
+                                cachefile_srcfile_list = glob.glob(os.path.join(srcpath,srcfile_for_cache+cachefile_suffix))
+                                for cache_srcfile in cachefile_srcfile_list:
+                                    if os.path.exists(cache_srcfile):
+                                        cache_dstfile=os.path.join(dstpath,os.path.split(cache_srcfile)[1])
+                                        if not os.path.exists(cache_dstfile):
+                                            shutil.copy2(src=cache_srcfile,dst=cache_dstfile)
+                                            shutil.copystat(src=cache_srcfile,dst=cache_dstfile)
                 except Exception as e:
                     print(e)
             # go through all of the files, straightening out the relative path references
@@ -209,6 +224,15 @@ class Archive(list):
                             app.Device(device['Ref'])[device['Keyword']]['Value'] = NewRelativePath(app.Device(device['Ref'])[device['Keyword']]['Value'])
                     app.SaveProject()
                     app.projectStack.Pull()
+            for element,srcfile,destfile in zip(self,self.srcList,self.destList):
+                element['file']=destfile
+                for device in element['devices']:
+                    device['File']=device['File'].replace(self.common,archiveDir)
+                try:
+                    if os.path.exists(destfile):
+                        shutil.copystat(src=srcfile,dst=destfile)
+                except Exception as e:
+                    print(e)
         finally:
             os.chdir(currentPath)
         return self
