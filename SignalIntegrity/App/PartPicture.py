@@ -2343,4 +2343,12 @@ class PartPictureVariableParallel(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureParallel'],2)
 
+class PartPictureSeries(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='+')
+
+class PartPictureVariableSeries(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureSeries'],2)
+
 

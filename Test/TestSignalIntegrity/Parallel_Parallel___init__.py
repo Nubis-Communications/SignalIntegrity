@@ -17,4 +17,3 @@ class Parallel(SParameters):
         sp=self.m_sspn2.SParameters()
         sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
         return sp
-

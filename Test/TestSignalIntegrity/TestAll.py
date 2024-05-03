@@ -63,6 +63,7 @@ from TestRLGC import *
 from TestRLGCLevMar import *
 from TestRoutineWriter import *
 #from TestSenseResistorInductance import *
+from TestSeries import *
 from TestSimulator import *
 #from TestSimulatorNumericParser import *
 from TestSources import *

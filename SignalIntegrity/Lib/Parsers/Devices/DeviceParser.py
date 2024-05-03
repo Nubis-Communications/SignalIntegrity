@@ -101,6 +101,7 @@ class DeviceFactory(list):
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
         |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
+        |series                                 |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Series(f,file,sect,z0)                                                                  |
         |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |   
         |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                           |   
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
@@ -258,6 +259,8 @@ class DeviceFactory(list):
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
                      "Parallel(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)"),
+        ParserDevice('series',2,False,{'file':None,'sect':None},True,
+                     "Series(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)"),
         ParserDevice('currenttovoltageconverter',3,False,{},False,
                      "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),
         ParserDevice('voltagetovoltageconverter',3,False,{},False,
@@ -334,6 +337,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
+        from SignalIntegrity.Lib.SParameters.Devices.Series import Series
         # pragma: include
         self.dev=None
         if len(argsList) == 0:

@@ -1,4 +1,4 @@
-"""two-port device placed in parallel with multiple instances"""
+"""two-port device placed in series with multiple instances"""
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -21,28 +21,21 @@ import math
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
-class Parallel(SParameters):
-    """s-parameters of two port device placed in parallel with itself multiple times"""
-    def __init__(self,f:list, name:str, numberInParallel:int, Z0:float =50, **kwargs):
+class Series(SParameters):
+    """s-parameters of two port device placed in series with itself multiple times"""
+    def __init__(self,f: float, name: str, numberInSeries: int, Z0: float =50, **kwargs):
         """Constructor
         @param f list of float frequencies
         @param name string file name of s-parameter file to read
-        @param numberInParallel int number of instances to place in parallel
+        @param numberInSeries int number of instances to place in series
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         """
-        self.m_K=numberInParallel
+        self.m_K=numberInSeries
         # pragma: silent exclude
         from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
-        from SignalIntegrity.Lib.SystemDescriptions.SystemSParametersNumeric import SystemSParametersNumeric
-        from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
         # pragma: include
-        sdp=SystemDescriptionParser().AddLines(['device D 2','port 1 D 1 2 D 2 3 D 1 4 D 2'])
         self.m_dev=SParameterFile(name,None,None,**kwargs).Resample(f).SetReferenceImpedance(Z0)
-        self.m_sspn1=SystemSParametersNumeric(sdp.SystemDescription())
-        sdp=SystemDescriptionParser().AddLines(['device D 4','device O1 1 open','device O2 1 open',
-                                    'connect O1 1 D 3','connect O2 1 D 4','port 1 D 1 2 D 2'])
-        self.m_sspn2=SystemSParametersNumeric(sdp.SystemDescription())
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n: int):
         """overloads [n]
@@ -54,11 +47,6 @@ class Parallel(SParameters):
         from SignalIntegrity.Lib.Conversions import T2S
         from SignalIntegrity.Lib.Conversions import ReferenceImpedance
         # pragma: include
-        self.m_sspn1.AssignSParameters('D',self.m_dev[n])
-        sp=self.m_sspn1.SParameters()
-        lp=[1,2]; rp=[3,4]
-        sp=T2S(linalg.matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)
-        self.m_sspn2.AssignSParameters('D', sp)
-        sp=self.m_sspn2.SParameters()
+        sp=T2S(linalg.matrix_power(S2T(self.m_dev[n]),self.m_K))
         sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
         return sp

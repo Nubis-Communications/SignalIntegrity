@@ -1465,6 +1465,20 @@ class DeviceParallel(Device):
             PartPropertySections(1),
             PartPropertyFileName()],PartPictureVariableParallel())
 
+class DeviceSeries(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='series',values=[('file',True),('sect',True)])
+        Device.__init__(self,netlist,[
+            PartPropertyDescription('Series Devices'),
+            PartPropertyCategory('Miscellaneous'),
+            PartPropertyPorts(2),
+            PartPropertyPartName('Series'),
+            PartPropertyHelp('device:Series'),
+            PartPropertyDefaultReferenceDesignator('D?'),
+            PartPropertyCalculationProperties(),
+            PartPropertySections(1),
+            PartPropertyFileName()],PartPictureVariableSeries())
+
 class DeviceEyeProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)
@@ -1624,7 +1638,8 @@ DeviceList=Devices([
                 DeviceDifferentialEyeProbe(),
                 DeviceEyeWaveform(),
                 DeviceWaveform(),
-                DeviceParallel()
+                DeviceParallel(),
+                DeviceSeries()
                 ])
 
 
