@@ -6,11 +6,11 @@ voltagesource VS3 1
 device O3 1 open
 voltagesource VS4 1
 device O4 1 open
-output O1 1
+voltageoutput VO1 O1 1
 connect O1 1 VS1 1
-output VS2 1
-connect VS2 1 O2 1
-output O3 1
+voltageoutput VO2 O2 1
+connect O2 1 VS2 1
+voltageoutput VO3 O3 1
 connect O3 1 VS3 1
-output O4 1
-connect O4 1 VS4 1
+voltageoutput VO4 VS4 1
+connect VS4 1 O4 1

@@ -2,4 +2,4 @@ voltagesource VS1 1
 device Rs 2 R 50.0
 device Rl 1 R 50.0
 connect Rs 1 VS1 1
-connect Rl 1 Rs 2
+connect Rs 2 Rl 1

@@ -1,10 +1,10 @@
 device G1 1 ground
-device D1 4 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
+device D1 4 voltageamplifier gain 1.0 zi 100.0e6 zo 0
 device $Z_i$ 1 R 50.0
 device $Z_i$ 1 R 50.0
 connect G1 1 D1 4
-port 1 D1 2
-connect D1 2 $Z_i$ 1
-port 2 $Z_i$ 1
-connect $Z_i$ 1 D1 1
-port 3 D1 3
+port 1 td 0 $Z_i$ 1
+connect $Z_i$ 1 D1 2
+port 2 td 0 D1 1
+connect D1 1 $Z_i$ 1
+port 3 td 0 D1 3

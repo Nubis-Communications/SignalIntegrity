@@ -42,7 +42,8 @@ class ProjectStack(object):
         self.stack=[]
     def Push(self):
         import copy
-        ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+        # ProjectCopy=copy.deepcopy(SignalIntegrity.App.Project)
+        ProjectCopy=SignalIntegrity.App.Project.LinesToWrite()
         cwdCopy=os.getcwd()
         self.stack.append((ProjectCopy,cwdCopy))
         #print('pushed - stack depth: ',len(self.stack))
@@ -50,7 +51,8 @@ class ProjectStack(object):
     def Pull(self,level=0):
         import copy
         ProjectCopy,cwdCopy=self.stack[level-1]
-        SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+        # SignalIntegrity.App.Project=copy.deepcopy(ProjectCopy)
+        SignalIntegrity.App.Project.FromText(ProjectCopy)
         os.chdir(cwdCopy)
         self.stack=self.stack[:level-1]
         #print('pulled - stack depth: ',len(self.stack))

@@ -4,5 +4,5 @@ device R 1 file None
 meas C 1
 connect C 1 T 1
 stim m1 T 1
-output R 1
-connect R 1 C 2
+voltageoutput Vo C 2
+connect C 2 R 1

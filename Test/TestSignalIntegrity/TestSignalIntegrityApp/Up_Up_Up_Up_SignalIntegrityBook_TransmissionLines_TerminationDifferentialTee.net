@@ -2,8 +2,8 @@ device MM1 4 mixedmode
 device Z1 2 R 50.0
 device Z2 2 R 40.0
 device Z3 1 R 60.0
-connect MM1 1 Z1 2
+connect Z1 2 MM1 1
 connect MM1 2 Z2 1
-port 1 MM1 3
-port 2 MM1 4
-connect Z1 1 Z2 2 Z3 1
+port 1 td 0 MM1 3
+port 2 td 0 MM1 4
+connect Z3 1 Z1 1 Z2 2

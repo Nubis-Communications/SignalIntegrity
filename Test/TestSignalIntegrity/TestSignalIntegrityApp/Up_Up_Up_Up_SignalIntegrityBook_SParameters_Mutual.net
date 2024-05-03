@@ -1,4 +1,4 @@
-device M1 4 M 1e-09
+device M1 4 M 1.0e-9
 device Z0 2 R 50.0
 voltagesource VS1 1
 device R1 2 R 50.0
@@ -11,9 +11,9 @@ device D1 4 file None
 currentsource CS1 2
 connect Z0 1 M1 1
 connect M1 3 R2 2 D1 1
-connect R1 1 M1 2
+connect M1 2 R1 1
 connect M1 4 R3 2
-connect VS1 1 Z0 2
+connect Z0 2 VS1 1
 connect R1 2 VS2 1
-connect R2 1 VS 1
-connect VS4 1 R3 1
+connect VS 1 R2 1
+connect R3 1 VS4 1

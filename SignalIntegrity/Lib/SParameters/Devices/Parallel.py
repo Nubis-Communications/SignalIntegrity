@@ -62,32 +62,3 @@ class Parallel(SParameters):
         sp=self.m_sspn2.SParameters()
         sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
         return sp
-
-class Series(SParameters):
-    """s-parameters of two port device placed in parallel with itself multiple times"""
-    def __init__(self,f: float, name: str, numberInSeries: int, Z0: float =50):
-        """Constructor
-        @param f list of float frequencies
-        @param name string file name of s-parameter file to read
-        @param numberInSeries int number of instances to place in parallel
-        @param Z0 (optional) float reference impedance (defaults to 50 ohms)
-        """
-        self.m_K=numberInSeries
-        # pragma: silent exclude
-        from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
-        # pragma: include
-        self.m_dev=SParameterFile(name).Resample(f).SetReferenceImpedance(Z0)
-        SParameters.__init__(self,f,None,Z0)
-    def __getitem__(self,n: int):
-        """overloads [n]
-        @return list of list s-parameter matrix for the nth frequency element
-        """
-        # pragma: silent exclude
-        from numpy import linalg
-        from SignalIntegrity.Lib.Conversions import S2T
-        from SignalIntegrity.Lib.Conversions import T2S
-        from SignalIntegrity.Lib.Conversions import ReferenceImpedance
-        # pragma: include
-        sp=T2S(linalg.matrix_power(S2T(self.m_dev[n]),self.m_K))
-        sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
-        return sp

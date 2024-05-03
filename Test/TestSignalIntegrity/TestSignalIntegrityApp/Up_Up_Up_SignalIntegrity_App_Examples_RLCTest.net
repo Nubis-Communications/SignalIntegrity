@@ -1,8 +1,8 @@
 voltagesource VG1 1
 device R1 1 R 50.0
-device L1 2 L 1e-07
-device C1 2 C 1e-12
+device L1 2 L 100.0e-9
+device C1 2 C 1.0e-12 esr 0 df 0
 connect L1 1 VG1 1
-output R1 1
+voltageoutput Vout R1 1
 connect R1 1 C1 2
-connect L1 2 C1 1
+connect C1 1 L1 2

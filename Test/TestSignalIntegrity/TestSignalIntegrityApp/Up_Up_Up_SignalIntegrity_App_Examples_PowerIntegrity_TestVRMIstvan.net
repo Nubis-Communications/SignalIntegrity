@@ -1,5 +1,5 @@
-device L1 2 L 1.5e-05
-device C1 1 C 4.7e-06
+device L1 2 L 15.0e-6
+device C1 1 C 4.7e-6 esr 0 df 0
 device R1 1 R 1.0
 device D1 4 currentcontrolledvoltagesource 1.0
 device G1 1 ground
@@ -12,12 +12,12 @@ device G3 1 ground
 device O3 1 open
 currentsource CG2 1
 voltagesource VS1 1
-device R2 2 R 5680.0
-device C2 2 C 1e-07
+device R2 2 R 5.68e3
+device C2 2 C 100.0e-9 esr 0 df 0
 device D4 4 voltagecontrolledvoltagesource 37.879
 device G4 1 ground
 device O4 1 open
-device R3 2 R 0.0264
+device R3 2 R 26.4e-3
 device O5 1 open
 device O6 1 open
 device D5 4 voltagecontrolledvoltagesource 1.0
@@ -26,29 +26,29 @@ device G6 1 ground
 voltagesource VG1 2
 voltagesource VG2 2
 voltagesource VG3 2
-connect L1 1 D1 2
+connect D1 2 L1 1
 connect L1 2 R3 1
-connect D2 1 C2 2 R3 2 D5 1 C1 1 D3 1
-connect R1 1 D2 2 CG2 1 VG1 1
-output O6 1
-connect O6 1 VG1 2
-output R2 1
-connect R2 1 D3 2 D1 1 VS1 1 O5 1
-connect D1 3 G1 1
-output O1 1
-connect O1 1 D1 4
-connect D2 3 G2 1
-output O2 1
-connect O2 1 D2 4
+connect D2 1 C1 1 D5 1 C2 2 R3 2 D3 1
+connect CG2 1 VG1 1 R1 1 D2 2
+voltageoutput Vout VG1 2
+connect VG1 2 O6 1
+voltageoutput Vin O5 1
+connect O5 1 D3 2 VS1 1 D1 1 R2 1
+connect G1 1 D1 3
+voltageoutput Il D1 4
+connect D1 4 O1 1
+connect G2 1 D2 3
+voltageoutput Iout D2 4
+connect D2 4 O2 1
 connect D3 3 G3 1
-connect VG2 1 D3 4
-output VG2 2
-connect VG2 2 O3 1
-connect R2 2 D5 2 C2 1
-connect D4 1 G5 1
-connect D4 2 VG3 2
+connect D3 4 VG2 1
+voltageoutput Vl O3 1
+connect O3 1 VG2 2
+connect C2 1 D5 2 R2 2
+connect G5 1 D4 1
+connect VG3 2 D4 2
 connect D4 3 G6 1
-output O4 1
-connect O4 1 D4 4
+voltageoutput Vc D4 4
+connect D4 4 O4 1
 connect D5 3 G4 1
 connect VG3 1 D5 4

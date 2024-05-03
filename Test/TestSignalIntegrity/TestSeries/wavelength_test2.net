@@ -1,0 +1,71 @@
+var $L$ 250.0e-12
+var $C$ 1.0e-15
+var $L2$ 125.0e-12
+device T1 2 tline zc 500.0 td 5.0e-12
+device R1 1 R 10.0e3
+voltagesource VG1 1
+device R2 2 R 1.0
+device R3 2 R 1.0
+device R4 1 R 10.0e3
+device L21 2 L 125.0e-12
+device C11 1 C 1.0e-15 esr 0 df 0
+device L1 2 L 125.0e-12
+device L2 2 L 125.0e-12
+device C1 1 C 1.0e-15 esr 0 df 0
+device L3 2 L 125.0e-12
+device L4 2 L 125.0e-12
+device C2 1 C 1.0e-15 esr 0 df 0
+device L5 2 L 125.0e-12
+device L6 2 L 125.0e-12
+device C3 1 C 1.0e-15 esr 0 df 0
+device L7 2 L 125.0e-12
+device L8 2 L 125.0e-12
+device C4 1 C 1.0e-15 esr 0 df 0
+device L9 2 L 125.0e-12
+device L10 2 L 125.0e-12
+device C5 1 C 1.0e-15 esr 0 df 0
+device L11 2 L 125.0e-12
+device L12 2 L 125.0e-12
+device C6 1 C 1.0e-15 esr 0 df 0
+device L13 2 L 125.0e-12
+device L14 2 L 125.0e-12
+device C7 1 C 1.0e-15 esr 0 df 0
+device L15 2 L 125.0e-12
+device L16 2 L 125.0e-12
+device C8 1 C 1.0e-15 esr 0 df 0
+device L17 2 L 125.0e-12
+device L18 2 L 125.0e-12
+device C9 1 C 1.0e-15 esr 0 df 0
+device L19 2 L 125.0e-12
+device D1 2 series file tline_section.si sect 10 L 250.0e-12 C 1.0e-15 EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 200000000000.0 ReferenceImpedance 50.0
+device R5 1 R 10.0e3
+device R6 2 R 1.0
+connect R2 2 T1 1
+voltageoutput VO1 T1 2
+connect T1 2 R1 1
+connect VG1 1 R2 1 R3 1 R6 1
+connect R3 2 L21 1
+voltageoutput VO2 L19 2
+connect L19 2 R4 1
+connect C11 1 L1 1 L21 2
+connect L1 2 L2 1
+connect L2 2 C1 1 L3 1
+connect L3 2 L4 1
+connect L4 2 C2 1 L5 1
+connect L6 1 L5 2
+connect L6 2 C3 1 L7 1
+connect L8 1 L7 2
+connect L8 2 C4 1 L9 1
+connect L9 2 L10 1
+connect L11 1 L10 2 C5 1
+connect L11 2 L12 1
+connect L13 1 L12 2 C6 1
+connect L13 2 L14 1
+connect L15 1 L14 2 C7 1
+connect L15 2 L16 1
+connect C8 1 L17 1 L16 2
+connect L17 2 L18 1
+connect C9 1 L19 1 L18 2
+connect R6 2 D1 1
+voltageoutput VO3 D1 2
+connect D1 2 R5 1

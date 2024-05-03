@@ -1,15 +1,13 @@
 voltagesource VG1 1
-device L1 2 L 1.2e-06
-device R1 2 R 0.002
+device L1 2 L 1.2e-6
+device R1 2 R 2.0e-3
 device R2 1 R 1.0
-device L2 2 L 1e-10
-device VOL 4 voltagecontrolledvoltagesource 1.0
+device L2 2 L 100.0e-12
+device VOL 3 voltagetovoltageconverter
 connect L1 1 VG1 1
-connect R1 1 L1 2 VOL 2
-connect R1 2 L2 1
-connect R2 1 L2 2 VOL 1
-device VOL_2 1 ground
+connect L1 2 R1 1 VOL 2
+connect L2 1 R1 2
+connect VOL 1 R2 1 L2 2
 device VOL_3 1 open
-connect VOL 3 VOL_2 1
-connect VOL 4 VOL_3 1
-output VOL 4
+connect VOL 3 VOL_3 1
+voltageoutput VOL VOL 3

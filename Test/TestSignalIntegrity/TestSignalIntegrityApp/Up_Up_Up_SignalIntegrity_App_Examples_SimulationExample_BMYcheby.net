@@ -1,23 +1,23 @@
 device R1 2 R 30.0
 device R2 1 R 30.0
-device C1 1 C 5.243e-13
-device L1 2 L 8.278e-10
-device C2 1 C 1.165e-12
-device L2 2 L 9.995e-10
-device C3 1 C 1.244e-12
-device L3 2 L 1.0235e-09
-device C4 1 C 1.244e-12
-device L4 2 L 9.995e-10
-device C5 1 C 1.165e-12
-device L5 2 L 8.278e-10
-device C6 1 C 5.243e-13
+device C1 1 C 524.3e-15 esr 0 df 0
+device L1 2 L 827.8e-12
+device C2 1 C 1.165e-12 esr 0 df 0
+device L2 2 L 999.5e-12
+device C3 1 C 1.244e-12 esr 0 df 0
+device L3 2 L 1.0235e-9
+device C4 1 C 1.244e-12 esr 0 df 0
+device L4 2 L 999.5e-12
+device C5 1 C 1.165e-12 esr 0 df 0
+device L5 2 L 827.8e-12
+device C6 1 C 524.3e-15 esr 0 df 0
 voltagesource VG1 1
-output R1 1
-connect R1 1 VG1 1
+voltageoutput Vin VG1 1
+connect VG1 1 R1 1
 connect R1 2 C1 1 L1 1
-output R2 1
-connect R2 1 L5 2 C6 1
-connect L1 2 L2 1 C2 1
-connect L2 2 L3 1 C3 1
-connect L4 1 C4 1 L3 2
-connect L5 1 C5 1 L4 2
+voltageoutput Vout R2 1
+connect R2 1 C6 1 L5 2
+connect L1 2 C2 1 L2 1
+connect L3 1 L2 2 C3 1
+connect L4 1 L3 2 C4 1
+connect L4 2 C5 1 L5 1

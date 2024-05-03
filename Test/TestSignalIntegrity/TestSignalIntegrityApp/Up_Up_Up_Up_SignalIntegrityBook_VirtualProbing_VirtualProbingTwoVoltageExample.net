@@ -1,13 +1,13 @@
 device T 2 file None
 device C 4 file None
 device R 2 file None
-meas T 1
-connect T 1 C 1
+meas C 1
+connect C 1 T 1
 stim m1 T 1
-output C 3
-connect C 3 R 1
+voltageoutput Vpo R 1
+connect R 1 C 3
 meas T 2
 connect T 2 C 2
 stim m2 T 2
-output R 2
+voltageoutput Vmo R 2
 connect R 2 C 4

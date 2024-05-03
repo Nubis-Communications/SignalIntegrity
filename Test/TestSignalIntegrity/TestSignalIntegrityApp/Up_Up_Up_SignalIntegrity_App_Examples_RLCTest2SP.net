@@ -1,9 +1,9 @@
-device C1 1 C 1e-13 esr 0.0 df 0.0
-device L1 2 L 1e-06
-device D2 2 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
-device D3 2 voltageamplifier gain 1.0 zi 100000000.0 zo 0.0
-connect C1 1 D3 1 L1 2
-port 1 L1 1
+device C1 1 C 100.0e-15 esr 0 df 0
+device L1 2 L 1.0e-6
+device D2 2 voltageamplifier gain 1.0 zi 100.0e6 zo 0
+device D3 2 voltageamplifier gain 1.0 zi 100.0e6 zo 0
+connect C1 1 L1 2 D3 1
+port 1 td 0 L1 1
 connect L1 1 D2 1
-port 2 D2 2
-port 3 D3 2
+port 2 td 0 D2 2
+port 3 td 0 D3 2

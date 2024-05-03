@@ -57,11 +57,13 @@ from TestPDN import *
 from TestPowerDelivery import *
 from TestPRBS import *
 from TestProbeOnOff import *
+from TestProbes import *
 from TestRefImp import *
 from TestRLGC import *
 from TestRLGCLevMar import *
 from TestRoutineWriter import *
 #from TestSenseResistorInductance import *
+from TestSeries import *
 from TestSimulator import *
 #from TestSimulatorNumericParser import *
 from TestSources import *

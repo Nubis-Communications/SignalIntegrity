@@ -323,26 +323,23 @@ class NetList(object):
 
                 if tokens[0] == 'currentoutput':
                     if connectIt:
-                        line = 'device '+tokens[1]+' 4 currentcontrolledvoltagesource 1.0'
+                        line = 'device '+tokens[1]+' 3 currenttovoltageconverter'
                     else:
                         line = 'device '+tokens[1]+' 2 tline zc 50 td 0'
                 if tokens[0] in ['differentialvoltageoutput','differentialeyeprobe']:
                     if connectIt:
-                        line = 'device '+tokens[1]+' 4 voltagecontrolledvoltagesource 1.0'
+                        line = 'device '+tokens[1]+' 3 voltagetovoltageconverter'
                 if tokens[0] in ['currentoutput','differentialvoltageoutput','differentialeyeprobe']:
                     if connectIt:
-                        endinglines.append('device '+tokens[1]+'_2 1 ground')
                         endinglines.append('device '+tokens[1]+'_3 1 open')
-                        endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_2 1')
-                        endinglines.append('connect '+tokens[1]+' 4 '+tokens[1]+'_3 1')
-
+                        endinglines.append('connect '+tokens[1]+' 3 '+tokens[1]+'_3 1')
                 if connectIt:
                     if tokens[0] in ['currentoutput','differentialvoltageoutput']:
                         self.outputNames.append(tokens[1])
-                        endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 4')
+                        endinglines.append('voltageoutput '+tokens[1]+' '+tokens[1]+' 3')
                     if tokens[0] == 'differentialeyeprobe':
                         self.outputNames.append(tokens[1])
-                        endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 4')
+                        endinglines.append('eyeprobe '+tokens[1]+' '+tokens[1]+' 3')
                     if tokens[0] in ['eyewaveform','waveform']:
                         self.waveformNames.append(tokens[1])
                 else:

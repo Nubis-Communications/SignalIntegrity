@@ -1197,4 +1197,11 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<PostProcessing>
+		<Lines>
+			<PostProcessingLine>
+				<Line>enforce causality</Line>
+			</PostProcessingLine>
+		</Lines>
+	</PostProcessing>
 </Project>
