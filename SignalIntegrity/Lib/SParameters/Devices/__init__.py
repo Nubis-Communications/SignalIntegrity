@@ -37,5 +37,6 @@ from .ClassicalFilter import BesselLowPassFilter,ButterworthLowPassFilter
 from .Equalizer import CTLE,FFE
 from .Laplace import Laplace
 from .ImpulseResponseFilter import ImpulseResponseFilter
-from .Parallel import Parallel,Series
+from .Parallel import Parallel
+from .Series import Series
 from .TLineTwoPortCOM import TLineTwoPortCOM
