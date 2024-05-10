@@ -61,6 +61,12 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.ReferenceImpedanceFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.Non50OhmSolutions'] or self.project['ReferenceImpedance'] != 50.:
             self.referenceImpedance=CalculationPropertySI(self.ReferenceImpedanceFrame,'Reference Impedance',None,None,self.project,'ReferenceImpedance','ohm')
+        self.TimeBefore0Frame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.TimeBefore0Frame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        if SignalIntegrity.App.Preferences['Calculation.AllowTimeBefore0'] or self.project['TimeBeforeZeroMode'] != 'legacy':
+            self.timeBeforeZeroMode=CalculationPropertyChoices(self.TimeBefore0Frame,'Simulation Time Before 0 Mode',self.onTimeBefore0ModeEntered,None,[('legacy','legacy'),('custom','custom')],self.project,'TimeBeforeZeroMode')
+            self.timeBeforeZeroTime=CalculationPropertySI(self.TimeBefore0Frame,'Simulation Time Before 0',None,None,self.project,'TimeBeforeZeroSpecified','s')
+            self.timeBeforeZeroTime.Show(self.project['TimeBeforeZeroMode'] != 'legacy')
         self.ParallelizationFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.ParallelizationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.AllowParallelization']:
@@ -129,6 +135,9 @@ class CalculationPropertiesDialog(PropertiesDialog):
     def onunderlyingTypeEntered(self,event):
         self.UpdateStrings()
 
+    def onTimeBefore0ModeEntered(self,event):
+        self.UpdateStrings()
+
     def onLimitImpulseResponseLengthEntered(self,event):
         self.UpdateStrings()
 
@@ -139,6 +148,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         # UpdateStrings.
         self.project['MaximumImpulseResponseLength']=self.NextHigher12458(self.project['MaximumImpulseResponseLength'])
         self.UpdateStrings()
+
 
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
@@ -159,6 +169,11 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.ReferenceImpedanceFrame.pack_forget()
         if showReferenceImpedance:
             self.ReferenceImpedanceFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.TimeBefore0Frame.pack_forget()
+        showTimeBefore0 = SignalIntegrity.App.Preferences['Calculation.AllowTimeBefore0'] or self.project['TimeBeforeZeroMode'] != 'legacy'
+        if showTimeBefore0:
+            self.TimeBefore0Frame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.timeBeforeZeroTime.Show(self.project['TimeBeforeZeroMode'] != 'legacy')
         showParallelization = SignalIntegrity.App.Preferences['Calculation.AllowParallelization']
         self.ParallelizationFrame.pack_forget()
         if showParallelization:
