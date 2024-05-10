@@ -322,7 +322,8 @@ class SignalIntegrityAppHeadless(object):
             SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
             try:
-                outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
+                outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList,
+                        time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 

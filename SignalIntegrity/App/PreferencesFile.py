@@ -183,6 +183,9 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
         self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
+        self.Add(XMLPropertyDefaultBool('AllowTimeBefore0',False))
+        self.Add(XMLPropertyDefaultBool('DefaultLegacyTimeBefore0',True))
+        self.Add(XMLPropertyDefaultFloat('DefaultTimeBefore0',1e-9))
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'

@@ -44,7 +44,7 @@ class TransferMatricesProcessor(CallBacker):
         return self.TransferMatrices.FrequencyResponses()
     def PrecalculateImpulseResponses(self,td=None,time_before_0=None):
         return self.TransferMatrices.ImpulseResponses(td,time_before_0=time_before_0)
-    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
+    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False,time_before_0=None):
         """processes input waveforms and produces output waveforms
         @param wfl list of Waveform input waveforms to process.  If numbers are in the
         waveform list, they are assumed to be DC waveforms, that are treated specially.
@@ -61,7 +61,7 @@ class TransferMatricesProcessor(CallBacker):
         """
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
-        ir = self.TransferMatrices.ImpulseResponses(td)
+        ir = self.TransferMatrices.ImpulseResponses(td,time_before_0=time_before_0)
         fr = self.TransferMatrices.FrequencyResponses() # for DC inputs
         result=[]
         for o in range(len(ir)):

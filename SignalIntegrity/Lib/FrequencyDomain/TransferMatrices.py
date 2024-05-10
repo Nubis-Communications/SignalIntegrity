@@ -116,7 +116,7 @@ class TransferMatrices(list,CallBacker):
                 return fr
             self.fr = fr
         return copy.deepcopy(self.fr)
-    def ImpulseResponses(self,td=None,time_before_0=0):
+    def ImpulseResponses(self,td=None,time_before_0=None):
         """impulse responses of filters
         @return list of list of instances of class ImpulseResponse
         @remark

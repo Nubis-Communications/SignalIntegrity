@@ -24,6 +24,7 @@ import SignalIntegrity.Lib as si
 
 import copy
 import os
+from pickle import NONE
 
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
@@ -141,6 +142,7 @@ class CalculationPropertiesBase(XMLConfiguration):
     defaultLogarithmicStartFrequency=1e6
     defaultLogarithmicEndFrequency=20e9
     defaultLogarithmicPointsPerDecade=10
+    defaultTimeBefore0=1e-9
     def __init__(self,Name,preferences=False):
         self.preferences=preferences
         XMLConfiguration.__init__(self,Name)
@@ -159,6 +161,8 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',self.defaultLogarithmicStartFrequency))
             self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',self.defaultLogarithmicEndFrequency))
             self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',self.defaultLogarithmicPointsPerDecade))
+            self.Add(XMLPropertyDefaultString('TimeBeforeZeroMode','legacy')) # 'legacy' or 'custom'
+            self.Add(XMLPropertyDefaultFloat('TimeBeforeZeroSpecified',self.defaultTimeBefore0))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
@@ -228,7 +232,16 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.dict['LogarithmicEndFrequency'].dict['write'] = not is_default_linear
             self.dict['LogarithmicPointsPerDecade'].dict['write'] = not is_default_linear
             self.dict['ReferenceImpedance'].dict['write'] = self['ReferenceImpedance'] != 50.
+            is_default_time_before_zero = all([self['TimeBeforeZeroMode'] == 'legacy',
+                    self['TimeBeforeZeroSpecified'] == self.defaultTimeBefore0])
+            self.dict['TimeBeforeZeroMode'].dict['write'] = not is_default_time_before_zero
+            self.dict['TimeBeforeZeroSpecified'].dict['write'] = not is_default_time_before_zero
         return XMLConfiguration.OutputXML(self,indent)
+    def TimeBeforeZero(self):
+        if self['TimeBeforeZeroMode'] == 'legacy':
+            return None
+        else:
+            return self['TimeBeforeZeroSpecified']
 
     def SetImpulseResponseLength(self,ImpulseResponseLength):
         import math
