@@ -55,9 +55,14 @@ class TransferMatricesProcessor(CallBacker):
         during summation to choose the waveform with the largest absolute value of a point.
         This helps when models have frequency responses near the end frequency and causes
         the adaption to resample the smaller waveforms, which have less effect.
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @remark Externally, the order of the input and output waveforms are known.  The
         input waveforms must be provided in that order and the output waveforms are
         produced in that order.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]

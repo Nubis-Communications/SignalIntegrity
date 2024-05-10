@@ -28,7 +28,7 @@ class TransferMatrices(list,CallBacker):
                 return fr
             self.fr = fr
         return copy.deepcopy(self.fr)
-    def ImpulseResponses(self,td=None):
+    def ImpulseResponses(self,td=None,time_before_0=None):
         fr = self.FrequencyResponses()
         if td is None or isinstance(td,float) or isinstance(td,int):
             td = [td for _ in range(self.Inputs)]
@@ -42,7 +42,7 @@ class TransferMatrices(list,CallBacker):
 
         for o in range(self.Outputs):
             for s in range(self.Inputs):
-                ir[o][s] = fr[o][s].ImpulseResponse(td[s])
+                ir[o][s] = fr[o][s].ImpulseResponse(td[s],time_before_0=time_before_0)
                 if not self.CallBack((o*self.Inputs+s)/
                                      (self.Inputs*self.Outputs)*100.0):
                     return None

@@ -64,6 +64,7 @@ class FrequencyResponse(FrequencyDomain):
         """the time-domain impulse response
         @param td (optional) instance of class TimeDescriptor.
         @param adjustDelay (optional) bool whether to adjust the delay.
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @return instance of class ImpulseResponse corresponding to the frequency response.
         @remark
         If the optional time descriptor is supplied, the resulting impulse response is resampled
@@ -88,6 +89,10 @@ class FrequencyResponse(FrequencyDomain):
         to the internal FrequencyList is used, but the td supplied supplants the sample rate of the TimeDescriptor.
         In this way, only the sample rate can be specified in the resampling, and all processing as shown in the
         table above will assume that a time descriptor has been supplied of this calculated type.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):
@@ -127,12 +132,14 @@ class FrequencyResponse(FrequencyDomain):
             return ImpulseResponse(td,Y).Circulate(time_before_0)
         if evenlySpaced and td is None and adjustDelay:
             TD=self._FractionalDelayTime()
-            return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD).Circulate(time_before_0)
+            return self._DelayBy(-TD).ImpulseResponse(None,False).\
+                DelayBy(TD).Circulate(time_before_0)
         if evenlySpaced and not td is None:
             # if td is a float and not a time descriptor, it's assumed to be a
             # sample rate.  In this case, the number of points in a
             # time descriptor are filled in representing the time content of self
-            return self.Resample(td.FrequencyList()).ImpulseResponse().Circulate(time_before_0)
+            return self.Resample(td.FrequencyList()).\
+                ImpulseResponse().Circulate(time_before_0)
     def _Pad(self,P):
         """Pads the frequency response
         @param P int number of frequency points to pad to (-1)

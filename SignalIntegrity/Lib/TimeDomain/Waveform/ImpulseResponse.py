@@ -215,6 +215,14 @@ class ImpulseResponse(Waveform):
         td=self.td
         return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())
     def Circulate(self,time_before_0=None):
+        """circulates the waveform.  
+        Since impulse responses can be circular (it's actually an impulse
+        train response), sometimes, it's appropriate to take some of the portion of the waveform that is
+        before a certain time and place it at the end of the waveform.  This is the case when determining
+        impulse responses from s-parameters and you want to save some time by treating less of the response
+        before time zero as actually being before time 0.
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
+        """
         if time_before_0 == None:
             return self
         Ho=self.td.H

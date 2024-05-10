@@ -8,8 +8,9 @@ class StepWaveform(Waveform):
         if td.TimeOfPoint(rcEnd)>StartTime+T/2: rcEnd=max(rcEnd-1,0)
         for i in range(rcStart,rcEnd+1):
             try:
-                x[i]=Amplitude*\
-                    (math.sin((td.TimeOfPoint(i)-StartTime)/T*math.pi)+1.)/2.
+                if T != 0:
+                    x[i]=Amplitude*\
+                        (math.sin((td.TimeOfPoint(i)-StartTime)/T*math.pi)+1.)/2.
             except ZeroDivisionError:
                 pass
         Waveform.__init__(self,td,x)
