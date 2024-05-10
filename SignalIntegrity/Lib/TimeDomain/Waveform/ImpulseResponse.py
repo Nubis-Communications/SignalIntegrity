@@ -19,7 +19,7 @@ ImpulseResponse.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import fft
+from numpy import fft,array
 import math
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
@@ -214,3 +214,19 @@ class ImpulseResponse(Waveform):
         """
         td=self.td
         return FirFilter(FilterDescriptor(1,-td.H*td.Fs,td.K-1),self.Values())
+    def Circulate(self,time_before_0=None):
+        if time_before_0 == None:
+            return self
+        Ho=self.td.H
+        if Ho >= -time_before_0:
+            return self
+        duration=self.td.K/self.td.Fs
+        last_time=self.td.H+duration
+        tv=array([[t,v] for t,v in zip(self.Times(),self.Values())])
+        for k in range(tv.shape[0]):
+            if tv[k][0] < -time_before_0:
+                tv[k][0] = tv[k][0]+duration
+        tv=tv[tv[:, 0].argsort()]
+        new_td=TimeDescriptor(tv[0][0],self.td.K,self.td.Fs)
+        new_values=tv[:,1].tolist()
+        return ImpulseResponse(new_td,new_values)
