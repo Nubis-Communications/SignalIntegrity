@@ -24,7 +24,6 @@ import SignalIntegrity.Lib as si
 
 import copy
 import os
-from pickle import NONE
 
 #: (referencing project directory, absolute path) of files declared by equations via
 #: ArchiveFile(); consumed while archiving
