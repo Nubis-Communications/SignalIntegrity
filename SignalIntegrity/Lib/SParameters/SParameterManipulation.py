@@ -143,7 +143,7 @@ class SParameterManipulation(object):
                 for c in range(len(pr))]
                     for r in range(len(pr))]
                         for n in range(len(self.m_d))],self.m_Z0)
-    def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False):
+    def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False,time_before_0=None):
         """determines the impulse response lengths of the ports by comparing impulse response to threshold.
         @param epsilon (optional, defaults to 1e-6) absolute threshold on impulse response.
         @param allLengths (optional, defaults to False) whether to return the lengths of each port combination
@@ -156,7 +156,7 @@ class SParameterManipulation(object):
             for fromPort in range(self.m_P):
                 (negativeTimeLimit,positiveTimeLimit)=(None,None)
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
-                ir=fr.ImpulseResponse()
+                ir=fr.ImpulseResponse(time_before_0=time_before_0)
                 if ir is not None:
                     t=ir.td
                     for k in range(len(t)):

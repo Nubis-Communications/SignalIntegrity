@@ -106,7 +106,7 @@ class Simulator(object):
                 sp=self.transferMatrices.SParameters()
                 SParametersDialog(self.parent,sp,
                                   self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                  'Transfer Parameters',buttonLabelList)
+                                  'Transfer Parameters',buttonLabelList,time_before_0=100e-12)
                 return
 
             progressDialog=ProgressDialog(self.parent,"Input Waveforms",self.parent.Drawing.schematic,self.parent.Drawing.schematic.InputWaveforms, granularity=1.0)
@@ -145,7 +145,7 @@ class Simulator(object):
             def _PrecalculateImpulseReseponses():
                 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
                 return self.transferMatriceProcessor.PrecalculateImpulseResponses(
-                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList])
+                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList],time_before_0=100e-12)
 
             progressDialog = ProgressDialog(self.parent,"Impulse Responses",self.transferMatriceProcessor.TransferMatrices,_PrecalculateImpulseReseponses)
             try:
@@ -275,7 +275,7 @@ class Simulator(object):
             sp=self.transferMatrices.SParameters()
             SParametersDialog(self.parent,sp,
                               self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                              'Transfer Parameters',buttonLabelList)
+                              'Transfer Parameters',buttonLabelList,time_before_0=100e-12)
             return
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
