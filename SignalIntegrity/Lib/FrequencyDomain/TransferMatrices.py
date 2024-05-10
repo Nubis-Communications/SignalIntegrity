@@ -118,11 +118,16 @@ class TransferMatrices(list,CallBacker):
         return copy.deepcopy(self.fr)
     def ImpulseResponses(self,td=None,time_before_0=None):
         """impulse responses of filters
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @return list of list of instances of class ImpulseResponse
         @remark
         The return is a list of list like a matrix where each element in the matrix M is
         such that M[o][i] is the impulse response of a filter that would convert the
         input i to an output o.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         fr = self.FrequencyResponses()
         if td is None or isinstance(td,float) or isinstance(td,int):

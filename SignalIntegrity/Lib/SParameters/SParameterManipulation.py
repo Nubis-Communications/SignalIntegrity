@@ -147,9 +147,14 @@ class SParameterManipulation(object):
         """determines the impulse response lengths of the ports by comparing impulse response to threshold.
         @param epsilon (optional, defaults to 1e-6) absolute threshold on impulse response.
         @param allLengths (optional, defaults to False) whether to return the lengths of each port combination
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @return returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing
         the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns
         a list of list of tuples as stated for each impulse response.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         lengths=[[(None,None) for _ in range(self.m_P)] for _ in range(self.m_P)]
         for toPort in range(self.m_P):

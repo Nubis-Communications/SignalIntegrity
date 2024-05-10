@@ -1,5 +1,5 @@
 class FrequencyResponse(FrequencyDomain):
-    def ImpulseResponse(self,td=None,adjustDelay=True):
+    def ImpulseResponse(self,td=None,adjustDelay=True,time_before_0=None):
         fd = self.FrequencyList()
         if isinstance(td,float) or isinstance(td,int):
             Fs=float(td)
@@ -13,7 +13,7 @@ class FrequencyResponse(FrequencyDomain):
             Poly=Spline(oldfd,self.Response())
             newresp=[Poly.Evaluate(f) if f <= oldfd[-1] else 0.0001 for f in newfd]
             newfr=FrequencyResponse(newfd,newresp)
-            return newfr.ImpulseResponse(None,adjustDelay)
+            return newfr.ImpulseResponse(None,adjustDelay).Circulate(time_before_0)
         if evenlySpaced and td is None and not adjustDelay:
             yfp=self.Response()
             ynp=[yfp[fd.N-nn].conjugate() for nn in range(1,fd.N)]
@@ -25,13 +25,15 @@ class FrequencyResponse(FrequencyDomain):
             tp=[Y[k].real for k in range(td.K//2)]
             tn=[Y[k].real for k in range(td.K//2,td.K)]
             Y=tn+tp
-            return ImpulseResponse(td,Y)
+            return ImpulseResponse(td,Y).Circulate(time_before_0)
         if evenlySpaced and td is None and adjustDelay:
             TD=self._FractionalDelayTime()
-            return self._DelayBy(-TD).ImpulseResponse(None,False).DelayBy(TD)
+            return self._DelayBy(-TD).ImpulseResponse(None,False).\
+                DelayBy(TD).Circulate(time_before_0)
         if evenlySpaced and not td is None:
             # if td is a float and not a time descriptor, it's assumed to be a
             # sample rate.  In this case, the number of points in a
             # time descriptor are filled in representing the time content of self
-            return self.Resample(td.FrequencyList()).ImpulseResponse()
+            return self.Resample(td.FrequencyList()).\
+                ImpulseResponse().Circulate(time_before_0)
 ...
