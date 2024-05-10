@@ -24,7 +24,6 @@ import SignalIntegrity.Lib as si
 
 import copy
 import os
-from pickle import NONE
 
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
