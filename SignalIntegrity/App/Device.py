@@ -254,6 +254,8 @@ class DeviceFromProject(object):
             self.result=DeviceWElement([PartPropertyPorts(ports,False)],PartPictureVariableWElement(ports))
         elif className=='DeviceRelay':
             self.result=DeviceRelay([PartPropertyPorts(ports,False)],PartPictureVariableRelay(ports))
+        elif className=='DeviceSeries':
+            self.result=DeviceSeries(ports)
         else:
             for device in DeviceList+DeviceListSystem+DeviceListUnknown:
                 if (str(device.__class__).split('.')[-1].strip('\'>') == className):
@@ -1465,13 +1467,34 @@ class DeviceParallel(Device):
             PartPropertySections(1),
             PartPropertyFileName()],PartPictureVariableParallel())
 
+
+class DeviceSeriesNetListLine(DeviceNetListLine):
+    def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
+        DeviceNetListLine.__init__(self,devicename=devicename,partname=partname,showReference=showReference,showports=showports,values=values)
+    def NetListLine(self,device):
+        picture=device.partPicture.partPictureClassList[device.partPicture.partPictureSelected]
+        ports=int(device.PartPropertyByKeyword('ports')['Value'])
+        if picture=='PartPictureSeries':
+            lp=[p+1 for p in range(ports//2)]
+            rp=[p+1 for p in range(ports//2,ports)]
+        elif picture == 'PartPictureSeriesAcross':
+            lp=[p+1 for p in range(0,ports,2)]
+            rp=[p+1 for p in range(1,ports,2)]
+        elif picture == 'PartPictureSeriesDownAndUp':
+            lp=[p+1 for p in range(ports//2)]
+            rp=[p+1 for p in range(ports//2,ports)]
+            rp.reverse()
+        lprpstr=' lp '+str(lp).strip('[] ').replace(' ','')+' rp '+str(rp).strip('[] ').replace(' ','')
+        returnstring=DeviceNetListLine.NetListLine(self,device)+lprpstr
+        return returnstring
+
 class DeviceSeries(Device):
-    def __init__(self):
-        netlist=DeviceNetListLine(partname='series',values=[('file',True),('sect',True)])
+    def __init__(self,ports=2):
+        netlist=DeviceSeriesNetListLine(partname='series',values=[('file',True),('sect',True)])
         Device.__init__(self,netlist,[
             PartPropertyDescription('Series Devices'),
             PartPropertyCategory('Miscellaneous'),
-            PartPropertyPorts(2),
+            PartPropertyPorts(ports,False),
             PartPropertyPartName('Series'),
             PartPropertyHelp('device:Series'),
             PartPropertyDefaultReferenceDesignator('D?'),

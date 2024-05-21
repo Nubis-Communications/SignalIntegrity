@@ -2343,12 +2343,28 @@ class PartPictureVariableParallel(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureParallel'],2)
 
-class PartPictureSeries(PartPictureSpecifiedPortsText):
+class PartPictureSeries(PartPictureSpecifiedPorts):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
-        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='+')
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'+')
+        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureSeriesAcross(PartPictureSpecifiedPortsAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'+')
+        PartPictureSpecifiedPortsAcross.DrawDevice(self,device,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
+
+class PartPictureSeriesDownAndUp(PartPictureSpecifiedPortsDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'+')
+        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,device,canvas,grid,drawingOrigin,None if connected is None else [True for ele in connected])
 
 class PartPictureVariableSeries(PartPictureVariable):
-    def __init__(self):
-        PartPictureVariable.__init__(self,['PartPictureSeries'],2)
-
+    def __init__(self,ports=2):
+        PartPictureVariable.__init__(self,['PartPictureSeries','PartPictureSeriesAcross','PartPictureSeriesDownAndUp'],ports)
 
