@@ -28,8 +28,12 @@ class Series(SParameters):
         @param f list of float frequencies
         @param name string file name of s-parameter file to read
         @param numberInSeries int number of instances to place in series
+        @param lp list of ints left ports in order
+        @param rp list of ints right ports in order
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
+        @remark The number of left ports ought to equal the number of right ports, otherwise you should
+        expect this fail.
         """
         self.m_K=numberInSeries
         # pragma: silent exclude
