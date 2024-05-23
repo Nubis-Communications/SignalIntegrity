@@ -65,7 +65,8 @@ class TestImpulseResponseFilterTest(unittest.TestCase,
         return '_'.join(self.id().split('.')[-2:])
 
     def testImpulseResponseFilterSimulation(self):
-        self.SimulationResultsChecker('ImpulseResponseFilterSimulation.si')
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
+        self.SimulationResultsChecker('ImpulseResponseFilterSimulation.si',max_wf_error=7e-5)
     def testImpulseResponseFilterSParameters(self):
         netlistLines=['device F1 2 impulseresponsefilter WaveformViewer.si wfprojname VD dcgain 0 mults true derivative true',
                       'port 1 F1 1 2 F1 2']

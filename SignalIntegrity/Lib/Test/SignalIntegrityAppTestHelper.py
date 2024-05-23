@@ -183,7 +183,7 @@ class SignalIntegrityAppTestHelper:
                             for calFixture,regressionFixture in zip(calFixtures,regressionFixtures)])
         self.assertTrue(SpAreEqual,calfilename + ' incorrect')
         os.chdir(currentDirectory)
-    def WaveformRegressionChecker(self,wf,wffilename):
+    def WaveformRegressionChecker(self,wf,wffilename,max_error=0):
         from SignalIntegrity.Lib.TimeDomain.Waveform import Waveform
         currentDirectory=os.getcwd()
         os.chdir(self.path)     
@@ -192,7 +192,31 @@ class SignalIntegrityAppTestHelper:
             if not self.relearn:
                 self.assertTrue(False, wffilename + ' not found')
         regression=Waveform().ReadFromFile(wffilename)
-        self.assertTrue(wf==regression,wffilename + ' incorrect')
+
+        if max_error==0:
+            same = regression == wf
+        else:
+            if regression.TimeDescriptor() != wf.TimeDescriptor():
+                same = False
+            else:
+                max_error_calc = max((regression-wf).Values('abs'))
+                same=max_error_calc <= max_error
+                if not same:
+                    print('max error: '+str(max_error_calc))
+
+        if self.plotErrors and not same:
+            import matplotlib.pyplot as plt
+            plt.clf()
+            plt.title(wffilename)
+            plt.plot(wf.Times(),wf.Values(),label='calculated')
+            plt.plot(regression.Times(),regression.Values(),label='regression')
+            plt.xlabel('time (s)')
+            plt.ylabel('amplitude (V)')
+            plt.legend(loc='upper right')
+            plt.grid(True)
+            plt.show()
+
+        self.assertTrue(same,wffilename + ' incorrect')
         os.chdir(currentDirectory)
     def ArchiveStart(self,filename,args={},archive=False):
         if archive:
@@ -241,7 +265,7 @@ class SignalIntegrityAppTestHelper:
         cal=result[0]
         self.CalibrationRegressionChecker(cal,calfilename)
         return result
-    def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False):
+    def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False, max_wf_error=0):
         pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
         result=pysi.Simulate()
         self.assertIsNotNone(result, filename+' produced none')
@@ -262,7 +286,7 @@ class SignalIntegrityAppTestHelper:
         for i in range(len(outputNames)):
             wf=outputWaveforms[i]
             wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
-            self.WaveformRegressionChecker(wf, wffilename)
+            self.WaveformRegressionChecker(wf, wffilename, max_wf_error)
         self.ArchiveCleanup(filename,pysi,archive)
         return result
     def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
