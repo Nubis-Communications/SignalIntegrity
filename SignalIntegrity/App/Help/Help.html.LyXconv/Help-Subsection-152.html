@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-151.html#next">Prev</a> Eye Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-151.html#next">Prev</a> Operational Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-153.html#prev">Next</a></span>
+<span class="next">Waveform <a class="next" name="next" href="Help-Subsection-153.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-152"></a>Waveform<a class="Label" name="device:Waveform"> </a>
+<a class="toc" name="toc-Subsection-152"></a>Eye Waveform<a class="Label" name="device:Eye-Waveform"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="OutputWaveform.png" alt="figure OutputWaveform.png" style="width: 168px; max-width: 560px; height: 201px; max-height: 672px;"/>
+<img class="embedded" src="EyeWaveform.png" alt="figure EyeWaveform.png" style="width: 168px; max-width: 560px; height: 221px; max-height: 737px;"/>
 
 </div>
 <div class="Standard">
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+Wf?
 </td>
 
 </tr>
@@ -1154,25 +1154,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO1
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-delay
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-td
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 s
+Wf1
 </td>
 
 </tr>
@@ -1191,6 +1173,42 @@ wffile
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 ’’
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+baud rate
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Baud
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GBaud
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
 </td>
 
 </tr>
@@ -1248,6 +1266,24 @@ on
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+eye state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string (on or off)
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+eyestate
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+on
+</td>
+
+</tr>
 
 </table>
 
@@ -1256,15 +1292,40 @@ on
 The waveform is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify waveforms to be directly read in after a simulation and added to the waveform list.
 </div>
 <div class="Standard">
-When the waveforms are not resampled using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>, but you have the capability of applying gain, offset and delay to the resulting waveform. If the state is set to off, the waveform is not read in. If the waveform is not found at the end of the simulation, the simulation will fail, unless the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> preference in the <a class="Reference" href="Help-Subsection--5.html#sub:Standard-Preferences">Standard Preferences↓</a> is true. In that case, the missing waveform is ignored. 
+When the waveforms are not resampled using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>, but you have the capability of applying gain, offset and delay to the resulting waveform. If the state is set to off, the waveform is not read in. If the waveform is not found at the end of the simulation, the simulation will fail, unless the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> preference in the <a class="Reference" href="Help-Subsection--5.html#sub:Standard-Preferences">Standard Preferences↓</a> is true. In that case, the missing waveform is ignored.
 </div>
 <div class="Standard">
-When placing a waveform, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a waveform will assign the value VO3 to the waveform reference designator. This, of course, can be changed by the user.
+If the state is set to off, the waveform is not read in and processed.
+</div>
+<div class="Standard">
+If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
+</div>
+<div class="Standard">
+In addition to reading in waveforms, eye diagrams are produced as a result of the calculation. As such, this device behaves exactly like a <a class="Reference" href="Help-Subsection-153.html#device:Waveform">Waveform↓</a>, with the addition of the eye diagram.
+</div>
+<div class="Standard">
+When placing an eye waveform, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing an eye waveform device will assign the value VO3 to the device reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+If the state is set to off, the waveform is not calculated.
+</div>
+<div class="Standard">
+When simulations are complete, for each eye waveform, the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.
+</div>
+<div class="Standard">
+The eye diagram and other post-processing is performed according to the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a>, that are unique for each eye waveform, and can be accessed through the eye diagram configuration in the eye waveform properties dialog in the button below:
+</div>
+<div class="Standard">
+<img class="embedded" src="EyeWaveformPropertiesDialog.png" alt="figure EyeWaveformPropertiesDialog.png" style="max-width: 557px; max-height: 626px;"/>
+
+</div>
+<div class="Standard">
+When adding an eye waveform, the default values are read from the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>. If you don’t like these default values, you are free to set these preferences from the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a> permanently, so that all newly added eye probes inherit these default values.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-151.html#next">Prev</a> Eye Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-151.html#next">Prev</a> Operational Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-153.html#prev">Next</a></span>
+<span class="next">Waveform <a class="next" name="next" href="Help-Subsection-153.html#prev">Next</a></span>
 </div>
 
 </div>

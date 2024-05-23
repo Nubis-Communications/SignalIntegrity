@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,62 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-186.html#next">Prev</a> VirtualProbe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-186.html#next">Prev</a> Simulator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-188.html#prev">Next</a></span>
+<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-188.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-187"></a>Numeric<a class="Label" name="sub:Numeric"> </a>
+<a class="toc" name="toc-Subsection-187"></a>VirtualProbe<a class="Label" name="sub:VirtualProbe"> </a>
 </h2>
 <div class="Standard">
-<b>Cannot Invert I-W or I-Wxx </b>
+<b>No Measures</b>
 </div>
 <div class="Standard">
-Understanding this error involves understanding the theory in the accompanying book. Suffice it to say that the problem is ill-determined in the sense that the system characteristics matrix is not invertible. This occurs under many pathological cases, some of which can be worked around and others cannot (i.e. there is simply no solution to the problem).
+There are no measure probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one measure probe prior to enabling the simulation calculation, but it does not check whether the measure probe is actually connected to anything. 
 </div>
 <div class="Standard">
-An example of a pathological case that cannot be worked around are attempts to de-embed elements in systems where elements are present that do not pass anything (at a given frequency).
+By looking at your schematic, you can see this, because unconnected measure probes will have a red x on their connection pins. That being said, simply connecting a wire to the measure probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
 </div>
 <div class="Standard">
-Examples of pathological cases that can be worked around are circuit nodes whose absolute voltage or current cannot be determined due to the construction of the circuit. Sometimes, these can be worked around through the insertion of large resistors to ground or tiny series resistors. A detailed examination of the circuit would be necessary.
+<b>No Outputs</b>
 </div>
 <div class="Standard">
-Also, in many cases this can be resolved using the <a class="Reference" href="Help-Subsection--14.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a> preference in the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>.
+There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
+</div>
+<div class="Standard">
+By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
+</div>
+<div class="Standard">
+<b>No Sources</b>
+</div>
+<div class="Standard">
+There are no sources in the circuit. In the context of <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a class="Reference" href="Help-Subsection-138.html#device:Stim">Stim↑</a> defined by a <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↑</a> line defining a <a class="Reference" href="Help-Subsection-178.html#sub:stim">stim↑</a> prior to enabling the <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> calculation, but it does not check whether the stim is actually connected to anything.
+</div>
+<div class="Standard">
+By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
+</div>
+<div class="Standard">
+Stims also require that the end of the arrow is connected directly to a device port. This is because unlike waves which are present along a wire, stims represent waves that emanate from a device port. Unfortunately, the schematic editor allows you to make this mistake.
+</div>
+<div class="Standard">
+Also, stims must be connected to only one device port. While the schematic editor allows device ports to be connected directly together, when a stim is connected to a device port, the device port must be separated from others in the schematic by a small piece of wire.
+</div>
+<div class="Standard">
+<b>Numerical Error</b>
+</div>
+<div class="Standard">
+This is the same error as Cannot Invert I-W or I-Wxx while calculating the virtual probe transfer parameters. It indicates pathological problems in the system described.
+</div>
+<div class="Standard">
+<b>Incorrect Matrix Alignment</b>
+</div>
+<div class="Standard">
+This cryptic error is an all encompassing error to indicate that something is wrong with the number of stims or measures in your system. In virtual probing, the number of independent stims (stims without the non-arrow side connected) must be less than or equal to the number of measure probes in the system. This error probably indicates that this is not the case (I say probably because there are other sources of this error especially when hand created netlists are entered into the system).
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-186.html#next">Prev</a> VirtualProbe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-186.html#next">Prev</a> Simulator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-188.html#prev">Next</a></span>
+<span class="next">Numeric <a class="next" name="next" href="Help-Subsection-188.html#prev">Next</a></span>
 </div>
 
 </div>

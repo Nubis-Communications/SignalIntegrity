@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1075,14 +1075,13 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> Parallel</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">COM Transmission Line <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-113"></a>Transmission Line<a class="Label" name="device:Transmission-Line"> </a>
+<a class="toc" name="toc-Subsection-113"></a>Series<a class="Label" name="device:Series"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TlineTwoPort.png" alt="figure TlineTwoPort.png" style="max-width: 152px; max-height: 94px;"/>
-<img class="embedded" src="TlineFourPort.png" alt="figure TlineFourPort.png" style="max-width: 152px; max-height: 114px;"/>
+<img class="embedded" src="Series.png" alt="figure Series.png" style="width: 129px; max-width: 430px; height: 143px; max-height: 477px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Transmission Lines
+Miscellaneous
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-T?
+D?
 </td>
 
 </tr>
@@ -1155,43 +1154,61 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+D1
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-characteristic impedance
+ports
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-zc
+ports
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-ohms
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-50.0
+2
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-time delay
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-td
+file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-s
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+sections
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+int
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+sect
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1
 </td>
 
 </tr>
@@ -1200,18 +1217,15 @@ s
 
 </div>
 <div class="Standard">
-This is a one- and two-port ideal transmission line with given characteristic impedance and delay.
+This is a multi-port device (usually 2, but must be an even number of ports) that is calculated by placing the device referenced by the file name in a series arrangement. The number of such devices in series is given by the number of sections.
 </div>
 <div class="Standard">
-The four-port ideal transmission line only transmits the differential mode.
-</div>
-<div class="Standard">
-A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).
+Essentially, the result is the cascade of multiple devices. In the cascade, the ports on the left of the unrotated or mirrored device are connected to ports on the right of another such device. The solution is performed using T-parameters.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection-112.html#next">Prev</a> Parallel</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">COM Transmission Line <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-114.html#prev">Next</a></span>
 </div>
 
 </div>

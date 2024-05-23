@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,231 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-173.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-171.html#next">Prev</a> Laplace</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-172"></a>device<a class="Label" name="sub:device"> </a>
+<a class="toc" name="toc-Subsection-172"></a>Impulse Response Filter<a class="Label" name="device:ImpulseResponseFilter"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
+<img class="embedded" src="ImpulseResponseFilter.png" alt="figure ImpulseResponseFilter.png" style="width: 154px; max-width: 515px; height: 194px; max-height: 647px;"/>
+
 </div>
 <div class="Standard">
-The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
+<table>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Property Name
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+category
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Filters
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+default reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F?
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ref
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F1
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+waveform filename
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wffile
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+’’
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+waveform in project
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wfprojname
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+normalized DC gain
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dcgain
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+multiply by sample period
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+mults
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+true
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+calculate derivative
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+derivative
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+false
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Following this is often optional keyword pairs specifying the arguments for the device.
+This is an filter generated from an impulse response.
 </div>
 <div class="Standard">
-Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-99.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
 </div>
 <div class="Standard">
-If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-27.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-188.html#sub:DeviceParser">DeviceParser↓</a>.
+An impulse response is provided in two manners:
+</div>
+<ol>
+<li>
+Through a file containing a waveform in the <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> format.
+</li>
+<li>
+Through a project that produces waveforms, such as a <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> or a <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> project.
+</li>
+
+</ol>
+<div class="Standard">
+If a <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> file is supplied, the keyword <i>wfprojname</i> is ignored, otherwise it is the reference designator for the probe used (i.e. a <a class="Reference" href="Help-Subsection-137.html#device:Output-Probe">Voltage Output Probe↑</a>, <a class="Reference" href="Help-Subsection-140.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a>, or a <a class="Reference" href="Help-Subsection-139.html#device:Current-Probe">Current Probe↑</a>).
+</div>
+<div class="Standard">
+If a waveform is not actually in the form of an impulse response, it is traditional to multiply the waveform values by the sample period. To do this, <i>mults</i> is set to true. This is the usual case, so true is the default value.
+</div>
+<div class="Standard">
+It is also common to enforce the DC gain of the filter. By default, <i>dcgain</i> is set to 0., meaning to not enforce this, but if <i>dcgain</i> is set to any non-zero value, the DC gain is enforced by ensuring that all of the values in the impulse response add up to the value specified.
+</div>
+<div class="Standard">
+Oftentimes, the impulse response desired comes in the form of a step response provided. To handle this option, the time derivative must be taken of the waveform. This is handled by setting <i>derivative</i> to true. The default is to not take the derivative.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-173.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-171.html#next">Prev</a> Laplace</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 
 </div>

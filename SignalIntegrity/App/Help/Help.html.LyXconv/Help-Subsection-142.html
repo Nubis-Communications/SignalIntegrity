@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-141.html#next">Prev</a> Differential Eye Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-141.html#next">Prev</a> Eye Probe</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Current Source <a class="next" name="next" href="Help-Subsection-143.html#prev">Next</a></span>
+<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-143.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-142"></a>Voltage Controlled Voltage Source<a class="Label" name="device:Voltage-Controlled-Voltage-Source"> </a>
+<a class="toc" name="toc-Subsection-142"></a>Differential Eye Probe<a class="Label" name="device:Differential-Eye-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageControlledVoltageSource.png" alt="figure VoltageControlledVoltageSource.png" style="max-width: 202px; max-height: 152px;"/>
-<img class="embedded" src="VoltageControlledVoltageSourceAlt.png" alt="figure VoltageControlledVoltageSourceAlt.png" style="max-width: 202px; max-height: 152px;"/>
+<img class="embedded" src="DifferentialEyeProbe.png" alt="figure DifferentialEyeProbe.png" style="width: 151px; max-width: 605px; height: 145px; max-height: 583px;"/>
 
 </div>
 <div class="Standard">
@@ -1119,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Dependent Sources
+Ports and Probes
 </td>
 
 </tr>
@@ -1137,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-D?
+VO?
 </td>
 
 </tr>
@@ -1161,7 +1160,61 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gain
+baud rate
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Baud
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GBaud
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+offset
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+V
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 V
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1177,23 +1230,87 @@ gain
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string (on or off)
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+state
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+on
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+eye state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string (on or off)
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+eyestate
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+on
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This is a voltage source that is proportional to the voltage across the voltage measurement terminals with the proportionality set by the gain.
+There are some special prefixes on the reference that cause the calculation result to be special calculations:
+</div>
+<ul>
+<li>
+’d/’ — causes the derivative of the waveform to be calculated.
+</li>
+<li>
+’i/’ — causes the integral of the waveform to be calculated.
+</li>
+<li>
+’di/’ — causes the integral of the derivative to be calculated.
+</li>
+
+</ul>
+<div class="Standard">
+If the state is set to off, the waveform is not calculated.
 </div>
 <div class="Standard">
-The input impedance of the voltage measurement pins is infinite.
+If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
 </div>
 <div class="Standard">
-The output impedance of the voltage source is zero.
+When examining the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-140.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-106.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-137.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
+</div>
+<div class="Standard">
+When simulations are complete, for each Eye Probe, the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval. 
+</div>
+<div class="Standard">
+The eye diagram and other post-processing is performed according to the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a>, that are unique for each eye probe, and can be accessed through the eye diagram configuration in the Eye Probe properties dialog in the button below:
+</div>
+<div class="Standard">
+<img class="embedded" src="DifferentialEyeProbePropertiesdialog.png" alt="figure DifferentialEyeProbePropertiesdialog.png" style="max-width: 475px; max-height: 599px;"/>
+
+</div>
+<div class="Standard">
+When adding an eye probe, the default values are read from the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>. If you don’t like these default values, you are free to set these preferences from the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a> permanently, so that all newly added eye probes inherit these default values.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-141.html#next">Prev</a> Differential Eye Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-141.html#next">Prev</a> Eye Probe</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Controlled Current Source <a class="next" name="next" href="Help-Subsection-143.html#prev">Next</a></span>
+<span class="next">Voltage Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-143.html#prev">Next</a></span>
 </div>
 
 </div>

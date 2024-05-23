@@ -1,7 +1,7 @@
 var searchData=
 [
   ['emit_105',['Emit',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml#a5c05a815bb2ae10666889565108aec35',1,'SignalIntegrity::Lib::SystemDescriptions::Symbolic::Symbolic']]],
-  ['encryption_106',['Encryption',['../classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml',1,'SignalIntegrity::App::Encryption']]],
+  ['encryption_106',['Encryption',['../classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml',1,'SignalIntegrity::Lib::Encryption']]],
   ['enforceall_107',['EnforceAll',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a51ebf7e5182ad735b5b9715905c8acb0',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation::SParameterManipulation']]],
   ['enforcebothpassivityandcausality_108',['EnforceBothPassivityAndCausality',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a0d49f6798537890dbf6e7cb83115e08c',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation::SParameterManipulation']]],
   ['enforcecausality_109',['EnforceCausality',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#acb0de00b27713df04eb51373e3076773',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation::SParameterManipulation']]],

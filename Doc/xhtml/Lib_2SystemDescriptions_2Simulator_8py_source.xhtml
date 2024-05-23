@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> array</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> array,empty</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> identity</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">from</span> <a class="code" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml">SignalIntegrity.Lib.SystemDescriptions.SystemSParameters</a> <span class="keyword">import</span> SystemSParameters</div>
@@ -225,9 +225,22 @@ $(function() {
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        result=[[0]*len(n) <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(len(nl))]</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(len(nl)):</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            dp=self[self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#a6e5e0722dbb334bdf62b794cc8bd1314">DeviceNames</a>().index(nl[r][0])][nl[r][1]-1]</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            result[r][n.index(dp.A)]=1</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            result[r][n.index(dp.B)]=1</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            result[r][n.index(dp.A)]=1; result[r][n.index(dp.B)]=1</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">def </span>VoltageExtractionList(self,nl):</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        n=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml#a47697165b75e2445998fcf009f705f3a">NodeVector</a>()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        result=[[0]*2 <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(len(nl))]</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(len(nl)):</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            dp=self[self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#a6e5e0722dbb334bdf62b794cc8bd1314">DeviceNames</a>().index(nl[r][0])][nl[r][1]-1]</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            result[r][0]=n.index(dp.A); result[r][1]=n.index(dp.B)</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">def </span>Extract(self,vel,sip):</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        result=empty((vel.shape[0],sip.shape[1]),dtype=complex)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(vel.shape[0]):</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">for</span> c <span class="keywordflow">in</span> range(sip.shape[1]):</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                result[r][c]=sip[vel[r][0],c]+sip[vel[r][1],c]</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">return</span> result</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml">SignalIntegrity.Lib.SystemDescriptions.Simulator.Simulator</a></div><div class="ttdoc">Base class for dealing with housekeeping for simulations.</div><div class="ttdef"><b>Definition:</b> <a href="Lib_2SystemDescriptions_2Simulator_8py_source.xhtml#l00036">Simulator.py:36</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator_xhtml_a6314085a1d893aac75f45291403f2131"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml#a6314085a1d893aac75f45291403f2131">SignalIntegrity.Lib.SystemDescriptions.Simulator.Simulator.m_ol</a></div><div class="ttdeci">m_ol</div><div class="ttdef"><b>Definition:</b> <a href="Lib_2SystemDescriptions_2Simulator_8py_source.xhtml#l00039">Simulator.py:39</a></div></div>

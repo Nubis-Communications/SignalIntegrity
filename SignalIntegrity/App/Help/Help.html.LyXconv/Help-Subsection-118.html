@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Telegrapher - Four Port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Telegrapher - Two Port</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">W Element <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="next">RLGC Fit <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-118"></a>RLGC Fit<a class="Label" name="device:RLGC-Fit"> </a>
+<a class="toc" name="toc-Subsection-118"></a>Telegrapher - Four Port<a class="Label" name="device:Telegrapher---Four-Port"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="RLGC.png" alt="figure RLGC.png" style="width: 142px; max-width: 569px; height: 117px; max-height: 470px;"/>
+<img class="embedded" src="TelegrapherFourPort.png" alt="figure TelegrapherFourPort.png" style="max-width: 200px; max-height: 497px;"/>
 
 </div>
 <div class="Standard">
@@ -1160,19 +1160,19 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-file name
+sections
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
+sect
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+0
 </td>
 
 </tr>
@@ -1194,26 +1194,330 @@ scale
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+mutual capacitance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+cm
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+F
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">1.0 <span class="mathrm"> pF</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+mutual dissipation factor
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dfm
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+mutual inductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+lm
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">1.0 <span class="mathrm"> fH</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+mutual conductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gm
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+S
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 S
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative capacitance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+cn
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+F
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 pF
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative dissipation factor
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dfn
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative conductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gn
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+S
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 S
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative inductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ln
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 fH
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rn
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 Ω</span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative skin-effect resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rsen
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">Hz</span></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm"> Hz</span></span><span class="ignored">)</span></span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+positive capacitance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+cp
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+F
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 pF
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+positive dissipation factor
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+dfp
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+positive conductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+gp
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+S
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 S
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+positive inductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+lp
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1.0 fH
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+positive resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rp
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 Ω</span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+negative skin-effect resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rsen
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">Hz</span></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm"> Hz</span></span><span class="ignored">)</span></span></span>
+</td>
+
+</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This device is a two-port transmission line as in <a class="Reference" href="Help-Subsection-114.html#device:Transmission-Line-COM">COM Transmission Line↑</a> where the constants for the transmission line are formed by fitting the s-parameters contained in the file specified to an RLGC transmission line.
+The telegrapher four-port is a model of a differential transmission line based on the telegrapher circuit.
 </div>
 <div class="Standard">
-The fit is performed by estimating the impedance and the delay through the line and using that to form a guess of the inductance and capacitance of the line. Initially no series resistance, skin-effect resistance, dissipation factor of conductance is in the guess.
+If sections are set to 1, then the circuit is the lumped element model as shown below:
 </div>
 <div class="Standard">
-The fit proceeds until it converges and the fitted s-parameters are used as the device.
+<img class="embedded" src="TelegrapherFourPortEquivalent.png" alt="figure TelegrapherFourPortEquivalent.png" style="max-width: 642px; max-height: 442px;"/>
+
 </div>
 <div class="Standard">
-The scale variable allows the fitted line to be scaled. This is particularly useful when model fitting to perform a 2x thru de-embedding where a scale of 0.5 splits the model in half.
+In the model, not shown are the skin-effect resistances, a resistance proportional to the square-root of frequency that is implied with the resistance rp and rn. Also not shown are the dissipation factors, or loss-tangents, which are the dissipation factors of the capacitances cp, cn, and cm.
+</div>
+<div class="Standard">
+Otherwise, if sections are large, then the model is created by cascading the sections with parameters that are divided by the number of sections. In other words, the parameters are for the total line, and each section has a value of the parameter divided by the number of sections.
+</div>
+<div class="Standard">
+This is used to approximated distributed parameters.
+</div>
+<div class="Standard">
+If sections are specified as zero (the default), then an analytic solutions is attempted. If the lines are uncoupled, then an uncoupled, analytic solution is employed using two of the <a class="Reference" href="Help-Subsection-115.html#device:Transmission-Line-COM">COM Transmission Line↑</a> models. Otherwise, if the lines are balanced, then a balanced, analytic solution is employed, again using two of the <a class="Reference" href="Help-Subsection-115.html#device:Transmission-Line-COM">COM Transmission Line↑</a> models, but one for the odd mode and the other for the even mode and using two <a class="Reference" href="Help-Subsection-109.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter↑</a> devices to perform the conversion to single-ended.
+</div>
+<div class="Standard">
+Otherwise, if zero sections are specified and the lines are neither uncoupled nor balanced, the numerical approximation is used. In this case, the number of sections is calculated such that the round-trip time delay through any small section of the line is no longer than one percent of the fastest possible risetime.
+</div>
+<div class="Standard">
+To facilitate per-unit values, the model can be scaled by the amount specified. In this way, half-size models can be made (such as for 2x thru situations), or values can be considered as, for example, per meter, and the the scale can be considered as the number of meters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Telegrapher - Four Port</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-117.html#next">Prev</a> Telegrapher - Two Port</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">W Element <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
+<span class="next">RLGC Fit <a class="next" name="next" href="Help-Subsection-119.html#prev">Next</a></span>
 </div>
 
 </div>

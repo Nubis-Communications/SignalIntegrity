@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SignalIntegrity: SignalIntegrity/SignalIntegrity/App/Encryption.py Source File</title>
+<title>SignalIntegrity: SignalIntegrity/SignalIntegrity/Lib/Encryption.py Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -71,7 +71,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_16b8a29acabeefd95795d500a3b14bd8.xhtml">SignalIntegrity</a></li><li class="navelem"><a class="el" href="dir_fb554d60be346e469553b0331604b584.xhtml">SignalIntegrity</a></li><li class="navelem"><a class="el" href="dir_970ef3fb0b92f0060bb9423c44cad0f7.xhtml">App</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_16b8a29acabeefd95795d500a3b14bd8.xhtml">SignalIntegrity</a></li><li class="navelem"><a class="el" href="dir_fb554d60be346e469553b0331604b584.xhtml">SignalIntegrity</a></li><li class="navelem"><a class="el" href="dir_ba9856180bcd39f2b51d38e1b9ddb228.xhtml">Lib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -79,7 +79,7 @@ $(function() {
 <div class="title">Encryption.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1App_1_1Encryption.xhtml">    1</a></span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Encryption.xhtml">    1</a></span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="stringliteral">Encryption.py</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"># Copyright (c) 2021 Nubis Communications, Inc.</span></div>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">import</span> os</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(object):</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(object):</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="stringliteral">    https://cryptobook.nakov.com/symmetric-key-ciphers/aes-encrypt-decrypt-examples</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="stringliteral"></span> </div>
@@ -113,7 +113,7 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    password = <span class="keywordtype">None</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    ending = <span class="stringliteral">&#39;$&#39;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml">   35</a></span>&#160;    Save=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">   35</a></span>&#160;    Save=<span class="keywordtype">None</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>__init__(self,pwd=None,ending=None):</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> pwd != <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            Encryption.password = pwd</div>
@@ -125,7 +125,7 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">def </span>__encrypt_AES_GCM(self,msg, password=None):</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">import</span> scrypt</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> password == <span class="keywordtype">None</span>: password=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>.encode()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> password == <span class="keywordtype">None</span>: password=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>.encode()</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        kdfSalt = os.urandom(16)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        aesCipher = AES.new(secretKey, AES.MODE_GCM)</div>
@@ -135,7 +135,7 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">def </span>__decrypt_AES_GCM(self,encryptedMsg, password=None):</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">import</span> scrypt</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> password == <span class="keywordtype">None</span>: password=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>.encode()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> password == <span class="keywordtype">None</span>: password=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>.encode()</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        (kdfSalt, ciphertext, nonce, authTag) = encryptedMsg</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)</div>
@@ -149,12 +149,12 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        authTag=binascii.unhexlify(text[64:96])</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ciphertext=binascii.unhexlify(text[96:])</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        encryptedMsg=(kdfSalt, ciphertext, aesIV, authTag)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        plaintext=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a958db5669b5500eec36606c1c2eaade3">__decrypt_AES_GCM</a>(encryptedMsg)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        plaintext=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a958db5669b5500eec36606c1c2eaade3">__decrypt_AES_GCM</a>(encryptedMsg)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> plaintext</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">def </span>Encrypt(self,text):</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">import</span> binascii</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        (kdfSalt, ciphertext, aesIV, authTag)=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#ac1450bdfc44b3c045ea13e1707874099">__encrypt_AES_GCM</a>(text, self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        (kdfSalt, ciphertext, aesIV, authTag)=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#ac1450bdfc44b3c045ea13e1707874099">__encrypt_AES_GCM</a>(text, self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a>)</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        Encryption.Save=(kdfSalt, ciphertext, aesIV, authTag)</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        kdfSaltText=binascii.hexlify(kdfSalt)</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        ciphertextText=binascii.hexlify(ciphertext)</div>
@@ -164,9 +164,9 @@ $(function() {
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">def </span>WriteEncryptedLines(self,filename,lines):</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        textToWrite=<span class="stringliteral">&#39;&#39;</span>.join(lines)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span> <span class="keywordflow">and</span> os.path.splitext(filename)[0].endswith(self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a8330751aadc5b23e4f85413749f50c92">ending</a>):</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span> <span class="keywordflow">and</span> os.path.splitext(filename)[0].endswith(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a8330751aadc5b23e4f85413749f50c92">ending</a>):</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                textToWrite=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a1d0935041f7ed5628214da1e8645d86c">Encrypt</a>(textToWrite.encode()).decode()</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                textToWrite=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a1d0935041f7ed5628214da1e8645d86c">Encrypt</a>(textToWrite.encode()).decode()</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">except</span> ModuleNotFoundError: <span class="comment"># pragma: no cover</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;file cannot be encrypted&#39;</span>)</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> f:</div>
@@ -177,9 +177,9 @@ $(function() {
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> f:</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            text=f.readlines()</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> len(text)==1:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    text=self.<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">Decrypt</a>(text[0].encode()).decode()</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    text=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">Decrypt</a>(text[0].encode()).decode()</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    <span class="keywordflow">if</span> split:</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                        text=text.splitlines(<span class="keyword">True</span>)</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">except</span>:</div>
@@ -189,18 +189,18 @@ $(function() {
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> text</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>: <span class="comment"># pragma: no cover</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    pwd=<a class="code" href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(pwd=<span class="stringliteral">&#39;test&#39;</span>,ending=<span class="stringliteral">&#39;$&#39;</span>)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    pwd=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(pwd=<span class="stringliteral">&#39;test&#39;</span>,ending=<span class="stringliteral">&#39;$&#39;</span>)</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    lines=[<span class="stringliteral">&#39;This is a test\n&#39;</span>,<span class="stringliteral">&#39;of the emergency broadcast system\n&#39;</span>]</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    pwd.WriteEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>,lines)</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    print(pwd.ReadEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>))</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml">SignalIntegrity.App.Encryption.Encryption</a></div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00035">Encryption.py:35</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_af65ccfee3596c847294d7cc81d3245da"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">SignalIntegrity.App.Encryption.Encryption.Decrypt</a></div><div class="ttdeci">def Decrypt(self, text)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00067">Encryption.py:67</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_a1d0935041f7ed5628214da1e8645d86c"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a1d0935041f7ed5628214da1e8645d86c">SignalIntegrity.App.Encryption.Encryption.Encrypt</a></div><div class="ttdeci">def Encrypt(self, text)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00077">Encryption.py:77</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_a9dbb300e28bc21c8dab41b01883918eb"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">SignalIntegrity.App.Encryption.Encryption.password</a></div><div class="ttdeci">password</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00036">Encryption.py:36</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_a958db5669b5500eec36606c1c2eaade3"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a958db5669b5500eec36606c1c2eaade3">SignalIntegrity.App.Encryption.Encryption.__decrypt_AES_GCM</a></div><div class="ttdeci">def __decrypt_AES_GCM(self, encryptedMsg, password=None)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00057">Encryption.py:57</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_ac1450bdfc44b3c045ea13e1707874099"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#ac1450bdfc44b3c045ea13e1707874099">SignalIntegrity.App.Encryption.Encryption.__encrypt_AES_GCM</a></div><div class="ttdeci">def __encrypt_AES_GCM(self, msg, password=None)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00047">Encryption.py:47</a></div></div>
-<div class="ttc" id="aclassSignalIntegrity_1_1App_1_1Encryption_1_1Encryption_xhtml_a8330751aadc5b23e4f85413749f50c92"><div class="ttname"><a href="classSignalIntegrity_1_1App_1_1Encryption_1_1Encryption.xhtml#a8330751aadc5b23e4f85413749f50c92">SignalIntegrity.App.Encryption.Encryption.ending</a></div><div class="ttdeci">string ending</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00037">Encryption.py:37</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a9dbb300e28bc21c8dab41b01883918eb"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">SignalIntegrity.Lib.Encryption.Encryption.password</a></div><div class="ttdeci">password</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00036">Encryption.py:36</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a8330751aadc5b23e4f85413749f50c92"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a8330751aadc5b23e4f85413749f50c92">SignalIntegrity.Lib.Encryption.Encryption.ending</a></div><div class="ttdeci">string ending</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00037">Encryption.py:37</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_ac1450bdfc44b3c045ea13e1707874099"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#ac1450bdfc44b3c045ea13e1707874099">SignalIntegrity.Lib.Encryption.Encryption.__encrypt_AES_GCM</a></div><div class="ttdeci">def __encrypt_AES_GCM(self, msg, password=None)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00047">Encryption.py:47</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_af65ccfee3596c847294d7cc81d3245da"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">SignalIntegrity.Lib.Encryption.Encryption.Decrypt</a></div><div class="ttdeci">def Decrypt(self, text)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00067">Encryption.py:67</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">SignalIntegrity.Lib.Encryption.Encryption</a></div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00035">Encryption.py:35</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a1d0935041f7ed5628214da1e8645d86c"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a1d0935041f7ed5628214da1e8645d86c">SignalIntegrity.Lib.Encryption.Encryption.Encrypt</a></div><div class="ttdeci">def Encrypt(self, text)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00077">Encryption.py:77</a></div></div>
+<div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a958db5669b5500eec36606c1c2eaade3"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a958db5669b5500eec36606c1c2eaade3">SignalIntegrity.Lib.Encryption.Encryption.__decrypt_AES_GCM</a></div><div class="ttdeci">def __decrypt_AES_GCM(self, encryptedMsg, password=None)</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00057">Encryption.py:57</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

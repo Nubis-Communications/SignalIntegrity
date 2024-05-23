@@ -411,22 +411,24 @@
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
-<g id="a_node24"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Series.xhtml" target="_top" xlink:title="s&#45;parameters of two port device placed in parallel with itself multiple times">
-<polygon fill="white" stroke="black" points="1991,-248.5 1991,-327.5 2076,-327.5 2076,-248.5 1991,-248.5"/>
-<text text-anchor="middle" x="2033.5" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">Series</text>
-<polyline fill="none" stroke="black" points="1991,-308.5 2076,-308.5 "/>
-<text text-anchor="start" x="1999" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_K</text>
-<text text-anchor="start" x="1999" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_dev</text>
-<polyline fill="none" stroke="black" points="1991,-278.5 2076,-278.5 "/>
-<text text-anchor="start" x="1999" y="-266.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>
-<text text-anchor="start" x="1999" y="-255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __getitem__()</text>
+<g id="a_node24"><a xlink:href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Series_1_1Series.xhtml" target="_top" xlink:title="s&#45;parameters of two port device placed in series with itself multiple times">
+<polygon fill="white" stroke="black" points="1991,-237.5 1991,-338.5 2076,-338.5 2076,-237.5 1991,-237.5"/>
+<text text-anchor="middle" x="2033.5" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">Series</text>
+<polyline fill="none" stroke="black" points="1991,-319.5 2076,-319.5 "/>
+<text text-anchor="start" x="1999" y="-307.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_K</text>
+<text text-anchor="start" x="1999" y="-296.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ lp</text>
+<text text-anchor="start" x="1999" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ rp</text>
+<text text-anchor="start" x="1999" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_dev</text>
+<polyline fill="none" stroke="black" points="1991,-267.5 2076,-267.5 "/>
+<text text-anchor="start" x="1999" y="-255.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>
+<text text-anchor="start" x="1999" y="-244.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __getitem__()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node24 -->
 <g id="edge23" class="edge">
 <title>Node1&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M2012.11,-376.61C2016.42,-358.98 2020.55,-342.06 2024.01,-327.88"/>
+<path fill="none" stroke="midnightblue" d="M2012.1,-376.65C2015.37,-363.26 2018.54,-350.29 2021.39,-338.6"/>
 <polygon fill="none" stroke="midnightblue" points="2008.68,-375.92 2009.71,-386.46 2015.48,-377.58 2008.68,-375.92"/>
 </g>
 <!-- Node25 -->

@@ -167,28 +167,27 @@
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" target="_top" xlink:title="base class for results caching">
-<polygon fill="white" stroke="black" points="288.5,-282 288.5,-427 377.5,-427 377.5,-282 288.5,-282"/>
-<text text-anchor="middle" x="333" y="-415" font-family="Helvetica,sans-Serif" font-size="10.00">ResultsCache</text>
-<polyline fill="none" stroke="black" points="288.5,-408 377.5,-408 "/>
-<text text-anchor="start" x="296.5" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+ filename</text>
-<text text-anchor="start" x="296.5" y="-385" font-family="Helvetica,sans-Serif" font-size="10.00">+ extra</text>
-<text text-anchor="start" x="296.5" y="-374" font-family="Helvetica,sans-Serif" font-size="10.00">+ hash</text>
-<text text-anchor="start" x="296.5" y="-363" font-family="Helvetica,sans-Serif" font-size="10.00">+ logging</text>
-<polyline fill="none" stroke="black" points="288.5,-356 377.5,-356 "/>
-<text text-anchor="start" x="296.5" y="-344" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>
-<text text-anchor="start" x="296.5" y="-333" font-family="Helvetica,sans-Serif" font-size="10.00">+ HashValue()</text>
-<text text-anchor="start" x="296.5" y="-322" font-family="Helvetica,sans-Serif" font-size="10.00">+ CheckCache()</text>
-<text text-anchor="start" x="296.5" y="-311" font-family="Helvetica,sans-Serif" font-size="10.00">+ CacheResult()</text>
-<text text-anchor="start" x="296.5" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00">+ FileTime()</text>
-<text text-anchor="start" x="296.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">+ CheckTimes()</text>
+<polygon fill="white" stroke="black" points="288.5,-287.5 288.5,-421.5 377.5,-421.5 377.5,-287.5 288.5,-287.5"/>
+<text text-anchor="middle" x="333" y="-409.5" font-family="Helvetica,sans-Serif" font-size="10.00">ResultsCache</text>
+<polyline fill="none" stroke="black" points="288.5,-402.5 377.5,-402.5 "/>
+<text text-anchor="start" x="296.5" y="-390.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ filename</text>
+<text text-anchor="start" x="296.5" y="-379.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ extra</text>
+<text text-anchor="start" x="296.5" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ hash</text>
+<text text-anchor="start" x="296.5" y="-357.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ logging</text>
+<polyline fill="none" stroke="black" points="288.5,-350.5 377.5,-350.5 "/>
+<text text-anchor="start" x="296.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ __init__()</text>
+<text text-anchor="start" x="296.5" y="-327.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ HashValue()</text>
+<text text-anchor="start" x="296.5" y="-316.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CheckCache()</text>
+<text text-anchor="start" x="296.5" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CacheResult()</text>
+<text text-anchor="start" x="296.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ CheckTimes()</text>
 </a>
 </g>
 </g>
 <!-- Node8&#45;&gt;Node7 -->
 <g id="edge7" class="edge">
 <title>Node8&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M333,-271.7C333,-245.3 333,-217.26 333,-195.51"/>
-<polygon fill="none" stroke="midnightblue" points="329.5,-271.72 333,-281.72 336.5,-271.72 329.5,-271.72"/>
+<path fill="none" stroke="midnightblue" d="M333,-277.12C333,-249.28 333,-218.97 333,-195.76"/>
+<polygon fill="none" stroke="midnightblue" points="329.5,-277.25 333,-287.25 336.5,-277.25 329.5,-277.25"/>
 </g>
 </g>
 </svg>

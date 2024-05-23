@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>HistoryElement(object):</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">def </span>__init__(self,eventName,project):</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.eventName=eventName</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.project=copy.deepcopy(project)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.project=project</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">class </span>History(object):</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">def </span>__init__(self,parent):</div>
@@ -126,7 +126,7 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">else</span>: <span class="comment"># somewhere in the middle due to a previous undo</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            self.history=self.history[:self.current+1]</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            self.current=len(self.history)-1</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent))</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        element=HistoryElement(eventName,SignalIntegrity.App.Project.Write(self.parent).LinesToWrite())</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.history.append(element)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.current=self.current+1</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.FigureState()</div>
@@ -135,8 +135,8 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        undoMessage=self.history[self.current].eventName</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.current=self.current-1</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        element=copy.deepcopy(self.history[self.current])</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a> = element.project.Read()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        element=self.history[self.current]</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        SignalIntegrity.App.Project.FromText(element.project)</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.parent.Drawing.InitFromProject()</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        self.parent.Drawing.stateMachine.state=<span class="stringliteral">&#39;Nothing&#39;</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.parent.Drawing.stateMachine.ForceIntializeState()</div>
@@ -148,8 +148,8 @@ $(function() {
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">if</span> self.current+1 == len(self.history):</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">return</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        self.current=self.current+1</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        element=copy.deepcopy(self.history[self.current])</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a> = element.project.Read()</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        element=self.history[self.current]</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        SignalIntegrity.App.Project.FromText(element.project)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        self.parent.Drawing.InitFromProject()</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        self.parent.Drawing.stateMachine.state = <span class="stringliteral">&#39;Nothing&#39;</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self.parent.Drawing.stateMachine.ForceIntializeState()</div>

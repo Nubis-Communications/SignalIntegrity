@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,41 +1073,50 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-184.html#next">Prev</a> SystemDescription</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-184.html#next">Prev</a> Waveform</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="Help-Subsection-186.html#prev">Next</a></span>
+<span class="next">Simulator <a class="next" name="next" href="Help-Subsection-186.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-185"></a>Simulator<a class="Label" name="sub:Simulator"> </a>
+<a class="toc" name="toc-Subsection-185"></a>SystemDescription<a class="Label" name="sub:System-Description-Error"> </a>
 </h2>
 <div class="Standard">
-<b>No Outputs</b>
+During calculation, the netlist is parsed to set up the calculation. In this process, various things can go wrong because of incorrect specification of the netlist:
 </div>
 <div class="Standard">
-There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.
+<b>Unconnected Device Ports</b>
 </div>
 <div class="Standard">
-By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
+One or more device ports in the schematic is not connected. With the exception of the system device used in deembedding applications, all device ports must be connected to one or more other device ports.
 </div>
 <div class="Standard">
-<b>No Sources</b>
+Generally, by looking at your schematic, you can see this, because unconnected device ports will have a red x on device pins. That being said, simply connecting a wire to the device port makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
 </div>
 <div class="Standard">
-There are no sources in the circuit. This type of error ought to be impossible to create from the application because the application checks for the existence of at least one source prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. If it is not connected, it ought to generate an Unconnected Device Ports error.
+You can troubleshoot connection problems exactly by looking at the netlist. The netlist will list each device with a name and number of ports and will list all connections between device ports.
 </div>
 <div class="Standard">
-By looking at your schematic, you can see this, because unconnected sources will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a source makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.
+<b>Duplicate Device Name</b>
 </div>
 <div class="Standard">
-<b>Numerical Error</b>
+One or more devices in your schematic has the same device name. Usually, as you add devices to the schematic, you do not worry about the reference designations and the application adds unique reference designators as parts are added. These reference designators can be edited, however, by the user and the user can enter reference designations that are the same accidentally. To troubleshoot this problem, you can look both at the schematic, specifically the part properties for the devices, and at the netlist which will have device declarations with the same device name.
 </div>
 <div class="Standard">
-This is the same error as Cannot Invert I-W or I-Wxx while calculating the simulator transfer parameters. It indicates pathological problems in the system described. In many cases this can be resolved using the <a class="Reference" href="Help-Subsection--14.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a> preference in the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>.
+<b>No Device Named</b>
+</div>
+<div class="Standard">
+A connection or other type of declaration specifies a device name that is nonexistent. This type of error ought to be impossible to create from the application and is more typical of hand generated netlists. Nevertheless, this error message indicates that the netlist contains a reference to a device name (listed in the error) that is not specified elsewhere in the netlist. An error like this is really an internal error, but you can see the cause of an error like this by examining the netlist.
+</div>
+<div class="Standard">
+<b>Cannot Connect Device Ports</b>
+</div>
+<div class="Standard">
+This is the same error as No Device Named, except that it was explicitly called in an attempt to connect non-existent device ports. It also handles non-existent ports of the device if they cannot be found.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-184.html#next">Prev</a> SystemDescription</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-184.html#next">Prev</a> Waveform</span>
 <span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">VirtualProbe <a class="next" name="next" href="Help-Subsection-186.html#prev">Next</a></span>
+<span class="next">Simulator <a class="next" name="next" href="Help-Subsection-186.html#prev">Next</a></span>
 </div>
 
 </div>

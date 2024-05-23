@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 340)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-340 746,-340 746,4 -4,4"/>
-<!-- Node134 -->
+<!-- Node133 -->
 <g id="node1" class="node">
-<title>Node134</title>
+<title>Node133</title>
 <g id="a_node1"><a xlink:href="classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" target="_top" xlink:title="Handles Callbacks that allow progress reporting during long calculations and capability to abort.">
 <polygon fill="white" stroke="black" points="283,-190.5 283,-209.5 348,-209.5 348,-190.5 283,-190.5"/>
 <text text-anchor="middle" x="315.5" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00">CallBacker</text>
@@ -27,39 +27,39 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node1 -->
+<!-- Node133&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
-<title>Node134&#45;&gt;Node1</title>
+<title>Node133&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M352.6,-214.44C357.5,-217.43 362.15,-220.94 366,-225 393.37,-253.89 371.8,-281.08 402,-307 408.1,-312.24 415.5,-316.05 423.18,-318.81"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="354.12,-211.28 343.66,-209.59 350.79,-217.43 354.12,-211.28"/>
 </g>
-<!-- Node135 -->
+<!-- Node134 -->
 <g id="node3" class="node">
-<title>Node135</title>
+<title>Node134</title>
 <g id="a_node3"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" target="_top" xlink:title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,...">
 <polygon fill="white" stroke="black" points="449.5,-278.5 449.5,-297.5 498.5,-297.5 498.5,-278.5 449.5,-278.5"/>
 <text text-anchor="middle" x="474" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">LevMar</text>
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node135 -->
+<!-- Node133&#45;&gt;Node134 -->
 <g id="edge2" class="edge">
-<title>Node134&#45;&gt;Node135</title>
+<title>Node133&#45;&gt;Node134</title>
 <path fill="none" stroke="midnightblue" d="M349.39,-214.17C355.19,-217.33 360.97,-220.97 366,-225 385.7,-240.82 380.77,-255.3 402,-269 416.26,-278.2 434.86,-282.97 449.45,-285.43"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="350.87,-210.99 340.37,-209.58 347.7,-217.23 350.87,-210.99"/>
 </g>
-<!-- Node136 -->
+<!-- Node135 -->
 <g id="node4" class="node">
-<title>Node136</title>
+<title>Node135</title>
 <g id="a_node4"><a xlink:href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices.xhtml" target="_top" xlink:title="Class that is used for processing waveforms in simulation.">
 <polygon fill="white" stroke="black" points="429,-202.5 429,-221.5 519,-221.5 519,-202.5 429,-202.5"/>
 <text text-anchor="middle" x="474" y="-209.5" font-family="Helvetica,sans-Serif" font-size="10.00">TransferMatrices</text>
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node136 -->
+<!-- Node133&#45;&gt;Node135 -->
 <g id="edge3" class="edge">
-<title>Node134&#45;&gt;Node136</title>
+<title>Node133&#45;&gt;Node135</title>
 <path fill="none" stroke="midnightblue" d="M358.44,-203.22C380.22,-204.89 406.83,-206.93 428.92,-208.62"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="358.41,-199.7 348.17,-202.43 357.87,-206.68 358.41,-199.7"/>
 </g>
@@ -72,9 +72,9 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node3 -->
+<!-- Node133&#45;&gt;Node3 -->
 <g id="edge4" class="edge">
-<title>Node134&#45;&gt;Node3</title>
+<title>Node133&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M350.71,-213.17C366.26,-218.96 384.95,-225.64 402,-231 412.59,-234.33 424.18,-237.59 434.87,-240.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="351.59,-209.76 341,-209.52 349.13,-216.32 351.59,-209.76"/>
 </g>
@@ -87,9 +87,9 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node4 -->
+<!-- Node133&#45;&gt;Node4 -->
 <g id="edge5" class="edge">
-<title>Node134&#45;&gt;Node4</title>
+<title>Node133&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M331.52,-182.46C353.68,-156.75 393.44,-111.29 402,-106 408.97,-101.69 416.89,-98.29 424.86,-95.6"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="328.62,-180.47 324.75,-190.34 333.93,-185.04 328.62,-180.47"/>
 </g>
@@ -102,9 +102,9 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node5 -->
+<!-- Node133&#45;&gt;Node5 -->
 <g id="edge6" class="edge">
-<title>Node134&#45;&gt;Node5</title>
+<title>Node133&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M333.74,-182.71C343.93,-171.89 356.63,-157.34 366,-143 386.44,-111.71 373.29,-90.93 402,-67 406.61,-63.16 411.91,-60.09 417.51,-57.63"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="330.95,-180.55 326.53,-190.18 335.99,-185.41 330.95,-180.55"/>
 </g>
@@ -118,9 +118,9 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node7 -->
+<!-- Node133&#45;&gt;Node7 -->
 <g id="edge8" class="edge">
-<title>Node134&#45;&gt;Node7</title>
+<title>Node133&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M346.55,-185.89C353.01,-182.72 359.77,-179.32 366,-176 382.35,-167.29 385.19,-162.78 402,-155 409.71,-151.43 418.08,-148.07 426.28,-145.03"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="344.87,-182.81 337.39,-190.31 347.92,-189.11 344.87,-182.81"/>
 </g>
@@ -133,24 +133,24 @@
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node9 -->
+<!-- Node133&#45;&gt;Node9 -->
 <g id="edge10" class="edge">
-<title>Node134&#45;&gt;Node9</title>
+<title>Node133&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M334.15,-183.45C344.66,-172.77 357.55,-158.09 366,-143 391.96,-96.64 363.6,-65.73 402,-29 406.06,-25.12 410.82,-22.01 415.92,-19.52"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="331.69,-180.96 327.01,-190.47 336.6,-185.95 331.69,-180.96"/>
 </g>
-<!-- Node137 -->
+<!-- Node136 -->
 <g id="node12" class="node">
-<title>Node137</title>
+<title>Node136</title>
 <g id="a_node12"><a xlink:href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" target="_top" xlink:title="process transfer matrices &#160;&#160;Usually transfer matrices are produced in simulation and virtual probing ...">
 <polygon fill="white" stroke="black" points="407,-164.5 407,-183.5 541,-183.5 541,-164.5 407,-164.5"/>
 <text text-anchor="middle" x="474" y="-171.5" font-family="Helvetica,sans-Serif" font-size="10.00">TransferMatricesProcessor</text>
 </a>
 </g>
 </g>
-<!-- Node134&#45;&gt;Node137 -->
+<!-- Node133&#45;&gt;Node136 -->
 <g id="edge11" class="edge">
-<title>Node134&#45;&gt;Node137</title>
+<title>Node133&#45;&gt;Node136</title>
 <path fill="none" stroke="midnightblue" d="M358.16,-193.08C375.81,-190.15 396.67,-186.68 415.74,-183.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="357.46,-189.65 348.17,-194.74 358.61,-196.55 357.46,-189.65"/>
 </g>
@@ -185,132 +185,132 @@
 <path fill="none" stroke="midnightblue" d="M556.36,-130C564.82,-130 573.42,-130 581.86,-130"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="556.11,-126.5 546.11,-130 556.11,-133.5 556.11,-126.5"/>
 </g>
-<!-- Node114 -->
+<!-- Node113 -->
 <g id="node13" class="node">
-<title>Node114</title>
+<title>Node113</title>
 <g id="a_node13"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" target="_top" xlink:title="argument handling base class for parsers">
 <polygon fill="white" stroke="black" points="0,-95.5 0,-114.5 65,-114.5 65,-95.5 0,-95.5"/>
 <text text-anchor="middle" x="32.5" y="-102.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParserArgs</text>
 </a>
 </g>
 </g>
-<!-- Node108 -->
+<!-- Node107 -->
 <g id="node14" class="node">
-<title>Node108</title>
+<title>Node107</title>
 <g id="a_node14"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" target="_top" xlink:title="Parses netlists and produces system descriptions.">
 <polygon fill="white" stroke="black" points="101,-76.5 101,-95.5 229,-95.5 229,-76.5 101,-76.5"/>
 <text text-anchor="middle" x="165" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">SystemDescriptionParser</text>
 </a>
 </g>
 </g>
-<!-- Node114&#45;&gt;Node108 -->
+<!-- Node113&#45;&gt;Node107 -->
 <g id="edge12" class="edge">
-<title>Node114&#45;&gt;Node108</title>
+<title>Node113&#45;&gt;Node107</title>
 <path fill="none" stroke="midnightblue" d="M75.17,-98.93C83.41,-97.73 92.23,-96.45 101,-95.17"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="74.48,-95.5 65.09,-100.4 75.49,-102.42 74.48,-95.5"/>
 </g>
-<!-- Node108&#45;&gt;Node7 -->
+<!-- Node107&#45;&gt;Node7 -->
 <g id="edge19" class="edge">
-<title>Node108&#45;&gt;Node7</title>
+<title>Node107&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M186.06,-101.8C205.12,-115.74 235.23,-135.04 265,-143 310.79,-155.24 364.18,-151.55 405.41,-145.03"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="187.97,-98.86 177.88,-95.65 183.76,-104.46 187.97,-98.86"/>
 </g>
-<!-- Node109 -->
+<!-- Node108 -->
 <g id="node15" class="node">
-<title>Node109</title>
+<title>Node108</title>
 <g id="a_node15"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationParser_1_1CalibrationParser.xhtml" target="_top" xlink:title="base class for netlist based error terms solutions">
 <polygon fill="white" stroke="black" points="269.5,-234.5 269.5,-253.5 361.5,-253.5 361.5,-234.5 269.5,-234.5"/>
 <text text-anchor="middle" x="315.5" y="-241.5" font-family="Helvetica,sans-Serif" font-size="10.00">CalibrationParser</text>
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node109 -->
+<!-- Node107&#45;&gt;Node108 -->
 <g id="edge13" class="edge">
-<title>Node108&#45;&gt;Node109</title>
+<title>Node107&#45;&gt;Node108</title>
 <path fill="none" stroke="midnightblue" d="M176.07,-104.61C191.9,-132.46 224.98,-185.34 265,-219 272.44,-225.26 281.72,-230.47 290.22,-234.49"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="178.95,-102.59 171.03,-95.55 172.83,-106 178.95,-102.59"/>
 </g>
-<!-- Node110 -->
+<!-- Node109 -->
 <g id="node16" class="node">
-<title>Node110</title>
+<title>Node109</title>
 <g id="a_node16"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" target="_top" xlink:title="base class for netlist based deembedding solutions">
 <polygon fill="white" stroke="black" points="265,-76.5 265,-95.5 366,-95.5 366,-76.5 265,-76.5"/>
 <text text-anchor="middle" x="315.5" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">DeembedderParser</text>
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node110 -->
+<!-- Node107&#45;&gt;Node109 -->
 <g id="edge15" class="edge">
-<title>Node108&#45;&gt;Node110</title>
+<title>Node107&#45;&gt;Node109</title>
 <path fill="none" stroke="midnightblue" d="M239.45,-86C248.03,-86 256.62,-86 264.77,-86"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="239.41,-82.5 229.41,-86 239.41,-89.5 239.41,-82.5"/>
 </g>
-<!-- Node111 -->
+<!-- Node110 -->
 <g id="node17" class="node">
-<title>Node111</title>
+<title>Node110</title>
 <g id="a_node17"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" target="_top" xlink:title="base class for netlist based simulation solutions">
 <polygon fill="white" stroke="black" points="272.5,-38.5 272.5,-57.5 358.5,-57.5 358.5,-38.5 272.5,-38.5"/>
 <text text-anchor="middle" x="315.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">SimulatorParser</text>
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node111 -->
+<!-- Node107&#45;&gt;Node110 -->
 <g id="edge17" class="edge">
-<title>Node108&#45;&gt;Node111</title>
+<title>Node107&#45;&gt;Node110</title>
 <path fill="none" stroke="midnightblue" d="M213.33,-73.89C234.01,-68.6 257.92,-62.48 277.3,-57.52"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="212.29,-70.54 203.47,-76.41 214.03,-77.32 212.29,-70.54"/>
 </g>
-<!-- Node112 -->
+<!-- Node111 -->
 <g id="node18" class="node">
-<title>Node112</title>
+<title>Node111</title>
 <g id="a_node18"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" target="_top" xlink:title="base class for netlist based virtual probing solutions">
 <polygon fill="white" stroke="black" points="266.5,-0.5 266.5,-19.5 364.5,-19.5 364.5,-0.5 266.5,-0.5"/>
 <text text-anchor="middle" x="315.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">VirtualProbeParser</text>
 </a>
 </g>
 </g>
-<!-- Node108&#45;&gt;Node112 -->
+<!-- Node107&#45;&gt;Node111 -->
 <g id="edge20" class="edge">
-<title>Node108&#45;&gt;Node112</title>
+<title>Node107&#45;&gt;Node111</title>
 <path fill="none" stroke="midnightblue" d="M189.65,-70.98C209.36,-58.81 238.41,-41.66 265,-29 272.15,-25.6 280.08,-22.34 287.46,-19.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="187.67,-68.09 181.03,-76.35 191.37,-74.03 187.67,-68.09"/>
 </g>
-<!-- Node109&#45;&gt;Node3 -->
+<!-- Node108&#45;&gt;Node3 -->
 <g id="edge14" class="edge">
-<title>Node109&#45;&gt;Node3</title>
+<title>Node108&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M371.85,-246.12C384.13,-246.59 397.23,-247.1 409.79,-247.58"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="371.89,-242.62 361.77,-245.74 371.62,-249.62 371.89,-242.62"/>
 </g>
-<!-- Node110&#45;&gt;Node4 -->
+<!-- Node109&#45;&gt;Node4 -->
 <g id="edge16" class="edge">
-<title>Node110&#45;&gt;Node4</title>
+<title>Node109&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M376.22,-86C385.79,-86 395.76,-86 405.49,-86"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="376.02,-82.5 366.02,-86 376.02,-89.5 376.02,-82.5"/>
 </g>
-<!-- Node111&#45;&gt;Node5 -->
+<!-- Node110&#45;&gt;Node5 -->
 <g id="edge18" class="edge">
-<title>Node111&#45;&gt;Node5</title>
+<title>Node110&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M369.19,-48C383.07,-48 398.15,-48 412.4,-48"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="368.85,-44.5 358.85,-48 368.85,-51.5 368.85,-44.5"/>
 </g>
-<!-- Node112&#45;&gt;Node9 -->
+<!-- Node111&#45;&gt;Node9 -->
 <g id="edge21" class="edge">
-<title>Node112&#45;&gt;Node9</title>
+<title>Node111&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M374.79,-10C385.03,-10 395.77,-10 406.22,-10"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="374.73,-6.5 364.73,-10 374.73,-13.5 374.73,-6.5"/>
 </g>
-<!-- Node107 -->
+<!-- Node106 -->
 <g id="node19" class="node">
-<title>Node107</title>
+<title>Node106</title>
 <g id="a_node19"><a xlink:href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" target="_top" xlink:title="file handling base class for parsers">
 <polygon fill="white" stroke="black" points="2,-57.5 2,-76.5 63,-76.5 63,-57.5 2,-57.5"/>
 <text text-anchor="middle" x="32.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParserFile</text>
 </a>
 </g>
 </g>
-<!-- Node107&#45;&gt;Node108 -->
+<!-- Node106&#45;&gt;Node107 -->
 <g id="edge22" class="edge">
-<title>Node107&#45;&gt;Node108</title>
+<title>Node106&#45;&gt;Node107</title>
 <path fill="none" stroke="midnightblue" d="M73.07,-72.76C81.88,-74.04 91.44,-75.44 100.93,-76.82"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="73.51,-69.29 63.11,-71.31 72.5,-76.22 73.51,-69.29"/>
 </g>

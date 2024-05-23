@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -2423,7 +2423,31 @@ $(function() {
 <div class="line"><a name="l02343"></a><span class="lineno"> 2343</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
 <div class="line"><a name="l02344"></a><span class="lineno"> 2344</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureParallel&#39;</span>],2)</div>
 <div class="line"><a name="l02345"></a><span class="lineno"> 2345</span>&#160; </div>
-<div class="line"><a name="l02346"></a><span class="lineno"> 2346</span>&#160; </div>
+<div class="line"><a name="l02346"></a><span class="lineno"> 2346</span>&#160;<span class="keyword">class </span>PartPictureSeries(PartPictureSpecifiedPorts):</div>
+<div class="line"><a name="l02347"></a><span class="lineno"> 2347</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02348"></a><span class="lineno"> 2348</span>&#160;        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02349"></a><span class="lineno"> 2349</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02350"></a><span class="lineno"> 2350</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;+&#39;</span>)</div>
+<div class="line"><a name="l02351"></a><span class="lineno"> 2351</span>&#160;        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,<span class="keywordtype">None</span> <span class="keywordflow">if</span> connected <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> [<span class="keyword">True</span> <span class="keywordflow">for</span> ele <span class="keywordflow">in</span> connected])</div>
+<div class="line"><a name="l02352"></a><span class="lineno"> 2352</span>&#160; </div>
+<div class="line"><a name="l02353"></a><span class="lineno"> 2353</span>&#160;<span class="keyword">class </span>PartPictureSeriesAcross(PartPictureSpecifiedPortsAcross):</div>
+<div class="line"><a name="l02354"></a><span class="lineno"> 2354</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02355"></a><span class="lineno"> 2355</span>&#160;        PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02356"></a><span class="lineno"> 2356</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02357"></a><span class="lineno"> 2357</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;+&#39;</span>)</div>
+<div class="line"><a name="l02358"></a><span class="lineno"> 2358</span>&#160;        PartPictureSpecifiedPortsAcross.DrawDevice(self,device,canvas,grid,drawingOrigin,<span class="keywordtype">None</span> <span class="keywordflow">if</span> connected <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> [<span class="keyword">True</span> <span class="keywordflow">for</span> ele <span class="keywordflow">in</span> connected])</div>
+<div class="line"><a name="l02359"></a><span class="lineno"> 2359</span>&#160; </div>
+<div class="line"><a name="l02360"></a><span class="lineno"> 2360</span>&#160;<span class="keyword">class </span>PartPictureSeriesDownAndUp(PartPictureSpecifiedPortsDownAndUp):</div>
+<div class="line"><a name="l02361"></a><span class="lineno"> 2361</span>&#160;    <span class="keyword">def </span>__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):</div>
+<div class="line"><a name="l02362"></a><span class="lineno"> 2362</span>&#160;        PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)</div>
+<div class="line"><a name="l02363"></a><span class="lineno"> 2363</span>&#160;    <span class="keyword">def </span>DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):</div>
+<div class="line"><a name="l02364"></a><span class="lineno"> 2364</span>&#160;        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,<span class="stringliteral">&#39;+&#39;</span>)</div>
+<div class="line"><a name="l02365"></a><span class="lineno"> 2365</span>&#160;        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,device,canvas,grid,drawingOrigin,<span class="keywordtype">None</span> <span class="keywordflow">if</span> connected <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> [<span class="keyword">True</span> <span class="keywordflow">for</span> ele <span class="keywordflow">in</span> connected])</div>
+<div class="line"><a name="l02366"></a><span class="lineno"> 2366</span>&#160; </div>
+<div class="line"><a name="l02367"></a><span class="lineno"> 2367</span>&#160;<span class="keyword">class </span>PartPictureVariableSeries(PartPictureVariable):</div>
+<div class="line"><a name="l02368"></a><span class="lineno"> 2368</span>&#160;    <span class="keyword">def </span>__init__(self,ports=2):</div>
+<div class="line"><a name="l02369"></a><span class="lineno"> 2369</span>&#160;        PartPictureVariable.__init__(self,[<span class="stringliteral">&#39;PartPictureSeries&#39;</span>,<span class="stringliteral">&#39;PartPictureSeriesAcross&#39;</span>,<span class="stringliteral">&#39;PartPictureSeriesDownAndUp&#39;</span>],ports)</div>
+<div class="line"><a name="l02370"></a><span class="lineno"> 2370</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1PartPin_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1PartPin.xhtml">SignalIntegrity.App.PartPin</a></div><div class="ttdef"><b>Definition:</b> <a href="PartPin_8py_source.xhtml#l00001">PartPin.py:1</a></div></div>
 <!-- start footer part -->

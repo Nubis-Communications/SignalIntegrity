@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-03-25"/>
+<meta name="create-date" content="2024-05-23"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-138.html#next">Prev</a> Current Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-138.html#next">Prev</a> Stim</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Eye Probe <a class="next" name="next" href="Help-Subsection-140.html#prev">Next</a></span>
+<span class="next">Voltage Diff Probe <a class="next" name="next" href="Help-Subsection-140.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-139"></a>Voltage Diff Probe<a class="Label" name="device:Voltage-Diff-Probe"> </a>
+<a class="toc" name="toc-Subsection-139"></a>Current Probe<a class="Label" name="device:Current-Probe"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="DiffProbe.png" alt="figure DiffProbe.png" style="max-width: 110px; max-height: 127px;"/>
+<img class="embedded" src="CurrentProbe.png" alt="figure CurrentProbe.png" style="max-width: 105px; max-height: 123px;"/>
 
 </div>
 <div class="Standard">
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+IO?
 </td>
 
 </tr>
@@ -1178,7 +1178,7 @@ s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage offset
+offset
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1196,7 +1196,7 @@ V
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage gain
+transconductance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1205,7 +1205,7 @@ float
 gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+V/A
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 1.0
@@ -1235,16 +1235,16 @@ on
 
 </div>
 <div class="Standard">
-The voltage diff probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify output waveforms to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
-</div>
-<div class="Standard">
-The voltage diff probe calculates the difference between the two voltages at the plus and minus labeled connection points.
+The current probe is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify output current waveforms to be produced as a result of the calculation. See <a class="Reference" href="Help-Subsection-8.html#sub:Output-Probes-for Simulation">Output Probes for Simulation↑</a> and <a class="Reference" href="Help-Subsection-21.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing↑</a>.
 </div>
 <div class="Standard">
 When the waveforms are produced as a result of the calculation, you have the capability of applying gain, offset and delay to the resulting waveform.
 </div>
 <div class="Standard">
-When placing an diff probe, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a probe will assign the value VO3 to the probe reference designator. This, of course, can be changed by the user.
+Despite the fact that the probe measures current, it behaves like a scope current probe, producing a voltage waveform.
+</div>
+<div class="Standard">
+When placing a current probe, the default reference other references prefixed with ’IO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references IO1, IO2, I08, then placing a probe will assign the value IO3 to the probe reference designator. This, of course, can be changed by the user.
 </div>
 <div class="Standard">
 There are some special prefixes on the reference that cause the calculation result to be special calculations:
@@ -1262,15 +1262,15 @@ There are some special prefixes on the reference that cause the calculation resu
 
 </ul>
 <div class="Standard">
-When examining the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-139.html#device:Voltage-Diff-Probe">Voltage Diff Probe↑</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-106.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-136.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
+When examining the <a class="Reference" href="Help-Section-24.html#sec:Netlist">Netlist↓</a>, you will not find a current probe in it. Instead, during netlist creation, a <a class="Reference" href="Help-Subsection-146.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source↓</a> is created with the current sense aligned with the direction of current in the current probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a class="Reference" href="Help-Subsection-106.html#device:Open">Open↑</a>. A voltage <a class="Reference" href="Help-Subsection-137.html#device:Output-Probe">Voltage Output Probe↑</a> then probes the open.
 </div>
 <div class="Standard">
 If the state is set to off, the waveform is not calculated.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-138.html#next">Prev</a> Current Probe</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-138.html#next">Prev</a> Stim</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Eye Probe <a class="next" name="next" href="Help-Subsection-140.html#prev">Next</a></span>
+<span class="next">Voltage Diff Probe <a class="next" name="next" href="Help-Subsection-140.html#prev">Next</a></span>
 </div>
 
 </div>
