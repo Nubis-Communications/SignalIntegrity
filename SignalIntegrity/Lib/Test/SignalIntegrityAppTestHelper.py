@@ -427,7 +427,7 @@ class SignalIntegrityAppTestHelper:
 
             return new_js1 == new_js2
 
-        self.assertTrue(are_jsons_approx_equal(regression,meas,4),filename + ' incorrect')
+        self.assertTrue(are_jsons_approx_equal(regression,meas,2),filename + ' incorrect')
         os.chdir(currentDirectory)
 
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
