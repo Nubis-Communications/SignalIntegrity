@@ -87,7 +87,11 @@ for input,output in zip(filteredFileList,destFileList):
 zipf.close()
 os.chdir(os.path.abspath(os.path.join(root,'../SignalIntegrity-'+__version__)))
 result = os.system('python3 setup.py bdist_wheel')
-#os.system('twine upload dist/*')
+#### comment in the next two lines to upload
+# print('use "__token__" as the user name, and the APIToken as the password.')
+# os.system('twine upload dist/*')
+
+#### below is for testing, but I don't think this really works anymore -- I'm not sure
 #os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
 pass
 
