@@ -64,6 +64,7 @@ class TestSeriesTest(unittest.TestCase,si.test.SParameterCompareHelper,
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+        si.sd.SimulatorNumeric.fasterway = True
 
     def testSeries(self):
         try:
@@ -76,6 +77,21 @@ class TestSeriesTest(unittest.TestCase,si.test.SParameterCompareHelper,
         except FileNotFoundError:
             pass
 
+        self.SimulationResultsChecker('wavelength_test2.si')
+
+    def testSeriesOldWay(self):
+        try:
+            os.remove('tline_section_cachedSParameters.p')
+        except FileNotFoundError:
+            pass
+
+        try:
+            os.remove('wavelength_test2_cachedTransferMatrices.p')
+        except FileNotFoundError:
+            pass
+
+        # this tests the old, slower way of numeric simulation
+        si.sd.SimulatorNumeric.fasterway = False
         self.SimulationResultsChecker('wavelength_test2.si')
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
