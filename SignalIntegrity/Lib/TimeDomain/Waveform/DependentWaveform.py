@@ -33,7 +33,7 @@ class DependentWaveform(Waveform):
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
         @param outputPortName output port whose voltage is taken as input into transformation function 
             Expects either string of port names separated by comma, or a list of strings with each port name
-        @param transformFN file name of function which transforms ouptutPort's voltage into the new voltage of this waveform.
+        @param transformFN file name of function which transforms outputPort's voltage into the new voltage of this waveform.
         @param VaraiblesList list of device variables that can be utilized by transform file
         """ 
         if (isinstance(OutputPortName, str)):
@@ -42,7 +42,7 @@ class DependentWaveform(Waveform):
             self.OutputPortName = OutputPortName
         else:
             raise SignalIntegrityExceptionDependentWaveform(
-                    'Incorrect argumetn type for OutputPortName: ' + (OutputPortName))
+                    'Incorrect argument type for OutputPortName: ' + (OutputPortName))
         
         self.TransformFN = TransformFN
         self.VariablesList = VariablesList
@@ -66,7 +66,7 @@ class DependentWaveform(Waveform):
                     'dependent output port not found: ' + (allOutputPorts[i]))
                 return
             
-        #Set up arguments ot pass to transform function 
+        #Set up arguments to pass to transform function 
         sendargs = inputWaveforms
         
         #Transferring variables list to a dictionary
@@ -81,7 +81,7 @@ class DependentWaveform(Waveform):
                     value = projectVariables[value[1:]]
                 else:
                     raise SignalIntegrityExceptionDependentWaveform(
-                        f"Systtem variable not found: {value}"
+                        f"System variable not found: {value}"
                     )
             if variable['Type'] in ['file','string','enum']:
                 sendargs[variable['Name']]=str(value)
@@ -115,11 +115,12 @@ class DependentWaveform(Waveform):
             exec(str(equations), locals())
         except Exception:
             import traceback
-            #Handles arbitrary excpetion since any could occur realistically
-            raise SignalIntegrityExceptionDependentWaveform('Excpetion occured in trnasform file: ' + traceback.format_exc())
+            #Handles arbitrary exception since any could occur realistically
+            raise SignalIntegrityExceptionDependentWaveform('Exception occurred in transform file: ' + traceback.format_exc())
         for argkey in returnargs.keys():
             try:
                 exec(str("returnargs[argkey] = eval(argkey)"))
             except NameError:
                 raise SignalIntegrityExceptionDependentWaveform('Transform file does not set output variable: ' +argkey)
         return returnargs 
+
