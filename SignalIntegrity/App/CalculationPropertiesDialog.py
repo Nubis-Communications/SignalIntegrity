@@ -48,7 +48,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
             self.maximumImpulseResponseLength=CalculationPropertySI(self.MaximumImpulseResponseLengthFrame,'Maximum Impulse Response Length',self.onmaximumImpulseLengthEntered,None,self.project,'MaximumImpulseResponseLength','s')
             self.maximumImpulseResponseLength.Show(self.project['LimitImpulseResponseLength'])
         if (self.parent.Drawing.schematic.HasDependentSource()):
-            self.numIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Iterations', self.onnumIterationsEntered, None, self.project,'NumIterations')
+            self.ProcessingIterations = CalculationProperty(self.TimeAndFrequencyFrame, 'Number of Processing Iterations', self.onProcessingIterationsEntered, None, self.project,'ProcessingIterations')
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
@@ -134,8 +134,8 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.project['FrequencyPoints']=max(1,self.project['FrequencyPoints'])
         self.UpdateStrings()
 
-    def onnumIterationsEntered(self, event):
-        self.project['NumIterations'] = int(self.project['NumIterations'])
+    def onProcessingIterationsEntered(self, event):
+        self.project['ProcessingIterations'] = int(self.project['ProcessingIterations'])
         self.UpdateStrings()
 
     def onunderlyingTypeEntered(self,event):
@@ -168,7 +168,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.timePoints.UpdateStrings()
         self.impulseResponseLength.UpdateStrings()
         if (self.parent.Drawing.schematic.HasDependentSource()):
-            self.numIterations.UpdateStrings()
+            self.ProcessingIterations.UpdateStrings()
         showLogarithmic = self.project['UnderlyingType'] == 'Logarithmic'
         self.logarithmicInformationFrame.pack_forget()
         if showLogarithmic:
@@ -208,7 +208,7 @@ class CalculationPropertiesDialog(PropertiesDialog):
                     'UserSampleRate':self.project['UserSampleRate'],
                     'LimitImpulseResponseLength':self.project['LimitImpulseResponseLength'],
                     'MaximumImpulseResponseLength':self.project['MaximumImpulseResponseLength'],
-                    'NumIterations':self.project['NumIterations']}
+                    'ProcessingIterations':self.project['ProcessingIterations']}
 
     def Restore(self):
         for key in self.saved:

@@ -2,13 +2,13 @@
 	<CalculationProperties>
 		<EndFrequency>20000000000.0</EndFrequency>
 		<FrequencyPoints>2000</FrequencyPoints>
-		<NumIterations>1</NumIterations>
+		<ProcessingIterations>2</ProcessingIterations>
 		<UserSampleRate>40000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+130+130</Geometry>
-			<Grid>16</Grid>
+			<Geometry>711x363+367+489</Geometry>
+			<Grid>14</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
 		</DrawingProperties>
