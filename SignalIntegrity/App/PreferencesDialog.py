@@ -23,6 +23,12 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,Ca
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
 
+import sys
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
+
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
         PropertiesDialog.__init__(self,parent,preferences,parent,'Preferences')
@@ -96,10 +102,11 @@ class PreferencesDialog(PropertiesDialog):
         self.multiPortTee=CalculationPropertyTrueFalseButton(self.calculationFrame,'employ multi-port tee elements',None,self.onUpdatePreferences,preferences,'Calculation.MultiPortTee')
         self.ignoreMissingOtherWaveforms=CalculationPropertyTrueFalseButton(self.calculationFrame,'ignore missing other waveforms in calculations',None,self.onUpdatePreferences,preferences,'Calculation.IgnoreMissingOtherWaveforms')
         self.maximumWaveformSize=CalculationPropertySI(self.calculationFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
-        if (self.parent.Drawing.schematic.HasDependentSource()): #Only include these options if have a dependent source
-            self.plotAllIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'plot all iterations', None, self.onUpdatePreferences,preferences, 'ProjectFiles.PlotAllIterations')
-            self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
-            self.autoshutoffThreshold = CalculationPropertySI(self.calculationTab, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
+        self.plotAllIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'plot all processing iterations', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.PlotAllIterations')
+        self.autoShutoffFrame=tk.Frame(self.calculationTab)
+        self.autoShutoffFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.stopProcessingOnConvergence = CalculationPropertyTrueFalseButton(self.autoShutoffFrame, 'stop processing based on convergence', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.StopOnConvergence')
+        self.stopProcessingConvergenceThreshold = CalculationPropertySI(self.autoShutoffFrame, 'processing convergence threshold', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.ConvergenceThreshold')
         self.Finish()
 
 
@@ -107,6 +114,7 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
+        self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
@@ -132,4 +140,5 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
+        self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         PropertiesDialog.Finish(self)
