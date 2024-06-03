@@ -32,7 +32,7 @@ import copy
 from SignalIntegrity.App.FilePicker import AskOpenFileName
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
-from SignalIntegrity.App.Simulator import SimulatorDialog
+from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 import SignalIntegrity.App.Project

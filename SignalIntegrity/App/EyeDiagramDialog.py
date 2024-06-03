@@ -237,7 +237,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.callback=None
 
     def SimulatorDialog(self):
-        from SignalIntegrity.App.Simulator import SimulatorDialog
+        from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
         if not hasattr(self,'simulatorDialog'):
             self.simulatorDialog=SimulatorDialog(self.parent)
         if self.simulatorDialog == None:

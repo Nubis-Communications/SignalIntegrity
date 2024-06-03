@@ -30,7 +30,7 @@ else:
 
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
-from SignalIntegrity.App.Simulator import SimulatorDialog
+from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.Exception import SignalIntegrityException,SignalIntegrityExceptionNetworkAnalyzer
 
