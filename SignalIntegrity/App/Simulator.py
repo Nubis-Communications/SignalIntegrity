@@ -18,6 +18,13 @@ Simulator.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+import sys
+
+if sys.version_info.major < 3:
+    import tkMessageBox as messagebox
+else:
+    from tkinter import messagebox
+
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
