@@ -322,14 +322,14 @@ class SignalIntegrityAppHeadless(object):
 
 
         if(self.Drawing.schematic.HasDependentSource()): #If have dependent source, do iterations
-            iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
+            iterations = SignalIntegrity.App.Project['CalculationProperties']['ProcessingIterations']
             if iterations == None:
                 iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
         else:
             #Otherwise no iterations
             iterations = 1
 
-        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence'] and iterations > 1
         for i in range(int(iterations)):
             if (TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0):
                 try:
@@ -412,7 +412,7 @@ class SignalIntegrityAppHeadless(object):
                         if (len(diffWvfm) > 0):
                             magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
                             #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
-                            threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
+                            threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.Processing.ConvergenceThreshold']
                         else:
                             #Edge case handling empty waveforms - just assume thye are converged
                             magnChange = 0

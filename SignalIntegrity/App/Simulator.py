@@ -159,15 +159,15 @@ class Simulator(object):
         #Have to repeat the above if statement at the beginning here since we want to only contain the ProcessWaveforms in the bottom loop - UGLY - see if necessary t 
         
         if(self.parent.Drawing.schematic.HasDependentSource()): #If have dependent source, do iterations
-            iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
+            iterations = SignalIntegrity.App.Project['CalculationProperties']['ProcessingIterations']
             if iterations == None:
                 iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
         else:
             #Otherwise no iterations
             iterations = 1
 
-        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['ProjectFiles.PlotAllIterations'] and iterations > 1
-        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations'] and iterations > 1
+        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.PlotAllIterations'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence'] and iterations > 1
         if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
             allOutputWaveformList = []
             allOutputWaveformLabel = []
@@ -271,7 +271,7 @@ class Simulator(object):
                         magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
 
                         #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
-                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOuptutWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
+                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOuptutWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.Processing.ConvergenceThreshold']
 
                         print(f"Iteration: {i}, Wvfm {j}, Change: {magnChange}, Threshold: {threshold}")
 

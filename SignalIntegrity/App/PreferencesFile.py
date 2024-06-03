@@ -136,7 +136,7 @@ class DeviceConfigurations(XMLConfiguration):
 
 class Color(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Color')
+        super().__init__('Color')
         self.Add(XMLPropertyDefaultString('Background'))
         self.Add(XMLPropertyDefaultString('Foreground'))
         self.Add(XMLPropertyDefaultString('ActiveBackground'))
@@ -146,7 +146,7 @@ class Color(XMLConfiguration):
 
 class Appearance(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Appearance')
+        super().__init__('Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
         self.Add(XMLPropertyDefaultInt('InitialGrid',16))
         self.Add(XMLPropertyDefaultFloat('PlotWidth',5))
@@ -164,9 +164,17 @@ class Variables(XMLConfiguration):
         super().__init__('Variables')
         self.Add(XMLPropertyDefaultBool('ParameterizeOnlyVisible',True))
 
+class Processing(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Processing')
+        self.Add(XMLPropertyDefaultBool('StopOnConvergence', False))
+        self.Add(XMLPropertyDefaultFloat('ConvergenceThreshold', 1E-3))
+        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
+
 class Calculation(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Calculation')
+        super().__init__('Calculation')
+        self.SubDir(Processing())
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
         self.Add(XMLPropertyDefaultBool('CheckConditionNumber',True))
         self.Add(XMLPropertyDefaultBool('UseSinX',True))
@@ -176,8 +184,6 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
         self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
-        self.Add(XMLPropertyDefaultBool('AutoshutoffIterations', False))
-        self.Add(XMLPropertyDefaultFloat('AutoshutoffThreshold', 1E-3))
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
@@ -188,18 +194,18 @@ class Calculation(XMLConfiguration):
 
 class Cache(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Cache')
+        super().__init__('Cache')
         self.Add(XMLPropertyDefaultBool('CacheResults',True))
 
 class LastFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'LastFiles')
+        super().__init__('LastFiles')
         self.Add(XMLPropertyDefaultString('Name'))
         self.Add(XMLPropertyDefaultString('Directory'))
 
 class Encryption(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Encryption')
+        super().__init__('Encryption')
         self.Add(XMLPropertyDefaultString('Password',''))
         self.Add(XMLPropertyDefaultString('Ending','$'))
     def ApplyPreferences(self):
@@ -208,25 +214,24 @@ class Encryption(XMLConfiguration):
 
 class ProjectFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'ProjectFiles')
+        super().__init__('ProjectFiles')
         self.Add(XMLPropertyDefaultBool('OpenLastFile',True))
         self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
         self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
-        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'OnlineHelp')
+        super().__init__('OnlineHelp')
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
         self.Add(XMLPropertyDefaultString('URL','https://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App'))
 
 class Features(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Features')
+        super().__init__('Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
 
 class PreferencesFile(ProjectFileBase):

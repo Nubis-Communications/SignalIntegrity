@@ -40,8 +40,8 @@ class TestNonlinearIterationTest(unittest.TestCase,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
-        self.Autoshutoff=SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations']
-        SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations']=False
+        self.Autoshutoff=SignalIntegrity.App.Preferences['Calculation.StopOnConvergence']
+        SignalIntegrity.App.Preferences['Calculation.StopOnConvergence']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -51,7 +51,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
-        SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations']=self.Autoshutoff
+        SignalIntegrity.App.Preferences['Calculation.StopOnConvergence']=self.Autoshutoff
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -80,7 +80,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         #Turn on autoshutoff
-        SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations']=True
+        SignalIntegrity.App.Preferences['Calculation.StopOnConvergence']=True
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -93,7 +93,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         pysi.SaveProjectToFile(newFileName)
         self.SimulationResultsChecker(newFileName)
 
-        SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations']=False
+        SignalIntegrity.App.Preferences['Calculation.StopOnConvergence']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

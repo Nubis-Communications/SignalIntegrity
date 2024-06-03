@@ -21,6 +21,12 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,Ca
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
 
+import sys
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
+
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
         PropertiesDialog.__init__(self,parent,preferences,parent,'Preferences')
@@ -52,18 +58,17 @@ class PreferencesDialog(PropertiesDialog):
         self.encryptionEnding = CalculationProperty(self.propertyListFrame,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
         self.archiveCachedResults = CalculationPropertyTrueFalseButton(self.propertyListFrame,'archive cached results',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveCachedResults')
         self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
-        self.plotAllIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'plot all iterations', None, self.onUpdatePreferences,preferences, 'ProjectFiles.PlotAllIterations')
-        self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
-        self.autoshutoffThreshold = CalculationPropertySI(self.propertyListFrame, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
+        self.plotAllIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'plot all processing iterations', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.PlotAllIterations')
+        self.autoShutoffFrame=tk.Frame(self.propertyListFrame)
+        self.autoShutoffFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.stopProcessingOnConvergence = CalculationPropertyTrueFalseButton(self.autoShutoffFrame, 'stop processing based on convergence', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.StopOnConvergence')
+        self.stopProcessingConvergenceThreshold = CalculationPropertySI(self.autoShutoffFrame, 'processing convergence threshold', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.ConvergenceThreshold')
         self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
-        if (self.parent.Drawing.schematic.HasDependentSource()): #Only include these options if have a dependent source
-            self.plotAllIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'plot all iterations', None, self.onUpdatePreferences,preferences, 'ProjectFiles.PlotAllIterations')
-            self.autoshutoffIterations = CalculationPropertyTrueFalseButton(self.propertyListFrame, 'autoshutoff iterations', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffIterations')
-            self.autoshutoffThreshold = CalculationPropertySI(self.propertyListFrame, 'autoshutoff threshold', None, self.onUpdatePreferences,preferences, 'Calculation.AutoshutoffThreshold')
         self.Finish()
 
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
+        self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
@@ -84,4 +89,5 @@ class PreferencesDialog(PropertiesDialog):
 
     def Finish(self):
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         PropertiesDialog.Finish(self)
