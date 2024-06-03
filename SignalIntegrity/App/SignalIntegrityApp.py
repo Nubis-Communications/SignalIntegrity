@@ -42,7 +42,7 @@ from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSy
 from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim,DeviceNetName
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
-from SignalIntegrity.App.Schematic import Drawing
+from SignalIntegrity.App.Drawing import Drawing
 from SignalIntegrity.App.Simulator import Simulator
 from SignalIntegrity.App.NetworkAnalyzer import NetworkAnalyzerSimulator
 from SignalIntegrity.App.NetList import NetListDialog
