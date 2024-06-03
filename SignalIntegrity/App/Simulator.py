@@ -194,14 +194,14 @@ class Simulator(object):
         #Outer iterations loop for iterative nonlinear solutions - repeats the processing of waveforms on each
         #iteration and updates the values of the dependent waveforms.
         if self.parent.Drawing.schematic.HasDependentSource(): #If have dependent source, do iterations
-            iterations = SignalIntegrity.App.Project['CalculationProperties']['NumIterations']
+            iterations = SignalIntegrity.App.Project['CalculationProperties']['ProcessingIterations']
             if iterations == None:
                 iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
         else:
             iterations = 1
 
-        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['ProjectFiles.PlotAllIterations'] and iterations > 1
-        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.AutoshutoffIterations'] and iterations > 1
+        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.PlotAllIterations'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence'] and iterations > 1
         if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
             allOutputWaveformList = []
             allOutputWaveformLabel = []
@@ -306,7 +306,7 @@ class Simulator(object):
                         magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
 
                         #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
-                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.AutoshutoffThreshold']
+                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.Processing.ConvergenceThreshold']
 
                         #Minimum threshold to avoid issue with close to 0 waveforms - kinda arbitrary
                         MIN_THRESHOLD = 1E-7
