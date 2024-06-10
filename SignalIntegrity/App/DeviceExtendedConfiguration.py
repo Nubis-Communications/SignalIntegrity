@@ -21,6 +21,7 @@ DeviceExtendedConfiguration.py
 class DeviceExtendedConfiguration(object):
     # override __getstate__ so if someone is trying to copy this object, the dialog window
     # does not get in the way.
+    headless=True
     def __getstate__(self):
         state=self.__dict__.copy()
         state['window']=None

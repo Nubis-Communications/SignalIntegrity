@@ -20,10 +20,8 @@ FilePicker.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import sys
-if sys.version_info.major < 3:
-    import tkFileDialog as filedialog
-else:
-    from tkinter import filedialog
+
+from tkinter import filedialog
 
 from SignalIntegrity.App.Files import FileParts
 

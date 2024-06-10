@@ -21,12 +21,8 @@ NetworkAnalyzer.py
 import sys
 import os
 
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import messagebox
+import tkinter as tk
+from tkinter import messagebox
 
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless

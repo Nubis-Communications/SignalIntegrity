@@ -19,22 +19,17 @@ SignalIntegrityApp.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkFont as font
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import font
-    from tkinter import messagebox
-
+import tkinter as tk
+from tkinter import font
+from tkinter import messagebox
 
 import copy
 import os
 
 # import matplotlib
 # matplotlib.use('TkAgg')
-
+from SignalIntegrity.App.DeviceExtendedConfiguration import DeviceExtendedConfiguration
+DeviceExtendedConfiguration.headless=False
 from SignalIntegrity.Lib.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
@@ -45,7 +40,7 @@ from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Drawing import Drawing
 from SignalIntegrity.App.Simulator import Simulator
 from SignalIntegrity.App.NetworkAnalyzer import NetworkAnalyzerSimulator
-from SignalIntegrity.App.NetList import NetListDialog
+from SignalIntegrity.App.NetListDialog import NetListDialog
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
 from SignalIntegrity.App.EquationsDialog import EquationsDialog

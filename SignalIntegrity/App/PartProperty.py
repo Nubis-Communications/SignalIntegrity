@@ -20,11 +20,6 @@ PartProperty.py
 
 import sys
 
-if sys.version_info.major < 3:
-    import tkMessageBox as messagebox
-else:
-    from tkinter import messagebox
-
 from SignalIntegrity.Lib.ToSI import ToSI,FromSI
 from SignalIntegrity.App.ProjectFile import PartPropertyConfiguration
 import SignalIntegrity.App.Project
@@ -130,6 +125,7 @@ class PartProperty(PartPropertyConfiguration):
         if (len(string)>0) and (string[0]=='='):
             self['Value'] = string
             if askToAdd and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
+                from tkinter import messagebox
                 doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?')
                 if doit:
                     from SignalIntegrity.App.ProjectFile import VariableConfiguration

@@ -18,7 +18,6 @@ Schematic.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.App.Device import DeviceFromProject
 from SignalIntegrity.App.NetList import NetList
 from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
 
@@ -37,6 +36,7 @@ class Schematic(CallBacker):
         deviceListProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices']
         for d in range(len(deviceListProject)):
             try:
+                from SignalIntegrity.App.Device import DeviceFromProject
                 returnedDevice=DeviceFromProject(deviceListProject[d]).result
             except NameError: # part picture doesn't exist
                 returnedDevice=None

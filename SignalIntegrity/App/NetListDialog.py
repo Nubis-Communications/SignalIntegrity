@@ -1,7 +1,6 @@
 """
-DevicePicker.py
+NetListDialog.py
 """
-
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
@@ -18,62 +17,40 @@ DevicePicker.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-
-
 import sys
+import copy
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import scrolledtext
 
-#from Device import *
+from SignalIntegrity.App.FilePicker import AskSaveAsFilename
+# import SignalIntegrity.App.Project
 
-class DevicePicker(tk.Frame):
-    def __init__(self,parent,deviceList):
+class NetListFrame(tk.Frame):
+    def __init__(self,parent,textToShow):
         tk.Frame.__init__(self,parent)
-        self.config()
-        self.parent=parent
-        self.tree = ttk.Treeview(self)
-        self.tree.pack(fill=tk.BOTH,expand=tk.YES)
-        self.tree["columns"]=("description")
-        self.tree.column("description")
-        self.tree.heading("description", text="Description")
-        categories=[]
-        indexIntoDeviceList=0
-        for device in deviceList:
-            if device.enabled:
-                parttype=device['partname'].GetValue()
-                description='\ '.join(device['desc'].GetValue().split())
-                category=device['cat'].GetValue()
-                if category not in categories:
-                    categoryText='\ '.join(category.split())
-                    self.tree.insert('','end',category,text=category,values=(categoryText),tags='category')
-                    categories.append(category)
-                self.tree.insert(category,'end',text=parttype,values=(description),tags=str(indexIntoDeviceList))
-            indexIntoDeviceList=indexIntoDeviceList+1
-        self.selected=None
-        self.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
-        self.tree.bind('<Double-1>',self.onDoubleClick)
+        self.title = 'NetList'
+        self.text=scrolledtext.ScrolledText(self)
+        self.text.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
+        for line in textToShow:
+            self.text.insert(tk.END,line+'\n')
+        self.text.configure(state='disabled')
 
-    def onPartSelection(self,event):
-        item = self.tree.selection()[0]
-        self.selected=self.tree.item(item,'tags')[0]
-
-    def onDoubleClick(self,event):
-        self.parent.ok()
-
-class DevicePickerDialog(tk.Toplevel):
-    def __init__(self,parent,deviceList):
+class NetListDialog(tk.Toplevel):
+    def __init__(self,parent,textToShow):
         tk.Toplevel.__init__(self, parent)
         self.transient(parent)
-        self.title('Add Part')
+
+        self.title('NetList')
+        self.textToShow=textToShow
 
         self.parent = parent
 
         self.result = None
 
-        self.DevicePicker = DevicePicker(self,deviceList)
-        self.initial_focus = self.body(self.DevicePicker)
-        self.DevicePicker.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
+        self.NetListFrame = NetListFrame(self,textToShow)
+        self.initial_focus = self.body(self.NetListFrame)
+        self.NetListFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
 
         self.buttonbox()
 
@@ -84,7 +61,7 @@ class DevicePickerDialog(tk.Toplevel):
 
         self.protocol("WM_DELETE_WINDOW", self.cancel)
 
-        self.geometry("500x500+%d+%d" % (parent.winfo_rootx()+50,
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
                                   parent.winfo_rooty()+50))
 
         self.initial_focus.focus_set()
@@ -105,7 +82,7 @@ class DevicePickerDialog(tk.Toplevel):
 
         box = tk.Frame(self)
 
-        w = tk.Button(box, text="OK", width=10, command=self.ok)
+        w = tk.Button(box, text="OK", width=10, command=self.ok, default=tk.ACTIVE)
         w.pack(side=tk.LEFT, padx=5, pady=5)
         w = tk.Button(box, text="Cancel", width=10, command=self.cancel)
         w.pack(side=tk.LEFT, padx=5, pady=5)
@@ -119,10 +96,18 @@ class DevicePickerDialog(tk.Toplevel):
     # standard button semantics
 
     def ok(self, event=None):
-
-        if not self.validate():
+        extension='.txt'
+        filename=AskSaveAsFilename(parent=self,
+                                   filetypes=[('text', extension)],
+                                   defaultextension='.txt',
+                                   initialdir=self.parent.fileparts.AbsoluteFilePath(),
+                                   initialfile=self.parent.fileparts.filename+'.txt')
+        if filename is None:
             self.initial_focus.focus_set() # put focus back
             return
+        with open(filename,"w") as f:
+            for line in self.textToShow:
+                f.write(line+'\n')
 
         self.withdraw()
         self.update_idletasks()
@@ -145,6 +130,5 @@ class DevicePickerDialog(tk.Toplevel):
         return 1 # override
 
     def apply(self):
-        if (self.DevicePicker.selected != None):
-            if self.DevicePicker.selected != 'category':
-                self.result = int(self.DevicePicker.selected)
+        pass
+

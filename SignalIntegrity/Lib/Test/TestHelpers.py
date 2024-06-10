@@ -22,10 +22,7 @@ TestHelpers.py
 import os
 import sys
 
-if sys.version_info.major < 3:
-    from cStringIO import StringIO
-else:
-    from io import StringIO
+from io import StringIO
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform

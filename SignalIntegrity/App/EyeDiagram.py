@@ -20,13 +20,6 @@ EyeDiagram.py
 
 import sys
 
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import messagebox
-
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionEyeDiagram
 from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
 

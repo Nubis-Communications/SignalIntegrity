@@ -19,16 +19,20 @@ EyeDiagramConfiguration.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.PreferencesFile import EyeConfiguration
 from SignalIntegrity.App.DeviceExtendedConfiguration import DeviceExtendedConfiguration
-from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 import SignalIntegrity.App.Preferences
 import copy
 
 class EyeDiagramConfiguration(EyeConfiguration,DeviceExtendedConfiguration):
     def __init__(self):
+        if DeviceExtendedConfiguration.headless:
+            dialog=None
+        else:
+            from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
+            dialog=EyeDiagramPropertiesDialog
         EyeConfiguration.__init__(self)
         DeviceExtendedConfiguration.__init__(self,
             label='Eye Diagram Configuration',
-            dialog=EyeDiagramPropertiesDialog
+            dialog=dialog
             )
     def HandleBackwardsCompatibility(self):
         # for backwards compatibility with old projects with eye probes with global eye diagram configurations,

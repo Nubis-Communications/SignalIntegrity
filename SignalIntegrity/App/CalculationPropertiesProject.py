@@ -19,12 +19,9 @@ CalculationPropertiesProject.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import sys
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkColorChooser as colorchooser
-else:
-    import tkinter as tk
-    from tkinter import colorchooser
+
+import tkinter as tk
+from tkinter import colorchooser
 
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.Lib.ToSI import FromSI,ToSI

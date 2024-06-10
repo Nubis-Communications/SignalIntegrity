@@ -19,10 +19,7 @@ EyeDiagramPropertiesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 import sys
 
-if sys.version_info.major < 3:
-    import Tkinter as tk
-else:
-    import tkinter as tk
+import tkinter as tk
 
 import math
 

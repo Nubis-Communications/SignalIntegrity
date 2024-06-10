@@ -20,10 +20,7 @@ Simulator.py
 
 import sys
 
-if sys.version_info.major < 3:
-    import tkMessageBox as messagebox
-else:
-    from tkinter import messagebox
+from tkinter import messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.ProgressDialog import ProgressDialog

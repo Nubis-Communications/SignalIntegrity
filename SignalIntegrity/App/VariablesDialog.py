@@ -19,12 +19,9 @@ VariablesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 import os
 import sys
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import messagebox
+
+import tkinter as tk
+from tkinter import messagebox
 
 import copy
 

@@ -20,12 +20,8 @@ BathtubCurveDialog.py
 
 import sys
 
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import  messagebox
+import tkinter as tk
+from tkinter import  messagebox
 
 import math
 import numpy as np

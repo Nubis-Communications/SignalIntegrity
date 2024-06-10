@@ -21,10 +21,8 @@ TestSubcircuit.py
 import unittest
 import os
 import sys
-if sys.version_info.major < 3:
-    from cStringIO import StringIO
-else:
-    from io import StringIO
+
+from io import StringIO
 
 import SignalIntegrity.Lib as si
 from numpy import matrix

@@ -22,10 +22,8 @@ import xml.etree.ElementTree as et
 import os
 
 import sys
-if sys.version_info.major < 3:
-    from urllib2 import urlopen
-else:
-    from urllib.request import urlopen
+
+from urllib.request import urlopen
 
 import SignalIntegrity.App.Project
 

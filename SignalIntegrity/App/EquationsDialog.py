@@ -18,14 +18,10 @@ EquationsDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import sys
-if sys.version_info.major < 3:
-    import Tkinter as tk
-    import tkFont as font
-    import tkMessageBox as messagebox
-else:
-    import tkinter as tk
-    from tkinter import font
-    from tkinter import messagebox
+
+import tkinter as tk
+from tkinter import font
+from tkinter import messagebox
 
 import os
 
