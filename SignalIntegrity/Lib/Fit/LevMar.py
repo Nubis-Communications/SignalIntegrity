@@ -21,7 +21,7 @@
 
 import math
 from numpy import zeros,array,diag
-from numpy.linalg import inv,LinAlgError,lstsq,solve
+from numpy.linalg import LinAlgError,lstsq,solve
 from SignalIntegrity.Lib.CallBacker import CallBacker
 import copy
 from SignalIntegrity.Lib.Fit.FitConvergence import FitConvergenceMgr

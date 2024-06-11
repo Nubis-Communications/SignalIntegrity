@@ -19,13 +19,8 @@ DevicePicker.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-
-import sys
-
 import tkinter as tk
 from tkinter import ttk
-
-#from Device import *
 
 class DevicePicker(tk.Frame):
     def __init__(self,parent,deviceList):

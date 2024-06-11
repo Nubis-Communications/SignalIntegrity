@@ -17,12 +17,12 @@ SignalIntegrityApp.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import sys
 
 import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
 
+import sys
 import copy
 import os
 
@@ -30,9 +30,7 @@ import os
 # matplotlib.use('TkAgg')
 from SignalIntegrity.App.DeviceExtendedConfiguration import DeviceExtendedConfiguration
 DeviceExtendedConfiguration.headless=False
-from SignalIntegrity.Lib.ToSI import ToSI
 from SignalIntegrity.App.PartPicture import PartPicture
-from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
 from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim,DeviceNetName
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
@@ -55,8 +53,6 @@ from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
-from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
-from SignalIntegrity.App.EyeDiagramPropertiesDialog import EyeDiagramPropertiesDialog
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.App.InformationMessage import InformationMessage

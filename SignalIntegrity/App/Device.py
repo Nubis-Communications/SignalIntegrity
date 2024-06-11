@@ -21,7 +21,6 @@ from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.PartPicture import *
 from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
 from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
-import math
 
 class Device(object):
     def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=[]):

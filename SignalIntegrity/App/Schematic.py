@@ -19,7 +19,7 @@ Schematic.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.App.NetList import NetList
-from SignalIntegrity.App.Wire import WireList,Vertex,SegmentList,Wire
+from SignalIntegrity.App.Wire import WireList
 
 import SignalIntegrity.App.Project
 from SignalIntegrity.Lib.CallBacker import CallBacker

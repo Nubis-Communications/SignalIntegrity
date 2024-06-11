@@ -21,26 +21,12 @@ BathtubCurveDialog.py
 import sys
 
 import tkinter as tk
-from tkinter import  messagebox
 
-import math
 import numpy as np
 
-from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
-from SignalIntegrity.App.Files import FileParts
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
-from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.Lib.ToSI import ToSI,FromSI
-from SignalIntegrity.App.SParameterProperties import SParameterProperties,SParameterPlotsConfiguration
-from SignalIntegrity.App.SParameterPropertiesDialog import SParameterPropertiesDialog
-from SignalIntegrity.App.InformationMessage import InformationMessage
-from SignalIntegrity.App.CalculationPropertiesProject import CalculationPropertySI
-from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
-from SignalIntegrity.Lib.TimeDomain.Waveform import Waveform
 
 import SignalIntegrity.App.Project
-
-import SignalIntegrity.Lib as si
 
 class BathtubCurveDialog(tk.Toplevel):
     def __init__(self, parent, name):

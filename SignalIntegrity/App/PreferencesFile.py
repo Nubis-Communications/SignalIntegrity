@@ -21,8 +21,6 @@ from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefa
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
 from SignalIntegrity.App.SParameterProperties import SParameterProperties
 
-import os
-
 class EyeYAxisConfiguration(XMLConfiguration):
     def __init__(self):
         super().__init__('YAxis')

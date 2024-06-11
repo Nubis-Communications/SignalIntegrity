@@ -21,8 +21,6 @@ BuildHelpSystem.py
 import xml.etree.ElementTree as et
 import os
 
-import sys
-
 from urllib.request import urlopen
 
 import SignalIntegrity.App.Project

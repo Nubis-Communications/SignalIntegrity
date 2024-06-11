@@ -23,8 +23,6 @@ from SignalIntegrity.Lib.ToSI import nextHigher12458
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
 
-import sys
-
 import tkinter as tk
 
 class CalculationPropertiesDialog(PropertiesDialog):

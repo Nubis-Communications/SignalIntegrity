@@ -24,7 +24,6 @@ from tkinter import  messagebox
 
 import math
 
-from SignalIntegrity.App.PartProperty import PartPropertyDelay,PartPropertyReferenceImpedance
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename

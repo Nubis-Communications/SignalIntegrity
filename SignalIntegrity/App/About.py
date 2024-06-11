@@ -23,8 +23,6 @@ import sys
 import tkinter as tk
 from tkinter import scrolledtext
 import webbrowser
-import textwrap
-from PIL import ImageTk,Image
 
 from SignalIntegrity.__about__ import __version__,__url__,__copyright__,__description__,__author__,__email__,__project__
 import SignalIntegrity.App.Project

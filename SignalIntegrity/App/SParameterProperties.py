@@ -17,6 +17,7 @@ SParameterProperties.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+
 from SignalIntegrity.App.ProjectFile import CalculationPropertiesBase
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool,XMLPropertyDefaultInt
 

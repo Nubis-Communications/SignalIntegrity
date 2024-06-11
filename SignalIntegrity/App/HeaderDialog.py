@@ -17,14 +17,10 @@ HeaderDialog.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-import sys
 
 import tkinter as tk
 
-import os
-
 import SignalIntegrity.App.Project    
-from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.Encryption import Encryption
