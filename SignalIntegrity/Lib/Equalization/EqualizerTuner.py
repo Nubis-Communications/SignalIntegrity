@@ -55,12 +55,13 @@ class EqualizerTuner():
                     adelayedWf = delayedWf
 
                 (arefWf, adelayedWf) = si.td.wf.AdaptedWaveforms([arefWf, adelayedWf])
+                refSegmentStart = adelayedWf.td.H
                 timeOfFirstPointReferenceSegment = arefWf.td.TimeOfPoint(arefWf.td.IndexOfTime(refSegmentStart))
                 arefWf = arefWf.Adapt(si.td.wf.TimeDescriptor(timeOfFirstPointReferenceSegment,
                                                             int(math.ceil(refSegmentLength * arefWf.td.Fs)),
                                                             arefWf.td.Fs))
                 adelayedWf = adelayedWf.Adapt(si.td.wf.TimeDescriptor(timeOfFirstPointReferenceSegment,
-                                                                    int(math.ceil((maxDelay - refSegmentStart) * adelayedWf.td.Fs)) + arefWf.td.K,
+                                                                    int(math.ceil((maxDelay) * adelayedWf.td.Fs)) + arefWf.td.K,
                                                                     adelayedWf.td.Fs))
 
         #         adelayedWf.WriteToFile('DelayExperiment_delayed.txt')
