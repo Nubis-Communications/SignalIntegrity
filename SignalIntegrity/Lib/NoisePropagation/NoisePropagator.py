@@ -7,12 +7,19 @@ class NoisePropagtor:
         self.maxFreq = maxFreq
         self.noiseSources = {}
 
-    def addNoiseSource(self, NSName, NSV2Hz, NSInputNode, NSPropNodes = None, NSInputForTransfer = 1):
+    def addNoiseSource(self, NSName, NSV2Hz, NSInputNode, NSPropNodes = None, NSInputForTransfer = 1, sourceNames = None):
         self.noiseSources[NSName] = {}
         self.noiseSources[NSName]['NSV2Hz'] = NSV2Hz
         self.noiseSources[NSName]['NSInputNode'] = NSInputNode
         self.noiseSources[NSName]['NSPropNodes'] = NSPropNodes
-        self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
+        if (isinstance(NSInputForTransfer, str)):
+            if (sourceNames == None):
+                raise Exception('If specifying source node by string need to provide source names!')
+            else:
+                self.noiseSources[NSName]['NSInputForTransfer'] = sourceNames.index(NSInputForTransfer) + 1
+        else:
+
+            self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
 
     def calculateNoiseAtNode(self, currOutputProbe, outputWaveformLabels, transferMatrices, maxFreq = None):
         """
