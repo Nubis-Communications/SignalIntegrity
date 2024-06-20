@@ -170,6 +170,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         txPower=tx and self.project['Measure.TxInputPowerAvailable']
         self.BathtubFrame.pack_forget()
         self.AnnotateFrame.pack_forget()
+        self.MeanLevelsFrame.pack_forget()
         self.WaveformType.Show(measure)
         self.RxTx.Show(measure)
         self.TxInputPowerAvailable.Show(tx)
@@ -192,6 +193,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.AnnotateEyeWidth.Show(measure and annotate)
         self.AnnotateEyeHeight.Show(measure and annotate)
         if measure and annotate:
+            self.MeanLevelsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
             self.ContoursFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.AnnotateContour.Show(measure and annotate)
         self.ContourMode.Show(measure and annotate and contours)
