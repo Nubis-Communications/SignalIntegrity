@@ -23,7 +23,7 @@ import os
 import unittest
 
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
 class TestSystemVariablesTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):
@@ -37,7 +37,6 @@ class TestSystemVariablesTest(unittest.TestCase,
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #si.test.SignalIntegrityAppTestHelper.forceWritePictures=True
-        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
@@ -52,7 +51,6 @@ class TestSystemVariablesTest(unittest.TestCase,
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
-        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
@@ -66,7 +64,7 @@ class TestSystemVariablesTest(unittest.TestCase,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     def RelayTest(self,route):
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile('RelayTest.si',{'Route':route})
         filename='RelayTest'+str(route)+'.si'
         app.SaveProjectToFile(filename)
@@ -78,7 +76,7 @@ class TestSystemVariablesTest(unittest.TestCase,
     def testRelayTest3(self):
         self.SParameterResultsChecker(self.RelayTest(3))
     def RelayTestSimulation(self,route,source):
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile('RelayTestSimulation.si',{'Route':route,'Source':source})
         filename='RelayTestSimulation'+str(route)+str(source)+'.si'
         app.SaveProjectToFile(filename)
@@ -98,7 +96,7 @@ class TestSystemVariablesTest(unittest.TestCase,
     def testRelayTestSimulation32(self):
         self.SimulationResultsChecker(self.RelayTestSimulation(3,2))
     def WirebondTest(self,number,length,diameter,material):
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile('RoundWireBondMaterial.si',
                             {'L':length,
                              'D':diameter,

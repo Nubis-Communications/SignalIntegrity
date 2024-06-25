@@ -1,7 +1,7 @@
 def EqualizerFit(project,waveform,delay,bitrate):
     import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
     import SignalIntegrity.Lib as si
-    app=siapp.SignalIntegrityAppHeadless()
+    app=SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)
     (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
     prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]

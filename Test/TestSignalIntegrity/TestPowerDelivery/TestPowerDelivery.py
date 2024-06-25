@@ -20,7 +20,7 @@ TestPowerDelivery.py
 import unittest
 
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from random import random
 from numpy import array
 from math import sqrt
@@ -35,7 +35,7 @@ class TestPowerDeliveryTest(unittest.TestCase):
         os.chdir(self.cwd)
         unittest.TestCase.tearDown(self)
     def testPowerDelivery(self):
-        proj=siapp.SignalIntegrityAppHeadless()
+        proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('PowerDelivery.si')
         res=proj.Simulate()
         vgnames=res[0]

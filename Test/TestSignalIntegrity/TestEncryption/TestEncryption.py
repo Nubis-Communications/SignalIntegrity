@@ -143,14 +143,14 @@ class TestEncryptionTest(unittest.TestCase,
         pysi.SaveProjectToFile('tlinetest$.si')
         self.SParameterResultsChecker('tlinetest$.si')
     def testEncriptedInternalProject(self):
-        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         Encryption(pwd='test',ending='$')
         pysi=self.Preliminary('tlinetest.si')
         internalFile=pysi.Device('D1')['file']['Value']
         self.assertEqual(internalFile, 'TLineModelDiffModeOnly.si', 'internal device incorrect for test')
         pysi.Device('D1')['file']['Value']='TLineModelDiffModeOnly$.si'
         pysi.SaveProjectToFile('tlinetest2$.si')
-        pysi=siapp.SignalIntegrityAppHeadless()
+        pysi=SignalIntegrityAppHeadless()
         pysi.OpenProjectFile(internalFile)
         pysi.SaveProjectToFile('TLineModelDiffModeOnly$.si')
         self.SParameterResultsChecker('tlinetest2$.si')

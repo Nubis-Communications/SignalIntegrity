@@ -20,6 +20,7 @@ TestPID.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity as si
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 import math,cmath
 
 class TestPIDTest(unittest.TestCase):
@@ -34,13 +35,13 @@ class TestPIDTest(unittest.TestCase):
 
     @staticmethod
     def Responses(P,I,D):
-        app = si.App.SignalIntegrityAppHeadless()
+        app = SignalIntegrityAppHeadless()
         path='C:\\Users\\pete_\\Documents\\SignalIntegrity\\SignalIntegrity\\App\\Examples\\PID\\'
         app.OpenProjectFile(path+'Plant.si')
         pidNetList=app.NetListText()
         plantsnsp=si.p.SystemSParametersNumericParser(f).AddLines(pidNetList)
         plantsp=plantsnsp.SParameters()
-        app = si.App.SignalIntegrityAppHeadless()
+        app = SignalIntegrityAppHeadless()
         app.OpenProjectFile(path+'PID.si')
         app.Device('GP')['gain']['Value']=P
         app.Device('GI')['gain']['Value']=I

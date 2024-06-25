@@ -23,7 +23,7 @@ from tkinter import font
 
 import os
 
-import SignalIntegrity.App.Project    
+import SignalIntegrity.App.Project
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 

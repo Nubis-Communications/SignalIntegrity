@@ -20,14 +20,13 @@ TestTDRErrorTerms.py
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
-
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+import SignalIntegrity.App.Project
 import os
 
-from numpy import matrix,identity
 import math
 
-#------------------------------------------------------------------------------ 
+#------------------------------------------------------------------------------
 # this class tries to speed things up a bit using a pickle containing the simulation
 # results from a simulation that is used for every test.  If the pickle 'simresults.p'
 # exists, it will load this pickle as the complete set of simulation results - you must
@@ -72,9 +71,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print('Building Simulations')
         simName=projName='Short'
         print(simName)
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -98,9 +97,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Open'
         print(simName)
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -124,9 +123,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         tdrsim.SaveProjectToFile('TDRSimulation'+simName+'.si')
         simName=projName='Load'
         print(simName)
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -151,9 +150,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Thru'
         projName=simName+'1'
         print(simName)
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -178,9 +177,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Thru'
         projName=simName+'2'
         print(simName)
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         tdrsim.OpenProjectFile('TDRSimulation.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -212,9 +211,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Gamma1'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -224,9 +223,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Gamma2'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -236,9 +235,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Fixture1'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -248,9 +247,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Fixture2'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -260,9 +259,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Thru'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -272,9 +271,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Short'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -285,9 +284,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Open'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -298,9 +297,9 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName='Load'
         print(simName)
         projName=simName+'.si'
-        spProj=siapp.SignalIntegrityAppHeadless()
+        spProj=SignalIntegrityAppHeadless()
         spProj.OpenProjectFile(projName)
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
@@ -309,41 +308,41 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
         print('TDR Simulations')
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         simName=projName='Short'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         simName=projName='Open'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         simName=projName='Load'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         print(simName)
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         projName='Thru'
         simName=projName+'1'
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
-        tdrsim=siapp.SignalIntegrityAppHeadless()
+        tdrsim=SignalIntegrityAppHeadless()
         projName='Thru'
         simName=projName+'2'
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
-        Project = siapp.SignalIntegrity.App.Project 
+        Project = SignalIntegrity.App.Project
         (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         print('converting TDR')

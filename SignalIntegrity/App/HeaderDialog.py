@@ -20,7 +20,7 @@ HeaderDialog.py
 
 import tkinter as tk
 
-import SignalIntegrity.App.Project    
+import SignalIntegrity.App.Project
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.Encryption import Encryption

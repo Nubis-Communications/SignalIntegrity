@@ -22,7 +22,7 @@ import sys
 import os
 import unittest
 import SignalIntegrity.Lib as si
-import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from numpy import array
 
 class EqualizerFitter(si.fit.LevMar):
@@ -59,7 +59,6 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         #self.forceWritePictures=True
-        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
@@ -70,7 +69,6 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
-        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
@@ -172,7 +170,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def PrintProgress(self,iteration):
         print(self.m_fitter.ccm._IterationsTaken,self.m_fitter.m_mse)
     def testEqualizerFit(self):
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         prbswf=outputWaveformList[outputWaveformLabels.index('Vdiff')]
@@ -202,7 +200,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def EyePattern(project,waveform,delay,bitrate):
         import numpy as np
         import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
@@ -225,7 +223,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def EqualizerFit(project,waveform,delay,bitrate):
         import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         import SignalIntegrity.Lib as si
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
@@ -259,7 +257,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def ZeroForcingEqualizer(self,project,waveform,bitrate,value,pre,taps):
         import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp; from numpy import array
         from numpy.linalg import inv
-        app=siapp.SignalIntegrityAppHeadless()
+        app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
         pulsewf=outputWaveformList[outputWaveformLabels.index(waveform)]

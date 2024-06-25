@@ -1,7 +1,7 @@
 def ZeroForcingEqualizer(project,waveform,bitrate,value,pre,taps):
     import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp; from numpy import array
     from numpy.linalg import inv
-    app=siapp.SignalIntegrityAppHeadless()
+    app=SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)
     (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
     pulsewf=outputWaveformList[outputWaveformLabels.index(waveform)]

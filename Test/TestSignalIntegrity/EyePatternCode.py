@@ -1,7 +1,7 @@
 def EyePattern(project,waveform,delay,bitrate):
     import numpy as np
     import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
-    app=siapp.SignalIntegrityAppHeadless()
+    app=SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)
     (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
     prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
