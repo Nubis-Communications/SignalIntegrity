@@ -15,7 +15,10 @@ def applyNL(input_waveform, NLfilters, MaxHarm = 5):
     @param MaxHarm: integer referring to the max instaneous harmonic to evaluate.
     '''
 
+
     output_wvfm = input_waveform
+    avg = np.mean(input_waveform)
+    input_waveform = si.td.wf.Waveform(input_waveform.td, [x - avg for x in input_waveform])
     for i in range(MaxHarm+1):
         key = f"NL{i}I"
         
