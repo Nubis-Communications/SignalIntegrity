@@ -30,6 +30,7 @@ si.m | SignalIntegrity.Lib.Measurement | Measurment
 si.m.cal | SignalIntegrity.Lib.Measurement.Calibration | Calibration algorithms
 si.m.calkit | SignalIntegrity.Lib.Measurement.CalKit | Calibration kits
 si.m.tdr | SignalIntegrity.Lib.Measurement.TDR | Time-domain reflectometry
+si.opt | SignalIntegrity.Optical | Optical measurements
 si.p | SignalIntegrity.Lib.Parsers | Netlist parsers
 si.p.dev | SignalIntegrity.Lib.Parsers.Devices | Netlist parser devices
 si.prbs | SignalIntegrity.Lib.Prbs | Pseudo-random polynomials and waveforms

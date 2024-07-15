@@ -39,7 +39,6 @@ install_requires=['setuptools>=58.2.0','pip>=20.2.4','numpy>=1.13.0','matplotlib
 pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
 pathToHelp='http://teledynelecroy.github.io/SignalIntegrity/SignalIntegrity/App/Help/Help.html.LyXconv/Help-Section-1.html#toc-Section-1'
-
 with open(os.path.join(base_dir, "README.md"), "r") as f:
     readmeFile=f.read()
 
@@ -87,7 +86,8 @@ setup(
                   pathToMoreIcons+'/up.gif',
                   pathToMoreIcons+'/edit-3.gif',
                   pathToMoreIcons+'/variables-view.gif',
-                  pathToMoreIcons+'/equations-view.gif'],
+                  pathToMoreIcons+'/equations-view.gif',
+                  'SignalIntegrity/Images/OpticalCalculations.png'],
                  ),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
