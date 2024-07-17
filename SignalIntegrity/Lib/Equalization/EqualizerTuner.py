@@ -300,7 +300,7 @@ class EqualizerTuner():
             filt = setupFFEFilter(taps_adjust, 0)
             return decision_wvfm*filt
 
-        def CalculateError(init_waveform, ideal_waveform, taps, num_precursor, init_index, num_samples, DFEtaps = None, Wvfm_type='NRZ', noise=0, floating_taps = [], ft_pos = []):
+        def CalculateError(init_waveform, ideal_waveform, taps, num_precursor, init_index, num_samples, DFEtaps = None, Wvfm_type='NRZ', noise=0, floating_taps = [], ft_pos = [], bias_offset=0):
 
             FFE_Filt = setupFFEFilter(taps, num_precursor, floating_taps=floating_taps, ft_pos=ft_pos)
             equalizedWfm = CalculateEqualized(init_waveform, FFE_Filt)
@@ -324,10 +324,10 @@ class EqualizerTuner():
 
             #Subtract from ideal waveform in limited region
             if (ideal_waveform is not None):
-                return equalizedWfm - ideal_waveform[init_index:init_index+num_samples]
+                return equalizedWfm + bias_offset - ideal_waveform[init_index:init_index+num_samples]
             else:
                 idealized_em = Decision(equalizedWfm, Wvfm_type)
-                return equalizedWfm - idealized_em
+                return equalizedWfm + bias_offset - idealized_em
 
         def CalculateJacobian(init_waveform, taps, num_precursor, init_index, num_samples, DFEtaps = None, ideal_waveform = None, Wvfm_type='NRZ', floating_taps = [], ft_pos = []):
             if (len(floating_taps) == 0):
@@ -336,9 +336,9 @@ class EqualizerTuner():
                 tap_len = len(taps) + len(floating_taps)
             
             if DFEtaps is None:
-                jacobian = np.zeros(shape=(num_samples, tap_len))
+                jacobian = np.zeros(shape=(num_samples, tap_len + 1))
             else:
-                jacobian = np.zeros(shape=(num_samples, tap_len + len(DFEtaps)))
+                jacobian = np.zeros(shape=(num_samples, tap_len + len(DFEtaps) + 1))
                 if (ideal_waveform is None):
                     #For DFE, either use ideal waveform (training data) in Jacobian calc or make decision off of current waveform for "blind" Jacobian 
                     ideal_waveform = Decision(init_waveform, Wvfm_type)
@@ -352,6 +352,8 @@ class EqualizerTuner():
                 for j in range(len(DFEtaps)):
                     jacobian[:, tap_len + j] = ideal_waveform[init_index - (1 + j):init_index - (1 + j) + num_samples]
 
+            #Hardcoded bias term for jacobian (its always 1)
+            jacobian[:, -1] = 1
             return jacobian
 
         def Decision(waveform, Wvfm_Type):
@@ -380,7 +382,7 @@ class EqualizerTuner():
             _EFF_NUM_TAPS = self._max_ui_floating_taps + self._NUM_PRECURSOR
         else:
             _EFF_NUM_TAPS = self._NUM_FFE_TAPS
-        taps = np.zeros(shape=_EFF_NUM_TAPS)
+        taps = np.zeros(shape=_EFF_NUM_TAPS + 1)
         taps[self._NUM_PRECURSOR] = 1 #Send in identity tap initially
 
         VoWfdec_train = VoWfdec
@@ -400,11 +402,11 @@ class EqualizerTuner():
         #First optimization on just FFE
         #Add in optiization of "Phase" or fractional delay -
         #Todo (in future?): Add cosntraint on tap size
-        error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x, self._NUM_PRECURSOR, init_index, num_samples, Wvfm_type=Wvfm_Type, noise=noise)
-        jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x, self._NUM_PRECURSOR, init_index, num_samples)  
+        error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:_EFF_NUM_TAPS], self._NUM_PRECURSOR, init_index, num_samples, Wvfm_type=Wvfm_Type, noise=noise, bias_offset=x[-1])
+        jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x[0:_EFF_NUM_TAPS], self._NUM_PRECURSOR, init_index, num_samples)  
         result = scipy.optimize.least_squares(error_wrapper, taps, jacobian_wrapper, method='lm') #Perform optimization of taps via Levenberg-Marquardt algorithm
-        print(f"Intermediate Taps: {result.x}")
-        int_taps = result.x
+        #print(f"Intermediate Taps: {result.x}")
+        int_taps = result.x[0:-1]
         print(f"error: {np.sum(np.abs(result.fun)**2)}")
 
         self.optimal_taps = result.x[0:_EFF_NUM_TAPS]
@@ -414,8 +416,8 @@ class EqualizerTuner():
             self.ft_pos = self._determineFloatTapLocation(self.optimal_taps)
             num_ft = self._num_floating_tap_banks*self._num_floating_taps_per_bank
             num_taps = num_ft + self._NUM_FFE_TAPS
-            init_taps = np.zeros(num_taps)
-            error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)
+            init_taps = np.zeros(num_taps + 1)
+            error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos, bias_offset=x[-1])
             jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)  
             result = scipy.optimize.least_squares(error_wrapper, init_taps, jacobian_wrapper, method='lm') #Perform optimization of taps via Levenberg-Marquardt algorithm
             print(f"error: {np.sum(np.abs(result.fun)**2)}")
@@ -431,17 +433,19 @@ class EqualizerTuner():
         if (self._USE_DFE):
             #Now optimize all taps including dfe taps, starting from optimal ffe taps 
             dfeTaps = np.zeros(shape=self._NUM_DFE_TAPS)
-            total_taps = np.concatenate((result.x, dfeTaps))
-            error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=x[num_taps:], Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)
-            jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=x[num_taps:], ideal_waveform=Vref, Wvfm_type=Wvfm_Type, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)  
+            total_taps = np.concatenate((result.x[0:-1], dfeTaps))
+            total_taps = np.append(total_taps, result.x[-1])
+            error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=x[num_taps:-1], Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos, bias_offset=x[-1])
+            jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=x[num_taps:-1], ideal_waveform=Vref, Wvfm_type=Wvfm_Type, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)  
             print(f"New init error: {np.sum(np.abs(error_wrapper(total_taps))**2)}")
 
             result = scipy.optimize.least_squares(error_wrapper, total_taps, jacobian_wrapper, method='lm') #Perform optimization of taps via Levenberg-Marquardt algorithm
 
         #result = scipy.optimize.least_squares(error_wrapper, total_taps, jacobian_wrapper, method='lm') #Perform optimization of taps via Levenberg-Marquardt algorithm
             self.optimal_taps = result.x[0:self._NUM_FFE_TAPS]
-            self.optimal_DFE_taps = result.x[num_taps:]
+            self.optimal_DFE_taps = result.x[num_taps:-1]
             self.floating_taps = result.x[self._NUM_FFE_TAPS:num_taps] 
+            self.offset_bias = result.x[-1]
 
             DFE_taps_larger = np.abs(self.optimal_DFE_taps) > self.DFE_max_tap
             if (DFE_taps_larger.any()):
@@ -451,16 +455,19 @@ class EqualizerTuner():
             
                 #Rerunning final optimization on the noiseless data but with a fixed DFE
                 total_taps = result.x[0:num_taps]
-                error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=self.optimal_DFE_taps, Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)
+                total_taps = np.append(total_taps, result.x[-1])
+
+                error_wrapper = lambda x: CalculateError(VoWfdec_train, Vref, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, DFEtaps=self.optimal_DFE_taps, Wvfm_type=Wvfm_Type, noise=noise, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos, bias_offset=x[-1])
                 jacobian_wrapper = lambda x: CalculateJacobian(VoWfdec_train, x[0:self._NUM_FFE_TAPS], self._NUM_PRECURSOR, init_index, num_samples, ideal_waveform=Vref, Wvfm_type=Wvfm_Type, floating_taps = x[self._NUM_FFE_TAPS:num_taps], ft_pos = self.ft_pos)  
                 print(f"New init error: {np.sum(np.abs(result.fun)**2)}")
 
                 result = scipy.optimize.least_squares(error_wrapper, total_taps, jacobian_wrapper, method='lm')
                 self.optimal_taps = result.x[0:self._NUM_FFE_TAPS]
                 self.floating_taps = result.x[self._NUM_FFE_TAPS:num_taps] 
+                self.offset_bias = result.x[-1]
             print(f"DFE Tap: {self.optimal_DFE_taps}")
 
-        print(f"Taps: {result.x}")
+        #print(f"Taps: {result.x}")
     
         print('done')
         print(f"error: {np.sum(np.abs(result.fun)**2)}")
@@ -471,13 +478,13 @@ class EqualizerTuner():
         
         print('Applying optimal tap')
         FFE_Filt = setupFFEFilter(self.optimal_taps, self._NUM_PRECURSOR, floating_taps=self.floating_taps, ft_pos = self.ft_pos)
-        VoWfdec_eq = CalculateEqualized(VoWfdec, FFE_Filt)
+        VoWfdec_eq = CalculateEqualized(VoWfdec, FFE_Filt) + self.offset_bias
 
         #Upsampling equalized waveform to original sample rate
         Upsample_factor_final = int(np.round(Vo.td.Fs/VoWfdec_eq.td.Fs))
 
         FFE_Filt_upsampled = setupFFEFilter(self.optimal_taps, self._NUM_PRECURSOR, Upsample_factor_final, floating_taps=self.floating_taps, ft_pos = self.ft_pos) #For upsampled, use normalized taps
-        Vo_eq = CalculateEqualized(Vo, FFE_Filt_upsampled)
+        Vo_eq = CalculateEqualized(Vo, FFE_Filt_upsampled) + self.offset_bias
 
 
         us = si.td.f.InterpolatorSinX(upsampleFinalWaveform)
@@ -485,7 +492,7 @@ class EqualizerTuner():
         if (self._USE_DFE):
             dfeEqWvfm = CalculateDFEEqualizer(VoWfdec_eq, self.optimal_DFE_taps, ideal_wvfm=Vref, Wvfm_type=Wvfm_Type)
             #Manually upsample in a "repeat" fashion as for each symbol we want a constant DFE output
-            VoWfdec_eq= VoWfdec_eq + dfeEqWvfm
+            VoWfdec_eq= VoWfdec_eq + dfeEqWvfm + self.offset_bias
 
 
             #Apply DFE correction to upsampled waveform - do thi smanually on a point by point basis since problem is SI addition does too much interpolation
@@ -494,6 +501,7 @@ class EqualizerTuner():
             excessLeft = int(np.ceil((dfeEqWvfm.td/Vo_eq.td).TrimLeft()))
             excessRight = int(np.ceil(((Vo_eq.td.H + (Vo_eq.td.K-1)/Vo_eq.td.Fs) - (dfeEqWvfm.td.H + (dfeEqWvfm.td.K-1)/dfeEqWvfm.td.Fs))*Vo_eq.td.Fs)) + 1
             Vo_eq=Vo_eq*si.td.f.WaveformTrimmer(excessLeft,excessRight)
+            Vo_eq = Vo_eq + self.offset_bias
             for i in range(len(Vo_eq)):
                 correspondingIndex = np.round(dfeEqWvfm.td.IndexOfTime(Vo_eq.td.TimeOfPoint(i), Integer=False)) #Matching correction index of current Vo index
                 Vo_eq[i] += dfeEqWvfm[int(correspondingIndex)] #Apply correction
