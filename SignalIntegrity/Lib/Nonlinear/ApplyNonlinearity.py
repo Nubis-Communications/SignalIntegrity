@@ -4,7 +4,7 @@ import numpy as np
 from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 from SignalIntegrity.Lib.TimeDomain.Filters.FirFilter import FirFilter
 
-def applyNL(input_waveform, NLfilters, MaxHarm = 5):
+def applyNL(input_waveform, NLfilters, MaxHarm = 5, Debug=False):
     '''
     Function which applies given simplified Votlera series based nonlinear filters to the given waveform
 
@@ -19,6 +19,9 @@ def applyNL(input_waveform, NLfilters, MaxHarm = 5):
     output_wvfm = input_waveform
     avg = np.mean(input_waveform)
     input_waveform = si.td.wf.Waveform(input_waveform.td, [x - avg for x in input_waveform])
+
+    if (Debug):
+        print(f"Signal std: {np.std(input_waveform)}")
     for i in range(MaxHarm+1):
         key = f"NL{i}I"
         
@@ -31,8 +34,14 @@ def applyNL(input_waveform, NLfilters, MaxHarm = 5):
             if (isinstance(NLfilters[key], si.td.wf.ImpulseResponse)):
                 #If filter is provided, apply the filter ot the waveform
                 output_wvfm = output_wvfm + wvfm_power * NLfilters[key].FirFilter()
+
+                if (Debug):
+                    print(f"Harm: {i}, std: {np.std(wvfm_power * NLfilters[key].FirFilter())}")
             else:
                 output_wvfm = output_wvfm + wvfm_power * NLfilters[key]
+
+                if (Debug):
+                    print(f"Harm: {i}, std: {np.std(wvfm_power * NLfilters[key])}")
 
     #Apply nonlinearity with memory
     #Currently only 3rd order "Lag 1" and "Lag 2" terms are supported
@@ -40,11 +49,19 @@ def applyNL(input_waveform, NLfilters, MaxHarm = 5):
         input_waveform_lag1_vals = np.square(input_waveform[0:-1])*np.array(input_waveform[1:])
         input_waveform_lag1 = si.td.wf.Waveform(si.td.wf.TimeDescriptor(input_waveform.td.H, len(input_waveform_lag1_vals), input_waveform.td.Fs), [x for x in input_waveform_lag1_vals])
         output_wvfm = output_wvfm + input_waveform_lag1 * NLfilters['NL3Lag1'].FirFilter()
+        if (Debug):
+            print(f"3Lag1: std: {np.std(input_waveform_lag1 * NLfilters['NL3Lag1'].FirFilter())}")
 
     if ('NL3Lag2' in NLfilters and NLfilters['NL3Lag2'] is not None):
         input_waveform_lag2_vals = np.array(input_waveform[0:-2])*np.array(input_waveform[2:])*np.array(input_waveform[1:-1])
         input_waveform_lag2 = si.td.wf.Waveform(si.td.wf.TimeDescriptor(input_waveform.Times()[1], len(input_waveform_lag2_vals), input_waveform.td.Fs), [x for x in input_waveform_lag2_vals])
         output_wvfm = output_wvfm + input_waveform_lag2 * NLfilters['NL3Lag2'].FirFilter()
+        if (Debug):
+            print(f"3Lag2: std: {np.std(input_waveform_lag2 * NLfilters['NL3Lag2'].FirFilter())}")
+
+    if (Debug):
+        diff = output_wvfm - input_waveform
+        print(f"Total: std: {np.std(diff)}")
 
     return output_wvfm
 
