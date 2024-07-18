@@ -177,8 +177,8 @@ class EqualizerTuner():
                 best_residual = self._residual
                 best_phase = phase
 
-        if (best_residual == np.inf):
-            raise Exception('Cursor tap is bad')
+        #if (best_residual == np.inf):
+        #    raise Exception('Cursor tap is bad')
         #TODO: This is ugly - should not rerun whole thing again feels kinda silly
         self._best_phase = best_phase
         self._scale = scale
