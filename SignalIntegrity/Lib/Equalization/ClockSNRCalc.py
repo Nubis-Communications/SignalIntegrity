@@ -30,6 +30,21 @@ def CalcSNR(Vo_clk, noise):
     args["SNDR"] = SNDR
     return args
 
+def CalcErrorVector(Vo_clk):
+    Vo_clk = np.array(Vo_clk)
+    data_00 = Vo_clk[Vo_clk < -0.66]
+    data_01 = Vo_clk[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)]
+    data_10 = Vo_clk[np.logical_and(Vo_clk > 0, Vo_clk < 0.66)]
+    data_11 = Vo_clk[Vo_clk > 0.66]
+
+    errors = np.zeros(Vo_clk.shape)
+    errors[Vo_clk < -0.66] = Vo_clk[Vo_clk < -0.66] - np.mean(Vo_clk[Vo_clk < -0.66])
+    errors[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)] = Vo_clk[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)] - np.mean(Vo_clk[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)])
+    errors[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)] = Vo_clk[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)] - np.mean(Vo_clk[np.logical_and(Vo_clk > -0.66, Vo_clk < 0)])
+    errors[np.logical_and(Vo_clk > 0, Vo_clk < 0.66)] = Vo_clk[np.logical_and(Vo_clk > 0, Vo_clk < 0.66)] - np.mean(Vo_clk[np.logical_and(Vo_clk > 0, Vo_clk < 0.66)])
+    errors[Vo_clk > 0.66] = Vo_clk[Vo_clk > 0.66] - np.mean(Vo_clk[Vo_clk > 0.66])
+
+    return errors
 
 if __name__ == "__main__":
 
