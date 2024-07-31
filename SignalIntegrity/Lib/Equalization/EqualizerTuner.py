@@ -173,7 +173,8 @@ class EqualizerTuner():
             all_residuals[i] = self._residual
             print(f"Phase: {phase}, residual: {self._residual}")
             #Check if residual is best AND cursor tap is in corect position - note this is kinda gross I thin we should make it more robust so this does not happen
-            if (self._residual < best_residual and np.argmax((self.optimal_taps)) == self._NUM_PRECURSOR):
+            #Got rid of cursor tap requirement b/c it was leadin to issues on some waveforms - I was a whole sample off - decided to keep it simple for onw
+            if (self._residual < best_residual):
                 best_residual = self._residual
                 best_phase = phase
 
