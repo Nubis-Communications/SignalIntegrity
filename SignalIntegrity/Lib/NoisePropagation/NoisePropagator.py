@@ -3,9 +3,10 @@ import SignalIntegrity.App as siapp
 import numpy as np
 
 class NoisePropagtor:
-    def __init__(self, maxFreq) :
+    def __init__(self, maxFreq, RandomSeed=None) :
         self.maxFreq = maxFreq
         self.noiseSources = {}
+        self._randomSeed = RandomSeed
 
     def addNoiseSource(self, NSName, NSV2Hz, NSInputNode, NSPropNodes = None, NSInputForTransfer = 1, sourceNames = None):
         self.noiseSources[NSName] = {}
@@ -20,6 +21,9 @@ class NoisePropagtor:
         else:
 
             self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
+
+
+
 
     def calculateNoiseAtNode(self, currOutputProbe, outputWaveformLabels, transferMatrices, maxFreq = None, extraFilter = None):
         """
@@ -72,6 +76,8 @@ class NoisePropagtor:
     def calculateNoiseWaveformsAtNode(self, currOutputProbe, outputWaveformLabels, transferMatrices, sampleFrequency = None, extraFilter = None):
             outputWaveforms = {}
 
+            if (self._randomSeed is not None):
+                np.random.seed(seed=self._randomSeed)
             if (sampleFrequency == None):
                 sampleFrequency = self.maxFreq
             for i, key in zip(range(len(self.noiseSources.keys())), self.noiseSources.keys()):
