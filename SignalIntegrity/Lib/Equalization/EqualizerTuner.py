@@ -562,19 +562,19 @@ class EqualizerTuner():
                     best_pos = np.append([i], pos_rec)
             return best_value, best_pos
 
-    def _generate_full_linear_taps_array(self):
+    def _generate_full_linear_taps_array(self, upsample=1):
         if (not self._use_floating_taps):
-            tap_len = len(self.optimal_taps)
+            tap_len = len(self.optimal_taps)*upsample
         else:
-            tap_len = self._max_ui_floating_taps + self._NUM_PRECURSOR  #Is it better style if this method doesnt use any class variables? 
+            tap_len = (self._max_ui_floating_taps + self._NUM_PRECURSOR)*upsample  #Is it better style if this method doesnt use any class variables? 
         taps_adjust = np.zeros(tap_len)
         for i in range(len(self.optimal_taps)):
-            taps_adjust[i] = self.optimal_taps[i]
+            taps_adjust[i*upsample] = self.optimal_taps[i]
 
         if (self._use_floating_taps):
             for i in range(len(self.ft_pos)):
                 for j in range(self._num_floating_taps_per_bank):
-                    taps_adjust[int((self.ft_pos[i] + j))] = self.floating_taps[j + int(i*self._num_floating_taps_per_bank)]
+                    taps_adjust[int((self.ft_pos[i] + j))*upsample] = self.floating_taps[j + int(i*self._num_floating_taps_per_bank)]
         return taps_adjust
 
 
