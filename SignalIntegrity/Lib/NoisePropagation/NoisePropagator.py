@@ -21,7 +21,7 @@ class NoisePropagtor:
 
             self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
 
-    def calculateNoiseAtNode(self, currOutputProbe, outputWaveformLabels, transferMatrices, maxFreq = None):
+    def calculateNoiseAtNode(self, currOutputProbe, outputWaveformLabels, transferMatrices, maxFreq = None, extraFilter = None):
         """
         Returns noise at Node in V^2/Hz
         """
@@ -34,7 +34,7 @@ class NoisePropagtor:
             currNS = self.noiseSources[key]
             noiseSourcePropNodes = currNS['NSPropNodes']
             if (noiseSourcePropNodes is None or currOutputProbe in noiseSourcePropNodes):
-                transfer_func = self._calculate_effective_frequency_response(currNS['NSInputNode'], currOutputProbe, outputWaveformLabels, transferMatrices, currNS['NSInputForTransfer'] )
+                transfer_func = self._calculate_effective_frequency_response(currNS['NSInputNode'], currOutputProbe, outputWaveformLabels, transferMatrices, currNS['NSInputForTransfer'], extraFilter)
                 freqMask = np.array(transfer_func.Frequencies()) < maxFreq
                 if (isinstance(currNS['NSV2Hz'], si.fd.FrequencyResponse)):
                     noiseFreqContent = currNS['NSV2Hz']
@@ -55,11 +55,11 @@ class NoisePropagtor:
 
         return np.sum(allNoises), noisesSummarized
 
-    def propagateNoiseToEyeDiagrams(self, app, currOutputProbe, outputWaveformLabels, transferMatrices, referenceOutputProbe = None):
+    def propagateNoiseToEyeDiagrams(self, app, currOutputProbe, outputWaveformLabels, transferMatrices, referenceOutputProbe = None, extraFilter = None):
         if (referenceOutputProbe == None):
             referenceOutputProbe = currOutputProbe #In most cases, reference probe to compute noise from is same as output probe whose eye we want to set
             #Only exception is DFE one
-        totalNoise, noisesSummarized = self.calculateNoiseAtNode(referenceOutputProbe, outputWaveformLabels, transferMatrices)
+        totalNoise, noisesSummarized = self.calculateNoiseAtNode(referenceOutputProbe, outputWaveformLabels, transferMatrices, extraFilter=extraFilter)
         self.setEyeDiagramNoise(app, currOutputProbe, totalNoise)
         return totalNoise, noisesSummarized
     
@@ -116,7 +116,7 @@ class NoisePropagtor:
                 outputWaveforms[key] = noiseWvfmTfm
             return outputWaveforms
 
-    def _calculate_effective_frequency_response(self, targetInput, targetOutput, outputWaveformLabels, transferMatrices, sourceInput):
+    def _calculate_effective_frequency_response(self, targetInput, targetOutput, outputWaveformLabels, transferMatrices, sourceInput, extraFilter = None):
             """calculates effective frequency response between targetInput and targetOutput probes
                 Assumes VP1 and VS1 are only inputs in simulation
             @param targetInput string name of input probe
@@ -131,6 +131,10 @@ class NoisePropagtor:
 
             newFR = [(DVoVP1) / (DViVP1) for DVoVP1, DViVP1 in zip(OutputDueToVP1.Values(), InputDueToVP1.Values())]
             newFR = np.nan_to_num(newFR) #To handle divide by 0 case due to finite bandwidth data for certain S parameters
+
+            if (extraFilter is not None):
+                extraFilter = extraFilter.Resample(InputDueToVP1.FrequencyList())
+                newFR = [x * y for x,y in zip(newFR, extraFilter.Values())]
             OutputDueToInput =  si.fd.FrequencyResponse(InputDueToVP1.Frequencies(), newFR)
 
             return OutputDueToInput

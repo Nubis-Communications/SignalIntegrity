@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import SignalIntegrity.Lib as si
 import json
 
 def CalcSNR(Vo_clk, noise, use_fixed_ref_levels=False):
@@ -24,7 +25,11 @@ def CalcSNR(Vo_clk, noise, use_fixed_ref_levels=False):
 
     isi_noise = 10*np.log10(1/4*(isi_data_00 + isi_data_01 + isi_data_10 + isi_data_11))
 
-    noise_noise = 10*np.log10(np.mean(np.square(noise - np.mean(noise))))
+    if (isinstance(noise, list) or isinstance(noise, np.ndarray) or isinstance(noise, si.td.Waveform.Waveform)):
+        noise_noise = 10*np.log10(np.mean(np.square(noise - np.mean(noise))))
+
+    else:
+        noise_noise = 10*np.log10(noise**2)
 
     SNR = avg_power - noise_noise
     SDR = avg_power - isi_noise
