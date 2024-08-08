@@ -19,7 +19,11 @@ class NoisePropagtor:
             else:
                 self.noiseSources[NSName]['NSInputForTransfer'] = sourceNames.index(NSInputForTransfer) + 1
         else:
-
+            if (isinstance(NSInputForTransfer, list)):
+                if isinstance(NSInputForTransfer[0], str):
+                   self.noiseSources[NSName]['NSInputForTransfer'] = [sourceNames.index(x) + 1 for x in NSInputForTransfer]
+                else:
+                    self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
             self.noiseSources[NSName]['NSInputForTransfer'] = NSInputForTransfer
 
 
@@ -132,10 +136,20 @@ class NoisePropagtor:
             @return instance of FrequencyResponse with the frequency respones between targetInput and targetOutput
             """
             #Todo - add some error handling
-            OutputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetOutput) + 1, sourceInput)
-            InputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetInput) + 1, sourceInput)
+            if (isinstance(sourceInput, list)):
+                if (len(sourceInput) != 2):
+                    raise Exception('Only 2 source differential "source" is supported in noise transfer')
+                OutputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetOutput) + 1, sourceInput[0])
+                InputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetInput) + 1, sourceInput[0])
+                OutputDueToVP2 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetOutput) + 1, sourceInput[1])
+                InputDueToVP2 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetInput) + 1, sourceInput[1])
 
-            newFR = [(DVoVP1) / (DViVP1) for DVoVP1, DViVP1 in zip(OutputDueToVP1.Values(), InputDueToVP1.Values())]
+                newFR = [(DVoVP1 - DVoVP2) / (DViVP1 - DViVP2) for DVoVP1, DViVP1, DVoVP2, DViVP2 in zip(OutputDueToVP1.Values(), InputDueToVP1.Values(), OutputDueToVP2.Values(), InputDueToVP2.Values())]
+            else:
+                OutputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetOutput) + 1, sourceInput)
+                InputDueToVP1 = transferMatrices.FrequencyResponse(outputWaveformLabels.index(targetInput) + 1, sourceInput)
+
+                newFR = [(DVoVP1) / (DViVP1) for DVoVP1, DViVP1 in zip(OutputDueToVP1.Values(), InputDueToVP1.Values())]
             newFR = np.nan_to_num(newFR) #To handle divide by 0 case due to finite bandwidth data for certain S parameters
 
             if (extraFilter is not None):
