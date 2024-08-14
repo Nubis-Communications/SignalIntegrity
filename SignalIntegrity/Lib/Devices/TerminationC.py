@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.TerminationG import TerminationG
-from numpy import math
+import math
 
 def TerminationC(C,f,Z0=None,df=0.,esr=0.):
     """termination (one-port) capacitance

@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.SeriesZ import SeriesZ
-from numpy import math
+import math
 
 def SeriesL(L,f,Z0=None):
     """series inductance
