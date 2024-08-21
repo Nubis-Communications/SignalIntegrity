@@ -4,10 +4,10 @@ class TLineDifferentialRLGCApproximate(SParameters):
         Rp=Rp*scale; Rsep=Rsep*scale; Lp=Lp*scale; Gp=Gp*scale; Cp=Cp*scale; dfp=dfp
         Rn=Rn*scale; Rsen=Rsen*scale; Ln=Ln*scale; Gn=Gn*scale; Cn=Cn*scale; dfn=dfn
         Cm=Cm*scale; dfm=dfm; Gm=Gm*scale; Lm=Lm*scale
-        K=int(K*scale+0.5)
+        K=K*scale
         if K==0:
             Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm)); Rt=0.45/f[-1]
-            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+            K=Td*2/(Rt*self.rtFraction)
         self.m_K=K
         sdp=SystemDescriptionParser().AddLines([
         'device rsep 2','device rp 2','device lp 2','device gp 1','device cp 1',
@@ -33,4 +33,4 @@ class TLineDifferentialRLGCApproximate(SParameters):
         sp=self.m_sspn.SParameters()
         if sp == 1: return sp
         lp=[1,2]; rp=[3,4]
-        return T2S(linalg.matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)
+        return T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)

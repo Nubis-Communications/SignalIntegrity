@@ -199,6 +199,11 @@ class LinesCache(ResultsCache):
                                                    for key,value in [(lineList[k],lineList[k+1])
                                                                      for k in range(6,len(lineList),2)]
                                                    if key not in ['sect']}
+                        elif lineList[3] == 'series':
+                            fileList[lineList[5]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(6,len(lineList),2)]
+                                                   if key not in ['sect','lp','rp']}
                         elif lineList[3] == 'rlgcfit':
                             fileList[lineList[5]]={key:value
                                                    for key,value in [(lineList[k],lineList[k+1])

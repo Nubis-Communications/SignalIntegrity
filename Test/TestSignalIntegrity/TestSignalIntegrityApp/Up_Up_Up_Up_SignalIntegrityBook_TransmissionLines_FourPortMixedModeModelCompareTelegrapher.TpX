@@ -48,7 +48,7 @@
 %  <text x="48" y="-23" t="0 S" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-20" t="13.5 nH" h="3" halign="c" lc="black"/>
 %  <text x="48" y="-17" t="1.111 pF" h="3" halign="c" lc="black"/>
-%  <text x="48" y="-14" t="0" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-14" t="0 " h="3" halign="c" lc="black"/>
 %  <polyline lc="black">40,-56 40,-60</polyline>
 %  <polyline lc="black">56,-56 56,-60</polyline>
 %</TpX>
@@ -103,7 +103,7 @@
 \draw[black] (48,-23) node[anchor=base]{0 S};
 \draw[black] (48,-20) node[anchor=base]{13.5 nH};
 \draw[black] (48,-17) node[anchor=base]{1.111 pF};
-\draw[black] (48,-14) node[anchor=base]{0};
+\draw[black] (48,-14) node[anchor=base]{0 };
 \path[line width=0.30mm, draw=black] (40,-56) -- (40,-60);
 \path[line width=0.30mm, draw=black] (56,-56) -- (56,-60);
 \end{tikzpicture}%

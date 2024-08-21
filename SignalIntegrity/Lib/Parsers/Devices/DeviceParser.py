@@ -101,9 +101,9 @@ class DeviceFactory(list):
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
         |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
-        |series                                 |any  |False    |filename=None sect=None lp=None rp=None                                                        | True                |sp.dev.Series(f,file,sect,lp,rp,z0)                                                                  |
+        |series                                 |any  |False    |filename=None sect=None lp=None rp=None                                                        | True                |sp.dev.Series(f,file,sect,lp,rp,z0)                                                              |
         |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |   
-        |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                           |   
+        |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                             |   
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
         @note frequency dependent devices usually come from 'sp.dev' meaning SParameters.Devices package.  Devices that are not frequency dependent
@@ -193,7 +193,7 @@ class DeviceFactory(list):
         ParserDevice('telegrapher',2,False,{'r':0.,'rse':0.,'l':0.,'c':0.,'df':0.,
             'g':0.,'sect':0,'scale':1.},True,"TLineTwoPortRLGC(f,\
             float(arg['r']),float(arg['rse']),float(arg['l']),float(arg['g']),\
-            float(arg['c']),float(arg['df']),float(arg['z0']),int(arg['sect']),\
+            float(arg['c']),float(arg['df']),float(arg['z0']),float(arg['sect']),\
             float(arg['scale']))"),
         ParserDevice('telegrapher',4,False,{'rp':0.,'rsep':0.,'lp':0.,'cp':0.,'dfp':0.,
             'gp':0.,'rn':0.,'rsen':0.,'ln':0.,'cn':0.,'dfn':0.,'gn':0.,'lm':0.,
@@ -202,14 +202,14 @@ class DeviceFactory(list):
             float(arg['lp']),float(arg['gp']),float(arg['cp']),float(arg['dfp']),\
             float(arg['rn']),float(arg['rsen']),float(arg['ln']),float(arg['gn']),\
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
-            float(arg['gm']),float(arg['lm']),float(arg['z0']),int(arg['sect']),\
+            float(arg['gm']),float(arg['lm']),float(arg['z0']),float(arg['sect']),\
             float(arg['scale']))"),
         ParserDevice('rlgcfit',2,False,{'file':None,'scale':1},True,
             "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
             Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
             'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),\
-            float(arg['z0']),int(arg['sect']),float(arg['scale']))"),
+            float(arg['z0']),float(arg['sect']),float(arg['scale']))"),
         ParserDevice('shortstd',1,False,{'od':0.,'oz0':50.,'ol':0.0,'f0':1e9,
             'l0':0.0,'l1':0.0,'l2':0.0,'l3':0.0},True,
             "ShortStandard(f,float(arg['od']),float(arg['oz0']),float(arg['ol']),\
@@ -258,9 +258,9 @@ class DeviceFactory(list):
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],int(arg['sect']),float(arg['z0']),**extraArgs)"),
+                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),**extraArgs)"),
         ParserDevice('series',None,False,{'file':None,'sect':None,'lp':None,'rp':None},True,
-                     "Series(f,arg['file'],int(arg['sect']),eval('['+arg['lp']+']'),\
+                     "Series(f,arg['file'],float(arg['sect']),eval('['+arg['lp']+']'),\
                      eval('['+arg['rp']+']'),float(arg['z0']),**extraArgs)"),
         ParserDevice('currenttovoltageconverter',3,False,{},False,
                      "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),

@@ -13,7 +13,7 @@
 %  <polyline lc="black">36,-20 32,-20</polyline>
 %  <text x="28" y="-15" t="50.0 nH" h="3" halign="c" lc="black"/>
 %  <text x="28" y="-12" t="20.0 pF" h="3" halign="c" lc="black"/>
-%  <text x="28" y="-9" t="10000" h="3" halign="c" lc="black"/>
+%  <text x="28" y="-9" t="1e+04.0 " h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -31,5 +31,5 @@
 \path[line width=0.30mm, draw=black] (36,-20) -- (32,-20);
 \draw[black] (28,-15) node[anchor=base]{50.0 nH};
 \draw[black] (28,-12) node[anchor=base]{20.0 pF};
-\draw[black] (28,-9) node[anchor=base]{10000};
+\draw[black] (28,-9) node[anchor=base]{1e+04.0 };
 \end{tikzpicture}%

@@ -45,14 +45,14 @@ class TLineTwoPortRLGCApproximate(SParameters):
         of any one small section is no more than one percent of the fastest possible risetime.
         """
         R=R*scale; Rse=Rse*scale; L=L*scale; G=G*scale; C=C*scale; df=df
-        K=int(K*scale+0.5)
+        K=K*scale
         if K==0:
             """max possible electrical length"""
             Td=math.sqrt(L*C)
             Rt=0.45/f[-1] # fastest risetime
             """sections such that fraction of risetime less than round trip
             electrical length of one section"""
-            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+            K=Td*2/(Rt*self.rtFraction)
 
         self.m_K=K
         # pragma: silent exclude
@@ -79,10 +79,10 @@ class TLineTwoPortRLGCApproximate(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from numpy import linalg
+        from scipy import linalg
         from SignalIntegrity.Lib.Conversions import S2T
         from SignalIntegrity.Lib.Conversions import T2S
         # pragma: include
         for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
         sp=self.m_sspn.SParameters()
-        return T2S(linalg.matrix_power(S2T(sp),self.m_K))
+        return T2S(linalg.fractional_matrix_power(S2T(sp),self.m_K))

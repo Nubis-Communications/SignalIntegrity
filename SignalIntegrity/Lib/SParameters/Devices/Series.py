@@ -23,11 +23,11 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class Series(SParameters):
     """s-parameters of two port device placed in series with itself multiple times"""
-    def __init__(self,f: float, name: str, numberInSeries: int, lp: list =[1], rp: list =[2], Z0: float =50, **kwargs):
+    def __init__(self,f: float, name: str, numberInSeries: float, lp: list =[1], rp: list =[2], Z0: float =50, **kwargs):
         """Constructor
         @param f list of float frequencies
         @param name string file name of s-parameter file to read
-        @param numberInSeries int number of instances to place in series
+        @param numberInSeries float number of instances to place in series
         @param lp list of ints left ports in order
         @param rp list of ints right ports in order
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
@@ -48,11 +48,15 @@ class Series(SParameters):
         @return list of list s-parameter matrix for the nth frequency element
         """
         # pragma: silent exclude
-        from numpy import linalg
+        from scipy import linalg
         from SignalIntegrity.Lib.Conversions import S2T
         from SignalIntegrity.Lib.Conversions import T2S
         from SignalIntegrity.Lib.Conversions import ReferenceImpedance
         # pragma: include
-        sp=T2S(linalg.matrix_power(S2T(self.m_dev[n],self.lp,self.rp),self.m_K),self.lp,self.rp)
-        sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
+        try:
+            sp=T2S(linalg.fractional_matrix_power(S2T(self.m_dev[n],self.lp,self.rp),self.m_K),self.lp,self.rp)
+            sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
+        except ValueError:
+            P=len(self.lp)+len(self.rp)
+            sp=[[0 for _ in range(P)] for __ in range(P)]
         return sp

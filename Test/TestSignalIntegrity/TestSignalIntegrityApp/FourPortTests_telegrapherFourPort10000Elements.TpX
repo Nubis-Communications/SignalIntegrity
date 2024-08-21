@@ -24,7 +24,7 @@
 %  <text x="64" y="-49" t="50.0 nH" h="3" halign="c" lc="black"/>
 %  <text x="64" y="-46" t="20.0 pF" h="3" halign="c" lc="black"/>
 %  <text x="64" y="-43" t="10.0 pS" h="3" halign="c" lc="black"/>
-%  <text x="64" y="-40" t="10000" h="3" halign="c" lc="black"/>
+%  <text x="64" y="-40" t="1e+04.0 " h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -53,5 +53,5 @@
 \draw[black] (64,-49) node[anchor=base]{50.0 nH};
 \draw[black] (64,-46) node[anchor=base]{20.0 pF};
 \draw[black] (64,-43) node[anchor=base]{10.0 pS};
-\draw[black] (64,-40) node[anchor=base]{10000};
+\draw[black] (64,-40) node[anchor=base]{1e+04.0 };
 \end{tikzpicture}%

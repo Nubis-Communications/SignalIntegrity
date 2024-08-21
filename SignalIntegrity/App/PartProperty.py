@@ -339,8 +339,8 @@ class PartPropertyCharacteristicImpedance(PartProperty):
         PartProperty.__init__(self,'characteristicimpedance',type='float',unit='ohm',keyword='zc',description='characteristic impedance (ohms)',value=characteristicImpedance,visible=True)
 
 class PartPropertySections(PartProperty):
-    def __init__(self,sections=1):
-        PartProperty.__init__(self,'sections',type='int',unit='',keyword='sect',description='sections',value=sections,visible=True,keywordVisible=False)
+    def __init__(self,sections=1.):
+        PartProperty.__init__(self,'sections',type='float',unit='',keyword='sect',description='sections',value=sections,visible=True,keywordVisible=False)
 
 class PartPropertyScale(PartProperty):
     def __init__(self,scale=1):

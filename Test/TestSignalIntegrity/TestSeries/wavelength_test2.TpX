@@ -311,7 +311,7 @@
 %  <text x="81" y="-107" t="2" h="3" halign="l" lc="black"/>
 %  <text x="76" y="-101" t="C 1.0 fF" h="3" halign="c" lc="black"/>
 %  <text x="76" y="-98" t="L 250.0 pH" h="3" halign="c" lc="black"/>
-%  <text x="76" y="-95" t="sect 10" h="3" halign="c" lc="black"/>
+%  <text x="76" y="-95" t="sect 10.0 " h="3" halign="c" lc="black"/>
 %  <text x="76" y="-92" t="tline_section.si" h="3" halign="c" lc="black"/>
 %  <polyline lc="black">96,-112 94,-113 98,-114 94,-115 98,-116 94,-117 98,-118 94,-119 96,-120</polyline>
 %  <polyline lc="black">96,-120 96,-124</polyline>
@@ -664,7 +664,7 @@
 \draw[black] (81,-107) node[anchor=base west]{2};
 \draw[black] (76,-101) node[anchor=base]{C 1.0 fF};
 \draw[black] (76,-98) node[anchor=base]{L 250.0 pH};
-\draw[black] (76,-95) node[anchor=base]{sect 10};
+\draw[black] (76,-95) node[anchor=base]{sect 10.0 };
 \draw[black] (76,-92) node[anchor=base]{tline\textunderscore section.si};
 \path[line width=0.30mm, draw=black] (96,-112) -- (94,-113) -- (98,-114) -- (94,-115) -- (98,-116) -- (94,-117) -- (98,-118) -- (94,-119) -- (96,-120);
 \path[line width=0.30mm, draw=black] (96,-120) -- (96,-124);

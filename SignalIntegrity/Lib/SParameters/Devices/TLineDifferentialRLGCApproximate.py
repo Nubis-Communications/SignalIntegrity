@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg
+from scipy import linalg
 import math
 
 from SignalIntegrity.Lib.Conversions import S2T
@@ -53,7 +53,7 @@ class TLineDifferentialRLGCApproximate(SParameters):
         @param Gm float mutual conductance (S)
         @param Lm float mutual inductance (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
-        @param K (optional) integer number of sections (defaults to 0)
+        @param K (optional) float number of sections (defaults to 0)
         @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.
@@ -64,13 +64,13 @@ class TLineDifferentialRLGCApproximate(SParameters):
         Rp=Rp*scale; Rsep=Rsep*scale; Lp=Lp*scale; Gp=Gp*scale; Cp=Cp*scale; dfp=dfp
         Rn=Rn*scale; Rsen=Rsen*scale; Ln=Ln*scale; Gn=Gn*scale; Cn=Cn*scale; dfn=dfn
         Cm=Cm*scale; dfm=dfm; Gm=Gm*scale; Lm=Lm*scale
-        K=int(K*scale+0.5)
+        K=K*scale
         if K==0:
             """max possible electrical length and fastest risetime"""
             Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm)); Rt=0.45/f[-1]
             """sections such that fraction of risetime less than round trip electrical
             length of one section"""
-            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+            K=Td*2/(Rt*self.rtFraction)
         self.m_K=K
         # pragma: silent exclude
         from SignalIntegrity.Lib.Devices import SeriesG
@@ -107,4 +107,4 @@ class TLineDifferentialRLGCApproximate(SParameters):
         sp=self.m_sspn.SParameters()
         if sp == 1: return sp
         lp=[1,2]; rp=[3,4]
-        return T2S(linalg.matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)
+        return T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)

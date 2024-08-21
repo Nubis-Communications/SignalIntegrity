@@ -23,7 +23,7 @@
 %  <text x="72" y="-36" t="20.0 pF" h="3" halign="c" lc="black"/>
 %  <text x="72" y="-33" t="50.0 nH" h="3" halign="c" lc="black"/>
 %  <text x="72" y="-30" t="20.0 pF" h="3" halign="c" lc="black"/>
-%  <text x="72" y="-27" t="100" h="3" halign="c" lc="black"/>
+%  <text x="72" y="-27" t="100.0 " h="3" halign="c" lc="black"/>
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
@@ -51,5 +51,5 @@
 \draw[black] (72,-36) node[anchor=base]{20.0 pF};
 \draw[black] (72,-33) node[anchor=base]{50.0 nH};
 \draw[black] (72,-30) node[anchor=base]{20.0 pF};
-\draw[black] (72,-27) node[anchor=base]{100};
+\draw[black] (72,-27) node[anchor=base]{100.0 };
 \end{tikzpicture}%

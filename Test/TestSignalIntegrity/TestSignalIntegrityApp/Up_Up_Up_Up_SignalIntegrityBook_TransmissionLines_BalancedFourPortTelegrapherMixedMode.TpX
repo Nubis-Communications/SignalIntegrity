@@ -48,7 +48,7 @@
 %  <text x="72" y="-23" t="0 S" h="3" halign="c" lc="black"/>
 %  <text x="72" y="-20" t="13.5 nH" h="3" halign="c" lc="black"/>
 %  <text x="72" y="-17" t="1.111 pF" h="3" halign="c" lc="black"/>
-%  <text x="72" y="-14" t="0" h="3" halign="c" lc="black"/>
+%  <text x="72" y="-14" t="0 " h="3" halign="c" lc="black"/>
 %  <polyline lc="black">88,-64 88,-72</polyline>
 %  <polyline lc="black">120,-64 120,-72</polyline>
 %  <polyline lc="black">24,-64 24,-72</polyline>
@@ -105,7 +105,7 @@
 \draw[black] (72,-23) node[anchor=base]{0 S};
 \draw[black] (72,-20) node[anchor=base]{13.5 nH};
 \draw[black] (72,-17) node[anchor=base]{1.111 pF};
-\draw[black] (72,-14) node[anchor=base]{0};
+\draw[black] (72,-14) node[anchor=base]{0 };
 \path[line width=0.30mm, draw=black] (88,-64) -- (88,-72);
 \path[line width=0.30mm, draw=black] (120,-64) -- (120,-72);
 \path[line width=0.30mm, draw=black] (24,-64) -- (24,-72);

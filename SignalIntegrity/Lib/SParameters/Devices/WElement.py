@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from numpy import linalg
+from scipy import linalg
 import math
 import sys
 
@@ -79,7 +79,7 @@ class WElement(SParameters):
         @param Gm list of list of float mutual conductance (self conductance on diagonal) (S)
         @param Lm list of list of float mutual inductance (self inductance on diagonal) (H)
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
-        @param K (optional) integer number of sections (defaults to 0)
+        @param K (optional) float number of sections (defaults to 0)
         @param scale (optional) float amount to scale the line by (assuming all other values are per unit)
         @note If K=0 is specified, it is modified to a value that will provided a very good numerical
         approximation.  
@@ -89,7 +89,7 @@ class WElement(SParameters):
         """
         R=[r*scale for r in R]; Rse=[rse*scale for rse in Rse]; Cm=[[cm*scale for cm in cmr] for cmr in Cm];
         Gm=[[gm*scale for gm in gmr] for gmr in Gm]; Lm=[[lm*scale for lm in lmr] for lmr in Lm]
-        K=int(K*scale+0.5)
+        K=K*scale
         if K==0:
             maxL=0.0; maxLm=0.0
             for r in range(len(Lm)):
@@ -105,7 +105,7 @@ class WElement(SParameters):
             Td=math.sqrt((maxL+maxLm)*(maxC+2*maxCm)); Rt=0.45/f[-1]
             """sections such that fraction of risetime less than round trip electrical
             length of one section"""
-            K=int(math.ceil(Td*2/(Rt*self.rtFraction)))
+            K=Td*2/(Rt*self.rtFraction)
         self.m_K=K
         # build the netlist
         # pragma: silent exclude
@@ -191,7 +191,7 @@ class WElement(SParameters):
         sp=self.m_sspn.SParameters()
         if sp == 1: return sp
         lp=[w+1 for w in range(len(sp)//2)]; rp=[w+len(sp)//2+1 for w in range(len(sp)//2)]
-        return T2S(linalg.matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)
+        return T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)
 
 class WElementFile(WElement):
     """W element file."""
