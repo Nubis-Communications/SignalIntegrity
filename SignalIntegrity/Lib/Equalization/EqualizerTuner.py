@@ -247,16 +247,32 @@ class EqualizerTuner():
         Vo = Vo - np.mean(Vo)
         if (Wvfm_type == "PAM4"):
             #PAM4 scale matters - so apply initial scale factor
-            fac =np.sqrt((5/9)/np.mean(np.abs(Vo)**2))
-            Vo*=fac
+            scale =np.sqrt((5/9)/np.mean(np.abs(Vo)**2))
+            Vo = Vo*scale 
+        self._scale = scale
         VoUSWf = Vo.Adapt(si.td.wf.TimeDescriptor(Vo.td.H, Vo.td.K * self._UpsampleFactorReclock, Vo.td.Fs * self._UpsampleFactorReclock))
 
         phase, signalFreq  = LockFreqPhase(VoUSWf, BaudRate, clkRecovery=clkRecovery)
-        offset_time = phase[0]/(2*np.pi)/(signalFreq/2)
-        VoWfdec=Vo.Adapt(td = si.td.wf.TimeDescriptor(Vo.td.H + offset_time, len(Vo) - 1, signalFreq))
-        Vref = None
 
-        return self._PerformTuneup(Vo, VoWfdec, Vref, Wvfm_type, init_index, num_samples, noise=noise)
+        phases = np.linspace(-np.pi, np.pi)
+        all_residuals = np.zeros(phases.shape)
+        best_residual = np.inf
+        for i in range(len(phases)):
+            offset_time = phases[i]/(2*np.pi)/(signalFreq/2)
+            VoWfdec=VoUSWf.Adapt(td = si.td.wf.TimeDescriptor(Vo.td.H + offset_time, len(Vo) - 1, signalFreq))
+
+            self._PerformTuneup(Vo, VoWfdec, None, Wvfm_type, init_index, num_samples, noise=noise*scale, use_floating = self._use_floating_taps)
+            all_residuals[i] = self._residual
+
+            if (best_residual > self._residual):
+                best_residual = self._residual
+                best_phase = phases[i]
+
+        
+        offset_time = best_phase/(2*np.pi)/(signalFreq/2)
+        VoWfdec=VoUSWf.Adapt(td = si.td.wf.TimeDescriptor(Vo.td.H + offset_time, len(Vo) - 1, signalFreq))
+        
+        return self._PerformTuneup(Vo, VoWfdec, None, Wvfm_type, init_index, num_samples, noise=noise*scale)/scale
     
     def _PerformTuneup(self, Vo, VoWfdec, Vref, Wvfm_Type, init_index, num_samples, noise = 0, upsampleFinalWaveform = 1, use_floating = False):
         """
@@ -452,7 +468,8 @@ class EqualizerTuner():
                 #DFE taps larger than supposed to be, cap them at maximum and rerun optimizatoin
                 print('CAPPING DFE')
                 self.optimal_DFE_taps[DFE_taps_larger] = np.sign(self.optimal_DFE_taps[DFE_taps_larger])*self.DFE_max_tap
-            
+                #self.optimal_DFE_taps = [-0.85]
+
                 #Rerunning final optimization on the noiseless data but with a fixed DFE
                 total_taps = result.x[0:num_taps]
                 total_taps = np.append(total_taps, result.x[-1])
