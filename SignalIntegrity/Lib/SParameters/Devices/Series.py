@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 import math
-
+import numpy as np
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class Series(SParameters):
@@ -56,7 +56,7 @@ class Series(SParameters):
         try:
             sp=T2S(linalg.fractional_matrix_power(S2T(self.m_dev[n],self.lp,self.rp),self.m_K),self.lp,self.rp)
             sp=ReferenceImpedance(sp,self.m_Z0,self.m_dev.m_Z0)
-        except ValueError:
+        except np.linalg.LinAlgError as e:
             P=len(self.lp)+len(self.rp)
             sp=[[0 for _ in range(P)] for __ in range(P)]
         return sp
