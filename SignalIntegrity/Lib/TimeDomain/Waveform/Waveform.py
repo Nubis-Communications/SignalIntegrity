@@ -174,6 +174,8 @@ class Waveform(list):
         @note does not affect self
         @note Waveform multiplication is an abstraction in some cases. The result for types
         of other is:
+        - FrequencyResponse - returns self convolved with the corresponding impulse response.
+        - ImpulseResponse - returns self convolved with the impulse response.
         - WaveformProcessor - returns self processed by the instance of WaveformProcessor.
         - float,int,complex - returns the Waveform produced by multiplying all of the values in
         self multiplied by the constant value supplied.
@@ -183,7 +185,13 @@ class Waveform(list):
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
+        from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
+        from SignalIntegrity.Lib.TimeDomain.Waveform.ImpulseResponse import ImpulseResponse
         # pragma: include
+        if isinstance(other,FrequencyResponse):
+            return self * other.ImpulseResponse()
+        elif isinstance(other,ImpulseResponse):
+            return self * other.FirFilter()
         if isinstance(other,WaveformProcessor):
             return other.ProcessWaveform(self)
         elif isinstance(other,(float,int,complex)):
