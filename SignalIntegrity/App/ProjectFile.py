@@ -118,6 +118,13 @@ class SchematicConfiguration(XMLConfiguration):
         XMLConfiguration.__init__(self,'Schematic')
         self.Add(XMLProperty('Devices',[DeviceConfiguration() for _ in range(0)],'array',arrayType=DeviceConfiguration()))
         self.Add(XMLProperty('Wires',[WireConfiguration() for _ in range(0)],'array',arrayType=WireConfiguration()))
+    def Device(self,name):
+        for device in self['Devices']:
+            for part_property in device.dict['PartProperties']['value']:
+                if part_property.dict['Keyword']['value'] == 'ref':
+                    if part_property.dict['Value']['value'] == name:
+                        return device
+        return None
 
 class DrawingConfiguration(XMLConfiguration):
     def __init__(self):
