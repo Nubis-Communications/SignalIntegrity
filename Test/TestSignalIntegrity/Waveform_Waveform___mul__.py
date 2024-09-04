@@ -1,5 +1,9 @@
 class Waveform(list):
     def __mul__(self,other):
+        if isinstance(other,FrequencyResponse):
+            return self * other.ImpulseResponse()
+        elif isinstance(other,ImpulseResponse):
+            return self * other.FirFilter()
         if isinstance(other,WaveformProcessor):
             return other.ProcessWaveform(self)
         elif isinstance(other,(float,int,complex)):
