@@ -1,0 +1,57 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="port_reordering_top 1,3,2,4" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="port_reordering_bot 1,3,4,2" h="3" halign="l" lc="black"/>
+%  <rect x="70" y="-24.5" w="7" h="-14" lc="black"/>
+%  <polyline lc="black">66.5,-28 70,-28</polyline>
+%  <text x="69.5" y="-27" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">66.5,-35 70,-35</polyline>
+%  <text x="69.5" y="-34" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">80.5,-28 77,-28</polyline>
+%  <text x="77.5" y="-27" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">80.5,-35 77,-35</polyline>
+%  <text x="77.5" y="-34" t="4" h="3" halign="l" lc="black"/>
+%  <text x="73.5" y="-21.75" t="port_reordering=port_reordering_bot (1,3,4,2)" h="3" halign="c" lc="black"/>
+%  <text x="73.5" y="-18.75" t="file Reordered.si" h="3" halign="c" lc="black"/>
+%  <text x="73.5" y="-15.75" t="reorder=port_reordering_top (1,3,2,4)" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">61.25,-26.25 63,-28 61.25,-29.75</polyline>
+%  <polyline lc="black">66.5,-28 63,-28</polyline>
+%  <text x="61.25" y="-29" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">85.75,-26.25 84,-28 85.75,-29.75</polyline>
+%  <polyline lc="black">80.5,-28 84,-28</polyline>
+%  <text x="85.75" y="-29" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">61.25,-33.25 63,-35 61.25,-36.75</polyline>
+%  <polyline lc="black">66.5,-35 63,-35</polyline>
+%  <text x="61.25" y="-36" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">85.75,-33.25 84,-35 85.75,-36.75</polyline>
+%  <polyline lc="black">80.5,-35 84,-35</polyline>
+%  <text x="85.75" y="-36" t="4" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{port\textunderscore reordering\textunderscore top 1,3,2,4};
+\draw[black] (1.75,-5.75) node[anchor=base west]{port\textunderscore reordering\textunderscore bot 1,3,4,2};
+\path[line width=0.30mm, draw=black] (70,-38.5) rectangle +(7,14);
+\path[line width=0.30mm, draw=black] (66.5,-28) -- (70,-28);
+\draw[black] (69.5,-27) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (66.5,-35) -- (70,-35);
+\draw[black] (69.5,-34) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (80.5,-28) -- (77,-28);
+\draw[black] (77.5,-27) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (80.5,-35) -- (77,-35);
+\draw[black] (77.5,-34) node[anchor=base west]{4};
+\draw[black] (73.5,-21.75) node[anchor=base]{port\textunderscore reordering=port\textunderscore reordering\textunderscore bot (1,3,4,2)};
+\draw[black] (73.5,-18.75) node[anchor=base]{file Reordered.si};
+\draw[black] (73.5,-15.75) node[anchor=base]{reorder=port\textunderscore reordering\textunderscore top (1,3,2,4)};
+\path[line width=0.30mm, draw=black] (61.25,-26.25) -- (63,-28) -- (61.25,-29.75);
+\path[line width=0.30mm, draw=black] (66.5,-28) -- (63,-28);
+\draw[black] (61.25,-29) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (85.75,-26.25) -- (84,-28) -- (85.75,-29.75);
+\path[line width=0.30mm, draw=black] (80.5,-28) -- (84,-28);
+\draw[black] (85.75,-29) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (61.25,-33.25) -- (63,-35) -- (61.25,-36.75);
+\path[line width=0.30mm, draw=black] (66.5,-35) -- (63,-35);
+\draw[black] (61.25,-36) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (85.75,-33.25) -- (84,-35) -- (85.75,-36.75);
+\path[line width=0.30mm, draw=black] (80.5,-35) -- (84,-35);
+\draw[black] (85.75,-36) node[anchor=base west]{4};
+\end{tikzpicture}%

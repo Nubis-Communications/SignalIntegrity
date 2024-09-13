@@ -159,7 +159,10 @@ class LinesCache(ResultsCache):
                 linelist=sorted(keyLineList[key])
                 for line in linelist: reorderedText.append(key+' '+line)
             return reorderedText
-        return ResultsCache.HashValue(self,repr(ReorderLexicographically(self.m_lines))+repr(self.m_f)+repr(self.m_Z0)+repr(self.m_args)+stuffToHash)
+        hashed=repr(ReorderLexicographically(self.m_lines))+repr(self.m_f)+repr(self.m_Z0)+repr(self.m_args)+stuffToHash
+        if self.logging:
+            print('hashed data = '+str(hashed))
+        return ResultsCache.HashValue(self,hashed)
     def CheckTimes(self,cacheFilename):
         """Checks the times for files associated with a netlist.\n
         In netlist devices listed as either file or system devices (i.e. are s-parameter files on the disk) are
@@ -182,7 +185,10 @@ class LinesCache(ResultsCache):
                     # todo:  this is wrong - must parse tokens
                     if len(lineList)>=5:
                         if lineList[3]=='file':
-                            fileList[lineList[4]]={lineList[k]:lineList[k+1] for k in range(5,len(lineList),2)}
+                            fileList[lineList[4]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(5,len(lineList),2)]
+                                                   if key not in ['reorder']}
                         elif lineList[3] == 'networkanalyzer':
                             fileList[lineList[5]]={key:value
                                                    for key,value in [(lineList[k],lineList[k+1])

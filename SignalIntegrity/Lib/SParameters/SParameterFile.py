@@ -54,15 +54,28 @@ class SParameterFile(SParameters):
         If the name is the name of an s-parameter file and one of the kwarg keywords is 'text', then
         the item associated with the keyword is assumed be a text stream containing s-parameter data to
         directly fill in.  In this case, the file name is used only to determine the number of ports.
+
+        if a kwarg keyword is 'reorder', then it is followed by a string of comma separted integer
+        one-based values representing the ports to take the data from in the list.  For example, a
+        two-port with the argument 'reorder 1,2' will return the s-parameters unchanged, but
+        'reorder 2,1' will swap the ports. You can also use 'reorder 1' to extract the port 1 return
+        loss and convert it into a one-port s-parameter.
         """
         self.m_sToken='S'
         self.m_Z0=Z0
         # pragma: silent exclude
+        order=kwargs.pop('reorder',None)
+        if order not in [None,'None','']:
+            order=[int(p) for p in order.split(',')]
+        else:
+            order=None
         ext=str.lower(name).split('.')[-1]
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
             sp=ProjectSParameters(name,callback,**kwargs)
             if not sp is None:
+                if order != None:
+                    sp=sp.PortReorder(order)
                 SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
                 self.SetReferenceImpedance(Z0)
                 return
@@ -144,6 +157,9 @@ class SParameterFile(SParameters):
                 self.m_d[fi]=ReferenceImpedance(self.m_d[fi],self.m_Z0,Z0)
         self.m_f=GenericFrequencyList(f)
         # pragma: silent exclude
+        if order != None:
+            sp=self.PortReorder(order)
+            SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         import numpy as np
         if not all (np.diff(f) > 0): # frequency list is not in order!
             _,unq_row_indices = np.unique(np.array(f),return_index=True,axis=0)

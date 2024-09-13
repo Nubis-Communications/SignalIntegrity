@@ -1,0 +1,6 @@
+var $port_reordering$ 1,3,4,2 nocache
+device D1 4 file TestDut.s4p reorder $port_reordering$
+port 1 td 0 D1 1
+port 3 td 0 D1 2
+port 2 td 0 D1 4
+port 4 td 0 D1 3

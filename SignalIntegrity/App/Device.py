@@ -209,6 +209,7 @@ class Device(object):
                 token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type') in ['string','enum']:
                 value = str(value)
+                if value == '': value="''"
                 token=variable.GetValue('Name')+' '+value
             elif variable.GetValue('Type')=='float':
                 try:
@@ -294,16 +295,29 @@ class DeviceFromProject(object):
                 else:
                     self.result.configuration.HandleBackwardsCompatibility()
 
+class DeviceFileNetListLine(DeviceNetListLine):
+    def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
+        DeviceNetListLine.__init__(self,devicename=devicename,partname=partname,showReference=showReference,showports=showports,values=values)
+    def NetListLine(self,device):
+        reorder_string=device.PartPropertyByKeyword('reorder').PropertyString(stype='netlist')
+        if reorder_string not in ['','None']:
+            reorder_string = ' reorder '+reorder_string
+        else:
+            reorder_string = ''
+        returnstring=DeviceNetListLine.NetListLine(self,device)+reorder_string
+        return returnstring
+
 class DeviceFile(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(values=[('file',True)])
+        netlist=DeviceFileNetListLine(values=[('file',True)])
         Device.__init__(self,netlist,[
             PartPropertyCategory('Files'),
             PartPropertyPartName('File'),
             PartPropertyHelp('device:File'),
             PartPropertyCalculationProperties(),
             PartPropertyDefaultReferenceDesignator('D?'),
-            PartPropertyFileName()]+propertiesList,partPicture)
+            PartPropertyFileName(),
+            PartPropertyReorder()]+propertiesList,partPicture)
 
 class DeviceUnknown(Device):
     def __init__(self,propertiesList,partPicture):

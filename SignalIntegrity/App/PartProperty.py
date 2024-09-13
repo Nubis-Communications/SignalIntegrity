@@ -590,3 +590,12 @@ class PartPropertyCOMtau(PartProperty):
 class PartPropertyCOMd(PartProperty):
     def __init__(self,d=0):
         PartProperty.__init__(self,'d',type='float',unit='m',keyword='d',description='length (called d in COM)',value=d,visible=True, keywordVisible=True)
+
+class PartPropertyReorder(PartProperty):
+    def __init__(self,reorder=''):
+        PartProperty.__init__(self,'reorder',type='string',unit=None,keyword='reorder',description='port reordering',value=reorder,visible=False,keywordVisible=True)
+    def OutputXML(self,indent):
+        if self.GetValue() not in ['','None']:
+            return PartPropertyConfiguration.OutputXML(self, indent)
+        else:
+            return []
