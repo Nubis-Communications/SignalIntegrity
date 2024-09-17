@@ -924,5 +924,87 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         sp,_=proj.CalculateSParameters()
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
+    def testProjectFileIdealFourPort(self):
+        """
+        This test tests the surprising but true fact that you cannot perform the following operation and expect
+        good results.
+
+        The example is an eight port with transmission lines connected as:
+                            +------+
+                        1>--|      |--<2
+                            +------+
+
+                            +------+
+                        3>--|      |--<4
+                            +------+
+
+                            +------+
+                        5>--|      |--<6
+                            +------+
+
+                            +------+
+                        7>--|      |--<8
+                            +------+
+
+        One might think that you can generate this by using the following two-port:
+                            +------+
+                        1>--|      |--<2
+                            +------+
+
+        and reordering this as 1,2,1,2,1,2,1,2
+
+        The reordered two-port is not the same as the eight-port above
+
+        In this example, if the two-port is [[0,1],[1,0]], the reordering produces:
+                [[0,1,0,1,0,1,0,1],
+                [1,0,1,0,1,0,1,0],
+                [0,1,0,1,0,1,0,1],
+                [1,0,1,0,1,0,1,0],
+                [0,1,0,1,0,1,0,1],
+                [1,0,1,0,1,0,1,0],
+                [0,1,0,1,0,1,0,1],
+                [1,0,1,0,1,0,1,0]]
+
+        where the correct answer is, of course:
+                [[0,1,0,0,0,0,0,0],
+                [1,0,0,0,0,0,0,0],
+                [0,0,0,1,0,0,0,0],
+                [0,0,1,0,0,0,0,0],
+                [0,0,0,0,0,1,0,0],
+                [0,0,0,0,1,0,0,0],
+                [0,0,0,0,0,0,0,1],
+                [0,0,0,0,0,0,1,0]]
+        """
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # delete cached files
+        for file_name in ['IdealFourPortProject_cachedSParameters.p','IdealFourPort_cachedSParameters.p','IdealTwoPort_cachedSParameters.p']:
+            try:
+                os.remove(file_name)
+            except OSError:
+                pass
+        # uncached - generate correct answer
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        proj=SignalIntegrityAppHeadless()
+        proj.OpenProjectFile('IdealFourPort.si',args={'IdealZc':50.0,'IdealTd':0.0})
+        correct_sp,_=proj.CalculateSParameters()
+        # now cached
+        proj=SignalIntegrityAppHeadless()
+        proj.OpenProjectFile('IdealFourPort.si',args={'IdealZc':50.0,'IdealTd':0.0})
+        sp,_=proj.CalculateSParameters()
+        self.assertTrue(self.SParametersAreEqual(correct_sp,sp),self.id()+' cached result incorrect')
+
+        # uncached - reordered
+        proj=SignalIntegrityAppHeadless()
+        proj.OpenProjectFile('IdealFourPortProject.si',args={'IdealZc':50.0,'IdealTd':0.0})
+        reordered_sp,_=proj.CalculateSParameters()
+        # now cached
+        proj=SignalIntegrityAppHeadless()
+        proj.OpenProjectFile('IdealFourPortProject.si',args={'IdealZc':50.0,'IdealTd':0.0})
+        sp,_=proj.CalculateSParameters()
+        self.assertTrue(self.SParametersAreEqual(reordered_sp,sp),self.id()+' cached result incorrect')
+
+        # finally, reordered should not equal the correct answer
+        self.assertFalse(self.SParametersAreEqual(reordered_sp,correct_sp),self.id()+' reordered result should not work!')
+
 if __name__ == '__main__':
     unittest.main()
