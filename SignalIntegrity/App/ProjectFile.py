@@ -159,13 +159,20 @@ class CalculationPropertiesBase(XMLConfiguration):
         XMLConfiguration.InitFromXML(self,element)
         self.CalculateOthersFromBaseInformation()
         return self
-    def CalculateOthersFromBaseInformation(self):
+
+    def CalculateOthersFromBaseInformation(self,evenly_spaced=True):
         self['BaseSampleRate']=self['EndFrequency']*2
         self['BaseSamplePeriod']=1./self['BaseSampleRate']
         self['UserSamplePeriod']=1./self['UserSampleRate']
-        self['TimePoints']=self['FrequencyPoints']*2
-        self['FrequencyResolution']=self['EndFrequency']/self['FrequencyPoints']
-        self['ImpulseResponseLength']=1./self['FrequencyResolution']
+        if evenly_spaced:
+            self['TimePoints']=self['FrequencyPoints']*2
+            self['FrequencyResolution']=self['EndFrequency']/self['FrequencyPoints']
+            self['ImpulseResponseLength']=1./self['FrequencyResolution']
+        else:
+            self['TimePoints']=None
+            self['FrequencyResolution']=None
+            self['ImpulseResponseLength']=None
+
     def InitFromXml(self,calculationPropertiesElement):
         endFrequency=20e9
         frequencyPoints=400

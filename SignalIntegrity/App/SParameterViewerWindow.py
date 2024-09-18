@@ -881,8 +881,9 @@ class SParametersDialog(tk.Toplevel):
         self.properties['FrequencyPoints']=len(self.sp.m_f)-1
         self.properties['EndFrequency']=self.sp.m_f[-1]
         self.properties['ReferenceImpedance']=self.sp.m_Z0
-        if si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced():
-            self.properties.CalculateOthersFromBaseInformation()
+        evenly_spaced=si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced()
+        self.properties.CalculateOthersFromBaseInformation(evenly_spaced=evenly_spaced)
+        if evenly_spaced:
             (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength()
             self.properties['TimeLimitNegative']=negativeTime
             self.properties['TimeLimitPositive']=positiveTime
@@ -894,12 +895,6 @@ class SParametersDialog(tk.Toplevel):
             self.statusbar.set(str(self.properties['FrequencyPoints']+1)+
                 ' frequency points, last frequency is '+ToSI(self.properties['EndFrequency'],'Hz')+
                 ', Unevenly spaced, Z0='+ToSI(self.properties['ReferenceImpedance'],'ohm'))
-            self.properties['BaseSampleRate']=None
-            self.properties['BaseSamplePeriod']=None
-            self.properties['UserSamplePeriod']=None
-            self.properties['TimePoints']=None
-            self.properties['FrequencyResolution']=None
-            self.properties['ImpulseResponseLength']=None
             self.properties['TimeLimitNegative']=None
             self.properties['TimeLimitPositive']=None
         if new:
