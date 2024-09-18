@@ -33,6 +33,19 @@ class NetList(object):
         self.stimNames=[]
         self.definingStimList=[]
         deviceList = schematic.deviceList
+
+        # filter out the devices whose state is 'disabled'
+        new_deviceList=[]
+        for device in deviceList:
+            if device['element_state'] == None:
+                new_deviceList.append(device)
+            else:
+                state = device['element_state'].GetValue()
+                if state != 'disabled':
+                    new_deviceList.append(device)
+        deviceList = new_deviceList
+        # done filtering out disabled devices
+
         equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
         # put in system variables
         self.textToShow+=SignalIntegrity.App.Project['Variables'].NetListLines()
@@ -165,7 +178,7 @@ class NetList(object):
             for devicePin in net:
                 deviceIndex=devicePin[0]
                 pinIndex=devicePin[1]
-                thisDevice=schematic.deviceList[deviceIndex]
+                thisDevice=deviceList[deviceIndex]
                 thisDevicePartName = thisDevice['partname'].GetValue()
                 if thisDevicePartName == 'Port':
                     portList.append(devicePin)
@@ -194,20 +207,20 @@ class NetList(object):
                 # for the measures, outputs and ports, we just need one device/port, so we use the first one
                 deviceIndexOfFirstDeviceInNet = net[0][0]
                 pinIndexOfFirstDeviceInNet = net[0][1]
-                firstDeviceName = schematic.deviceList[deviceIndexOfFirstDeviceInNet]['ref'].GetValue()
-                firstDevicePinNumber = schematic.deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet]['Number']
+                firstDeviceName = deviceList[deviceIndexOfFirstDeviceInNet]['ref'].GetValue()
+                firstDevicePinNumber = deviceList[deviceIndexOfFirstDeviceInNet].partPicture.current.pinList[pinIndexOfFirstDeviceInNet]['Number']
                 devicePinString = firstDeviceName + ' ' + str(firstDevicePinNumber)
                 for measure in measureList:
                     deviceIndex = measure[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.measureNames.append(schematic.deviceList[deviceIndex]['ref'].GetValue())
+                    self.textToShow.append(deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                    self.measureNames.append(deviceList[deviceIndex]['ref'].GetValue())
                 for output in outputList:
                     deviceIndex = output[0]
-                    self.textToShow.append(schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
-                    self.outputNames.append(schematic.deviceList[deviceIndex]['ref'].GetValue())
+                    self.textToShow.append(deviceList[deviceIndex].NetListLine() + ' ' + devicePinString)
+                    self.outputNames.append(deviceList[deviceIndex]['ref'].GetValue())
                 for port in portList:
                     deviceIndex = port[0]
-                    line=schematic.deviceList[deviceIndex].NetListLine() + ' ' + devicePinString
+                    line=deviceList[deviceIndex].NetListLine() + ' ' + devicePinString
                     line=line.replace('td 0.0 ','')
                     self.textToShow.append(line)
             if len(net) > 1:
@@ -216,8 +229,8 @@ class NetList(object):
                 for devicePortIndex in net:
                     deviceIndex = devicePortIndex[0]
                     pinIndex = devicePortIndex[1]
-                    deviceName = schematic.deviceList[deviceIndex]['ref'].GetValue()
-                    pinNumber = schematic.deviceList[deviceIndex].partPicture.current.pinList[pinIndex]['Number']
+                    deviceName = deviceList[deviceIndex]['ref'].GetValue()
+                    pinNumber = deviceList[deviceIndex].partPicture.current.pinList[pinIndex]['Number']
                     thisConnectionString = thisConnectionString + ' '+ str(deviceName) +' '+str(pinNumber)
                 self.textToShow.append(thisConnectionString)
             if len(stimList)>0: # there is at least one stim on this net

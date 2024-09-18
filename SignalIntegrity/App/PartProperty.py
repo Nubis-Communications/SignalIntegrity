@@ -595,7 +595,16 @@ class PartPropertyReorder(PartProperty):
     def __init__(self,reorder=''):
         PartProperty.__init__(self,'reorder',type='string',unit=None,keyword='reorder',description='port reordering',value=reorder,visible=False,keywordVisible=True)
     def OutputXML(self,indent):
-        if self.GetValue() not in ['','None']:
+        if self.dict['Value']['Value'] not in ['','None']:
+            return PartPropertyConfiguration.OutputXML(self, indent)
+        else:
+            return []
+
+class PartPropertyElementState(PartProperty):
+    def __init__(self,element_state=''):
+        PartProperty.__init__(self,'element_state',type='string',unit=None,keyword='element_state',description='element state',value=element_state,visible=False,keywordVisible=True)
+    def OutputXML(self,indent):
+        if self.dict['Value']['Value'] not in ['','None']:
             return PartPropertyConfiguration.OutputXML(self, indent)
         else:
             return []

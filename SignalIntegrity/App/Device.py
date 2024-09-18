@@ -317,7 +317,8 @@ class DeviceFile(Device):
             PartPropertyCalculationProperties(),
             PartPropertyDefaultReferenceDesignator('D?'),
             PartPropertyFileName(),
-            PartPropertyReorder()]+propertiesList,partPicture)
+            PartPropertyElementState(),
+            PartPropertyReorder(),]+propertiesList,partPicture)
 
 class DeviceUnknown(Device):
     def __init__(self,propertiesList,partPicture):
