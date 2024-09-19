@@ -37,7 +37,11 @@ class Device(object):
             self.AddPartProperty(PartPropertyReferenceDesignator(''))
     def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.CreateVisiblePropertiesList()
-        self.partPicture.current.Selected(self.selected).DrawDevice(self,canvas,grid,(x,y),pinsConnectedList)
+        unselected_color = 'black'
+        if self['element_state'] != None:
+            if self['element_state'].GetValue() == 'disabled':
+                unselected_color = 'salmon'
+        self.partPicture.current.Selected(self.selected,unselected_color).DrawDevice(self,canvas,grid,(x,y),pinsConnectedList)
     def IsAt(self,coord,augmentor,distance):
         return self.partPicture.current.IsAt(coord,augmentor,distance)
     def IsIn(self,coord0,coord1,coord0Augmentor,coord1Augmentor):

@@ -208,11 +208,11 @@ class PartPicture(object):
                 text=self.visiblePartPropertyList[v],anchor=anchorString,fill=self.color)
     def PinCoordinates(self):
         return [(pin['ConnectionPoint'][0]+self.origin[0],pin['ConnectionPoint'][1]+self.origin[1]) for pin in self.pinList]
-    def Selected(self,selected):
+    def Selected(self,selected,unselected_color = 'black'):
         if selected:
             self.color='blue'
         else:
-            self.color='black'
+            self.color=unselected_color
         return self
     # helpers for commonly drawn things
     def DrawPlusMinus(self,canvas,grid,drawingOrigin,x):
