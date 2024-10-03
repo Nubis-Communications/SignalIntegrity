@@ -554,7 +554,7 @@ class SignalIntegrityApp(tk.Frame):
     def onSaveProject(self):
         if self.fileparts.filename=='':
             return
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
+        filename=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FileNameWithExtension(ext='.si'))
         self.SaveProjectToFile(filename)
 
     def onSaveAsProject(self):
@@ -1265,7 +1265,7 @@ class SignalIntegrityApp(tk.Frame):
         if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
+        filename=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FileNameWithExtension(ext='.si'))
         if not SignalIntegrity.App.Project.CheckFileChanged(filename):
             return True
 
@@ -1378,9 +1378,9 @@ class SignalIntegrityApp(tk.Frame):
                 return
             self.update()
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
-            archiveDir=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'_Archive'
+            archiveDir=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'_Archive')
             archiveDict.CopyArchiveFilesToDestination(archiveDir)
-            archiveDict.ZipArchive(archiveName=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz', archiveDir=self.fileparts.filename+'_Archive')
+            archiveDict.ZipArchive(archiveName=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'), archiveDir=self.fileparts.filename+'_Archive')
         except SignalIntegrityExceptionArchive as e:
             msg.destroy()
             messagebox.showerror('During archiving:',e.message)
@@ -1390,7 +1390,7 @@ class SignalIntegrityApp(tk.Frame):
             messagebox.showerror('During archiving:','An unknown error occurred')
             return
         msg.destroy()
-        msg=messagebox.showinfo('Archive complete','Archive created: '+self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz')
+        msg=messagebox.showinfo('Archive complete','Archive created: '+os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'))
 
     def ExtractArchive(self,filename,args={}):
         if filename is None:

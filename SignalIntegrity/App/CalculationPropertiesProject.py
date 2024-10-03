@@ -108,7 +108,7 @@ class CalculationPropertyFileName(CalculationProperty):
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath,tooltip)
     def onTouched(self,event):
         if not self.readonly:
-            fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
+            fp=FileParts(os.path.join(self.fileparts.AbsoluteFilePath(),self.project[self.projectPath]))
             filename=AskOpenFileName(filetypes=[('txt', '.txt'),('trc','.trc')],
                                     initialdir=fp.AbsoluteFilePath(),
                                     initialfile=fp.FileNameWithExtension('txt'))
@@ -124,7 +124,7 @@ class CalculationPropertyFileNameSaveAs(CalculationProperty):
         CalculationProperty.__init__(self,parentFrame,textLabel,enteredCallback,updateStringsCallback,project,projectPath,tooltip)
     def onTouched(self,event):
         if not self.readonly:
-            fp=FileParts(self.fileparts.AbsoluteFilePath()+'/'+self.project[self.projectPath])
+            fp=FileParts(os.path.join(self.fileparts.AbsoluteFilePath(),self.project[self.projectPath]))
             filename=AskSaveAsFilename(filetypes=[('txt', '.txt')],
                                        initialdir=fp.AbsoluteFilePath(),
                                        initialfile=fp.FileNameWithExtension('txt'))

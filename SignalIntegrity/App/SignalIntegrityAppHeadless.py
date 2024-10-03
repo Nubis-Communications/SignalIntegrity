@@ -204,7 +204,7 @@ class SignalIntegrityAppHeadless(object):
     def SaveProject(self):
         if self.fileparts.filename=='':
             return
-        filename=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.FileNameWithExtension(ext='.si')
+        filename=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FileNameWithExtension(ext='.si'))
         self.SaveProjectToFile(filename)
 
     def NetListText(self):
@@ -833,9 +833,9 @@ class SignalIntegrityAppHeadless(object):
             if not archiveDict:
                 return False
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
-            archiveDir=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'_Archive'
+            archiveDir=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'_Archive')
             archiveDict.CopyArchiveFilesToDestination(archiveDir)
-            archiveDict.ZipArchive(archiveName=self.fileparts.AbsoluteFilePath()+'/'+self.fileparts.filename+'.siz', archiveDir=self.fileparts.filename+'_Archive')
+            archiveDict.ZipArchive(archiveName=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'), archiveDir=self.fileparts.filename+'_Archive')
         except SignalIntegrityExceptionArchive as e:
             return False
         except Exception as e:
