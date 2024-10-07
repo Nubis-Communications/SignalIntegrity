@@ -372,7 +372,7 @@ class PartPropertyWaveformType(PartProperty):
 
 class PartPropertyWaveformProjectName(PartProperty):
     def __init__(self,wfProjName=None):
-        PartProperty.__init__(self,'wfprojname',type='string',unit=None,keyword='wfprojname',keywordVisible=False,description='waveform project name',value=wfProjName,visible=False)
+        PartProperty.__init__(self,'wfprojname',type='file',unit=None,keyword='wfprojname',keywordVisible=False,description='waveform project name',value=wfProjName,visible=False)
 
 class PartPropertyBitRate(PartProperty):
     def __init__(self,bitRate=1e9):

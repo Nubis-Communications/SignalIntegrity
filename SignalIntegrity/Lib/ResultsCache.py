@@ -148,7 +148,21 @@ class LinesCache(ResultsCache):
             linesSplit=[line.split(' ') for line in lines]
             linesKeyValue=[]
             for lineList in linesSplit:
-                if len(lineList)>0: linesKeyValue.append((lineList[0],' '.join(lineList[1:])))
+                if len(lineList)>0:
+                    key=lineList[0]
+                    value=' '.join(lineList[1:])
+                    if key == 'var':
+                        try:
+                            beginning_value = value.split(' ')[1]
+                            if beginning_value[0] == '/' or beginning_value[1] == '/' or beginning_value[1:3] ==':/' or beginning_value[2:4]==':/': # assume this is a file
+                                # convert to relative path
+                                import os
+                                current_path=os.getcwd()
+                                relative_path=os.path.relpath(os.path.abspath(' '.join(value.replace("'","").split(' ')[1:])),current_path)
+                                value=value.split(' ')[0]+' '+relative_path
+                        except:
+                            pass
+                    linesKeyValue.append((key,value))
             keyList=sorted(list(set([key for key,_ in linesKeyValue])))
             keyLineList={key:[] for key in keyList}
             for key,value in linesKeyValue:

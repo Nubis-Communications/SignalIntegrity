@@ -991,6 +991,10 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                 raise ValueError
             deviceList=app.Drawing.schematic.deviceList
             for device in deviceList:
+
+                if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() != '':
+                    continue
+
                 args={}
                 for variable in device.variablesList:
                     name=variable['Name']

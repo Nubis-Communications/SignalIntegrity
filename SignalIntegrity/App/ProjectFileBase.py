@@ -58,7 +58,7 @@ class XMLProperty(object):
         if 'type' in self.dict:
             elementPropertyType = self.dict['type']
         else:
-            elementPropertyType='string'
+            elementPropertyType in ['string','file']
         if 'value' in self.dict:
             elementPropertyValue = self.dict['value']
         else:
@@ -94,15 +94,15 @@ class XMLProperty(object):
         elif 'type' in self.dict:
             elementPropertyType = self.dict['type']
             elementPropertyValue = self.dict['value']
-            isstring = (elementPropertyType == 'string')
-            if elementPropertyValue == None or ((elementPropertyType != 'string') and (elementPropertyValue == 'None')):
+            isstring = (elementPropertyType in ['string','file'])
+            if elementPropertyValue == None or ((elementPropertyType not in ['string','file']) and (elementPropertyValue == 'None')):
                 self.value = None
                 return self
             if elementPropertyType == 'int':
                 self.value = int(float(elementPropertyValue))
             elif elementPropertyType == 'float':
                 self.value = float(elementPropertyValue)
-            elif elementPropertyType == 'string':
+            elif elementPropertyType in ['string','file']:
                 self.value = str(elementPropertyValue)
             elif elementPropertyType == 'coord':
                 self.value = eval(elementPropertyValue)
@@ -183,6 +183,10 @@ class XMLPropertyDefaultInt(XMLPropertyDefault):
 class XMLPropertyDefaultString(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
         XMLPropertyDefault.__init__(self,name,'string',value,write,arrayType,writeDefault)
+
+class XMLPropertyDefaultFile(XMLPropertyDefault):
+    def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):
+        XMLPropertyDefault.__init__(self,name,'file',value,write,arrayType,writeDefault)
 
 class XMLPropertyDefaultBool(XMLPropertyDefault):
     def __init__(self,name,value=None,write=True,arrayType=None,writeDefault=True):

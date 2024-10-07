@@ -88,6 +88,8 @@ class Encryption(object):
                 textToWrite=self.Encrypt(textToWrite.encode()).decode()
             except ModuleNotFoundError: # pragma: no cover
                 raise IOError('file cannot be encrypted')
+        if os.path.dirname(filename) != '':
+            os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(filename,'w') as f:
             f.write(textToWrite)
         return self

@@ -36,6 +36,20 @@ class Archive(list):
         list.__init__(self,[])
     def Archivable(self):
         return self != []
+    def AddFileToArchive(self,filename):
+        if not os.path.exists(filename):
+            return
+        for file in self:
+            if file['file'] == filename:
+                return
+        element = {'file':filename,
+                     'descended':True,
+                     'devices':[],
+                     'args':{}}
+        self.append(element)
+    def AddFilesToArchive(self,files_list):
+        for filename in files_list:
+            self.AddFileToArchive(filename)
     def BuildArchiveDictionary(self,parent,external=False):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
@@ -95,6 +109,8 @@ class Archive(list):
                             if variable['Type'] == 'file':
                                 value=os.path.abspath(value)
                             args[name]=value
+                        if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() != '':
+                            continue
                         for property in device.propertiesList:
                             if property['Type']=='file':
                                 filename=os.path.abspath(property.GetValue())
@@ -110,6 +126,10 @@ class Archive(list):
                                              'args':fileargs}
                                     self.append(element)
                                 else:
+                                    try:
+                                        element
+                                    except NameError:
+                                        element=self[[fileelement['file'] for fileelement in self].index(thisFile)]
                                     element['devices'].append({'Ref':device['ref']['Value'],
                                                                'Keyword':property['Keyword'],
                                                                'File':filename,
@@ -155,7 +175,7 @@ class Archive(list):
         try:
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             self.srcList=[element['file'].replace('\\','/') for element in self]
-            self.common=os.path.dirname(self.srcList[0]).replace('\\','/')
+            self.common=currentPath
             try:
                 shutil.rmtree(archiveDir)
             except FileNotFoundError:
@@ -257,25 +277,20 @@ class Archive(list):
         projectName=fp.FileNameTitle()
         archiveDir=projectName+'_Archive'
 
-        zipdata = zipfile.ZipFile(filename)
-        zipinfos = zipdata.infolist()
-        oldArchiveDir=zipinfos[0].filename.split('/')[0]
-        oldProjectName=oldArchiveDir[:-len('_Archive')]
+        os.makedirs(archiveDir, exist_ok=True)
 
-        if (projectName == oldProjectName) and (archiveDir == oldArchiveDir):
-            zipdata.close()
-            shutil.unpack_archive(filename,fp.AbsoluteFilePath(),format='zip')
-        else:
-            # iterate through each file
-            for zipinfo in zipinfos:
-                # This will do the renaming
-                zipfilename=zipinfo.filename.split('/')
-                zipfilename[0]=archiveDir
-                if len(zipfilename)==2 and zipfilename[1] == oldProjectName+'.si':
-                    zipfilename[1]=projectName+'.si'
-                zipinfo.filename='/'.join(zipfilename)
-                zipdata.extract(zipinfo,path=fp.AbsoluteFilePath())
-            zipdata.close()
+        import time
+
+        z = zipfile.ZipFile(filename)
+
+        for f in z.infolist():
+            name, date_time = f.filename, f.date_time
+            name = os.path.join(fp.AbsoluteFilePath(), name)
+            os.makedirs(os.path.dirname(name), exist_ok=True)
+            with open(name, 'wb') as outFile:
+                outFile.write(z.open(f).read())
+            date_time = time.mktime(date_time + (0, 0, -1))
+            os.utime(name, (date_time, date_time))
 
     @staticmethod
     def InAnArchive(ProjectName):
