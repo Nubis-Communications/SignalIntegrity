@@ -147,7 +147,8 @@ class CalculationPropertySI(CalculationProperty):
             try:
                 self.string.set(ToSI(float(value),self.unitString,round=self.round))
             except:
-                pass
+                self.string.set('')
+
     def GetString(self):
         value=self.string.get()
         if self.allowEquals and (len(value)>0) and (value[0]=='='):
