@@ -139,7 +139,8 @@ class EqualizerTuner():
 
         
         self._delay = delay
-        Nbphases = int(self._UpsampleFactorReclock*self._samplesPerUI)     
+        Num_UI_sweep = 1
+        Nbphases = int(self._UpsampleFactorReclock*self._samplesPerUI/2*Num_UI_sweep)     
 
         Vo_orig = Vo
         Vref_orig = Vref
@@ -147,10 +148,13 @@ class EqualizerTuner():
         #This is done since we found that slight changes in clock phase can lead to drastically different results
 
         best_residual = np.inf
+        best_residual_correct_pretaps = np.inf
         best_phase = 0 
+        best_phase_correct_pretaps = 0
         all_residuals = np.zeros(Nbphases)
+        max_index = np.zeros(Nbphases)
         for i in range(Nbphases):
-            phase = (-i/Nbphases + 0.5)/Vref.td.Fs
+            phase = (-i/(Nbphases/Num_UI_sweep) + Num_UI_sweep/2)/Vref.td.Fs
             Vo = Vo_orig.DelayBy(phase)
             VoUSWf = Vo.Adapt(si.td.wf.TimeDescriptor(Vo.td.H, Vo.td.K * self._UpsampleFactorReclock, Vo.td.Fs * self._UpsampleFactorReclock))
 
@@ -172,18 +176,28 @@ class EqualizerTuner():
 
             all_residuals[i] = self._residual
             print(f"Phase: {phase}, residual: {self._residual}")
+            print(self.optimal_taps)
+            max_index[i] = np.argmax((self.optimal_taps))
             #Check if residual is best AND cursor tap is in corect position - note this is kinda gross I thin we should make it more robust so this does not happen
             #Got rid of cursor tap requirement b/c it was leadin to issues on some waveforms - I was a whole sample off - decided to keep it simple for onw
             if (self._residual < best_residual):
                 best_residual = self._residual
                 best_phase = phase
 
+            if (self._residual < best_residual_correct_pretaps and np.argmax((self.optimal_taps)) == self._NUM_PRECURSOR):
+                best_phase_correct_pretaps = phase
+                best_residual_correct_pretaps = self._residual
+
         #if (best_residual == np.inf):
         #    raise Exception('Cursor tap is bad')
         #TODO: This is ugly - should not rerun whole thing again feels kinda silly
-        self._best_phase = best_phase
+        if (best_residual_correct_pretaps != np.inf):
+            #self._best_phase = best_phase_correct_pretaps
+            self._best_phase = best_phase
+        else:
+            self._best_phase = best_phase
         self._scale = scale
-        Vo = Vo_orig.DelayBy(best_phase)
+        Vo = Vo_orig.DelayBy(self._best_phase)
         VoUSWf = Vo.Adapt(si.td.wf.TimeDescriptor(Vo.td.H, Vo.td.K * self._UpsampleFactorReclock, Vo.td.Fs * self._UpsampleFactorReclock))
 
         #Vref=Vref*si.td.f.WaveformTrimmer(int(np.ceil((VoUSWf.td/Vref.td).TrimLeft())) + UpsampleFactorReclock,0) #Cut reference waveform so that first sample is after rightmost
