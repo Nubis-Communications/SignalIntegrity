@@ -440,6 +440,7 @@ class EqualizerTuner():
         print(f"error: {np.sum(np.abs(result.fun)**2)}")
 
         self.optimal_taps = result.x[0:_EFF_NUM_TAPS]
+        self.offset_bias = result.x[-1]
 
         if (use_floating and self._num_floating_tap_banks > 0):
             print("Handling floating taps")
@@ -530,6 +531,8 @@ class EqualizerTuner():
 
             #First trip Vo_eq to be within the defined DFE window
             excessLeft = int(np.ceil((dfeEqWvfm.td/Vo_eq.td).TrimLeft()))
+            if (excessLeft < 0):
+                excessLeft = 0
             excessRight = int(np.ceil(((Vo_eq.td.H + (Vo_eq.td.K-1)/Vo_eq.td.Fs) - (dfeEqWvfm.td.H + (dfeEqWvfm.td.K-1)/dfeEqWvfm.td.Fs))*Vo_eq.td.Fs)) + 1
             Vo_eq=Vo_eq*si.td.f.WaveformTrimmer(excessLeft,excessRight)
             Vo_eq = Vo_eq + self.offset_bias
