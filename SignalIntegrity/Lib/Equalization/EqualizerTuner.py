@@ -524,7 +524,7 @@ class EqualizerTuner():
         if (self._USE_DFE):
             dfeEqWvfm = CalculateDFEEqualizer(VoWfdec_eq, self.optimal_DFE_taps, ideal_wvfm=Vref, Wvfm_type=Wvfm_Type)
             #Manually upsample in a "repeat" fashion as for each symbol we want a constant DFE output
-            VoWfdec_eq= VoWfdec_eq + dfeEqWvfm + self.offset_bias
+            VoWfdec_eq= VoWfdec_eq + dfeEqWvfm
 
 
             #Apply DFE correction to upsampled waveform - do thi smanually on a point by point basis since problem is SI addition does too much interpolation
@@ -535,7 +535,6 @@ class EqualizerTuner():
                 excessLeft = 0
             excessRight = int(np.ceil(((Vo_eq.td.H + (Vo_eq.td.K-1)/Vo_eq.td.Fs) - (dfeEqWvfm.td.H + (dfeEqWvfm.td.K-1)/dfeEqWvfm.td.Fs))*Vo_eq.td.Fs)) + 1
             Vo_eq=Vo_eq*si.td.f.WaveformTrimmer(excessLeft,excessRight)
-            Vo_eq = Vo_eq + self.offset_bias
             for i in range(len(Vo_eq)):
                 correspondingIndex = np.round(dfeEqWvfm.td.IndexOfTime(Vo_eq.td.TimeOfPoint(i), Integer=False)) #Matching correction index of current Vo index
                 Vo_eq[i] += dfeEqWvfm[int(correspondingIndex)] #Apply correction
