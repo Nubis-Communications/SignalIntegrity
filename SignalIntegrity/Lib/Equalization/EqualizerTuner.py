@@ -32,7 +32,7 @@ class EqualizerTuner():
 
         self.optimal_taps = np.zeros((num_ffe_taps))
         if (use_dfe):
-            self.optimal_dfe_taps = np.zeros((num_dfe_taps))
+            self.optimal_DFE_taps = np.zeros((num_dfe_taps))
 
         self._use_floating_taps = use_floating
         self._num_floating_tap_banks = num_floating_tap_banks
@@ -288,7 +288,7 @@ class EqualizerTuner():
         
         return self._PerformTuneup(Vo, VoWfdec, None, Wvfm_type, init_index, num_samples, noise=noise*scale)/scale
     
-    def _PerformTuneup(self, Vo, VoWfdec, Vref, Wvfm_Type, init_index, num_samples, noise = 0, upsampleFinalWaveform = 1, use_floating = False):
+    def _PerformTuneup(self, Vo, VoWfdec, Vref, Wvfm_Type, init_index, num_samples, noise = 0, upsampleFinalWaveform = 1, use_floating = False, normalize_taps=False, return_np_array=False):
         """
         Internal function which actually does the tuneup.
         """
@@ -509,6 +509,17 @@ class EqualizerTuner():
 
         
         print('Applying optimal tap')
+        if (normalize_taps):
+            if (self._USE_DFE):
+                norm_factor = np.sum(self.optimal_taps) + np.sum(self.floating_taps) + np.sum(self.optimal_DFE_taps)
+                self.optimal_DFE_taps = self.optimal_DFE_taps / norm_factor
+
+            else:
+                norm_factor = np.sum(self.optimal_taps) + np.sum(self.floating_taps) 
+
+            self.floating_taps = self.floating_taps / norm_factor
+            self.offset_bias = self.offset_bias / norm_factor
+            self.optimal_taps = self.optimal_taps /  norm_factor
         FFE_Filt = setupFFEFilter(self.optimal_taps, self._NUM_PRECURSOR, floating_taps=self.floating_taps, ft_pos = self.ft_pos)
         VoWfdec_eq = CalculateEqualized(VoWfdec, FFE_Filt) + self.offset_bias
 
@@ -534,10 +545,22 @@ class EqualizerTuner():
             if (excessLeft < 0):
                 excessLeft = 0
             excessRight = int(np.ceil(((Vo_eq.td.H + (Vo_eq.td.K-1)/Vo_eq.td.Fs) - (dfeEqWvfm.td.H + (dfeEqWvfm.td.K-1)/dfeEqWvfm.td.Fs))*Vo_eq.td.Fs)) + 1
-            Vo_eq=Vo_eq*si.td.f.WaveformTrimmer(excessLeft,excessRight)
-            for i in range(len(Vo_eq)):
-                correspondingIndex = np.round(dfeEqWvfm.td.IndexOfTime(Vo_eq.td.TimeOfPoint(i), Integer=False)) #Matching correction index of current Vo index
-                Vo_eq[i] += dfeEqWvfm[int(correspondingIndex)] #Apply correction
+            if (excessRight < 0):
+                excessRight = 0
+            if (excessLeft != 0 or excessRight != 0):
+                Vo_eq=Vo_eq*si.td.f.WaveformTrimmer(excessLeft,excessRight)
+            times_wvfm = np.arange(len(Vo_eq)) / Vo_eq.td.Fs + Vo_eq.td.H
+            indices_dfe_eq = np.round((times_wvfm - dfeEqWvfm.td.H)*dfeEqWvfm.td.Fs).astype('int')
+            Vo_eq_array = np.array(Vo_eq) + np.array(dfeEqWvfm)[indices_dfe_eq]
+            if (not return_np_array):
+                Vo_eq = si.td.wf.Waveform(Vo_eq.td, [x for x in Vo_eq_array])
+            
+            #for i in range(len(Vo_eq)):
+            #    correspondingIndex = np.round(dfeEqWvfm.td.IndexOfTime(Vo_eq.td.TimeOfPoint(i), Integer=False)) #Matching correction index of current Vo index
+            #    Vo_eq[i] += dfeEqWvfm[int(correspondingIndex)] #Apply correction
+        else:
+            if (return_np_array):
+                Vo_eq_array = np.array(Vo_eq)
         print(f"error: {np.sum(np.abs(result.fun)**2)}")
 
 
@@ -551,7 +574,11 @@ class EqualizerTuner():
         self._VoWfdec_eq = VoWfdec_eq
         self._ideal_data = Vref
         self._noise = noise
-        return Vo_eq
+        
+        if (return_np_array):
+            return Vo_eq_array
+        else:
+            return Vo_eq
 
 
     def _ApplyJitter(self, Vo, upsampleFactor, jitter, detJitter):
