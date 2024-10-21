@@ -91,6 +91,11 @@ class DeviceConfiguration(XMLConfiguration):
         import SignalIntegrity.App.Preferences
         for key in SignalIntegrity.App.Preferences['Devices'].dict.keys():
             self.SubDir(copy.deepcopy(SignalIntegrity.App.Preferences['Devices'][key]),makeOnRead=True)
+    def Property(self,name):
+        for part_property in self['PartProperties']:
+            if part_property.dict['Keyword']['value'] == name:
+                return part_property
+        return None
 
 class VertexConfiguration(XMLConfiguration):
     def __init__(self):
