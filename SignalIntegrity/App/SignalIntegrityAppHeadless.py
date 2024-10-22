@@ -361,6 +361,9 @@ class SignalIntegrityAppHeadless(object):
                         gain=gainProperty.GetValue()
                         offset=device['offset'].GetValue()
                         delay=device['td'].GetValue()
+                        if device['ac_coupled'].GetValue() == 'true':
+                            import numpy as np
+                            outputWaveform = outputWaveform - np.mean(outputWaveform)
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform
@@ -469,6 +472,9 @@ class SignalIntegrityAppHeadless(object):
                         gain=gainProperty.GetValue()
                         offset=device['offset'].GetValue()
                         delay=device['td'].GetValue()
+                        if device['ac_coupled'].GetValue() == 'true':
+                            import numpy as np
+                            outputWaveform = outputWaveform - np.mean(outputWaveform)
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
                         outputWaveformList[outputWaveformIndex]=outputWaveform

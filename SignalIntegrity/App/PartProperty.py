@@ -608,3 +608,8 @@ class PartPropertyElementState(PartProperty):
             return PartPropertyConfiguration.OutputXML(self, indent)
         else:
             return []
+
+class PartPropertyACCoupled(PartProperty):
+    validEntries=['true','false']
+    def __init__(self,state='false'):
+        PartProperty.__init__(self,'ac_coupled',type='enum',keyword='ac_coupled',description='ac coupled',value=state,visible=False,keywordVisible=True)

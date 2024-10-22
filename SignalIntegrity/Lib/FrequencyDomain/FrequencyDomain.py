@@ -162,6 +162,17 @@ class FrequencyDomain(list):
         fl.CheckEvenlySpaced()
         FrequencyDomain.__init__(self,fl,self[0:numPts+1])
         return self
+    def __div__(self,other):
+        return self.__truediv__(other)
+    def __truediv__(self,other):
+        """overloads /
+        @param other object of type FrequencyDomain
+        @return the frequency domain division of self and other (does not affect self)
+        """
+        import copy
+        rv=copy.deepcopy(self)
+        rv.__init__(self.Frequencies(),[sd/od for sd,od in zip(self.Values(),other.Values())])
+        return rv
     ##
     # @var m_f
     # instance of class FrequencyList
