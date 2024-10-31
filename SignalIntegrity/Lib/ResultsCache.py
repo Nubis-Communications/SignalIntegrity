@@ -175,7 +175,8 @@ class LinesCache(ResultsCache):
             return reorderedText
         hashed=repr(ReorderLexicographically(self.m_lines))+repr(self.m_f)+repr(self.m_Z0)+repr(self.m_args)+stuffToHash
         if self.logging:
-            print('hashed data = '+str(hashed))
+            with open(self.filename+'_hash.txt','w') as f:
+                f.write((repr(ReorderLexicographically(self.m_lines))+repr(self.m_f)+repr(self.m_Z0)+repr(self.m_args)+stuffToHash).replace(' ','\n'))
         return ResultsCache.HashValue(self,hashed)
     def CheckTimes(self,cacheFilename):
         """Checks the times for files associated with a netlist.\n

@@ -835,12 +835,13 @@ class SignalIntegrityAppHeadless(object):
         archiveDict=Archive()
         try:
             # build archive dictionary
-            archiveDict.BuildArchiveDictionary(self)
+            archiveDict.BuildArchiveDictionary(self,SignalIntegrity.App.Project['Variables'].Dictionary())
             if not archiveDict:
                 return False
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             archiveDir=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'_Archive')
             archiveDict.CopyArchiveFilesToDestination(archiveDir)
+            SignalIntegrity.App.Project.Write(self,os.path.join(archiveDir,self.fileparts.FullFilePathExtension('.si')))
             archiveDict.ZipArchive(archiveName=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'), archiveDir=self.fileparts.filename+'_Archive')
         except SignalIntegrityExceptionArchive as e:
             return False

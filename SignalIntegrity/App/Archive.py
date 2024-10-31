@@ -51,7 +51,7 @@ class Archive(list):
     def AddFilesToArchive(self,files_list):
         for filename in files_list:
             self.AddFileToArchive(filename)
-    def BuildArchiveDictionary(self,parent,external=False):
+    def BuildArchiveDictionary(self,parent,args={},external=False):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         currentPath=os.getcwd()
@@ -59,14 +59,14 @@ class Archive(list):
             if not isinstance(parent,str):
                 thisFile=os.path.abspath(parent.fileparts.FileNameWithExtension())
                 app=parent
-                fileargs={}
+                fileargs=args
             else:
                 thisFile=parent
                 app=SignalIntegrityAppHeadless()
                 app.projectStack.Push()
                 if external:
                     external=False
-                    fileargs={}
+                    fileargs=args
                 else:
                     fileargs=SignalIntegrity.App.Project['Variables'].Dictionary()
                 if not app.OpenProjectFile(thisFile,args=fileargs):
@@ -184,12 +184,16 @@ class Archive(list):
             self.destList = []
             for filename in self.srcList:
                 try:
-                    self.destList.append((archiveDir+'/'+os.path.relpath(filename, self.common)).replace('\\','/').replace('../','up/'))
+                    destfile=(archiveDir+'/'+os.path.relpath(filename, self.common)).replace('\\','/')
+                    if '../' in destfile:
+                        raise ValueError('file is above archive')
+                    self.destList.append(destfile)
                 except ValueError: # a relative path could not be established - don't copy it to the archive
                     self.destList.append(filename)
                     if self.logging: print(filename+': no relative path')
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
+                element['orig']=srcfile
                 for device in element['devices']:
                     device['File']=device['File'].replace(self.common,archiveDir)
                 os.makedirs(os.path.dirname(destfile),exist_ok=True)
@@ -213,50 +217,64 @@ class Archive(list):
                 except Exception as e:
                     print(e)
             # go through all of the files, straightening out the relative path references
-            for element in self:
-                file=element['file']
-                deviceList=element['devices']
-                if len(deviceList)>0:
-                    app=SignalIntegrityAppHeadless()
-                    app.projectStack.Push()
-                    if not app.OpenProjectFile(file,element['args'] if 'args' in element else {}):
+            straighten_paths = False
+            if straighten_paths:
+                for element in self:
+                    file=element['file']
+                    print('file is: '+file.replace('\\','/'))
+                    if file == 'C:/Users/pete_/Documents/NubisSystemSim/Projects/PicMZMSimplified_Archive/ElectricalChannels/Packages/TxElectricalPackage.si':
+                        pass
+                    deviceList=element['devices']
+                    if len(deviceList)>0:
+                        app=SignalIntegrityAppHeadless()
+                        app.projectStack.Push()
+                        if not app.OpenProjectFile(file,element['args'] if 'args' in element else {}):
+                            app.projectStack.Pull()
+                            raise SignalIntegrityExceptionArchive('During archiving:',file+' could not be opened')
+                            return self
+                        def NewRelativePath(path):
+                            if 'None' in path:
+                                pass
+                            original_path=path
+                            # calculate relative path with respect to common (replacing remaining ../ with up/
+                            path=os.path.relpath(os.path.abspath(path),self.common).replace('\\','/').replace('../','up/')
+                            path=os.path.abspath(os.path.join(self.common,path)).replace('\\','/')
+                            # calculate relative path to archive
+                            path=os.path.relpath(os.path.abspath(path),os.path.dirname(element['orig'])).replace('\\','/')
+                            # calculate resulting absolute path
+                            #path=os.path.join(archiveDir,path)
+                            # calculate new relative path from where device was pointing
+                            #path=os.path.relpath(path).replace('\\','/')
+                            print(original_path + ' >>>> '+path)
+                            return path
+                        for variable in SignalIntegrity.App.Project['Variables.Items']:
+                            if variable['Type'] == 'file':
+                                try:
+                                    filename=NewRelativePath(variable['Value'])
+                                    variable['Value']=filename
+                                except (AttributeError,TypeError,ValueError) as e:
+                                    if self.logging: print(variable['Value']+': no relative path')
+                        for device in deviceList:
+                            schematic_device = app.Device(device['Ref'])
+                            if schematic_device['element_state'] != None and schematic_device.PartPropertyByKeyword('element_state').GetValue() != '':
+                                continue
+                            filename=app.Device(device['Ref'])[device['Keyword']]['Value']
+                            if (filename != None) and (len(filename)>0) and (filename[0]=='='):
+                                import SignalIntegrity.App.Project
+                                if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                                    variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
+                                    if variable.Value() != None:
+                                        try:
+                                            variable['Value']=NewRelativePath(variable['Value'])
+                                        except ValueError:
+                                            if self.logging: print(variable['Value']+': no relative path')
+                            else:
+                                try:
+                                    app.Device(device['Ref'])[device['Keyword']]['Value'] = NewRelativePath(os.path.join(os.path.dirname(element['orig']),app.Device(device['Ref'])[device['Keyword']]['Value']))
+                                except ValueError:
+                                    if self.logging: print(variable['Value']+': no relative path')
+                        app.SaveProject()
                         app.projectStack.Pull()
-                        raise SignalIntegrityExceptionArchive('During archiving:',file+' could not be opened')
-                        return self
-                    def NewRelativePath(path):
-                        # calculate relative path to archive (replacing remaining ../ with up/
-                        path=os.path.relpath(os.path.abspath(path),archiveDir).replace('\\','/').replace('../','up/')
-                        # calculate resulting absolute path
-                        path=os.path.join(archiveDir,path)
-                        # calculate new relative path from where device was pointing
-                        path=os.path.relpath(path).replace('\\','/')
-                        return path
-                    for variable in SignalIntegrity.App.Project['Variables.Items']:
-                        if variable['Type'] == 'file':
-                            try:
-                                filename=NewRelativePath(variable['Value'])
-                                if os.path.exists(filename):
-                                    variable['Value']=os.path.relpath(filename)
-                            except (AttributeError,TypeError,ValueError) as e:
-                                if self.logging: print(variable['Value']+': no relative path')
-                    for device in deviceList:
-                        filename=app.Device(device['Ref'])[device['Keyword']]['Value']
-                        if (filename != None) and (len(filename)>0) and (filename[0]=='='):
-                            import SignalIntegrity.App.Project
-                            if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
-                                variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
-                                if variable.Value() != None:
-                                    try:
-                                        variable['Value']=NewRelativePath(variable['Value'])
-                                    except ValueError:
-                                        if self.logging: print(variable['Value']+': no relative path')
-                        else:
-                            try:
-                                app.Device(device['Ref'])[device['Keyword']]['Value'] = NewRelativePath(app.Device(device['Ref'])[device['Keyword']]['Value'])
-                            except ValueError:
-                                if self.logging: print(variable['Value']+': no relative path')
-                    app.SaveProject()
-                    app.projectStack.Pull()
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 for device in element['devices']:

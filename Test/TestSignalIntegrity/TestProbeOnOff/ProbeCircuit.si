@@ -366,6 +366,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -406,6 +412,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>on</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -454,6 +466,12 @@
 							<KeywordVisible>True</KeywordVisible>
 							<Value>on</Value>
 							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>ports</Keyword>
@@ -579,6 +597,12 @@
 							<Keyword>eyestate</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -711,6 +735,12 @@
 							<Keyword>eyestate</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -852,6 +882,12 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>1.0</Value>
@@ -921,6 +957,12 @@
 							<Keyword>state</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>on</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
