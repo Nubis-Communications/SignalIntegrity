@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.SeriesZ import SeriesZ
-import math
+from numpy import pi
 
 def SeriesL(L,f,Z0=None):
     """series inductance
@@ -27,4 +27,4 @@ def SeriesL(L,f,Z0=None):
     @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series inductance
     """
-    return SeriesZ(L*1j*2.*math.pi*f,Z0)
+    return SeriesZ(L*1j*2.*pi*f,Z0)
