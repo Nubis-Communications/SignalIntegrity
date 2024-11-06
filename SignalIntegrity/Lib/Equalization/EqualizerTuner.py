@@ -9,6 +9,7 @@ from scipy import signal
 import scipy.optimize
 import matplotlib.pyplot as plt
 import math
+import copy
 
 
 class EqualizerTuner():
@@ -218,6 +219,138 @@ class EqualizerTuner():
         #self._PerformTuneup(Vo, VoWfdec, Vref, Wvfm_type, init_index, num_samples)
         #Manually undo scale factor so waveform matches input - note this is also doesnt make me happy
         return self._PerformTuneup(Vo, VoWfdec, Vref, Wvfm_type, init_index, num_samples, noise = noise*scale, upsampleFinalWaveform=upsampleFinalWaveform, use_floating = self._use_floating_taps) / scale
+
+    def _optimize_phase(self, Vo, Vref, Wvfm_type, init_index, num_samples, noise=0,):
+        def CalculateDelay(refWf, delayedWf, maxDelay, refSegmentStart, refSegmentLength, upsampleFactor=1, subtractMeanDelayed=True):
+                if upsampleFactor != 1:
+                    us = si.td.f.InterpolatorSinX(upsampleFactor)
+                    arefWf = refWf * us
+                    adelayedWf = delayedWf * us
+                else:
+                    arefWf = refWf
+                    adelayedWf = delayedWf
+
+                (arefWf, adelayedWf) = si.td.wf.AdaptedWaveforms([arefWf, adelayedWf])
+                refSegmentStart = adelayedWf.td.H
+                timeOfFirstPointReferenceSegment = arefWf.td.TimeOfPoint(arefWf.td.IndexOfTime(refSegmentStart))
+                arefWf = arefWf.Adapt(si.td.wf.TimeDescriptor(timeOfFirstPointReferenceSegment,
+                                                            int(math.ceil(refSegmentLength * arefWf.td.Fs)),
+                                                            arefWf.td.Fs))
+                adelayedWf = adelayedWf.Adapt(si.td.wf.TimeDescriptor(timeOfFirstPointReferenceSegment,
+                                                                    int(math.ceil((maxDelay) * adelayedWf.td.Fs)) + arefWf.td.K,
+                                                                    adelayedWf.td.Fs))
+
+        #         adelayedWf.WriteToFile('DelayExperiment_delayed.txt')
+        #         arefWf.WriteToFile('DelayExperiment_ref.txt')
+
+                stDelayed = np.std(adelayedWf)
+                stRef = np.std(arefWf)
+
+                if stDelayed == 0.0:
+                    return 0.0
+                if stRef == 0.0:
+                    return 0.0
+
+                try:
+                    stDelayedReciprocal = 1. / np.std(adelayedWf)
+                    stRefReciprocal = 1. / np.std(arefWf)
+                except:
+                    return 0.0
+
+                if stDelayedReciprocal == np.inf:
+                    return 0.0
+                if stRefReciprocal == np.inf:
+                    return 0.0
+
+                meanDelayedWf = np.mean(adelayedWf)
+                meanRefWf = np.mean(arefWf)
+
+                if not subtractMeanDelayed:
+                    meanDelayedWf = 0.
+
+                corr = np.correlate((adelayedWf - meanDelayedWf) * stDelayedReciprocal, (arefWf - meanRefWf) * stRefReciprocal).tolist()
+                corrWf = si.td.wf.Waveform(si.td.wf.TimeDescriptor(adelayedWf.td.H - arefWf.td.H, len(corr), adelayedWf.td.Fs), corr)
+        #         corrWf.WriteToFile('DelayExperiment_corr.txt')
+
+                indexOfMax = corrWf.index(max(corrWf))
+
+                side = 2
+                x = [corrWf.td.TimeOfPoint(indexOfMax - side + k) for k in range(side * 2 + 1)]
+                y = [corrWf[indexOfMax - side + k] for k in range(side * 2 + 1)]
+                res = np.polynomial.polynomial.polyfit(x, y, 2)
+                return -res[1] / (2.*res[2]), np.max(corr)
+        
+        
+        self._samplesPerUI = int(Vo.td.Fs/Vref.td.Fs)
+        us = si.td.f.InterpolatorLinear(self._samplesPerUI)
+        Vref_up = Vref * us 
+
+        delay, corr = CalculateDelay(Vref_up, Vo, self._maxDelay, Vo.td.H, self._uiForCorrelation * self._samplesPerUI / Vref_up.td.Fs, self._upsampleFactorDelay)
+        delay_inver, corr_inver = CalculateDelay(Vref_up, Vo*-1, self._maxDelay, Vo.td.H, self._uiForCorrelation * self._samplesPerUI / Vref_up.td.Fs, self._upsampleFactorDelay)
+        if (corr > corr_inver):
+            Vo = Vo.DelayBy(-delay)
+            self._delay = delay
+        else:
+            Vo = Vo*-1
+            Vo = Vo.DelayBy(-delay_inver)
+            self._delay = delay_inver
+        Num_UI_sweep = 1
+        Nbphases = int(self._UpsampleFactorReclock*self._samplesPerUI/2*Num_UI_sweep)     
+
+        Vo_orig = Vo
+        Vref_orig = Vref
+        #Try out different phases find where can get best fit
+        #This is done since we found that slight changes in clock phase can lead to drastically different results
+
+        best_residual = np.inf
+        best_residual_correct_pretaps = np.inf
+        best_phase = 0 
+        best_phase_correct_pretaps = 0
+        all_residuals = np.zeros(Nbphases)
+        max_index = np.zeros(Nbphases)
+        for i in range(Nbphases):
+            phase = (-i/(Nbphases/Num_UI_sweep) + Num_UI_sweep/2)/Vref.td.Fs
+            Vo = Vo_orig.DelayBy(phase)
+            VoUSWf = Vo.Adapt(si.td.wf.TimeDescriptor(Vo.td.H, Vo.td.K * self._UpsampleFactorReclock, Vo.td.Fs * self._UpsampleFactorReclock))
+
+            #Vref=Vref*si.td.f.WaveformTrimmer(int(np.ceil((VoUSWf.td/Vref.td).TrimLeft())) + UpsampleFactorReclock,0) #Cut reference waveform so that first sample is after rightmost
+            numClkSamples = math.floor(len(VoUSWf)/Nbphases) #Number of clocked samples in data waveform
+
+            Vref=Vref_orig*si.td.f.WaveformTrimmer(int(np.ceil((VoUSWf.td/Vref_orig.td).TrimLeft())),0)
+            VoWfdec=VoUSWf.Adapt(td = si.td.wf.TimeDescriptor(Vref.td.H, numClkSamples, Vref.td.Fs)) #Clocked version of waveform that we will use for equalization. 
+            
+            #Need to do final trimming to line up waveform, unsure why exactly - maybe bug in SI? 
+
+            if (Vref.td.H > VoWfdec.td.H):
+                VoWfdec=VoWfdec*si.td.f.WaveformTrimmer(int(np.ceil((Vref.td/VoWfdec.td).TrimLeft())),0)
+            else:
+                Vref=Vref*si.td.f.WaveformTrimmer(int(np.ceil((VoWfdec.td/Vref.td).TrimLeft())),0)
+
+            self._PerformTuneup(Vo, VoWfdec, Vref, Wvfm_type, init_index, num_samples, noise=noise, use_floating = self._use_floating_taps)
+
+            all_residuals[i] = self._residual
+            print(f"Phase: {phase}, residual: {self._residual}")
+            print(self.optimal_taps)
+            max_index[i] = np.argmax((self.optimal_taps))
+            #Check if residual is best AND cursor tap is in corect position - note this is kinda gross I thin we should make it more robust so this does not happen
+            #Got rid of cursor tap requirement b/c it was leadin to issues on some waveforms - I was a whole sample off - decided to keep it simple for onw
+            if (self._residual < best_residual):
+                best_residual = self._residual
+                best_phase = phase
+
+            if (self._residual < best_residual_correct_pretaps and np.argmax((self.optimal_taps)) == self._NUM_PRECURSOR):
+                best_phase_correct_pretaps = phase
+                best_residual_correct_pretaps = self._residual
+
+        self._best_phase = best_phase
+        Vo = Vo_orig.DelayBy(best_phase)
+        Vo = Vo.Adapt(td = si.td.wf.TimeDescriptor(Vref.td.H, len(Vo), Vo.td.Fs))
+
+        if (Vref.td.H > Vo.td.H):
+            Vo=Vo*si.td.f.WaveformTrimmer(int(np.ceil((Vref.td/Vo.td).TrimLeft())),0)
+        else:
+            Vref=Vref*si.td.f.WaveformTrimmer(int(np.ceil((Vo.td/Vref.td).TrimLeft())),0)
+        return Vo, Vref
 
     def TuneupBlind(self, Vo, Wvfm_type, init_index, num_samples, BaudRate, clkRecovery=False, noise = 0):
         """
@@ -529,7 +662,7 @@ class EqualizerTuner():
         FFE_Filt_upsampled = setupFFEFilter(self.optimal_taps, self._NUM_PRECURSOR, Upsample_factor_final, floating_taps=self.floating_taps, ft_pos = self.ft_pos) #For upsampled, use normalized taps
         Vo_eq = CalculateEqualized(Vo, FFE_Filt_upsampled) + self.offset_bias
 
-
+        self.Vo_eq_pre_us = copy.deepcopy(Vo_eq)
         us = si.td.f.InterpolatorSinX(upsampleFinalWaveform)
         Vo_eq = Vo_eq * us
         if (self._USE_DFE):
@@ -576,7 +709,7 @@ class EqualizerTuner():
         self._noise = noise
         
         if (return_np_array):
-            return Vo_eq_array
+            return Vo_eq_array, Vo_eq.td
         else:
             return Vo_eq
 
