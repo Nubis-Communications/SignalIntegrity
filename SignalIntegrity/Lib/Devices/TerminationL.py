@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.TerminationZ import TerminationZ
-from numpy import pi
+import numpy as np
 
 def TerminationL(L,f,Z0=None):
     """Termination (one-port) inductance
@@ -27,4 +27,4 @@ def TerminationL(L,f,Z0=None):
     @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a termination inductance
     """
-    return TerminationZ(L*1j*2.*pi*f,Z0)
+    return TerminationZ(L*1j*2.*np.pi*f,Z0)

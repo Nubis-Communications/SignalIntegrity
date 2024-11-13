@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.SeriesG import SeriesG
-from numpy import pi
+import numpy as np
 
 def SeriesC(C,f,Z0=None,df=0.,esr=0.):
     """Series Capacitance
@@ -29,7 +29,7 @@ def SeriesC(C,f,Z0=None,df=0.,esr=0.):
     @param esr (optional) float effective-series-resistance (defaults to 0)
     @return the list of list s-parameter matrix for a series capacitance
     """
-    G=C*2.*pi*f*(1j+df)
+    G=C*2.*np.pi*f*(1j+df)
     try: G=1./(1./G+esr)
     except: pass
     return SeriesG(G,Z0)

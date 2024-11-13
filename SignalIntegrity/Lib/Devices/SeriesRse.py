@@ -18,7 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.Devices.SeriesZ import SeriesZ
-from numpy import sqrt
+import numpy as np
 
 def SeriesRse(f,Rse,Z0=None):
     """Series Skin-effect Resistance
@@ -27,4 +27,4 @@ def SeriesRse(f,Rse,Z0=None):
     @param Z0 (optional) float of complex reference impedance (defaults to 50 ohms)
     @return the list of list s-parameter matrix for a series resistance due to skin-effect
     """
-    return SeriesZ(Rse*(1+1j)*sqrt(f),Z0)
+    return SeriesZ(Rse*(1+1j)*np.sqrt(f),Z0)
