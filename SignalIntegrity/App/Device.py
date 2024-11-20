@@ -185,6 +185,12 @@ class Device(object):
             elif wfType == 'DC':
                 amplitude=float(self['a'].GetValue())
                 waveform=amplitude
+            # attach any noise specified to the waveform
+            if not self['noisefile'] == None:
+                noise_file=str(self['noisefile'].GetValue())
+                noise_shape = si.fd.FrequencyResponse()
+                noise_shape.ReadFromFile(noise_file)
+                waveform.noise = noise_shape
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si
@@ -577,7 +583,8 @@ class DeviceVoltageMultiLevelWaveformGenerator(Device):
             PartPropertyBitsPerSymbol(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('mlw')]+propertiesList,partPicture)
+            PartPropertyWaveformType('mlw'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageClockGenerator(Device):
     def __init__(self,propertiesList,partPicture):

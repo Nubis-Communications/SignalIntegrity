@@ -191,6 +191,29 @@ class Simulator(object):
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
+        noise_list = [owf.noise if hasattr(owf,'noise') else None for owf in outputWaveformList]
+        noiseWaveformList = []
+        noiseWaveformLabels = []
+        for wf,noise,label in zip(outputWaveformList,noise_list,self.outputWaveformLabels+otherWaveformLabels):
+            from SignalIntegrity.Lib.FrequencyDomain.FrequencyContent import FrequencyContent
+            from SignalIntegrity.Lib.ToSI import ToSI
+            import numpy as np
+            if not noise is None:
+                fc=FrequencyContent(wf)
+                fd=fc.FrequencyList()
+                phase_list=np.exp(1j*np.random.uniform(0.,2*np.pi,size=len(fd)))
+                noise_content=noise.Resample(fd)
+                root_delta_f=np.sqrt(fd.Fe/fd.N)
+                for n in range(len(noise_content)):
+                    fc[n]=noise_content[n]*root_delta_f*(0 if n in [0,fd.N] else phase_list[n])
+                noise_wf=fc.Waveform()
+                rms=np.sqrt(np.mean(np.square(noise_wf)))
+                print('rms value of '+label+'_noise: '+ToSI(rms,'V'))
+                noiseWaveformList.append(noise_wf)
+                noiseWaveformLabels.append(label+'_noise')
+        otherWaveformLabels+=noiseWaveformLabels
+        outputWaveformList+=noiseWaveformList
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]

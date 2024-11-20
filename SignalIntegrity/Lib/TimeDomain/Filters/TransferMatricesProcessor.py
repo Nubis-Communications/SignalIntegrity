@@ -71,6 +71,8 @@ class TransferMatricesProcessor(CallBacker):
                            if isinstance(wfl[i],Waveform)
                            else (wfl[i]*fr[o][i][0]).real)
                 # pragma: silent exclude
+                if hasattr(wfl[i], 'noise'):
+                    acc[-1].noise = wfl[i].noise.Resample(fr[o][i].FrequencyList()) * fr[o][i]
                 if self.HasACallBack():
                     progress=(float(o)/len(ir)+float(i)/(len(ir)*len(ir[o])))*100.0
                     if not self.CallBack(progress):
@@ -92,4 +94,17 @@ class TransferMatricesProcessor(CallBacker):
                         break
                 # pragma: include
             result.append(sum(acc))
+            #pragma: silent exclude
+            if any([hasattr(element,'noise') for element in acc]):
+                # manage the summing of the noise in quadrature
+                noise_list = []
+                for wf in acc:
+                    if hasattr(wf, 'noise'):
+                        noise_list.append(wf.noise)
+                result[-1].noise = noise_list[0]
+                for noise in noise_list[1:]:
+                    for fi in range(len(noise)):
+                        import numpy as np
+                        result[-1].noise[fi] = np.sqrt(result[-1].noise[fi]**2 + noise[fi]**2)
+            #pragma: include
         return result
