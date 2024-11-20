@@ -289,6 +289,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.eyeDiagram.prbswf=self.eyeArgs['Waveform']
         self.eyeDiagram.baudrate=self.eyeArgs['BaudRate']
         self.eyeDiagram.config=self.eyeArgs['Config']
+        self.eyeDiagram.config.SetExternalNoise(self.eyeArgs['ExternalNoise'])
         self.CalculateEyeDiagram()
         self.deiconify()
         self.lift()

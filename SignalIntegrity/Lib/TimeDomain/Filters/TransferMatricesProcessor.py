@@ -21,7 +21,7 @@ TransferMatricesProcessor.py
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
 from SignalIntegrity.Lib.CallBacker import CallBacker
-from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
 
 class TransferMatricesProcessor(CallBacker):
     """process transfer matrices  
@@ -60,7 +60,8 @@ class TransferMatricesProcessor(CallBacker):
         produced in that order.
         """
         if td is None:
-            td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
+            td = [wflm.td.Fs if not isinstance(wflm,DCWaveform) else None
+                  for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td)
         fr = self.TransferMatrices.FrequencyResponses() # for DC inputs
         result=[]
@@ -68,9 +69,11 @@ class TransferMatricesProcessor(CallBacker):
             acc=[]
             for i in range(len(ir[o])):
                 acc.append(ir[o][i].FirFilter().FilterWaveform(wfl[i])
-                           if isinstance(wfl[i],Waveform)
-                           else (wfl[i]*fr[o][i][0]).real)
+                           if not isinstance(wfl[i],DCWaveform)
+                           else DCWaveform((wfl[i].Value()*fr[o][i][0]).real))
                 # pragma: silent exclude
+                if hasattr(wfl[i], 'noise'):
+                    acc[-1].noise = wfl[i].noise.Resample(fr[o][i].FrequencyList()) * fr[o][i]
                 if self.HasACallBack():
                     progress=(float(o)/len(ir)+float(i)/(len(ir)*len(ir[o])))*100.0
                     if not self.CallBack(progress):
@@ -78,18 +81,39 @@ class TransferMatricesProcessor(CallBacker):
             if adaptToLargest and len(acc)>1:
                 largestValue=0.0; largestIndex=0
                 for wfi in range(len(acc)):
-                    if isinstance(acc[wfi],Waveform):
+                    if not isinstance(acc[wfi],DCWaveform):
                         absMax=max(acc[wfi].Values('abs'))
                         if absMax>=largestValue:
                             largestIndex=wfi; largestValue=absMax
                 acc=[acc[largestIndex]]+acc[0:largestIndex]+acc[largestIndex+1:]
             # if the first element of the accumulator is not a waveform (a number, assuming a DC value),
             # then rearrange so a waveform comes first.
-            if not isinstance(acc[0],Waveform):
+            if isinstance(acc[0],DCWaveform):
                 for wfi in range(len(acc)):
-                    if isinstance(acc[wfi],Waveform):
+                    if not isinstance(acc[wfi],DCWaveform):
                         acc=[acc[wfi]]+acc[0:wfi]+acc[wfi+1:]
                         break
-                # pragma: include
+            # pragma: include
             result.append(sum(acc))
+            # pragma: silent exclude
+            if any([hasattr(element,'noise') for element in acc]):
+                # manage the summing of the noise in quadrature
+                noise_list = []
+                for wf in acc:
+                    if hasattr(wf, 'noise'):
+                        noise_list.append(wf.noise)
+                # import matplotlib.pyplot as plt
+                # for ni in range(len(noise_list)):
+                #     plt.plot(noise_list[ni].Frequencies('GHz'),noise_list[ni].Values('dB'),label=str(ni))
+                # plt.legend()
+                # plt.show()
+                result[-1].noise = noise_list[0]
+                for noise in noise_list[1:]:
+                    for fi in range(len(noise)):
+                        import numpy as np
+                        result[-1].noise[fi] = np.sqrt(abs(result[-1].noise[fi])**2 + abs(noise[fi])**2)
+                # plt.cla()
+                # plt.plot(result[-1].noise.Frequencies('GHz'),result[-1].noise.Values('dB'),label='sum')
+                # plt.show()
+            # pragma: include
         return result

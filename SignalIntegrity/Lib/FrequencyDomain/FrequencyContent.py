@@ -28,6 +28,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveform
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.SineWaveform import SineWaveform
+from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
 from SignalIntegrity.Lib.ChirpZTransform.ChirpZTransform import CZT
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 
@@ -66,6 +67,10 @@ class FrequencyContent(FrequencyDomain):
         @see FrequencyList
         @see ChirpZTransform
         """
+        # pragma: silent exclude
+        if isinstance(wf,DCWaveform):
+            wf = Waveform(wf.td,[wf[0] for _ in range(wf.td.K)])
+        # pragma: include
         td=wf.td
         if fd is None:
             X=fft.fft(wf.Values())

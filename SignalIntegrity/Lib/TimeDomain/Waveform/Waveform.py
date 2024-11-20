@@ -116,6 +116,9 @@ class Waveform(list):
         @throw SignalIntegrityExceptionWaveform if other cannot be added.
         @see AdaptedWaveforms
         """
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
+        if isinstance(other,DCWaveform):
+            return Waveform(self.td,[v+other.Value() for v in self])
         if isinstance(other,Waveform):
             if self.td == other.td:
                 return Waveform(self.td,[self[k]+other[k] for k in range(len(self))])
@@ -461,6 +464,12 @@ class Waveform(list):
         """
         with open(filename,'wt') as f:
             f.writelines([f'{t} {v}\n' for t,v in zip(self.Times(),self.Values())])
+        return self
+    def TrueWaveform(self):
+        """a true waveform where the samples adhere to the time descriptor
+        @return self
+        @note some derived waveforms will need to overload this.
+        """
         return self
     def rms(self):
         return math.sqrt(sum([v**2 for v in self]))

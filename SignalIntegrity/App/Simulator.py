@@ -144,8 +144,9 @@ class Simulator(object):
 
             def _PrecalculateImpulseReseponses():
                 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+                from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
                 return self.transferMatriceProcessor.PrecalculateImpulseResponses(
-                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList])
+                    [wflm.td.Fs if (isinstance(wflm,Waveform) and not isinstance(wflm,DCWaveform)) else None for wflm in self.inputWaveformList])
 
             progressDialog = ProgressDialog(self.parent,"Impulse Responses",self.transferMatriceProcessor.TransferMatrices,_PrecalculateImpulseReseponses)
             try:
@@ -192,6 +193,48 @@ class Simulator(object):
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
+        noise_list = [owf.noise if hasattr(owf,'noise') else None for owf in outputWaveformList]
+        noiseWaveformList = []
+        noiseWaveformLabels = []
+        noise_rms_list=[]
+        noise_rms_label_list=[]
+        for wf,noise,label in zip(outputWaveformList,noise_list,self.outputWaveformLabels+otherWaveformLabels):
+            from SignalIntegrity.Lib.FrequencyDomain.FrequencyContent import FrequencyContent
+            from SignalIntegrity.Lib.ToSI import ToSI
+            import numpy as np
+            if not noise is None:
+                wffc=wf
+                if not isinstance(wffc,si.td.wf.DCWaveform):
+                    if wffc.td.K//2*2 != wffc.td.K:
+                        import copy
+                        wffc=copy.deepcopy(wf)
+                        td=wffc.td
+                        td.K=td.K-1
+                        wffc=wffc.Adapt(td)
+                fc=FrequencyContent(wffc)
+                fd=fc.FrequencyList()
+                phase_list=np.exp(1j*np.random.uniform(0.,2*np.pi,size=len(fd)))
+                noise_content=noise.Resample(fd)
+                # import matplotlib.pyplot as plt
+                # plt.cla()
+                # plt.plot(noise.Frequencies('GHz'),noise.Values('dB'),label=label+' before')
+                # plt.plot(noise_content.Frequencies('GHz'),noise_content.Values('dB'),label=label+' after')
+                # plt.legend()
+                # plt.show()
+                root_delta_f=np.sqrt(fd.Fe/fd.N)
+                sqrt2=np.sqrt(2) # sqrt to take it from rms to amplitude for the dft
+                for n in range(len(noise_content)):
+                    fc[n]=noise_content[n]*root_delta_f*(1./sqrt2 if n in [0,fd.N] else sqrt2)*(1. if n in [0,fd.N] else phase_list[n])
+                noise_wf=fc.Waveform()
+                rms=np.sqrt(np.mean(np.square(noise_wf)))
+                noise_rms_list.append(rms)
+                noise_rms_label_list.append(label)
+                print('rms value of '+label+'_noise: '+ToSI(rms,'V'))
+                noiseWaveformList.append(noise_wf)
+                noiseWaveformLabels.append(label+'_noise')
+        otherWaveformLabels+=noiseWaveformLabels
+        outputWaveformList+=noiseWaveformList
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
@@ -214,6 +257,10 @@ class Simulator(object):
                             outputWaveform = outputWaveform - np.mean(outputWaveform)
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                            if outputWaveformLabel+'_noise' in (self.outputWaveformLabels+otherWaveformLabels):
+                                # apply the gain to the noise, as well
+                                noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]*=gain
+                                outputWaveformList[(self.outputWaveformLabels+otherWaveformLabels).index(outputWaveformLabel+'_noise')]*=gain
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
 
@@ -221,6 +268,10 @@ class Simulator(object):
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(self.outputWaveformLabels)]]+outputWaveformList[len(self.outputWaveformLabels):]
+        outputWaveformList = [wf.TrueWaveform() for wf in outputWaveformList]
+        for n in range(len(noise_list)):
+            if not noise_list[n] is None:
+                outputWaveformList[n].noise = noise_list[n]
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
@@ -236,10 +287,14 @@ class Simulator(object):
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
+                            external_noise = 0.0
+                            if outputWaveformLabel in noise_rms_label_list:
+                                external_noise=noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
                                      'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
-                                     'Config':device.configuration}
+                                     'Config':device.configuration,
+                                     'ExternalNoise':external_noise}
                             eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)

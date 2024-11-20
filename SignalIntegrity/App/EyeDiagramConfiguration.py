@@ -42,3 +42,8 @@ class EyeDiagramConfiguration(EyeConfiguration,DeviceExtendedConfiguration):
         if not SignalIntegrity.App.Project['EyeDiagram'] is None:
             self.dict = copy.deepcopy(SignalIntegrity.App.Project['EyeDiagram'].dict)
         EyeConfiguration.HandleBackwardsCompatibility(self)
+    def SetExternalNoise(self,noise):
+        import numpy as np
+        self['JitterNoise.ExternalNoise'] = noise
+        self['JitterNoise.TotalNoise'] = np.sqrt(self['JitterNoise.Noise']**2 + self['JitterNoise.ExternalNoise']**2)
+        return self

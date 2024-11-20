@@ -193,7 +193,14 @@ class Device(object):
                         waveform = si.td.wf.StepWaveform(td,2.*float(self['a']['Value']),0.0,float(self['rt']['Value']))
             elif wfType == 'DC':
                 amplitude=float(self['a'].GetValue())
-                waveform=amplitude
+                waveform=si.td.wf.DCWaveform(amplitude)
+            # attach any noise specified to the waveform
+            if not self['noisefile'] == None:
+                noise_file=str(self['noisefile'].GetValue())
+                if noise_file not in ['','None']:
+                    noise_shape = si.fd.FrequencyResponse()
+                    noise_shape.ReadFromFile(noise_file)
+                    waveform.noise = noise_shape
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si
@@ -490,7 +497,8 @@ class DeviceVoltageSource(Device):
             PartPropertyWaveformFileName(),
             PartPropertyShow(),
             PartPropertyWaveformType('file'),
-            PartPropertyWaveformProjectName('')]+propertiesList,partPicture)
+            PartPropertyWaveformProjectName(''),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageStepGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -507,7 +515,8 @@ class DeviceVoltageStepGenerator(Device):
             PartPropertyRisetime(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('step')]+propertiesList,partPicture)
+            PartPropertyWaveformType('step'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageDCSource(Device):
     def __init__(self,propertiesList,partPicture):
@@ -519,7 +528,8 @@ class DeviceVoltageDCSource(Device):
             PartPropertyDefaultReferenceDesignator('VS?'),
             PartPropertyVoltageAmplitude(),
             PartPropertyWaveformType('DC'),
-            PartPropertyShow()]+propertiesList,
+            PartPropertyShow(),
+            PartPropertyNoiseFileName()]+propertiesList,
             partPicture)
         self['a']['KeywordVisible']=False
 
@@ -539,7 +549,8 @@ class DeviceVoltagePulseGenerator(Device):
             PartPropertyPulseWidth(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('pulse')]+propertiesList,
+            PartPropertyWaveformType('pulse'),
+            PartPropertyNoiseFileName()]+propertiesList,
             partPicture)
 
 class DeviceVoltageImpulseGenerator(Device):
@@ -576,7 +587,8 @@ class DeviceVoltagePRBSGenerator(Device):
             PartPropertyPRBSPolynomial(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('prbs')]+propertiesList,partPicture)
+            PartPropertyWaveformType('prbs'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageMultiLevelWaveformGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -596,7 +608,8 @@ class DeviceVoltageMultiLevelWaveformGenerator(Device):
             PartPropertyBitsPerSymbol(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('mlw')]+propertiesList,partPicture)
+            PartPropertyWaveformType('mlw'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageLevelsMultiLevelWaveformGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -635,7 +648,8 @@ class DeviceVoltageClockGenerator(Device):
             PartPropertyRisetime(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('clock')]+propertiesList,partPicture)
+            PartPropertyWaveformType('clock'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -654,7 +668,8 @@ class DeviceVoltageSineGenerator(Device):
             PartPropertyStartTime(-100.),
             PartPropertyStopTime(100.),
             PartPropertyPhase(),
-            PartPropertyWaveformType('sine')]+propertiesList,partPicture)
+            PartPropertyWaveformType('sine'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
         self['t0']['Visible']=False; self['tf']['Visible']=False
 
 class DeviceCurrentSource(Device):
@@ -1104,7 +1119,8 @@ class DeviceVoltageNoiseSource(Device):
             PartPropertyDuration(),
             PartPropertySampleRate(),
             PartPropertyVoltageRms(),
-            PartPropertyWaveformType('noise')]+propertiesList,partPicture)
+            PartPropertyWaveformType('noise'),
+            PartPropertyNoiseFileName()]+propertiesList,partPicture)
 
 class DeviceVoltageOutputProbe(Device):
     def __init__(self):
