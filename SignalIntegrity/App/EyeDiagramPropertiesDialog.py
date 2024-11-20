@@ -116,7 +116,11 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         noiseUnit = {'V':'Vrms','A':'Arms','W':'Wrms','FW':'','AW':'Arms','VW':'Vrms'}[verticalUnit]
         self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterS','s')
         self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterDeterministicPkS','s')
-        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Noise',self.onUpdateFromChanges,None,self.project,'JitterNoise.Noise',noiseUnit)
+        self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Inherent Noise',self.onUpdateNoise,None,self.project,'JitterNoise.Noise',noiseUnit)
+        self.ExternalNoise=CalculationPropertySI(self.JitterNoiseFrame,'External Noise',self.onUpdateFromChanges,None,self.project,'JitterNoise.ExternalNoise',noiseUnit)
+        self.ExternalNoise.SetReadOnly(True)
+        self.TotalNoise=CalculationPropertySI(self.JitterNoiseFrame,'Total Noise',self.onUpdateFromChanges,None,self.project,'JitterNoise.TotalNoise',noiseUnit)
+        self.TotalNoise.SetReadOnly(True)
         self.MaxWindowWidthHeightPixels=CalculationPropertySI(self.JitterNoiseFrame,'Max Kernel Pixels',self.onUpdateFromChanges,None,self.project,'JitterNoise.MaxKernelPixels','pixels')
         self.Invert=CalculationPropertyTrueFalseButton(self.InvertFrame,'Invert Plot',self.onUpdateFromChanges,None,self.project,'Invert')
         self.LogIntensity=CalculationPropertyTrueFalseButton(self.LogIntensityFrame,'Log Intensity',self.onUpdateFromChanges,None,self.project,'JitterNoise.LogIntensity.LogIntensity')
@@ -126,6 +130,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.SaveToPreferencesButton = tk.Button(self.SaveToPreferencesFrame,text='Save Properties to Global Preferences',command=self.onSaveToPreferences,width=CalculationProperty.labelWidth)
         self.SaveToPreferencesButton.pack(side=tk.TOP,expand=tk.YES)
+        self.onUpdateNoise(None)
         self.Finish()
     def Finish(self):
         self.UpdateStrings()
@@ -148,6 +153,10 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.UpdateStrings()
     def onUpdateScaleY(self,_):
         self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
+        self.UpdateStrings()
+    def onUpdateNoise(self,_):
+        import numpy as np
+        self.project.SetExternalNoise(self.project['JitterNoise.ExternalNoise'])
         self.UpdateStrings()
     def onUpdateFromChanges(self,_):
         self.UpdateStrings()
@@ -221,6 +230,9 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.JitterSeconds.Show(jitterNoiseMode)
         self.JitterDeterministicPkS.Show(jitterNoiseMode)
         self.Noise.Show(jitterNoiseMode)
+        self.ExternalNoise.Show(jitterNoiseMode)
+        self.TotalNoise.Show(jitterNoiseMode)
+        self.TotalNoise.UpdateStrings()
         self.MaxWindowWidthHeightPixels.Show(jitterNoiseMode)
         logIntensity=self.project['JitterNoise.LogIntensity.LogIntensity']
         self.MinExponent.Show(logIntensity)

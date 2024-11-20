@@ -83,32 +83,41 @@ class DeviceProperty(tk.Frame):
         # end of ugly workaround
         self.callBack()
         if self.partProperty['PropertyName'] in ['filename','std']:
-            extension='.s'+self.device['ports'].PropertyString(stype='raw')+'p','.S'+self.device['ports'].PropertyString(stype='raw')+'P'
+            extension=('.s'+self.device['ports'].PropertyString(stype='raw')+'p','.S'+self.device['ports'].PropertyString(stype='raw')+'P')
             filetypename='s-parameters'
+            filetypes=[(filetypename,extension),('project','.si')]
         elif self.partProperty['PropertyName'] == 'waveformfilename':
             extension=('.txt','.trc')
             filetypename='waveforms'
+            filetypes=[(filetypename,extension),('project','.si')]
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')
             filetypename='calibration file'
+            filetypes=[(filetypename,extension),('project','.si')]
         elif self.partProperty['PropertyName'] == 'wfilename':
             extension=('.txt')
             filetypename='w element file'
+            filetypes=[(filetypename,extension)]
+        elif self.partProperty['PropertyName'] == 'noisefilename':
+            extension=('.s1p','.txt')
+            filetypename='noise spectral density'
+            filetypes=[(filetypename,extension)]
         else:
             extension=('')
             filetypename='all'
+            filetypes=[(filetypename,extension),('project','.si')]
         currentFileParts=FileParts(self.partProperty.PropertyString(stype='raw'))
         if currentFileParts.filename=='':
             initialDirectory=self.parent.parent.parent.fileparts.AbsoluteFilePath()
             initialFile=''
         else:
             initialDirectory=currentFileParts.AbsoluteFilePath()
-            if currentFileParts.fileext in ['.si',extension[0]]:
+            if currentFileParts.fileext in ['.si']+list(extension):
                 initialFile=currentFileParts.FileNameWithExtension()
             else:
                 initialFile=currentFileParts.filename+extension[0]
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension),('project','.si')],
+                                 filetypes=filetypes,
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -553,10 +562,36 @@ class DeviceProperties(tk.Frame):
         except si.SignalIntegrityException as e:
             messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
             return
+
+        wf_list = [wf]
+        label_list = [referenceDesignator]
+
+        if hasattr(wf,'noise'):
+            from SignalIntegrity.Lib.FrequencyDomain.FrequencyContent import FrequencyContent
+            import numpy as np
+            wffc=wf
+            if wffc.td.K//2*2 != wffc.td.K:
+                import copy
+                wffc=copy.deepcopy(wf)
+                td=wffc.td
+                td.K=td.K-1
+                wffc=wffc.Adapt(td)
+            fc=FrequencyContent(wffc)
+            fd=fc.FrequencyList()
+            phase_list=np.exp(1j*np.random.uniform(0.,2*np.pi,size=len(fd)))
+            noise_content=wf.noise.Resample(fd)
+            root_delta_f=np.sqrt(fd.Fe/fd.N)
+            sqrt2=np.sqrt(2) # sqrt to take it from rms to amplitude for the dft
+            for n in range(len(noise_content)):
+                fc[n]=noise_content[n]*root_delta_f*(1./sqrt2 if n in [0,fd.N] else sqrt2)*(1. if n in [0,fd.N] else phase_list[n])
+            noise_wf=fc.Waveform()
+            wf_list.append(noise_wf)
+            label_list.append(referenceDesignator+'_noise')
+
         sim=self.parent.parent.simulator
         sd=sim.SimulatorDialog()
         sd.title('Waveform')
-        sim.UpdateWaveforms([wf],[referenceDesignator])
+        sim.UpdateWaveforms(wf_list,label_list)
         #sd.wait_visibility(sd)
         try:
             import platform

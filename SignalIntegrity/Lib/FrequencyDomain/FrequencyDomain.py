@@ -95,7 +95,7 @@ class FrequencyDomain(list):
         if data[0].strip('\n')!='UnevenlySpaced':
             N = int(str(data[0]))
             Fe = float(str(data[1]))
-            frl=[line.split(' ') for line in data[2:]]
+            frl=[line.strip().split(' ') for line in data[2:]]
             resp=[float(fr[0])+1j*float(fr[1]) for fr in frl]
             self.m_f=EvenlySpacedFrequencyList(Fe,N)
             list.__init__(self,resp)

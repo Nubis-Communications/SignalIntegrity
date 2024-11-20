@@ -40,7 +40,9 @@ class EyeJitterNoiseConfiguration(XMLConfiguration):
         super().__init__('JitterNoise')
         self.Add(XMLPropertyDefaultFloat('JitterS',0))
         self.Add(XMLPropertyDefaultFloat('JitterDeterministicPkS',0))
-        self.Add(XMLPropertyDefaultFloat('Noise',0.0))
+        self.Add(XMLPropertyDefaultFloat('Noise',0.0)) # this is actually fixed, inherent noise -- left this name for backward compatibility
+        self.Add(XMLPropertyDefaultFloat('ExternalNoise',0.0,write=False))
+        self.Add(XMLPropertyDefaultFloat('TotalNoise',0.0,write=False))
         self.Add(XMLPropertyDefaultInt('MaxKernelPixels',100000))
         self.SubDir(EyeLogIntensityConfiguration())
 

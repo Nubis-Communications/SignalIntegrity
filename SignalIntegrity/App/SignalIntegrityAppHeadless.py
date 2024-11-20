@@ -352,6 +352,42 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return Result('simulation',None)
 
+        noise_list = [owf.noise if hasattr(owf,'noise') else None for owf in outputWaveformList]
+        noiseWaveformList = []
+        noiseWaveformLabels = []
+        noise_rms_list=[]
+        noise_rms_label_list=[]
+        for wf,noise,label in zip(outputWaveformList,noise_list,outputWaveformLabels+otherWaveformLabels):
+            from SignalIntegrity.Lib.FrequencyDomain.FrequencyContent import FrequencyContent
+            from SignalIntegrity.Lib.ToSI import ToSI
+            import numpy as np
+            if not noise is None:
+                wffc=wf
+                if not isinstance(wffc,si.td.wf.DCWaveform):
+                    if wffc.td.K//2*2 != wffc.td.K:
+                        import copy
+                        wffc=copy.deepcopy(wf)
+                        td=wffc.td
+                        td.K=td.K-1
+                        wffc=wffc.Adapt(td)
+                fc=FrequencyContent(wffc)
+                fd=fc.FrequencyList()
+                phase_list=np.exp(1j*np.random.uniform(0.,2*np.pi,size=len(fd)))
+                noise_content=noise.Resample(fd)
+                root_delta_f=np.sqrt(fd.Fe/fd.N)
+                sqrt2=np.sqrt(2) # sqrt to take it from rms to amplitude for the dft
+                for n in range(len(noise_content)):
+                    fc[n]=noise_content[n]*root_delta_f*(1./sqrt2 if n in [0,fd.N] else sqrt2)*(1. if n in [0,fd.N] else phase_list[n])
+                noise_wf=fc.Waveform()
+                rms=np.sqrt(np.mean(np.square(noise_wf)))
+                noise_rms_list.append(rms)
+                noise_rms_label_list.append(label)
+                print('rms value of '+label+'_noise: '+ToSI(rms,'V'))
+                noiseWaveformList.append(noise_wf)
+                noiseWaveformLabels.append(label+'_noise')
+        otherWaveformLabels+=noiseWaveformLabels
+        outputWaveformList+=noiseWaveformList
+
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = (outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
@@ -374,12 +410,20 @@ class SignalIntegrityAppHeadless(object):
                             outputWaveform = outputWaveform - np.mean(outputWaveform)
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                            if outputWaveformLabel+'_noise' in (outputWaveformLabels+otherWaveformLabels):
+                                # apply the gain to the noise, as well
+                                noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]*=gain
+                                outputWaveformList[(outputWaveformLabels+otherWaveformLabels).index(outputWaveformLabel+'_noise')]*=gain
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
         outputWaveformList = [wf.Adapt(
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
+        outputWaveformList = [wf.TrueWaveform() for wf in outputWaveformList]
+        for n in range(len(noise_list)):
+            if not noise_list[n] is None:
+                outputWaveformList[n].noise = noise_list[n]
         outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
         if not EyeDiagrams:
             return Result('simulation',{'source names':sourceNames,
@@ -395,10 +439,14 @@ class SignalIntegrityAppHeadless(object):
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
+                            external_noise = 0.0
+                            if outputWaveformLabel in noise_rms_label_list:
+                                external_noise=noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
-                                     'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)],
-                                     'Config':device.configuration}
+                                     'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
+                                     'Config':device.configuration,
+                                     'ExternalNoise':external_noise}
                             eyeDiagramDict.append(eyeDict)
                         break
 
@@ -409,6 +457,7 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
             eyeDiagram.config=eye['Config']
+            eyeDiagram.config.SetExternalNoise(eye['ExternalNoise'])
             eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
             eyeDiagrams.append(eyeDiagram)
         return Result('simulation',{'source names':sourceNames,

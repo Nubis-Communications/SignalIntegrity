@@ -77,7 +77,7 @@ class EyeDiagram(object):
             if applyJitterNoise:
                 if not self.headless: self.parent.statusbar.set('Applying Jitter and Noise')
                 eyeDiagramBitmap.ApplyJitterNoise(
-                                NoiseSigma=self.config['JitterNoise.Noise'],
+                                NoiseSigma=self.config['JitterNoise.TotalNoise'],
                                 JitterSigma=self.config['JitterNoise.JitterS'],
                                 DeterministicJitter=self.config['JitterNoise.JitterDeterministicPkS'],
                                 MaxPixelsKernel=int(self.config['JitterNoise.MaxKernelPixels']))

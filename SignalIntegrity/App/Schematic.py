@@ -56,6 +56,14 @@ class Schematic(CallBacker):
                 wf = device.Waveform(self.callback)
                 if not wf is None:
                     inputWaveformList.append(wf)
+        # DC waveforms need a time descriptor - make it the longest in the input waveform list
+        for wf in inputWaveformList:
+            if not wf.td is None:
+                td=wf.td
+                for wf in inputWaveformList:
+                    if wf.td is None:
+                        wf.td = td
+                break
         return inputWaveformList
     def OtherWaveforms(self):
         otherWaveformList=[]
