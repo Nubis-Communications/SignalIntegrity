@@ -195,6 +195,8 @@ class Simulator(object):
         noise_list = [owf.noise if hasattr(owf,'noise') else None for owf in outputWaveformList]
         noiseWaveformList = []
         noiseWaveformLabels = []
+        noise_rms_list=[]
+        noise_rms_label_list=[]
         for wf,noise,label in zip(outputWaveformList,noise_list,self.outputWaveformLabels+otherWaveformLabels):
             from SignalIntegrity.Lib.FrequencyDomain.FrequencyContent import FrequencyContent
             from SignalIntegrity.Lib.ToSI import ToSI
@@ -218,10 +220,13 @@ class Simulator(object):
                 # plt.legend()
                 # plt.show()
                 root_delta_f=np.sqrt(fd.Fe/fd.N)
+                sqrt2=np.sqrt(2) # sqrt to take it from rms to amplitude for the dft
                 for n in range(len(noise_content)):
-                    fc[n]=noise_content[n]*root_delta_f*(0 if n in [0,fd.N] else phase_list[n])
+                    fc[n]=noise_content[n]*root_delta_f*(1./sqrt2 if n in [0,fd.N] else sqrt2)*(1. if n in [0,fd.N] else phase_list[n])
                 noise_wf=fc.Waveform()
                 rms=np.sqrt(np.mean(np.square(noise_wf)))
+                noise_rms_list.append(rms)
+                noise_rms_label_list.append(label)
                 print('rms value of '+label+'_noise: '+ToSI(rms,'V'))
                 noiseWaveformList.append(noise_wf)
                 noiseWaveformLabels.append(label+'_noise')
@@ -272,10 +277,14 @@ class Simulator(object):
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
+                            external_noise = 0.0
+                            if outputWaveformLabel in noise_rms_label_list:
+                                external_noise=noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
                                      'Waveform':(outputWaveformList)[(outputWaveformLabels).index(outputWaveformLabel)],
-                                     'Config':device.configuration}
+                                     'Config':device.configuration,
+                                     'ExternalNoise':external_noise}
                             eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)

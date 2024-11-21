@@ -6,9 +6,9 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1104x363+208+208</Geometry>
+			<Geometry>571x309+312+312</Geometry>
 			<Grid>14</Grid>
-			<Originx>1</Originx>
+			<Originx>-9</Originx>
 			<Originy>4</Originy>
 		</DrawingProperties>
 		<Schematic>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(13, 5)</Origin>
+						<Origin>(17, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -62,7 +62,7 @@
 						<PartProperty>
 							<Keyword>prbs</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>13</Value>
+							<Value>31</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -92,7 +92,7 @@
 						<PartProperty>
 							<Keyword>noisefile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>RXSerdesNoise.txt</Value>
+							<Value>WhiteNoise_5mV.txt</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -134,7 +134,7 @@
 						<PartProperty>
 							<Keyword>ldbperhzpers</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.15</Value>
+							<Value>0.1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -194,7 +194,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(41, 5)</Origin>
+						<Origin>(31, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -269,7 +269,7 @@
 								<MinExponent>-12</MinExponent>
 							</LogIntensity>
 							<MaxKernelPixels>100000</MaxKernelPixels>
-							<Noise>0.00236</Noise>
+							<Noise>0.0</Noise>
 						</JitterNoise>
 						<Measure>
 							<BERForMeasure>-6</BERForMeasure>
@@ -296,7 +296,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(62, 4)</Origin>
+						<Origin>(36, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -355,30 +355,6 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
-				<Device>
-					<ClassName>DeviceOpen</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>90</Orientation>
-						<Origin>(59, 4)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>O1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
 			</Devices>
 			<Wires>
 				<Wire>
@@ -387,7 +363,7 @@
 							<Coord>(28, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(42, 5)</Coord>
+							<Coord>(32, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -404,30 +380,10 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(61, 5)</Coord>
+							<Coord>(32, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(62, 5)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(42, 5)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(61, 5)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(18, 5)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(14, 5)</Coord>
+							<Coord>(36, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

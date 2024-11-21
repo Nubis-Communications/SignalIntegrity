@@ -188,7 +188,7 @@ class Device(object):
             # attach any noise specified to the waveform
             if not self['noisefile'] == None:
                 noise_file=str(self['noisefile'].GetValue())
-                if noise_file != '':
+                if noise_file not in ['','None']:
                     noise_shape = si.fd.FrequencyResponse()
                     noise_shape.ReadFromFile(noise_file)
                     waveform.noise = noise_shape
