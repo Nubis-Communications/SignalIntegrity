@@ -143,8 +143,9 @@ class Simulator(object):
 
             def _PrecalculateImpulseReseponses():
                 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+                from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
                 return self.transferMatriceProcessor.PrecalculateImpulseResponses(
-                    [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in self.inputWaveformList])
+                    [wflm.td.Fs if (isinstance(wflm,Waveform) and not isinstance(wflm,DCWaveform)) else None for wflm in self.inputWaveformList])
 
             progressDialog = ProgressDialog(self.parent,"Impulse Responses",self.transferMatriceProcessor.TransferMatrices,_PrecalculateImpulseReseponses)
             try:
@@ -199,10 +200,23 @@ class Simulator(object):
             from SignalIntegrity.Lib.ToSI import ToSI
             import numpy as np
             if not noise is None:
-                fc=FrequencyContent(wf)
+                wffc=wf
+                if wffc.td.K//2*2 != wffc.td.K:
+                    import copy
+                    wffc=copy.deepcopy(wf)
+                    td=wffc.td
+                    td.K=td.K-1
+                    wffc=wffc.Adapt(td)
+                fc=FrequencyContent(wffc)
                 fd=fc.FrequencyList()
                 phase_list=np.exp(1j*np.random.uniform(0.,2*np.pi,size=len(fd)))
                 noise_content=noise.Resample(fd)
+                import matplotlib.pyplot as plt
+                # plt.cla()
+                # plt.plot(noise.Frequencies('GHz'),noise.Values('dB'),label=label+' before')
+                # plt.plot(noise_content.Frequencies('GHz'),noise_content.Values('dB'),label=label+' after')
+                # plt.legend()
+                # plt.show()
                 root_delta_f=np.sqrt(fd.Fe/fd.N)
                 for n in range(len(noise_content)):
                     fc[n]=noise_content[n]*root_delta_f*(0 if n in [0,fd.N] else phase_list[n])

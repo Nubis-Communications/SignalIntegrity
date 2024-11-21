@@ -1,7 +1,6 @@
 """
-__init__.py
+DCWaveform.py
 """
-from __future__ import absolute_import
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -19,13 +18,11 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .TimeDescriptor import *
-from .Waveform import *
-from .ImpulseResponse import *
-from .AdaptedWaveforms import *
-from .StepWaveform import *
-from .PulseWaveform import *
-from .SineWaveform import *
-from .NoiseWaveform import *
-from .DCWaveform import *
-from .ImpulseWaveform import *
+from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+
+class DCWaveform(Waveform):
+    def __init__(self,value):
+        Waveform.__init__(self)
+        list.__init__(self,[value])
+    def Value(self):
+        return self[0]

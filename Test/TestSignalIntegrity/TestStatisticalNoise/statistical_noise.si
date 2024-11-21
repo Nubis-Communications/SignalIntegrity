@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+104+104</Geometry>
+			<Geometry>1104x363+208+208</Geometry>
 			<Grid>14</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(10, 5)</Origin>
+						<Origin>(13, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -32,13 +32,13 @@
 						<PartProperty>
 							<Keyword>ho</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>-1e-08</Value>
+							<Value>-2e-08</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2e-08</Value>
+							<Value>4e-08</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -105,7 +105,7 @@
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>VG1</Value>
-							<Visible>False</Visible>
+							<Visible>True</Visible>
 						</PartProperty>
 					</PartProperties>
 				</Device>
@@ -134,7 +134,7 @@
 						<PartProperty>
 							<Keyword>ldbperhzpers</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>0.1</Value>
+							<Value>0.15</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -164,7 +164,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(11, 4)</Origin>
+						<Origin>(18, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -194,7 +194,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(27, 5)</Origin>
+						<Origin>(41, 5)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -222,7 +222,7 @@
 					<EyeDiagram>
 						<Alignment>
 							<AutoAlign>True</AutoAlign>
-							<BERForAlignment>-3</BERForAlignment>
+							<BERForAlignment>-6</BERForAlignment>
 							<BitsPerSymbol>2</BitsPerSymbol>
 							<Horizontal>Middle</Horizontal>
 							<Mode>Horizontal</Mode>
@@ -250,7 +250,7 @@
 							<Recover>False</Recover>
 							<TrimLeftRight>20</TrimLeftRight>
 						</ClockRecovery>
-						<Color>#ffffff</Color>
+						<Color>#e9efbe</Color>
 						<Columns>400</Columns>
 						<Decision>
 							<Mode>Mid</Mode>
@@ -296,7 +296,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(41, 4)</Origin>
+						<Origin>(62, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -356,55 +356,13 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceVoltageDCSource</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>270</Orientation>
-						<Origin>(36, 3)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>a</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>0.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>wftype</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>DC</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>show</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>false</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>VS1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceOpen</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>90</Orientation>
-						<Origin>(38, 4)</Origin>
+						<Origin>(59, 4)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -429,7 +387,7 @@
 							<Coord>(28, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(35, 5)</Coord>
+							<Coord>(42, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -439,27 +397,37 @@
 							<Coord>(24, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(15, 5)</Coord>
+							<Coord>(22, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(39, 5)</Coord>
+							<Coord>(61, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(40, 5)</Coord>
+							<Coord>(62, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(40, 5)</Coord>
+							<Coord>(42, 5)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(41, 5)</Coord>
+							<Coord>(61, 5)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(18, 5)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(14, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

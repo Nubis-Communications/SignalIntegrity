@@ -116,6 +116,9 @@ class Waveform(list):
         @throw SignalIntegrityExceptionWaveform if other cannot be added.
         @see AdaptedWaveforms
         """
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DCWaveform import DCWaveform
+        if isinstance(other,DCWaveform):
+            return Waveform(self.td,[v+other.Value() for v in self])
         if isinstance(other,Waveform):
             if self.td == other.td:
                 return Waveform(self.td,[self[k]+other[k] for k in range(len(self))])
