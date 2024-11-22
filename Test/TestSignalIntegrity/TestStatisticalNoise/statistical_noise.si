@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>112000000000.0</EndFrequency>
-		<FrequencyPoints>1120</FrequencyPoints>
-		<UserSampleRate>224000000000.0</UserSampleRate>
+		<EndFrequency>100000000000.0</EndFrequency>
+		<FrequencyPoints>1000</FrequencyPoints>
+		<UserSampleRate>2240000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>571x309+312+312</Geometry>
+			<Geometry>571x309+1948+57</Geometry>
 			<Grid>14</Grid>
 			<Originx>-9</Originx>
 			<Originy>4</Originy>
@@ -74,7 +74,7 @@
 						<PartProperty>
 							<Keyword>fs</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>224000000000.0</Value>
+							<Value>2240000000000.0</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -320,7 +320,7 @@
 						<PartProperty>
 							<Keyword>gain</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>2.0</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

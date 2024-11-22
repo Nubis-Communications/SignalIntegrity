@@ -255,6 +255,10 @@ class Simulator(object):
                             outputWaveform = outputWaveform - np.mean(outputWaveform)
                         if gain != 1.0 or offset != 0.0 or delay != 0.0:
                             outputWaveform = outputWaveform.DelayBy(delay)*gain+offset
+                            if outputWaveformLabel+'_noise' in (self.outputWaveformLabels+otherWaveformLabels):
+                                # apply the gain to the noise, as well
+                                noise_rms_list[noise_rms_label_list.index(outputWaveformLabel)]*=gain
+                                outputWaveformList[(self.outputWaveformLabels+otherWaveformLabels).index(outputWaveformLabel+'_noise')]*=gain
                         outputWaveformList[outputWaveformIndex]=outputWaveform
                         break
 
