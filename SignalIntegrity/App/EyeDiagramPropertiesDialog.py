@@ -230,6 +230,8 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.JitterSeconds.Show(jitterNoiseMode)
         self.JitterDeterministicPkS.Show(jitterNoiseMode)
         self.Noise.Show(jitterNoiseMode)
+        self.ExternalNoise.Show(jitterNoiseMode)
+        self.TotalNoise.Show(jitterNoiseMode)
         self.TotalNoise.UpdateStrings()
         self.MaxWindowWidthHeightPixels.Show(jitterNoiseMode)
         logIntensity=self.project['JitterNoise.LogIntensity.LogIntensity']
