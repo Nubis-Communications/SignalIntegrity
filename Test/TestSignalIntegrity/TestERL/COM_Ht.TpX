@@ -1,0 +1,35 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="rt_2080 10.0 ps" h="3" halign="l" lc="black"/>
+%  <text x="45.5" y="-25.5" t="H(s)" h="3" halign="c" lc="black"/>
+%  <rect x="42" y="-21" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">38.5,-24.5 42,-24.5</polyline>
+%  <text x="41.5" y="-23.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">52.5,-24.5 49,-24.5</polyline>
+%  <text x="49.5" y="-23.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="45.5" y="-18.25" t="=tx_filter (math.exp(-2*(math.pi*f*1e-11/1.6832)**2))" h="3" halign="c" lc="black"/>
+%  <text x="45.5" y="-15.25" t="H" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">33.25,-22.75 35,-24.5 33.25,-26.25</polyline>
+%  <polyline lc="black">38.5,-24.5 35,-24.5</polyline>
+%  <text x="33.25" y="-25.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">57.75,-22.75 56,-24.5 57.75,-26.25</polyline>
+%  <polyline lc="black">52.5,-24.5 56,-24.5</polyline>
+%  <text x="57.75" y="-25.5" t="2" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{rt\textunderscore 2080 10.0 ps};
+\draw[black] (45.5,-25.5) node[anchor=base]{H(s)};
+\path[line width=0.30mm, draw=black] (42,-28) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (38.5,-24.5) -- (42,-24.5);
+\draw[black] (41.5,-23.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (52.5,-24.5) -- (49,-24.5);
+\draw[black] (49.5,-23.5) node[anchor=base west]{2};
+\draw[black] (45.5,-18.25) node[anchor=base]{=tx\textunderscore filter (math.exp(-2*(math.pi*f*1e-11/1.6832)**2))};
+\draw[black] (45.5,-15.25) node[anchor=base]{H};
+\path[line width=0.30mm, draw=black] (33.25,-22.75) -- (35,-24.5) -- (33.25,-26.25);
+\path[line width=0.30mm, draw=black] (38.5,-24.5) -- (35,-24.5);
+\draw[black] (33.25,-25.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (57.75,-22.75) -- (56,-24.5) -- (57.75,-26.25);
+\path[line width=0.30mm, draw=black] (52.5,-24.5) -- (56,-24.5);
+\draw[black] (57.75,-25.5) node[anchor=base west]{2};
+\end{tikzpicture}%

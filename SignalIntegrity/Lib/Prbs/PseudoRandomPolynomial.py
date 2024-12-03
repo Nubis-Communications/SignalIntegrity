@@ -103,8 +103,20 @@ class PseudoRandomPolynomial(list):
         """
         order = self.Order()
         length=self.PatternLength() if bits == None else min(self.PatternLength(),bits)
-        pattern = [1 if k < order else 0 for k in range(length)]
-        for i in range(order,length):
-            pattern[i]=sum([self[order-p]*pattern[i-(order-p)] for p in range(order)])%2
+        taps=[]
+        for b in range(1,len(self)):
+            if self[b] == 1:
+                taps.append(b-1)
+
+        lfsr = [1] * order
+        pattern = []
+
+        for _ in range(length):
+            pattern.append(lfsr[-1])
+            feedback = 0
+            for tap in taps:
+                feedback ^= lfsr[tap]
+            lfsr = [feedback] + lfsr[:-1]
+
         pattern = [(b+1)%2 for b in pattern]
         return pattern

@@ -556,7 +556,7 @@ class ProjectFile(ProjectFileBase):
                         equations=self['Equations'].GetTextString()
                     returnargs=self.EvaluateSafely(equations,sendargs,returnargs)
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     return e
                 for variable in self['Variables.Items']:
                     if variable['ReadOnly'] and returnargs[variable['Name']] != None:

@@ -1,0 +1,131 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="Nbits 2.0 kbits" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="f_b 106.2 GBaud" h="3" halign="l" lc="black"/>
+%  <text x="38.5" y="-22" t="IR" h="3" halign="c" lc="black"/>
+%  <rect x="35" y="-17.5" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">31.5,-21 35,-21</polyline>
+%  <text x="34.5" y="-20" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">45.5,-21 42,-21</polyline>
+%  <text x="42.5" y="-20" t="2" h="3" halign="l" lc="black"/>
+%  <text x="38.5" y="-14.75" t="wffile ERL_Filter.txt" h="3" halign="c" lc="black"/>
+%  <text x="112" y="-25.5" t="Eye" h="3" halign="c" lc="black"/>
+%  <rect x="108.5" y="-21" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">105,-24.5 108.5,-24.5</polyline>
+%  <text x="112" y="-18.25" t="td 0 s" h="3" halign="c" lc="black"/>
+%  <text x="112" y="-15.25" t="br=f_b (106.2 GBaud)" h="3" halign="c" lc="black"/>
+%  <text x="112" y="-12.25" t="Vo1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">105.875,-20.125 104.125,-21.875</polyline>
+%  <polyline lc="black">105.875,-21.875 104.125,-20.125</polyline>
+%  <polyline lc="black">105,-24.5 105,-21</polyline>
+%  <polyline lc="black">74.594,-22.312 75.906,-22.312</polyline>
+%  <polyline lc="black">75.25,-21.656 75.25,-22.969</polyline>
+%  <polyline lc="black">74.594,-26.688 75.906,-26.688</polyline>
+%  <polyline lc="black">73.5,-17.5 84,-24.5 73.5,-31.5 73.5,-17.5</polyline>
+%  <polyline lc="black">70,-28 73.5,-28</polyline>
+%  <polyline lc="black">70,-21 73.5,-21</polyline>
+%  <polyline lc="black">87.5,-24.5 84,-24.5</polyline>
+%  <text x="77" y="-16.5" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="77" y="-13.5" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="77" y="-10.5" t="zo 0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">49,-42 59.5,-49 49,-56 49,-42</polyline>
+%  <polyline lc="black">45.5,-49 49,-49</polyline>
+%  <polyline lc="black">63,-49 59.5,-49</polyline>
+%  <text x="52.5" y="-41" t="gain -1.0 " h="3" halign="c" lc="black"/>
+%  <text x="52.5" y="-38" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="52.5" y="-35" t="zo 0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">59.5,-17.5 57.75,-19.25</polyline>
+%  <polyline lc="black">57.75,-19.25 56,-21</polyline>
+%  <text x="59.5" y="-16.5" t="V_error" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">26.25,-57.312 26.688,-57.312 27.562,-54.688 28.438,-54.688 29.312,-57.312 29.75,-57.312</polyline>
+%  <polyline lc="black">26.25,-54.688 26.688,-54.688 27.562,-57.312 28.438,-57.312 29.312,-54.688 29.75,-54.688</polyline>
+%  <ellipse x="28" y="-56" dx="7" dy="-7" lc="black"/>
+%  <polyline lc="black">27.344,-53.812 28.656,-53.812</polyline>
+%  <polyline lc="black">28,-53.156 28,-54.469</polyline>
+%  <polyline lc="black">27.344,-58.188 28.656,-58.188</polyline>
+%  <polyline lc="black">28,-59.5 28,-63</polyline>
+%  <polygon fill="black">25.667,-63 30.333,-63 28,-65.333 25.667,-63</polygon>
+%  <polyline lc="black">28,-49 28,-52.5</polyline>
+%  <text x="33.25" y="-72" t="ho=ho (-9.6 ns)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-69" t="dur=dur (19.2 ns)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-66" t="t0=st (-4.706 ps)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-63" t="br=f_b (106.2 GBaud)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-60" t="prbs=prbs (11)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-57" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">45.5,-21 56,-21</polyline>
+%  <polyline lc="black">105,-24.5 87.5,-24.5</polyline>
+%  <polyline lc="black">70,-28 70,-49</polyline>
+%  <polyline lc="black">70,-49 63,-49</polyline>
+%  <polyline lc="black">45.5,-49 28,-49</polyline>
+%  <polyline lc="black">56,-21 70,-21</polyline>
+%  <polyline lc="black">28,-49 28,-21</polyline>
+%  <polyline lc="black">28,-21 31.5,-21</polyline>
+%  <ellipse x="28" y="-49" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="56" y="-21" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="105" y="-24.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{Nbits 2.0 kbits};
+\draw[black] (1.75,-5.75) node[anchor=base west]{f\textunderscore b 106.2 GBaud};
+\draw[black] (38.5,-22) node[anchor=base]{IR};
+\path[line width=0.30mm, draw=black] (35,-24.5) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (31.5,-21) -- (35,-21);
+\draw[black] (34.5,-20) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (45.5,-21) -- (42,-21);
+\draw[black] (42.5,-20) node[anchor=base west]{2};
+\draw[black] (38.5,-14.75) node[anchor=base]{wffile ERL\textunderscore Filter.txt};
+\draw[black] (112,-25.5) node[anchor=base]{Eye};
+\path[line width=0.30mm, draw=black] (108.5,-28) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (105,-24.5) -- (108.5,-24.5);
+\draw[black] (112,-18.25) node[anchor=base]{td 0 s};
+\draw[black] (112,-15.25) node[anchor=base]{br=f\textunderscore b (106.2 GBaud)};
+\draw[black] (112,-12.25) node[anchor=base]{Vo1};
+\path[line width=0.30mm, draw=black] (105.875,-20.125) -- (104.125,-21.875);
+\path[line width=0.30mm, draw=black] (105.875,-21.875) -- (104.125,-20.125);
+\path[line width=0.30mm, draw=black] (105,-24.5) -- (105,-21);
+\path[line width=0.30mm, draw=black] (74.594,-22.312) -- (75.906,-22.312);
+\path[line width=0.30mm, draw=black] (75.25,-21.656) -- (75.25,-22.969);
+\path[line width=0.30mm, draw=black] (74.594,-26.688) -- (75.906,-26.688);
+\path[line width=0.30mm, draw=black] (73.5,-17.5) -- (84,-24.5) -- (73.5,-31.5) -- (73.5,-17.5);
+\path[line width=0.30mm, draw=black] (70,-28) -- (73.5,-28);
+\path[line width=0.30mm, draw=black] (70,-21) -- (73.5,-21);
+\path[line width=0.30mm, draw=black] (87.5,-24.5) -- (84,-24.5);
+\draw[black] (77,-16.5) node[anchor=base]{gain 1.0 };
+\draw[black] (77,-13.5) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (77,-10.5) node[anchor=base]{zo 0 ohm};
+\path[line width=0.30mm, draw=black] (49,-42) -- (59.5,-49) -- (49,-56) -- (49,-42);
+\path[line width=0.30mm, draw=black] (45.5,-49) -- (49,-49);
+\path[line width=0.30mm, draw=black] (63,-49) -- (59.5,-49);
+\draw[black] (52.5,-41) node[anchor=base]{gain -1.0 };
+\draw[black] (52.5,-38) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (52.5,-35) node[anchor=base]{zo 0 ohm};
+\path[line width=0.9mm, draw=black] (59.5,-17.5) -- (57.75,-19.25);
+\path[line width=0.30mm, draw=black] (57.75,-19.25) -- (56,-21);
+\draw[black] (59.5,-16.5) node[anchor=base west]{V\textunderscore error};
+\path[line width=0.30mm, draw=black] (26.25,-57.312) -- (26.688,-57.312) -- (27.562,-54.688) -- (28.438,-54.688) -- (29.312,-57.312) -- (29.75,-57.312);
+\path[line width=0.30mm, draw=black] (26.25,-54.688) -- (26.688,-54.688) -- (27.562,-57.312) -- (28.438,-57.312) -- (29.312,-54.688) -- (29.75,-54.688);
+\path[line width=0.30mm, draw=black] (28,-56) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (27.344,-53.812) -- (28.656,-53.812);
+\path[line width=0.30mm, draw=black] (28,-53.156) -- (28,-54.469);
+\path[line width=0.30mm, draw=black] (27.344,-58.188) -- (28.656,-58.188);
+\path[line width=0.30mm, draw=black] (28,-59.5) -- (28,-63);
+\path[line width=0.30mm, fill=black] (25.667,-63) -- (30.333,-63) -- (28,-65.333) -- (25.667,-63) -- cycle;
+\path[line width=0.30mm, draw=black] (28,-49) -- (28,-52.5);
+\draw[black] (33.25,-72) node[anchor=base west]{ho=ho (-9.6 ns)};
+\draw[black] (33.25,-69) node[anchor=base west]{dur=dur (19.2 ns)};
+\draw[black] (33.25,-66) node[anchor=base west]{t0=st (-4.706 ps)};
+\draw[black] (33.25,-63) node[anchor=base west]{br=f\textunderscore b (106.2 GBaud)};
+\draw[black] (33.25,-60) node[anchor=base west]{prbs=prbs (11)};
+\draw[black] (33.25,-57) node[anchor=base west]{a 1.0 V};
+\path[line width=0.30mm, draw=black] (45.5,-21) -- (56,-21);
+\path[line width=0.30mm, draw=black] (105,-24.5) -- (87.5,-24.5);
+\path[line width=0.30mm, draw=black] (70,-28) -- (70,-49);
+\path[line width=0.30mm, draw=black] (70,-49) -- (63,-49);
+\path[line width=0.30mm, draw=black] (45.5,-49) -- (28,-49);
+\path[line width=0.30mm, draw=black] (56,-21) -- (70,-21);
+\path[line width=0.30mm, draw=black] (28,-49) -- (28,-21);
+\path[line width=0.30mm, draw=black] (28,-21) -- (31.5,-21);
+\path[line width=0.30mm, draw=black, fill=black] (28,-49) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (56,-21) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (105,-24.5) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

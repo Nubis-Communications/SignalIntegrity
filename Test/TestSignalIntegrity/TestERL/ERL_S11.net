@@ -1,0 +1,14 @@
+var $file_name$ C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p
+var $port_reordering$ 1,2,3,4
+var $Zc$ 50.0
+device D1 4 file $file_name$ reorder $port_reordering$
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+connect MM1 1 D1 1
+connect D1 2 MM1 2
+connect D1 3 MM2 1
+connect MM2 2 D1 4
+port 1 td 0 MM1 3
+port 3 td 0 MM1 4
+port 2 td 0 MM2 3
+port 4 td 0 MM2 4

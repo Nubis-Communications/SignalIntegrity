@@ -38,6 +38,7 @@ from TestDwellTime import *
 from TestDescriptors import *
 from TestDeviceParser import *
 from TestEncryption import *
+from TestERL import *
 from TestExceptions import *
 from TestEyeDiagram import *
 from TestFilters import *

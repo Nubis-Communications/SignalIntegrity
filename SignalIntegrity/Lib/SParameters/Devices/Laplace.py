@@ -20,8 +20,6 @@
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
 
-import math,cmath
-
 class Laplace(SParameters):
     """Laplace domain equation"""
     def __init__(self,f,eq,Z0=50.):
@@ -33,9 +31,11 @@ class Laplace(SParameters):
         @param f float frequency
         @return laplace equation evaluated at f
         """
+        import math,cmath
+        import numpy as np
         Fs=2.*self.m_f[-1]
         Ts=1./Fs
-        pi=math.pi
+        pi=np.pi
         w=2*pi*f
         j=1j
         s=j*w

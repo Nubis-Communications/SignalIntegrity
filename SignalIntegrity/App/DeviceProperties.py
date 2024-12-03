@@ -547,7 +547,7 @@ class DeviceProperties(tk.Frame):
         self.focus()
         device=self.device
         referenceDesignator=device['ref'].GetValue()
-        import SignalIntegrity as si
+        import SignalIntegrity.Lib as si
         try:
             wf=device.Waveform()
         except si.SignalIntegrityException as e:

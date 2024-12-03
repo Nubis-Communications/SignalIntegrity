@@ -1,0 +1,6 @@
+var $rt_2080$ 10.0e-12
+var $rt$ 12.0e-12
+var $tx_filter$ math.exp(-2*(math.pi*f*1e-11/1.6832)**2)
+device H 2 laplace $tx_filter$
+port 1 td 0 H 1
+port 2 td 0 H 2

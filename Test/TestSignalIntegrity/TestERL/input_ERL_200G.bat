@@ -1,0 +1,1 @@
+..\..\..\SignalIntegrity\Utilities\ERL\ERL.py %1 -port_reorder 1,2,3,4 -T_r 10ps -beta_x 0GHz -rho_x 0.618 -N 800UI -N_bx 0 -Z0 100ohm -T_fx=-200ps -f_b 106.25GBaud -DER 1e-6 -v

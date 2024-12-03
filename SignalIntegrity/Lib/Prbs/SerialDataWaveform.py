@@ -59,6 +59,11 @@ class SerialDataWaveform(Waveform):
         T=max(risetime/self.rtvsT,1/td.Fs)
         patternTimeLength=len(pattern)/bitRate
         unitInterval=1./bitRate
+
+        if td.Fs == bitRate and risetime == 0.:
+            Waveform.__init__(self,Waveform(td,[2.*amplitude*(pattern[v]-0.5) for v in range(len(td))]))
+            return
+
         if T>unitInterval:
             # todo: would like to handle this case in the future
             raise SignalIntegrityExceptionWaveform('PRBS risetime too high\nfor waveform generation. '+\
