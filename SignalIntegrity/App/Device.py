@@ -537,8 +537,7 @@ class DeviceVoltageImpulseGenerator(Device):
             PartPropertyStartTime(),
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
-            PartPropertyWaveformType('impulse'),
-            PartPropertyNoiseFileName()]+propertiesList,
+            PartPropertyWaveformType('impulse')]+propertiesList,
             partPicture)
 
 class DeviceVoltagePRBSGenerator(Device):
