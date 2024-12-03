@@ -321,6 +321,21 @@ class PartPicture(object):
             p[4][0],p[4][1],
             p[5][0],p[5][1],
             fill=self.color)
+    def DrawImpulseSymbol(self,canvas,grid,drawingOrigin):
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        mx=(drawingOrigin[0]+self.origin[0]+1)*grid
+        my=(drawingOrigin[1]+self.origin[1]+2)*grid
+        p=[ct.Translate((mx-grid/2,my+3*grid/8)),
+            ct.Translate((mx-grid/4,my+3*grid/8)),
+            ct.Translate((mx,my-3*grid/8)),
+            ct.Translate((mx+grid/4,my+3*grid/8)),
+            ct.Translate((mx+grid/2,my+3*grid/8))]
+        canvas.create_line(p[0][0],p[0][1],
+            p[1][0],p[1][1],
+            p[2][0],p[2][1],
+            p[3][0],p[3][1],
+            p[4][0],p[4][1],
+            fill=self.color)
     def DrawPRBSSymbol(self,canvas,grid,drawingOrigin):
         ct=self.CoordinateTranslater(grid,drawingOrigin)
         mx=(drawingOrigin[0]+self.origin[0]+1)*grid
@@ -1193,6 +1208,17 @@ class PartPictureVariableVoltageSourcePulseGeneratorTwoPort(PartPictureVariable)
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourcePulseGeneratorTwoPort'],2)
 
+class PartPictureVoltageSourceImpulseGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawImpulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceImpulseGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceImpulseGeneratorTwoPort'],2)
+
 class PartPictureVoltageSourcePRBSGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -1273,6 +1299,17 @@ class PartPictureVariableVoltageSourcePulseGeneratorOnePort(PartPictureVariable)
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourcePulseGeneratorOnePort'],1)
 
+class PartPictureVoltageSourceImpulseGeneratorOnePort(PartPictureVoltageSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawImpulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureVoltageSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceImpulseGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceImpulseGeneratorOnePort'],1)
+
 class PartPictureVoltageSourcePRBSGeneratorOnePort(PartPictureVoltageSourceOnePort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -1342,6 +1379,17 @@ class PartPictureVariableCurrentSourcePulseGeneratorTwoPort(PartPictureVariable)
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourcePulseGeneratorTwoPort'],2)
 
+class PartPictureCurrentSourceImpulseGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawImpulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceImpulseGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceImpulseGeneratorTwoPort'],2)
+
 class PartPictureCurrentSourceSineGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureCurrentSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
@@ -1389,6 +1437,17 @@ class PartPictureCurrentSourcePulseGeneratorOnePort(PartPictureCurrentSourceOneP
 class PartPictureVariableCurrentSourcePulseGeneratorOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourcePulseGeneratorOnePort'],1)
+
+class PartPictureCurrentSourceImpulseGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawImpulseSymbol(self,canvas,grid,drawingOrigin)
+        PartPictureCurrentSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceImpulseGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceImpulseGeneratorOnePort'],1)
 
 class PartPictureCurrentSourceSineGeneratorOnePort(PartPictureCurrentSourceOnePort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

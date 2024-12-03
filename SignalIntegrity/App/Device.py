@@ -135,6 +135,9 @@ class Device(object):
                 pulseWidth=float(self['w'].GetValue())
                 risetime=float(self['rt'].GetValue())
                 waveform = si.td.wf.PulseWaveform(self.WaveformTimeDescriptor(),amplitude,startTime,pulseWidth,risetime)
+            elif wfType == 'impulse':
+                amplitude=float(self['a'].GetValue())
+                waveform = si.td.wf.ImpulseWaveform(self.WaveformTimeDescriptor(),amplitude,0.)
             elif wfType == 'prbs':
                 polynomial=int(self['prbs'].GetValue())
                 bitrate=float(self['br'].GetValue())
@@ -520,6 +523,24 @@ class DeviceVoltagePulseGenerator(Device):
             PartPropertyWaveformType('pulse')]+propertiesList,
             partPicture)
 
+class DeviceVoltageImpulseGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Impulse Generator'),
+            PartPropertyHelp('device:Voltage-Impulse-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('impulse'),
+            PartPropertyNoiseFileName()]+propertiesList,
+            partPicture)
+
 class DeviceVoltagePRBSGenerator(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
@@ -658,6 +679,22 @@ class DeviceCurrentPulseGenerator(Device):
             PartPropertySampleRate(),
             PartPropertyCurrentAmplitude(),
             PartPropertyWaveformType('pulse')]+propertiesList,partPicture)
+
+class DeviceCurrentImpulseGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='currentsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Impulse Generator'),
+            PartPropertyHelp('device:Current-Impulse-Generator'),
+            PartPropertyDefaultReferenceDesignator('CG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyCurrentAmplitude(),
+            PartPropertyWaveformType('impulse')]+propertiesList,partPicture)
 
 class DeviceCurrentSineGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1621,6 +1658,8 @@ DeviceList=Devices([
                 DeviceVoltageDCSource([PartPropertyDescription('Two Port Voltage DC Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('One Port Voltage Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePulseGeneratorOnePort()),
                 DeviceVoltagePulseGenerator([PartPropertyDescription('Two Port Voltage Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePulseGeneratorTwoPort()),
+                DeviceVoltageImpulseGenerator([PartPropertyDescription('One Port Voltage Impulse Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceImpulseGeneratorOnePort()),
+                DeviceVoltageImpulseGenerator([PartPropertyDescription('Two Port Voltage Impulse Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceImpulseGeneratorTwoPort()),
                 DeviceVoltagePRBSGenerator([PartPropertyDescription('One Port Voltage PRBS Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
                 DeviceVoltagePRBSGenerator([PartPropertyDescription('Two Port Voltage PRBS Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
                 DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription('One Port Voltage Multi Level Waveform Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
@@ -1637,6 +1676,8 @@ DeviceList=Devices([
                 DeviceCurrentDCSource([PartPropertyDescription('Two Port Current DC Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceTwoPort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('One Port Current Pulse Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourcePulseGeneratorOnePort()),
                 DeviceCurrentPulseGenerator([PartPropertyDescription('Two Port Current Pulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourcePulseGeneratorTwoPort()),
+                DeviceCurrentImpulseGenerator([PartPropertyDescription('One Port Current Impulse Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceImpulseGeneratorOnePort()),
+                DeviceCurrentImpulseGenerator([PartPropertyDescription('Two Port Current Impulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceImpulseGeneratorTwoPort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
                 Port(),
