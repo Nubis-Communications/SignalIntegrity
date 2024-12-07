@@ -775,8 +775,8 @@ class EqualizerTuner():
 
 
 if __name__ == "__main__":
-    target_fn = "ACC/ACCOut2"
-    ref_fn = 'ACC/ACCIdeal'
+    target_fn = "G:/My Drive/Sims/2024_03 ACC Sims/for amd/AMD_Archive/AMD_Vo1.txt"
+    ref_fn = "G:/My Drive/Sims/2024_03 ACC Sims/for amd/AMD_Archive/Vi.txt"
     invert = False
     blind = False
 
@@ -785,33 +785,39 @@ if __name__ == "__main__":
     #Info for equalization
     INIT_INDEX = 100 #Todo - shouldnt be specified
     NUM_SAMPLES = 1000
-    NUM_FFE_TAPS = 10
-    NUM_PRECURSOR = 0
+    NUM_FFE_TAPS = 30
+    NUM_PRECURSOR = 6
 
     #DFE_settings
     USE_DFE = False
     NUM_DFE_TAPS = 3
 
     #For blind
-    BaudRate = 56E9
+    BaudRate = 106E9
     clkRecovery = True
 
-    tuner = DaRxEqTuner(NUM_FFE_TAPS, NUM_PRECURSOR, USE_DFE, NUM_DFE_TAPS, 0.85, 4, 3, 30)
-    taps = np.zeros(30)
-    taps[27:30] = 1
-    taps[0:5] = 1
-    taps[15:18] = 1
+    tuner = EqualizerTuner(NUM_FFE_TAPS, NUM_PRECURSOR, USE_DFE, NUM_DFE_TAPS, 0.85)
+    tuner._UpsampleFactorReclock = 10
 
-    loc = tuner._determineFloatTapLocation(taps)
-
-    Vo = si.td.wf.Waveform().ReadFromFile(os.path.abspath(f"Projects/{target_fn}.txt"))
+    Vo = si.td.wf.Waveform().ReadFromFile(os.path.abspath(f"{target_fn}"))
 
     if (not blind):
-        Vref = si.td.wf.Waveform().ReadFromFile(os.path.abspath(f"Projects/{ref_fn}.txt"))
-        
-        #Scale and center ideal waveform
+        Vref = si.td.wf.Waveform().ReadFromFile(os.path.abspath(f"{ref_fn}"))
+        Decimation_factor = int(np.round(Vref.td.Fs / BaudRate))
+        max_var = 0
+        max_ind = 0
+        for i in range(Decimation_factor):
+            if (max_var < np.std(Vref[i::Decimation_factor])):
+                max_ind = i
+                max_var = np.std(Vref[i::Decimation_factor])
         scale = 1/((np.max(Vref) - np.min(Vref))/2)
-        Vref = si.td.wf.Waveform(Vref.td, [(x - np.mean(Vref))*scale for x in Vref])
+        Vref = si.td.wf.Waveform(Vref.td, [(x)*scale for x in Vref])
+        #Scale and center ideal waveform
+        dec_waveform = Vref[max_ind::Decimation_factor]
+        Vref = si.td.wf.Waveform(si.td.wf.TimeDescriptor(Vref.td.H,
+                                               len(dec_waveform),
+                                                Vref.td.Fs/Decimation_factor), dec_waveform) #Manually decimate device - assuming 0th index is correct "clock" index,
+
         Vequalized = tuner.TuneupTrained(Vo, Vref, Wvfm_Type, INIT_INDEX, NUM_SAMPLES, invert)
     else:
         Vequalized = tuner.TuneupBlind(Vo, Wvfm_Type, INIT_INDEX, NUM_SAMPLES, BaudRate, clkRecovery)
