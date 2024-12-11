@@ -126,6 +126,15 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         delay=0.
         wf=si.prbs.PseudoRandomWaveform(11,bitrate,amplitude,risetime,delay,bitrate*samplesPerUI)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
+    def testSSPRQWaveform(self):
+        risetime=300e-12
+        baudrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**16-1),baudrate*10.)
+        wf=si.prbs.SSPRQWaveform(baudrate,amplitude,risetime,delay,td)
+        self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
     def testPRBS93(self):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             prbsCalc=si.prbs.PseudoRandomPolynomial(93).Pattern()
@@ -158,6 +167,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),bitrate*10.)
         wf2=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,td)
         self.assertEqual(wf, wf2, 'prbs with time descriptor incorrect')
+    
     def testClockWaveform(self):
         clockRate=1.234e9
         risetime=200e-12

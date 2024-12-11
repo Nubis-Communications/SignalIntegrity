@@ -24,3 +24,4 @@ from .PseudoRandomWaveform import PseudoRandomWaveform
 from .SerialDataWaveform import SerialDataWaveform
 from .ClockWaveform import ClockWaveform
 from .MultiLevelWaveform import MultiLevelWaveform
+from .SSPRQWaveform import SSPRQWaveform
