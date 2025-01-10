@@ -73,6 +73,9 @@ class Simulator(object):
     def _ProcessWaveforms(self,callback=None):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList)
 
+    def _ProcessNoise(self,callback=None):
+        return self.transferMatriceProcessor.ProcessNoise(self.inputNoiseList)
+
     def Simulate(self,TransferMatricesOnly=False):
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
@@ -163,6 +166,15 @@ class Simulator(object):
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
+
+            self.inputNoiseList = [wf.noise if hasattr(wf,'noise') else None for wf in self.inputWaveformList]
+            if any([not noise is None for noise in self.inputNoiseList]):
+                progressDialog=ProgressDialog(self.parent,"Noise Processing",self.transferMatriceProcessor,self._ProcessNoise)
+                try:
+                    outputNoiseList = progressDialog.GetResult()
+                except si.SignalIntegrityException as e:
+                    messagebox.showerror('Simulator',e.parameter+': '+e.message)
+                    return
 
             for r in range(len(outputWaveformList)):
                 if self.outputWaveformLabels[r][:3]=='di/' or self.outputWaveformLabels[r][:2]=='i/':

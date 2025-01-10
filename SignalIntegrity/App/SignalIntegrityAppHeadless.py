@@ -323,6 +323,13 @@ class SignalIntegrityAppHeadless(object):
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 
+            inputNoiseList = [wf.noise if hasattr(wf,'noise') else None for wf in inputWaveformList]
+            if any([not noise is None for noise in inputNoiseList]):
+                try:
+                    outputNoiseList = transferMatricesProcessor.ProcessNoise(inputNoiseList)
+                except si.SignalIntegrityException as e:
+                    return None
+
             for r in range(len(outputWaveformList)):
                 if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='i/':
                     #print 'integrate: '+outputWaveformLabels[r]

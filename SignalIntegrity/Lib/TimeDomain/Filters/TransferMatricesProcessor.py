@@ -102,18 +102,33 @@ class TransferMatricesProcessor(CallBacker):
                 for wf in acc:
                     if hasattr(wf, 'noise'):
                         noise_list.append(wf.noise)
-                # import matplotlib.pyplot as plt
-                # for ni in range(len(noise_list)):
-                #     plt.plot(noise_list[ni].Frequencies('GHz'),noise_list[ni].Values('dB'),label=str(ni))
-                # plt.legend()
-                # plt.show()
                 result[-1].noise = noise_list[0]
                 for noise in noise_list[1:]:
                     for fi in range(len(noise)):
                         import numpy as np
                         result[-1].noise[fi] = np.sqrt(abs(result[-1].noise[fi])**2 + abs(noise[fi])**2)
-                # plt.cla()
-                # plt.plot(result[-1].noise.Frequencies('GHz'),result[-1].noise.Values('dB'),label='sum')
-                # plt.show()
             # pragma: include
+        return result
+    def ProcessNoise(self,noisel):
+        """processes input waveforms and produces output waveforms
+        @param noisel list of noise spectral density input waveforms to process.
+        These should map to the input waveform list, and contain None where there is no noise.
+        @remark Externally, the order of the input and output waveforms are known.  The
+        input waveforms must be provided in that order and the output waveforms are
+        produced in that order.
+        """
+        fr = self.TransferMatrices.FrequencyResponses()
+        result=[]
+        for o in range(len(fr)):
+            acc=[]
+            for i in range(len(fr[o])):
+                if noisel[i] is None:
+                    acc.append(None)
+                else:
+                    acc.append(noisel[i].Resample(fr[o][i].FrequencyList()) * fr[o][i])
+                if self.HasACallBack():
+                    progress=(float(o)/len(fr)+float(i)/(len(fr)*len(fr[o])))*100.0
+                    if not self.CallBack(progress):
+                        raise SignalIntegrityExceptionSimulator('calculation aborted')
+            result.append(acc)
         return result
