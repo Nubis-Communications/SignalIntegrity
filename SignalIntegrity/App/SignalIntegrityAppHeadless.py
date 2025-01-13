@@ -29,6 +29,7 @@ from SignalIntegrity.App.EyeDiagram import EyeDiagram
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 import SignalIntegrity.App.Project
+from SignalIntegrity.App.Result import Result
 
 class ProjectStack(object):
     def __init__(self):
@@ -223,15 +224,16 @@ class SignalIntegrityAppHeadless(object):
         import SignalIntegrity.Lib as si
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('s-parameters',None)
         if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
             try:
-                sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)
+                sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True).Legacy()
             except si.SignalIntegrityException as e:
-                return None
-            return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+                return Result('s-parameters',None)
+            return Result('s-parameters',{'s-parameters':sp,
+                                          'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p')})
         elif not self.Drawing.canCalculateSParameters:
-            return None
+            return Result('s-parameters',None)
         netListText=self.NetListText()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -249,8 +251,9 @@ class SignalIntegrityAppHeadless(object):
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
-            return None
-        return (sp,self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'))
+            return Result('s-parameters',None)
+        return Result('s-parameters',{'s-parameters':sp,
+                                      'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p')})
 
     def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):
@@ -258,9 +261,9 @@ class SignalIntegrityAppHeadless(object):
         if self.Drawing.canSimulateNetworkAnalyzerModel:
             return self.SimulateNetworkAnalyzerModel(callback,SParameters=False)
         elif not self.Drawing.canSimulate:
-            return None
+            return Result('simulation',None)
         netList=self.Drawing.schematic.NetList()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('simulation',None)
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
@@ -279,19 +282,22 @@ class SignalIntegrityAppHeadless(object):
             try:
                 transferMatrices=snp.TransferMatrices()
             except si.SignalIntegrityException as e:
-                return None
+                return Result('simulation',None)
 
             outputWaveformLabels=netList.OutputNames()
             sourceNames=netList.SourceNames()
 
             if TransferMatricesOnly:
-                return (sourceNames,outputWaveformLabels,transferMatrices)
+                return Result('simulation',
+                              {'source names':sourceNames,
+                               'output waveform labels':outputWaveformLabels,
+                               'transfer matrices':transferMatrices})
 
             self.Drawing.schematic.InstallCallback(callback)
             try:
                 inputWaveformList=self.Drawing.schematic.InputWaveforms()
             except si.SignalIntegrityException as e:
-                return None
+                return Result('simulation',None)
 
             diresp=None
             for r in range(len(outputWaveformLabels)):
@@ -313,7 +319,7 @@ class SignalIntegrityAppHeadless(object):
             try:
                 outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
             except si.SignalIntegrityException as e:
-                return None
+                return Result('simulation',None)
 
             for r in range(len(outputWaveformList)):
                 if outputWaveformLabels[r][:3]=='di/' or outputWaveformLabels[r][:2]=='i/':
@@ -342,7 +348,7 @@ class SignalIntegrityAppHeadless(object):
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
-            return None
+            return Result('simulation',None)
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
@@ -374,7 +380,10 @@ class SignalIntegrityAppHeadless(object):
                 for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
         outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
         if not EyeDiagrams:
-            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+            return Result('simulation',{'source names':sourceNames,
+                          'output waveform labels':outputWaveformLabels,
+                          'transfer matrices':transferMatrices,
+                          'output waveforms':outputWaveformList})
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
@@ -400,11 +409,16 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram.config=eye['Config']
             eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
             eyeDiagrams.append(eyeDiagram)
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagrams)
+        return Result('simulation',{'source names':sourceNames,
+                                    'output waveform labels':outputWaveformLabels,
+                                    'transfer matrices':transferMatrices,
+                                    'output waveforms':outputWaveformList,
+                                    'eye diagram labels':eyeDiagramLabels,
+                                    'eye diagrams':eyeDiagrams})
 
     def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         netList=self.Drawing.schematic.NetList()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('virtual probe',None)
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
         cacheFileName=None
@@ -421,13 +435,16 @@ class SignalIntegrityAppHeadless(object):
         try:
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
-            return None
+            return Result('virtual probe',None)
 
         sourceNames=netList.MeasureNames()
         outputWaveformLabels=netList.OutputNames()
 
         if TransferMatricesOnly:
-            return (sourceNames,outputWaveformLabels,transferMatrices)
+            return Result('virtual probe',
+                          {'source names':sourceNames,
+                           'output waveform labels':outputWaveformLabels,
+                           'transfer matrices':transferMatrices})
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
@@ -440,7 +457,7 @@ class SignalIntegrityAppHeadless(object):
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
         except si.SignalIntegrityException as e:
-            return None
+            return Result('virtual probe',None)
 
         try:
             otherWaveformsTemp=self.Drawing.schematic.OtherWaveforms()
@@ -459,7 +476,7 @@ class SignalIntegrityAppHeadless(object):
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
-            return None
+            return Result('virtual probe',None)
 
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
@@ -485,7 +502,10 @@ class SignalIntegrityAppHeadless(object):
                 for wf in outputWaveformList]
         outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
         if not EyeDiagrams:
-            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+            return Result('virtual probe',{'source names':sourceNames,
+                                        'output waveform labels':outputWaveformLabels,
+                                        'transfer matrices':transferMatrices,
+                                        'output waveforms':outputWaveformList})
 
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
@@ -511,24 +531,29 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram.baudrate=eye['BaudRate']
             eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
             eyeDiagrams.append(eyeDiagram)
-        return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList,eyeDiagramLabels,eyeDiagrams)
+        return Result('virtual probe',{'source names':sourceNames,
+                                    'output waveform labels':outputWaveformLabels,
+                                    'transfer matrices':transferMatrices,
+                                    'output waveforms':outputWaveformList,
+                                    'eye diagram labels':eyeDiagramLabels,
+                                    'eye diagrams':eyeDiagrams})
 
     def TransferParameters(self,callback=None,):
         if not hasattr(self.Drawing,'canGenerateTransferMatrices'):
             self.Drawing.DrawSchematic()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('simulation',None)
         if not self.Drawing.canGenerateTransferMatrices:
-            return None
+            return Result('simulation',None)
         if self.Drawing.canSimulate:
             return self.Simulate(callback,TransferMatricesOnly=True)
         elif self.Drawing.canVirtualProbe:
             return self.VirtualProbe(callback,TransferMatricesOnly=True)
         else:
-            return None
+            return Result('simulation',None)
 
     def Deembed(self,callback=None):
         netListText=self.NetListText()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('de-embed',None)
         import SignalIntegrity.Lib as si
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
@@ -545,13 +570,14 @@ class SignalIntegrityAppHeadless(object):
         try:
             sp=dnp.Deembed()
         except si.SignalIntegrityException as e:
-            return None
+            return Result('de-embed',None)
 
         unknownNames=dnp.m_sd.UnknownNames()
         if len(unknownNames)==1:
             sp=[sp]
 
-        return (unknownNames,sp)
+        return Result('de-embed',{'unknown names':unknownNames,
+                                  's-parameters':sp})
 
         filename=[]
         for u in range(len(unknownNames)):
@@ -559,14 +585,16 @@ class SignalIntegrityAppHeadless(object):
             filename=unknownNames[u]+extension
             if self.fileparts.filename != '':
                 filename.append(self.fileparts.filename+'_'+filename)
-        return (unknownNames,sp,filename)
+        return Result('de-embed',{'unknown names':unknownNames,
+                                  's-parameters':sp,
+                                  'file name':filename})
 
     def CalculateErrorTerms(self,callback=None):
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('error terms',None)
         if not self.Drawing.canCalculateErrorTerms:
-            return None
+            return Result('error terms',None)
         netList=self.Drawing.schematic.NetList()
         netListText=self.NetListText()
         import SignalIntegrity.Lib as si
@@ -583,8 +611,9 @@ class SignalIntegrityAppHeadless(object):
         try:
             cal=etnp.CalculateCalibration()
         except si.SignalIntegrityException as e:
-            return None
-        return (cal,self.fileparts.FullFilePathExtension('cal'))
+            return Result('error terms',None)
+        return Result('error terms',{'error terms':cal,
+                                     'file names':self.fileparts.FullFilePathExtension('cal')})
 
     def Device(self,ref):
         """
@@ -605,7 +634,7 @@ class SignalIntegrityAppHeadless(object):
 
     def SimulateNetworkAnalyzerModel(self,callback=None,SParameters=False):
         netList=self.Drawing.schematic.NetList().Text()
-        if not self.CheckEquations(): return None
+        if not self.CheckEquations(): return Result('network analyzer',None)
         import SignalIntegrity.Lib as si
         fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
@@ -619,7 +648,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             (DUTSp,NetworkAnalyzerProjectFile)=spnp.SParameters()
         except si.SignalIntegrityException as e:
-            return None
+            return Result('network analyzer',None)
         netListText=None
         if NetworkAnalyzerProjectFile != None:
             level=SignalIntegrityAppHeadless.projectStack.Push()
@@ -647,7 +676,7 @@ class SignalIntegrityAppHeadless(object):
             netListText=self.NetListText()
 
         if netListText==None:
-            return None
+            return Result('network analyzer',None)
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
@@ -661,7 +690,7 @@ class SignalIntegrityAppHeadless(object):
             os.chdir(FileParts(os.path.abspath(NetworkAnalyzerProjectFile)).AbsoluteFilePath())
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
-            return None
+            return Result('network analyzer',None)
         finally:
             SignalIntegrityAppHeadless.projectStack.Pull(level)
 
@@ -731,7 +760,7 @@ class SignalIntegrityAppHeadless(object):
             for port in range(len(self.wflist)):
                 outputwflist.append(self.transferMatricesProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
         except si.SignalIntegrityException as e:
-            return None
+            return Result('network analyzer',None)
         #
         # The list of list of input waveforms have been processed processed, generating a list of list of output waveforms in 
         # self.outputwflist.  The names of the output waveforms are in snp.m_sd.pOutputList.
@@ -794,7 +823,10 @@ class SignalIntegrityAppHeadless(object):
                     outputWaveformLabels.append('B'+str(portConnections[r]+1)+str(portConnections[vli]+1))
 
         if not SParameters:
-            return (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)
+            return Result('network analyzer',{'source names':sourceNames,
+                          'output waveform labels':outputWaveformLabels,
+                          'transfer matrices':transferMatrices,
+                          'output waveforms':outputWaveformList})
         else:
             # waveforms are adapted this way to give the horizontal offset that it already has closest to
             #-5 ns, with the correct number of points without resampling the waveform in any way.
@@ -824,7 +856,7 @@ class SignalIntegrityAppHeadless(object):
                 A=[[Afc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
                 data[n]=(array(B).dot(inv(array(A)))).tolist()
             sp=si.sp.SParameters(frequencyList,data)
-            return sp
+            return Result('network analyzer',{'s-parameters':sp})
 
     def Archive(self,overrideExistance=True):
         self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
@@ -899,15 +931,15 @@ def ProjectSParameters(filename,callback,**kwargs):
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
                 if not result is None:
-                    sp=result
+                    sp=result['s-parameters']
             if app.Drawing.canCalculateSParameters:
                 result=app.CalculateSParameters(callback)
                 if not result is None:
-                    sp=result[0]
+                    sp=result['s-parameters']
             elif app.Drawing.canDeembed:
                 result=app.Deembed(callback)
                 if not result is None:
-                    sp=result[1][0]
+                    sp=result['s-parameters'][0]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
@@ -932,9 +964,8 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
             elif app.Drawing.canVirtualProbe:
                 result=app.VirtualProbe(callback)
             if not result is None:
-                (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=result
-                if wfname in outputWaveformLabels:
-                    wf=outputWaveformList[outputWaveformLabels.index(wfname)]
+                if wfname in result['output waveform labels']:
+                    wf=result['output waveforms'][result['output waveform labels'].index(wfname)]
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
@@ -954,7 +985,7 @@ def ProjectCalibration(filename,callback,**kwargs):
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateErrorTerms:
-                result=app.CalculateErrorTerms(callback)[0]
+                result=app.CalculateErrorTerms(callback)['error terms']
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)

@@ -106,10 +106,12 @@ def ERL(filename,args,debug=False,verbose=False):
         raise ERL_Exception('error: project file ERL_S11_Impulse.si could not be opened')
 
     result = siapp.Simulate()
-    if result is None:
+    if result == {}:
         raise ERL_Exception('error: project file ERL_S11_Impulse.si could not be simulated')
 
-    (_, outputWaveformLabels, _, outputWaveformList) = result
+    outputWaveformLabels = result['output waveform labels']
+    outputWaveformList = result['output waveforms']
+
     PTDR_wf = outputWaveformList[outputWaveformLabels.index('PTDR')]
 
     def G_rr(t):
@@ -220,10 +222,12 @@ def ERL(filename,args,debug=False,verbose=False):
         raise ERL_Exception('error: project file ERL_S11_Error.si could not be opened')
 
     result = siapp.Simulate()
-    if result is None: # pragma: no cover
+    if result == {}: # pragma: no cover
         raise ERL_Exception('error: project file ERL_S11_Error.si could not be simulated')
 
-    (_, outputWaveformLabels, _, outputWaveformList) = result
+    outputWaveformLabels=result['output waveform labels']
+    outputWaveformList=result['output waveforms']
+
     error_wf = outputWaveformList[outputWaveformLabels.index('V_error')]
 
     sigma=np.std(error_wf)

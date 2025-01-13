@@ -3,7 +3,7 @@ def ZeroForcingEqualizer(project,waveform,bitrate,value,pre,taps):
     from numpy.linalg import inv
     app=SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)
-    (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
+    (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
     pulsewf=outputWaveformList[outputWaveformLabels.index(waveform)]
     delay=pulsewf.td.TimeOfPoint(pulsewf.Values().index(max(pulsewf.Values())))
     print('delay: '+str(delay))

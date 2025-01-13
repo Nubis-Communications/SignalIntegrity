@@ -182,7 +182,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def testEqualizerFit(self):
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
+        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
         prbswf=outputWaveformList[outputWaveformLabels.index('Vdiff')]
         H=prbswf.td.H; bitrate=5e9; ui=1./bitrate
         dH=int(H/ui)*ui-56e-12+ui
@@ -212,7 +212,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
+        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
         prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
         ui=1./bitrate; times=prbswf.Times()
         timesInBit=[((t-delay)/3./ui-int((t-delay)/3./ui))*3.*ui for t in times]
@@ -269,7 +269,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         from numpy.linalg import inv
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
+        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
         pulsewf=outputWaveformList[outputWaveformLabels.index(waveform)]
         delay=pulsewf.td.TimeOfPoint(pulsewf.Values().index(max(pulsewf.Values())))
         print('delay: '+str(delay))

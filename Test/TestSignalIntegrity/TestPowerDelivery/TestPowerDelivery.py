@@ -37,7 +37,7 @@ class TestPowerDeliveryTest(unittest.TestCase):
     def testPowerDelivery(self):
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('PowerDelivery.si')
-        res=proj.Simulate()
+        res=proj.Simulate().Legacy()
         vgnames=res[0]
         onames=res[1]
         TM=res[2][0]

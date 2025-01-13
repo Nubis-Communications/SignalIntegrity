@@ -246,7 +246,7 @@ class SignalIntegrityAppTestHelper:
         return pysi
     def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist, args, archive)
-        result=pysi.CalculateSParameters()
+        result=pysi.CalculateSParameters().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         spfilename=result[1]
@@ -257,7 +257,7 @@ class SignalIntegrityAppTestHelper:
         return result
     def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True, args={}):
         pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args)
-        result=pysi.CalculateErrorTerms()
+        result=pysi.CalculateErrorTerms().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         calfilename=result[1]
@@ -267,7 +267,7 @@ class SignalIntegrityAppTestHelper:
         return result
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False, max_wf_error=0):
         pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
-        result=pysi.Simulate()
+        result=pysi.Simulate().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         sourceNames=result[0]
@@ -291,7 +291,7 @@ class SignalIntegrityAppTestHelper:
         return result
     def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.TransferParameters()
+        result=pysi.TransferParameters().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         self.assertEqual(len(result),3,'wrong number of results')
@@ -432,7 +432,7 @@ class SignalIntegrityAppTestHelper:
 
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.Simulate(EyeDiagrams=True)
+        result=pysi.Simulate(EyeDiagrams=True).Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         sourceNames=result[0]
@@ -470,7 +470,7 @@ class SignalIntegrityAppTestHelper:
         return result
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.VirtualProbe()
+        result=pysi.VirtualProbe().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         measNames=result[0]
@@ -492,7 +492,7 @@ class SignalIntegrityAppTestHelper:
             self.WaveformRegressionChecker(wf, wffilename)
     def DeembeddingResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.Deembed()
+        result=pysi.Deembed().Legacy()
         self.assertIsNotNone(result, filename+' produced none')
         os.chdir(self.path)
         spfilenames=result[0]

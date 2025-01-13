@@ -218,7 +218,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName]=sp
         simName='Gamma2'
         print(simName)
@@ -230,7 +230,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName]=sp
         simName='Fixture1'
         print(simName)
@@ -242,7 +242,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName]=sp
         simName='Fixture2'
         print(simName)
@@ -254,7 +254,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName]=sp
         simName='Thru'
         print(simName)
@@ -266,7 +266,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName]=sp
         simName='Short'
         print(simName)
@@ -278,7 +278,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
         simName='Open'
@@ -291,7 +291,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
         simName='Load'
@@ -304,7 +304,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
         Project['CalculationProperties'].CalculateOthersFromBaseInformation()
         spProj.SaveProjectToFile(projName)
-        (sp,name)=spProj.CalculateSParameters()
+        (sp,name)=spProj.CalculateSParameters().Legacy()
         resDict[simName+'1']=sp.PortReorder([0])
         resDict[simName+'2']=sp.PortReorder([1])
         print('TDR Simulations')
@@ -313,21 +313,21 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         Project = SignalIntegrity.App.Project
         print(simName)
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
+        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate().Legacy()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=SignalIntegrityAppHeadless()
         simName=projName='Open'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         Project = SignalIntegrity.App.Project
         print(simName)
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
+        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate().Legacy()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=SignalIntegrityAppHeadless()
         simName=projName='Load'
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         Project = SignalIntegrity.App.Project
         print(simName)
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
+        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate().Legacy()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=SignalIntegrityAppHeadless()
         projName='Thru'
@@ -335,7 +335,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         Project = SignalIntegrity.App.Project
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
+        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate().Legacy()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         tdrsim=SignalIntegrityAppHeadless()
         projName='Thru'
@@ -343,7 +343,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         tdrsim.OpenProjectFile('TDRSimulation'+simName+'.si')
         Project = SignalIntegrity.App.Project
-        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate()
+        (sourceNames,outputWaveformLabels,transferMatrices,outputWaveformList)=tdrsim.Simulate().Legacy()
         resDict.update(dict(zip([simName+label for label in outputWaveformLabels],outputWaveformList)))
         print('converting TDR')
         self.tdr=si.m.tdr.TDRWaveformToSParameterConverter(Step=False,fd=self.fd)
