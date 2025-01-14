@@ -36,7 +36,6 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
         si.test.RoutineWriterTesterHelper.__init__(self)
-
     def setUp(self):
         unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
@@ -83,10 +82,10 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -101,22 +100,22 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
             for thruPorts in thruConnection:
                 port1Name=str(thruPorts[0])
-                port2Name=str(thruPorts[1])                
+                port2Name=str(thruPorts[1])
                 A11=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 A21=fr[outputNames.index('AThru'+thruConnectionName+'_'+port2Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 B11=fr[outputNames.index('BThru'+thruConnectionName+'_'+port1Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 B21=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 port2Name=str(thruPorts[1])
-                port1Name=str(thruPorts[0])                
+                port1Name=str(thruPorts[0])
                 A22=fr[outputNames.index('AThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 A12=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B22=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
@@ -126,10 +125,10 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                                                     for n in range(len(f))])
 
         result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         fr=transferMatrices.FrequencyResponses()
 
@@ -221,10 +220,10 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -239,22 +238,22 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         for thruConnection in thruConnections:
             thruConnectionName=str(thruConnection[0][0])+str(thruConnection[0][1])+str(thruConnection[1][0])+str(thruConnection[1][1])
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+thruConnectionName+'.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
             for thruPorts in thruConnection:
                 port1Name=str(thruPorts[0])
-                port2Name=str(thruPorts[1])                
+                port2Name=str(thruPorts[1])
                 A11=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 A21=fr[outputNames.index('AThru'+thruConnectionName+'_'+port2Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 B11=fr[outputNames.index('BThru'+thruConnectionName+'_'+port1Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 B21=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port1Name)][sourceNames.index('VG'+port1Name)]
                 port2Name=str(thruPorts[1])
-                port1Name=str(thruPorts[0])                
+                port1Name=str(thruPorts[0])
                 A22=fr[outputNames.index('AThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 A12=fr[outputNames.index('AThru'+thruConnectionName+'_'+port1Name+port2Name)][sourceNames.index('VG'+port2Name)]
                 B22=fr[outputNames.index('BThru'+thruConnectionName+'_'+port2Name+port2Name)][sourceNames.index('VG'+port2Name)]
@@ -264,10 +263,10 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
                                                     for n in range(len(f))])
 
         result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         fr=transferMatrices.FrequencyResponses()
 

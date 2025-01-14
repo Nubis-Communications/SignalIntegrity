@@ -72,7 +72,7 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
     def testSignalIntegrityAppExamplesRLCTest2(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2.si')
     def testSignalIntegrityAppExamplesRLCTestSP(self):
-        sp=self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2SP.si')[0]
+        sp=self.SParameterResultsChecker('../../../SignalIntegrity/App/Examples/RLCTest2SP.si')['s-parameters']
         spref=si.sp.SParameters(sp.m_f,[si.cvt.ReferenceImpedance(s,[0.0000001,5000000,5000000]) for s in sp])
     def testSignalIntegrityAppDeembedCableFilter(self):
         self.DeembeddingResultsChecker('../../../SignalIntegrity/App/Examples/DeembedCableFilter.si')
@@ -105,20 +105,20 @@ class TestSignalIntegrityAppTest(unittest.TestCase,si.test.SParameterCompareHelp
     def testSignalIntegrityAppProjectWaveformExampleBad(self):
         filename='TestWaveformBad.si'
         pysi=self.Preliminary(filename)
-        result=pysi.Simulate().Legacy()
-        self.assertIsNone(result, filename+' produced something - this is unexpected')
+        result=pysi.Simulate()
+        self.assertEqual(result,{},filename+' produced something - this is unexpected')
     def testSignalIntegrityAppProjectSParametersExample(self):
         self.SParameterResultsChecker('TestSParametersGood.si')
     def testSignalIntegrityAppProjectSParameterExampleBad(self):
         filename='TestSParametersBad.si'
         pysi=self.Preliminary(filename)
-        result=pysi.CalculateSParameters().Legacy()
-        self.assertIsNone(result, filename+' produced something - this is unexpected')
+        result=pysi.CalculateSParameters()
+        self.assertEqual(result,{},filename+' produced something - this is unexpected')
     def testSignalIntegrityAppProjectSParameterExampleBadPorts(self):
         filename='TestSParametersBadPorts.si'
         pysi=self.Preliminary(filename)
-        result=pysi.CalculateSParameters().Legacy()
-        self.assertIsNone(result, filename+' produced something - this is unexpected')
+        result=pysi.CalculateSParameters()
+        self.assertEqual(result,{},filename+' produced something - this is unexpected')
     def testSignalIntegrityAppExamplesStepGeneratorTest(self):
         self.SimulationResultsChecker('../../../SignalIntegrity/App/Examples/StepGeneratorTest.si')
     def testSignalIntegrityAppSignalIntegrityBookMeasurementTDRSimulationTest(self):

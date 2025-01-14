@@ -37,10 +37,10 @@ class TestPowerDeliveryTest(unittest.TestCase):
     def testPowerDelivery(self):
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('PowerDelivery.si')
-        res=proj.Simulate().Legacy()
-        vgnames=res[0]
-        onames=res[1]
-        TM=res[2][0]
+        res=proj.Simulate()
+        vgnames=res['source names']
+        onames=res['output waveform labels']
+        TM=res['transfer matrices'][0]
         V=[[None],[None]]
         V[vgnames.index('VG1')][0]=(-1+random()*2.)+1j*(-1+random()*2.)
         V[vgnames.index('VG2')][0]=(-1+random()*2.)+1j*(-1+random()*2.)

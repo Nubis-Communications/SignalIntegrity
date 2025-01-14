@@ -1269,10 +1269,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testTDRSimulationSOL(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOL.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
 
@@ -1322,10 +1322,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testTDRSimulationSOLT(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnly.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
 
@@ -1476,10 +1476,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testTDRSimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
 
@@ -1643,10 +1643,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testTDRSimulationSOLTTwoPortEQ(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTVOnlyUnbalanced.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         tdrWaveforms=dict(zip(outputNames,outputWaveforms))
 
@@ -1873,10 +1873,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testVNASimulationSOLT(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         fr=transferMatrices.FrequencyResponses()
 
@@ -1973,10 +1973,10 @@ class TestTDRTwoPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
 
     def testVNASimulationSOLT2(self):
         result = self.GetSimulationResultsCheck('TDRSimulationSOLTUnbalanced.si')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
 
         fr=transferMatrices.FrequencyResponses()
 

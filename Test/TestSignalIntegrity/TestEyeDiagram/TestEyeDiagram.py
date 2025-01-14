@@ -78,7 +78,7 @@ class TestEyeDiagramTest(unittest.TestCase,
         self.SimulationTransferMatricesResultsChecker('EyeDiagramTestJitterNoiseLog.si')
     def testMatPlotLib(self):
         result=self.SimulationEyeDiagramResultsChecker('EyeDiagramTest.si')
-        eyeDiagrams=result[5]
+        eyeDiagrams=result['eye diagrams']
         eyeDiagramImages=[ed.Image() for ed in eyeDiagrams]
         eyeDiagramBitmaps=[ed.BitMap() for ed in eyeDiagrams]
     def testEyeDiagramNonlinear(self):

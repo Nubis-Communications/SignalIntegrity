@@ -78,10 +78,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -107,10 +107,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -131,10 +131,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -193,10 +193,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -222,10 +222,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -246,10 +246,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -309,10 +309,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -338,10 +338,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -362,10 +362,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -425,10 +425,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -454,10 +454,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -478,10 +478,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -572,10 +572,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -601,10 +601,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -631,10 +631,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -729,10 +729,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -758,10 +758,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -782,10 +782,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -878,10 +878,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -909,10 +909,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -945,10 +945,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1056,10 +1056,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1087,10 +1087,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1123,10 +1123,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1225,10 +1225,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1256,10 +1256,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1292,10 +1292,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1386,10 +1386,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1417,10 +1417,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1453,10 +1453,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1519,10 +1519,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1550,10 +1550,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1586,10 +1586,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1681,10 +1681,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1712,10 +1712,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1748,10 +1748,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -1846,10 +1846,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -1882,10 +1882,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wfList=[outputWaveforms[outputNames.index('V'+name)] for name in portNames]
                     fc=tdr.Convert(wfList,d)
@@ -1903,10 +1903,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('V'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -1941,10 +1941,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             wfList=[outputWaveforms[outputNames.index('V'+name)] for name in portNames]
             fc=tdr.Convert(wfList,drivenPort)
@@ -1962,10 +1962,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -2049,10 +2049,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -2071,10 +2071,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -2087,10 +2087,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -2161,10 +2161,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -2184,10 +2184,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -2231,10 +2231,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -2284,10 +2284,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         spDict=dict()
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for p in range(ports):
                 portName=str(p+1)
@@ -2312,10 +2312,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     wf=outputWaveforms[outputNames.index('A'+drivenPortName)]+outputWaveforms[outputNames.index('B'+drivenPortName)]
                     ad=si.td.wf.Waveform(wf.TimeDescriptor(),[v if abs(t)<self.epsilon else 0. for (t,v) in zip(wf.Times(),wf.Values())])
@@ -2348,10 +2348,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             for otherPort in range(ports):
                 otherPortName=str(otherPort+1)
@@ -2460,10 +2460,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -2487,10 +2487,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -2516,10 +2516,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -2601,10 +2601,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -2627,10 +2627,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -2651,10 +2651,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -2913,10 +2913,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -2939,10 +2939,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
                     drivenPortName=portNames[d]
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=result[3]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=result['output waveforms']
 
                     fr=transferMatrices.FrequencyResponses()
 
@@ -2993,10 +2993,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=result[3]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=result['output waveforms']
 
             fr=transferMatrices.FrequencyResponses()
 
@@ -3367,10 +3367,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         si.td.wf.Waveform.adaptionStrategy='Linear'
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result[3]]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result['output waveforms']]
 
             for p in range(ports):
                 portName=str(p+1)
@@ -3404,10 +3404,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result[3]]
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result['output waveforms']]
 
                     wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -3451,10 +3451,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result[3]]
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=[r.Integral()*r.TimeDescriptor().Fs*-0.2+si.td.wf.NoiseWaveform(r.TimeDescriptor(),sigma) for r in result['output waveforms']]
 
             wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -3517,10 +3517,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
         si.td.wf.Waveform.adaptionStrategy='Linear'
         for reflectName in reflectNames:
             result = self.GetSimulationResultsCheck('TDRSimulationFourPort'+reflectName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=self.NoisyWaveforms(result[3])
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=self.NoisyWaveforms(result['output waveforms'])
 
             for p in range(ports):
                 portName=str(p+1)
@@ -3554,10 +3554,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
 
                     simulationName=firstPortName+secondPortName+drivenPortName
                     result = self.GetSimulationResultsCheck('TDRSimulationFourPortThru'+simulationName+'Scaled.si')
-                    sourceNames=result[0]
-                    outputNames=result[1]
-                    transferMatrices=result[2]
-                    outputWaveforms=self.NoisyWaveforms(result[3])
+                    sourceNames=result['source names']
+                    outputNames=result['output waveform labels']
+                    transferMatrices=result['transfer matrices']
+                    outputWaveforms=self.NoisyWaveforms(result['output waveforms'])
 
                     wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 
@@ -3601,10 +3601,10 @@ class TestTDRFourPortScaledTest(unittest.TestCase,
             drivenPortName=str(drivenPort+1)
 
             result = self.GetSimulationResultsCheck('TDRSimulationFourPortDut'+drivenPortName+'Scaled.si')
-            sourceNames=result[0]
-            outputNames=result[1]
-            transferMatrices=result[2]
-            outputWaveforms=self.NoisyWaveforms(result[3])
+            sourceNames=result['source names']
+            outputNames=result['output waveform labels']
+            transferMatrices=result['transfer matrices']
+            outputWaveforms=self.NoisyWaveforms(result['output waveforms'])
 
             wfl.append([outputWaveforms[outputNames.index('V'+name)] for name in portNames])
 

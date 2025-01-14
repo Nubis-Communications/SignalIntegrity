@@ -806,12 +806,12 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_top':None})
         proj.Device('D1')['reorder']['Value']='None'
-        wrongly_reordered_sp,_=proj.CalculateSParameters().Legacy()
+        wrongly_reordered_sp=proj.CalculateSParameters()['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_top':None})
         proj.Device('D1')['reorder']['Value']='None'
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # delete cached files
@@ -821,11 +821,11 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
             except OSError:
                 pass
         # uncached - generate correctly reordered file
-        correctly_reordered_sp,_=self.SParameterResultsChecker('ReorderedProject.si')
+        correctly_reordered_sp=self.SParameterResultsChecker('ReorderedProject.si')['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(correctly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # at this point, we have computed the wrongly reordered s-parameters and the correctly ordered s-parameters
@@ -834,7 +834,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         # that they produce the wrongly generated s-parameters.  Failure means that, in fact, they were not recaculated
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_top':None})
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
     def testProjectFileCachingErrorArgumentBot(self):
@@ -849,11 +849,11 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_bot':None})
-        wrongly_reordered_sp,_=proj.CalculateSParameters().Legacy()
+        wrongly_reordered_sp=proj.CalculateSParameters()['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_bot':None})
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # delete cached files
@@ -863,11 +863,11 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
             except OSError:
                 pass
         # uncached - generate correctly reordered file
-        correctly_reordered_sp,_=self.SParameterResultsChecker('ReorderedProject.si')
+        correctly_reordered_sp=self.SParameterResultsChecker('ReorderedProject.si')['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(correctly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # at this point, we have computed the wrongly reordered s-parameters and the correctly ordered s-parameters
@@ -876,7 +876,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         # that they produce the wrongly generated s-parameters.  Failure means that, in fact, they were not recaculated
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si',args={'port_reordering_bot':None})
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
     def testProjectFileCachingErrorDirect(self):
@@ -892,12 +892,12 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
         proj.Device('D1')['reorder']['Value']='None'
-        wrongly_reordered_sp,_=proj.CalculateSParameters().Legacy()
+        wrongly_reordered_sp=proj.CalculateSParameters()['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
         proj.Device('D1')['reorder']['Value']='None'
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # delete cached files
@@ -907,11 +907,11 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
             except OSError:
                 pass
         # uncached - generate correctly reordered file
-        correctly_reordered_sp,_=self.SParameterResultsChecker('ReorderedProject.si')
+        correctly_reordered_sp=self.SParameterResultsChecker('ReorderedProject.si')['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(correctly_reordered_sp,sp),self.id()+' cached result incorrect')
 
         # at this point, we have computed the wrongly reordered s-parameters and the correctly ordered s-parameters
@@ -921,7 +921,7 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('ReorderedProject.si')
         proj.Device('D1')['reorder']['Value']='None'
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(wrongly_reordered_sp,sp),self.id()+' cached result incorrect')
 
     def testProjectFileIdealFourPort(self):
@@ -986,21 +986,21 @@ class TestSParameterFile(unittest.TestCase,si.test.SParameterCompareHelper,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('IdealFourPort.si',args={'IdealZc':50.0,'IdealTd':0.0})
-        correct_sp,_=proj.CalculateSParameters().Legacy()
+        correct_sp=proj.CalculateSParameters()['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('IdealFourPort.si',args={'IdealZc':50.0,'IdealTd':0.0})
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(correct_sp,sp),self.id()+' cached result incorrect')
 
         # uncached - reordered
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('IdealFourPortProject.si',args={'IdealZc':50.0,'IdealTd':0.0})
-        reordered_sp,_=proj.CalculateSParameters().Legacy()
+        reordered_sp=proj.CalculateSParameters()['s-parameters']
         # now cached
         proj=SignalIntegrityAppHeadless()
         proj.OpenProjectFile('IdealFourPortProject.si',args={'IdealZc':50.0,'IdealTd':0.0})
-        sp,_=proj.CalculateSParameters().Legacy()
+        sp=proj.CalculateSParameters()['s-parameters']
         self.assertTrue(self.SParametersAreEqual(reordered_sp,sp),self.id()+' cached result incorrect')
 
         # finally, reordered should not equal the correct answer

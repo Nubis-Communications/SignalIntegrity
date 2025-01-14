@@ -3,8 +3,7 @@ def EyePattern(project,waveform,delay,bitrate):
     import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
     app=SignalIntegrityAppHeadless()
     app.OpenProjectFile(project)
-    (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
-    prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
+    prbswf=app.Simulate().OutputWaveform(waveform)
     ui=1./bitrate; times=prbswf.Times()
     timesInBit=[((t-delay)/3./ui-int((t-delay)/3./ui))*3.*ui for t in times]
     from PIL import Image

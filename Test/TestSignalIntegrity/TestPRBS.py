@@ -167,7 +167,6 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**7-1),bitrate*10.)
         wf2=si.prbs.PseudoRandomWaveform(7,bitrate,amplitude,risetime,delay,td)
         self.assertEqual(wf, wf2, 'prbs with time descriptor incorrect')
-    
     def testClockWaveform(self):
         clockRate=1.234e9
         risetime=200e-12
@@ -182,8 +181,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
     def testEqualizerFit(self):
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(os.path.realpath('../../SignalIntegrity/App/Examples/PRBSExample/PRBSTest.si'))
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
-        prbswf=outputWaveformList[outputWaveformLabels.index('Vdiff')]
+        prbswf=app.Simulate().OutputWaveform('Vdiff')
         H=prbswf.td.H; bitrate=5e9; ui=1./bitrate
         dH=int(H/ui)*ui-56e-12+ui
         lastTime=prbswf.Times()[-1]
@@ -212,8 +210,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
-        prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
+        prbswf=app.Simulate().OutputWaveform(waveform)
         ui=1./bitrate; times=prbswf.Times()
         timesInBit=[((t-delay)/3./ui-int((t-delay)/3./ui))*3.*ui for t in times]
         from PIL import Image
@@ -235,8 +232,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         import SignalIntegrity.Lib as si
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate()
-        prbswf=outputWaveformList[outputWaveformLabels.index(waveform)]
+        prbswf=app.Simulate().OutputWaveform(waveform)
         H=prbswf.td.H; ui=1./bitrate
         dH=int(H/ui)*ui-delay+ui; lastTime=prbswf.Times()[-1]; dK=int((lastTime-ui-dH)/ui)
         decwftd=si.td.wf.TimeDescriptor(dH,dK,bitrate)
@@ -269,8 +265,7 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         from numpy.linalg import inv
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
-        (_,outputWaveformLabels,_,outputWaveformList)=app.Simulate().Legacy()
-        pulsewf=outputWaveformList[outputWaveformLabels.index(waveform)]
+        pulsewf=app.Simulate().OutputWaveform(waveform)
         delay=pulsewf.td.TimeOfPoint(pulsewf.Values().index(max(pulsewf.Values())))
         print('delay: '+str(delay))
         H=pulsewf.td.H; ui=1./bitrate

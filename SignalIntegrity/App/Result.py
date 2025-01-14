@@ -88,3 +88,18 @@ class Result(dict):
             if self._all_defined(keyword_list):
                 return self._return_them(keyword_list)
         return None
+    def OutputWaveform(self,name):
+        """returns an output waveform
+        @param name string name of output waveform to return
+        @return instance of class Waveform
+        """
+        return self['output waveforms'][self['output waveform labels'].index(name)]
+    def FrequencyResponse(self,from_name,to_name):
+        """returns a frequency response
+        @param from_name string name of source of frequency response
+        @param to_name string name of output of frequency response
+        @return instance of class FrequencyResponse
+        """
+        return self['transfer matrices'].FrequencyResponse(
+            self['output waveform labels'].index(to_name)+1,
+            self['source names'.index(from_name)+1])

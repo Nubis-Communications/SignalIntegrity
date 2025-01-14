@@ -227,7 +227,7 @@ class SignalIntegrityAppHeadless(object):
         if not self.CheckEquations(): return Result('s-parameters',None)
         if self.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
             try:
-                sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True).Legacy()
+                sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)['s-parameters']
             except si.SignalIntegrityException as e:
                 return Result('s-parameters',None)
             return Result('s-parameters',{'s-parameters':sp,

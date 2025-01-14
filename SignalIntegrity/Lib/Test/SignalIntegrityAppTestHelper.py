@@ -246,34 +246,34 @@ class SignalIntegrityAppTestHelper:
         return pysi
     def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist, args, archive)
-        result=pysi.CalculateSParameters().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.CalculateSParameters()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        spfilename=result[1]
+        spfilename=result['file names']
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
-        sp=result[0]
+        sp=result['s-parameters']
         self.SParameterRegressionChecker(sp, spfilename)
         self.ArchiveCleanup(filename,pysi,archive)
         return result
     def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True, args={}):
         pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args)
-        result=pysi.CalculateErrorTerms().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.CalculateErrorTerms()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        calfilename=result[1]
+        calfilename=result['file names']
         calfilename=self.FileNameForTest(filename)+'.'+calfilename.split('.')[-1]
-        cal=result[0]
+        cal=result['error terms']
         self.CalibrationRegressionChecker(cal,calfilename)
         return result
     def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False, max_wf_error=0):
         pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
-        result=pysi.Simulate().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.Simulate()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
         try:
             sp=transferMatrices.SParameters()
             ports=sp.m_P
@@ -291,13 +291,13 @@ class SignalIntegrityAppTestHelper:
         return result
     def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.TransferParameters().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.TransferParameters()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        self.assertEqual(len(result),3,'wrong number of results')
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
+        self.assertEqual(len(result),4,'wrong number of results') # actually three results, but one element is the 'type'
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
         try:
             sp=transferMatrices.SParameters()
             ports=sp.m_P
@@ -432,15 +432,15 @@ class SignalIntegrityAppTestHelper:
 
     def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.Simulate(EyeDiagrams=True).Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.Simulate(EyeDiagrams=True)
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        sourceNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
-        eyeDiagramNames=result[4]
-        eyeDiagrams=result[5]
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
+        eyeDiagramNames=result['eye diagram labels']
+        eyeDiagrams=result['eye diagrams']
         eyeDiagramImages=[ed.Image() for ed in eyeDiagrams]
         eyeDiagramBitmaps=[ed.BitMap() for ed in eyeDiagrams]
         eyeDiagramMeasurements=[ed.Measurements() for ed in eyeDiagrams]
@@ -470,13 +470,13 @@ class SignalIntegrityAppTestHelper:
         return result
     def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.VirtualProbe().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.VirtualProbe()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        measNames=result[0]
-        outputNames=result[1]
-        transferMatrices=result[2]
-        outputWaveforms=result[3]
+        measNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
         try:
             sp=transferMatrices.SParameters()
             ports=sp.m_P
@@ -492,12 +492,12 @@ class SignalIntegrityAppTestHelper:
             self.WaveformRegressionChecker(wf, wffilename)
     def DeembeddingResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
         pysi=self.Preliminary(filename, checkPicture, checkNetlist)
-        result=pysi.Deembed().Legacy()
-        self.assertIsNotNone(result, filename+' produced none')
+        result=pysi.Deembed()
+        self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        spfilenames=result[0]
+        spfilenames=result['unknown names']
         spfilenames=[self.FileNameForTest(filename)+'_'+spf for spf in spfilenames]
-        sps=result[1]
+        sps=result['s-parameters']
         for i in range(len(spfilenames)):
             sp=sps[i]
             spfilename=spfilenames[i]+'.s'+str(sp.m_P)+'p'

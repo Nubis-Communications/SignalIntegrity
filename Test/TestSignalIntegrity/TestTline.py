@@ -502,8 +502,8 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         resultTLineModel=self.SParameterResultsChecker('FourPortTLineCompare.si')
         resultTLineXfrmr=self.SParameterResultsChecker('FourPortTLineCompareIdealXfrmr.si')
         resultTLineCommonModeOpen=self.SParameterResultsChecker('FourPortTLineCompareCommonModeOpen.si')
-        self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineXfrmr[0], 1e-5),'four port model not same as ideal transformer model')
-        self.assertTrue(self.SParametersAreEqual(resultTLineModel[0], resultTLineCommonModeOpen[0], 1e-5),'four port model not same as common mode open model')
+        self.assertTrue(self.SParametersAreEqual(resultTLineModel['s-parameters'], resultTLineXfrmr['s-parameters'], 1e-5),'four port model not same as ideal transformer model')
+        self.assertTrue(self.SParametersAreEqual(resultTLineModel['s-parameters'], resultTLineCommonModeOpen['s-parameters'], 1e-5),'four port model not same as common mode open model')
     def testWriteRseSp(self):
         fileName="../../SignalIntegrity/Lib/SParameters/Devices/SeriesRse.py"
         className='SeriesRse'
@@ -518,7 +518,11 @@ class TestTline(unittest.TestCase,si.test.ResponseTesterHelper,
         defName=['SeriesRse']
         self.WriteClassCode(fileName,className,defName)
     def testTransmissionLineSimulation(self):
-        (sourceNames,outputNames,transferMatrices,outputWaveforms)=self.SimulationResultsChecker('TransmissionLineSimulation.si')
+        result=self.SimulationResultsChecker('TransmissionLineSimulation.si')
+        sourceNames=result['source names']
+        outputNames=result['output waveform labels']
+        transferMatrices=result['transfer matrices']
+        outputWaveforms=result['output waveforms']
         wfdict={name:wf for (name,wf) in zip(outputNames,outputWaveforms)}
         V=1.
         Zs=40.

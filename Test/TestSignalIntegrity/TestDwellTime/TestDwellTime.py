@@ -46,7 +46,8 @@ class TestDwellTimeTest(unittest.TestCase,si.test.SParameterCompareHelper,
     def testDwellTime(self):
         filename='DwellTime.si'
         results=self.SimulationResultsChecker(filename)
-        sourceNames,outputNames,transferMatrices,outputWaveforms=results
+        outputNames=results['output waveform labels']
+        outputWaveforms=results['output waveforms']
         wfdict=dict([(key,val) for (key,val) in zip(outputNames,outputWaveforms)])
 #         import matplotlib.pyplot as plt
 #         import matplotlib
