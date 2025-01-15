@@ -102,4 +102,6 @@ class Result(dict):
         """
         return self['transfer matrices'].FrequencyResponse(
             self['output waveform labels'].index(to_name)+1,
-            self['source names'.index(from_name)+1])
+            self['source names'].index(from_name)+1)
+    def EyeDiagram(self,name):
+        return self['eye diagrams'][self['eye diagram labels'].index(name)]
