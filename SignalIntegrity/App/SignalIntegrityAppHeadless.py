@@ -958,7 +958,7 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
-            result=None
+            result={}
             if app.Drawing.canSimulate:
                 result=app.Simulate(callback)
             elif app.Drawing.canVirtualProbe:
