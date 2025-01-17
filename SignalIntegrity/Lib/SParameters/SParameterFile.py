@@ -134,6 +134,15 @@ class SParameterFile(SParameters):
                 else: numbersList.extend(lineList)
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
+        # pragma: silent exclude
+        try:
+            import numpy as np
+            invalid = np.any(np.isnan([float(v) for v in numbersList]))
+        except:
+            invalid = True
+        if invalid:
+            raise SignalIntegrityExceptionSParameterFile(name+' has invalid values')
+        # pragma: include
         frequencies = len(numbersList)//(1+self.m_P*self.m_P*2)
         P=self.m_P
         self.m_d=[empty([P,P]).tolist() for fi in range(frequencies)]

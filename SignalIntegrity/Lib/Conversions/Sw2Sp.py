@@ -19,6 +19,7 @@ Converts pseudo-wave s-parameters to power-wave s-parameters
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import array
 from numpy.linalg import inv
+import numpy as np
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 from SignalIntegrity.Lib.Conversions.Z0KHelperPW import Z0KHelperPW
@@ -42,4 +43,8 @@ def Sw2Sp(Sp,Z0w=None,Z0p=None,Kw=None):
     Sp=array(Sp)
     Sw=inv(Kp).dot(Kw).dot(inv(Z0w)).dot((Z0w-Z0p.conj())+(Z0w+Z0p.conj()).dot(
         Sp)).dot(inv((Z0w+Z0p)+(Z0w-Z0p).dot(Sp)).dot(Kp).dot(inv(Kw)).dot(Z0w))
+    # pragma: silent exclude
+    if np.any(np.isnan(Sw)):
+        raise np.linalg.LinAlgError
+    # pragma: include
     return Sw.tolist()

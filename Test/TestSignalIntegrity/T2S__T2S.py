@@ -13,4 +13,5 @@ def T2S(T,lp=None,rp=None):
         else:
             SL.append(T[2*lp.index(p+1)])
             SR.append(T[2*lp.index(p+1)+1])
-    return (array(SL).dot(inv(array(SR)))).tolist()
+    result = (array(SL).dot(inv(array(SR)))).tolist()
+    return result

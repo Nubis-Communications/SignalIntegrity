@@ -19,6 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import array,identity
 from numpy.linalg import inv
+import numpy as np
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
@@ -32,4 +33,9 @@ def S2Y(S,Z0=None,K=None):
     (Z0,K)=Z0KHelper((Z0,K),len(S))
     I=identity(len(S))
     S=array(S)
-    return (K.dot(inv(Z0)).dot(I-S).dot(inv(I+S)).dot(inv(K))).tolist()
+    result = (K.dot(inv(Z0)).dot(I-S).dot(inv(I+S)).dot(inv(K))).tolist()
+    # pragma: silent exclude
+    if np.any(np.isnan(result)):
+        raise np.linalg.LinAlgError
+    # pragma: include
+    return result

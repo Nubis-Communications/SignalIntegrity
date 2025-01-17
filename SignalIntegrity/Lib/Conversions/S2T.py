@@ -21,6 +21,7 @@
 
 from numpy import array,identity
 from numpy.linalg import inv
+import numpy as np
 
 def S2T(S,lp=None,rp=None):
     """Converts s-parameters to generalized T-parameters
@@ -48,4 +49,9 @@ def S2T(S,lp=None,rp=None):
     for r in range(len(rp)):
         TR.append(I[rp[r]-1])
         TR.append(S[rp[r]-1])
-    return (array(TL).dot(inv(array(TR)))).tolist()
+    result = (array(TL).dot(inv(array(TR)))).tolist()
+    # pragma: silent exclude
+    if np.any(np.isnan(result)):
+        raise np.linalg.LinAlgError
+    # pragma: include
+    return result

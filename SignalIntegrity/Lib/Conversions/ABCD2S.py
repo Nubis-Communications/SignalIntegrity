@@ -18,6 +18,7 @@
 
 from numpy import array
 from numpy.linalg import inv
+import numpy as np
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
@@ -41,4 +42,9 @@ def ABCD2S(ABCD,Z0=None,K=None):
     C12=array([[1.0/(2.0*K1),-Z01/(2.0*K1)],[0,0]])
     C21=array([[0,0],[1.0/(2.0*K2),-Z02/(2.0*K2)]])
     C22=array([[1.0/(2.0*K1),Z01/(2.0*K1)],[0,0]])
-    return (C21+C22.dot(ABCD)).dot(inv(C11+C12.dot(ABCD))).tolist()
+    result = (C21+C22.dot(ABCD)).dot(inv(C11+C12.dot(ABCD))).tolist()
+    # pragma: silent exclude
+    if np.any(np.isnan(result)):
+        raise np.linalg.LinAlgError
+    # pragma: include
+    return result

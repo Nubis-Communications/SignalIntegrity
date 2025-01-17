@@ -1040,7 +1040,11 @@ class SignalIntegrityApp(tk.Frame):
             self.calibration=self.OpenCalibrationFile(fileparts.FullFilePathExtension())
             self.ViewCalibration(self.calibration)
         else:
-            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+            try:
+                sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+            except:
+                messagebox.showerror('S-parameters','s-parameters cannot be viewed')
+                return
             SParametersDialog(self,sp,fileparts.FullFilePathExtension())
 
     def onVariables(self):

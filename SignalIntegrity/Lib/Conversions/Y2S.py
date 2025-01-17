@@ -19,6 +19,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 from numpy import array,identity
 from numpy.linalg import inv
+import numpy as np
 
 from SignalIntegrity.Lib.Conversions.Z0KHelper import Z0KHelper
 
@@ -32,4 +33,9 @@ def Y2S(Y,Z0=None,K=None):
     (Z0,K)=Z0KHelper((Z0,K),len(Y))
     I=array(identity(len(Y)))
     Y=array(Y)
-    return (inv(K).dot(inv(I+Z0.dot(Y))).dot(I-Z0.dot(Y)).dot(K)).tolist()
+    result = (inv(K).dot(inv(I+Z0.dot(Y))).dot(I-Z0.dot(Y)).dot(K)).tolist()
+    # pragma: silent exclude
+    if np.any(np.isnan(result)):
+        raise np.linalg.LinAlgError
+    # pragma: include
+    return result

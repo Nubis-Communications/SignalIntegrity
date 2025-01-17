@@ -9,4 +9,5 @@ def S2ABCD(S,Z0=None,K=None):
     C12=array([[0,K2],[0,-K2/Z02]])
     C21=array([[K1,0],[-K1/Z01,0]])
     C22=array([[K1,0],[K1/Z01,0]])
-    return ((C21+C22.dot(S)).dot(inv(C11+C12.dot(S)))).tolist()
+    result = ((C21+C22.dot(S)).dot(inv(C11+C12.dot(S)))).tolist()
+    return result
