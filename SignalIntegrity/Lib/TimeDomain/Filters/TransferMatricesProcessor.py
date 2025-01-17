@@ -65,6 +65,9 @@ class TransferMatricesProcessor(CallBacker):
         ir = self.TransferMatrices.ImpulseResponses(td)
         fr = self.TransferMatrices.FrequencyResponses() # for DC inputs
         result=[]
+        # pragma: silent exclude
+        self.intermediate_wf = []
+        # pragma: include
         for o in range(len(ir)):
             acc=[]
             for i in range(len(ir[o])):
@@ -96,6 +99,7 @@ class TransferMatricesProcessor(CallBacker):
             # pragma: include
             result.append(sum(acc))
             # pragma: silent exclude
+            self.intermediate_wf.append(acc)
             if any([hasattr(element,'noise') for element in acc]):
                 # manage the summing of the noise in quadrature
                 noise_list = []
