@@ -930,15 +930,15 @@ def ProjectSParameters(filename,callback,**kwargs):
             app.Drawing.DrawSchematic()
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
-                if not result is None:
+                if result != {}:
                     sp=result['s-parameters']
             if app.Drawing.canCalculateSParameters:
                 result=app.CalculateSParameters(callback)
-                if not result is None:
+                if result != {}:
                     sp=result['s-parameters']
             elif app.Drawing.canDeembed:
                 result=app.Deembed(callback)
-                if not result is None:
+                if result != {}:
                     sp=result['s-parameters'][0]
     except:
         pass
@@ -963,9 +963,8 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
                 result=app.Simulate(callback)
             elif app.Drawing.canVirtualProbe:
                 result=app.VirtualProbe(callback)
-            if not result is None:
-                if wfname in result['output waveform labels']:
-                    wf=result['output waveforms'][result['output waveform labels'].index(wfname)]
+            if result != {}:
+                wf = result.OutputWaveform(wfname)
     except:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
