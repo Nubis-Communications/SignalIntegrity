@@ -392,7 +392,11 @@ class SignalIntegrityApp(tk.Frame):
                     if isSpFile:
                         deiconify=False # since running standalone
                         import SignalIntegrity.Lib as si
-                        sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+                        try:
+                            sp=si.sp.SParameterFile(fileparts.FullFilePathExtension())
+                        except:
+                            messagebox.showerror('S-parameters','s-parameters cannot be viewed')
+                            return
                         spd=SParametersDialog(self,sp,fileparts.FullFilePathExtension(),standalone=True)
 
         if deiconify:
