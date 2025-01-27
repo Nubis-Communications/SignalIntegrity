@@ -135,6 +135,15 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**16-1),baudrate*10.)
         wf=si.prbs.SSPRQWaveform(baudrate,amplitude,risetime,delay,td)
         self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
+    def testPRBS13QWaveform(self):
+        risetime=300e-12
+        baudrate=1e9
+        samplesPerUI=10
+        amplitude=0.5
+        delay=0.
+        td=si.td.wf.TimeDescriptor(0.0,samplesPerUI*(2**13-1),baudrate*10.)
+        wf=si.prbs.PRBS13QWaveform(baudrate,amplitude,risetime,delay,td)
+        self.WaveformRegressionChecker(wf,self.NameForTest()+'.txt')
     def testPRBS93(self):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             prbsCalc=si.prbs.PseudoRandomPolynomial(93).Pattern()

@@ -59,6 +59,7 @@ from TestPI import *
 from TestPDN import *
 from TestPowerDelivery import *
 from TestPRBS import *
+from TestPrbsSpecial import *
 from TestProbeOnOff import *
 from TestProbes import *
 from TestRefImp import *

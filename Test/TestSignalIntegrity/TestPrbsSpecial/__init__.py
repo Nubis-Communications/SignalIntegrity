@@ -1,10 +1,8 @@
 """
 __init__.py
 """
-from __future__ import absolute_import
 
-# Copyright (c) 2021 Nubis Communications, Inc.
-# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
+# Copyright (c) 2018 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -19,11 +17,7 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .PseudoRandomPolynomial import PseudoRandomPolynomial
-from .PseudoRandomWaveform import PseudoRandomWaveform
-from .SerialDataWaveform import SerialDataWaveform
-from .ClockWaveform import ClockWaveform
-from .MultiLevelWaveform import MultiLevelWaveform
-from .SSPRQWaveform import SSPRQWaveform
-from .PRBS13QWaveform import PRBS13QWaveform
-from .StandardsDefPRBSWaveform import StandardsDefPRBSWaveform
+
+from __future__ import absolute_import
+
+from .TestPrbsSpecial import TestPrbsSpecialTest
