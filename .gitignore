@@ -6,6 +6,7 @@
 *.project
 *.pydevproject
 *.p
+ERL_Filter.txt
 SignalIntegrity.egg-info/
 Doc/xhtml
 build/
