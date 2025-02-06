@@ -188,6 +188,10 @@ class Cache(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Cache')
         self.Add(XMLPropertyDefaultBool('CacheResults',True))
+        self.Add(XMLPropertyDefaultInt('NumberOfFiles',1))
+    def ApplyPreferences(self):
+        from SignalIntegrity.Lib.ResultsCache import ResultsCache
+        ResultsCache.files_to_keep = self['NumberOfFiles']
 
 class LastFiles(XMLConfiguration):
     def __init__(self):
@@ -242,4 +246,5 @@ class PreferencesFile(ProjectFileBase):
     def ApplyPreferences(self):
         self['Calculation'].ApplyPreferences()
         self['ProjectFiles.Encryption'].ApplyPreferences()
+        self['Cache'].ApplyPreferences()
 

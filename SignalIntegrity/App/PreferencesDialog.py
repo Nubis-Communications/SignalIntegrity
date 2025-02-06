@@ -47,6 +47,7 @@ class PreferencesDialog(PropertiesDialog):
         self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
         self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.propertyListFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
         self.cacheResult=CalculationPropertyTrueFalseButton(self.propertyListFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
+        self.cacheNumberOfFiles=CalculationProperty(self.propertyListFrame,'cache files per project',None,self.onUpdatePreferences,preferences,'Cache.NumberOfFiles')
         self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
         self.encryptionPassword = CalculationProperty(self.propertyListFrame,'password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
         self.encryptionEnding = CalculationProperty(self.propertyListFrame,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')

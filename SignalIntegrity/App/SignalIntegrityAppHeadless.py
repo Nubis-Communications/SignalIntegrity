@@ -238,6 +238,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
         spnp=si.p.SystemSParametersNumericParser(
@@ -270,6 +271,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
@@ -424,6 +426,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.VirtualProbeNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
@@ -558,6 +561,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
@@ -601,6 +605,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         etnp=si.p.CalibrationNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
@@ -640,6 +645,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()+'_DUTSParameters'
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
         if not callback == None:
@@ -680,6 +686,7 @@ class SignalIntegrityAppHeadless(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()+'_TransferMatrices'
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         snp=si.p.NetworkAnalyzerSimulationNumericParser(fd,DUTSp,spnp.NetworkAnalyzerPortConnectionList,cacheFileName=cacheFileName)
         if not callback == None:

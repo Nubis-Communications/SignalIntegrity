@@ -44,6 +44,7 @@ class EyeDiagram(object):
         self.rawBitmap=None
         self.measDict=None
         self.annotationBitmap=None
+        SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
 
         if not self.headless: self.parent.statusbar.set('Creating Eye Diagram')
         # calculate the bitmap directly from the serial data waveform supplied

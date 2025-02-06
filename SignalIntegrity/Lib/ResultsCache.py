@@ -27,6 +27,7 @@ class ResultsCache(object):
     @note derived class must implement the function HashValue(), which determines the hash
     corresponding to a definition.
     """
+    files_to_keep = 1
     logging=False
     def __init__(self,name,filename=None):
         """constructor\n
@@ -35,7 +36,20 @@ class ResultsCache(object):
         @param filename string base filename of project being processed.
         """
         self.filename=filename
-        self.extra='_cached'+name+'.p'
+        self.extra='_cached'+name
+        self.extension='.p'
+    def _FileName(self,wildcard=False,files_to_keep_override=None):
+        files_to_keep = self.files_to_keep
+        if not files_to_keep_override is None:
+            files_to_keep = files_to_keep_override
+        if wildcard:
+            filename = self.filename+self.extra+'*'+self.extension
+        else:
+            if files_to_keep != 1:
+                filename = self.filename+self.extra+'_'+str(self.hash)+self.extension
+            else:
+                filename = self.filename+self.extra+self.extension
+        return filename
     def HashValue(self,stuffToHash=''):
         """ Generates the hash for a definition\n
         @param stuffToHash repr of stuff to hash
@@ -57,30 +71,37 @@ class ResultsCache(object):
         if self.filename is None:
             if self.logging: print('no filename')
             return False
-        filename=self.filename+self.extra
-        if not os.path.exists(filename):
-            if self.logging: print(filename+' does not exist')
-            return False
-        if not self.CheckTimes(filename):
-            if self.logging: print(filename + ' older')
-            return False
-        try:
-            with open(filename,'rb') as f:
-                hash = pickle.load(f)
-                if hash == self.hash:
-                    tmp_dict = pickle.load(f)
-                    self.__dict__.update(tmp_dict)
-                    if self.logging: print(filename + ' passes cache check')
-                    return True
-                else:
-                    if self.logging: # pragma: no cover
-                        print(filename+' hash incorrect')
-                        print(filename+' hash value = '+hash)
-                        print('expecting: '+self.hash)
-                    return False
-        except:
-            if self.logging: print(filename+' could not be unpickled')
-            return False
+        filenames=[self._FileName(files_to_keep_override=1),self._FileName(files_to_keep_override=2)]
+        for filename in filenames:
+            if not os.path.exists(filename):
+                if self.logging: print(filename+' does not exist')
+                continue
+            if not self.CheckTimes(filename):
+                if self.logging: print(filename + ' older')
+                continue
+            try:
+                with open(filename,'rb') as f:
+                    hash = pickle.load(f)
+                    if hash == self.hash:
+                        tmp_dict = pickle.load(f)
+                        self.__dict__.update(tmp_dict)
+                        if self.logging: print(filename + ' passes cache check')
+                        if filename == self._FileName(files_to_keep_override=2) and self.files_to_keep == 1:
+                            # this means that the file found is the one for multi-cache, but ideally, it's the one
+                            # for single file cache.  Write out the single file cache, so that in the future, it's found
+                            # in the single file cache.
+                            self.CacheResult()
+                        return True
+                    else:
+                        if self.logging: # pragma: no cover
+                            print(filename+' hash incorrect')
+                            print(filename+' hash value = '+hash)
+                            print('expecting: '+self.hash)
+                        continue
+            except:
+                if self.logging: print(filename+' could not be unpickled')
+                continue
+        return False
     def CacheResult(self,keeperList=None):
         """Caches a calculated result
         @param keeperList (optional, defaults to None) list of members to keep in the cache
@@ -110,10 +131,26 @@ class ResultsCache(object):
                 except KeyError:
                     pass
 
-        with open(self.filename+self.extra, 'wb') as f:
-            if self.logging: print('caching '+self.filename+self.extra+' with hash value:'+pickleDict['hash'])
+        # keep only a certain number of files
+        if self.files_to_keep != 1:
+            import glob
+            import os
+            file_list = glob.glob(self._FileName(wildcard=True))
+            file_list.sort(key=os.path.getmtime, reverse=True)  # Sort by modification time, newest first
+            number_of_files = len(file_list)
+            number_to_delete = max(0, number_of_files - self.files_to_keep + 1)
+
+            if self.logging:
+                print(f'while caching, found {number_of_files} cache files, can keep {self.files_to_keep}, deleting {number_to_delete} files.')
+
+            for num in range(number_to_delete):
+                os.remove(file_list[num])
+
+        with open(self._FileName(), 'wb') as f:
+            if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
             pickle.dump(pickleDict['hash'], f, 2)
             pickle.dump(pickleDict, f, 2)
+
         return self
     def CheckTimes(self,cacheFilename):
         """Base class function to check times of various components.

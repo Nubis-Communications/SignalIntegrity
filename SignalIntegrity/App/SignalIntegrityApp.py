@@ -874,6 +874,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
         spnp=si.p.SystemSParametersNumericParser(
@@ -998,6 +999,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         dnp=si.p.DeembedderNumericParser(
                 SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
@@ -1345,6 +1347,7 @@ class SignalIntegrityApp(tk.Frame):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.fileparts.FileNameTitle()
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         etnp=si.p.CalibrationNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),

@@ -65,6 +65,7 @@ class NetworkAnalyzerSimulator(object):
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()+'_DUTSParameters'
+            SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         spnp=si.p.DUTSParametersNumericParser(fd,cacheFileName=cacheFileName)
         spnp.AddLines(netList)
