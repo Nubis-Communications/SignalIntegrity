@@ -1376,6 +1376,36 @@ class DeviceFFE(Device):
                          PartPropertyFfeTd(0.)],
                          PartPictureVariableFFE())
 
+class DeviceRaisedCosineRisetimeFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='raisedcosinerisetimefilter',values=[('rt',False),('rt_type',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Raised-cosine Risetime filter'),
+                        PartPropertyPorts(2),
+                        PartPropertyCategory('Filters'),
+                        PartPropertyPartName('RaisedCosineRisetimeFilter'),
+                        PartPropertyHelp('device:RaisedCosineRisetimeFilter'),
+                        PartPropertyDefaultReferenceDesignator('F?'),
+                        PartPropertyRisetime(),
+                        PartPropertyRisetimeType()],
+                        PartPictureVariableRisetimeFilter())
+
+class DeviceGaussianRisetimeFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='gaussianrisetimefilter',values=[('rt',False),('rt_type',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Gaussian Risetime filter'),
+                        PartPropertyPorts(2),
+                        PartPropertyCategory('Filters'),
+                        PartPropertyPartName('GaussianRisetimeFilter'),
+                        PartPropertyHelp('device:GaussianRisetimeFilter'),
+                        PartPropertyDefaultReferenceDesignator('F?'),
+                        PartPropertyRisetime(),
+                        PartPropertyRisetimeType()],
+                        PartPictureVariableRisetimeFilter())
+
 class DeviceBesselLpFilter(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='bessellp',values=[('order',True),('fc',True)])
@@ -1727,7 +1757,9 @@ DeviceList=Devices([
                 DeviceEyeWaveform(),
                 DeviceWaveform(),
                 DeviceParallel(),
-                DeviceSeries()
+                DeviceSeries(),
+                DeviceRaisedCosineRisetimeFilter(),
+                DeviceGaussianRisetimeFilter()
                 ])
 
 

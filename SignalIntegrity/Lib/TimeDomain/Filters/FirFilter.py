@@ -70,3 +70,8 @@ class FirFilter(WaveformProcessor):
         """prints an ASCII description of the filter"""
         self.FilterDescriptor().Print()
         print(str(self.FilterTaps()))
+    def NormalizeUnityDCGain(self):
+        """normalizes the filter to unity gain at DC"""
+        gain=sum(self.m_ft)
+        self.m_ft = [v/gain for v in self.m_ft]
+        return self

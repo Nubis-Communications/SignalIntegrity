@@ -61,6 +61,7 @@ from TestPRBS import *
 from TestProbeOnOff import *
 from TestProbes import *
 from TestRefImp import *
+from TestRisetimeFilters import *
 from TestRLGC import *
 from TestRLGCLevMar import *
 from TestRoutineWriter import *

@@ -15,3 +15,4 @@ class FirFilter(WaveformProcessor):
     def Print(self):
         self.FilterDescriptor().Print()
         print(str(self.FilterTaps()))
+...

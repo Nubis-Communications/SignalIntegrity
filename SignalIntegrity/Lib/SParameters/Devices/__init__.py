@@ -40,3 +40,5 @@ from .ImpulseResponseFilter import ImpulseResponseFilter
 from .Parallel import Parallel
 from .Series import Series
 from .TLineTwoPortCOM import TLineTwoPortCOM
+from .GaussianRisetimeFilter import GaussianRisetimeFilter
+from .RaisedCosineRisetimeFilter import RaisedCosineRisetimeFilter

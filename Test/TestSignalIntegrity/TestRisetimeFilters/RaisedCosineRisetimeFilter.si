@@ -1,0 +1,376 @@
+<Project>
+	<CalculationProperties>
+		<EndFrequency>5000000000000.0</EndFrequency>
+		<FrequencyPoints>43</FrequencyPoints>
+		<UserSampleRate>10000000000000.0</UserSampleRate>
+	</CalculationProperties>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>567x274+130+130</Geometry>
+			<Grid>14</Grid>
+			<Originx>42</Originx>
+			<Originy>7</Originy>
+		</DrawingProperties>
+		<Schematic>
+			<Devices>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-28, 2)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>Port</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-24, 2)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pn</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>2</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceFFE</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(-25, 2)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>taps</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>=tap_string</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>pre</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>=pre</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>=Ts</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>F1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+		<Lines>
+			<EquationLine>
+				<Line>import SignalIntegrity.Lib as si</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>class RaisedCosine(si.td.f.FirFilter):</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    &quot;&quot;&quot;</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    Raised cosine FIR filter that, when convolved with step, provides</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    the 20-80 risetime specified at the given sample rate.</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    &quot;&quot;&quot;</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    a2080=3.054676 # hardcoded relationship that produces 20-80 risetime</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    a1090=2.07388 # hardcoded relationship that produces 10-90 risetime</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    def __init__(self,rt,Fs,is1090=True):</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        &quot;&quot;&quot;constructor</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        @param rt  risetime desired.</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        @param Fs sample rate</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        @param is1090 whether it is 1090 risetime (2080 otherwise)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        &quot;&quot;&quot;</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        import numpy as np</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        a = self.a1090 if is1090 else self.a2080</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        K=int(np.ceil(rt*a*Fs/2))*2+1 # guaranteed to be odd</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        h=[0 for _ in range(K)]</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        H=-(K-1)//2/Fs # time of first point</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        for k in range(K):</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>            t=H+k/Fs</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>            if t &lt; -rt*a/2.:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>                h[k]=0</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>            elif t &gt; rt*a/2.:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>                h[k]=0</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>            else:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>                h[k]=0.5-0.5*np.cos((t+rt*a/2.)/(rt*a)*2.*np.pi)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        td=si.td.wf.TimeDescriptor(H,K,Fs)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        ir=si.td.wf.ImpulseResponse(si.td.wf.Waveform(td,h))</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        fir=ir.FirFilter().NormalizeUnityDCGain()</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>        si.td.f.FirFilter.__init__(self,fir.FilterDescriptor(),fir.FilterTaps())</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>import SignalIntegrity.App.Project</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>proj=SignalIntegrity.App.Project</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>Fs = proj['CalculationProperties.BaseSampleRate']</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>fir=RaisedCosine(rt,Fs,rt_type=='1090')</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>taps=fir.FilterTaps()</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>tap_string='['</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>for tap in taps:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    tap_string+=str(tap)+','</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>tap_string=tap_string[:-1]+']'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>Ts=1/Fs</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>pre=int(fir.FilterDescriptor().D)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>#print(tap_string)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>import math</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>ImpulseResponseLength=len(taps)/Fs</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>frequency_resolution=1/ImpulseResponseLength</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>end_frequency=proj['CalculationProperties.EndFrequency']</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>frequency_points=int(max(2,math.ceil(end_frequency/frequency_resolution)))</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>proj['CalculationProperties.FrequencyPoints']=frequency_points</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>proj['CalculationProperties'].CalculateOthersFromBaseInformation()</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>ImpulseResponseLength = proj['CalculationProperties.ImpulseResponseLength']</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+		</Lines>
+	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>risetime</Description>
+				<Name>rt</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units>s</Units>
+				<Value>4e-12</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>whether it is 10-90 or 20-80 risetime</Description>
+				<Name>rt_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>1090</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>tap values []</Description>
+				<Name>tap_string</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>string</Type>
+				<Units>None</Units>
+				<Value>[0.0,7.88642594192874e-06,7.541528326390762e-05,0.00021163450115877302,0.00041576298570750755,0.0006866302448133068,0.0010226830999143033,0.0014219945920568074,0.0018822750312607558,0.002400885125819289,0.002974851116247805,0.0036008818271029645,0.004275387538894943,0.004994500571879537,0.005754097463700776,0.00654982261371526,0.007377113258419502,0.008231225634768729,0.009107262181364234,0.010000199621535106,0.010904917767283211,0.01181622887892697,0.012728907412092845,0.013637719981482572,0.01453745536960095,0.015422954408371376,0.016289139562295055,0.017131044043521296,0.01794384029188023,0.01872286765657087,0.019463659120774943,0.02016196691595516,0.020813786878962973,0.021415381412289995,0.021963300915806692,0.022454403567096805,0.022885873336965158,0.02325523613681624,0.023560374005312926,0.023799537252967722,0.02397135449502831,0.02407484051512778,0.0241094019146088,0.02407484051512778,0.02397135449502831,0.023799537252967722,0.023560374005312926,0.02325523613681624,0.022885873336965158,0.022454403567096805,0.021963300915806692,0.021415381412289995,0.020813786878962973,0.020161966915955155,0.019463659120774943,0.018722867656570864,0.017943840291880227,0.01713104404352129,0.016289139562295062,0.015422954408371376,0.014537455369600952,0.013637719981482567,0.012728907412092842,0.01181622887892697,0.010904917767283216,0.010000199621535102,0.009107262181364234,0.00823122563476873,0.007377113258419509,0.00654982261371526,0.005754097463700779,0.004994500571879535,0.004275387538894944,0.003600881827102969,0.002974851116247803,0.002400885125819289,0.0018822750312607573,0.0014219945920568113,0.0010226830999143033,0.0006866302448133068,0.00041576298570750625,0.00021163450115877302,7.541528326390762e-05,7.88642594192874e-06,0.0]</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>tap delay (s)</Description>
+				<Name>Ts</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>float</Type>
+				<Units>s</Units>
+				<Value>1e-13</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>number of precursor taps</Description>
+				<Name>pre</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>int</Type>
+				<Units>None</Units>
+				<Value>42</Value>
+				<Visible>False</Visible>
+			</Variable>
+		</Items>
+	</Variables>
+</Project>

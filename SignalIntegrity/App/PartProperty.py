@@ -386,6 +386,11 @@ class PartPropertyRisetime(PartProperty):
     def __init__(self,risetime=0.0):
         PartProperty.__init__(self,'risetime',type='float',unit='s',keyword='rt',description='risetime (s)',value=risetime,visible=False)
 
+class PartPropertyRisetimeType(PartProperty):
+    validEntries=['1090','2080']
+    def __init__(self,rt_type='1090'):
+        PartProperty.__init__(self,'rt_type',type='enum',keyword='rt_type',description='risetime type',value=rt_type,visible=True,keywordVisible=True)
+
 class PartPropertyPRBSPolynomial(PartProperty):
     def __init__(self,poly=7):
         PartProperty.__init__(self,'prbs',type='int',unit='',keyword='prbs',description='prbs polynomial order',value=poly,visible=True,keywordVisible=True)

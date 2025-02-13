@@ -19,13 +19,6 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .FilterDescriptor import *
-from .FirFilter import *
-from .InterpolatorLinear import *
-from .InterpolatorSinX import *
-from .WaveformTrimmer import *
-from .WaveformDecimator import *
-from .TransferMatricesProcessor import *
-from .RaisedCosineFilter import RaisedCosineFilter
-from .WaveformProcessor import WaveformProcessor
-from . import Risetime as rt
+from .RaisedCosine import *
+from .Gaussian import *
+

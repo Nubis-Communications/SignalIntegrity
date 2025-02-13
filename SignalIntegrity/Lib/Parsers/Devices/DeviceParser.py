@@ -102,8 +102,10 @@ class DeviceFactory(list):
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
         |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
         |series                                 |any  |False    |filename=None sect=None lp=None rp=None                                                        | True                |sp.dev.Series(f,file,sect,lp,rp,z0)                                                              |
-        |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |   
-        |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                             |   
+        |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |
+        |voltagetovoltageconverter              |3    |False    |                                                                                               | False               |dev.IdealVoltageToVoltageConverter()                                                             |
+        |raisedcosinerisetimefilter             |2    |True     |rt=None rt_type=1090                                                                           | True                |sp.dev.RaisedCosineRisetimeFilter(f,rt,is1090,Z0)                                                |
+        |gaussianrisetimefilter                 |2    |True     |rt=None rt_type=1090                                                                           | True                |sp.dev.GaussianRisetimeFilter(f,rt,is1090,Z0)                                                    |
         @note ports any mean None supplied. comma or dash separated ports are supplied as a string.
         @note arginname means the argument is supplied without a keyword.  The first default argument has the actual name of the argument.
         @note frequency dependent devices usually come from 'sp.dev' meaning SParameters.Devices package.  Devices that are not frequency dependent
@@ -250,6 +252,10 @@ class DeviceFactory(list):
             float(arg['td']),eval(arg['']),eval(arg['pre']),Z0=float(arg['z0']))"),
         ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('raisedcosinerisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
+            "RaisedCosineRisetimeFilter(f,float(arg['']),arg['rt_type']=='1090',float(arg['z0']))"),
+        ParserDevice('gaussianrisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
+            "GaussianRisetimeFilter(f,float(arg['']),arg['rt_type']=='1090',float(arg['z0']))"),
         ParserDevice('relay','2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17',True,{'':0,'term':1e9},
             False,"IdealRelay(ports,int(arg['']),float(arg['term']),float(arg['z0']))"),
         ParserDevice('impulseresponsefilter',2,True,
@@ -339,6 +345,8 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
         from SignalIntegrity.Lib.SParameters.Devices.Series import Series
+        from SignalIntegrity.Lib.SParameters.Devices.GaussianRisetimeFilter import GaussianRisetimeFilter
+        from SignalIntegrity.Lib.SParameters.Devices.RaisedCosineRisetimeFilter import RaisedCosineRisetimeFilter
         # pragma: include
         self.dev=None
         if len(argsList) == 0:

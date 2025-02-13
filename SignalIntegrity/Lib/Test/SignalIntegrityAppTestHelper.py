@@ -185,8 +185,9 @@ class SignalIntegrityAppTestHelper:
         os.chdir(currentDirectory)
     def WaveformRegressionChecker(self,wf,wffilename,max_error=0):
         from SignalIntegrity.Lib.TimeDomain.Waveform import Waveform
+        wffilename=wffilename.replace('/','_')
         currentDirectory=os.getcwd()
-        os.chdir(self.path)     
+        os.chdir(self.path)
         if not os.path.exists(wffilename):
             wf.WriteToFile(wffilename)
             if not self.relearn:
