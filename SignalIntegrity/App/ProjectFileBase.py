@@ -164,6 +164,15 @@ class XMLProperty(object):
     def __setitem__(self,path,value):
         return self.SetValue(path,value)
 
+    def ToDictionary(self):
+        result = self['Value']
+        if self.dict['type'] == 'coord':
+            result = [result[0],result[1]]
+        if self.dict['type'] == 'array':
+            return {i:result[i].ToDictionary() for i in range(len(result))}
+        else:
+            return result
+
 class XMLPropertyDefault(XMLProperty):
     def __init__(self,name,typeString,value=None,write=True,arrayType=None,writeDefault=True):
         if value==None:
@@ -289,6 +298,9 @@ class XMLConfiguration(object):
 
     def __setitem__(self,path,value):
         return self.SetValue(path,value)
+
+    def ToDictionary(self):
+        return {key:self.dict[key].ToDictionary() for key in self.dict}
 
 class ProjectFileBase(object):
     indent='\t'
@@ -450,3 +462,6 @@ class ProjectFileBase(object):
 
     def __setitem__(self,path,value):
         return self.SetValue(path,value)
+
+    def ToDictionary(self):
+        return {key:self.dict[key].ToDictionary() for key in self.dict}

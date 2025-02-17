@@ -19,6 +19,7 @@ SignalIntegrityAppTestHelper.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import os
+from prompt_toolkit import input
 
 class SignalIntegrityAppTestHelper:
     relearn=True
@@ -26,10 +27,42 @@ class SignalIntegrityAppTestHelper:
     forceWritePictures=False
     SPCompareResolution=1e-3
     allowReferenceImpedanceTranslation=True
+    diff_projects=True
     def __init__(self,path):
         self.path=path
     def FileNameForTest(self,filename):
         return filename.replace('..', 'Up').replace('/','_').split('.')[0]
+    @staticmethod
+    def PrintDiffableDictionary(input_value,indent=0):
+        lines=[]
+        indent_string=' '*indent
+        if isinstance(input_value,dict):
+            for key in input_value.keys():
+                lines.append(indent_string+str(key))
+                lines=lines+SignalIntegrityAppTestHelper.PrintDiffableDictionary(input_value[key],indent+4)
+        else:
+            lines.append(indent_string+str(input_value))
+        return lines
+    def ProjectChecker(self,pysi,filename):
+        import SignalIntegrity.App.Project
+        project_dictionary = SignalIntegrity.App.Project.ToDictionary()
+        import json
+        testFilename=self.FileNameForTest(filename)+'.json'
+        if not os.path.exists(testFilename):
+            with open(testFilename,'w') as f:
+                json.dump(project_dictionary,f)
+        with open(testFilename) as f:
+            regression = json.load(f)
+        lines = self.PrintDiffableDictionary(project_dictionary)
+        regression_lines = self.PrintDiffableDictionary(regression)
+        same = lines == regression_lines
+        if not same and self.diff_projects:
+            import difflib
+            for line in difflib.unified_diff(
+                regression_lines,lines,
+                fromfile='regression', tofile='current', lineterm='\n', n=5):
+                print(line)
+        self.assertTrue(same,filename+': project file changed')
     def PictureChecker(self,pysi,filename,archive=False):
         if not self.checkPictures:
             return
@@ -233,20 +266,22 @@ class SignalIntegrityAppTestHelper:
             self.assertTrue(app.FreshenArchive())
             self.assertTrue(app.UnExtractArchive())
             os.remove(os.path.splitext(filename)[0]+'.siz')
-    def Preliminary(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
+    def Preliminary(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False):
         self.ArchiveStart(filename, args, archive)
         os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         pysi=SignalIntegrityAppHeadless()
         self.assertTrue(pysi.OpenProjectFile(os.path.realpath(filename),args),filename + ' couldnt be opened')
         #pysi.SaveProject()
+        if checkProject:
+            self.ProjectChecker(pysi, filename)
         if checkPicture:
             self.PictureChecker(pysi,filename,archive)
         if checkNetlist:
             self.NetListChecker(pysi,filename,archive)
         return pysi
-    def SParameterResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={},archive=False):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist, args, archive)
+    def SParameterResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False):
+        pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist, args, archive)
         result=pysi.CalculateSParameters()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -256,8 +291,8 @@ class SignalIntegrityAppTestHelper:
         self.SParameterRegressionChecker(sp, spfilename)
         self.ArchiveCleanup(filename,pysi,archive)
         return result
-    def CalibrationResultsChecker(self,filename,checkPicture=True,checkNetlist=True, args={}):
-        pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args)
+    def CalibrationResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True, args={}):
+        pysi=self.Preliminary(filename, checkProject, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args)
         result=pysi.CalculateErrorTerms()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -266,8 +301,8 @@ class SignalIntegrityAppTestHelper:
         cal=result['error terms']
         self.CalibrationRegressionChecker(cal,calfilename)
         return result
-    def SimulationResultsChecker(self,filename,checkPicture=True,checkNetlist=True,args={}, archive=False, max_wf_error=0):
-        pysi=self.Preliminary(filename, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
+    def SimulationResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={}, archive=False, max_wf_error=0):
+        pysi=self.Preliminary(filename, checkProject, checkPicture=checkPicture, checkNetlist=checkNetlist, args=args, archive=archive)
         result=pysi.Simulate()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -290,8 +325,8 @@ class SignalIntegrityAppTestHelper:
             self.WaveformRegressionChecker(wf, wffilename, max_wf_error)
         self.ArchiveCleanup(filename,pysi,archive)
         return result
-    def SimulationTransferMatricesResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def SimulationTransferMatricesResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist)
         result=pysi.TransferParameters()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -431,8 +466,8 @@ class SignalIntegrityAppTestHelper:
         self.assertTrue(are_jsons_approx_equal(regression,meas,2),filename + ' incorrect')
         os.chdir(currentDirectory)
 
-    def SimulationEyeDiagramResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def SimulationEyeDiagramResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist)
         result=pysi.Simulate(EyeDiagrams=True)
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -469,8 +504,8 @@ class SignalIntegrityAppTestHelper:
             eyeDiagramMeasurementFileName=self.FileNameForTest(filename)+'_'+eyeDiagramNames[i]+'.json'
             self.JsonDictRegressionChecker(eyeDiagramMeasurement,eyeDiagramMeasurementFileName)
         return result
-    def VirtualProbeResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def VirtualProbeResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist)
         result=pysi.VirtualProbe()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
@@ -491,8 +526,8 @@ class SignalIntegrityAppTestHelper:
             wf=outputWaveforms[i]
             wffilename=self.FileNameForTest(filename)+'_'+outputNames[i]+'.txt'
             self.WaveformRegressionChecker(wf, wffilename)
-    def DeembeddingResultsChecker(self,filename,checkPicture=True,checkNetlist=True):
-        pysi=self.Preliminary(filename, checkPicture, checkNetlist)
+    def DeembeddingResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True):
+        pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist)
         result=pysi.Deembed()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
