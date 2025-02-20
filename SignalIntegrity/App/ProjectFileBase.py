@@ -168,6 +168,9 @@ class XMLProperty(object):
         result = self['Value']
         if self.dict['type'] == 'coord':
             result = [result[0],result[1]]
+        elif self.dict['type'] == 'float':
+            if not result is None:
+                result = float('{:0.8e}'.format(result))
         if self.dict['type'] == 'array':
             return {i:result[i].ToDictionary() for i in range(len(result))}
         else:

@@ -146,10 +146,14 @@ class ResultsCache(object):
             for num in range(number_to_delete):
                 os.remove(file_list[num])
 
-        with open(self._FileName(), 'wb') as f:
-            if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
-            pickle.dump(pickleDict['hash'], f, 2)
-            pickle.dump(pickleDict, f, 2)
+        try:
+            with open(self._FileName(), 'wb') as f:
+                if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
+                pickle.dump(pickleDict['hash'], f, 2)
+                pickle.dump(pickleDict, f, 2)
+        except FileNotFoundError:
+            if self.logging:
+                print(f'failed to write cache file: {self._FileName}')
 
         return self
     def CheckTimes(self,cacheFilename):

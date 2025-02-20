@@ -230,6 +230,14 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.dict['ReferenceImpedance'].dict['write'] = self['ReferenceImpedance'] != 50.
         return XMLConfiguration.OutputXML(self,indent)
 
+    def SetImpulseResponseLength(self,ImpulseResponseLength):
+        import math
+        frequency_resolution=1/ImpulseResponseLength
+        end_frequency=self['EndFrequency']
+        frequency_points=int(max(2,math.ceil(end_frequency/frequency_resolution)))
+        self['FrequencyPoints']=frequency_points
+        self.CalculateOthersFromBaseInformation()
+
 class CalculationProperties(CalculationPropertiesBase):
     def __init__(self):
         CalculationPropertiesBase.__init__(self,'CalculationProperties')
