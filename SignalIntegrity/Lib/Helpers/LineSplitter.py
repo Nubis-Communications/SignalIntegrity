@@ -34,7 +34,7 @@ def LineSplitter(line):
                     acc=''
                 else:
                     acc=acc+sline[i]
-        elif sline[i]=='\'':
+        elif sline[i] in ['"',"'"]:
             if inquote:
                 inquote=False
                 intoken=False
@@ -49,4 +49,7 @@ def LineSplitter(line):
             acc=acc+sline[i]
     if intoken:
         tokenList.append(acc)
-    return tokenList  
+    for t in range(len(tokenList)):
+        if ' ' in tokenList[t]:
+            tokenList[t]='"'+tokenList[t]+'"'
+    return tokenList
