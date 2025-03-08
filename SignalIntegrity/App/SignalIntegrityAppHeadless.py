@@ -419,6 +419,8 @@ class SignalIntegrityAppHeadless(object):
                                     'eye diagrams':eyeDiagrams})
 
     def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
         netList=self.Drawing.schematic.NetList()
         if not self.CheckEquations(): return Result('virtual probe',None)
         netListText=self.NetListText()
@@ -555,6 +557,8 @@ class SignalIntegrityAppHeadless(object):
             return Result('simulation',None)
 
     def Deembed(self,callback=None):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
         netListText=self.NetListText()
         if not self.CheckEquations(): return Result('de-embed',None)
         import SignalIntegrity.Lib as si

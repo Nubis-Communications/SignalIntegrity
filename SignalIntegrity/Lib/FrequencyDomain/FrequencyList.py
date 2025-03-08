@@ -106,8 +106,11 @@ class FrequencyList(list):
         """
         if self.m_EvenlySpaced: return True
         for n in range(self.N+1):
-            if abs(self[n]-self.Fe/self.N*n) > epsilon:
-                self.m_EvenlySpaced=False
+            try:
+                if abs(self[n]-self.Fe/self.N*n) > epsilon:
+                    self.m_EvenlySpaced=False
+                    return False
+            except:
                 return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True

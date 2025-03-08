@@ -33,6 +33,7 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
+    sort_frequencies=True
     def __init__(self,name,Z0=None,callback=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
@@ -169,16 +170,17 @@ class SParameterFile(SParameters):
         if order != None:
             sp=self.PortReorder(order)
             SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
-        import numpy as np
-        if not all (np.diff(f) > 0): # frequency list is not in order!
-            _,unq_row_indices = np.unique(np.array(f),return_index=True,axis=0)
-            reindex_array=np.stack((np.array(f)[unq_row_indices],unq_row_indices),axis=1)
-            reindex_array=reindex_array[reindex_array[:, 0].argsort()]
-            newf,index = reindex_array[:,0],reindex_array[:,1].astype(int)
-            newd=[self.m_d[i] for i in index]
-            self.m_f=newf.tolist()
-            self.m_d=newd
-            pass
+        if self.sort_frequencies:
+            import numpy as np
+            if not all (np.diff(f) > 0): # frequency list is not in order!
+                _,unq_row_indices = np.unique(np.array(f),return_index=True,axis=0)
+                reindex_array=np.stack((np.array(f)[unq_row_indices],unq_row_indices),axis=1)
+                reindex_array=reindex_array[reindex_array[:, 0].argsort()]
+                newf,index = reindex_array[:,0],reindex_array[:,1].astype(int)
+                newd=[self.m_d[i] for i in index]
+                self.m_f=newf.tolist()
+                self.m_d=newd
+                pass
         # pragma: include
 # pragma: silent exclude
 if __name__ == "__main__": # pragma: no cover
