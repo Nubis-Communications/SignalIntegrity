@@ -1645,6 +1645,20 @@ class DeviceDifferentialEyeProbe(Device):
         self['ref']['Visible']=True
         self['state']['Visible']=False
 
+class DeviceIdealBalun(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='balun')
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Inductors'),
+                         PartPropertyPartName('Balun'),
+                         PartPropertyHelp('device:Balun'),
+                         PartPropertyDefaultReferenceDesignator('B?'),
+                         PartPropertyDescription('Ideal Balun'),
+                         PartPropertyPorts(3)
+                        ],
+                        PartPictureVariableBalun()
+                        )
 class Devices(list):
     def __init__(self,devices):
         list.__init__(self,devices)
@@ -1759,7 +1773,8 @@ DeviceList=Devices([
                 DeviceParallel(),
                 DeviceSeries(),
                 DeviceRaisedCosineRisetimeFilter(),
-                DeviceGaussianRisetimeFilter()
+                DeviceGaussianRisetimeFilter(),
+                DeviceIdealBalun()
                 ])
 
 
