@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>531250000000.0</EndFrequency>
-		<FrequencyPoints>5312</FrequencyPoints>
+		<FrequencyPoints>6375</FrequencyPoints>
 		<UserSampleRate>1062500000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>940x378+130+21</Geometry>
+			<Geometry>940x378+234+234</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-16</Originx>
 			<Originy>-7</Originy>
@@ -527,7 +527,7 @@
 						<PartProperty>
 							<Keyword>a</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>2.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -847,7 +847,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>../../../../Test/TestSignalIntegrity/TestERL/sparam_res.s4p</Value>
+				<Value>C:\Users\pete_\Documents\NubisSystemSim\Projects\ERL.s4p</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -892,7 +892,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>UI</Units>
-				<Value>800.0</Value>
+				<Value>800</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -919,7 +919,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>1e-08</Value>
+				<Value>1.2e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -928,7 +928,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-1.2528e-08</Value>
+				<Value>-1.3528470588235293e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -937,7 +937,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>2.5058823529411764e-08</Value>
+				<Value>2.7058823529411763e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>

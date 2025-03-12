@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>53125000000.0</EndFrequency>
-		<FrequencyPoints>181</FrequencyPoints>
+		<FrequencyPoints>638</FrequencyPoints>
 		<UserSampleRate>106250000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>569x362+182+182</Geometry>
+			<Geometry>569x362+208+208</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-38</Originx>
 			<Originy>-12</Originy>
@@ -434,7 +434,7 @@
 						<PartProperty>
 							<Keyword>a</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0</Value>
+							<Value>2.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -661,7 +661,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>3.4051764705882352e-09</Value>
+				<Value>1.2006588231933194e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -670,7 +670,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-1.882523294117647e-05</Value>
+				<Value>-1.882953411764706e-05</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -679,7 +679,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>3.765046588235294e-05</Value>
+				<Value>3.765906823529412e-05</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
