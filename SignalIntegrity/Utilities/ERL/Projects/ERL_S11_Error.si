@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>53125000000.0</EndFrequency>
-		<FrequencyPoints>638</FrequencyPoints>
+		<FrequencyPoints>109</FrequencyPoints>
 		<UserSampleRate>106250000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>569x362+208+208</Geometry>
+			<Geometry>569x391+78+78</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-38</Originx>
 			<Originy>-12</Originy>
@@ -374,7 +374,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceVoltagePRBSGenerator</ClassName>
+					<ClassName>DeviceVoltageMultiLevelWaveformGenerator</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -426,21 +426,27 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>bps</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>fs</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>=Fs</Value>
-							<Visible>False</Visible>
+							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>a</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>2.0</Value>
+							<Value>1.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>prbs</Value>
+							<Value>mlw</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -452,7 +458,7 @@
 						<PartProperty>
 							<Keyword>ref</Keyword>
 							<KeywordVisible>False</KeywordVisible>
-							<Value>VG1</Value>
+							<Value>VG2</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 					</PartProperties>
@@ -625,7 +631,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>bits</Units>
-				<Value>4000000.0</Value>
+				<Value>20000000.0</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -661,7 +667,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>1.2006588231933194e-08</Value>
+				<Value>2.0611764705882382e-09</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -670,7 +676,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-1.882953411764706e-05</Value>
+				<Value>-9.411868235294118e-05</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -679,7 +685,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>3.765906823529412e-05</Value>
+				<Value>0.00018823735529411765</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -697,7 +703,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>int</Type>
 				<Units></Units>
-				<Value>22</Value>
+				<Value>25</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>
