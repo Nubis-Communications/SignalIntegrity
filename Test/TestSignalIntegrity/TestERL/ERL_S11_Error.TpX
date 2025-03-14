@@ -45,11 +45,13 @@
 %  <polyline lc="black">28,-59.5 28,-63</polyline>
 %  <polygon fill="black">25.667,-63 30.333,-63 28,-65.333 25.667,-63</polygon>
 %  <polyline lc="black">28,-49 28,-52.5</polyline>
-%  <text x="33.25" y="-72" t="ho=ho (-9.6 ns)" h="3" halign="l" lc="black"/>
-%  <text x="33.25" y="-69" t="dur=dur (19.2 ns)" h="3" halign="l" lc="black"/>
-%  <text x="33.25" y="-66" t="t0=st (-4.706 ps)" h="3" halign="l" lc="black"/>
-%  <text x="33.25" y="-63" t="br=f_b (106.2 GBaud)" h="3" halign="l" lc="black"/>
-%  <text x="33.25" y="-60" t="prbs=prbs (11)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-78" t="ho=ho (-9.6 ns)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-75" t="dur=dur (19.2 ns)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-72" t="t0=st (-4.706 ps)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-69" t="br=f_b (106.2 GBaud)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-66" t="prbs=prbs (11)" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-63" t="bps 1" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-60" t="fs=Fs (106.2 GS/s)" h="3" halign="l" lc="black"/>
 %  <text x="33.25" y="-57" t="a 1.0 V" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">45.5,-21 56,-21</polyline>
 %  <polyline lc="black">105,-24.5 87.5,-24.5</polyline>
@@ -111,11 +113,13 @@
 \path[line width=0.30mm, draw=black] (28,-59.5) -- (28,-63);
 \path[line width=0.30mm, fill=black] (25.667,-63) -- (30.333,-63) -- (28,-65.333) -- (25.667,-63) -- cycle;
 \path[line width=0.30mm, draw=black] (28,-49) -- (28,-52.5);
-\draw[black] (33.25,-72) node[anchor=base west]{ho=ho (-9.6 ns)};
-\draw[black] (33.25,-69) node[anchor=base west]{dur=dur (19.2 ns)};
-\draw[black] (33.25,-66) node[anchor=base west]{t0=st (-4.706 ps)};
-\draw[black] (33.25,-63) node[anchor=base west]{br=f\textunderscore b (106.2 GBaud)};
-\draw[black] (33.25,-60) node[anchor=base west]{prbs=prbs (11)};
+\draw[black] (33.25,-78) node[anchor=base west]{ho=ho (-9.6 ns)};
+\draw[black] (33.25,-75) node[anchor=base west]{dur=dur (19.2 ns)};
+\draw[black] (33.25,-72) node[anchor=base west]{t0=st (-4.706 ps)};
+\draw[black] (33.25,-69) node[anchor=base west]{br=f\textunderscore b (106.2 GBaud)};
+\draw[black] (33.25,-66) node[anchor=base west]{prbs=prbs (11)};
+\draw[black] (33.25,-63) node[anchor=base west]{bps 1};
+\draw[black] (33.25,-60) node[anchor=base west]{fs=Fs (106.2 GS/s)};
 \draw[black] (33.25,-57) node[anchor=base west]{a 1.0 V};
 \path[line width=0.30mm, draw=black] (45.5,-21) -- (56,-21);
 \path[line width=0.30mm, draw=black] (105,-24.5) -- (87.5,-24.5);

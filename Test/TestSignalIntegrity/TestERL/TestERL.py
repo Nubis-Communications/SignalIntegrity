@@ -89,7 +89,7 @@ class TestERLTest(unittest.TestCase,
         result = subprocess.getoutput(cmd_str)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '15.289 dB'
+        target = '9.2684 dB'
         self.assertEqual(result_dB, target, 'ERL produced incorrect value')
     def testERLNitroSubprocessMissingSp(self):
         import subprocess
@@ -360,7 +360,7 @@ class TestERLTest(unittest.TestCase,
         result = ERL(file_name,nitro_args,verbose=True)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '15.289 dB'
+        target = '9.2684 dB'
         self.assertEqual(result_dB, target, 'ERL produced incorrect value')
     def testERLPythonScriptMissingSp(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL

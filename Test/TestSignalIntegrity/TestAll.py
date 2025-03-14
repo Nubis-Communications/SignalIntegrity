@@ -24,6 +24,7 @@ matplotlib.use('Tkagg')
 import unittest
 
 from TestAdaptDecimate import *
+from TestBalun import *
 from TestBook import *
 from TestBookDevices import *
 from TestCascading import *

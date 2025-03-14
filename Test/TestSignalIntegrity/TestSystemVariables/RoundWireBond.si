@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>508x220+186+24</Geometry>
+			<Geometry>508x220+104+104</Geometry>
 			<Grid>16</Grid>
 			<Originx>-2</Originx>
 			<Originy>3</Originy>
@@ -169,6 +169,7 @@
 		</Schematic>
 	</Drawing>
 	<Equations>
+		<AutoDebug>True</AutoDebug>
 		<Lines>
 			<EquationLine>
 				<Line>import math</Line>
@@ -201,10 +202,22 @@
 				<Line>A=math.sqrt(1+((D/(2*L))**2))</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>H=200*L*(math.log(2.*L/D*(1+A))-A+ur/4+D/(2*L))*10e-9</Line>
+				<Line>H=200*L*(math.log((2.*L/D)*(1+A))-A+ur/4+D/(2*L))*1e-9</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>R=rho*L/(math.pi*(D/2)**2)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
 			</EquationLine>
 		</Lines>
 	</Equations>
@@ -229,7 +242,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>m</Units>
-				<Value>0.001</Value>
+				<Value>0.3048</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -238,7 +251,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>m</Units>
-				<Value>4.9999999999999996e-05</Value>
+				<Value>0.0008100000000000001</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -274,7 +287,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>H</Units>
-				<Value>7.313740793756741e-09</Value>
+				<Value>4.0038525043549794e-07</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -283,7 +296,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>ohm</Units>
-				<Value>0.008545983824262414</Value>
+				<Value>0.009925376732339519</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>

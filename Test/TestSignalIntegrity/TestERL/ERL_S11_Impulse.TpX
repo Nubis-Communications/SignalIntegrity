@@ -75,7 +75,7 @@
 %  <text x="15.75" y="-73" t="dur=dur (25.06 ns)" h="3" halign="l" lc="black"/>
 %  <text x="15.75" y="-70" t="t0 0 s" h="3" halign="l" lc="black"/>
 %  <text x="15.75" y="-67" t="fs=Fs (531.2 GS/s)" h="3" halign="l" lc="black"/>
-%  <text x="15.75" y="-64" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="15.75" y="-64" t="a 2.0 V" h="3" halign="l" lc="black"/>
 %  <rect x="28" y="-38.5" w="7" h="-7" lc="black"/>
 %  <polyline lc="black">24.5,-42 28,-42</polyline>
 %  <text x="27.5" y="-41" t="1" h="3" halign="r" lc="black"/>
@@ -186,7 +186,7 @@
 \draw[black] (15.75,-73) node[anchor=base west]{dur=dur (25.06 ns)};
 \draw[black] (15.75,-70) node[anchor=base west]{t0 0 s};
 \draw[black] (15.75,-67) node[anchor=base west]{fs=Fs (531.2 GS/s)};
-\draw[black] (15.75,-64) node[anchor=base west]{a 1.0 V};
+\draw[black] (15.75,-64) node[anchor=base west]{a 2.0 V};
 \path[line width=0.30mm, draw=black] (28,-45.5) rectangle +(7,7);
 \path[line width=0.30mm, draw=black] (24.5,-42) -- (28,-42);
 \draw[black] (27.5,-41) node[anchor=base east]{1};
