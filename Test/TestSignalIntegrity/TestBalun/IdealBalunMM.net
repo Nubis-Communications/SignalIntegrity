@@ -1,0 +1,14 @@
+device D1 3 file IdealBalun.si reorder 2,3,1 EndFrequency 70000000000.0 FrequencyPoints 70 UserSampleRate 40000000000.0 ReferenceImpedance 50.0
+device MM1 4 mixedmode
+device MM2 4 mixedmode
+device B1 3 balun
+connect MM1 1 D1 1
+connect D1 2 MM1 2
+port 1 td 0 D1 3
+port 2 td 0 MM1 3
+port 3 td 0 MM1 4
+port 4 td 0 B1 1
+connect B1 2 MM2 1
+connect MM2 2 B1 3
+port 5 td 0 MM2 3
+port 6 td 0 MM2 4

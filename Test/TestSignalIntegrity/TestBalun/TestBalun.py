@@ -43,6 +43,8 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        self.Caching=SignalIntegrity.App.Preferences['Cache.CacheResults']
+        SignalIntegrity.App.Preferences['Cache.CacheResults']=False
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         self.TextLimit=SignalIntegrity.App.Preferences['Appearance.LimitText']
@@ -58,6 +60,7 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Cache.CacheResults']=self.Caching
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
         SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
@@ -89,3 +92,7 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         ssps.DocEnd()
         #ssps.Emit()
         self.CheckSymbolicResult(self.id(),ssps,'Ideal Balun')
+    def testIdealBalunMM(self):
+        self.SParameterResultsChecker('IdealBalunMM.si')
+    def testIdealBalunSimulation(self):
+        self.SimulationResultsChecker('IdealBalunSimulation.si')
