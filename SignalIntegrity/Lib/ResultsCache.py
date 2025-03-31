@@ -50,13 +50,18 @@ class ResultsCache(object):
             else:
                 filename = self.filename+self.extra+self.extension
         return filename
+    @staticmethod
+    def PreferencesCache():
+        from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
+        from SignalIntegrity.Lib.Parsers.SystemSParametersParser import SystemDescriptionParser
+        return ' TrySVD '+repr(Numeric.trySVD)+' CheckConditionNumber '+repr(Numeric.checkConditionNumber)+' MultiPortTee '+repr(SystemDescriptionParser.MultiPortTee)
     def HashValue(self,stuffToHash=''):
         """ Generates the hash for a definition\n
         @param stuffToHash repr of stuff to hash
         @remark derived classes should override this method and call the base class HashValue with their stuff added
         @return integer hash value
         """
-        return hashlib.sha256(stuffToHash.encode()).hexdigest()
+        return hashlib.sha256((stuffToHash+self.PreferencesCache()).encode()).hexdigest()
     def CheckCache(self):
         """Called to see if the cache has results that can be used instead of processing the result.\n
         It calculates a hash value for the definition of the processing and sees if a _pickle_ containing
