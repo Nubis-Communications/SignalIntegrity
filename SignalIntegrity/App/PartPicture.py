@@ -2458,3 +2458,26 @@ class PartPictureVariableBalun(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureBalun'],4)
 
+class PartPictureReference(PartPictureBox):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureBox.__init__(self,origin,[PartPin(1,(0,2),'l',False,True,True),PartPin(2,(4,1),'r',False,True,True),PartPin(3,(4,3),'r',False,True,True)],[(1,0),(3,4)],[(0,0),(4,4)],(2,-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'R')
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+        #PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,2)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        x=(drawingOrigin[0]+self.origin[0]+2.5)*grid
+        y1=(drawingOrigin[1]+self.origin[1]+1)*grid
+        y2=(drawingOrigin[1]+self.origin[1]+3)*grid
+        p1=ct.Translate((x,y1))
+        canvas.create_text(p1[0],p1[1],text='+',fill=self.color)
+        p2=ct.Translate((x,y2))
+        canvas.create_text(p2[0],p2[1],text='-',fill=self.color)
+        # ct=self.CoordinateTranslater(grid,drawingOrigin)
+        # p=ct.Translate((2,3))
+        # canvas.create_text(p[0],p[1],text='-',fill=self.color)
+
+class PartPictureVariableReference(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureReference'],4)
+

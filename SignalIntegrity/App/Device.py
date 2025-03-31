@@ -1659,6 +1659,22 @@ class DeviceIdealBalun(Device):
                         ],
                         PartPictureVariableBalun()
                         )
+
+class DeviceReference(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='reference')
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyCategory('Inductors'),
+                         PartPropertyPartName('Reference'),
+                         PartPropertyHelp('device:Reference'),
+                         PartPropertyDefaultReferenceDesignator('Ref?'),
+                         PartPropertyDescription('Reference'),
+                         PartPropertyPorts(3)
+                        ],
+                        PartPictureVariableReference()
+                        )
+
 class Devices(list):
     def __init__(self,devices):
         list.__init__(self,devices)
@@ -1774,7 +1790,8 @@ DeviceList=Devices([
                 DeviceSeries(),
                 DeviceRaisedCosineRisetimeFilter(),
                 DeviceGaussianRisetimeFilter(),
-                DeviceIdealBalun()
+                DeviceIdealBalun(),
+                DeviceReference()
                 ])
 
 

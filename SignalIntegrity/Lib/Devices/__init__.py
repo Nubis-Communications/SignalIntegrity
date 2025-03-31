@@ -58,3 +58,4 @@ from .IdealRelay import IdealRelay
 from .TLineTwoPortCOM import TLineTwoPortCOM
 from .Converters import IdealCurrentToVoltageConverter,IdealVoltageToVoltageConverter
 from .IdealBalun import IdealBalun
+from .Reference import Reference

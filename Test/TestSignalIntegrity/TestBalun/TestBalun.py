@@ -137,3 +137,20 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         ssps.DocEnd()
         #ssps.Emit()
         self.CheckSymbolicResult(self.id(),ssps,'Balun back-to-back')
+    def testReferenceSymbolic(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines([
+            'device D1 4 idealtransformer 1.0',
+            'device G1 1 ground',
+            'port 1 td 0 D1 1',
+            'connect D1 2 G1 1',
+            'port 2 td 0 D1 3',
+            'port 3 td 0 D1 4'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution(size='biggest')
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Reference')
