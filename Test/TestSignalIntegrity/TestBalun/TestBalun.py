@@ -96,3 +96,44 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         self.SParameterResultsChecker('IdealBalunMM.si')
     def testIdealBalunSimulation(self):
         self.SimulationResultsChecker('IdealBalunSimulation.si')
+    def testFourPortHFSSSymbolic(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines([
+            'device D1 4 idealtransformer 1.0',
+            'device S 4',
+            'device D3 4 idealtransformer 1.0',
+            'device G1 1 ground',
+            'device G2 1 ground',
+            'port 1 td 0 D1 1',
+            'port 2 td 0 D3 1',
+            'connect G1 1 D1 2',
+            'connect D1 3 S 1',
+            'connect D1 4 S 2',
+            'connect S 3 D3 3',
+            'connect S 4 D3 4',
+            'connect D3 2 G2 1'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution(size='biggest')
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'HFSS Four Port Measurement')
+    def testBalunBackBack(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines([
+            'device B1 3 balun',
+            'device B2 3 balun',
+            'port 1 td 0 B1 1',
+            'port 2 td 0 B2 1',
+            'connect B2 2 B1 2',
+            'connect B2 3 B1 3'])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution(size='biggest')
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Balun back-to-back')
