@@ -25,6 +25,7 @@ class Numeric(object):
     """handles numeric details of derived class solutions"""
     alwaysUseSVD=False
     trySVD=True
+    allowPossibleNonUniqueSolutions=False
     singularValueLimit=1e-10
     conditionNumberLimit=1e-10
     checkConditionNumber=True
@@ -60,6 +61,12 @@ class Numeric(object):
         In many cases, the matrices \f$\mathbf{L}\f$
         and/or \f$\mathbf{R}\f$ are such that the all of the elements of the inverse of
         \f$\mathbf{A}\f$ are not used.
+        Usually, in this case, \f$\Sigma\f$ contains some zero values.  The left and right matrices are used
+        to see whether the inverse of the zero singular value would be selected.  If both a column of the left
+        matrix and a row of the right matrix both contain zeros such that they don't select the singular value,
+        it can be removed and does not affect the answer.  If either the left or the right matrix don't select
+        the element, then allowing the solution allows for possible, non-unique values to be generated.
+        @see allowPossibleNonUniqueSolutions
         Think of it as we only want to find certain elements of the inverse.  Situations like
         this arise, for example, when we have two wires in parallel connected to two circuit
         nodes.  We are not able to calculate the current through each of the wires, but we
@@ -150,7 +157,10 @@ class Numeric(object):
                     for c in range(len(uhr[0])):
                         if abs(uhr[r][c])>self.singularValueLimit:
                             sr[r]=True
-                sUsed=[l and r for l,r in zip(sl,sr)]
+                if self.allowPossibleNonUniqueSolutions:
+                    sUsed=[l and r for l,r in zip(sl,sr)]
+                else:
+                    sUsed=[l or r for l,r in zip(sl,sr)]
                 for u,s in zip(sUsed,sigma):
                     if u and (s<self.singularValueLimit):
                         raise LinAlgError
@@ -189,6 +199,10 @@ class Numeric(object):
     # then the first attempt is made without the svd.  If the first attempt fails, or
     # alwaysUseSVD is False, an attempt is made using the svd.
     # @see alwaysUseSVD
+    # @var allowPossibleNonUniqueSolutions
+    # when using the SVD, there is the possibility of a solution, that is not unique, but is
+    # possible.  Generally, this is not allowed and unique solutions are required, otherwise
+    # one can learn incorrect things from the simulator.
     # @var singularValueLimit
     # The limit on numbers that are multiplied by the inverse of the singular value before
     # they are considered zero.  Defaults to 1e-10.
@@ -196,4 +210,3 @@ class Numeric(object):
     # The limit on the condition number of the inverse of the matrix before the matrix
     # inverse is considered suspect.  Defaults to 1e-1.
 
-            

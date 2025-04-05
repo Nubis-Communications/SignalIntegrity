@@ -154,3 +154,210 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         ssps.DocEnd()
         #ssps.Emit()
         self.CheckSymbolicResult(self.id(),ssps,'Reference')
+    def testSimulationUnjustifiedNodes(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SimulatorParser()
+        sdp.AddLines([
+            'voltagesource VG1 1',
+            'device R1 2 R 50.0',
+            'device D1 4 idealtransformer 1.0',
+            'device G1 1 ground',
+            'device R2 2 R 50.0',
+            'device VO2 3 voltagetovoltageconverter',
+            'connect R1 1 VG1 1',
+            'connect R1 2 D1 1',
+            'connect D1 2 G1 1',
+            'voltageoutput VO1 VO2 2',
+            'connect VO2 2 R2 1 D1 3',
+            'voltageoutput VO3 D1 4',
+            'connect D1 4 R2 2 VO2 1',
+            'device VO2_3 1 open',
+            'connect VO2 3 VO2_3 1',
+            'voltageoutput VO2 VO2 3'])
+        ssps=si.sd.SimulatorSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXEquations()
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Reference')
+    def testSimulationUnjustifiedNodes2(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SimulatorParser()
+        sdp.AddLines([
+            'voltagesource VG1 1',
+            'device R1 2 R 50.0',
+            'device R2 2 R 50.0',
+            'device VO2 3 voltagetovoltageconverter',
+            'device Ref1 3 reference',
+            'connect R1 1 VG1 1',
+            'connect R1 2 Ref1 1',
+            'voltageoutput VO1 Ref1 2',
+            'connect Ref1 2 R2 1 VO2 2',
+            'voltageoutput VO3 Ref1 3',
+            'connect Ref1 3 VO2 1 R2 2',
+            'device VO2_3 1 open',
+            'connect VO2 3 VO2_3 1',
+            'voltageoutput VO2 VO2 3'])
+        ssps=si.sd.SimulatorSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXEquations()
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Reference')
+    def testSimulationJustifiedNodes2(self):
+        import SignalIntegrity.Lib as si
+        symbolic=si.sd.Symbolic(size='small')
+        sdp=si.p.SimulatorParser()
+        sdp.AddLines([
+            'voltagesource VG1 1',
+            'device R1 2 R 50.0',
+            'device R2 2 R 50.0',
+            'device VO2 3 voltagetovoltageconverter',
+            'device Ref1 3 reference',
+            'connect R1 1 VG1 1',
+            'connect R1 2 Ref1 1',
+            'connect VO2 2 R2 1 Ref1 2',
+            'connect R2 2 Ref1 3 VO2 1',
+            'device VO2_3 1 open',
+            'connect VO2 3 VO2_3 1',
+            'voltageoutput VO2 VO2 3'])
+        ssps=si.sd.SimulatorSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXEquations()
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Reference')
+    def testSimulationVoltageJustifiedNoSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+                                        self.id(),
+                                        whether_svd=False,
+                                        allow_nonunique=False,
+                                        probe_list=[('VO1','on'),('VO2','off'),('VO3','off')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationVoltageJustifiedSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=False,
+                                        probe_list=[('VO1','on'),('VO2','off'),('VO3','off')])
+            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationVoltageUnustifiedNoSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+                                        self.id(),
+                                        whether_svd=False,
+                                        allow_nonunique=False,
+                                        probe_list=[('VO1','on'),('VO2','on'),('VO3','on')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationVoltageUnjustifiedSVDAllowNonUnique(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=True,
+                                        probe_list=[('VO1','on'),('VO2','on'),('VO3','on')])
+            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationVoltageUnustifiedSVDNoNonUnique(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=False,
+                                        probe_list=[('VO1','on'),('VO2','on'),('VO3','on')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationCurrentJustifiedNoSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+                                        self.id(),
+                                        whether_svd=False,
+                                        allow_nonunique=False,
+                                        probe_list=[('IO1','on'),('IO2','off'),('IO3','off')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationCurrentJustifiedSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=False,
+                                        probe_list=[('IO1','on'),('IO2','off'),('IO3','off')])
+            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationCurrentUnustifiedNoSVD(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+                                        self.id(),
+                                        whether_svd=False,
+                                        allow_nonunique=False,
+                                        probe_list=[('IO1','on'),('IO2','on'),('IO3','on')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationCurrentUnjustifiedSVDAllowNonUnique(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=True,
+                                        probe_list=[('IO1','on'),('IO2','on'),('IO3','on')])
+            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def testSimulationCurrentUnustifiedSVDNoNonUnique(self):
+        try:
+            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+                                        self.id(),
+                                        whether_svd=True,
+                                        allow_nonunique=False,
+                                        probe_list=[('IO1','on'),('IO2','on'),('IO3','on')])
+            with self.assertRaises(AssertionError):
+                self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+        finally:
+            self.RestoreCalculation(self.id())
+    def SetupCalculation(self,file_name,test_id,whether_svd,allow_nonunique,probe_list):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        siapp=SignalIntegrityAppHeadless()
+        self.TrySVD=SignalIntegrity.App.Preferences['Calculation.TrySVD']
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=whether_svd
+        self.AllowNonUnique=SignalIntegrity.App.Preferences['Calculation.AllowNonUniqueSolutions']
+        SignalIntegrity.App.Preferences['Calculation.AllowNonUniqueSolutions']=allow_nonunique
+        SignalIntegrity.App.Preferences.SaveToFile()
+        siapp=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+        opened=siapp.OpenProjectFile(file_name)
+        for name,state in probe_list:
+            siapp.Device(name)['state']['Value']=state
+        siapp.SaveProjectToFile(test_id.split('.')[-1].replace('test',''))
+        return siapp.fileparts.filename
+    def RestoreCalculation(self,test_id):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        siapp=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.TrySVD']=self.TrySVD
+        SignalIntegrity.App.Preferences['Calculation.AllowNonUniqueSolutions']=self.AllowNonUnique
+        SignalIntegrity.App.Preferences.SaveToFile()
+        siapp=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+        os.remove(test_id.split('.')[-1].replace('test','')+'.si')

@@ -11,7 +11,7 @@ class SimulatorSymbolic(SystemSParametersSymbolic, Simulator):
         if len(veosi)==1:
             if len(veosi[0])==1:
                 veosil='\\left('+veosil+'\\right)'
-        on=Matrix2LaTeX([[D+'_{'+str(P)+'}'] for (D,P) in self.pOutputList])
+        on=Matrix2LaTeX([[item[0]+'_{'+str(item[1])+'}'] for item in self.pOutputList])
         sv=Matrix2LaTeX(SubscriptedVector(self.SourceVector()))
         ssm=self.SourceToStimsPrimeMatrix(False)
         if len(ssm) == len(ssm[0]): # matrix is square

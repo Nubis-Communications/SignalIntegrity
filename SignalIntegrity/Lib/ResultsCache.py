@@ -54,7 +54,10 @@ class ResultsCache(object):
     def PreferencesCache():
         from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
         from SignalIntegrity.Lib.Parsers.SystemSParametersParser import SystemDescriptionParser
-        return ' TrySVD '+repr(Numeric.trySVD)+' CheckConditionNumber '+repr(Numeric.checkConditionNumber)+' MultiPortTee '+repr(SystemDescriptionParser.MultiPortTee)
+        return ' TrySVD '+repr(Numeric.trySVD)+\
+                ' CheckConditionNumber '+repr(Numeric.checkConditionNumber)+\
+                ' AllowNonUniqueSolutions'+repr(Numeric.allowPossibleNonUniqueSolutions)+\
+                ' MultiPortTee '+repr(SystemDescriptionParser.MultiPortTee)
     def HashValue(self,stuffToHash=''):
         """ Generates the hash for a definition\n
         @param stuffToHash repr of stuff to hash

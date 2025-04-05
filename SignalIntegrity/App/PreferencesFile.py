@@ -168,6 +168,7 @@ class Calculation(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'Calculation')
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
+        self.Add(XMLPropertyDefaultBool('AllowNonUniqueSolutions',False))
         self.Add(XMLPropertyDefaultBool('CheckConditionNumber',True))
         self.Add(XMLPropertyDefaultBool('UseSinX',True))
         self.Add(XMLPropertyDefaultBool('Enforce12458',True))
@@ -181,6 +182,7 @@ class Calculation(XMLConfiguration):
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
         si.td.wf.Waveform.maximumWaveformSize = self['MaximumWaveformSize']
         si.sd.Numeric.trySVD=self['TrySVD']
+        si.sd.Numeric.allowPossibleNonUniqueSolutions=self['AllowNonUniqueSolutions']
         si.sd.Numeric.checkConditionNumber=self['CheckConditionNumber']
         si.p.SystemDescriptionParser.MultiPortTee=self['MultiPortTee']
 
