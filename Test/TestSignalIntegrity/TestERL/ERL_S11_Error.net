@@ -1,5 +1,6 @@
 var $Nbits$ 2.0e3
 var $f_b$ 106.25e9
+var $bps$ 1
 var $Fs$ 106.25e9
 var $T_b$ 9.41176470588e-12
 var $ImpulseResponseLength$ 372.705882353e-12
@@ -11,8 +12,8 @@ device F1 2 impulseresponsefilter ERL_Filter.txt wfprojname None dcgain 0 mults 
 device O2 1 open
 device D5 3 opamp gain 1.0 zi 100.0e6 zo 0
 device D6 2 voltageamplifier gain -1.0 zi 100.0e6 zo 0
-voltagesource VG1 1
-connect F1 1 D6 1 VG1 1
+voltagesource VG2 1
+connect F1 1 D6 1 VG2 1
 voltageoutput V_error F1 2
 connect F1 2 D5 2
 connect D5 3 O2 1

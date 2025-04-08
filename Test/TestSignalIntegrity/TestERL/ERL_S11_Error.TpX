@@ -1,6 +1,7 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
 %  <text x="1.75" y="-2.75" t="Nbits 2.0 kbits" h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-5.75" t="f_b 106.2 GBaud" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-8.75" t="bps 1" h="3" halign="l" lc="black"/>
 %  <text x="38.5" y="-22" t="IR" h="3" halign="c" lc="black"/>
 %  <rect x="35" y="-17.5" w="7" h="-7" lc="black"/>
 %  <polyline lc="black">31.5,-21 35,-21</polyline>
@@ -50,7 +51,7 @@
 %  <text x="33.25" y="-72" t="t0=st (-4.706 ps)" h="3" halign="l" lc="black"/>
 %  <text x="33.25" y="-69" t="br=f_b (106.2 GBaud)" h="3" halign="l" lc="black"/>
 %  <text x="33.25" y="-66" t="prbs=prbs (11)" h="3" halign="l" lc="black"/>
-%  <text x="33.25" y="-63" t="bps 1" h="3" halign="l" lc="black"/>
+%  <text x="33.25" y="-63" t="bps=bps (1)" h="3" halign="l" lc="black"/>
 %  <text x="33.25" y="-60" t="fs=Fs (106.2 GS/s)" h="3" halign="l" lc="black"/>
 %  <text x="33.25" y="-57" t="a 1.0 V" h="3" halign="l" lc="black"/>
 %  <polyline lc="black">45.5,-21 56,-21</polyline>
@@ -69,6 +70,7 @@
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
 \draw[black] (1.75,-2.75) node[anchor=base west]{Nbits 2.0 kbits};
 \draw[black] (1.75,-5.75) node[anchor=base west]{f\textunderscore b 106.2 GBaud};
+\draw[black] (1.75,-8.75) node[anchor=base west]{bps 1};
 \draw[black] (38.5,-22) node[anchor=base]{IR};
 \path[line width=0.30mm, draw=black] (35,-24.5) rectangle +(7,7);
 \path[line width=0.30mm, draw=black] (31.5,-21) -- (35,-21);
@@ -118,7 +120,7 @@
 \draw[black] (33.25,-72) node[anchor=base west]{t0=st (-4.706 ps)};
 \draw[black] (33.25,-69) node[anchor=base west]{br=f\textunderscore b (106.2 GBaud)};
 \draw[black] (33.25,-66) node[anchor=base west]{prbs=prbs (11)};
-\draw[black] (33.25,-63) node[anchor=base west]{bps 1};
+\draw[black] (33.25,-63) node[anchor=base west]{bps=bps (1)};
 \draw[black] (33.25,-60) node[anchor=base west]{fs=Fs (106.2 GS/s)};
 \draw[black] (33.25,-57) node[anchor=base west]{a 1.0 V};
 \path[line width=0.30mm, draw=black] (45.5,-21) -- (56,-21);

@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
 		<EndFrequency>53125000000.0</EndFrequency>
-		<FrequencyPoints>109</FrequencyPoints>
+		<FrequencyPoints>327</FrequencyPoints>
 		<UserSampleRate>106250000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>569x391+78+78</Geometry>
+			<Geometry>569x391+208+208</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-38</Originx>
 			<Originy>-12</Originy>
@@ -428,7 +428,7 @@
 						<PartProperty>
 							<Keyword>bps</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1</Value>
+							<Value>=bps</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -644,6 +644,15 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
+				<Description>bps</Description>
+				<Name>bps</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>int</Type>
+				<Units></Units>
+				<Value>1</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
 				<Description>Sample Rate (S/s)</Description>
 				<Name>Fs</Name>
 				<ReadOnly>True</ReadOnly>
@@ -667,7 +676,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>2.0611764705882382e-09</Value>
+				<Value>6.151529411764706e-09</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -676,7 +685,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-9.411868235294118e-05</Value>
+				<Value>-9.412072470588235e-05</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -685,7 +694,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>0.00018823735529411765</Value>
+				<Value>0.0001882414494117647</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>

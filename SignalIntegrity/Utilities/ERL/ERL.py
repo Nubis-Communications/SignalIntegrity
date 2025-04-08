@@ -44,6 +44,7 @@ def ERL(filename,args,debug=False,verbose=False):
         | T_fx         | s    | no 0        | time-gated propagation delay                                        |
         | f_b          | Baud | yes         | Baud rate                                                           |
         | DER_0        | --   | yes         | target detector error ratio                                         |
+        | bps          | --   | no 1        | bits per symbol (1=NRZ, 2=PAM-4)                                    |
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
@@ -71,6 +72,7 @@ def ERL(filename,args,debug=False,verbose=False):
     T_fx = 0 if 'T_fx' not in args else args['T_fx']
     f_b = args['f_b']
     DER_0 = args['DER_0']
+    bps = 1 if 'bps' not in args else int(args['bps'])
     if debug or verbose:
         print(f"filename = {filename}")
         print(f"port_reorder = {port_reorder}")
@@ -83,6 +85,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"T_fx = {ToSI(T_fx,'s')}")
         print(f"f_b = {ToSI(f_b,'Baud')}")
         print(f"DER_0 = {ToSI(DER_0,None)}")
+        print(f"bps = {ToSI(bps,None)}")
         print(f"verbose = {str(verbose)}")
         print(f"debug = {str(debug)}")
 
@@ -209,6 +212,7 @@ def ERL(filename,args,debug=False,verbose=False):
 
     args = {'Nbits':4e6,
             'f_b':f_b,
+            'bps':bps
             }
 
     if debug: # pragma: no cover
@@ -329,6 +333,8 @@ specified with units of ohm (like 100ohm or 100),\n\
 defaults to 100.',default='100ohm')
     parser.add_argument('-DER_0', type=str,  help='(required) target detector error ratio\n\
 specified unitless (like 1e-6).')
+    parser.add_argument('-bps',type=str, default='1',help='bits per symbol\n\
+1 is NRZ (default), 2 is PAM-4.')
     args, unknown = parser.parse_known_args()
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
@@ -416,6 +422,13 @@ specified unitless (like 1e-6).')
             raise(AttributeError)
     except (AttributeError,TypeError):
         Error('error: DER_0 must be specified')
+
+    try:
+        argsDict['bps']=int(FromSI(args.bps,''))
+        if argsDict['bps'] == None:
+            raise(AttributeError)
+    except (AttributeError,TypeError):
+        Error('error: bps must be specified')
 
     runProfiler=args.profile
 
