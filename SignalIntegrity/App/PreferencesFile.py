@@ -191,9 +191,15 @@ class Cache(XMLConfiguration):
         XMLConfiguration.__init__(self,'Cache')
         self.Add(XMLPropertyDefaultBool('CacheResults',True))
         self.Add(XMLPropertyDefaultInt('NumberOfFiles',1))
+        self.Add(XMLPropertyDefaultBool('KeepExtraFileForArchive',False))
+        self.Add(XMLPropertyDefaultBool('Logging',False))
+        self.Add(XMLPropertyDefaultBool('CheckTimes',True))
     def ApplyPreferences(self):
         from SignalIntegrity.Lib.ResultsCache import ResultsCache
         ResultsCache.files_to_keep = self['NumberOfFiles']
+        ResultsCache.keep_extra_file_for_archive = self['KeepExtraFileForArchive']
+        ResultsCache.logging = self['Logging']
+        ResultsCache.check_times = self['CheckTimes']
 
 class LastFiles(XMLConfiguration):
     def __init__(self):

@@ -28,6 +28,8 @@ class ResultsCache(object):
     corresponding to a definition.
     """
     files_to_keep = 1
+    keep_extra_file_for_archive = True
+    check_times = True
     logging=False
     def __init__(self,name,filename=None):
         """constructor\n
@@ -84,9 +86,10 @@ class ResultsCache(object):
             if not os.path.exists(filename):
                 if self.logging: print(filename+' does not exist')
                 continue
-            if not self.CheckTimes(filename):
-                if self.logging: print(filename + ' older')
-                continue
+            if self.check_times:
+                if not self.CheckTimes(filename):
+                    if self.logging: print(filename + ' older')
+                    continue
             try:
                 with open(filename,'rb') as f:
                     hash = pickle.load(f)
@@ -99,6 +102,12 @@ class ResultsCache(object):
                             # for single file cache.  Write out the single file cache, so that in the future, it's found
                             # in the single file cache.
                             self.CacheResult()
+                        if self.keep_extra_file_for_archive and (filename != self._FileName(files_to_keep_override=1)):
+                            if self.logging: print('copying cached file to single cache for archiving')
+                            f.close()
+                            # keep an extra single file just for archiving
+                            import shutil
+                            shutil.copyfile(filename, self._FileName(files_to_keep_override=1))
                         return True
                     else:
                         if self.logging: # pragma: no cover
@@ -159,6 +168,11 @@ class ResultsCache(object):
                 if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
                 pickle.dump(pickleDict['hash'], f, 2)
                 pickle.dump(pickleDict, f, 2)
+            if self.keep_extra_file_for_archive and (self._FileName() != self._FileName(files_to_keep_override=1)):
+                # keep an extra single file just for archiving
+                if self.logging: print('copying cached file to single cache for archiving')
+                import shutil
+                shutil.copyfile(self._FileName(), self._FileName(files_to_keep_override=1))
         except FileNotFoundError:
             if self.logging:
                 print(f'failed to write cache file: {self._FileName}')

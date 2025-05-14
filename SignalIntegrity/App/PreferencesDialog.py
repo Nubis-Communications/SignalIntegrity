@@ -47,18 +47,28 @@ class PreferencesDialog(PropertiesDialog):
         self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
         self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
         self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.propertyListFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
-        self.cacheResult=CalculationPropertyTrueFalseButton(self.propertyListFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
-        self.cacheNumberOfFiles=CalculationProperty(self.propertyListFrame,'cache files per project',None,self.onUpdatePreferences,preferences,'Cache.NumberOfFiles')
+        import tkinter as tk
+        self.CacheFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.CacheFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.cacheResult=CalculationPropertyTrueFalseButton(self.CacheFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
+        self.cacheNumberOfFiles=CalculationProperty(self.CacheFrame,'cache files per project',None,self.onUpdatePreferences,preferences,'Cache.NumberOfFiles')
+        self.cacheKeepExtraFilesForArchive=CalculationPropertyTrueFalseButton(self.CacheFrame,'keep extra cache file for archive',None,self.onUpdatePreferences,preferences,'Cache.KeepExtraFileForArchive')
+        self.cacheLogging=CalculationPropertyTrueFalseButton(self.CacheFrame,'log cache (for debugging)',None,self.onUpdatePreferences,preferences,'Cache.Logging')
+        self.cacheCheckTimes=CalculationPropertyTrueFalseButton(self.CacheFrame,'check cache file times',None,self.onUpdatePreferences,preferences,'Cache.CheckTimes')
         self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
         self.encryptionPassword = CalculationProperty(self.propertyListFrame,'password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
         self.encryptionEnding = CalculationProperty(self.propertyListFrame,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
         self.archiveCachedResults = CalculationPropertyTrueFalseButton(self.propertyListFrame,'archive cached results',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveCachedResults')
-        self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.propertyListFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
-        self.onlineHelpURL=CalculationProperty(self.propertyListFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
+        self.OnlineHelpFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.OnlineHelpFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.OnlineHelpFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
+        self.onlineHelpURL=CalculationProperty(self.OnlineHelpFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
         self.Finish()
 
     def onUpdatePreferences(self):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
+        self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
+        self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
@@ -79,4 +89,6 @@ class PreferencesDialog(PropertiesDialog):
 
     def Finish(self):
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
+        self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
+        self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         PropertiesDialog.Finish(self)
