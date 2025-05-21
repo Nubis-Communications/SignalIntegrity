@@ -335,6 +335,102 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
                 self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
         finally:
             self.RestoreCalculation(self.id())
+    def testFourToTwo(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        siapp=SignalIntegrityAppHeadless()
+        self.assertTrue(siapp.OpenProjectFile('FourToTwoSimulation.si'))
+        netlist=siapp.Drawing.schematic.NetList().textToShow
+        sp=si.p.SimulatorParser()
+        sp.AddLines([line.replace(' file None','') for line in netlist])
+        sn=si.sd.SimulatorNumeric(sp.SystemDescription())
+        import random
+        sp_device=[[random.random() for _ in range(4)] for _ in range(4)]
+        sn.AssignSParameters('S',sp_device)
+        tm=sn.TransferMatrix()
+        voltages=sn.SourceVector()
+        currents=[name[0] for name in sn.pOutputList]
+        # assert order of voltages and currents
+        self.assertTrue(voltages==['V1','V2'])
+        self.assertTrue(currents==['I1','I2'])
+        import numpy as np
+        V=np.identity(2)
+        I=np.array(V).dot(tm)
+        # I is actually tm, and is Y, the Y parameters
+        Y=I
+        sp_correct_twoport = si.sp.SParameters([0],[si.cvt.Y2S(Y)])
+        # we now have the correct s-parameters - verify that they are computed properly
+        # with references
+        siapp=SignalIntegrityAppHeadless()
+        self.assertTrue(siapp.OpenProjectFile('FourToTwoSp.si'))
+        netlist=siapp.Drawing.schematic.NetList().textToShow
+        sspnp=si.p.SystemSParametersNumericParser()
+        sspnp.AddLines([line.replace(' file None','') for line in netlist])
+        sspn=si.sd.SystemSParametersNumeric(sspnp.SystemDescription())
+        sspn.AssignSParameters('S',sp_device)
+        sp_calculated = si.sp.SParameters([0],[sspn.SParameters()])
+        self.assertTrue(self.SParametersAreEqual(sp_correct_twoport, sp_calculated), 'calculated s-parameters incorrect')
+        Wba=np.array([[1./3.,0],[0,1./3.]])
+        Wbx=np.array([[2./3.,-2./3.,0,0,0,0,0,0],
+                      [0,0,2./3.,-2./3.,0,0,0,0]])
+        I=np.identity(8)
+        S=sp_device
+        Wxx=np.array([[0,0,0,0,S[0][0],S[0][1],S[0][2],S[0][3]],
+                     [0,0,0,0,S[1][0],S[1][1],S[1][2],S[1][3]],
+                     [0,0,0,0,S[2][0],S[2][1],S[2][2],S[2][3]],
+                     [0,0,0,0,S[3][0],S[3][1],S[3][2],S[3][3]],
+                     [1./3.,2./3.,0,0,0,0,0,0],
+                     [2./3.,1./3.,0,0,0,0,0,0],
+                     [0,0,1./3.,2./3.,0,0,0,0],
+                     [0,0,2./3.,1./3.,0,0,0,0]])
+        Wxa=np.array([[0,0],
+                      [0,0],
+                      [0,0],
+                      [0,0],
+                      [2./3.,0],
+                      [-2./3.,0],
+                      [0,2./3.],
+                      [0,-2./3.]])
+        sp_calculated_formula=si.sp.SParameters([0],[(Wba+Wbx.dot(np.linalg.inv(I-Wxx)).dot(Wxa)).tolist()])
+        self.assertTrue(self.SParametersAreEqual(sp_correct_twoport, sp_calculated_formula), 'calculated s-parameters by formula incorrect')
+        A=np.array([[2./3.,-2./3.,0,0],
+                    [0,0,2./3.,-2./3.]])
+        B=np.array([[1./3.,2./3.,0,0],
+                   [2./3.,1./3.,0,0],
+                   [0,0,1./3.,2./3.],
+                   [0,0,2./3.,1./3.]])
+        C=np.array([[2./3.,0],
+                   [-2./3.,0],
+                   [0,2./3.],
+                   [0,-2./3.]])
+        I4=np.identity(4)
+        sp.calculated_formula_alternate=si.sp.SParameters([0],[(Wba+A.dot(S).dot(np.linalg.inv(I4-B.dot(S))).dot(C)).tolist()])
+        self.assertTrue(self.SParametersAreEqual(sp_correct_twoport, sp_calculated_formula), 'calculated s-parameters by alternate formula incorrect')
+    def testFourToTwoSymbolic(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        siapp=SignalIntegrityAppHeadless()
+        self.assertTrue(siapp.OpenProjectFile('FourToTwoSp.si'))
+        netlist=siapp.Drawing.schematic.NetList().textToShow
+        sdp=si.p.SystemDescriptionParser()
+        sdp.AddLines([line.replace(' file None','') for line in netlist])
+        ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
+        ssps.DocStart()
+        ssps.LaTeXSolution()
+        ssps.DocEnd()
+        #ssps.Emit()
+        self.CheckSymbolicResult(self.id(),ssps,'Four to Two Port Symbolic Incorrect')
+    def testFourToTwoSimulationSymbolic(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        siapp=SignalIntegrityAppHeadless()
+        self.assertTrue(siapp.OpenProjectFile('FourToTwoSimulation.si'))
+        netlist=siapp.Drawing.schematic.NetList().textToShow
+        sp=si.p.SimulatorParser()
+        sp.AddLines([line.replace(' file None','') for line in netlist])
+        ss=si.sd.SimulatorSymbolic(sp.SystemDescription(),size='small')
+        ss.DocStart()
+        ss.LaTeXTransferMatrix()
+        ss.DocEnd()
+        #ss.Emit()
+        self.CheckSymbolicResult(self.id(),ss,'Four to Two Port Symbolic Simulation Incorrect')
     def SetupCalculation(self,file_name,test_id,whether_svd,allow_nonunique,probe_list):
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
