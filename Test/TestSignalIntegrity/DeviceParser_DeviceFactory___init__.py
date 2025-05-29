@@ -26,7 +26,7 @@ class DeviceFactory(list):
                      "Mutual(f,float(arg['']),Z0=float(arg['z0']))"),
         ParserDevice('ground',1,False,{},False,"Ground()"),
         ParserDevice('open',1,False,{},False,"Open()"),
-        ParserDevice('thru',2,False,{},False,"Thru()"),
+        ParserDevice('thru',None,False,{},False,"Thru(ports)"),
         ParserDevice('directionalcoupler','3-4',False,{},False,
             "DirectionalCoupler(ports)"),
         ParserDevice('termination',None,False,{},False,

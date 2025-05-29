@@ -33,7 +33,7 @@ class PartPin(PartPinConfiguration):
         self['Visible']=pinVisible
         self['NumberingMatters']=pinNumberingMatters
         self['NumberSide']=numberSide
-    def DrawPin(self,canvas,grid,partOrigin,color,connected):
+    def CalculateCoordinates(self,grid,partOrigin):
         pinConnectionPoint=self['ConnectionPoint']
         startx=(pinConnectionPoint[0]+partOrigin[0])*grid
         starty=(pinConnectionPoint[1]+partOrigin[1])*grid
@@ -86,6 +86,9 @@ class PartPin(PartPinConfiguration):
                 textx=startx+textGrid/4
             else:
                 texty=starty+textGrid/2
+        return anchorString,startx,starty,endx,endy,textx,texty
+    def DrawPin(self,canvas,grid,partOrigin,color,connected):
+        anchorString,startx,starty,endx,endy,textx,texty=self.CalculateCoordinates(grid,partOrigin)
         if self['Visible']:
             canvas.create_line(startx,starty,endx,endy,fill=color)
         if not connected and not SignalIntegrity.App.Preferences['Appearance.AllPinNumbersVisible']:

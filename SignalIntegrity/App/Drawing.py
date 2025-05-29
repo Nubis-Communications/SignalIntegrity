@@ -101,6 +101,10 @@ class Drawing(tk.Frame):
         foundAWaveform=False
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
+            if device['element_state'] != None:
+                if device['element_state'].GetValue() == 'thru':
+                    from SignalIntegrity.App.Device import DeviceThru
+                    device=DeviceThru.ConvertDeviceToThru(device)
             foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
             device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)

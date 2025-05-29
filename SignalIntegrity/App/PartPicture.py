@@ -518,6 +518,11 @@ class PartPictureVariable(object):
         self.partPictureSelected = item
         self.current=eval(self.partPictureClassList[self.partPictureSelected])(self.ports,origin,orientation,mirroredHorizontally,mirroredVertically)
 
+class PartPictureVariableThru(PartPictureVariable):
+    def __init__(self,ports=4):
+        partPictures=['PartPictureThru']
+        PartPictureVariable.__init__(self,partPictures,ports)
+
 class PartPictureBox(PartPicture):
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically)
@@ -667,6 +672,26 @@ class PartPictureVariableSpecifiedPorts(PartPictureVariable):
         elif ports == 3: partPictures+=['PartPicture3PortsAllSides1','PartPicture3PortsAllSides2']
         elif ports == 4: partPictures+=['PartPicture4PortsAllSides1','PartPicture4PortsAllSides2']
         PartPictureVariable.__init__(self,partPictures,ports)
+
+class PartPictureThru(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+        for pin in self.pinList:
+            pin['NumberVisible']=False
+        for pin in self.pinListSupplied:
+            pin['NumberVisible']=False
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+        ports=len(self.pinList)
+        lp=[p+1 for p in range(ports//2)]
+        rp=[p+1 for p in range(ports//2,ports)]
+        self.DrawPinsConnected(lp,rp,canvas,grid,(drawingOrigin[0]+self.origin[0],drawingOrigin[1]+self.origin[1]))
+    def DrawPinsConnected(self,lp,rp,canvas,grid,partOrigin):
+        pin_numbers = [self.pinList[p]['Number'] for p in range(len(self.pinList))]
+        for left_pin_number,right_pin_number in zip(lp,rp):
+            _,_,_,left_endx,left_endy,_,_=self.pinList[pin_numbers.index(left_pin_number)].CalculateCoordinates(grid,partOrigin)
+            _,_,_,right_endx,right_endy,_,_=self.pinList[pin_numbers.index(right_pin_number)].CalculateCoordinates(grid,partOrigin)
+            canvas.create_line(left_endx,left_endy,right_endx,right_endy,fill=self.color)
 
 class PartPicturePort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

@@ -1,0 +1,7 @@
+var $thru_state$ thru
+device D1 5 file None
+port 1 td 0 D1 1
+port 2 td 0 D1 3
+port 4 td 0 D1 2
+port 3 td 0 D1 5
+port 5 td 0 D1 4

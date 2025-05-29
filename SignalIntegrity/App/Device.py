@@ -263,6 +263,8 @@ class DeviceFromProject(object):
             self.result=DeviceRelay([PartPropertyPorts(ports,False)],PartPictureVariableRelay(ports))
         elif className=='DeviceSeries':
             self.result=DeviceSeries(ports)
+        elif className=='DeviceThru':
+            self.result=DeviceThru(ports)
         else:
             for device in DeviceList+DeviceListSystem+DeviceListUnknown:
                 if (str(device.__class__).split('.')[-1].strip('\'>') == className):
@@ -1591,6 +1593,38 @@ class DeviceSeries(Device):
             PartPropertySections(1),
             PartPropertyFileName()],PartPictureVariableSeries())
 
+class DeviceThru(Device):
+    def __init__(self,ports=2):
+        netlist=DeviceNetListLine(partname='thru',showports=True)
+        Device.__init__(self,netlist,[
+            PartPropertyDescription('Thru Device'),
+            PartPropertyCategory('Miscellaneous'),
+            PartPropertyPorts(ports,False),
+            PartPropertyPartName('Thru'),
+            PartPropertyHelp('device:Thru'),
+            PartPropertyDefaultReferenceDesignator('D?')],
+            PartPictureVariableThru(ports))
+    @staticmethod
+    def ConvertDeviceToThru(device):
+            from SignalIntegrity.App.Device import DeviceThru
+            ports=int(device['ports']['Value'])
+            # ports must be even
+            if (ports < 2) or (ports//2*2 != ports):
+                return device
+            # part picture must be one of the first three pictures (thru with different port ordering)
+            if device.partPicture.partPictureSelected > 2:
+                return device
+            thru_device=DeviceThru(int(ports))
+            thru_device['ref']['Value']=device['ref']['Value']
+            pinList=copy.deepcopy(thru_device.partPicture.current.pinList)
+            pinListSupplied=copy.deepcopy(thru_device.partPicture.current.pinListSupplied)
+            thru_device.partPicture.current=copy.copy(device.partPicture.current)
+            thru_device.partPicture.current.pinList=pinList
+            thru_device.partPicture.current.pinListSupplied=pinListSupplied
+            thru_device.partPicture.SwitchPartPicture(thru_device.partPicture.partPictureSelected)
+            thru_device.selected=device.selected
+            return thru_device
+
 class DeviceEyeProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)
@@ -1788,6 +1822,7 @@ DeviceList=Devices([
                 DeviceWaveform(),
                 DeviceParallel(),
                 DeviceSeries(),
+                DeviceThru(),
                 DeviceRaisedCosineRisetimeFilter(),
                 DeviceGaussianRisetimeFilter(),
                 DeviceIdealBalun(),

@@ -66,7 +66,7 @@ class DeviceFactory(list):
         |m                                      |4    |True     |m=None                                                                                         | True                |sp.dev.Mutual(f,m)                                                                               |
         |ground                                 |1    |False    |                                                                                               | False               |dev.Ground()                                                                                     |
         |open                                   |1    |False    |                                                                                               | False               |dev.Open()                                                                                       |
-        |thru                                   |2    |False    |                                                                                               | False               |dev.Thru()                                                                                       |
+        |thru                                   |any  |False    |                                                                                               | False               |dev.Thru(ports)                                                                                       |
         |directional\n coupler                  |3-4  |False    |                                                                                               | False               |dev.DirectionalCoupler(ports)                                                                    |
         |termination                            |any  |False    |                                                                                               | False               |zeros(shape=(ports,ports)).tolist()                                                              |
         |tee                                    |any  |False    |                                                                                               | False               |dev.Tee(ports)                                                                                   |
@@ -140,7 +140,7 @@ class DeviceFactory(list):
                      "Mutual(f,float(arg['']),Z0=float(arg['z0']))"),
         ParserDevice('ground',1,False,{},False,"Ground()"),
         ParserDevice('open',1,False,{},False,"Open()"),
-        ParserDevice('thru',2,False,{},False,"Thru()"),
+        ParserDevice('thru',None,False,{},False,"Thru(ports)"),
         ParserDevice('directionalcoupler','3-4',False,{},False,
             "DirectionalCoupler(ports)"),
         ParserDevice('termination',None,False,{},False,

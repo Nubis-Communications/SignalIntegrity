@@ -42,6 +42,9 @@ class NetList(object):
             else:
                 state = device['element_state'].GetValue()
                 if state != 'disabled':
+                    if state == 'thru':
+                        from SignalIntegrity.App.Device import DeviceThru
+                        device=DeviceThru.ConvertDeviceToThru(device)
                     new_deviceList.append(device)
         deviceList = new_deviceList
         # done filtering out disabled devices

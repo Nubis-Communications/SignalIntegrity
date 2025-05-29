@@ -19,10 +19,19 @@ Thru.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-def Thru():
+def Thru(ports=2):
     """Thru
     Thru device
+    @param ports integer optional (defaults to 2) number of ports
     @returns the list of list s-parameter matrix of an ideal thru.
-    @remark this is simply a 2x2 matrix [[0,1][1,0]]
+    @remark The number of ports must be even
+    @remark ports 1 to P//2 are on the left and ports P//2+1 to P are on the right.
+    Thru connections are made between each left and corresponding right port.
     """
-    return [[0.,1.],[1.,0.]]
+    if (ports < 2) or (ports//2*2 != ports):
+        raise ValueError('ports must be even for thru devices')
+    S=[[0. for _ in range(ports)] for _ in range(ports)]
+    for p in range(ports//2):
+        S[p][ports//2+p]=1.
+        S[ports//2+p][p]=1.
+    return S

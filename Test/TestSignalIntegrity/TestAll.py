@@ -80,6 +80,7 @@ from TestSubProjectReferenceImpedance import *
 from TestSystemDescription import *
 from TestTDRErrorTerms import *
 from TestTeeProblem import *
+from TestThru import *
 from TestTimeDomain import *
 from TestTline import *
 from TestVirtualProbe import *
