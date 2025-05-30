@@ -311,6 +311,7 @@ class ProjectFileBase(object):
         self.dict={}
         self.ext=ext.strip('.')
         self.makeOnRead={}
+        self.original=None
 
     def Add(self,property):
         self.dict[property.dict['name']]=property
@@ -354,14 +355,16 @@ class ProjectFileBase(object):
 
     def LinesInFile(self,filename):
         filenamebase,ext=os.path.splitext(filename)
-        if ext != '.'+self.ext:
+        if not ext in ['.'+self.ext,'.'+self.ext+'~']:
             filename=filenamebase+'.'+self.ext
         lines=Encryption().ReadEncryptedLines(filename,split=True)
         return lines
 
     def CheckFileChanged(self,filename):
         try:
-            linesInFile=self.LinesInFile(filename)
+            linesInFile=self.original
+            if linesInFile == None:
+                return True
             linesInProject=self.LinesToWrite()
             if len(linesInProject)!=len(linesInFile):
                 return True
@@ -387,12 +390,12 @@ class ProjectFileBase(object):
         except:
             return True
 
-
     def Write(self,filename):
         filenamebase,ext=os.path.splitext(filename)
-        if ext != '.'+self.ext:
+        if not ext in ['.'+self.ext,'.'+self.ext+'~']:
             filename=filenamebase+'.'+self.ext
         Encryption().WriteEncryptedLines(filename,self.LinesToWrite())
+        self.original = self.LinesInFile(filename)
         return self
 
     def FromText(self,text):
@@ -405,10 +408,11 @@ class ProjectFileBase(object):
 
     def Read(self,filename):
         filenamebase,ext=os.path.splitext(filename)
-        if ext != '.'+self.ext:
+        if not ext in ['.'+self.ext,'.'+self.ext+'~']:
             filename=filenamebase+'.'+self.ext
         text=Encryption().ReadEncryptedLines(filename,split=False)
         self.FromText(text)
+        self.original = self.LinesInFile(filename)
         return self
 
     def Parse(self,element):

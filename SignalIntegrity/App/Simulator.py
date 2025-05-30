@@ -88,7 +88,7 @@ class Simulator(object):
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
         # parameters and there are eye waveforms, just skip over the transfer parameter generation.
-        if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
+        if TransferMatricesOnly or self.parent.TransferParametersDoer.active or not self.parent.Drawing.schematic.ThereAreOtherWaveforms():
             progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
             try:
                 self.transferMatrices=progressDialog.GetResult()

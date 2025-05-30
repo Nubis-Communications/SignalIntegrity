@@ -493,21 +493,38 @@ class SignalIntegrityApp(tk.Frame):
             return
 
         self.simulator.DeleteDialogs()
+        self.RemoveTemporaryFile()
 
         try:
             cd=os.getcwd()
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
-            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            extension_to_read='.si'
+            temp_file_name=self.fileparts.FullFilePathExtension('.si~')
+            project_file_name=self.fileparts.FullFilePathExtension('.si')
+            if os.path.exists(temp_file_name) and os.path.exists(project_file_name):
+                # a temporary file exists on the disk
+                if os.path.getmtime(temp_file_name) > os.path.getmtime(project_file_name):
+                    # temporary file is newer
+                    import filecmp
+                    if not filecmp.cmp(temp_file_name, project_file_name, shallow=False):
+                        # files are not the same
+                        response = messagebox.askyesnocancel('A previous session was closed incorrectly', 'Do you want to recover your edits?')
+                        if response == None:
+                            return
+                        elif response == True:
+                            extension_to_read+='~'
+            SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension(extension_to_read))
             self.SetVariables(args, reportMissing=True)
             self.Drawing.InitFromProject()
-            self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
+            self.AnotherFileOpened(project_file_name)
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
             self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle()+(' (Archive)'
                                                                                 if Archive.InAnArchive(self.fileparts.FullFilePathExtension())
                                                                                 else ''))
+            SignalIntegrity.App.Project.original = SignalIntegrity.App.Project.LinesToWrite()
         except:
             os.chdir(cd)
             if showError:
@@ -523,6 +540,7 @@ class SignalIntegrityApp(tk.Frame):
         if filename is None:
             return
 
+        self.RemoveTemporaryFile()
         self.simulator.DeleteDialogs()
 
         SignalIntegrity.App.Project=ProjectFile()
@@ -535,6 +553,7 @@ class SignalIntegrityApp(tk.Frame):
     def onCloseProject(self):
         if not self.CheckSaveCurrentProject():
             return
+        self.RemoveTemporaryFile()
         self.simulator.DeleteDialogs()
         SignalIntegrity.App.Project=ProjectFile()
         self.Drawing.stateMachine.Nothing()
@@ -834,17 +853,19 @@ class SignalIntegrityApp(tk.Frame):
             self.Drawing.partLoaded = part
             self.Drawing.stateMachine.PartLoaded()
 
+    def Zoom(self,amount):
+        drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        drawingPropertiesProject['Grid']=drawingPropertiesProject['Grid']+amount
+        self.Drawing.DrawSchematic()
+        self.statusbar.set('Zoomed to grid: '+"{:.1f}".format(drawingPropertiesProject['Grid']))
+
     def onZoomIn(self):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        drawingPropertiesProject['Grid']=drawingPropertiesProject['Grid']+1.
-        self.Drawing.DrawSchematic()
-        self.statusbar.set('Zoomed to grid: '+str(drawingPropertiesProject['Grid']))
+        self.Zoom(round(drawingPropertiesProject['Grid']+1.0)-drawingPropertiesProject['Grid'])
 
     def onZoomOut(self):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        drawingPropertiesProject['Grid'] = max(1,drawingPropertiesProject['Grid']-1.)
-        self.Drawing.DrawSchematic()
-        self.statusbar.set('Zoomed to grid: '+str(drawingPropertiesProject['Grid']))
+        self.Zoom(round(drawingPropertiesProject['Grid']-1.0)-drawingPropertiesProject['Grid'])
 
     def onPan(self):
         self.Drawing.stateMachine.Panning()
@@ -1288,8 +1309,26 @@ class SignalIntegrityApp(tk.Frame):
                 return self.onSaveAsProject()
         return True
 
+    def RemoveTemporaryFile(self):
+        try:
+            if os.path.exists(self.fileparts.FullFilePathExtension('.si~')):
+                os.remove(self.fileparts.FullFilePathExtension('.si~'))
+        except:
+            pass
+        return self
+
+    def CreateTemporaryFile(self):
+        try:
+            with open(self.fileparts.FullFilePathExtension('.si~'),'w') as f:
+                f.writelines(SignalIntegrity.App.Project.LinesToWrite())
+        except:
+            pass
+        return self
+
     def onClosing(self):
         if self.CheckSaveCurrentProject():
+            if os.path.exists(self.fileparts.FullFilePathExtension('.si~')):
+                os.remove(self.fileparts.FullFilePathExtension('.si~'))
             self.root.withdraw()
             self.root.destroy()
 
