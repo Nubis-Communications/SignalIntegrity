@@ -17,6 +17,14 @@ Schematic.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
+import sys
+
+if sys.version_info.major < 3:
+    import Tkinter as tk
+else:
+    import tkinter as tk
+
+import copy
 
 from SignalIntegrity.App.NetList import NetList
 from SignalIntegrity.App.Wire import WireList
@@ -57,6 +65,12 @@ class Schematic(CallBacker):
                 if not wf is None:
                     inputWaveformList.append(wf)
         return inputWaveformList
+    def ThereAreOtherWaveforms(self):
+        for device in self.deviceList:
+            if device['partname']['Value'] in ['EyeWaveform','Waveform']:
+                if device['state']['Value'] == 'on':
+                    return True
+        return False
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:
