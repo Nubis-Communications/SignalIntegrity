@@ -886,7 +886,7 @@ class SParametersDialog(tk.Toplevel):
         evenly_spaced=si.fd.FrequencyList(self.sp.m_f).CheckEvenlySpaced()
         self.properties.CalculateOthersFromBaseInformation(evenly_spaced=evenly_spaced)
         if evenly_spaced:
-		(negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength(time_before_0=self.time_before_0)
+            (negativeTime,positiveTime)=self.sp.DetermineImpulseResponseLength(time_before_0=self.time_before_0)
             self.properties['TimeLimitNegative']=negativeTime
             self.properties['TimeLimitPositive']=positiveTime
             self.statusbar.set(str(self.properties['FrequencyPoints'])+
