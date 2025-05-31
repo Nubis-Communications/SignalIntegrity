@@ -1,3 +1,4 @@
 device T1 2 tlinecom gamma0 0 a1 1.734e-3 a2 145.5e-6 tau 6.141e-3 zc 78.2 d 12.0e-3
-port 1 td 0 T1 1
-port 2 td 0 T1 2
+port 1 T1 1
+port 2 T1 2
+post reference impedance 39.1 ohms

@@ -209,7 +209,7 @@ class SignalIntegrityAppHeadless(object):
         self.SaveProjectToFile(filename)
 
     def NetListText(self):
-        return self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+        return self.Drawing.schematic.NetList().Text()
 
     def config(self,cursor=None):
         pass

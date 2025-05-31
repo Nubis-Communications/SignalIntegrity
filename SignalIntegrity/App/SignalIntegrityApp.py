@@ -648,7 +648,7 @@ class SignalIntegrityApp(tk.Frame):
         self.OpenProjectFile(SignalIntegrity.App.Preferences.GetLastFileOpened(3))
 
     def NetListText(self):
-        return self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+        return self.Drawing.schematic.NetList().Text()
 
     def onExportNetlist(self):
         self.Drawing.stateMachine.Nothing()
@@ -868,7 +868,7 @@ class SignalIntegrityApp(tk.Frame):
     def CalculateSParameters(self,netList=None):
         if netList==None:
             self.Drawing.stateMachine.Nothing()
-            netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+            netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None
@@ -993,7 +993,7 @@ class SignalIntegrityApp(tk.Frame):
 
     def onDeembed(self):
         self.Drawing.stateMachine.Nothing()
-        netList=self.Drawing.schematic.NetList().Text()+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
+        netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return None
         import SignalIntegrity.Lib as si
         cacheFileName=None

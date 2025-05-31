@@ -4,11 +4,12 @@ unknown Result 4
 device D1 2 file HDMIThruMiddleModel.si
 device D3 2 file HDMIThruMiddleModel.si
 device D4 2 file HDMIThruMiddleModel.si
-port 1 td 5e-11 D2 1
+port 1 td 50.0e-12 D2 1
 connect D2 2 Result 1
-port 2 td 5e-11 D4 1
-port 3 td 5e-11 D3 1
-port 4 td 5e-11 D1 1
+port 2 td 50.0e-12 D4 1
+port 3 td 50.0e-12 D3 1
+port 4 td 50.0e-12 D1 1
 connect Result 2 D4 2
 connect Result 4 D1 2
 connect Result 3 D3 2
+post enforce causality

@@ -355,7 +355,7 @@ class NetList(object):
                         line = None
             if not line == None:
                 textToShow.append(line)
-        self.textToShow=textToShow+endinglines
+        self.textToShow=textToShow+endinglines+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
 
     def Text(self):
         return self.textToShow

@@ -415,9 +415,16 @@ class DeviceIdealTransformer(Device):
                                       PartPropertyDescription('Four Port IdealTransformer')],
                                       partPicture=PartPictureVariableIdealTransformer())
 
+class PortNetListLine(DeviceNetListLine):
+    def NetListLine(self,device):
+        line =  DeviceNetListLine.NetListLine(self,device)
+        if (len(line) >= 5) and (line[-5:] == ' td 0'):
+            line = line.replace(' td 0','')
+        return line
+
 class Port(Device):
     def __init__(self,portNumber=1):
-        netlist=DeviceNetListLine(devicename='port',showReference=False,showports=False,values=[('pn',False),('td',True)])
+        netlist=PortNetListLine(devicename='port',showReference=False,showports=False,values=[('pn',False),('td',True)])
         Device.__init__(self,
                         netlist,
                         [PartPropertyCategory('Ports and Probes'),

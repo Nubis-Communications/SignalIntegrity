@@ -1,3 +1,4 @@
 device D1 2 file toplevel.si
-port 1 td 0 D1 1
-port 2 td 0 D1 2
+port 1 D1 1
+port 2 D1 2
+post reference impedance 42 ohms

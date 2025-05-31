@@ -1,3 +1,5 @@
 device D1 2 file HDMIFixtureThru.s2p
 port 1 D1 1
 port 2 D1 2
+post enforce causality
+post enforce passivity

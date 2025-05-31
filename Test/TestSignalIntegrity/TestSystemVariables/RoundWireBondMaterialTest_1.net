@@ -4,5 +4,8 @@ var $material$ silver
 var $rho$ 15.86e-9
 var $ur$ 999.9736e-3
 device D1 2 file RoundWireBondRho.si L $L$ D $D$ ur $ur$ rho $rho$ EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 40000000000.0 ReferenceImpedance 50.0
-port 1 td 0 D1 1
-port 2 td 0 D1 2
+port 1 D1 1
+port 2 D1 2
+post !
+post !the calculations of this model are from:
+post !    https://www.allaboutcircuits.com/tools/wire-self-inductance-calculator/
