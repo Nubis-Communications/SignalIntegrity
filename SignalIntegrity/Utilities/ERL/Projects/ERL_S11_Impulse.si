@@ -1,14 +1,14 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>531250000000.0</EndFrequency>
-		<FrequencyPoints>6375</FrequencyPoints>
-		<UserSampleRate>1062500000000.0</UserSampleRate>
+		<EndFrequency>160000000000.0</EndFrequency>
+		<FrequencyPoints>1600</FrequencyPoints>
+		<UserSampleRate>3400000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>940x378+234+234</Geometry>
+			<Geometry>1030x378+28+30</Geometry>
 			<Grid>14.0</Grid>
-			<Originx>-16</Originx>
+			<Originx>-12</Originx>
 			<Originy>-7</Originy>
 		</DrawingProperties>
 		<Schematic>
@@ -20,7 +20,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(51, 14)</Origin>
+						<Origin>(55, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -50,7 +50,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(59, 14)</Origin>
+						<Origin>(63, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -98,7 +98,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>90</Orientation>
-						<Origin>(64, 19)</Origin>
+						<Origin>(68, 19)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -128,7 +128,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(51, 18)</Origin>
+						<Origin>(55, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -158,7 +158,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(59, 18)</Origin>
+						<Origin>(63, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -206,7 +206,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(60, 24)</Origin>
+						<Origin>(64, 24)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -248,7 +248,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>180</Orientation>
-						<Origin>(67, 25)</Origin>
+						<Origin>(71, 25)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -272,7 +272,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(32, 18)</Origin>
+						<Origin>(34, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -321,7 +321,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(41, 18)</Origin>
+						<Origin>(45, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -370,7 +370,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(69, 25)</Origin>
+						<Origin>(73, 25)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -418,7 +418,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(69, 14)</Origin>
+						<Origin>(73, 14)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -599,81 +599,253 @@
 						</Items>
 					</Variables>
 				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(19, 18)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>off</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>V_impulse</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(34, 18)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>off</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>V_unit_pulse</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(45, 18)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>off</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>V_rise_time_adjusted</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceOutput</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>True</MirroredHorizontally>
+						<MirroredVertically>True</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(53, 18)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>off</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ac_coupled</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>offset</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>V_filtered</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 			<Wires>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(59, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(61, 15)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(63, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(69, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
 							<Coord>(55, 15)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(57, 15)</Coord>
+							<Coord>(53, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(53, 19)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(59, 19)</Coord>
+							<Coord>(61, 15)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(65, 19)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(51, 15)</Coord>
+							<Coord>(61, 25)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(49, 15)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(49, 19)</Coord>
+							<Coord>(64, 25)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(57, 15)</Coord>
+							<Coord>(64, 27)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(57, 25)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(60, 25)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(60, 27)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(55, 27)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(55, 19)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(57, 15)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(59, 15)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(55, 19)</Coord>
+							<Coord>(59, 27)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(59, 19)</Coord>
@@ -683,7 +855,37 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(51, 19)</Coord>
+							<Coord>(61, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(63, 15)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(59, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(63, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(55, 19)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(53, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(53, 19)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(49, 19)</Coord>
@@ -692,48 +894,38 @@
 				</Wire>
 				<Wire>
 					<Vertices>
-						<Vertex>
-							<Coord>(49, 19)</Coord>
-						</Vertex>
 						<Vertex>
 							<Coord>(45, 19)</Coord>
 						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
 						<Vertex>
-							<Coord>(41, 19)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(36, 19)</Coord>
+							<Coord>(38, 19)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
+						<Vertex>
+							<Coord>(73, 26)</Coord>
+						</Vertex>
 						<Vertex>
 							<Coord>(69, 26)</Coord>
 						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
 						<Vertex>
-							<Coord>(65, 26)</Coord>
+							<Coord>(73, 15)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(63, 15)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(69, 15)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(59, 15)</Coord>
-						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
-						<Vertex>
-							<Coord>(32, 19)</Coord>
+							<Coord>(34, 19)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(27, 19)</Coord>
@@ -745,6 +937,13 @@
 						<Vertex>
 							<Coord>(23, 19)</Coord>
 						</Vertex>
+						<Vertex>
+							<Coord>(19, 19)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
 						<Vertex>
 							<Coord>(19, 19)</Coord>
 						</Vertex>
@@ -769,7 +968,16 @@
 				<Line>sp=si.sp.SParameterFile(file_name)</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>ImpulseResponseLength=1./(sp.m_f[-1]/(len(sp.m_f)-1))</Line>
+				<Line>Fe=sp.m_f[-1]</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>User_Fs=f_b*phi</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>Fs=min(Fe*2,User_Fs)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>ImpulseResponseLength=1./(Fe/(len(sp.m_f)-1))</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line></Line>
@@ -778,13 +986,10 @@
 				<Line>import SignalIntegrity.App.Project</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>Fs=f_b*5</Line>
-			</EquationLine>
-			<EquationLine>
 				<Line>cp=SignalIntegrity.App.Project['CalculationProperties']</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>cp['EndFrequency']=Fs</Line>
+				<Line>cp['EndFrequency']=Fs/2</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>cp['ImpulseResponseLength']=ImpulseResponseLength</Line>
@@ -802,7 +1007,7 @@
 				<Line>cp.CalculateOthersFromBaseInformation()</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>cp['UserSampleRate']=cp['BaseSampleRate']</Line>
+				<Line>cp['UserSampleRate']=User_Fs</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>cp.CalculateOthersFromBaseInformation()</Line>
@@ -837,6 +1042,12 @@
 			<EquationLine>
 				<Line></Line>
 			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
 		</Lines>
 	</Equations>
 	<Variables>
@@ -847,7 +1058,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>C:\Users\pete_\Documents\NubisSystemSim\Projects\ERL.s4p</Value>
+				<Value>/home/petep/Work/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -892,7 +1103,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>UI</Units>
-				<Value>800</Value>
+				<Value>800.0</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>phi</Description>
+				<Name>phi</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>int</Type>
+				<Units></Units>
+				<Value>32</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -901,7 +1121,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>S/s</Units>
-				<Value>531250000000.0</Value>
+				<Value>320000000000.0</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -919,7 +1139,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>1.2e-08</Value>
+				<Value>1e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -928,7 +1148,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-1.3528470588235293e-08</Value>
+				<Value>-1.2525e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -937,7 +1157,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>2.7058823529411763e-08</Value>
+				<Value>2.5059375e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>

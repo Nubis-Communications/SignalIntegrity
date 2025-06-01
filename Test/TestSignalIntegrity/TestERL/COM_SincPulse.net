@@ -1,5 +1,5 @@
 var $f_b$ 56.0e9
-var $laplace_eq$ '0.5*Fs/56000000000.0*(1. if f == 0 else np.sin(pi*f/56000000000.0)/(pi*f/56000000000.0))'
+var $laplace_eq$ 'Fs/56000000000.0*(1. if f == 0 else np.sin(pi*f/56000000000.0)/(pi*f/56000000000.0))'
 device F1 2 laplace $laplace_eq$
-port 1 td 0 F1 1
-port 2 td 0 F1 2
+port 1 F1 1
+port 2 F1 2

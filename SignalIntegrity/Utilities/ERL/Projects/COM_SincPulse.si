@@ -1,12 +1,12 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>500000000000.0</EndFrequency>
-		<FrequencyPoints>500</FrequencyPoints>
-		<UserSampleRate>560000000000.0</UserSampleRate>
+		<EndFrequency>160000000000.0</EndFrequency>
+		<FrequencyPoints>1600</FrequencyPoints>
+		<UserSampleRate>1062500000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>567x170+26+26</Geometry>
+			<Geometry>567x170+28+30</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-28</Originx>
 			<Originy>-13</Originy>
@@ -110,7 +110,10 @@
 		<AutoDebug>True</AutoDebug>
 		<Lines>
 			<EquationLine>
-				<Line>laplace_eq = f'0.5*Fs/{f_b}*(1. if f == 0 else np.sin(pi*f/{f_b})/(pi*f/{f_b}))'</Line>
+				<Line>laplace_eq = f'Fs/{f_b}*(1. if f == 0 else np.sin(pi*f/{f_b})/(pi*f/{f_b}))'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
 			</EquationLine>
 			<EquationLine>
 				<Line></Line>
@@ -161,7 +164,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>Baud</Units>
-				<Value>56000000000.0</Value>
+				<Value>106250000000.0</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -170,7 +173,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>string</Type>
 				<Units>None</Units>
-				<Value>0.5*Fs/56000000000.0*(1. if f == 0 else np.sin(pi*f/56000000000.0)/(pi*f/56000000000.0))</Value>
+				<Value>Fs/106250000000.0*(1. if f == 0 else np.sin(pi*f/106250000000.0)/(pi*f/106250000000.0))</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>

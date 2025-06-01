@@ -76,7 +76,8 @@ class TestERLTest(unittest.TestCase,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
     @staticmethod
     def ERL_Nitro_args():
-        return {'port_reorder':'1,2,3,4','T_r':'10ps','beta_x':'0GHz','rho_x':'0.618','N':'800UI','N_bx':'0','Z0':'100ohm','T_fx':'0s','f_b':'106.25GBaud','DER_0':'1e-6'}
+        return {'port_reorder':'1,2,3,4','T_r':'10ps','beta_x':'0GHz','rho_x':'0.618','N':'800UI',
+                'N_bx':'0','Z0':'100ohm','T_fx':'0s','f_b':'106.25GBaud','DER_0':'1e-6','phi':'10'}
     def testERLNitroSubprocess(self):
         import subprocess
         script_file = os.path.abspath(os.path.relpath('../../../SignalIntegrity/Utilities/ERL/ERL.py', os.path.dirname(__file__)))
@@ -89,7 +90,7 @@ class TestERLTest(unittest.TestCase,
         result = subprocess.getoutput(cmd_str)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '9.2684 dB'
+        target = '9.3858 dB'
         self.assertEqual(result_dB, target, 'ERL produced incorrect value')
     def testERLNitroSubprocessMissingSp(self):
         import subprocess
@@ -116,6 +117,7 @@ class TestERLTest(unittest.TestCase,
             if key not in missing:
                 sys.argv.append('-'+key)
                 sys.argv.append(value)
+            # sys.argv.append('-d')
     def testERLMain(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
         self.formERLMain_argv()
@@ -357,10 +359,11 @@ class TestERLTest(unittest.TestCase,
         nitro_args['T_fx'] = FromSI(nitro_args['T_fx'],'s')
         nitro_args['f_b'] = FromSI(nitro_args['f_b'],'Baud')
         nitro_args['DER_0'] = FromSI(nitro_args['DER_0'],None)
+        nitro_args['phi'] = FromSI(nitro_args['phi'],None)
         result = ERL(file_name,nitro_args,verbose=True)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '9.2684 dB'
+        target = '9.3858 dB'
         self.assertEqual(result_dB, target, 'ERL produced incorrect value')
     def testERLPythonScriptMissingSp(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL
@@ -376,6 +379,7 @@ class TestERLTest(unittest.TestCase,
         nitro_args['T_fx'] = FromSI(nitro_args['T_fx'],'s')
         nitro_args['f_b'] = FromSI(nitro_args['f_b'],'Baud')
         nitro_args['DER_0'] = FromSI(nitro_args['DER_0'],None)
+        nitro_args['phi'] = FromSI(nitro_args['phi'],None)
         with self.assertRaises(si.SignalIntegrityException) as cme:
             ERL(file_name,nitro_args,verbose=True)
     def testERLPythonScriptMissingKeyword(self):
@@ -392,6 +396,7 @@ class TestERLTest(unittest.TestCase,
         nitro_args['T_fx'] = FromSI(nitro_args['T_fx'],'s')
         nitro_args['f_b'] = FromSI(nitro_args['f_b'],'Baud')
         nitro_args['DER_0'] = FromSI(nitro_args['DER_0'],None)
+        nitro_args['phi'] = FromSI(nitro_args['phi'],None)
         del nitro_args['T_r']
         with self.assertRaises(si.SignalIntegrityException) as cme:
             ERL(file_name,nitro_args,verbose=True)
@@ -453,7 +458,8 @@ class TestERLTest(unittest.TestCase,
         shutil.copy(os.path.join(os.path.dirname(project_file_source),'ERL_S11.si'),os.path.join(os.path.dirname(project_file_dest),'ERL_S11.si'))
         file_name='sparam_res.s4p'
         file_name=os.path.join(os.path.dirname(__file__),file_name)
-        project_args={'file_name':file_name,'Z0':FromSI('50 ohm','ohm'),'f_b':FromSI('106.25 GBaud','Baud'),'T_r':FromSI('10 ps','s'),'N':FromSI('800 UI','UI')}
+        project_args={'file_name':file_name,'Z0':FromSI('50 ohm','ohm'),'f_b':FromSI('106.25 GBaud','Baud'),'T_r':FromSI('10 ps','s'),
+                      'N':FromSI('800 UI','UI'),'phi':'10'}
         # prj=siapp.SignalIntegrityAppHeadless()
         # opened=prj.OpenProjectFile(project_file_dest, args=project_args)
         # self.assertTrue(opened,project_file_dest+' not opened')

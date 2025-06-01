@@ -45,6 +45,7 @@ def ERL(filename,args,debug=False,verbose=False):
         | f_b          | Baud | yes         | Baud rate                                                           |
         | DER_0        | --   | yes         | target detector error ratio                                         |
         | bps          | --   | no 1        | bits per symbol (1=NRZ, 2=PAM-4)                                    |
+        | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
@@ -73,6 +74,8 @@ def ERL(filename,args,debug=False,verbose=False):
     f_b = args['f_b']
     DER_0 = args['DER_0']
     bps = 1 if 'bps' not in args else int(args['bps'])
+    phi = 32 if 'phi' not in args else int(args['phi'])
+
     if debug or verbose:
         print(f"filename = {filename}")
         print(f"port_reorder = {port_reorder}")
@@ -86,6 +89,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"f_b = {ToSI(f_b,'Baud')}")
         print(f"DER_0 = {ToSI(DER_0,None)}")
         print(f"bps = {ToSI(bps,None)}")
+        print(f"phi = {ToSI(phi,None)}")
         print(f"verbose = {str(verbose)}")
         print(f"debug = {str(debug)}")
 
@@ -94,7 +98,8 @@ def ERL(filename,args,debug=False,verbose=False):
             'Z0':Z0/2.,
             'f_b':f_b,
             'T_r':T_r,
-            'N':N
+            'N':N,
+            'phi':phi
             }
 
     if debug: # pragma: no cover
@@ -153,25 +158,24 @@ def ERL(filename,args,debug=False,verbose=False):
         plt.show()
         plt.cla()
 
-    Phi = 10 # assume 10x oversampling
-    K = int(R_eff_wf.td.K/Phi)*Phi
+    K = int(R_eff_wf.td.K/phi)*phi
     phi_max=0
     sigma_max=0
-    for phi in range(0,Phi):
-        x=[R_eff_wf[k*Phi+phi] for k in range(0,K//Phi)]
+    for ph in range(0,phi):
+        x=[R_eff_wf[k*phi+ph] for k in range(0,K//phi)]
         sigma=np.std(x)
         # print(sigma)
         if sigma > sigma_max:
-            phi_max = phi
+            phi_max = ph
             sigma_max = sigma
 
     if debug or verbose:
         print(f'maximum sigma of {sigma_max} at phi={phi_max}')
 
-    worst_phase_wf = si.td.wf.Waveform(si.td.wf.TimeDescriptor(R_eff_wf.Times()[0*Phi+phi_max],
-                                                               K//Phi,
-                                                               R_eff_wf.td.Fs/Phi),
-                                        [R_eff_wf[k*Phi+phi_max] for k in range(0,K//Phi)])
+    worst_phase_wf = si.td.wf.Waveform(si.td.wf.TimeDescriptor(R_eff_wf.Times()[0*phi+phi_max],
+                                                               K//phi,
+                                                               R_eff_wf.td.Fs/phi),
+                                        [R_eff_wf[k*phi+phi_max] for k in range(0,K//phi)])
 
     epsilon=1e-5
     def kmin():
@@ -335,6 +339,9 @@ defaults to 100.',default='100ohm')
 specified unitless (like 1e-6).')
     parser.add_argument('-bps',type=str, default='1',help='bits per symbol\n\
 1 is NRZ (default), 2 is PAM-4.')
+    parser.add_argument('-phi',type=str, default='32',help='sample phases in ptdr (essentially upsample factor)\n\
+defaults to 32')
+
     args, unknown = parser.parse_known_args()
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
@@ -429,6 +436,13 @@ specified unitless (like 1e-6).')
             raise(AttributeError)
     except (AttributeError,TypeError):
         Error('error: bps must be specified')
+
+    try:
+        argsDict['phi']=int(FromSI(args.phi,''))
+        if argsDict['phi'] == None:
+            raise(AttributeError)
+    except (AttributeError,TypeError):
+        Error('error: phi must be specified')
 
     runProfiler=args.profile
 

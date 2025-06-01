@@ -1,24 +1,25 @@
-var $file_name$ C:/Users/pete_/Documents/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p
+var $file_name$ /home/petep/Work/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p
 var $port_reordering$ 1,2,3,4
 var $Z0$ 50.0
 var $f_b$ 106.25e9
 var $T_r$ 10.0e-12
 var $N$ 800.0
-var $Fs$ 531.25e9
+var $phi$ 10
+var $Fs$ 320.0e9
 var $T_b$ 9.41176470588e-12
 var $ImpulseResponseLength$ 10.0e-9
-var $ho$ -12.528e-9
-var $dur$ 25.0588235294e-9
+var $ho$ -12.525e-9
+var $dur$ 25.059375e-9
 device R1 2 R $Z0$
 device R4 1 R $Z0$
 device R5 2 R $Z0$
 device D2 3 opamp gain 1.0 zi 100.0e6 zo 0
 device O1 1 open
-device D3 2 file COM_Ht.si rt_2080 $T_r$ EndFrequency 531250000000.0 FrequencyPoints 5312 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
-device D4 2 file COM_Hr.si br $f_b$ EndFrequency 531250000000.0 FrequencyPoints 5312 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
-device DUT 1 file ERL_S11.si reorder 1 file_name $file_name$ port_reordering $port_reordering$ Zc $Z0$ EndFrequency 531250000000.0 FrequencyPoints 5312 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
+device D3 2 file COM_Ht.si rt_2080 $T_r$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
+device D4 2 file COM_Hr.si br $f_b$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
+device DUT 1 file ERL_S11.si reorder 1 file_name $file_name$ port_reordering $port_reordering$ Zc $Z0$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
 voltagesource VG3 1
-device D8 2 file COM_SincPulse.si f_b $f_b$ EndFrequency 531250000000.0 FrequencyPoints 5312 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
+device D8 2 file COM_SincPulse.si f_b $f_b$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
 connect R1 1 R5 1 D4 2
 voltageoutput V_actual R1 2
 connect R1 2 DUT 1 D2 2
