@@ -22,6 +22,7 @@
 from SignalIntegrity.Lib.SystemDescriptions.Deembedder import Deembedder
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.Lib.Parsers.Devices.DeviceParser import DeviceParser
+from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 import copy
 
 class DeembedderParser(SystemDescriptionParser):
@@ -50,7 +51,7 @@ class DeembedderParser(SystemDescriptionParser):
         exludes 'connect' and 'port' in first call, then processes simulator lines, then
         calls upstream one more time for the device connections, again excluding 'port'.
         """
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         if lineList[0] == 'system':
             dev=DeviceParser(self.m_f,None,None,lineList[1:],Z0=self.m_Z0)

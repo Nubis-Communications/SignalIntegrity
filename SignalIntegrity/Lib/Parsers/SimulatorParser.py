@@ -21,6 +21,7 @@
 
 from SignalIntegrity.Lib.SystemDescriptions.Simulator import Simulator
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
+from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 import copy
 
 class SimulatorParser(SystemDescriptionParser):
@@ -52,7 +53,7 @@ class SimulatorParser(SystemDescriptionParser):
         exludes 'connect' and 'port' in first call, then processes simulator lines, then
         calls upstream one more time for the device connections, again excluding 'port'.
         """
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         elif lineList[0] == 'output':
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []

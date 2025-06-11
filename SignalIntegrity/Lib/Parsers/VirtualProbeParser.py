@@ -21,6 +21,7 @@
 
 from SignalIntegrity.Lib.SystemDescriptions import VirtualProbe
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
+from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 import copy
 
 class VirtualProbeParser(SystemDescriptionParser):
@@ -49,7 +50,7 @@ class VirtualProbeParser(SystemDescriptionParser):
         - 'stim' - addition of a stimulus source.
         - 'stimdef' - definition of a stimdef (the relationship between stims).
         """
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         if lineList[0] == 'meas':
             if self.m_sd.pMeasurementList is None: self.m_sd.pMeasurementList = []

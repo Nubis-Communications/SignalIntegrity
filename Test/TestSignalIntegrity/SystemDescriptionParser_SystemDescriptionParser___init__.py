@@ -52,7 +52,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 dev=lineList[i+1]; devPort=int(lineList[i+2])
                 self.m_sd.AddPort(dev,devPort,port,self.m_addThru)
                 i=i+3
-        else: self.m_ul.append(' '.join(lineList))
+        else: self.m_ul.append(line)
     def _ProcessLines(self,exclusionList=[]):
         self.m_sd=SystemDescription()
         self.m_spc=[]; self.m_spcl=[]; self.m_ul=[]

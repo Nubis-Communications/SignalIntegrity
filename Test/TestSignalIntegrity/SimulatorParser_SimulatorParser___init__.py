@@ -2,7 +2,7 @@ class SimulatorParser(SystemDescriptionParser):
     def __init__(self, f=None, args=None, Z0=50.):
         SystemDescriptionParser.__init__(self, f, args, Z0=Z0)
     def _ProcessSimulatorLine(self,line):
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         elif lineList[0] == 'output':
             if self.m_sd.pOutputList is None: self.m_sd.pOutputList = []

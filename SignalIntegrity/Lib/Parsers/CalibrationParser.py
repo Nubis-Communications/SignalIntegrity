@@ -24,6 +24,7 @@ from SignalIntegrity.Lib.Measurement.Calibration.CalibrationMeasurements import 
 from SignalIntegrity.Lib.Parsers.SystemDescriptionParser import SystemDescriptionParser
 from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionCalibration
+from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 import copy
 
 class CalibrationParser(SystemDescriptionParser):
@@ -51,7 +52,7 @@ class CalibrationParser(SystemDescriptionParser):
         - 'calibration' - handling of calibration measurements
         @todo document the exact syntax of the netlist lines processed here.
         """
-        lineList=self.ReplaceArgs(line.split())
+        lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         if lineList[0] == 'calibration':
             if self.calibrationMeasurementList == None: self.calibrationMeasurementList = []
