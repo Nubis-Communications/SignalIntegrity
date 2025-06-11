@@ -19,7 +19,7 @@ TestBalun.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-from SignalIntegrity.App import SignalIntegrityAppHeadless
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 from SignalIntegrity.App import TpX
 from SignalIntegrity.App import TikZ
 import SignalIntegrity.Lib as si
@@ -263,12 +263,20 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
             self.RestoreCalculation(self.id())
     def testSimulationVoltageUnjustifiedSVDAllowNonUnique(self):
         try:
-            file_name=self.SetupCalculation('SimulationUnjustifiedNodesVoltage.si',
+            file_name='SimulationUnjustifiedNodesVoltage.si'
+            file_name=self.SetupCalculation(file_name,
                                         self.id(),
                                         whether_svd=True,
                                         allow_nonunique=True,
                                         probe_list=[('VO1','on'),('VO2','on'),('VO3','on')])
-            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+            os.chdir(self.path)
+            pysi=SignalIntegrityAppHeadless()
+            self.assertTrue(pysi.OpenProjectFile(os.path.realpath(file_name)),file_name + ' couldnt be opened')
+            result=pysi.Simulate()
+            self.assertNotEqual(result,{},file_name+' produced none')
+            self.assertEqual(result.OutputWaveform('VO2')-result.OutputWaveform('VO3'),
+                             result.OutputWaveform('VO1'),
+                             'unjustified waveforms produced but dont add up')
         finally:
             self.RestoreCalculation(self.id())
     def testSimulationVoltageUnustifiedSVDNoNonUnique(self):
@@ -316,12 +324,20 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
             self.RestoreCalculation(self.id())
     def testSimulationCurrentUnjustifiedSVDAllowNonUnique(self):
         try:
-            file_name=self.SetupCalculation('SimulationUnjustifiedNodesCurrent.si',
+            file_name='SimulationUnjustifiedNodesCurrent.si'
+            self.SetupCalculation(file_name,
                                         self.id(),
                                         whether_svd=True,
                                         allow_nonunique=True,
                                         probe_list=[('IO1','on'),('IO2','on'),('IO3','on')])
-            self.SimulationResultsChecker(file_name, checkProject=False, checkPicture=False, checkNetlist=False)
+            os.chdir(self.path)
+            pysi=SignalIntegrityAppHeadless()
+            self.assertTrue(pysi.OpenProjectFile(os.path.realpath(file_name)),file_name + ' couldnt be opened')
+            result=pysi.Simulate()
+            self.assertNotEqual(result,{},file_name+' produced none')
+            self.assertEqual(result.OutputWaveform('IO3')+result.OutputWaveform('IO2'),
+                             result.OutputWaveform('IO1'),
+                             'unjustified waveforms produced but dont add up')
         finally:
             self.RestoreCalculation(self.id())
     def testSimulationCurrentUnustifiedSVDNoNonUnique(self):
