@@ -293,6 +293,11 @@ class LinesCache(ResultsCache):
                                                    for key,value in [(lineList[k],lineList[k+1])
                                                                      for k in range(6,len(lineList),2)]
                                                    if key not in ['scale']}
+                        elif lineList[3] == 'impulseresponsefilter':
+                            fileList[lineList[4]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(5,len(lineList),2)]
+                                                   if key not in ['wfprojname','dcgain','mults','derivative']}
                 elif lineList[0] == 'calibration':
                     fileList[lineList[3]]={key:value
                                            for key,value in [(lineList[k],lineList[k+1])
