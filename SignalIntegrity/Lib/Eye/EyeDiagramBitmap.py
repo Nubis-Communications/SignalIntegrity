@@ -106,7 +106,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         stuffToHash=stuffToHash+repr(self.YAxisMode)+repr(self.YMax)+repr(self.YMin)+\
                     repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
-                    repr(self.EnhancementSteps)+repr(self.BitsPerSymbol)+repr(self.recover_clock)+\
+                    repr(self.EnhancementSteps)+repr(self.Levels)+repr(self.recover_clock)+\
                     repr(self.clock_recovery_trim_left_right)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
 
@@ -121,7 +121,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  prbswf=None,
                  EnhancementMode='Auto', # can be Auto, Fixed, or None
                  EnhancementSteps=10, # ignored unless EnhancementMode is Fixed
-                 BitsPerSymbol=1, # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
+                 Levels=2, # PAM
                  recover_clock=False, # whether to recover the clock
                  clock_recovery_trim_left_right=20 # points to trim from left and right
                  ):
@@ -159,8 +159,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         calculates a step amount to fill in about two steps per row.  'Auto' therefore dynamically adjusts the
         step size and is the recommended mode.
         @param EnhancementSteps int, defaults to 10, fixed number of steps to be used in 'Fixed' EnhancementMode.
-        @param BitsPerSymbol int, defaults to 1, number of bits per symbol.  One bit per symbol is NRZ, or PAM-2.
-        Two bits per symbol is PAM-4, etc. 
+        @param Levels int, defaults to 2, number of levels per symbol. The PAM of the waveform.
         @param recover_clock bool, defaults to False, whether to recover the clock from the data. This is a special
         situation used mostly when using waveforms directly from the oscilloscope.
         @param clock_recovery_trim_left_right int, defaults to 20, number of points to trim from the two samples per
@@ -196,7 +195,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.prbswf=prbswf # saved only for generating hash value
         self.EnhancementMode=EnhancementMode
         self.EnhancementSteps=EnhancementSteps
-        self.BitsPerSymbol=BitsPerSymbol
+        self.Levels=Levels
+        self.BitsPerSymbol=math.log2(self.Levels)
         self.NoiseSigma=0.
         self.recover_clock=recover_clock
         self.clock_recovery_trim_left_right = clock_recovery_trim_left_right
@@ -409,7 +409,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         The side effect of this function is for the rawBitmap member variable to be replaced with a new bitmap containing the aligned eye diagram.
         """
         bitmap=self.rawBitmap.copy()
-        numberOfEyes=int(2**self.BitsPerSymbol-1)
+        numberOfEyes=int(self.Levels-1)
         (R,C)=bitmap.shape
         darkExtents=[]
         minValueLog=pow(10.,-20)
@@ -486,7 +486,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             endColumnofMaxEyeWidth=None
             alignOnMiddleEye=(HorizontalAlignment == 'Middle')
             if alignOnMiddleEye: # 'Middle', meaning horizontal midpoint of middle eye
-                eyeExtents=[self.eyeExtentsForAlignment[(2**self.BitsPerSymbol)//2-1]]
+                eyeExtents=[self.eyeExtentsForAlignment[(self.Levels)//2-1]]
             else: # 'Max', meaning horizontal midpoint of widest eye
                 eyeExtents=self.eyeExtentsForAlignment
             maxEyeWidth=0
@@ -602,7 +602,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         * HorizontalResolution - the resolution in seconds, for each column of the eye.
         """
         bitmap=self.rawBitmap.copy()
-        numberOfEyes=int(2**self.BitsPerSymbol-1)
+        numberOfEyes=int(self.Levels-1)
         (R,C)=bitmap.shape
         minValueLog=pow(10.,-20)
         minBER=BERForMeasure; maxBER=BERForMeasure+0.001
@@ -675,7 +675,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 acc=0; pacc=0; L+=1
         AV=[eyeAverageLevels[l+1]-eyeAverageLevels[l] for l in range(len(eyeAverageLevels)-1)]
         EyeLinearity=min(AV)/max(AV)
-        if self.BitsPerSymbol == 2:
+        if self.Levels == 4:
             (V0,V1,V2,V3)=(eyeAverageLevels[0],eyeAverageLevels[1],eyeAverageLevels[2],eyeAverageLevels[3])
             Vmid=(V0+V3)/2
             ES1=(V1-Vmid)/(V0-Vmid)
@@ -880,7 +880,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                                        'IL':{'Linear':{'Unit':'','Value':IL},'Log':{'Unit':'dB','Value':ILdB}},
                                        'Loss':{'Linear':{'Unit':'','Value':LossW},'Log':{'Unit':'dB','Value':LossdB}}})
 
-        numLevels=2**self.BitsPerSymbol
+        numLevels=self.Levels
         numEyes=numLevels-1
         numInnerLevels=numLevels-2
         numOuterLevels=numLevels-numInnerLevels
@@ -977,7 +977,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     - Measured - the total, measured bit error rate, considering the measured probability that a given bit was transmitted.
         @remark The Measure member function be called prior to this call.
         """
-        numberOfEyes=int(2**self.BitsPerSymbol-1)
+        numberOfEyes=int(self.Levels-1)
         UI=1./self.BaudRate
         (R,C)=self.rawBitmap.shape
         # build bathtub curve waveforms
@@ -1453,7 +1453,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             if 'Penalties' in self.measDict.keys():
                 del self.measDict['Penalties']
         else:
-            numLevels=2**self.BitsPerSymbol
+            numLevels=self.Levels
             numEyes=numLevels-1
             numInnerLevels=numLevels-2
             numOuterLevels=numLevels-numInnerLevels

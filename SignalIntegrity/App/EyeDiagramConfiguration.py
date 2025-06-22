@@ -41,3 +41,4 @@ class EyeDiagramConfiguration(EyeConfiguration,DeviceExtendedConfiguration):
         import SignalIntegrity.App.Project
         if not SignalIntegrity.App.Project['EyeDiagram'] is None:
             self.dict = copy.deepcopy(SignalIntegrity.App.Project['EyeDiagram'].dict)
+        EyeConfiguration.HandleBackwardsCompatibility(self)

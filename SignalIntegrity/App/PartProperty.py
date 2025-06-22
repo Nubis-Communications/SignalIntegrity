@@ -399,6 +399,14 @@ class PartPropertyBitsPerSymbol(PartProperty):
     def __init__(self,bits=1):
         PartProperty.__init__(self,'bps',type='int',unit='',keyword='bps',description='bits per symbol',value=bits,visible=True,keywordVisible=True)
 
+class PartPropertyLevels(PartProperty):
+    def __init__(self,levels=2):
+        PartProperty.__init__(self,'levels',type='int',unit='',keyword='lvl',description='number of levels',value=levels,visible=True,keywordVisible=True)
+
+class PartPropertySymbols(PartProperty):
+    def __init__(self,symbols=1):
+        PartProperty.__init__(self,'sym',type='int',unit='',keyword='sym',description='number of symbols',value=symbols,visible=True,keywordVisible=True)
+
 class PartPropertyPortsList(PartProperty):
     def __init__(self,portsList):
         PartProperty.__init__(self,'portslist',type='string',unit=None,keyword='pl',description='port list',value=portsList,visible=False,keywordVisible=False)

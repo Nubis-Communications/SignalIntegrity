@@ -55,6 +55,7 @@ from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestOpticalCalculator import *
+from TestPAM6 import *
 from TestPI import *
 from TestPDN import *
 from TestPowerDelivery import *

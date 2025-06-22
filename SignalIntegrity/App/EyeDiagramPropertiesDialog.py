@@ -63,7 +63,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.MeasurementsFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
         self.MeasurementsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.BitsPerSymbol=CalculationProperty(self.GeneralFrame,'Bits per Symbol',self.onUpdateFromChanges,None,self.project,'Alignment.BitsPerSymbol',tooltip='The number of bits transmitted per symbol\n1=NRZ, or PAM-2, 2=PAM-4, 3=PAM-8')
+        self.Levels=CalculationProperty(self.GeneralFrame,'Number of Levels',self.onUpdateFromChanges,None,self.project,'Alignment.Levels',tooltip='The number of levels per symbol\nThe PAM of the waveform')
         self.Color=CalculationPropertyColor(self.GeneralFrame,'Color',self.onUpdateFromChanges,None,self.project,'Color',tooltip='The color of the eye in the eye diagram if Invert is True,\notherwise is the background color')
         self.UIFrame=CalculationProperty(self.GeneralFrame,'Number of UI',self.onUpdateUI,None,self.project,'UI',tooltip='The number of unit intervals that will be shown in the eye diagram plot generated')
         self.RowsFrame=CalculationProperty(self.GeneralFrame,'Number of Rows',self.onUpdateRows,None,self.project,'Rows',tooltip='The number of pixels vertically in the raw eye diagram.\nThis is scaled by the factor in \'Scale X\'')

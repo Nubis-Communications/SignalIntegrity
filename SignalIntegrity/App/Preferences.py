@@ -45,6 +45,7 @@ class Preferences(PreferencesFile):
             self.preferencesFileName=preferencesFileName
         try:
             self.Read(self.preferencesFileName)
+            self.HandleBackwardsCompatibility()
             self.fileExists=not (self['Version'] is None)
         except:
             self.fileExists=False

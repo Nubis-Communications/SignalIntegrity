@@ -61,7 +61,7 @@ class EyeDiagram(object):
                 prbswf=self.prbswf,
                 EnhancementMode=self.config['EnhancedPrecision.Mode'],
                 EnhancementSteps=self.config['EnhancedPrecision.FixedEnhancement'],
-                BitsPerSymbol=self.config['Alignment.BitsPerSymbol'], # 1 for NRZ, 2 for PAM-4  (3 for PAM-8!?)
+                Levels=self.config['Alignment.Levels'], # PAM
                 recover_clock=self.config['ClockRecovery.Recover'],
                 clock_recovery_trim_left_right=self.config['ClockRecovery.TrimLeftRight']
                 )

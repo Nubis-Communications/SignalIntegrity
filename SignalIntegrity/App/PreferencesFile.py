@@ -49,10 +49,14 @@ class EyeAlignmentConfiguration(XMLConfiguration):
         super().__init__('Alignment')
         self.Add(XMLPropertyDefaultBool('AutoAlign',False))
         self.Add(XMLPropertyDefaultFloat('BERForAlignment',-3))
-        self.Add(XMLPropertyDefaultInt('BitsPerSymbol',1))
+        self.Add(XMLPropertyDefaultInt('BitsPerSymbol',None,write=False))
+        self.Add(XMLPropertyDefaultInt('Levels',2))
         self.Add(XMLPropertyDefaultString('Mode','Horizontal')) # 'Horizontal' or 'Vertical'
         self.Add(XMLPropertyDefaultString('Horizontal','Middle')) # 'Middle' or 'Max' (vertical eye)
         self.Add(XMLPropertyDefaultString('Vertical','MaxMin')) # 'MaxMin' (maximum minimum opening) or 'Max' (maximum opening) 
+    def HandleBackwardsCompatibility(self):
+        if self['BitsPerSymbol'] != None:
+            self['Levels'] = 2**self['BitsPerSymbol']
 
 class BathtubConfiguration(XMLConfiguration):
     def __init__(self):
@@ -128,6 +132,8 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeAnnotationConfiguration())
         self.SubDir(DecisionConfiguration())
         self.SubDir(BathtubConfiguration())
+    def HandleBackwardsCompatibility(self):
+        self['Alignment'].HandleBackwardsCompatibility()
 
 class DeviceConfigurations(XMLConfiguration):
     def __init__(self):
@@ -251,6 +257,8 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(DeviceConfigurations())
         self.SubDir(Variables())
         self.SubDir(Features())
+    def HandleBackwardsCompatibility(self):
+        self['Devices.EyeDiagram'].HandleBackwardsCompatibility()
     def ApplyPreferences(self):
         self['Calculation'].ApplyPreferences()
         self['ProjectFiles.Encryption'].ApplyPreferences()

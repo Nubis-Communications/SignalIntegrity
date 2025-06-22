@@ -511,8 +511,8 @@
 						<Alignment>
 							<AutoAlign>True</AutoAlign>
 							<BERForAlignment>-3</BERForAlignment>
-							<BitsPerSymbol>2</BitsPerSymbol>
 							<Horizontal>Middle</Horizontal>
+							<Levels>4</Levels>
 							<Mode>Horizontal</Mode>
 							<Vertical>MaxMin</Vertical>
 						</Alignment>
@@ -649,8 +649,8 @@
 						<Alignment>
 							<AutoAlign>True</AutoAlign>
 							<BERForAlignment>-3</BERForAlignment>
-							<BitsPerSymbol>2</BitsPerSymbol>
 							<Horizontal>Middle</Horizontal>
+							<Levels>4</Levels>
 							<Mode>Horizontal</Mode>
 							<Vertical>MaxMin</Vertical>
 						</Alignment>
@@ -787,8 +787,8 @@
 						<Alignment>
 							<AutoAlign>True</AutoAlign>
 							<BERForAlignment>-3</BERForAlignment>
-							<BitsPerSymbol>2</BitsPerSymbol>
 							<Horizontal>Middle</Horizontal>
+							<Levels>4</Levels>
 							<Mode>Horizontal</Mode>
 							<Vertical>MaxMin</Vertical>
 						</Alignment>

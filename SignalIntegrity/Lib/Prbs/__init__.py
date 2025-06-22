@@ -24,6 +24,7 @@ from .PseudoRandomWaveform import PseudoRandomWaveform
 from .SerialDataWaveform import SerialDataWaveform
 from .ClockWaveform import ClockWaveform
 from .MultiLevelWaveform import MultiLevelWaveform
+from .LevelsMultiLevelWaveform import LevelsMultiLevelWaveform
 from .SSPRQWaveform import SSPRQWaveform
 from .PRBS13QWaveform import PRBS13QWaveform
 from .StandardsDefPRBSWaveform import StandardsDefPRBSWaveform

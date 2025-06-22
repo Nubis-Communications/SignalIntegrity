@@ -153,6 +153,15 @@ class Device(object):
                 amplitude=float(self['a'].GetValue())
                 delay=float(self['t0'].GetValue())
                 waveform = si.prbs.MultiLevelWaveform(polynomial,baudrate,bitspersymbol,amplitude,risetime,delay,self.WaveformTimeDescriptor())
+            elif wfType == 'lmlw':
+                polynomial=int(self['prbs'].GetValue())
+                baudrate=float(self['br'].GetValue())
+                levels=int(self['lvl'].GetValue())
+                symbols=int(self['sym'].GetValue())
+                risetime=float(self['rt'].GetValue())
+                amplitude=float(self['a'].GetValue())
+                delay=float(self['t0'].GetValue())
+                waveform = si.prbs.LevelsMultiLevelWaveform(polynomial,baudrate,levels,symbols,amplitude,risetime,delay,self.WaveformTimeDescriptor())
             elif wfType == 'clock':
                 clockrate=float(self['f'].GetValue())
                 risetime=float(self['rt'].GetValue())
@@ -265,6 +274,8 @@ class DeviceFromProject(object):
             self.result=DeviceSeries(ports)
         elif className=='DeviceThru':
             self.result=DeviceThru(ports)
+        # elif className=='DeviceVoltageMultiLevelWaveformGenerator':
+        #     pass
         else:
             for device in DeviceList+DeviceListSystem+DeviceListUnknown:
                 if (str(device.__class__).split('.')[-1].strip('\'>') == className):
@@ -301,8 +312,7 @@ class DeviceFromProject(object):
             else:
                 if self.result.configuration.name in deviceProject.dict.keys():
                     self.result.configuration.dict = deviceProject[self.result.configuration.name].dict
-                else:
-                    self.result.configuration.HandleBackwardsCompatibility()
+                self.result.configuration.HandleBackwardsCompatibility()
 
 class DeviceFileNetListLine(DeviceNetListLine):
     def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
@@ -587,6 +597,27 @@ class DeviceVoltageMultiLevelWaveformGenerator(Device):
             PartPropertySampleRate(),
             PartPropertyVoltageAmplitude(),
             PartPropertyWaveformType('mlw')]+propertiesList,partPicture)
+
+class DeviceVoltageLevelsMultiLevelWaveformGenerator(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Levels Multi Level Waveform Generator'),
+            PartPropertyHelp('device:Voltage-Levels-Multi-Level-Waveform-Generator'),
+            PartPropertyDefaultReferenceDesignator('VG?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertyBaudRate(),
+            PartPropertyRisetime(),
+            PartPropertyPRBSPolynomial(),
+            PartPropertyLevels(),
+            PartPropertySymbols(),
+            PartPropertySampleRate(),
+            PartPropertyVoltageAmplitude(),
+            PartPropertyWaveformType('lmlw')]+propertiesList,partPicture)
 
 class DeviceVoltageClockGenerator(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1764,6 +1795,8 @@ DeviceList=Devices([
                 DeviceVoltagePRBSGenerator([PartPropertyDescription('Two Port Voltage PRBS Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
                 DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription('One Port Voltage Multi Level Waveform Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
                 DeviceVoltageMultiLevelWaveformGenerator([PartPropertyDescription('Two Port Voltage Multi Level Waveform Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
+                DeviceVoltageLevelsMultiLevelWaveformGenerator([PartPropertyDescription('One Port Voltage Levels Multi Level Waveform Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourcePRBSGeneratorOnePort()),
+                DeviceVoltageLevelsMultiLevelWaveformGenerator([PartPropertyDescription('Two Port Voltage Levels Multi Level Waveform Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourcePRBSGeneratorTwoPort()),
                 DeviceVoltageClockGenerator([PartPropertyDescription('One Port Voltage Clock Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceClockGeneratorOnePort()),
                 DeviceVoltageClockGenerator([PartPropertyDescription('Two Port Voltage Clock Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceClockGeneratorTwoPort()),
                 DeviceVoltageSineGenerator([PartPropertyDescription('One Port Voltage Sine Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceSineGeneratorOnePort()),
