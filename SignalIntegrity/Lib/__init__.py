@@ -40,3 +40,4 @@ from . import Test as test
 from . import Fit as fit
 from . import Prbs as prbs
 from . import Optical as opt
+from . import Equalization as eq
