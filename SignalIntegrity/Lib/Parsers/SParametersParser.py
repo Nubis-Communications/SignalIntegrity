@@ -101,6 +101,16 @@ class SParametersParser(SParameters):
                             raise IndexError
                     else:
                         raise IndexError
+                elif tokens[1]=='port':
+                    if tokens[2] == 'reorder':
+                        try:
+                            order=tokens[3]
+                            sp=self.PortReorder([int(p) for p in order.split(',')])
+                            SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
+                        except:
+                            raise IndexError
+                    else:
+                        raise IndexError
                 elif tokens[1][0]=='!':
                     self.header.append(line[len('post !'):])
                 else:
