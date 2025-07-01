@@ -330,7 +330,7 @@ class SignalIntegrityAppTestHelper:
         result=pysi.TransferParameters()
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
-        self.assertEqual(len(result),4,'wrong number of results') # actually three results, but one element is the 'type'
+        self.assertEqual(len(result),5,'wrong number of results') # actually three results, but one element is the 'type'
         sourceNames=result['source names']
         outputNames=result['output waveform labels']
         transferMatrices=result['transfer matrices']
