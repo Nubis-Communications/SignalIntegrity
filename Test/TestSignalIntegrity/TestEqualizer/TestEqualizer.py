@@ -65,6 +65,37 @@ class TestEqualizerTest(unittest.TestCase):
         # wfd=np.arange(0,10)
         eq.equalize_values(wfd,num_iterations=50,lamda=1)
         pass
+    def testAMDEqualizer(self):
+        project_file=os.path.abspath(os.path.join(os.path.dirname(__file__),
+            '../../../../Nitro/Schematics/400G/Schematics/AMDSimulation.si'))
+        print('pam6')
+        eq=si.eq.Equalizer(50,0,10,si.eq.LevelsRange(-0.2,0.2,6)).initialize_tap_values_to_default()
+        args={'RxSerdes_FFEtaps':str(eq.ffe_tap_values_list).replace(' ',''),
+              'RxSerdes_FFEpre':eq.num_precursor_taps}
+        app=SignalIntegrityAppHeadless()
+        opened = app.OpenProjectFile(project_file,args=args)
+        assert(opened)
+        app.SaveProject()
+        result = app.Simulate(EyeDiagrams=False)
+        wf=result.OutputWaveform('Vo')
+        phases=round(wf.td.Fs/float(result['variables']['BaudRate']))
+        wfd=wf*si.td.f.WaveformDecimator(phases,3)
+        # wfd=np.arange(0,10)
+        eq.equalize_values(wfd,num_iterations=150,lamda=1)
+
+        print(str(eq.ffe_tap_values_list).replace(' ',''))
+        args={'RxSerdes_FFEtaps':str(eq.ffe_tap_values_list).replace(' ',''),
+              'RxSerdes_FFEpre':eq.num_precursor_taps}
+        app=SignalIntegrityAppHeadless()
+        opened = app.OpenProjectFile(project_file,args=args)
+        assert(opened)
+        app.SaveProject()
+        import matplotlib.pyplot as plt
+        plt.cla()
+        plt.plot(eq.mse_list)
+        plt.grid()
+        plt.show()
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
