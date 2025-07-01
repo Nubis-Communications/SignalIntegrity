@@ -333,6 +333,12 @@ class VariableConfiguration(XMLConfiguration):
             value=('/'.join(str(value).split('\\')))
         if forDisplay and (type=='float'):
             value = str(ToSI(float(value),self.GetValue('Units')))
+        if forDisplay:
+            return value
+        elif type == 'int':
+            return int(value)
+        elif type == 'float':
+            return float(value)
         return value
     def NetListLine(self):
         value=str(self.GetValue('Value'))

@@ -231,7 +231,8 @@ class SignalIntegrityAppHeadless(object):
             except si.SignalIntegrityException as e:
                 return Result('s-parameters',None)
             return Result('s-parameters',{'s-parameters':sp,
-                                          'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p')})
+                                          'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                                          'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
         elif not self.Drawing.canCalculateSParameters:
             return Result('s-parameters',None)
         netListText=self.NetListText()
@@ -254,7 +255,8 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return Result('s-parameters',None)
         return Result('s-parameters',{'s-parameters':sp,
-                                      'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p')})
+                                      'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                                      'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):
@@ -293,7 +295,8 @@ class SignalIntegrityAppHeadless(object):
                 return Result('simulation',
                               {'source names':sourceNames,
                                'output waveform labels':outputWaveformLabels,
-                               'transfer matrices':transferMatrices})
+                               'transfer matrices':transferMatrices,
+                               'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
             self.Drawing.schematic.InstallCallback(callback)
             try:
@@ -385,7 +388,8 @@ class SignalIntegrityAppHeadless(object):
             return Result('simulation',{'source names':sourceNames,
                           'output waveform labels':outputWaveformLabels,
                           'transfer matrices':transferMatrices,
-                          'output waveforms':outputWaveformList})
+                          'output waveforms':outputWaveformList,
+                          'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
@@ -416,7 +420,8 @@ class SignalIntegrityAppHeadless(object):
                                     'transfer matrices':transferMatrices,
                                     'output waveforms':outputWaveformList,
                                     'eye diagram labels':eyeDiagramLabels,
-                                    'eye diagrams':eyeDiagrams})
+                                    'eye diagrams':eyeDiagrams,
+                                    'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def VirtualProbe(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):
@@ -449,7 +454,8 @@ class SignalIntegrityAppHeadless(object):
             return Result('virtual probe',
                           {'source names':sourceNames,
                            'output waveform labels':outputWaveformLabels,
-                           'transfer matrices':transferMatrices})
+                           'transfer matrices':transferMatrices,
+                           'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
@@ -510,7 +516,8 @@ class SignalIntegrityAppHeadless(object):
             return Result('virtual probe',{'source names':sourceNames,
                                         'output waveform labels':outputWaveformLabels,
                                         'transfer matrices':transferMatrices,
-                                        'output waveforms':outputWaveformList})
+                                        'output waveforms':outputWaveformList,
+                                        'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
         # gather up the eye probes and create a dialog for each one
         eyeDiagramDict=[]
@@ -541,7 +548,8 @@ class SignalIntegrityAppHeadless(object):
                                     'transfer matrices':transferMatrices,
                                     'output waveforms':outputWaveformList,
                                     'eye diagram labels':eyeDiagramLabels,
-                                    'eye diagrams':eyeDiagrams})
+                                    'eye diagrams':eyeDiagrams,
+                                    'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def TransferParameters(self,callback=None,):
         if not hasattr(self.Drawing,'canGenerateTransferMatrices'):
@@ -585,7 +593,8 @@ class SignalIntegrityAppHeadless(object):
             sp=[sp]
 
         return Result('de-embed',{'unknown names':unknownNames,
-                                  's-parameters':sp})
+                                  's-parameters':sp,
+                                  'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
         filename=[]
         for u in range(len(unknownNames)):
@@ -595,7 +604,8 @@ class SignalIntegrityAppHeadless(object):
                 filename.append(self.fileparts.filename+'_'+filename)
         return Result('de-embed',{'unknown names':unknownNames,
                                   's-parameters':sp,
-                                  'file name':filename})
+                                  'file name':filename,
+                                  'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def CalculateErrorTerms(self,callback=None):
         if not hasattr(self.Drawing,'canCalculate'):
@@ -622,7 +632,8 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return Result('error terms',None)
         return Result('error terms',{'error terms':cal,
-                                     'file names':self.fileparts.FullFilePathExtension('cal')})
+                                     'file names':self.fileparts.FullFilePathExtension('cal'),
+                                     'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def Device(self,ref):
         """
@@ -837,7 +848,8 @@ class SignalIntegrityAppHeadless(object):
             return Result('network analyzer',{'source names':sourceNames,
                           'output waveform labels':outputWaveformLabels,
                           'transfer matrices':transferMatrices,
-                          'output waveforms':outputWaveformList})
+                          'output waveforms':outputWaveformList,
+                          'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
         else:
             # waveforms are adapted this way to give the horizontal offset that it already has closest to
             #-5 ns, with the correct number of points without resampling the waveform in any way.
@@ -867,7 +879,8 @@ class SignalIntegrityAppHeadless(object):
                 A=[[Afc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
                 data[n]=(array(B).dot(inv(array(A)))).tolist()
             sp=si.sp.SParameters(frequencyList,data)
-            return Result('network analyzer',{'s-parameters':sp})
+            return Result('network analyzer',{'s-parameters':sp,
+                                              'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def Archive(self,overrideExistance=True):
         self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
