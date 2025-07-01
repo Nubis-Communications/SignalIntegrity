@@ -333,12 +333,6 @@ class VariableConfiguration(XMLConfiguration):
             value=('/'.join(str(value).split('\\')))
         if forDisplay and (type=='float'):
             value = str(ToSI(float(value),self.GetValue('Units')))
-        if forDisplay:
-            return value
-        elif type == 'int':
-            return int(value)
-        elif type == 'float':
-            return float(value)
         return value
     def NetListLine(self):
         value=str(self.GetValue('Value'))
@@ -435,7 +429,11 @@ class VariablesConfiguration(XMLConfiguration):
             name=variable['Name']
             value=variable.Value()
             if variable['Type'] == 'file':
-                value=os.path.abspath(value)
+                value=os.path.abspath(value).replace('\\','/')
+            elif variable['Type'] == 'int':
+                value=int(value)
+            elif variable['Type'] == 'float':
+                value=float(value)
             args[name]=value
         return args
 
