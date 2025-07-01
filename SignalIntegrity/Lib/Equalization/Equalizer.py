@@ -105,8 +105,8 @@ class Equalizer(object):
         mse = r.transpose().dot(W).dot(r)/len(r)
         H = J.transpose().dot(W).dot(J)
         HH = H
-        mse_list=[]
-        lamda_list=[]
+        self.mse_list=[]
+        self.lamda_list=[]
         for iteration in range(num_iterations):
             for rc in range(H.shape[0]):
                 HH[rc][rc] = H[rc][rc] + lamda
@@ -138,12 +138,8 @@ class Equalizer(object):
             else:
                 HH = H
                 lamda = lamda * 10.
-            mse_list.append(mse)
-            lamda_list.append(lamda)
-        print(str(a.tolist()).replace(' ',''))
-        import matplotlib.pyplot as plt
-        plt.cla()
-        plt.plot(mse_list)
-        plt.grid()
-        plt.show()
-
+            self.mse_list.append(mse)
+            self.lamda_list.append(lamda)
+        self.ffe_tap_values_list = [a[k] for k in range(self.num_ffe_taps)]
+        self.dfe_tap_values_list = [a[k+self.num_ffe_taps] for k in range(self.num_dfe_taps)]
+        return self
