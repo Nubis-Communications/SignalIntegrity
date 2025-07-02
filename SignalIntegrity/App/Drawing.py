@@ -102,9 +102,13 @@ class Drawing(tk.Frame):
         for deviceIndex in range(len(self.schematic.deviceList)):
             device = self.schematic.deviceList[deviceIndex]
             if device['element_state'] != None:
-                if device['element_state'].GetValue() == 'thru':
+                if device['element_state'].GetValue() in ['thru','thru_wires']:
                     from SignalIntegrity.App.Device import DeviceThru
+                    element_state=device['element_state'].GetValue()
                     device=DeviceThru.ConvertDeviceToThru(device)
+                    if element_state == 'thru_wires':
+                        from SignalIntegrity.App.PartProperty import PartPropertyElementState
+                        device.AddPartProperty(PartPropertyElementState(element_state))
             foundSomething=True
             devicePinsConnected=devicePinConnectedList[deviceIndex]
             device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)

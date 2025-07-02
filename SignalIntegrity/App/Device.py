@@ -39,7 +39,7 @@ class Device(object):
         self.CreateVisiblePropertiesList()
         unselected_color = 'black'
         if self['element_state'] != None:
-            if self['element_state'].GetValue() == 'disabled':
+            if self['element_state'].GetValue() in ['disabled','thru_wires']:
                 unselected_color = 'salmon'
         self.partPicture.current.Selected(self.selected,unselected_color).DrawDevice(self,canvas,grid,(x,y),pinsConnectedList)
     def IsAt(self,coord,augmentor,distance):
@@ -1662,7 +1662,26 @@ class DeviceThru(Device):
             thru_device.partPicture.SwitchPartPicture(thru_device.partPicture.partPictureSelected)
             thru_device.selected=device.selected
             return thru_device
-
+    @staticmethod
+    def ConvertDeviceToThruWires(device):
+            device=DeviceThru.ConvertDeviceToThru(device)
+            if device.partPicture.partPictureClassList[device.partPicture.partPictureSelected] != 'PartPictureThru':
+                return None
+            pinCoordinates=device.PinCoordinates()
+            num_wires = len(pinCoordinates)//2
+            leftPins=[pinCoordinates[p] for p in range(num_wires)]
+            rightPins=[pinCoordinates[p+num_wires] for p in range(num_wires)]
+            from SignalIntegrity.App.Wire import Vertex,Wire
+            from SignalIntegrity.App.ProjectFile import WireConfiguration
+            wire_list=[WireConfiguration() for _ in range(0)]
+            for p in range(num_wires):
+                left_pin=pinCoordinates[p]
+                right_pin=pinCoordinates[p+num_wires]
+                wire=Wire()
+                wire['Vertices'].append(Vertex(left_pin,False))
+                wire['Vertices'].append(Vertex(right_pin,False))
+                wire_list.append(wire)
+            return wire_list
 class DeviceEyeProbe(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='eyeprobe',showReference=True,showports=False)

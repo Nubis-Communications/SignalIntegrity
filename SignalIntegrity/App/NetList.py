@@ -34,6 +34,8 @@ class NetList(object):
         self.definingStimList=[]
         deviceList = schematic.deviceList
 
+        wires_list = copy.deepcopy(SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'])
+
         # filter out the devices whose state is 'disabled'
         new_deviceList=[]
         for device in deviceList:
@@ -41,15 +43,27 @@ class NetList(object):
                 new_deviceList.append(device)
             else:
                 state = device['element_state'].GetValue()
-                if state != 'disabled':
-                    if state == 'thru':
+                if state == 'disabled':
+                    pass
+                if state == 'thru_wires':
+                    from SignalIntegrity.App.Device import DeviceThru
+                    wires=DeviceThru.ConvertDeviceToThruWires(device)
+                    if wires is None:
                         from SignalIntegrity.App.Device import DeviceThru
                         device=DeviceThru.ConvertDeviceToThru(device)
+                        new_deviceList.append(device)
+                    else:
+                        wires_list['Wires'].extend(wires)
+                elif state == 'thru':
+                    from SignalIntegrity.App.Device import DeviceThru
+                    device=DeviceThru.ConvertDeviceToThru(device)
+                    new_deviceList.append(device)
+                else:
                     new_deviceList.append(device)
         deviceList = new_deviceList
         # done filtering out disabled devices
 
-        equiPotentialWireList=SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'].EquiPotentialWireList()
+        equiPotentialWireList=wires_list.EquiPotentialWireList()
         # put in system variables
         self.textToShow+=SignalIntegrity.App.Project['Variables'].NetListLines()
         # put all devices in the net list

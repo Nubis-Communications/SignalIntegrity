@@ -80,3 +80,7 @@ class TestThruTest(unittest.TestCase,si.test.SourcesTesterHelper,
     @unittest.expectedFailure
     def testThruTest5(self):
         self.SParameterResultsChecker('ThruTest5.si')
+    def testThruStateCascaded(self):
+        self.SParameterResultsChecker('ThruStateCascaded.si')
+    def testThruStateCascadedWires(self):
+        self.SParameterResultsChecker('ThruStateCascadedWires.si')
