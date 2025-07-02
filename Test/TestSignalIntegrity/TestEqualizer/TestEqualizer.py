@@ -78,10 +78,16 @@ class TestEqualizerTest(unittest.TestCase):
         app.SaveProject()
         result = app.Simulate(EyeDiagrams=False)
         wf=result.OutputWaveform('Vo')
+        #eq.ffe_tap_values_list[eq.num_precursor_taps]=eq.levels_list[-1]/max(wf.Values('abs'))
         phases=round(wf.td.Fs/float(result['variables']['BaudRate']))
+        print(f'phases: {phases}')
         wfd=wf*si.td.f.WaveformDecimator(phases,3)
+        # max_points=2000
+        # if len(wfd) > max_points:
+        #     wfd=wfd*si.td.f.WaveformTrimmer(len(wfd)-max_points,0)
+        print(f'num points: {len(wfd)}')
         # wfd=np.arange(0,10)
-        eq.equalize_values(wfd,num_iterations=150,lamda=1)
+        eq.equalize_values(wfd,num_iterations=300,lamda=1)
 
         print(str(eq.ffe_tap_values_list).replace(' ',''))
         args={'RxSerdes_FFEtaps':str(eq.ffe_tap_values_list).replace(' ',''),
@@ -92,7 +98,7 @@ class TestEqualizerTest(unittest.TestCase):
         app.SaveProject()
         import matplotlib.pyplot as plt
         plt.cla()
-        plt.plot(eq.mse_list)
+        plt.plot([np.sqrt(mse) for mse in eq.mse_list])
         plt.grid()
         plt.show()
 
