@@ -45,7 +45,7 @@ class NetList(object):
                 state = device['element_state'].GetValue()
                 if state == 'disabled':
                     pass
-                if state == 'thru_wires':
+                elif state == 'thru_wires':
                     from SignalIntegrity.App.Device import DeviceThru
                     wires=DeviceThru.ConvertDeviceToThruWires(device)
                     if wires is None:
