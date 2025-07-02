@@ -84,3 +84,20 @@ class TestThruTest(unittest.TestCase,si.test.SourcesTesterHelper,
         self.SParameterResultsChecker('ThruStateCascaded.si')
     def testThruStateCascadedWires(self):
         self.SParameterResultsChecker('ThruStateCascadedWires.si')
+    def testStateDisabledNormal(self):
+        self.SParameterResultsChecker('StateDisabledNormal.si')
+    def testStateNormalDisabled(self):
+        self.SParameterResultsChecker('StateNormalDisabled.si')
+    @unittest.expectedFailure
+    def testStateDisabledDisabled(self):
+        self.SParameterResultsChecker('StateDisabledDisabled.si')
+    def testStateNormalNormal(self):
+        self.SParameterResultsChecker('StateNormalNormal.si')
+    def testStateNormalThru(self):
+        self.SParameterResultsChecker('StateNormalThru.si')
+    def testStateNormalThruWires(self):
+        self.SParameterResultsChecker('StateNormalThruWires.si')
+    def testStateThruNormal(self):
+        self.SParameterResultsChecker('StateThruNormal.si')
+    def testStateThruWiresNormal(self):
+        self.SParameterResultsChecker('StateThruWiresNormal.si')

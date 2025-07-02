@@ -1,0 +1,65 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="dummy1_state thru_wires" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="dummy2_state " h="3" halign="l" lc="black"/>
+%  <rect x="59.5" y="-24.5" w="7" h="-7" lc="salmon"/>
+%  <polyline lc="salmon">56,-28 59.5,-28</polyline>
+%  <text x="59" y="-27" t="1" h="3" halign="r" lc="salmon"/>
+%  <polyline lc="salmon">70,-28 66.5,-28</polyline>
+%  <text x="67" y="-27" t="2" h="3" halign="l" lc="salmon"/>
+%  <text x="63" y="-21.75" t="file dummy.si" h="3" halign="c" lc="salmon"/>
+%  <rect x="59.5" y="-45.5" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">56,-49 59.5,-49</polyline>
+%  <text x="59" y="-48" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">70,-49 66.5,-49</polyline>
+%  <text x="67" y="-48" t="2" h="3" halign="l" lc="black"/>
+%  <text x="63" y="-42.75" t="file dummy2.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">33.25,-36.75 35,-38.5 33.25,-40.25</polyline>
+%  <polyline lc="black">38.5,-38.5 35,-38.5</polyline>
+%  <text x="33.25" y="-39.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">89.25,-36.75 87.5,-38.5 89.25,-40.25</polyline>
+%  <polyline lc="black">84,-38.5 87.5,-38.5</polyline>
+%  <text x="89.25" y="-39.5" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">38.5,-38.5 38.5,-28</polyline>
+%  <polyline lc="black">38.5,-28 56,-28</polyline>
+%  <polyline lc="black">70,-28 84,-28</polyline>
+%  <polyline lc="black">84,-28 84,-38.5</polyline>
+%  <polyline lc="black">56,-49 38.5,-49</polyline>
+%  <polyline lc="black">38.5,-49 38.5,-38.5</polyline>
+%  <polyline lc="black">84,-38.5 84,-49</polyline>
+%  <polyline lc="black">84,-49 70,-49</polyline>
+%  <ellipse x="84" y="-38.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="38.5" y="-38.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{dummy1\textunderscore state thru\textunderscore wires};
+\draw[black] (1.75,-5.75) node[anchor=base west]{dummy2\textunderscore state };
+\path[line width=0.30mm, draw=salmon] (59.5,-31.5) rectangle +(7,7);
+\path[line width=0.30mm, draw=salmon] (56,-28) -- (59.5,-28);
+\draw[salmon] (59,-27) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=salmon] (70,-28) -- (66.5,-28);
+\draw[salmon] (67,-27) node[anchor=base west]{2};
+\draw[salmon] (63,-21.75) node[anchor=base]{file dummy.si};
+\path[line width=0.30mm, draw=black] (59.5,-52.5) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (56,-49) -- (59.5,-49);
+\draw[black] (59,-48) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (70,-49) -- (66.5,-49);
+\draw[black] (67,-48) node[anchor=base west]{2};
+\draw[black] (63,-42.75) node[anchor=base]{file dummy2.si};
+\path[line width=0.30mm, draw=black] (33.25,-36.75) -- (35,-38.5) -- (33.25,-40.25);
+\path[line width=0.30mm, draw=black] (38.5,-38.5) -- (35,-38.5);
+\draw[black] (33.25,-39.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (89.25,-36.75) -- (87.5,-38.5) -- (89.25,-40.25);
+\path[line width=0.30mm, draw=black] (84,-38.5) -- (87.5,-38.5);
+\draw[black] (89.25,-39.5) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (38.5,-38.5) -- (38.5,-28);
+\path[line width=0.30mm, draw=black] (38.5,-28) -- (56,-28);
+\path[line width=0.30mm, draw=black] (70,-28) -- (84,-28);
+\path[line width=0.30mm, draw=black] (84,-28) -- (84,-38.5);
+\path[line width=0.30mm, draw=black] (56,-49) -- (38.5,-49);
+\path[line width=0.30mm, draw=black] (38.5,-49) -- (38.5,-38.5);
+\path[line width=0.30mm, draw=black] (84,-38.5) -- (84,-49);
+\path[line width=0.30mm, draw=black] (84,-49) -- (70,-49);
+\path[line width=0.30mm, draw=black, fill=black] (84,-38.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (38.5,-38.5) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

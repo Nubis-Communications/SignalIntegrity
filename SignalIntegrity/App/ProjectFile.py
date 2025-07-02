@@ -325,6 +325,8 @@ class VariableConfiguration(XMLConfiguration):
     def Value(self,forDisplay=False,resolveVariable=True):
         value=self.GetValue('Value')
         type=self.GetValue('Type')
+        if value is None and type == 'string':
+            value = ''
         if resolveVariable and (len(value)>0) and (value[0]=='='):
             import SignalIntegrity.App.Project
             if value[1:] in SignalIntegrity.App.Project['Variables'].Names():
@@ -365,6 +367,8 @@ class VariableConfiguration(XMLConfiguration):
                 result=result+self.GetValue('Name')
             value=self.GetValue('Value')
             type=self.GetValue('Type')
+            if value is None and type == 'string':
+                value=''
             prefix,suffix='',''
             if (len(value)>0) and (value[0]=='='):
                 if resolveVariable and displayVariable:
