@@ -67,31 +67,41 @@ class TestEqualizerTest(unittest.TestCase):
         pass
     def testAMDEqualizer(self):
         project_file=os.path.abspath(os.path.join(os.path.dirname(__file__),
-            '../../../../Nitro/Schematics/400G/Schematics/AMDSimulation.si'))
+            '../../../../Nitro/Schematics/400G/Schematics/AMDSimulationRx.si'))
         print('pam6')
-        eq=si.eq.Equalizer(50,0,10,si.eq.LevelsRange(-0.2,0.2,6)).initialize_tap_values_to_default()
+        eq=si.eq.Equalizer(20,0,6,si.eq.LevelsRange(-0.1,0.1,6)).initialize_tap_values_to_default()
         args={'RxSerdes_FFEtaps':str(eq.ffe_tap_values_list).replace(' ',''),
-              'RxSerdes_FFEpre':eq.num_precursor_taps}
+              'RxSerdes_FFEpre':eq.num_precursor_taps,
+              'RxSerdes_CTLEgdc':-10,
+              'RxSerdes_CTLEgdc2':-4,
+              'Type':'Active',
+              'TxSerdes_Duration':80e-9
+              }
         app=SignalIntegrityAppHeadless()
         opened = app.OpenProjectFile(project_file,args=args)
         assert(opened)
         app.SaveProject()
         result = app.Simulate(EyeDiagrams=False)
         wf=result.OutputWaveform('Vo')
-        #eq.ffe_tap_values_list[eq.num_precursor_taps]=eq.levels_list[-1]/max(wf.Values('abs'))
+        eq.ffe_tap_values_list[eq.num_precursor_taps]=eq.levels_list[-1]/max(wf.Values('abs'))
         phases=round(wf.td.Fs/float(result['variables']['BaudRate']))
         print(f'phases: {phases}')
-        wfd=wf*si.td.f.WaveformDecimator(phases,3)
-        # max_points=2000
-        # if len(wfd) > max_points:
-        #     wfd=wfd*si.td.f.WaveformTrimmer(len(wfd)-max_points,0)
+        wfd=wf*si.td.f.WaveformDecimator(phases,2)
+        max_points=2000
+        if len(wfd) > max_points:
+            wfd=wfd*si.td.f.WaveformTrimmer(len(wfd)-max_points,0)
         print(f'num points: {len(wfd)}')
         # wfd=np.arange(0,10)
-        eq.equalize_values(wfd,num_iterations=300,lamda=1)
+        eq.equalize_values(wfd,num_iterations=300,lamda=10000)
 
         print(str(eq.ffe_tap_values_list).replace(' ',''))
         args={'RxSerdes_FFEtaps':str(eq.ffe_tap_values_list).replace(' ',''),
-              'RxSerdes_FFEpre':eq.num_precursor_taps}
+              'RxSerdes_FFEpre':eq.num_precursor_taps,
+              'RxSerdes_CTLEgdc':-10,
+              'RxSerdes_CTLEgdc2':-4,
+              'Type':'Active',
+              'TxSerdes_Duration':80e-9,
+              }
         app=SignalIntegrityAppHeadless()
         opened = app.OpenProjectFile(project_file,args=args)
         assert(opened)
