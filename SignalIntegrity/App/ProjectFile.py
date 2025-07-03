@@ -434,10 +434,6 @@ class VariablesConfiguration(XMLConfiguration):
             value=variable.Value()
             if variable['Type'] == 'file':
                 value=os.path.abspath(value).replace('\\','/')
-            elif variable['Type'] == 'int':
-                value=int(value)
-            elif variable['Type'] == 'float':
-                value=float(value)
             args[name]=value
         return args
 
