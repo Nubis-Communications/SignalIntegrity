@@ -101,3 +101,6 @@ class TestThruTest(unittest.TestCase,si.test.SourcesTesterHelper,
         self.SParameterResultsChecker('StateThruNormal.si')
     def testStateThruWiresNormal(self):
         self.SParameterResultsChecker('StateThruWiresNormal.si')
+    @unittest.expectedFailure
+    def testStateThruWiresState4Side(self):
+        self.SParameterResultsChecker('ThruWiresState4Side.si')
