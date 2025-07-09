@@ -22,6 +22,7 @@ from SignalIntegrity.Lib.Helpers.LineSplitter import LineSplitter
 
 class ParserArgs():
     """argument handling base class for parsers"""
+    dry_run=False
     def AssignArguments(self,args):
         """assigns arguments
         @param args list of arguments as name,value pairs

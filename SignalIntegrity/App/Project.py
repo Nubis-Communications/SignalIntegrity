@@ -24,3 +24,4 @@ Preferences = None
 InstallDir=None
 IconsBaseDir = None
 IconsDir=None
+FileList=None

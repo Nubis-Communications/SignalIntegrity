@@ -81,6 +81,11 @@ class ResultsCache(object):
         if self.filename is None:
             if self.logging: print('no filename')
             return False
+        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
+        if ParserArgs.dry_run:
+            import SignalIntegrity.App.Project
+            SignalIntegrity.App.FileList.AddCacheFile(self._FileName())
+            return False
         filenames=[self._FileName(files_to_keep_override=1),self._FileName(files_to_keep_override=2)]
         for filename in filenames:
             if not os.path.exists(filename):
@@ -97,6 +102,8 @@ class ResultsCache(object):
                         tmp_dict = pickle.load(f)
                         self.__dict__.update(tmp_dict)
                         if self.logging: print(filename + ' passes cache check')
+                        import SignalIntegrity.App.Project
+                        SignalIntegrity.App.FileList.AddCacheFile(filename)
                         if filename == self._FileName(files_to_keep_override=2) and self.files_to_keep == 1:
                             # this means that the file found is the one for multi-cache, but ideally, it's the one
                             # for single file cache.  Write out the single file cache, so that in the future, it's found
@@ -168,6 +175,8 @@ class ResultsCache(object):
                 if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
                 pickle.dump(pickleDict['hash'], f, 2)
                 pickle.dump(pickleDict, f, 2)
+                import SignalIntegrity.App.Project
+                SignalIntegrity.App.FileList.AddCacheFile(self._FileName())
             if self.keep_extra_file_for_archive and (self._FileName() != self._FileName(files_to_keep_override=1)):
                 # keep an extra single file just for archiving
                 if self.logging: print('copying cached file to single cache for archiving')

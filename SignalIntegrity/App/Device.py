@@ -123,6 +123,8 @@ class Device(object):
                     if waveform is None:
                         raise si.SignalIntegrityExceptionWaveform('project file: '+fileName+' could not produce waveform: '+self['wfprojname'].GetValue())
                 else:
+                    import SignalIntegrity.App.Project
+                    SignalIntegrity.App.FileList.AddFile(fileName)
                     waveform = si.td.wf.Waveform().ReadFromFile(fileName)
             elif wfType == 'step':
                 amplitude=float(self['a'].GetValue())

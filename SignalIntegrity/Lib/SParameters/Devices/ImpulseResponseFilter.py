@@ -59,6 +59,8 @@ class ImpulseResponseFilter(SParameters):
                 raise SignalIntegrityExceptionWaveformFile('waveform could not be produced by '+filename)
         else:
             try:
+                import SignalIntegrity.App.Project
+                SignalIntegrity.App.FileList.AddFile(filename)
                 wf=Waveform().ReadFromFile(filename)
             except:
                 raise SignalIntegrityExceptionWaveformFile('waveform could not be produced by '+filename)
