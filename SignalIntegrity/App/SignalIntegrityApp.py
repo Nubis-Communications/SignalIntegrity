@@ -52,6 +52,7 @@ from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
+from SignalIntegrity.App.FileList import FileList
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
 from SignalIntegrity.App.PartProperty import *
 from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
@@ -500,6 +501,7 @@ class SignalIntegrityApp(tk.Frame):
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
             SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            SignalIntegrity.App.FileList = FileList(self.fileparts.FullFilePathExtension('.si'))
             self.SetVariables(args, reportMissing=True)
             self.Drawing.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
@@ -877,6 +879,23 @@ class SignalIntegrityApp(tk.Frame):
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         efl=None if SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced() else SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced=True)
+        spnp=si.p.SystemSParametersNumericParser(
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            cacheFileName=cacheFileName,
+            efl=efl,
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
+        spnp.AddLines(netList)
+        SignalIntegrity.App.FileList.Initialize()
+        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
+        ParserArgs.dry_run = True
+        progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
+        try:
+            sp=progressDialog.GetResult()
+        except si.SignalIntegrityException as e:
+            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
+            return None
+        SignalIntegrity.App.FileList.ResolveCacheFiles()
+        ParserArgs.dry_run = False
         spnp=si.p.SystemSParametersNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName,

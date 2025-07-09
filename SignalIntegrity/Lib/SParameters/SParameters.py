@@ -182,6 +182,9 @@ class SParameters(SParameterManipulation):
         @param fl list of frequencies to resample to.
         @return instance of class SParameters containing resampled s-parameters
         """
+        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
+        if ParserArgs.dry_run:
+            return self
         if self.m_d is None:
             self.m_f=fl
             copy.deepcopy(self)
@@ -202,6 +205,9 @@ class SParameters(SParameterManipulation):
         To make it work better with other functions, it allows none to be specified, in
         which case it returns self
         """
+        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
+        if ParserArgs.dry_run:
+            return self
         if Z0 == None:
             return self
         if Z0 != self.m_Z0:
