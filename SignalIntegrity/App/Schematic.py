@@ -27,7 +27,7 @@ from SignalIntegrity.Lib.CallBacker import CallBacker
 class Schematic(CallBacker):
     def __init__(self):
         self.deviceList = []
-        super().__init__(self)
+        super().__init__()
 
     def InitFromProject(self):
         self.__init__()
