@@ -63,13 +63,13 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         but the direct method did not - but this possibility is thought to be impossible
         now.
         """
+        self.SystemDescription()
+        self.m_sd.CheckConnections()
         # pragma: silent exclude
         if self.CheckCache():
             self.CallBack(100.0)
             return self.sf
         # pragma: include
-        self.SystemDescription()
-        self.m_sd.CheckConnections()
         spc=self.m_spc
         result = []
         sspn=SystemSParametersNumeric(self.m_sd)

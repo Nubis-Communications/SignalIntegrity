@@ -54,13 +54,13 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
         @remark TransferMatrices are used with a TransferMatricesProcessor to process waveforms for
         virtual probing.
         """
+        self.SystemDescription()
+        self.m_sd.CheckConnections()
         # pragma: silent exclude
         if self.CheckCache():
             self.CallBack(100.0)
             return self.transferMatrices
         # pragma: include
-        self.SystemDescription()
-        self.m_sd.CheckConnections()
         spc=self.m_spc
         result=[]
         for n in range(len(self.m_f)):

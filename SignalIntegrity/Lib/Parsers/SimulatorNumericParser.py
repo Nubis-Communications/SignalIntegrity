@@ -54,6 +54,8 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
         @remark TransferMatrices are used with a TransferMatricesProcessor to process waveforms for
         simulation.
         """
+        self.SystemDescription()
+        self.m_sd.CheckConnections()
         # pragma: silent exclude
         if self.CheckCache():
             if hasattr(self.transferMatrices, 'callback'):
@@ -63,8 +65,6 @@ class SimulatorNumericParser(SimulatorParser,CallBacker,LinesCache):
                 self.transferMatrices = None
                 self.m_sd = None
         # pragma: include
-        self.SystemDescription()
-        self.m_sd.CheckConnections()
         spc=self.m_spc
         result=[]
         sn=SimulatorNumeric(self.m_sd)
