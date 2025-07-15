@@ -51,12 +51,12 @@ class CalibrationNumericParser(CalibrationParser,CallBacker,LinesCache):
         @return instance of class Calibration
         @see Calibration
         """
+        self.SystemDescription()
         # pragma: silent exclude
         if self.CheckCache():
             self.CallBack(100.0)
             return self.calibration
         # pragma: include
-        self.SystemDescription()
         self.calibration.CalculateErrorTerms()
         # pragma: silent exclude
         self.CacheResult(['calibration'])

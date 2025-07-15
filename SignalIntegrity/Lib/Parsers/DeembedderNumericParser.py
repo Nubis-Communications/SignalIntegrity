@@ -54,13 +54,13 @@ class DeembedderNumericParser(DeembedderParser,CallBacker,LinesCache):
         to the s-parameters of the system 
         @return instance of class SParameters of the unknown devices in the network.
         """
+        self._ProcessLines()
+        self.m_sd.CheckConnections()
         # pragma: silent exclude
         if self.CheckCache():
             self.CallBack(100.0)
             return self.sf
         # pragma: include
-        self._ProcessLines()
-        self.m_sd.CheckConnections()
         NumUnknowns=len(self.m_sd.UnknownNames())
         result=[[] for i in range(NumUnknowns)]
         systemSP=systemSParameters
