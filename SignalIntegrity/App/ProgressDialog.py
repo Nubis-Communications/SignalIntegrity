@@ -71,7 +71,7 @@ class ProgressDialog(tk.Toplevel):
             elif name[0] == '-':
                 self.titleList=self.titleList[:-1]
             if len(self.titleList) > 0:
-                self.title(self.titleList[-1])
+                self.title(('+'*(len(self.titleList)-1))+self.titleList[-1])
         if floor(number/self.granularity) != self.currentPercent:
             self.currentPercent = floor(number/self.granularity)  
             self.bar.create_rectangle(0,0,600*number/100.0,10,fill='blue')

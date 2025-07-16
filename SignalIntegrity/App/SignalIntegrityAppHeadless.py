@@ -41,7 +41,7 @@ class ProjectStack(object):
         cwdCopy=os.getcwd()
         fileListCopy=copy.deepcopy(SignalIntegrity.App.FileList)
         self.stack.append((ProjectCopy,cwdCopy,fileListCopy))
-        print('pushed - stack depth: ',len(self.stack))
+        #print('pushed - stack depth: ',len(self.stack))
         return len(self.stack)
     def Pull(self,level=0):
         import copy
@@ -52,7 +52,7 @@ class ProjectStack(object):
         SignalIntegrity.App.FileList.AddFile(fileListTemp)
         os.chdir(cwdCopy)
         self.stack=self.stack[:level-1]
-        print('pulled - stack depth: ',len(self.stack))
+        #print('pulled - stack depth: ',len(self.stack))
         return self
 
 class DrawingHeadless(object):
@@ -260,11 +260,6 @@ class SignalIntegrityAppHeadless(object):
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
             return Result('s-parameters',None)
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        if ParserArgs.dry_run:
-            return Result('s-parameters',{'s-parameters':sp,
-                                          'file names':'',
-                                          'variables':{}})
         return Result('s-parameters',{'s-parameters':sp,
                                       'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                                       'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
@@ -290,26 +285,7 @@ class SignalIntegrityAppHeadless(object):
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
         # parameters and there are eye waveforms, just skip over the transfer parameter generation.
         if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
-            from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-            dry_run = ParserArgs.dry_run
-            ParserArgs.dry_run = True
-            snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
-            if not callback == None:
-                snp.InstallCallback(callback)
-            snp.AddLines(netListText)
-            try:
-                transferMatrices=snp.TransferMatrices()
-            except si.SignalIntegrityException as e:
-                return Result('simulation',None)
-            self.Drawing.schematic.InputWaveforms()
-
-            if dry_run:
-                return Result('simulation',
-                              {'output waveform labels':netList.OutputNames(),
-                               'output waveforms':[0 for _ in netList.OutputNames()]})
-
             SignalIntegrity.App.FileList.ResolveCacheFiles()
-            ParserArgs.dry_run = False
             snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
             if not callback == None:
                 snp.InstallCallback(callback)

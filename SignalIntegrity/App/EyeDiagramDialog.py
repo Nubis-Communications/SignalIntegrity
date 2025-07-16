@@ -242,38 +242,50 @@ class EyeDiagramDialog(tk.Toplevel):
         return self.simulatorDialog
 
     def CalculateEyeDiagram(self):
-        self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
-        if hasattr(self,'eyeDiagramMeasurementsDialog'):
-            if self.eyeDiagramMeasurementsDialog != None:
-                if self.eyeDiagramMeasurementsDialog.winfo_exists():
-                    self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
-        if hasattr(self, 'bathtubCurveDialog'):
-            if self.bathtubCurveDialog != None:
-                if self.bathtubCurveDialog.winfo_exists():
-                    self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
-        if hasattr(self,'simulatorDialog'):
-            if self.simulatorDialog != None:
-                if self.simulatorDialog.winfo_exists():
-                    self.simulatorDialog.UpdateWaveforms(
-                        [self.eyeDiagram.prbswf,self.eyeDiagram.sampledWf],
-                        [self.name,self.name+'_sampled'],
-                        ['lines','dots']).state('normal')
-        self.EyeMeasurementsDoer.Activate(not self.eyeDiagram.measDict is None)
-        self.BathtubCurveDoer.Activate((not self.eyeDiagram.measDict is None) and ('Bathtub' in self.eyeDiagram.measDict.keys()))
-        self.eyeCanvas.pack_forget()
-        config=self.eyeArgs['Config']
-        R=config['Rows']; C=config['Columns']
-        C=int(C*config['ScaleX']/100.*config['UI']); R=int(R*config['ScaleY']/100.)
-        self.eyeCanvas=tk.Canvas(self.eyeFrame,width=C,height=R)
-        if not self.eyeDiagram.img is None:
-            self.eyeStatus.set(ToSI(int(self.eyeDiagram.prbswf.td.K/self.eyeDiagram.prbswf.td.Fs*self.eyeDiagram.baudrate),'UI')+' at '+ToSI(self.eyeDiagram.baudrate,'Baud'))
-            self.eyeImage=ImageTk.PhotoImage(self.eyeDiagram.img)
-            self.eyeCanvas.create_image(C/2,R/2,image=self.eyeImage)
-            self.eyeCanvas.pack(expand=tk.YES,fill=tk.BOTH)
-            self.statusbar.set('Calculation complete')
-        else:
-            self.statusbar.set('Calculation failed or aborted')
-            self.eyeStatus.set('No Eye')
+        import copy
+        from SignalIntegrity.App.FileList import FileList
+        file_list_copy = copy.deepcopy(SignalIntegrity.App.FileList)
+        SignalIntegrity.App.FileList = FileList(None)
+        SignalIntegrity.App.FileList.AddFile(file_list_copy)
+        file_list_copy = copy.deepcopy(SignalIntegrity.App.FileList)
+        SignalIntegrity.App.FileList = FileList(None)
+        try:
+            self.eyeDiagram.CalculateEyeDiagram(self.parent.parent.fileparts.FileNameTitle(),self.callback)
+            if hasattr(self,'eyeDiagramMeasurementsDialog'):
+                if self.eyeDiagramMeasurementsDialog != None:
+                    if self.eyeDiagramMeasurementsDialog.winfo_exists():
+                        self.EyeDiagramMeasurementsDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+            if hasattr(self, 'bathtubCurveDialog'):
+                if self.bathtubCurveDialog != None:
+                    if self.bathtubCurveDialog.winfo_exists():
+                        self.BathtubCurveDialog().UpdateMeasurements(self.eyeDiagram.measDict)
+            if hasattr(self,'simulatorDialog'):
+                if self.simulatorDialog != None:
+                    if self.simulatorDialog.winfo_exists():
+                        self.simulatorDialog.UpdateWaveforms(
+                            [self.eyeDiagram.prbswf,self.eyeDiagram.sampledWf],
+                            [self.name,self.name+'_sampled'],
+                            ['lines','dots']).state('normal')
+            self.EyeMeasurementsDoer.Activate(not self.eyeDiagram.measDict is None)
+            self.BathtubCurveDoer.Activate((not self.eyeDiagram.measDict is None) and ('Bathtub' in self.eyeDiagram.measDict.keys()))
+            self.eyeCanvas.pack_forget()
+            config=self.eyeArgs['Config']
+            R=config['Rows']; C=config['Columns']
+            C=int(C*config['ScaleX']/100.*config['UI']); R=int(R*config['ScaleY']/100.)
+            self.eyeCanvas=tk.Canvas(self.eyeFrame,width=C,height=R)
+            if not self.eyeDiagram.img is None:
+                self.eyeStatus.set(ToSI(int(self.eyeDiagram.prbswf.td.K/self.eyeDiagram.prbswf.td.Fs*self.eyeDiagram.baudrate),'UI')+' at '+ToSI(self.eyeDiagram.baudrate,'Baud'))
+                self.eyeImage=ImageTk.PhotoImage(self.eyeDiagram.img)
+                self.eyeCanvas.create_image(C/2,R/2,image=self.eyeImage)
+                self.eyeCanvas.pack(expand=tk.YES,fill=tk.BOTH)
+                self.statusbar.set('Calculation complete')
+            else:
+                self.statusbar.set('Calculation failed or aborted')
+                self.eyeStatus.set('No Eye')
+        finally:
+            temp_file_list = copy.deepcopy(SignalIntegrity.App.FileList)
+            SignalIntegrity.App.FileList = file_list_copy
+            SignalIntegrity.App.FileList.AddFile(temp_file_list)
 
     def EyeDiagramMeasurementsDialog(self):
         if not hasattr(self,'eyeDiagramMeasurementsDialog'):

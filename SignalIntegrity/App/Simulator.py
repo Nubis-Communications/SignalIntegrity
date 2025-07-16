@@ -86,17 +86,6 @@ class Simulator(object):
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         snp.AddLines(netListText)
         SignalIntegrity.App.FileList.Initialize()
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        ParserArgs.dry_run = True
-        progressDialog=ProgressDialog(self.parent,"Dry Run",snp,snp.TransferMatrices, granularity=1.0)
-        try:
-            self.transferMatrices=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Simulator',e.parameter+': '+e.message)
-            return
-        self.parent.Drawing.schematic.InputWaveforms()
-        SignalIntegrity.App.FileList.ResolveCacheFiles()
-        ParserArgs.dry_run = False
         snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         snp.AddLines(netListText)
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
@@ -273,17 +262,6 @@ class Simulator(object):
             Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         snp.AddLines(netListText)
         SignalIntegrity.App.FileList.Initialize()
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        ParserArgs.dry_run = True
-        progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
-        try:
-            self.transferMatrices=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
-            return
-        self.parent.Drawing.schematic.InputWaveforms()
-        SignalIntegrity.App.FileList.ResolveCacheFiles()
-        ParserArgs.dry_run = False
         snp=si.p.VirtualProbeNumericParser(
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName,

@@ -885,23 +885,6 @@ class SignalIntegrityApp(tk.Frame):
             efl=efl,
             Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         spnp.AddLines(netList)
-        SignalIntegrity.App.FileList.Initialize()
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        ParserArgs.dry_run = True
-        progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
-        try:
-            sp=progressDialog.GetResult()
-        except si.SignalIntegrityException as e:
-            messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
-            return None
-        SignalIntegrity.App.FileList.ResolveCacheFiles()
-        ParserArgs.dry_run = False
-        spnp=si.p.SystemSParametersNumericParser(
-            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
-            cacheFileName=cacheFileName,
-            efl=efl,
-            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
-        spnp.AddLines(netList)
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()

@@ -73,11 +73,6 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         spc=self.m_spc
         result = []
         sspn=SystemSParametersNumeric(self.m_sd)
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        if ParserArgs.dry_run:
-            if not self.CallBack(100.0):
-                raise SignalIntegrityExceptionSParameters('calculation aborted')
-            return SParameters([0],[[0]],50.)
         for n in range(len(self.m_f)):
             for d in range(len(spc)):
                 if not spc[d][0] is None:

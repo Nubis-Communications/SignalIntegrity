@@ -76,15 +76,15 @@ class ResultsCache(object):
         results initialized.  Otherwise, it returns False.
         @return bool whether the cache can be used.
         """
+        try:
+            import SignalIntegrity.App.Project
+            SignalIntegrity.App.FileList.ResolveCacheFiles()
+        except AttributeError:
+            pass
         self.hash=self.HashValue()
         import os
         if self.filename is None:
             if self.logging: print('no filename')
-            return False
-        from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        if ParserArgs.dry_run:
-            import SignalIntegrity.App.Project
-            SignalIntegrity.App.FileList.AddCacheFile(self._FileName())
             return False
         filenames=[self._FileName(files_to_keep_override=1),self._FileName(files_to_keep_override=2)]
         for filename in filenames:
@@ -96,32 +96,42 @@ class ResultsCache(object):
                     if self.logging: print(filename + ' older')
                     continue
             try:
+                file_read = False
                 with open(filename,'rb') as f:
                     hash = pickle.load(f)
                     if hash == self.hash:
                         tmp_dict = pickle.load(f)
-                        self.__dict__.update(tmp_dict)
-                        if self.logging: print(filename + ' passes cache check')
+                        file_read = True
+                if file_read:
+                    try:
                         import SignalIntegrity.App.Project
                         SignalIntegrity.App.FileList.AddCacheFile(filename)
-                        if filename == self._FileName(files_to_keep_override=2) and self.files_to_keep == 1:
-                            # this means that the file found is the one for multi-cache, but ideally, it's the one
-                            # for single file cache.  Write out the single file cache, so that in the future, it's found
-                            # in the single file cache.
-                            self.CacheResult()
-                        if self.keep_extra_file_for_archive and (filename != self._FileName(files_to_keep_override=1)):
-                            if self.logging: print('copying cached file to single cache for archiving')
-                            f.close()
-                            # keep an extra single file just for archiving
-                            import shutil
-                            shutil.copyfile(filename, self._FileName(files_to_keep_override=1))
-                        return True
-                    else:
-                        if self.logging: # pragma: no cover
-                            print(filename+' hash incorrect')
-                            print(filename+' hash value = '+hash)
-                            print('expecting: '+self.hash)
+                        if not SignalIntegrity.App.FileList.ResolveCacheFiles():
+                            if self.logging:
+                                print(filename + ' cache resolution failed')
+                            continue
+                    except:
+                        print('FATAL ERROR IN CACHE RESOLUTION')
                         continue
+                    self.__dict__.update(tmp_dict)
+                    if self.logging: print(filename + ' passes cache check')
+                    if filename == self._FileName(files_to_keep_override=2) and self.files_to_keep == 1:
+                        # this means that the file found is the one for multi-cache, but ideally, it's the one
+                        # for single file cache.  Write out the single file cache, so that in the future, it's found
+                        # in the single file cache.
+                        self.CacheResult()
+                    if self.keep_extra_file_for_archive and (filename != self._FileName(files_to_keep_override=1)):
+                        if self.logging: print('copying cached file to single cache for archiving')
+                        # keep an extra single file just for archiving
+                        import shutil
+                        shutil.copyfile(filename, self._FileName(files_to_keep_override=1))
+                    return True
+                else:
+                    if self.logging: # pragma: no cover
+                        print(filename+' hash incorrect')
+                        print(filename+' hash value = '+hash)
+                        print('expecting: '+self.hash)
+                    continue
             except:
                 if self.logging: print(filename+' could not be unpickled')
                 continue
