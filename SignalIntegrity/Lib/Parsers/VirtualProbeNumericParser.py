@@ -63,10 +63,6 @@ class VirtualProbeNumericParser(VirtualProbeParser,CallBacker,LinesCache):
         # pragma: include
         spc=self.m_spc
         result=[]
-        if self.dry_run:
-            if not self.CallBack(100.0):
-                raise SignalIntegrityExceptionVirtualProbe('calculation aborted')
-            return None
         for n in range(len(self.m_f)):
             for d in range(len(self.m_spc)):
                 if not spc[d][0] is None:

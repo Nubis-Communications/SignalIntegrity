@@ -74,10 +74,6 @@ class SParameterFile(SParameters):
         if ext == 'si':
             from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectSParameters
             sp=ProjectSParameters(name,callback,**kwargs)
-            from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-            if ParserArgs.dry_run:
-                SParameters.__init__(self,[0],[[0]],50.)
-                return
             if not sp is None:
                 if order != None:
                     sp=sp.PortReorder(order)
@@ -87,8 +83,11 @@ class SParameterFile(SParameters):
             else:
                 raise SignalIntegrityExceptionSParameterFile('s-parameters could not be produced by '+name)
         else:
-            import SignalIntegrity.App.Project
-            SignalIntegrity.App.FileList.AddFile(name)
+            try:
+                import SignalIntegrity.App.Project
+                SignalIntegrity.App.FileList.AddFile(name)
+            except AttributeError:
+                pass
             try:
             # pragma: include outdent outdent
                 self.m_P=int(str.lower(name).split('.')[-1].split('s')[1].split('p')[0])
