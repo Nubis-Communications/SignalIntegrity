@@ -32,9 +32,13 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         import matplotlib.pyplot as plt
         import numpy as np
         if not self.plotInitialized:
+            self.skip_amount = 1
             plt.ion()
-            plt.show()
-            plt.gcf()
+            self.fig,self.axs=plt.subplots(2,2)
+            #self.axs[0,0].ion()
+            #self.axs[0,0].show()
+            #self.fig.canvas.draw()
+            #plt.gcf()
             # plt.title('fit compare')
             # plt.xlabel('frequency (GHz)')
             # plt.ylabel('magnitude (dB)')
@@ -43,63 +47,72 @@ class TestPoleZeroFitterTest(unittest.TestCase):
             self.plotInitialized=True
             self.skipper=0
         self.skipper=self.skipper+1
-        if self.skipper!=500000:
+        if self.skipper<self.skip_amount:
             return
-        plt.clf()
+        #plt.clf()
         self.skipper=0
-        plot_type='polezero'
-        if plot_type=='magfit':
-            plt.title('fit compare')
-            plt.xlabel('frequency (GHz)')
-            plt.ylabel('magnitude (dB)')
-            plt.plot([f/1e9 for f in self.m_fitter.f],
-                         [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_y],label='goal')
-            plt.plot([f/1e9 for f in self.m_fitter.f],
-                         [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_Fa],label='fit')
-            plt.legend()
-        elif plot_type=='rectfit':
-            plt.title('fit compare')
-            plt.xlabel('frequency (GHz)')
-            plt.ylabel('magnitude (dB)')
-            plt.plot([v[0].real for v in self.m_fitter.m_y],
-                     [v[0].imag for v in self.m_fitter.m_y],label='goal')
-            plt.plot([v[0].real for v in self.m_fitter.m_Fa],
-                     [v[0].imag for v in self.m_fitter.m_Fa],label='fit')
-            plt.legend()
-        elif plot_type=='polezero':
-            plt.title('pole/zero locations')
-            results=self.m_fitter.Results()
-            results=[result[0].real for result in results]
-            num_biquads=(len(results)-2)//4
-            zero_mag=[]
-            zero_angle=[]
-            pole_mag=[]
-            pole_angle=[]
-            zero_real=[]
-            zero_imag=[]
-            pole_real=[]
-            pole_imag=[]
-            for bq in range(num_biquads):
-                wz=results[bq*4+2+0]
-                Qz=results[bq*4+2+1]
-                wp=results[bq*4+2+2]
-                Qp=results[bq*4+2+3]
-                zeros = np.roots(np.array([1, wz/Qz, wz*wz]))/(2.*np.pi*1e9)
-                poles = np.roots(np.array([1, wp/Qp, wp*wp]))/(2.*np.pi*1e9)
-                zero_mag.extend([np.abs(z) for z in zeros])
-                zero_angle.extend([np.angle(z) for z in zeros])
-                pole_mag.extend([np.abs(p) for p in poles])
-                pole_angle.extend([np.angle(p) for p in poles])
-                zero_real.extend([z.real for z in zeros])
-                zero_imag.extend([z.imag for z in zeros])
-                pole_real.extend([p.real for p in poles])
-                pole_imag.extend([p.imag for p in poles])
-            plt.plot(zero_real,zero_imag,marker='o', linestyle='')
-            plt.plot(pole_real,pole_imag,marker='X', linestyle='')
-            plt.xlim(-30,0)
-            plt.ylim(-100,100)
-        plt.grid(True,'both')
-        plt.draw()
+        self.skip_amount=min(1000.0,self.skip_amount*1.05)
+
+        self.axs[0,0].cla()
+        self.axs[0,0].set_title('fit compare')
+        self.axs[0,0].set_xlabel('frequency (GHz)')
+        self.axs[0,0].set_ylabel('magnitude (dB)')
+        self.axs[0,0].plot([f/1e9 for f in self.m_fitter.f],
+                     [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_y],label='goal')
+        self.axs[0,0].plot([f/1e9 for f in self.m_fitter.f],
+                     [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_Fa],label='fit')
+        self.axs[0,0].legend()
+        self.axs[0,0].grid(True,'both')
+
+        self.axs[0,1].cla()
+        self.axs[0,1].set_title('fit compare')
+        self.axs[0,1].set_xlabel('frequency (GHz)')
+        self.axs[0,1].set_ylabel('magnitude (dB)')
+        self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_y],
+                 [v[0].imag for v in self.m_fitter.m_y],label='goal')
+        self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_Fa],
+                 [v[0].imag for v in self.m_fitter.m_Fa],label='fit')
+        self.axs[0,1].legend()
+        self.axs[0,1].grid(True,'both')
+
+        self.axs[1,0].cla()
+        self.axs[1,0].set_title('pole/zero locations')
+        results=self.m_fitter.Results()
+        results=[result[0].real for result in results]
+        num_biquads=(len(results)-2)//4
+        zero_mag=[]
+        zero_angle=[]
+        pole_mag=[]
+        pole_angle=[]
+        zero_real=[]
+        zero_imag=[]
+        pole_real=[]
+        pole_imag=[]
+        for bq in range(num_biquads):
+            wz=results[bq*4+2+0]
+            Qz=results[bq*4+2+1]
+            wp=results[bq*4+2+2]
+            Qp=results[bq*4+2+3]
+            zeros = np.roots(np.array([1, wz/Qz, wz*wz]))/(2.*np.pi*1e9)
+            poles = np.roots(np.array([1, wp/Qp, wp*wp]))/(2.*np.pi*1e9)
+            zero_mag.extend([np.abs(z) for z in zeros])
+            zero_angle.extend([np.angle(z) for z in zeros])
+            pole_mag.extend([np.abs(p) for p in poles])
+            pole_angle.extend([np.angle(p) for p in poles])
+            zero_real.extend([z.real for z in zeros])
+            zero_imag.extend([z.imag for z in zeros])
+            pole_real.extend([p.real for p in poles])
+            pole_imag.extend([p.imag for p in poles])
+        self.axs[1,0].plot(zero_real,zero_imag,marker='o', linestyle='')
+        self.axs[1,0].plot(pole_real,pole_imag,marker='X', linestyle='')
+        self.axs[1,0].set_xlim(-30,0)
+        self.axs[1,0].set_ylim(-100,100)
+        self.axs[1,0].grid(True,'both')
+
+
+#        plt.grid(True,'both')
+
+        self.fig.canvas.draw()
         plt.pause(0.001)
     def testFit(self):
         return
