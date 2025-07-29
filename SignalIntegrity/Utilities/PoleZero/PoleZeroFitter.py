@@ -35,6 +35,93 @@ class Delay(object):
         self.H=cmath.exp(-1j*ω*Td)
         self.pHpTd=-1j*ω*cmath.exp(-1j*ω*Td)
 
+class PolePair(object):
+    def __init__(self,ω,ωp,Qp):
+        """
+            pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = (α+jβ)/(γ+jδ)
+        """
+        self.ω=ω
+        self.ωp=ωp
+        self.Qp=Qp
+        ω2=ω*ω
+        ωp2=ωp*ωp
+        Qp2=Qp*Qp
+        α=ωp2
+        β=0
+        γ=ωp2-ω2
+        δ=ωp/Qp*ω
+        γ2=γ*γ
+        δ2=δ*δ
+        self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
+        pαpωp=2*ωp                              # ∂α/∂ωp
+        pαpQp=0                                 # ∂α/∂Qp
+        pβpωp=0                                 # ∂β/∂ωp
+        pβpQp=0                                 # ∂β/∂Qp
+        pγpωp=2*ωp                              # ∂γ/∂ωp
+        pγpQp=0                                 # ∂γ/∂Qp
+        pδpωp=ω/Qp                              # ∂δ/∂ωp
+        pδpQp=-ωp/Qp2*ω                         # ∂δ/∂Qp
+        denom=(γ2+δ2)
+        denom2=denom*denom
+        RepHpα=γ/denom                          # Re(∂H/∂α)
+        RepHpβ=0                                # Re(∂H/∂β)
+        RepHpγ=α*(δ2-γ2)/denom2                 # Re(∂H/∂γ)
+        RePHpδ=-2*α*γ*δ/denom2                  # Re(∂H/∂δ)
+        ImpHpα=-δ/denom                         # Im(∂H/∂α)
+        ImpHpβ=0                                # Im(∂H/∂β)
+        ImpHpγ=2*α*δ*γ/denom2                   # Im(∂H/∂γ)
+        ImPHpδ=α*(δ2-γ2)/denom2                 # Im(∂H/∂δ)
+
+        RepHpωp=RepHpα*pαpωp+RepHpβ*pβpωp+RepHpγ*pγpωp+RePHpδ*pδpωp     # Re(∂H/∂ωp)
+        RepHpQp=RepHpα*pαpQp+RepHpβ*pβpQp+RepHpγ*pγpQp+RePHpδ*pδpQp     # Re(∂H/∂Qp)
+        ImpHpωp=ImpHpα*pαpωp+ImpHpβ*pβpωp+ImpHpγ*pγpωp+ImPHpδ*pδpωp     # Im(∂H/∂ωp)
+        ImpHpQp=ImpHpα*pαpQp+ImpHpβ*pβpQp+ImpHpγ*pγpQp+ImPHpδ*pδpQp     # Im(∂H/∂Qp)
+
+        self.pHpωp=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
+        self.pHpQp=RepHpQp+1j*ImpHpQp           # ∂H/∂Qp
+
+class ZeroPair(object):
+    def __init__(self,ω,ωz,Qz):
+        """
+            zero pair expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/ωz^2 = (α+jβ)/(γ+jδ)
+        """
+        self.ω=ω
+        self.ωz=ωz
+        self.Qz=Qz
+        ωz2=ωz*ωz
+        ω2=ω*ω
+        Qz2=Qz*Qz
+        α=ωz2-ω2
+        β=ω*ωz/Qz
+        γ=ωz2
+        δ=0
+        γ2=γ*γ
+        self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
+        pαpωz=2*ωz                              # ∂α/∂ωz
+        pαpQz=0                                 # ∂α/∂Qz
+        pβpωz=ω/Qz                              # ∂β/∂ωz
+        pβpQz=-ω*ωz/Qz2                         # ∂β/∂Qz
+        pγpωz=2*ωz                              # ∂γ/∂ωz
+        pγpQz=0                                 # ∂γ/∂Qz
+        pδpωz=0                                 # ∂δ/∂ωz
+        pδpQz=0                                 # ∂δ/∂Qz
+        RepHpα=1/γ                              # Re(∂H/∂α)
+        RepHpβ=0                                # Re(∂H/∂β)
+        RepHpγ=-α/γ2                            # Re(∂H/∂γ)
+        RePHpδ=0                                # Re(∂H/∂δ)
+        ImpHpα=0                                # Im(∂H/∂α)
+        ImpHpβ=1/γ                              # Im(∂H/∂β)
+        ImpHpγ=-β/γ2                            # Im(∂H/∂γ)
+        ImPHpδ=0                                # Im(∂H/∂δ)
+
+        RepHpωz=RepHpα*pαpωz+RepHpβ*pβpωz+RepHpγ*pγpωz+RePHpδ*pδpωz     # Re(∂H/∂ωz)
+        RepHpQz=RepHpα*pαpQz+RepHpβ*pβpQz+RepHpγ*pγpQz+RePHpδ*pδpQz     # Re(∂H/∂Qz)
+        ImpHpωz=ImpHpα*pαpωz+ImpHpβ*pβpωz+ImpHpγ*pγpωz+ImPHpδ*pδpωz     # Im(∂H/∂ωz)
+        ImpHpQz=ImpHpα*pαpQz+ImpHpβ*pβpQz+ImpHpγ*pγpQz+ImPHpδ*pδpQz     # Im(∂H/∂Qz)
+
+        self.pHpωz=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
+        self.pHpQz=RepHpQz+1j*ImpHpQz           # ∂H/∂Qz
+
 class BiquadSection(object):
     def __init__(self,ω,ωz,Qz,ωp,Qp):
         """
@@ -156,17 +243,17 @@ class PoleZeroLevMar(LevMar):
         self.f=fr.Frequencies()
         self.w=[2.*math.pi*f for f in self.f]
         self.y=np.array(fr.Values()).reshape(-1, 1)
-        guess=self.Guess(self.f[1]*10, self.f[-1], num_biquads)
+        guess=self.Guess2(self.f[1], self.f[-1], num_biquads)
         guess[0]=self.y[0][0]
-        guess[1]=17e-12
+        #guess[1]=17e-12
         LevMar.__init__(self,callback)
         LevMar.Initialize(self, np.array(guess).reshape(-1,1), np.array(self.y))
         self.ccm.Initialize(tolerance=self.ccm._tolerance,
-                            maxIterations=self.ccm._maxIterations*5,
+                            maxIterations=self.ccm._maxIterations*20,
                             lambdaTimeConstant=self.ccm._lambdaTimeConstant,
-                            mseTimeConstant=self.ccm._mseTimeConstant*2,
-                            mseUnchanging=self.ccm._mseUnchanging/1000000.,
-                            lambdaUnchanging=self.ccm._lambdaUnchanging*0)
+                            mseTimeConstant=self.ccm._mseTimeConstant,
+                            mseUnchanging=self.ccm._mseUnchanging/1000.,
+                            lambdaUnchanging=self.ccm._lambdaUnchanging)#*0)
     @staticmethod
     def Guess(fs,fe,num_biquads):
         """constructs a reasonable guess  
@@ -199,17 +286,56 @@ class PoleZeroLevMar(LevMar):
         for bq in range(num_biquads):
             result.extend([wz[bq],Qz[bq],wp[bq],Qp[bq]])
         return result
+    @staticmethod
+    def Guess2(fs,fe,num_biquads):
+        """constructs a reasonable guess  
+        The guess is designed to be set of real poles and zeros.
+        It starts with a zero, followed by two poles, followed by two zeros, and so on.
+        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
+        spacing causes the guess to be bumpy.
+        The gain is set to unity and the delay is set to zero initially.
+        @param fs float start frequency
+        @param fe float end frequency
+        @param num_biquads int number of biquad sections
+        """
+        minQ=1
+        maxQ=20
+        log_fe=math.log10(fe)
+        log_fs=math.log10(fs)
+        twopi=2*math.pi
+        num_poles_zero_pairs = num_biquads*2
+        frequency_location = [10.0**((log_fe-log_fs)/(num_poles_zero_pairs-1)*npz + log_fs)
+                                for npz in range(num_poles_zero_pairs)]
+        BW=fe
+        wz = [frequency_location[bq*2+1]*twopi for bq in range(num_biquads)]
+        Qz = [min(max(frequency_location[bq*2+1]/BW,minQ),maxQ) for bq in range(num_biquads)]
+        wp = [frequency_location[bq*2+0]*twopi for bq in range(num_biquads)]
+        Qp = [min(max(frequency_location[bq*2+0]/BW,minQ),maxQ) for bq in range(num_biquads)]
+        G = 1
+        Td = 0
+        result = [G,Td]
+        for bq in range(num_biquads):
+            result.extend([wz[bq],Qz[bq],wp[bq],Qp[bq]])
+        return result
     def fF(self,a):
         self.tf=TransferFunction(self.w,a)
         return np.array(self.tf.fF).reshape(-1, 1)
     def fJ(self,a,Fa=None):
+        #self.tf=TransferFunction(self.w,a)
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
-        Qmax=20
+        Qmax=10
+        wmax=self.f[-1]*2.*np.pi*5
+        # variables must be real
         for r in range(len(a)):
             a[r][0]=a[r][0].real
+        # Q cant be too high
         for r in range(3,len(a),2):
             a[r][0]=max(min(a[r][0],Qmax),-Qmax)
+        # w0 can't be too high
+        for r in range(2,len(a),2):
+            a[r][0]=min(a[r][0],wmax)
+        a[0][0]=self.y[0][0]
         return a
     def Results(self):
         return self.m_a

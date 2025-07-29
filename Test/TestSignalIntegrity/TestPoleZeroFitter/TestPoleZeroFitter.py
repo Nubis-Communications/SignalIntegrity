@@ -35,6 +35,9 @@ class TestPoleZeroFitterTest(unittest.TestCase):
             self.skip_amount = 1
             plt.ion()
             self.fig,self.axs=plt.subplots(2,2)
+            ax=self.fig.add_subplot(2,2,4,projection='polar')
+            ax.set_rscale('log')
+            self.axs[1,1]=ax
             #self.axs[0,0].ion()
             #self.axs[0,0].show()
             #self.fig.canvas.draw()
@@ -51,7 +54,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
             return
         #plt.clf()
         self.skipper=0
-        self.skip_amount=min(1000.0,self.skip_amount*1.05)
+        self.skip_amount=min(500.0,self.skip_amount*1.05)
 
         self.axs[0,0].cla()
         self.axs[0,0].set_title('fit compare')
@@ -76,7 +79,16 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         self.axs[0,1].grid(True,'both')
 
         self.axs[1,0].cla()
-        self.axs[1,0].set_title('pole/zero locations')
+        self.axs[1,0].set_title('lamda and mse')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log delta lambda')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log delta mse')
+        self.axs[1,0].set_xlabel('iteration #')
+        self.axs[1,0].set_ylabel('log delta')
+        self.axs[1,0].grid(True,'both')
+        self.axs[1,0].legend()
+
+        # self.axs[1,0].cla()
+        # self.axs[1,0].set_title('pole/zero locations')
         results=self.m_fitter.Results()
         results=[result[0].real for result in results]
         num_biquads=(len(results)-2)//4
@@ -103,13 +115,18 @@ class TestPoleZeroFitterTest(unittest.TestCase):
             zero_imag.extend([z.imag for z in zeros])
             pole_real.extend([p.real for p in poles])
             pole_imag.extend([p.imag for p in poles])
-        self.axs[1,0].plot(zero_real,zero_imag,marker='o', linestyle='')
-        self.axs[1,0].plot(pole_real,pole_imag,marker='X', linestyle='')
-        self.axs[1,0].set_xlim(-30,0)
-        self.axs[1,0].set_ylim(-100,100)
-        self.axs[1,0].grid(True,'both')
+        # self.axs[1,0].plot(zero_real,zero_imag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
+        # self.axs[1,0].plot(pole_real,pole_imag,marker='X', linestyle='',markersize=10)
+        # self.axs[1,0].set_xlim(-30,0)
+        # self.axs[1,0].set_ylim(-100,100)
+        # self.axs[1,0].grid(True,'both')
 
-
+        self.axs[1,1].cla()
+        self.axs[1,1].set_rscale('log')
+        self.axs[1,1].set_title('pole/zero locations')
+        self.axs[1,1].plot(zero_angle,zero_mag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
+        self.axs[1,1].plot(pole_angle,pole_mag,marker='X', linestyle='',markersize=10)
+        self.axs[1,1].grid(True,'both')
 #        plt.grid(True,'both')
 
         self.fig.canvas.draw()
@@ -119,7 +136,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         filename='sw1varB_sparam_mc12_bias4_vga4_corner3_105C_3p1V_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,80))
-        self.m_fitter=PoleZeroLevMar(s21,4,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,3,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
@@ -128,8 +145,18 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         # return
         filename='TF_main_lowQ_pex_typical_MM.s4p'
         sp = si.sp.SParameterFile(filename)
-        s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(85e9,85))
+        s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(85e9,20))
         self.m_fitter=PoleZeroLevMar(s21,3,self.PlotResult)
+        self.plotInitialized=False
+        self.m_fitter.Solve()
+        results=self.m_fitter.Results()
+        self.m_fitter.PrintResults().WriteResultsToFile('test_result.txt').WriteGoalToFile('test_goal.txt')
+    def testFit3(self):
+        return
+        filename='TF_main_MM.s4p'
+        sp = si.sp.SParameterFile(filename)
+        s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,20))
+        self.m_fitter=PoleZeroLevMar(s21,2,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
