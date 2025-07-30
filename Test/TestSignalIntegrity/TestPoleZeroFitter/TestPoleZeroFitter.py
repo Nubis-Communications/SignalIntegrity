@@ -135,11 +135,11 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         self.fig.canvas.draw()
         plt.pause(0.001)
     def testFit(self):
-        #return
+        return
         filename='sw1varB_sparam_mc12_bias4_vga4_corner3_105C_3p1V_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,80))
-        self.m_fitter=PoleZeroLevMar(s21,3,3,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,2,4,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
@@ -155,11 +155,11 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         results=self.m_fitter.Results()
         self.m_fitter.PrintResults().WriteResultsToFile('test_result.txt').WriteGoalToFile('test_goal.txt')
     def testFit3(self):
-        return
+        #return
         filename='TF_main_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,20))
-        self.m_fitter=PoleZeroLevMar(s21,2,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,2,4,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()

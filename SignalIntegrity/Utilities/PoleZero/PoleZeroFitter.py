@@ -284,7 +284,7 @@ class PoleZeroLevMar(LevMar):
         is_a_pole = [True for _ in frequency_location]
         if num_zero_pairs > 0:
             skip=math.ceil(num_pole_pairs/num_zero_pairs)
-            start=math.floor(num_pole_pairs/num_zero_pairs/2)
+            start=math.ceil(num_pole_pairs/num_zero_pairs/2)
             for zp in range(num_zero_pairs):
                 is_a_pole[zp*(skip+1)+start]=False
 
