@@ -28,6 +28,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
     def PrintProgress(self,iteration):
         print(self.m_fitter.ccm._IterationsTaken,self.m_fitter.m_mse)
     def PlotResult(self,iteration):
+        # return
         self.PrintProgress(iteration)
         import matplotlib.pyplot as plt
         import numpy as np
@@ -91,7 +92,8 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         # self.axs[1,0].set_title('pole/zero locations')
         results=self.m_fitter.Results()
         results=[result[0].real for result in results]
-        num_biquads=(len(results)-2)//4
+        num_zero_pairs=self.m_fitter.num_zero_pairs
+        num_pole_pairs=self.m_fitter.num_pole_pairs
         zero_mag=[]
         zero_angle=[]
         pole_mag=[]
@@ -100,19 +102,20 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         zero_imag=[]
         pole_real=[]
         pole_imag=[]
-        for bq in range(num_biquads):
-            wz=results[bq*4+2+0]
-            Qz=results[bq*4+2+1]
-            wp=results[bq*4+2+2]
-            Qp=results[bq*4+2+3]
+        for s in range(num_zero_pairs):
+            wz=results[s*2+2+0]
+            Qz=results[s*4+2+1]
             zeros = np.roots(np.array([1, wz/Qz, wz*wz]))/(2.*np.pi*1e9)
-            poles = np.roots(np.array([1, wp/Qp, wp*wp]))/(2.*np.pi*1e9)
             zero_mag.extend([np.abs(z) for z in zeros])
             zero_angle.extend([np.angle(z) for z in zeros])
-            pole_mag.extend([np.abs(p) for p in poles])
-            pole_angle.extend([np.angle(p) for p in poles])
             zero_real.extend([z.real for z in zeros])
             zero_imag.extend([z.imag for z in zeros])
+        for s in range(num_pole_pairs):
+            wp=results[(s+num_zero_pairs)*2+2+0]
+            Qp=results[(s+num_zero_pairs)*2+2+1]
+            poles = np.roots(np.array([1, wp/Qp, wp*wp]))/(2.*np.pi*1e9)
+            pole_mag.extend([np.abs(p) for p in poles])
+            pole_angle.extend([np.angle(p) for p in poles])
             pole_real.extend([p.real for p in poles])
             pole_imag.extend([p.imag for p in poles])
         # self.axs[1,0].plot(zero_real,zero_imag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
@@ -132,21 +135,21 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         self.fig.canvas.draw()
         plt.pause(0.001)
     def testFit(self):
-        return
+        #return
         filename='sw1varB_sparam_mc12_bias4_vga4_corner3_105C_3p1V_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,80))
-        self.m_fitter=PoleZeroLevMar(s21,3,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,3,3,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
         self.m_fitter.PrintResults().WriteResultsToFile('test_result.txt').WriteGoalToFile('test_goal.txt')
     def testFit2(self):
-        # return
+        return
         filename='TF_main_lowQ_pex_typical_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(85e9,20))
-        self.m_fitter=PoleZeroLevMar(s21,3,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,1,3,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()

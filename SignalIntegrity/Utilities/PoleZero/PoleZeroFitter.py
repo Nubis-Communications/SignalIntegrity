@@ -77,8 +77,8 @@ class PolePair(object):
         ImpHpωp=ImpHpα*pαpωp+ImpHpβ*pβpωp+ImpHpγ*pγpωp+ImPHpδ*pδpωp     # Im(∂H/∂ωp)
         ImpHpQp=ImpHpα*pαpQp+ImpHpβ*pβpQp+ImpHpγ*pγpQp+ImPHpδ*pδpQp     # Im(∂H/∂Qp)
 
-        self.pHpωp=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
-        self.pHpQp=RepHpQp+1j*ImpHpQp           # ∂H/∂Qp
+        self.pHpω0=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
+        self.pHpQ=RepHpQp+1j*ImpHpQp            # ∂H/∂Qp
 
 class ZeroPair(object):
     def __init__(self,ω,ωz,Qz):
@@ -119,8 +119,8 @@ class ZeroPair(object):
         ImpHpωz=ImpHpα*pαpωz+ImpHpβ*pβpωz+ImpHpγ*pγpωz+ImPHpδ*pδpωz     # Im(∂H/∂ωz)
         ImpHpQz=ImpHpα*pαpQz+ImpHpβ*pβpQz+ImpHpγ*pγpQz+ImPHpδ*pδpQz     # Im(∂H/∂Qz)
 
-        self.pHpωz=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
-        self.pHpQz=RepHpQz+1j*ImpHpQz           # ∂H/∂Qz
+        self.pHpω0=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
+        self.pHpQ=RepHpQz+1j*ImpHpQz            # ∂H/∂Qz
 
 class BiquadSection(object):
     def __init__(self,ω,ωz,Qz,ωp,Qp):
@@ -187,65 +187,67 @@ class BiquadSection(object):
         self.pHpQp=RepHpQp+1j*ImpHpQp           # ∂H/∂Qp
 
 class TransferFunctionOneFrequency(object):
-    def __init__(self,ω,variable_list):
+    def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
         """
         The variable list is assumed to be in the following format:
 
-        Gain G and time delay Td followed by four variables per biquad section in order
-        of ωz, Qz, ωp, and Qp
+        Gain G and time delay Td followed by two variables per pole/zero pair
+        of ωz, Qz or ωp, and Qp
         """
         self.ω=ω
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        num_biquads = (len(self.variable_list)-2)//4
         self.gain = Gain(ω,self.variable_list[0])
         self.delay = Delay(ω,self.variable_list[1])
-        self.biquad_list = [BiquadSection(ω,
-                                          self.variable_list[s*4+2+0], # ωz
-                                          self.variable_list[s*4+2+1], # Qz
-                                          self.variable_list[s*4+2+2], # ωp
-                                          self.variable_list[s*4+2+3]) # Qp
-                                for s in range(num_biquads)]
-        bq=math.prod([self.biquad_list[s].H for s in range(len(self.biquad_list))])
+        self.section_list = [ZeroPair(ω,
+                                        self.variable_list[s*2+2+0], # ωz
+                                        self.variable_list[s*2+2+1]) # Qz
+                                for s in range(num_zero_pairs)]
+        self.section_list.extend([PolePair(ω,
+                                        self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
+                                        self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
+                                for s in range(num_pole_pairs)])
+
+        all_sections=math.prod([self.section_list[s].H for s in range(len(self.section_list))])
         gd=self.gain.H*self.delay.H
-        self.H=gd*bq
+        self.H=gd*all_sections
         self.pd=[]
-        self.pd.append(self.gain.pHpG*self.delay.H*bq)
+        self.pd.append(self.gain.pHpG*self.delay.H*all_sections)
         # self.pd[0]=1e9
-        self.pd.append(self.gain.H*self.delay.pHpTd*bq)
+        self.pd.append(self.gain.H*self.delay.pHpTd*all_sections)
         # self.pd[0]=1e9
-        for biquad in self.biquad_list:
+        for section in self.section_list:
             this_pd=[]
-            gd_bq_product_others=self.H/biquad.H # the product of all other biquad sections with gain and delay
-            this_pd.append(biquad.pHpωz*gd_bq_product_others)
-            this_pd.append(biquad.pHpQz*gd_bq_product_others)
-            this_pd.append(biquad.pHpωp*gd_bq_product_others)
-            this_pd.append(biquad.pHpQp*gd_bq_product_others)
+            gd_section_product_others=self.H/section.H # the product of all other sections with gain and delay
+            this_pd.append(section.pHpω0*gd_section_product_others)
+            this_pd.append(section.pHpQ*gd_section_product_others)
             self.pd.extend(this_pd)
 
 class TransferFunction(object):
-    def __init__(self,ω_list,variable_list):
+    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
         self.fF=[]
         self.fJ=[]
         for ω in ω_list:
-            tf=TransferFunctionOneFrequency(ω,variable_list)
+            tf=TransferFunctionOneFrequency(ω,variable_list,num_zero_pairs,num_pole_pairs)
             self.fF.append(tf.H)
             self.fJ.append(tf.pd)
 
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 class PoleZeroLevMar(LevMar):
     """fits a pole/zero model to a frequency response"""
-    def __init__(self,fr,num_biquads,callback=None):
+    def __init__(self,fr,num_zero_pairs,num_pole_pairs,callback=None):
         """Constructor  
         Initializes the fit of a pole/zero model to a frequency response.
         @param fr instance of class FrequencyResponse to fit to.
-        @param num_biquads int number of biquad sections to fit.
+        @param num_zero_pairs int number of zero pairs.
+        @param num_pole_pairs in number of pole pairs.
         """
+        self.num_zero_pairs=num_zero_pairs
+        self.num_pole_pairs=num_pole_pairs
         self.f=fr.Frequencies()
         self.w=[2.*math.pi*f for f in self.f]
         self.y=np.array(fr.Values()).reshape(-1, 1)
-        guess=self.Guess2(self.f[1], self.f[-1], num_biquads)
+        guess=self.Guess(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
         guess[0]=self.y[0][0]
-        #guess[1]=17e-12
         LevMar.__init__(self,callback)
         LevMar.Initialize(self, np.array(guess).reshape(-1,1), np.array(self.y))
         self.ccm.Initialize(tolerance=self.ccm._tolerance,
@@ -255,7 +257,7 @@ class PoleZeroLevMar(LevMar):
                             mseUnchanging=self.ccm._mseUnchanging/1000.,
                             lambdaUnchanging=self.ccm._lambdaUnchanging)#*0)
     @staticmethod
-    def Guess(fs,fe,num_biquads):
+    def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
         """constructs a reasonable guess  
         The guess is designed to be set of real poles and zeros.
         It starts with a zero, followed by two poles, followed by two zeros, and so on.
@@ -264,64 +266,53 @@ class PoleZeroLevMar(LevMar):
         The gain is set to unity and the delay is set to zero initially.
         @param fs float start frequency
         @param fe float end frequency
-        @param num_biquads int number of biquad sections
-        """
-        log_fe=math.log10(fe)
-        log_fs=math.log10(fs)
-        twopi=2*math.pi
-        num_poles_zeros = num_biquads*4
-        frequency_location = [10.0**((log_fe-log_fs)/(num_poles_zeros-1)*npz + log_fs)
-                                for npz in range(num_poles_zeros)]
-        wz = [math.sqrt(frequency_location[bq*4+0]*twopi*frequency_location[bq*4+3]*twopi)
-                                for bq in range(num_biquads)]
-        Qz = [wz[bq]/(frequency_location[bq*4+0]*twopi+frequency_location[bq*4+3]*twopi)
-                                for bq in range(num_biquads)]
-        wp = [math.sqrt(frequency_location[bq*4+1]*twopi*frequency_location[bq*4+2]*twopi)
-                                for bq in range(num_biquads)]
-        Qp = [wp[bq]/(frequency_location[bq*4+1]*twopi+frequency_location[bq*4+2]*twopi)
-                                for bq in range(num_biquads)]
-        G = 1
-        Td = 0
-        result = [G,Td]
-        for bq in range(num_biquads):
-            result.extend([wz[bq],Qz[bq],wp[bq],Qp[bq]])
-        return result
-    @staticmethod
-    def Guess2(fs,fe,num_biquads):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_biquads int number of biquad sections
+        @param num_zero_pairs int number of pairs of zeros
+        @param num_pole_pairs int number of pairs of poles
+        @remark there must be more pole pairs than zero pairs
         """
         minQ=1
         maxQ=20
         log_fe=math.log10(fe)
         log_fs=math.log10(fs)
         twopi=2*math.pi
-        num_poles_zero_pairs = num_biquads*2
-        frequency_location = [10.0**((log_fe-log_fs)/(num_poles_zero_pairs-1)*npz + log_fs)
-                                for npz in range(num_poles_zero_pairs)]
+        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
+
+        frequency_location = [10.0**((log_fe-log_fs)/(num_pole_zero_pairs-1)*npz + log_fs)
+                                for npz in range(num_pole_zero_pairs)]
+
+        # for each frequency location, determine whether it is a zero or a pole
+        is_a_pole = [True for _ in frequency_location]
+        if num_zero_pairs > 0:
+            skip=math.ceil(num_pole_pairs/num_zero_pairs)
+            start=math.floor(num_pole_pairs/num_zero_pairs/2)
+            for zp in range(num_zero_pairs):
+                is_a_pole[zp*(skip+1)+start]=False
+
         BW=fe
-        wz = [frequency_location[bq*2+1]*twopi for bq in range(num_biquads)]
-        Qz = [min(max(frequency_location[bq*2+1]/BW,minQ),maxQ) for bq in range(num_biquads)]
-        wp = [frequency_location[bq*2+0]*twopi for bq in range(num_biquads)]
-        Qp = [min(max(frequency_location[bq*2+0]/BW,minQ),maxQ) for bq in range(num_biquads)]
+        # generate the pole frequency and Q for each frequency location
+        w0 = [fl*twopi for fl in frequency_location]
+        Q = [min(max(fl/BW,minQ),maxQ) for fl in frequency_location]
+
+        # gather these into poles and zeros
+        zero_list=[]
+        pole_list=[]
+
+        for pzi in range(len(frequency_location)):
+            if is_a_pole[pzi]:
+                pole_list.extend([w0[pzi],Q[pzi]])
+            else:
+                zero_list.extend([w0[pzi],Q[pzi]])
+
+        # stack the zero information on top of the pole information
         G = 1
         Td = 0
-        result = [G,Td]
-        for bq in range(num_biquads):
-            result.extend([wz[bq],Qz[bq],wp[bq],Qp[bq]])
+        result = [G,Td]+zero_list+pole_list
         return result
     def fF(self,a):
-        self.tf=TransferFunction(self.w,a)
+        self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fF).reshape(-1, 1)
     def fJ(self,a,Fa=None):
-        #self.tf=TransferFunction(self.w,a)
+        #self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
         Qmax=10
@@ -366,5 +357,6 @@ class PoleZeroLevMar(LevMar):
                 f.write(str(self.m_y[n][0].imag)+'\n')
 if __name__ == '__main__': # pragma: no cover
     #o=BiquadSection(0.147,0.989,0.119,0.602,0.532)
-    
+    #o=ZeroPair(0.147,0.989,0.119)
+    o=PolePair(0.147,0.602,0.532)
     pass
