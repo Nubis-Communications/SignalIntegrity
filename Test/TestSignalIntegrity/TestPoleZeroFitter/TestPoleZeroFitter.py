@@ -70,8 +70,8 @@ class TestPoleZeroFitterTest(unittest.TestCase):
 
         self.axs[0,1].cla()
         self.axs[0,1].set_title('fit compare')
-        self.axs[0,1].set_xlabel('frequency (GHz)')
-        self.axs[0,1].set_ylabel('magnitude (dB)')
+        self.axs[0,1].set_xlabel('real part')
+        self.axs[0,1].set_ylabel('imaginary part')
         self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_y],
                  [v[0].imag for v in self.m_fitter.m_y],label='goal')
         self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_Fa],
@@ -81,8 +81,11 @@ class TestPoleZeroFitterTest(unittest.TestCase):
 
         self.axs[1,0].cla()
         self.axs[1,0].set_title('lamda and mse')
-        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log delta lambda')
-        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log delta mse')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log Δλ')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log Δmse')
+        import math
+        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogLambdaTracker],label='log λ')
+        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogMseTracker],label='log mse')
         self.axs[1,0].set_xlabel('iteration #')
         self.axs[1,0].set_ylabel('log delta')
         self.axs[1,0].grid(True,'both')
@@ -104,7 +107,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         pole_imag=[]
         for s in range(num_zero_pairs):
             wz=results[s*2+2+0]
-            Qz=results[s*4+2+1]
+            Qz=results[s*2+2+1]
             zeros = np.roots(np.array([1, wz/Qz, wz*wz]))/(2.*np.pi*1e9)
             zero_mag.extend([np.abs(z) for z in zeros])
             zero_angle.extend([np.angle(z) for z in zeros])
@@ -133,13 +136,15 @@ class TestPoleZeroFitterTest(unittest.TestCase):
 #        plt.grid(True,'both')
 
         self.fig.canvas.draw()
+        if iteration == 1:
+            plt.pause(10)
         plt.pause(0.001)
     def testFit(self):
         return
         filename='sw1varB_sparam_mc12_bias4_vga4_corner3_105C_3p1V_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,80))
-        self.m_fitter=PoleZeroLevMar(s21,2,4,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,1,3,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
@@ -149,7 +154,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         filename='TF_main_lowQ_pex_typical_MM.s4p'
         sp = si.sp.SParameterFile(filename)
         s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(85e9,20))
-        self.m_fitter=PoleZeroLevMar(s21,1,3,self.PlotResult)
+        self.m_fitter=PoleZeroLevMar(s21,2,4,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()
         results=self.m_fitter.Results()
@@ -158,7 +163,7 @@ class TestPoleZeroFitterTest(unittest.TestCase):
         #return
         filename='TF_main_MM.s4p'
         sp = si.sp.SParameterFile(filename)
-        s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,20))
+        s21=sp.FrequencyResponse(2,1).Resample(si.fd.EvenlySpacedFrequencyList(80e9,40))
         self.m_fitter=PoleZeroLevMar(s21,2,4,self.PlotResult)
         self.plotInitialized=False
         self.m_fitter.Solve()

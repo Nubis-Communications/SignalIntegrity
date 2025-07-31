@@ -66,16 +66,16 @@ class PolePair(object):
         RepHpα=γ/denom                          # Re(∂H/∂α)
         RepHpβ=0                                # Re(∂H/∂β)
         RepHpγ=α*(δ2-γ2)/denom2                 # Re(∂H/∂γ)
-        RePHpδ=-2*α*γ*δ/denom2                  # Re(∂H/∂δ)
+        RepHpδ=-2*α*γ*δ/denom2                  # Re(∂H/∂δ)
         ImpHpα=-δ/denom                         # Im(∂H/∂α)
         ImpHpβ=0                                # Im(∂H/∂β)
         ImpHpγ=2*α*δ*γ/denom2                   # Im(∂H/∂γ)
-        ImPHpδ=α*(δ2-γ2)/denom2                 # Im(∂H/∂δ)
+        ImpHpδ=α*(δ2-γ2)/denom2                 # Im(∂H/∂δ)
 
-        RepHpωp=RepHpα*pαpωp+RepHpβ*pβpωp+RepHpγ*pγpωp+RePHpδ*pδpωp     # Re(∂H/∂ωp)
-        RepHpQp=RepHpα*pαpQp+RepHpβ*pβpQp+RepHpγ*pγpQp+RePHpδ*pδpQp     # Re(∂H/∂Qp)
-        ImpHpωp=ImpHpα*pαpωp+ImpHpβ*pβpωp+ImpHpγ*pγpωp+ImPHpδ*pδpωp     # Im(∂H/∂ωp)
-        ImpHpQp=ImpHpα*pαpQp+ImpHpβ*pβpQp+ImpHpγ*pγpQp+ImPHpδ*pδpQp     # Im(∂H/∂Qp)
+        RepHpωp=RepHpα*pαpωp+RepHpβ*pβpωp+RepHpγ*pγpωp+RepHpδ*pδpωp     # Re(∂H/∂ωp)
+        RepHpQp=RepHpα*pαpQp+RepHpβ*pβpQp+RepHpγ*pγpQp+RepHpδ*pδpQp     # Re(∂H/∂Qp)
+        ImpHpωp=ImpHpα*pαpωp+ImpHpβ*pβpωp+ImpHpγ*pγpωp+ImpHpδ*pδpωp     # Im(∂H/∂ωp)
+        ImpHpQp=ImpHpα*pαpQp+ImpHpβ*pβpQp+ImpHpγ*pγpQp+ImpHpδ*pδpQp     # Im(∂H/∂Qp)
 
         self.pHpω0=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
         self.pHpQ=RepHpQp+1j*ImpHpQp            # ∂H/∂Qp
@@ -108,83 +108,19 @@ class ZeroPair(object):
         RepHpα=1/γ                              # Re(∂H/∂α)
         RepHpβ=0                                # Re(∂H/∂β)
         RepHpγ=-α/γ2                            # Re(∂H/∂γ)
-        RePHpδ=0                                # Re(∂H/∂δ)
+        RepHpδ=0                                # Re(∂H/∂δ)
         ImpHpα=0                                # Im(∂H/∂α)
         ImpHpβ=1/γ                              # Im(∂H/∂β)
         ImpHpγ=-β/γ2                            # Im(∂H/∂γ)
-        ImPHpδ=0                                # Im(∂H/∂δ)
+        ImpHpδ=0                                # Im(∂H/∂δ)
 
-        RepHpωz=RepHpα*pαpωz+RepHpβ*pβpωz+RepHpγ*pγpωz+RePHpδ*pδpωz     # Re(∂H/∂ωz)
-        RepHpQz=RepHpα*pαpQz+RepHpβ*pβpQz+RepHpγ*pγpQz+RePHpδ*pδpQz     # Re(∂H/∂Qz)
-        ImpHpωz=ImpHpα*pαpωz+ImpHpβ*pβpωz+ImpHpγ*pγpωz+ImPHpδ*pδpωz     # Im(∂H/∂ωz)
-        ImpHpQz=ImpHpα*pαpQz+ImpHpβ*pβpQz+ImpHpγ*pγpQz+ImPHpδ*pδpQz     # Im(∂H/∂Qz)
+        RepHpωz=RepHpα*pαpωz+RepHpβ*pβpωz+RepHpγ*pγpωz+RepHpδ*pδpωz     # Re(∂H/∂ωz)
+        RepHpQz=RepHpα*pαpQz+RepHpβ*pβpQz+RepHpγ*pγpQz+RepHpδ*pδpQz     # Re(∂H/∂Qz)
+        ImpHpωz=ImpHpα*pαpωz+ImpHpβ*pβpωz+ImpHpγ*pγpωz+ImpHpδ*pδpωz     # Im(∂H/∂ωz)
+        ImpHpQz=ImpHpα*pαpQz+ImpHpβ*pβpQz+ImpHpγ*pγpQz+ImpHpδ*pδpQz     # Im(∂H/∂Qz)
 
         self.pHpω0=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
         self.pHpQ=RepHpQz+1j*ImpHpQz            # ∂H/∂Qz
-
-class BiquadSection(object):
-    def __init__(self,ω,ωz,Qz,ωp,Qp):
-        """
-            biquad section is expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/(s^2+ωp/Qp*s+ωp^2) = (α+jβ)/(γ+jδ)
-        """
-        self.ω=ω
-        self.ωz=ωz
-        self.Qz=Qz
-        self.ωp=ωp
-        self.Qp=Qp
-        ωz2=ωz*ωz
-        ω2=ω*ω
-        ωp2=ωp*ωp
-        Qp2=Qp*Qp
-        Qz2=Qz*Qz
-        α=(ωz2-ω2)*ωp2
-        β=ωz/Qz*ω*ωp2
-        γ=(ωp2-ω2)*ωz2
-        δ=ωp/Qp*ω*ωz2
-        γ2=γ*γ
-        γ3=γ2*γ
-        δ2=δ*δ
-        δ3=δ2*δ
-        self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
-        pαpωz=2*ωz*ωp2                          # ∂α/∂ωz
-        pαpQz=0                                 # ∂α/∂Qz
-        pαpωp=2*(ωz2-ω2)*ωp                     # ∂α/∂ωp
-        pαpQp=0                                 # ∂α/∂Qp
-        pβpωz=1/Qz*ω*ωp2                        # ∂β/∂ωz
-        pβpQz=-ωz/Qz2*ω*ωp2                     # ∂β/∂Qz
-        pβpωp=2*ωz/Qz*ω*ωp                      # ∂β/∂ωp
-        pβpQp=0                                 # ∂β/∂Qp
-        pγpωz=2*(ωp2-ω2)*ωz                     # ∂γ/∂ωz
-        pγpQz=0                                 # ∂γ/∂Qz
-        pγpωp=2*ωp*ωz2                          # ∂γ/∂ωp
-        pγpQp=0                                 # ∂γ/∂Qp
-        pδpωz=2*ωp/Qp*ω*ωz                      # ∂δ/∂ωz
-        pδpQz=0                                 # ∂δ/∂Qz
-        pδpωp=1/Qp*ω*ωz2                        # ∂δ/∂ωp
-        pδpQp=-ωp/Qp2*ω*ωz2                     # ∂δ/∂Qp
-        denom=(γ2+δ2)*(γ2+δ2)
-        RepHpα=(γ3+γ*δ2)/denom                  # Re(∂H/∂α)
-        RepHpβ=(δ*γ2+δ3)/denom                  # Re(∂H/∂β)
-        RepHpγ=(-2*β*δ*γ-α*γ2+α*δ2)/denom       # Re(∂H/∂γ)
-        RePHpδ=(-2*α*γ*δ+β*γ2-β*δ2)/denom       # Re(∂H/∂δ)
-        ImpHpα=(-δ*γ2-δ3)/denom                 # Im(∂H/∂α)
-        ImpHpβ=(γ3+γ*δ2)/denom                  # Im(∂H/∂β)
-        ImpHpγ=(2*α*δ*γ-β*γ2+β*δ2)/denom        # Im(∂H/∂γ)
-        ImPHpδ=(-2*β*γ*δ-α*γ2+α*δ2)/denom       # Im(∂H/∂δ)
-
-        RepHpωz=RepHpα*pαpωz+RepHpβ*pβpωz+RepHpγ*pγpωz+RePHpδ*pδpωz     # Re(∂H/∂ωz)
-        RepHpQz=RepHpα*pαpQz+RepHpβ*pβpQz+RepHpγ*pγpQz+RePHpδ*pδpQz     # Re(∂H/∂Qz)
-        RepHpωp=RepHpα*pαpωp+RepHpβ*pβpωp+RepHpγ*pγpωp+RePHpδ*pδpωp     # Re(∂H/∂ωp)
-        RepHpQp=RepHpα*pαpQp+RepHpβ*pβpQp+RepHpγ*pγpQp+RePHpδ*pδpQp     # Re(∂H/∂Qp)
-        ImpHpωz=ImpHpα*pαpωz+ImpHpβ*pβpωz+ImpHpγ*pγpωz+ImPHpδ*pδpωz     # Im(∂H/∂ωz)
-        ImpHpQz=ImpHpα*pαpQz+ImpHpβ*pβpQz+ImpHpγ*pγpQz+ImPHpδ*pδpQz     # Im(∂H/∂Qz)
-        ImpHpωp=ImpHpα*pαpωp+ImpHpβ*pβpωp+ImpHpγ*pγpωp+ImPHpδ*pδpωp     # Im(∂H/∂ωp)
-        ImpHpQp=ImpHpα*pαpQp+ImpHpβ*pβpQp+ImpHpγ*pγpQp+ImPHpδ*pδpQp     # Im(∂H/∂Qp)
-
-        self.pHpωz=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
-        self.pHpQz=RepHpQz+1j*ImpHpQz           # ∂H/∂Qz
-        self.pHpωp=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
-        self.pHpQp=RepHpQp+1j*ImpHpQp           # ∂H/∂Qp
 
 class TransferFunctionOneFrequency(object):
     def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
@@ -246,7 +182,7 @@ class PoleZeroLevMar(LevMar):
         self.f=fr.Frequencies()
         self.w=[2.*math.pi*f for f in self.f]
         self.y=np.array(fr.Values()).reshape(-1, 1)
-        guess=self.Guess(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
+        guess=self.Guess3(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
         guess[0]=self.y[0][0]
         LevMar.__init__(self,callback)
         LevMar.Initialize(self, np.array(guess).reshape(-1,1), np.array(self.y))
@@ -254,7 +190,7 @@ class PoleZeroLevMar(LevMar):
                             maxIterations=self.ccm._maxIterations*20,
                             lambdaTimeConstant=self.ccm._lambdaTimeConstant,
                             mseTimeConstant=self.ccm._mseTimeConstant,
-                            mseUnchanging=self.ccm._mseUnchanging/1000.,
+                            mseUnchanging=self.ccm._mseUnchanging/10000.,
                             lambdaUnchanging=self.ccm._lambdaUnchanging)#*0)
     @staticmethod
     def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
@@ -270,7 +206,7 @@ class PoleZeroLevMar(LevMar):
         @param num_pole_pairs int number of pairs of poles
         @remark there must be more pole pairs than zero pairs
         """
-        minQ=1
+        minQ=0.5
         maxQ=20
         log_fe=math.log10(fe)
         log_fs=math.log10(fs)
@@ -287,6 +223,9 @@ class PoleZeroLevMar(LevMar):
             start=math.ceil(num_pole_pairs/num_zero_pairs/2)
             for zp in range(num_zero_pairs):
                 is_a_pole[zp*(skip+1)+start]=False
+
+        # if not is_a_pole[0]:
+        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
 
         BW=fe
         # generate the pole frequency and Q for each frequency location
@@ -308,6 +247,113 @@ class PoleZeroLevMar(LevMar):
         Td = 0
         result = [G,Td]+zero_list+pole_list
         return result
+    @staticmethod
+    def Guess2(fs,fe,num_zero_pairs,num_pole_pairs):
+        """constructs a reasonable guess  
+        The guess is designed to be set of real poles and zeros.
+        It starts with a zero, followed by two poles, followed by two zeros, and so on.
+        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
+        spacing causes the guess to be bumpy.
+        The gain is set to unity and the delay is set to zero initially.
+        @param fs float start frequency
+        @param fe float end frequency
+        @param num_zero_pairs int number of pairs of zeros
+        @param num_pole_pairs int number of pairs of poles
+        @remark there must be more pole pairs than zero pairs
+        """
+        minQ=0.5
+        maxQ=20
+        log_fe=math.log10(fe)
+        log_fs=math.log10(fs)
+        twopi=2*math.pi
+        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
+
+        frequency_location = [10.0**((log_fe-log_fs)/(num_pole_zero_pairs-1)*npz + log_fs)
+                                for npz in range(num_pole_zero_pairs)]
+
+        # for each frequency location, determine whether it is a zero or a pole
+        is_a_pole = [True for _ in frequency_location]
+        if num_zero_pairs > 0:
+            skip=math.ceil(num_pole_pairs/num_zero_pairs)
+            start=math.ceil(num_pole_pairs/num_zero_pairs/2)
+            for zp in range(num_zero_pairs):
+                is_a_pole[zp*(skip+1)+start]=False
+
+        # if not is_a_pole[0]:
+        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
+
+        BW=fe
+        # generate the pole frequency and Q for each frequency location
+        pz = [(-BW+1j*fl)*twopi for fl in frequency_location]
+
+        # gather these into poles and zeros
+        zero_list=[]
+        pole_list=[]
+
+        for pzi in range(len(frequency_location)):
+            w0=abs(pz[pzi])
+            Q=abs(w0/(2*pz[pzi].real))
+            if is_a_pole[pzi]:
+                pole_list.extend([w0,Q])
+            else:
+                zero_list.extend([w0,Q])
+
+        # stack the zero information on top of the pole information
+        G = 1
+        Td = 0
+        result = [G,Td]+zero_list+pole_list
+        return result
+    @staticmethod
+    def Guess3(fs,fe,num_zero_pairs,num_pole_pairs):
+        """constructs a reasonable guess  
+        The guess is designed to be set of real poles and zeros.
+        It starts with a zero, followed by two poles, followed by two zeros, and so on.
+        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
+        spacing causes the guess to be bumpy.
+        The gain is set to unity and the delay is set to zero initially.
+        @param fs float start frequency
+        @param fe float end frequency
+        @param num_zero_pairs int number of pairs of zeros
+        @param num_pole_pairs int number of pairs of poles
+        @remark there must be more pole pairs than zero pairs
+        """
+        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
+
+        # for each frequency location, determine whether it is a zero or a pole
+        is_a_pole = [True for _ in range(num_pole_zero_pairs)]
+        if num_zero_pairs > 0:
+            skip=math.ceil(num_pole_pairs/num_zero_pairs)
+            start=math.floor(num_pole_pairs/num_zero_pairs/2)
+            for zp in range(num_zero_pairs):
+                is_a_pole[zp*(skip+1)+start]=False
+
+        # if not is_a_pole[0]:
+        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
+
+        # angles for each pole in the guess off the negative access
+        theta_list=[(pz+1)/num_pole_zero_pairs*80 for pz in range(num_pole_zero_pairs)]
+        zeta_list=[math.cos(t*math.pi/180) for t in theta_list]
+        Q_list=[1/(2*z) for z in zeta_list]
+
+        # gather these into poles and zeros
+        zero_list=[]
+        pole_list=[]
+
+        for pzi in range(num_pole_zero_pairs):
+            from random import random
+            w0=abs(fe/2*2*math.pi)+random()
+            Q=Q_list[pzi]
+            if is_a_pole[pzi]:
+                pole_list.extend([w0,Q])
+            else:
+                zero_list.extend([w0,Q])
+
+        # stack the zero information on top of the pole information
+        G = 1
+        Td = 0
+        result = [G,Td]+zero_list+pole_list
+        return result
+
     def fF(self,a):
         self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fF).reshape(-1, 1)
@@ -315,7 +361,7 @@ class PoleZeroLevMar(LevMar):
         #self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
-        Qmax=10
+        Qmax=5
         wmax=self.f[-1]*2.*np.pi*5
         # variables must be real
         for r in range(len(a)):
@@ -323,8 +369,15 @@ class PoleZeroLevMar(LevMar):
         # Q cant be too high
         for r in range(3,len(a),2):
             a[r][0]=max(min(a[r][0],Qmax),-Qmax)
+        # poles must be in the LHP
+        for r in range(self.num_pole_pairs):
+            a[r*2+2+self.num_zero_pairs*2+1][0]=abs(a[r*2+2+self.num_zero_pairs*2+1][0])
+        # zeros must be in the LHP
+        for r in range(self.num_zero_pairs):
+            a[r*2+2+1][0]=abs(a[r*2+2+1][0])
         # w0 can't be too high
         for r in range(2,len(a),2):
+            a[r][0]=abs(a[r][0])
             a[r][0]=min(a[r][0],wmax)
         a[0][0]=self.y[0][0]
         return a
@@ -335,16 +388,21 @@ class PoleZeroLevMar(LevMar):
         from SignalIntegrity.Lib.ToSI import ToSI
         print(f"Gain: {results[0]} - {ToSI(20.*np.log10(results[0]),'dB',round=4)}")
         print(f"Delay: {ToSI(results[1],'s',round=4)}")
-        num_biquads=(len(results)-2)//4
-        for bq in range(num_biquads):
-            print(f"biquad: {bq+1}")
-            print(f"  fz: {ToSI(results[bq*4+2+0]/(2.*np.pi),'Hz',round=4)}")
-            print(f"  Qz: {ToSI(results[bq*4+2+1],'',round=4)}")
-            print(f"  fp: {ToSI(results[bq*4+2+2]/(2.*np.pi),'Hz',round=4)}")
-            print(f"  Qp: {ToSI(results[bq*4+2+3],'',round=4)}")
+        num_zero_pairs=self.num_zero_pairs
+        print(f"Number of zero pairs: {num_zero_pairs}")
+        for s in range(num_zero_pairs):
+            print(f"zero pair: {s+1}")
+            print(f"  fz: {ToSI(results[s*2+2+0]/(2.*np.pi),'Hz',round=4)}")
+            print(f"  Qz: {ToSI(results[s*2+2+1],'',round=4)}")
+        num_pole_pairs=self.num_pole_pairs
+        print(f"Number of pole pairs: {num_pole_pairs}")
+        for s in range(num_pole_pairs):
+            print(f"pole pair: {s+1}")
+            print(f"  fp: {ToSI(results[(s+num_zero_pairs)*2+2+0]/(2.*np.pi),'Hz',round=4)}")
+            print(f"  Qp: {ToSI(results[(s+num_zero_pairs)*2+2+1],'',round=4)}")
         return self
     def WriteResultsToFile(self,filename):
-        results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
+        results=[self.num_zero_pairs,self.num_pole_pairs]+[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
         with open(filename,'wt') as f:
             for result in results:
                 f.write(str(result)+'\n')
