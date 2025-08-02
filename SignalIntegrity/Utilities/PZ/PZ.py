@@ -1,0 +1,389 @@
+"""
+PZ.py
+"""
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
+# All rights reserved worldwide.
+#
+# This file is part of SignalIntegrity.
+#
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>
+from SignalIntegrity.Lib.ToSI import ToSI
+import numpy as np
+import SignalIntegrity.Lib as si
+import math
+import os
+from SignalIntegrity.Lib.Fit.PoleZeroFitter import PoleZeroLevMar
+
+class PZ_Main(object):
+    def PrintProgress(self,iteration):
+        print(str(self.m_fitter.ccm._IterationsTaken)+'  '+str(self.m_fitter.m_mse), end='\r')
+    def PlotResult(self,iteration):
+        if not self.args['verbose'] and not self.args['debug']:
+            return
+        self.PrintProgress(iteration)
+        if not self.args['debug']:
+            return
+        import matplotlib.pyplot as plt
+        if not self.plotInitialized:
+            self.skip_amount = 1
+            plt.ion()
+            self.fig,self.axs=plt.subplots(2,2)
+            ax=self.fig.add_subplot(2,2,4,projection='polar')
+            ax.set_rscale('log')
+            self.axs[1,1]=ax
+            self.fig.suptitle('SignalIntegrity Pole/Zero Fitting Dashboard')
+            self.fig.canvas.manager.set_window_title('SignalIntegrity PZ Utility')
+            import tkinter as tk
+            import SignalIntegrity.App.Project
+            self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+            thismanager = plt.get_current_fig_manager()
+            thismanager.window.tk.call('wm', 'iconphoto', thismanager.window._w, self.img)
+            plt.subplots_adjust(wspace=0.5, hspace=0.7) # Increase horizontal and vertical spacing
+            self.plotInitialized=True
+            self.skipper=0
+        self.skipper=self.skipper+1
+        if self.skipper<self.skip_amount:
+            return
+        self.skipper=0
+        self.skip_amount=min(500.0,self.skip_amount*1.05)
+
+        frequency_unit = ToSI(self.m_fitter.mul,'Hz').split()[-1]
+
+        self.axs[0,0].cla()
+        self.axs[0,0].set_title('fit compare')
+        self.axs[0,0].set_xlabel(f'frequency ({frequency_unit})')
+        self.axs[0,0].set_ylabel('magnitude (dB)')
+        self.axs[0,0].plot(self.m_fitter.f,
+                     [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_y],label='goal')
+        self.axs[0,0].plot(self.m_fitter.f,
+                     [20.*np.log10(np.abs(v[0])) for v in self.m_fitter.m_Fa],label='fit')
+        self.axs[0,0].legend()
+        self.axs[0,0].grid(True,'both')
+
+        self.axs[0,1].cla()
+        self.axs[0,1].set_title('fit compare')
+        self.axs[0,1].set_xlabel('real part')
+        self.axs[0,1].set_ylabel('imaginary part')
+        self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_y],
+                 [v[0].imag for v in self.m_fitter.m_y],label='goal')
+        self.axs[0,1].plot([v[0].real for v in self.m_fitter.m_Fa],
+                 [v[0].imag for v in self.m_fitter.m_Fa],label='fit')
+        self.axs[0,1].legend()
+        self.axs[0,1].grid(True,'both')
+
+        self.axs[1,0].cla()
+        self.axs[1,0].set_title('lamda and mse')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log Δλ')
+        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log Δmse')
+        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogLambdaTracker],label='log λ')
+        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogMseTracker],label='log mse')
+        self.axs[1,0].set_xlabel('iteration #')
+        self.axs[1,0].set_ylabel('log delta')
+        self.axs[1,0].grid(True,'both')
+        self.axs[1,0].legend()
+
+        results=self.m_fitter.Results()
+        num_zero_pairs=self.m_fitter.num_zero_pairs
+        num_pole_pairs=self.m_fitter.num_pole_pairs
+        zero_mag=[]
+        zero_angle=[]
+        pole_mag=[]
+        pole_angle=[]
+        zero_real=[]
+        zero_imag=[]
+        pole_real=[]
+        pole_imag=[]
+        for s in range(num_zero_pairs):
+            wz=results[s*2+2+0]
+            Qz=results[s*2+2+1]
+            zeros = np.roots(np.array([1, wz/Qz, wz*wz]))/(2.*np.pi)
+            zero_mag.extend([np.abs(z) for z in zeros])
+            zero_angle.extend([np.angle(z) for z in zeros])
+            zero_real.extend([z.real for z in zeros])
+            zero_imag.extend([z.imag for z in zeros])
+        for s in range(num_pole_pairs):
+            wp=results[(s+num_zero_pairs)*2+2+0]
+            Qp=results[(s+num_zero_pairs)*2+2+1]
+            poles = np.roots(np.array([1, wp/Qp, wp*wp]))/(2.*np.pi)
+            pole_mag.extend([np.abs(p) for p in poles])
+            pole_angle.extend([np.angle(p) for p in poles])
+            pole_real.extend([p.real for p in poles])
+            pole_imag.extend([p.imag for p in poles])
+
+        self.axs[1,1].cla()
+        self.axs[1,1].set_rscale('log')
+        self.axs[1,1].set_title('pole/zero locations')
+        self.axs[1,1].plot(zero_angle,zero_mag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
+        self.axs[1,1].plot(pole_angle,pole_mag,marker='X', linestyle='',markersize=10)
+        self.axs[1,1].grid(True,'both')
+
+        self.fig.canvas.draw()
+        if iteration == 1:
+            plt.pause(10)
+        plt.pause(0.001)
+
+    def __init__(self):
+        import argparse
+        from argparse import RawTextHelpFormatter
+        parser = argparse.ArgumentParser(
+                        prog='PZ',
+                        description="""Pole/zero Fitter
+
+                        Fits gain, delay, poles and zeros to response provided.
+
+                        """,
+                        epilog='',
+                        formatter_class=RawTextHelpFormatter)
+        parser.add_argument('filename',nargs='?',default=None, help='name of file for the fit\n\
+this could be an:\n\
+               s-parameter file (s21 assumed for fit),\n\
+               SignalIntegrity frequency response file (not yet supported),\n\
+               a .csv file containing frequency, real part, imaginary part on each line (not yet supported)')           # positional argument
+        parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
+        parser.add_argument('-pf','--profile',action='store_true', help='profiles the software')
+        parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
+this should not be set if you are relying on stdout for the return value.')
+        parser.add_argument('-zp','--zero_pairs',type=int,help='(required) number of zero pairs.')
+        parser.add_argument('-pp','--pole_pairs',type=int,help='(required) number of pole pairs.')
+        parser.add_argument('-gf','--guess_file',type=str,help='(optional) file containing initial guess.')
+        parser.add_argument('-of','--output_file',type=str,help='(optional) output file.')
+        parser.add_argument('-fe','--end_frequency',type=float,help='(optional) end frequency.')
+        parser.add_argument('-n','--frequency_points',type=int,help='(optional) number of points.')
+        parser.add_argument('-mind','--min_delay',type=float,default=0,help='(optional) minimum delay - defaults to 0')
+        parser.add_argument('-maxd','--max_delay',type=float,help='(optional) maximum delay')
+        parser.add_argument('-maxq','--max_q',type=float,help='(optional) maximum Q - defaults to 5')
+        parser.add_argument('-id','--initial_delay',type=float,help='(optional) initial delay - defaults to 0')
+        parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long)')
+        parser.add_argument('-pr','--precision',type=str,default='medium',help='(optional) precision for fit (low,medium,high,super)')
+        parser.add_argument('-maxi','--max_iterations',type=int,help=argparse.SUPPRESS)
+        parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
+        parser.add_argument('-rz','--real_zeros',action='store_true', help='(optional) restrict zeros to be real.')
+        parser.add_argument('-lz','--lhp_zeros',action='store_true', help='(optional) restrict zeros to the LHP.')
+        args, unknown = parser.parse_known_args()
+
+        #self.args=dict(zip(unknown[0::2],unknown[1::2]))
+
+        def Message(message,error=False):
+            if args.verbose or args.debug:
+                print(message)
+            if error:
+                print('error')
+                exit(1)
+
+        def Error(message):
+            Message(message,error=True)
+
+        import sys
+        if len(sys.argv)==1:
+            # parser.print_help()
+            # parser.exit()
+            Error('file name and keyword values must be specified')
+
+        if len(unknown):
+            # parser.print_usage()
+            # parser.exit()
+            Error(f'unknown keyword {unknown[0]} encountered')
+
+        self.args=vars(args)
+
+        if self.args['max_iterations'] == None:
+            iterations_dict = {'short':10000,
+                               'medium':50000,
+                               'long':200000}
+            try:
+                self.args['max_iterations']=iterations_dict[self.args['iterations']]
+                Message('iterations are: '+self.args['iterations'])
+            except KeyError:
+                Error('iterations must be short, medium, or long.  you specified: '+self.args['iterations'])
+        else:
+            Message('max iterations set to: '+str(self.args['max_iterations']))
+
+        if self.args['mse_unchanging_threshold'] == None:
+            mse_unchanging_dict = {'low':1e-5,
+                               'medium':1e-6,
+                               'high':1e-7,
+                               'super':1e-8}
+            try:
+                self.args['mse_unchanging_threshold']=mse_unchanging_dict[self.args['precision']]
+                Message('precision is: '+self.args['precision'])
+            except KeyError:
+                Error('precision must be low, medium, high, or super.  you specified: '+self.args['precision'])
+        else:
+            Message('mse unchanging threshold set to: '+str(self.args['mse_unchanging_threshold']))
+
+        filename=self.args['filename']
+        del(self.args['filename'])
+
+        ext=os.path.splitext(filename)[-1]
+        if len(ext)>=4:
+            if ext[0:2].lower() == '.s' and ext[-1].lower() == 'p' and ext[2:-1].isnumeric():
+                # it's an s-parameter file
+                try:
+                    fr=si.sp.SParameterFile(filename).FrequencyResponse(2,1)
+                    Message(filename+' read')
+                except:
+                    Error('file: '+filename+' could not be opened')
+            else:
+                Error('only s-parameter files supported currently')
+        if 'end_frequency' in self.args and 'frequency_points' in self.args:
+            fe=self.args['end_frequency']; n = self.args['frequency_points']
+            fr=fr.Resample(si.fd.EvenlySpacedFrequencyList(fe,n))
+            Message(f"frequency response resampled to end frequency: {ToSI(fe,'Hz')} with: {n} points")
+
+        guess=None
+        guess_file = self.args['guess_file']
+        if guess_file != None:
+            if os.path.splitext(guess_file)[-1].lower() == '.json':
+                import json
+                try:
+                    with open(guess_file,'r') as f:
+                        gf=json.load(f)
+                        guess=gf['raw']
+                        self.args['zero_pairs'] = gf['zero pair']['number of']
+                        self.args['pole_pairs'] = gf['pole pair']['number of']
+
+                        Message('guess file: '+filename+' read')
+                        Message('zeros are '+str(self.args['zero_pairs'])+' and poles are '+str(self.args['pole_pairs'])+' from guess file')
+                except:
+                    Error('guess file: '+filename+' could not be opened')
+            else:
+                try:
+                    gf = PoleZeroLevMar.ReadResultsFile(guess_file)
+                    Message('guess file: '+filename+' read')
+
+                    self.args['zero_pairs'] = gf[0]
+                    self.args['pole_pairs'] = gf[1]
+                    guess = gf[2:]
+                    Message('zeros are '+str(gf[0])+' and poles are '+str(gf[1])+' from guess file')
+                except:
+                    Error('guess file: '+filename+' could not be opened')
+
+        num_poles = self.args['pole_pairs']
+        num_zeros = self.args['zero_pairs']
+
+        if num_zeros == None:
+            Error('number of zero pairs must be specified (-zp)')
+
+        if num_poles == None:
+            Error('number of pole pairs must be specified (-pp)')
+
+        if guess == None:
+            Message('zeros are '+str(num_zeros)+' and poles are '+str(num_poles))
+
+        Message(f"initial delay: {ToSI(self.args['initial_delay'],'s')}")
+        Message(f"minimum delay allowed: {ToSI(self.args['min_delay'],'s')}")
+        if self.args['max_delay'] == None:
+            Message('there is no limit on maximum delay')
+        else:
+            Message(f"maximum delay allowed: {ToSI(self.args['max_delay'],'s')}")
+
+        Message("poles are always restricted to LHP")
+        if self.args['lhp_zeros']:
+            Message("zeros are restricted to LHP")
+        else:
+            Message('no restriction on LHP or RHP on zeros')
+
+        if self.args['real_zeros']:
+            Message('zeros are restricted to be real')
+        else:
+            Message('zeros are allowed to be complex')
+
+        Message(f"maximum Q is {self.args['max_q']}")
+
+        import time
+        start_time = time.time()
+        self.m_fitter=PoleZeroLevMar(fr,num_zeros,num_poles,
+                                     guess=guess,
+                                     min_delay=self.args['min_delay'],
+                                     max_delay=self.args['max_delay'],
+                                     max_Q=self.args['max_q'],
+                                     initial_delay=self.args['initial_delay'],
+                                     max_iterations=self.args['max_iterations'],
+                                     mse_unchanging_threshold=self.args['mse_unchanging_threshold'],
+                                     LHP_zeros=self.args['lhp_zeros'],
+                                     real_zeros=self.args['real_zeros'],
+                                     callback=self.PlotResult)
+        self.plotInitialized=False
+        self.m_fitter.Solve()
+
+        Message('iterations: '+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.ccm._Mse))
+
+        end_time = time.time()
+        elapsed_time=end_time-start_time
+        if self.args['debug'] or self.args['verbose']:
+            self.m_fitter.PrintResults()
+        if self.args['debug']:
+            self.m_fitter.WriteResultsToFile('test_result.txt').WriteGoalToFile('test_goal.txt')
+
+        Message(f'elapsed time: {elapsed_time} s')
+
+        if self.args['output_file']:
+            num_zero_pairs=self.m_fitter.num_zero_pairs
+            num_pole_pairs=self.m_fitter.num_pole_pairs
+            raw_results=self.m_fitter.Results()
+            results={}
+            results['raw']=raw_results
+            results['configuration']=self.args
+            results['convergence']={'iterations':self.m_fitter.ccm._IterationsTaken,
+                                    'mse':self.m_fitter.ccm._Mse,
+                                    'time':elapsed_time}
+            fit_result=self.m_fitter.fF(self.m_fitter.m_a).reshape(-1).tolist()
+            results['response']={'frequency':fr.Frequencies(),
+                                 'goal':{'magnitude':fr.Values('mag'),'phase':fr.Values('deg')},
+                                 'result':{'magnitude':[np.abs(v) for v in fit_result],
+                                           'phase':[np.angle(v)*180/np.pi for v in fit_result]}}
+            results['gain']={'value':raw_results[0],'dB':20*math.log10(raw_results[0])}
+            results['delay']={'value':raw_results[1]}
+            results['pole pair']={'number of':num_pole_pairs,'list':[]}
+            results['pole']={'number of':num_pole_pairs*2,'list':[]}
+            results['zero pair']={'number of':num_zero_pairs,'list':[]}
+            results['zero']={'number of':num_zero_pairs*2,'list':[]}
+            for s in range(num_zero_pairs):
+                wz=raw_results[s*2+2+0]
+                Qz=raw_results[s*2+2+1]
+                zeta=1/(2.*Qz)
+                zeros = np.roots(np.array([1, wz/Qz, wz*wz]))
+                zero_mag = [np.abs(z) for z in zeros]
+                zero_angle = [np.angle(z) for z in zeros]
+                zero_real = [z.real for z in zeros]
+                zero_imag = [z.imag for z in zeros]
+                results['zero pair']['list'].append({'w0':wz,'Q':Qz,'zeta':zeta,'f0':wz/(2.*np.pi)})
+                for z in range(2):
+                    results['zero']['list'].append({#'complex':zeros[z],
+                                       'real':zero_real[z],
+                                       'imag':zero_imag[z],
+                                       'mag':zero_mag[z],
+                                       'angle':{'rad':zero_angle[z],
+                                                'deg':zero_angle[z]*180./np.pi}})
+            for s in range(num_pole_pairs):
+                wp=raw_results[(s+num_zero_pairs)*2+2+0]
+                Qp=raw_results[(s+num_zero_pairs)*2+2+1]
+                zeta=1/(2.*Qp)
+                poles = np.roots(np.array([1, wp/Qp, wp*wp]))
+                pole_mag=[np.abs(p) for p in poles]
+                pole_angle=[np.angle(p) for p in poles]
+                pole_real=[p.real for p in poles]
+                pole_imag=[p.imag for p in poles]
+                results['pole pair']['list'].append({'w0':wp,'Q':Qp,'zeta':zeta,'f0':wp/(2.*np.pi)})
+                for p in range(2):
+                    results['pole']['list'].append({#'complex':poles[p],
+                                       'real':pole_real[p],
+                                       'imag':pole_imag[p],
+                                       'mag':pole_mag[p],
+                                       'angle':{'rad':pole_angle[p],
+                                                'deg':pole_angle[p]*180./np.pi}})
+            import json
+            with open(self.args['output_file'],'w') as f:
+                json.dump(results,f,indent=4)
+if __name__ == '__main__': # pragma: no cover
+    PZ_Main()

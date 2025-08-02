@@ -20,7 +20,7 @@ TestPoleZeroFitter.py
 import unittest
 
 import SignalIntegrity.Lib as si
-from SignalIntegrity.Utilities.PoleZero.PoleZeroFitter import PoleZeroLevMar
+from SignalIntegrity.Lib.Fit.PoleZeroFitter import PoleZeroLevMar
 
 class TestPoleZeroFitterTest(unittest.TestCase):
     def __init__(self, methodName='runTest'):

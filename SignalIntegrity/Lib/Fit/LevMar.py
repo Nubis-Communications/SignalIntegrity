@@ -123,6 +123,7 @@ class LevMar(CallBacker):
         @param w (optional) list of lists weights matrix w
         """
         self.m_a = copy.copy(array(a))
+        self.m_a = self.AdjustVariablesAfterIteration(self.m_a)
         self.m_y = copy.copy(array(y))
         if w is None:
             self.m_sumw=len(y)

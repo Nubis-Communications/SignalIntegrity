@@ -128,8 +128,8 @@ class FitConvergenceMgr(object):
 
         self._FilteredLogMse=self.deltaMseFilter.Output(self.mseFilter.Output(self._LogMse))
         self._FilteredLogLambda=self.deltaLambdaFilter.Output(self.lambdaFilter.Output(self._LogLambda))
-        self._FilteredLogDeltaMse=abs(self.deltaLambdaFilter.Delta())
-        self._FilteredLogDeltaLambda=abs(self.deltaMseFilter.Delta())
+        self._FilteredLogDeltaMse=abs(self.deltaMseFilter.Delta())
+        self._FilteredLogDeltaLambda=abs(self.deltaLambdaFilter.Delta())
 
         self._IterationsTaken = self._IterationsTaken + 1
 

@@ -170,7 +170,17 @@ class TransferFunction(object):
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 class PoleZeroLevMar(LevMar):
     """fits a pole/zero model to a frequency response"""
-    def __init__(self,fr,num_zero_pairs,num_pole_pairs,callback=None):
+    def __init__(self,fr,num_zero_pairs,num_pole_pairs,
+                 guess=None,
+                 max_delay=None,
+                 min_delay=0,
+                 max_Q=5.,
+                 initial_delay=0,
+                 LHP_zeros=True,
+                 real_zeros=False,
+                 max_iterations=100000,
+                 mse_unchanging_threshold=1e-6,
+                 callback=None):
         """Constructor  
         Initializes the fit of a pole/zero model to a frequency response.
         @param fr instance of class FrequencyResponse to fit to.
@@ -179,19 +189,37 @@ class PoleZeroLevMar(LevMar):
         """
         self.num_zero_pairs=num_zero_pairs
         self.num_pole_pairs=num_pole_pairs
+        self.min_delay=min_delay
+        self.max_delay=max_delay
+        self.initial_delay=initial_delay
+        self.max_Q=max_Q
+        self.LHP_zeros=LHP_zeros
+        self.real_zeros=real_zeros
         self.f=fr.Frequencies()
+        # determine the right scaling factor for frequencies
+        # it's the best engineering exponent
+        self.mul=math.pow(10,math.floor(math.log10(self.f[-1])/3)*3)
+        # scale all of the frequencies by this multiplier
+        self.f=[v/self.mul for v in self.f]
         self.w=[2.*math.pi*f for f in self.f]
         self.y=np.array(fr.Values()).reshape(-1, 1)
-        guess=self.Guess3(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
-        guess[0]=self.y[0][0]
+        if guess is None:
+            guess=self.Guess2(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
+            guess[0]=self.y[0][0]
+            guess[1]=self.initial_delay*self.mul
+        else:
+            guess[1]=guess[1]*self.mul
+            for s in range(self.num_pole_pairs+self.num_zero_pairs):
+                guess[s*2+2+0] = guess[s*2+2+0]/self.mul
         LevMar.__init__(self,callback)
         LevMar.Initialize(self, np.array(guess).reshape(-1,1), np.array(self.y))
         self.ccm.Initialize(tolerance=self.ccm._tolerance,
-                            maxIterations=self.ccm._maxIterations*20,
+                            maxIterations=max_iterations,
                             lambdaTimeConstant=self.ccm._lambdaTimeConstant,
                             mseTimeConstant=self.ccm._mseTimeConstant,
-                            mseUnchanging=self.ccm._mseUnchanging/10000.,
-                            lambdaUnchanging=self.ccm._lambdaUnchanging)#*0)
+                            mseUnchanging=mse_unchanging_threshold,
+                            lambdaUnchanging=self.ccm._lambdaUnchanging)
+        #self.m_lambdaMultiplier=1.01
     @staticmethod
     def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
         """constructs a reasonable guess  
@@ -274,15 +302,15 @@ class PoleZeroLevMar(LevMar):
         # for each frequency location, determine whether it is a zero or a pole
         is_a_pole = [True for _ in frequency_location]
         if num_zero_pairs > 0:
-            skip=math.ceil(num_pole_pairs/num_zero_pairs)
-            start=math.ceil(num_pole_pairs/num_zero_pairs/2)
+            skip=num_pole_pairs/num_zero_pairs
+            start=math.floor(num_pole_pairs/num_zero_pairs/2)
             for zp in range(num_zero_pairs):
-                is_a_pole[zp*(skip+1)+start]=False
+                is_a_pole[int(zp*(skip+1))+start]=False
 
         # if not is_a_pole[0]:
         #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
 
-        BW=fe
+        BW=fe/4
         # generate the pole frequency and Q for each frequency location
         pz = [(-BW+1j*fl)*twopi for fl in frequency_location]
 
@@ -300,7 +328,7 @@ class PoleZeroLevMar(LevMar):
 
         # stack the zero information on top of the pole information
         G = 1
-        Td = 0
+        Td = 0.012
         result = [G,Td]+zero_list+pole_list
         return result
     @staticmethod
@@ -322,13 +350,10 @@ class PoleZeroLevMar(LevMar):
         # for each frequency location, determine whether it is a zero or a pole
         is_a_pole = [True for _ in range(num_pole_zero_pairs)]
         if num_zero_pairs > 0:
-            skip=math.ceil(num_pole_pairs/num_zero_pairs)
+            skip=num_pole_pairs/num_zero_pairs
             start=math.floor(num_pole_pairs/num_zero_pairs/2)
             for zp in range(num_zero_pairs):
-                is_a_pole[zp*(skip+1)+start]=False
-
-        # if not is_a_pole[0]:
-        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
+                is_a_pole[int(zp*(skip+1))+start]=False
 
         # angles for each pole in the guess off the negative access
         theta_list=[(pz+1)/num_pole_zero_pairs*80 for pz in range(num_pole_zero_pairs)]
@@ -340,8 +365,7 @@ class PoleZeroLevMar(LevMar):
         pole_list=[]
 
         for pzi in range(num_pole_zero_pairs):
-            from random import random
-            w0=abs(fe/2*2*math.pi)+random()
+            w0=abs(fe/4*2*math.pi)
             Q=Q_list[pzi]
             if is_a_pole[pzi]:
                 pole_list.extend([w0,Q])
@@ -350,7 +374,7 @@ class PoleZeroLevMar(LevMar):
 
         # stack the zero information on top of the pole information
         G = 1
-        Td = 0
+        Td = 0.012
         result = [G,Td]+zero_list+pole_list
         return result
 
@@ -358,55 +382,80 @@ class PoleZeroLevMar(LevMar):
         self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fF).reshape(-1, 1)
     def fJ(self,a,Fa=None):
-        #self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
+        # self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
-        Qmax=5
+        from random import random
         wmax=self.f[-1]*2.*np.pi*5
         # variables must be real
         for r in range(len(a)):
             a[r][0]=a[r][0].real
+        # for r in range(len(a)):
+        #     a[r][0]=a[r][0]+random()/1000000
+        # delay greater than minimum
+        if self.min_delay != None:
+            a[1][0]=max(a[1][0],self.min_delay*self.mul)
+        # delay must less than maximum
+        if self.max_delay != None:
+            a[1][0]=min(a[1][0],self.max_delay*self.mul)
         # Q cant be too high
         for r in range(3,len(a),2):
-            a[r][0]=max(min(a[r][0],Qmax),-Qmax)
+            a[r][0]=max(min(a[r][0],self.max_Q+random()/100),-self.max_Q-random()/100)
         # poles must be in the LHP
         for r in range(self.num_pole_pairs):
             a[r*2+2+self.num_zero_pairs*2+1][0]=abs(a[r*2+2+self.num_zero_pairs*2+1][0])
-        # zeros must be in the LHP
-        for r in range(self.num_zero_pairs):
-            a[r*2+2+1][0]=abs(a[r*2+2+1][0])
+        if self.LHP_zeros == True:
+            # zeros must be in the LHP
+            for r in range(self.num_zero_pairs):
+                a[r*2+2+1][0]=abs(a[r*2+2+1][0])
+        if self.real_zeros:
+            # zeros must be real
+            for r in range(self.num_zero_pairs):
+                a[r*2+2+1][0]=min(a[r*2+2+1][0],0.5+random()/100)
         # w0 can't be too high
         for r in range(2,len(a),2):
             a[r][0]=abs(a[r][0])
-            a[r][0]=min(a[r][0],wmax)
-        a[0][0]=self.y[0][0]
+            a[r][0]=min(a[r][0],wmax+random()/100)
+        a[0][0]=self.y[0][0].real
         return a
     def Results(self):
-        return self.m_a
+        results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
+        results[1]=results[1]/self.mul
+        for s in range(self.num_pole_pairs+self.num_zero_pairs):
+            results[s*2+2+0]=results[s*2+2+0]*self.mul
+        return results
     def PrintResults(self):
         results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
         from SignalIntegrity.Lib.ToSI import ToSI
         print(f"Gain: {results[0]} - {ToSI(20.*np.log10(results[0]),'dB',round=4)}")
-        print(f"Delay: {ToSI(results[1],'s',round=4)}")
+        print(f"Delay: {ToSI(results[1]/self.mul,'s',round=4)}")
         num_zero_pairs=self.num_zero_pairs
         print(f"Number of zero pairs: {num_zero_pairs}")
         for s in range(num_zero_pairs):
             print(f"zero pair: {s+1}")
-            print(f"  fz: {ToSI(results[s*2+2+0]/(2.*np.pi),'Hz',round=4)}")
+            print(f"  fz: {ToSI(results[s*2+2+0]*self.mul/(2.*np.pi),'Hz',round=4)}")
             print(f"  Qz: {ToSI(results[s*2+2+1],'',round=4)}")
         num_pole_pairs=self.num_pole_pairs
         print(f"Number of pole pairs: {num_pole_pairs}")
         for s in range(num_pole_pairs):
             print(f"pole pair: {s+1}")
-            print(f"  fp: {ToSI(results[(s+num_zero_pairs)*2+2+0]/(2.*np.pi),'Hz',round=4)}")
+            print(f"  fp: {ToSI(results[(s+num_zero_pairs)*2+2+0]*self.mul/(2.*np.pi),'Hz',round=4)}")
             print(f"  Qp: {ToSI(results[(s+num_zero_pairs)*2+2+1],'',round=4)}")
         return self
     def WriteResultsToFile(self,filename):
+        results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
+        for s in range(self.num_pole_pairs+self.num_zero_pairs):
+            results[s*2+2]=results[s*2+2]*self.mul
         results=[self.num_zero_pairs,self.num_pole_pairs]+[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
         with open(filename,'wt') as f:
             for result in results:
                 f.write(str(result)+'\n')
         return self
+    @staticmethod
+    def ReadResultsFile(filename):
+        with open(filename,'rt') as f:
+            result=f.readlines()
+        return [int(result[0]),int(result[1])]+[float(res) for res in result[2:]]
     def WriteGoalToFile(self,filename):
         with open(filename,'wt') as f:
             for n in range(len(self.f)):
