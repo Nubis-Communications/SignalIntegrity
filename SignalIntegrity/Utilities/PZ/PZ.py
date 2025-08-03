@@ -83,7 +83,7 @@ class PZ_Main(object):
 
         self.axs[1,0].cla()
         self.axs[1,0].set_title('lamda and mse')
-        self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log Δλ')
+        #self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log Δλ')
         self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log Δmse')
         self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogLambdaTracker],label='log λ')
         self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogMseTracker],label='log mse')
@@ -169,6 +169,8 @@ this should not be set if you are relying on stdout for the return value.')
         parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
         parser.add_argument('-rz','--real_zeros',action='store_true', help='(optional) restrict zeros to be real.')
         parser.add_argument('-lz','--lhp_zeros',action='store_true', help='(optional) restrict zeros to the LHP.')
+        parser.add_argument('-vt','--voltage_transfer_function',action='store_true',help='(optional, applies only to s-parameters) fit to the voltage transfer function')
+        parser.add_argument('-r','--reference_impedance',type=float,help='(optional, applies only to s-parameters) specify another reference impedance to use')
         args, unknown = parser.parse_known_args()
 
         #self.args=dict(zip(unknown[0::2],unknown[1::2]))
@@ -229,7 +231,20 @@ this should not be set if you are relying on stdout for the return value.')
             if ext[0:2].lower() == '.s' and ext[-1].lower() == 'p' and ext[2:-1].isnumeric():
                 # it's an s-parameter file
                 try:
-                    fr=si.sp.SParameterFile(filename).FrequencyResponse(2,1)
+                    sp=si.sp.SParameterFile(filename)
+                    if self.args['reference_impedance'] != None:
+                        Message(f"reference impedance specified as {ToSI(self.args['reference_impedance'],'ohm')}")
+                        sp.SetReferenceImpedance(self.args['reference_impedance'])
+                    else:
+                        Message(f"no reference impedance specified so the reference impedance of {ToSI(sp.m_Z0,'ohm')} in the file will be used")
+                    fr=sp.FrequencyResponse(2,1)
+                    if self.args['voltage_transfer_function']:
+                        Message('fit will be to the voltage transfer function')
+                        s11=sp.FrequencyResponse(1,1)
+                        for n in range(len(fr)):
+                            fr[n]=fr[n]/(1+s11[n])
+                    else:
+                        Message('fit will be to s21, which is not the voltage transfer function')
                     Message(filename+' read')
                 except:
                     Error('file: '+filename+' could not be opened')
