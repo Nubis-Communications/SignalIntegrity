@@ -25,8 +25,12 @@ import os
 from SignalIntegrity.Lib.Fit.PoleZeroFitter import PoleZeroLevMar
 
 class PZ_Main(object):
+    prog='PZ'
     def PrintProgress(self,iteration):
-        print(str(self.m_fitter.ccm._IterationsTaken)+'  '+str(self.m_fitter.m_mse), end='\r')
+        iteration_string=str(self.m_fitter.ccm._IterationsTaken)+'  '+str(self.m_fitter.m_mse)
+        if self.m_fitter.ccm._IterationsTaken == 2:
+            iteration_string+='                             '
+        print(iteration_string, end='\r')
     def PlotResult(self,iteration):
         if not self.args['verbose'] and not self.args['debug']:
             return
@@ -129,7 +133,8 @@ class PZ_Main(object):
 
         self.fig.canvas.draw()
         if iteration == 1:
-            plt.pause(10)
+            print('pausing 5 seconds for you to align the dashboard.', end='\r')
+            plt.pause(5)
         plt.pause(0.001)
 
     def __init__(self):
@@ -146,30 +151,55 @@ class PZ_Main(object):
                         formatter_class=RawTextHelpFormatter)
         parser.add_argument('filename',nargs='?',default=None, help='name of file for the fit\n\
 this could be an:\n\
-               s-parameter file (s21 assumed for fit),\n\
-               SignalIntegrity frequency response file (not yet supported),\n\
-               a .csv file containing frequency, real part, imaginary part on each line (not yet supported)')           # positional argument
+    s-parameter file (s21 assumed for fit),\n\
+    SignalIntegrity frequency response file (not yet supported), or\n\
+    a .csv file containing frequency, real part, imaginary part on each line (not yet\n\
+    supported).')           # positional argument
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-pf','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
 this should not be set if you are relying on stdout for the return value.')
-        parser.add_argument('-zp','--zero_pairs',type=int,help='(required) number of zero pairs.')
-        parser.add_argument('-pp','--pole_pairs',type=int,help='(required) number of pole pairs.')
-        parser.add_argument('-gf','--guess_file',type=str,help='(optional) file containing initial guess.')
-        parser.add_argument('-of','--output_file',type=str,help='(optional) output file.')
-        parser.add_argument('-fe','--end_frequency',type=float,help='(optional) end frequency.')
-        parser.add_argument('-n','--frequency_points',type=int,help='(optional) number of points.')
+        parser.add_argument('-zp','--zero_pairs',type=int,help='(required) number of zero pairs')
+        parser.add_argument('-pp','--pole_pairs',type=int,help='(required) number of pole pairs')
+        parser.add_argument('-gf','--guess_file',type=str,help='(optional) file containing initial guess\n\
+this file can be an output file (see --output_file), in which case, the raw fit results are\n\
+extracted and used as the starting guess.  this file must be a .json file with the .json\n\
+extension.  otherwise, it is assumed to be a text file produced in debug mode (see --debug),\n\
+which is usually called test_result.txt.')
+        parser.add_argument('-of','--output_file',type=str,help='(optional) output file\n\
+no matter how this file is specified, it will have the .json extension added to it.')
+        parser.add_argument('-fe','--end_frequency',type=float,help='(optional) end frequency to resample to\n\
+if this is specified, then the number of frequency points must also be specified\n\
+(see --frequency_points).')
+        parser.add_argument('-n','--frequency_points',type=int,help='(optional) number of frequency points to resample to\n\
+if this is specified, then the end frequency must also be specified (see --end_frequency).\n\
+it\'s a good idea to use as few frequency points as needed to improve speed.')
         parser.add_argument('-mind','--min_delay',type=float,default=0,help='(optional) minimum delay - defaults to 0')
         parser.add_argument('-maxd','--max_delay',type=float,help='(optional) maximum delay')
-        parser.add_argument('-maxq','--max_q',type=float,help='(optional) maximum Q - defaults to 5')
-        parser.add_argument('-id','--initial_delay',type=float,help='(optional) initial delay - defaults to 0')
-        parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long)')
-        parser.add_argument('-pr','--precision',type=str,default='medium',help='(optional) precision for fit (low,medium,high,super)')
+        parser.add_argument('-maxq','--max_q',type=float,help='(optional) maximum Q - defaults to 5\n\
+limiting the maximum Q forces the result to be at least reasonably behaved in improves\n\
+the chances of a successful fit.')
+        parser.add_argument('-id','--initial_delay',type=float,help='(optional) initial delay - defaults to 0\n\
+it is highly recommended to supply the best guess at the delay for improving the success\n\
+of the fit and to limit the delay range (see --max_delay and --min_delay).')
+        parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long) - defaults to medium\n\
+normally fit convergence should not end with the expiration of iterations.  if medium\n\
+iterations is used, iterations expire after about a minute.  long increases this to\n\
+several minutes max.')
+        parser.add_argument('-pr','--precision',type=str,default='medium',help='(optional) precision for fit (low,medium,high,super)\n\
+this is the main way of controlling how convergence is determined and it determines how little\n\
+the error is decreasing before giving up.  low will be very quick, but will result in\n\
+sub-optimal fits.  medium is usually good enough, while high gives a very good fit.  super is\n\
+used for extremely good fits, but takes longer (possibly several minutes).')
         parser.add_argument('-maxi','--max_iterations',type=int,help=argparse.SUPPRESS)
         parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
-        parser.add_argument('-rz','--real_zeros',action='store_true', help='(optional) restrict zeros to be real.')
-        parser.add_argument('-lz','--lhp_zeros',action='store_true', help='(optional) restrict zeros to the LHP.')
-        parser.add_argument('-vt','--voltage_transfer_function',action='store_true',help='(optional, applies only to s-parameters) fit to the voltage transfer function')
+        parser.add_argument('-rz','--real_zeros',action='store_true', help='(optional) restrict zeros to be real\n\
+often the solution can only have real zeros.')
+        parser.add_argument('-lz','--lhp_zeros',action='store_true', help='(optional) restrict zeros to the LHP\n\
+left-half plane zeros enforces a minimum phase solution.')
+        parser.add_argument('-vt','--voltage_transfer_function',action='store_true',help='(optional, applies only to s-parameters) fit to the voltage transfer function\n\
+when s-parameters are used, the default is to fit s21, which is the ratio of output\n\
+wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).')
         parser.add_argument('-r','--reference_impedance',type=float,help='(optional, applies only to s-parameters) specify another reference impedance to use')
         args, unknown = parser.parse_known_args()
 
@@ -245,12 +275,16 @@ this should not be set if you are relying on stdout for the return value.')
                             fr[n]=fr[n]/(1+s11[n])
                     else:
                         Message('fit will be to s21, which is not the voltage transfer function')
-                    Message(filename+' read')
+                    Message(os.path.split(filename)[-1] +' read')
                 except:
                     Error('file: '+filename+' could not be opened')
             else:
                 Error('only s-parameter files supported currently')
-        if 'end_frequency' in self.args and 'frequency_points' in self.args:
+        if self.args['end_frequency'] != None or self.args['frequency_points'] != None:
+            if self.args['end_frequency'] == None:
+                Error('if number of frequency points specified, then end frequency must be specified')
+            if self.args['frequency_points'] == None:
+                Error('if end frequency is specified, then number of frequency points must be specified')
             fe=self.args['end_frequency']; n = self.args['frequency_points']
             fr=fr.Resample(si.fd.EvenlySpacedFrequencyList(fe,n))
             Message(f"frequency response resampled to end frequency: {ToSI(fe,'Hz')} with: {n} points")
@@ -274,7 +308,7 @@ this should not be set if you are relying on stdout for the return value.')
             else:
                 try:
                     gf = PoleZeroLevMar.ReadResultsFile(guess_file)
-                    Message('guess file: '+filename+' read')
+                    Message('guess file: '+os.path.split(filename)[-1]+' read')
 
                     self.args['zero_pairs'] = gf[0]
                     self.args['pole_pairs'] = gf[1]
@@ -343,6 +377,7 @@ this should not be set if you are relying on stdout for the return value.')
         Message(f'elapsed time: {elapsed_time} s')
 
         if self.args['output_file']:
+            self.args['output_file']=os.path.splitext(self.args['output_file'])[0]+'.json'
             num_zero_pairs=self.m_fitter.num_zero_pairs
             num_pole_pairs=self.m_fitter.num_pole_pairs
             raw_results=self.m_fitter.Results()
