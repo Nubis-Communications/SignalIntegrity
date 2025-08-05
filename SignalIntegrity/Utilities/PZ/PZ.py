@@ -55,6 +55,8 @@ class PZ_Main(object):
             plt.subplots_adjust(wspace=0.5, hspace=0.7) # Increase horizontal and vertical spacing
             self.plotInitialized=True
             self.skipper=0
+            self.filteredLogLambdaTracker=[]
+            self.filteredLogMseTracker=[]
         self.skipper=self.skipper+1
         if self.skipper<self.skip_amount:
             return
@@ -89,8 +91,10 @@ class PZ_Main(object):
         self.axs[1,0].set_title('lamda and mse')
         #self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaLambdaTracker,label='log Δλ')
         self.axs[1,0].semilogy(self.m_fitter.ccm._FilteredLogDeltaMseTracker,label='log Δmse')
-        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogLambdaTracker],label='log λ')
-        self.axs[1,0].semilogy([math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogMseTracker],label='log mse')
+        self.filteredLogLambdaTracker+=[math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogLambdaTracker[len(self.filteredLogLambdaTracker):]]
+        self.filteredLogMseTracker+=[math.pow(10.,v) for v in self.m_fitter.ccm._FilteredLogMseTracker[len(self.filteredLogMseTracker):]]
+        self.axs[1,0].semilogy(self.filteredLogLambdaTracker,label='log λ')
+        self.axs[1,0].semilogy(self.filteredLogMseTracker,label='log mse')
         self.axs[1,0].set_xlabel('iteration #')
         self.axs[1,0].set_ylabel('log delta')
         self.axs[1,0].grid(True,'both')
@@ -231,7 +235,8 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         if self.args['max_iterations'] == None:
             iterations_dict = {'short':10000,
                                'medium':50000,
-                               'long':200000}
+                               'long':200000,
+                               'infinite':1000000000000}
             try:
                 self.args['max_iterations']=iterations_dict[self.args['iterations']]
                 Message('iterations are: '+self.args['iterations'])
@@ -254,7 +259,6 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
             Message('mse unchanging threshold set to: '+str(self.args['mse_unchanging_threshold']))
 
         filename=self.args['filename']
-        del(self.args['filename'])
 
         ext=os.path.splitext(filename)[-1]
         if len(ext)>=4:
@@ -350,6 +354,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         Message(f"maximum Q is {self.args['max_q']}")
 
         import time
+        from datetime import datetime
         start_time = time.time()
         self.m_fitter=PoleZeroLevMar(fr,num_zeros,num_poles,
                                      guess=guess,
@@ -386,7 +391,8 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
             results['configuration']=self.args
             results['convergence']={'iterations':self.m_fitter.ccm._IterationsTaken,
                                     'mse':self.m_fitter.ccm._Mse,
-                                    'time':elapsed_time}
+                                    'time':elapsed_time,
+                                    'completed':datetime.now().strftime("%m/%d/%Y %H:%M:%S")}
             fit_result=self.m_fitter.fF(self.m_fitter.m_a).reshape(-1).tolist()
             results['response']={'frequency':fr.Frequencies(),
                                  'goal':{'magnitude':fr.Values('mag'),'phase':fr.Values('deg')},
@@ -402,12 +408,28 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                 wz=raw_results[s*2+2+0]
                 Qz=raw_results[s*2+2+1]
                 zeta=1/(2.*Qz)
+                if zeta < 1./np.sqrt(2):
+                    try:
+                        wr=np.sqrt(1-2*(zeta*zeta))*wz
+                    except (RuntimeWarning,RuntimeError):
+                        wr=0
+                    if np.isnan(wr):
+                        wr=0
+                else:
+                    wr=0
+                peak_dB = 0 if wr==0 else 20*np.log10(abs(wz*wz/((wz*wz-wr*wr)+1j*wr*wz/Qz)))
                 zeros = np.roots(np.array([1, wz/Qz, wz*wz]))
                 zero_mag = [np.abs(z) for z in zeros]
                 zero_angle = [np.angle(z) for z in zeros]
                 zero_real = [z.real for z in zeros]
                 zero_imag = [z.imag for z in zeros]
-                results['zero pair']['list'].append({'w0':wz,'Q':Qz,'zeta':zeta,'f0':wz/(2.*np.pi)})
+                results['zero pair']['list'].append({'w0':wz,
+                                                     'Q':Qz,
+                                                     'zeta':zeta,
+                                                     'f0':wz/(2.*np.pi),
+                                                     'wr':wr,
+                                                     'fr':wr/(2.*np.pi),
+                                                     'peakdB':peak_dB})
                 for z in range(2):
                     results['zero']['list'].append({#'complex':zeros[z],
                                        'real':zero_real[z],
@@ -419,12 +441,28 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                 wp=raw_results[(s+num_zero_pairs)*2+2+0]
                 Qp=raw_results[(s+num_zero_pairs)*2+2+1]
                 zeta=1/(2.*Qp)
+                if zeta < 1./np.sqrt(2):
+                    try:
+                        wr=np.sqrt(1-2*(zeta*zeta))*wp
+                    except (RuntimeWarning,RuntimeError):
+                        wr=0
+                    if np.isnan(wr):
+                        wr=0
+                else:
+                    wr=0
+                peak_dB = 0 if wr==0 else 20*np.log10(abs(wp*wp/((wp*wp-wr*wr)+1j*wr*wp/Qp)))
                 poles = np.roots(np.array([1, wp/Qp, wp*wp]))
                 pole_mag=[np.abs(p) for p in poles]
                 pole_angle=[np.angle(p) for p in poles]
                 pole_real=[p.real for p in poles]
                 pole_imag=[p.imag for p in poles]
-                results['pole pair']['list'].append({'w0':wp,'Q':Qp,'zeta':zeta,'f0':wp/(2.*np.pi)})
+                results['pole pair']['list'].append({'w0':wp,
+                                                     'Q':Qp,
+                                                     'zeta':zeta,
+                                                     'f0':wp/(2.*np.pi),
+                                                     'wr':wr,
+                                                     'fr':wr/(2.*np.pi),
+                                                     'peakdB':peak_dB})
                 for p in range(2):
                     results['pole']['list'].append({#'complex':poles[p],
                                        'real':pole_real[p],
@@ -432,8 +470,8 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                        'mag':pole_mag[p],
                                        'angle':{'rad':pole_angle[p],
                                                 'deg':pole_angle[p]*180./np.pi}})
-            import json
             with open(self.args['output_file'],'w') as f:
                 json.dump(results,f,indent=4)
+        print('done')
 if __name__ == '__main__': # pragma: no cover
     PZ_Main()
