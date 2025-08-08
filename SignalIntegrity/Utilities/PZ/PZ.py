@@ -39,19 +39,24 @@ class PZ_Main(object):
             return
         import matplotlib.pyplot as plt
         if not self.plotInitialized:
+            import platform
+            self.windows = platform.system() != 'linux'
+            #self.windows = False
             self.skip_amount = 1
             plt.ion()
             self.fig,self.axs=plt.subplots(2,2)
-            ax=self.fig.add_subplot(2,2,4,projection='polar')
-            ax.set_rscale('log')
-            self.axs[1,1]=ax
+            if self.windows:
+                ax=self.fig.add_subplot(2,2,4,projection='polar')
+                ax.set_rscale('log')
+                self.axs[1,1]=ax
             self.fig.suptitle('SignalIntegrity Pole/Zero Fitting Dashboard')
             self.fig.canvas.manager.set_window_title('SignalIntegrity PZ Utility')
             import tkinter as tk
-            import SignalIntegrity.App.Project
-            self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
-            thismanager = plt.get_current_fig_manager()
-            thismanager.window.tk.call('wm', 'iconphoto', thismanager.window._w, self.img)
+            if self.windows:
+                import SignalIntegrity.App.Project
+                self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
+                thismanager = plt.get_current_fig_manager()
+                thismanager.window.tk.call('wm', 'iconphoto', thismanager.window._w, self.img)
             plt.subplots_adjust(wspace=0.5, hspace=0.7) # Increase horizontal and vertical spacing
             self.plotInitialized=True
             self.skipper=0
@@ -128,15 +133,32 @@ class PZ_Main(object):
             pole_real.extend([p.real for p in poles])
             pole_imag.extend([p.imag for p in poles])
 
-        self.axs[1,1].cla()
-        self.axs[1,1].set_rscale('log')
-        self.axs[1,1].set_title('pole/zero locations')
-        self.axs[1,1].plot(zero_angle,zero_mag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
-        self.axs[1,1].plot(pole_angle,pole_mag,marker='X', linestyle='',markersize=10)
-        self.axs[1,1].grid(True,'both')
+        if self.windows:
+            self.axs[1,1].cla()
+            self.axs[1,1].set_rscale('log')
+            self.axs[1,1].set_title('pole/zero locations')
+            self.axs[1,1].plot(zero_angle,zero_mag,marker='o', linestyle='',markersize=10, markerfacecolor='none')
+            self.axs[1,1].plot(pole_angle,pole_mag,marker='X', linestyle='',markersize=10)
+            self.axs[1,1].grid(True,'both')
+        else:
+            self.axs[1,1].cla()
+            self.axs[1,1].set_title('pole/zero locations')
+            log10mz=np.log10(zero_mag)
+            log10mp=np.log10(pole_mag)
+            max_extents=max(max(log10mz),max(log10mp))
+            min_extents=min(min(log10mz),min(log10mp))
+            maxmin_extents=max_extents-min_extents
+            self.axs[1,1].plot([(np.log10(m)-min_extents)*np.cos(theta) for m,theta in zip(zero_mag,zero_angle)],
+                                [(np.log10(m)-min_extents)*np.sin(theta) for m,theta in zip(zero_mag,zero_angle)],
+                                marker='o', linestyle='',markersize=10, markerfacecolor='none')
+            self.axs[1,1].plot([(np.log10(m)-min_extents)*np.cos(theta) for m,theta in zip(pole_mag,pole_angle)],
+                                [(np.log10(m)-min_extents)*np.sin(theta) for m,theta in zip(pole_mag,pole_angle)],
+                                marker='X', linestyle='',markersize=10)
+            self.axs[1,1].set_xlim(-maxmin_extents,maxmin_extents)
+            self.axs[1,1].set_ylim(-maxmin_extents,maxmin_extents)
 
         self.fig.canvas.draw()
-        if iteration == 1:
+        if iteration == 0:
             print('pausing 5 seconds for you to align the dashboard.', end='\r')
             plt.pause(5)
         plt.pause(0.001)
@@ -368,7 +390,18 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                      real_zeros=self.args['real_zeros'],
                                      callback=self.PlotResult)
         self.plotInitialized=False
-        self.m_fitter.Solve()
+
+        if self.args['profile']:
+            import cProfile
+            profiler=cProfile.Profile()
+            profiler.enable()
+            self.m_fitter.Solve()
+            profiler.disable()
+            import pstats
+            p = pstats.Stats(profiler)
+            p.strip_dirs().sort_stats('cumulative').print_stats(100)
+        else:
+            self.m_fitter.Solve()
 
         Message('iterations: '+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.ccm._Mse))
 
@@ -470,6 +503,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                        'mag':pole_mag[p],
                                        'angle':{'rad':pole_angle[p],
                                                 'deg':pole_angle[p]*180./np.pi}})
+            import json
             with open(self.args['output_file'],'w') as f:
                 json.dump(results,f,indent=4)
         print('done')

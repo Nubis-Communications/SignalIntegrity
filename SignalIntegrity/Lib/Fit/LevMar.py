@@ -199,6 +199,7 @@ class LevMar(CallBacker):
         self.m_mseTracking.append(self.m_mse)
     def Solve(self):
         """Solves for a such that F(a) equals y in a weighted least-squares sense."""
+        self.CallBack(0)
         self.Iterate()
         self.m_lastMse=self.m_mse
         self.m_MseAcc=self.m_lastMse
