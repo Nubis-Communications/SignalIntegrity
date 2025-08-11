@@ -21,7 +21,7 @@ PoleZeroFitter.py
 import cmath,math
 import numpy as np
 
-class Gain(object):
+class GainComplex(object):
     def __init__(self,ω,G):
         self.ω=ω
         self.G=G
@@ -29,14 +29,29 @@ class Gain(object):
         self.pHpG=1
         self.pHpG=1000
 
-class Delay(object):
+class GainMagnitude(object):
+    def __init__(self,ω,G):
+        self.ω=ω
+        self.G=G
+        self.H=G
+        self.pHpG=1
+        self.pHpG=10000
+
+class DelayComplex(object):
     def __init__(self,ω,Td):
         self.ω=ω
         self.Td=Td
         self.H=np.exp(-1j*ω*Td)
         self.pHpTd=-1j*ω*self.H
 
-class PolePair(object):
+class DelayMagnitude(object):
+    def __init__(self,ω,Td):
+        self.ω=ω
+        self.Td=Td
+        self.H=1
+        self.pHpTd=10000
+
+class PolePairComplex(object):
     def __init__(self,ω,ωp,Qp):
         """
             pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = (α+jβ)/(γ+jδ)
@@ -81,7 +96,39 @@ class PolePair(object):
         self.pHpω0=RepHpωp+1j*ImpHpωp           # ∂H/∂ωp
         self.pHpQ=RepHpQp+1j*ImpHpQp            # ∂H/∂Qp
 
-class ZeroPair(object):
+class PolePairMagnitude(object):
+    def __init__(self,ω,ωp,Qp):
+        """
+            pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = (α+jβ)/(γ+jδ)
+        """
+        self.ω=ω
+        self.ωp=ωp
+        self.Qp=Qp
+        ω2=ω*ω
+        ωp2=ωp*ωp
+        Qp2=Qp*Qp
+        α=ωp2
+        γ=ωp2-ω2
+        δ=ωp/Qp*ω
+        γ2=γ*γ
+        δ2=δ*δ
+        γ2pδ2=γ2+δ2
+        αγ=α*γ
+        αδ=α*δ
+        self.H=np.sqrt(αγ*αγ+αδ*αδ)/γ2pδ2       # H(ω)
+        pαpωp=2*ωp                              # ∂α/∂ωp
+        #pαpQp=0                                 # ∂α/∂Qp
+        pγpωp=2*ωp                              # ∂γ/∂ωp
+        #pγpQp=0                                 # ∂γ/∂Qp
+        pδpωp=ω/Qp                              # ∂δ/∂ωp
+        pδpQp=-ωp/Qp2*ω                         # ∂δ/∂Qp
+
+        γ2pδ2_2=γ2pδ2*γ2pδ2
+        self.pHpω0= α*(γ2pδ2*pαpωp-αγ*pγpωp-αδ*pδpωp)/(self.H*γ2pδ2_2)      # ∂H/∂ωp
+        self.pHpQ=  α*(                    -αδ*pδpQp)/(self.H*γ2pδ2_2)      # ∂H/∂Qp
+        pass
+
+class ZeroPairComplex(object):
     def __init__(self,ω,ωz,Qz):
         """
             zero pair expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/ωz^2 = (α+jβ)/(γ+jδ)
@@ -123,7 +170,42 @@ class ZeroPair(object):
         self.pHpω0=RepHpωz+1j*ImpHpωz           # ∂H/∂ωz
         self.pHpQ=RepHpQz+1j*ImpHpQz            # ∂H/∂Qz
 
-class TransferFunctionOneFrequency(object):
+class ZeroPairMagnitude(object):
+    def __init__(self,ω,ωz,Qz):
+        """
+            zero pair expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/ωz^2 = (α+jβ)/(γ+jδ)
+        """
+        self.ω=ω
+        self.ωz=ωz
+        self.Qz=Qz
+        ωz2=ωz*ωz
+        ω2=ω*ω
+        Qz2=Qz*Qz
+        α=ωz2-ω2
+        α2=α*α
+        β=ω*ωz/Qz
+        β2=β*β
+        γ=ωz2
+        γ2=γ*γ
+        γ3=γ2*γ
+        αγ=α*γ
+        βγ=β*γ
+
+        α2pβ2=α2+β2
+        self.H=np.sqrt(α2pβ2)/γ                 # |H(ω)|
+
+        pαpωz=2*ωz                              # ∂α/∂ωz
+        #pαpQz=0                                 # ∂α/∂Qz
+        pβpωz=ω/Qz                              # ∂β/∂ωz
+        pβpQz=-ω*ωz/Qz2                         # ∂β/∂Qz
+        pγpωz=2*ωz                              # ∂γ/∂ωz
+        #pγpQz=0                                 # ∂γ/∂Qz
+
+        self.pHpω0= (αγ*pαpωz+βγ*pβpωz-α2pβ2*pγpωz)/(self.H*γ3)         # ∂H/∂ωz
+        self.pHpQ=  (         βγ*pβpQz            )/(self.H*γ3)         # ∂H/∂Qz
+        pass
+
+class TransferFunctionOneFrequencyComplex(object):
     def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
         """
         The variable list is assumed to be in the following format:
@@ -133,13 +215,13 @@ class TransferFunctionOneFrequency(object):
         """
         self.ω=ω
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = Gain(ω,self.variable_list[0])
-        self.delay = Delay(ω,self.variable_list[1])
-        self.section_list = [ZeroPair(ω,
+        self.gain = GainComplex(ω,self.variable_list[0])
+        self.delay = DelayComplex(ω,self.variable_list[1])
+        self.section_list = [ZeroPairComplex(ω,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz
                                 for s in range(num_zero_pairs)]
-        self.section_list.extend([PolePair(ω,
+        self.section_list.extend([PolePairComplex(ω,
                                         self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
                                         self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
                                 for s in range(num_pole_pairs)])
@@ -159,16 +241,16 @@ class TransferFunctionOneFrequency(object):
             this_pd.append(section.pHpQ*gd_section_product_others)
             self.pd.extend(this_pd)
 
-class TransferFunction(object):
+class TransferFunctionComplex(object):
     def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
         self.fF=[]
         self.fJ=[]
         for ω in ω_list:
-            tf=TransferFunctionOneFrequency(ω,variable_list,num_zero_pairs,num_pole_pairs)
+            tf=TransferFunctionOneFrequencyComplex(ω,variable_list,num_zero_pairs,num_pole_pairs)
             self.fF.append(tf.H)
             self.fJ.append(tf.pd)
 
-class TransferFunctionVectorized(object):
+class TransferFunctionComplexVectorized(object):
     def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
         """
         The variable list is assumed to be in the following format:
@@ -178,13 +260,91 @@ class TransferFunctionVectorized(object):
         """
         self.ω_list = np.array(ω_list)
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = Gain(self.ω_list,self.variable_list[0])
-        self.delay = Delay(self.ω_list,self.variable_list[1])
-        self.section_list = [ZeroPair(self.ω_list,
+        self.gain = GainComplex(self.ω_list,self.variable_list[0])
+        self.delay = DelayComplex(self.ω_list,self.variable_list[1])
+        self.section_list = [ZeroPairComplex(self.ω_list,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz
                                 for s in range(num_zero_pairs)]
-        self.section_list.extend([PolePair(self.ω_list,
+        self.section_list.extend([PolePairComplex(self.ω_list,
+                                        self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
+                                        self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
+                                for s in range(num_pole_pairs)])
+
+        self.H=self.gain.H*self.delay.H*math.prod([self.section_list[s].H for s in range(len(self.section_list))])
+        self.pd=[]
+        self.pd.append(self.gain.pHpG/self.gain.H*self.H)
+        self.pd.append(self.delay.pHpTd/self.delay.H*self.H)
+        for section in self.section_list:
+            this_pd=[]
+            this_pd.append(section.pHpω0/section.H*self.H)
+            this_pd.append(section.pHpQ/section.H*self.H)
+            self.pd.extend(this_pd)
+        self.fF=self.H.tolist()
+        self.fJ=np.array(self.pd).T.tolist()
+
+class TransferFunctionOneFrequencyMagnitude(object):
+    def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
+        """
+        The variable list is assumed to be in the following format:
+
+        Gain G and time delay Td followed by two variables per pole/zero pair
+        of ωz, Qz or ωp, and Qp
+        """
+        self.ω=ω
+        self.variable_list = variable_list.reshape(variable_list.shape[0],)
+        self.gain = GainMagnitude(ω,self.variable_list[0])
+        self.delay = DelayMagnitude(ω,self.variable_list[1])
+        self.section_list = [ZeroPairMagnitude(ω,
+                                        self.variable_list[s*2+2+0], # ωz
+                                        self.variable_list[s*2+2+1]) # Qz
+                                for s in range(num_zero_pairs)]
+        self.section_list.extend([PolePairMagnitude(ω,
+                                        self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
+                                        self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
+                                for s in range(num_pole_pairs)])
+
+        all_sections=math.prod([self.section_list[s].H for s in range(len(self.section_list))])
+        gd=self.gain.H*self.delay.H
+        self.H=gd*all_sections
+        self.pd=[]
+        self.pd.append(self.gain.pHpG*self.delay.H*all_sections)
+        # self.pd[0]=1e9
+        self.pd.append(self.gain.H*self.delay.pHpTd*all_sections)
+        # self.pd[0]=1e9
+        for section in self.section_list:
+            this_pd=[]
+            gd_section_product_others=self.H/section.H # the product of all other sections with gain and delay
+            this_pd.append(section.pHpω0*gd_section_product_others)
+            this_pd.append(section.pHpQ*gd_section_product_others)
+            self.pd.extend(this_pd)
+
+class TransferFunctionMagnitude(object):
+    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+        self.fF=[]
+        self.fJ=[]
+        for ω in ω_list:
+            tf=TransferFunctionOneFrequencyMagnitude(ω,variable_list,num_zero_pairs,num_pole_pairs)
+            self.fF.append(tf.H)
+            self.fJ.append(tf.pd)
+
+class TransferFunctionMagnitudeVectorized(object):
+    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+        """
+        The variable list is assumed to be in the following format:
+
+        Gain G and time delay Td followed by two variables per pole/zero pair
+        of ωz, Qz or ωp, and Qp
+        """
+        self.ω_list = np.array(ω_list)
+        self.variable_list = variable_list.reshape(variable_list.shape[0],)
+        self.gain = GainMagnitude(self.ω_list,self.variable_list[0])
+        self.delay = DelayMagnitude(self.ω_list,self.variable_list[1])
+        self.section_list = [ZeroPairMagnitude(self.ω_list,
+                                        self.variable_list[s*2+2+0], # ωz
+                                        self.variable_list[s*2+2+1]) # Qz
+                                for s in range(num_zero_pairs)]
+        self.section_list.extend([PolePairMagnitude(self.ω_list,
                                         self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
                                         self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
                                 for s in range(num_pole_pairs)])
@@ -212,6 +372,7 @@ class PoleZeroLevMar(LevMar):
                  initial_delay=0,
                  LHP_zeros=True,
                  real_zeros=False,
+                 fit_type='magnitude',
                  max_iterations=100000,
                  mse_unchanging_threshold=1e-6,
                  callback=None):
@@ -229,6 +390,7 @@ class PoleZeroLevMar(LevMar):
         self.max_Q=max_Q
         self.LHP_zeros=LHP_zeros
         self.real_zeros=real_zeros
+        self.fit_type=fit_type
         self.f=fr.Frequencies()
         # determine the right scaling factor for frequencies
         # it's the best engineering exponent
@@ -236,9 +398,10 @@ class PoleZeroLevMar(LevMar):
         # scale all of the frequencies by this multiplier
         self.f=[v/self.mul for v in self.f]
         self.w=[2.*math.pi*f for f in self.f]
-        self.y=np.array(fr.Values()).reshape(-1, 1)
+        self.y=np.array(fr.Values('mag' if self.fit_type == 'magnitude' else None)).reshape(-1, 1)
+        self._tf_class = TransferFunctionMagnitudeVectorized if self.fit_type == 'magnitude' else TransferFunctionComplexVectorized
         if guess is None:
-            guess=self.Guess4(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
+            guess=self.Guess5(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
             guess[0]=self.y[0][0]
             guess[1]=self.initial_delay*self.mul
         else:
@@ -427,8 +590,8 @@ class PoleZeroLevMar(LevMar):
         @param num_pole_pairs int number of pairs of poles
         @remark there must be more pole pairs than zero pairs
         """
-        log_fe=math.log2(fe)
-        log_fs=math.log2(fe/1.5)
+        log_fe=math.log2(fs)
+        log_fs=math.log2(fe)
         twopi=2*math.pi
         num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
 
@@ -484,7 +647,7 @@ class PoleZeroLevMar(LevMar):
         """
         num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
         log_fe=math.log2(fe)
-        log_fs=math.log2(fe/1.5)
+        log_fs=math.log2(fs)
         twopi=2*math.pi
 
         num_pole_zeros = num_pole_zero_pairs*2
@@ -526,11 +689,10 @@ class PoleZeroLevMar(LevMar):
         result = [G,Td]+zero_pole_quadratic_list
         return result
     def fF(self,a):
-        #self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
-        self.tf=TransferFunctionVectorized(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
+        self.tf=self._tf_class(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fF).reshape(-1, 1)
     def fJ(self,a,Fa=None):
-        # self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
+        # self.tf=self._tf_class(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
         from random import random
@@ -612,6 +774,6 @@ class PoleZeroLevMar(LevMar):
                 f.write(str(self.m_y[n][0].imag)+'\n')
 if __name__ == '__main__': # pragma: no cover
     #o=BiquadSection(0.147,0.989,0.119,0.602,0.532)
-    o=ZeroPair(0.147,0.989,0.119)
-    o=PolePair(0.147,0.602,0.532)
+    o=ZeroPairMagnitude(0.147,0.989,0.119)
+    o=PolePairMagnitude(0.147,0.602,0.532)
     pass

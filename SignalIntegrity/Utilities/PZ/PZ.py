@@ -181,6 +181,7 @@ this could be an:\n\
     SignalIntegrity frequency response file (not yet supported), or\n\
     a .csv file containing frequency, real part, imaginary part on each line (not yet\n\
     supported).')           # positional argument
+        parser.add_argument('-t','--type',type=str,help='(required) type of fit -- either "magnitude" or "complex"')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-pf','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
@@ -375,6 +376,14 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
 
         Message(f"maximum Q is {self.args['max_q']}")
 
+        fit_type=self.args['type']
+        if fit_type == 'magnitude':
+            Message('fit type is: magnitude')
+        elif fit_type == 'complex':
+            Message('fit type is: complex')
+        else:
+            Error('fit type must be either "magnitude" or "complex"')
+
         import time
         from datetime import datetime
         start_time = time.time()
@@ -388,6 +397,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                      mse_unchanging_threshold=self.args['mse_unchanging_threshold'],
                                      LHP_zeros=self.args['lhp_zeros'],
                                      real_zeros=self.args['real_zeros'],
+                                     fit_type=self.args['type'],
                                      callback=self.PlotResult)
         self.plotInitialized=False
 
