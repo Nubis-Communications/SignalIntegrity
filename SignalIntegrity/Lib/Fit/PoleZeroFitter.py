@@ -27,6 +27,7 @@ class Gain(object):
         self.G=G
         self.H=G
         self.pHpG=1
+        self.pHpG=1000
 
 class Delay(object):
     def __init__(self,ω,Td):
@@ -252,8 +253,9 @@ class PoleZeroLevMar(LevMar):
                             mseTimeConstant=self.ccm._mseTimeConstant,
                             mseUnchanging=mse_unchanging_threshold,
                             lambdaUnchanging=self.ccm._lambdaUnchanging)
-        # self.m_lambdaMultiplier=1.1
-        # self.m_lambda=.1
+        # self.m_lambdaMultiplier=1.01
+        # self.m_lambda=100000
+        #self.ccm._lambdaUnchanging=0
     @staticmethod
     def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
         """constructs a reasonable guess  
@@ -523,8 +525,6 @@ class PoleZeroLevMar(LevMar):
         Td = 0.0
         result = [G,Td]+zero_pole_quadratic_list
         return result
-
-
     def fF(self,a):
         #self.tf=TransferFunction(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         self.tf=TransferFunctionVectorized(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
@@ -575,7 +575,7 @@ class PoleZeroLevMar(LevMar):
     def PrintResults(self):
         results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]
         from SignalIntegrity.Lib.ToSI import ToSI
-        print(f"Gain: {results[0]} - {ToSI(20.*np.log10(results[0]),'dB',round=4)}")
+        print(f"Gain: {results[0]} - {ToSI(20.*np.log10(np.abs(results[0])),'dB',round=4)}")
         print(f"Delay: {ToSI(results[1]/self.mul,'s',round=4)}")
         num_zero_pairs=self.num_zero_pairs
         print(f"Number of zero pairs: {num_zero_pairs}")

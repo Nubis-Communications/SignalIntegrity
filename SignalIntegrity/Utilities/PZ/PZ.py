@@ -40,7 +40,7 @@ class PZ_Main(object):
         import matplotlib.pyplot as plt
         if not self.plotInitialized:
             import platform
-            self.windows = platform.system() != 'linux'
+            self.windows = platform.system() != 'Linux'
             #self.windows = False
             self.skip_amount = 1
             plt.ion()
@@ -202,10 +202,10 @@ if this is specified, then the end frequency must also be specified (see --end_f
 it\'s a good idea to use as few frequency points as needed to improve speed.')
         parser.add_argument('-mind','--min_delay',type=float,default=0,help='(optional) minimum delay - defaults to 0')
         parser.add_argument('-maxd','--max_delay',type=float,help='(optional) maximum delay')
-        parser.add_argument('-maxq','--max_q',type=float,help='(optional) maximum Q - defaults to 5\n\
+        parser.add_argument('-maxq','--max_q',type=float,default=5,help='(optional) maximum Q - defaults to 5\n\
 limiting the maximum Q forces the result to be at least reasonably behaved in improves\n\
 the chances of a successful fit.')
-        parser.add_argument('-id','--initial_delay',type=float,help='(optional) initial delay - defaults to 0\n\
+        parser.add_argument('-id','--initial_delay',type=float,default=0,help='(optional) initial delay - defaults to 0\n\
 it is highly recommended to supply the best guess at the delay for improving the success\n\
 of the fit and to limit the delay range (see --max_delay and --min_delay).')
         parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long) - defaults to medium\n\
@@ -431,7 +431,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                  'goal':{'magnitude':fr.Values('mag'),'phase':fr.Values('deg')},
                                  'result':{'magnitude':[np.abs(v) for v in fit_result],
                                            'phase':[np.angle(v)*180/np.pi for v in fit_result]}}
-            results['gain']={'value':raw_results[0],'dB':20*math.log10(raw_results[0])}
+            results['gain']={'value':raw_results[0],'dB':20*math.log10(np.abs(raw_results[0]))}
             results['delay']={'value':raw_results[1]}
             results['pole pair']={'number of':num_pole_pairs,'list':[]}
             results['pole']={'number of':num_pole_pairs*2,'list':[]}
