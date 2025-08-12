@@ -22,7 +22,7 @@ import numpy as np
 import SignalIntegrity.Lib as si
 import math
 import os
-from SignalIntegrity.Lib.Fit.PoleZeroFitter import PoleZeroLevMar
+from SignalIntegrity.Lib.Fit.PoleZero.PoleZeroFitter import PoleZeroLevMar
 
 class PZ_Main(object):
     prog='PZ'

@@ -1,6 +1,6 @@
-"""
-__init__.py
-"""
+"""@namespace PoleZero
+Pole/Zero fitting"""
+
 from __future__ import absolute_import
 
 # Copyright (c) 2021 Nubis Communications, Inc.
@@ -19,8 +19,4 @@ from __future__ import absolute_import
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-from .LevMar import LevMar
-from .RLGC import RLGCFitter
-from .RLGC import RLGCFitter2
-from .RLGCFitFromFile import RLGCFitFromFile
-from . import PoleZero as pz
+from .PoleZeroFitter import PoleZeroLevMar
