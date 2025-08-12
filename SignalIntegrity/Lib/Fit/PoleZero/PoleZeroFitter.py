@@ -23,6 +23,8 @@ import numpy as np
 
 from SignalIntegrity.Lib.Fit.PoleZero.QuadraticComplex import TransferFunctionComplexVectorized
 from SignalIntegrity.Lib.Fit.PoleZero.QuadraticMagnitude import TransferFunctionMagnitudeVectorized
+from SignalIntegrity.Lib.Fit.PoleZero.BiquadComplex import TransferFunctionBiquadVectorized
+
 
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
