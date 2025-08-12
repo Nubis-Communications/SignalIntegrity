@@ -375,6 +375,8 @@ class PoleZeroLevMar(LevMar):
                  fit_type='magnitude',
                  max_iterations=100000,
                  mse_unchanging_threshold=1e-6,
+                 initial_lambda=None,
+                 lambda_multiplier=None,
                  callback=None):
         """Constructor  
         Initializes the fit of a pole/zero model to a frequency response.
@@ -391,6 +393,8 @@ class PoleZeroLevMar(LevMar):
         self.LHP_zeros=LHP_zeros
         self.real_zeros=real_zeros
         self.fit_type=fit_type
+        self.initial_lambda=initial_lambda
+        self.lambda_multiplier=lambda_multiplier
         self.f=fr.Frequencies()
         # determine the right scaling factor for frequencies
         # it's the best engineering exponent
@@ -416,9 +420,11 @@ class PoleZeroLevMar(LevMar):
                             mseTimeConstant=self.ccm._mseTimeConstant,
                             mseUnchanging=mse_unchanging_threshold,
                             lambdaUnchanging=self.ccm._lambdaUnchanging)
-        # self.m_lambdaMultiplier=1.01
-        # self.m_lambda=100000
-        #self.ccm._lambdaUnchanging=0
+        if self.lambda_multiplier != None:
+            self.m_lambdaMultiplier=self.lambda_multiplier
+        if self.initial_lambda != None:
+            self.m_lambda=self.initial_lambda
+        # self.ccm._lambdaUnchanging=0
     @staticmethod
     def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
         """constructs a reasonable guess  

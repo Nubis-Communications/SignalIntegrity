@@ -204,12 +204,12 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         parser.add_argument('-mind','--min_delay',type=float,default=0,help='(optional) minimum delay - defaults to 0')
         parser.add_argument('-maxd','--max_delay',type=float,help='(optional) maximum delay')
         parser.add_argument('-maxq','--max_q',type=float,default=5,help='(optional) maximum Q - defaults to 5\n\
-limiting the maximum Q forces the result to be at least reasonably behaved in improves\n\
+limiting the maximum Q forces the result to be at least reasonably behaved and improves\n\
 the chances of a successful fit.')
         parser.add_argument('-id','--initial_delay',type=float,default=0,help='(optional) initial delay - defaults to 0\n\
 it is highly recommended to supply the best guess at the delay for improving the success\n\
 of the fit and to limit the delay range (see --max_delay and --min_delay).')
-        parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long) - defaults to medium\n\
+        parser.add_argument('-i','--iterations',type=str,default='medium',help='(optional) iterations (short,medium,long,infinite) - defaults to medium\n\
 normally fit convergence should not end with the expiration of iterations.  if medium\n\
 iterations is used, iterations expire after about a minute.  long increases this to\n\
 several minutes max.')
@@ -218,8 +218,6 @@ this is the main way of controlling how convergence is determined and it determi
 the error is decreasing before giving up.  low will be very quick, but will result in\n\
 sub-optimal fits.  medium is usually good enough, while high gives a very good fit.  super is\n\
 used for extremely good fits, but takes longer (possibly several minutes).')
-        parser.add_argument('-maxi','--max_iterations',type=int,help=argparse.SUPPRESS)
-        parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
         parser.add_argument('-rz','--real_zeros',action='store_true', help='(optional) restrict zeros to be real\n\
 often the solution can only have real zeros.')
         parser.add_argument('-lz','--lhp_zeros',action='store_true', help='(optional) restrict zeros to the LHP\n\
@@ -228,6 +226,10 @@ left-half plane zeros enforces a minimum phase solution.')
 when s-parameters are used, the default is to fit s21, which is the ratio of output\n\
 wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).')
         parser.add_argument('-r','--reference_impedance',type=float,help='(optional, applies only to s-parameters) specify another reference impedance to use')
+        parser.add_argument('-maxi','--max_iterations',type=int,help=argparse.SUPPRESS)
+        parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
+        parser.add_argument('-il','--initial_lambda',type=float,default=1000.,help=argparse.SUPPRESS)
+        parser.add_argument('-lm','--lambda_multiplier',type=float,default=2.,help=argparse.SUPPRESS)
         args, unknown = parser.parse_known_args()
 
         #self.args=dict(zip(unknown[0::2],unknown[1::2]))
@@ -384,6 +386,16 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         else:
             Error('fit type must be either "magnitude" or "complex"')
 
+        default_initial_lambda = parser.get_default('initial_lambda')
+        initial_lambda=self.args['initial_lambda']
+        if default_initial_lambda != initial_lambda:
+            Message(f'initial λ: {initial_lambda} as opposed to default of: {default_initial_lambda}')
+
+        default_lambda_multiplier = parser.get_default('lambda_multiplier')
+        lambda_multiplier=self.args['lambda_multiplier']
+        if default_lambda_multiplier != lambda_multiplier:
+            Message(f'λ multiplier: {lambda_multiplier} as opposed to default of: {default_lambda_multiplier}')
+
         import time
         from datetime import datetime
         start_time = time.time()
@@ -398,6 +410,8 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                      LHP_zeros=self.args['lhp_zeros'],
                                      real_zeros=self.args['real_zeros'],
                                      fit_type=self.args['type'],
+                                     initial_lambda=self.args['initial_lambda'],
+                                     lambda_multiplier=self.args['lambda_multiplier'],
                                      callback=self.PlotResult)
         self.plotInitialized=False
 
