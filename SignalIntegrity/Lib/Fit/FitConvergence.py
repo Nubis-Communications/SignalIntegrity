@@ -162,6 +162,18 @@ class FitConvergenceMgr(object):
             MseToleranceMet
         )
 
+        if Stop:
+            if IterationsExhausted:
+                self.why = 'iterations exhausted'
+            elif (not lambdaOkay):
+                self.why = 'lamda not okay'
+            elif  (LambdaFilterThresholdMet and MseFilterThresholdMet):
+                self.why = 'filtered delta lamda and mse both went below threshold'
+            elif MseToleranceMet:
+                self.why = 'mse tolerance achieved'
+            else:
+                self.why = 'unknown: this is an error'
+
         return not Stop
 
     def PlotConvergence(self):

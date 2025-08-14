@@ -181,7 +181,7 @@ this could be an:\n\
     SignalIntegrity frequency response file (not yet supported), or\n\
     a .csv file containing frequency, real part, imaginary part on each line (not yet\n\
     supported).')           # positional argument
-        parser.add_argument('-t','--type',type=str,help='(required) type of fit -- either "magnitude" or "complex"')
+        parser.add_argument('-ft','--fit_type',type=str,help='(required) type of fit -- either "magnitude" or "complex"')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-pf','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
@@ -225,11 +225,18 @@ left-half plane zeros enforces a minimum phase solution.')
         parser.add_argument('-vt','--voltage_transfer_function',action='store_true',help='(optional, applies only to s-parameters) fit to the voltage transfer function\n\
 when s-parameters are used, the default is to fit s21, which is the ratio of output\n\
 wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).')
+        parser.add_argument('-xg','--fix_gain',action='store_true',help='(optional) fix the dc gain.\n\
+choosing this option fixes the dc point to the first frequency point, otherwise, the dc gain is part of the fit.')
+        parser.add_argument('-xdly','--fix_delay',action='store_true',help='(optional) fix the delay value.\n\
+choosing this option fixes the delay value to 0, if -id not specified or what is specified by -id, otherwise,\n\
+the delay is part of the fit.')
         parser.add_argument('-r','--reference_impedance',type=float,help='(optional, applies only to s-parameters) specify another reference impedance to use')
         parser.add_argument('-maxi','--max_iterations',type=int,help=argparse.SUPPRESS)
         parser.add_argument('-mseu','--mse_unchanging_threshold',type=float,help=argparse.SUPPRESS)
         parser.add_argument('-il','--initial_lambda',type=float,default=1000.,help=argparse.SUPPRESS)
         parser.add_argument('-lm','--lambda_multiplier',type=float,default=2.,help=argparse.SUPPRESS)
+        parser.add_argument('-tol','--tolerance',type=float,default=1e-6,help=argparse.SUPPRESS)
+        parser.add_argument('-mfm','--max_frequency_multiplier',type=float,default=5,help=argparse.SUPPRESS)
         args, unknown = parser.parse_known_args()
 
         #self.args=dict(zip(unknown[0::2],unknown[1::2]))
@@ -365,6 +372,20 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         else:
             Message(f"maximum delay allowed: {ToSI(self.args['max_delay'],'s')}")
 
+        if self.args['fix_gain']:
+            Message('gain is fixed')
+        else:
+            Message('gain is a free variable in the fit')
+
+        if not self.args['fix_delay'] and self.args['fit_type'] == 'magnitude':
+            self.args['fix_delay'] = True
+            Message('delay is always fixed for magnitude fits')
+        else:
+            if self.args['fix_delay']:
+                Message('delay is fixed')
+            else:
+                Message('delay is a free variable in the fit')
+
         Message("poles are always restricted to LHP")
         if self.args['lhp_zeros']:
             Message("zeros are restricted to LHP")
@@ -378,7 +399,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
 
         Message(f"maximum Q is {self.args['max_q']}")
 
-        fit_type=self.args['type']
+        fit_type=self.args['fit_type']
         if fit_type == 'magnitude':
             Message('fit type is: magnitude')
         elif fit_type == 'complex':
@@ -396,6 +417,16 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         if default_lambda_multiplier != lambda_multiplier:
             Message(f'λ multiplier: {lambda_multiplier} as opposed to default of: {default_lambda_multiplier}')
 
+        default_tolerance = parser.get_default('tolerance')
+        tolerance=self.args['tolerance']
+        if default_tolerance != tolerance:
+            Message(f'tolerance is: {tolerance} as opposed to default of: {default_tolerance}')
+
+        default_max_frequency_multiplier = parser.get_default('max_frequency_multiplier')
+        max_frequency_multiplier=self.args['max_frequency_multiplier']
+        if default_max_frequency_multiplier != max_frequency_multiplier:
+            Message(f'max_frequency_multiplier is: {max_frequency_multiplier} as opposed to default of: {default_max_frequency_multiplier}')
+
         import time
         from datetime import datetime
         start_time = time.time()
@@ -409,9 +440,13 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
                                      mse_unchanging_threshold=self.args['mse_unchanging_threshold'],
                                      LHP_zeros=self.args['lhp_zeros'],
                                      real_zeros=self.args['real_zeros'],
-                                     fit_type=self.args['type'],
+                                     fit_type=self.args['fit_type'],
                                      initial_lambda=self.args['initial_lambda'],
                                      lambda_multiplier=self.args['lambda_multiplier'],
+                                     tolerance=self.args['tolerance'],
+                                     max_frequency_multiplier=self.args['max_frequency_multiplier'],
+                                     fix_delay=self.args['fix_delay'],
+                                     fix_gain=self.args['fix_gain'],
                                      callback=self.PlotResult)
         self.plotInitialized=False
 
@@ -427,6 +462,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         else:
             self.m_fitter.Solve()
 
+        Message('convergence: '+str(self.m_fitter.ccm.why))
         Message('iterations: '+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.ccm._Mse))
 
         end_time = time.time()
@@ -436,6 +472,29 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         if self.args['debug']:
             self.m_fitter.WriteResultsToFile('test_result.txt').WriteGoalToFile('test_goal.txt')
 
+        if self.args['debug']:
+            # make an s-parameter file out of this result
+            from SignalIntegrity.Lib.Fit.PoleZero.QuadraticComplex import TransferFunctionComplexVectorized
+            sp=si.sp.SParameterFile(filename)
+            if self.args['reference_impedance'] != None:
+                sp.SetReferenceImpedance(self.args['reference_impedance'])
+            f=sp.m_f
+            new_s21=TransferFunctionComplexVectorized(np.array(f)*2.*np.pi,
+                                                  np.array(self.m_fitter.Results()),
+                                                  num_zeros,
+                                                  num_poles,
+                                                  self.args['fix_gain'],
+                                                  self.args['fix_delay']
+                                                  ).H
+            if self.args['voltage_transfer_function']:
+                # convert back to s11
+                s11=sp.FrequencyResponse(1,1)
+                for n in range(len(f)):
+                    sp.m_d[n][1][0] = new_s21[n]*(1+s11[n])
+            else:
+                for n in range(len(f)):
+                    sp.m_d[n][1][0] = new_s21[n]
+            sp.WriteToFile('debug')
         Message(f'elapsed time: {elapsed_time} s')
 
         if self.args['output_file']:
@@ -449,7 +508,9 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
             results['convergence']={'iterations':self.m_fitter.ccm._IterationsTaken,
                                     'mse':self.m_fitter.ccm._Mse,
                                     'time':elapsed_time,
-                                    'completed':datetime.now().strftime("%m/%d/%Y %H:%M:%S")}
+                                    'completed':datetime.now().strftime("%m/%d/%Y %H:%M:%S"),
+                                    'why stopped':self.m_fitter.ccm.why,
+                                    'frequency multiplier':self.m_fitter.mul}
             fit_result=self.m_fitter.fF(self.m_fitter.m_a).reshape(-1).tolist()
             results['response']={'frequency':fr.Frequencies(),
                                  'goal':{'magnitude':fr.Values('mag'),'phase':fr.Values('deg')},

@@ -22,19 +22,19 @@ import math
 import numpy as np
 
 class GainComplex(object):
-    def __init__(self,ω,G):
+    def __init__(self,ω,G,fix_gain=False):
         self.ω=ω
         self.G=G
         self.H=G
-        self.pHpG=1
-        self.pHpG=1000
+        # if gain is fixed, make partial derivative very high
+        self.pHpG=10000 if fix_gain else 1
 
 class DelayComplex(object):
-    def __init__(self,ω,Td):
+    def __init__(self,ω,Td,fix_delay=False):
         self.ω=ω
         self.Td=Td
         self.H=np.exp(-1j*ω*Td)
-        self.pHpTd=-1j*ω*self.H
+        self.pHpTd=10000 if fix_delay else -1j*ω*self.H
 
 class PolePairComplex(object):
     def __init__(self,ω,ωp,Qp):
@@ -124,7 +124,13 @@ class ZeroPairComplex(object):
         self.pHpQ=RepHpQz+1j*ImpHpQz            # ∂H/∂Qz
 
 class TransferFunctionOneFrequencyComplex(object):
-    def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=False):
         """
         The variable list is assumed to be in the following format:
 
@@ -133,8 +139,8 @@ class TransferFunctionOneFrequencyComplex(object):
         """
         self.ω=ω
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = GainComplex(ω,self.variable_list[0])
-        self.delay = DelayComplex(ω,self.variable_list[1])
+        self.gain = GainComplex(ω,self.variable_list[0],fix_gain)
+        self.delay = DelayComplex(ω,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairComplex(ω,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz
@@ -160,16 +166,33 @@ class TransferFunctionOneFrequencyComplex(object):
             self.pd.extend(this_pd)
 
 class TransferFunctionComplex(object):
-    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω_list,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=False):
         self.fF=[]
         self.fJ=[]
         for ω in ω_list:
-            tf=TransferFunctionOneFrequencyComplex(ω,variable_list,num_zero_pairs,num_pole_pairs)
+            tf=TransferFunctionOneFrequencyComplex(ω,
+                                                   variable_list,
+                                                   num_zero_pairs,
+                                                   num_pole_pairs,
+                                                   fix_gain,
+                                                   fix_delay)
             self.fF.append(tf.H)
             self.fJ.append(tf.pd)
 
 class TransferFunctionComplexVectorized(object):
-    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω_list,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=False):
         """
         The variable list is assumed to be in the following format:
 
@@ -178,8 +201,8 @@ class TransferFunctionComplexVectorized(object):
         """
         self.ω_list = np.array(ω_list)
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = GainComplex(self.ω_list,self.variable_list[0])
-        self.delay = DelayComplex(self.ω_list,self.variable_list[1])
+        self.gain = GainComplex(self.ω_list,self.variable_list[0],fix_gain)
+        self.delay = DelayComplex(self.ω_list,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairComplex(self.ω_list,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz

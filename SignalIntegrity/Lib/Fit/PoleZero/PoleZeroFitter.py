@@ -24,7 +24,7 @@ import numpy as np
 from SignalIntegrity.Lib.Fit.PoleZero.QuadraticComplex import TransferFunctionComplexVectorized
 from SignalIntegrity.Lib.Fit.PoleZero.QuadraticMagnitude import TransferFunctionMagnitudeVectorized
 from SignalIntegrity.Lib.Fit.PoleZero.BiquadComplex import TransferFunctionBiquadVectorized
-
+from SignalIntegrity.Lib.Fit.PoleZero.PoleZeroGuess import PoleZeroGuess
 
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
@@ -43,6 +43,10 @@ class PoleZeroLevMar(LevMar):
                  mse_unchanging_threshold=1e-6,
                  initial_lambda=None,
                  lambda_multiplier=None,
+                 max_frequency_multiplier=5,
+                 tolerance=None,
+                 fix_delay=False,
+                 fix_gain=False,
                  callback=None):
         """Constructor  
         Initializes the fit of a pole/zero model to a frequency response.
@@ -61,6 +65,10 @@ class PoleZeroLevMar(LevMar):
         self.fit_type=fit_type
         self.initial_lambda=initial_lambda
         self.lambda_multiplier=lambda_multiplier
+        self.tolerance=tolerance
+        self.max_frequency_multiplier = max_frequency_multiplier
+        self.fix_delay=fix_delay
+        self.fix_gain=fix_gain
         self.f=fr.Frequencies()
         # determine the right scaling factor for frequencies
         # it's the best engineering exponent
@@ -71,7 +79,7 @@ class PoleZeroLevMar(LevMar):
         self.y=np.array(fr.Values('mag' if self.fit_type == 'magnitude' else None)).reshape(-1, 1)
         self._tf_class = TransferFunctionMagnitudeVectorized if self.fit_type == 'magnitude' else TransferFunctionComplexVectorized
         if guess is None:
-            guess=self.Guess5(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
+            guess=PoleZeroGuess.Guess7(self.f[1], self.f[-1], num_zero_pairs,num_pole_pairs)
             guess[0]=self.y[0][0]
             guess[1]=self.initial_delay*self.mul
         else:
@@ -90,276 +98,10 @@ class PoleZeroLevMar(LevMar):
             self.m_lambdaMultiplier=self.lambda_multiplier
         if self.initial_lambda != None:
             self.m_lambda=self.initial_lambda
+        if self.tolerance != None:
+            self.ccm._tolerance = self.tolerance
         # self.ccm._lambdaUnchanging=0
-    @staticmethod
-    def Guess(fs,fe,num_zero_pairs,num_pole_pairs):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_zero_pairs int number of pairs of zeros
-        @param num_pole_pairs int number of pairs of poles
-        @remark there must be more pole pairs than zero pairs
-        """
-        minQ=0.5
-        maxQ=20
-        log_fe=math.log10(fe)
-        log_fs=math.log10(fs)
-        twopi=2*math.pi
-        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
-
-        frequency_location = [10.0**((log_fe-log_fs)/(num_pole_zero_pairs-1)*npz + log_fs)
-                                for npz in range(num_pole_zero_pairs)]
-
-        # for each frequency location, determine whether it is a zero or a pole
-        is_a_pole = [True for _ in frequency_location]
-        if num_zero_pairs > 0:
-            skip=math.ceil(num_pole_pairs/num_zero_pairs)
-            start=math.ceil(num_pole_pairs/num_zero_pairs/2)
-            for zp in range(num_zero_pairs):
-                is_a_pole[zp*(skip+1)+start]=False
-
-        # if not is_a_pole[0]:
-        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
-
-        BW=fe
-        # generate the pole frequency and Q for each frequency location
-        w0 = [fl*twopi for fl in frequency_location]
-        Q = [min(max(fl/BW,minQ),maxQ) for fl in frequency_location]
-
-        # gather these into poles and zeros
-        zero_list=[]
-        pole_list=[]
-
-        for pzi in range(len(frequency_location)):
-            if is_a_pole[pzi]:
-                pole_list.extend([w0[pzi],Q[pzi]])
-            else:
-                zero_list.extend([w0[pzi],Q[pzi]])
-
-        # stack the zero information on top of the pole information
-        G = 1
-        Td = 0
-        result = [G,Td]+zero_list+pole_list
-        return result
-    @staticmethod
-    def Guess2(fs,fe,num_zero_pairs,num_pole_pairs):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_zero_pairs int number of pairs of zeros
-        @param num_pole_pairs int number of pairs of poles
-        @remark there must be more pole pairs than zero pairs
-        """
-        minQ=0.5
-        maxQ=20
-        log_fe=math.log10(fe)
-        log_fs=math.log10(fs)
-        twopi=2*math.pi
-        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
-
-        frequency_location = [10.0**((log_fe-log_fs)/(num_pole_zero_pairs-1)*npz + log_fs)
-                                for npz in range(num_pole_zero_pairs)]
-
-        # for each frequency location, determine whether it is a zero or a pole
-        is_a_pole = [True for _ in frequency_location]
-        if num_zero_pairs > 0:
-            skip=num_pole_pairs/num_zero_pairs
-            start=math.floor(num_pole_pairs/num_zero_pairs/2)
-            for zp in range(num_zero_pairs):
-                is_a_pole[int(zp*(skip+1))+start]=False
-
-        # if not is_a_pole[0]:
-        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
-
-        BW=fe/4
-        # generate the pole frequency and Q for each frequency location
-        pz = [(-BW+1j*fl)*twopi for fl in frequency_location]
-
-        # gather these into poles and zeros
-        zero_list=[]
-        pole_list=[]
-
-        for pzi in range(len(frequency_location)):
-            w0=abs(pz[pzi])
-            Q=abs(w0/(2*pz[pzi].real))
-            if is_a_pole[pzi]:
-                pole_list.extend([w0,Q])
-            else:
-                zero_list.extend([w0,Q])
-
-        # stack the zero information on top of the pole information
-        G = 1
-        Td = 0.012
-        result = [G,Td]+zero_list+pole_list
-        return result
-    @staticmethod
-    def Guess3(fs,fe,num_zero_pairs,num_pole_pairs):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_zero_pairs int number of pairs of zeros
-        @param num_pole_pairs int number of pairs of poles
-        @remark there must be more pole pairs than zero pairs
-        """
-        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
-
-        # for each frequency location, determine whether it is a zero or a pole
-        is_a_pole = [True for _ in range(num_pole_zero_pairs)]
-        if num_zero_pairs > 0:
-            skip=num_pole_pairs/num_zero_pairs
-            start=math.floor(num_pole_pairs/num_zero_pairs/2)
-            for zp in range(num_zero_pairs):
-                is_a_pole[int(zp*(skip+1))+start]=False
-
-        # angles for each pole in the guess off the negative access
-        theta_list=[(pz+1)/num_pole_zero_pairs*80 for pz in range(num_pole_zero_pairs)]
-        zeta_list=[math.cos(t*math.pi/180) for t in theta_list]
-        Q_list=[1/(2*z) for z in zeta_list]
-
-        # gather these into poles and zeros
-        zero_list=[]
-        pole_list=[]
-
-        for pzi in range(num_pole_zero_pairs):
-            w0=abs(fe/4*2*math.pi)
-            Q=Q_list[pzi]
-            if is_a_pole[pzi]:
-                pole_list.extend([w0,Q])
-            else:
-                zero_list.extend([w0,Q])
-
-        # stack the zero information on top of the pole information
-        G = 1
-        Td = 0.012
-        result = [G,Td]+zero_list+pole_list
-        return result
-    @staticmethod
-    def Guess4(fs,fe,num_zero_pairs,num_pole_pairs):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_zero_pairs int number of pairs of zeros
-        @param num_pole_pairs int number of pairs of poles
-        @remark there must be more pole pairs than zero pairs
-        """
-        log_fe=math.log2(fs)
-        log_fs=math.log2(fe)
-        twopi=2*math.pi
-        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
-
-        frequency_location = [2**((log_fe-log_fs)/(num_pole_zero_pairs-1)*npz + log_fs)
-                                for npz in range(num_pole_zero_pairs)]
-
-        # for each frequency location, determine whether it is a zero or a pole
-        is_a_pole = [True for _ in frequency_location]
-        if num_zero_pairs > 0:
-            skip=num_pole_pairs/num_zero_pairs
-            start=math.floor(num_pole_pairs/num_zero_pairs/2)
-            start=0
-            for zp in range(num_zero_pairs):
-                is_a_pole[int(zp*(skip+1))+start]=False
-
-        # if not is_a_pole[0]:
-        #     is_a_pole=[is_a_pole[-1]]+is_a_pole[1:]
-
-        # generate the pole frequency and Q for each frequency location
-        pz = [-real_pole_frequency*twopi for real_pole_frequency in frequency_location]
-
-        # gather these into poles and zeros
-        zero_list=[]
-        pole_list=[]
-
-        for pzi in range(len(frequency_location)):
-            w0=abs(pz[pzi])
-            Q=abs(w0/(2*pz[pzi].real))
-            if is_a_pole[pzi]:
-                pole_list.extend([w0,Q])
-            else:
-                zero_list.extend([w0,Q])
-
-        # stack the zero information on top of the pole information
-        G = 1
-        Td = 0.0
-        result = [G,Td]+zero_list+pole_list
-        return result
-
-    @staticmethod
-    def Guess5(fs,fe,num_zero_pairs,num_pole_pairs):
-        """constructs a reasonable guess  
-        The guess is designed to be set of real poles and zeros.
-        It starts with a zero, followed by two poles, followed by two zeros, and so on.
-        This sequence of zppz zppz zppz ... where the zeros and poles are on an equal logarithmic
-        spacing causes the guess to be bumpy.
-        The gain is set to unity and the delay is set to zero initially.
-        @param fs float start frequency
-        @param fe float end frequency
-        @param num_zero_pairs int number of pairs of zeros
-        @param num_pole_pairs int number of pairs of poles
-        @remark there must be more pole pairs than zero pairs
-        """
-        num_pole_zero_pairs = num_zero_pairs+num_pole_pairs
-        log_fe=math.log2(fe)
-        log_fs=math.log2(fs)
-        twopi=2*math.pi
-
-        num_pole_zeros = num_pole_zero_pairs*2
-
-        frequency_location = [2**((log_fe-log_fs)/(num_pole_zeros-1)*npz + log_fs)
-                                for npz in range(num_pole_zeros)]
-
-        # generate the pole frequency and Q for each frequency location
-        pz = [-real_pole_frequency*twopi for real_pole_frequency in frequency_location]
-
-        pole_first=True
-
-        # gather these into poles and zeros
-        zero_frequency_list=[]
-        pole_frequency_list=[]
-
-        for pzp in range(len(pz)):
-            if len(zero_frequency_list) == num_zero_pairs*2:
-                is_a_pole = True
-            else:
-                is_a_pole = ((pzp + (3 if pole_first else 1))//2)%2 == 1
-            if is_a_pole:
-                pole_frequency_list.append(pz[pzp])
-            else:
-                zero_frequency_list.append(pz[pzp])
-
-        zero_pole_frequency_list = zero_frequency_list + pole_frequency_list
-
-        zero_pole_quadratic_list = []
-
-        for pzp in range(num_pole_zero_pairs):
-            w0=abs(np.sqrt(zero_pole_frequency_list[pzp*2]*zero_pole_frequency_list[pzp*2+1]))
-            Q=abs(w0/(zero_pole_frequency_list[pzp*2]+zero_pole_frequency_list[pzp*2+1]))
-            zero_pole_quadratic_list.extend([w0,Q])
-
-        # stack the zero information on top of the pole information
-        G = 1
-        Td = 0.0
-        result = [G,Td]+zero_pole_quadratic_list
-        return result
+        self.ccm._tolerance=0
     def fF(self,a):
         self.tf=self._tf_class(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
         return np.array(self.tf.fF).reshape(-1, 1)
@@ -368,7 +110,7 @@ class PoleZeroLevMar(LevMar):
         return np.array(self.tf.fJ)
     def AdjustVariablesAfterIteration(self,a):
         from random import random
-        wmax=self.f[-1]*2.*np.pi*5
+        wmax=self.f[-1]*2.*np.pi*self.max_frequency_multiplier
         # variables must be real
         for r in range(len(a)):
             a[r][0]=a[r][0].real
@@ -398,7 +140,9 @@ class PoleZeroLevMar(LevMar):
         for r in range(2,len(a),2):
             a[r][0]=abs(a[r][0])
             a[r][0]=min(a[r][0],wmax+random()/100)
-        a[0][0]=self.y[0][0].real
+        # fix DC gain
+        if self.fix_gain:
+            a[0][0]=self.y[0][0].real
         return a
     def Results(self):
         results=[self.m_a[r][0].real for r in range(self.m_a.shape[0])]

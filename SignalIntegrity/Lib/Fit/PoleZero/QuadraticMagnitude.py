@@ -22,26 +22,25 @@ import math
 import numpy as np
 
 class GainMagnitude(object):
-    def __init__(self,ω,G):
+    def __init__(self,ω,G,fix_gain=False):
         self.ω=ω
         self.G=G
         self.H=G
-        self.pHpG=1
-        self.pHpG=10000
+        # if gain is fixed, make partial derivative very high
+        self.pHpG=10000 if fix_gain else 1
 
 class DelayMagnitude(object):
-    def __init__(self,ω,Td):
+    def __init__(self,ω,Td,fix_delay=True):
         self.ω=ω
         self.Td=Td
         self.H=1
-        self.pHpTd=10000
-
+        self.pHpTd=10000 if fix_delay else 0
 
 class PolePairMagnitude(object):
+    """
+        pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = α/(γ+jδ)
+    """
     def __init__(self,ω,ωp,Qp):
-        """
-            pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = α/(γ+jδ)
-        """
         self.ω=ω
         self.ωp=ωp
         self.Qp=Qp
@@ -105,7 +104,13 @@ class ZeroPairMagnitude(object):
         pass
 
 class TransferFunctionOneFrequencyMagnitude(object):
-    def __init__(self,ω,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=True):
         """
         The variable list is assumed to be in the following format:
 
@@ -114,8 +119,8 @@ class TransferFunctionOneFrequencyMagnitude(object):
         """
         self.ω=ω
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = GainMagnitude(ω,self.variable_list[0])
-        self.delay = DelayMagnitude(ω,self.variable_list[1])
+        self.gain = GainMagnitude(ω,self.variable_list[0],fix_gain)
+        self.delay = DelayMagnitude(ω,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairMagnitude(ω,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz
@@ -141,16 +146,33 @@ class TransferFunctionOneFrequencyMagnitude(object):
             self.pd.extend(this_pd)
 
 class TransferFunctionMagnitude(object):
-    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω_list,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=True):
         self.fF=[]
         self.fJ=[]
         for ω in ω_list:
-            tf=TransferFunctionOneFrequencyMagnitude(ω,variable_list,num_zero_pairs,num_pole_pairs)
+            tf=TransferFunctionOneFrequencyMagnitude(ω,
+                                                     variable_list,
+                                                     num_zero_pairs,
+                                                     num_pole_pairs,
+                                                     fix_gain,
+                                                     fix_delay)
             self.fF.append(tf.H)
             self.fJ.append(tf.pd)
 
 class TransferFunctionMagnitudeVectorized(object):
-    def __init__(self,ω_list,variable_list,num_zero_pairs,num_pole_pairs):
+    def __init__(self,
+                 ω_list,
+                 variable_list,
+                 num_zero_pairs,
+                 num_pole_pairs,
+                 fix_gain=False,
+                 fix_delay=True):
         """
         The variable list is assumed to be in the following format:
 
@@ -159,8 +181,8 @@ class TransferFunctionMagnitudeVectorized(object):
         """
         self.ω_list = np.array(ω_list)
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
-        self.gain = GainMagnitude(self.ω_list,self.variable_list[0])
-        self.delay = DelayMagnitude(self.ω_list,self.variable_list[1])
+        self.gain = GainMagnitude(self.ω_list,self.variable_list[0],fix_gain)
+        self.delay = DelayMagnitude(self.ω_list,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairMagnitude(self.ω_list,
                                         self.variable_list[s*2+2+0], # ωz
                                         self.variable_list[s*2+2+1]) # Qz
