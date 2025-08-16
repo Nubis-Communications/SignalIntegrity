@@ -34,7 +34,7 @@ with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "r") as f:
             dataValue=eval(token[1].strip().strip(os.linesep))
             globals()['__'+keyValue+'__']=dataValue
 
-install_requires=['setuptools>=58.2.0','pip>=20.2.4','numpy>=1.13.0,<=2.0.0','matplotlib>=2.2.3','urllib3>=1.22.0','Pillow>=5.4.1','scipy>=1.2.1']
+install_requires=['setuptools>=58.2.0','pip>=20.2.4','numpy>=1.13.0,<=1.26.6','matplotlib>=2.2.3','urllib3>=1.22.0','Pillow>=5.4.1','scipy>=1.2.1']
 
 pathToIcons='SignalIntegrity/App/icons/png'
 pathToMoreIcons=pathToIcons+'/16x16/actions'
@@ -96,7 +96,8 @@ setup(
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [
-          'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main']},
+          'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main',
+          'ERL = SignalIntegrity.Utilities.ERL.ERL:ERL_Main']},
     long_description=readmeFile,
     long_description_content_type="text/markdown",
     classifiers=[
