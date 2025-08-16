@@ -97,7 +97,8 @@ setup(
     entry_points={
       'console_scripts': [
           'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main',
-          'ERL = SignalIntegrity.Utilities.ERL.ERL:ERL_Main']},
+          'ERL = SignalIntegrity.Utilities.ERL.ERL:ERL_Main',
+          'PZ = SignalIntegrity.Utilities.PZ.PZ:PZ_Main']},
     long_description=readmeFile,
     long_description_content_type="text/markdown",
     classifiers=[
