@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -99,32 +99,38 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> array</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> numpy.linalg <span class="keyword">import</span> inv</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a> <span class="keyword">import</span> Z0KHelper</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">ABCD2S</a>(ABCD,Z0=None,K=None):</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Converts ABCD parameters to s-parameters.\n</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="stringliteral">    @param ABCD list of list representing ABCD matrix to convert.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">    @param Z0 (optional) float or complex or list of reference impedance (defaults to None).</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    @param K (optional) float or complex or list of scaling factor (defaults to None).</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    @note</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    Supports only two-port devices.\n</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    @see Z0KHelper to see how the reference impedance</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    and scaling factor are determined.</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    ABCD=array(ABCD)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    (Z0,K)=Z0KHelper((Z0,K),len(ABCD))</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">   36</a></span>&#160;    Z01=Z0.item(0,0)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    Z02=Z0.item(1,1)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    K1=K.item(0,0)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    K2=K.item(1,1)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    C11=array([[0,0],[1.0/(2.0*K2),Z02/(2.0*K2)]])</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    C12=array([[1.0/(2.0*K1),-Z01/(2.0*K1)],[0,0]])</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    C21=array([[0,0],[1.0/(2.0*K2),-Z02/(2.0*K2)]])</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    C22=array([[1.0/(2.0*K1),Z01/(2.0*K1)],[0,0]])</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> (C21+C22.dot(ABCD)).dot(inv(C11+C12.dot(ABCD))).tolist()</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a> <span class="keyword">import</span> Z0KHelper</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">ABCD2S</a>(ABCD,Z0=None,K=None):</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Converts ABCD parameters to s-parameters.\n</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">    @param ABCD list of list representing ABCD matrix to convert.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    @param Z0 (optional) float or complex or list of reference impedance (defaults to None).</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    @param K (optional) float or complex or list of scaling factor (defaults to None).</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    @note</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    Supports only two-port devices.\n</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @see Z0KHelper to see how the reference impedance</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    and scaling factor are determined.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    ABCD=array(ABCD)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    (Z0,K)=Z0KHelper((Z0,K),len(ABCD))</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">   37</a></span>&#160;    Z01=Z0.item(0,0)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    Z02=Z0.item(1,1)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    K1=K.item(0,0)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    K2=K.item(1,1)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    C11=array([[0,0],[1.0/(2.0*K2),Z02/(2.0*K2)]])</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    C12=array([[1.0/(2.0*K1),-Z01/(2.0*K1)],[0,0]])</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    C21=array([[0,0],[1.0/(2.0*K2),-Z02/(2.0*K2)]])</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    C22=array([[1.0/(2.0*K1),Z01/(2.0*K1)],[0,0]])</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    result = (C21+C22.dot(ABCD)).dot(inv(C11+C12.dot(ABCD))).tolist()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> np.any(np.isnan(result)):</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">raise</span> np.linalg.LinAlgError</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> result</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S_xhtml_ae075a51c3cf3cc997d3b020768fd0634"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">SignalIntegrity.Lib.Conversions.ABCD2S.ABCD2S</a></div><div class="ttdeci">def ABCD2S(ABCD, Z0=None, K=None)</div><div class="ttdoc">Converts ABCD parameters to s-parameters.</div><div class="ttdef"><b>Definition:</b> <a href="ABCD2S_8py_source.xhtml#l00036">ABCD2S.py:36</a></div></div>
+<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S_xhtml_ae075a51c3cf3cc997d3b020768fd0634"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ABCD2S.xhtml#ae075a51c3cf3cc997d3b020768fd0634">SignalIntegrity.Lib.Conversions.ABCD2S.ABCD2S</a></div><div class="ttdeci">def ABCD2S(ABCD, Z0=None, K=None)</div><div class="ttdoc">Converts ABCD parameters to s-parameters.</div><div class="ttdef"><b>Definition:</b> <a href="ABCD2S_8py_source.xhtml#l00037">ABCD2S.py:37</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="Z0KHelper_8py_source.xhtml#l00001">Z0KHelper.py:1</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

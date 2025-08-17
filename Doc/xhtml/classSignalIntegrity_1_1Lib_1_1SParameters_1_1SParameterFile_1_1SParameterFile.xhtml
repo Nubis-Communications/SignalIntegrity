@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -88,12 +88,12 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for SParameterFile:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile__inherit__graph.svg" width="258" height="838"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile__inherit__graph.svg" width="258" height="852"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for SParameterFile:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile__coll__graph.svg" width="258" height="838"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterFile_1_1SParameterFile__coll__graph.svg" width="258" height="852"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -239,9 +239,10 @@ Additional Inherited Members</h2></td></tr>
 </p>
 <p>If the reference impedance of the Touchstone 1.0 file read is not the reference impedance specified, then the reference impedance of the s-parameters are converted to the reference impedance specified.</p>
 <p>The callback function is used to pass down into s-parameter files that are actually <a class="el" href="namespaceSignalIntegrity.xhtml">SignalIntegrity</a> projects so that progress can be tracked and the UI thread can be kept updated. The callback function should have a signature like Callback(self,number,name=None), where the number is the progress in percent and the name is the name of the file being processed.</p>
-<p>If the name is the name of an s-parameter file and one of the kwarg keywords is 'text', then the item associated with the keyword is assumed be a text stream containing s-parameter data to directly fill in. In this case, the file name is used only to determine the number of ports. </p>
+<p>If the name is the name of an s-parameter file and one of the kwarg keywords is 'text', then the item associated with the keyword is assumed be a text stream containing s-parameter data to directly fill in. In this case, the file name is used only to determine the number of ports.</p>
+<p>if a kwarg keyword is 'reorder', then it is followed by a string of comma separted integer one-based values representing the ports to take the data from in the list. For example, a two-port with the argument 'reorder 1,2' will return the s-parameters unchanged, but 'reorder 2,1' will swap the ports. You can also use 'reorder 1' to extract the port 1 return loss and convert it into a one-port s-parameter. </p>
 
-<p class="definition">Definition at line <a class="el" href="SParameterFile_8py_source.xhtml#l00061">61</a> of file <a class="el" href="SParameterFile_8py_source.xhtml">SParameterFile.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SParameterFile_8py_source.xhtml#l00068">68</a> of file <a class="el" href="SParameterFile_8py_source.xhtml">SParameterFile.py</a>.</p>
 
 </div>
 </div>

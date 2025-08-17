@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -184,11 +184,23 @@ $(function() {
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        order = self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0178916f92e31f28755fe139e6185c66">Order</a>()</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        length=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a1aa9376a9a845bd4be3cadf3f954a76b">PatternLength</a>() <span class="keywordflow">if</span> bits == <span class="keywordtype">None</span> <span class="keywordflow">else</span> min(self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a1aa9376a9a845bd4be3cadf3f954a76b">PatternLength</a>(),bits)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        pattern = [1 <span class="keywordflow">if</span> k &lt; order <span class="keywordflow">else</span> 0 <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(length)]</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(order,length):</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            pattern[i]=sum([self[order-p]*pattern[i-(order-p)] <span class="keywordflow">for</span> p <span class="keywordflow">in</span> range(order)])%2</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        pattern = [(b+1)%2 <span class="keywordflow">for</span> b <span class="keywordflow">in</span> pattern]</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#ab029b6e70016e607fafc6396e7fb8f8b">  110</a></span>&#160;        <span class="keywordflow">return</span> pattern</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        taps=[]</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> b <span class="keywordflow">in</span> range(1,len(self)):</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">if</span> self[b] == 1:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                taps.append(b-1)</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#ab029b6e70016e607fafc6396e7fb8f8b">  110</a></span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        lfsr = [1] * order</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        pattern = []</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(length):</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            pattern.append(lfsr[-1])</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            feedback = 0</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">for</span> tap <span class="keywordflow">in</span> taps:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                feedback ^= lfsr[tap]</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            lfsr = [feedback] + lfsr[:-1]</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        pattern = [(b+1)%2 <span class="keywordflow">for</span> b <span class="keywordflow">in</span> pattern]</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> pattern</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial_xhtml_ab029b6e70016e607fafc6396e7fb8f8b"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#ab029b6e70016e607fafc6396e7fb8f8b">SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial.PseudoRandomPolynomial.Pattern</a></div><div class="ttdeci">def Pattern(self, bits=None)</div><div class="ttdoc">generate a list of pseudo-random bits according to the polynomial</div><div class="ttdef"><b>Definition:</b> <a href="PseudoRandomPolynomial_8py_source.xhtml#l00110">PseudoRandomPolynomial.py:110</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial_xhtml_a0178916f92e31f28755fe139e6185c66"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml#a0178916f92e31f28755fe139e6185c66">SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial.PseudoRandomPolynomial.Order</a></div><div class="ttdeci">def Order(self)</div><div class="ttdoc">Order.</div><div class="ttdef"><b>Definition:</b> <a href="PseudoRandomPolynomial_8py_source.xhtml#l00091">PseudoRandomPolynomial.py:91</a></div></div>

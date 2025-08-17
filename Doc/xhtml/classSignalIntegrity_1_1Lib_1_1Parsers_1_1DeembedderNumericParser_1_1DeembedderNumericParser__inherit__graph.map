@@ -6,5 +6,5 @@
 <area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,5,280,127"/>
 <area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="225,520,367,656"/>
 <area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="391,535,507,641"/>
-<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="390,233,509,413"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="374,182,525,465"/>
 </map>

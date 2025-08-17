@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -89,13 +89,12 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for Numeric:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric__inherit__graph.svg" width="547" height="316"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric__inherit__graph.svg" width="547" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for Numeric:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric__coll__graph.svg" width="182" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric__coll__graph.svg" width="244" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -115,6 +114,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:ab68a1b423941c51e8ccefab1d0e03680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4988712fe9d27667a418ba322755b771"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a4988712fe9d27667a418ba322755b771">trySVD</a> = True</td></tr>
 <tr class="separator:a4988712fe9d27667a418ba322755b771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4d9cba12584ac592ce4afaf64f25a57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab4d9cba12584ac592ce4afaf64f25a57">allowPossibleNonUniqueSolutions</a> = False</td></tr>
+<tr class="separator:ab4d9cba12584ac592ce4afaf64f25a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c2157bee115aa144fec375764475eea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a1c2157bee115aa144fec375764475eea">singularValueLimit</a> = 1e-10</td></tr>
 <tr class="separator:a1c2157bee115aa144fec375764475eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08b8b3235dd64fbd582af36b14ad9978"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#a08b8b3235dd64fbd582af36b14ad9978">conditionNumberLimit</a> = 1e-10</td></tr>
@@ -190,6 +191,12 @@ Static Public Attributes</h2></td></tr>
      In many cases, the matrices \f$\mathbf{L}\f$
      and/or \f$\mathbf{R}\f$ are such that the all of the elements of the inverse of
      \f$\mathbf{A}\f$ are not used.
+     Usually, in this case, \f$\Sigma\f$ contains some zero values.  The left and right matrices are used
+     to see whether the inverse of the zero singular value would be selected.  If both a column of the left
+     matrix and a row of the right matrix both contain zeros such that they don't select the singular value,
+     it can be removed and does not affect the answer.  If either the left or the right matrix don't select
+     the element, then allowing the solution allows for possible, non-unique values to be generated.
+     @see allowPossibleNonUniqueSolutions
      Think of it as we only want to find certain elements of the inverse.  Situations like
      this arise, for example, when we have two wires in parallel connected to two circuit
      nodes.  We are not able to calculate the current through each of the wires, but we
@@ -214,7 +221,7 @@ Static Public Attributes</h2></td></tr>
      @see singularValueLimit
      @throw LinAlgError if anything fails.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00091">91</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00098">98</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
 
 </div>
 </div>
@@ -245,10 +252,10 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>obsolete </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.xhtml#_deprecated000004">Deprecated:</a></b></dt><dd>this function is no longer needed with the svd calculation.</dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.xhtml#_deprecated000005">Deprecated:</a></b></dt><dd>this function is no longer needed with the svd calculation.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab5426fd52fdb799a9317c38b09b7e40a">Dagger</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00039">39</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00040">40</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
 
 </div>
 </div>
@@ -295,11 +302,36 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Row permutation matrix that if multiplied by matrix to the right, extracts the rows in rowList </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>if the transpose of this matrix is post-multiplied by a matrix from the right, the columns in rowList would be exracted. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00181">181</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00191">191</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab4d9cba12584ac592ce4afaf64f25a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4d9cba12584ac592ce4afaf64f25a57">&#9670;&nbsp;</a></span>allowPossibleNonUniqueSolutions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">allowPossibleNonUniqueSolutions = False</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>when using the SVD, there is the possibility of a solution, that is not unique, but is possible. Generally, this is not allowed and unique solutions are required, otherwise one can learn incorrect things from the simulator. </p>
+
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00031">31</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+
+</div>
+</div>
 <a id="ab68a1b423941c51e8ccefab1d0e03680"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab68a1b423941c51e8ccefab1d0e03680">&#9670;&nbsp;</a></span>alwaysUseSVD</h2>
 
@@ -346,7 +378,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>The limit on the condition number of the inverse of the matrix before the matrix inverse is considered suspect. Defaults to 1e-1. </p>
 
-<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00032">32</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00033">33</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
 
 </div>
 </div>
@@ -371,7 +403,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>The limit on numbers that are multiplied by the inverse of the singular value before they are considered zero. Defaults to 1e-10. </p>
 
-<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00031">31</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Numeric_8py_source.xhtml#l00032">32</a> of file <a class="el" href="Numeric_8py_source.xhtml">Numeric.py</a>.</p>
 
 </div>
 </div>

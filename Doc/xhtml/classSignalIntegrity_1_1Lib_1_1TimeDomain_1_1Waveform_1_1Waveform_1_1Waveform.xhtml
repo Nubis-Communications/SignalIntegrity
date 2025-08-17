@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -88,7 +88,7 @@ $(function() {
 <div class="dynheader">
 Inheritance diagram for Waveform:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform__inherit__graph.svg" width="1456" height="603"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform__inherit__graph.svg" width="2035" height="603"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for Waveform:</div>
@@ -329,7 +329,7 @@ valid types of other to add are:</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>boolean whether the waveforms are equal to each other. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>an epsilon of 1e-6 is used for the compare. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00308">308</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00316">316</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -370,6 +370,8 @@ valid types of other to add are:</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>does not affect self </dd>
 <dd>
 <a class="el" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms">Waveform</a> multiplication is an abstraction in some cases. The result for types of other is:<ul>
+<li>FrequencyResponse - returns self convolved with the corresponding impulse response.</li>
+<li><a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse.xhtml">ImpulseResponse</a> - returns self convolved with the impulse response.</li>
 <li>WaveformProcessor - returns self processed by the instance of WaveformProcessor.</li>
 <li>float,int,complex - returns the <a class="el" href="classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms">Waveform</a> produced by multiplying all of the values in self multiplied by the constant value supplied. </li>
 </ul>
@@ -383,7 +385,7 @@ The most obvious type of WaveformProcessor is a FirFilter, but there are others 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00196">196</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00198">198</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -422,7 +424,7 @@ The most obvious type of WaveformProcessor is a FirFilter, but there are others 
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boolean whether the waveforms are not equal to each other. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00324">324</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00332">332</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -563,7 +565,7 @@ should consider allowing a two waveforms to be divided, but frankly never came u
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00225">225</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00233">233</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -621,7 +623,7 @@ SignalIntegrity.TimeDomain.Filters.WaveformDecimator.WaveformDecimator </dd>
 <dd>
 SignalIntegrity.Rat.Rat </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00344">344</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00352">352</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -717,7 +719,7 @@ SignalIntegrity.Rat.Rat </dd></dl>
 </dl>
 <dl class="todo"><dt><b><a class="el" href="todo.xhtml#_todo000014">Todo:</a></b></dt><dd>remove argument c.</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00444">444</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00452">452</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -761,7 +763,7 @@ SignalIntegrity.Rat.Rat </dd></dl>
 <dd>
 SignalIntegrity.FrequencyDomain.FrequencyList </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00404">404</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00412">412</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -814,7 +816,7 @@ SignalIntegrity.FrequencyDomain.FrequencyList </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00419">419</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00427">427</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -856,7 +858,7 @@ SignalIntegrity.FrequencyDomain.FrequencyList </dd></dl>
 <dd>
 linearly interpolates nearest point </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00384">384</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00392">392</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -940,7 +942,7 @@ the normal waveform format is one number per line starting with the horizontal o
 <dd>
 if the file extension is '.trc', then LeCroy waveform format is assumed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00245">245</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00253">253</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -979,7 +981,7 @@ if the file extension is '.trc', then LeCroy waveform format is assumed </dd></d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00470">470</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00478">478</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -1123,7 +1125,7 @@ if the file extension is '.trc', then LeCroy waveform format is assumed </dd></d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00479">479</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00487">487</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -1161,7 +1163,7 @@ if the file extension is '.trc', then LeCroy waveform format is assumed </dd></d
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00463">463</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00471">471</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1203,7 @@ if the file extension is '.trc', then LeCroy waveform format is assumed </dd></d
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>the waveform format written is one number per line starting with the horizontal offset followed by the number of points followed by the sample rate. The remaining lines contain one waveform point per line. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00284">284</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Waveform_8py_source.xhtml#l00292">292</a> of file <a class="el" href="Waveform_8py_source.xhtml">Waveform.py</a>.</p>
 
 </div>
 </div>

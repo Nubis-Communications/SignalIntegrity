@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -114,7 +114,7 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self[<span class="stringliteral">&#39;Visible&#39;</span>]=pinVisible</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>]=pinNumberingMatters</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self[<span class="stringliteral">&#39;NumberSide&#39;</span>]=numberSide</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>DrawPin(self,canvas,grid,partOrigin,color,connected):</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>CalculateCoordinates(self,grid,partOrigin):</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        pinConnectionPoint=self[<span class="stringliteral">&#39;ConnectionPoint&#39;</span>]</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        startx=(pinConnectionPoint[0]+partOrigin[0])*grid</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        starty=(pinConnectionPoint[1]+partOrigin[1])*grid</div>
@@ -167,17 +167,20 @@ $(function() {
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                textx=startx+textGrid/4</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">else</span>:</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                texty=starty+textGrid/2</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;Visible&#39;</span>]:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            canvas.create_line(startx,starty,endx,endy,fill=color)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> connected <span class="keywordflow">and</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            size=max(1,grid/8)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment"># comment this in for editing book</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">#if self.pinNumberingMatters:</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">#    self.pinNumberVisible=True</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;NumberVisible&#39;</span>] <span class="keywordflow">or</span> (self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>] <span class="keywordflow">and</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]):</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            canvas.create_text(textx,texty,text=str(self[<span class="stringliteral">&#39;Number&#39;</span>]),anchor=anchorString,fill=color)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> anchorString,startx,starty,endx,endy,textx,texty</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">def </span>DrawPin(self,canvas,grid,partOrigin,color,connected):</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        anchorString,startx,starty,endx,endy,textx,texty=self.CalculateCoordinates(grid,partOrigin)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;Visible&#39;</span>]:</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            canvas.create_line(startx,starty,endx,endy,fill=color)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> connected <span class="keywordflow">and</span> <span class="keywordflow">not</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            size=max(1,grid/8)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            canvas.create_line(startx-size,starty-size,startx+size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            canvas.create_line(startx+size,starty-size,startx-size,starty+size,fill=<span class="stringliteral">&#39;red&#39;</span>,width=2)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment"># comment this in for editing book</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">#if self.pinNumberingMatters:</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="comment">#    self.pinNumberVisible=True</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">if</span> self[<span class="stringliteral">&#39;NumberVisible&#39;</span>] <span class="keywordflow">or</span> (self[<span class="stringliteral">&#39;NumberingMatters&#39;</span>] <span class="keywordflow">and</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a>[<span class="stringliteral">&#39;Appearance.AllPinNumbersVisible&#39;</span>]):</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            canvas.create_text(textx,texty,text=str(self[<span class="stringliteral">&#39;Number&#39;</span>]),anchor=anchorString,fill=color)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFile_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFile_8py_source.xhtml#l00001">ProjectFile.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1Preferences_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1Preferences.xhtml">SignalIntegrity.App.Preferences</a></div><div class="ttdef"><b>Definition:</b> <a href="Preferences_8py_source.xhtml#l00001">Preferences.py:1</a></div></div>

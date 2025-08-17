@@ -1,6 +1,6 @@
 <map id="FrequencyDomain" name="FrequencyDomain">
-<area shape="rect" id="node1" title="base class for frequency domain elements." alt="" coords="116,5,271,200"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml" title="Handles frequency content of waveforms." alt="" coords="5,248,192,443"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="216,277,363,413"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1Differentiator_1_1Differentiator.xhtml" title="Frequency response of a differentiator." alt="" coords="241,491,338,568"/>
+<area shape="rect" id="node1" title="base class for frequency domain elements." alt="" coords="116,5,271,244"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml" title="Handles frequency content of waveforms." alt="" coords="5,292,192,487"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml" title="FrequencyResponse &#160;&#160;Frequency response view of a waveform assumed computed from the FrequencyResponse..." alt="" coords="216,321,363,457"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1Differentiator_1_1Differentiator.xhtml" title="Frequency response of a differentiator." alt="" coords="241,535,338,612"/>
 </map>

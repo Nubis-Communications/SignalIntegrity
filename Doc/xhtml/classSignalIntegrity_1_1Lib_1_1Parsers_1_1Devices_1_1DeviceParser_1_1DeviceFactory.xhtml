@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -161,7 +161,7 @@ Public Attributes</h2></td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">open </td><td class="markdownTableBodyCenter">1 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Open()  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter">thru </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Thru()  </td></tr>
+<td class="markdownTableBodyCenter">thru </td><td class="markdownTableBodyCenter">any </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Thru(ports)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">directional<br  />
  coupler </td><td class="markdownTableBodyCenter">3-4 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.DirectionalCoupler(ports)  </td></tr>
@@ -265,6 +265,14 @@ Public Attributes</h2></td></tr>
 <td class="markdownTableBodyCenter">currenttovoltageconverter </td><td class="markdownTableBodyCenter">3 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter">z0=50 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealCurrentToVoltageConverter(z0)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyCenter">voltagetovoltageconverter </td><td class="markdownTableBodyCenter">3 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealVoltageToVoltageConverter()  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">raisedcosinerisetimefilter </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">rt=None rt_type=1090 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.RaisedCosineRisetimeFilter(f,rt,is1090,Z0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">gaussianrisetimefilter </td><td class="markdownTableBodyCenter">2 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyCenter">rt=None rt_type=1090 </td><td class="markdownTableBodyCenter">True </td><td class="markdownTableBodyLeft">sp.dev.GaussianRisetimeFilter(f,rt,is1090,Z0)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">balun </td><td class="markdownTableBodyCenter">3 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.IdealBalun()  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">reference </td><td class="markdownTableBodyCenter">3 </td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyCenter"></td><td class="markdownTableBodyCenter">False </td><td class="markdownTableBodyLeft">dev.Reference()  </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>ports any mean None supplied. comma or dash separated ports are supplied as a string. </dd>
 <dd>
@@ -274,7 +282,7 @@ frequency dependent devices usually come from 'sp.dev' meaning <a class="el" hre
 <dd>
 Usually when an argument is defaulted to None, the device production will fail if the argument is not supplied - meaning the default value cannot be used. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00118">118</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00122">122</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -351,7 +359,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 </dl>
 <p>The callback function is used to pass down into s-parameter files that are actually <a class="el" href="namespaceSignalIntegrity.xhtml">SignalIntegrity</a> projects so that progress can be tracked and the UI thread can be kept updated. The callback function should have a signature like Callback(self,number,name=None), where the number is the progress in percent and the name is the name of the file being processed. </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00298">298</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00308">308</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -369,7 +377,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 </div><div class="memdoc">
 <p>instance of class <a class="el" href="namespaceSignalIntegrity_1_1Lib_1_1SParameters.xhtml">SParameters</a> or list of list matrix when not frequency dependent. </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00350">350</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00364">364</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>
@@ -386,7 +394,7 @@ Usually when an argument is defaulted to None, the device production will fail i
 </div><div class="memdoc">
 <p>boolean whether dev is frequency dependent. pragma: include </p>
 
-<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00412">412</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DeviceParser_8py_source.xhtml#l00426">426</a> of file <a class="el" href="DeviceParser_8py_source.xhtml">DeviceParser.py</a>.</p>
 
 </div>
 </div>

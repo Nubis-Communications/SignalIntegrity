@@ -1,10 +1,10 @@
 <map id="DUTSParametersNumericParser" name="DUTSParametersNumericParser">
-<area shape="rect" id="node1" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="192,748,437,899"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="219,579,411,700"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,233,219,531"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,49,112,141"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,35,280,156"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="243,314,386,450"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="410,329,526,435"/>
-<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="409,5,527,185"/>
+<area shape="rect" id="node1" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="192,851,437,1001"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="219,681,411,803"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="48,336,219,633"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="5,101,112,193"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="136,86,280,207"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="243,417,386,553"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="410,431,526,538"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="393,5,543,288"/>
 </map>

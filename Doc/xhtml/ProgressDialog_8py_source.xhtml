@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -99,83 +99,80 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">#</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">import</span> sys</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordflow">if</span> sys.version_info.major &lt; 3:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">import</span> Tkinter <span class="keyword">as</span> tk</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">from</span> math <span class="keyword">import</span> floor</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">class </span>ProgressDialog(tk.Toplevel):</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">def </span>__init__(self, parent, title, classOfThing, thingToDo, granularity=1.0):</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        tk.Toplevel.__init__(self, parent)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.withdraw()</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.parent=parent</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.transient(parent)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.attributes(<span class="stringliteral">&#39;-topmost&#39;</span>,<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.title(title)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+<span class="stringliteral">&#39;AppIcon2.gif&#39;</span>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.tk.call(<span class="stringliteral">&#39;wm&#39;</span>, <span class="stringliteral">&#39;iconphoto&#39;</span>, self._w, self.img)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.protocol(<span class="stringliteral">&quot;WM_DELETE_WINDOW&quot;</span>, self.destroy)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.barFrame=tk.Frame(self)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.barFrame.pack(side=tk.TOP)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.bar = tk.Canvas(self.barFrame,relief=tk.SUNKEN,borderwidth=1,width=600,height=10)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.bar.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.buttonFrame=tk.Frame(self)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.buttonFrame.pack(side=tk.TOP)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.stopButton = tk.Button(self.buttonFrame,text=<span class="stringliteral">&#39;Stop&#39;</span>,command=self.onStop)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.stopCommand=<span class="keyword">False</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.isShowing=<span class="keyword">False</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.titleList=[title]</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.thingToDo = thingToDo</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.classOfThing = classOfThing</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        self.currentPercent = -1</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.granularity = granularity</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.geometry(<span class="stringliteral">&quot;%+d%+d&quot;</span> % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.resizable(<span class="keyword">False</span>, <span class="keyword">False</span>)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        self.deiconify()</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.wait_visibility(self)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        self.grab_set()</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">def </span>onStop(self):</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.stopCommand=<span class="keyword">True</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">def </span>Callback(self,number,name=None):</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.isShowing:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">if</span> self.stopCommand:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                self.destroy()</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        self.isShowing=<span class="keyword">True</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> name != <span class="keywordtype">None</span> <span class="keywordflow">and</span> len(name) &gt; 0:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">if</span> name[0] == <span class="stringliteral">&#39;+&#39;</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                self.titleList.append(name[1:])</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">elif</span> name[0] == <span class="stringliteral">&#39;-&#39;</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                self.titleList=self.titleList[:-1]</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">if</span> len(self.titleList) &gt; 0:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                self.title(self.titleList[-1])</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> floor(number/self.granularity) != self.currentPercent:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            self.currentPercent = floor(number/self.granularity)  </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            self.bar.create_rectangle(0,0,600*number/100.0,10,fill=<span class="stringliteral">&#39;blue&#39;</span>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            self.bar.create_rectangle(600*number/100.0,0,600,10,fill=<span class="stringliteral">&#39;white&#39;</span>,outline=<span class="stringliteral">&#39;white&#39;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            self.update()</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> self.stopCommand:</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            self.destroy()</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">def </span>GetResult(self):</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        self.classOfThing.InstallCallback(self.Callback)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        self.Callback(0)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            self.result = self.thingToDo()</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">raise</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">finally</span>:</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            self.destroy()</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            self.classOfThing.RemoveCallback()</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">return</span> self.result</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">import</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">from</span> math <span class="keyword">import</span> floor</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>ProgressDialog(tk.Toplevel):</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">def </span>__init__(self, parent, title, classOfThing, thingToDo, granularity=1.0):</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        tk.Toplevel.__init__(self, parent)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.withdraw()</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.parent=parent</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.transient(parent)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.attributes(<span class="stringliteral">&#39;-topmost&#39;</span>,<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        self.title(title)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+<span class="stringliteral">&#39;AppIcon2.gif&#39;</span>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        self.tk.call(<span class="stringliteral">&#39;wm&#39;</span>, <span class="stringliteral">&#39;iconphoto&#39;</span>, self._w, self.img)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.protocol(<span class="stringliteral">&quot;WM_DELETE_WINDOW&quot;</span>, self.destroy)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.barFrame=tk.Frame(self)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.barFrame.pack(side=tk.TOP)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.bar = tk.Canvas(self.barFrame,relief=tk.SUNKEN,borderwidth=1,width=600,height=10)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.bar.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.buttonFrame=tk.Frame(self)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.buttonFrame.pack(side=tk.TOP)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        self.stopButton = tk.Button(self.buttonFrame,text=<span class="stringliteral">&#39;Stop&#39;</span>,command=self.onStop)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        self.stopCommand=<span class="keyword">False</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        self.isShowing=<span class="keyword">False</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        self.titleList=[title]</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        self.thingToDo = thingToDo</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        self.classOfThing = classOfThing</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.currentPercent = -1</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.granularity = granularity</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.geometry(<span class="stringliteral">&quot;%+d%+d&quot;</span> % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        self.resizable(<span class="keyword">False</span>, <span class="keyword">False</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.deiconify()</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.wait_visibility(self)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        self.grab_set()</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">def </span>onStop(self):</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        self.stopCommand=<span class="keyword">True</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">def </span>Callback(self,number,name=None):</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.isShowing:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">if</span> self.stopCommand:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                self.destroy()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        self.isShowing=<span class="keyword">True</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> name != <span class="keywordtype">None</span> <span class="keywordflow">and</span> len(name) &gt; 0:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> name[0] == <span class="stringliteral">&#39;+&#39;</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                self.titleList.append(name[1:])</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">elif</span> name[0] == <span class="stringliteral">&#39;-&#39;</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                self.titleList=self.titleList[:-1]</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">if</span> len(self.titleList) &gt; 0:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                self.title(self.titleList[-1])</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">if</span> floor(number/self.granularity) != self.currentPercent:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            self.currentPercent = floor(number/self.granularity)  </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            self.bar.create_rectangle(0,0,600*number/100.0,10,fill=<span class="stringliteral">&#39;blue&#39;</span>)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            self.bar.create_rectangle(600*number/100.0,0,600,10,fill=<span class="stringliteral">&#39;white&#39;</span>,outline=<span class="stringliteral">&#39;white&#39;</span>)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            self.update()</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> self.stopCommand:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            self.destroy()</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">def </span>GetResult(self):</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        self.classOfThing.InstallCallback(self.Callback)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        self.Callback(0)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            self.result = self.thingToDo()</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">raise</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">finally</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            self.destroy()</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            self.classOfThing.RemoveCallback()</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">return</span> self.result</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1Project_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1Project.xhtml">SignalIntegrity.App.Project</a></div><div class="ttdef"><b>Definition:</b> <a href="Project_8py_source.xhtml#l00001">Project.py:1</a></div></div>
 <!-- start footer part -->

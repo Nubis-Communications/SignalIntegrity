@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -98,115 +98,116 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">#</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a> <span class="keyword">import</span> CalculationPropertiesBase</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFileBase.xhtml">SignalIntegrity.App.ProjectFileBase</a> <span class="keyword">import</span> ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool,XMLPropertyDefaultInt</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>PlotConfiguration(XMLConfiguration):</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">def </span>__init__(self,name):</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        XMLConfiguration.__init__(self,name)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;XInitialized&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MinX&#39;</span>))</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MaxX&#39;</span>))</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;YInitialized&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MinY&#39;</span>))</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MaxY&#39;</span>))</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;M&#39;</span>,1.0))</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;B&#39;</span>,0.0))</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">class </span>SParameterPlotsConfiguration(XMLConfiguration):</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;SParameterPlotConfiguration&#39;</span>)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Magnitude&#39;</span>))</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Phase&#39;</span>))</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Impulse&#39;</span>))</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Step&#39;</span>))</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Impedance&#39;</span>))</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;Delay&#39;</span>,0.0))</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">class </span>PlotProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Plot&#39;</span>)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            self.Add(XMLProperty(<span class="stringliteral">&#39;S&#39;</span>,[[SParameterPlotsConfiguration() <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(0)] <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(0)],<span class="stringliteral">&#39;array&#39;</span>,arrayType=SParameterPlotsConfiguration()))</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;VariableLineWidth&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowPassivityViolations&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowCausalityViolations&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowImpedance&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowExcessInductance&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowExcessCapacitance&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;LogScale&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;LinearVerticalScale&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">class </span>ZoomJoinProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Join&#39;</span>)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;All&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;OffDiagonal&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;Reciprocals&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;Reflects&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">class </span>ZoomFrequenciesProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Frequencies&#39;</span>)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithin&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self[<span class="stringliteral">&#39;Join.All&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        self[<span class="stringliteral">&#39;Join.OffDiagonal&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">class </span>ZoomTimesProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Times&#39;</span>)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithin&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        self[<span class="stringliteral">&#39;Join.OffDiagonal&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">class </span>ZoomVerticalProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Vertical&#39;</span>)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinMagnitudeWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinPhaseWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinImpulseWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinStepImpedanceWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">class </span>SParameterZoomProperties(XMLConfiguration):</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Zoom&#39;</span>)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        self.SubDir(ZoomFrequenciesProperties())</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.SubDir(ZoomTimesProperties())</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.SubDir(ZoomVerticalProperties())</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">class </span>Enforcements(XMLConfiguration):</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        super().__init__(<span class="stringliteral">&#39;Enforcements&#39;</span>)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;PreserveDC&#39;</span>,<span class="keyword">False</span>))</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">class </span>SParameterProperties(CalculationPropertiesBase):</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        CalculationPropertiesBase.__init__(self,<span class="stringliteral">&#39;SParameterProperties&#39;</span>,preferences)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;ReferenceImpedance&#39;</span>,50.0))</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitNegative&#39;</span>,-100e-12))</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitPositive&#39;</span>,10e-9))</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            self.SubDir(SParameterZoomProperties())</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            self.Add(XMLPropertyDefaultInt(<span class="stringliteral">&#39;SignificantDigits&#39;</span>,6))</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        self.SubDir(PlotProperties(preferences))</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        self.SubDir(Enforcements())</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">class </span>SParameterPropertiesProject(ProjectFileBase):</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        ProjectFileBase.__init__(self,<span class="stringliteral">&#39;sp&#39;</span>)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        self.SubDir(SParameterProperties(preferences=<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a> <span class="keyword">import</span> CalculationPropertiesBase</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1App_1_1ProjectFileBase.xhtml">SignalIntegrity.App.ProjectFileBase</a> <span class="keyword">import</span> ProjectFileBase,XMLPropertyDefaultFloat,XMLProperty,XMLConfiguration,XMLPropertyDefaultBool,XMLPropertyDefaultInt</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>PlotConfiguration(XMLConfiguration):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">def </span>__init__(self,name):</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        XMLConfiguration.__init__(self,name)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;XInitialized&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MinX&#39;</span>))</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MaxX&#39;</span>))</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;YInitialized&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MinY&#39;</span>))</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;MaxY&#39;</span>))</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;M&#39;</span>,1.0))</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;B&#39;</span>,0.0))</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">class </span>SParameterPlotsConfiguration(XMLConfiguration):</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;SParameterPlotConfiguration&#39;</span>)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Magnitude&#39;</span>))</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Phase&#39;</span>))</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Impulse&#39;</span>))</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Step&#39;</span>))</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        self.SubDir(PlotConfiguration(<span class="stringliteral">&#39;Impedance&#39;</span>))</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;Delay&#39;</span>,0.0))</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">class </span>PlotProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Plot&#39;</span>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            self.Add(XMLProperty(<span class="stringliteral">&#39;S&#39;</span>,[[SParameterPlotsConfiguration() <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(0)] <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(0)],<span class="stringliteral">&#39;array&#39;</span>,arrayType=SParameterPlotsConfiguration()))</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;VariableLineWidth&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowPassivityViolations&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowCausalityViolations&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowImpedance&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowExcessInductance&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;ShowExcessCapacitance&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;LogScale&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;LinearVerticalScale&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">class </span>ZoomJoinProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Join&#39;</span>)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;All&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;OffDiagonal&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;Reciprocals&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;Reflects&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">class </span>ZoomFrequenciesProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Frequencies&#39;</span>)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithin&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        self[<span class="stringliteral">&#39;Join.All&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        self[<span class="stringliteral">&#39;Join.OffDiagonal&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">class </span>ZoomTimesProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Times&#39;</span>)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithin&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        self[<span class="stringliteral">&#39;Join.OffDiagonal&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">class </span>ZoomVerticalProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Vertical&#39;</span>)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinMagnitudeWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinPhaseWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinImpulseWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;JoinStepImpedanceWithOthers&#39;</span>,<span class="keyword">True</span>))</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        self.SubDir(ZoomJoinProperties())</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        self[<span class="stringliteral">&#39;Join.Reciprocals&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        self[<span class="stringliteral">&#39;Join.Reflects&#39;</span>]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">class </span>SParameterZoomProperties(XMLConfiguration):</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        XMLConfiguration.__init__(self,<span class="stringliteral">&#39;Zoom&#39;</span>)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        self.SubDir(ZoomFrequenciesProperties())</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        self.SubDir(ZoomTimesProperties())</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        self.SubDir(ZoomVerticalProperties())</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">class </span>Enforcements(XMLConfiguration):</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        super().__init__(<span class="stringliteral">&#39;Enforcements&#39;</span>)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        self.Add(XMLPropertyDefaultBool(<span class="stringliteral">&#39;PreserveDC&#39;</span>,<span class="keyword">False</span>))</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">class </span>SParameterProperties(CalculationPropertiesBase):</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">def </span>__init__(self,preferences=False):</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        CalculationPropertiesBase.__init__(self,<span class="stringliteral">&#39;SParameterProperties&#39;</span>,preferences)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> preferences:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;ReferenceImpedance&#39;</span>,50.0))</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitNegative&#39;</span>,-100e-12))</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            self.Add(XMLPropertyDefaultFloat(<span class="stringliteral">&#39;TimeLimitPositive&#39;</span>,10e-9))</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            self.SubDir(SParameterZoomProperties())</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            self.Add(XMLPropertyDefaultInt(<span class="stringliteral">&#39;SignificantDigits&#39;</span>,6))</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        self.SubDir(PlotProperties(preferences))</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        self.SubDir(Enforcements())</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">class </span>SParameterPropertiesProject(ProjectFileBase):</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">def </span>__init__(self):</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        ProjectFileBase.__init__(self,<span class="stringliteral">&#39;sp&#39;</span>)</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        self.SubDir(SParameterProperties(preferences=<span class="keyword">False</span>))</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFileBase_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFileBase.xhtml">SignalIntegrity.App.ProjectFileBase</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFileBase_8py_source.xhtml#l00001">ProjectFileBase.py:1</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1App_1_1ProjectFile_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1App_1_1ProjectFile.xhtml">SignalIntegrity.App.ProjectFile</a></div><div class="ttdef"><b>Definition:</b> <a href="ProjectFile_8py_source.xhtml#l00001">ProjectFile.py:1</a></div></div>

@@ -1,13 +1,15 @@
 <map id="WaveformProcessor" name="WaveformProcessor">
-<area shape="rect" id="node1" title="WaveformProcessor.py." alt="" coords="763,5,913,83"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" title="base filter class for all FIR filters" alt="" coords="373,131,522,296"/>
-<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml" title="combination linear fractional delay and interpolating filter" alt="" coords="546,145,725,281"/>
-<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml" title="combination sinx/x fractional delay and interpolating filter" alt="" coords="749,145,927,281"/>
-<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" title="decimates waveforms" alt="" coords="951,153,1109,274"/>
-<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" title="trims waveforms" alt="" coords="1133,160,1282,267"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml" title="linear fractional delay filter" alt="" coords="5,351,183,429"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml" title="linear interpolating filter" alt="" coords="207,344,338,436"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml" title="sinx/x fractional delay filter" alt="" coords="362,351,533,429"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml" title="sinx/x interpolating filter" alt="" coords="557,344,687,436"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml" title="raised cosine filter" alt="" coords="711,351,845,429"/>
+<area shape="rect" id="node1" title="WaveformProcessor.py." alt="" coords="953,5,1102,83"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" title="base filter class for all FIR filters" alt="" coords="533,131,711,311"/>
+<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml" title="combination linear fractional delay and interpolating filter" alt="" coords="735,153,914,289"/>
+<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml" title="combination sinx/x fractional delay and interpolating filter" alt="" coords="938,153,1117,289"/>
+<area shape="rect" id="node12" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" title="decimates waveforms" alt="" coords="1141,160,1298,281"/>
+<area shape="rect" id="node13" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" title="trims waveforms" alt="" coords="1322,167,1471,274"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml" title="linear fractional delay filter" alt="" coords="5,366,183,443"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml" title="linear interpolating filter" alt="" coords="207,359,338,451"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml" title="sinx/x fractional delay filter" alt="" coords="362,366,533,443"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml" title="sinx/x interpolating filter" alt="" coords="557,359,687,451"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1RaisedCosineFilter_1_1RaisedCosineFilter.xhtml" title="raised cosine filter" alt="" coords="711,366,845,443"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1Risetime_1_1Gaussian_1_1Gaussian.xhtml" title=" " alt="" coords="869,359,956,451"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1Risetime_1_1RaisedCosine_1_1RaisedCosine.xhtml" title=" " alt="" coords="981,359,1085,451"/>
 </map>

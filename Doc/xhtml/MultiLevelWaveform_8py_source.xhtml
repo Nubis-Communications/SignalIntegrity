@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -121,7 +121,7 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">        @note the pseudo-random bits are grouped for each symbol.</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        symbols=int(math.ceil(td.Duration()*baudrate)); levels=pow(2,bitsPerSymbol)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        pattern=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml">PseudoRandomPolynomial</a>(polynomial).Pattern(symbols*bitsPerSymbol)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        pattern=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml">PseudoRandomPolynomial</a>(polynomial).Pattern(symbols*bitsPerSymbol) <span class="keywordflow">if</span> isinstance(polynomial,int) <span class="keywordflow">else</span> polynomial</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        wf=sum([<a class="code" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml">SerialDataWaveform</a>([pattern[(i*bitsPerSymbol+k)%(len(pattern))] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(symbols)],</div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1Prbs_1_1MultiLevelWaveform_1_1MultiLevelWaveform.xhtml#a4fed701d54fe0248724c0b233ccbc033">   45</a></span>&#160;                baudrate,pow(2.,(bitsPerSymbol-k-1.))/(levels-1)*amplitude,risetime,delay,td) <span class="keywordflow">for</span> k <span class="keywordflow">in</span> range(bitsPerSymbol)])</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Waveform.__init__(self,wf)</div>

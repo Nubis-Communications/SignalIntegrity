@@ -1,0 +1,4 @@
+<map id="StandardsDefPRBSWaveform" name="StandardsDefPRBSWaveform">
+<area shape="rect" id="node1" title="a standards defined waveform loaded from a text file with a given rise time and amplitude" alt="" coords="5,321,204,399"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="17,5,193,273"/>
+</map>

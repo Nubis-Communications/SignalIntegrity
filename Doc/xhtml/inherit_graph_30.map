@@ -1,8 +1,19 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml" title="base class that performs forward and inverse wavelet transforms" alt="" coords="5,107,75,133"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies14.xhtml" title="14 tap Daubechies wavelet transformer" alt="" coords="123,5,275,32"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies16.xhtml" title="16 tap Daubechies wavelet transformer" alt="" coords="123,56,275,83"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies4.xhtml" title="4 tap Daubechies wavelet transformer" alt="" coords="126,107,271,133"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletDaubechies8.xhtml" title="8 tap Daubechies wavelet transformer" alt="" coords="126,157,271,184"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1WaveletHaar.xhtml" title="2 tap Haar wavelet transformer" alt="" coords="150,208,247,235"/>
+<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,284,87,311"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Eye_1_1ClockRecovery_1_1ClockRecoveredWaveform.xhtml" title="Resamples an input waveform using clock recovery." alt="" coords="145,5,323,32"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified." alt="" coords="143,56,325,83"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1LevelsMultiLevelWaveform_1_1LevelsMultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="145,107,323,133"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1MultiLevelWaveform_1_1MultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="164,157,304,184"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="163,208,305,235"/>
+<area shape="rect" id="node11" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1StandardsDefPRBSWaveform_1_1StandardsDefPRBSWaveform.xhtml" title="a standards defined waveform loaded from a text file with a given rise time and amplitude" alt="" coords="135,259,333,285"/>
+<area shape="rect" id="node12" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform" alt="" coords="171,309,297,336"/>
+<area shape="rect" id="node13" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseWaveform_1_1ImpulseWaveform.xhtml" title="pulse waveform" alt="" coords="171,360,297,387"/>
+<area shape="rect" id="node14" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" title="noise waveform" alt="" coords="177,411,291,437"/>
+<area shape="rect" id="node15" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" title="pulse waveform" alt="" coords="177,461,291,488"/>
+<area shape="rect" id="node16" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" title="sinewave waveform" alt="" coords="181,512,287,539"/>
+<area shape="rect" id="node17" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" title="step waveform" alt="" coords="180,563,288,589"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PRBS13QWaveform_1_1PRBS13QWaveform.xhtml" title="a PRBS13Q PAM4 waveform with a given rise time and amplitude" alt="" coords="397,107,540,133"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SSPRQWaveform_1_1SSPRQWaveform.xhtml" title="a SSPRQ PAM4 waveform with a given rise time and amplitude" alt="" coords="405,157,533,184"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="411,208,526,235"/>
+<area shape="rect" id="node10" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="381,259,556,285"/>
 </map>

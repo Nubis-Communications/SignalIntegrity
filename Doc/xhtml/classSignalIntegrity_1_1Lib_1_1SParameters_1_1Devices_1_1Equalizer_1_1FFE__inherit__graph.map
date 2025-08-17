@@ -1,5 +1,7 @@
 <map id="FFE" name="FFE">
-<area shape="rect" id="node1" title="Linear feed&#45;forward equalizer." alt="" coords="72,681,185,803"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" title="Class containing s&#45;parameters." alt="" coords="35,321,222,633"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" title="Class for manipulations on s&#45;parameters involving passivity, causality, etc." alt="" coords="5,5,252,273"/>
+<area shape="rect" id="node1" title="Linear feed&#45;forward equalizer." alt="" coords="125,681,239,803"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1GaussianRisetimeFilter_1_1GaussianRisetimeFilter.xhtml" title=" " alt="" coords="5,851,164,928"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1RaisedCosineRisetimeFilter_1_1RaisedCosineRisetimeFilter.xhtml" title=" " alt="" coords="188,851,373,928"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml" title="Class containing s&#45;parameters." alt="" coords="89,321,275,633"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml" title="Class for manipulations on s&#45;parameters involving passivity, causality, etc." alt="" coords="59,5,305,273"/>
 </map>

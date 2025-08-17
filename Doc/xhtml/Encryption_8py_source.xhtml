@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -169,30 +169,32 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                textToWrite=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a1d0935041f7ed5628214da1e8645d86c">Encrypt</a>(textToWrite.encode()).decode()</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">except</span> ModuleNotFoundError: <span class="comment"># pragma: no cover</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;file cannot be encrypted&#39;</span>)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            f.write(textToWrite)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> self</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">def </span>ReadEncryptedLines(self,filename,split=True):</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            text=f.readlines()</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> len(text)==1:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    text=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">Decrypt</a>(text[0].encode()).decode()</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    <span class="keywordflow">if</span> split:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                        text=text.splitlines(<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;decryption failed&#39;</span>)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;file is encrypted&#39;</span>)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> text</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>: <span class="comment"># pragma: no cover</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    pwd=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(pwd=<span class="stringliteral">&#39;test&#39;</span>,ending=<span class="stringliteral">&#39;$&#39;</span>)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    lines=[<span class="stringliteral">&#39;This is a test\n&#39;</span>,<span class="stringliteral">&#39;of the emergency broadcast system\n&#39;</span>]</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    pwd.WriteEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>,lines)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    print(pwd.ReadEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>))</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> os.path.dirname(filename) != <span class="stringliteral">&#39;&#39;</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            os.makedirs(os.path.dirname(filename), exist_ok=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            f.write(textToWrite)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> self</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">def </span>ReadEncryptedLines(self,filename,split=True):</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">with</span> open(filename,<span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            text=f.readlines()</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> len(text)==1:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">password</a> != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    text=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#af65ccfee3596c847294d7cc81d3245da">Decrypt</a>(text[0].encode()).decode()</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                    <span class="keywordflow">if</span> split:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                        text=text.splitlines(<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;decryption failed&#39;</span>)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                <span class="keywordflow">raise</span> IOError(<span class="stringliteral">&#39;file is encrypted&#39;</span>)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">return</span> text</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>: <span class="comment"># pragma: no cover</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    pwd=<a class="code" href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml">Encryption</a>(pwd=<span class="stringliteral">&#39;test&#39;</span>,ending=<span class="stringliteral">&#39;$&#39;</span>)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    lines=[<span class="stringliteral">&#39;This is a test\n&#39;</span>,<span class="stringliteral">&#39;of the emergency broadcast system\n&#39;</span>]</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    pwd.WriteEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>,lines)</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    print(pwd.ReadEncryptedLines(<span class="stringliteral">&#39;test$.txt&#39;</span>))</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a9dbb300e28bc21c8dab41b01883918eb"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a9dbb300e28bc21c8dab41b01883918eb">SignalIntegrity.Lib.Encryption.Encryption.password</a></div><div class="ttdeci">password</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00036">Encryption.py:36</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption_xhtml_a8330751aadc5b23e4f85413749f50c92"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml#a8330751aadc5b23e4f85413749f50c92">SignalIntegrity.Lib.Encryption.Encryption.ending</a></div><div class="ttdeci">string ending</div><div class="ttdef"><b>Definition:</b> <a href="Encryption_8py_source.xhtml#l00037">Encryption.py:37</a></div></div>

@@ -1,11 +1,11 @@
 <map id="LinesCache" name="LinesCache">
-<area shape="rect" id="node1" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="431,233,547,340"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="5,403,176,495"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="201,403,383,495"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="407,395,571,502"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="596,388,788,509"/>
-<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists" alt="" coords="813,395,993,502"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="430,5,549,185"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="381,557,563,767"/>
-<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="588,587,833,737"/>
+<area shape="rect" id="node1" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="431,336,547,443"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="5,505,176,597"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="201,505,383,597"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="407,498,571,605"/>
+<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="596,491,788,612"/>
+<area shape="rect" id="node9" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists" alt="" coords="813,498,993,605"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="414,5,565,288"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="381,660,563,869"/>
+<area shape="rect" id="node8" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="588,689,833,840"/>
 </map>

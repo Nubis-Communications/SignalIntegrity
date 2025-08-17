@@ -1,4 +1,4 @@
 <map id="LinesCache" name="LinesCache">
-<area shape="rect" id="node1" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="7,233,123,340"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="5,5,124,185"/>
+<area shape="rect" id="node1" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="23,336,139,443"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="5,5,156,288"/>
 </map>

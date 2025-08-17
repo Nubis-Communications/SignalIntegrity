@@ -1,8 +1,8 @@
 <map id="VirtualProbeNumeric" name="VirtualProbeNumeric">
-<area shape="rect" id="node1" title="class for performing virtual probing numerically." alt="" coords="127,1005,269,1097"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml" title="Base class for virtual probing." alt="" coords="31,792,181,957"/>
+<area shape="rect" id="node1" title="class for performing virtual probing numerically." alt="" coords="143,1020,285,1112"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml" title="Base class for virtual probing." alt="" coords="31,799,181,965"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="5,491,207,744"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="35,277,177,443"/>
 <area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="27,5,185,229"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="205,792,375,957"/>
+<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="205,792,439,972"/>
 </map>

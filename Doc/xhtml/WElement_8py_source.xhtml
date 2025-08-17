@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> linalg</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">import</span> math</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> sys</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
@@ -160,7 +160,7 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="stringliteral">        @param Gm list of list of float mutual conductance (self conductance on diagonal) (S)</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="stringliteral">        @param Lm list of list of float mutual inductance (self inductance on diagonal) (H)</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="stringliteral">        @param Z0 (optional) float reference impedance (defaults to 50 ohms)</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="stringliteral">        @param K (optional) integer number of sections (defaults to 0)</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="stringliteral">        @param K (optional) float number of sections (defaults to 0)</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="stringliteral">        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="stringliteral">        @note If K=0 is specified, it is modified to a value that will provided a very good numerical</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="stringliteral">        approximation.  </span></div>
@@ -170,7 +170,7 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        R=[r*scale <span class="keywordflow">for</span> r <span class="keywordflow">in</span> R]; Rse=[rse*scale <span class="keywordflow">for</span> rse <span class="keywordflow">in</span> Rse]; Cm=[[cm*scale <span class="keywordflow">for</span> cm <span class="keywordflow">in</span> cmr] <span class="keywordflow">for</span> cmr <span class="keywordflow">in</span> Cm];</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        Gm=[[gm*scale <span class="keywordflow">for</span> gm <span class="keywordflow">in</span> gmr] <span class="keywordflow">for</span> gmr <span class="keywordflow">in</span> Gm]; Lm=[[lm*scale <span class="keywordflow">for</span> lm <span class="keywordflow">in</span> lmr] <span class="keywordflow">for</span> lmr <span class="keywordflow">in</span> Lm]</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        K=int(K*scale+0.5)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        K=K*scale</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span> K==0:</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            maxL=0.0; maxLm=0.0</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">for</span> r <span class="keywordflow">in</span> range(len(Lm)):</div>
@@ -186,7 +186,7 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            Td=math.sqrt((maxL+maxLm)*(maxC+2*maxCm)); Rt=0.45/f[-1]</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;sections such that fraction of risetime less than round trip electrical</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="stringliteral">            length of one section&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            K=int(math.ceil(Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)))</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            K=Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>=K</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="comment"># build the netlist</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
@@ -272,7 +272,7 @@ $(function() {
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        sp=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#afad07970cbee3464aa2a09bba025e7ec">m_sspn</a>.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SParameters</a>()</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">if</span> sp == 1: <span class="keywordflow">return</span> sp</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        lp=[w+1 <span class="keywordflow">for</span> w <span class="keywordflow">in</span> range(len(sp)//2)]; rp=[w+len(sp)//2+1 <span class="keywordflow">for</span> w <span class="keywordflow">in</span> range(len(sp)//2)]</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">return</span> T2S(linalg.matrix_power(S2T(sp,lp,rp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>),lp,rp)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">return</span> T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>),lp,rp)</div>
 <div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml#ad49b6e36365dce33973d9dcecd9a8ff0">  195</a></span>&#160; </div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">class </span><a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElementFile.xhtml">WElementFile</a>(<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1WElement_1_1WElement.xhtml">WElement</a>):</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;W element file.&quot;&quot;&quot;</span></div>

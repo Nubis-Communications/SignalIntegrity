@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bessellowpassfilter_655',['BesselLowPassFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1BesselLowPassFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::ClassicalFilter']]],
-  ['butterworthlowpassfilter_656',['ButterworthLowPassFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1ButterworthLowPassFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::ClassicalFilter']]]
+  ['bessellowpassfilter_711',['BesselLowPassFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1BesselLowPassFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::ClassicalFilter']]],
+  ['butterworthlowpassfilter_712',['ButterworthLowPassFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1ButterworthLowPassFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::ClassicalFilter']]]
 ];

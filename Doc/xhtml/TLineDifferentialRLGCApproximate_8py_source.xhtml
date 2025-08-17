@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># You should have received a copy of the GNU General Public License along with this program.</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> linalg</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">import</span> math</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions.xhtml">SignalIntegrity.Lib.Conversions</a> <span class="keyword">import</span> S2T</div>
@@ -134,7 +134,7 @@ $(function() {
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">        @param Gm float mutual conductance (S)</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">        @param Lm float mutual inductance (H)</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="stringliteral">        @param Z0 (optional) float reference impedance (defaults to 50 ohms)</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="stringliteral">        @param K (optional) integer number of sections (defaults to 0)</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="stringliteral">        @param K (optional) float number of sections (defaults to 0)</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="stringliteral">        @param scale (optional) float amount to scale the line by (assuming all other values are per unit)</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="stringliteral">        @note If K=0 is specified, it is modified to a value that will provided a very good numerical</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="stringliteral">        approximation.</span></div>
@@ -145,13 +145,13 @@ $(function() {
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        Rp=Rp*scale; Rsep=Rsep*scale; Lp=Lp*scale; Gp=Gp*scale; Cp=Cp*scale; dfp=dfp</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        Rn=Rn*scale; Rsen=Rsen*scale; Ln=Ln*scale; Gn=Gn*scale; Cn=Cn*scale; dfn=dfn</div>
 <div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#aa7fdf992c73206e6841477f69b19c0fa">   66</a></span>&#160;        Cm=Cm*scale; dfm=dfm; Gm=Gm*scale; Lm=Lm*scale</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        K=int(K*scale+0.5)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        K=K*scale</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> K==0:</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;max possible electrical length and fastest risetime&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            Td=math.sqrt((max(Lp,Ln)+Lm)*(max(Cp,Cn)+2*Cm)); Rt=0.45/f[-1]</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;sections such that fraction of risetime less than round trip electrical</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="stringliteral">            length of one section&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            K=int(math.ceil(Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)))</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            K=Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>=K</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Devices.xhtml">SignalIntegrity.Lib.Devices</a> <span class="keyword">import</span> SeriesG</div>
@@ -188,7 +188,7 @@ $(function() {
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        sp=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#afad07970cbee3464aa2a09bba025e7ec">m_sspn</a>.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SParameters</a>()</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">if</span> sp == 1: <span class="keywordflow">return</span> sp</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        lp=[1,2]; rp=[3,4]</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#ab7a6da5139e0878b590d68292aaa70f2">  110</a></span>&#160;        <span class="keywordflow">return</span> T2S(linalg.matrix_power(S2T(sp,lp,rp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>),lp,rp)</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#ab7a6da5139e0878b590d68292aaa70f2">  110</a></span>&#160;        <span class="keywordflow">return</span> T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>),lp,rp)</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate_xhtml_afad07970cbee3464aa2a09bba025e7ec"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineDifferentialRLGCApproximate_1_1TLineDifferentialRLGCApproximate.xhtml#afad07970cbee3464aa2a09bba025e7ec">SignalIntegrity.Lib.SParameters.Devices.TLineDifferentialRLGCApproximate.TLineDifferentialRLGCApproximate.m_sspn</a></div><div class="ttdeci">m_sspn</div><div class="ttdef"><b>Definition:</b> <a href="TLineDifferentialRLGCApproximate_8py_source.xhtml#l00093">TLineDifferentialRLGCApproximate.py:93</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml">SignalIntegrity.Lib.Parsers.SystemDescriptionParser.SystemDescriptionParser</a></div><div class="ttdoc">Parses netlists and produces system descriptions.</div><div class="ttdef"><b>Definition:</b> <a href="SystemDescriptionParser_8py_source.xhtml#l00034">SystemDescriptionParser.py:34</a></div></div>

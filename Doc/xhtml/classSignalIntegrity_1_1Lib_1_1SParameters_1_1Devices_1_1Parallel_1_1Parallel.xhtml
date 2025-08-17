@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -98,9 +98,9 @@ Collaboration diagram for Parallel:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aec11b35b3983ec246807840cf4e00309"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#aec11b35b3983ec246807840cf4e00309">__init__</a> (self, list <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, str name, int numberInParallel, float Z0=50, **kwargs)</td></tr>
-<tr class="memdesc:aec11b35b3983ec246807840cf4e00309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#aec11b35b3983ec246807840cf4e00309">More...</a><br /></td></tr>
-<tr class="separator:aec11b35b3983ec246807840cf4e00309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7beb8f8d43498a0aedfea4b2f08da6b5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a7beb8f8d43498a0aedfea4b2f08da6b5">__init__</a> (self, list <a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#a32e7a34d6837fe949b413c852a0447f8">f</a>, str name, float numberInParallel, float Z0=50, **kwargs)</td></tr>
+<tr class="memdesc:a7beb8f8d43498a0aedfea4b2f08da6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a7beb8f8d43498a0aedfea4b2f08da6b5">More...</a><br /></td></tr>
+<tr class="separator:a7beb8f8d43498a0aedfea4b2f08da6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31f172791173860c4d9da73d38ddb5b5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a31f172791173860c4d9da73d38ddb5b5">__getitem__</a> (self, int n)</td></tr>
 <tr class="memdesc:a31f172791173860c4d9da73d38ddb5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">overloads [n]  <a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Parallel_1_1Parallel.xhtml#a31f172791173860c4d9da73d38ddb5b5">More...</a><br /></td></tr>
 <tr class="separator:a31f172791173860c4d9da73d38ddb5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,8 +184,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Parallel_8py_source.xhtml#l00028">28</a> of file <a class="el" href="Parallel_8py_source.xhtml">Parallel.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aec11b35b3983ec246807840cf4e00309"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec11b35b3983ec246807840cf4e00309">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="a7beb8f8d43498a0aedfea4b2f08da6b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7beb8f8d43498a0aedfea4b2f08da6b5">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +211,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>numberInParallel</em>, </td>
         </tr>
         <tr>
@@ -239,7 +239,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">f</td><td>list of float frequencies </td></tr>
     <tr><td class="paramname">name</td><td>string file name of s-parameter file to read </td></tr>
-    <tr><td class="paramname">numberInParallel</td><td>int number of instances to place in parallel </td></tr>
+    <tr><td class="paramname">numberInParallel</td><td>float number of instances to place in parallel </td></tr>
     <tr><td class="paramname">Z0</td><td>(optional) float reference impedance (defaults to 50 ohms) </td></tr>
     <tr><td class="paramname">**kwargs</td><td>dict (optional, defaults to {}) dictionary of arguments for the file </td></tr>
   </table>

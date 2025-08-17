@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -126,14 +126,14 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="stringliteral">        of any one small section is no more than one percent of the fastest possible risetime.</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        R=R*scale; Rse=Rse*scale; L=L*scale; G=G*scale; C=C*scale; df=df</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        K=int(K*scale+0.5)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        K=K*scale</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> K==0:</div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#af196e750af25550d7fdb543e1f538f12">   50</a></span>&#160;            <span class="stringliteral">&quot;&quot;&quot;max possible electrical length&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            Td=math.sqrt(L*C)</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            Rt=0.45/f[-1] <span class="comment"># fastest risetime</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="stringliteral">&quot;&quot;&quot;sections such that fraction of risetime less than round trip</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">            electrical length of one section&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            K=int(math.ceil(Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)))</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            K=Td*2/(Rt*self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#ab0f79cc32d5010ce056907e669ae22f7">rtFraction</a>)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>=K</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
@@ -160,13 +160,13 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="stringliteral">        @return list of list s-parameter matrix for the nth frequency element</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment"># pragma: silent exclude</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">from</span> numpy <span class="keyword">import</span> linalg</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">from</span> scipy <span class="keyword">import</span> linalg</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions.xhtml">SignalIntegrity.Lib.Conversions</a> <span class="keyword">import</span> S2T</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions.xhtml">SignalIntegrity.Lib.Conversions</a> <span class="keyword">import</span> T2S</div>
 <div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#ab7a6da5139e0878b590d68292aaa70f2">   85</a></span>&#160;        <span class="comment"># pragma: include</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">for</span> ds <span class="keywordflow">in</span> self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#a1db3ae12be62102cd164f13c31c38e8b">m_spdl</a>: self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#afad07970cbee3464aa2a09bba025e7ec">m_sspn</a>.AssignSParameters(ds[0],ds[1][n])</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        sp=self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#afad07970cbee3464aa2a09bba025e7ec">m_sspn</a>.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml">SParameters</a>()</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">return</span> T2S(linalg.matrix_power(S2T(sp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>))</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">return</span> T2S(linalg.fractional_matrix_power(S2T(sp),self.<a class="code" href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml#a6a01a30b717bd9215b2a39a993836a4f">m_K</a>))</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1TLineTwoPortRLGCApproximate_1_1TLineTwoPortRLGCApproximate.xhtml">SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGCApproximate.TLineTwoPortRLGCApproximate</a></div><div class="ttdoc">s-parameters of two port RLGC (telegrapher's) transmission line calculated by approximating distribut...</div><div class="ttdef"><b>Definition:</b> <a href="TLineTwoPortRLGCApproximate_8py_source.xhtml#l00030">TLineTwoPortRLGCApproximate.py:30</a></div></div>
 <div class="ttc" id="aclassSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser_xhtml"><div class="ttname"><a href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml">SignalIntegrity.Lib.Parsers.SystemDescriptionParser.SystemDescriptionParser</a></div><div class="ttdoc">Parses netlists and produces system descriptions.</div><div class="ttdef"><b>Definition:</b> <a href="SystemDescriptionParser_8py_source.xhtml#l00034">SystemDescriptionParser.py:34</a></div></div>

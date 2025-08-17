@@ -1,5 +1,5 @@
 <map id="FractionalDelayFilterSinX" name="FractionalDelayFilterSinX">
-<area shape="rect" id="node1" title="sinx/x fractional delay filter" alt="" coords="5,344,176,421"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" title="base filter class for all FIR filters" alt="" coords="16,131,165,296"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="16,5,165,83"/>
+<area shape="rect" id="node1" title="sinx/x fractional delay filter" alt="" coords="9,359,180,436"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml" title="base filter class for all FIR filters" alt="" coords="5,131,184,311"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="20,5,169,83"/>
 </map>

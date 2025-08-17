@@ -1,7 +1,7 @@
 <map id="DeembedderNumeric" name="DeembedderNumeric">
-<area shape="rect" id="node1" title=" " alt="" coords="97,704,249,796"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" title="housekeeping base class for deembedders" alt="" coords="15,491,153,656"/>
+<area shape="rect" id="node1" title=" " alt="" coords="113,719,265,811"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" title="housekeeping base class for deembedders" alt="" coords="15,498,153,663"/>
 <area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="13,277,155,443"/>
 <area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,163,229"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="177,491,348,656"/>
+<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="178,491,411,671"/>
 </map>

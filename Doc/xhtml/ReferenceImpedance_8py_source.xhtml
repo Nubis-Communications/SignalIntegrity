@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SignalIntegrity
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -100,29 +100,35 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># If not, see &lt;https://www.gnu.org/licenses/&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> numpy <span class="keyword">import</span> array,identity</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">from</span> numpy.linalg <span class="keyword">import</span> inv</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a> <span class="keyword">import</span> Z0KHelper</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">ReferenceImpedance</a>(S,Z0f,Z0i=None,Kf=None,Ki=None):</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Changes the reference impedance and scaling factor</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="stringliteral">    @param S s-parameter matrix to convert</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    @param Z0f the reference impedance to convert to</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 ohms)</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    @param Kf (optional) assumed to be sqrt(Z0f)</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    @param Ki (optional) assumed to be sqrt(Z0i)</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @return the converted s-parameters</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    @see Z0KHelper to see how the reference impedance</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    and scaling factor are determined.&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    (Z0f,Kf)=Z0KHelper((Z0f,Kf),len(S))</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    (Z0i,Ki)=Z0KHelper((Z0i,Ki),len(S))</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">   37</a></span>&#160;    I=array(identity(len(S)))</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    p=(array(Z0f)-array(Z0i)).dot(inv(array(Z0f)+array(Z0i)))</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Kf=array(Ki).dot(inv(array(Kf)))</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    S=array(S)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> (Kf.dot(inv(I-p)).dot(S-p).dot(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        inv(I-p.dot(S))).dot(I-p).dot(inv(Kf))).tolist()</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">from</span> <a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a> <span class="keyword">import</span> Z0KHelper</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">ReferenceImpedance</a>(S,Z0f,Z0i=None,Kf=None,Ki=None):</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Changes the reference impedance and scaling factor</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    @param S s-parameter matrix to convert</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral">    @param Z0f the reference impedance to convert to</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    @param Z0i (optional) the reference impedance of the s-parameters (assumed 50 ohms)</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    @param Kf (optional) assumed to be sqrt(Z0f)</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral">    @param Ki (optional) assumed to be sqrt(Z0i)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    @return the converted s-parameters</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    @see Z0KHelper to see how the reference impedance</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral">    and scaling factor are determined.&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    (Z0f,Kf)=Z0KHelper((Z0f,Kf),len(S))</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    (Z0i,Ki)=Z0KHelper((Z0i,Ki),len(S))</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">   38</a></span>&#160;    I=array(identity(len(S)))</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    p=(array(Z0f)-array(Z0i)).dot(inv(array(Z0f)+array(Z0i)))</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Kf=array(Ki).dot(inv(array(Kf)))</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    S=array(S)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    result = (Kf.dot(inv(I-p)).dot(S-p).dot(</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        inv(I-p.dot(S))).dot(I-p).dot(inv(Kf))).tolist()</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment"># pragma: silent exclude</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> np.any(np.isnan(result)):</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">raise</span> np.linalg.LinAlgError</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment"># pragma: include</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> result</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance_xhtml_a2538c149d55d3168fab1b3b5f7770d5e"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">SignalIntegrity.Lib.Conversions.ReferenceImpedance.ReferenceImpedance</a></div><div class="ttdeci">def ReferenceImpedance(S, Z0f, Z0i=None, Kf=None, Ki=None)</div><div class="ttdoc">Changes the reference impedance and scaling factor.</div><div class="ttdef"><b>Definition:</b> <a href="ReferenceImpedance_8py_source.xhtml#l00037">ReferenceImpedance.py:37</a></div></div>
+<div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance_xhtml_a2538c149d55d3168fab1b3b5f7770d5e"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1ReferenceImpedance.xhtml#a2538c149d55d3168fab1b3b5f7770d5e">SignalIntegrity.Lib.Conversions.ReferenceImpedance.ReferenceImpedance</a></div><div class="ttdeci">def ReferenceImpedance(S, Z0f, Z0i=None, Kf=None, Ki=None)</div><div class="ttdoc">Changes the reference impedance and scaling factor.</div><div class="ttdef"><b>Definition:</b> <a href="ReferenceImpedance_8py_source.xhtml#l00038">ReferenceImpedance.py:38</a></div></div>
 <div class="ttc" id="anamespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper_xhtml"><div class="ttname"><a href="namespaceSignalIntegrity_1_1Lib_1_1Conversions_1_1Z0KHelper.xhtml">SignalIntegrity.Lib.Conversions.Z0KHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="Z0KHelper_8py_source.xhtml#l00001">Z0KHelper.py:1</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

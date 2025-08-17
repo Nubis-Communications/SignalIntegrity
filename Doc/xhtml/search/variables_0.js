@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['alwaysusesvd_1302',['alwaysUseSVD',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab68a1b423941c51e8ccefab1d0e03680',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]],
-  ['anchorstring_1303',['anchorString',['../namespaceSignalIntegrity_1_1App_1_1PartPicture.xhtml#ac1364a0341793e2c674af2825ecabe59',1,'SignalIntegrity::App::PartPicture']]]
+  ['allowpossiblenonuniquesolutions_1416',['allowPossibleNonUniqueSolutions',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab4d9cba12584ac592ce4afaf64f25a57',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]],
+  ['alwaysusesvd_1417',['alwaysUseSVD',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml#ab68a1b423941c51e8ccefab1d0e03680',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric::Numeric']]],
+  ['anchorstring_1418',['anchorString',['../namespaceSignalIntegrity_1_1App_1_1PartPicture.xhtml#ac1364a0341793e2c674af2825ecabe59',1,'SignalIntegrity::App::PartPicture']]]
 ];

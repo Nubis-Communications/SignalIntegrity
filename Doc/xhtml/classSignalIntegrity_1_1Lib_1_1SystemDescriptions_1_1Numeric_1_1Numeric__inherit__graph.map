@@ -1,6 +1,6 @@
 <map id="Numeric" name="Numeric">
-<area shape="rect" id="node1" title="handles numeric details of derived class solutions" alt="" coords="192,5,363,171"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title=" " alt="" coords="5,219,157,311"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="181,219,373,311"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="398,219,541,311"/>
+<area shape="rect" id="node1" title="handles numeric details of derived class solutions" alt="" coords="161,5,394,185"/>
+<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title=" " alt="" coords="5,233,157,325"/>
+<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="181,233,373,325"/>
+<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="398,233,541,325"/>
 </map>
