@@ -31,21 +31,20 @@ def ERL(filename,args,debug=False,verbose=False):
     @param debug boolean (optional, defaults to False) whether to show debug information.
     @param verbose boolean (optional, defaults to False) whether to show intermediate output messages. 
     The valid arguments are:
-
-        |key           | units |required    |description                                                          |
-        |:------------:|:----:|:-----------:|:------------------------------------------------------------------- |
-        | port_reorder | --   | no, 1,2,3,4 | port ordering of 1p,1n,2p,2n of the .s4p file (default is 1,2,3,4). |
-        | T_r          | s    | yes         | transition time associated with a pulse                             |
-        | beta_x       | Hz   | yes         | incremental available signal loss factor                            |
-        | rho_x        | --   | yes         | permitted reflection from a transmission line external to the DUT   |
-        | N            | UI   | yes         | length of reflection signal                                         |
-        | N_bx         | UI   | yes         | equalizer length associated with reflection signal                  |
-        | Z0           | ohm  | no 100      | intended differential-mode characteristic impedance                 |
-        | T_fx         | s    | no 0        | time-gated propagation delay                                        |
-        | f_b          | Baud | yes         | Baud rate                                                           |
-        | DER_0        | --   | yes         | target detector error ratio                                         |
-        | bps          | --   | no 1        | bits per symbol (1=NRZ, 2=PAM-4)                                    |
-        | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
+    |key           | units |required    |description                                                          |
+    |:------------:|:----:|:-----------:|:------------------------------------------------------------------- |
+    | port_reorder | --   | no, 1,2,3,4 | port ordering of 1p,1n,2p,2n of the .s4p file (default is 1,2,3,4). |
+    | T_r          | s    | yes         | transition time associated with a pulse                             |
+    | beta_x       | Hz   | yes         | incremental available signal loss factor                            |
+    | rho_x        | --   | yes         | permitted reflection from a transmission line external to the DUT   |
+    | N            | UI   | yes         | length of reflection signal                                         |
+    | N_bx         | UI   | yes         | equalizer length associated with reflection signal                  |
+    | Z0           | ohm  | no 100      | intended differential-mode characteristic impedance                 |
+    | T_fx         | s    | no 0        | time-gated propagation delay                                        |
+    | f_b          | Baud | yes         | Baud rate                                                           |
+    | DER_0        | --   | yes         | target detector error ratio                                         |
+    | bps          | --   | no 1        | bits per symbol (1=NRZ, 2=PAM-4)                                    |
+    | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
