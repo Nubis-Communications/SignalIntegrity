@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1249,10 +1249,25 @@ True
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
+allow non-unique solutions with SVD
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--15.html#sub:Calculation.AllowNonUniqueSolutions">Calculation.CheckConditionNumber↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
 check condition number in calculations
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--15.html#sub:Calculation.CheckConditionNumber">Calculation.CheckConditionNumber↓</a>
+<a class="Reference" href="Help-Subsection--15.html#sub:Calculation.AllowNonUniqueSolutions">Calculation.CheckConditionNumber↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1444,10 +1459,55 @@ True
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
+cache files per project
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--27.html#sub:Cache.CacheFilesPerProject">Cache.CacheFilesPerProject↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Int
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+1
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+log cache (for debugging)
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--28.html#sub:Cache.LogCache">Cache.LogCache↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+False
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+check cache file times
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--29.html#sub:Cache.CheckCacheFileTimes">Cache.CheckCacheFileTimes↓</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+True
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
 parameterize visible properties only
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--27.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↓</a>
+<a class="Reference" href="Help-Subsection--30.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1465,7 +1525,7 @@ True
 password for encryption
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--28.html#sub:Encryption.Password">Encryption.Password↓</a>
+<a class="Reference" href="Help-Subsection--31.html#sub:Encryption.Password">Encryption.Password↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 String
@@ -1483,7 +1543,7 @@ None
 file ending for encryption
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--29.html#sub:Encryption.Ending">Encryption.Ending↓</a>
+<a class="Reference" href="Help-Subsection--32.html#sub:Encryption.Ending">Encryption.Ending↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 String
@@ -1501,7 +1561,7 @@ $
 archive cached results
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--30.html#sub:ArchiveCachedResults">ProjectFiles.ArchiveCachedResults↓</a>
+<a class="Reference" href="Help-Subsection--33.html#sub:ArchiveCachedResults">ProjectFiles.ArchiveCachedResults↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1516,7 +1576,7 @@ False
 use online help
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--31.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
+<a class="Reference" href="Help-Subsection--34.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Bool
@@ -1534,7 +1594,7 @@ True
 online help url
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--32.html#sub:OnlineHelp.URL">OnlineHelp.URL↓</a>
+<a class="Reference" href="Help-Subsection--35.html#sub:OnlineHelp.URL">OnlineHelp.URL↓</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 String

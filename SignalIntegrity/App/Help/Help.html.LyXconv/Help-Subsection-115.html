@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Parallel</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Lossy Transmission Line <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="next">Thru <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-115"></a>COM Transmission Line<a class="Label" name="device:Transmission-Line-COM"> </a>
+<a class="toc" name="toc-Subsection-115"></a>Series<a class="Label" name="device:Series"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="COMTransmissionLine.png" alt="figure COMTransmissionLine.png" style="width: 126px; max-width: 422px; height: 197px; max-height: 657px;"/>
+<img class="embedded" src="Series.png" alt="figure Series.png" style="width: 129px; max-width: 430px; height: 143px; max-height: 477px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Transmission Lines
+Miscellaneous
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-T?
+D?
 </td>
 
 </tr>
@@ -1154,115 +1154,61 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+D1
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-gamma0 (<span class="formula"><span class="mathrm">mm</span><sup> − 1</sup></span>)
+ports
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-gamma0
+ports
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+2
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-a1 (<span class="formula"><span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">ns</span></span><span class="ignored">)</span></span> ⁄ <span class="mathrm">mm</span></span>)
+file name
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-a1
+file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+None
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-a2 (<span class="formula"><span class="mathrm">ns</span> ⁄ <span class="mathrm">mm</span>)</span>
+sections
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-a1
+sect
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-tau (<span class="formula"><span class="mathrm">ns</span> ⁄ <span class="mathrm">mm</span>)</span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-tau
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-length
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-d
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-m
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-characteristic impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zc
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω</span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50
+1
 </td>
 
 </tr>
@@ -1271,21 +1217,15 @@ zc
 
 </div>
 <div class="Standard">
-This is the transmission line model used in COM.
+This is a multi-port device (usually 2, but must be an even number of ports) that is calculated by placing the device referenced by the file name in a series arrangement. The number of such devices in series is given by the number of sections.
 </div>
 <div class="Standard">
-Note that the units for all of the values are defined as COM defines the units, with the exception of length, which uses the units of meters instead of millimeters.
-</div>
-<div class="Standard">
-Also note that the characteristic impedance specified in COM is the differential mode impedance, even though the transmission line model is single-ended. So, specifying <span class="formula">100 Ω</span> for the transmission line impedance produces a <span class="formula">50 Ω</span> single-ended impedance line model, where the intent is to use one for each leg of a differential pair to obtain the specified differential mode characteristic impedance.
-</div>
-<div class="Standard">
-See <a class="FlexURL" href="https://www.ieee802.org/3/bj/public/mar14/healey_3bj_01_0314.pdf">https://www.ieee802.org/3/bj/public/mar14/healey_3bj_01_0314.pdf</a> for more information.
+Essentially, the result is the cascade of multiple devices. In the cascade, the ports on the left of the unrotated or mirrored device are connected to ports on the right of another such device. The solution is performed using T-parameters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-114.html#next">Prev</a> Parallel</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Lossy Transmission Line <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
+<span class="next">Thru <a class="next" name="next" href="Help-Subsection-116.html#prev">Next</a></span>
 </div>
 
 </div>

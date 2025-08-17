@@ -1,17 +1,20 @@
 <Project>
 	<CalculationProperties>
-		<EndFrequency>20000000000.0</EndFrequency>
-		<FrequencyPoints>2000</FrequencyPoints>
-		<UserSampleRate>40000000000.0</UserSampleRate>
+		<EndFrequency>5000000000.0</EndFrequency>
+		<FrequencyPoints>100</FrequencyPoints>
+		<UserSampleRate>10000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>711x363+215+529</Geometry>
-			<Grid>16</Grid>
-			<Originx>1</Originx>
-			<Originy>4</Originy>
+			<Geometry>606x298+2708+211</Geometry>
+			<Grid>16.0</Grid>
+			<Originx>0</Originx>
+			<Originy>0</Originy>
 		</DrawingProperties>
 		<Schematic>
 		</Schematic>
 	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 </Project>

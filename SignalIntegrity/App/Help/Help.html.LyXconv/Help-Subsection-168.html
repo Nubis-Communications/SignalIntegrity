@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-167.html#next">Prev</a> Continuous Time Linear Equalizer</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-167.html#next">Prev</a> Thru Measurement</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-169.html#prev">Next</a></span>
+<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-169.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-168"></a>Feed-Forward Linear Equalizer<a class="Label" name="device:FFE"> </a>
+<a class="toc" name="toc-Subsection-168"></a>Xtalk Measurement<a class="Label" name="device:Xtalk-Measurement"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="FFE.png" alt="figure FFE.png" style="width: 126px; max-width: 420px; height: 171px; max-height: 572px;"/>
+<img class="embedded" src="XtalkMeasurement.png" alt="figure XtalkMeasurement.png" style="width: 176px; max-width: 707px; height: 104px; max-height: 417px;"/>
 
 </div>
 <div class="Standard">
@@ -1109,10 +1109,7 @@ Units
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
 category
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 
@@ -1124,148 +1121,70 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Equalizers
+Network Analysis
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-default reference
+file name
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F?
+None
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-reference
+port number
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ref
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-F1
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-Tap Delay
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-td
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-s
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-0 s
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-number of precursor taps
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
 int
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-pre
-</div>
-
+pn
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-0
-</div>
-
+1
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-tap values
+other port number
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-list of float
-</div>
-
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-taps
-</div>
-
+opn
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-[1.0]
-</div>
-
+2
 </td>
 
 </tr>
@@ -1274,27 +1193,21 @@ taps
 
 </div>
 <div class="Standard">
-The equation for the FFE, for given number of taps <span class="formula"><i>M</i></span>:
+Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>H</i>(<i>f</i>) = <span class="limits"><sup class="limit"><i>M</i> − 1</sup><span class="limit">⎲</span><span class="limit">⎳</span><sub class="limit"><i>m</i> = 0</sub></span><i>taps</i><span class="symbol">[</span><i>m</i><span class="symbol">]</span>⋅<i>e</i><sup><span class="displaystyle"> − </span><i>j</i>⋅2<i>π</i>⋅<i>f</i>⋅<span class="symbol">(</span><i>m</i> − <i>pre</i><span class="symbol">)</span>⋅<i>td</i></sup>
-</div>
-
+The file name refers to a two-port s-parameter file, or a project producing one-port s-parameters.
 </div>
 <div class="Standard">
-The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
+The port number corresponds to the port of a network analyzer where port 1 of the thru standard is connected and to port 1 of the two-port raw s-parameter measurement. The other port number corresponds to the port of the network analyzer where port 2 of the thru standard is connected and to port 2 of the two-port raw s-parameter measurement.
 </div>
 <div class="Standard">
-Generally, in order to have unity gain at DC, the list of taps is constructed such that their sum equals unity.
-</div>
-<div class="Standard">
-Usually the tap delay is the reciprocal of the baud rate for which the equalizer is used. When constructed in this manner, it response will peak at half the baud rate, and will repeatedly peak 1.5, 2.5, 3.5, etc. times half the baud rate.
+Ideally, the ports are not connected during a crosstalk measurement.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-167.html#next">Prev</a> Continuous Time Linear Equalizer</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-167.html#next">Prev</a> Thru Measurement</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Butterworth Low-Pass Filter <a class="next" name="next" href="Help-Subsection-169.html#prev">Next</a></span>
+<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-169.html#prev">Next</a></span>
 </div>
 
 </div>

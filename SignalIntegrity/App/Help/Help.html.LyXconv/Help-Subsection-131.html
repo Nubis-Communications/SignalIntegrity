@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,16 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-130.html#next">Prev</a> Voltage Clock Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-130.html#next">Prev</a> Voltage Pulse Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-132.html#prev">Next</a></span>
+<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-132.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-131"></a>Voltage Sine Generator<a class="Label" name="device:Voltage-Sine-Generator"> </a>
+<a class="toc" name="toc-Subsection-131"></a>Voltage Impulse Generator<a class="Label" name="device:Voltage-Impulse-Generator"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="VoltageSineGeneratorOnePort.png" alt="figure VoltageSineGeneratorOnePort.png" style="max-width: 156px; max-height: 169px;"/>
-<img class="embedded" src="VoltageSineGeneratorTwoPort.png" alt="figure VoltageSineGeneratorTwoPort.png" style="max-width: 156px; max-height: 152px;"/>
+<img class="embedded" src="VoltageImpulseGenerator.png" alt="figure VoltageImpulseGenerator.png" style="width: 536px; max-width: 2147px; height: 320px; max-height: 1283px;"/>
 
 </div>
 <div class="Standard">
@@ -1161,42 +1160,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-phase
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ph
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-deg
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0 deg
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-frequency
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-f
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-Hz
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1.0 MHz
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 amplitude
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1228,6 +1191,24 @@ S/s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 40.0 GS/s
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+start time
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+t0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0 s
 </td>
 
 </tr>
@@ -1269,42 +1250,6 @@ s
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-start time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-t0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
--100 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-stop time
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-tf
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-100 s
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 show
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1317,7 +1262,7 @@ show
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-true
+false
 </td>
 
 </tr>
@@ -1326,24 +1271,21 @@ true
 
 </div>
 <div class="Standard">
-The voltage sine generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage sine <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
+The voltage impulse generator is used in <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to provide a voltage impulse <a class="Reference" href="Help-Section-28.html#sec:Waveform">Waveform↓</a> to the system.
 </div>
 <div class="Standard">
 The waveform created has a sample rate as provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified.
 </div>
 <div class="Standard">
-The waveform is such that it has the frequency specified and has the phase specified at time zero.
-</div>
-<div class="Standard">
-When the sine wave is active can be controlled by the start and stop time. Before the start time and after the stop time, the waveform is zero.
+The waveform is 0 V until the start time, after which it jumps immediately to the amplitude specified for exactly one sample.
 </div>
 <div class="Standard">
 If show is true, when the simulation completes, the <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> created by the source is added to the waveform list and displayed in the <a class="Reference" href="Help-Section-14.html#sec:Simulator-Dialog">Simulator Dialog↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-130.html#next">Prev</a> Voltage Clock Generator</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-130.html#next">Prev</a> Voltage Pulse Generator</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Current Step Generator <a class="next" name="next" href="Help-Subsection-132.html#prev">Next</a></span>
+<span class="next">Voltage PRBS Generator <a class="next" name="next" href="Help-Subsection-132.html#prev">Next</a></span>
 </div>
 
 </div>

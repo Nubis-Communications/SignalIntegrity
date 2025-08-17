@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,26 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-187.html#next">Prev</a> VirtualProbe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-189.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-187.html#next">Prev</a> stimdef</span>
+<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
+<span class="next">system <a class="next" name="next" href="Help-Subsection-189.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-188"></a>Numeric<a class="Label" name="sub:Numeric"> </a>
+<a class="toc" name="toc-Subsection-188"></a>unknown<a class="Label" name="sub:unknown"> </a>
 </h2>
 <div class="Standard">
-<b>Cannot Invert I-W or I-Wxx </b>
+A netlist line beginning with the keyword <i>unknown</i> defines an <a class="Reference" href="Help-Subsection-160.html#device:Unknown">Unknown↑</a> in the schematic.
 </div>
 <div class="Standard">
-Understanding this error involves understanding the theory in the accompanying book. Suffice it to say that the problem is ill-determined in the sense that the system characteristics matrix is not invertible. This occurs under many pathological cases, some of which can be worked around and others cannot (i.e. there is simply no solution to the problem).
+This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
 </div>
 <div class="Standard">
-An example of a pathological case that cannot be worked around are attempts to de-embed elements in systems where elements are present that do not pass anything (at a given frequency).
-</div>
-<div class="Standard">
-Examples of pathological cases that can be worked around are circuit nodes whose absolute voltage or current cannot be determined due to the construction of the circuit. Sometimes, these can be worked around through the insertion of large resistors to ground or tiny series resistors. A detailed examination of the circuit would be necessary.
-</div>
-<div class="Standard">
-Also, in many cases this can be resolved using the <a class="Reference" href="Help-Subsection--14.html#sub:Calculation.TrySVD">Calculation.TrySVD↓</a> preference in the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>.
+The syntax is the keyword <i>unknown</i> followed by the reference designator followed by the number of ports.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-187.html#next">Prev</a> VirtualProbe</span>
-<span class="up"><a class="up" name="up" href="Help-Section-27.html">Up</a> Errors and Exceptions</span>
-<span class="next">DeviceParser <a class="next" name="next" href="Help-Subsection-189.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-187.html#next">Prev</a> stimdef</span>
+<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
+<span class="next">system <a class="next" name="next" href="Help-Subsection-189.html#prev">Next</a></span>
 </div>
 
 </div>

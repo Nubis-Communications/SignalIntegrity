@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,56 +1073,62 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--32.html#next">Prev</a> OnlineHelp.URL</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--32.html#next">Prev</a> Encryption.Ending</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Simulator Dialog Preferences <a class="next" name="next" href="Help-Subsection--34.html#prev">Next</a></span>
+<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--34.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--33"></a>S-Parameter Viewer Preferences<a class="Label" name="sub:S-Parameter-Viewer-Preferences"> </a>
+<a class="toc" name="toc-Subsection--33"></a>ProjectFiles.ArchiveCachedResults<a class="Label" name="sub:ArchiveCachedResults"> </a>
 </h2>
 <div class="Standard">
-The s-parameter viewer preferences are:
+<table>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Description</b>
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<b>Preference Name</b>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<b>Type</b>
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<b>(Default) Value</b>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 8cm;">
+archive cached results
+</td>
+<td align="center" valign="top" style="width: 8cm;">
+<a class="Reference" href="Help-Subsection--33.html#sub:ArchiveCachedResults">ProjectFiles.ArchiveCachedResults↑</a>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Bool
+</td>
+<td align="left" valign="top" style="width: 18cm;">
+<div class="left">
+False
 </div>
-<ul>
-<li>
-The <a class="Reference" href="Help-Subsection--35.html#sub:Plot-Window-Preferences">Plot Window Preferences↓</a>.
-</li>
-<li>
-All of the zoom settings in the <a class="Reference" href="Help-Subsection-32.html#Control-Help:S-Parameter-Viewer-Zoom">S-Parameter Viewer Zoom Menu↑</a> are held in <b>SParameterProperties.Zoom</b>:
-</li>
-<li>
-All of the view settings in the <a class="Reference" href="Help-Subsection-31.html#sub:S-Parameter-Viewer-View">S-Parameter Viewer View Menu↑</a>.<ul>
-<li>
-<b>SParameterProperties.Plot.LogScale</b> - see <a class="Reference" href="Help-Subsubsection-19.html#Control-Help:SP-Log-Scale">Log Frequency Scale↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowCausalityViolations</b> - see <a class="Reference" href="Help-Subsubsection-15.html#Control-Help:Show-Causality-Violations">Show Causality Violations↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowExcessCapacitance</b> - see <a class="Reference" href="Help-Subsubsection-18.html#Control-Help:Show-Excess-Capacitance">Show Excess Capacitance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowExcessInductance</b> - see <a class="Reference" href="Help-Subsubsection-17.html#Control-Help:Show-Excess-Inductance">Show Excess Inductance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowImpedance</b> - see <a class="Reference" href="Help-Subsubsection-16.html#Control-Help:Show-Impedance">Show Impedance↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.ShowPassivityViolations</b> - see <a class="Reference" href="Help-Subsubsection-14.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations↑</a>
-</li>
-<li>
-<b>SParameterProperties.Plot.VariableLineWidth</b> - see <a class="Reference" href="Help-Subsubsection-13.html#Control-Help:Variable-Line-Width">Variable Line Width↑</a>
-</li>
 
-</ul>
+</td>
 
-</li>
+</tr>
 
-</ul>
+</table>
+
+</div>
+<div class="Standard">
+Usually, when you <a class="Reference" href="Help-Subsubsection-47.html#Control-Help:Archive">Archive Project↑</a>, only the source files (project files and referenced s-parameter files) are archived. When this preference is set to True, the cached solutions are also archived. In theory, this speeds up the calculations when archives are extracted (but can also make the archive quite large in size).
+</div>
+<div class="Standard">
+Currently, when the archive is created with cached solutions, the update time of the cached solution is retained as it is added to the archive. And, if the archive were to be extracted using archive extraction utilities, these update times would remain untouched. Unfortunately, there is a bug in the Python archive extraction tools that causes the update times to become modified, causing recalculation of the solution and defeating the purpose. Some workaround to this will be found and fixed in the future.
+</div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection--32.html#next">Prev</a> OnlineHelp.URL</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection--32.html#next">Prev</a> Encryption.Ending</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Simulator Dialog Preferences <a class="next" name="next" href="Help-Subsection--34.html#prev">Next</a></span>
+<span class="next">OnlineHelp.UseOnlineHelp <a class="next" name="next" href="Help-Subsection--34.html#prev">Next</a></span>
 </div>
 
 </div>

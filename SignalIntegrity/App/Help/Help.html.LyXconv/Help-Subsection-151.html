@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-150.html#next">Prev</a> Transresistance Amplifier</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-150.html#next">Prev</a> Current Controlled Current Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Eye Waveform <a class="next" name="next" href="Help-Subsection-152.html#prev">Next</a></span>
+<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-152.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-151"></a>Operational Amplifier<a class="Label" name="device:Operational-Amplifier"> </a>
+<a class="toc" name="toc-Subsection-151"></a>Voltage Controlled Current Source<a class="Label" name="device:Voltage-Controlled-Current-Source"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="OperationalAmplifier.png" alt="figure OperationalAmplifier.png" style="max-width: 175px; max-height: 220px;"/>
+<img class="embedded" src="VoltageControlledCurrentSource.png" alt="figure VoltageControlledCurrentSource.png" style="max-width: 223px; max-height: 152px;"/>
+<img class="embedded" src="VoltageControlledCurrentSourceAlt.png" alt="figure VoltageControlledCurrentSourceAlt.png" style="max-width: 223px; max-height: 152px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1119,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Amplifiers
+Dependent Sources
 </td>
 
 </tr>
@@ -1160,42 +1161,6 @@ string
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-output impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zo
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω</span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<span class="formula">0 <span class="mathrm"> MΩ</span></span>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-input impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zi
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω</span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<span class="formula">100 <span class="mathrm"> MΩ</span></span>
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
 gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1217,15 +1182,18 @@ gain
 
 </div>
 <div class="Standard">
-The operational amplifier is an amplifier that outputs a voltage proportional to the difference between the voltages at the input terminals.
+This is a current source that is proportional to the voltage across the voltage measurement terminals with the proportionality set by the gain.
 </div>
 <div class="Standard">
-Despite the default value of 1.0, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.
+The input impedance of the voltage measurement pins is infinite.
+</div>
+<div class="Standard">
+The output impedance of the current source is infinite.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-150.html#next">Prev</a> Transresistance Amplifier</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-150.html#next">Prev</a> Current Controlled Current Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Eye Waveform <a class="next" name="next" href="Help-Subsection-152.html#prev">Next</a></span>
+<span class="next">Current Controlled Voltage Source <a class="next" name="next" href="Help-Subsection-152.html#prev">Next</a></span>
 </div>
 
 </div>

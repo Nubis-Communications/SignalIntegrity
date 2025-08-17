@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1075,10 +1075,10 @@ a:visited {
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Cache.CacheResults</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Encryption.Password <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
+<span class="next">Cache.LogCache <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection-">
-<a class="toc" name="toc-Subsection--27"></a>Variables.ParameterizeOnlyVisible<a class="Label" name="sub:Variables.ParameterizeOnlyVisible"> </a>
+<a class="toc" name="toc-Subsection--27"></a>Cache.CacheFilesPerProject<a class="Label" name="sub:Cache.CacheFilesPerProject"> </a>
 </h2>
 <div class="Standard">
 <table>
@@ -1099,17 +1099,17 @@ a:visited {
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 8cm;">
-parameterize visible properties only
+cache files per project
 </td>
 <td align="center" valign="top" style="width: 8cm;">
-<a class="Reference" href="Help-Subsection--27.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible↑</a>
+<a class="Reference" href="Help-Subsection--27.html#sub:Cache.CacheFilesPerProject">Cache.CacheFilesPerProject↑</a>
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Bool
+int
 </td>
 <td align="left" valign="top" style="width: 18cm;">
 <div class="left">
-True
+1
 </div>
 
 </td>
@@ -1120,15 +1120,21 @@ True
 
 </div>
 <div class="Standard">
-When using the <a class="Reference" href="Help-Subsubsection-92.html#Control-Help:Parameterize-Project">Parameterize Schematic↑</a> command, usually only the visible device properties are parameterized.
+As stated in <a class="Reference" href="Help-Subsection--26.html#sub:Cache.CacheResults">Cache.CacheResults↑</a>, the default is that there is one specific name of a cache file for each result object and each project. Sometimes, this is inconvenient, especially when performing parametric sweeps using projects with lots of input variables that combinations that are reused. A good example would be a parameterized project that computes the model of a cable given a specified cable length. Each time the length of the cable is changed, it would need to be recalculated and cached.
 </div>
 <div class="Standard">
-Setting this preference to false causes all device properties to be parameterized.
+Let’s say, in this example, that 10 cable lengths are used throughout a parametric sweep. Setting cache files per project to a number like 10 means that each cable length will be calculated once and the cache will be reused.
+</div>
+<div class="Standard">
+To do this, the cache file name, as outlined in <a class="Reference" href="Help-Subsection--26.html#sub:Cache.CacheResults">Cache.CacheResults↑</a> has the long hash value attached to the name.
+</div>
+<div class="Standard">
+Just as caching can litter the disk with these cache files and use a lot of disk space, increasing the number of cache files per project makes this even worse, so you’ll want to delete these cache files periodically.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Subsection--26.html#next">Prev</a> Cache.CacheResults</span>
 <span class="up"><a class="up" name="up" href="Help-Section-29.html">Up</a> Preferences</span>
-<span class="next">Encryption.Password <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
+<span class="next">Cache.LogCache <a class="next" name="next" href="Help-Subsection--28.html#prev">Next</a></span>
 </div>
 
 </div>

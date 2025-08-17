@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,32 +1073,348 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-174.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-172.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-174.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-173"></a>device<a class="Label" name="sub:device"> </a>
+<a class="toc" name="toc-Subsection-173"></a>Continuous Time Linear Equalizer<a class="Label" name="device:CTLE"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
+<img class="embedded" src="CTLE.png" alt="figure CTLE.png" style="width: 134px; max-width: 448px; height: 239px; max-height: 797px;"/>
+
 </div>
 <div class="Standard">
-The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
+<table>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Property Name
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+category
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Equalizers
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+default reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F?
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+reference
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ref
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F1
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+DC Gain 1
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+gdc
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+dB
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+-2 dB
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+DC Gain 2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+gdc2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+dB
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+0 dB
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Scaled Zero Frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+400 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+LF pole/Scaled Zero Frequency
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+flf
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+12.5 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Pole Frequency 1
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fp1
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+400 MHz
+</div>
+
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="middle" style="width: 4cm;">
+<div class="center">
+Pole Frequency 2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+float
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+fp2
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<div class="center">
+Hz
+</div>
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<div class="center">
+1 GHz
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-Following this is often optional keyword pairs specifying the arguments for the device.
+The equation for the CTLE is:
 </div>
 <div class="Standard">
-Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-99.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+<div class="formula">
+<i>H</i>(<i>f</i>) = <span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i></span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fz</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i>2</span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)/(</span><span class="denominator"><span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>1</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>2</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)</span></span><span class="mbox">.</span>
+</div>
+
 </div>
 <div class="Standard">
-If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-27.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-189.html#sub:DeviceParser">DeviceParser↓</a>.
+The default settings are reasonably set for a 1 GBaud signal (albeit with 2 dB of boost). The reasonable settings, give <span class="formula"><i>fbaud</i></span> are:
+</div>
+<div class="Standard">
+<div class="formula">
+<i>fz</i> = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>flf</i> = <i>fbaud</i> ⁄ 80<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>fp</i>1 = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
+</div>
+
+</div>
+<div class="Standard">
+<div class="formula">
+<i>fp</i>2 = <i>fbaud</i><span class="mbox">.</span>
+</div>
+
+</div>
+<div class="Standard">
+The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">connect <a class="next" name="next" href="Help-Subsection-174.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-172.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-174.html#prev">Next</a></span>
 </div>
 
 </div>

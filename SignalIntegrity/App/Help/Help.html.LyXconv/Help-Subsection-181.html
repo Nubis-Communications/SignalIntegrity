@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,26 +1073,32 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-180.html#next">Prev</a> unknown</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">post <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-182.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-181"></a>system<a class="Label" name="sub:system"> </a>
+<a class="toc" name="toc-Subsection-181"></a>device<a class="Label" name="sub:device"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>system</i> defines an <a class="Reference" href="Help-Subsection-155.html#device:System">System↑</a> in the schematic.
+A netlist line beginning with the keyword <i>device</i> defines one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a> in the schematic.
 </div>
 <div class="Standard">
-This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
+The syntax is at least the keyword <i>device </i>followed by the reference designator followed by the number of ports followed by a keyword defining one of the <a class="Reference" href="Help-Section-23.html#sec:Built-in-Devices">Built-in Devices (Parts)↑</a>.
 </div>
 <div class="Standard">
-The syntax is the keyword <i>system</i> followed by the reference designator followed by the number of ports followed by the keyword <i>file</i> followed by the name of the file containing s-parameters that define the <a class="Reference" href="Help-Subsection-155.html#device:System">System↑</a>.
+Following this is often optional keyword pairs specifying the arguments for the device.
+</div>
+<div class="Standard">
+Sometimes the first argument is specified without a keyword (the keyword is implied). Usually this is for devices with only one argument, like a <a class="Reference" href="Help-Subsection-99.html#device:Resistor">Resistor↑</a> whose only argument is the resistance.
+</div>
+<div class="Standard">
+If a device line of a netlist is specified incorrectly, you will get one of the <a class="Reference" href="Help-Section-27.html#sec:Errors-and-Exceptions">Errors and Exceptions↓</a> or the type: <a class="Reference" href="Help-Subsection-197.html#sub:DeviceParser">DeviceParser↓</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-180.html#next">Prev</a> unknown</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Section-24.html#next">Prev</a> Netlist</span>
 <span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">post <a class="next" name="next" href="Help-Subsection--3.html#prev">Next</a></span>
+<span class="next">connect <a class="next" name="next" href="Help-Subsection-182.html#prev">Next</a></span>
 </div>
 
 </div>

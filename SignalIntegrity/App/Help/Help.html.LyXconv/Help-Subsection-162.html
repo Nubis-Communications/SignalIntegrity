@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,25 +1073,22 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Thru Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> System</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="next">Open Standard <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-162"></a>Xtalk Measurement<a class="Label" name="device:Xtalk-Measurement"> </a>
+<a class="toc" name="toc-Subsection-162"></a>Short Standard<a class="Label" name="device:Short-Standard"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="XtalkMeasurement.png" alt="figure XtalkMeasurement.png" style="width: 176px; max-width: 707px; height: 104px; max-height: 417px;"/>
+<img class="embedded" src="ShortStandard.png" alt="figure ShortStandard.png" style="width: 205px; max-width: 821px; height: 171px; max-height: 687px;"/>
 
 </div>
 <div class="Standard">
 <table>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 Property Name
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Type
@@ -1108,7 +1105,7 @@ Units
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
+<td align="center" valign="top" style="width: 4cm;">
 category
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1126,41 +1123,107 @@ Network Analysis
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-file name
-</div>
+<td align="center" valign="top" style="width: 4cm;">
+default reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
 
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-None
+Short?
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-port number
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+reference
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-pn
+ref
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Short1
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+offset delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+od
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+offset characteristic impedance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+oz0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+50
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+offset loss
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+ol
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω ⁄ <i>s</i></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+loss frequency
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+f0
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+GHz
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 1
@@ -1168,23 +1231,77 @@ pn
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
+<td align="center" valign="top" style="width: 4cm;">
 <div class="center">
-other port number
+inductance
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-opn
+l0
 </td>
 <td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-2
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+l1
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula"><span class="mathrm">e</span> − 24 <span class="mathrm"> H</span> ⁄ <span class="mathrm">Hz</span></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+l2
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula"><span class="mathrm">e</span> − 33 <span class="mathrm"> H</span> ⁄ <span class="mathrm">Hz</span><sup>2</sup></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+l3
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula"><span class="mathrm">e</span> − 42 <span class="mathrm"> H</span> ⁄ <span class="mathrm">Hz</span><sup>3</sup></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
 </td>
 
 </tr>
@@ -1193,21 +1310,24 @@ opn
 
 </div>
 <div class="Standard">
-Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>.
+Calibration standards are generally used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a <a class="Reference" href="Help-Subsection-166.html#device:Reflect-Measurement">Reflect Measurement↓</a>.
 </div>
 <div class="Standard">
-The file name refers to a two-port s-parameter file, or a project producing one-port s-parameters.
+The definition of the short standard is an <i>offset</i> with given delay (s), characteristic impedance (<span class="formula">Ω</span>), and loss (<span class="formula"><span class="mathrm">GΩ</span> ⁄ <span class="mathrm">s</span></span>) (specified at the loss frequency, usually <span class="formula">1 <span class="mathrm"> GHz</span></span>), which is terminated in an inductance, to account for an imperfect short. The terminating inductance is defined as:
 </div>
 <div class="Standard">
-The port number corresponds to the port of a network analyzer where port 1 of the thru standard is connected and to port 1 of the two-port raw s-parameter measurement. The other port number corresponds to the port of the network analyzer where port 2 of the thru standard is connected and to port 2 of the two-port raw s-parameter measurement.
+<div class="formula">
+<i>L</i> = <span class="symbol">(</span><span class="symbol">(</span><i>l</i>3⋅<i>f</i> + <i>l</i>2<span class="symbol">)</span>⋅<i>f</i> + <i>l</i>1<span class="symbol">)</span>⋅<i>f</i> + <i>l</i>0
+</div>
+
 </div>
 <div class="Standard">
-Ideally, the ports are not connected during a crosstalk measurement.
+where <span class="formula"><i>L</i></span> is the inductance (H) and f is frequency (Hz). Note that the exponents are built into the units for the polynomial coefficients, which usually makes the values simple numbers.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> Thru Measurement</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-161.html#next">Prev</a> System</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Network Analyzer <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
+<span class="next">Open Standard <a class="next" name="next" href="Help-Subsection-163.html#prev">Next</a></span>
 </div>
 
 </div>

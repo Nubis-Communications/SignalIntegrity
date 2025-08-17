@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,16 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-166.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-166.html#next">Prev</a> Reflect Measurement</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-168.html#prev">Next</a></span>
+<span class="next">Xtalk Measurement <a class="next" name="next" href="Help-Subsection-168.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-167"></a>Continuous Time Linear Equalizer<a class="Label" name="device:CTLE"> </a>
+<a class="toc" name="toc-Subsection-167"></a>Thru Measurement<a class="Label" name="device:Thru-Measurement"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="CTLE.png" alt="figure CTLE.png" style="width: 134px; max-width: 448px; height: 239px; max-height: 797px;"/>
+<img class="embedded" src="ThruMeasureSOLT.png" alt="figure ThruMeasureSOLT.png" style="width: 149px; max-width: 597px; height: 126px; max-height: 507px;"/>
+<img class="embedded" src="ThruMeasureSOLR.png" alt="figure ThruMeasureSOLR.png" style="width: 149px; max-width: 597px; height: 126px; max-height: 507px;"/>
 
 </div>
 <div class="Standard">
@@ -1109,10 +1110,7 @@ Units
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
 category
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 
@@ -1124,247 +1122,127 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Equalizers
+Network Analysis
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-default reference
+file name
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
+file
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F?
+None
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-reference
+cal standard file name
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-string
+string or file
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ref
+std
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-F1
+None
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-DC Gain 1
+port number
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-gdc
-</div>
-
+pn
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-dB
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
--2 dB
-</div>
-
+1
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-DC Gain 2
+other port number
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-gdc2
-</div>
-
+opn
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-dB
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-0 dB
-</div>
-
+2
 </td>
 
 </tr>
 <tr>
 <td align="left" valign="middle" style="width: 4cm;">
 <div class="center">
-Scaled Zero Frequency
+calibration type
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+
+</div>
+<div class="PlainVisible">
+enum<br/>
+SOLT<br/>
+or<br/>
+SOLR
 </div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-fz
-</div>
-
+ct
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-Hz
-</div>
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-400 MHz
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-LF pole/Scaled Zero Frequency
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-flf
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-Hz
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-12.5 MHz
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-Pole Frequency 1
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-fp1
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-Hz
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-400 MHz
-</div>
-
-</td>
-
-</tr>
-<tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-Pole Frequency 2
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-float
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-fp2
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<div class="center">
-Hz
-</div>
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-<div class="center">
-1 GHz
-</div>
-
+SOLT
 </td>
 
 </tr>
@@ -1373,48 +1251,27 @@ Hz
 
 </div>
 <div class="Standard">
-The equation for the CTLE is:
+Calibration measurements are only used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a two-port calibration standard, specified as s-parameters, a project producing s-parameters, or as a calibration standard such as a <a class="Reference" href="Help-Subsection-165.html#device:Thru-Standard">Thru Standard↑</a>.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>H</i>(<i>f</i>) = <span class="fraction"><span class="ignored">(</span><span class="numerator"><span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i></span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fz</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>10<sup><span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>gdc</i>2</span><span class="ignored">)/(</span><span class="denominator">20</span><span class="ignored">)</span></span></span></sup> + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)/(</span><span class="denominator"><span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>1</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>fp</i>2</span><span class="ignored">)</span></span></span><span class="symbol">)</span>⋅<span class="symbol">(</span>1 + <i>j</i>⋅<span class="displaystyle"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>f</i></span><span class="ignored">)/(</span><span class="denominator"><i>flf</i></span><span class="ignored">)</span></span></span><span class="symbol">)</span></span><span class="ignored">)</span></span><span class="mbox">.</span>
-</div>
-
+The file name refers to a two-port s-parameter file, or a project producing one-port s-parameters, or as the reference designator of a calibration standard placed in a <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> project.
 </div>
 <div class="Standard">
-The default settings are reasonably set for a 1 GBaud signal (albeit with 2 dB of boost). The reasonable settings, give <span class="formula"><i>fbaud</i></span> are:
+The port number corresponds to the port of a network analyzer where port 1 of the thru standard is connected and to port 1 of the two-port raw s-parameter measurement. The other port number corresponds to the port of the network analyzer where port 2 of the thru standard is connected and to port 2 of the two-port raw s-parameter measurement. This is to properly deal with (the unusual case) of an asymmetric standard.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>fz</i> = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
-</div>
-
+The calibration types supported are either (Short-Open-Load-Thru) SOLT or (Short-Open-Load-Reciprocal) SOLR.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>flf</i> = <i>fbaud</i> ⁄ 80<span class="mbox"> ,</span>
-</div>
-
+SOLT is the most typical and assumes that the thru is perfectly specified.
 </div>
 <div class="Standard">
-<div class="formula">
-<i>fp</i>1 = <i>fbaud</i> ⁄ 2.5<span class="mbox"> ,</span>
-</div>
-
-</div>
-<div class="Standard">
-<div class="formula">
-<i>fp</i>2 = <i>fbaud</i><span class="mbox">.</span>
-</div>
-
-</div>
-<div class="Standard">
-The equalizer element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as <span class="formula"><i>H</i>(<i>f</i>)</span> as described, and perfect reverse isolation.
+SOLR uses assumptions of reciprocity to recover the thru standard, using the thru standard provided as an estimate. The thru standard specified is used to resolve ambiguities in the phase. SOLR, while relying on the accuracy of the <a class="Reference" href="Help-Subsection-166.html#device:Reflect-Measurement">Reflect Measurement↑</a>, is useful when the thru standard is not precisely known or defined, hence it is also called <i>the method of the unknown thru</i>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-166.html#next">Prev</a> Network Analyzer Device-Under-Test</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-166.html#next">Prev</a> Reflect Measurement</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Feed-Forward Linear Equalizer <a class="next" name="next" href="Help-Subsection-168.html#prev">Next</a></span>
+<span class="next">Xtalk Measurement <a class="next" name="next" href="Help-Subsection-168.html#prev">Next</a></span>
 </div>
 
 </div>

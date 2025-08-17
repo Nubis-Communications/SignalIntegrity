@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Eye Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Current Controlled Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
+<span class="next">Current Amplifier <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-153"></a>Waveform<a class="Label" name="device:Waveform"> </a>
+<a class="toc" name="toc-Subsection-153"></a>Voltage Amplifier<a class="Label" name="device:Voltage-Amplifier"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="OutputWaveform.png" alt="figure OutputWaveform.png" style="width: 168px; max-width: 560px; height: 201px; max-height: 672px;"/>
+<img class="embedded" src="VoltageAmplifier.png" alt="figure VoltageAmplifier.png" style="max-width: 672px; max-height: 162px;"/>
 
 </div>
 <div class="Standard">
@@ -1118,7 +1118,7 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Waveforms
+Amplifiers
 </td>
 
 </tr>
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO?
+D?
 </td>
 
 </tr>
@@ -1154,67 +1154,49 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-VO1
+
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-delay
+output impedance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-td
+zo
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-s
+ohm
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 s
+0 ohm
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-waveform filename
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-wffile
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-’’
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-voltage offset
+input impedance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-offset
+zi
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-V
+ohm
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0 V
+100 Mohm
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-voltage gain
+gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
@@ -1230,41 +1212,17 @@ gain
 </td>
 
 </tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-state
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-string (on or off)
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-state
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-on
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-The waveform is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify waveforms to be directly read in after a simulation and added to the waveform list.
-</div>
-<div class="Standard">
-When the waveforms are not resampled using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>, but you have the capability of applying gain, offset and delay to the resulting waveform. If the state is set to off, the waveform is not read in. If the waveform is not found at the end of the simulation, the simulation will fail, unless the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> preference in the <a class="Reference" href="Help-Subsection--5.html#sub:Standard-Preferences">Standard Preferences↓</a> is true. In that case, the missing waveform is ignored. 
-</div>
-<div class="Standard">
-When placing a waveform, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing a waveform will assign the value VO3 to the waveform reference designator. This, of course, can be changed by the user.
+The voltage amplifier is like a <a class="Reference" href="Help-Subsection-149.html#device:Voltage-Controlled-Voltage-Source">Voltage Controlled Voltage Source↑</a> except that the input impedance of the voltage sense is settable and the output impedance of the voltage source is settable.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Eye Waveform</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-152.html#next">Prev</a> Current Controlled Voltage Source</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Unknown <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
+<span class="next">Current Amplifier <a class="next" name="next" href="Help-Subsection-154.html#prev">Next</a></span>
 </div>
 
 </div>

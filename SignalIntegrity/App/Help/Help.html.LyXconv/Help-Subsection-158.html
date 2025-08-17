@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,25 +1073,22 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-157.html#next">Prev</a> Open Standard</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-157.html#next">Prev</a> Operational Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Thru Standard <a class="next" name="next" href="Help-Subsection-159.html#prev">Next</a></span>
+<span class="next">Waveform <a class="next" name="next" href="Help-Subsection-159.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-158"></a>Load Standard<a class="Label" name="device:Load-Standard"> </a>
+<a class="toc" name="toc-Subsection-158"></a>Eye Waveform<a class="Label" name="device:Eye-Waveform"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="LoadStandard.png" alt="figure LoadStandard.png" style="width: 144px; max-width: 578px; height: 126px; max-height: 507px;"/>
+<img class="embedded" src="EyeWaveform.png" alt="figure EyeWaveform.png" style="width: 168px; max-width: 560px; height: 221px; max-height: 737px;"/>
 
 </div>
 <div class="Standard">
 <table>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 Property Name
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 Type
@@ -1108,7 +1105,7 @@ Units
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
+<td align="center" valign="top" style="width: 4cm;">
 category
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1121,16 +1118,13 @@ category
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Network Analysis
+Waveforms
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 default reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
@@ -1142,133 +1136,151 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Load?
+Wf?
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
+<td align="center" valign="top" style="width: 4cm;">
 reference
-</div>
-
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 string
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ref
+
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-Load1
+Wf1
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-offset delay
-</div>
+<td align="center" valign="top" style="width: 4cm;">
+waveform filename
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+wffile
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+’’
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+baud rate
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-od
+br
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Baud
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1 GBaud
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+delay
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+td
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 s
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+0 s
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-offset characteristic impedance
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+voltage offset
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-oz0
+offset
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω</span>
+V
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-50
+0 V
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-offset loss
-</div>
-
+<td align="center" valign="top" style="width: 4cm;">
+voltage gain
 </td>
 <td align="center" valign="top" style="width: 2cm;">
 float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ol
+gain
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω ⁄ <i>s</i></span>
+
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-0
+1.0
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-loss frequency
-</div>
+<td align="center" valign="top" style="width: 4cm;">
+state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string (on or off)
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+state
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-f0
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-GHz
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-1
+on
 </td>
 
 </tr>
 <tr>
-<td align="left" valign="middle" style="width: 4cm;">
-<div class="center">
-termination impedance
-</div>
+<td align="center" valign="top" style="width: 4cm;">
+eye state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string (on or off)
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+eyestate
+</td>
+<td align="center" valign="top" style="width: 1cm;">
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-tz
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula">Ω</span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50
+on
 </td>
 
 </tr>
@@ -1277,15 +1289,43 @@ tz
 
 </div>
 <div class="Standard">
-Calibration standards are generally used in <a class="Reference" href="Help-Subsection-26.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration↑</a> as a step in <a class="Reference" href="Help-Section-12.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements↑</a>, and are used in conjunction with a <a class="Reference" href="Help-Subsection-160.html#device:Reflect-Measurement">Reflect Measurement↓</a>.
+The waveform is used in <a class="Reference" href="Help-Section-10.html#sec:Virtual-Probing">Virtual Probing↑</a> and <a class="Reference" href="Help-Section-8.html#sec:Simulation">Simulation↑</a> applications to specify waveforms to be directly read in after a simulation and added to the waveform list.
 </div>
 <div class="Standard">
-The definition of the load standard is an <i>offset</i> with given delay (s), characteristic impedance (<span class="formula">Ω</span>), and loss (<span class="formula"><span class="mathrm">GΩ</span> ⁄ <span class="mathrm">s</span></span>) (specified at the loss frequency, usually <span class="formula">1 <span class="mathrm"> GHz</span></span>), which is terminated in an real impedance.
+When the waveforms are not resampled using the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a>, but you have the capability of applying gain, offset and delay to the resulting waveform. If the state is set to off, the waveform is not read in. If the waveform is not found at the end of the simulation, the simulation will fail, unless the <a class="Reference" href="Help-Subsubsection-78.html#Control-Help:Calculation-Properties">Calculation Properties↑</a> preference in the <a class="Reference" href="Help-Subsection--5.html#sub:Standard-Preferences">Standard Preferences↓</a> is true. In that case, the missing waveform is ignored.
+</div>
+<div class="Standard">
+If the state is set to off, the waveform is not read in and processed.
+</div>
+<div class="Standard">
+If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
+</div>
+<div class="Standard">
+In addition to reading in waveforms, eye diagrams are produced as a result of the calculation. As such, this device behaves exactly like a <a class="Reference" href="Help-Subsection-159.html#device:Waveform">Waveform↓</a>, with the addition of the eye diagram.
+</div>
+<div class="Standard">
+When placing an eye waveform, the default reference other references prefixed with ’VO’ and the first value not found will be inserted as the reference. For example, if three other probes are in the circuit with references VO1, VO2, V08, then placing an eye waveform device will assign the value VO3 to the device reference designator. This, of course, can be changed by the user.
+</div>
+<div class="Standard">
+If the state is set to off, the waveform is not calculated.
+</div>
+<div class="Standard">
+When simulations are complete, for each eye waveform, the <a class="Reference" href="Help-Section-16.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog↑</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.
+</div>
+<div class="Standard">
+The eye diagram and other post-processing is performed according to the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a>, that are unique for each eye waveform, and can be accessed through the eye diagram configuration in the eye waveform properties dialog in the button below:
+</div>
+<div class="Standard">
+<img class="embedded" src="EyeWaveformPropertiesDialog.png" alt="figure EyeWaveformPropertiesDialog.png" style="max-width: 557px; max-height: 626px;"/>
+
+</div>
+<div class="Standard">
+When adding an eye waveform, the default values are read from the <a class="Reference" href="Help-Section-29.html#sec:Preferences">Preferences↓</a>. If you don’t like these default values, you are free to set these preferences from the <a class="Reference" href="Help-Section-21.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog↑</a> permanently, so that all newly added eye probes inherit these default values.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-157.html#next">Prev</a> Open Standard</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-157.html#next">Prev</a> Operational Amplifier</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Thru Standard <a class="next" name="next" href="Help-Subsection-159.html#prev">Next</a></span>
+<span class="next">Waveform <a class="next" name="next" href="Help-Subsection-159.html#prev">Next</a></span>
 </div>
 
 </div>

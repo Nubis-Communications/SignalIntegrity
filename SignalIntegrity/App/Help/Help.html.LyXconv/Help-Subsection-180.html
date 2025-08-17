@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,26 +1073,150 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-179.html#next">Prev</a> stimdef</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">system <a class="next" name="next" href="Help-Subsection-181.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-179.html#next">Prev</a> Raised Cosine Risetime Filter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-180"></a>unknown<a class="Label" name="sub:unknown"> </a>
+<a class="toc" name="toc-Subsection-180"></a>Gaussian Risetime Filter<a class="Label" name="device:GaussianRisetimeFilter"> </a>
 </h2>
 <div class="Standard">
-A netlist line beginning with the keyword <i>unknown</i> defines an <a class="Reference" href="Help-Subsection-154.html#device:Unknown">Unknown↑</a> in the schematic.
+<img class="embedded" src="RaisedCosineRisetimeFilter.png" alt="figure RaisedCosineRisetimeFilter.png" style="width: 172px; max-width: 690px; height: 211px; max-height: 844px;"/>
+
 </div>
 <div class="Standard">
-This should appear only for <a class="Reference" href="Help-Section-9.html#sec:Deembedding">Deembedding↑</a> applications and there must be one such statement in the netlist.
+<table>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+Property Name
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Keyword
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+Units
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+(Default) Value
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Filters
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+default reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+F?
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+reference
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime type
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt_type
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+1090
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+risetime
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rt
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+s
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+0
+</td>
+
+</tr>
+
+</table>
+
 </div>
 <div class="Standard">
-The syntax is the keyword <i>unknown</i> followed by the reference designator followed by the number of ports.
+The gaussian risetime filter is applied to a waveform generator (with 0 risetime) to set the risetime of the waveform.
+</div>
+<div class="Standard">
+It can be specified as either ’1090’ (10-90 risetime) or ’2080’ (20-80 risetime) in the risetime type.
+</div>
+<div class="Standard">
+The filter is a gaussian with sufficient width that the integral of this gaussian supplies the specified time distance between the threshold crossings specified.
+</div>
+<div class="Standard">
+Gaussian risetime filters are most commonly used in the standards, usually with a 20-80 risetime specified.
+</div>
+<div class="Standard">
+See also the <a class="Reference" href="Help-Subsection-179.html#device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter↑</a>.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-179.html#next">Prev</a> stimdef</span>
-<span class="up"><a class="up" name="up" href="Help-Section-24.html">Up</a> Netlist</span>
-<span class="next">system <a class="next" name="next" href="Help-Subsection-181.html#prev">Next</a></span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-179.html#next">Prev</a> Raised Cosine Risetime Filter</span>
+<span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
+<span class="next">Netlist <a class="next" name="next" href="Help-Section-24.html#prev">Next</a></span>
 </div>
 
 </div>

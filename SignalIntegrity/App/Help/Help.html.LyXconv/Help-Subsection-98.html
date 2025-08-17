@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1182,6 +1182,60 @@ None
 </td>
 
 </tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+port reordering
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+reorder
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+element state
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+none - not in netlist
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+None
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+ports
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+string
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+4
+</td>
+
+</tr>
 
 </table>
 
@@ -1194,6 +1248,33 @@ When files read in during calculations, file devices are resampled according to 
 </div>
 <div class="Standard">
 File names can be projects. When browsing for file names, the default files type shown will be s-parameter files, but you can click on the files type and the choice of project files is shown. Then other projects can be selected as the source of the s-parameters. This allows nesting of projects. When you do this, you must ensure that the project you select for the s-parameter file is a project that produces s-parameters (i.e. a de-embedding or s-parameter generation project) and that the number of ports in the s-parameters produced matches the number of ports in your file type.
+</div>
+<div class="Standard">
+When a variable port file device is selected, the number of ports can be specified.
+</div>
+<div class="Standard">
+Port reordering allows the user to specify the port order in the file device that correspond to the final device, in port order. For example, port reorder = 3,4,1,2 means that ports 3,4,1, and 2 correspond to ports 1,2,3, and 4 of the four-port device drawn. Note that there must be no spaces in the port reordering string. Note that this can be used to extract less ports from a device easily. For example, suppose you have an .s16p file corresponding to four differential lanes and lane 1 has ports 3 and 4 at the input and ports 11 and 12 at the output. If you wanted to only use that lane in your schematic, you would specify a variable port file that is 16 ports, select the .s16p file from the browser, change to the ports to 4, and enter 1,3,11,12 as the port reordering.
+</div>
+<div class="Standard">
+The element state allows devices to be changed from their normal state. The element state can (currently) be one of four values:
+</div>
+<ol>
+<li>
+’’ or an empty string — the device behaves normally.
+</li>
+<li>
+’disabled’ — the device is disabled. This means that as far as SignalIntegrity is concerned, the device is not even in the schematic during simulation. In the SignalIntegrity application, the device turns red. It is the user’s responsibility to deal with any unconnected device port problems when a device is disabled.
+</li>
+<li>
+’thru’ — the device functions as a thru. This means that the device is replaced with a thru device with the left ports connected to the right ports. While this device state has no unconnected port problems, and the thru device used does not have frequency dependent s-parameters, it still adds computation. Consider using the ’thru_wires’ state below, if you can get away with it.
+</li>
+<li>
+’thru_wires’ — the device is removed from the internal schematic during calculation and wires are added between the left ports and the right ports, like a thru connection. This is good for computation, but can lead to unconnected device port problems.
+</li>
+
+</ol>
+<div class="Standard">
+Note that the ’thru’ and ’thru_wires’ state can only be used with devices with the same number of ports on the left and the right. Thus, the device must have an even number of ports and be drawn in a way such that the software can figure out the thru connections.
 </div>
 <div class="splitheader">
 <span class="prev"><a class="prev" name="prev" href="Help-Section-23.html#next">Prev</a> Built-in Devices (Parts)</span>

@@ -1,0 +1,39 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="2" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="31.5" y="-29" t="R" h="3" halign="c" lc="black"/>
+%  <rect x="28" y="-35" w="7" h="14" lc="black"/>
+%  <polyline lc="black">24.5,-28 28,-28</polyline>
+%  <polyline lw="2.00" lc="red">24.062,-27.562 24.938,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">24.938,-27.562 24.062,-28.438</polyline>
+%  <polyline lc="black">38.5,-24.5 35,-24.5</polyline>
+%  <polyline lw="2.00" lc="red">38.062,-24.062 38.938,-24.938</polyline>
+%  <polyline lw="2.00" lc="red">38.938,-24.062 38.062,-24.938</polyline>
+%  <polyline lc="black">38.5,-31.5 35,-31.5</polyline>
+%  <polyline lw="2.00" lc="red">38.062,-31.062 38.938,-31.938</polyline>
+%  <polyline lw="2.00" lc="red">38.938,-31.062 38.062,-31.938</polyline>
+%  <text x="33.25" y="-25.5" t="+" h="3" halign="c" lc="black"/>
+%  <text x="33.25" y="-32.5" t="-" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=2.00mm, y=2.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (23.06,-36.00) rectangle +(16.88,16.00);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (31.50,-29.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{R}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (28.00,-21.00) [rotate around={270:(28.00,-21.00)}] rectangle +(14.00,7.00);
+\path[line width=0.30mm, draw=L] (24.50,-28.00) -- (28.00,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (24.06,-27.56) -- (24.94,-28.44);
+\path[line width=0.60mm, draw=L] (24.94,-27.56) -- (24.06,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (38.50,-24.50) -- (35.00,-24.50);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (38.06,-24.06) -- (38.94,-24.94);
+\path[line width=0.60mm, draw=L] (38.94,-24.06) -- (38.06,-24.94);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (38.50,-31.50) -- (35.00,-31.50);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (38.06,-31.06) -- (38.94,-31.94);
+\path[line width=0.60mm, draw=L] (38.94,-31.06) -- (38.06,-31.94);
+\draw[T] (33.25,-25.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{+}};
+\draw[T] (33.25,-32.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{-}};
+\end{tikzpicture}%

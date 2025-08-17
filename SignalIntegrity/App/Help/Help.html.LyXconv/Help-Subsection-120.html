@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Lossy Transmission Line</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
+<span class="next">Telegrapher - Four Port <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-120"></a>W Element<a class="Label" name="device:W-Element"> </a>
+<a class="toc" name="toc-Subsection-120"></a>Telegrapher - Two Port<a class="Label" name="device:Telegrapher---Two-Port"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="WElement.png" alt="figure WElement.png" style="width: 126px; max-width: 420px; height: 264px; max-height: 882px;"/>
+<img class="embedded" src="TelegrapherTwoPort.png" alt="figure TelegrapherTwoPort.png" style="max-width: 152px; max-height: 124px;"/>
 
 </div>
 <div class="Standard">
@@ -1136,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-W?
+T?
 </td>
 
 </tr>
@@ -1154,37 +1154,19 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-W1
+
 </td>
 
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-file name
+sections
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-file
+int
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-None
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-dissipation factor
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-df
+sect
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
@@ -1214,13 +1196,31 @@ scale
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-sections
+capacitance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-sect
+c
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+F
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">1.0 <span class="mathrm"> pF</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+dissipation factor
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+df
 </td>
 <td align="center" valign="top" style="width: 1cm;">
 
@@ -1232,19 +1232,73 @@ sect
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
-ports
+conductance
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-int
+float
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-ports
+g
 </td>
 <td align="center" valign="top" style="width: 1cm;">
-
+S
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-4
+<span class="formula">0 <span class="mathrm"> S</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+inductance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+l
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+H
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">1.0 <span class="mathrm"> fH</span></span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+r
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω</span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">50 Ω</span>
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
+skin-effect resistance
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+float
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+rse
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+<span class="formula">Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">Hz</span></span><span class="ignored">)</span></span></span>
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+<span class="formula">0 Ω ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm"> Hz</span></span><span class="ignored">)</span></span></span>
 </td>
 
 </tr>
@@ -1253,24 +1307,34 @@ ports
 
 </div>
 <div class="Standard">
-W elements are distributed transmission lines. A two-port W element is equivalent to an <a class="Reference" href="Help-Subsection-115.html#device:Transmission-Line-COM">COM Transmission Line↑</a> transmission line and a four-port W element is equivalent to a <a class="Reference" href="Help-Subsection-118.html#device:Telegrapher---Four-Port">Telegrapher - Four Port↑</a>. Usually the transmission line model is provided numerically with values per meter. So if you want something different from 1 meter, you must scale the line.
+The telegrapher two-port is a model of a single-ended transmission line based on the telegrapher circuit.
 </div>
 <div class="Standard">
-The user can specify the number of sections to be utilized for analytic approximation, but 0 is recommended. When zero sections are specified, the number of sections is intelligently calculated based on the fastest risetime possible (based on the end frequency used in the calculation) and the worst case electrical length possible determined from the inductance and capacitance values in the model.
+If sections are set to 1 (the default), then the circuit is the lumped element model as shown below:
 </div>
 <div class="Standard">
-The number of ports should always be even and match those in the W element file name specified. The transmission line elements in the model are always such that for <span class="formula"><i>P</i></span> ports, transmission line <span class="formula"><i>m</i></span> goes from port <span class="formula"><i>m</i></span> to port <span class="formula"><i>P</i> ⁄ 2 + <i>m</i></span> .
+<img class="embedded" src="TelegrapherTwoPortEquivalent.png" alt="figure TelegrapherTwoPortEquivalent.png" style="max-width: 514px; max-height: 207px;"/>
+
 </div>
 <div class="Standard">
-Because the model does not seem to support dissipation factor, it can be entered globally for the model.
+In the model, not shown is the skin-effect resistance, a resistance proportional to the square-root of frequency that is implied with the resistance r. Also not shown is the dissipation factor, or loss-tangent, which is the dissipation factor of the capacitance c.
 </div>
 <div class="Standard">
-More documentation on this device may be found here: <a class="FlexURL" href="http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf">http://www2.ece.rochester.edu/courses/ECE222/hspice/hspice_devmod.pdf</a>
+Otherwise, if sections are large, then the model is created by cascading the sections with parameters that are divided by the number of sections. In other words, the parameters are for the total line, and each section has a value of the parameter divided by the number of sections.
+</div>
+<div class="Standard">
+This is used to approximated distributed parameters.
+</div>
+<div class="Standard">
+If zero sections are specified (the default), an analytic solution is provided based on complete distribution of the parameters specified.
+</div>
+<div class="Standard">
+To facilitate per-unit values, the model can be scaled by the amount specified. In this way, half-size models can be made (such as for 2x thru situations), or values can be considered as, for example, per meter, and the the scale can be considered as the number of meters.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> RLGC Fit</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-119.html#next">Prev</a> Lossy Transmission Line</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Voltage Source <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
+<span class="next">Telegrapher - Four Port <a class="next" name="next" href="Help-Subsection-121.html#prev">Next</a></span>
 </div>
 
 </div>

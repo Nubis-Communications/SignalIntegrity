@@ -1,0 +1,139 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="2" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="31.5" y="-31.5" w="7" h="7" lc="black"/>
+%  <polyline lc="black">28,-28 31.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">27.562,-27.562 28.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">28.438,-27.562 27.562,-28.438</polyline>
+%  <polyline lc="black">42,-28 38.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">41.562,-27.562 42.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">42.438,-27.562 41.562,-28.438</polyline>
+%  <polyline lc="black">31.5,-28 38.5,-28</polyline>
+%  <rect x="52.5" y="-38.5" w="7" h="14" lc="black"/>
+%  <polyline lc="black">49,-28 52.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">48.562,-27.562 49.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">49.438,-27.562 48.562,-28.438</polyline>
+%  <polyline lc="black">49,-35 52.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">48.562,-34.562 49.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">49.438,-34.562 48.562,-35.438</polyline>
+%  <polyline lc="black">63,-28 59.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">62.562,-27.562 63.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">63.438,-27.562 62.562,-28.438</polyline>
+%  <polyline lc="black">63,-35 59.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">62.562,-34.562 63.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">63.438,-34.562 62.562,-35.438</polyline>
+%  <polyline lc="black">52.5,-28 59.5,-28</polyline>
+%  <polyline lc="black">52.5,-35 59.5,-35</polyline>
+%  <rect x="73.5" y="-52.5" w="7" h="28" lc="black"/>
+%  <polyline lc="black">70,-28 73.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">69.562,-27.562 70.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">70.438,-27.562 69.562,-28.438</polyline>
+%  <polyline lc="black">70,-35 73.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">69.562,-34.562 70.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">70.438,-34.562 69.562,-35.438</polyline>
+%  <polyline lc="black">70,-42 73.5,-42</polyline>
+%  <polyline lw="2.00" lc="red">69.562,-41.562 70.438,-42.438</polyline>
+%  <polyline lw="2.00" lc="red">70.438,-41.562 69.562,-42.438</polyline>
+%  <polyline lc="black">70,-49 73.5,-49</polyline>
+%  <polyline lw="2.00" lc="red">69.562,-48.562 70.438,-49.438</polyline>
+%  <polyline lw="2.00" lc="red">70.438,-48.562 69.562,-49.438</polyline>
+%  <polyline lc="black">84,-28 80.5,-28</polyline>
+%  <polyline lw="2.00" lc="red">83.562,-27.562 84.438,-28.438</polyline>
+%  <polyline lw="2.00" lc="red">84.438,-27.562 83.562,-28.438</polyline>
+%  <polyline lc="black">84,-35 80.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">83.562,-34.562 84.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">84.438,-34.562 83.562,-35.438</polyline>
+%  <polyline lc="black">84,-42 80.5,-42</polyline>
+%  <polyline lw="2.00" lc="red">83.562,-41.562 84.438,-42.438</polyline>
+%  <polyline lw="2.00" lc="red">84.438,-41.562 83.562,-42.438</polyline>
+%  <polyline lc="black">84,-49 80.5,-49</polyline>
+%  <polyline lw="2.00" lc="red">83.562,-48.562 84.438,-49.438</polyline>
+%  <polyline lw="2.00" lc="red">84.438,-48.562 83.562,-49.438</polyline>
+%  <polyline lc="black">73.5,-28 80.5,-28</polyline>
+%  <polyline lc="black">73.5,-35 80.5,-35</polyline>
+%  <polyline lc="black">73.5,-42 80.5,-42</polyline>
+%  <polyline lc="black">73.5,-49 80.5,-49</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=2.00mm, y=2.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (26.56,-53.50) rectangle +(58.88,30.00);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (31.50,-24.50) [rotate around={270:(31.50,-24.50)}] rectangle +(7.00,7.00);
+\path[line width=0.30mm, draw=L] (28.00,-28.00) -- (31.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (27.56,-27.56) -- (28.44,-28.44);
+\path[line width=0.60mm, draw=L] (28.44,-27.56) -- (27.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (42.00,-28.00) -- (38.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (41.56,-27.56) -- (42.44,-28.44);
+\path[line width=0.60mm, draw=L] (42.44,-27.56) -- (41.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (31.50,-28.00) -- (38.50,-28.00);
+\path[line width=0.30mm, draw=L] (52.50,-24.50) [rotate around={270:(52.50,-24.50)}] rectangle +(14.00,7.00);
+\path[line width=0.30mm, draw=L] (49.00,-28.00) -- (52.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (48.56,-27.56) -- (49.44,-28.44);
+\path[line width=0.60mm, draw=L] (49.44,-27.56) -- (48.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (49.00,-35.00) -- (52.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (48.56,-34.56) -- (49.44,-35.44);
+\path[line width=0.60mm, draw=L] (49.44,-34.56) -- (48.56,-35.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (63.00,-28.00) -- (59.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (62.56,-27.56) -- (63.44,-28.44);
+\path[line width=0.60mm, draw=L] (63.44,-27.56) -- (62.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (63.00,-35.00) -- (59.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (62.56,-34.56) -- (63.44,-35.44);
+\path[line width=0.60mm, draw=L] (63.44,-34.56) -- (62.56,-35.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (52.50,-28.00) -- (59.50,-28.00);
+\path[line width=0.30mm, draw=L] (52.50,-35.00) -- (59.50,-35.00);
+\path[line width=0.30mm, draw=L] (73.50,-24.50) [rotate around={270:(73.50,-24.50)}] rectangle +(28.00,7.00);
+\path[line width=0.30mm, draw=L] (70.00,-28.00) -- (73.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (69.56,-27.56) -- (70.44,-28.44);
+\path[line width=0.60mm, draw=L] (70.44,-27.56) -- (69.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (70.00,-35.00) -- (73.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (69.56,-34.56) -- (70.44,-35.44);
+\path[line width=0.60mm, draw=L] (70.44,-34.56) -- (69.56,-35.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (70.00,-42.00) -- (73.50,-42.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (69.56,-41.56) -- (70.44,-42.44);
+\path[line width=0.60mm, draw=L] (70.44,-41.56) -- (69.56,-42.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (70.00,-49.00) -- (73.50,-49.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (69.56,-48.56) -- (70.44,-49.44);
+\path[line width=0.60mm, draw=L] (70.44,-48.56) -- (69.56,-49.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (84.00,-28.00) -- (80.50,-28.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (83.56,-27.56) -- (84.44,-28.44);
+\path[line width=0.60mm, draw=L] (84.44,-27.56) -- (83.56,-28.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (84.00,-35.00) -- (80.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (83.56,-34.56) -- (84.44,-35.44);
+\path[line width=0.60mm, draw=L] (84.44,-34.56) -- (83.56,-35.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (84.00,-42.00) -- (80.50,-42.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (83.56,-41.56) -- (84.44,-42.44);
+\path[line width=0.60mm, draw=L] (84.44,-41.56) -- (83.56,-42.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (84.00,-49.00) -- (80.50,-49.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (83.56,-48.56) -- (84.44,-49.44);
+\path[line width=0.60mm, draw=L] (84.44,-48.56) -- (83.56,-49.44);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (73.50,-28.00) -- (80.50,-28.00);
+\path[line width=0.30mm, draw=L] (73.50,-35.00) -- (80.50,-35.00);
+\path[line width=0.30mm, draw=L] (73.50,-42.00) -- (80.50,-42.00);
+\path[line width=0.30mm, draw=L] (73.50,-49.00) -- (80.50,-49.00);
+\end{tikzpicture}%

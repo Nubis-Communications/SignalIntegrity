@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="generator" content="http://www.nongnu.org/elyxer/"/>
-<meta name="create-date" content="2024-05-23"/>
+<meta name="create-date" content="2025-08-17"/>
 <link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
 <style type="text/css">
 /*
@@ -1073,15 +1073,15 @@ a:visited {
 <body>
 <div id="globalWrapper">
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> COM Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> Series</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
 </div>
 <h2 class="Subsection">
-<a class="toc" name="toc-Subsection-116"></a>Lossy Transmission Line<a class="Label" name="device:Transmission-Line-Lossy"> </a>
+<a class="toc" name="toc-Subsection-116"></a>Thru<a class="Label" name="device:Thru"> </a>
 </h2>
 <div class="Standard">
-<img class="embedded" src="TransmissionLineLossy.png" alt="figure TransmissionLineLossy.png" style="width: 261px; max-width: 873px; height: 158px; max-height: 527px;"/>
+<img class="embedded" src="Thru.png" alt="figure Thru.png" style="width: 588px; max-width: 2355px; height: 300px; max-height: 1200px;"/>
 
 </div>
 <div class="Standard">
@@ -1106,6 +1106,24 @@ Units
 </tr>
 <tr>
 <td align="center" valign="top" style="width: 4cm;">
+category
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+
+</td>
+<td align="center" valign="top" style="width: 1cm;">
+
+</td>
+<td align="center" valign="top" style="width: 2cm;">
+Miscellaneous
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top" style="width: 4cm;">
 default reference
 </td>
 <td align="center" valign="top" style="width: 2cm;">
@@ -1118,7 +1136,7 @@ string
 
 </td>
 <td align="center" valign="top" style="width: 2cm;">
-T?
+D?
 </td>
 
 </tr>
@@ -1140,92 +1158,20 @@ string
 </td>
 
 </tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-characteristic impedance
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-zc
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-ohms
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-50.0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-time delay
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-td
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-s
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-linear loss
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ldbperhzpers
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula"><span class="mathrm">dB</span> ⁄ <span class="mathrm">Hz</span> ⁄ <span class="mathrm">s</span></span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
-<tr>
-<td align="center" valign="top" style="width: 4cm;">
-skin-effect loss
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-float
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-ldbperroothzpers
-</td>
-<td align="center" valign="top" style="width: 1cm;">
-<span class="formula"><span class="mathrm">dB</span> ⁄ <span class="sqrt"><span class="radical">√</span><span class="ignored">(</span><span class="root"><span class="mathrm">Hz</span></span><span class="ignored">)</span></span> ⁄ <span class="mathrm">s</span></span>
-</td>
-<td align="center" valign="top" style="width: 2cm;">
-0
-</td>
-
-</tr>
 
 </table>
 
 </div>
 <div class="Standard">
-This is the a lossy transmission line model.
+This is a multi-port device (usually 2, but must be an even number of ports) that its ports on the left connected thru to the ports on the right.
 </div>
 <div class="Standard">
-It is a transmission line similar to <a class="Reference" href="Help-Subsection-114.html#device:Transmission-Line">Transmission Line↑</a> as it has a time delay and characteristic impedance specified, but it has additionally a linear loss and a skin-effect loss term.
+It is the device used when a <a class="Reference" href="Help-Subsection-98.html#device:File">File↑</a> device has an element state of ’thru’.
 </div>
 <div class="splitheader">
-<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> COM Transmission Line</span>
+<span class="prev"><a class="prev" name="prev" href="Help-Subsection-115.html#next">Prev</a> Series</span>
 <span class="up"><a class="up" name="up" href="Help-Section-23.html">Up</a> Built-in Devices (Parts)</span>
-<span class="next">Telegrapher - Two Port <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
+<span class="next">Transmission Line <a class="next" name="next" href="Help-Subsection-117.html#prev">Next</a></span>
 </div>
 
 </div>
