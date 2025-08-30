@@ -592,5 +592,7 @@ the delay is part of the fit.')
             with open(self.args['output_file'],'w') as f:
                 json.dump(results,f,indent=4)
         print('done')
+        if self.args['debug']:
+            input("Press Enter to continue...")
 if __name__ == '__main__': # pragma: no cover
     PZ_Main()
