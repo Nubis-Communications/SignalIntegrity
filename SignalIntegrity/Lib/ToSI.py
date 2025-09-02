@@ -158,6 +158,10 @@ def ToSI(d,sa='',letterPrefixes=True,round=12):
             s = ("{:."+str(round)+"g}.0"+spacer).format(d)
         #s = "{:.1f} ".format(d)
 
+    # a milli-inch is called a mil
+    if prefix == 'm' and sa == 'in':
+        sa = 'il'
+
     return s+sa
 
 def FromSI(string,unit=None):
