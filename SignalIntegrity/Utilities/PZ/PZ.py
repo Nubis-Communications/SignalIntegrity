@@ -491,27 +491,30 @@ the delay is part of the fit.')
 
         if self.args['debug']:
             # make an s-parameter file out of this result
-            from SignalIntegrity.Lib.Fit.PoleZero.QuadraticComplex import TransferFunctionComplexVectorized
-            sp=si.sp.SParameterFile(filename)
-            if self.args['reference_impedance'] != None:
-                sp.SetReferenceImpedance(self.args['reference_impedance'])
-            f=sp.m_f
-            new_s21=TransferFunctionComplexVectorized(np.array(f)*2.*np.pi,
-                                                  np.array(self.m_fitter.Results()),
-                                                  num_zeros,
-                                                  num_poles,
-                                                  self.args['fix_gain'],
-                                                  self.args['fix_delay']
-                                                  ).H
-            if self.args['voltage_transfer_function']:
-                # convert back to s11
-                s11=sp.FrequencyResponse(1,1)
-                for n in range(len(f)):
-                    sp.m_d[n][1][0] = new_s21[n]*(1+s11[n])
-            else:
-                for n in range(len(f)):
-                    sp.m_d[n][1][0] = new_s21[n]
-            sp.WriteToFile('debug')
+            try:
+                from SignalIntegrity.Lib.Fit.PoleZero.QuadraticComplex import TransferFunctionComplexVectorized
+                sp=si.sp.SParameterFile(filename)
+                if self.args['reference_impedance'] != None:
+                    sp.SetReferenceImpedance(self.args['reference_impedance'])
+                f=sp.m_f
+                new_s21=TransferFunctionComplexVectorized(np.array(f)*2.*np.pi,
+                                                      np.array(self.m_fitter.Results()),
+                                                      num_zeros,
+                                                      num_poles,
+                                                      self.args['fix_gain'],
+                                                      self.args['fix_delay']
+                                                      ).H
+                if self.args['voltage_transfer_function']:
+                    # convert back to s11
+                    s11=sp.FrequencyResponse(1,1)
+                    for n in range(len(f)):
+                        sp.m_d[n][1][0] = new_s21[n]*(1+s11[n])
+                else:
+                    for n in range(len(f)):
+                        sp.m_d[n][1][0] = new_s21[n]
+                sp.WriteToFile('debug')
+            except:
+                pass
         Message(f'elapsed time: {elapsed_time} s')
 
         if self.args['output_file']:
