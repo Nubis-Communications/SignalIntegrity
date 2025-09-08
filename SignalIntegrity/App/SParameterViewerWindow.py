@@ -1393,6 +1393,8 @@ class SParametersDialog(tk.Toplevel):
         if self.calibration != None:
             extension=('.cal')
             filetypes=[('calibration file', '.cal')]+filetypes
+        else:
+            filetypes=filetypes+[('csv file', '.csv')]
         filename=AskSaveAsFilename(filetypes=filetypes,
                     defaultextension=extension[0],
                     initialdir=self.fileparts.AbsoluteFilePath(),
@@ -1403,6 +1405,17 @@ class SParametersDialog(tk.Toplevel):
         self.fileparts=FileParts(filename)
         if self.fileparts.fileext=='.cal':
             self.calibration.WriteToFile(filename)
+        elif self.fileparts.fileext=='.csv':
+            lines=[]
+            for n in range(len(self.sp.m_f)):
+                line=str(self.sp.m_f[n])
+                for top in range(self.sp.m_P):
+                    for fromp in range(self.sp.m_P):
+                        s=self.sp.m_d[n][top][fromp]
+                        line += ','+str(s.real)+','+str(s.imag)
+                lines.append(line+'\n')
+            with open(filename,'wt') as f:
+                f.writelines(lines)
         else:
             self.sp.numDigits=SignalIntegrity.App.Preferences['SParameterProperties.SignificantDigits']
             self.sp.WriteToFile(filename,'R '+str(self.sp.m_Z0))

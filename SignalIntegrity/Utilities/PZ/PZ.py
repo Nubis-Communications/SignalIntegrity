@@ -179,8 +179,7 @@ class PZ_Main(object):
 this could be an:\n\
     s-parameter file (s21 assumed for fit),\n\
     SignalIntegrity frequency response file (not yet supported), or\n\
-    a .csv file containing frequency, real part, imaginary part on each line (not yet\n\
-    supported).')           # positional argument
+    a .csv file containing frequency, real part, imaginary part comma separated on each line.')           # positional argument
         parser.add_argument('-ft','--fit_type',type=str,help='(required) type of fit -- either "magnitude" or "complex"')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-pf','--profile',action='store_true', help='profiles the software')
@@ -293,7 +292,25 @@ the delay is part of the fit.')
         filename=self.args['filename']
 
         ext=os.path.splitext(filename)[-1]
-        if len(ext)>=4:
+        if ext.lower() == '.csv':
+            # .csv file
+            try:
+                with open(filename,'rt') as f:
+                    lines = f.readlines()
+                f=[]; r=[]
+                for line in lines:
+                    tokens=line.strip().split(',')
+                    f.append(float(tokens[0]))
+                    r.append(float(tokens[1])+1j*float(tokens[2]))
+                fr=si.fd.FrequencyResponse(f,r)
+                Message(os.path.split(filename)[-1] +' read')
+                if self.args['reference_impedance'] != None:
+                    Message('reference impedance (-r) ignored')
+                if self.args['voltage_transfer_function']:
+                    Message('voltage transfer function (-vt) ignored')
+            except:
+                Error('file: '+filename+' could not be opened')
+        elif len(ext)>=4:
             if ext[0:2].lower() == '.s' and ext[-1].lower() == 'p' and ext[2:-1].isnumeric():
                 # it's an s-parameter file
                 try:
@@ -315,7 +332,7 @@ the delay is part of the fit.')
                 except:
                     Error('file: '+filename+' could not be opened')
             else:
-                Error('only s-parameter files supported currently')
+                Error('only .csv and s-parameter files supported currently')
         if self.args['end_frequency'] != None or self.args['frequency_points'] != None:
             if self.args['end_frequency'] == None:
                 Error('if number of frequency points specified, then end frequency must be specified')
