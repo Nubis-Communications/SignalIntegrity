@@ -298,10 +298,19 @@ the delay is part of the fit.')
                 with open(filename,'rt') as f:
                     lines = f.readlines()
                 f=[]; r=[]
-                for line in lines:
-                    tokens=line.strip().split(',')
-                    f.append(float(tokens[0]))
-                    r.append(float(tokens[1])+1j*float(tokens[2]))
+                header_line = 0
+                for line_number in range(len(lines)):
+                    line=lines[line_number]
+                    try:
+                        tokens=line.strip().split(',')
+                        f.append(float(tokens[0]))
+                        r.append(float(tokens[1])+1j*float(tokens[2]))
+                    except (ValueError,IndexError):
+                        if line_number == header_line:
+                            header_line = line_number+1
+                            pass # let these initial lines slide (probably a header)
+                        else:
+                            raise # not in initial lines, reraise exception
                 fr=si.fd.FrequencyResponse(f,r)
                 Message(os.path.split(filename)[-1] +' read')
                 if self.args['reference_impedance'] != None:
