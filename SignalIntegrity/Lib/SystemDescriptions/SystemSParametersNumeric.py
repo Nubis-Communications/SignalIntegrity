@@ -96,18 +96,21 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         I12=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNnzrWxa]
         I21=[[1 if roele == coele else 0 for coele in XNnzcWbx] for roele in XNzrWxa]
 #       I22=[[1 if roele == coele else 0 for coele in XNzcWbx] for roele in XNzrWxa]
-        if XNzcWbx != []:
-            if AllZeroMatrix(I12) and AllZeroMatrix(Wxx12):
-                Wbx=Wbx1
-                Wxa=Wxa1
-                I=I11
-                Wxx=Wxx11
-        if XNzrWxa != []:
-            if AllZeroMatrix(I21) and AllZeroMatrix(Wxx21):
-                Wbx=Wbx1
-                Wxa=Wxa1
-                I=I11
-                Wxx=Wxx11
+        if len(Wxx11)>0:
+            if len(Wxx11) == len(Wxx11[0]):
+                # Wxx11 is square
+                if XNzcWbx != []:
+                    if AllZeroMatrix(I12) and AllZeroMatrix(Wxx12):
+                        Wbx=Wbx1
+                        Wxa=Wxa1
+                        I=I11
+                        Wxx=Wxx11
+                if XNzrWxa != []:
+                    if AllZeroMatrix(I21) and AllZeroMatrix(Wxx21):
+                        Wbx=Wbx1
+                        Wxa=Wxa1
+                        I=I11
+                        Wxx=Wxx11
         # pragma: include
         # pragma: silent exclude
         try:
