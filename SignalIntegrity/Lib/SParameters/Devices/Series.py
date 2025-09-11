@@ -51,6 +51,10 @@ class Series(SParameters):
         from SignalIntegrity.Lib.Conversions import S2T
         from SignalIntegrity.Lib.Conversions import T2S
         from SignalIntegrity.Lib.Conversions import ReferenceImpedance
+        if len(self.lp)+len(self.rp) != self.m_dev.m_P:
+            raise IndexError('port number incorrect')
+        if not np.any(self.m_dev[n]):
+            return self.m_dev[n]
         # pragma: include
         try:
             sp=T2S(linalg.fractional_matrix_power(S2T(self.m_dev[n],self.lp,self.rp),self.m_K),self.lp,self.rp)
@@ -58,4 +62,7 @@ class Series(SParameters):
         except np.linalg.LinAlgError:
             P=len(self.lp)+len(self.rp)
             sp=[[0 for _ in range(P)] for __ in range(P)]
+            # todo: handle this better -- some errors require raising an exception, others require just
+            # returning zeros
+            # raise
         return sp

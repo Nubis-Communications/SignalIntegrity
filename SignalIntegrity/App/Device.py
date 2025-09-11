@@ -337,7 +337,7 @@ class DeviceFile(Device):
             PartPropertyDefaultReferenceDesignator('D?'),
             PartPropertyFileName(),
             PartPropertyElementState(),
-            PartPropertyReorder(),]+propertiesList,partPicture)
+            PartPropertyReorder()]+propertiesList,partPicture)
 
 class DeviceUnknown(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1614,7 +1614,14 @@ class DeviceSeriesNetListLine(DeviceNetListLine):
             rp=[p+1 for p in range(ports//2,ports)]
             rp.reverse()
         lprpstr=' lp '+str(lp).strip('[] ').replace(' ','')+' rp '+str(rp).strip('[] ').replace(' ','')
-        returnstring=DeviceNetListLine.NetListLine(self,device)+lprpstr
+
+        reorder_string=device.PartPropertyByKeyword('reorder').PropertyString(stype='netlist')
+        if reorder_string not in ['','None']:
+            reorder_string = ' reorder '+reorder_string
+        else:
+            reorder_string = ''
+
+        returnstring=DeviceNetListLine.NetListLine(self,device)+lprpstr+reorder_string
         return returnstring
 
 class DeviceSeries(Device):
@@ -1629,7 +1636,8 @@ class DeviceSeries(Device):
             PartPropertyDefaultReferenceDesignator('D?'),
             PartPropertyCalculationProperties(),
             PartPropertySections(1),
-            PartPropertyFileName()],PartPictureVariableSeries())
+            PartPropertyFileName(),
+            PartPropertyReorder()],PartPictureVariableSeries())
 
 class DeviceThru(Device):
     def __init__(self,ports=2):
