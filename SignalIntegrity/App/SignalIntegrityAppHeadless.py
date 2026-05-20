@@ -263,10 +263,6 @@ class SignalIntegrityAppHeadless(object):
             return Result('s-parameters',None)
         sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
         from SignalIntegrity.Lib.Parsers.ParserArgs import ParserArgs
-        if ParserArgs.dry_run:
-            return Result('s-parameters',{'s-parameters':sp,
-                                          'file names':'',
-                                          'variables':{}})
         return Result('s-parameters',{'s-parameters':sp,
                                       'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                                       'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
