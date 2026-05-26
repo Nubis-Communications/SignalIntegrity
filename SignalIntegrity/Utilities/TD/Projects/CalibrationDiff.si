@@ -592,7 +592,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(37, 2)</Origin>
+						<Origin>(38, 2)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -628,7 +628,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(37, 7)</Origin>
+						<Origin>(38, 7)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -664,7 +664,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(37, 12)</Origin>
+						<Origin>(38, 12)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -700,7 +700,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(37, 18)</Origin>
+						<Origin>(38, 18)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -736,7 +736,22 @@
 		<AutoDebug>True</AutoDebug>
 		<Lines>
 			<EquationLine>
-				<Line>path_to_meas = './Deemb structures/'</Line>
+				<Line>if ic_type.lower() == 'tia':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;path_to_meas = './tia structures/'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>elif ic_type.lower() == 'dvr':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;path_to_meas = './driver structures/'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>else:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;raise ValueError('ic_type must be either tia or dvr')</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line></Line>
@@ -774,6 +789,9 @@
 			<EquationLine>
 				<Line></Line>
 			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
 		</Lines>
 	</Equations>
 	<Variables>
@@ -788,40 +806,13 @@
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>file name</Description>
-				<Name>short_meas_file_name</Name>
-				<ReadOnly>True</ReadOnly>
-				<Type>file</Type>
-				<Units>None</Units>
-				<Value>./Deemb structures/Short_lane_8.s4p</Value>
-				<Visible>False</Visible>
-			</Variable>
-			<Variable>
-				<Description>file name</Description>
-				<Name>open_meas_file_name</Name>
-				<ReadOnly>True</ReadOnly>
-				<Type>file</Type>
-				<Units>None</Units>
-				<Value>./Deemb structures/Open_lane_8.s4p</Value>
-				<Visible>False</Visible>
-			</Variable>
-			<Variable>
-				<Description>file name</Description>
-				<Name>load_meas_file_name</Name>
-				<ReadOnly>True</ReadOnly>
-				<Type>file</Type>
-				<Units>None</Units>
-				<Value>./Deemb structures/Load_lane_8.s4p</Value>
-				<Visible>False</Visible>
-			</Variable>
-			<Variable>
-				<Description>file name</Description>
-				<Name>thru_meas_file_name</Name>
-				<ReadOnly>True</ReadOnly>
-				<Type>file</Type>
-				<Units>None</Units>
-				<Value>./Deemb structures/Thru_lane_8.s4p</Value>
-				<Visible>False</Visible>
+				<Description>ic type (either tia or dvr)</Description>
+				<Name>ic_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>unknown</Value>
+				<Visible>True</Visible>
 			</Variable>
 			<Variable>
 				<Description>dummy raw measurement</Description>
@@ -830,7 +821,43 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>Nothing</Value>
+				<Value>lane_6/VDDH_3p1V_all_lanes_on/Board2_Var1_lane_6_VDDH_3p1V_all_lanes_on_OA_RE_0_VGA_RE_0_RFB_0_VGA_STR_0_OA_STR_0_Channel1.s4p</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>file name</Description>
+				<Name>short_meas_file_name</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>file</Type>
+				<Units>None</Units>
+				<Value>./driver structures/Short_lane_6.s4p</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>file name</Description>
+				<Name>open_meas_file_name</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>file</Type>
+				<Units>None</Units>
+				<Value>./driver structures/Open_lane_6.s4p</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>file name</Description>
+				<Name>load_meas_file_name</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>file</Type>
+				<Units>None</Units>
+				<Value>./driver structures/Load_lane_6.s4p</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>file name</Description>
+				<Name>thru_meas_file_name</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>file</Type>
+				<Units>None</Units>
+				<Value>./driver structures/Thru_lane_6.s4p</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>
