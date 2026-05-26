@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>615x281+130+130</Geometry>
+			<Geometry>615x281+182+182</Geometry>
 			<Grid>14</Grid>
 			<Originx>7</Originx>
 			<Originy>2</Originy>
@@ -238,7 +238,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>Nothing</Value>
+				<Value>unknown</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -248,7 +248,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>int</Type>
 				<Units></Units>
-				<Value>4</Value>
+				<Value>6</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>dummy ic type</Description>
+				<Name>ic_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>unknown</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>

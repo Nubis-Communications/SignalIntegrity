@@ -37,10 +37,13 @@ class TD_Calculator():
 
                         Calculates a calibrated thunder IC measurement
 
-The single-ended s-parameter file is read in and converted to the differential mode.  Then a calibrated version is calculated according to the lane number (-ln) specified using
-the end frequency (-fe) and number of points (-n) specified.
+The single-ended s-parameter file is read in and converted to the differential mode.
 
-Note, the port ordering the input single-ended s-parameter file is ip,in,op,on, where i means input, o means output, p means positive, and n means negative.
+Then a calibrated version is calculated according to the lane number (-ln) specified, and
+the ic type specified (-ic) either tia or dvr using the end frequency (-fe) and number of points (-n) specified.
+
+Note, the port ordering the input single-ended s-parameter file is ip,in,op,on,
+where i means input, o means output, p means positive, and n means negative.
                         """,
                         epilog='',
                         formatter_class=RawTextHelpFormatter)
@@ -48,6 +51,7 @@ Note, the port ordering the input single-ended s-parameter file is ip,in,op,on, 
         parser.add_argument('-ln','--lane_number',type=int,help='(required) lane number')
         parser.add_argument('-of','--output_file',type=str,help='(optional) output file\n\
 no matter how this file is specified, it will have .s2p as an extension')
+        parser.add_argument('-ic','--ic_type',type=str,help='(required) ic type, either tia or dvr')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-p','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
@@ -91,7 +95,17 @@ this should not be set if you are relying on stdout for the return value.')
         filename=self.args['filename']
         if filename is None:
             self.Error('file name must be supplied')
+        else:
+            filename = os.path.abspath(filename)
+            self.Message(f'absolute file name is {filename}')
     
+        if self.args['ic_type'] is None:
+            self.Error('ic type must be supplied, either tia or dvr')
+        elif self.args['ic_type'] not in ['tia','dvr']:
+            self.Error('ic type must be either tia or dvr')
+        else:
+            self.Message(f'ic type is {self.args["ic_type"]}')
+
         # if not self.args['port_reorder'] is None:
         #     try:
         #         sp=sp.PortReorder(self.args['port_reorder'])
@@ -100,8 +114,9 @@ this should not be set if you are relying on stdout for the return value.')
         #         self.Error('port reordering failed')
 
         if self.args['debug']: # pragma: no cover
-            debug_args=args={'raw_measurement':self.args['filename'],
+            debug_args=args={'raw_measurement':filename,
                              'lane_number':self.args['lane_number'],
+                             'ic_type':self.args['ic_type'],
                              'EndFrequency':self.args['end_frequency'],
                              'FrequencyPoints':self.args['frequency_points'],
                             }
@@ -113,8 +128,9 @@ this should not be set if you are relying on stdout for the return value.')
 
         siapp = SignalIntegrityAppHeadless()
         opened = siapp.OpenProjectFile(os.path.join(os.path.dirname(__file__),'Projects','CalculationDiff.si'),
-                                       args={'raw_measurement':self.args['filename'],
+                                       args={'raw_measurement':filename,
                                              'lane_number':self.args['lane_number'],
+                                             'ic_type':self.args['ic_type'],
                                              'EndFrequency':self.args['end_frequency'],
                                              'FrequencyPoints':self.args['frequency_points'],
                                              })
@@ -130,10 +146,12 @@ this should not be set if you are relying on stdout for the return value.')
         finally:
             os.chdir(self.cwd)
 
+        output_file = self.args['output_file']
         if self.args['output_file'] is not None:
             try:
-                self.result.WriteToFile(self.args['output_file'])
-                self.Message(f'calibrated s-parameters written to {self.args["output_file"]}')
+                output_file = os.path.abspath(output_file)
+                self.result.WriteToFile(output_file)
+                self.Message(f'calibrated s-parameters written to {output_file}')
             except:
                 self.Error('failed to write output file')
 

@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>580x327+312+312</Geometry>
+			<Geometry>580x327+26+26</Geometry>
 			<Grid>14</Grid>
 			<Originx>4</Originx>
 			<Originy>6</Originy>
@@ -86,6 +86,15 @@
 								<Value>=lane_number</Value>
 								<Visible>True</Visible>
 							</Variable>
+							<Variable>
+								<Description>ic_type (tia or dvr)</Description>
+								<Name>ic_type</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>string</Type>
+								<Units></Units>
+								<Value>=ic_type</Value>
+								<Visible>True</Visible>
+							</Variable>
 						</Items>
 					</Variables>
 				</Device>
@@ -163,7 +172,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>lane_6/VDDH_3p1V_all_lanes_on/Board2_Var1_lane_6_VDDH_3p1V_all_lanes_on_OA_RE_0_VGA_RE_0_RFB_0_VGA_STR_0_OA_STR_0_Channel1.s4p</Value>
+				<Value>unknown</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -172,7 +181,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>int</Type>
 				<Units></Units>
-				<Value>6</Value>
+				<Value>8</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>ic_type (tia or dvr)</Description>
+				<Name>ic_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>unknown</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>
