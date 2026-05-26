@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>651x530+501+680</Geometry>
+			<Geometry>651x530+26+26</Geometry>
 			<Grid>14</Grid>
 			<Originx>-6</Originx>
 			<Originy>3</Originy>
@@ -391,13 +391,13 @@
 						</PartProperty>
 						<PartProperty>
 							<Keyword>pn</Keyword>
-							<KeywordVisible>False</KeywordVisible>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>1</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>opn</Keyword>
-							<KeywordVisible>False</KeywordVisible>
+							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
 							<Visible>True</Visible>
 						</PartProperty>
@@ -680,7 +680,22 @@
 		<AutoDebug>True</AutoDebug>
 		<Lines>
 			<EquationLine>
-				<Line>path_to_meas = './Deemb structures/'</Line>
+				<Line>if ic_type.lower() == 'tia':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;path_to_meas = './tia structures/'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>elif ic_type.lower() == 'dvr':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;path_to_meas = './driver structures/'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>else:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>&#09;raise ValueError('ic_type must be either tia or dvr')</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line></Line>
@@ -730,6 +745,9 @@
 			<EquationLine>
 				<Line></Line>
 			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
 		</Lines>
 	</Equations>
 	<Variables>
@@ -740,7 +758,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>int</Type>
 				<Units></Units>
-				<Value>7</Value>
+				<Value>8</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>ic type (either tia or dvr)</Description>
+				<Name>ic_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>unknown</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -750,7 +777,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>Nothing</Value>
+				<Value>unknown</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -759,7 +786,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Short1_lane_7.s1p</Value>
+				<Value>./tia structures/Short1_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -768,7 +795,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Open1_lane_7.s1p</Value>
+				<Value>./tia structures/Open1_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -777,7 +804,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Load1_lane_7.s1p</Value>
+				<Value>./tia structures/Load1_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -786,7 +813,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Short2_lane_7.s1p</Value>
+				<Value>./tia structures/Short2_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -795,7 +822,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Open2_lane_7.s1p</Value>
+				<Value>./tia structures/Open2_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -804,7 +831,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Load2_lane_7.s1p</Value>
+				<Value>./tia structures/Load2_lane_6.s1p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -813,7 +840,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Thru_lane_7.s2p</Value>
+				<Value>./tia structures/Thru_lane_6.s2p</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -822,7 +849,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>./Deemb structures/Xtalk_lane_7.s2p</Value>
+				<Value>./tia structures/Xtalk_lane_6.s2p</Value>
 				<Visible>False</Visible>
 			</Variable>
 		</Items>
