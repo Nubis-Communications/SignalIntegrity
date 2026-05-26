@@ -79,6 +79,7 @@ class TestTDTest(unittest.TestCase,
     def TD_args():
         return {#'port_reorder':'1,2,3,4,16,15,14,13',
                 'lane_number':'4',
+                'ic_type':'tia',
                 'end_frequency':'65e9',
                 'frequency_points':'928',
                 'output_file':'testoutput'
@@ -87,6 +88,7 @@ class TestTDTest(unittest.TestCase,
         args=self.TD_args()
         #args['port_reorder']=eval('['+args['port_reorder']+']')
         args['lane_number']=eval(args['lane_number'])
+        args['ic_type']=args['ic_type']
         args['output_file']=args['output_file']
         args['end_frequency']=eval(args['end_frequency'])
         args['frequency_points']=eval(args['frequency_points'])
@@ -168,6 +170,15 @@ class TestTDTest(unittest.TestCase,
             self.assertEqual(e.code,0,'TD_Main did not exit properly') # should pass
             return
         self.fail('TD should have exited with SystemExit exception raised')
+    def testTDMainMissingICtype(self):
+        from SignalIntegrity.Utilities.TD.TD import TD_Main
+        self.formTDMain_argv(['ic_type'])
+        try:
+            TD_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,1,'TD_Main did not exit properly') # should fail
+            return
+        self.fail('TD should have exited with SystemExit exception raised')
     def testTDMainProfile(self):
         from SignalIntegrity.Utilities.TD.TD import TD_Main
         self.formTDMain_argv()
@@ -211,6 +222,18 @@ class TestTDTest(unittest.TestCase,
             TD_Main()
         except SystemExit as e:
             self.assertEqual(e.code,2,'TD_Main did not exit properly') # should fail
+            return
+        self.fail('TD should have exited with SystemExit exception raised')
+    def testTDMainBadICType(self):
+        import sys
+        from SignalIntegrity.Utilities.TD.TD import TD_Main
+        self.formTDMain_argv(replace={'ic_type':'gobbledygook'})
+        #sys.argv.append('-v')
+        #sys.argv.append('-p')
+        try:
+            TD_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,1,'TD_Main did not exit properly') # should fail
             return
         self.fail('TD should have exited with SystemExit exception raised')
     def testTDPythonScript(self):
