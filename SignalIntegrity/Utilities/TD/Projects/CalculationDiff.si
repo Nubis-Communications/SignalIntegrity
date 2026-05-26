@@ -6,7 +6,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>580x275+543+798</Geometry>
+			<Geometry>580x275+78+78</Geometry>
 			<Grid>14</Grid>
 			<Originx>4</Originx>
 			<Originy>6</Originy>
@@ -86,6 +86,15 @@
 								<Value>=lane_number</Value>
 								<Visible>True</Visible>
 							</Variable>
+							<Variable>
+								<Description>ic_type (tia or dvr)</Description>
+								<Name>ic_type</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>string</Type>
+								<Units></Units>
+								<Value>=ic_type</Value>
+								<Visible>True</Visible>
+							</Variable>
 						</Items>
 					</Variables>
 				</Device>
@@ -154,6 +163,14 @@
 	</Drawing>
 	<Equations>
 		<AutoDebug>True</AutoDebug>
+		<Lines>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+		</Lines>
 	</Equations>
 	<Variables>
 		<Items>
@@ -173,6 +190,15 @@
 				<Type>int</Type>
 				<Units></Units>
 				<Value>6</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>ic_type (tia or dvr)</Description>
+				<Name>ic_type</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>tia</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>
