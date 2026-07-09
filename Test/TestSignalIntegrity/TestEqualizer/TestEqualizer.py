@@ -24,6 +24,8 @@ import unittest
 import numpy as np
 import SignalIntegrity.Lib as si
 from SignalIntegrity.Lib.Equalization.Equalizer import BlindEqualizer
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
@@ -160,6 +162,50 @@ class TestEqualizerTest(unittest.TestCase):
             eq._num_symbols = saved_num_symbols
         self.assertGreaterEqual(tau, 0.0)
         self.assertLess(tau, eq.ui)
+
+    def testSpectralDensityNoiseResidual(self):
+        symbols = [-1.0, 1.0, -1.0, 1.0] * 12
+        wf = self._build_waveform(symbols, 1.0e9, 4, channel=[0.15, 0.7, 0.15])
+
+        # Use a coarse source grid so the equalizer path must resample to its own Nyquist grid.
+        src_fd = EvenlySpacedFrequencyList(2.0e9, 8)
+        sd = SpectralDensity.WhiteNoise(src_fd, 'V/sqrt(Hz)', 1e-9)
+
+        eq = BlindEqualizer(
+            waveform=wf,
+            num_levels=2,
+            baud_rate=1.0e9,
+            ideal_samples_per_ui=4,
+            num_ffe_taps=3,
+            num_dfe_taps=1,
+            num_precursor_taps=1,
+            spectral_density=sd,
+        )
+
+        self.assertIsNotNone(eq._noise_frequency_grid)
+        self.assertIsNotNone(eq._noise_frequencies)
+        self.assertIsNotNone(eq._noise_density_squared)
+
+        residuals, _, _, _ = eq._evaluate(eq.m_a)
+        self.assertEqual(residuals.shape[0], eq._num_symbols + 1)
+        self.assertEqual(residuals.shape[1], 1)
+        self.assertGreaterEqual(float(residuals[-1][0]), 0.0)
+
+    def testNoiseResidualGuardWithoutSpectralDensity(self):
+        symbols = [-1.0, 1.0, -1.0, 1.0] * 6
+        wf = self._build_waveform(symbols, 1.0e9, 4)
+
+        eq = BlindEqualizer(
+            waveform=wf,
+            num_levels=2,
+            baud_rate=1.0e9,
+            ideal_samples_per_ui=4,
+            num_ffe_taps=2,
+            num_dfe_taps=0,
+            num_precursor_taps=0,
+        )
+
+        self.assertEqual(eq._compute_noise_residual(np.array([1.0, 0.0])), 0.0)
 
 
 if __name__ == '__main__':

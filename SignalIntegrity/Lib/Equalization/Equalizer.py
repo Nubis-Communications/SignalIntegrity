@@ -25,6 +25,7 @@ import numpy as np
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionFitter
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
@@ -79,6 +80,11 @@ class BlindEqualizer(LevMar):
 
         self._resampled_cache = {}
         self._cursor_index = self.num_precursor_taps
+        self._noise_frequency_grid = None
+        self._noise_frequencies = None
+        self._noise_density_squared = None
+        if self.spectral_density is not None:
+            self._initialize_noise_residual()
 
         LevMar.__init__(self, callback)
         # Numerical derivative step must work for both tap values and phase (seconds).
@@ -98,7 +104,29 @@ class BlindEqualizer(LevMar):
 
     def _residual_length(self):
         conv_len = self._goal_num_points + self.num_ffe_taps - 1
-        return 1 + (conv_len - 1 - self._cursor_index) // self.ideal_samples_per_ui
+        symbol_count = 1 + (conv_len - 1 - self._cursor_index) // self.ideal_samples_per_ui
+        return symbol_count + (1 if self.spectral_density is not None else 0)
+
+    def _initialize_noise_residual(self):
+        # Build a fixed grid from DC to baud Nyquist for spectral-density integration.
+        f_nyquist = 0.5 * self.baud_rate
+        grid_intervals = max(4, self._num_symbols)
+        self._noise_frequency_grid = EvenlySpacedFrequencyList(f_nyquist, grid_intervals)
+        sd_resampled = self.spectral_density.Resample(self._noise_frequency_grid)
+        self._noise_frequencies = np.asarray(self._noise_frequency_grid.Frequencies(), dtype=float)
+        rho = np.asarray(sd_resampled.Values('V/sqrt(Hz)'), dtype=float)
+        self._noise_density_squared = np.square(rho)
+
+    def _compute_noise_residual(self, ffe):
+        if self._noise_frequencies is None or self._noise_density_squared is None:
+            return 0.0
+        tap_index = np.arange(len(ffe), dtype=float)
+        phase = (-2j * np.pi / self.goal_sample_rate) * np.outer(self._noise_frequencies, tap_index)
+        h_f = np.exp(phase).dot(ffe)
+        integrand = np.square(np.abs(h_f)) * self._noise_density_squared
+        noise_power = float(np.trapz(integrand, self._noise_frequencies))
+        noise_rms = math.sqrt(max(noise_power, 0.0))
+        return noise_rms / math.sqrt(max(self._num_symbols, 1))
 
     def _resample_with_phase(self, tau):
         tau = self._wrap_phase(tau)
@@ -152,6 +180,8 @@ class BlindEqualizer(LevMar):
             decisions[n] = forced[n] if forced_decisions is not None else self._slice_levels([eq])[0]
 
         residuals = equalized - decisions
+        if self.spectral_density is not None:
+            residuals = np.append(residuals, self._compute_noise_residual(ffe))
         return residuals.reshape(-1, 1), equalized, decisions, tau
 
     def _scan_initial_phase(self):
