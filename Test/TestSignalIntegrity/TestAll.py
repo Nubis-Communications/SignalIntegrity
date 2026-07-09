@@ -40,6 +40,7 @@ from TestDescriptors import *
 from TestDeviceParser import *
 from TestDFTUtilities import *
 from TestEncryption import *
+from TestEqualizer import *
 from TestERL import *
 from TestExceptions import *
 from TestEyeDiagram import *
