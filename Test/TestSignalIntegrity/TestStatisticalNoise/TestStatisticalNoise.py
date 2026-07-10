@@ -517,7 +517,43 @@ class TestStatisticalNoiseTest(unittest.TestCase,
 
         print('\n✓ All SalzSNRdB noise floor filtering tests completed successfully!')
 
+    def testEqualized(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import numpy as np
+        siapp = SignalIntegrityAppHeadless()
+        opened = siapp.OpenProjectFile(os.path.join(os.path.dirname(os.path.realpath(__file__)),'CrosstalkAnalysis.si'))
+        self.assertTrue(opened,"Failed to open CrosstalkAnalysis.si project")
+        results = siapp.Simulate()
+        unequalized_wf = results['output waveforms'][results['output waveform labels'].index('Unequalized')]
+        from SignalIntegrity.Lib.Equalization.Equalizer import BlindEqualizer
+        eq = BlindEqualizer(
+            waveform=unequalized_wf,
+            num_levels=4,
+            baud_rate=53e9,
+            ideal_samples_per_ui=8,
+            num_ffe_taps=11,
+            num_dfe_taps=0,
+            num_precursor_taps=5,
+        )
 
+        # Baseline cost at the initializer point.
+        initial_residuals = eq.fF(eq.m_a)
+        initial_rms = float(np.sqrt(np.mean(np.square(np.asarray(initial_residuals).reshape(-1)))))
+
+        equalized_wf, ffe, dfe, tau = eq.Solve()
+        _, _, _, _, final_residuals = eq.Results()
+        final_rms = float(np.sqrt(np.mean(np.square(np.asarray(final_residuals).reshape(-1)))))
+
+        self.assertIsNotNone(equalized_wf)
+        self.assertEqual(len(ffe), 11)
+        self.assertEqual(len(dfe), 0)
+        self.assertGreaterEqual(tau, 0.0)
+        self.assertLess(tau, eq.ui)
+        # Equalization quality is measured by reducing decode error RMS.
+        self.assertLess(final_rms, initial_rms)
+        
+        ffe=ffe/sum(np.abs(ffe))
+        print(str(ffe.tolist()).replace(' ',''))
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

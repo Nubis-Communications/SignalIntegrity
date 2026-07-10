@@ -119,6 +119,7 @@ class TestEqualizerTest(unittest.TestCase):
 
         equalized_wf, ffe, dfe, tau = eq.Solve()
         self.assertIsInstance(equalized_wf, Waveform)
+        self.assertAlmostEqual(equalized_wf.td.Fs, eq.goal_sample_rate)
         self.assertEqual(len(ffe), 1)
         self.assertEqual(len(dfe), 0)
         self.assertGreaterEqual(tau, 0.0)
@@ -126,6 +127,7 @@ class TestEqualizerTest(unittest.TestCase):
 
         result_wf, result_ffe, result_dfe, result_tau, residuals = eq.Results()
         self.assertIsInstance(result_wf, Waveform)
+        self.assertAlmostEqual(result_wf.td.Fs, eq.goal_sample_rate)
         self.assertEqual(len(result_ffe), 1)
         self.assertEqual(len(result_dfe), 0)
         self.assertEqual(residuals.shape[1], 1)

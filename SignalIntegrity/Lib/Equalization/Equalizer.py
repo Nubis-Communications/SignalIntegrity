@@ -71,7 +71,8 @@ class BlindEqualizer(LevMar):
 
         self.ui = 1.0 / self.baud_rate
         self.goal_sample_rate = self.baud_rate * self.ideal_samples_per_ui
-        self.levels = np.linspace(-1.0, 1.0, self.num_levels)
+        # Estimate decision levels from the input waveform for better closed-eye handling.
+        self.levels = self._estimate_levels_from_waveform()
 
         self._base_h = self.input_waveform.td.H
         self._num_symbols = int(math.floor(self.input_waveform.td.Duration() * self.baud_rate))
@@ -79,7 +80,9 @@ class BlindEqualizer(LevMar):
         self._goal_num_points = self._num_symbols * self.ideal_samples_per_ui
 
         self._resampled_cache = {}
-        self._cursor_index = self.num_precursor_taps
+        self._cursor_tap_index = self.num_precursor_taps
+        # FFE taps are UI-spaced; convert precursor cursor location to sample index.
+        self._cursor_index = self._cursor_tap_index * self.ideal_samples_per_ui
         self._noise_frequency_grid = None
         self._noise_frequencies = None
         self._noise_density_squared = None
@@ -92,18 +95,28 @@ class BlindEqualizer(LevMar):
 
         tau0 = self._scan_initial_phase()
         a0 = np.zeros((self.num_ffe_taps + self.num_dfe_taps + 1, 1), dtype=float)
-        a0[self._cursor_index][0] = 1.0
+        a0[self._cursor_tap_index][0] = 1.0
         a0[-1][0] = tau0
 
         initial_residuals, _, _, _ = self._evaluate(a0)
         y0 = np.zeros_like(initial_residuals)
         LevMar.Initialize(self, a0, y0)
 
+    def _estimate_levels_from_waveform(self):
+        """Estimate decision levels from quantile centers of the input waveform."""
+        wf_values = np.asarray(self.input_waveform.Values(), dtype=float)
+        if len(wf_values) == 0:
+            return np.linspace(-1.0, 1.0, self.num_levels)
+        quantiles = (np.arange(self.num_levels, dtype=float) + 0.5) / float(self.num_levels)
+        estimated_levels = np.quantile(wf_values, quantiles)
+        return np.asarray(estimated_levels, dtype=float)
+
     def _wrap_phase(self, tau):
         return float(tau) % self.ui
 
     def _residual_length(self):
-        conv_len = self._goal_num_points + self.num_ffe_taps - 1
+        ffe_span = (self.num_ffe_taps - 1) * self.ideal_samples_per_ui + 1
+        conv_len = self._goal_num_points + ffe_span - 1
         symbol_count = 1 + (conv_len - 1 - self._cursor_index) // self.ideal_samples_per_ui
         return symbol_count + (1 if self.spectral_density is not None else 0)
 
@@ -117,11 +130,17 @@ class BlindEqualizer(LevMar):
         rho = np.asarray(sd_resampled.Values('V/sqrt(Hz)'), dtype=float)
         self._noise_density_squared = np.square(rho)
 
+    def _expand_ffe_samples(self, ffe):
+        expanded = np.zeros((self.num_ffe_taps - 1) * self.ideal_samples_per_ui + 1, dtype=float)
+        expanded[:: self.ideal_samples_per_ui] = np.asarray(ffe, dtype=float)
+        return expanded
+
     def _compute_noise_residual(self, ffe):
         if self._noise_frequencies is None or self._noise_density_squared is None:
             return 0.0
         tap_index = np.arange(len(ffe), dtype=float)
-        phase = (-2j * np.pi / self.goal_sample_rate) * np.outer(self._noise_frequencies, tap_index)
+        # FFE taps are one UI apart, so delay is k/baud_rate.
+        phase = (-2j * np.pi / self.baud_rate) * np.outer(self._noise_frequencies, tap_index)
         h_f = np.exp(phase).dot(ffe)
         integrand = np.square(np.abs(h_f)) * self._noise_density_squared
         noise_power = float(np.trapz(integrand, self._noise_frequencies))
@@ -147,13 +166,20 @@ class BlindEqualizer(LevMar):
         distance = np.abs(values.reshape(-1, 1) - self.levels.reshape(1, -1))
         return self.levels[np.argmin(distance, axis=1)]
 
+    def _min_distance_to_levels(self, values):
+        """Compute minimum distance from each value to the nearest constellation level."""
+        values = np.asarray(values, dtype=float)
+        distance = np.abs(values.reshape(-1, 1) - self.levels.reshape(1, -1))
+        return np.min(distance, axis=1)
+
     def _evaluate(self, a, forced_decisions=None):
         ffe = np.asarray(a[: self.num_ffe_taps, 0], dtype=float)
         dfe = np.asarray(a[self.num_ffe_taps : self.num_ffe_taps + self.num_dfe_taps, 0], dtype=float)
         tau = self._wrap_phase(a[-1][0].real)
 
         resampled = self._resample_with_phase(tau)
-        ffe_output = np.convolve(resampled, ffe, mode='full')
+        ffe_samples = self._expand_ffe_samples(ffe)
+        ffe_output = np.convolve(resampled, ffe_samples, mode='full')
         symbol_stream = ffe_output[self._cursor_index :: self.ideal_samples_per_ui]
         if len(symbol_stream) >= self._num_symbols:
             symbol_stream = symbol_stream[: self._num_symbols]
@@ -175,10 +201,13 @@ class BlindEqualizer(LevMar):
                 if idx >= 0:
                     src = forced[idx] if forced_decisions is not None else decisions[idx]
                     feedback += dfe[k] * src
-            eq = symbol_stream[n] - feedback
-            equalized[n] = eq
-            decisions[n] = forced[n] if forced_decisions is not None else self._slice_levels([eq])[0]
 
+            # Equalized symbol is the sample used for decoding at this UI.
+            y_n = symbol_stream[n] - feedback
+            equalized[n] = y_n
+            decisions[n] = forced[n] if forced_decisions is not None else self._slice_levels([y_n])[0]
+
+        # Signed residual keeps direction information for optimization.
         residuals = equalized - decisions
         if self.spectral_density is not None:
             residuals = np.append(residuals, self._compute_noise_residual(ffe))
@@ -208,12 +237,13 @@ class BlindEqualizer(LevMar):
 
     def fPartialFPartiala(self, a, m, Fa=None):
         # Freeze hard decisions at the current point to keep finite-difference Jacobian stable.
-        base_residuals, _, base_decisions, _ = self._evaluate(a)
+        base_residuals, base_equalized, base_decisions, _ = self._evaluate(a)
         if Fa is None:
             Fa = base_residuals
 
         a_plus = copy.copy(a)
         a_plus[m][0] = a_plus[m][0] + self.m_epsilon
+        # Use base_decisions (frozen from current iteration) for perturbed evaluation.
         perturbed_residuals, _, _, _ = self._evaluate(a_plus, forced_decisions=base_decisions)
         return (perturbed_residuals - Fa) / self.m_epsilon
 
@@ -225,12 +255,47 @@ class BlindEqualizer(LevMar):
 
     def Results(self):
         a = self.m_a
-        residuals, equalized, _, tau = self._evaluate(a)
+        residuals, _, decisions, tau = self._evaluate(a)
         ffe = np.asarray(a[: self.num_ffe_taps, 0], dtype=float)
         dfe = np.asarray(a[self.num_ffe_taps : self.num_ffe_taps + self.num_dfe_taps, 0], dtype=float)
 
-        td = TimeDescriptor(HorOffset=0.0, NumPts=len(equalized), SampleRate=self.baud_rate)
-        equalized_wf = Waveform(td, equalized.tolist())
+        # Return the high-rate equalized stream aligned to the decision cursor.
+        # Compute the full-rate FFE output.
+        resampled = self._resample_with_phase(tau)
+        ffe_samples = self._expand_ffe_samples(ffe)
+        ffe_output = np.convolve(resampled, ffe_samples, mode='full')
+        
+        # Extract symbol-rate samples and quantize them to get decisions.
+        symbol_stream = ffe_output[self._cursor_index :: self.ideal_samples_per_ui]
+        if len(symbol_stream) >= self._num_symbols:
+            symbol_stream = symbol_stream[: self._num_symbols]
+        else:
+            symbol_stream = np.pad(symbol_stream, (0, self._num_symbols - len(symbol_stream)), mode='constant')
+        
+        # Quantize to decision levels.
+        symbol_decisions = self._slice_levels(symbol_stream)
+        
+        # Apply DFE feedback to get the equalized output.
+        equalized_symbols = np.zeros(len(symbol_stream), dtype=float)
+        for n in range(len(symbol_stream)):
+            feedback = 0.0
+            for k in range(self.num_dfe_taps):
+                idx = n - k - 1
+                if idx >= 0:
+                    feedback += dfe[k] * symbol_decisions[idx]
+            equalized_symbols[n] = symbol_stream[n] - feedback
+
+        # Interpolate back to full sample rate for output.
+        # Each symbol is repeated ideal_samples_per_ui times.
+        start = self._cursor_index
+        stop = start + self._goal_num_points
+        if stop <= len(ffe_output):
+            equalized_full_rate = ffe_output[start:stop]
+        else:
+            equalized_full_rate = np.pad(ffe_output[start:], (0, stop - len(ffe_output)), mode='constant')
+
+        td = TimeDescriptor(HorOffset=0.0, NumPts=len(equalized_full_rate), SampleRate=self.goal_sample_rate)
+        equalized_wf = Waveform(td, equalized_full_rate.tolist())
         return equalized_wf, ffe, dfe, tau, residuals
 
     def Solve(self):
