@@ -33,6 +33,7 @@ from . import ImpedanceProfile as ip
 from . import ChirpZTransform as czt
 from . import TimeDomain as td
 from . import FrequencyDomain as fd
+from . import Equalization as eq
 from .Exception import *
 from . import Wavelets as wl
 from .Rat import *
