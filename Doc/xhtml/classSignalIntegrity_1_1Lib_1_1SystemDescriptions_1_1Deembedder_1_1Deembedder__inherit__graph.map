@@ -1,7 +1,11 @@
 <map id="Deembedder" name="Deembedder">
-<area shape="rect" id="node1" title="housekeeping base class for deembedders" alt="" coords="100,491,239,656"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title=" " alt="" coords="5,704,157,796"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title=" " alt="" coords="182,704,333,796"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="98,277,241,443"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="91,5,248,229"/>
+<area shape="rect" id="Node000001" title="housekeeping base class for deembedders" alt="" coords="105,432,217,517"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title="Performs numerical device deembedding." alt="" coords="5,565,149,651"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="130,530,106,567,102,564,125,527"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="Produces symbolic solutions to deembedding problems." alt="" coords="174,565,317,651"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="197,527,221,564,216,567,193,530"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="94,299,229,384"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,398,164,432,159,432,159,398"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="86,5,237,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="164,265,164,298,159,298,159,265"/>
 </map>

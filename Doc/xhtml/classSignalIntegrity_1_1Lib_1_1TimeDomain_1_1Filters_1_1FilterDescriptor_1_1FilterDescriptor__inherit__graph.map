@@ -1,5 +1,7 @@
 <map id="FilterDescriptor" name="FilterDescriptor">
-<area shape="rect" id="node1" title="FilterDescriptor.py." alt="" coords="117,5,227,229"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" title="decimates waveforms" alt="" coords="5,277,163,399"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" title="trims waveforms" alt="" coords="187,285,336,391"/>
+<area shape="rect" id="Node000001" title="FilterDescriptor.py." alt="" coords="113,5,215,231"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformDecimator_1_1WaveformDecimator.xhtml" title="decimates waveforms" alt="" coords="5,279,155,384"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,245,103,279,98,277,112,243"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformTrimmer_1_1WaveformTrimmer.xhtml" title="trims waveforms" alt="" coords="179,279,320,384"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,242,231,277,226,279,212,244"/>
 </map>

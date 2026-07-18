@@ -1,4 +1,5 @@
 <map id="XtalkCalibrationMeasurement" name="XtalkCalibrationMeasurement">
-<area shape="rect" id="node1" title="A crosstalk calibration measurement typically taken between two ports that are completely unconnected..." alt="" coords="5,145,199,252"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" title="Calibration Measurements." alt="" coords="21,5,183,97"/>
+<area shape="rect" id="Node000001" title="A crosstalk calibration measurement typically taken between two ports that are completely unconnected..." alt="" coords="5,119,191,184"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1CalibrationMeasurements_1_1CalibrationMeasurement.xhtml" title="Calibration Measurements." alt="" coords="21,5,175,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,84,101,119,95,119,95,84"/>
 </map>

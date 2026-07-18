@@ -1,6 +1,9 @@
 <map id="FrequencyList" name="FrequencyList">
-<area shape="rect" id="node1" title="Frequency lists." alt="" coords="211,5,375,273"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="5,321,193,399"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="218,321,367,399"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1LogarithmicallySpacedFrequencyList.xhtml" title="a logarithmically spaced frequency list" alt="" coords="391,321,626,399"/>
+<area shape="rect" id="Node000001" title="Frequency lists." alt="" coords="203,5,359,311"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="5,359,185,424"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,269,123,360,119,357,192,266"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="210,359,351,424"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,325,283,359,278,359,278,325"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1LogarithmicallySpacedFrequencyList.xhtml" title="a logarithmically spaced frequency list" alt="" coords="375,359,602,424"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="370,254,462,357,458,360,366,258"/>
 </map>

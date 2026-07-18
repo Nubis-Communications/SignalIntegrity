@@ -1,4 +1,5 @@
 <map id="InterpolatorFractionalDelayFilterSinX" name="InterpolatorFractionalDelayFilterSinX">
-<area shape="rect" id="node1" title="combination sinx/x fractional delay and interpolating filter" alt="" coords="5,131,184,267"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="20,5,169,83"/>
+<area shape="rect" id="Node000001" title="combination sinx/x fractional delay and interpolating filter" alt="" coords="5,119,176,239"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="20,5,161,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,85,93,118,88,118,88,85"/>
 </map>

@@ -1,3 +1,56 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Device_1_1Device.xhtml" title="device in system descriptions &#160;&#160;a device is fundamentally a list of ports" alt="" coords="5,5,68,32"/>
+<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="383,203,469,228"/>
+<area shape="rect" id="Node000001" href="$classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml" title="Generates the eye diagram bitmap and many associated measurements from it." alt="" coords="581,5,715,31"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="441,189,498,99,540,40,559,29,580,22,581,28,561,34,543,44,503,102,445,192"/>
+<area shape="rect" id="Node000018" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,..." alt="" coords="615,153,681,179"/>
+<area shape="poly" id="edge6_Node000000_Node000018" title=" " alt="" coords="482,200,615,170,616,176,483,205"/>
+<area shape="rect" id="Node000020" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices.xhtml" title="Class that is used for processing waveforms in simulation." alt="" coords="588,203,708,228"/>
+<area shape="poly" id="edge8_Node000000_Node000020" title=" " alt="" coords="483,213,588,213,588,218,483,218"/>
+<area shape="rect" id="Node000021" href="$classSignalIntegrity_1_1Lib_1_1Noise_1_1NoiseTransferMatricesProcessor_1_1NoiseTransferMatricesProcessor.xhtml" title="Processes transfer matrices for noise spectral densities." alt="" coords="541,55,755,80"/>
+<area shape="poly" id="edge9_Node000000_Node000021" title=" " alt="" coords="441,189,481,138,509,111,540,89,565,78,568,83,543,94,512,115,485,142,445,193"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="563,252,733,277"/>
+<area shape="poly" id="edge10_Node000000_Node000004" title=" " alt="" coords="483,225,591,249,589,255,482,230"/>
+<area shape="rect" id="Node000008" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="557,351,739,376"/>
+<area shape="poly" id="edge11_Node000000_Node000008" title=" " alt="" coords="483,229,495,237,506,250,513,263,519,289,525,313,532,325,543,336,564,348,562,353,540,340,528,328,520,315,514,290,508,265,502,253,492,241,480,233"/>
+<area shape="rect" id="Node000010" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="566,301,730,327"/>
+<area shape="poly" id="edge12_Node000000_Node000010" title=" " alt="" coords="483,231,495,237,510,250,519,263,528,275,543,286,572,299,570,304,540,291,524,279,515,266,506,254,492,242,480,235"/>
+<area shape="rect" id="Node000012" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="552,401,744,441"/>
+<area shape="poly" id="edge14_Node000000_Node000012" title=" " alt="" coords="483,228,495,237,510,257,517,276,519,314,522,351,529,369,543,387,558,398,555,403,539,391,525,372,517,352,514,315,512,278,505,259,491,241,480,232"/>
+<area shape="rect" id="Node000015" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists" alt="" coords="558,465,738,491"/>
+<area shape="poly" id="edge16_Node000000_Node000015" title=" " alt="" coords="483,228,495,238,513,266,521,293,521,321,518,348,516,374,517,400,525,425,543,451,560,463,557,467,539,455,520,428,511,401,510,374,513,347,516,321,516,294,509,268,491,241,480,232"/>
+<area shape="rect" id="Node000022" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" title="process transfer matrices &#160;&#160;Usually transfer matrices are produced in simulation and virtual probing ..." alt="" coords="559,104,737,129"/>
+<area shape="poly" id="edge17_Node000000_Node000022" title=" " alt="" coords="453,192,493,164,540,138,574,127,576,132,542,143,495,168,456,196"/>
+<area shape="rect" id="Node000019" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1PoleZero_1_1PoleZeroFitter_1_1PoleZeroLevMar.xhtml" title="fits a pole/zero model to a frequency response" alt="" coords="851,153,968,179"/>
+<area shape="poly" id="edge7_Node000018_Node000019" title=" " alt="" coords="695,163,850,163,850,169,695,169"/>
+<area shape="rect" id="Node000011" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="818,294,1001,334"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="744,311,818,311,818,317,744,317"/>
+<area shape="rect" id="Node000013" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="803,408,1016,433"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="758,418,802,418,802,423,758,423"/>
+<area shape="rect" id="Node000016" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserArgs_1_1ParserArgs.xhtml" title="argument handling base class for parsers" alt="" coords="5,375,92,400"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemDescriptionParser_1_1SystemDescriptionParser.xhtml" title="Parses netlists and produces system descriptions." alt="" coords="140,400,311,425"/>
+<area shape="poly" id="edge18_Node000016_Node000006" title=" " alt="" coords="106,393,140,398,140,403,105,398"/>
+<area shape="poly" id="edge25_Node000006_Node000012" title=" " alt="" coords="294,425,359,435,458,438,552,431,552,436,458,443,358,441,293,431"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationParser_1_1CalibrationParser.xhtml" title="base class for netlist based error terms solutions" alt="" coords="365,252,487,277"/>
+<area shape="poly" id="edge19_Node000006_Node000005" title=" " alt="" coords="244,388,292,338,323,310,357,286,380,275,383,280,360,291,327,315,296,341,248,392"/>
+<area shape="rect" id="Node000007" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml" title="base class for netlist based deembedding solutions" alt="" coords="359,400,493,425"/>
+<area shape="poly" id="edge21_Node000006_Node000007" title=" " alt="" coords="325,410,358,410,358,415,325,415"/>
+<area shape="rect" id="Node000009" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorParser_1_1SimulatorParser.xhtml" title="base class for netlist based simulation solutions" alt="" coords="369,301,483,327"/>
+<area shape="poly" id="edge23_Node000006_Node000009" title=" " alt="" coords="257,391,358,336,385,324,387,329,360,340,259,395"/>
+<area shape="rect" id="Node000014" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeParser_1_1VirtualProbeParser.xhtml" title="base class for netlist based virtual probing solutions" alt="" coords="361,501,491,527"/>
+<area shape="poly" id="edge26_Node000006_Node000014" title=" " alt="" coords="264,430,360,480,399,499,396,504,357,484,261,434"/>
+<area shape="poly" id="edge20_Node000005_Node000004" title=" " alt="" coords="502,262,563,262,563,267,502,267"/>
+<area shape="poly" id="edge22_Node000007_Node000008" title=" " alt="" coords="497,394,589,373,591,379,498,400"/>
+<area shape="poly" id="edge24_Node000009_Node000010" title=" " alt="" coords="498,311,566,311,566,317,498,317"/>
+<area shape="poly" id="edge27_Node000014_Node000015" title=" " alt="" coords="504,499,569,488,570,493,505,504"/>
+<area shape="rect" id="Node000017" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1ParserFile_1_1ParserFile.xhtml" title="file handling base class for parsers" alt="" coords="8,424,89,449"/>
+<area shape="poly" id="edge28_Node000017_Node000006" title=" " alt="" coords="102,427,140,422,140,427,103,432"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="173,215,278,240"/>
+<area shape="poly" id="edge29_Node000002_Node000001" title=" " alt="" coords="254,204,374,124,455,79,540,40,580,27,581,32,542,44,458,84,377,129,256,209"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1LinesCache.xhtml" title="Caches results calculated based on netlist lines, as used in all of the parser classes." alt="" coords="381,351,471,376"/>
+<area shape="poly" id="edge30_Node000002_Node000003" title=" " alt="" coords="250,248,299,291,360,336,386,348,384,353,357,340,295,296,247,252"/>
+<area shape="poly" id="edge31_Node000003_Node000004" title=" " alt="" coords="480,343,492,336,506,324,515,311,524,298,540,286,567,275,569,280,543,291,528,302,519,314,510,327,495,340,482,347"/>
+<area shape="poly" id="edge32_Node000003_Node000008" title=" " alt="" coords="485,361,557,361,557,366,485,366"/>
+<area shape="poly" id="edge33_Node000003_Node000010" title=" " alt="" coords="485,348,590,324,591,329,486,353"/>
+<area shape="poly" id="edge34_Node000003_Node000012" title=" " alt="" coords="485,376,571,398,569,403,484,381"/>
+<area shape="poly" id="edge35_Node000003_Node000015" title=" " alt="" coords="485,380,495,387,511,403,519,420,527,436,543,450,568,463,566,468,540,455,523,439,514,423,506,406,492,391,482,384"/>
 </map>

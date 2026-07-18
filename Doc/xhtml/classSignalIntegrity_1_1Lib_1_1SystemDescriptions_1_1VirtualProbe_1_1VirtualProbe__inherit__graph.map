@@ -1,8 +1,13 @@
 <map id="VirtualProbe" name="VirtualProbe">
-<area shape="rect" id="node1" title="Base class for virtual probing." alt="" coords="90,792,239,957"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="5,1013,148,1105"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title=" " alt="" coords="173,1005,335,1112"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="64,491,265,744"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="93,277,236,443"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="86,5,243,229"/>
+<area shape="rect" id="Node000001" title="Base class for virtual probing." alt="" coords="86,605,227,711"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="5,769,140,854"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="124,724,98,770,94,767,119,721"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title="Class that provides symbolic solutions to virtual probe problems." alt="" coords="165,759,319,864"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="195,721,215,757,210,760,190,724"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="85,432,228,557"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,571,159,605,154,605,154,571"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="89,299,224,384"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,398,159,432,154,432,154,398"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="81,5,232,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="159,265,159,298,154,298,154,265"/>
 </map>

@@ -1,9 +1,16 @@
 <map id="SimulatorSymbolic" name="SimulatorSymbolic">
-<area shape="rect" id="node1" title="class for producing symbolic solutions to simulation problems." alt="" coords="135,1049,297,1156"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems." alt="" coords="5,829,203,921"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation,..." alt="" coords="25,608,212,700"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="242,336,385,501"/>
-<area shape="rect" id="node7" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="227,748,429,1001"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="235,5,392,229"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions." alt="" coords="49,277,188,560"/>
+<area shape="rect" id="Node000001" title="class for producing symbolic solutions to simulation problems." alt="" coords="117,839,272,944"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems." alt="" coords="5,685,195,771"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,781,167,837,162,840,129,784"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation,..." alt="" coords="23,532,201,617"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,631,106,685,101,685,105,631"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="210,349,345,434"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="232,446,152,533,148,530,228,442"/>
+<area shape="rect" id="Node000007" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="219,665,362,791"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="282,448,291,665,286,665,277,448"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="202,5,353,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="280,264,280,348,275,348,275,264"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions." alt="" coords="63,299,161,484"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="115,497,115,532,109,532,109,497"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="249,804,228,840,223,837,245,801"/>
 </map>

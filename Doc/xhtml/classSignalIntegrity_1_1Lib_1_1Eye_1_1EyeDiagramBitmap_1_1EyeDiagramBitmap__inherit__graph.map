@@ -1,5 +1,7 @@
 <map id="EyeDiagramBitmap" name="EyeDiagramBitmap">
-<area shape="rect" id="node1" title="Generates the eye diagram bitmap and many associated measurements from it." alt="" coords="88,336,236,707"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="5,79,148,215"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="172,5,323,288"/>
+<area shape="rect" id="Node000001" title="Generates the eye diagram bitmap and many associated measurements from it." alt="" coords="81,199,211,444"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="5,15,140,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,153,111,198,106,199,93,154"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1ResultsCache_1_1ResultsCache.xhtml" title="base class for results caching" alt="" coords="164,5,275,151"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,165,186,199,181,197,191,163"/>
 </map>

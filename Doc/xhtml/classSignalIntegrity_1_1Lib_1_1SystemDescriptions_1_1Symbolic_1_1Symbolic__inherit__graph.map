@@ -1,8 +1,13 @@
 <map id="Symbolic" name="Symbolic">
-<area shape="rect" id="node1" title="base class for all symbolic solutions." alt="" coords="107,5,246,288"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title=" " alt="" coords="5,336,156,428"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation,..." alt="" coords="181,336,367,428"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems." alt="" coords="175,476,373,568"/>
-<area shape="rect" id="node5" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" title="class for producing symbolic solutions to simulation problems." alt="" coords="99,616,262,723"/>
-<area shape="rect" id="node6" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title=" " alt="" coords="286,616,449,723"/>
+<area shape="rect" id="Node000001" title="base class for all symbolic solutions." alt="" coords="119,5,218,191"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="Produces symbolic solutions to deembedding problems." alt="" coords="5,239,148,324"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,204,100,240,95,237,114,202"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation,..." alt="" coords="173,239,351,324"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,202,243,237,238,240,220,204"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems." alt="" coords="167,372,357,457"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="265,338,265,372,259,372,259,338"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" title="class for producing symbolic solutions to simulation problems." alt="" coords="95,505,250,611"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="231,470,208,506,203,504,226,468"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title="Class that provides symbolic solutions to virtual probe problems." alt="" coords="274,505,429,611"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="298,468,321,504,316,506,293,470"/>
 </map>

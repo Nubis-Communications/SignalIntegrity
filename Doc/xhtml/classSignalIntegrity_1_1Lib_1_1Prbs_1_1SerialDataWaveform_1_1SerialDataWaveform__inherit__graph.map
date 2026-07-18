@@ -1,6 +1,9 @@
 <map id="SerialDataWaveform" name="SerialDataWaveform">
-<area shape="rect" id="node1" title="a serial data NRZ waveform" alt="" coords="75,321,218,413"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="5,461,120,539"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="145,461,319,539"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="59,5,235,273"/>
+<area shape="rect" id="Node000001" title="a serial data NRZ waveform" alt="" coords="71,319,206,404"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="5,452,112,517"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,417,82,453,77,450,102,414"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="137,452,303,517"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,414,201,450,196,453,172,417"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="77,5,200,271"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,284,141,319,136,319,136,284"/>
 </map>

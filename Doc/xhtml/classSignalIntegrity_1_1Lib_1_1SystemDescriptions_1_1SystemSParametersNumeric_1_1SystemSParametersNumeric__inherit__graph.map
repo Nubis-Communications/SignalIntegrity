@@ -1,6 +1,9 @@
 <map id="SystemSParametersNumeric" name="SystemSParametersNumeric">
-<area shape="rect" id="node1" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="93,505,285,597"/>
-<area shape="rect" id="node2" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="13,285,155,450"/>
-<area shape="rect" id="node3" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,163,229"/>
-<area shape="rect" id="node4" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="179,277,413,457"/>
+<area shape="rect" id="Node000001" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="90,532,274,617"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="13,349,148,434"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,445,161,530,156,533,108,447"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,156,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,264,83,348,78,348,78,264"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="172,299,397,484"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="228,497,208,533,203,531,224,495"/>
 </map>
