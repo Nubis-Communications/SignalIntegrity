@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Eye Diagram Dialog - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Eye Diagram Dialog";
+        var mkdocs_page_input_path = "16-Eye-Diagram-Dialog.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Eye Diagram Dialog</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Eye-Diagram-File">File</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-Eye-Diagram-Image">Save Image To File</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Eye-Diagram-Calculate">Calculate</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Only-Recalculate-Eye-Diagram">Only Recalculate Eye Diagram</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Eye-Diagram-View">View</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Eye-Measurements">Eye Measurements</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Bathtub-Curve">Bathtub Curve</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Sampled-Waveforms">Sampled Waveforms</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Eye-Diagram-Help">Help</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Eye-Diagram-Open-Help-File">Open Help File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Eye-Diagram-Control-Help">Control Help</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Eye Diagram Dialog</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Eye-Diagram-Dialog">Eye Diagram Dialog<a class="headerlink" href="#sec:Eye-Diagram-Dialog" title="Permanent link">&para;</a></h1>
+<div class="center">
+
+<img src="media/EyeDiagramDialog.png" alt="EyeDiagramDialog" width="643" height="457" />
+
+</div>
+
+<p>The Eye Diagram Dialog appears whenever a <a href="08-Simulation.html#sec:Simulation">Simulation</a> or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> project is calculated, and the project contains an <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> or <a href="23-Built-in-Devices-Parts.html#device:Differential-Eye-Probe">Differential Eye Probe</a>.</p>
+<p>See <a href="17-Eye-Diagram-Calculation.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation</a> for how the eye diagram is calculated.</p>
+<p>The Eye Diagram Dialog consists of a menu bar and toolbar buttons that enable certain tasks to be executed. These are:</p>
+<ul>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-File">File</a> - tasks for saving eye diagrams to files.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-Calculate">Calculate</a> - tasks dealing with the simulation and calculation of the eye diagram.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-View">View</a> - tasks for viewing eye diagram measurements.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-Help">Help</a> - tasks dealing with the help system.</p>
+</li>
+</ul>
+<h2 id="sub:Eye-Diagram-File">File<a class="headerlink" href="#sub:Eye-Diagram-File" title="Permanent link">&para;</a></h2>
+<p>The tasks in this category are used for saving eye diagrams to files. Currently, the only supported command is:</p>
+<ul>
+<li><a href="16-Eye-Diagram-Dialog.html#Control-Help:Save-Eye-Diagram-Image">Save Image To File</a> - for saving images to files.</li>
+</ul>
+<h3 id="Control-Help:Save-Eye-Diagram-Image">Save Image To File<a class="headerlink" href="#Control-Help:Save-Eye-Diagram-Image" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Save</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-save-2.png" alt="document-save-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Saves the eye diagram image to a variety of graphics formats including .png, .bmp, .jpg, .gif, and .tiff.</p>
+<h2 id="sub:Eye-Diagram-Calculate">Calculate<a class="headerlink" href="#sub:Eye-Diagram-Calculate" title="Permanent link">&para;</a></h2>
+<p>The tasks in this category are for dealing with calculation. These tasks are:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> - for editing the simulation calculation properties.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties</a> - for editing the eye diagram calculation properties.</p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Recalculate">Recalculate</a> - for recalculating the entire simulation.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Only-Recalculate-Eye-Diagram">Only Recalculate Eye Diagram</a> - for only recalculating the eye diagram.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Eye-Diagram-Properties">Eye Diagram Properties<a class="headerlink" href="#Control-Help:Eye-Diagram-Properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Eye Diagram Properties</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,E</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing the Eye Diagram Properties command brings up the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a> dialog for configuring how the eye diagram is calculated and shown.</p>
+<h3 id="Control-Help:Only-Recalculate-Eye-Diagram">Only Recalculate Eye Diagram<a class="headerlink" href="#Control-Help:Only-Recalculate-Eye-Diagram" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Only Recalculate Eye Diagram</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/eye.png" alt="eye" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing this command causes only the eye diagram to be recalculated (see <a href="17-Eye-Diagram-Calculation.html#sec:Eye-Diagram-Calculation">Eye Diagram Calculation</a> for more information). This command is useful when only changes to the <a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Diagram-Properties">Eye Diagram Properties</a> have been made, and there is no need to redo the entire simulation.</p>
+<h2 id="sub:Eye-Diagram-View">View<a class="headerlink" href="#sub:Eye-Diagram-View" title="Permanent link">&para;</a></h2>
+<p>The tasks in this category are for dealing with viewing measurement results. These tasks are:</p>
+<ul>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Measurements">Eye Measurements</a> - for viewing eye measurements.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Bathtub-Curve">Bathtub Curve</a> - for viewing bathtub curves.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Sampled-Waveforms">Sampled Waveforms</a> – for view waveforms overlaid with the sample points.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Eye-Measurements">Eye Measurements<a class="headerlink" href="#Control-Help:Eye-Measurements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-View">View</a> Eye Measurements</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,E</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing the Eye Measurements command brings up the <a href="18-Eye-Diagram-Measurements-Dialog.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog</a> for viewing eye measurements.</p>
+<h3 id="Control-Help:Bathtub-Curve">Bathtub Curve<a class="headerlink" href="#Control-Help:Bathtub-Curve" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-View">View</a> Bathtub Curve</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,B</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing this command brings up the <a href="19-Bathtub-Curves-Dialog.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog</a> for viewing bathtub curves.</p>
+<h3 id="Control-Help:Sampled-Waveforms">Sampled Waveforms<a class="headerlink" href="#Control-Help:Sampled-Waveforms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-View">View</a> Sampled Waveforms</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing this command brings up the <a href="20-Sampled-Waveforms-Dialog.html#sec:Sampled-Waveforms-Dialog">Sampled Waveforms Dialog</a> for viewing the waveform overlaid with the sample points.</p>
+<h2 id="sub:Eye-Diagram-Help">Help<a class="headerlink" href="#sub:Eye-Diagram-Help" title="Permanent link">&para;</a></h2>
+<p>The tasks in this category are for dealing with the eye diagram help system.</p>
+<p>The tasks are:</p>
+<ul>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Diagram-Open-Help-File">Open Help File</a> - opens the help system to the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> section.</p>
+</li>
+<li>
+<p><a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Diagram-Control-Help">Control Help</a> - enables control help for the elements in the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a>.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Eye-Diagram-Open-Help-File">Open Help File<a class="headerlink" href="#Control-Help:Eye-Diagram-Open-Help-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-Help">Help</a> Open Help File</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-contents-5.png" alt="help-contents-5" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command opens the help system to the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> section.</p>
+<h3 id="Control-Help:Eye-Diagram-Control-Help">Control Help<a class="headerlink" href="#Control-Help:Eye-Diagram-Control-Help" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="16-Eye-Diagram-Dialog.html#sub:Eye-Diagram-Help">Help</a> Control Help</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-3.png" alt="help-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Control help allows you to get help on any command.</p>
+<p>When in control help, all of the commands are activated. This includes key bindings, toolbar buttons, and menu elements. However, issuing any of the possible commands takes you to a location in the help system corresponding to the desired control instead of actually issuing the command.</p>
+<p>Control help stays active until you either press the escape key, or touch somewhere in the canvas.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="15-Main-Schematic-Dialog.html" class="btn btn-neutral float-left" title="Main Schematic Dialog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="17-Eye-Diagram-Calculation.html" class="btn btn-neutral float-right" title="Eye Diagram Calculation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="15-Main-Schematic-Dialog.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="17-Eye-Diagram-Calculation.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

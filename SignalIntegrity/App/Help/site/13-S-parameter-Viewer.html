@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>S-parameter Viewer - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "S-parameter Viewer";
+        var mkdocs_page_input_path = "13-S-parameter-Viewer.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">S-parameter Viewer</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-Parameter-Viewer-File">S-Parameter Viewer File Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Open-S-parameter-File">Open S-parameter File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-S-parameter-File">Save S-parameter File</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-Parameter-Viewer-Selection">S-Parameter Viewer Selection Menu</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-Parameter-Viewer-Properties">S-Parameter Viewer Properties Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Properties">S-Parameter Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Enforce-Passivity">Enforce Passivity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Enforce-Causality">Enforce Causality</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Enforce-Reciprocity">Enforce Reciprocity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Enforce-All">Enforce All</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Wavelet-Denoise">Wavelet Denoise</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Remove-Offset">Remove Impulse Response Offset</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Preserve-DC">Preserve DC in Causality Enforcement</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-Parameter-Viewer-View">S-Parameter Viewer View Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Grids">Show Grids</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Variable-Line-Width">Variable Line Width</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Passivity-Violations">Show Passivity Violations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Causality-Violations">Show Causality Violations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Impedance">Show Impedance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Excess-Inductance">Show Excess Inductance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Excess-Capacitance">Show Excess Capacitance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:SP-Log-Scale">Log Frequency Scale</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Linear-Vertical-Scale">Linear Vertical Scale</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Zoom">S-Parameter Viewer Zoom Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Frequency-Zoom">S-Parameter Viewer Frequency Zoom Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Time-Zoom">S-Parameter Viewer Time Zoom Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Vertical-Zoom">S-Parameter Viewer Vertical Zoom Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Open-Help-File">Open Help File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Control-Help">Control Help</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">S-parameter Viewer</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:S-parameter-Viewer">S-parameter Viewer<a class="headerlink" href="#sec:S-parameter-Viewer" title="Permanent link">&para;</a></h1>
+<p>The s-parameter viewer is a dialog that allows viewing of s-parameters or s-parameter-like things. An example of an s-parameter-like think are the transfer parameters used in the <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> and <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications. S-parameters are the primary result of the <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> application.</p>
+<p>The S-parameter viewer is invoked in the following ways:</p>
+<ul>
+<li>
+<p>As a result of a successful <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> or <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a> calculation.</p>
+</li>
+<li>
+<p>When the transfer parameters are viewed from the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> during <a href="08-Simulation.html#sec:Simulation">Simulation</a> or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>.</p>
+</li>
+<li>
+<p>When browsing an s-parameter file in the part property dialog of a file device. (see the <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> commands, or the <a href="23-Built-in-Devices-Parts.html#device:File">File</a> device)</p>
+</li>
+<li>
+<p>When invoked from the <strong><em>SignalIntegrityApp</em></strong> main menu using the <a href="15-Main-Schematic-Dialog.html#Control-Help:S-parameter-Viewer">S-parameter Viewer</a> command at any time to view any file.</p>
+</li>
+</ul>
+<p>When the s-parameter viewer dialog is invoked from the menu, the user is asked to select a file for viewing. This file must have the extension .s[x]p where x is the number of ports. It must also be a valid touchstone file.</p>
+<p><img src="media/SParameterViewerDialog.png" alt="SParameterViewerDialog" width="1033" height="727" /></p>
+<p>The dialog is broken into four panes:</p>
+<ul>
+<li>
+<p>Upper Left - Magnitude Response</p>
+</li>
+<li>
+<p>Upper Right - Phase Response</p>
+</li>
+<li>
+<p>Lower Left - Impulse Response</p>
+</li>
+<li>
+<p>Lower Right - Step Response</p>
+</li>
+</ul>
+<p>When s-parameters are read from a file, they are plotted exactly as read at the exact frequency points present in the file.</p>
+<p>When s-parameters have been calculated, they are calculated according to the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> as specified.</p>
+<p>The calculation properties that you are allowed to specify force the result to be evenly spaced points from zero frequency to the end frequency specified. But for files read from the disk and produced outside these tools, the frequencies are often at odd locations and frequently don’t include the zero frequency points. In these cases, the impulse response and step response cannot be shown and the panes are blank.</p>
+<p>Each of the dialog panes have their own, independent control of panning and zooming. These controls come standard with MatPlotLib (see <a href="http://matplotlib.org">http://matplotlib.org</a>), the standard Python way of plotting things.</p>
+<p>Below the panes are an array of buttons determining the s-parameters being shown. If transfer parameters are being shown, the buttons are named not by port numbers but rather as relationships between, in the case of simulation, output probe voltages and source voltages or, in the case of virtual probing, output probe voltages and measurement probe voltages.</p>
+<p>The theory behind the s-parameter viewer dialog is that examination of s-parameters, particularly for signal integrity, must include the time-domain, as the time-domain tells you how the s-parameters will perform in time-domain simulations. Speaking simply, the impulse response of the s-parameter shown is equivalent to a time-domain filter that filters waveforms. When viewing the impulse response, you should be looking for causality and settling issues caused mostly by insufficient frequency resolution. If there are bumps in the impulse response prior to time zero or prior to the electrical length of the device (that are not insignificant), then you have causality violations. If the impulse occurs near the end of the impulse response and you see remnants that wrap to the beginning of the response, you have insufficient frequency resolution. The step response highlights these type of problems and additionally show problems when impulse responses settle to non-zero values at the beginning and end of the response. If you have these response problems from s-parameters read from a file, then there is really nothing you can do with them. If you have these issues as a result of a calculation, then sometimes these problems can be repaired by changing the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>If the s-parameter file being viewed is an input file to any of the <strong><em>SignalIntegrityApp</em></strong> applications, then the file will end up getting resampled according to the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> and the viewer is a good way to see the effects of this resampling, most importantly in the time-domain. As mentioned, if the s-parameter viewer dialog is invoked on a file, then the file is shown as read. Selecting resample from either the Calculate menu or the resample button shows what the s-parameters will look like when resampled by the application. If the time-domain results look poor after resampling, then you have a problem. Currently, in this version of <strong><em>SignalIntegrityApp</em></strong>, the resampling algorithms are geared towards strictly proper resampling of files with equally spaced points and the application does a poor job of extrapolation. Part of this is on purpose, because you really should make sure that your measurement instruments or other simulation tools provide the proper s-parameter files, but in the future, the intent is to add many more tools and algorithms for properly dealing with these situations.</p>
+<p>Finally, in the s-parameter viewer dialog, you have the ability to read another file, or write the file to the disk using the file menu commands or toolbar buttons.</p>
+<p>You can also view the magnitude response and phase response with a <a href="13-S-parameter-Viewer.html#Control-Help:Variable-Line-Width">Variable Line Width</a> which helps especially in viewing the phase response.</p>
+<p>Note that in the phase response there is the ability to unwrap the phase. Pressing this button does not strictly unwrap the phase, but calculates the principle delay in the impulse response (if the impulse response can be calculated) and removes this delay from the phase response shown. In the future, the intent is to probably entirely unwrap the phase, and to show the phase only when the magnitude response is not unreasonably small.</p>
+<p>In the s-parameter viewer there are various menus that are available:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-File">S-Parameter Viewer File Menu</a> – read and write files.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Selection">S-Parameter Viewer Selection Menu</a> – select other s-parameter files (or port error terms, when used in <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a>).</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Properties">S-Parameter Viewer Properties Menu</a> – s-parameter properties and enforcements.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-View">S-Parameter Viewer View Menu</a> – various viewing options.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Zoom">S-Parameter Viewer Zoom Menu</a> – various zooming options.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help</a> – help system.</p>
+</li>
+</ul>
+<h2 id="sub:S-Parameter-Viewer-File">S-Parameter Viewer File Menu<a class="headerlink" href="#sub:S-Parameter-Viewer-File" title="Permanent link">&para;</a></h2>
+<p>The File tasks are:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Save-S-parameter-File">Save S-parameter File</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Open-S-parameter-File">Open S-parameter File</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:Open-S-parameter-File">Open S-parameter File<a class="headerlink" href="#Control-Help:Open-S-parameter-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Open</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-open-2.png" alt="document-open-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>browses to an s-parameter file to read in. The user is asked to select a file for viewing. This file must have the extension .s[x]p where x is the number of ports. It must also be a valid touchstone file.</p>
+<p>This command is not available when viewing transfer parameters.</p>
+<h3 id="Control-Help:Save-S-parameter-File">Save S-parameter File<a class="headerlink" href="#Control-Help:Save-S-parameter-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Save</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-save-2.png" alt="document-save-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This saves the current s-parameter file being viewed to disk. When saving a file, it must have the extension .s[x]p where x is the number of ports.</p>
+<h2 id="sub:S-Parameter-Viewer-Selection">S-Parameter Viewer Selection Menu<a class="headerlink" href="#sub:S-Parameter-Viewer-Selection" title="Permanent link">&para;</a></h2>
+<p>Usually, the selection is grayed out, as only one s-parameter file is shown at a time. An exception to this is when viewing calibration files resulting from <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a>, in which the error terms for each port can be selected.</p>
+<p>Future enhancements will enable viewing of multiple s-parameters that will be selectable through this menu.</p>
+<h2 id="sub:S-Parameter-Viewer-Properties">S-Parameter Viewer Properties Menu<a class="headerlink" href="#sub:S-Parameter-Viewer-Properties" title="Permanent link">&para;</a></h2>
+<p>The s-parameter properties menu allows viewing and editing of s-parameter properties, allowing for editing of response limits, resampling, reference impedance changes, and for enforcement of various physicality aspects.</p>
+<p>The Properties tasks are:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Properties">S-Parameter Properties</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Passivity">Enforce Passivity</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Causality">Enforce Causality</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Enforce-All">Enforce All</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Wavelet-Denoise">Wavelet Denoise</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Remove-Offset">Remove Impulse Response Offset</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Preserve-DC">Preserve DC in Causality Enforcement</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:S-Parameter-Properties">S-Parameter Properties<a class="headerlink" href="#Control-Help:S-Parameter-Properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties S-parameter Properties</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<div class="center">
+
+<img src="media/SParameterProperties.png" alt="SParameterProperties" width="580" height="328" />
+
+</div>
+
+<p>This opens the s-parameters properties dialog. All things in this dialog can be modified to alter the s-parameters.</p>
+<p>The top third contains all of the things that end up affecting the end frequency and frequency points. The other parameters are simply other ways of saying the same thing. See <a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>. When s-parameters are produced as a result of a <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> or <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a> application, they are sampled with the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> set at the time of the calculation. If they are changed after the calculation, the results can be resampled by editing the values in this dialog.</p>
+<p>Also, oftentimes s-parameters are being viewed from files and are therefore sampled however they are on the disk. Resampling them allows the user to see ahead of time how they will be resampled during calculation to look for bad behavior.</p>
+<p>The reference impedance of the s-parameters can be changed from the default, which is the reference impedance of the s-parameters calculated or read in from a file.</p>
+<p>The negative and positive time limit contains the time limits for the impulse responses that have non-zero data. lower the magnitude of these limits causes the s-parameters to be limited in non-zero response to these limits. This is helpful to smooth out s-parameter data.</p>
+<p>Note, the best effects for limiting negative time, as for enforcing causality, is by setting the negative time limit the negative of the base sample period.</p>
+<h3 id="Control-Help:Enforce-Passivity">Enforce Passivity<a class="headerlink" href="#Control-Help:Enforce-Passivity" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Enforce Passivity</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This removes any passivity violations by making the minimum changes to the s-parameters to enforce passivity.</p>
+<p>Passivity violations are shown using <a href="13-S-parameter-Viewer.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations</a>.</p>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>Note that sometimes enforcing passivity causes causality violations. See <a href="13-S-parameter-Viewer.html#Control-Help:Show-Causality-Violations">Show Causality Violations</a>. When this occurs, repeatedly enforcing causality and passivity over and over again converges to an s-parameter set that is both causal and passive. See <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Causality">Enforce Causality</a></p>
+<h3 id="Control-Help:Enforce-Causality">Enforce Causality<a class="headerlink" href="#Control-Help:Enforce-Causality" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Enforce Causality</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This removes any causality violations by zeroing the impulse response prior to time zero to enforce causality.</p>
+<p>Causality violations are shown using <a href="13-S-parameter-Viewer.html#Control-Help:Show-Causality-Violations">Show Causality Violations</a>.</p>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>Note that sometimes enforcing causality causes passivity violations. See <a href="13-S-parameter-Viewer.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations</a>. When this occurs, repeatedly enforcing causality and passivity over and over again converges to an s-parameter set that is both causal and passive. See <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Passivity">Enforce Passivity</a>.</p>
+<p>Better yet, if you want to enforce both passivity and causality simultaneously, use .</p>
+<h3 id="Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity<a class="headerlink" href="#Control-Help:Enforce-Both-Passivity-and-Reciprocity" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Enforce Both Passivity and Causality</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,B</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This command enforces both passivity and causality by repeatedly issuing the commands <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Passivity">Enforce Passivity</a> and <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Causality">Enforce Causality</a> up to thirty times. This is because each of these commands issued alone tends to cause violations of the other, but tends to converge if done repeatedly.</p>
+<p>See <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Passivity">Enforce Passivity</a> for passivity enforcement.</p>
+<p>See <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Causality">Enforce Causality</a> for causality enforcement.</p>
+<h3 id="Control-Help:Enforce-Reciprocity">Enforce Reciprocity<a class="headerlink" href="#Control-Help:Enforce-Reciprocity" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Enforce Reciprocity</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>Most passive elements are reciprocal, meaning that they ought to have s-parameters such that <span class="arithmatex">\(S_{xy}=S_{yx}\)</span>. This command makes the device reciprocal by setting:</p>
+<div class="arithmatex">\[S_{xy}=S_{yx}=\frac{S_{xy}+S_{yx}}{2}\mbox{.}\]</div>
+<h3 id="Control-Help:Enforce-All">Enforce All<a class="headerlink" href="#Control-Help:Enforce-All" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Enforce All</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>Enforces all possible enforcements. It first invokes <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Reciprocity">Enforce Reciprocity</a>, and then invokes <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity</a>. If reciprocity is not appropriate, then use <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Both-Passivity-and-Reciprocity">Enforce Both Passivity and Reciprocity</a>.</p>
+<h3 id="Control-Help:Wavelet-Denoise">Wavelet Denoise<a class="headerlink" href="#Control-Help:Wavelet-Denoise" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Wavelet Denoise</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,W</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This denoises the s-parameters by performing the discrete wavelet transform (DWT) on the impulse response, removing any wavelet coefficients that are small and performing the IDWT to restore the impulse response.</p>
+<p>Wavelet denoising is inappropriate on:</p>
+<ul>
+<li>
+<p>already clean s-parameters</p>
+</li>
+<li>
+<p>s-parameters for systems that produce oscillatory impulse responses (like many types of filters).</p>
+</li>
+</ul>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>Note that sometimes wavelet denoising causes causality and/or passivity violations. See <a href="13-S-parameter-Viewer.html#Control-Help:Show-Causality-Violations">Show Causality Violations</a> and <a href="13-S-parameter-Viewer.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations</a>.</p>
+<h3 id="Control-Help:Remove-Offset">Remove Impulse Response Offset<a class="headerlink" href="#Control-Help:Remove-Offset" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Remove Impulse Response Offset</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,f</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>Sometimes an s-parameter, when viewed in the time-domain, has a DC offset of the impulse response leading to a tilt in the step response. Sometimes, this offset can be removed and the tilt in the step response corrected by employing this correction.</p>
+<h3 id="Control-Help:Preserve-DC">Preserve DC in Causality Enforcement<a class="headerlink" href="#Control-Help:Preserve-DC" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Properties Preserve DC in Causality Enforcement</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>Causality enforcement involves zeroing out all of the portion of the time-domain views of the s-parameters that represents negative time. Sometimes, when doing this, the DC response is affected. In most applications, this is not a big effect, but for PDN analysis, it is critical to preserve the DC response. Checking this selection causes the causality enforcement to preserve the DC response behavior.</p>
+<h2 id="sub:S-Parameter-Viewer-View">S-Parameter Viewer View Menu<a class="headerlink" href="#sub:S-Parameter-Viewer-View" title="Permanent link">&para;</a></h2>
+<p>The View settings are:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Grids">Show Grids</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Variable-Line-Width">Variable Line Width</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Passivity-Violations">Show Passivity Violations</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Causality-Violations">Show Causality Violations</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Impedance">Show Impedance</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Excess-Inductance">Show Excess Inductance</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Show-Excess-Capacitance">Show Excess Capacitance</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:SP-Log-Scale">Log Frequency Scale</a></p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:Linear-Vertical-Scale">Linear Vertical Scale</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:Show-Grids">Show Grids<a class="headerlink" href="#Control-Help:Show-Grids" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Show Grids</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Grids</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,G</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Toggles the display of grids on the plots. The choice of whether to show grids is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Variable-Line-Width">Variable Line Width<a class="headerlink" href="#Control-Help:Variable-Line-Width" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Variable Line Width</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,L</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<div class="center">
+
+<img src="media/VariableLineWidth.png" alt="VariableLineWidth" width="1003" height="228" />
+
+</div>
+
+<p>Allows viewing magnitude and phase response with a variable line width.</p>
+<p>This is helpful in viewing the s-parameter with an intensity that depends on whether the value actually matters. This is especially helpful when looking at the phase response, which tends to vary wildly when the magnitude response is small. When the magnitude response is small, the phase response doesn’t matter anyway, and this setting helps the user ignore these frequency locations.</p>
+<p>The line width of the magnitude response and phase response vary depending on the magnitude response of the s-parameter. If the magnitude is large, a large line width is used and if the magnitude is small, a small line width is used.</p>
+<p>Unfortunately, variable line width cannot operate properly along with <a href="13-S-parameter-Viewer.html#Control-Help:SP-Log-Scale">Log Frequency Scale</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.</p>
+<p>The choice of variable line width is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Show-Passivity-Violations">Show Passivity Violations<a class="headerlink" href="#Control-Help:Show-Passivity-Violations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Passivity Violations</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<div class="center">
+
+<img src="media/PassivityViolations.png" alt="PassivityViolations" width="998" height="227" />
+
+</div>
+
+<p>Shows locations of passivity violations. These are shown as red dots on the magnitude response plot (the top left plot) of the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<p>The dot sizes are large for relatively large passivity violations (singular values greater than 1.01) and are smaller for smaller violations.</p>
+<p>Passivity violation detection is subject to the numerical accuracy of the SVD algorithm used and sometimes leads to very small passivity violations due to numerical error. These are shown as very faint red dots.</p>
+<p>Circuits that are passive are circuits that can never, under any circumstances, deliver power. They are either entirely reflective, and/or absorb or dissipate power under certain circumstances.</p>
+<p>Passivity violations can be removed from known passive circuits using <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Passivity">Enforce Passivity</a>.</p>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>The choice of showing passivity violations is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Show-Causality-Violations">Show Causality Violations<a class="headerlink" href="#Control-Help:Show-Causality-Violations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Causality Violations</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>Shows locations of causality violations. These are shown as red dots on the impulse response plot (the bottom left plot) of the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<p>The dot sizes are large for relatively large causality violations and are smaller for smaller violations. Causality violations below <span class="arithmatex">\(1\ \mu\)</span> (<span class="arithmatex">\(-100\ \mathrm{dB)}\)</span> are not shown as violations, as they are so small to have negligible effect.</p>
+<p>Causality violations are sometimes caused by sampling effects.</p>
+<p>Causality violations can be removed using <a href="13-S-parameter-Viewer.html#Control-Help:Enforce-Causality">Enforce Causality</a>.</p>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>The choice of showing causality violations is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Show-Impedance">Show Impedance<a class="headerlink" href="#Control-Help:Show-Impedance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Impedance</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,I</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This setting causes the step responses (the lower right plot) to be displayed as impedance for the diagonal element s-parameters (S11, S22, S33, etc.).</p>
+<p>for a <span class="arithmatex">\(K\)</span> element step response, for <span class="arithmatex">\(k\in0\ldots K-1\)</span>, where <span class="arithmatex">\(s\left[k\right]\)</span> represents a value of the step response at a time <span class="arithmatex">\(t\left[k\right]\)</span>, the following formula approximates the line impedance at time <span class="arithmatex">\(t\left[k\right]\)</span>/2:</p>
+<div class="arithmatex">\[i\left[k\right]\approx Z0\cdot\frac{1+s\left[k\right]}{1-s\left[k\right]}\]</div>
+<p>The factor of <span class="arithmatex">\(1/2\)</span> on the time is because the reflection must go into and out of the system (i.e. go twice the time).</p>
+<p>Generally, this is called the impedance profile. It is not really appropriate for lumped element systems and is really only appropriate for transmission lines and cables, etc. That being said, sometimes the launches into these systems have impedance discontinuities that look like lumped excess inductance (high impedance) or lumped excess capacitance (low impedance).</p>
+<p>This calculation is an approximation because in systems with lots of or large reflections, the approximation of the impedance gets worse the further into the line you go. Here’s an example of a open transmission line:</p>
+<div class="center">
+
+<img src="media/OpenStub.png" alt="OpenStub" width="317" height="104" />
+
+</div>
+
+<p>Here is the step response:</p>
+<div class="center">
+
+<img src="media/OpenStubStepResponse.png" alt="OpenStubStepResponse" width="509" height="210" />
+
+</div>
+
+<p>And here is the impedance profile calculated from the step response:</p>
+<div class="center">
+
+<img src="media/OpenStubImpedance.png" alt="OpenStubImpedance" width="509" height="210" />
+
+</div>
+
+<p>Note that something unnatural had to be done about the step response going above unity, which was to clip it at 3000 ohms.</p>
+<p>Here is a zoom of the impedance profile:</p>
+<div class="center">
+
+<img src="media/OpenStubImpedanceZoomed.png" alt="OpenStubImpedanceZoomed" width="509" height="210" />
+
+</div>
+
+<p>Thus, we see that the early part of the impedance profile shows a jump to 100 ohms for 100 ps as expected, and then a large impedance jump (the open). What goes on beyond this zoomed portion is a result of the multiple reflections and is not correct.</p>
+<p>There are more accurate methods possible (called peeling), but these are not implemented at this time.</p>
+<p>This command is not available (and does not make sense) when viewing transfer parameters.</p>
+<p>The choice of showing impedance is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Show-Excess-Inductance">Show Excess Inductance<a class="headerlink" href="#Control-Help:Show-Excess-Inductance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Excess Inductance</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,n</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This setting causes the step responses (the lower right plot) to be displayed as excess inductance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess inductance is another way of plotting the impedance profile shown when setting <a href="13-S-parameter-Viewer.html#Control-Help:Show-Impedance">Show Impedance</a>. For a given impedance <span class="arithmatex">\(Z\)</span>, a given reference impedance <span class="arithmatex">\(Z0\)</span>, and a given impedance profile time per section <span class="arithmatex">\(T\)</span>, the excess inductance is given as:</p>
+<div class="arithmatex">\[\Delta L=L-L0=\left(Z-Z0\right)\cdot T\]</div>
+<p>The choice of showing excess inductance is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Show-Excess-Capacitance">Show Excess Capacitance<a class="headerlink" href="#Control-Help:Show-Excess-Capacitance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Excess Capacitance</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameter files are being viewed</td>
+</tr>
+</tbody>
+</table>
+<p>This setting causes the step responses (the lower right plot) to be displayed as excess capacitance for the diagonal element s-parameters (S11, S22, S33, etc.). The excess capacitance is another way of plotting the impedance profile shown when setting <a href="13-S-parameter-Viewer.html#Control-Help:Show-Impedance">Show Impedance</a>. For a given impedance <span class="arithmatex">\(Z\)</span>, a given reference impedance <span class="arithmatex">\(Z0\)</span>, and a given impedance profile time per section <span class="arithmatex">\(T\)</span>, the excess capacitance is given as:</p>
+<div class="arithmatex">\[\Delta C=C-C0=\left(\frac{1}{Z}-\frac{1}{Z0}\right)\cdot T\]</div>
+<p>Note that excess capacitance becomes more negative as the impedance rises above <span class="arithmatex">\(Z0\)</span>.</p>
+<p>The choice of showing excess capacitance is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:SP-Log-Scale">Log Frequency Scale<a class="headerlink" href="#Control-Help:SP-Log-Scale" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Log Frequency Scale</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<div class="center">
+
+<img src="media/LogScale.png" alt="LogScale" width="1008" height="233" />
+
+</div>
+
+<p>Allows viewing magnitude and phase response on a logarithmic scale.</p>
+<p>This view is like a Bode plot and is useful when viewing things with poles and zeros where Bode plots are useful.</p>
+<p>It is also most useful in power integrity applications.</p>
+<p>Unfortunately, Log Scale cannot operate properly along with <a href="13-S-parameter-Viewer.html#Control-Help:Variable-Line-Width">Variable Line Width</a>. When both modes are set, they are both shown checked, but the variable line width overrides and the plot is shown with a linear frequency axis with variable line width.</p>
+<p>The choice of showing log scale is held in the <a href="29-Preferences.html#sec:Preferences">Preferences</a> and persists over different sessions.</p>
+<h3 id="Control-Help:Linear-Vertical-Scale">Linear Vertical Scale<a class="headerlink" href="#Control-Help:Linear-Vertical-Scale" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Linear Vertical Scale</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,e</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Shows frequency domain magnitudes, which are usually in dB, on a linear vertical scale. This mode is particularly useful for PDN analysis.</p>
+<h2 id="Control-Help:S-Parameter-Viewer-Zoom">S-Parameter Viewer Zoom Menu<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Zoom" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Zoom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Zoom</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+Z</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>The zoom settings determine how zooming is performed and how zooms of various plot elements are joined.</p>
+<p>The zoom settings are in three categories:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Frequency-Zoom">S-Parameter Viewer Frequency Zoom Options</a> - how the frequency axis is zoomed.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Time-Zoom">S-Parameter Viewer Time Zoom Options</a> - how the time axis is zoomed.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Vertical-Zoom">S-Parameter Viewer Vertical Zoom Options</a> - how the vertical axis is zoomed.</p>
+</li>
+</ul>
+<p>The default is that:</p>
+<ul>
+<li>
+<p>All frequencies zooms are joined for all s-parameter plots.</p>
+</li>
+<li>
+<p>All reflect (on diagonal) s-parameter time zooms are joined.</p>
+</li>
+<li>
+<p>All off-diagonal s-parameter time zooms are joined.</p>
+</li>
+<li>
+<p>All reflect (on diagonal) s-parameter vertical zooms are joined for each plot type.</p>
+</li>
+<li>
+<p>All reciprocal (i.e. <span class="arithmatex">\(S_{r,c}\)</span> and <span class="arithmatex">\(S_{c,r}\)</span>) s-parameter vertical zooms are joined for each plot type.</p>
+</li>
+</ul>
+<h3 id="Control-Help:S-Parameter-Viewer-Frequency-Zoom">S-Parameter Viewer Frequency Zoom Options<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Frequency-Zoom" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Frequency Zoom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Zoom Frequencies</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+Z,F</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This determines how the zooms of the horizontal axis of plots where the axis is frequency are joined together.</p>
+<p>The default is that all frequency axes are joined.</p>
+<p>The options are:</p>
+<ul>
+<li>
+<p>Join within views (default) - this joins the phase and magnitude frequency axis for a given s-parameter view.</p>
+</li>
+<li>
+<p>Join with other views (default) - this joins the zoom to other s-parameters not being viewed. If this is set, then the rules for joining with the other plots are:</p>
+</li>
+<li>
+<p>Join all views (default) - all s-parameter plots frequency axes are joined. Otherwise, you can:</p>
+<ul>
+<li>
+<p>Join off-diagonal views - all s-parameter plots frequency axes that are off the diagonal are joined. Otherwise, you can:</p>
+</li>
+<li>
+<p>Join reciprocal views - all reciprocal s-parameters (i.e. <span class="arithmatex">\(S_{r,c}\)</span> with <span class="arithmatex">\(S_{c,r}\)</span> are joined).</p>
+</li>
+<li>
+<p>Join reflect views - all s-parameter plots that are on the diagonal (i.e. are reflect s-parameters <span class="arithmatex">\(S_{r,c}\)</span>, <span class="arithmatex">\(r==c\)</span> are joined).</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>These options are saved in the <a href="29-Preferences.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a>.</p>
+<h3 id="Control-Help:S-Parameter-Viewer-Time-Zoom">S-Parameter Viewer Time Zoom Options<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Time-Zoom" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Times Zoom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Zoom Times</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+Z,T</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This determines how the zooms of the horizontal axis of plots where the axis is time are joined together.</p>
+<p>The default is that time axes within a given view are joined, and that reflect plots are joined with all others, and off-diagonal plots are joined with all others.</p>
+<p>The options are:</p>
+<ul>
+<li>
+<p>Join within views (default) - this joins the impulse response, step response, and impedance time axis for a given s-parameter view.</p>
+</li>
+<li>
+<p>Join with other views (default) - this joins the zoom to other frequency-domain s-parameters not being viewed. If this is set, then the rules for joining with the other plots are:</p>
+</li>
+<li>
+<p>Join all views - all s-parameter plots time axes are joined. Otherwise, you can:</p>
+<ul>
+<li>
+<p>Join off-diagonal views (default) - all s-parameter plots time axes that are off the diagonal are joined. Otherwise, you can:</p>
+</li>
+<li>
+<p>Join reciprocal views - all reciprocal s-parameters (i.e. <span class="arithmatex">\(S_{r,c}\)</span> with <span class="arithmatex">\(S_{c,r}\)</span> are joined).</p>
+</li>
+<li>
+<p>Join reflect views (default) - all time-domain s-parameter plots that are on the diagonal (i.e. are reflect s-parameters <span class="arithmatex">\(S_{r,c}\)</span>, <span class="arithmatex">\(r==c\)</span> are joined).</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>These options are saved in the <a href="29-Preferences.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a>.</p>
+<h3 id="Control-Help:S-Parameter-Viewer-Vertical-Zoom">S-Parameter Viewer Vertical Zoom Options<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Vertical-Zoom" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">S-parameter Viewer Frequency Zoom</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Zoom Vertical</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+Z,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This determines how the zooms of the vertical axis of plots are joined together.</p>
+<p>The default is that reflect and reciprocal s-parameters zooms are all joined vertically.</p>
+<p>The options are:</p>
+<ul>
+<li>
+<p>Join magnitude response zooms vertically. (default)</p>
+</li>
+<li>
+<p>Join phase response zooms vertically. (default)</p>
+</li>
+<li>
+<p>Join impulse response zooms vertically. (default)</p>
+</li>
+<li>
+<p>Join step response/impedance profile zooms vertically. (default)</p>
+</li>
+</ul>
+<p>All plots that are joined vertically follow a common set of rules:</p>
+<ul>
+<li>
+<p>Join all views - all common vertical zooms are joined. Otherwise, you can:</p>
+</li>
+<li>
+<p>Join off-diagonal views - all common vertical zooms for s-parameter off the diagonal are joined. Otherwise, you can:</p>
+<ul>
+<li>
+<p>Join reciprocal views (default) - all common vertical zooms for reciprocal s-parameters (i.e. <span class="arithmatex">\(S_{r,c}\)</span> with <span class="arithmatex">\(S_{c,r}\)</span>) are joined.</p>
+</li>
+<li>
+<p>Join reflect views (default) - all common vertical zooms for s-parameters that are on the diagonal (i.e. are reflect s-parameters <span class="arithmatex">\(S_{r,c}\)</span>, <span class="arithmatex">\(r==c\)</span>) are joined.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>These options are saved in the <a href="29-Preferences.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a>.</p>
+<h2 id="sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help<a class="headerlink" href="#sub:S-Parameter-Viewer-Help" title="Permanent link">&para;</a></h2>
+<p>The Help tasks are a category in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> for dealing with the help system:</p>
+<ul>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Open-Help-File">Open Help File</a> - opens the help file to the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> section.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Control-Help">Control Help</a> - for help on any menu elements or toolbar buttons.</p>
+</li>
+<li>
+<p><a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a> - for editing s-parameter viewer preferences.</p>
+</li>
+</ul>
+<h3 id="Control-Help:S-Parameter-Viewer-Open-Help-File">Open Help File<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Open-Help-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help</a> Open Help File</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-contents-5.png" alt="help-contents-5" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command opens the help system to the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> section.</p>
+<h3 id="Control-Help:S-Parameter-Viewer-Control-Help">Control Help<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Control-Help" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help</a> Control Help</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-3.png" alt="help-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Control help allows you to get help on any command.</p>
+<p>When in control help, all of the commands are activated. This includes key bindings, toolbar buttons, and menu elements. However, issuing any of the possible commands takes you to a location in the help system corresponding to the desired control instead of actually issuing the command.</p>
+<p>Control help stays active until you either press the escape key, or touch somewhere in the canvas.</p>
+<h3 id="Control-Help:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences<a class="headerlink" href="#Control-Help:S-Parameter-Viewer-Preferences" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Help">S-Parameter Viewer Help</a> Preferences</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Preferences allows editing of the <a href="29-Preferences.html#sub:S-Parameter-Viewer-Preferences">S-Parameter Viewer Preferences</a> for the application.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="12-Network-Analyzer-Measurements.html" class="btn btn-neutral float-left" title="Network Analyzer Measurements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="14-Simulator-Dialog.html" class="btn btn-neutral float-right" title="Simulator Dialog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="12-Network-Analyzer-Measurements.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="14-Simulator-Dialog.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

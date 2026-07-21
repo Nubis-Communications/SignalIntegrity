@@ -1,0 +1,63 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="20" y="-28" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">19.25,-25.5 20.75,-25.5</polyline>
+%  <polyline lc="black">20,-24.75 20,-26.25</polyline>
+%  <polyline lc="black">19.25,-30.5 20.75,-30.5</polyline>
+%  <polyline lc="black">20,-32 20,-36</polyline>
+%  <polygon fill="black">17.333,-36 22.667,-36 20,-38.667 17.333,-36</polygon>
+%  <polyline lc="black">20,-20 20,-24</polyline>
+%  <polyline lw="2" lc="red">19.5,-19.5 20.5,-20.5</polyline>
+%  <polyline lw="2" lc="red">20.5,-19.5 19.5,-20.5</polyline>
+%  <text x="26" y="-32.75" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="26" y="-29" t="ref VS1" h="3" halign="l" lc="black"/>
+%  <ellipse x="48" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%  <polyline lc="black">48,-32 48,-28</polyline>
+%  <polyline lw="2" lc="red">47.5,-31.5 48.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">48.5,-31.5 47.5,-32.5</polyline>
+%  <text x="48" y="-25" t="a 1.0 V" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-21.25" t="ref VS1" h="3" halign="c" lc="black"/>
+%  <ellipse x="72" y="-28" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">71.25,-25.5 72.75,-25.5</polyline>
+%  <polyline lc="black">72,-24.75 72,-26.25</polyline>
+%  <polyline lc="black">71.25,-30.5 72.75,-30.5</polyline>
+%  <polyline lc="black">72,-20 72,-24</polyline>
+%  <polyline lw="2" lc="red">71.5,-19.5 72.5,-20.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-19.5 71.5,-20.5</polyline>
+%  <polyline lc="black">72,-36 72,-32</polyline>
+%  <polyline lw="2" lc="red">71.5,-35.5 72.5,-36.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-35.5 71.5,-36.5</polyline>
+%  <text x="78" y="-32.75" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="78" y="-29" t="ref VS1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (20,-28) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (19.25,-25.5) -- (20.75,-25.5);
+\path[line width=0.30mm, draw=black] (20,-24.75) -- (20,-26.25);
+\path[line width=0.30mm, draw=black] (19.25,-30.5) -- (20.75,-30.5);
+\path[line width=0.30mm, draw=black] (20,-32) -- (20,-36);
+\path[line width=0.30mm, fill=black] (17.333,-36) -- (22.667,-36) -- (20,-38.667) -- (17.333,-36) -- cycle;
+\path[line width=0.30mm, draw=black] (20,-20) -- (20,-24);
+\path[line width=0.6mm, draw=red] (19.5,-19.5) -- (20.5,-20.5);
+\path[line width=0.6mm, draw=red] (20.5,-19.5) -- (19.5,-20.5);
+\draw[black] (26,-32.75) node[anchor=base west]{a 1.0 V};
+\draw[black] (26,-29) node[anchor=base west]{ref VS1};
+\path[line width=0.30mm, draw=black, fill=black] (48,-28) ellipse (0.5mm and -0.5mm);
+\path[line width=0.30mm, draw=black] (48,-32) -- (48,-28);
+\path[line width=0.6mm, draw=red] (47.5,-31.5) -- (48.5,-32.5);
+\path[line width=0.6mm, draw=red] (48.5,-31.5) -- (47.5,-32.5);
+\draw[black] (48,-25) node[anchor=base]{a 1.0 V};
+\draw[black] (48,-21.25) node[anchor=base]{ref VS1};
+\path[line width=0.30mm, draw=black] (72,-28) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (71.25,-25.5) -- (72.75,-25.5);
+\path[line width=0.30mm, draw=black] (72,-24.75) -- (72,-26.25);
+\path[line width=0.30mm, draw=black] (71.25,-30.5) -- (72.75,-30.5);
+\path[line width=0.30mm, draw=black] (72,-20) -- (72,-24);
+\path[line width=0.6mm, draw=red] (71.5,-19.5) -- (72.5,-20.5);
+\path[line width=0.6mm, draw=red] (72.5,-19.5) -- (71.5,-20.5);
+\path[line width=0.30mm, draw=black] (72,-36) -- (72,-32);
+\path[line width=0.6mm, draw=red] (71.5,-35.5) -- (72.5,-36.5);
+\path[line width=0.6mm, draw=red] (72.5,-35.5) -- (71.5,-36.5);
+\draw[black] (78,-32.75) node[anchor=base west]{a 1.0 V};
+\draw[black] (78,-29) node[anchor=base west]{ref VS1};
+\end{tikzpicture}%

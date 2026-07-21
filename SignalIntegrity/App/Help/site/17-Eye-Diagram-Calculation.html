@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Eye Diagram Calculation - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Eye Diagram Calculation";
+        var mkdocs_page_input_path = "17-Eye-Diagram-Calculation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Eye Diagram Calculation</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Eye Diagram Calculation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Eye-Diagram-Calculation">Eye Diagram Calculation<a class="headerlink" href="#sec:Eye-Diagram-Calculation" title="Permanent link">&para;</a></h1>
+<p>When a <a href="08-Simulation.html#sec:Simulation">Simulation</a> or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> project is created and the schematic contains a <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> or a <a href="23-Built-in-Devices-Parts.html#device:Differential-Eye-Probe">Differential Eye Probe</a> element, when the simulation is run, for each one, an eye diagram is created using the waveform produced in conjunction with the baud rate specified and the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a> specified.</p>
+<p>This section explains how the eye diagram is created and will refer to various <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a> during the explanation.</p>
+<p>The reciprocal of the baud rate specifies the unit interval, or the length of one UI in the waveform. The goal of the eye diagram is to show, overlapped, all of the portions of the waveform that pass through the unit interval. So, for a given time in a waveform <span class="arithmatex">\(t_{k}\)</span>, and a given UI length, <span class="arithmatex">\(UI\)</span>, the time of each point in the waveform, <span class="arithmatex">\(t_{eye}\)</span> inside the unit interval is given by: $<span class="arithmatex">\(t_{eye}=\left(t_{k}+\frac{UI}{2}\right)\:\%\:UI\)</span>$ where <span class="arithmatex">\(\%\)</span> represents the modulo operator. You can see by this definition that <span class="arithmatex">\(0\le t_{eye}\le UI\)</span> and that when <span class="arithmatex">\(t_{k}=0,\)</span> <span class="arithmatex">\(t_{eye}=UI/2\)</span>. In other words, it is assumed that at <span class="arithmatex">\(t=0\)</span>, the waveform is at the center of one unit interval, and is therefore at the center of the eye. If this is not the case, and you need the eye to be at the center, you would modify the delay value in the <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> or <a href="23-Built-in-Devices-Parts.html#device:Differential-Eye-Probe">Differential Eye Probe</a> element, and re-run the simulation. Oftentimes, one just wants to get a general look, and when the <a href="22-Eye-Diagram-Properties.html#sub:Number-of-UI">Number of UI</a> is specified as its default value of 3, you will see at at least one of the eyes in its entirety.</p>
+<p>The eye is generated starting with an empty array that is the <a href="22-Eye-Diagram-Properties.html#sub:Number-of-Rows">Number of Rows</a> in height, and the <a href="22-Eye-Diagram-Properties.html#sub:Number-of-Columns">Number of Columns</a> in width. In order to count the hits in each column of pixels, the waveform is upsampled such that every waveform point is a column of the array. Because this upsampling is expensive in both processing time and memory, it is useful for the upsample factor to not be too large (hence the default <a href="22-Eye-Diagram-Properties.html#sub:Number-of-Columns">Number of Columns</a> = 200). It is also useful for the upsample factor to be a nice ratio of the original sample rate of the waveform.</p>
+<p>For a given sample rate, <span class="arithmatex">\(Fs\)</span>, number of columns, <span class="arithmatex">\(C\)</span>, and baudrate, <span class="arithmatex">\(R\)</span>, the upsample factor <span class="arithmatex">\(U\)</span> is given by: $<span class="arithmatex">\(U=\frac{R\cdot C}{Fs}\mbox{.}\)</span>$</p>
+<p>For example, if the incoming waveform is at <span class="arithmatex">\(20\:GS/s\)</span> sample rate, at a baud rate of <span class="arithmatex">\(5\:GBaud\)</span>, and there are 200 columns in the eye diagram, the upsample factor is <span class="arithmatex">\(5\cdot200/20=50\)</span>. What you definitely want to avoid is for the upsample factor to be a ratio of numbers, especially with a large number in the numerator.</p>
+<p>Once the waveform is upsampled, a number of points <span class="arithmatex">\(\le C\)</span>, are trimmed such that the first point of the waveform is in column 0.</p>
+<p>Then, the maximum and minimum voltage associated with each row is calculated, using <a href="22-Eye-Diagram-Properties.html#sub:Y-Axis">Y Axis</a> mode, in conjunction possibly with <a href="22-Eye-Diagram-Properties.html#sub:Minimum-Y">Minimum Y</a> and <a href="22-Eye-Diagram-Properties.html#sub:Maximum-Y">Maximum Y</a>. This allows for the calculation of the row, with respect to the voltage. For each waveform point (a column), the row is calculated, and a one is added to the array. Usually, it is spread over a row and the correct fractional amounts are allocated.</p>
+<p>At this point, the ISI only bitmap array is complete. If the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> is Jitter &amp; Noise, some extra steps are now performed. In this case, a kernel is created. This is an array that contains a Gaussian vertically that encompasses the <a href="22-Eye-Diagram-Properties.html#sub:Noise">Noise</a>, and a Gaussian horizontally that encompasses the <a href="22-Eye-Diagram-Properties.html#sub:Random-Jitter">Random Jitter</a> jitter convolved with a dual-Dirac delta function representing the <a href="22-Eye-Diagram-Properties.html#sub:Deterministic-Jitter">Deterministic Jitter</a>. This array is constructed so that it sums to unity. This kernel is convolved with the bitmap array, serving to smear out the eye. To handle pathological cases, the kernel is limited to the <a href="22-Eye-Diagram-Properties.html#sub:Max-Kernel-Pixels">Max Kernel Pixels</a>.</p>
+<p>For Jitter &amp; Noise <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a>s, a further option exists to show the eye logarithmically. If <a href="22-Eye-Diagram-Properties.html#sub:Log-Intensity">Log Intensity</a> is True, the eye diagram is re-scaled such that each pixel contains a probability of hitting that pixel, and the eye diagram is saturated in a log-linear fashion with a zero indicating that the probability is at or below a number indicated by the <a href="22-Eye-Diagram-Properties.html#sub:Min-Exponent">Min Exponent</a>, and one indicating that the probability is at or above a number indicated by the <a href="22-Eye-Diagram-Properties.html#sub:Max-Exponent">Max Exponent</a>.</p>
+<p>At this point, the processing joins where it would resume following the ISI Only <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> processing if Jitter &amp; Noise were not specified.</p>
+<p>The bitmap is now duplicated according the <a href="22-Eye-Diagram-Properties.html#sub:Number-of-UI">Number of UI</a> specified. If Jitter &amp; Noise were not specified for the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> and <a href="22-Eye-Diagram-Properties.html#sub:Log-Intensity">Log Intensity</a> was not specified, the eye is then re-saturated using a spline such that the maximum intensity is achieved at a value at or above the <a href="22-Eye-Diagram-Properties.html#sub:Saturation">Saturation</a>.</p>
+<p>The eye is then inverted or not, depending on the setting of <a href="22-Eye-Diagram-Properties.html#sub:Invert-Plot">Invert Plot</a>, and colorized according to the specified <a href="22-Eye-Diagram-Properties.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol</a>.</p>
+<p>Finally, the image is scaled according to the <a href="22-Eye-Diagram-Properties.html#sub:Scale-X">Scale X</a> and <a href="22-Eye-Diagram-Properties.html#sub:Scale-Y">Scale Y</a> settings. Further re-scaling is possible by simply resizing the final canvas.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="16-Eye-Diagram-Dialog.html" class="btn btn-neutral float-left" title="Eye Diagram Dialog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="18-Eye-Diagram-Measurements-Dialog.html" class="btn btn-neutral float-right" title="Eye Diagram Measurements Dialog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="16-Eye-Diagram-Dialog.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="18-Eye-Diagram-Measurements-Dialog.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

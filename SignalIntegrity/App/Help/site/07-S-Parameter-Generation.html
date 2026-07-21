@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>S-Parameter Generation - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "S-Parameter Generation";
+        var mkdocs_page_input_path = "07-S-Parameter-Generation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">S-Parameter Generation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Drawing-a-Schematic-for-S-parameter-Generation">Drawing a Schematic for S-parameter Generation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Calculating-S-parameters">Calculating S-parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:S-parameter-Generation-Example">S-parameter Generation Example</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">S-Parameter Generation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:S-parameter-Generation">S-Parameter Generation<a class="headerlink" href="#sec:S-parameter-Generation" title="Permanent link">&para;</a></h1>
+<p>This section explains how to use <strong><em>SignalIntegrityApp</em></strong> to generate the s-parameters of a system. It involves the steps of:</p>
+<ul>
+<li>
+<p><a href="07-S-Parameter-Generation.html#sub:Drawing-a-Schematic-for-S-parameter-Generation">Drawing a Schematic for S-parameter Generation</a></p>
+</li>
+<li>
+<p><a href="07-S-Parameter-Generation.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation</a></p>
+</li>
+<li>
+<p><a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a></p>
+</li>
+<li>
+<p><a href="07-S-Parameter-Generation.html#sub:Calculating-S-parameters">Calculating S-parameters</a></p>
+</li>
+</ul>
+<p>Read through the following sections on how to accomplish this, or skip immediately to the <a href="07-S-Parameter-Generation.html#sub:S-parameter-Generation-Example">S-parameter Generation Example</a>.</p>
+<h2 id="sub:Drawing-a-Schematic-for-S-parameter-Generation">Drawing a Schematic for S-parameter Generation<a class="headerlink" href="#sub:Drawing-a-Schematic-for-S-parameter-Generation" title="Permanent link">&para;</a></h2>
+<p>When <strong><em>SignalIntegrityApp</em></strong> opens, you have a blank canvas and are ready to draw a schematic.</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>Drawing the schematic is accomplished through the addition of parts, ports and wires.</p>
+<p>To add parts to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>. To add wires to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a>. See the next section about <a href="07-S-Parameter-Generation.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation</a>.</p>
+<h2 id="sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation<a class="headerlink" href="#sub:Attaching-Ports-to-a-Schematic" title="Permanent link">&para;</a></h2>
+<p>A <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a> helps define the s-parameters of the final circuit. As you must be aware, s-parameters are a vector of matrix elements, where each matrix element is for a particular frequency (these frequencies are defined by the calculation properties defined in the next section: <a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>) and each matrix defines the complex port-port relationship at that frequency.</p>
+<p>Thus, for a set of two-port s-parameters, <span class="arithmatex">\(S_{21}\)</span> refers to the port-port relationship as the output (reflected) wave from port 2 due to an incident wave on port 1 over all the frequencies. These port numbers are defined by the port element added in the schematic.</p>
+<p>To add ports to a schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a>.</p>
+<h2 id="sub:Setting-Calculation-Properties">Setting Calculation Properties<a class="headerlink" href="#sub:Setting-Calculation-Properties" title="Permanent link">&para;</a></h2>
+<p>To set the calculation properties for s-parameter calculation, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>The calculation properties determine how the s-parameters are calculated, specifically the frequency points that are calculated. The calculation properties are the same set for all of the <strong><em>SignalIntegrityApp</em></strong> applications. With regard to s-parameter calculation, the elements of particular interest are the end frequency, which is the last frequency in the s-parameter calculation, and the frequency points, which are the number of frequency points that will be present in the final s-parameters calculated.</p>
+<h2 id="sub:Calculating-S-parameters">Calculating S-parameters<a class="headerlink" href="#sub:Calculating-S-parameters" title="Permanent link">&para;</a></h2>
+<p>After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters are calculated using either the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-S-parameters">Calculate S-parameters</a> command or the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button.</p>
+<p>Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for s-parameter calculation. This criteria for the schematic regarding elements are that the schematic must:</p>
+<ul>
+<li>
+<p>have at least one <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a> element (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a>)</p>
+</li>
+<li>
+<p>not have any other elements that don’t make sense for s-parameter generation including:</p>
+</li>
+<li>
+<p>output probes</p>
+</li>
+<li>
+<p>measure probes</p>
+</li>
+<li>
+<p>stims</p>
+</li>
+<li>
+<p>unknown devices</p>
+</li>
+<li>
+<p>system devices</p>
+</li>
+</ul>
+<p>In calculating the s-parameters, the first step is to convert the schematic shown into a <a href="24-Netlist.html#sec:Netlist">Netlist</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a> on ways of viewing and exporting the net lists.</p>
+<p>The net list is passed to a <strong>SystemSParametersNumericParser</strong> class as described in software documentation after which the s-parameters are extracted.</p>
+<p>During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.</p>
+<p>Then, for each frequency point, the s-parameters are generated of the schematic.</p>
+<p>Sometimes, things go wrong and an error is generated. See <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a> for an explanation of any errors generated during calculation.</p>
+<p>If everything goes correctly, a dialog will open with the ability to view the s-parameters calculated and save them to a file in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<h2 id="sub:S-parameter-Generation-Example">S-parameter Generation Example<a class="headerlink" href="#sub:S-parameter-Generation-Example" title="Permanent link">&para;</a></h2>
+<p>In this example we will generate the mixed-mode s-parameters of a differential transmission line.</p>
+<p>We start by opening the file provided in the examples. The file is included with the <strong><em>SignalIntegrityApp</em></strong> and can be found at ./Examples/SParameterGenerationExample.xml:</p>
+<p><img src="media/SParameterGenerationExample.png" alt="SParameterGenerationExample" width="469" height="221" /></p>
+<p>Here we see three devices and four ports.</p>
+<p>To build this example, we first create a <a href="15-Main-Schematic-Dialog.html#Control-Help:New-Project">New Project</a>.</p>
+<p>We added the devices by executing <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>, opening the Files category, and selecting the Four Port <a href="23-Built-in-Devices-Parts.html#device:File">File</a> device.</p>
+<p><img src="media/PartPickerFourPortFile.png" alt="PartPickerFourPortFile" width="414" height="308" /></p>
+<p>In the part properties dialog, we select the file: Sparq_demo_16.s4p.</p>
+<p><img src="media/FourPortFileProperties.png" alt="FourPortFileProperties" width="677" height="465" /></p>
+<p><img src="media/SparqDemo16Selection.png" alt="SparqDemo16Selection" width="583" height="292" /></p>
+<p>We also selected the left-most checkbox on the file name property so that it displays in the schematic.</p>
+<p>Pressing OK and clicking the mouse causes the part to appear in the schematic.</p>
+<p>At this point, our schematic looks like this:</p>
+<p><img src="media/SParameterGenerationExampleStep1.png" alt="SParameterGenerationExampleStep1" width="469" height="221" /></p>
+<p>Notice the red x’s showing where the part pins are unconnected. Also note that the part is blue and the status message says <em>Part Selected</em>.</p>
+<p>We then add the mixed-mode converter devices by again executing <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>, opening the Miscellaneous category, and selecting the <a href="23-Built-in-Devices-Parts.html#device:Power-Mixed-Mode-Converter">Power Mixed Mode Converter</a>.</p>
+<p><img src="media/PartPickerPowerMixedModeConverter.png" alt="PartPickerPowerMixedModeConverter" width="498" height="308" /></p>
+<p>This part has no properties.</p>
+<p>Pressing OK and clicking the mouse causes the part to appear in the schematic.</p>
+<p>At this point, our schematic looks like this:</p>
+<p><img src="media/SParameterGenerationExampleStep2.png" alt="SParameterGenerationExampleStep2" width="469" height="221" /></p>
+<p>Since we are converting single-ended to mixed-mode s-parameters, we need to hook the positive and negative ports of the left and right sides of the four-port device to the mixed-mode converters. But we don’t really know for sure where the positive and negative ports are on this device.</p>
+<p>To find out, we select our four port device and invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a>. This brings up the part properties dialog again for the file device:</p>
+<p><img src="media/SParameterGenerationExampleFileProperties.png" alt="SParameterGenerationExampleFileProperties" width="621" height="458" /></p>
+<p>Next to the file name, we see the view button. Pressing this brings up the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<p>The s-parameters to view are selected from the box of buttons in the lower left. Selecting s31, we see:</p>
+<p><img src="media/SParameterGenerationExampleS31.png" alt="SParameterGenerationExampleS31" width="1033" height="727" /></p>
+<p>and selecting s41 we see:</p>
+<p><img src="media/SParameterGenerationExampleS41.png" alt="SParameterGenerationExampleS41" width="1033" height="727" /></p>
+<p>s31 is clearly the positive thru response for the single-ended ports 1 and 3 and s41 is clearly the ac-coupled response of the other input port to output port 3. There is no indication necessarily of which ports are inputs our outputs (i.e. on the left or right of the device) and no indication which of the input or output ports should be designated plus or minus, but it is safe to choose ports 1 and 2 as the left plus and minus ports and ports 3 and 4 as the right plus and minus ports (note that we should look at s42 and s41 to confirm this).</p>
+<p>We will need two mixed-mode converters. We have one already, so we drag it over and connect the plus and minus ports to ports 3 and 4 of our four-port transmission line as shown:</p>
+<p><img src="media/SParameterGenerationExampleStep3.png" alt="SParameterGenerationExampleStep3" width="469" height="221" /></p>
+<p>It’s easy to get another mixed-mode converter on the other side. Just invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Part">Duplicate Part</a> with the mixed-mode converter selected and when the cursor changes to a finger, just click on the left of the file device to place a copy of the part. Since it is the wrong orientation, invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Horizontally">Flip Horizontally</a> to flip it around and drag it into position as shown:</p>
+<p><img src="media/SParameterGenerationExampleStep4.png" alt="SParameterGenerationExampleStep4" width="469" height="221" /></p>
+<p>Now we invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a> to add a <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a> to the circuit. When we do this, we see the part properties dialog for the port:</p>
+<p><img src="media/PartPropertiesPort.png" alt="PartPropertiesPort" width="394" height="429" /></p>
+<p>Note that the port number 1 has already been filled in. Press OK and click and drag the port into place:</p>
+<p><img src="media/SParameterGenerationExampleStep5.png" alt="SParameterGenerationExampleStep5" width="469" height="221" /></p>
+<p>It is customary for mixed-mode s-parameters to have ports 1, 2, 3, and 4 to be D1, D2, C1, C2 where the D and C refer to the differential- and common-mode and the 1 and 2 refer to the left and right side of the transmission line. So we invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Part">Duplicate Part</a> and click the mouse and drag the new port to the right side of the device. Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Horizontally">Flip Horizontally</a> to flip the port around and place it as shown:</p>
+<p><img src="media/SParameterGenerationExampleStep6.png" alt="SParameterGenerationExampleStep6" width="469" height="221" /></p>
+<p>The rest of the ports are added in a similar manner:</p>
+<p><img src="media/SParameterGenerationExample.png" alt="SParameterGenerationExample" width="469" height="221" /></p>
+<p>The next step is to set the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>. By default they look like this:</p>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>When we looked at the s-parameters, we can see that the end frequency is 20 GHz and the impulse response length is 100 ns. It looks like the 100 ns impulse response length might be excessive, so we use 50 ns. We double click in the impulse response length entry box and type 50n and press enter. Now we see:</p>
+<p><img src="media/CalculationProperties50ns.png" alt="CalculationProperties50ns" width="292" height="187" /></p>
+<p>Note that, in general, we really don’t want to think of the number of frequency points in an s-parameter file. Instead, we choose to think in terms of impulse response length. In this example, this happens to mean one thousand frequency points.</p>
+<p>Before calculating the s-parameters, it’s also good to look at the <a href="24-Netlist.html#sec:Netlist">Netlist</a>. Invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a>, we see:</p>
+<p><img src="media/SParameterGenerationExampleNetListDialog.png" alt="SParameterGenerationExampleNetListDialog" width="578" height="468" /></p>
+<p>If you’ve read the book that accompanies the <strong><em>SignalIntegrity</em></strong> software, this netlist should be familiar to you. If you press OK, you can save this netlist to a file, if you wanted to.</p>
+<p>To calculate the s-parameters, invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-S-parameters">Calculate S-parameters</a>. There should not be any errors (if there are, see <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a>) and you should see the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>:</p>
+<p><img src="media/SParameterGenerationExampleResultS11.png" alt="SParameterGenerationExampleResultS11" width="1033" height="727" /></p>
+<p>You can select the s-parameters you want to view from the buttons at the lower-left and save the results to a file if you want:</p>
+<p><img src="media/SParameterGenerationExampleResultSave.png" alt="SParameterGenerationExampleResultSave" width="583" height="292" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="06-Introduction.html" class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="08-Simulation.html" class="btn btn-neutral float-right" title="Simulation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="06-Introduction.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="08-Simulation.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

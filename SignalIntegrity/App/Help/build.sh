@@ -5,7 +5,7 @@
 #
 # Prerequisites:
 #   pip install mkdocs pillow pymdown-extensions
-#   (content is produced separately by convert_help.py, which needs lyx + pandoc)
+#   (the Markdown content lives in ./docs and is edited directly)
 set -e
 cd "$(dirname "$0")"
 

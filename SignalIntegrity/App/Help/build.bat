@@ -5,7 +5,7 @@ REM This replaces the old LyX + eLyXer 'converthelp.bat' workflow.
 REM
 REM Prerequisites:
 REM   pip install mkdocs pillow pymdown-extensions
-REM   (content is produced separately by convert_help.py, which needs lyx + pandoc)
+REM   (the Markdown content lives in .\docs and is edited directly)
 setlocal
 cd /d "%~dp0"
 

@@ -1,0 +1,41 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">12,-27 14,-27 14,-21 18,-21 18,-27 20,-27</polyline>
+%  <ellipse x="16" y="-24" dx="16" dy="-16" lc="black"/>
+%  <polyline lc="black">14.5,-19 17.5,-19</polyline>
+%  <polyline lc="black">16,-17.5 16,-20.5</polyline>
+%  <polyline lc="black">14.5,-29 17.5,-29</polyline>
+%  <polyline lc="black">16,-8 16,-16</polyline>
+%  <polyline lw="2" lc="red">15,-7 17,-9</polyline>
+%  <polyline lw="2" lc="red">17,-7 15,-9</polyline>
+%  <polyline lc="black">16,-40 16,-32</polyline>
+%  <polyline lw="2" lc="red">15,-39 17,-41</polyline>
+%  <polyline lw="2" lc="red">17,-39 15,-41</polyline>
+%  <text x="28" y="-39" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-36.5" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-34" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-31.5" t="w 1.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-29" t="fs 40.0 GS/s" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-26.5" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="28" y="-24" t="VG1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (12,-27) -- (14,-27) -- (14,-21) -- (18,-21) -- (18,-27) -- (20,-27);
+\path[line width=0.30mm, draw=black] (16,-24) ellipse (8mm and -8mm);
+\path[line width=0.30mm, draw=black] (14.5,-19) -- (17.5,-19);
+\path[line width=0.30mm, draw=black] (16,-17.5) -- (16,-20.5);
+\path[line width=0.30mm, draw=black] (14.5,-29) -- (17.5,-29);
+\path[line width=0.30mm, draw=black] (16,-8) -- (16,-16);
+\path[line width=0.6mm, draw=red] (15,-7) -- (17,-9);
+\path[line width=0.6mm, draw=red] (17,-7) -- (15,-9);
+\path[line width=0.30mm, draw=black] (16,-40) -- (16,-32);
+\path[line width=0.6mm, draw=red] (15,-39) -- (17,-41);
+\path[line width=0.6mm, draw=red] (17,-39) -- (15,-41);
+\draw[black] (28,-39) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (28,-36.5) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (28,-34) node[anchor=base west]{t0 0 s};
+\draw[black] (28,-31.5) node[anchor=base west]{w 1.0 ns};
+\draw[black] (28,-29) node[anchor=base west]{fs 40.0 GS/s};
+\draw[black] (28,-26.5) node[anchor=base west]{a 1.0 V};
+\draw[black] (28,-24) node[anchor=base west]{VG1};
+\end{tikzpicture}%

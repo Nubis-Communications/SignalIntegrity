@@ -1,0 +1,37 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="2" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="49" y="-36" t="RT" h="3" halign="c" lc="black"/>
+%  <rect x="45.5" y="-38.5" w="7" h="7" lc="black"/>
+%  <polyline lc="black">42,-35 45.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">41.562,-34.562 42.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">42.438,-34.562 41.562,-35.438</polyline>
+%  <text x="45" y="-34" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">56,-35 52.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">55.562,-34.562 56.438,-35.438</polyline>
+%  <polyline lw="2.00" lc="red">56.438,-34.562 55.562,-35.438</polyline>
+%  <text x="53" y="-34" t="2" h="3" lc="black"/>
+%  <text x="49" y="-28.75" t="rt 0 s" h="3" halign="c" lc="black"/>
+%  <text x="49" y="-25.25" t="rt_type 1090" h="3" halign="c" lc="black"/>
+%  <text x="49" y="-21.75" t="F1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=2.00mm, y=2.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (40.38,-39.50) rectangle +(17.25,21.10);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (49.00,-36.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{RT}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (45.50,-31.50) [rotate around={270:(45.50,-31.50)}] rectangle +(7.00,7.00);
+\path[line width=0.30mm, draw=L] (42.00,-35.00) -- (45.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (41.56,-34.56) -- (42.44,-35.44);
+\path[line width=0.60mm, draw=L] (42.44,-34.56) -- (41.56,-35.44);
+\draw[T] (45.00,-34.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{1}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (56.00,-35.00) -- (52.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (55.56,-34.56) -- (56.44,-35.44);
+\path[line width=0.60mm, draw=L] (56.44,-34.56) -- (55.56,-35.44);
+\draw[T] (53.00,-34.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{2}};
+\draw[T] (49.00,-28.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{rt 0 s}};
+\draw[T] (49.00,-25.25) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{rt\symbol{95}type 1090}};
+\draw[T] (49.00,-21.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{F1}};
+\end{tikzpicture}%

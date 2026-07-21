@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Errors and Exceptions - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Errors and Exceptions";
+        var mkdocs_page_input_path = "27-Errors-and-Exceptions.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Errors and Exceptions</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:SParameterFile">SParameterFile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:WaveformFile">WaveformFile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Waveform">Waveform</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:System-Description-Error">SystemDescription</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator">Simulator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:VirtualProbe">VirtualProbe</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Numeric">Numeric</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:DeviceParser">DeviceParser</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:PostProcessing">PostProcessing</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Errors and Exceptions</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Errors-and-Exceptions">Errors and Exceptions<a class="headerlink" href="#sec:Errors-and-Exceptions" title="Permanent link">&para;</a></h1>
+<p>When problems crop up during calculation, <strong><em>SignalIntegrityApp</em></strong> throws an exception and a message box is shown with the exception and the message the exception generates. As such, the exception type defines the main category of the exception and the message pertains to various flavors of that exception type.</p>
+<p>The <strong><em>SignalIntegrity</em></strong> exceptions are:</p>
+<ul>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:System-Description-Error">SystemDescription</a> - pertains to a general problem with the netlist used for calculation.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:Numeric">Numeric</a> - pertains to a general numerical error during calculation.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:SParameterFile">SParameterFile</a> - pertains to a problem with reading an s-parameter file.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:WaveformFile">WaveformFile</a> - pertains to a problem with reading a <a href="28-Waveform.html#sec:Waveform">Waveform</a> file.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:Waveform">Waveform</a> - pertains to a problem with calculating with a <a href="28-Waveform.html#sec:Waveform">Waveform</a>.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:DeviceParser">DeviceParser</a> - pertains to a problem parsing a device description in the netlist.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:Simulator">Simulator</a> - pertains to a problem specific to the Simulator application and calculation.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:VirtualProbe">VirtualProbe</a> - pertains to a problem specific to the Virtual Probe application and calculation.</p>
+</li>
+<li>
+<p><a href="27-Errors-and-Exceptions.html#sub:PostProcessing">PostProcessing</a> - pertains to a problem with <a href="25-Post-Processing.html#sec:Post-Processing">Post-Processing</a>.</p>
+</li>
+</ul>
+<h2 id="sub:SParameterFile">SParameterFile<a class="headerlink" href="#sub:SParameterFile" title="Permanent link">&para;</a></h2>
+<p>An s-parameter file was specified for reading and it could not be read</p>
+<p><strong>incorrect extension in s-parameter file name</strong></p>
+<p>All s-parameter files must have an extension ’.s[x]p’ where x is the number of ports. This is the only way to precisely determine the number of ports in an s-parameter file, so the files must have an extension like this.</p>
+<p><strong>filename not found</strong></p>
+<p>The s-parameter file could not be found.</p>
+<h2 id="sub:WaveformFile">WaveformFile<a class="headerlink" href="#sub:WaveformFile" title="Permanent link">&para;</a></h2>
+<p>A <a href="28-Waveform.html#sec:Waveform">Waveform</a> file was specified for reading and it could not be read</p>
+<p><strong>filename not found</strong></p>
+<p>The waveform file could not be found.</p>
+<h2 id="sub:Waveform">Waveform<a class="headerlink" href="#sub:Waveform" title="Permanent link">&para;</a></h2>
+<p>An error occurred involving a waveform</p>
+<p><strong>cannot generate frequency content</strong></p>
+<p>An error occurred in the generation of frequency content of a waveform. This usually occurs when the frequencies are not evenly spaced and the DFT cannot be used.</p>
+<p><strong>PRBS risetime too high for waveform generation</strong></p>
+<p>The generation of serial data waveforms uses a raised cosine for setting the risetime. This requires the risetime to be such that it forms a raised cosine on the edges that does not extend beyond one-half of the unit interval. This means a risetime greater than 56% of the unit interval.</p>
+<p><strong>cannot add waveform to type ...</strong></p>
+<p>An attempt is made to add a waveform to an unsupported type. Supported types are Waveform, float, int, and complex.</p>
+<p><strong>cannot subtract type ... from waveform</strong></p>
+<p>An attempt is made to subtract an unsupported type from a waveform. Supported types are Waveform, float, int, and complex.</p>
+<p><strong>cannot multiply waveform by type ...</strong></p>
+<p>An attempt is made to multiply a waveform by an unsupported type. Supported types are Waveform, float, int, and complex.</p>
+<p><strong>cannot divide waveform by type ...</strong></p>
+<p>An attempt is made to divide a waveform by an unsupported type. Supported types are Waveform, float, int, and complex.</p>
+<p><strong>waveform file to large to process</strong></p>
+<p>An attempt is made to process a waveform that is larger than the preference specified in <a href="29-Preferences.html#sub:Calculation.MaximumWaveformPoints">Calculation.MaximumWaveformPoints</a>.</p>
+<h2 id="sub:System-Description-Error">SystemDescription<a class="headerlink" href="#sub:System-Description-Error" title="Permanent link">&para;</a></h2>
+<p>During calculation, the netlist is parsed to set up the calculation. In this process, various things can go wrong because of incorrect specification of the netlist:</p>
+<p><strong>Unconnected Device Ports</strong></p>
+<p>One or more device ports in the schematic is not connected. With the exception of the system device used in deembedding applications, all device ports must be connected to one or more other device ports.</p>
+<p>Generally, by looking at your schematic, you can see this, because unconnected device ports will have a red x on device pins. That being said, simply connecting a wire to the device port makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p>You can troubleshoot connection problems exactly by looking at the netlist. The netlist will list each device with a name and number of ports and will list all connections between device ports.</p>
+<p><strong>Duplicate Device Name</strong></p>
+<p>One or more devices in your schematic has the same device name. Usually, as you add devices to the schematic, you do not worry about the reference designations and the application adds unique reference designators as parts are added. These reference designators can be edited, however, by the user and the user can enter reference designations that are the same accidentally. To troubleshoot this problem, you can look both at the schematic, specifically the part properties for the devices, and at the netlist which will have device declarations with the same device name.</p>
+<p><strong>No Device Named</strong></p>
+<p>A connection or other type of declaration specifies a device name that is nonexistent. This type of error ought to be impossible to create from the application and is more typical of hand generated netlists. Nevertheless, this error message indicates that the netlist contains a reference to a device name (listed in the error) that is not specified elsewhere in the netlist. An error like this is really an internal error, but you can see the cause of an error like this by examining the netlist.</p>
+<p><strong>Cannot Connect Device Ports</strong></p>
+<p>This is the same error as No Device Named, except that it was explicitly called in an attempt to connect non-existent device ports. It also handles non-existent ports of the device if they cannot be found.</p>
+<h2 id="sub:Simulator">Simulator<a class="headerlink" href="#sub:Simulator" title="Permanent link">&para;</a></h2>
+<p><strong>No Outputs</strong></p>
+<p>There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.</p>
+<p>By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p><strong>No Sources</strong></p>
+<p>There are no sources in the circuit. This type of error ought to be impossible to create from the application because the application checks for the existence of at least one source prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. If it is not connected, it ought to generate an Unconnected Device Ports error.</p>
+<p>By looking at your schematic, you can see this, because unconnected sources will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a source makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p><strong>Numerical Error</strong></p>
+<p>This is the same error as Cannot Invert I-W or I-Wxx while calculating the simulator transfer parameters. It indicates pathological problems in the system described. In many cases this can be resolved using the <a href="29-Preferences.html#sub:Calculation.TrySVD">Calculation.TrySVD</a> preference in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<h2 id="sub:VirtualProbe">VirtualProbe<a class="headerlink" href="#sub:VirtualProbe" title="Permanent link">&para;</a></h2>
+<p><strong>No Measures</strong></p>
+<p>There are no measure probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one measure probe prior to enabling the simulation calculation, but it does not check whether the measure probe is actually connected to anything.</p>
+<p>By looking at your schematic, you can see this, because unconnected measure probes will have a red x on their connection pins. That being said, simply connecting a wire to the measure probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p><strong>No Outputs</strong></p>
+<p>There are no output probes in the circuit. This type of error ought to be difficult to create from the application because the application checks for the existence of at least one output probe prior to enabling the simulation calculation, but it does not check whether the output probe is actually connected to anything. It is useful to leave some output probes unconnected and floating in the schematic to avoid calculation (for example, it might have been used for troubleshooting), but at least one of the output probes must be connected to the circuit.</p>
+<p>By looking at your schematic, you can see this, because unconnected output probes will have a red x on their connection pins. That being said, simply connecting a wire to the output probe makes the red x disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p><strong>No Sources</strong></p>
+<p>There are no sources in the circuit. In the context of <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>, sources mean stims as a stim looks like a source in the depths of the calculation. The application checks for the existence of at least one <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> defined by a <a href="24-Netlist.html#sec:Netlist">Netlist</a> line defining a <a href="24-Netlist.html#sub:stim">stim</a> prior to enabling the <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> calculation, but it does not check whether the stim is actually connected to anything.</p>
+<p>By looking at your schematic, you can examine unconnected stims, because they will have a red x on their connection pins. That being said, simply connecting a wire to the pins of a stim makes the red x’s disappear (because it is connected to the vertex of a wire) and the wire itself might not be connected to anything.</p>
+<p>Stims also require that the end of the arrow is connected directly to a device port. This is because unlike waves which are present along a wire, stims represent waves that emanate from a device port. Unfortunately, the schematic editor allows you to make this mistake.</p>
+<p>Also, stims must be connected to only one device port. While the schematic editor allows device ports to be connected directly together, when a stim is connected to a device port, the device port must be separated from others in the schematic by a small piece of wire.</p>
+<p><strong>Numerical Error</strong></p>
+<p>This is the same error as Cannot Invert I-W or I-Wxx while calculating the virtual probe transfer parameters. It indicates pathological problems in the system described.</p>
+<p><strong>Incorrect Matrix Alignment</strong></p>
+<p>This cryptic error is an all encompassing error to indicate that something is wrong with the number of stims or measures in your system. In virtual probing, the number of independent stims (stims without the non-arrow side connected) must be less than or equal to the number of measure probes in the system. This error probably indicates that this is not the case (I say probably because there are other sources of this error especially when hand created netlists are entered into the system).</p>
+<h2 id="sub:Numeric">Numeric<a class="headerlink" href="#sub:Numeric" title="Permanent link">&para;</a></h2>
+<p><strong>Cannot Invert I-W or I-Wxx</strong></p>
+<p>Understanding this error involves understanding the theory in the accompanying book. Suffice it to say that the problem is ill-determined in the sense that the system characteristics matrix is not invertible. This occurs under many pathological cases, some of which can be worked around and others cannot (i.e. there is simply no solution to the problem).</p>
+<p>An example of a pathological case that cannot be worked around are attempts to de-embed elements in systems where elements are present that do not pass anything (at a given frequency).</p>
+<p>Examples of pathological cases that can be worked around are circuit nodes whose absolute voltage or current cannot be determined due to the construction of the circuit. Sometimes, these can be worked around through the insertion of large resistors to ground or tiny series resistors. A detailed examination of the circuit would be necessary.</p>
+<p>Also, in many cases this can be resolved using the <a href="29-Preferences.html#sub:Calculation.TrySVD">Calculation.TrySVD</a> preference in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<h2 id="sub:DeviceParser">DeviceParser<a class="headerlink" href="#sub:DeviceParser" title="Permanent link">&para;</a></h2>
+<p>This error class is for errors parsing <a href="24-Netlist.html#sec:Netlist">Netlist</a> lines with the <a href="24-Netlist.html#sub:device">device</a> keyword.</p>
+<p><strong>Mandatory Keywords Not Supplied</strong></p>
+<p>This error message states that mandatory keywords and values were not supplied to the device parser for a particular <a href="24-Netlist.html#sub:device">device</a> line in the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, defining one of the <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a>. This would be an internal error to the application because you cannot really control this.</p>
+<p>The keyword error looks like: [’keyword1’,’keyword2’,…] for ’deviceName’ where ’keyword1’ and ’keyword2’ are representative of keywords that must be defined for the device and ’deviceName’ is representative of the name of the device.</p>
+<p>If a keyword is ”, then the device takes an argument without a keyword (the keyword is inherent - see <a href="24-Netlist.html#sub:device">device</a>).</p>
+<p>For example, an error message that says that the keywords not supplied are: [”] for file, this means that the file name (which is not specified with a keyword) was not supplied.</p>
+<p>When entering netlists by hand, it is easy to forget a mandatory keyword, but in <strong><em>SignalIntegrityApp</em></strong>, this is difficult since the application creates the netlist entry from the instantiated part in the schematic.</p>
+<p><strong>Arguments Must Come in Keyword Pairs</strong></p>
+<p>This error message states that the netlist <a href="24-Netlist.html#sub:device">device</a> line in the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, defining one of the <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a> was formed incorrectly and that it was expecting the arguments to come in keyword/value pairs. This would be an internal error to the application because you cannot really control this.</p>
+<p><strong>Device Could Not Be Instantiated</strong></p>
+<p>This error message states that the netlist <a href="24-Netlist.html#sub:device">device</a> line in the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, defining one of the <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a> was formed incorrectly and the result of trying to create a device with the given name and arguments failed. This would be an internal error to the application because you cannot really control this.</p>
+<p><strong>Device Not Found</strong></p>
+<p>This error message states that the netlist <a href="24-Netlist.html#sub:device">device</a> line in the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, defining one of the <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a> was formed incorrectly and that the device name specified is unknown. This would be an internal error to the application because you cannot really control this.</p>
+<h2 id="sub:PostProcessing">PostProcessing<a class="headerlink" href="#sub:PostProcessing" title="Permanent link">&para;</a></h2>
+<p><strong>not understood</strong></p>
+<p>A <a href="25-Post-Processing.html#sec:Post-Processing">Post-Processing</a> command (a <a href="24-Netlist.html#sec:Netlist">Netlist</a> line preceded by the keyword <a href="24-Netlist.html#sub:post">post</a>) is not understood or cannot be parsed.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="26-Equations.html" class="btn btn-neutral float-left" title="Equations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="28-Waveform.html" class="btn btn-neutral float-right" title="Waveform">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="26-Equations.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="28-Waveform.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

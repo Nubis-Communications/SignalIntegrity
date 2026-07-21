@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Virtual Probing - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Virtual Probing";
+        var mkdocs_page_input_path = "10-Virtual-Probing.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Virtual Probing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Drawing-a-Schematic-for-Virtual-Probing">Drawing a Schematic for Virtual Probing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Measure-Probes">Measure Probes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Stimuli">Stimuli</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Virtual-Probing">Virtual Probing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Virtual-Probing-Example">Virtual Probing Example</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Virtual Probing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Virtual-Probing">Virtual Probing<a class="headerlink" href="#sec:Virtual-Probing" title="Permanent link">&para;</a></h1>
+<p>Virtual probing is about converting measurements made a various circuit locations to waveforms that would appear had the circuit been probed at other locations.</p>
+<p>Virtual probing can be used for a number of purposes including:</p>
+<ul>
+<li>
+<p>Time-domain deembedding - removing the effects of components, including probes from a measurement.</p>
+</li>
+<li>
+<p>Undoing the effects of probe loading from a measurement.</p>
+</li>
+<li>
+<p>Compliance testing or measuring well a system will perform under various conditions.</p>
+</li>
+</ul>
+<p>This section provides step-by-step instructions for virtual probing. You can read through this, or go immediately to the <a href="10-Virtual-Probing.html#sub:Virtual-Probing-Example">Virtual Probing Example</a>.</p>
+<p>In order to virtually probe a circuit, you first need a schematic containing a number of devices and interconnected with wires. See <a href="10-Virtual-Probing.html#sub:Drawing-a-Schematic-for-Virtual-Probing">Drawing a Schematic for Virtual Probing</a>.</p>
+<p>You will need to supply probing points in the circuit for providing measured waveforms (<a href="10-Virtual-Probing.html#sub:Measure-Probes">Measure Probes</a>) and for specifying the output waveforms <em>(<a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a></em>).</p>
+<p>A <a href="10-Virtual-Probing.html#sub:Measure-Probes">Measure Probes</a> requires a <a href="28-Waveform.html#sec:Waveform">Waveform</a> file that provides the waveform measured at that location. We talk about these in <a href="10-Virtual-Probing.html#sub:Measure-Probes">Measure Probes</a>.</p>
+<p>An <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe (without loading effects). We talk about these in <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>.</p>
+<p>For virtual probing to work correctly, all sources of stimuli (i.e. waves entering the system, or sources of voltage and/or current) must be identified. In virtual probing, you don’t supply stimuli, only tell it how it enters the system. This identification of stimuli is achieved through the use of the <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a>. This is discussed in <a href="10-Virtual-Probing.html#sub:Stimuli">Stimuli</a>.</p>
+<p>Once you are ready for virtual probing, you should configure the Calculation properties. See <a href="10-Virtual-Probing.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a>.</p>
+<p>Once a circuit is drawn containing at least one <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a>, at least one <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a> and at least one <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a>, presumably with a circuit that has been properly configured, you can virtually probe the circuit. Virtual probing involves first the calculation of transfer parameters which are applied to the measured input waveforms to generate the output waveforms and the waveforms are displayed. See <a href="10-Virtual-Probing.html#sub:Virtual-Probing">Virtual Probing</a>.</p>
+<h2 id="sub:Drawing-a-Schematic-for-Virtual-Probing">Drawing a Schematic for Virtual Probing<a class="headerlink" href="#sub:Drawing-a-Schematic-for-Virtual-Probing" title="Permanent link">&para;</a></h2>
+<p>When <strong><em>SignalIntegrityApp</em></strong> opens, you have a blank canvas and are ready to draw a schematic for virtual probing.</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>Drawing the schematic is accomplished through the addition of parts, wires, measure probes, output probes and stims.</p>
+<p>To add parts to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>. To add wires to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a>.</p>
+<p>To add a <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a> or an <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a> and <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Measure-Probe">Add Measure Probe</a>.</p>
+<p>To add a <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a>, use <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Stim">Add Stim</a>.</p>
+<h2 id="sub:Measure-Probes">Measure Probes<a class="headerlink" href="#sub:Measure-Probes" title="Permanent link">&para;</a></h2>
+<p>Measure probes supply the location of an input <a href="28-Waveform.html#sec:Waveform">Waveform</a> along with the location in the circuit where it was measured.</p>
+<p>They are added to the schematic by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Measure-Probe">Add Measure Probe</a> or by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting the Measure from the Special category in the Part Picker Dialog:</p>
+<p><img src="media/PartPickerMeasureProbe.png" alt="PartPickerMeasureProbe" width="520" height="555" /></p>
+<p><img src="media/PartPropertiesMeasureProbe.png" alt="PartPropertiesMeasureProbe" width="520" height="458" /></p>
+<p>The reference designator need only be unique, but it useful to set it something explicit, especially when viewing the transfer parameters that get calculated. The waveform must be a file in the specified <a href="28-Waveform.html#sec:Waveform">Waveform</a> format.</p>
+<h2 id="sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing<a class="headerlink" href="#sub:Output-Probes-for-Virtual-Probing" title="Permanent link">&para;</a></h2>
+<p>An output probes define the location, name and characteristics of an output <a href="28-Waveform.html#sec:Waveform">Waveform</a> resulting from virtual probing.</p>
+<p>They are added to the schematic by invoking either <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a> or by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting the <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> from the Special category:</p>
+<p><img src="media/PartPickerOutputProbe.png" alt="PartPickerOutputProbe" width="520" height="555" /></p>
+<p><img src="media/PartPropertiesOutputProbe.png" alt="PartPropertiesOutputProbe" width="394" height="492" /></p>
+<p>You can set the reference designator to a useful name, if you want, as it will be the name of the waveform produced in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>. You can set a gain, offset and/or delay to applied to the output waveform produced.</p>
+<p>Note that <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> can be used also, which would bring up the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> after the simulation completes.</p>
+<h2 id="sub:Stimuli">Stimuli<a class="headerlink" href="#sub:Stimuli" title="Permanent link">&para;</a></h2>
+<p>Stimuli in virtual probing is surely the most confusing aspect.</p>
+<p>Virtual probing operates in theory by accounting for all of the <em>waves</em> flowing around a system using observations of <em>voltages</em> at the measurement probe points. Now, since voltages are proportional to the sum of the forward and backward going waves at a given node, so how can you tell which way they are going? Well, if you look long enough such that any waves entering prior to the time you started looking have either died down or are insignificant, then everything works out fine. But the application needs to know where they are and which device ports they <em>emanate</em> from.</p>
+<p>For a properly constrained system, you should have as many measurement probes as stimuli. For example, barring other sorts of numerical problems, for a single-ended transmitter, one measurement probe and one stimulus is enough. If the system contains a differential transmitter, two stimulus are required. Two measurement probes are required, or some assumptions are needed to further constrain the stimuli is required. Constraining stimuli is performed using independent and dependent stimuli and specifying the constraints through interconnections and weights.</p>
+<p>To place an independent stimulus, use <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Stim">Add Stim</a>, leave the weight as 1.0, and place the tip of the arrow directly on the port of a device as shown:</p>
+<p><img src="media/IndependentStimInCircuit.png" alt="IndependentStimInCircuit" width="488" height="257" /></p>
+<p>The <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> must be connected to one and only one device port, as shown above. This means that if two device ports are connected together, you must separate them with a small bit of wire, and connect the <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> to the device port you intend. In other words, don’t do this:</p>
+<p>Remember, a <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> defines the place of wave emanation from a port. Connecting it to two device ports, or in the middle of a wire, does not specify a device port from which waves emanate.</p>
+<p>If you have a situation where you have have more stimuli than measurements, you can make the stimuli connected directly to the device ports <em>dependent</em> on an independent stimulus.</p>
+<p>For example, suppose you have the following situation:</p>
+<p><img src="media/DifferentialStimArrangement.png" alt="DifferentialStimArrangement" width="634" height="248" /></p>
+<p>This virtual probing schematic says that you have two independent, single-ended sources of stimuli at a transmitter and that you are measuring the differential voltage at the transmitter and desiring to see the differential waveform at a perfectly terminated receiver. Here we have two stims and only one measurement probe which makes the system unsolvable.</p>
+<p>We can rectify the situation by adding an independent stim and making the two stims at the transmitter output dependent on it, like this:</p>
+<p><img src="media/DifferentialStimArrangementBalanced.png" alt="DifferentialStimArrangementBalanced" width="634" height="248" /></p>
+<p>Although the two stims at the transmitter only showed one connection point at the arrow tip, the back of the arrow can also be connected. When the back of a stim is connected through a wire to arrow tip of another stim, it becomes dependent on it by an amount defined by the weight of the dependent stim. We change the weight by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> with the stim selected.</p>
+<p>This arrangement says that the top stim is now the same as the independent stim and that the bottom stim is the negative of the independent stim. Since we now have only one independent stim, the system is solvable.</p>
+<p>Note that this does not imply that the voltage waveform will be balanced at the transmitter (i.e. no common mode component), only that we have promised that the waves emanating from the transmitters are balanced.</p>
+<h2 id="sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing<a class="headerlink" href="#sub:Setting-Calculation-Properties-for-Virtual-Probing" title="Permanent link">&para;</a></h2>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>To set the calculation properties for virtual probing, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>The calculation properties determine how the transfer parameters are calculated. Transfer parameters are frequency responses that define transfer characteristics from an input waveform to an output waveform. Input waveforms come from measurement probes and output waveforms are provided at output probe locations in the circuit. An output waveform is a linear combination of input waveforms applied to filters that are the time-domain equivalent of the frequency responses.</p>
+<p>The frequency responses are calculated to the end frequency withe the frequency spacing specified, and the filters are calculated by taking the inverse-FFT of these frequency responses. As such, they end up having a sample rate that is twice the end frequency and an impulse response length that is the inverse of the frequency resolution and a number of points that are twice the number of frequency points.</p>
+<p>The base sample rate should be set to the sample rate that you want the virtual calculation to run at, which is twice the end frequency.</p>
+<p>These impulse responses generated for the filters are always centered on time zero, meaning half of the impulse response is before time zero and half is after.</p>
+<p>Assuming that all of the s-parameters have been sampled sufficiently, meaning to the right end frequency and most importantly, with the proper spacing to provide an impulse response that does not have time-aliasing effects, then it is possible to specify an appropriate impulse response length in the calculation properties. But with the tool in its current state, there is no way to guarantee this - you must set it to a value that makes sense. But the key is that it must be long enough. If it is too short, the simulator produces incorrect waveforms. If it is too long, it just needs to do extra work.</p>
+<p>The advice here is to set the impulse response length to a number that is twice the length of a finite impulse response (FIR) filter in time as how long you think the impulse response of the longest filter should be. Then, after the simulation completes, you should <a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a> from the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> to make sure that this occurred.</p>
+<p>To try to get some feeling on how the properties should be set, we can invoke the <a href="15-Main-Schematic-Dialog.html#Control-Help:S-parameter-Viewer">S-parameter Viewer</a> and use the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> to examine the s-parameter files in the system and invoking <a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Properties">S-Parameter Properties</a> to see what the impulse responses look like resampled onto the desired calculation properties. But remember that your system contains many sets of such files that may cause the impulse response lengths needed for the transfer parameters to be different than what any individual s-parameter file shows.</p>
+<h2 id="sub:Virtual-Probing">Virtual Probing<a class="headerlink" href="#sub:Virtual-Probing" title="Permanent link">&para;</a></h2>
+<p>After creating the schematic for virtual probing and setting the calculation properties, the calculation is run using either the <a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> command or the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button.</p>
+<p>Note that virtual probing will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for virtual probing. This criteria for the schematic regarding elements are that the schematic must:</p>
+<ul>
+<li>
+<p>have at least one <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a>.</p>
+</li>
+<li>
+<p>have at least one <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a>.</p>
+</li>
+<li>
+<p>have at least one <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a></p>
+</li>
+<li>
+<p>not have any other elements that don’t make sense for virtual probing including:</p>
+</li>
+<li>
+<p>ports</p>
+</li>
+<li>
+<p>unknown devices</p>
+</li>
+<li>
+<p>system devices</p>
+</li>
+</ul>
+<p>In virtual probing, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a href="24-Netlist.html#sec:Netlist">Netlist</a> for more information on the net list and see <a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a> on ways of viewing and exporting the net lists.</p>
+<p>The net list is passed to a <strong>VirtualProbeNumericParser</strong> class as described in the software documentation after which the transfer parameters are extracted.</p>
+<p>During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified (see <a href="10-Virtual-Probing.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a>). If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.</p>
+<p>Then, for each frequency point, the transfer parameters are generated.</p>
+<p>After the transfer parameters are generated, the input waveforms are produced or read from files and applied to the filters corresponding to the transfer parameters to generate output waveforms.</p>
+<p>Sometimes, things go wrong and an error is generated. See <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a> for an explanation of any errors generated during calculation.</p>
+<p>If everything goes correctly, the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> will open with the ability to view the output waveforms calculated and save them to a file.</p>
+<h2 id="sub:Virtual-Probing-Example">Virtual Probing Example<a class="headerlink" href="#sub:Virtual-Probing-Example" title="Permanent link">&para;</a></h2>
+<p>In this example, we are not going to explain how to draw the entire example in the schematic editor. Many of the other examples step you through this process. We will examine a canned example found in the folder ./Examples/VirtualProbingExample/VirtualProbeExample.xml.</p>
+<p>When we open this example using <a href="15-Main-Schematic-Dialog.html#Control-Help:Open-Project">Open Project</a>, we see the following:</p>
+<p><img src="media/VirtualProbingExample.png" alt="VirtualProbingExample" width="706" height="505" /></p>
+<p>This example demonstrates many possible examples of virtual probing simultaneously. The top network containing inductors, a capacitor and a resistor is a <em>probe loading model</em>. This is a circuit which describes the effect that a probe has when inserted into a system. These models are generally published by manufacturers of high-frequency probes used for oscilloscopes. The probe loading model shown is for a single-ended probe.</p>
+<p>The circuit beneath the probe loading model is the circuit being measured. Ignoring the stimuli for the moment, this circuit is for a 50  differential source driving a differential transmission line represented by a four-port s-parameter <a href="23-Built-in-Devices-Parts.html#device:File">File</a> device. The s-parameters are contained in the file Sparq_demo_16.s4p. Notice that the probe loading model is connected to the circuit at the input termination.</p>
+<p>The final circuit at the bottom is an exact duplicate of the previously described circuit section except that it does not have the probe loading model connected.</p>
+<p>In the probe loading model section where the probe is connected to the circuit, we have a <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a> device (see <a href="10-Virtual-Probing.html#sub:Measure-Probes">Measure Probes</a> for more information). The measure probe is shows an input file name of VirtualProbingExampleSimulation_Vprobe.txt which is presumably a <a href="28-Waveform.html#sec:Waveform">Waveform</a> file containing a waveform measured (by, for example an oscilloscope) while probing a circuit like the middle circuit section. In fact, in this contrived example, it is the output waveform of a <strong><em>SignalIntegrityApp</em></strong> <a href="08-Simulation.html#sec:Simulation">Simulation</a> simulated under exactly these conditions.</p>
+<p>Invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> with the measure probe selected and press view to view the waveform in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>:</p>
+<p><img src="media/VirtualProbeVprobeWaveform.png" alt="VirtualProbeVprobeWaveform" width="623" height="565" /></p>
+<p>Throughout the rest of the schematic, we see various <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> devices (see <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a> for more information). I will talk about these in a bit, but for now notice one interesting thing about the output probes named Voutloaded and Vout. These are in between two back-to-back <a href="23-Built-in-Devices-Parts.html#device:Voltage-Mixed-Mode-Converter">Voltage Mixed Mode Converter</a> devices. These devices placed back-to-pack expose the plus and minus terminals of a single-ended line on each side and the differential- and common-mode lines in the middle. These devices connected in this arrangement have no effect on the circuit (the two plus pins or the two minus pins could even be shorted together if you wanted). Thus, these output probes are probing the differential output at the output termination.</p>
+<p>Note that these output probes have keyword/values of td -1.43ns and gain 0.5. The gain is the gain applied to the output waveform. Since the input waveform is a single-ended measurement it is half the size of the differential waveform. We want to see relative changes is size, so we put the differential waveforms on the same relative scale as the single-ended waveforms. The time delay of -1.43 ns is to account for the delay through the channel. This was estimated by examining the s-parameters of the file Sparq_demo_16.s4p. You can do that by selecting the four-port file<a href="23-Built-in-Devices-Parts.html#device:File">File</a> device, double-clicking on it to invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> and then pressing view to invoke the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<p>Selecting S31, we have:</p>
+<p><img src="media/SparqDemo16S31.png" alt="SparqDemo16S31" width="1033" height="727" /></p>
+<p>and by selecting S41, we have:</p>
+<p><img src="media/SparqDemo16S32.png" alt="SparqDemo16S32" width="1033" height="727" /></p>
+<p>Since there are multiple spikes in the impulse response, the differential time delay through the channels is roughly the time of the positive going spike in the S31 that goes with the negative going spike in the S32.</p>
+<p>Regarding the <a href="10-Virtual-Probing.html#sub:Stimuli">Stimuli</a>, we see four dependent stimuli and one independent stimuli. The dependent stimuli are connected to the pin of each <a href="23-Built-in-Devices-Parts.html#device:Ground">Ground</a> device representing the transmitters (remember, a voltage source looks like a short with waves emanating from it). These grounds are connected through a small piece of wire to the pins of 50  resistors. (see <a href="10-Virtual-Probing.html#sub:Stimuli">Stimuli</a> for why this small piece of wire is necessary). A <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> is connected with the arrow touching each pin of the grounds, meaning the stimulus emanates from the grounds.</p>
+<p>An independent stimulus is all the way to the left with wires connecting the arrow tip of the independent stimulus to the back of each of the stims. This means that the other stimuli depend on this stimulus. Note that in each of the circuit sections, the weights of the two bottom stims are -1.0 (the others are 1.0 and not shown). This means that the top stim in each circuit is the same as the independent stimulus and the bottom stim in each circuit is the negative of the independent stimulus. What we are saying here is that the waves emanating from the differential transmitters are balanced. See <a href="10-Virtual-Probing.html#sub:Stimuli">Stimuli</a> for a discussion of this topic.</p>
+<p>Now that we understand all of the interconnections, let’s understand what is the intent of this system.</p>
+<p>We are providing a measured waveform Vprobe, and have output probes called:</p>
+<ul>
+<li>
+<p>Vmeas - the measured input waveform at the transmitter. This waveform can be considered as the input waveform to the backplane with the probe loading the circuit.</p>
+</li>
+<li>
+<p>Voutloaded - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform with the probe loading the circuit.</p>
+</li>
+<li>
+<p>Vin - the waveform at the transmitter in the bottom circuit to be produced by Virtual Probing. This waveform is the input waveform to the circuit if the probe were not loading the circuit.</p>
+</li>
+<li>
+<p>Vout - the waveform at the receiver to be produced by Virtual Probing. This waveform is the output waveform without the probe loading the circuit.</p>
+</li>
+</ul>
+<p>Virtual Probe is being asked to provide these waveforms given a single, single-ended measurement at the transmitter.</p>
+<p>So the problem being solved is three-fold:</p>
+<ul>
+<li>
+<p>Voutloaded provides for a measurement in a different circuit location (the receiver) given a measurement taken at the transmitter.</p>
+</li>
+<li>
+<p>Vin provides for a measurement in the same system with the probe loading effects removed. In other words, it provides what the measurement would be were the probe perfect. In a sense, it is a deembedding of the loading effects of the probe.</p>
+</li>
+<li>
+<p>Vout provides for a measurement of the output waveform from a system, without the probe loading the system. This measurement is usually the actual goal. Note that this could be used for compliance testing of systems without having the actual backplane - and in fact could be used for monte-carlo testing of compliance if run with many different backplanes whose existance is virtual - in the form of s-parameter files. (These backplanes might not even exist and might be the product of other signal integrity analysis tools). All we would need to get right for this compliance testing would be a model of the probe and probing structure connected to the transmitter.</p>
+</li>
+</ul>
+<p>The first measurement we will take will be to see the effect of the probe loading in the measurement of the input waveform. So, select the two output probes at the output and move them off their connection points as shown.</p>
+<p><img src="media/VirtualProbingExampleProbeLoadingEffect.png" alt="VirtualProbingExampleProbeLoadingEffect" width="706" height="505" /></p>
+<p>Before creating the output waveforms, you need to check that the calculation properties are appropriate. See <a href="10-Virtual-Probing.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a> for more information. Here we use the following settings:</p>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>Invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> to create the output waveforms in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>:</p>
+<p><img src="media/VirtualProbeProbeLoadingWaveforms.png" alt="VirtualProbeProbeLoadingWaveforms" width="623" height="565" /></p>
+<p>Amazingly, the new input waveform without the probe loading effects looks much better.</p>
+<p>It’s always a good idea to invoke <a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a> to view the transfer parameters in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>. Selecting Vin due to Vprobe, we see:</p>
+<p><img src="media/VirtualProbeProbeLoadingTransferParameters.png" alt="VirtualProbeProbeLoadingTransferParameters" width="1033" height="669" /></p>
+<p>This is the filter that was created to convert the probed waveform to the waveform that would be present without the probe loading effects. Here we see a resonance at around 1 GHz accounting for a resonant cavity in the probes response (this would not be a great probe in real life). We see this resonance in the impulse and step response and fortunately it dies down before 10 ns, so the calculation settings are okay for this situation.</p>
+<p>Now let’s go back to the schematic and view the output waveform. Disconnect the Vin output probe and connect the Voutloaded output probe like this:</p>
+<p><img src="media/VirtualProbingExampleProbingAtDifferentPoint.png" alt="VirtualProbingExampleProbingAtDifferentPoint" width="706" height="505" /></p>
+<p>Invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> to create the output waveforms in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>:</p>
+<p><img src="media/VirtualProbingExampleProbingAtDifferentPointWaveforms.png" alt="VirtualProbingExampleProbingAtDifferentPointWaveforms" width="623" height="565" /></p>
+<p>Note that because we applied the -1.43 ns delay and the half gain, they resemble each other. This is an example of using virtual probing to simply probe at a different location in the circuit than is actually being probed.</p>
+<p>This portion of the example does not give us what we really want. We want to see what the output waveform would be were the probe not loading the system. For this, we go back to the schematic, and disconnect the two output probes at the input and connect the output probes at the output, like this:</p>
+<p><img src="media/VirtualProbeOutputsOnly.png" alt="VirtualProbeOutputsOnly" width="706" height="505" /></p>
+<p>Invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> to create the output waveforms in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>:</p>
+<p><img src="media/VirtualProbeOutputsOnlyWaveforms.png" alt="VirtualProbeOutputsOnlyWaveforms" width="623" height="565" /></p>
+<p>Here we see a not so negligible difference between the output waveforms with and without the probe loading accounted for.</p>
+<p>Here, we were able to probe at the input and produce an output waveform at the receiver that is independent of the probe effects. In fact, if we simply probe the transmitter driving a known termination with known probe effects, we could have gotten this same result. Furthermore, we’d be able to replace the four-port backplane with varieties of corner cases to test compliance, for example.</p>
+<p>Invoke <a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a> to view the transfer parameters in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>. Selecting Vout due to Vprobe, we see:</p>
+<p><img src="media/VirtualProbeOutputsOnlyTransferParameters.png" alt="VirtualProbeOutputsOnlyTransferParameters" width="1033" height="669" /></p>
+<p>In the end, you can connect all of the output probes and run the calculation and save all of the waveforms by invoking <a href="14-Simulator-Dialog.html#Control-Help:Save-Waveforms">Save Waveforms</a> from the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> and save all of the transfer parameters by invoking <a href="13-S-parameter-Viewer.html#Control-Help:Save-S-parameter-File">Save S-parameter File</a> in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>. Note that the transfer parameters will be an .s4p file with only S11, S21, S31, and S41 defined according to the ordering of the transfer parameters shown.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="09-Deembedding.html" class="btn btn-neutral float-left" title="Deembedding"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="11-RLGC-Fit.html" class="btn btn-neutral float-right" title="RLGC Fit">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="09-Deembedding.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="11-RLGC-Fit.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

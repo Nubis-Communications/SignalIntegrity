@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Simulator Dialog - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Simulator Dialog";
+        var mkdocs_page_input_path = "14-Simulator-Dialog.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Simulator Dialog</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator-File-Menu">Simulator File Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-Waveforms">Save Waveforms</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Read-Waveforms">Read Waveforms</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Simulator-Open-Help-File">Open Help File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Simulator-Control-Help">Control Help</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Simulator-Preferences">Preferences</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Simulator-output-to-LaTeX">Output to LaTeX (TikZ)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator-Selection-Menu">Simulator Selection Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Display-All">Display All</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Display-None">Display None</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Toggle-Selections">Toggle All</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator-Calculation-Menu">Simulator Calculation Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Recalculate">Recalculate</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator-View-Menu">Simulator View Menu</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Show-Grids-1">Show Grids</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:View-Time-domain">View Time-domain</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#log-frequency-scalex">Log Frequency ScaleX“‘</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:View-Spectral-Content">View Spectral Content</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:View-Spectral-Density">View Spectral Density</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulator-Help">Help</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Simulator Dialog</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Simulator-Dialog">Simulator Dialog<a class="headerlink" href="#sec:Simulator-Dialog" title="Permanent link">&para;</a></h1>
+<div class="center">
+
+<img src="media/SimulatorExampleStep24.png" alt="SimulatorExampleStep24" width="604" height="483" />
+
+</div>
+
+<p>The simulator dialog (which is really a waveform viewer dialog) appears under the following conditions:</p>
+<ul>
+<li>
+<p>After <a href="08-Simulation.html#sub:Simulating">Simulating</a> is invoked by either <a href="15-Main-Schematic-Dialog.html#Control-Help:Simulate">Simulate</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> and the simulation completes properly in a <a href="08-Simulation.html#sec:Simulation">Simulation</a> application.</p>
+</li>
+<li>
+<p>After <a href="10-Virtual-Probing.html#sub:Virtual-Probing">Virtual Probing</a> is invoked by either a <a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> or <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> and the calculation completes properly in a <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> application.</p>
+</li>
+<li>
+<p>When viewing the <a href="28-Waveform.html#sec:Waveform">Waveform</a> associated with a <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a>, <a href="23-Built-in-Devices-Parts.html#device:Current-Source">Current Source</a> or <a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a> in a schematic through the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> command.</p>
+</li>
+</ul>
+<p>This dialog has a menu and toolbar with commands that handle:</p>
+<ul>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Simulator-File-Menu">Simulator File Menu</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Simulator-Selection-Menu">Simulator Selection Menu</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Simulator-Calculation-Menu">Simulator Calculation Menu</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Simulator-View-Menu">Simulator View Menu</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Simulator-Help">Help</a></p>
+</li>
+</ul>
+<p>Along with context sensitive help.</p>
+<p>The main part of the dialog is a MatPlotLib plot (see <a href="http://matplotlib.org">http://matplotlib.org</a>) with control of panning and zooming. These controls come standard with MatPlotLib, the standard Python way of plotting things. The plots have a legend in the upper right containing the name of the waveform plot being displayed and indication of its color in the plot. The axis for the plots are amplitude in Volts on the y axis, time in ns on the x axis. The waveform(s) are scaled and aligned as appropropriate originally.</p>
+<h2 id="sub:Simulator-File-Menu">Simulator File Menu<a class="headerlink" href="#sub:Simulator-File-Menu" title="Permanent link">&para;</a></h2>
+<p>The File tasks are:</p>
+<ul>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Save-Waveforms">Save Waveforms</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#sub:Read-Waveforms">Read Waveforms</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Simulator-output-to-LaTeX">Simulator output to LaTeX</a></p>
+</li>
+</ul>
+<p>Reading waveforms is not implemented</p>
+<h3 id="Control-Help:Save-Waveforms">Save Waveforms<a class="headerlink" href="#Control-Help:Save-Waveforms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Save</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-save-2.png" alt="document-save-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Saves an output <a href="28-Waveform.html#sec:Waveform">Waveform</a> from <a href="08-Simulation.html#sec:Simulation">Simulation</a> and <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>.</p>
+<h3 id="sub:Read-Waveforms">Read Waveforms<a class="headerlink" href="#sub:Read-Waveforms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Open</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-open-2.png" alt="document-open-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This is currently disabled and not implemented.</p>
+<h3 id="Control-Help:Simulator-Open-Help-File">Open Help File<a class="headerlink" href="#Control-Help:Simulator-Open-Help-File" title="Permanent link">&para;</a></h3>
+<p>Opens the help system in a browser.</p>
+<h3 id="Control-Help:Simulator-Control-Help">Control Help<a class="headerlink" href="#Control-Help:Simulator-Control-Help" title="Permanent link">&para;</a></h3>
+<p>Provides context-sensitive help on a control. Select this and then click on a control in the dialog to open the help for that control.</p>
+<h3 id="Control-Help:Simulator-Preferences">Preferences<a class="headerlink" href="#Control-Help:Simulator-Preferences" title="Permanent link">&para;</a></h3>
+<p>Edit the preferences.</p>
+<h3 id="Control-Help:Simulator-output-to-LaTeX">Output to LaTeX (TikZ)<a class="headerlink" href="#Control-Help:Simulator-output-to-LaTeX" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Output to LaTeX (TikZ)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,L</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This causes the current plot to be output in a graphical file format called <a href="https://www.ctan.org/pkg/pgf?lang=en">TikZ</a> which is interpreted in TeX and LaTeX based documents (see <a href="https://tug.org/">TeX Users Group (TUG)</a>.</p>
+<p>The TikZ file is directly importable into a LaTeX based document.</p>
+<p>This will only be available if matplotlib2tikz is installed in your Python installation. See <a href="https://github.com/nschloe/matplotlib2tikz">https://github.com/nschloe/matplotlib2tikz</a>.</p>
+<p>Because of differences between graphics drawing commands, the TikZ will vary slightly from the actual plot shown in <strong><em>SignalIntegrityApp</em></strong>.</p>
+<p>For .png or other rasterized graphics use the disk button on the plot toolbar.</p>
+<h2 id="sub:Simulator-Selection-Menu">Simulator Selection Menu<a class="headerlink" href="#sub:Simulator-Selection-Menu" title="Permanent link">&para;</a></h2>
+<p>The selection menu shows the selection tasks along with a list of all available waveforms. This is a tear-off menu and clicking in the dotted line area will cause this menu to be permanently displayed, which is useful for turning on and off waveform displays. Clicking on any waveform in the list of available waveforms causes them to turn on or off. The section tasks are:</p>
+<ul>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Display-All">Display All</a> - selects all waveforms for displaying.</p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Display-None">Display None</a> - turns off display of all waveforms.</p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Toggle-Selections">Toggle All</a> - toggles all display states.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Display-All">Display All<a class="headerlink" href="#Control-Help:Display-All" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Selection Display All</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+S,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Selects all available waveforms for display. Selecting <a href="14-Simulator-Dialog.html#Control-Help:Display-All">Display All</a> causes all waveforms to be displayed and their selections checked in the <a href="14-Simulator-Dialog.html#sub:Simulator-Selection-Menu">Simulator Selection Menu</a>.</p>
+<h3 id="Control-Help:Display-None">Display None<a class="headerlink" href="#Control-Help:Display-None" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Selection Display All</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+S,N</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Turns off all waveforms for display. Selecting <a href="14-Simulator-Dialog.html#Control-Help:Display-None">Display None</a> causes all waveforms to be turned off and their selections unchecked in the <a href="14-Simulator-Dialog.html#sub:Simulator-Selection-Menu">Simulator Selection Menu</a>.</p>
+<h3 id="Control-Help:Toggle-Selections">Toggle All<a class="headerlink" href="#Control-Help:Toggle-Selections" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">Selection Toggle All</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+S,T</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Toggles the display state of all available waveforms. Selecting <a href="14-Simulator-Dialog.html#Control-Help:Toggle-Selections">Toggle All</a> causes all waveforms that were previously checked to be unchecked, and all waveforms that were previously unchecked to be checked in <a href="14-Simulator-Dialog.html#sub:Simulator-Selection-Menu">Simulator Selection Menu</a>.</p>
+<h2 id="sub:Simulator-Calculation-Menu">Simulator Calculation Menu<a class="headerlink" href="#sub:Simulator-Calculation-Menu" title="Permanent link">&para;</a></h2>
+<p>The Calculate tasks are:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Recalculate">Recalculate</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:View-Transfer-Parameters">View Transfer Parameters<a class="headerlink" href="#Control-Help:View-Transfer-Parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File View Transfer Parameters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>In <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> and <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications, transfer parameters are created during the calculation. See <a href="08-Simulation.html#sub:Simulation-Example">Simulation Example</a> or <a href="10-Virtual-Probing.html#sub:Virtual-Probing-Example">Virtual Probing Example</a> for examples of this. These transfer parameters can be viewed in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<h3 id="Control-Help:Recalculate">Recalculate<a class="headerlink" href="#Control-Help:Recalculate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> (simulation and virtual probing), and <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">File Recalculate</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This recalculates the results of the <a href="08-Simulation.html#sec:Simulation">Simulation</a> or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> application.</p>
+<h2 id="sub:Simulator-View-Menu">Simulator View Menu<a class="headerlink" href="#sub:Simulator-View-Menu" title="Permanent link">&para;</a></h2>
+<p>The <a href="14-Simulator-Dialog.html#sub:Simulator-File-Menu">Simulator File Menu</a> defaults to showing simulation or virtual probing results in the time domain (i.e. with <a href="14-Simulator-Dialog.html#Control-Help:View-Time-domain">View Time-domain</a> selected in the <a href="14-Simulator-Dialog.html#sub:Simulator-View-Menu">Simulator View Menu</a>). However, the results can be viewed in the time or frequency domain depending on selection:</p>
+<ul>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Show-Grids-1">Show Grids</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:View-Time-domain">View Time-domain</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Sim-Log-Scale" reference="Control-Help:Sim-Log-Scale" reference-type="ref">[Control-Help:Sim-Log-Scale]</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:View-Spectral-Content">View Spectral Content</a></p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:View-Spectral-Density">View Spectral Density</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:Show-Grids-1">Show Grids<a class="headerlink" href="#Control-Help:Show-Grids-1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Show Grids</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Show Grids</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,G</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Toggles the display of grids on the plots.</p>
+<h3 id="Control-Help:View-Time-domain">View Time-domain<a class="headerlink" href="#Control-Help:View-Time-domain" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Time-domain</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,T</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Selects the mode of viewing waveforms as time domain. All simulation or virtual probe results are plotted in the time domain.</p>
+<h5 id="log-frequency-scalex">Log Frequency ScaleX“‘<a class="headerlink" href="#log-frequency-scalex" title="Permanent link">&para;</a></h5>
+<div id="Control-Help:Sim-Log-Scale"></div>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Log Frequency Scale</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,L</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the frequency axis to log for all frequency domain results.</p>
+<h3 id="Control-Help:View-Spectral-Content">View Spectral Content<a class="headerlink" href="#Control-Help:View-Spectral-Content" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Time-domain</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Selects the mode of viewing waveforms as frequency content. All simulation or virtual probe results are plotted in the frequency domain.</p>
+<h3 id="Control-Help:View-Spectral-Density">View Spectral Density<a class="headerlink" href="#Control-Help:View-Spectral-Density" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;">Simulator and Virtual Probe Dialog</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">View Time-domain</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Selects the mode of viewing waveforms as spectral density in the frequency domain. All simulation or virtual probe results are plotted as spectral density.</p>
+<h2 id="sub:Simulator-Help">Help<a class="headerlink" href="#sub:Simulator-Help" title="Permanent link">&para;</a></h2>
+<p>The Help tasks are a category in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> for dealing with the help system:</p>
+<ul>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Simulator-Open-Help-File">Open Help File</a> - opens the help system to the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> page.</p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Simulator-Control-Help">Control Help</a> - for help on any menu elements or toolbar buttons.</p>
+</li>
+<li>
+<p><a href="14-Simulator-Dialog.html#Control-Help:Simulator-Preferences">Preferences</a> - for editing any sim&gt;\&lt;654</p>
+</li>
+</ul>
+<p>\6S U\</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="14-Simulator-Dialog.html#sub:Simulator-Help">Help</a> Preferences</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Preferences allows editing of any of the various <a href="29-Preferences.html#sub:Simulator-Dialog-Preferences">Simulator Dialog Preferences</a> for the application.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="13-S-parameter-Viewer.html" class="btn btn-neutral float-left" title="S-parameter Viewer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="15-Main-Schematic-Dialog.html" class="btn btn-neutral float-right" title="Main Schematic Dialog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="13-S-parameter-Viewer.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="15-Main-Schematic-Dialog.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

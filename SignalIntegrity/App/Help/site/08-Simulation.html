@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Simulation - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Simulation";
+        var mkdocs_page_input_path = "08-Simulation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Simulation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Drawing-a-Schematic-for-Simulation">Drawing a Schematic for Simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Sources-and-Generators">Sources and Generators</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulating">Simulating</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Simulation-Example">Simulation Example</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Simulation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Simulation">Simulation<a class="headerlink" href="#sec:Simulation" title="Permanent link">&para;</a></h1>
+<p>Simulation is about applying voltage or current stimulus waveforms to a circuit and measuring the resulting waveforms at various nodes in the circuit.</p>
+<p>This section provides step-by-step instructions for simulation. You can read through this, or go immediately to the <a href="08-Simulation.html#sub:Simulation-Example">Simulation Example</a>.</p>
+<p>The circuit is drawing as a variety of devices and interconnected with wires. See <a href="08-Simulation.html#sub:Drawing-a-Schematic-for-Simulation">Drawing a Schematic for Simulation</a>.</p>
+<p>The stimulus to the circuit is applied through special parts. These special parts are categorized as <em><a href="08-Simulation.html#sub:Sources-and-Generators">Sources and Generators</a></em>. A source supplies an input <a href="28-Waveform.html#sec:Waveform">Waveform</a> specified from a file. A generator supplies some specified input <a href="28-Waveform.html#sec:Waveform">Waveform</a>. Sources and generators can be voltages or currents and can supply input <a href="28-Waveform.html#sec:Waveform">Waveform</a> from files, pulses, steps, and sine waves.</p>
+<p>The probing points in the circuit for providing the output waveforms are specified through the use of <em><a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a></em>. An <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> supplies the location of the node for which the output waveform is desired, the name of the waveform in the simulation, and any gain, offset, or delay to be applied. In that sense it operates like a real probe.</p>
+<p>If you like, you can also place an <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> and generate an <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> from your simulation.</p>
+<p>Once you are ready for simulation, you should configure the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>. See <a href="08-Simulation.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation</a>.</p>
+<p>Once a circuit is drawn containing at least one source or generator, and at least one <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a>, presumably with a circuit that has been properly configured, you can simulate the circuit. Simulation involves the calculation of transfer parameters which are applied to the input waveforms to generate the output waveforms and the waveforms are displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>. See <a href="08-Simulation.html#sub:Simulating">Simulating</a>.</p>
+<h2 id="sub:Drawing-a-Schematic-for-Simulation">Drawing a Schematic for Simulation<a class="headerlink" href="#sub:Drawing-a-Schematic-for-Simulation" title="Permanent link">&para;</a></h2>
+<p>When <strong><em>SignalIntegrityApp</em></strong> opens, you have a blank canvas and are ready to draw a schematic for simulation</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>Drawing the schematic is accomplished through the addition of parts, wires, and output probes. Some of the parts are special and must be generators or sources for simulation to be possible.</p>
+<p>To add parts to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>. To add wires to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a>.</p>
+<p>To add sources or generators to the schematic, see <a href="08-Simulation.html#sub:Sources-and-Generators">Sources and Generators</a>. To add output probes, see <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a>.</p>
+<h2 id="sub:Sources-and-Generators">Sources and Generators<a class="headerlink" href="#sub:Sources-and-Generators" title="Permanent link">&para;</a></h2>
+<p>Sources and generators supply stimulus to the circuit in the form of an input <a href="28-Waveform.html#sec:Waveform">Waveform</a>.</p>
+<p>They are added to the schematic by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting parts from the Sources and Generators categories in the Part Picker Dialog:</p>
+<p><img src="media/PartPickerSourcesAndGenerators.png" alt="PartPickerSourcesAndGenerators" width="493" height="580" /></p>
+<p>Here is a list of parts and links to the parts that qualify as sources and generators:</p>
+<p>Sources:</p>
+<ul>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-Source">Current Source</a></p>
+</li>
+</ul>
+<p>Generators:</p>
+<ul>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator">Voltage Step Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Pulse-Generator">Voltage Pulse Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Sine-Generator">Voltage Sine Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-Step-Generator">Current Step Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-Pulse-Generator">Current Pulse Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-Sine-Generator">Current Sine Generator</a></p>
+</li>
+</ul>
+<h2 id="sub:Output-Probes-for-Simulation">Output Probes for Simulation<a class="headerlink" href="#sub:Output-Probes-for-Simulation" title="Permanent link">&para;</a></h2>
+<div id="sub:Output-Probes-for Simulation"></div>
+
+<p>The <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> defines the location, name and characteristics of an output <a href="28-Waveform.html#sec:Waveform">Waveform</a> from the simulation.</p>
+<p>They are added to the schematic by invoking either <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a> or by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting the <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> from the Ports and Probes category:</p>
+<p><img src="media/PartPickerOutputProbe.png" alt="PartPickerOutputProbe" width="520" height="555" /></p>
+<p><img src="media/PartPropertiesOutputProbe.png" alt="PartPropertiesOutputProbe" width="394" height="492" /></p>
+<p>Note that the <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> has configurable gain, offset, and delay that can be applied to the output waveform calculated. This is usually used to line the waveform up for better comparison with another waveform or to separate the waveforms vertically on the display.</p>
+<p>Note that <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> can be used also, which would bring up the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> after the simulation completes.</p>
+<h2 id="sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation<a class="headerlink" href="#sub:Setting-Calculation-Properties-for-Simulation" title="Permanent link">&para;</a></h2>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>To set the calculation properties for simulation, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>The calculation properties determine how the transfer parameters are calculated. Transfer parameters are frequency responses that define transfer characteristics from an input waveform to an output waveform. Input waveforms come from sources and output waveforms are provided at output probe locations in the circuit. An output waveform is a linear combination of input waveforms applied to filters that are the time-domain equivalent of the frequency responses.</p>
+<p>The frequency responses are calculated to the end frequency withe the frequency spacing specified, and the filters are calculated by taking the inverse-FFT of these frequency responses. As such, they end up having a sample rate that is twice the end frequency and an impulse response length that is the inverse of the frequency resolution and a number of points that are twice the number of frequency points.</p>
+<p>The base sample rate should be set to the sample rate that you want the simulation to run at, which is twice the end frequency.</p>
+<p>The impulse responses generated for the filters are always centered on time zero, meaning half of the impulse response is before time zero and half is after.</p>
+<p>Assuming that all of the s-parameters have been sampled sufficiently, meaning to the right end frequency and most importantly, with the proper spacing to provide an impulse response that does not have time-aliasing effects, then it is possible to specify an appropriate impulse response length in the calculation properties. But with the tool in its current state, there is no way to guarantee this - you must set it to a value that makes sense. But the key is that it must be long enough. If it is too short, the simulator produces incorrect waveforms. If it is too long, it just needs to do extra work.</p>
+<p>The advice here is to set the impulse response length to a number that is twice the length of a finite impulse response (FIR) filter in time as how long you think the impulse response of the longest filter should be. Then, after the simulation completes, you should <a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a> from the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> to make sure that this occurred.</p>
+<h2 id="sub:Simulating">Simulating<a class="headerlink" href="#sub:Simulating" title="Permanent link">&para;</a></h2>
+<p>After creating the schematic for simulation and setting the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, the simulation is run using either the <a href="15-Main-Schematic-Dialog.html#Control-Help:Simulate">Simulate</a> command or the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button.</p>
+<p>Note that calculation will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for simulation. This criteria for the schematic regarding elements are that the schematic must:</p>
+<ul>
+<li>
+<p>have at least one source or generator element (see <a href="08-Simulation.html#sub:Sources-and-Generators">Sources and Generators</a>).</p>
+</li>
+<li>
+<p>have at least one output <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a> (see <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a>).</p>
+</li>
+<li>
+<p>not have any other elements that don’t make sense for simulation including:</p>
+</li>
+<li>
+<p>ports</p>
+</li>
+<li>
+<p>measure probes</p>
+</li>
+<li>
+<p>stims</p>
+</li>
+<li>
+<p>unknown devices</p>
+</li>
+<li>
+<p>system devices</p>
+</li>
+</ul>
+<p>In simulation, the first step is to convert the schematic shown into a <a href="24-Netlist.html#sec:Netlist">Netlist</a>. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a> on ways of viewing and exporting the net lists.</p>
+<p>The net list is passed to a <strong>SimulatorNumericParser</strong> class as described in the software documentation after which the transfer parameters are extracted.</p>
+<p>During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> (see <a href="08-Simulation.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation</a>). If a <a href="23-Built-in-Devices-Parts.html#device:File">File</a> device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.</p>
+<p>Then, for each frequency point, the transfer parameters are generated.</p>
+<p>After the transfer parameters are generated, the input waveforms are produced or read from files and applied to the filters corresponding to the transfer parameters to generate output waveforms.</p>
+<p>Sometimes, things go wrong and an error is generated. See <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a> for an explanation of any errors generated during calculation.</p>
+<p>If everything goes correctly, the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> will open with the ability to view the output waveforms calculated and save them to a file.</p>
+<h2 id="sub:Simulation-Example">Simulation Example<a class="headerlink" href="#sub:Simulation-Example" title="Permanent link">&para;</a></h2>
+<p>In this example, we will step through the simulation of an RLC network. this example will highlight a few things about simulation that you need to be aware of.</p>
+<p>The circuit we will simulate will be a series 100 nH <a href="23-Built-in-Devices-Parts.html#device:Inductor">Inductor</a>, 1 pF <a href="23-Built-in-Devices-Parts.html#device:Capacitor">Capacitor</a>, and 50 ohm <a href="23-Built-in-Devices-Parts.html#device:Resistor">Resistor</a>. We will simulate with a step voltage applied to the input to the circuit through a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator">Voltage Step Generator</a> and probe initially the voltage at the 50 ohm termination <a href="23-Built-in-Devices-Parts.html#device:Resistor">Resistor</a>.</p>
+<p>When we open <strong><em>SignalIntegrityApp</em></strong>, we have a blank canvas:</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>We invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>:</p>
+<p><img src="media/PartPicker.png" alt="PartPicker" width="414" height="308" /></p>
+<p>Select the Generators category, and select the One Port <a href="23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator">Voltage Step Generator</a>:</p>
+<p><img src="media/PartPickerOnePortVoltageGenerator.png" alt="PartPickerOnePortVoltageGenerator" width="467" height="308" /></p>
+<p>For now, we accept the default properties which state that the step generator will generate a <a href="28-Waveform.html#sec:Waveform">Waveform</a> that starts at -100 ns, runs for 200 ns (i.e. ends at 100 ns) which is 0 V until 0 s after which it jumps to 1 V for the duration.</p>
+<p><img src="media/PartPropertiesVoltageStepGeneratorDefault.png" alt="PartPropertiesVoltageStepGeneratorDefault" width="394" height="534" /></p>
+<p>Press OK and left-click to place the part in the schematic and drag the part to where you want it:</p>
+<p><img src="media/SimulatorExampleStep1.png" alt="SimulatorExampleStep1" width="468" height="268" /></p>
+<p>Now we use <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> to add an <a href="23-Built-in-Devices-Parts.html#device:Inductor">Inductor</a>:</p>
+<p><img src="media/SimulatorExampleStep2.png" alt="SimulatorExampleStep2" width="414" height="308" /></p>
+<p><img src="media/SimulatorExampleStep3.png" alt="SimulatorExampleStep3" width="394" height="450" /></p>
+<p>Double click in the inductance part property entry box and type 100n and hit enter:</p>
+<p><img src="media/SimulatorExampleStep4.png" alt="SimulatorExampleStep4" width="394" height="450" /></p>
+<p>Press OK, click in the schematic and hold the left mouse button down to drag the part to the desired location to the right of the voltage generator:</p>
+<p><img src="media/SimulatorExampleStep5.png" alt="SimulatorExampleStep5" width="468" height="268" /></p>
+<p>Repeat for a two-port, 1 pF <a href="23-Built-in-Devices-Parts.html#device:Capacitor">Capacitor</a> and a one-port 50 ohm <a href="23-Built-in-Devices-Parts.html#device:Resistor">Resistor</a>.</p>
+<p><img src="media/SimulatorExampleStep6.png" alt="SimulatorExampleStep6" width="468" height="268" /></p>
+<p>Now connect all of the devices using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a> commands. We start wire drawing by invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a> and we observe that the cursor turns into a pen, and we see Drawing Wires in the status bar. We left click on the top of the voltage generator and see a dot form at the generator connection point. We move the mouse up a bit and we see a rubber band wire form between the top of the generator and the cursor and we left click again. A line now extends upward from the voltage generator to a dot. We move the cursor to the right to the left side of the inductor and left click again. We right click to end the wire and move to the mouse to the right side of the inductor. There is no rubber band line because we completed the drawing of the last wire, but left clicking on the right port of the inductor places another dot and begins the next wire. We move the mouse to the left side of the capacitor, observing the rubber band line, and left click. Right clicking ends that wire and we move on to the connection of the right side of the capacitor to the top of the one-port resistor to ground. When we complete this wire, we right click twice to end drawing wires. Notice that the cursor returns to an arrow and the status bar message shows nothing.</p>
+<p><img src="media/SimulatorExampleStep7.png" alt="SimulatorExampleStep7" width="468" height="268" /></p>
+<p>If you want, experiment with changing the wires by left clicking on a wire vertex and dragging:</p>
+<p><img src="media/SimulatorExampleStep8.png" alt="SimulatorExampleStep8" width="468" height="268" /></p>
+<p>or by clicking in the middle of a wire and dragging:</p>
+<p><img src="media/SimulatorExampleStep9.png" alt="SimulatorExampleStep9" width="468" height="268" /></p>
+<p>Now, use <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a> to add some probing points to the circuit. When we invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a>, we see the part properties dialog for the <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a>:</p>
+<p><img src="media/SimulatorExampleStep10.png" alt="SimulatorExampleStep10" width="394" height="492" /></p>
+<p>Click the leftmost checkbox for the reference designator (so it shows in the schematic), and double click in the reference designator entry box and type Vin followed by the enter key:</p>
+<p><img src="media/SimulatorExampleStep11.png" alt="SimulatorExampleStep11" width="394" height="492" /></p>
+<p>Press OK and place the probe on the wire connecting the voltage source to the inductor:</p>
+<p><img src="media/SimulatorExampleStep12.png" alt="SimulatorExampleStep12" width="468" height="268" /></p>
+<p>If you want to make it look better, use <a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Horizontally">Flip Horizontally</a> to change the orientation.</p>
+<p><img src="media/SimulatorExampleStep13.png" alt="SimulatorExampleStep13" width="468" height="268" /></p>
+<p>Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Pan">Pan</a> to pan the drawing a bit to the right.</p>
+<p><img src="media/SimulatorExampleStep14.png" alt="SimulatorExampleStep14" width="468" height="268" /></p>
+<p>Select the <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> and use <a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Part">Duplicate Part</a> to place another probe at the resistor. Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Horizontally">Flip Horizontally</a> to change the orientation, and <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> to change the reference designator to Vout.</p>
+<p><img src="media/SimulatorExampleStep15.png" alt="SimulatorExampleStep15" width="468" height="268" /></p>
+<p>Notice now that <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> and <a href="15-Main-Schematic-Dialog.html#Control-Help:Simulate">Simulate</a> are now enabled.</p>
+<p><img src="media/SimulatorExampleStep16.png" alt="SimulatorExampleStep16" width="475" height="290" /></p>
+<p>Go ahead and invoke <a href="15-Main-Schematic-Dialog.html#Control-Help:Simulate">Simulate</a> and let’s see what happens. After a few seconds of calculation, we see the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
+<p><img src="media/SimulatorExampleStep17.png" alt="SimulatorExampleStep17" width="623" height="565" /></p>
+<p>Let’s zoom in on the green Vout waveform to see what happened:</p>
+<p><img src="media/SimulatorExampleStep18.png" alt="SimulatorExampleStep18" width="623" height="565" /></p>
+<p>This is, of course nonsense, so let’s understand what happened here and how the simulator works. Understand this, we need on more set of information - the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, where we see:</p>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>The simulator operates by generating transfer parameters that convert waveforms generated from sources, in this case the step generator, into the output waveforms. In this case, since we have only one source, these are essentially two filters that are applied to the source waveform, one filter converting the source to Vin, the other converting the source to Vout.</p>
+<p>These filters are specified with a frequency response of 400 points with 50 MHz spacing out to 20 GHz. If s-parameter files had appeared in the schematic, all s-parameters would be resampled to this specification during calculation of the transfer parameters.</p>
+<p>The net effect of the transfer parameters calculation is two finite-impulse response (FIR) filters whose impulse response length is 20 ns. In the accompanying book that describes the theory, we explain all about this, but suffice it to say that the filter impulse response is 20 ns long with time 0 appearing in the middle (i.e. has 10 ns of filter duration prior to time zero and 10 ns after time zero).</p>
+<p>Since FFT methods are utilized, and since the FFT assumes that the frequency response represents the <em>impulse train response</em> (as opposed to a single impulse response), we have an opportunity for time-aliasing effects, which we’ve certainly created. To see this, invoke <a href="14-Simulator-Dialog.html#Control-Help:View-Transfer-Parameters">View Transfer Parameters</a> from the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> and we see:</p>
+<p><img src="media/SimulatorExampleStep19.png" alt="SimulatorExampleStep19" width="1033" height="669" /></p>
+<p>This is the trivial filter that converts the source waveform VG1 into Vin. this filter is, of course, a single impulse as these two are the same.</p>
+<p>Selecting Vout due to VG1 shows something more interesting:</p>
+<p><img src="media/SimulatorExampleStep20.png" alt="SimulatorExampleStep20" width="1033" height="669" /></p>
+<p>Here we see that the filter is highly resonant, which is not surprising. We see this in the magnitude response in the upper left, to some degree from the 180 degree phase transition in the phase response in the upper right, in the impulse response in the lower left which is clearly not settled at the end, and we see the problem the most clearly from the step response in the lower right.</p>
+<p>Because of the FFT methods utilized, we see that the unsettled response to the right continues from the left (at negative time) and is clearly giving us the wrong answer.</p>
+<p>In the future, we might provide better or automated ways of dealing with this, but this is a common problem, especially when s-parameters are used, and is worth seeing and dealing with manually.</p>
+<p>Clearly, 20 ns worth of impulse response is insufficient. Let’s use something like 100 ns. So we edit the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, change the impulse response length to 100 ns, close the dialog returning to the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>, and recalculate. After adjusting the zoom a bit, we have:</p>
+<p><img src="media/SimulatorExampleStep21.png" alt="SimulatorExampleStep21" width="623" height="565" /></p>
+<p>This is clearly a much better result. You can examine the transfer parameters to see that the 100 ns impulse response did the trick.</p>
+<p>Examining the calculation properties we see the implications of the 100 ns impulse response:</p>
+<p><img src="media/SimulatorExampleStep22.png" alt="SimulatorExampleStep22" width="292" height="187" /></p>
+<p>It means that two thousand frequency points were required at 10 MHz spacing. If this system were provided through s-parameter measurements, this would be the frequency resolution required to get a good time-domain simulation - regardless of what kind of simulator were employed.</p>
+<p>As a final note, note that in the original, incorrect simulation, the waveform result was almost 200 ns long (it was 180 ns to be precise) and that the final result is 100 ns long. This is because the impulse response length is removed half from the front and half from the back of the waveform. This is explained in the accompanying book. This means that the input waveform must be sized properly to give you the result you want. If in my simulation, my desire was to see the step response starting at -10 ns until 30 ns, and understanding that the filter takes 50 ns from the front and back, we’d want an input waveform that starts at -60 ns and ends at 80 ns, for a 140 ns duration.</p>
+<p><img src="media/SimulatorExampleStep23.png" alt="SimulatorExampleStep23" width="476" height="291" /></p>
+<p><img src="media/SimulatorExampleStep24.png" alt="SimulatorExampleStep24" width="604" height="483" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="07-S-Parameter-Generation.html" class="btn btn-neutral float-left" title="S-Parameter Generation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="09-Deembedding.html" class="btn btn-neutral float-right" title="Deembedding">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="07-S-Parameter-Generation.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="09-Deembedding.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

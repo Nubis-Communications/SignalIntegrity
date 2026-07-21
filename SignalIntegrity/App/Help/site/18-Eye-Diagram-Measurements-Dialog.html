@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Eye Diagram Measurements Dialog - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Eye Diagram Measurements Dialog";
+        var mkdocs_page_input_path = "18-Eye-Diagram-Measurements-Dialog.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Eye Diagram Measurements Dialog</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Vertical/Horizontal">Vertical/Horizontal</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Timing">Timing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Vertical">Vertical</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Linearity">Linearity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Resolution">Resolution</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Error-Rates">Error Rates</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pc:Interpretation">Interpretation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pc:Nominal-Error-Rates">Nominal Error Rates</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pc:Measured-Error-Rates">Measured Error Rates</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Eye Diagram Measurements Dialog</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog<a class="headerlink" href="#sec:Eye-Diagram-Measurements-Dialog" title="Permanent link">&para;</a></h1>
+<p>Eye diagram measurements are configured in the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a> when configuring an <a href="23-Built-in-Devices-Parts.html#device:Eye-Probe">Eye Probe</a> in a schematic. See <a href="21-Eye-Diagram-Properties-Dialog.html#sub:Eye-Diagram-Measurement">Eye Diagram Measurement Properties</a>.</p>
+<p>After eye diagram creation, following the start of <a href="08-Simulation.html#sec:Simulation">Simulation</a>, the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> is opened.</p>
+<p>Eye diagram measurements are available by selecting <a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Measurements">Eye Measurements</a> from the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a>.</p>
+<p>If <a href="16-Eye-Diagram-Dialog.html#Control-Help:Eye-Measurements">Eye Measurements</a> is not available in the dialog, then either the <a href="22-Eye-Diagram-Properties.html#sub:Measure-Eye-Parameters">Measure Eye Parameters</a> property is set to False, or the measurements could not be made.</p>
+<p>There are two tabs in the Eye Measurements Dialog:</p>
+<ul>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Vertical/Horizontal">Vertical/Horizontal</a> – standard measurements of eye height, eye width, etc.</p>
+</li>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Error-Rates">Error Rates</a> - measurements of, and the breakdown of bit error rate (BER) calculations.</p>
+</li>
+</ul>
+<h2 id="sub:Vertical/Horizontal">Vertical/Horizontal<a class="headerlink" href="#sub:Vertical/Horizontal" title="Permanent link">&para;</a></h2>
+<div class="center">
+
+<img src="media/EyeDiagramMeasurementsVerticalHorizontalPAM4.png" alt="EyeDiagramMeasurementsVerticalHorizontalPAM4" width="644" height="823" />
+
+</div>
+
+<p>The vertical/horizontal measurements are, as the name implies, various vertical and horizontal measurements that are made on the eye.</p>
+<p>The very first thing to note is the BER that the measurements are taken at. This is shown on top of the dialog and is the value configured in <a href="22-Eye-Diagram-Properties.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure</a> in the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a>. (see <a href="21-Eye-Diagram-Properties-Dialog.html#pc:Eye-Measurement-Properties">Eye Measurement Properties</a>). This value is the probability contour used to denote the perimeter of the eye.</p>
+<p>The first section of the measurements regards the eye itself, with measurements in each column representing the eye number (from 0 to <span class="arithmatex">\(2^{BitsPerSymbol}-1\)</span>), where eye zero is on the bottom. The measurements are broken into two sections:</p>
+<ol>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Timing">Timing</a> – Horizontal (time) measurements of the eye.</p>
+</li>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Vertical">Vertical</a> – Vertical (voltage) measurements of the eye. These also include measurements of the levels, or extents.</p>
+</li>
+</ol>
+<p>Below all of this, optionally shown for PAM-4 and above, are measurements of <a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Linearity">Linearity</a>.</p>
+<p>At the end, the <a href="18-Eye-Diagram-Measurements-Dialog.html#sub:Resolution">Resolution</a> is indicated.</p>
+<h3 id="sub:Timing">Timing<a class="headerlink" href="#sub:Timing" title="Permanent link">&para;</a></h3>
+<div class="center">
+
+<img src="media/EyeMeasureHoriz.png" alt="EyeMeasureHoriz" width="426" height="387" />
+
+</div>
+
+<p>Timing measurements are made from a line that spans the contour horizontally. This line is defined by a few properties, not to mention the actual alignment of the eye:</p>
+<ol>
+<li>
+<p>The horizontal extent of the line is governed by the <a href="22-Eye-Diagram-Properties.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure</a>. See <a href="21-Eye-Diagram-Properties-Dialog.html#pc:Eye-Measurement-Properties">Eye Measurement Properties</a>.</p>
+</li>
+<li>
+<p>The vertical placement of the line is governed by the choice of <a href="22-Eye-Diagram-Properties.html#sub:Decision-Level">Decision Level</a>.</p>
+</li>
+</ol>
+<p>Given these choices, the following measurements are made, for each eye:</p>
+<ul>
+<li>
+<p>Start – the start time.</p>
+</li>
+<li>
+<p>End – the end time.</p>
+</li>
+<li>
+<p>Width – the width of the eye.</p>
+</li>
+</ul>
+<h3 id="sub:Vertical">Vertical<a class="headerlink" href="#sub:Vertical" title="Permanent link">&para;</a></h3>
+<div class="center">
+
+<img src="media/EyeMeasureVert.png" alt="EyeMeasureVert" width="524" height="537" />
+
+</div>
+
+<p>Vertical measurements are made from a line that spans the contour vertically. The extents of the line is based on the <a href="22-Eye-Diagram-Properties.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure</a>. See <a href="21-Eye-Diagram-Properties-Dialog.html#pc:Eye-Measurement-Properties">Eye Measurement Properties</a>. Each column in the vertical measurements contains, for each eye:</p>
+<ul>
+<li>
+<p>Low – the lowest point of the eye (where the vertical line touches the contour).</p>
+</li>
+<li>
+<p>Midpoint – the midpoint of the eye (the average of the Low and the High).</p>
+</li>
+<li>
+<p>Best Decision Level – the location along the line where the probability is the minimum. This is deemed the best threshold to employ, if possible, to sample the waveform.</p>
+</li>
+<li>
+<p>High – the highest point of the eye (where the vertical line touches the contour).</p>
+</li>
+<li>
+<p>Height – the difference between the High and the Low.</p>
+</li>
+<li>
+<p>AV – This is the distance between the mean levels. This is explained better in Extents below.</p>
+</li>
+</ul>
+<p><strong>(Vertical) Extents</strong></p>
+<p>The vertical extents are measurements made not directly from the eye itself, but from the vertical levels that surround the eye. These levels are the intended voltages representing each bit. The measurements are made vertically between probabilities based on the <a href="22-Eye-Diagram-Properties.html#sub:BER-Exponent-for-Measure">BER Exponent for Measure</a>. See <a href="21-Eye-Diagram-Properties-Dialog.html#pc:Eye-Measurement-Properties">Eye Measurement Properties</a>.</p>
+<p>There are <span class="arithmatex">\(2^{BitsPerSymbol}\)</span> vertical extents. The lowest extent is extent zero.</p>
+<p>For each extent, the following measurements are made:</p>
+<ul>
+<li>
+<p>Min – the lowest level of the extent, where it touches the lowest vertical value below the BER specified, or the top of the eye below.</p>
+</li>
+<li>
+<p>Max – the highest level of the extent, where it touches the highest vertical value below the BER specified, or the bottom of the eye above.</p>
+</li>
+<li>
+<p>Delta – the difference between the Max and Min.</p>
+</li>
+<li>
+<p>Mean – the mean vertical value between the Max and the Min. This is not the average of the Max and the Min. It is the best value to describe the level based on the probabilities in the vertical histogram slice through the eye.</p>
+</li>
+</ul>
+<p>Note that normally, in serial data testing, these extents are measured using a specific pattern to estimate the intended transmitted levels. This software tries to measure these extents statistically from the eye.</p>
+<h3 id="sub:Linearity">Linearity<a class="headerlink" href="#sub:Linearity" title="Permanent link">&para;</a></h3>
+<p>Linearity is only defined for PAM-4 and above. It is a measure of the similarity in height of the eyes, or more properly, the evenness in the level extents.</p>
+<p>There are two measures, where 100% is the best, and 0% is the worst:</p>
+<ol>
+<li>
+<p>Eye Linearity – This is the simplest and preferred measurement. It is the ratio of the minimum Delta Extent to the maximum Delta Extent (expressed as a percentage).</p>
+</li>
+<li>
+<p>RLM (Relative Level Mismatch) – Defined according to a complicated formula according to AN-835, 2019.03.12 from Intel. Assuming that the four level extents for PAM-4 are denoted <span class="arithmatex">\(V_{0}\)</span>, <span class="arithmatex">\(V_{1}\)</span>, <span class="arithmatex">\(V_{2}\)</span>, and <span class="arithmatex">\(V_{3}\)</span>, and that <span class="arithmatex">\(V_{min}=\left(V_{0}+V_{3}\right)/2\)</span>. We define <span class="arithmatex">\(ES1=\left(V_{1}-V_{min}\right)/\left(V_{0}-V_{min}\right)\)</span> and <span class="arithmatex">\(ES2=\left(V_{2}-V_{min}\right)/\left(V_{3}-V_{min}\right)\)</span>. RLM is defined as:</p>
+<div class="center">
+<p><span class="arithmatex">\(RLM=\min\left(3\cdot ES1,3\cdot ES2,2-3\cdot ES1,2-3\cdot ES2\right)\)</span></p>
+</div>
+<p>expressed as a percentage.</p>
+</li>
+</ol>
+<h3 id="sub:Resolution">Resolution<a class="headerlink" href="#sub:Resolution" title="Permanent link">&para;</a></h3>
+<p>The vertical and horizontal resolution is shown at the bottom:</p>
+<ul>
+<li>
+<p>Vertical Resolution – the vertical height of each pixel in the eye diagram. Vertical resolution can be improved by increasing <a href="22-Eye-Diagram-Properties.html#sub:Number-of-Rows">Number of Rows</a>.</p>
+</li>
+<li>
+<p>Horizontal Resolution – the horizontal width of each pixel in the eye diagram. Horizontal resolution can be improved by increasing <a href="22-Eye-Diagram-Properties.html#sub:Number-of-Columns">Number of Columns</a>.</p>
+</li>
+</ul>
+<h2 id="sub:Error-Rates">Error Rates<a class="headerlink" href="#sub:Error-Rates" title="Permanent link">&para;</a></h2>
+<p>The error rates tab on the <a href="18-Eye-Diagram-Measurements-Dialog.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog</a> is available only when <a href="22-Eye-Diagram-Properties.html#sub:Measure-Bathtub-Curves">Measure Bathtub Curves</a> is set to True. This is because the information in the bathtub curves (see <a href="19-Bathtub-Curves-Dialog.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog</a>) is used to make all of the error rate computations.</p>
+<div class="center">
+
+<img src="media/EyeDiagramMeasurementsErrorRatesPAM4.png" alt="EyeDiagramMeasurementsErrorRatesPAM4" width="644" height="823" />
+
+</div>
+
+<p>The error rates are broken into three sections:</p>
+<ol>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a> – information showing the probability that various bits intended are decoded as the intended bit, or other bits.</p>
+</li>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Nominal-Error-Rates">Nominal Error Rates</a> – based on the bit interpretations, along with a uniform bit density (all probabilities of symbols transmitted are equal), the symbol error rate (SER) and bit error rate (BER) is computed.</p>
+</li>
+<li>
+<p><a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Measured-Error-Rates">Measured Error Rates</a> – based on the bit interpretations, along with the measured bit density (the measured probability of symbols transmitted from the eye diagram), the symbol error rate (SER) and bit error rate (BER) is computed.</p>
+</li>
+</ol>
+<p>Note that even if the actual symbol probabilities are all equal, small errors in the extrapolation of histograms can lead to small errors in the measured symbol densities. If the user knows that the symbol density is uniform, then the Nominal Error Rate can be used, otherwise, the Measured Error Rate is what was actually measured. In practice, they ought not to differ by a lot.</p>
+<h3 id="pc:Interpretation">Interpretation<a class="headerlink" href="#pc:Interpretation" title="Permanent link">&para;</a></h3>
+<p>The interpretation table has the symbol transmitted along each row and the probability of the symbol interpretation along each column. If PAM-4 and above are employed, then Gray coding information is also provided (with the normal bit identification as 00, 01, 10, 11 first, with the Gray code as 00, 01, 11, 10, second).</p>
+<p>If the user is unfamiliar with Gray coding, it is a method of encoding the bits employed so that on each side of a symbol, there is only a single bit transition. Gray coding is always employed for PAM-4 and above and tends to make the BER identical the SER divided by the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol</a>. This is because symbol errors are usually such that a symbol is accidentally interpreted as an adjacent Gray coded symbol, thus causing a single bit error.</p>
+<p>The probabilities for interpretation is derived from the vertical bathtub curve (see <a href="19-Bathtub-Curves-Dialog.html#sec:Bathtub-Curves-Dialog">Bathtub Curves Dialog</a>).</p>
+<h3 id="pc:Nominal-Error-Rates">Nominal Error Rates<a class="headerlink" href="#pc:Nominal-Error-Rates" title="Permanent link">&para;</a></h3>
+<p>The nominal error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:</p>
+<ul>
+<li>
+<p>Probability – the probability that a given symbol is transmitted. Nominally, this is the reciprocal of the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Diagram-Bits-per-Symbol">Bits per Symbol</a>.</p>
+</li>
+<li>
+<p>SER – the symbol error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.</p>
+</li>
+<li>
+<p>BER – the bit error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.</p>
+</li>
+<li>
+<p>Gray BER – the Gray coded bit error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.</p>
+</li>
+</ul>
+<p>At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.</p>
+<h3 id="pc:Measured-Error-Rates">Measured Error Rates<a class="headerlink" href="#pc:Measured-Error-Rates" title="Permanent link">&para;</a></h3>
+<p>The measured error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:</p>
+<ul>
+<li>
+<p>Probability – the probability that a given symbol is transmitted. This probability is the measured probability for each symbol in the measured eye.</p>
+</li>
+<li>
+<p>SER – the symbol error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, it is transmitted in error.</p>
+</li>
+<li>
+<p>BER – the bit error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, of bits in error. This does not assume Gray coding.</p>
+</li>
+<li>
+<p>Gray BER – the Gray coded bit error rate. Based on the <a href="18-Eye-Diagram-Measurements-Dialog.html#pc:Interpretation">Interpretation</a>, this is the probability that, if the symbol is transmitted, of bits in error. This assumes Gray coding.</p>
+</li>
+</ul>
+<p>At the bottom of the table, all values are totaled. The probability it totaled by summing the probabilities. The SER, BER, and Gray BER are sums of the values in the column, weighted by the probability of transmitting the corresponding symbol.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="17-Eye-Diagram-Calculation.html" class="btn btn-neutral float-left" title="Eye Diagram Calculation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="19-Bathtub-Curves-Dialog.html" class="btn btn-neutral float-right" title="Bathtub Curves Dialog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="17-Eye-Diagram-Calculation.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="19-Bathtub-Curves-Dialog.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

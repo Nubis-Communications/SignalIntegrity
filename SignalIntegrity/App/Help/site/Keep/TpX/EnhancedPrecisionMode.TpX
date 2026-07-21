@@ -1,0 +1,30 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <line x1="35" y1="25" x2="45" y2="45" li="dot"/>
+%  <rect x="30" y="30" w="10" h="10" lc="silver"/>
+%  <rect x="30" y="40" w="10" h="10" lc="silver"/>
+%  <rect x="40" y="30" w="10" h="10" lc="silver"/>
+%  <rect x="40" y="20" w="10" h="10" lc="silver"/>
+%  <rect x="40" y="40" w="10" h="10"/>
+%  <rect x="30" y="20" w="10" h="10"/>
+%  <rect x="34" y="28" w="10" h="10"/>
+%  <rect x="38" y="36" w="10" h="10"/>
+%  <rect x="32" y="24" w="10" h="10"/>
+%  <rect x="36" y="32" w="10" h="10"/>
+%</TpX>
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (28.00,18.00) rectangle +(24.00,34.00);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (35.00,25.00) -- (45.00,45.00);
+\definecolor{L}{rgb}{0.753,0.753,0.753}
+\path[line width=0.30mm, draw=L] (30.00,40.00) [rotate around={270:(30.00,40.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (30.00,50.00) [rotate around={270:(30.00,50.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (40.00,40.00) [rotate around={270:(40.00,40.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (40.00,30.00) [rotate around={270:(40.00,30.00)}] rectangle +(10.00,10.00);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (40.00,50.00) [rotate around={270:(40.00,50.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (30.00,30.00) [rotate around={270:(30.00,30.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (34.00,38.00) [rotate around={270:(34.00,38.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (38.00,46.00) [rotate around={270:(38.00,46.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (32.00,34.00) [rotate around={270:(32.00,34.00)}] rectangle +(10.00,10.00);
+\path[line width=0.30mm, draw=L] (36.00,42.00) [rotate around={270:(36.00,42.00)}] rectangle +(10.00,10.00);
+\end{tikzpicture}%

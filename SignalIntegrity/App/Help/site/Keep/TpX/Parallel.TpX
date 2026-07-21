@@ -1,0 +1,37 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="36" y="-25" t="=" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-28" w="8" h="8" lc="black"/>
+%  <polyline lc="black">28,-24 32,-24</polyline>
+%  <polyline lw="2.00" lc="red">27.5,-23.5 28.5,-24.5</polyline>
+%  <polyline lw="2.00" lc="red">28.5,-23.5 27.5,-24.5</polyline>
+%  <text x="31" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">44,-24 40,-24</polyline>
+%  <polyline lw="2.00" lc="red">43.5,-23.5 44.5,-24.5</polyline>
+%  <polyline lw="2.00" lc="red">44.5,-23.5 43.5,-24.5</polyline>
+%  <text x="41" y="-23" t="2" h="3" lc="black"/>
+%  <text x="36" y="-17" t="sect 1" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-13.75" t="file device.s2p" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-10.5" t="D1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (25.25,-30.00) rectangle +(21.50,23.85);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (36.00,-25.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{=}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (32.00,-20.00) [rotate around={270:(32.00,-20.00)}] rectangle +(8.00,8.00);
+\path[line width=0.30mm, draw=L] (28.00,-24.00) -- (32.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (27.50,-23.50) -- (28.50,-24.50);
+\path[line width=0.60mm, draw=L] (28.50,-23.50) -- (27.50,-24.50);
+\draw[T] (31.00,-23.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{1}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (44.00,-24.00) -- (40.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (43.50,-23.50) -- (44.50,-24.50);
+\path[line width=0.60mm, draw=L] (44.50,-23.50) -- (43.50,-24.50);
+\draw[T] (41.00,-23.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{2}};
+\draw[T] (36.00,-17.00) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{sect 1}};
+\draw[T] (36.00,-13.75) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{file device.s2p}};
+\draw[T] (36.00,-10.50) node[anchor=base]{\textcolor[rgb]{0, 0, 0}{D1}};
+\end{tikzpicture}%

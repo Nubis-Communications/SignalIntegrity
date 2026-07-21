@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Network Analyzer Measurements - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Network Analyzer Measurements";
+        var mkdocs_page_input_path = "12-Network-Analyzer-Measurements.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Network Analyzer Measurements</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Network-Analyzer-Measurement">Network Analyzer Measurement</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Network Analyzer Measurements</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Network-Analyzer-Measurements">Network Analyzer Measurements<a class="headerlink" href="#sec:Network-Analyzer-Measurements" title="Permanent link">&para;</a></h1>
+<p>Network analyzer measurements allow the user to perform a <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a>, producing error terms, and to use these error terms along with raw measurements of the device under test to produce calibrated measurements. <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a> has two main uses:</p>
+<ol>
+<li>
+<p>To calibrate an instrument like a vector network analyzer (VNA).</p>
+</li>
+<li>
+<p>To perform fixture de-embedding in the form of a second-tier calibration.</p>
+</li>
+</ol>
+<p>For most VNA users, this kind of capability is not really useful for accomplishing item 1, since the VNA itself provides methods and algorithms for performing the calibration of the instrument. That being said, it can still be useful under this situation when calibrations not supported by the VNA are desired, such as overconstrained calibrations (using more standards than are needed), unknown thru calibrations (SOLR) if not supported, or transfer thru calibrations (when an incomplete set of thru measurements are made). It can also be used to check the calibration and certainly to learn about calibration, when coupled with examination of the source code or with the accompanying <a href="04-Book.html#sec:Book">Book</a>.</p>
+<p>For solving problems in item 2, the application is particularly useful. Often probes and fixtures are de-embedded from measurements using the calibration process. This involves calibration standards usually built into a fixture, or calibration substrates. In these cases, the VNA is first calibrated at the end of its cables, then measurements are made of the calibration standards on the fixture and used to produce error terms. Then these error terms are used to make second-tier calibrated measurements of the DUT, de-embedding the fixture in the process.</p>
+<p>The parts used in network analysis are shown below:</p>
+<div class="center">
+
+<img src="media/CalibrationPartsSelection.png" alt="CalibrationPartsSelection" width="520" height="555" />
+
+</div>
+
+<p>They fall into three categories:</p>
+<ol>
+<li>
+<p>Calibration Standards – these are definition of standards applied to the instrument during calibration. They include:</p>
+<ol>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Short-Standard">Short Standard</a> - the one-port definition of a short.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Open-Standard">Open Standard</a> - the one-port definition of an open.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Load-Standard">Load Standard</a> - the one-port definition of a termination.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Thru-Standard">Thru Standard</a> - the two-port definition of a thru.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Calibration Measurements – these are the raw measurements taken of the calibration standards used for the calibration and for the generation of the error terms. These include:</p>
+<ol>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Reflect-Measurement">Reflect Measurement</a> - single-port measurements of the standards, usually three per port, each being a short, open, or load.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Thru-Measurement">Thru Measurement</a> - two-port measurements of the thru standard, usually one per every port–port combination.</p>
+</li>
+<li>
+<p>(optional) <a href="23-Built-in-Devices-Parts.html#device:Xtalk-Measurement">Xtalk Measurement</a> - two-port measurements made while the ports are not connected. If used, usually on per every port-port combination.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Network Analyzer Measurements – the <a href="23-Built-in-Devices-Parts.html#device:Network-Analyzer">Network Analyzer</a> is used in conjunction with error terms previously calculated to convert raw s-parameter measurements into calibrated s-parameter measurements.</p>
+</li>
+</ol>
+<p>The two steps for network analyzer measurements are:</p>
+<ol>
+<li>
+<p><a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a> – the process of determining the error terms using calibration standards and calibration measurements.</p>
+</li>
+<li>
+<p><a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement</a> – the process of using the error terms in conjunction with raw s-parameter measurements to calculate calibrated s-parameter measurements.</p>
+</li>
+</ol>
+<h2 id="sub:Network-Analyzer-Calibration">Network Analyzer Calibration<a class="headerlink" href="#sub:Network-Analyzer-Calibration" title="Permanent link">&para;</a></h2>
+<p>To perform a network analyzer calibration, one creates a project using <a href="15-Main-Schematic-Dialog.html#Control-Help:New-Project">New Project</a> and places down parts on the schematic using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>. All of the parts used will be in the Network Analysis category shown below:</p>
+<div class="center">
+
+<img src="media/CalibrationPartsSelection.png" alt="CalibrationPartsSelection" width="520" height="555" />
+
+</div>
+
+<p>For calibration, the calibration measurements are mandatory – these are the raw measurements taken of the calibration standards used for the calibration and for the generation of the error terms. These include:</p>
+<ol>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Reflect-Measurement">Reflect Measurement</a> - single-port measurements of the standards, usually three per port, each being a short, open, or load.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Thru-Measurement">Thru Measurement</a> - (if two ports or greater) two-port measurements of the thru standard, usually one per every port–port combination.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Xtalk-Measurement">Xtalk Measurement</a> - (optional, if two ports or greater) two-port measurements with the ports unconnected, usually one per every port-port combination.</p>
+</li>
+</ol>
+<p>If calibration standards are used, and the calibration constants in the calibration kit are in a LeCroy format (which is the same as the Keysight format), then calibration standard devices can be used – these are definition of standards applied to the instrument during calibration. They include:</p>
+<ol>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Short-Standard">Short Standard</a> - the one-port definition of a short.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Open-Standard">Open Standard</a> - the one-port definition of an open.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Load-Standard">Load Standard</a> - the one-port definition of a termination.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Thru-Standard">Thru Standard</a> - the two-port definition of a thru.</p>
+</li>
+</ol>
+<p>If calibration standards that don’t adhere to the LeCroy format are used, or in other situations such as fixtures or probes, then s-parameters can be supplied as standards.</p>
+<p>Below is a project showing a two-port calibration:</p>
+<div class="center">
+
+<img src="media/VNACalibrationProject.png" alt="VNACalibrationProject" width="772" height="541" />
+
+</div>
+
+<p>The calibration measurements are shown on the left, and the calibration standards are supplied on the right. Note that you don’t have to supply the calibration standards in the schematic, if the standards are referred to as s-parameters, either with a .s1p or .s2p file, or as a project that produces one-port or two-port s-parameters of the standard. If you are using calibration standards from a calibration kit, it’s easiest to simply drop the standards in the schematic, in which case one refers to the standard by the reference designator name, which is shown here as simply:</p>
+<ul>
+<li>
+<p>Short – The <a href="23-Built-in-Devices-Parts.html#device:Short-Standard">Short Standard</a></p>
+</li>
+<li>
+<p>Open – The <a href="23-Built-in-Devices-Parts.html#device:Open-Standard">Open Standard</a></p>
+</li>
+<li>
+<p>Load – The <a href="23-Built-in-Devices-Parts.html#device:Load-Standard">Load Standard</a></p>
+</li>
+<li>
+<p>Thru – The <a href="23-Built-in-Devices-Parts.html#device:Thru-Standard">Thru Standard</a></p>
+</li>
+</ul>
+<p>The definition of these standards can be seen by following the links.</p>
+<p>The calibration measurements on the left. There are three instances of <a href="23-Built-in-Devices-Parts.html#device:Reflect-Measurement">Reflect Measurement</a> per port, where each <a href="23-Built-in-Devices-Parts.html#device:Reflect-Measurement">Reflect Measurement</a> shows the port it pertains to, the calibration standard used, and the s-parameter measurement. Here, the s-parameter measurements are not shown as .s1p files, as they usually are, but as projects that presumably produce one-port s-parameters. There is one <a href="23-Built-in-Devices-Parts.html#device:Thru-Measurement">Thru Measurement</a> shown, representing the single thru calibration between ports 1 and 2.</p>
+<p>The <a href="24-Netlist.html#sec:Netlist">Netlist</a> corresponding to the schematic is exported below:</p>
+<div class="center">
+
+<img src="media/VNACalibrationNetlist.png" alt="VNACalibrationNetlist" width="903" height="332" />
+
+</div>
+
+<p>This netlist could be used within a Python scripted environment (see the <a href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/index.xhtml">Software Documentation</a>, specifically <a href="https://teledynelecroy.github.io/SignalIntegrity/Doc/xhtml/classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml#details">CalibrationNumericParser</a>).</p>
+<p>Prior to performing the calibration, one should view and edit the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> (see <a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>).</p>
+<p>After editing the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, the calibration is invoked using <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Error-Terms">Calculate Error Terms</a> or by pressing the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> in the toolbar.</p>
+<p>Once the error terms are calculated, the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> is opened as shown below:</p>
+<div class="center">
+
+<img src="media/SParameterViewerErrorTerms.png" alt="SParameterViewerErrorTerms" width="1430" height="907" />
+
+</div>
+
+<p>In the viewer window, two special accommodations are made. First the s-parameters for the fixtures corresponding to the error terms are shown (for a definition of the fixtures see the <a href="04-Book.html#sec:Book">Book</a>) with the buttons labeled appropriately, with the following definitions for error terms:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(ED_{x}\)</span> – Directivity term for port <span class="arithmatex">\(x\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(ER_{x}\)</span> – Reverse Transmission term for port <span class="arithmatex">\(x\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(ES_{x}\)</span> – Source Match term for port <span class="arithmatex">\(x\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(EX_{yx}\)</span> – Crosstalk term for port <span class="arithmatex">\(y\)</span> with port <span class="arithmatex">\(x\)</span> driven</p>
+</li>
+<li>
+<p><span class="arithmatex">\(ET_{yx}\)</span> – Forward Transmission term for port <span class="arithmatex">\(y\)</span> with port <span class="arithmatex">\(x\)</span> driven</p>
+</li>
+<li>
+<p><span class="arithmatex">\(EL_{yx}\)</span> – Load Match term for port <span class="arithmatex">\(y\)</span> with port <span class="arithmatex">\(x\)</span> driven</p>
+</li>
+</ul>
+<p>The description of all of these error terms are beyond the scope of this users manual.</p>
+<p>To select error terms for different ports, use <a href="13-S-parameter-Viewer.html#sub:S-Parameter-Viewer-Selection">S-Parameter Viewer Selection Menu</a></p>
+<div class="center">
+
+<img src="media/CalibrationErrorTermsSelection.png" alt="CalibrationErrorTermsSelection" width="170" height="99" />
+
+</div>
+
+<p>The error terms can be saved for use in a <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement</a> using <a href="13-S-parameter-Viewer.html#Control-Help:Save-S-parameter-File">Save S-parameter File</a>, but the default extension recommended will be calibration (.cal).</p>
+<h2 id="sub:Network-Analyzer-Measurement">Network Analyzer Measurement<a class="headerlink" href="#sub:Network-Analyzer-Measurement" title="Permanent link">&para;</a></h2>
+<p>To perform a calibrated network analyzer measurement, one creates a project using <a href="15-Main-Schematic-Dialog.html#Control-Help:New-Project">New Project</a> and places a <a href="23-Built-in-Devices-Parts.html#device:Network-Analyzer">Network Analyzer</a> in the schematic using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>, as in the following picture:</p>
+<div class="center">
+
+<img src="media/VNACalculationProject.png" alt="VNACalculationProject" width="536" height="339" />
+
+</div>
+
+<p>The description of the configurable parameters are in the description of the <a href="23-Built-in-Devices-Parts.html#device:Network-Analyzer">Network Analyzer</a> device. Here, the calibration file is specified as Calibration.cal, and the raw, uncalibrated s-parameters are specified as Raw.s2p. The port list is set to 1,2, indicating that the first two ports of the VNA are being used for the measurement.</p>
+<p>Ports are numbered and applied to the device in the order of the port ordering desired for the output.</p>
+<p>The project is the same as an <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> project.</p>
+<p>Prior to performing the calculation, one should view and edit the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> (see <a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>).</p>
+<p>After editing the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, the calculation is invoked using <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-S-parameters">Calculate S-parameters</a> or by pressing the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> in the toolbar.</p>
+<p>Once the s-parameters are calculated, the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> is opened.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="11-RLGC-Fit.html" class="btn btn-neutral float-left" title="RLGC Fit"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="13-S-parameter-Viewer.html" class="btn btn-neutral float-right" title="S-parameter Viewer">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="11-RLGC-Fit.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="13-S-parameter-Viewer.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

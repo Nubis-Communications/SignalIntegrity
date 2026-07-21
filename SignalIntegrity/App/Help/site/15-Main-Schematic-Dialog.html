@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Main Schematic Dialog - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Main Schematic Dialog";
+        var mkdocs_page_input_path = "15-Main-Schematic-Dialog.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Main Schematic Dialog</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:File">File</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Open-Recent-File">Open Recent File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:New-Project">New Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Open-Project">Open Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-Project">Save Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-As-Project">Save Project As…</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Clear-Schematic">Clear Schematic</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Export-Netlist">Export Netlist</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Export-LaTeX">Export LaTeX (TikZ)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Archive">Archive Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Extract-Archive">Extract Archived Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Freshen-Archive">Freshen Archived Project</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Unextract-Archive">Unextract Archived Project</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Edit">Edit</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:History-Buffer">History Buffer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Undo">Undo</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Redo">Redo</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Delete-Selected">Delete Selected</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Duplicate-Selected">Duplicate Selected</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Cut-Selected">Cut Selected</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Parts">Parts</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Part">Add Part</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Net-Name">Add Net Name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Port">Add Port</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Output-Probe">Add Output Probe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Measure-Probe">Add Measure Probe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Stim">Add Stim</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Unknown">Add Unknown</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-System">Add System</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Delete-Part">Delete Part</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Edit-Properties">Edit Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Duplicate-Part">Duplicate Part</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Rotate-Part">Rotate Part</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Flip-Horizontally">Flip Horizontally</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Flip-Vertically">Flip Vertically</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Wires">Wires</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Add-Wire">Add Wire</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Delete-Vertex">Delete Vertex</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Duplicate-Vertex">Duplicate Vertex</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Delete-Wire">Delete Wire</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:View">View</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Zoom-In">Zoom In</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Zoom-Out">Zoom Out</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Pan">Pan</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Calculate">Calculate</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Calculation-Properties">Calculation Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Post-Processing">Post-Processing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-parameter-Viewer">S-parameter Viewer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Calculate-Button">Calculate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Calculate-S-parameters">Calculate S-parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Simulate">Simulate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Virtual-Probe">Virtual Probe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Deembed">Deembed</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:RLGC-Fit">RLGC Fit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Calculate-Error-Terms">Calculate Error Terms</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Variables">Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Schematic-Variables">Schematic Variables</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#par:Add-Schematic-Variable">Add Schematic Variables</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#par:Edit-the-Value">Edit the Value of a Variable</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#par:Edit-a-Variable">Edit a Variable Definition</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Edit-Schematic-Equations">Schematic Equations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Parameterize-Project">Parameterize Schematic</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Help">Help</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Open-Help-File">Open Help File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Control-Help">Control Help</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Software-Documentation">Software Documentation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Preferences">Preferences</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Main Schematic Dialog</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Main-Schematic-Dialog">Main Schematic Dialog<a class="headerlink" href="#sec:Main-Schematic-Dialog" title="Permanent link">&para;</a></h1>
+<p>When <strong><em>SignalIntegrityApp</em></strong> opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The menu bar is broken into sections where appropriate. These are:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> – tasks for dealing with the project file.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> – tasks for undoing and redoing tasks in the schematic.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> – tasks for dealing with schematic elements in the drawing.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a> – tasks for dealing with wires connecting schematic elements.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:View">View</a> – tasks for controlling the view of the schematic.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> – tasks for performing calculations on the schematic.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Variables">Variables</a> – tasks for dealing with schematic variables.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> – tasks dealing with the help system.</p>
+</li>
+</ul>
+<h2 id="sub:File">File<a class="headerlink" href="#sub:File" title="Permanent link">&para;</a></h2>
+<p>File tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a>. They are broken into two basic areas:</p>
+<ul>
+<li>
+<p>Dealing with the project file.</p>
+</li>
+<li>
+<p>Exporting netlists and pictures of the drawing.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a> the project.</p>
+</li>
+</ul>
+<p>The File tasks are:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Open-Recent-File">Open Recent File</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:New-Project">New Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Open-Project">Open Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Save-Project">Save Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Save-As-Project">Save Project As…</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Clear-Schematic">Clear Schematic</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Export-LaTeX">Export LaTeX</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Extract-Archive">Extract Archived Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Freshen-Archive">Freshen Archived Project</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Unextract-Archive">Unextract Archived Project</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:Open-Recent-File">Open Recent File<a class="headerlink" href="#Control-Help:Open-Recent-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Open Recent Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">based on preference (<a href="29-Preferences.html#sub:RetainLastFilesOpened">ProjectFiles.RetainLastFilesOpened</a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="center">
+
+<img src="media/LastFiles.png" alt="LastFiles" width="645" height="354" />
+
+</div>
+
+<p>This allows recently opened files to be selected easily, without having to navigate to them, with the assumption that the recent files are the most likely to be used.</p>
+<p>The availability of the last four files depends on the preference to retain the last files opened (<a href="29-Preferences.html#sub:RetainLastFilesOpened">ProjectFiles.RetainLastFilesOpened</a>).</p>
+<h3 id="Control-Help:New-Project">New Project<a class="headerlink" href="#Control-Help:New-Project" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> New Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,N</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+N</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-new-3.png" alt="document-new-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>A request to create a new project brings up a file dialog so you can choose the file you want to create.</p>
+<p>This will clear the current schematic and an empty project file is created. This can be undone using <a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a>.</p>
+<p>A dialog will ask you for the file name. If an existing file is selected, that file will be overwritten and cleared.</p>
+<p>No matter the file name you use, it will have the extension .xml placed on it.</p>
+<h3 id="Control-Help:Open-Project">Open Project<a class="headerlink" href="#Control-Help:Open-Project" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Open Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-open-2.png" alt="document-open-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>A request to open a project brings up a file dialog so you can choose the file you want to work with.</p>
+<p>It only accepts files with the .xml extension and the file must have been previously generated with <strong><em>SignalIntegrityApp</em></strong>.</p>
+<p>It clears the current project, but this can be undone using <a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a>.</p>
+<h3 id="Control-Help:Save-Project">Save Project<a class="headerlink" href="#Control-Help:Save-Project" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Save Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-save-2.png" alt="document-save-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>This saves the project to the disk with the current file name of the project in use.</p>
+<p>It overwrites the existing file.</p>
+<h3 id="Control-Help:Save-As-Project">Save Project As…<a class="headerlink" href="#Control-Help:Save-As-Project" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Save Project As...</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+Shift-S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>This prompts for a filename to save to.</p>
+<p>The default file name is the current project file in use.</p>
+<p>A dialog will ask you for the file name. If an existing file is selected, that file will be overwritten with the new one.</p>
+<p>No matter the file name you use, it will have the extension .xml placed on it.</p>
+<h3 id="Control-Help:Clear-Schematic">Clear Schematic<a class="headerlink" href="#Control-Help:Clear-Schematic" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Clear Schematic</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/document-new-3.png" alt="document-new-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>It clears the current project, but this can be undone using <a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a></p>
+<h3 id="Control-Help:Export-Netlist">Export Netlist<a class="headerlink" href="#Control-Help:Export-Netlist" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Export Netlist</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,N</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>During all of the calculations, a text-based net list is created that is passed to the <strong><em>SignalIntegrity</em></strong> toolbox software.</p>
+<p>The format of this net list is described in the accompanying book but somewhat under <a href="24-Netlist.html#sec:Netlist">Netlist</a>.</p>
+<p>Usually, you don’t need to look at or save this net list, but examining it is helpful sometimes for debugging problems and saving it allows the schematic to be be utilized within customized Python based user applications that rely on the <strong><em>SignalIntegrity</em></strong> toolbox, but do not rely on the <strong><em>SignalIntegrityApp</em></strong> application.</p>
+<p>Invoking this command causes the netlist to be generated that would be the same for any calculation and shown. For example, for this type of schematic:</p>
+<p><img src="media/SParameterGenerationExample.png" alt="SParameterGenerationExample" width="469" height="221" /></p>
+<p>We would have a net list that looked like this:</p>
+<p><img src="media/SParameterGenerationExampleNetListDialog.png" alt="SParameterGenerationExampleNetListDialog" width="578" height="468" /></p>
+<p>Pressing OK prompts you for a text file to save it to. Pressing Cancel or escape leaves without saving the file.</p>
+<h3 id="Control-Help:Export-LaTeX">Export LaTeX (TikZ)<a class="headerlink" href="#Control-Help:Export-LaTeX" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Export LaTeX (TikZ)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,L</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>This causes the current schematic to be output in a graphical file format called <a href="https://www.ctan.org/pkg/pgf?lang=en">TikZ</a> which is interpreted in TeX and LaTeX based documents (see <a href="https://tug.org/">TeX Users Group (TUG)</a>.</p>
+<p>While the TikZ file is directly importable into a LaTeX based document, it is difficult to edit. Fortunately a (old) free tool exists called <a href="http://tpx.sourceforge.net/">TpX</a> for creating graphics. The file format of a TpX file is actual TikZ code for the drawing with the TpX drawing information <em>commented out</em>. Thus, a TpX file is directly importable into a LaTeX based document and only the TikZ code is interpreted. <strong><em>SignalIntegrityApp</em></strong> outputs the schematic this way, in TpX format so you can either directly import the schematic into a LaTeX based document, or if you install TpX, you can actually edit the schematic and save it as TikZ again.</p>
+<p>Because of differences between graphics drawing commands, the TpX and TikZ will vary slightly from the actual schematic shown in <strong><em>SignalIntegrityApp</em></strong>.</p>
+<p>In the future, a .png or some other rasterized graphics version should be created, but believe it or not, this is more difficult. For now, you’re left with the screen capture methods built into the operating system to get this.</p>
+<h3 id="Control-Help:Archive">Archive Project<a class="headerlink" href="#Control-Help:Archive" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Archive Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>Archiving a project takes the project file and all files referenced by it, either directly or indirectly and creates a zipped file containing all of these files. Furthermore, all of the project files that are moved to the archive will have their file references modified so that when the archive is extracted, the file references point to the correct location in the extracted archive.</p>
+<p>An example is shown below that highlights how this works. First, let’s examine the directory structure prior to archiving. Here, the project to archive is called Project.si and it is located in the DirBBB directory. Project.si references two files: the project file bbb.si in the DirDDD directory below and aaa.trc located in the DirCCC directory. The project file bbb.si further references the file ccc.s2p located in the DirBBB directory above.</p>
+<div class="center">
+
+<img src="media/ArchiveDirectoryStart.png" alt="ArchiveDirectoryStart" width="1270" height="599" />
+
+</div>
+
+<p>After archiving, an archive file is created using the name of the project with the file extension .siz. The file is actually a zip file. Many file systems recognize it as a zip file, and if you wanted, you could change the extension to .zip. The .siz extension tells SignalIntegrity that it is a special type of zip file with a certain directory structure:</p>
+<ul>
+<li>
+<p>The top directory is the name of the archive file with ’_Archive’ appended to it.</p>
+</li>
+<li>
+<p>Inside the top directory will be found the project file with the same name as the archive.</p>
+</li>
+</ul>
+<p>Note that the archive structure did something special with the DirCCC directory. Because it’s relative path involved a path above the project file, it creates directories named ’up’ for every directory needed above the project file, and it appears in the archive below the archive directory.</p>
+<p>After archiving, an information box is presented showing the exact location of the archive:</p>
+<div class="center">
+
+<img src="media/ArchiveComplete.png" alt="ArchiveComplete" width="370" height="160" />
+
+</div>
+
+<p>When extracted (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Extract-Archive">Extract Archived Project</a>), the exact directory structure will be created alongside the archive file.</p>
+<h3 id="Control-Help:Extract-Archive">Extract Archived Project<a class="headerlink" href="#Control-Help:Extract-Archive" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Extract Archived Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,X</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is not empty</td>
+</tr>
+</tbody>
+</table>
+<p>This command extracts an archived project. Executing this causes a browser to open allowing you to browse to the desired archive file.</p>
+<div class="center">
+
+<img src="media/ExtractArchive.png" alt="ExtractArchive" width="667" height="307" />
+
+</div>
+
+<p>The following picture shows the result of extracting an archive:</p>
+<div class="center">
+
+<img src="media/ExtractArchiveDirectory.png" alt="ExtractArchiveDirectory" width="1155" height="619" />
+
+</div>
+
+<p>On the left is shown an archive structure that was used as an example for archiving (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a>) and the file is shown before extraction. After extraction, the directory structure in the archive file is dropped at the same location of the archive file and the project file inside of the archive is opened.</p>
+<p>Note that when a project is opened that is underneath a directory of the same name, with the suffix ’_Archive’, it is considered in an archive, which is shown in the title of the project.</p>
+<h3 id="Control-Help:Freshen-Archive">Freshen Archived Project<a class="headerlink" href="#Control-Help:Freshen-Archive" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Freshen Archived Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,F</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the open project is in a directory below its archive</td>
+</tr>
+</tbody>
+</table>
+<p>When a project is open whereby the directory location of the project is the project name with the suffix ’_Archive’ appended, the project is considered in an archive. This is usually the result of performing an <a href="15-Main-Schematic-Dialog.html#Control-Help:Extract-Archive">Extract Archived Project</a> previously, on an archive file with the same name as the current project with the extension .siz.</p>
+<p>After extraction, the archive might be adjusted by dragging some new files in, or producing some results that you want to keep with the archive.</p>
+<p>Freshening the archive takes the entire directory structure including all files at and below the current project and places this in an archive file above the current directory, replacing the .siz file that might exist there and that was presumably used for extraction.</p>
+<p>Note that the entire archive is completely replaced by these contents. This is shown graphically below:</p>
+<div class="center">
+
+<img src="media/FresheningArchive.png" alt="FresheningArchive" width="645" height="329" />
+
+</div>
+
+<h3 id="Control-Help:Unextract-Archive">Unextract Archived Project<a class="headerlink" href="#Control-Help:Unextract-Archive" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Unextract Archived Project</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+F,U</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the open project is in a directory below its archive</td>
+</tr>
+</tbody>
+</table>
+<p>When a project is open underneath a directory of the same name with ’_Archive’ appended, it is presumed to be in an archive. Usually, in this case, there is an archive file above this directory of the same name, with the .siz extension.</p>
+<div class="center">
+
+<img src="media/UnextractingArchive.png" alt="UnextractingArchive" width="716" height="329" />
+
+</div>
+
+<p>Unextracting the archive deletes the project file and the entire directory structure at and below the project file. Usually, this is performed after a <a href="15-Main-Schematic-Dialog.html#Control-Help:Freshen-Archive">Freshen Archived Project</a> operation. It is a dangerous operation.</p>
+<h2 id="sub:Edit">Edit<a class="headerlink" href="#sub:Edit" title="Permanent link">&para;</a></h2>
+<p>The Edit tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> and are broken into two sections, one involving undo and redo of schematic edits and the other dealing with multiple selections:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Redo">Redo</a></p>
+</li>
+</ul>
+<p>and:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Delete-Selected">Delete Selected</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Selected">Duplicate Selected</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Cut-Selected">Cut Selected</a></p>
+</li>
+</ul>
+<p>The undo and redo tasks depend on the <a href="15-Main-Schematic-Dialog.html#sub:History-Buffer">History Buffer</a> which records the state of the schematic at various events.</p>
+<h3 id="sub:History-Buffer">History Buffer<a class="headerlink" href="#sub:History-Buffer" title="Permanent link">&para;</a></h3>
+<p>The <strong><em>SignalIntegrityApp</em></strong> maintains a buffer containing the history of changes made to the project since the application started.</p>
+<p>Currently it records the last 100 changes.</p>
+<p>Each change is labelled, so as a change is undid and redid, the name of the event that is undid is displayed in the status message area.</p>
+<h3 id="Control-Help:Undo">Undo<a class="headerlink" href="#Control-Help:Undo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> Undo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+E,U</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+Z</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-undo-3.png" alt="edit-undo-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When there is something to undo in the history buffer</td>
+</tr>
+</tbody>
+</table>
+<p>This undoes whatever has been done since the last event stored in the <a href="15-Main-Schematic-Dialog.html#sub:History-Buffer">History Buffer</a>.</p>
+<p>It is available whenever something has been done since the last event, otherwise it is disabled.</p>
+<p>The event that is undone is shown in the status message area.</p>
+<p>Whenever something gets undone, <a href="15-Main-Schematic-Dialog.html#Control-Help:Redo">Redo</a> becomes available.</p>
+<h3 id="Control-Help:Redo">Redo<a class="headerlink" href="#Control-Help:Redo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> Redo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+E,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+Shift+Z</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-redo-3.png" alt="edit-redo-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When there is something that can be redone in the history buffer</td>
+</tr>
+</tbody>
+</table>
+<p>This redoes the last undo.</p>
+<p>This is available whenever an <a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a> was issued.</p>
+<p>It becomes unavailable whenever a change occurs that causes an event to store the state in the <a href="15-Main-Schematic-Dialog.html#sub:History-Buffer">History Buffer</a>.</p>
+<p>In other words, if you undo something or many things and then make a change to the schematic, the redo becomes unavailable.</p>
+<h3 id="Control-Help:Delete-Selected">Delete Selected<a class="headerlink" href="#Control-Help:Delete-Selected" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> Delete Selected</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+E,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Delete</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-delete-6.png" alt="edit-delete-6" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When one or more drawing element is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.</p>
+<p>The items selected to be deleted are shown as blue items in the schematic.</p>
+<p>This command is also available by right clicking while multiple devices are selected through a context sensitive menu.</p>
+<h3 id="Control-Help:Duplicate-Selected">Duplicate Selected<a class="headerlink" href="#Control-Help:Duplicate-Selected" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> Duplicate Selected</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+E,U</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-copy-3.png" alt="edit-copy-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When one or more drawing element is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.</p>
+<p>The items selected to be duplicated are shown as blue items in the schematic.</p>
+<p>When invoked, the selections are copied to memory and the mouse cursor changes to a finger indicating that the new copied parts will be placed where the finger points on the next mouse click.</p>
+<p>When the new parts are placed, all of the reference designators are updated to be unique names based on the default designator rules for the part.</p>
+<p>This command is also available by right clicking while multiple devices are selected through a context sensitive menu.</p>
+<h3 id="Control-Help:Cut-Selected">Cut Selected<a class="headerlink" href="#Control-Help:Cut-Selected" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Edit">Edit</a> Cut Selected</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+E,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Ctrl+X</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When one or more drawing element is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This command is available whenever a device is selected, a wire is selected, or if multiple items are selected. Which of these states is shown in the status message area.</p>
+<p>The items selected to be cut are shown as blue items in the schematic.</p>
+<p>When invoked, the selections are copied to memory and removed from the schematic and the mouse cursor changes to a finger indicating that the new copied parts will be placed where the finger points on the next mouse click.</p>
+<p>This command is also available by right clicking while multiple devices are selected through a context sensitive menu.</p>
+<h2 id="sub:Parts">Parts<a class="headerlink" href="#sub:Parts" title="Permanent link">&para;</a></h2>
+<p>The Parts tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for adding all elements of the schematic (except the connection <a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a>). All elements of the schematic are parts, but some parts are special and can be added more easily through menu commands:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> – Adds any part to the schematic. These parts are cataloged in <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Net-Name">Add Net Name</a> – Adds a <a href="23-Built-in-Devices-Parts.html#device:Net-Name">Net Name</a> to the schematic.</p>
+</li>
+</ul>
+<p>The remaining add tasks are for adding special parts used for specific applications:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a> - Adds a <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a>. (used for <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> and <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>)</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Output-Probe">Add Output Probe</a> - Adds an <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a>. (used for <a href="08-Simulation.html#sec:Simulation">Simulation</a> and <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>)</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Measure-Probe">Add Measure Probe</a> - Adds a <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a>. (used only for <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>)</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Stim">Add Stim</a> - Adds a <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a>. (used only for <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>)</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Unknown">Add Unknown</a> - Adds a device whose s-parameters are unknown. (used only for <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>)</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-System">Add System</a> - Adds a device that represents the s-parameters of a system. (used only for <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>)</p>
+</li>
+</ul>
+<p>If a part is selected, the following tasks are also possible:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Delete-Part">Delete Part</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Part">Duplicate Part</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Rotate-Part">Rotate Part</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Horizontally">Flip Horizontally</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Flip-Vertically">Flip Vertically</a></p>
+</li>
+</ul>
+<h3 id="Control-Help:Add-Part">Add Part<a class="headerlink" href="#Control-Help:Add-Part" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Part</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-add-2.png" alt="edit-add-2" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds one of the <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a> to the schematic.</p>
+<p>The most useful and generic type of part for s-parameter files is the <a href="23-Built-in-Devices-Parts.html#device:File">File</a> part.</p>
+<p>When you add a part, you first see the part picker, which lists all of the part categories:</p>
+<p><img src="media/PartPicker.png" alt="PartPicker" width="414" height="308" /></p>
+<p>By selecting a part category, you find the parts listed in that category:</p>
+<p><img src="media/PartPickerCategory.png" alt="PartPickerCategory" width="572" height="308" /></p>
+<p>You select a part and press OK to bring up the part properties dialog:</p>
+<p><img src="media/PartPropertyVoltageAmplifier.png" alt="PartPropertyVoltageAmplifier" width="394" height="492" /></p>
+<p>In the part properties dialog, you see the part properties at the top, followed by the part orientation settings, followed by a picture of the part as it will be shown in the schematic.</p>
+<p>The part properties are shown with two checkboxes, followed by a label, followed by the value. When first opened for a part, the default values are shown.</p>
+<p>The first checkbox determines whether the property is to be shown in the schematic.</p>
+<p>The second checkbox determines whether the keyword for the property is displayed (unchecking this box just shows the value).</p>
+<p>The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). <strong><em>SignalIntegrityApp</em></strong> never uses scientific notation or anything like that. Also, if the number has units, the units are shown.</p>
+<p>To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.</p>
+<p>The units never need to be entered (but can be).</p>
+<p>Numbers can be entered with exponents or with the engineering notation suffix. For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or 10e7.</p>
+<p>The reference designator is entered by <strong><em>SignalIntegrityApp</em></strong> and is always unique at the time of entry. In that sense, it does not need to be modified or viewed in the schematic.</p>
+<p>The orientation of a part can be altered through rotation and mirroring. The rotation shown is always for a rotation in the counter-clockwise direction, but usually one just presses the toggle button until it looks right. Mirroring vertically or horizontally is accomplished by checking the boxes.</p>
+<p>You have no control over the exact placement of the text displayed with each part. It is placed justified properly depending on the orientation.</p>
+<p>For many parts, there are alternate part pictures available. These are chosen by simply clicking inside the the part picture area of the dialog. For example, for the voltage amplifier shown, there is an alternate picture that has the voltage reference reversed at the input. Clicking in the part picture changes the picture to the following:</p>
+<p><img src="media/PartPropertyVoltageAmplifierAlt.png" alt="PartPropertyVoltageAmplifierAlt" width="394" height="492" /></p>
+<p>After you are satisfied with all of the part property settings and the orientation, press okay. The part properties dialog disappears and, when hovered over the canvas, you will see that your mouse cursor has now changed to a finger to indicate that the part can now be placed. left-clicking now has the part shown and selected:</p>
+<p><img src="media/VoltageAmplifierAltSelected.png" alt="VoltageAmplifierAltSelected" width="469" height="221" /></p>
+<p>Keeping the button pressed, the part remains selected and can be precisely placed.</p>
+<p>Note that until a part is connected, you will see red x’s wherever the unconnected pins are on the device.</p>
+<p>To change the part properties after the part has been placed, simply double-click on the part to bring up the part properties, or select the device and use the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> command.</p>
+<p>If at any time in the process of adding a part, you press the Cancel button (or \&lt;escape&gt;), the part addition is aborted and you return to the schematic with no new part added.</p>
+<h3 id="Control-Help:Add-Net-Name">Add Net Name<a class="headerlink" href="#Control-Help:Add-Net-Name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Net Name</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,N</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command is used to add net names to a schematic. See <a href="23-Built-in-Devices-Parts.html#device:Net-Name">Net Name</a>.</p>
+<h3 id="Control-Help:Add-Port">Add Port<a class="headerlink" href="#Control-Help:Add-Port" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Port</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command is used to add ports to a schematic.</p>
+<p>A <a href="23-Built-in-Devices-Parts.html#device:Port">Port</a> is only added to schematics intended for <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> or for <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a> applications.</p>
+<p>See <a href="07-S-Parameter-Generation.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation</a> for s-parameter calculation applications.</p>
+<p>See <a href="09-Deembedding.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding</a> for deembedding applications.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting Port from the Special parts category.</p>
+<p><img src="media/PartPropertiesPort.png" alt="PartPropertiesPort" width="394" height="429" /></p>
+<p>On this dialog, you see the only property, the port number, the orientation settings for the port, and a picture of the port element.</p>
+<p>The port part property are shown with two checkboxes, followed by a label, followed by the port number. The port number is filled in by default as the lowest port number not already in the schematic.</p>
+<p>The first checkbox determines whether the port number should be shown in the schematic.</p>
+<p>The second checkbox is superfluous for ports. For part properties it determines whether the keyword for the property should be shown, but a port number does not have a keyword, just the number.</p>
+<p>The port number is modified by clicking inside the white area where the port number value is shown.</p>
+<p>To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the port number that is already there. If you double-click, the entry is cleared and you can enter an entirely new port number.</p>
+<p>keep in mind that when you have completed drawing your schematic, the port number values must be numbered from 1 to however many ports are present with no gaps in the numbers. Otherwise you will get an error when you go to calculate.</p>
+<p>When you are satisfied with the port number and orientation, press OK.</p>
+<p>The part properties dialog disappears and, when hovered over the canvas, you will see that your mouse cursor has now changed to a finger to indicate that the port can now be placed. left-clicking now has the port shown and selected:</p>
+<p><img src="media/PortInSchematic.png" alt="PortInSchematic" width="469" height="221" /></p>
+<p>Keeping the button pressed, the port remains selected and can be precisely placed.</p>
+<p>Note that until a port is connected, you will see a red x at the port connection point.</p>
+<p>To change the port number after the port has been placed, simply double-click on the part to bring up the part properties, or select the port and use the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> command.</p>
+<p>If at any time in the process of adding a port, you press the Cancel button (or \&lt;escape&gt;), the port addition is aborted and you return to the schematic with no new port added.</p>
+<h3 id="Control-Help:Add-Output-Probe">Add Output Probe<a class="headerlink" href="#Control-Help:Add-Output-Probe" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Output Probe</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds an <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> to the schematic.</p>
+<p>It is used for <a href="08-Simulation.html#sec:Simulation">Simulation</a> and <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> applications.</p>
+<p>See <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a> or <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting Output from the Special parts category.</p>
+<p><img src="media/PartPickerOutputProbe.png" alt="PartPickerOutputProbe" width="520" height="555" /></p>
+<p><img src="media/PartPropertiesOutputProbe.png" alt="PartPropertiesOutputProbe" width="394" height="492" /></p>
+<p>The output probe part has one port that can be connected to a wire or device port to select a voltage <a href="28-Waveform.html#sec:Waveform">Waveform</a> to be output during a <a href="08-Simulation.html#sec:Simulation">Simulation</a> or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>.</p>
+<h3 id="Control-Help:Add-Measure-Probe">Add Measure Probe<a class="headerlink" href="#Control-Help:Add-Measure-Probe" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Measure Probe</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,M</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds an <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a> to the schematic.</p>
+<p>It is used only for <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> applications.</p>
+<p>See <a href="10-Virtual-Probing.html#sub:Measure-Probes">Measure Probes</a>.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting Measure from the Special parts category.</p>
+<p><img src="media/PartPickerMeasureProbe.png" alt="PartPickerMeasureProbe" width="520" height="555" /></p>
+<p><img src="media/PartPropertiesMeasureProbe.png" alt="PartPropertiesMeasureProbe" width="520" height="458" /></p>
+<p>The measure probe part has one port that can be connected to a wire or device port to specify a measured <a href="28-Waveform.html#sec:Waveform">Waveform</a> to be supplied during or <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> calculation.</p>
+<h3 id="Control-Help:Add-Stim">Add Stim<a class="headerlink" href="#Control-Help:Add-Stim" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Stim</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,T</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds a <a href="23-Built-in-Devices-Parts.html#device:Stim">Stim</a> to the schematic.</p>
+<p>It is used only for <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> applications.</p>
+<p>See <a href="10-Virtual-Probing.html#sub:Stimuli">Stimuli</a>.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting Stim from the Special parts category.</p>
+<h3 id="Control-Help:Add-Unknown">Add Unknown<a class="headerlink" href="#Control-Help:Add-Unknown" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add Unknown</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,U</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds a <a href="23-Built-in-Devices-Parts.html#device:Unknown">Unknown</a> to the schematic for use only in <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a> applications.</p>
+<p>See <a href="09-Deembedding.html#sub:Unknowns">Unknowns</a>.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting the Unknowns category.</p>
+<p><img src="media/PartPickerUnknownCategory.png" alt="PartPickerUnknownCategory" width="502" height="540" /></p>
+<h3 id="Control-Help:Add-System">Add System<a class="headerlink" href="#Control-Help:Add-System" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Add System</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This adds a <a href="23-Built-in-Devices-Parts.html#device:System">System</a> to the schematic for use only in <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a> applications.</p>
+<p>See <a href="09-Deembedding.html#sub:Defining-the-System">Defining the System</a>.</p>
+<p>This command is a shortcut which is the same as invoking <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting the Systems category.</p>
+<p><img src="media/PartPickerSystemsCategory.png" alt="PartPickerSystemsCategory" width="502" height="540" /></p>
+<h3 id="Control-Help:Delete-Part">Delete Part<a class="headerlink" href="#Control-Help:Delete-Part" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Delete Part</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">Delete</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-delete-6.png" alt="edit-delete-6" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This deletes the selected part.</p>
+<p>The selected part is indicated by a blue color in the schematic.</p>
+<p>When a part is selected it shows this in the status message area.</p>
+<p>This is also available through the context sensitive menu (right-click when part selected).</p>
+<h3 id="Control-Help:Edit-Properties">Edit Properties<a class="headerlink" href="#Control-Help:Edit-Properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Edit Properties</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,E</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Mouse Binding</em></td>
+<td style="text-align: center;">double-click</td>
+</tr>
+</tbody>
+</table>
+<p>This edits the part properties for the selected part.</p>
+<p>The selected part is indicated by a blue color in the schematic.</p>
+<p>When a part is selected it shows this in the status message area.</p>
+<p>This is also available through the context sensitive menu (right-click when part selected).</p>
+<p>When a part is selected, editing the part properties brings up the part properties dialog:</p>
+<p><img src="media/PartPropertyVoltageAmplifier.png" alt="PartPropertyVoltageAmplifier" width="394" height="492" /></p>
+<p>In the part properties dialog, you see the part properties at the top, followed by the part orientation settings, followed by a picture of the part as it will be shown in the schematic.</p>
+<p>The part properties are shown with two checkboxes, followed by a label, followed by the value. When first opened for a part, the default values are shown.</p>
+<p>The first checkbox determines whether the property is to be shown in the schematic.</p>
+<p>The second checkbox determines whether the keyword for the property is displayed (unchecking this box just shows the value).</p>
+<p>The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). <strong><em>SignalIntegrityApp</em></strong> never uses scientific notation or anything like that. Also, if the number has units, the units are shown.</p>
+<p>To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.</p>
+<p>The units never need to be entered (but can be).</p>
+<p>Numbers can be entered with exponents or with the engineering notation suffix. For example, 100 Mohm can be entered as 100 Mohm, 100 M, 100M, 100e6, or 10e7.</p>
+<p>The reference designator is entered by <strong><em>SignalIntegrityApp</em></strong> and is always unique at the time of entry. In that sense, it does not need to be modified or viewed in the schematic.</p>
+<p>The orientation of a part can be altered through rotation and mirroring. The rotation shown is always for a rotation in the counter-clockwise direction, but usually one just presses the toggle button until it looks right. Mirroring vertically or horizontally is accomplished by checking the boxes.</p>
+<p>You have no control over the exact placement of the text displayed with each part. It is placed justified properly depending on the orientation.</p>
+<p>For many parts, there are alternate part pictures available. These are chosen by simply clicking inside the the part picture area of the dialog. For example, for the voltage amplifier shown, there is an alternate picture that has the voltage reference reversed at the input. Clicking in the part picture changes the picture to the following:</p>
+<p><img src="media/PartPropertyVoltageAmplifierAlt.png" alt="PartPropertyVoltageAmplifierAlt" width="394" height="492" /></p>
+<p>After you are satisfied with all of the part property settings and the orientation, press OK. The part is now edited in the schematic.</p>
+<p>If at any time you press Cancel, the properties of the part are left unchanged in the schematic.</p>
+<p>Some devices have file properties. For example, the <a href="23-Built-in-Devices-Parts.html#device:File">File</a> and <a href="23-Built-in-Devices-Parts.html#device:System">System</a> devices have s-parameter files and the <a href="23-Built-in-Devices-Parts.html#device:Measure-Probe">Voltage Measure Probe</a>, <a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a> and <a href="23-Built-in-Devices-Parts.html#device:Current-Source">Current Source</a> have <a href="28-Waveform.html#sec:Waveform">Waveform</a> files associated. In these cases, the files can be browsed to and selected and viewed in either the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> or the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
+<h3 id="Control-Help:Duplicate-Part">Duplicate Part<a class="headerlink" href="#Control-Help:Duplicate-Part" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Duplicate Part</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-copy-3.png" alt="edit-copy-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This command is available whenever a device is selected.</p>
+<p>The item selected to be duplicated is shown as blue in the schematic.</p>
+<p>When invoked, the part is copied to memory and the mouse cursor changes to a finger indicating that the new copied part will be placed where the finger points on the next mouse click.</p>
+<p>When the new part is placed, the reference designator is updated to be a unique name based on the default designator rules for the part.</p>
+<p>This command is also available by right clicking while a part is selected through a context sensitive menu.</p>
+<h3 id="Control-Help:Rotate-Part">Rotate Part<a class="headerlink" href="#Control-Help:Rotate-Part" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Rotate Part</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/object-rotate-left-4.png" alt="object-rotate-left-4" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This rotates the picture of the part 90 degrees counter-clockwise.</p>
+<h3 id="Control-Help:Flip-Horizontally">Flip Horizontally<a class="headerlink" href="#Control-Help:Flip-Horizontally" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Flip Horizontally</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,H</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/object-flip-horizontal-3.png" alt="object-flip-horizontal-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This mirrors the picture of the part horizontally about a vertical axis.</p>
+<h3 id="Control-Help:Flip-Vertically">Flip Vertically<a class="headerlink" href="#Control-Help:Flip-Vertically" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Parts">Parts</a> Flip Vertically</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+P,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/object-flip-vertical-3.png" alt="object-flip-vertical-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a part is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This mirrors the picture of the part vertically about a horizontal axis.</p>
+<h2 id="sub:Wires">Wires<a class="headerlink" href="#sub:Wires" title="Permanent link">&para;</a></h2>
+<p>The Wires tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for dealing with wires:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Delete-Vertex">Delete Vertex</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Duplicate-Vertex">Duplicate Vertex</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Delete-Wire">Delete Wire</a>.</p>
+</li>
+</ul>
+<p>Wires are simply collections of vertices with implied lines between each adjacent vertex.</p>
+<p>Although wires might look continuous in the schematic, a wire only every actually joins two nodes with a node being either a device port or a dot in the schematic where two or more wires or device ports connect. A wire joining two nodes may still contain several vertices as it snakes around the schematic.</p>
+<p>wires are consolidated continuously as the schematic is drawn so a wire might be split or combined as things are connected.</p>
+<p>Wires can be selected by:</p>
+<ul>
+<li>
+<p>a vertex - in which case just the vertex can be deleted or moved or the entire wire containing the vertex can be deleted.</p>
+</li>
+<li>
+<p>a segment (a line between two vertices), which is really just multiple selections of two vertices - in which case the two vertices can be moved or deleted.</p>
+</li>
+<li>
+<p>multiple vertices.</p>
+</li>
+</ul>
+<p>Currently, wire handling is a bit awkward and will be improved in the future.</p>
+<h3 id="Control-Help:Add-Wire">Add Wire<a class="headerlink" href="#Control-Help:Add-Wire" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a> Add Wire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+W,A</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/draw-line-3.png" alt="draw-line-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>The Add Wire command puts the schematic state-machine in the drawing wires state. When in this state, the cursor turns into a pencil and a wire is begun. A wire is defined by a sequence of vertices. clicking the left mouse button drops another vertex onto the schematic. If at least one vertex has been placed for a wire, a rubber band line extends from the last vertex placed to the grid coordinate closest to the cursor location.</p>
+<p>wires can only be placed on the grid.</p>
+<p>When you right click, that ends the current wire. If a vertex has been placed for the current wire (and a rubber band line is extending to the cursor), the rubber band line disappears, the vertices place define the wire drawn in the schematic and a new wire starts. The next left click places a vertex for that wire and the process continues.</p>
+<p>Wire drawing ends when you right click twice. In other words, it ends when you right click in the middle of drawing a wire and no vertices for that wire have been placed. Pressing escape will also end wire drawing.</p>
+<h3 id="Control-Help:Delete-Vertex">Delete Vertex<a class="headerlink" href="#Control-Help:Delete-Vertex" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a> Delete Vertex</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+W,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a single wire vertex of a wire is selected</td>
+</tr>
+</tbody>
+</table>
+<p>Deletes a single wire vertex selected. If the vertex deleted is in between other vertices of a wire, the wire connects the adjacent vertices after deletion.</p>
+<h3 id="Control-Help:Duplicate-Vertex">Duplicate Vertex<a class="headerlink" href="#Control-Help:Duplicate-Vertex" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a> Duplicate Vertex</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+W,U</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a single wire vertex of a wire is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This function does not work properly at this time.</p>
+<h3 id="Control-Help:Delete-Wire">Delete Wire<a class="headerlink" href="#Control-Help:Delete-Wire" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Wires">Wires</a> Delete Wire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+W,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a single wire vertex of a wire is selected</td>
+</tr>
+</tbody>
+</table>
+<p>This deletes the entire wire (i.e. all wire vertices) in the wire containing the vertex selected.</p>
+<h2 id="sub:View">View<a class="headerlink" href="#sub:View" title="Permanent link">&para;</a></h2>
+<p>The View tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for dealing with the drawing canvas:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Zoom-In">Zoom In</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Zoom-Out">Zoom Out</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Pan">Pan</a>.</p>
+</li>
+</ul>
+<p>The drawing canvas starts out with a grid size of 32 pixels per grid point with grid origin at the upper left edge of the drawing canvas.</p>
+<h3 id="Control-Help:Zoom-In">Zoom In<a class="headerlink" href="#Control-Help:Zoom-In" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:View">View</a> Zoom In</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,I</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/zoom-in-3.png" alt="zoom-in-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Zooms in on the schematic picture by incrementing the number of pixels per grid unit.</p>
+<p>The default number of pixels per grid unit are controlled by <a href="29-Preferences.html#sub:Appearance.InitialGrid">Appearance.InitialGrid</a> in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<h3 id="Control-Help:Zoom-Out">Zoom Out<a class="headerlink" href="#Control-Help:Zoom-Out" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:View">View</a> Zoom Out</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/zoom-out-3.png" alt="zoom-out-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Zooms out of the schematic picture by decrementing the number of pixels per grid unit.</p>
+<p>The default number of pixels per grid unit are controlled by <a href="29-Preferences.html#sub:Appearance.InitialGrid">Appearance.InitialGrid</a> in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<h3 id="Control-Help:Pan">Pan<a class="headerlink" href="#Control-Help:Pan" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:View">View</a> Pan</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+V,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-move.png" alt="edit-move" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Panning allows you to change the offset of the grid in the drawing.</p>
+<p>It’s kind of like selecting everything and moving it, but instead of moving the elements in the drawing, the coordinates of the origin are modified instead.</p>
+<p>When you invoke panning, the panning toolbar button stays down and the status message area shows Panning. The cursor changes to a panning symbol. You then pan by holding down the left mouse button and dragging the drawing origin relative to where the mouse button was pressed.</p>
+<p>Releasing the mouse button or right clicking or pressing escape turns off panning.</p>
+<h2 id="sub:Calculate">Calculate<a class="headerlink" href="#sub:Calculate" title="Permanent link">&para;</a></h2>
+<p>The Calculate tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for dealing calculations for the <strong><em>SignalIntegrityApp</em></strong> applications:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> - for editing the properties for the calculations.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Post-Processing">Post-Processing</a> - for editing post-processing commands for the calculations.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:S-parameter-Viewer">S-parameter Viewer</a> - for viewing s-parameters.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-S-parameters">Calculate S-parameters</a> - for running an <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Simulate">Simulate</a> - for running a <a href="08-Simulation.html#sec:Simulation">Simulation</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Virtual-Probe">Virtual Probe</a> - for running <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Deembed">Deembed</a> - for running <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:RLGC-Fit">RLGC Fit</a> - for performing an <a href="11-RLGC-Fit.html#sec:RLGC-Fit">RLGC Fit</a> to the s-parameters.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Error-Terms">Calculate Error Terms</a> - for computing error terms in a <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a>.</p>
+</li>
+</ul>
+<p>You also invoke the <a href="15-Main-Schematic-Dialog.html#Control-Help:S-parameter-Viewer">S-parameter Viewer</a>.</p>
+<p>The <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button is ganged to perform whatever calculation makes sense based on the schematic configuration.</p>
+<h3 id="Control-Help:Calculation-Properties">Calculation Properties<a class="headerlink" href="#Control-Help:Calculation-Properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a>, <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>, and <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Calculation Properties</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/tooloptions.png" alt="tooloptions" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Issuing the Calculation Properties command brings up the calculation properties dialog:</p>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>The calculation properties govern how all calculations are performed, and are broken into three sections:</p>
+<ol>
+<li>
+<p>The main, linear calculation properties,</p>
+</li>
+<li>
+<p>The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a> (only shown if the preference <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> is True), and</p>
+</li>
+<li>
+<p>The reference impedance, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance</a> (shown only if the preference <a href="29-Preferences.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions</a> is True).</p>
+</li>
+</ol>
+<p>The main, linear calculation properties are intended for use with all of the <strong><em>SignalIntegrityApp</em></strong> applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:</p>
+<div class="center">
+
+| **Property** | **Type** | **Equation** | **Internal Property Name** |
+|:---|:---|:---|:---|
+| user sample rate | base | $userSampleRate$ | UserSampleRate |
+| end frequency | base | $endfrequency$ | EndFrequency |
+| number of frequency points | base | $frequencyPoints$ | FrequencyPoints |
+| base sample rate | derived | $baseSampleRate=2\cdot endFrequency$ | BaseSampleRate |
+| number of time points | derived | $timePoints=2\cdot frequencyPoints$ | TimePoints |
+| frequency resolution | derived | $frequencyResolution=\frac{endFrequency}{frequencyPoints}$ | FrequencyResolution |
+| time length of impulse response | derived | $impulseResponseLength=\frac{frequencyPoints}{endFrequency}$ | ImpulseResponseLength |
+| user sample period | derived | $userSamplePeriod=\frac{1}{userSampleRate}$ | [UserSamplePeriod](UserSamplePeriod){.uri} |
+
+</div>
+
+<p>The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). <strong><em>SignalIntegrityApp</em></strong> never uses scientific notation or anything like that. Also, if the number has units, the units are shown.</p>
+<p>To change the value, you can either click once or double-click inside the value entry box. When you click once, the cursor is placed at the location clicked and you can edit the value that is already there. If you double-click, the entry is cleared and you can enter an entirely new value.</p>
+<p>The units never need to be entered (but can be).</p>
+<p>Numbers can be entered with exponents or with the engineering notation suffix. For example, 20 GHz can be entered as 20 GHz, 20 G, 20G, 20e6, or 2e7.</p>
+<p>Whenever either the end frequency or the impulse response length are modified, all of the other properties are calculated as in the equations above. If any of the properties are modified that directly affect one of these base properties, then the affected base property is modified and all of the other properties are recalculated as stated. These properties include the frequency resolution, which is simply another expression of the impulse response length, and the base sample rate, which is simply another expression of the end frequency.</p>
+<p>Otherwise, if either the frequency points or the time points are modified, which are functions of both of the base properties, then the end frequency is held constant and the impulse response length is modified to accommodate the new property value.</p>
+<p>To summarize, all of the properties can be modified. Any modification first tries to hold the end frequency (and base sample rate) constant first and the impulse response length second.</p>
+<p>One interesting thing to note is that the frequency points are actually the number of frequencies minus one. Said differently, the number of actual frequencies calculated is always the number shown plus one. In other words, for <span class="arithmatex">\(N\)</span> frequency points and an end frequency <span class="arithmatex">\(Fe\)</span>, the actual frequency points are, for <span class="arithmatex">\(n\in0\ldots N\)</span>:</p>
+<div class="arithmatex">\[f\left[n\right]=\frac{n}{N}\cdot Fe\]</div>
+<p>The time points for the impulse response is specified for <span class="arithmatex">\(K=2\cdot N\)</span> time points and a sample rate <span class="arithmatex">\(Fs=2\cdot Fe\)</span>, as having times of, for <span class="arithmatex">\(k\in0\ldots K-1\)</span> :</p>
+<div class="arithmatex">\[t\left[k\right]=\left(k-\frac{K}{2}\right)\cdot\frac{1}{Fs}\]</div>
+<p>Depending on the application, it is useful to also read:</p>
+<ul>
+<li>
+<p><a href="07-S-Parameter-Generation.html#sub:Calculating-S-parameters">Calculating S-parameters</a> for s-parameter calculation.</p>
+</li>
+<li>
+<p><a href="08-Simulation.html#sub:Setting-Calculation-Properties-for-Simulation">Setting Calculation Properties for Simulation</a>.</p>
+</li>
+<li>
+<p><a href="09-Deembedding.html#sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding</a>.</p>
+</li>
+<li>
+<p><a href="10-Virtual-Probing.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a>.</p>
+</li>
+</ul>
+<h3 id="sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions<a class="headerlink" href="#sub:Logarithmically-Spaced-Frequencies-Solutions" title="Permanent link">&para;</a></h3>
+<p>Logarithmically spaced frequencies solutions can only be selected if the <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> preference is set to True. (They may still be available if you open a project for which logarithmically spaced frequencies have been chosen).</p>
+<p>It was found that for certain solutions, something other than linear frequency spacing might be useful. The characteristics that dictate a need for something other than linear frequency spacing would be especially when:</p>
+<ul>
+<li>
+<p>the end frequency must be set to a high frequency, and</p>
+</li>
+<li>
+<p>the need to retain low frequency behavior required a very low frequency point, right after the DC point.</p>
+</li>
+</ul>
+<p>Since <em>SignalIntegrity</em> performs time-domain convolution for simulations, the frequency domain result must be placed on a linear scale for use with the discrete Fourier transform to obtain an impulse response, and the need for a very low frequency point automatically dictates possibly an unreasonable frequency resolution, leading to a huge number of frequency points, and an unreasonably long simulation.</p>
+<p>With logarithmic frequency spacing, an effort was made to solve the transfer parameters or s-parameters on a logarithmically spaced grid, and resample these onto a linearly spaced grid at the end. If logarithmic frequency spacing is selected, the user is able to choose:</p>
+<ul>
+<li>
+<p>the logarithmic start frequency,</p>
+</li>
+<li>
+<p>the logarithmic end frequency,</p>
+</li>
+<li>
+<p>the points per decade.</p>
+</li>
+</ul>
+<p>When chosen, a frequency grid is chosen starting at the decade at or below the logarithmic start frequency, ending with the decade at or above the logarithmic end frequency, with frequencies at a log-linear spacing for each decade given by the points per decade. Then, only those frequencies between the logarithmic start and end frequencies (inclusive) are chosen, and if needed, the start and end frequencies are tacked on to the beginning and end of the frequency list, respectively, if needed.</p>
+<p>For s-parameter calculations, the results are provided on this logarithmic scale, but for simulation calculations, the resulting logarithmically spaced solution is resampled onto the linear scale that is specified prior to convolution.</p>
+<p>This is all explained in <a href="https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis">https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis</a></p>
+<p>Logarithmic frequencies is experimental, and in development, and should not be used, as the results were not satisfactory.</p>
+<h3 id="sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance<a class="headerlink" href="#sub:Non-50-Ohm-Reference-Impedance" title="Permanent link">&para;</a></h3>
+<p>Non 50 ohm reference impedance can only be selected if the <a href="29-Preferences.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions</a> preference is set to True. (It may still be available if you open a project for which a non 50 ohm solution has been previously chosen).</p>
+<p>In the past, within <em>SignalIntegrity</em>, when solving, all devices were read in, converted to 50 ohms reference impedance, and all solutions provided were in a 50 ohm reference impedance. The result could be converted to a non 50 ohm reference impedance, if desired, using <a href="15-Main-Schematic-Dialog.html#Control-Help:Post-Processing">Post-Processing</a> and <a href="25-Post-Processing.html#sec:Post-Processing">Post-Processing</a> commands, namely the ’reference impedance’ command.</p>
+<p>Later, it was found that, especially with regards to resampling of s-parameters, that it was important to resample the s-parameters in a reference impedance that was favorable. In other words, in some reference impedances, like 50 ohms, the s-parameters might be seen to be insufficiently sampled, however, in other reference impedances, they were sufficiently sampled.</p>
+<p>Now, all s-parameter reference impedances read in are honored, resampled in their native reference impedance, and converted to the reference impedance specified for the project. This reference impedance may be specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>This is all explained in <a href="https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis">https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis</a></p>
+<h3 id="Control-Help:Post-Processing">Post-Processing<a class="headerlink" href="#Control-Help:Post-Processing" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Post-Processing</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command opens a text notepad where the user can enter <a href="25-Post-Processing.html#sec:Post-Processing">Post-Processing</a> commands.</p>
+<h3 id="Control-Help:S-parameter-Viewer">S-parameter Viewer<a class="headerlink" href="#Control-Help:S-parameter-Viewer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> S-parameter Viewer</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/sp-view.png" alt="sp-view" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command invokes the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> dialog to view s-parameter files.</p>
+<h3 id="Control-Help:Calculate-Button">Calculate<a class="headerlink" href="#Control-Help:Calculate-Button" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/system-run-3.png" alt="system-run-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When there is something to calculate</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button is ganged to perform whatever calculation makes sense based on the schematic configuration. If it is enabled, you can see which calculation will take place by looking at which calculation is enabled under <a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a>.</p>
+<h3 id="Control-Help:Calculate-S-parameters">Calculate S-parameters<a class="headerlink" href="#Control-Help:Calculate-S-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Calculate S-parameters</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/system-run-3.png" alt="system-run-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameters can be calculated</td>
+</tr>
+</tbody>
+</table>
+<p>This invokes the <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a>. See <a href="07-S-Parameter-Generation.html#sub:Calculating-S-parameters">Calculating S-parameters</a> for what happens when invoked and for the conditions for enabling this.</p>
+<h3 id="Control-Help:Simulate">Simulate<a class="headerlink" href="#Control-Help:Simulate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Simulate</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/system-run-3.png" alt="system-run-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the schematic can be simulated</td>
+</tr>
+</tbody>
+</table>
+<p>This invokes a <a href="08-Simulation.html#sec:Simulation">Simulation</a>. See <a href="08-Simulation.html#sub:Simulating">Simulating</a> for what happens when invoked and for the conditions for enabling this.</p>
+<h3 id="Control-Help:Virtual-Probe">Virtual Probe<a class="headerlink" href="#Control-Help:Virtual-Probe" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Virtual Probe</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,R</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/system-run-3.png" alt="system-run-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the schematic can be virtual probed</td>
+</tr>
+</tbody>
+</table>
+<p>This invokes <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>. See <a href="10-Virtual-Probing.html#sub:Virtual-Probing">Virtual Probing</a> for what happens when invoked and for the conditions for enabling this.</p>
+<h3 id="Control-Help:Deembed">Deembed<a class="headerlink" href="#Control-Help:Deembed" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Deembed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,D</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/system-run-3.png" alt="system-run-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the schematic can be deembedded</td>
+</tr>
+</tbody>
+</table>
+<p>This invokes <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>. See <a href="09-Deembedding.html#sub:Deembedding-Calculation">Deembedding Calculation</a> for what happens when invoked and for the conditions for enabling this.</p>
+<h3 id="Control-Help:RLGC-Fit">RLGC Fit<a class="headerlink" href="#Control-Help:RLGC-Fit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> RLGC Fit</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,F</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When s-parameters can be calculated and there are two ports</td>
+</tr>
+</tbody>
+</table>
+<p>This invokes <a href="11-RLGC-Fit.html#sec:RLGC-Fit">RLGC Fit</a> to fit the s-parameters of a <a href="23-Built-in-Devices-Parts.html#device:Transmission-Line-COM">COM Transmission Line</a> device to schematic.</p>
+<p>See <a href="11-RLGC-Fit.html#sec:RLGC-Fit">RLGC Fit</a> for what happens when invoked and for the conditions for enabling this.</p>
+<h3 id="Control-Help:Calculate-Error-Terms">Calculate Error Terms<a class="headerlink" href="#Control-Help:Calculate-Error-Terms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Calculate">Calculate</a> Calculate Error Terms</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+C,E</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When the project is a calibration project</td>
+</tr>
+</tbody>
+</table>
+<p>Invoking this command computes error terms in a <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Calibration">Network Analyzer Calibration</a> project used in <a href="12-Network-Analyzer-Measurements.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements</a>.</p>
+<p>Whether this command is available is based on whether the project can be identified as a <em>calibration</em> project. This identification is determined automatically by the presence of a calibration measurement (either a <a href="23-Built-in-Devices-Parts.html#device:Reflect-Measurement">Reflect Measurement</a> or <a href="23-Built-in-Devices-Parts.html#device:Thru-Measurement">Thru Measurement</a>), and nonexistence of any other unrelated devices like ports, probes, etc.</p>
+<p>If the command completes, the error terms are shown in the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>, which allows writing the calibration file to the disk for subsequent use in <a href="12-Network-Analyzer-Measurements.html#sub:Network-Analyzer-Measurement">Network Analyzer Measurement</a>.</p>
+<h2 id="sub:Variables">Variables<a class="headerlink" href="#sub:Variables" title="Permanent link">&para;</a></h2>
+<p>The Variables tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for dealing with the variables defined for the schematic:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a> - Edit schematic variables.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Schematic-Equations">Schematic Equations</a> - Edit schematic equations.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Parameterize-Project">Parameterize Schematic</a> - Parameterize the project.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Schematic-Variables">Schematic Variables<a class="headerlink" href="#Control-Help:Schematic-Variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Variables">Variables</a> Schematic Variables</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+R,V</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Invoking the Schematic Variables brings up a dialog containing the currently defined variables. If none have been defined, the dialog looks like this:</p>
+<div class="center">
+
+<img src="media/SchematicVariablesDialogNone.png" alt="SchematicVariablesDialogNone" width="69" height="97" />
+
+</div>
+
+<p>If there are variables defined, the dialog looks something like shown in the example below:</p>
+<div class="center">
+
+<img src="media/schematicvariablesdialog.png" alt="schematicvariablesdialog" width="731" height="199" />
+
+</div>
+
+<p>These are global variables defined for the entire system.</p>
+<p>From within this dialog, you can:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#par:Add-Schematic-Variable">Add Schematic Variable</a>– Add a variable by pressing <img src="media/edit-add-2.png" alt="edit-add-2" width="16" height="16" />.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#par:Edit-the-Value">Edit the Value</a> – Edit the value of a variable by entering a new value in the entry box.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#par:Edit-a-Variable">Edit a Variable</a> – Edit a variable definition by pressing <img src="media/edit-3.png" alt="edit-3" width="16" height="16" /> next to the desired variable.</p>
+</li>
+<li>
+<p>Delete a Variable – Delete a variable by pressing <img src="media/edit-delete-6.png" alt="edit-delete-6" width="16" height="16" /> next to the desired variable.</p>
+</li>
+<li>
+<p>Move a Variable Up – Move a variable up in the list by pressing <img src="media/up.png" alt="up" width="16" height="16" /> next to the desired variable.</p>
+</li>
+<li>
+<p>Move a Variable Down – Move a variable down in the list by pressing <img src="media/down.png" alt="down" width="16" height="16" /> next to the desired variable.</p>
+</li>
+</ul>
+<h4 id="par:Add-Schematic-Variable">Add Schematic Variables<a class="headerlink" href="#par:Add-Schematic-Variable" title="Permanent link">&para;</a></h4>
+<p>Note that it is rare to add a schematic variable directly. Most variables are added as a result of the <a href="15-Main-Schematic-Dialog.html#Control-Help:Parameterize-Project">Parameterize Schematic</a> command, or by issuing Parameterize Project from the variables dialog for a device.</p>
+<p>Pressing <img src="media/edit-add-2.png" alt="edit-add-2" width="16" height="16" /> in the Variables dialog pops up a new dialog containing the properties of the variable to add:</p>
+<div class="center">
+
+<img src="media/AddSchematicVariable.png" alt="AddSchematicVariable" width="622" height="211" />
+
+</div>
+
+<ul>
+<li>
+<p>Description – This is what will be shown on the tooltip when hovering over the entry box for the variable in the Variables dialog.</p>
+</li>
+<li>
+<p>Name – This is the name of the variable</p>
+</li>
+<li>
+<p>Type – This is the type of the variable. Recognized types are:</p>
+</li>
+<li>
+<p>float – (default) a floating point number.</p>
+</li>
+<li>
+<p>int – an integer number.</p>
+</li>
+<li>
+<p>file – a name of a file.</p>
+</li>
+<li>
+<p>string – a text string.</p>
+</li>
+<li>
+<p>Value – (0 by default) The value of the variable. When the value of a variable is entered from this dialog, they are entered without any SI units, like they are usually entered. For example, a capacitance like 10 pF would be entered as 10e-12.</p>
+</li>
+<li>
+<p>Output Variable –(False by default) whether the variable is an output variable. See <a href="26-Equations.html#sec:Equations">Equations</a> for the usage of output variables.</p>
+</li>
+</ul>
+<p>Before a variable is added, it is checked for validity, meaning mostly that it has a variable name.</p>
+<h4 id="par:Edit-the-Value">Edit the Value of a Variable<a class="headerlink" href="#par:Edit-the-Value" title="Permanent link">&para;</a></h4>
+<div class="center">
+
+<img src="media/schematicvariablesdialog.png" alt="schematicvariablesdialog" width="731" height="199" />
+
+</div>
+
+<p>When in the schematic variable dialog, enter variables directly in the entry box. If they have units, you should use SI units. For example, the capacitance 10 pF can be entered as 10p.</p>
+<p>Files will have a browse button that allows you to browse to the file chosen.</p>
+<h4 id="par:Edit-a-Variable">Edit a Variable Definition<a class="headerlink" href="#par:Edit-a-Variable" title="Permanent link">&para;</a></h4>
+<div class="center">
+
+<img src="media/EditSchematicVariableDefinition.png" alt="EditSchematicVariableDefinition" width="622" height="211" />
+
+</div>
+
+<p>Pressing <img src="media/edit-3.png" alt="edit-3" width="16" height="16" /> next to the desired variable allows you to edit the definition. See <a href="15-Main-Schematic-Dialog.html#par:Add-Schematic-Variable">Add Schematic Variable</a> for a discussion of these entries.</p>
+<h3 id="Control-Help:Edit-Schematic-Equations">Schematic Equations<a class="headerlink" href="#Control-Help:Edit-Schematic-Equations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Variables">Variables</a> Schematic Equations</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+R,E</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Not Available</td>
+</tr>
+</tbody>
+</table>
+<p>This let’s you edit a schematic equation (script). See <a href="26-Equations.html#sec:Equations">Equations</a> for a complete discussion.</p>
+<p>This opens a text editor dialog that looks like this:</p>
+<div class="center">
+
+<img src="media/WirebondModelEquations.png" alt="WirebondModelEquations" width="666" height="170" />
+
+</div>
+
+<p>It allows the editing of a script that connects the input variables to the output variables (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a>), whereby both input and output variables can be referenced by elements within the schematic.</p>
+<p>The example shown assumes that the input variables are L, D, and ur. It assumes that possible output variables are A, H, and R.</p>
+<p>Note the status bar at the bottom, if in the Debug menu, Auto debug is selected<img src="media/DebugAutoDebug.png" alt="DebugAutoDebug" width="143" height="110" />, then each time you edit something in the script, the script is checked for errors, and the errors are shown on the status bar. If no errors are detected, ’No Errors’ is shown.</p>
+<p>Also, the script can be forcibly executed from inside the equation editor to see the effect directly on the parent schematic.</p>
+<h3 id="Control-Help:Parameterize-Project">Parameterize Schematic<a class="headerlink" href="#Control-Help:Parameterize-Project" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Variables">Variables</a> Parameterize Schematic</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+R,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Not Available</td>
+</tr>
+</tbody>
+</table>
+<p>Parameterizing the schematic is the primary way of adding schematic variables to a project (as opposed to the <a href="15-Main-Schematic-Dialog.html#par:Add-Schematic-Variable">Add Schematic Variable</a> method).</p>
+<p>Below is an example of a schematic prior to parameterization:</p>
+<div class="center">
+
+<img src="media/ProjectPriorToParameterization.png" alt="ProjectPriorToParameterization" width="530" height="496" />
+
+</div>
+
+<p>When the <a href="29-Preferences.html#sub:Variables.ParameterizeOnlyVisible">Variables.ParameterizeOnlyVisible</a> preference is set to True, then only the visible device properties will be parameterized, otherwise, all device properties will be parameterized.</p>
+<p>The result of parameterizing this schematic with the parameterization of only visible device properties set is shown below:</p>
+<div class="center">
+
+<img src="media/ProjectAfterParameterization.png" alt="ProjectAfterParameterization" width="530" height="496" />
+
+</div>
+
+<p>Here, we can see that every property in every device created a visible schematic variable that is visible and shown in the upper left of the schematic. Each variable name was created from a concatenation of the reference designator and the property name with an underscore in between. Note also that device property value was copied to the schematic variable and the device property now references the schematic variable.</p>
+<p>In this particular case, we wanted all of the R, C, td, zc and pos values to be the same. To do this, the <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a> dialog is opened, and the variables are edited to remove the reference designator, with duplicate variable names deleted <u>after</u> the renaming of the variables. This is because as each variable is renamed, the reference to that variable is automatically modified on the device property. Afterwards, the schematic looks like this:</p>
+<div class="center">
+
+<img src="media/ProjectAfterParameterizationFixup.png" alt="ProjectAfterParameterizationFixup" width="530" height="496" />
+
+</div>
+
+<p>Note the steps to produce this desired result:</p>
+<ol>
+<li>
+<p><code>K1_pos</code> was renamed to <code>Route</code>.</p>
+</li>
+<li>
+<p><code>K2_pos</code> was renamed to <code>Route</code>.</p>
+</li>
+<li>
+<p>One of the duplicate <code>Route</code> variables was deleted.</p>
+</li>
+<li>
+<p><code>RCNetwork2_R</code> was deleted. This caused the value of <code>R</code> on <code>RCNetwork2</code> to revert back to being a constant.</p>
+</li>
+<li>
+<p><code>RCNetwork2_C</code> was deleted. This caused the value of <code>C</code> on <code>RCNetwork2</code> to revert back to being a constant.</p>
+</li>
+<li>
+<p><code>RCNetwork_R</code> was renamed to <code>R</code>.</p>
+</li>
+<li>
+<p><code>RCNetwork_C</code> was renamed to <code>C</code>.</p>
+</li>
+<li>
+<p><code>Tline_td</code> was renamed to <code>td</code>.</p>
+</li>
+<li>
+<p>Tline_zc was renamed to zc.</p>
+</li>
+</ol>
+<h2 id="sub:Help">Help<a class="headerlink" href="#sub:Help" title="Permanent link">&para;</a></h2>
+<p>The Help tasks are a category in the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> for dealing with the help system:</p>
+<ul>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Open-Help-File">Open Help File</a>.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Control-Help">Control Help</a> - for help on any menu elements or toolbar buttons.</p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#Control-Help:Software-Documentation">Software Documentation</a> – for accessing the <em>SignalIntegrity</em> library Python technical documentation.</p>
+</li>
+<li>
+<p><a href="29-Preferences.html#sec:Preferences">Preferences</a> - for editing any global preferences.</p>
+</li>
+</ul>
+<h3 id="Control-Help:Open-Help-File">Open Help File<a class="headerlink" href="#Control-Help:Open-Help-File" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a>, <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>, and <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> Open Help File</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,O</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-contents-5.png" alt="help-contents-5" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This command opens this file that you are currently viewing from the application.</p>
+<h3 id="Control-Help:Control-Help">Control Help<a class="headerlink" href="#Control-Help:Control-Help" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a>, <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>, and <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> Control Help</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,C</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/help-3.png" alt="help-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Control help allows you to get help on any command.</p>
+<p>When in control help, all of the commands are activated. This includes key bindings, toolbar buttons, and menu elements. However, issuing any of the possible commands takes you to a location in the help system corresponding to the desired control instead of actually issuing the command.</p>
+<p>Control help stays active until you either press the escape key, or touch somewhere in the canvas.</p>
+<h3 id="Control-Help:Software-Documentation">Software Documentation<a class="headerlink" href="#Control-Help:Software-Documentation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a>, <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a>, and <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> <a href="#sec:Archiving">Archiving</a>Software Documentation</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,S</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>This opens a web browser, leading the user to the software documentation. This is not the help file, but is the Python documentation for the <em>SignalIntegrity</em> library. In other words, it is a technical manual for the software.</p>
+<h3 id="Control-Help:Preferences">Preferences<a class="headerlink" href="#Control-Help:Preferences" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> Preferences</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Navigation</em></td>
+<td style="text-align: center;">Alt+H,P</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">Always</td>
+</tr>
+</tbody>
+</table>
+<p>Preferences allows editing of any of the various global <a href="29-Preferences.html#sec:Preferences">Preferences</a> for the application.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="14-Simulator-Dialog.html" class="btn btn-neutral float-left" title="Simulator Dialog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="16-Eye-Diagram-Dialog.html" class="btn btn-neutral float-right" title="Eye Diagram Dialog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="14-Simulator-Dialog.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="16-Eye-Diagram-Dialog.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

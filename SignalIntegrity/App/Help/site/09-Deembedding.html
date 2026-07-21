@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Deembedding - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Deembedding";
+        var mkdocs_page_input_path = "09-Deembedding.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Deembedding</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Drawing-a-Schematic-for-Deembedding">Drawing a Schematic for Deembedding</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Unknowns">Unknowns</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Defining-the-System">Defining the System</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Deembedding-Calculation">Deembedding Calculation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Deembedding-Example">Deembedding Example</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Deembedding</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Deembedding">Deembedding<a class="headerlink" href="#sec:Deembedding" title="Permanent link">&para;</a></h1>
+<p>Deembedding is related to <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a>. While <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a> solves for a system resulting from a circuit containing interconnected, known devices, deembedding solves for unknowns given the resulting system and a circuit containing interconnected, known and unknown devices.</p>
+<p>The deembedding problem is stated as: Given a circuit containing interconnected devices, some of whose s-parameters are known and some unknown, and given the s-parameters of the entire system, solve for the s-parameters of the unknown devices.</p>
+<p>The steps required for deembedding are:</p>
+<ul>
+<li>
+<p><a href="09-Deembedding.html#sub:Drawing-a-Schematic-for-Deembedding">Drawing a Schematic for Deembedding</a> containing interconnected devices and wires with <a href="09-Deembedding.html#sub:Unknowns">Unknowns</a>.</p>
+</li>
+<li>
+<p><a href="09-Deembedding.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding</a>.</p>
+</li>
+<li>
+<p><a href="09-Deembedding.html#sub:Defining-the-System">Defining the System</a>.</p>
+</li>
+<li>
+<p><a href="09-Deembedding.html#sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding</a>.</p>
+</li>
+<li>
+<p>Running the <a href="09-Deembedding.html#sub:Deembedding-Calculation">Deembedding Calculation</a>.</p>
+</li>
+</ul>
+<p>If you like, you can read the <a href="09-Deembedding.html#sub:Deembedding-Example">Deembedding Example</a> where hopefully everything will be clear.</p>
+<h2 id="sub:Drawing-a-Schematic-for-Deembedding">Drawing a Schematic for Deembedding<a class="headerlink" href="#sub:Drawing-a-Schematic-for-Deembedding" title="Permanent link">&para;</a></h2>
+<p>When <strong><em>SignalIntegrityApp</em></strong> opens, you have a blank canvas and are ready to draw a schematic.</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>Drawing the schematic for deembedding is accomplished through the addition of parts, ports and wires. At least one part will need to be an <a href="23-Built-in-Devices-Parts.html#device:Unknown">Unknown</a> and there will need to be exactly one <a href="23-Built-in-Devices-Parts.html#device:System">System</a> part.</p>
+<p>To add parts to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>. To add wires to the schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Wire">Add Wire</a>. See the next section about <a href="07-S-Parameter-Generation.html#sub:Attaching-Ports-to-a-Schematic">Attaching Ports to a Schematic for S-parameter Calculation</a>. See <a href="09-Deembedding.html#sub:Unknowns">Unknowns</a> regarding unknowns. See <a href="09-Deembedding.html#sub:Defining-the-System">Defining the System</a> with regard to the system.</p>
+<h2 id="sub:Attaching-Ports-to-a-Schematic-for-Deembedding">Attaching Ports to a Schematic for Deembedding<a class="headerlink" href="#sub:Attaching-Ports-to-a-Schematic-for-Deembedding" title="Permanent link">&para;</a></h2>
+<p>In deembedding applications, ports equate the s-parameters of the circuit to the system (see <a href="09-Deembedding.html#sub:Defining-the-System">Defining the System</a>).</p>
+<p>As you must be aware, s-parameters are a vector of matrix elements, where each matrix element is for a particular frequency (these frequencies are defined by the calculation properties defined in the next section: <a href="07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties">Setting Calculation Properties</a>) and each matrix defines the complex port-port relationship at that frequency.</p>
+<p>Thus, for a set of two-port s-parameters, <span class="arithmatex">\(S_{21}\)</span> refers to the port-port relationship as the output (reflected) wave from port 2 due to an incident wave on port 1 over all the frequencies. These port numbers are defined by the port element added in the schematic and match the system ports.</p>
+<p>To add ports to a schematic, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a>.</p>
+<h2 id="sub:Unknowns">Unknowns<a class="headerlink" href="#sub:Unknowns" title="Permanent link">&para;</a></h2>
+<p>Unknowns are placed in the schematic using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Unknown">Add Unknown</a> or by using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting <a href="23-Built-in-Devices-Parts.html#device:Unknown">Unknown</a> devices from the Unknowns category.</p>
+<p><img src="media/PartPickerUnknownCategory.png" alt="PartPickerUnknownCategory" width="502" height="540" /></p>
+<p>Once selected, the reference designator is used as the name for the unknown.</p>
+<p><img src="media/PartPropertiesUnknown.png" alt="PartPropertiesUnknown" width="394" height="429" /></p>
+<p>When the deembedding result is calculated, the s-parameters generated will have a default name of the project file concatenated with the reference designator for the unknown(s) in the system.</p>
+<h2 id="sub:Defining-the-System">Defining the System<a class="headerlink" href="#sub:Defining-the-System" title="Permanent link">&para;</a></h2>
+<p>The system is defined by placing a special part in the schematic using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-System">Add System</a> or by using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a> and selecting <a href="23-Built-in-Devices-Parts.html#device:System">System</a> devices from the Systems category.</p>
+<p><img src="media/PartPickerSystemsCategory.png" alt="PartPickerSystemsCategory" width="502" height="540" /></p>
+<p>Once selected, a file is selected containing the s-parameters of the system.</p>
+<p><img src="media/PartPropertiesSystem.png" alt="PartPropertiesSystem" width="596" height="458" /></p>
+<p>Note that when a system is placed, there are no red x’s on the unconnected ports. This is because system ports are never connected.</p>
+<p><img src="media/SystemInSchematic.png" alt="SystemInSchematic" width="493" height="340" /></p>
+<p>Note that there must be one system device in a schematic and the port numbering of the system must match the port number of the ports in the schematic. Essentially what you are telling the application is that the s-parameters of the remaining schematic represented by interconnected parts and ports matches the s-parameters of the system device.</p>
+<h2 id="sub:Setting-Calculation-Properties-for-Deembedding">Setting Calculation Properties for Deembedding<a class="headerlink" href="#sub:Setting-Calculation-Properties-for-Deembedding" title="Permanent link">&para;</a></h2>
+<p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
+<p>To set the calculation properties for deembedding, see <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>The calculation properties determine how the deembedded s-parameters are calculated, specifically the frequency points that are calculated. The calculation properties are the same set for all of the <strong><em>SignalIntegrityApp</em></strong> applications. With regard to deembedding, the elements of particular interest are the end frequency, which is the last frequency in the s-parameter calculation, and the frequency points, which are the number of frequency points that will be present in the final s-parameters calculated.</p>
+<h2 id="sub:Deembedding-Calculation">Deembedding Calculation<a class="headerlink" href="#sub:Deembedding-Calculation" title="Permanent link">&para;</a></h2>
+<p>After creating the schematic for s-parameter generation and setting the calculation properties, the s-parameters of the unknowns are calculated using either the <a href="15-Main-Schematic-Dialog.html#Control-Help:Deembed">Deembed</a> command or the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> toolbar button.</p>
+<p>Note that deembedding will not be possible at all (i.e. the menu elements are disabled) if the schematic does not meet the criteria for deembedding. This criteria for the schematic regarding elements are that the schematic must:</p>
+<ul>
+<li>
+<p>have at least one port element (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a>).</p>
+</li>
+<li>
+<p>have at least one <a href="23-Built-in-Devices-Parts.html#device:Unknown">Unknown</a> device.</p>
+</li>
+<li>
+<p>have one <a href="23-Built-in-Devices-Parts.html#device:System">System</a> device.</p>
+</li>
+<li>
+<p>not have any other elements that don’t make sense for deembedding including:</p>
+</li>
+<li>
+<p>output probes</p>
+</li>
+<li>
+<p>measure probes</p>
+</li>
+<li>
+<p>stims</p>
+</li>
+</ul>
+<p>In the deembedding calculation, the first step is to convert the schematic shown into a net list. This netlist puts the graphical schematic into a text based description. Note that this netlist can be created, examined and saved separately if you want. See <a href="24-Netlist.html#sec:Netlist">Netlist</a> for more information on the net list and see <a href="15-Main-Schematic-Dialog.html#Control-Help:Export-Netlist">Export Netlist</a> on ways of viewing and exporting the net lists.</p>
+<p>The net list is passed to a <strong>DeembedderNumericParser</strong> class as described in the software documentation after which the s-parameters of the unknowns are extracted.</p>
+<p>During parsing of the net list, all devices listed are instantiated with the end frequency and number of frequency points specified. If a file device is encountered, the s-parameters read from the file are resampled onto the end frequency and number of frequency points specified.</p>
+<p>Then, for each frequency point, the s-parameters of the unknowns are calculated.</p>
+<p>Sometimes, things go wrong and an error is generated. See <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a> for an explanation of any errors generated during calculation.</p>
+<p>If everything goes correctly, a dialog will open for each of the unknowns with the ability to view the s-parameters calculated and save them to a file. See the section on the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> for more information on the viewing of the results.</p>
+<h2 id="sub:Deembedding-Example">Deembedding Example<a class="headerlink" href="#sub:Deembedding-Example" title="Permanent link">&para;</a></h2>
+<p>In this example, we will deembed a cable from the measurement of a cable cascaded with a filter. To generate this example, we created the cascaded cable and filter using <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a>:</p>
+<p><img src="media/CascCableFilter.png" alt="CascCableFilter" width="476" height="340" /></p>
+<p>We saved the results of this calculation to the file CascCableFilter.s2p.</p>
+<p>We start this example with a blank project:</p>
+<p><img src="media/BlanckCanvas.png" alt="BlanckCanvas" width="469" height="221" /></p>
+<p>Using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Part">Add Part</a>, we select a two port file device:</p>
+<p><img src="media/PartPickerTwoPortFile.png" alt="PartPickerTwoPortFile" width="502" height="540" /></p>
+<p>We browse to the file cable.s2p in the Examples directory:</p>
+<p><img src="media/PartPropertiesTwoPortFile.png" alt="PartPropertiesTwoPortFile" width="520" height="458" /></p>
+<p>Pressing OK places the part in the schematic and we drag it to a good location:</p>
+<p><img src="media/CableInSchematic.png" alt="CableInSchematic" width="476" height="340" /></p>
+<p>Next, we add the unknown filter device using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Unknown">Add Unknown</a>.</p>
+<p><img src="media/PartPickerTwoPortUnknown.png" alt="PartPickerTwoPortUnknown" width="502" height="313" /></p>
+<p>We enter Filter as the name of the unknown:</p>
+<p><img src="media/PartPropertiesTwoPortUnknown.png" alt="PartPropertiesTwoPortUnknown" width="394" height="429" /></p>
+<p>Pressing OK places the part in the schematic and we drag it and connect it to the cable:</p>
+<p><img src="media/CableUnknownInSchematic.png" alt="CableUnknownInSchematic" width="476" height="340" /></p>
+<p>Next, we use <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a> to add ports to the schematic. The properties dialog for the port shows port 1, so we use it as is. Pressing OK places the port in the schematic and we drag it so it is connected to the cable.</p>
+<p><img src="media/PortCableFilterInSchematic.png" alt="PortCableFilterInSchematic" width="476" height="340" /></p>
+<p>Using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-Port">Add Port</a> again, we have the part properties showing port 2. In the part properties dialog, select the mirror horizontally checkbox:</p>
+<p><img src="media/PartPropertiesPort2.png" alt="PartPropertiesPort2" width="394" height="429" /></p>
+<p>Press OK and drag the port so it is connected to the unknown filter:</p>
+<p><img src="media/PortCableFilterPortInSchematic.png" alt="PortCableFilterPortInSchematic" width="476" height="340" /></p>
+<p>Almost done. We now add the system device by using <a href="15-Main-Schematic-Dialog.html#Control-Help:Add-System">Add System</a> and selecting a two port system:</p>
+<p><img src="media/PartPickerTwoPortSystem.png" alt="PartPickerTwoPortSystem" width="502" height="314" /></p>
+<p>Browse to the CascCableFilter.s2p file:</p>
+<p><img src="media/PartPropertiesTwoPortSystem.png" alt="PartPropertiesTwoPortSystem" width="586" height="458" /></p>
+<p>Press OK and place it anywhere in the schematic:</p>
+<p><img src="media/PortCableFilterPortSystemInSchematic.png" alt="PortCableFilterPortSystemInSchematic" width="476" height="340" /></p>
+<p>Assuming that the CascCableFilter.s2p file has the appropriate frequencies, we would want to retain them for the deembedding calculation, so we use <a href="15-Main-Schematic-Dialog.html#Control-Help:S-parameter-Viewer">S-parameter Viewer</a> and select the CasCableFilter.s2p file for viewing:</p>
+<p><img src="media/CascCableFilterInSParameterViewer.png" alt="CascCableFilterInSParameterViewer" width="1033" height="669" /></p>
+<p>Here we can see that the end frequency is 20 GHz and the impulse response length is 50 ns.</p>
+<p>We close this dialog and use <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> and set the end frequency and impulse response length appropriately:</p>
+<p><img src="media/CalculationPropertiesForDeembeddingExample.png" alt="CalculationPropertiesForDeembeddingExample" width="292" height="187" /></p>
+<p>We not that this amounts to one thousand frequency points to 20 GHz.</p>
+<p>Notice now that <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculate-Button">Calculate</a> and <a href="15-Main-Schematic-Dialog.html#Control-Help:Deembed">Deembed</a> are now enabled.</p>
+<p><img src="media/DeembeddingCalculationEnabled.png" alt="DeembeddingCalculationEnabled" width="477" height="341" /></p>
+<p>Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Deembed">Deembed</a> to start the calculation. Once the calculation is complete, the <a href="13-S-parameter-Viewer.html#sec:S-parameter-Viewer">S-parameter Viewer</a> is opened with the result of the deembedding. Use <a href="13-S-parameter-Viewer.html#Control-Help:Save-S-parameter-File">Save S-parameter File</a> to save the result to a file.</p>
+<p><img src="media/DeembeddingResultInSParameterViewer.png" alt="DeembeddingResultInSParameterViewer" width="1033" height="669" /></p>
+<p>Note that I selected S21 for viewing in the above dialog, and pressed unwrap to remove the 593.7 ps of delay from the phase.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="08-Simulation.html" class="btn btn-neutral float-left" title="Simulation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="10-Virtual-Probing.html" class="btn btn-neutral float-right" title="Virtual Probing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="08-Simulation.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="10-Virtual-Probing.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

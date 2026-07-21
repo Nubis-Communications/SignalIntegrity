@@ -1,0 +1,46 @@
+<Project>
+	<CalculationProperties>
+		<EndFrequency>20000000000.0</EndFrequency>
+		<FrequencyPoints>2000</FrequencyPoints>
+		<UserSampleRate>40000000000.0</UserSampleRate>
+	</CalculationProperties>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>711x363+1910+19</Geometry>
+			<Grid>14</Grid>
+			<Originx>1</Originx>
+			<Originy>4</Originy>
+		</DrawingProperties>
+		<Schematic>
+			<Devices>
+				<Device>
+					<ClassName>DeviceReference</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(10, 3)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>3</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>Ref1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
+</Project>

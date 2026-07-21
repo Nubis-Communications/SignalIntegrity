@@ -1,7 +1,8 @@
 # MkDocs configuration for the SignalIntegrity help system.
 #
-# This replaces the old LyX + eLyXer workflow.  The Markdown sources live in
-# ./docs and are produced from Help.lyx by convert_help.py (Pandoc based).
+# This replaces the old LyX + eLyXer workflow.  The Markdown sources in ./docs
+# are now the maintained source of truth (edited directly); they are no longer
+# generated from a LyX document.
 #
 # IMPORTANT: use_directory_urls is disabled so that pages are emitted as flat
 # '<page>.html' files.  This keeps offline (file://) resolution simple and makes
@@ -38,5 +39,5 @@ extra_javascript:
   - javascripts/anchorfix.js
 
 
-# Navigation is auto-generated from the docs/ directory ordering.  convert_help.py
-# prefixes each section file with a zero-padded number to preserve section order.
+# Navigation is auto-generated from the docs/ directory ordering.  Each section
+# file carries a zero-padded numeric prefix to preserve section order.
