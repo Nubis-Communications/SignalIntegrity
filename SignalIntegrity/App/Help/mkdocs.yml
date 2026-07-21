@@ -1,0 +1,42 @@
+# MkDocs configuration for the SignalIntegrity help system.
+#
+# This replaces the old LyX + eLyXer workflow.  The Markdown sources live in
+# ./docs and are produced from Help.lyx by convert_help.py (Pandoc based).
+#
+# IMPORTANT: use_directory_urls is disabled so that pages are emitted as flat
+# '<page>.html' files.  This keeps offline (file://) resolution simple and makes
+# the 'page.html#anchor' links generated in the helpkeys file work identically
+# both online (GitHub Pages) and offline.
+site_name: SignalIntegrity Help
+docs_dir: docs
+site_dir: site
+use_directory_urls: false
+
+# A built-in theme (no extra pip install required).  Switch to 'material' if you
+# install mkdocs-material and want richer search/navigation.
+theme:
+  name: readthedocs
+
+markdown_extensions:
+  # attr_list + toc(permalink) let headings carry explicit ids such as
+  # '### New Project {#Control-Help:New-Project}' so context-help anchors match
+  # the labels referenced by AddHelpElement(...) in the application code.
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  # arithmatex renders LaTeX math ('$...$' inline, '$$...$$' display) via MathJax.
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  # Re-scroll to the context-help anchor after load/MathJax reflow so that
+  # 'Control Help' opens at the referenced section instead of the page top.
+  - javascripts/anchorfix.js
+
+
+# Navigation is auto-generated from the docs/ directory ordering.  convert_help.py
+# prefixes each section file with a zero-padded number to preserve section order.
