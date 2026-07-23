@@ -45,6 +45,7 @@ Control-Help:Flip-Vertically >>> 15-Main-Schematic-Dialog.html#Control-Help:Flip
 Control-Help:Freshen-Archive >>> 15-Main-Schematic-Dialog.html#Control-Help:Freshen-Archive
 Control-Help:Linear-Vertical-Scale >>> 13-S-parameter-Viewer.html#Control-Help:Linear-Vertical-Scale
 Control-Help:New-Project >>> 15-Main-Schematic-Dialog.html#Control-Help:New-Project
+Control-Help:Noise-Measurements >>> 31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements
 Control-Help:Only-Recalculate-Eye-Diagram >>> 16-Eye-Diagram-Dialog.html#Control-Help:Only-Recalculate-Eye-Diagram
 Control-Help:Open-Help-File >>> 15-Main-Schematic-Dialog.html#Control-Help:Open-Help-File
 Control-Help:Open-Project >>> 15-Main-Schematic-Dialog.html#Control-Help:Open-Project
@@ -91,6 +92,10 @@ Control-Help:Simulator-Open-Help-File >>> 14-Simulator-Dialog.html#Control-Help:
 Control-Help:Simulator-Preferences >>> 14-Simulator-Dialog.html#Control-Help:Simulator-Preferences
 Control-Help:Simulator-output-to-LaTeX >>> 14-Simulator-Dialog.html#Control-Help:Simulator-output-to-LaTeX
 Control-Help:Software-Documentation >>> 15-Main-Schematic-Dialog.html#Control-Help:Software-Documentation
+Control-Help:Statistical-Noise-Control-Help >>> 31-Statistical-Noise-Dialog.html#Control-Help:Statistical-Noise-Control-Help
+Control-Help:Statistical-Noise-Open-Help-File >>> 31-Statistical-Noise-Dialog.html#Control-Help:Statistical-Noise-Open-Help-File
+Control-Help:Statistical-Noise-Preferences >>> 31-Statistical-Noise-Dialog.html#Control-Help:Statistical-Noise-Preferences
+Control-Help:Statistical-Noise-Save-CSV >>> 31-Statistical-Noise-Dialog.html#Control-Help:Statistical-Noise-Save-CSV
 Control-Help:Toggle-Selections >>> 14-Simulator-Dialog.html#Control-Help:Toggle-Selections
 Control-Help:Undo >>> 15-Main-Schematic-Dialog.html#Control-Help:Undo
 Control-Help:Unextract-Archive >>> 15-Main-Schematic-Dialog.html#Control-Help:Unextract-Archive
@@ -117,6 +122,8 @@ device:Current-Probe >>> 23-Built-in-Devices-Parts.html#device:Current-Probe
 device:Current-Pulse-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Pulse-Generator
 device:Current-Sine-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Sine-Generator
 device:Current-Source >>> 23-Built-in-Devices-Parts.html#device:Current-Source
+device:Current-StatisticaL-Noise-Source >>> 23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source
+device:Current-StatisticaL-Noise-Source-Project >>> 23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source-Project
 device:Current-Step-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Step-Generator
 device:Device-Under-Test >>> 23-Built-in-Devices-Parts.html#device:Device-Under-Test
 device:Differential-Eye-Probe >>> 23-Built-in-Devices-Parts.html#device:Differential-Eye-Probe
@@ -182,6 +189,8 @@ device:Voltage-PRBS-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-
 device:Voltage-Pulse-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Pulse-Generator
 device:Voltage-Sine-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Sine-Generator
 device:Voltage-Source >>> 23-Built-in-Devices-Parts.html#device:Voltage-Source
+device:Voltage-StatisticaL-Noise-Source >>> 23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source
+device:Voltage-StatisticaL-Noise-Source-Project >>> 23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source-Project
 device:Voltage-Step-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator
 device:W-Element >>> 23-Built-in-Devices-Parts.html#device:W-Element
 device:Waveform >>> 23-Built-in-Devices-Parts.html#device:Waveform
@@ -213,6 +222,7 @@ sec:License >>> 03-License.html#sec:License
 sec:Main-Schematic-Dialog >>> 15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog
 sec:Netlist >>> 24-Netlist.html#sec:Netlist
 sec:Network-Analyzer-Measurements >>> 12-Network-Analyzer-Measurements.html#sec:Network-Analyzer-Measurements
+sec:Parallel-Calculations >>> 32-Parallel-Calculations.html#sec:Parallel-Calculations
 sec:Post-Processing >>> 25-Post-Processing.html#sec:Post-Processing
 sec:Preferences >>> 29-Preferences.html#sec:Preferences
 sec:RLGC-Fit >>> 11-RLGC-Fit.html#sec:RLGC-Fit
@@ -221,9 +231,11 @@ sec:S-parameter-Viewer >>> 13-S-parameter-Viewer.html#sec:S-parameter-Viewer
 sec:Sampled-Waveforms-Dialog >>> 20-Sampled-Waveforms-Dialog.html#sec:Sampled-Waveforms-Dialog
 sec:Simulation >>> 08-Simulation.html#sec:Simulation
 sec:Simulator-Dialog >>> 14-Simulator-Dialog.html#sec:Simulator-Dialog
+sec:Statistical-Noise-Dialog >>> 31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog
 sec:Virtual-Probing >>> 10-Virtual-Probing.html#sec:Virtual-Probing
 sec:Waveform >>> 28-Waveform.html#sec:Waveform
 sub:Alignment-Mode >>> 22-Eye-Diagram-Properties.html#sub:Alignment-Mode
+sub:Allow-Parallelization >>> 15-Main-Schematic-Dialog.html#sub:Allow-Parallelization
 sub:Annotate-Contour >>> 22-Eye-Diagram-Properties.html#sub:Annotate-Contour
 sub:Annotate-Eye-Height >>> 22-Eye-Diagram-Properties.html#sub:Annotate-Eye-Height
 sub:Annotate-Eye-Width >>> 22-Eye-Diagram-Properties.html#sub:Annotate-Eye-Width
@@ -257,6 +269,7 @@ sub:Cache.LogCache >>> 29-Preferences.html#sub:Cache.LogCache
 sub:Calculate >>> 15-Main-Schematic-Dialog.html#sub:Calculate
 sub:Calculating-S-parameters >>> 07-S-Parameter-Generation.html#sub:Calculating-S-parameters
 sub:Calculation.AllowNonUniqueSolutions >>> 29-Preferences.html#sub:Calculation.AllowNonUniqueSolutions
+sub:Calculation.AllowParallelization >>> 29-Preferences.html#sub:Calculation.AllowParallelization
 sub:Calculation.CheckConditionNumber >>> 29-Preferences.html#sub:Calculation.CheckConditionNumber
 sub:Calculation.Enforce12458 >>> 29-Preferences.html#sub:Calculation.Enforce12458
 sub:Calculation.IgnoreMissingOtherWaveforms >>> 29-Preferences.html#sub:Calculation.IgnoreMissingOtherWaveforms
@@ -279,6 +292,7 @@ sub:Drawing-a-Schematic-for-S-parameter-Generation >>> 07-S-Parameter-Generation
 sub:Drawing-a-Schematic-for-Simulation >>> 08-Simulation.html#sub:Drawing-a-Schematic-for-Simulation
 sub:Drawing-a-Schematic-for-Virtual-Probing >>> 10-Virtual-Probing.html#sub:Drawing-a-Schematic-for-Virtual-Probing
 sub:Edit >>> 15-Main-Schematic-Dialog.html#sub:Edit
+sub:Enabling-Parallel-Calculations >>> 32-Parallel-Calculations.html#sub:Enabling-Parallel-Calculations
 sub:Encryption.Ending >>> 29-Preferences.html#sub:Encryption.Ending
 sub:Encryption.Password >>> 29-Preferences.html#sub:Encryption.Password
 sub:Enhanced-Precision-Mode >>> 22-Eye-Diagram-Properties.html#sub:Enhanced-Precision-Mode
@@ -325,6 +339,10 @@ sub:OpenLastFile >>> 29-Preferences.html#sub:OpenLastFile
 sub:Output-Probes-for Simulation >>> 08-Simulation.html#sub:Output-Probes-for Simulation
 sub:Output-Probes-for-Simulation >>> 08-Simulation.html#sub:Output-Probes-for-Simulation
 sub:Output-Probes-for-Virtual-Probing >>> 10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing
+sub:Parallel-Calculations-Preference >>> 32-Parallel-Calculations.html#sub:Parallel-Calculations-Preference
+sub:Parallel-Calculations-Property >>> 32-Parallel-Calculations.html#sub:Parallel-Calculations-Property
+sub:Parallel-Calculations-Sub-blocks >>> 32-Parallel-Calculations.html#sub:Parallel-Calculations-Sub-blocks
+sub:Parallel-Calculations-Theory >>> 32-Parallel-Calculations.html#sub:Parallel-Calculations-Theory
 sub:Parts >>> 15-Main-Schematic-Dialog.html#sub:Parts
 sub:Plot-Window-Preferences >>> 29-Preferences.html#sub:Plot-Window-Preferences
 sub:Points-to-Trim >>> 22-Eye-Diagram-Properties.html#sub:Points-to-Trim
@@ -362,6 +380,15 @@ sub:Simulator-Selection-Menu >>> 14-Simulator-Dialog.html#sub:Simulator-Selectio
 sub:Simulator-View-Menu >>> 14-Simulator-Dialog.html#sub:Simulator-View-Menu
 sub:Sources-and-Generators >>> 08-Simulation.html#sub:Sources-and-Generators
 sub:Standard-Preferences >>> 29-Preferences.html#sub:Standard-Preferences
+sub:Statistical-Noise-Analysis >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis
+sub:Statistical-Noise-Calculate-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Calculate-Menu
+sub:Statistical-Noise-Help-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Help-Menu
+sub:Statistical-Noise-Measurements >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Measurements
+sub:Statistical-Noise-Preferences >>> 29-Preferences.html#sub:Statistical-Noise-Preferences
+sub:Statistical-Noise-Selection-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Selection-Menu
+sub:Statistical-Noise-View-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-View-Menu
+sub:StatisticalNoise.MaximumSNR >>> 29-Preferences.html#sub:StatisticalNoise.MaximumSNR
+sub:StatisticalNoise.ZeroThreshold >>> 29-Preferences.html#sub:StatisticalNoise.ZeroThreshold
 sub:Stimuli >>> 10-Virtual-Probing.html#sub:Stimuli
 sub:System-Description-Error >>> 27-Errors-and-Exceptions.html#sub:System-Description-Error
 sub:Timing >>> 18-Eye-Diagram-Measurements-Dialog.html#sub:Timing

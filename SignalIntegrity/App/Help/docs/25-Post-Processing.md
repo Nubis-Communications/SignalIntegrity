@@ -22,9 +22,19 @@ Valid post-processing commands are:
 
 - enforce all – is the same as issuing [Enforce All](13-S-parameter-Viewer.md#Control-Help:Enforce-All) on the final result.
 
-- limit \<negative\> \<positive\> - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
+- limit <negative> <positive> - limits the impulse response lengths of the final result to be between the negative and positive time values specified.
 
-- reference impedance \<value\> – sets the resulting s-parameter calculation reference impedance according to the value specified.
+- reference impedance <value> – sets the resulting s-parameter calculation reference impedance according to the value specified.
+
+- offset <negative> <positive> - removes the DC offset from the impulse responses of the final result by subtracting the mean of the impulse response samples that fall outside the negative and positive time limits specified. Either or both limits may be given as none, and if no limits are supplied the entire impulse response is used.
+
+- port reorder <order> - reorders the ports of the final result according to the comma-separated list of one-based port numbers specified (for example, port reorder 1,3,2,4).
+
+- taper <from> <to> - tapers the frequency response of the final result, keeping it flat up to the from frequency and rolling it off to zero with a raised cosine between the from and to frequencies. If the to frequency is omitted, the last frequency is used.
+
+- wavelet denoise <threshold> - denoises the final result by keeping only the wavelet transform coefficients of each impulse response whose absolute value exceeds the threshold specified.
+
+- ! <text> - adds the specified text as a comment line in the header of the resulting s-parameter file.
 
 If the post-processing commands are not recognized or cannot be parsed, the [PostProcessing](27-Errors-and-Exceptions.md#sub:PostProcessing) exception is raised
 

@@ -14,6 +14,8 @@ The simulator dialog (which is really a waveform viewer dialog) appears under th
 
 - When viewing the [Waveform](28-Waveform.md#sec:Waveform) associated with a [Voltage Measure Probe](23-Built-in-Devices-Parts.md#device:Measure-Probe), [Current Source](23-Built-in-Devices-Parts.md#device:Current-Source) or [Voltage Source](23-Built-in-Devices-Parts.md#device:Voltage-Source) in a schematic through the [Edit Properties](15-Main-Schematic-Dialog.md#Control-Help:Edit-Properties) command.
 
+When the simulated schematic contains one or more enabled statistical noise sources, the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog) opens in addition to this dialog, showing the output noise spectral densities and measurements.
+
 This dialog has a menu and toolbar with commands that handle:
 
 - [Simulator File Menu](14-Simulator-Dialog.md#sub:Simulator-File-Menu)

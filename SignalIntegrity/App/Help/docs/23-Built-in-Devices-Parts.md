@@ -104,6 +104,16 @@ Generators
 
 - [Current Sine Generator](23-Built-in-Devices-Parts.md#device:Current-Sine-Generator)
 
+Statistical Noise Sources
+
+- [Voltage Statistical Noise Source](23-Built-in-Devices-Parts.md#device:Voltage-StatisticaL-Noise-Source)
+
+- [Voltage Statistical Noise Source (Project)](23-Built-in-Devices-Parts.md#device:Voltage-StatisticaL-Noise-Source-Project)
+
+- [Current Statistical Noise Source](23-Built-in-Devices-Parts.md#device:Current-StatisticaL-Noise-Source)
+
+- [Current Statistical Noise Source (Project)](23-Built-in-Devices-Parts.md#device:Current-StatisticaL-Noise-Source-Project)
+
 Probes and Ports
 
 - [Port](23-Built-in-Devices-Parts.md#device:Port)
@@ -167,6 +177,8 @@ Network Analysis Devices
 - [Network Analyzer Stimulus](23-Built-in-Devices-Parts.md#device:Network-Analyzer-Stimulus)
 
 - [Network Analyzer Model](23-Built-in-Devices-Parts.md#device:Network-Analyzer-Model)
+
+- [Network Analyzer Device-Under-Test](23-Built-in-Devices-Parts.md#device:Device-Under-Test)
 
 Equalizers
 
@@ -1233,6 +1245,7 @@ The [Waveform](28-Waveform.md#sec:Waveform) file can be viewed using [Edit Prope
 | voltage offset    | float              | offset  | V     | V                |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
+| include in noise  | string (on or off) | noise   |       | on               |
 
 The output probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1249,6 +1262,8 @@ There are some special prefixes on the reference that cause the calculation resu
 - ’di/’ – causes the integral of the derivative to be calculated.
 
 If the state is set to off, the waveform is not calculated.
+
+The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 ## Stim {#device:Stim}
 
@@ -1300,6 +1315,7 @@ Note that the reference designator of the stim is not used for anything. See [st
 | offset            | float              | offset  | V     | V                |
 | transconductance  | float              | gain    | V/A   |                  |
 | state             | string (on or off) | state   |       | on               |
+| include in noise  | string (on or off) | noise   |       | on               |
 
 The current probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output current waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1321,6 +1337,8 @@ When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a cur
 
 If the state is set to off, the waveform is not calculated.
 
+The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+
 ## Voltage Diff Probe {#device:Voltage-Diff-Probe}
 
 <img src="media/DiffProbe.png" alt="DiffProbe" width="110" height="127" />
@@ -1334,6 +1352,7 @@ If the state is set to off, the waveform is not calculated.
 | voltage offset    | float              | offset  | V     | V                |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
+| include in noise  | string (on or off) | noise   |       | on               |
 
 The voltage diff probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1355,6 +1374,8 @@ When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a dif
 
 If the state is set to off, the waveform is not calculated.
 
+The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+
 ## Eye Probe {#device:Eye-Probe}
 
 <img src="media/EyeProbe.png" alt="EyeProbe" width="103" height="161" />
@@ -1369,6 +1390,7 @@ If the state is set to off, the waveform is not calculated.
 | voltage offset    | float              | offset   | V     | V                |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
+| include in noise  | string (on or off) | noise    |       | on               |
 | eye state         | string (on or off) | eyestate |       | on               |
 
 The eye probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms along with eye diagrams to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing). As such, this probe behaves exactly like a [Voltage Diff Probe](23-Built-in-Devices-Parts.md#device:Voltage-Diff-Probe), with the addition of the eye diagram.
@@ -1388,6 +1410,8 @@ There are some special prefixes on the reference that cause the calculation resu
 If the state is set to off, the waveform is not calculated.
 
 If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
+
+The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). For eye probes, this property only controls whether the probe appears in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog); even when it is set to *off*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 When simulations are complete, for each Eye Probe, the [Eye Diagram Dialog](16-Eye-Diagram-Dialog.md#sec:Eye-Diagram-Dialog) is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.
 
@@ -1411,6 +1435,7 @@ When adding an eye probe, the default values are read from the [Preferences](29-
 | voltage offset    | float              | offset   | V     | V                |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
+| include in noise  | string (on or off) | noise    |       | on               |
 | eye state         | string (on or off) | eyestate |       | on               |
 
 There are some special prefixes on the reference that cause the calculation result to be special calculations:
@@ -1424,6 +1449,8 @@ There are some special prefixes on the reference that cause the calculation resu
 If the state is set to off, the waveform is not calculated.
 
 If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
+
+The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). For eye probes, this property only controls whether the probe appears in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog); even when it is set to *off*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a differential probe in it. Instead, during netlist creation, a [Voltage Diff Probe](23-Built-in-Devices-Parts.md#device:Voltage-Diff-Probe) is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an [Open](23-Built-in-Devices-Parts.md#device:Open). A voltage [Voltage Output Probe](23-Built-in-Devices-Parts.md#device:Output-Probe) then probes the open.
 
@@ -2176,4 +2203,112 @@ The filter is a gaussian with sufficient width that the integral of this gaussia
 Gaussian risetime filters are most commonly used in the standards, usually with a 20-80 risetime specified.
 
 See also the [Raised Cosine Risetime Filter](23-Built-in-Devices-Parts.md#device:RaisedCosineRisetimeFilter).
+
+## Voltage Statistical Noise Source {#device:Voltage-StatisticaL-Noise-Source}
+
+<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="200" height="176" />
+
+| Property Name     | Type   | Keyword | Units | (Default) Value |
+|:------------------|:-------|:--------|:------|:----------------|
+| category          |        |         |       | Statistical Noise Sources |
+| default reference | string |         |       | VN?             |
+| reference         | string |         |       |                 |
+| ports             | int    |         |       | 1, 2, or 4      |
+
+The voltage statistical noise source injects a voltage noise spectral density into the circuit for a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). Unlike the time-domain [Voltage Noise Generator](23-Built-in-Devices-Parts.md#device:Voltage-Noise-Generator), it does not produce a random waveform; instead it contributes a spectral density that is propagated to the output probes and reported in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog).
+
+The source is available as a one-port, two-port, differential, and common-mode element. The differential element injects its noise in series between the two conductors of a differential pair (differential-mode), while the common-mode element injects the same noise onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:
+
+<div class="center">
+
+<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+
+</div>
+
+Its noise is configured through the [Edit Properties](15-Main-Schematic-Dialog.md#Control-Help:Edit-Properties) command, which opens the statistical noise properties dialog with the following fields:
+
+- **Enable Noise** - enables noise generation for this device. When disabled, the source contributes no noise.
+
+- **Noise Type** - one of `WhiteNoise`, `SpectralDensityFile` (read the spectral density from a file), `WaveformFile` (derive the spectral density from a waveform file), or `Crosstalk` (use another output probe's waveform as the noise source).
+
+- **Lanes** - the number of identical, uncorrelated lanes of noise represented by this source; the spectral density is scaled by $\sqrt{\mathrm{Lanes}}$.
+
+For the `WhiteNoise` type, the level can be specified in any one of several equivalent ways using the **White Noise Type** selection; changing one representation updates the others (using the **Noise Bandwidth** where a total-power figure is involved):
+
+| White Noise Type | Description |
+|:---|:---|
+| dBm/Hz | noise power spectral density in dBm/Hz |
+| V/√Hz | amplitude spectral density in volts per root Hz |
+| V²/GHz (η0) | power spectral density in V² per GHz |
+| Vrms | total rms noise integrated over the noise bandwidth |
+| ENOB | derived from an effective number of bits and a peak-to-peak voltage |
+| COM TX | derived from a COM transmitter cursor height, SNR, and 20-80 risetime (Gaussian spectral shaping) |
+| Johnson | thermal noise derived from a temperature and resistance |
+
+A **Save Properties to Global Preferences** button stores the current settings as the defaults for new statistical noise sources (see [Statistical Noise Preferences](29-Preferences.md#sub:Statistical-Noise-Preferences)).
+
+## Voltage Statistical Noise Source (Project) {#device:Voltage-StatisticaL-Noise-Source-Project}
+
+<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" />
+
+| Property Name     | Type   | Keyword    | Units | (Default) Value |
+|:------------------|:-------|:-----------|:------|:----------------|
+| category          |        |            |       | Statistical Noise Sources |
+| default reference | string |            |       | VN?             |
+| reference         | string |            |       |                 |
+| project name      | string | wfprojname |       |                 |
+| waveform file     | string | wffile     |       |                 |
+| lanes             | float  | lanes      |       | 1               |
+| show              | bool   | show       |       |                 |
+
+The project variant of the voltage statistical noise source obtains its noise spectral density from another SignalIntegrity project. The referenced project is calculated (optionally using the calculation properties and schematic variables of the current project) and the resulting waveform's spectral density becomes the injected noise, scaled by $\sqrt{\mathrm{Lanes}}$.
+
+This is useful for building a hierarchy in which the noise of a sub-circuit, characterized in its own project, drives a statistical noise source in a higher-level design.
+
+## Current Statistical Noise Source {#device:Current-StatisticaL-Noise-Source}
+
+<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="200" height="176" />
+
+| Property Name     | Type   | Keyword | Units | (Default) Value |
+|:------------------|:-------|:--------|:------|:----------------|
+| category          |        |         |       | Statistical Noise Sources |
+| default reference | string |         |       | IN?             |
+| reference         | string |         |       |                 |
+| ports             | int    |         |       | 1, 2, or 4      |
+
+The current statistical noise source is the current-injecting counterpart of the [Voltage Statistical Noise Source](23-Built-in-Devices-Parts.md#device:Voltage-StatisticaL-Noise-Source). It contributes a current noise spectral density to a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis) and is configured through the same statistical noise properties dialog, with the **Enable Noise**, **Noise Type**, and **Lanes** fields.
+
+Like the voltage source, it is available as a one-port, two-port, differential, and common-mode element. The differential element injects a noise current differentially between the two conductors of a differential pair (differential-mode), while the common-mode element injects an equal noise current onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:
+
+<div class="center">
+
+<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+
+</div>
+
+
+For the `WhiteNoise` type, the current source level is specified in current units using the **White Noise Type** selection:
+
+| White Noise Type | Description |
+|:---|:---|
+| dBm/Hz | noise power spectral density in dBm/Hz |
+| A/√Hz | amplitude spectral density in amperes per root Hz |
+| A²/GHz | power spectral density in A² per GHz |
+| Arms | total rms noise integrated over the noise bandwidth |
+
+## Current Statistical Noise Source (Project) {#device:Current-StatisticaL-Noise-Source-Project}
+
+<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" />
+
+| Property Name     | Type   | Keyword    | Units | (Default) Value |
+|:------------------|:-------|:-----------|:------|:----------------|
+| category          |        |            |       | Statistical Noise Sources |
+| default reference | string |            |       | IN?             |
+| reference         | string |            |       |                 |
+| project name      | string | wfprojname |       |                 |
+| waveform file     | string | wffile     |       |                 |
+| lanes             | float  | lanes      |       | 1               |
+| show              | bool   | show       |       |                 |
+
+The project variant of the current statistical noise source obtains its current noise spectral density from another SignalIntegrity project, in the same manner as the [Voltage Statistical Noise Source (Project)](23-Built-in-Devices-Parts.md#device:Voltage-StatisticaL-Noise-Source-Project), scaled by $\sqrt{\mathrm{Lanes}}$.
 

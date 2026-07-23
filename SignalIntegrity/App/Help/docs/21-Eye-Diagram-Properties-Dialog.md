@@ -74,6 +74,10 @@ Eyes can be generated from only the input supplied waveform by specifying the [E
 
 The kernel is specified as the convolution of two 2D kernels (to produce a 3D kernel). The vertical 2D kernel is a Gaussian determined by the specified amount of [Noise](22-Eye-Diagram-Properties.md#sub:Noise) (in rms voltage). The horizontal 2D kernel is again two kernels convolved with each other horizontally. The first is a Gaussian determined by the amount of [Random Jitter](22-Eye-Diagram-Properties.md#sub:Random-Jitter) specified (as rms jitter), and the other is a dual Dirac, where each delta function is $1/2$ in area, separated by the amount of [Deterministic Jitter](22-Eye-Diagram-Properties.md#sub:Deterministic-Jitter) specified.
 
+The vertical [Noise](22-Eye-Diagram-Properties.md#sub:Noise) is entered as an **Inherent Noise** value. A companion read-only **External Noise** box holds the total integrated output noise computed by a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis) for this eye probe. The noise used to build the vertical kernel is the root-sum-square of the two, $\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}$, so any noise integrated by the statistical noise analysis is automatically added to the eye diagram.
+
+
+
 The desired size of the kernel is such that 10 standard deviations exist on all sides of the kernel. This is for good probability calculations, even when probabilities are low.
 
 To prevent pathological situations resulting from the incorrect entry of jitter and noise amounts, the resulting kernel is limited in size to the amount specified as the [Max Kernel Pixels](22-Eye-Diagram-Properties.md#sub:Max-Kernel-Pixels).

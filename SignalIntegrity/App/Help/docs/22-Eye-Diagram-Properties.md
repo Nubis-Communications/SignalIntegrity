@@ -325,6 +325,8 @@ When [Eye Mode](22-Eye-Diagram-Properties.md#sub:Eye-Mode) is set to ISI Only, t
 
 When [Eye Mode](22-Eye-Diagram-Properties.md#sub:Eye-Mode) is set to Jitter & Noise, the noise specified is the rms value of Gaussian, unbounded noise added vertically to the waveform.
 
+In the dialog, this value is labeled **Inherent Noise** and represents the user-entered noise. It is accompanied by a read-only **External Noise** box that is populated with the total integrated output noise computed by a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis) for the corresponding eye probe. The vertical noise actually applied to the eye diagram is the root-sum-square of the two entries, $\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}$. When no statistical noise analysis has been performed, the External Noise is zero and only the Inherent Noise is used.
+
 When [Eye Mode](22-Eye-Diagram-Properties.md#sub:Eye-Mode) is set to ISI Only, this jitter value is not used and not shown.
 
 ## Max Kernel Pixels {#sub:Max-Kernel-Pixels}

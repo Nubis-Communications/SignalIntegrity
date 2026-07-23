@@ -179,6 +179,14 @@
                 <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -274,6 +282,7 @@
 <p><strong>Jitter and Noise Addition</strong></p>
 <p>Eyes can be generated from only the input supplied waveform by specifying the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> as ISI Only. Specifying the <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> as Jitter &amp; Noise allows for the addition of jitter and noise statistically through the creation of a smoothing kernel.</p>
 <p>The kernel is specified as the convolution of two 2D kernels (to produce a 3D kernel). The vertical 2D kernel is a Gaussian determined by the specified amount of <a href="22-Eye-Diagram-Properties.html#sub:Noise">Noise</a> (in rms voltage). The horizontal 2D kernel is again two kernels convolved with each other horizontally. The first is a Gaussian determined by the amount of <a href="22-Eye-Diagram-Properties.html#sub:Random-Jitter">Random Jitter</a> specified (as rms jitter), and the other is a dual Dirac, where each delta function is <span class="arithmatex">\(1/2\)</span> in area, separated by the amount of <a href="22-Eye-Diagram-Properties.html#sub:Deterministic-Jitter">Deterministic Jitter</a> specified.</p>
+<p>The vertical <a href="22-Eye-Diagram-Properties.html#sub:Noise">Noise</a> is entered as an <strong>Inherent Noise</strong> value. A companion read-only <strong>External Noise</strong> box holds the total integrated output noise computed by a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a> for this eye probe. The noise used to build the vertical kernel is the root-sum-square of the two, <span class="arithmatex">\(\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}\)</span>, so any noise integrated by the statistical noise analysis is automatically added to the eye diagram.</p>
 <p>The desired size of the kernel is such that 10 standard deviations exist on all sides of the kernel. This is for good probability calculations, even when probabilities are low.</p>
 <p>To prevent pathological situations resulting from the incorrect entry of jitter and noise amounts, the resulting kernel is limited in size to the amount specified as the <a href="22-Eye-Diagram-Properties.html#sub:Max-Kernel-Pixels">Max Kernel Pixels</a>.</p>
 <p><strong>Log Intensity</strong></p>

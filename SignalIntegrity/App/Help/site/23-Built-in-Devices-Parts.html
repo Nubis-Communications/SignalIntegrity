@@ -300,6 +300,14 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:GaussianRisetimeFilter">Gaussian Risetime Filter</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -329,6 +337,14 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
                 </li>
               </ul>
       </div>
@@ -505,6 +521,21 @@
 <p><a href="23-Built-in-Devices-Parts.html#device:Current-Sine-Generator">Current Sine Generator</a></p>
 </li>
 </ul>
+<p>Statistical Noise Sources</p>
+<ul>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)</a></p>
+</li>
+</ul>
 <p>Probes and Ports</p>
 <ul>
 <li>
@@ -599,6 +630,9 @@
 </li>
 <li>
 <p><a href="23-Built-in-Devices-Parts.html#device:Network-Analyzer-Model">Network Analyzer Model</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Device-Under-Test">Network Analyzer Device-Under-Test</a></p>
 </li>
 </ul>
 <p>Equalizers</p>
@@ -3802,6 +3836,13 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;">on</td>
 </tr>
+<tr>
+<td style="text-align: left;">include in noise</td>
+<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">on</td>
+</tr>
 </tbody>
 </table>
 <p>The output probe is used in <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> and <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to specify output waveforms to be produced as a result of the calculation. See <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a> and <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>.</p>
@@ -3820,6 +3861,7 @@
 </li>
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
+<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Stim">Stim<a class="headerlink" href="#device:Stim" title="Permanent link">&para;</a></h2>
 <p><img src="media/Stim.png" alt="Stim" width="106" height="72" /></p>
 <table>
@@ -3946,6 +3988,13 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;">on</td>
 </tr>
+<tr>
+<td style="text-align: left;">include in noise</td>
+<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">on</td>
+</tr>
 </tbody>
 </table>
 <p>The current probe is used in <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> and <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to specify output current waveforms to be produced as a result of the calculation. See <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a> and <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>.</p>
@@ -3966,6 +4015,7 @@
 </ul>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a current probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source</a> is created with the current sense aligned with the direction of current in the current probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>If the state is set to off, the waveform is not calculated.</p>
+<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Voltage-Diff-Probe">Voltage Diff Probe<a class="headerlink" href="#device:Voltage-Diff-Probe" title="Permanent link">&para;</a></h2>
 <p><img src="media/DiffProbe.png" alt="DiffProbe" width="110" height="127" /></p>
 <table>
@@ -4028,6 +4078,13 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;">on</td>
 </tr>
+<tr>
+<td style="text-align: left;">include in noise</td>
+<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">on</td>
+</tr>
 </tbody>
 </table>
 <p>The voltage diff probe is used in <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a> and <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to specify output waveforms to be produced as a result of the calculation. See <a href="08-Simulation.html#sub:Output-Probes-for-Simulation">Output Probes for Simulation</a> and <a href="10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing">Output Probes for Virtual Probing</a>.</p>
@@ -4048,6 +4105,7 @@
 </ul>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Diff-Probe">Voltage Diff Probe</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>If the state is set to off, the waveform is not calculated.</p>
+<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Eye-Probe">Eye Probe<a class="headerlink" href="#device:Eye-Probe" title="Permanent link">&para;</a></h2>
 <p><img src="media/EyeProbe.png" alt="EyeProbe" width="103" height="161" /></p>
 <table>
@@ -4118,6 +4176,13 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
+<td style="text-align: left;">include in noise</td>
+<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">on</td>
+</tr>
+<tr>
 <td style="text-align: left;">eye state</td>
 <td style="text-align: left;">string (on or off)</td>
 <td style="text-align: left;">eyestate</td>
@@ -4143,6 +4208,7 @@
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
 <p>If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.</p>
+<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. For eye probes, this property only controls whether the probe appears in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>; even when it is set to <em>off</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <p>When simulations are complete, for each Eye Probe, the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.</p>
 <p>The eye diagram and other post-processing is performed according to the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a>, that are unique for each eye probe, and can be accessed through the eye diagram configuration in the Eye Probe properties dialog in the button below:</p>
 <p><img src="media/EyeProbePropertiesdialog.png" alt="EyeProbePropertiesdialog" width="475" height="599" /></p>
@@ -4217,6 +4283,13 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
+<td style="text-align: left;">include in noise</td>
+<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">on</td>
+</tr>
+<tr>
 <td style="text-align: left;">eye state</td>
 <td style="text-align: left;">string (on or off)</td>
 <td style="text-align: left;">eyestate</td>
@@ -4239,6 +4312,7 @@
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
 <p>If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.</p>
+<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. For eye probes, this property only controls whether the probe appears in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>; even when it is set to <em>off</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Diff-Probe">Voltage Diff Probe</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>When simulations are complete, for each Eye Probe, the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.</p>
 <p>The eye diagram and other post-processing is performed according to the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a>, that are unique for each eye probe, and can be accessed through the eye diagram configuration in the Eye Probe properties dialog in the button below:</p>
@@ -6057,6 +6131,318 @@
 <p>The filter is a gaussian with sufficient width that the integral of this gaussian supplies the specified time distance between the threshold crossings specified.</p>
 <p>Gaussian risetime filters are most commonly used in the standards, usually with a 20-80 risetime specified.</p>
 <p>See also the <a href="23-Built-in-Devices-Parts.html#device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter</a>.</p>
+<h2 id="device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source<a class="headerlink" href="#device:Voltage-StatisticaL-Noise-Source" title="Permanent link">&para;</a></h2>
+<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="200" height="176" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Statistical Noise Sources</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">VN?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ports</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1, 2, or 4</td>
+</tr>
+</tbody>
+</table>
+<p>The voltage statistical noise source injects a voltage noise spectral density into the circuit for a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. Unlike the time-domain <a href="23-Built-in-Devices-Parts.html#device:Voltage-Noise-Generator">Voltage Noise Generator</a>, it does not produce a random waveform; instead it contributes a spectral density that is propagated to the output probes and reported in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>.</p>
+<p>The source is available as a one-port, two-port, differential, and common-mode element. The differential element injects its noise in series between the two conductors of a differential pair (differential-mode), while the common-mode element injects the same noise onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:</p>
+<div class="center">
+
+<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+
+</div>
+
+<p>Its noise is configured through the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> command, which opens the statistical noise properties dialog with the following fields:</p>
+<ul>
+<li>
+<p><strong>Enable Noise</strong> - enables noise generation for this device. When disabled, the source contributes no noise.</p>
+</li>
+<li>
+<p><strong>Noise Type</strong> - one of <code>WhiteNoise</code>, <code>SpectralDensityFile</code> (read the spectral density from a file), <code>WaveformFile</code> (derive the spectral density from a waveform file), or <code>Crosstalk</code> (use another output probe's waveform as the noise source).</p>
+</li>
+<li>
+<p><strong>Lanes</strong> - the number of identical, uncorrelated lanes of noise represented by this source; the spectral density is scaled by <span class="arithmatex">\(\sqrt{\mathrm{Lanes}}\)</span>.</p>
+</li>
+</ul>
+<p>For the <code>WhiteNoise</code> type, the level can be specified in any one of several equivalent ways using the <strong>White Noise Type</strong> selection; changing one representation updates the others (using the <strong>Noise Bandwidth</strong> where a total-power figure is involved):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">White Noise Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">dBm/Hz</td>
+<td style="text-align: left;">noise power spectral density in dBm/Hz</td>
+</tr>
+<tr>
+<td style="text-align: left;">V/√Hz</td>
+<td style="text-align: left;">amplitude spectral density in volts per root Hz</td>
+</tr>
+<tr>
+<td style="text-align: left;">V²/GHz (η0)</td>
+<td style="text-align: left;">power spectral density in V² per GHz</td>
+</tr>
+<tr>
+<td style="text-align: left;">Vrms</td>
+<td style="text-align: left;">total rms noise integrated over the noise bandwidth</td>
+</tr>
+<tr>
+<td style="text-align: left;">ENOB</td>
+<td style="text-align: left;">derived from an effective number of bits and a peak-to-peak voltage</td>
+</tr>
+<tr>
+<td style="text-align: left;">COM TX</td>
+<td style="text-align: left;">derived from a COM transmitter cursor height, SNR, and 20-80 risetime (Gaussian spectral shaping)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Johnson</td>
+<td style="text-align: left;">thermal noise derived from a temperature and resistance</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>Save Properties to Global Preferences</strong> button stores the current settings as the defaults for new statistical noise sources (see <a href="29-Preferences.html#sub:Statistical-Noise-Preferences">Statistical Noise Preferences</a>).</p>
+<h2 id="device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)<a class="headerlink" href="#device:Voltage-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
+<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Statistical Noise Sources</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">VN?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">project name</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">wfprojname</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waveform file</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">wffile</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">lanes</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">lanes</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>The project variant of the voltage statistical noise source obtains its noise spectral density from another SignalIntegrity project. The referenced project is calculated (optionally using the calculation properties and schematic variables of the current project) and the resulting waveform's spectral density becomes the injected noise, scaled by <span class="arithmatex">\(\sqrt{\mathrm{Lanes}}\)</span>.</p>
+<p>This is useful for building a hierarchy in which the noise of a sub-circuit, characterized in its own project, drives a statistical noise source in a higher-level design.</p>
+<h2 id="device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source<a class="headerlink" href="#device:Current-StatisticaL-Noise-Source" title="Permanent link">&para;</a></h2>
+<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="200" height="176" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Statistical Noise Sources</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IN?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ports</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1, 2, or 4</td>
+</tr>
+</tbody>
+</table>
+<p>The current statistical noise source is the current-injecting counterpart of the <a href="23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source</a>. It contributes a current noise spectral density to a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a> and is configured through the same statistical noise properties dialog, with the <strong>Enable Noise</strong>, <strong>Noise Type</strong>, and <strong>Lanes</strong> fields.</p>
+<p>Like the voltage source, it is available as a one-port, two-port, differential, and common-mode element. The differential element injects a noise current differentially between the two conductors of a differential pair (differential-mode), while the common-mode element injects an equal noise current onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:</p>
+<div class="center">
+
+<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+
+</div>
+
+<p>For the <code>WhiteNoise</code> type, the current source level is specified in current units using the <strong>White Noise Type</strong> selection:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">White Noise Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">dBm/Hz</td>
+<td style="text-align: left;">noise power spectral density in dBm/Hz</td>
+</tr>
+<tr>
+<td style="text-align: left;">A/√Hz</td>
+<td style="text-align: left;">amplitude spectral density in amperes per root Hz</td>
+</tr>
+<tr>
+<td style="text-align: left;">A²/GHz</td>
+<td style="text-align: left;">power spectral density in A² per GHz</td>
+</tr>
+<tr>
+<td style="text-align: left;">Arms</td>
+<td style="text-align: left;">total rms noise integrated over the noise bandwidth</td>
+</tr>
+</tbody>
+</table>
+<h2 id="device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)<a class="headerlink" href="#device:Current-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
+<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Statistical Noise Sources</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IN?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">project name</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">wfprojname</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">waveform file</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">wffile</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">lanes</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">lanes</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>The project variant of the current statistical noise source obtains its current noise spectral density from another SignalIntegrity project, in the same manner as the <a href="23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)</a>, scaled by <span class="arithmatex">\(\sqrt{\mathrm{Lanes}}\)</span>.</p>
               
             </div>
           </div><footer>

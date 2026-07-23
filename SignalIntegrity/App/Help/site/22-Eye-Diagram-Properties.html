@@ -253,6 +253,14 @@
                 <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -1033,6 +1041,7 @@
 </tbody>
 </table>
 <p>When <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> is set to Jitter &amp; Noise, the noise specified is the rms value of Gaussian, unbounded noise added vertically to the waveform.</p>
+<p>In the dialog, this value is labeled <strong>Inherent Noise</strong> and represents the user-entered noise. It is accompanied by a read-only <strong>External Noise</strong> box that is populated with the total integrated output noise computed by a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a> for the corresponding eye probe. The vertical noise actually applied to the eye diagram is the root-sum-square of the two entries, <span class="arithmatex">\(\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}\)</span>. When no statistical noise analysis has been performed, the External Noise is zero and only the Inherent Noise is used.</p>
 <p>When <a href="22-Eye-Diagram-Properties.html#sub:Eye-Mode">Eye Mode</a> is set to ISI Only, this jitter value is not used and not shown.</p>
 <h2 id="sub:Max-Kernel-Pixels">Max Kernel Pixels<a class="headerlink" href="#sub:Max-Kernel-Pixels" title="Permanent link">&para;</a></h2>
 <table>

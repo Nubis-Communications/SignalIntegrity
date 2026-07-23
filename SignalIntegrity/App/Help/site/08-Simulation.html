@@ -177,6 +177,14 @@
                 <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -304,6 +312,7 @@
 <p>After the transfer parameters are generated, the input waveforms are produced or read from files and applied to the filters corresponding to the transfer parameters to generate output waveforms.</p>
 <p>Sometimes, things go wrong and an error is generated. See <a href="27-Errors-and-Exceptions.html#sec:Errors-and-Exceptions">Errors and Exceptions</a> for an explanation of any errors generated during calculation.</p>
 <p>If everything goes correctly, the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a> will open with the ability to view the output waveforms calculated and save them to a file.</p>
+<p>If the schematic contains one or more enabled statistical noise sources (see <a href="23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source</a> and <a href="23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source</a>), the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a> also opens, showing the output noise spectral densities and measurements.</p>
 <h2 id="sub:Simulation-Example">Simulation Example<a class="headerlink" href="#sub:Simulation-Example" title="Permanent link">&para;</a></h2>
 <p>In this example, we will step through the simulation of an RLC network. this example will highlight a few things about simulation that you need to be aware of.</p>
 <p>The circuit we will simulate will be a series 100 nH <a href="23-Built-in-Devices-Parts.html#device:Inductor">Inductor</a>, 1 pF <a href="23-Built-in-Devices-Parts.html#device:Capacitor">Capacitor</a>, and 50 ohm <a href="23-Built-in-Devices-Parts.html#device:Resistor">Resistor</a>. We will simulate with a step voltage applied to the input to the circuit through a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator">Voltage Step Generator</a> and probe initially the voltage at the 50 ohm termination <a href="23-Built-in-Devices-Parts.html#device:Resistor">Resistor</a>.</p>

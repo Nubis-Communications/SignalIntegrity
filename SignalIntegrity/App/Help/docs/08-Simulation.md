@@ -128,6 +128,8 @@ Sometimes, things go wrong and an error is generated. See [Errors and Exceptions
 
 If everything goes correctly, the [Simulator Dialog](14-Simulator-Dialog.md#sec:Simulator-Dialog) will open with the ability to view the output waveforms calculated and save them to a file.
 
+If the schematic contains one or more enabled statistical noise sources (see [Voltage Statistical Noise Source](23-Built-in-Devices-Parts.md#device:Voltage-StatisticaL-Noise-Source) and [Current Statistical Noise Source](23-Built-in-Devices-Parts.md#device:Current-StatisticaL-Noise-Source)), the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog) also opens, showing the output noise spectral densities and measurements.
+
 ## Simulation Example {#sub:Simulation-Example}
 
 In this example, we will step through the simulation of an RLC network. this example will highlight a few things about simulation that you need to be aware of.

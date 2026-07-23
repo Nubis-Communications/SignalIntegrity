@@ -997,13 +997,15 @@ Issuing the Calculation Properties command brings up the calculation properties 
 
 <img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" />
 
-The calculation properties govern how all calculations are performed, and are broken into three sections:
+The calculation properties govern how all calculations are performed, and are broken into four sections:
 
 1.  The main, linear calculation properties,
 
-2.  The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under [Logarithmically Spaced Frequencies Solutions](15-Main-Schematic-Dialog.md#sub:Logarithmically-Spaced-Frequencies-Solutions) (only shown if the preference [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) is True), and
+2.  The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under [Logarithmically Spaced Frequencies Solutions](15-Main-Schematic-Dialog.md#sub:Logarithmically-Spaced-Frequencies-Solutions) (only shown if the preference [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) is True),
 
-3.  The reference impedance, as explained under [Non 50 Ohm Reference Impedance](15-Main-Schematic-Dialog.md#sub:Non-50-Ohm-Reference-Impedance) (shown only if the preference [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) is True).
+3.  The reference impedance, as explained under [Non 50 Ohm Reference Impedance](15-Main-Schematic-Dialog.md#sub:Non-50-Ohm-Reference-Impedance) (shown only if the preference [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) is True), and
+
+4.  The parallelization setting, as explained under [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) (shown only if the preference [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) is True).
 
 The main, linear calculation properties are intended for use with all of the ***SignalIntegrityApp*** applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:
 
@@ -1093,6 +1095,16 @@ Later, it was found that, especially with regards to resampling of s-parameters,
 Now, all s-parameter reference impedances read in are honored, resampled in their native reference impedance, and converted to the reference impedance specified for the project. This reference impedance may be specified in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties).
 
 This is all explained in <https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis>
+
+### Allow Parallelization {#sub:Allow-Parallelization}
+
+Allow parallelization can only be selected if the [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) preference is set to True. (It may still be available if you open a project for which parallelization has been previously enabled).
+
+This property permits the calculations for *this project* to be distributed across multiple processor cores. It is stored with the project and defaults to False. See [Parallel Calculations](32-Parallel-Calculations.md#sec:Parallel-Calculations) for a full explanation of how parallelization works and when it is beneficial.
+
+A calculation is only permitted to run in parallel when both this property and the global [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) preference are True. Even then, a cost model decides, per solve, whether parallel execution is actually worthwhile, so small problems continue to run serially. Enabling this property never changes the numeric result of a calculation; it only affects how long the calculation takes.
+
+This property is deliberately **not** passed down into sub-blocks. Every block &ndash; the top-level project and each sub-block &ndash; honors its own allow parallelization property for its own solve. See [Parallelization Is Not Passed Into Sub-blocks](32-Parallel-Calculations.md#sub:Parallel-Calculations-Sub-blocks).
 
 ### Post-Processing {#Control-Help:Post-Processing}
 

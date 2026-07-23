@@ -33,6 +33,7 @@ The standard preferences are:
 | enforce 12458 sequence in calculation properties | [Calculation.Enforce12458](29-Preferences.md#sub:Calculation.Enforce12458) | Bool | True |
 | enable logarithmically spaced frequencies solutions | [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) | Bool | False |
 | enable non 50 ohm solutions | [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) | Bool | False |
+| enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Bool | False |
 | ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Bool | True |
 | maximum waveform size | [Calculation.MaximumWaveformPoints](29-Preferences.md#sub:Calculation.MaximumWaveformPoints) | Float | 5 Mpts |
 | retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Bool | True |
@@ -274,6 +275,22 @@ If this preference is set to True, the possibility to perform simulations in a s
 
 Keep in mind, it usually sufficient to solve the system in a $50\,\Omega$ reference impedance, and convert the result to a new reference impedance using [Post-Processing](25-Post-Processing.md#sec:Post-Processing).
 
+<div id="sub:Calculation.AllowParallelization"></div>
+
+## Calculation.AllowParallelization {#calculation.allowparallelization .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Bool | False |
+
+This preference is the global, application-wide switch that permits calculations to be distributed across multiple processor cores. See [Parallel Calculations](32-Parallel-Calculations.md#sec:Parallel-Calculations) for a full explanation of how parallelization works and when it is beneficial.
+
+It defaults to False. Because it is experimental, it is off by default.
+
+This preference acts as a hard override: when it is False, no calculation will ever run in parallel, regardless of the per-project [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) calculation property. When it is True, the feature becomes available, and the [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) property becomes visible in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties) dialog, where it can be enabled on a per-project basis.
+
+A calculation is only permitted to run in parallel when both this preference and the per-project property are True. Even then, a cost model decides, per solve, whether parallel execution is actually worthwhile, so small problems continue to run serially.
+
 <div id="sub:Calculation.IgnoreMissingOtherWaveforms"></div>
 
 ## Calculation.IgnoreMissingOtherWaveforms {#calculation.ignoremissingotherwaveforms .unnumbered}
@@ -505,6 +522,35 @@ The s-parameter viewer preferences are:
 The simulator dialog preferences are:
 
 - The [Plot Window Preferences](29-Preferences.md#sub:Plot-Window-Preferences).
+
+## Statistical Noise Preferences {#sub:Statistical-Noise-Preferences}
+
+The statistical noise preferences control how values are displayed in the [Statistical Noise Measurements](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Measurements) table:
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| zero threshold | [StatisticalNoise.ZeroThreshold](29-Preferences.md#sub:StatisticalNoise.ZeroThreshold) | Float | 1e-15 |
+| maximum SNR | [StatisticalNoise.MaximumSNR](29-Preferences.md#sub:StatisticalNoise.MaximumSNR) | Float | 150 |
+
+<div id="sub:StatisticalNoise.ZeroThreshold"></div>
+
+## StatisticalNoise.ZeroThreshold {#statisticalnoise.zerothreshold .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| zero threshold | [StatisticalNoise.ZeroThreshold](29-Preferences.md#sub:StatisticalNoise.ZeroThreshold) | Float | 1e-15 |
+
+Any rms or other linear (non-dB) noise quantity whose magnitude is below this threshold is treated as zero and left blank in the [Statistical Noise Measurements](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Measurements) table. This suppresses meaningless near-zero values that arise from numerical round-off when a source contributes essentially no noise to an output.
+
+<div id="sub:StatisticalNoise.MaximumSNR"></div>
+
+## StatisticalNoise.MaximumSNR {#statisticalnoise.maximumsnr .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| maximum SNR | [StatisticalNoise.MaximumSNR](29-Preferences.md#sub:StatisticalNoise.MaximumSNR) | Float | 150 |
+
+Signal-to-noise ratios above this value (in dB) are considered unphysical - they indicate that the noise at an output is effectively zero - and are left blank in the [Statistical Noise Measurements](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Measurements) table rather than reported as an extremely large number.
 
 ## Plot Window Preferences {#sub:Plot-Window-Preferences}
 

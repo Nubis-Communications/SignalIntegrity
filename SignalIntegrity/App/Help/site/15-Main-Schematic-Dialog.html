@@ -208,6 +208,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Allow-Parallelization">Allow Parallelization</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Post-Processing">Post-Processing</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:S-parameter-Viewer">S-parameter Viewer</a>
@@ -319,6 +321,14 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
                 </li>
               </ul>
       </div>
@@ -2034,16 +2044,19 @@
 </table>
 <p>Issuing the Calculation Properties command brings up the calculation properties dialog:</p>
 <p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
-<p>The calculation properties govern how all calculations are performed, and are broken into three sections:</p>
+<p>The calculation properties govern how all calculations are performed, and are broken into four sections:</p>
 <ol>
 <li>
 <p>The main, linear calculation properties,</p>
 </li>
 <li>
-<p>The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a> (only shown if the preference <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> is True), and</p>
+<p>The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a> (only shown if the preference <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> is True),</p>
 </li>
 <li>
-<p>The reference impedance, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance</a> (shown only if the preference <a href="29-Preferences.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions</a> is True).</p>
+<p>The reference impedance, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Non-50-Ohm-Reference-Impedance">Non 50 Ohm Reference Impedance</a> (shown only if the preference <a href="29-Preferences.html#sub:Calculation.Non50OhmSolutions">Calculation.Non50OhmSolutions</a> is True), and</p>
+</li>
+<li>
+<p>The parallelization setting, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Allow-Parallelization">Allow Parallelization</a> (shown only if the preference <a href="29-Preferences.html#sub:Calculation.AllowParallelization">Calculation.AllowParallelization</a> is True).</p>
 </li>
 </ol>
 <p>The main, linear calculation properties are intended for use with all of the <strong><em>SignalIntegrityApp</em></strong> applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:</p>
@@ -2122,6 +2135,11 @@
 <p>Later, it was found that, especially with regards to resampling of s-parameters, that it was important to resample the s-parameters in a reference impedance that was favorable. In other words, in some reference impedances, like 50 ohms, the s-parameters might be seen to be insufficiently sampled, however, in other reference impedances, they were sufficiently sampled.</p>
 <p>Now, all s-parameter reference impedances read in are honored, resampled in their native reference impedance, and converted to the reference impedance specified for the project. This reference impedance may be specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
 <p>This is all explained in <a href="https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis">https://www.researchgate.net/publication/378007493_Techniques_and_Considerations_for_Using_S-Parameters_in_Power_Delivery_Network_Analysis</a></p>
+<h3 id="sub:Allow-Parallelization">Allow Parallelization<a class="headerlink" href="#sub:Allow-Parallelization" title="Permanent link">&para;</a></h3>
+<p>Allow parallelization can only be selected if the <a href="29-Preferences.html#sub:Calculation.AllowParallelization">Calculation.AllowParallelization</a> preference is set to True. (It may still be available if you open a project for which parallelization has been previously enabled).</p>
+<p>This property permits the calculations for <em>this project</em> to be distributed across multiple processor cores. It is stored with the project and defaults to False. See <a href="32-Parallel-Calculations.html#sec:Parallel-Calculations">Parallel Calculations</a> for a full explanation of how parallelization works and when it is beneficial.</p>
+<p>A calculation is only permitted to run in parallel when both this property and the global <a href="29-Preferences.html#sub:Calculation.AllowParallelization">Calculation.AllowParallelization</a> preference are True. Even then, a cost model decides, per solve, whether parallel execution is actually worthwhile, so small problems continue to run serially. Enabling this property never changes the numeric result of a calculation; it only affects how long the calculation takes.</p>
+<p>This property is deliberately <strong>not</strong> passed down into sub-blocks. Every block &ndash; the top-level project and each sub-block &ndash; honors its own allow parallelization property for its own solve. See <a href="32-Parallel-Calculations.html#sub:Parallel-Calculations-Sub-blocks">Parallelization Is Not Passed Into Sub-blocks</a>.</p>
 <h3 id="Control-Help:Post-Processing">Post-Processing<a class="headerlink" href="#Control-Help:Post-Processing" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
