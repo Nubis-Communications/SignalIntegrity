@@ -1,0 +1,5 @@
+<map id="NoiseWaveform" name="NoiseWaveform">
+<area shape="rect" id="Node000001" title="noise waveform" alt="" coords="13,319,120,384"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="5,5,128,271"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,284,69,319,64,319,64,284"/>
+</map>

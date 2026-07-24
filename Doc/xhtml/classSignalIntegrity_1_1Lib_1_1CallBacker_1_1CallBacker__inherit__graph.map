@@ -1,0 +1,29 @@
+<map id="CallBacker" name="CallBacker">
+<area shape="rect" id="Node000001" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="909,5,1043,131"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml" title="Generates the eye diagram bitmap and many associated measurements from it." alt="" coords="5,209,136,454"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="895,73,717,80,497,97,388,111,290,130,208,153,175,166,150,181,120,210,116,207,146,177,173,161,206,148,288,124,388,106,497,92,717,75,895,68"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1LevMar_1_1LevMar.xhtml" title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,..." alt="" coords="161,179,359,484"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="895,79,765,93,612,115,469,144,413,162,372,181,361,189,358,184,369,176,411,157,468,139,611,110,764,88,895,74"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1TransferMatrices_1_1TransferMatrices.xhtml" title="Class that is used for processing waveforms in simulation." alt="" coords="383,229,545,434"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="895,75,819,85,731,103,641,134,598,155,559,181,534,203,514,230,510,227,531,200,556,177,596,151,639,129,729,98,818,79,895,70"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1Noise_1_1NoiseTransferMatricesProcessor_1_1NoiseTransferMatricesProcessor.xhtml" title="Processes transfer matrices for noise spectral densities." alt="" coords="569,289,775,374"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="898,108,842,141,788,181,738,235,699,290,695,287,734,232,785,177,839,136,895,104"/>
+<area shape="rect" id="Node000007" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1CalibrationNumericParser_1_1CalibrationNumericParser.xhtml" title="generates a calibration from a netlist" alt="" coords="799,289,961,374"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="951,145,898,290,893,288,946,143"/>
+<area shape="rect" id="Node000008" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml" title="generates deembedd s&#45;parameters from a netlist" alt="" coords="986,289,1161,374"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1006,143,1060,288,1055,290,1001,145"/>
+<area shape="rect" id="Node000009" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="1185,289,1341,374"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1057,100,1117,133,1174,177,1197,203,1217,232,1247,287,1243,290,1213,234,1193,206,1170,181,1114,137,1054,104"/>
+<area shape="rect" id="Node000011" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml" title="generates system s&#45;parameters from a netlist" alt="" coords="1365,281,1549,381"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1058,74,1126,86,1203,105,1282,135,1320,154,1355,177,1381,199,1403,226,1437,280,1433,282,1399,229,1377,203,1352,181,1317,159,1280,140,1202,110,1125,91,1057,80"/>
+<area shape="rect" id="Node000013" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1VirtualProbeNumericParser_1_1VirtualProbeNumericParser.xhtml" title="performs numeric virtual probing from netlists" alt="" coords="1574,289,1746,374"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1057,74,1184,88,1332,110,1469,139,1523,157,1563,176,1591,200,1614,229,1646,287,1642,290,1609,232,1587,204,1560,181,1521,162,1467,144,1331,115,1183,93,1057,79"/>
+<area shape="rect" id="Node000014" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1TransferMatricesProcessor_1_1TransferMatricesProcessor.xhtml" title="process transfer matrices &#160;&#160;Usually transfer matrices are produced in simulation and virtual probing ..." alt="" coords="1771,289,1941,374"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1058,70,1226,79,1431,98,1533,112,1626,129,1704,151,1760,176,1788,200,1811,228,1843,287,1838,290,1807,231,1784,204,1757,181,1702,156,1625,135,1532,117,1431,103,1225,84,1058,75"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1PoleZero_1_1PoleZeroFitter_1_1PoleZeroLevMar.xhtml" title="fits a pole/zero model to a frequency response" alt="" coords="161,532,359,657"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="263,498,263,531,257,531,257,498"/>
+<area shape="rect" id="Node000010" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml" title="performs numeric simulations from netlists" alt="" coords="1165,535,1339,655"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1263,388,1257,535,1252,534,1258,388"/>
+<area shape="rect" id="Node000012" href="$classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml" title="generates s&#45;parameters of a DUT from a network analyzer model netlist" alt="" coords="1364,542,1569,647"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="1462,395,1467,542,1462,542,1457,395"/>
+</map>

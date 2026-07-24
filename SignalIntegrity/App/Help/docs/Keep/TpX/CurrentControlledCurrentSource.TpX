@@ -1,0 +1,41 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polygon lc="black">64,-64 70,-72 64,-80 58,-72 64,-64</polygon>
+%  <polyline arr1="h44" arrs="0.5" lc="black">48,-66 48,-78</polyline>
+%  <polyline arr1="h44" arrs="0.5" lc="black">64,-66 64,-78</polyline>
+%  <rect x="40" y="-64" w="32" h="-16" lc="black"/>
+%  <polyline lc="black">48,-88 48,-80</polyline>
+%  <polyline lw="2" lc="red">47,-87 49,-89</polyline>
+%  <polyline lw="2" lc="red">49,-87 47,-89</polyline>
+%  <polyline lc="black">48,-56 48,-64</polyline>
+%  <polyline lw="2" lc="red">47,-55 49,-57</polyline>
+%  <polyline lw="2" lc="red">49,-55 47,-57</polyline>
+%  <polyline lc="black">64,-88 64,-80</polyline>
+%  <polyline lw="2" lc="red">63,-87 65,-89</polyline>
+%  <polyline lw="2" lc="red">65,-87 63,-89</polyline>
+%  <polyline lc="black">64,-56 64,-64</polyline>
+%  <polyline lw="2" lc="red">63,-55 65,-57</polyline>
+%  <polyline lw="2" lc="red">65,-55 63,-57</polyline>
+%  <text x="76" y="-74.5" t="gain 1.0 " h="3" halign="l" lc="black"/>
+%  <text x="76" y="-72" t="D1" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (64,-64) -- (70,-72) -- (64,-80) -- (58,-72) -- (64,-64) -- cycle;
+\path[line width=0.30mm, draw=black, <-] (48,-66) -- (48,-78);
+\path[line width=0.30mm, draw=black, <-] (64,-66) -- (64,-78);
+\path[line width=0.30mm, draw=black] (40,-80) rectangle +(32,16);
+\path[line width=0.30mm, draw=black] (48,-88) -- (48,-80);
+\path[line width=0.6mm, draw=red] (47,-87) -- (49,-89);
+\path[line width=0.6mm, draw=red] (49,-87) -- (47,-89);
+\path[line width=0.30mm, draw=black] (48,-56) -- (48,-64);
+\path[line width=0.6mm, draw=red] (47,-55) -- (49,-57);
+\path[line width=0.6mm, draw=red] (49,-55) -- (47,-57);
+\path[line width=0.30mm, draw=black] (64,-88) -- (64,-80);
+\path[line width=0.6mm, draw=red] (63,-87) -- (65,-89);
+\path[line width=0.6mm, draw=red] (65,-87) -- (63,-89);
+\path[line width=0.30mm, draw=black] (64,-56) -- (64,-64);
+\path[line width=0.6mm, draw=red] (63,-55) -- (65,-57);
+\path[line width=0.6mm, draw=red] (65,-55) -- (63,-57);
+\draw[black] (76,-74.5) node[anchor=base west]{gain 1.0 };
+\draw[black] (76,-72) node[anchor=base west]{D1};
+\end{tikzpicture}%

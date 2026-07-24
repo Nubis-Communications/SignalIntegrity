@@ -1,0 +1,7 @@
+<map id="PRBS13QWaveform" name="PRBS13QWaveform">
+<area shape="rect" id="Node000001" title="a PRBS13Q PAM4 waveform with a given rise time and amplitude" alt="" coords="5,432,140,497"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1MultiLevelWaveform_1_1MultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="7,319,139,384"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,398,75,432,70,432,70,398"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="11,5,134,271"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="75,284,75,319,70,319,70,284"/>
+</map>

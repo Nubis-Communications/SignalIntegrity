@@ -1,0 +1,5 @@
+<map id="LevMar" name="LevMar">
+<area shape="rect" id="Node000001" title="Implements the Levenberg&#45;Marquardt algorithm for non&#45;linear fitting &#160;&#160;To use this class,..." alt="" coords="5,179,204,484"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="37,5,172,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,145,107,179,102,179,102,145"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="TerminationPolynomial" name="TerminationPolynomial">
+<area shape="rect" id="Node000001" title="Base class for terminations for calibration standards." alt="" coords="98,5,243,91"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationCPolynomial.xhtml" title="Class for capacitive terminations for open calibration standards." alt="" coords="5,139,160,244"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,104,117,140,113,137,135,101"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1TerminationPolynomial_1_1TerminationLPolynomial.xhtml" title="Class for inductive terminations for short calibration standards." alt="" coords="184,139,336,244"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,101,229,137,225,140,202,104"/>
+</map>

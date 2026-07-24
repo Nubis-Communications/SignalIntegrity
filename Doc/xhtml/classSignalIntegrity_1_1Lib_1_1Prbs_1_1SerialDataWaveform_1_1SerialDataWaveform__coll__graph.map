@@ -1,0 +1,5 @@
+<map id="SerialDataWaveform" name="SerialDataWaveform">
+<area shape="rect" id="Node000001" title="a serial data NRZ waveform" alt="" coords="5,319,140,404"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="11,5,134,271"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,284,75,319,70,319,70,284"/>
+</map>

@@ -1,0 +1,60 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <bezier arr2="h44" lc="black">204,31 223,31 223,52 205,52</bezier>
+%  <polygon fill="white">175,40 197,40 197,45 179.5,45 178.5,46 176,46 175,45</polygon>
+%  <text x="176" y="41" t="Project_Archive" h="3"/>
+%  <rect x="185" y="30" w="15.0001" h="3.99999" lc="red" fill="white"/>
+%  <text x="186" y="31" t="Project.si" h="3"/>
+%  <polyline>180,40 180,32 185,32</polyline>
+%  <polyline li="dot">180,32 180,20</polyline>
+%  <text x="187" y="70" t="Freshening archive" h="5" halign="c" fill="white"/>
+%  <polygon>165,60 180,60 180,65 169.5,65 168.5,66 166,66 165,65</polygon>
+%  <polyline>170,60 170,53 175,53</polyline>
+%  <rect x="175" y="50" w="30" h="5.00001" fill="yellow"/>
+%  <text x="176" y="51" t="Project.siz" h="3"/>
+%  <polyline>170,53 170,43 175,43</polyline>
+%  <rect x="240" y="12" w="50" h="53" fill="yellow"/>
+%  <polygon fill="white">244,48 266,48 266,53 248.5,53 247.5,54 245,54 244,53</polygon>
+%  <text x="245" y="49" t="Project_Archive" h="3"/>
+%  <rect x="254" y="38" w="15" h="4.00007" fill="white"/>
+%  <text x="255" y="39" t="Project.si" h="3"/>
+%  <polyline>249,48 249,40 254,40</polyline>
+%  <text x="245" y="58" t="Project.siz" h="3"/>
+%  <text x="266" y="70" t="Archive structure" h="5" halign="c" fill="white"/>
+%  <rect x="167" y="12" w="37" h="36" lc="black"/>
+%  <polyline li="dot">249,40 249,28</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (163.00,10.00) rectangle +(129.00,65.92);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (204.00,31.00) .. controls (223.00,31.00) and (223.00,52.00) .. (205.00,52.00);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (205.00,52.00) -- (207.73,51.06) -- (207.85,52.46) -- (205.00,52.00) -- cycle;
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (175.00,40.00) -- (197.00,40.00) -- (197.00,45.00) -- (179.50,45.00) -- (178.50,46.00) -- (176.00,46.00) -- (175.00,45.00) -- cycle;
+\draw(176.00,41.00) node[anchor=base west]{Project\symbol{95}Archive};
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (185.00,30.00) rectangle +(15.00,4.00);
+\draw(186.00,31.00) node[anchor=base west]{Project.si};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (180.00,40.00) -- (180.00,32.00) -- (185.00,32.00);
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (180.00,32.00) -- (180.00,20.00);
+\draw(187.00,70.00) node[anchor=base]{Freshening archive};
+\path[line width=0.30mm, draw=L] (165.00,60.00) -- (180.00,60.00) -- (180.00,65.00) -- (169.50,65.00) -- (168.50,66.00) -- (166.00,66.00) -- (165.00,65.00) -- cycle;
+\path[line width=0.30mm, draw=L] (170.00,60.00) -- (170.00,53.00) -- (175.00,53.00);
+\definecolor{F}{rgb}{1,1,0}
+\path[line width=0.30mm, draw=L, fill=F] (175.00,50.00) rectangle +(30.00,5.00);
+\draw(176.00,51.00) node[anchor=base west]{Project.siz};
+\path[line width=0.30mm, draw=L] (170.00,53.00) -- (170.00,43.00) -- (175.00,43.00);
+\path[line width=0.30mm, draw=L, fill=F] (240.00,12.00) rectangle +(50.00,53.00);
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (244.00,48.00) -- (266.00,48.00) -- (266.00,53.00) -- (248.50,53.00) -- (247.50,54.00) -- (245.00,54.00) -- (244.00,53.00) -- cycle;
+\draw(245.00,49.00) node[anchor=base west]{Project\symbol{95}Archive};
+\path[line width=0.30mm, draw=L, fill=F] (254.00,38.00) rectangle +(15.00,4.00);
+\draw(255.00,39.00) node[anchor=base west]{Project.si};
+\path[line width=0.30mm, draw=L] (249.00,48.00) -- (249.00,40.00) -- (254.00,40.00);
+\draw(245.00,58.00) node[anchor=base west]{Project.siz};
+\draw(266.00,70.00) node[anchor=base]{Archive structure};
+\path[line width=0.30mm, draw=L] (167.00,48.00) [rotate around={270:(167.00,48.00)}] rectangle +(36.00,37.00);
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (249.00,40.00) -- (249.00,28.00);
+\end{tikzpicture}%

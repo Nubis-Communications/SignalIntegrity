@@ -1,0 +1,5 @@
+<map id="ClockRecoveredWaveform" name="ClockRecoveredWaveform">
+<area shape="rect" id="Node000001" title="Resamples an input waveform using clock recovery." alt="" coords="5,319,176,384"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="29,5,152,271"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,284,93,319,88,319,88,284"/>
+</map>

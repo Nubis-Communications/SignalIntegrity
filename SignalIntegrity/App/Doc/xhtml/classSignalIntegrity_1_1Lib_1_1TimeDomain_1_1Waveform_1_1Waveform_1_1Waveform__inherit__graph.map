@@ -1,0 +1,35 @@
+<map id="Waveform" name="Waveform">
+<area shape="rect" id="Node000001" title="base class for all waveforms" alt="" coords="1044,5,1167,271"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1Eye_1_1ClockRecovery_1_1ClockRecoveredWaveform.xhtml" title="Resamples an input waveform using clock recovery." alt="" coords="5,399,176,464"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1030,141,869,147,765,156,653,171,534,194,415,225,299,267,189,321,166,338,145,358,112,400,108,397,141,354,162,334,187,316,297,262,414,220,533,188,652,166,765,150,868,141,1030,135"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfileWaveform_1_1ImpedanceProfileWaveform.xhtml" title="Computes the impedance profile waveform from a set of s&#45;parameters using the port specified." alt="" coords="201,399,375,464"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1030,146,902,161,737,191,648,213,558,242,471,278,389,321,366,338,344,358,310,400,306,397,341,355,362,334,387,316,469,273,557,237,646,208,736,185,901,155,1030,141"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1LevelsMultiLevelWaveform_1_1LevelsMultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="400,399,571,464"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1031,155,937,176,821,210,699,258,640,287,584,321,541,359,508,400,504,397,537,355,581,317,637,283,697,253,819,205,935,171,1030,150"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1MultiLevelWaveform_1_1MultiLevelWaveform.xhtml" title="a PRBS multi&#45;level waveform with a given PRBS polynomial" alt="" coords="595,399,727,464"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1032,166,966,191,890,226,813,269,742,321,706,359,680,400,676,397,702,356,738,317,810,264,888,221,964,186,1030,161"/>
+<area shape="rect" id="Node000008" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SerialDataWaveform_1_1SerialDataWaveform.xhtml" title="a serial data NRZ waveform" alt="" coords="751,389,886,474"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1035,197,967,255,901,320,847,390,843,387,897,317,964,251,1031,193"/>
+<area shape="rect" id="Node000011" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1StandardsDefPRBSWaveform_1_1StandardsDefPRBSWaveform.xhtml" title="a standards defined waveform loaded from a text file with a given rise time and amplitude" alt="" coords="910,399,1101,464"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1058,285,1019,399,1014,397,1053,283"/>
+<area shape="rect" id="Node000012" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseResponse_1_1ImpulseResponse.xhtml" title="impulse response of a filter as a waveform" alt="" coords="1125,319,1286,544"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1158,283,1169,317,1164,319,1153,285"/>
+<area shape="rect" id="Node000013" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1ImpulseWaveform_1_1ImpulseWaveform.xhtml" title="pulse waveform" alt="" coords="1310,399,1429,464"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1179,196,1241,253,1301,317,1330,358,1354,397,1350,400,1326,361,1297,320,1237,256,1175,200"/>
+<area shape="rect" id="Node000014" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml" title="noise waveform" alt="" coords="1453,399,1560,464"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1181,163,1242,188,1311,223,1380,266,1443,317,1475,357,1496,397,1492,400,1470,359,1439,321,1377,270,1308,227,1240,193,1179,168"/>
+<area shape="rect" id="Node000015" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml" title="pulse waveform" alt="" coords="1584,399,1691,464"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="1181,150,1268,170,1371,204,1424,226,1477,252,1527,282,1574,317,1592,335,1606,356,1628,397,1623,399,1602,359,1587,338,1570,321,1524,286,1474,256,1422,230,1369,209,1266,175,1180,155"/>
+<area shape="rect" id="Node000016" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1SineWaveform_1_1SineWaveform.xhtml" title="sinewave waveform" alt="" coords="1715,399,1813,464"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="1181,141,1292,155,1359,168,1430,186,1502,208,1573,237,1642,273,1704,317,1722,335,1737,355,1756,397,1752,399,1732,358,1718,338,1701,321,1639,278,1571,242,1500,213,1428,191,1358,173,1291,161,1180,147"/>
+<area shape="rect" id="Node000017" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1StepWaveform_1_1StepWaveform.xhtml" title="step waveform" alt="" coords="1838,399,1938,464"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="1180,137,1313,145,1395,155,1482,171,1572,194,1662,225,1748,266,1827,317,1845,334,1860,355,1880,397,1876,400,1856,358,1841,338,1824,321,1746,270,1660,230,1571,199,1481,177,1394,161,1312,150,1180,142"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PRBS13QWaveform_1_1PRBS13QWaveform.xhtml" title="a PRBS13Q PAM4 waveform with a given rise time and amplitude" alt="" coords="447,592,582,657"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="635,477,585,546,545,594,541,590,581,542,630,474"/>
+<area shape="rect" id="Node000007" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1SSPRQWaveform_1_1SSPRQWaveform.xhtml" title="a SSPRQ PAM4 waveform with a given rise time and amplitude" alt="" coords="607,592,727,657"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="665,478,668,592,663,592,660,478"/>
+<area shape="rect" id="Node000009" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml" title="a clock waveform" alt="" coords="760,592,867,657"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="820,488,817,592,812,591,814,487"/>
+<area shape="rect" id="Node000010" href="$classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml" title="a PRBS waveform with a given PRBS polynomial" alt="" coords="891,592,1058,657"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="857,484,901,542,945,590,941,594,897,546,852,487"/>
+</map>

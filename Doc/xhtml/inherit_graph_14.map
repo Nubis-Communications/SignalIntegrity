@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml" title="Frequency lists." alt="" coords="5,55,109,80"/>
+<area shape="rect" id="Node000001" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="181,5,369,31"/>
+<area shape="poly" id="edge54_Node000000_Node000001" title=" " alt="" coords="119,49,157,39,208,28,209,33,158,45,120,54"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="200,55,349,80"/>
+<area shape="poly" id="edge55_Node000000_Node000002" title=" " alt="" coords="123,65,200,65,200,70,123,70"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1LogarithmicallySpacedFrequencyList.xhtml" title="a logarithmically spaced frequency list" alt="" coords="157,104,392,129"/>
+<area shape="poly" id="edge56_Node000000_Node000003" title=" " alt="" coords="124,81,158,89,214,101,213,107,157,94,122,86"/>
+</map>
