@@ -1,9 +1,0 @@
-<map id="VirtualProbe" name="VirtualProbe">
-<area shape="rect" id="Node000001" title="Base class for virtual probing." alt="" coords="10,605,151,711"/>
-<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="9,432,152,557"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,571,83,605,78,605,78,571"/>
-<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="13,299,148,384"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,398,83,432,78,432,78,398"/>
-<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,5,156,251"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="83,265,83,298,78,298,78,265"/>
-</map>

@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['values_0',['values',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml#ad2ac0e6903e8232c93ffc49ea00eb2e7',1,'SignalIntegrity.Lib.FrequencyDomain.FrequencyContent.FrequencyContent.Values()'],['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#ad2ac0e6903e8232c93ffc49ea00eb2e7',1,'SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain.FrequencyDomain.Values()'],['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1SpectralDensity_1_1SpectralDensity.xhtml#ad2ac0e6903e8232c93ffc49ea00eb2e7',1,'SignalIntegrity.Lib.FrequencyDomain.SpectralDensity.SpectralDensity.Values()'],['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml#ad2ac0e6903e8232c93ffc49ea00eb2e7',1,'SignalIntegrity.Lib.TimeDomain.Waveform.Waveform.Waveform.Values()']]]
-];

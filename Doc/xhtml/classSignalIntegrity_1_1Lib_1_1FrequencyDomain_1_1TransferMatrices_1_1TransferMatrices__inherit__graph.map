@@ -1,5 +1,0 @@
-<map id="TransferMatrices" name="TransferMatrices">
-<area shape="rect" id="Node000001" title="Class that is used for processing waveforms in simulation." alt="" coords="5,179,167,384"/>
-<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="19,5,153,131"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,144,89,178,83,178,83,144"/>
-</map>

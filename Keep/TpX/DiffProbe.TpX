@@ -1,0 +1,39 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">31.25,-17.5 32.75,-17.5</polyline>
+%  <polyline lc="black">32,-16.75 32,-18.25</polyline>
+%  <polyline lc="black">31.25,-22.5 32.75,-22.5</polyline>
+%  <rect x="30" y="-24" w="4" h="8" lc="black"/>
+%  <polyline lc="black">32,-28 32,-24</polyline>
+%  <polyline lw="2.00" lc="red">31.5,-27.5 32.5,-28.5</polyline>
+%  <polyline lw="2.00" lc="red">32.5,-27.5 31.5,-28.5</polyline>
+%  <polyline lc="black">32,-12 32,-16</polyline>
+%  <polyline lw="2.00" lc="red">31.5,-11.5 32.5,-12.5</polyline>
+%  <polyline lw="2.00" lc="red">32.5,-11.5 31.5,-12.5</polyline>
+%  <text x="28" y="-32.25" t="gain 1.0 " h="3" halign="r" lc="black"/>
+%  <text x="28" y="-28.5" t="offset 0 V" h="3" halign="r" lc="black"/>
+%  <text x="28" y="-24.75" t="td 0 s" h="3" halign="r" lc="black"/>
+%  <text x="28" y="-21" t="VO1" h="3" halign="r" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (14.00,-34.90) rectangle +(22.00,25.40);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (31.25,-17.50) -- (32.75,-17.50);
+\path[line width=0.30mm, draw=L] (32.00,-16.75) -- (32.00,-18.25);
+\path[line width=0.30mm, draw=L] (31.25,-22.50) -- (32.75,-22.50);
+\path[line width=0.30mm, draw=L] (30.00,-16.00) [rotate around={270:(30.00,-16.00)}] rectangle +(8.00,4.00);
+\path[line width=0.30mm, draw=L] (32.00,-28.00) -- (32.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (31.50,-27.50) -- (32.50,-28.50);
+\path[line width=0.60mm, draw=L] (32.50,-27.50) -- (31.50,-28.50);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (32.00,-12.00) -- (32.00,-16.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (31.50,-11.50) -- (32.50,-12.50);
+\path[line width=0.60mm, draw=L] (32.50,-11.50) -- (31.50,-12.50);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (28.00,-32.25) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{gain 1.0 }};
+\draw[T] (28.00,-28.50) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{offset 0 V}};
+\draw[T] (28.00,-24.75) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{td 0 s}};
+\draw[T] (28.00,-21.00) node[anchor=base east]{\textcolor[rgb]{0, 0, 0}{VO1}};
+\end{tikzpicture}%

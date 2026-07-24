@@ -1,0 +1,47 @@
+<Project>
+	<Drawing>
+		<DrawingProperties>
+			<Geometry>606x298+447+452</Geometry>
+			<Originy>0</Originy>
+			<Originx>0</Originx>
+			<Height>271</Height>
+			<Width>606</Width>
+			<Grid>16.0</Grid>
+		</DrawingProperties>
+		<Schematic>
+			<Wires>
+			</Wires>
+			<Devices>
+				<Device>
+					<ClassName>DeviceDirectionalCoupler</ClassName>
+					<PartPicture>
+						<ClassName>PartPictureDirectionalCouplerFourPort</ClassName>
+						<Origin>(6, 5)</Origin>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<Orientation>0</Orientation>
+						<MirroredVertically>False</MirroredVertically>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<Value>4</Value>
+							<Visible>False</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<Value>D1</Value>
+							<Visible>True</Visible>
+							<KeywordVisible>False</KeywordVisible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+			</Devices>
+		</Schematic>
+	</Drawing>
+	<CalculationProperties>
+		<UserSampleRate>10000000000.0</UserSampleRate>
+		<EndFrequency>5000000000.0</EndFrequency>
+		<FrequencyPoints>100</FrequencyPoints>
+	</CalculationProperties>
+</Project>

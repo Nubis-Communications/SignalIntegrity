@@ -1,0 +1,67 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="12" y="-16" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <ellipse x="12" y="-16" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">11.25,-13.5 12.75,-13.5</polyline>
+%  <polyline lc="black">12,-12.75 12,-14.25</polyline>
+%  <polyline lc="black">11.25,-18.5 12.75,-18.5</polyline>
+%  <polyline lc="black">12,-20 12,-24</polyline>
+%  <polygon fill="black">9.5,-24 14.5,-24 12,-26.5 9.5,-24</polygon>
+%  <polyline lc="black">12,-8 12,-12</polyline>
+%  <polyline lw="2" lc="red">11.5,-7.5 12.5,-8.5</polyline>
+%  <polyline lw="2" lc="red">12.5,-7.5 11.5,-8.5</polyline>
+%  <text x="18" y="-29" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-25.75" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-22.5" t="fs 40.0 GS/s" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-19.25" t="vrms 0 Vrms" h="3" halign="l" lc="black"/>
+%  <text x="18" y="-16" t="VG1" h="3" halign="l" lc="black"/>
+%  <text x="48" y="-16" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <ellipse x="48" y="-16" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">47.25,-13.5 48.75,-13.5</polyline>
+%  <polyline lc="black">48,-12.75 48,-14.25</polyline>
+%  <polyline lc="black">47.25,-18.5 48.75,-18.5</polyline>
+%  <polyline lc="black">48,-8 48,-12</polyline>
+%  <polyline lw="2" lc="red">47.5,-7.5 48.5,-8.5</polyline>
+%  <polyline lw="2" lc="red">48.5,-7.5 47.5,-8.5</polyline>
+%  <polyline lc="black">48,-24 48,-20</polyline>
+%  <polyline lw="2" lc="red">47.5,-23.5 48.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">48.5,-23.5 47.5,-24.5</polyline>
+%  <text x="54" y="-29" t="ho -100.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="54" y="-25.75" t="dur 200.0 ns" h="3" halign="l" lc="black"/>
+%  <text x="54" y="-22.5" t="fs 40.0 GS/s" h="3" halign="l" lc="black"/>
+%  <text x="54" y="-19.25" t="vrms 0 Vrms" h="3" halign="l" lc="black"/>
+%  <text x="54" y="-16" t="VG2" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (12,-16) node[anchor=base]{$\sigma$};
+\path[line width=0.30mm, draw=black] (12,-16) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (11.25,-13.5) -- (12.75,-13.5);
+\path[line width=0.30mm, draw=black] (12,-12.75) -- (12,-14.25);
+\path[line width=0.30mm, draw=black] (11.25,-18.5) -- (12.75,-18.5);
+\path[line width=0.30mm, draw=black] (12,-20) -- (12,-24);
+\path[line width=0.30mm, fill=black] (9.5,-24) -- (14.5,-24) -- (12,-26.5) -- (9.5,-24) -- cycle;
+\path[line width=0.30mm, draw=black] (12,-8) -- (12,-12);
+\path[line width=0.6mm, draw=red] (11.5,-7.5) -- (12.5,-8.5);
+\path[line width=0.6mm, draw=red] (12.5,-7.5) -- (11.5,-8.5);
+\draw[black] (18,-29) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (18,-25.75) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (18,-22.5) node[anchor=base west]{fs 40.0 GS/s};
+\draw[black] (18,-19.25) node[anchor=base west]{vrms 0 Vrms};
+\draw[black] (18,-16) node[anchor=base west]{VG1};
+\draw[black] (48,-16) node[anchor=base]{$\sigma$};
+\path[line width=0.30mm, draw=black] (48,-16) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (47.25,-13.5) -- (48.75,-13.5);
+\path[line width=0.30mm, draw=black] (48,-12.75) -- (48,-14.25);
+\path[line width=0.30mm, draw=black] (47.25,-18.5) -- (48.75,-18.5);
+\path[line width=0.30mm, draw=black] (48,-8) -- (48,-12);
+\path[line width=0.6mm, draw=red] (47.5,-7.5) -- (48.5,-8.5);
+\path[line width=0.6mm, draw=red] (48.5,-7.5) -- (47.5,-8.5);
+\path[line width=0.30mm, draw=black] (48,-24) -- (48,-20);
+\path[line width=0.6mm, draw=red] (47.5,-23.5) -- (48.5,-24.5);
+\path[line width=0.6mm, draw=red] (48.5,-23.5) -- (47.5,-24.5);
+\draw[black] (54,-29) node[anchor=base west]{ho -100.0 ns};
+\draw[black] (54,-25.75) node[anchor=base west]{dur 200.0 ns};
+\draw[black] (54,-22.5) node[anchor=base west]{fs 40.0 GS/s};
+\draw[black] (54,-19.25) node[anchor=base west]{vrms 0 Vrms};
+\draw[black] (54,-16) node[anchor=base west]{VG2};
+\end{tikzpicture}%

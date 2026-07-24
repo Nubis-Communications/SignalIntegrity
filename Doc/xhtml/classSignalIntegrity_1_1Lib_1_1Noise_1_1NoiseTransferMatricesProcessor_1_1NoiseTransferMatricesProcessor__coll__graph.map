@@ -1,5 +1,0 @@
-<map id="NoiseTransferMatricesProcessor" name="NoiseTransferMatricesProcessor">
-<area shape="rect" id="Node000001" title="Processes transfer matrices for noise spectral densities." alt="" coords="5,179,211,264"/>
-<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1CallBacker_1_1CallBacker.xhtml" title="Handles Callbacks that allow progress reporting during long calculations and capability to abort." alt="" coords="41,5,175,131"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,145,111,178,105,178,105,145"/>
-</map>

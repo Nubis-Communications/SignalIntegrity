@@ -1,7 +1,0 @@
-<map id="WaveformTrimmer" name="WaveformTrimmer">
-<area shape="rect" id="Node000001" title="trims waveforms" alt="" coords="59,279,201,384"/>
-<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml" title="FilterDescriptor.py." alt="" coords="5,5,108,231"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,243,115,277,109,279,97,244"/>
-<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1WaveformProcessor_1_1WaveformProcessor.xhtml" title="WaveformProcessor.py." alt="" coords="133,85,274,151"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,164,150,279,145,278,185,163"/>
-</map>

@@ -1,0 +1,39 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="36" y="-45" t="CTLE" h="3" halign="c" lc="black"/>
+%  <rect x="32" y="-40" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">28,-44 32,-44</polyline>
+%  <polyline lw="2" lc="red">27.5,-43.5 28.5,-44.5</polyline>
+%  <polyline lw="2" lc="red">28.5,-43.5 27.5,-44.5</polyline>
+%  <text x="31" y="-43" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">44,-44 40,-44</polyline>
+%  <polyline lw="2" lc="red">43.5,-43.5 44.5,-44.5</polyline>
+%  <polyline lw="2" lc="red">44.5,-43.5 43.5,-44.5</polyline>
+%  <text x="41" y="-43" t="2" h="3" halign="l" lc="black"/>
+%  <text x="36" y="-37" t="gdc -2.0 dB" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-33.25" t="gdc2 0 dB" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-29.5" t="fz 400.0 MHz" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-25.75" t="flf 12.5 MHz" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-22" t="fp1 400.0 MHz" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-18.25" t="fp2 1.0 GHz" h="3" halign="c" lc="black"/>
+%  <text x="36" y="-14.5" t="F1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (36,-45) node[anchor=base]{CTLE};
+\path[line width=0.30mm, draw=black] (32,-48) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (28,-44) -- (32,-44);
+\path[line width=0.6mm, draw=red] (27.5,-43.5) -- (28.5,-44.5);
+\path[line width=0.6mm, draw=red] (28.5,-43.5) -- (27.5,-44.5);
+\draw[black] (31,-43) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (44,-44) -- (40,-44);
+\path[line width=0.6mm, draw=red] (43.5,-43.5) -- (44.5,-44.5);
+\path[line width=0.6mm, draw=red] (44.5,-43.5) -- (43.5,-44.5);
+\draw[black] (41,-43) node[anchor=base west]{2};
+\draw[black] (36,-37) node[anchor=base]{gdc -2.0 dB};
+\draw[black] (36,-33.25) node[anchor=base]{gdc2 0 dB};
+\draw[black] (36,-29.5) node[anchor=base]{fz 400.0 MHz};
+\draw[black] (36,-25.75) node[anchor=base]{flf 12.5 MHz};
+\draw[black] (36,-22) node[anchor=base]{fp1 400.0 MHz};
+\draw[black] (36,-18.25) node[anchor=base]{fp2 1.0 GHz};
+\draw[black] (36,-14.5) node[anchor=base]{F1};
+\end{tikzpicture}%

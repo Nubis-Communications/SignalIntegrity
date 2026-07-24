@@ -1,0 +1,24 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lw="3.00" lc="black">24,-16 20,-20</polyline>
+%  <polyline lc="black">20,-20 16,-24</polyline>
+%  <polyline lw="2.00" lc="red">15,-23 17,-25</polyline>
+%  <polyline lw="2.00" lc="red">17,-23 15,-25</polyline>
+%  <text x="24" y="-16" t="test.txt" h="3" lc="black"/>
+%  <text x="24" y="-13.5" t="VM1" h="3" lc="black"/>
+%  <rect x="20" y="-20" w="4" h="4"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (13.00,-27.00) rectangle +(21.08,17.85);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.90mm, draw=L] (24.00,-16.00) -- (20.00,-20.00);
+\path[line width=0.30mm, draw=L] (20.00,-20.00) -- (16.00,-24.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (15.00,-23.00) -- (17.00,-25.00);
+\path[line width=0.60mm, draw=L] (17.00,-23.00) -- (15.00,-25.00);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (24.00,-16.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{test.txt}};
+\draw[T] (24.00,-13.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{VM1}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (20.00,-20.00) rectangle +(4.00,4.00);
+\end{tikzpicture}%

@@ -1,0 +1,165 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="16" y="-28" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">12,-32 16,-32</polyline>
+%  <polyline lw="2" lc="red">11.5,-31.5 12.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">12.5,-31.5 11.5,-32.5</polyline>
+%  <text x="15" y="-31" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">28,-32 24,-32</polyline>
+%  <polyline lw="2" lc="red">27.5,-31.5 28.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">28.5,-31.5 27.5,-32.5</polyline>
+%  <text x="25" y="-31" t="2" h="3" halign="l" lc="black"/>
+%  <text x="20" y="-25" t="term 1.0 Gohm" h="3" halign="c" lc="black"/>
+%  <text x="20" y="-21.25" t="pos 0" h="3" halign="c" lc="black"/>
+%  <text x="20" y="-17.5" t="ports 2" h="3" halign="c" lc="black"/>
+%  <text x="20" y="-13.75" t="ref K1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">44,-32 52,-32</polyline>
+%  <rect x="44" y="-28" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">40,-32 44,-32</polyline>
+%  <polyline lw="2" lc="red">39.5,-31.5 40.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">40.5,-31.5 39.5,-32.5</polyline>
+%  <text x="43" y="-31" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">56,-32 52,-32</polyline>
+%  <polyline lw="2" lc="red">55.5,-31.5 56.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">56.5,-31.5 55.5,-32.5</polyline>
+%  <text x="53" y="-31" t="2" h="3" halign="l" lc="black"/>
+%  <text x="48" y="-25" t="term 1.0 Gohm" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-21.25" t="pos 1" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-17.5" t="ports 2" h="3" halign="c" lc="black"/>
+%  <text x="48" y="-13.75" t="ref K2" h="3" halign="c" lc="black"/>
+%  <rect x="76" y="-20" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">72,-24 76,-24</polyline>
+%  <polyline lw="2" lc="red">71.5,-23.5 72.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-23.5 71.5,-24.5</polyline>
+%  <text x="75" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">72,-32 76,-32</polyline>
+%  <polyline lw="2" lc="red">71.5,-31.5 72.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">72.5,-31.5 71.5,-32.5</polyline>
+%  <text x="75" y="-31" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-28 84,-28</polyline>
+%  <polyline lw="2" lc="red">87.5,-27.5 88.5,-28.5</polyline>
+%  <polyline lw="2" lc="red">88.5,-27.5 87.5,-28.5</polyline>
+%  <text x="85" y="-27" t="3" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-17" t="term 1.0 Gohm" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-13.25" t="pos 0" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-9.5" t="ports 3" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-5.75" t="ref K3" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">104,-24 112,-28</polyline>
+%  <rect x="104" y="-20" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">100,-24 104,-24</polyline>
+%  <polyline lw="2" lc="red">99.5,-23.5 100.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">100.5,-23.5 99.5,-24.5</polyline>
+%  <text x="103" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">100,-32 104,-32</polyline>
+%  <polyline lw="2" lc="red">99.5,-31.5 100.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">100.5,-31.5 99.5,-32.5</polyline>
+%  <text x="103" y="-31" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">116,-28 112,-28</polyline>
+%  <polyline lw="2" lc="red">115.5,-27.5 116.5,-28.5</polyline>
+%  <polyline lw="2" lc="red">116.5,-27.5 115.5,-28.5</polyline>
+%  <text x="113" y="-27" t="3" h="3" halign="l" lc="black"/>
+%  <text x="108" y="-17" t="term 1.0 Gohm" h="3" halign="c" lc="black"/>
+%  <text x="108" y="-13.25" t="pos 1" h="3" halign="c" lc="black"/>
+%  <text x="108" y="-9.5" t="ports 3" h="3" halign="c" lc="black"/>
+%  <text x="108" y="-5.75" t="ref K4" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">132,-32 140,-28</polyline>
+%  <rect x="132" y="-20" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">128,-24 132,-24</polyline>
+%  <polyline lw="2" lc="red">127.5,-23.5 128.5,-24.5</polyline>
+%  <polyline lw="2" lc="red">128.5,-23.5 127.5,-24.5</polyline>
+%  <text x="131" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">128,-32 132,-32</polyline>
+%  <polyline lw="2" lc="red">127.5,-31.5 128.5,-32.5</polyline>
+%  <polyline lw="2" lc="red">128.5,-31.5 127.5,-32.5</polyline>
+%  <text x="131" y="-31" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">144,-28 140,-28</polyline>
+%  <polyline lw="2" lc="red">143.5,-27.5 144.5,-28.5</polyline>
+%  <polyline lw="2" lc="red">144.5,-27.5 143.5,-28.5</polyline>
+%  <text x="141" y="-27" t="3" h="3" halign="l" lc="black"/>
+%  <text x="136" y="-17" t="term 1.0 Gohm" h="3" halign="c" lc="black"/>
+%  <text x="136" y="-13.25" t="pos 2" h="3" halign="c" lc="black"/>
+%  <text x="136" y="-9.5" t="ports 3" h="3" halign="c" lc="black"/>
+%  <text x="136" y="-5.75" t="ref K5" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (16,-36) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (12,-32) -- (16,-32);
+\path[line width=0.6mm, draw=red] (11.5,-31.5) -- (12.5,-32.5);
+\path[line width=0.6mm, draw=red] (12.5,-31.5) -- (11.5,-32.5);
+\draw[black] (15,-31) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (28,-32) -- (24,-32);
+\path[line width=0.6mm, draw=red] (27.5,-31.5) -- (28.5,-32.5);
+\path[line width=0.6mm, draw=red] (28.5,-31.5) -- (27.5,-32.5);
+\draw[black] (25,-31) node[anchor=base west]{2};
+\draw[black] (20,-25) node[anchor=base]{term 1.0 Gohm};
+\draw[black] (20,-21.25) node[anchor=base]{pos 0};
+\draw[black] (20,-17.5) node[anchor=base]{ports 2};
+\draw[black] (20,-13.75) node[anchor=base]{ref K1};
+\path[line width=0.30mm, draw=black] (44,-32) -- (52,-32);
+\path[line width=0.30mm, draw=black] (44,-36) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (40,-32) -- (44,-32);
+\path[line width=0.6mm, draw=red] (39.5,-31.5) -- (40.5,-32.5);
+\path[line width=0.6mm, draw=red] (40.5,-31.5) -- (39.5,-32.5);
+\draw[black] (43,-31) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (56,-32) -- (52,-32);
+\path[line width=0.6mm, draw=red] (55.5,-31.5) -- (56.5,-32.5);
+\path[line width=0.6mm, draw=red] (56.5,-31.5) -- (55.5,-32.5);
+\draw[black] (53,-31) node[anchor=base west]{2};
+\draw[black] (48,-25) node[anchor=base]{term 1.0 Gohm};
+\draw[black] (48,-21.25) node[anchor=base]{pos 1};
+\draw[black] (48,-17.5) node[anchor=base]{ports 2};
+\draw[black] (48,-13.75) node[anchor=base]{ref K2};
+\path[line width=0.30mm, draw=black] (76,-36) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (72,-24) -- (76,-24);
+\path[line width=0.6mm, draw=red] (71.5,-23.5) -- (72.5,-24.5);
+\path[line width=0.6mm, draw=red] (72.5,-23.5) -- (71.5,-24.5);
+\draw[black] (75,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (72,-32) -- (76,-32);
+\path[line width=0.6mm, draw=red] (71.5,-31.5) -- (72.5,-32.5);
+\path[line width=0.6mm, draw=red] (72.5,-31.5) -- (71.5,-32.5);
+\draw[black] (75,-31) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (88,-28) -- (84,-28);
+\path[line width=0.6mm, draw=red] (87.5,-27.5) -- (88.5,-28.5);
+\path[line width=0.6mm, draw=red] (88.5,-27.5) -- (87.5,-28.5);
+\draw[black] (85,-27) node[anchor=base west]{3};
+\draw[black] (80,-17) node[anchor=base]{term 1.0 Gohm};
+\draw[black] (80,-13.25) node[anchor=base]{pos 0};
+\draw[black] (80,-9.5) node[anchor=base]{ports 3};
+\draw[black] (80,-5.75) node[anchor=base]{ref K3};
+\path[line width=0.30mm, draw=black] (104,-24) -- (112,-28);
+\path[line width=0.30mm, draw=black] (104,-36) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (100,-24) -- (104,-24);
+\path[line width=0.6mm, draw=red] (99.5,-23.5) -- (100.5,-24.5);
+\path[line width=0.6mm, draw=red] (100.5,-23.5) -- (99.5,-24.5);
+\draw[black] (103,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (100,-32) -- (104,-32);
+\path[line width=0.6mm, draw=red] (99.5,-31.5) -- (100.5,-32.5);
+\path[line width=0.6mm, draw=red] (100.5,-31.5) -- (99.5,-32.5);
+\draw[black] (103,-31) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (116,-28) -- (112,-28);
+\path[line width=0.6mm, draw=red] (115.5,-27.5) -- (116.5,-28.5);
+\path[line width=0.6mm, draw=red] (116.5,-27.5) -- (115.5,-28.5);
+\draw[black] (113,-27) node[anchor=base west]{3};
+\draw[black] (108,-17) node[anchor=base]{term 1.0 Gohm};
+\draw[black] (108,-13.25) node[anchor=base]{pos 1};
+\draw[black] (108,-9.5) node[anchor=base]{ports 3};
+\draw[black] (108,-5.75) node[anchor=base]{ref K4};
+\path[line width=0.30mm, draw=black] (132,-32) -- (140,-28);
+\path[line width=0.30mm, draw=black] (132,-36) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (128,-24) -- (132,-24);
+\path[line width=0.6mm, draw=red] (127.5,-23.5) -- (128.5,-24.5);
+\path[line width=0.6mm, draw=red] (128.5,-23.5) -- (127.5,-24.5);
+\draw[black] (131,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (128,-32) -- (132,-32);
+\path[line width=0.6mm, draw=red] (127.5,-31.5) -- (128.5,-32.5);
+\path[line width=0.6mm, draw=red] (128.5,-31.5) -- (127.5,-32.5);
+\draw[black] (131,-31) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (144,-28) -- (140,-28);
+\path[line width=0.6mm, draw=red] (143.5,-27.5) -- (144.5,-28.5);
+\path[line width=0.6mm, draw=red] (144.5,-27.5) -- (143.5,-28.5);
+\draw[black] (141,-27) node[anchor=base west]{3};
+\draw[black] (136,-17) node[anchor=base]{term 1.0 Gohm};
+\draw[black] (136,-13.25) node[anchor=base]{pos 2};
+\draw[black] (136,-9.5) node[anchor=base]{ports 3};
+\draw[black] (136,-5.75) node[anchor=base]{ref K5};
+\end{tikzpicture}%

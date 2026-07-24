@@ -1,0 +1,168 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <polygon fill="white">195,-35 210,-35 210,-30 199.5,-30 198.5,-29 196,-29 195,-30</polygon>
+%  <polygon fill="white">185,-25 200,-25 200,-20 189.5,-20 188.5,-19 186,-19 185,-20</polygon>
+%  <polygon fill="white">185,0 200,0 200,5 189.5,5 188.5,6 186,6 185,5</polygon>
+%  <polygon fill="white">175,40 197,40 197,45 179.5,45 178.5,46 176,46 175,45</polygon>
+%  <polygon>90,60 105,60 105,65 94.5,65 93.5,66 91,66 90,65</polygon>
+%  <polyline>95,60 95,53 100,53</polyline>
+%  <text x="176" y="41" t="Project_Archive" h="3"/>
+%  <text x="196" y="-34" t="DirCCC" h="3"/>
+%  <rect x="205" y="-46" w="15" h="5" fill="white"/>
+%  <text x="206" y="-45" t="aaa.trc" h="3"/>
+%  <rect x="185" y="21" w="30" h="13" lc="red" fill="white"/>
+%  <text x="186" y="31" t="Project.si" h="3"/>
+%  <text x="186" y="1" t="DirDDD" h="3"/>
+%  <rect x="195" y="-15" w="30" h="9.00002" fill="white"/>
+%  <text x="196" y="-9" t="bbb.si" h="3"/>
+%  <rect x="185" y="10" w="15" h="5" fill="white"/>
+%  <text x="186" y="11" t="ccc.s2p" h="3"/>
+%  <text x="188" y="27" t="DirDDD/bbb.si" h="3"/>
+%  <text x="188" y="23" t="up/DirCCC/aaa.trc" h="3"/>
+%  <text x="198" y="-13" t="../ccc.s2p" h="3"/>
+%  <polygon>185,27 187,28 185,29</polygon>
+%  <polygon>185,23 187,24 185,25</polygon>
+%  <polygon>195,-13 197,-12 195,-11</polygon>
+%  <polyline>180,40 180,32 185,32</polyline>
+%  <polyline>180,32 180,13 185,13</polyline>
+%  <polyline>180,13 180,3 185,3</polyline>
+%  <polyline>190,0 190,-8 195,-8</polyline>
+%  <polyline>200,-35 200,-43 205,-43</polyline>
+%  <text x="186" y="-24" t="up" h="3"/>
+%  <polyline>180,3 180,-22 185,-22</polyline>
+%  <polyline>190,-25 190,-33 195,-33</polyline>
+%  <polygon>140,30 140,20 150,20 150,15 160,25 150,35 150,30</polygon>
+%  <polygon>68,30 68,20 78,20 78,15 88,25 78,35 78,30</polygon>
+%  <rect x="100" y="50" w="30" h="5.00001" fill="yellow"/>
+%  <text x="101" y="51" t="Project.siz" h="3"/>
+%  <text x="111" y="70" t="Before archive extraction" h="5" halign="c" fill="white"/>
+%  <text x="187" y="70" t="After archive extraction" h="5" halign="c" fill="white"/>
+%  <polygon>165,60 180,60 180,65 169.5,65 168.5,66 166,66 165,65</polygon>
+%  <polyline>170,60 170,53 175,53</polyline>
+%  <rect x="175" y="50" w="30" h="5.00001" fill="yellow"/>
+%  <text x="176" y="51" t="Project.siz" h="3"/>
+%  <polyline>170,53 170,43 175,43</polyline>
+%  <rect x="-2" y="-42" w="60" h="105" fill="yellow"/>
+%  <polygon fill="white">23,-27 38,-27 38,-22 27.5,-22 26.5,-21 24,-21 23,-22</polygon>
+%  <polygon fill="white">13,-17 28,-17 28,-12 17.5,-12 16.5,-11 14,-11 13,-12</polygon>
+%  <polygon fill="white">13,8 28,8 28,13 17.5,13 16.5,14 14,14 13,13</polygon>
+%  <polygon fill="white">3,48 25,48 25,53 7.5,53 6.5,54 4,54 3,53</polygon>
+%  <text x="4" y="49" t="Project_Archive" h="3"/>
+%  <text x="24" y="-26" t="DirCCC" h="3"/>
+%  <rect x="33" y="-38" w="15" h="5" fill="white"/>
+%  <text x="34" y="-37" t="aaa.trc" h="3"/>
+%  <rect x="13" y="29" w="30" h="13" fill="white"/>
+%  <text x="14" y="39" t="Project.si" h="3"/>
+%  <text x="14" y="9" t="DirDDD" h="3"/>
+%  <rect x="23" y="-7" w="30" h="9.00002" fill="white"/>
+%  <text x="24" y="-1" t="bbb.si" h="3"/>
+%  <rect x="13" y="18" w="15" h="5" fill="white"/>
+%  <text x="14" y="19" t="ccc.s2p" h="3"/>
+%  <text x="16" y="35" t="DirDDD/bbb.si" h="3"/>
+%  <text x="16" y="31" t="up/DirCCC/aaa.trc" h="3"/>
+%  <text x="26" y="-5" t="../ccc.s2p" h="3"/>
+%  <polygon>13,35 15,36 13,37</polygon>
+%  <polygon>13,31 15,32 13,33</polygon>
+%  <polygon>23,-5 25,-4 23,-3</polygon>
+%  <polyline>8,48 8,40 13,40</polyline>
+%  <polyline>8,40 8,21 13,21</polyline>
+%  <polyline>8,21 8,11 13,11</polyline>
+%  <polyline>18,8 18,0 23,0</polyline>
+%  <polyline>28,-27 28,-35 33,-35</polyline>
+%  <text x="14" y="-16" t="up" h="3"/>
+%  <polyline>8,11 8,-14 13,-14</polyline>
+%  <polyline>18,-17 18,-25 23,-25</polyline>
+%  <text x="4" y="58" t="Project.siz" h="3"/>
+%  <text x="25" y="70" t="Archive structure" h="5" halign="c" fill="white"/>
+%  <line x1="185" y1="30" x2="155" y2="0" li="dot" lc="red"/>
+%  <text x="151" y="0" t="Project.si is opened" h="5" halign="r" li="dot" lc="red"/>
+%  <text x="151" y="-8" t="after extraction" h="5" halign="r" li="dot" lc="red"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (-4.00,-48.00) rectangle +(231.00,123.92);
+\definecolor{L}{rgb}{0,0,0}
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (195.00,-35.00) -- (210.00,-35.00) -- (210.00,-30.00) -- (199.50,-30.00) -- (198.50,-29.00) -- (196.00,-29.00) -- (195.00,-30.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (185.00,-25.00) -- (200.00,-25.00) -- (200.00,-20.00) -- (189.50,-20.00) -- (188.50,-19.00) -- (186.00,-19.00) -- (185.00,-20.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (185.00,0.00) -- (200.00,0.00) -- (200.00,5.00) -- (189.50,5.00) -- (188.50,6.00) -- (186.00,6.00) -- (185.00,5.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (175.00,40.00) -- (197.00,40.00) -- (197.00,45.00) -- (179.50,45.00) -- (178.50,46.00) -- (176.00,46.00) -- (175.00,45.00) -- cycle;
+\path[line width=0.30mm, draw=L] (90.00,60.00) -- (105.00,60.00) -- (105.00,65.00) -- (94.50,65.00) -- (93.50,66.00) -- (91.00,66.00) -- (90.00,65.00) -- cycle;
+\path[line width=0.30mm, draw=L] (95.00,60.00) -- (95.00,53.00) -- (100.00,53.00);
+\draw(176.00,41.00) node[anchor=base west]{Project\symbol{95}Archive};
+\draw(196.00,-34.00) node[anchor=base west]{DirCCC};
+\path[line width=0.30mm, draw=L, fill=F] (205.00,-46.00) rectangle +(15.00,5.00);
+\draw(206.00,-45.00) node[anchor=base west]{aaa.trc};
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (185.00,21.00) rectangle +(30.00,13.00);
+\draw(186.00,31.00) node[anchor=base west]{Project.si};
+\draw(186.00,1.00) node[anchor=base west]{DirDDD};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (195.00,-15.00) rectangle +(30.00,9.00);
+\draw(196.00,-9.00) node[anchor=base west]{bbb.si};
+\path[line width=0.30mm, draw=L, fill=F] (185.00,10.00) rectangle +(15.00,5.00);
+\draw(186.00,11.00) node[anchor=base west]{ccc.s2p};
+\draw(188.00,27.00) node[anchor=base west]{DirDDD/bbb.si};
+\draw(188.00,23.00) node[anchor=base west]{up/DirCCC/aaa.trc};
+\draw(198.00,-13.00) node[anchor=base west]{../ccc.s2p};
+\path[line width=0.30mm, draw=L] (185.00,27.00) -- (187.00,28.00) -- (185.00,29.00) -- cycle;
+\path[line width=0.30mm, draw=L] (185.00,23.00) -- (187.00,24.00) -- (185.00,25.00) -- cycle;
+\path[line width=0.30mm, draw=L] (195.00,-13.00) -- (197.00,-12.00) -- (195.00,-11.00) -- cycle;
+\path[line width=0.30mm, draw=L] (180.00,40.00) -- (180.00,32.00) -- (185.00,32.00);
+\path[line width=0.30mm, draw=L] (180.00,32.00) -- (180.00,13.00) -- (185.00,13.00);
+\path[line width=0.30mm, draw=L] (180.00,13.00) -- (180.00,3.00) -- (185.00,3.00);
+\path[line width=0.30mm, draw=L] (190.00,0.00) -- (190.00,-8.00) -- (195.00,-8.00);
+\path[line width=0.30mm, draw=L] (200.00,-35.00) -- (200.00,-43.00) -- (205.00,-43.00);
+\draw(186.00,-24.00) node[anchor=base west]{up};
+\path[line width=0.30mm, draw=L] (180.00,3.00) -- (180.00,-22.00) -- (185.00,-22.00);
+\path[line width=0.30mm, draw=L] (190.00,-25.00) -- (190.00,-33.00) -- (195.00,-33.00);
+\path[line width=0.30mm, draw=L] (140.00,30.00) -- (140.00,20.00) -- (150.00,20.00) -- (150.00,15.00) -- (160.00,25.00) -- (150.00,35.00) -- (150.00,30.00) -- cycle;
+\path[line width=0.30mm, draw=L] (68.00,30.00) -- (68.00,20.00) -- (78.00,20.00) -- (78.00,15.00) -- (88.00,25.00) -- (78.00,35.00) -- (78.00,30.00) -- cycle;
+\definecolor{F}{rgb}{1,1,0}
+\path[line width=0.30mm, draw=L, fill=F] (100.00,50.00) rectangle +(30.00,5.00);
+\draw(101.00,51.00) node[anchor=base west]{Project.siz};
+\draw(111.00,70.00) node[anchor=base]{Before archive extraction};
+\draw(187.00,70.00) node[anchor=base]{After archive extraction};
+\path[line width=0.30mm, draw=L] (165.00,60.00) -- (180.00,60.00) -- (180.00,65.00) -- (169.50,65.00) -- (168.50,66.00) -- (166.00,66.00) -- (165.00,65.00) -- cycle;
+\path[line width=0.30mm, draw=L] (170.00,60.00) -- (170.00,53.00) -- (175.00,53.00);
+\path[line width=0.30mm, draw=L, fill=F] (175.00,50.00) rectangle +(30.00,5.00);
+\draw(176.00,51.00) node[anchor=base west]{Project.siz};
+\path[line width=0.30mm, draw=L] (170.00,53.00) -- (170.00,43.00) -- (175.00,43.00);
+\path[line width=0.30mm, draw=L, fill=F] (-2.00,-42.00) rectangle +(60.00,105.00);
+\definecolor{F}{rgb}{1,1,1}
+\path[line width=0.30mm, draw=L, fill=F] (23.00,-27.00) -- (38.00,-27.00) -- (38.00,-22.00) -- (27.50,-22.00) -- (26.50,-21.00) -- (24.00,-21.00) -- (23.00,-22.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (13.00,-17.00) -- (28.00,-17.00) -- (28.00,-12.00) -- (17.50,-12.00) -- (16.50,-11.00) -- (14.00,-11.00) -- (13.00,-12.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (13.00,8.00) -- (28.00,8.00) -- (28.00,13.00) -- (17.50,13.00) -- (16.50,14.00) -- (14.00,14.00) -- (13.00,13.00) -- cycle;
+\path[line width=0.30mm, draw=L, fill=F] (3.00,48.00) -- (25.00,48.00) -- (25.00,53.00) -- (7.50,53.00) -- (6.50,54.00) -- (4.00,54.00) -- (3.00,53.00) -- cycle;
+\draw(4.00,49.00) node[anchor=base west]{Project\symbol{95}Archive};
+\draw(24.00,-26.00) node[anchor=base west]{DirCCC};
+\path[line width=0.30mm, draw=L, fill=F] (33.00,-38.00) rectangle +(15.00,5.00);
+\draw(34.00,-37.00) node[anchor=base west]{aaa.trc};
+\path[line width=0.30mm, draw=L, fill=F] (13.00,29.00) rectangle +(30.00,13.00);
+\draw(14.00,39.00) node[anchor=base west]{Project.si};
+\draw(14.00,9.00) node[anchor=base west]{DirDDD};
+\path[line width=0.30mm, draw=L, fill=F] (23.00,-7.00) rectangle +(30.00,9.00);
+\draw(24.00,-1.00) node[anchor=base west]{bbb.si};
+\path[line width=0.30mm, draw=L, fill=F] (13.00,18.00) rectangle +(15.00,5.00);
+\draw(14.00,19.00) node[anchor=base west]{ccc.s2p};
+\draw(16.00,35.00) node[anchor=base west]{DirDDD/bbb.si};
+\draw(16.00,31.00) node[anchor=base west]{up/DirCCC/aaa.trc};
+\draw(26.00,-5.00) node[anchor=base west]{../ccc.s2p};
+\path[line width=0.30mm, draw=L] (13.00,35.00) -- (15.00,36.00) -- (13.00,37.00) -- cycle;
+\path[line width=0.30mm, draw=L] (13.00,31.00) -- (15.00,32.00) -- (13.00,33.00) -- cycle;
+\path[line width=0.30mm, draw=L] (23.00,-5.00) -- (25.00,-4.00) -- (23.00,-3.00) -- cycle;
+\path[line width=0.30mm, draw=L] (8.00,48.00) -- (8.00,40.00) -- (13.00,40.00);
+\path[line width=0.30mm, draw=L] (8.00,40.00) -- (8.00,21.00) -- (13.00,21.00);
+\path[line width=0.30mm, draw=L] (8.00,21.00) -- (8.00,11.00) -- (13.00,11.00);
+\path[line width=0.30mm, draw=L] (18.00,8.00) -- (18.00,0.00) -- (23.00,0.00);
+\path[line width=0.30mm, draw=L] (28.00,-27.00) -- (28.00,-35.00) -- (33.00,-35.00);
+\draw(14.00,-16.00) node[anchor=base west]{up};
+\path[line width=0.30mm, draw=L] (8.00,11.00) -- (8.00,-14.00) -- (13.00,-14.00);
+\path[line width=0.30mm, draw=L] (18.00,-17.00) -- (18.00,-25.00) -- (23.00,-25.00);
+\draw(4.00,58.00) node[anchor=base west]{Project.siz};
+\draw(25.00,70.00) node[anchor=base]{Archive structure};
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.30mm, draw=L, dash pattern=on 0.30mm off 0.50mm] (185.00,30.00) -- (155.00,0.00);
+\definecolor{T}{rgb}{1,0,0}
+\draw[T] (151.00,0.00) node[anchor=base east]{\textcolor[rgb]{1, 0, 0}{Project.si is opened}};
+\draw[T] (151.00,-8.00) node[anchor=base east]{\textcolor[rgb]{1, 0, 0}{after extraction}};
+\end{tikzpicture}%

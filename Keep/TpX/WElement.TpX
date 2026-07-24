@@ -1,0 +1,53 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="32" y="-41" t="W" h="3" halign="c" lc="black"/>
+%  <rect x="28" y="-32" w="8" h="-16" lc="black"/>
+%  <polyline lc="black">24,-36 28,-36</polyline>
+%  <polyline lw="2" lc="red">23.5,-35.5 24.5,-36.5</polyline>
+%  <polyline lw="2" lc="red">24.5,-35.5 23.5,-36.5</polyline>
+%  <text x="27" y="-35" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">24,-44 28,-44</polyline>
+%  <polyline lw="2" lc="red">23.5,-43.5 24.5,-44.5</polyline>
+%  <polyline lw="2" lc="red">24.5,-43.5 23.5,-44.5</polyline>
+%  <text x="27" y="-43" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">40,-36 36,-36</polyline>
+%  <polyline lw="2" lc="red">39.5,-35.5 40.5,-36.5</polyline>
+%  <polyline lw="2" lc="red">40.5,-35.5 39.5,-36.5</polyline>
+%  <text x="37" y="-35" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">40,-44 36,-44</polyline>
+%  <polyline lw="2" lc="red">39.5,-43.5 40.5,-44.5</polyline>
+%  <polyline lw="2" lc="red">40.5,-43.5 39.5,-44.5</polyline>
+%  <text x="37" y="-43" t="4" h="3" halign="l" lc="black"/>
+%  <text x="32" y="-29" t="file None" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-25.25" t="df 0 " h="3" halign="c" lc="black"/>
+%  <text x="32" y="-21.5" t="scale 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="32" y="-17.75" t="sect 0" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-14" t="ports 4" h="3" halign="c" lc="black"/>
+%  <text x="32" y="-10.25" t="W1" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (32,-41) node[anchor=base]{W};
+\path[line width=0.30mm, draw=black] (28,-48) rectangle +(8,16);
+\path[line width=0.30mm, draw=black] (24,-36) -- (28,-36);
+\path[line width=0.6mm, draw=red] (23.5,-35.5) -- (24.5,-36.5);
+\path[line width=0.6mm, draw=red] (24.5,-35.5) -- (23.5,-36.5);
+\draw[black] (27,-35) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (24,-44) -- (28,-44);
+\path[line width=0.6mm, draw=red] (23.5,-43.5) -- (24.5,-44.5);
+\path[line width=0.6mm, draw=red] (24.5,-43.5) -- (23.5,-44.5);
+\draw[black] (27,-43) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (40,-36) -- (36,-36);
+\path[line width=0.6mm, draw=red] (39.5,-35.5) -- (40.5,-36.5);
+\path[line width=0.6mm, draw=red] (40.5,-35.5) -- (39.5,-36.5);
+\draw[black] (37,-35) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (40,-44) -- (36,-44);
+\path[line width=0.6mm, draw=red] (39.5,-43.5) -- (40.5,-44.5);
+\path[line width=0.6mm, draw=red] (40.5,-43.5) -- (39.5,-44.5);
+\draw[black] (37,-43) node[anchor=base west]{4};
+\draw[black] (32,-29) node[anchor=base]{file None};
+\draw[black] (32,-25.25) node[anchor=base]{df 0 };
+\draw[black] (32,-21.5) node[anchor=base]{scale 1.0 };
+\draw[black] (32,-17.75) node[anchor=base]{sect 0};
+\draw[black] (32,-14) node[anchor=base]{ports 4};
+\draw[black] (32,-10.25) node[anchor=base]{W1};
+\end{tikzpicture}%

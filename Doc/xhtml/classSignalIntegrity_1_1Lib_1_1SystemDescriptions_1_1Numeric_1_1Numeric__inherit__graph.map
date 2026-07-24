@@ -1,9 +1,0 @@
-<map id="Numeric" name="Numeric">
-<area shape="rect" id="Node000001" title="handles numeric details of derived class solutions" alt="" coords="153,5,378,191"/>
-<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title="Performs numerical device deembedding." alt="" coords="5,239,149,324"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,202,122,241,118,237,159,198"/>
-<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="173,239,357,324"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="268,204,268,239,263,239,263,204"/>
-<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="382,239,517,324"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="370,198,409,237,405,241,366,202"/>
-</map>

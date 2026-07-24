@@ -1,0 +1,108 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="2" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXCenterFigure="1" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">36.75,-39.812 37.188,-39.812 38.062,-37.188 38.938,-37.188 39.812,-39.812 40.25,-39.812</polyline>
+%  <polyline lc="black">36.75,-37.188 37.188,-37.188 38.062,-39.812 38.938,-39.812 39.812,-37.188 40.25,-37.188</polyline>
+%  <ellipse x="38.5" y="-38.5" dx="7" dy="7" lc="black"/>
+%  <polyline lc="black">37.844,-36.312 39.156,-36.312</polyline>
+%  <polyline lc="black">38.5,-35.656 38.5,-36.969</polyline>
+%  <polyline lc="black">37.844,-40.688 39.156,-40.688</polyline>
+%  <polyline lc="black">38.5,-42 38.5,-45.5</polyline>
+%  <polygon fill="black">36.167,-45.5 40.833,-45.5 38.5,-47.833 36.167,-45.5</polygon>
+%  <polyline lc="black">38.5,-31.5 38.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">38.062,-31.062 38.938,-31.938</polyline>
+%  <polyline lw="2.00" lc="red">38.938,-31.062 38.062,-31.938</polyline>
+%  <text x="43.75" y="-78" t="show false" h="3" lc="black"/>
+%  <text x="43.75" y="-74.5" t="ho -100.0 ns" h="3" lc="black"/>
+%  <text x="43.75" y="-71" t="dur 200.0 ns" h="3" lc="black"/>
+%  <text x="43.75" y="-67.5" t="t0 0 s" h="3" lc="black"/>
+%  <text x="43.75" y="-64" t="br 1.0 GBaud" h="3" lc="black"/>
+%  <text x="43.75" y="-60.5" t="rt 0 s" h="3" lc="black"/>
+%  <text x="43.75" y="-57" t="prbs 7" h="3" lc="black"/>
+%  <text x="43.75" y="-53.5" t="lvl 2" h="3" lc="black"/>
+%  <text x="43.75" y="-50" t="sym 1" h="3" lc="black"/>
+%  <text x="43.75" y="-46.5" t="fs 40.0 GS/s" h="3" lc="black"/>
+%  <text x="43.75" y="-43" t="a 1.0 V" h="3" lc="black"/>
+%  <text x="43.75" y="-39.5" t="VG1" h="3" lc="black"/>
+%  <polyline lc="black">78.75,-39.812 79.188,-39.812 80.062,-37.188 80.938,-37.188 81.812,-39.812 82.25,-39.812</polyline>
+%  <polyline lc="black">78.75,-37.188 79.188,-37.188 80.062,-39.812 80.938,-39.812 81.812,-37.188 82.25,-37.188</polyline>
+%  <ellipse x="80.5" y="-38.5" dx="7" dy="7" lc="black"/>
+%  <polyline lc="black">79.844,-36.312 81.156,-36.312</polyline>
+%  <polyline lc="black">80.5,-35.656 80.5,-36.969</polyline>
+%  <polyline lc="black">79.844,-40.688 81.156,-40.688</polyline>
+%  <polyline lc="black">80.5,-31.5 80.5,-35</polyline>
+%  <polyline lw="2.00" lc="red">80.062,-31.062 80.938,-31.938</polyline>
+%  <polyline lw="2.00" lc="red">80.938,-31.062 80.062,-31.938</polyline>
+%  <polyline lc="black">80.5,-45.5 80.5,-42</polyline>
+%  <polyline lw="2.00" lc="red">80.062,-45.062 80.938,-45.938</polyline>
+%  <polyline lw="2.00" lc="red">80.938,-45.062 80.062,-45.938</polyline>
+%  <text x="85.75" y="-78" t="show false" h="3" lc="black"/>
+%  <text x="85.75" y="-74.5" t="ho -100.0 ns" h="3" lc="black"/>
+%  <text x="85.75" y="-71" t="dur 200.0 ns" h="3" lc="black"/>
+%  <text x="85.75" y="-67.5" t="t0 0 s" h="3" lc="black"/>
+%  <text x="85.75" y="-64" t="br 1.0 GBaud" h="3" lc="black"/>
+%  <text x="85.75" y="-60.5" t="rt 0 s" h="3" lc="black"/>
+%  <text x="85.75" y="-57" t="prbs 7" h="3" lc="black"/>
+%  <text x="85.75" y="-53.5" t="lvl 2" h="3" lc="black"/>
+%  <text x="85.75" y="-50" t="sym 1" h="3" lc="black"/>
+%  <text x="85.75" y="-46.5" t="fs 40.0 GS/s" h="3" lc="black"/>
+%  <text x="85.75" y="-43" t="a 1.0 V" h="3" lc="black"/>
+%  <text x="85.75" y="-39.5" t="VG2" h="3" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=2.00mm, y=2.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0mm] (34.00,-79.65) rectangle +(69.00,49.59);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (36.75,-39.81) -- (37.19,-39.81) -- (38.06,-37.19) -- (38.94,-37.19) -- (39.81,-39.81) -- (40.25,-39.81);
+\path[line width=0.30mm, draw=L] (36.75,-37.19) -- (37.19,-37.19) -- (38.06,-39.81) -- (38.94,-39.81) -- (39.81,-37.19) -- (40.25,-37.19);
+\path[line width=0.30mm, draw=L] (38.50,-38.50) ellipse (7.00mm and 7.00mm);
+\path[line width=0.30mm, draw=L] (37.84,-36.31) -- (39.16,-36.31);
+\path[line width=0.30mm, draw=L] (38.50,-35.66) -- (38.50,-36.97);
+\path[line width=0.30mm, draw=L] (37.84,-40.69) -- (39.16,-40.69);
+\path[line width=0.30mm, draw=L] (38.50,-42.00) -- (38.50,-45.50);
+\definecolor{F}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L, fill=F] (36.17,-45.50) -- (40.83,-45.50) -- (38.50,-47.83) -- (36.17,-45.50) -- cycle;
+\path[line width=0.30mm, draw=L] (38.50,-31.50) -- (38.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (38.06,-31.06) -- (38.94,-31.94);
+\path[line width=0.60mm, draw=L] (38.94,-31.06) -- (38.06,-31.94);
+\definecolor{T}{rgb}{0,0,0}
+\draw[T] (43.75,-78.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{show false}};
+\draw[T] (43.75,-74.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{ho -100.0 ns}};
+\draw[T] (43.75,-71.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{dur 200.0 ns}};
+\draw[T] (43.75,-67.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 0 s}};
+\draw[T] (43.75,-64.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{br 1.0 GBaud}};
+\draw[T] (43.75,-60.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{rt 0 s}};
+\draw[T] (43.75,-57.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{prbs 7}};
+\draw[T] (43.75,-53.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{lvl 2}};
+\draw[T] (43.75,-50.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{sym 1}};
+\draw[T] (43.75,-46.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{fs 40.0 GS/s}};
+\draw[T] (43.75,-43.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 V}};
+\draw[T] (43.75,-39.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{VG1}};
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (78.75,-39.81) -- (79.19,-39.81) -- (80.06,-37.19) -- (80.94,-37.19) -- (81.81,-39.81) -- (82.25,-39.81);
+\path[line width=0.30mm, draw=L] (78.75,-37.19) -- (79.19,-37.19) -- (80.06,-39.81) -- (80.94,-39.81) -- (81.81,-37.19) -- (82.25,-37.19);
+\path[line width=0.30mm, draw=L] (80.50,-38.50) ellipse (7.00mm and 7.00mm);
+\path[line width=0.30mm, draw=L] (79.84,-36.31) -- (81.16,-36.31);
+\path[line width=0.30mm, draw=L] (80.50,-35.66) -- (80.50,-36.97);
+\path[line width=0.30mm, draw=L] (79.84,-40.69) -- (81.16,-40.69);
+\path[line width=0.30mm, draw=L] (80.50,-31.50) -- (80.50,-35.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (80.06,-31.06) -- (80.94,-31.94);
+\path[line width=0.60mm, draw=L] (80.94,-31.06) -- (80.06,-31.94);
+\definecolor{L}{rgb}{0,0,0}
+\path[line width=0.30mm, draw=L] (80.50,-45.50) -- (80.50,-42.00);
+\definecolor{L}{rgb}{1,0,0}
+\path[line width=0.60mm, draw=L] (80.06,-45.06) -- (80.94,-45.94);
+\path[line width=0.60mm, draw=L] (80.94,-45.06) -- (80.06,-45.94);
+\draw[T] (85.75,-78.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{show false}};
+\draw[T] (85.75,-74.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{ho -100.0 ns}};
+\draw[T] (85.75,-71.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{dur 200.0 ns}};
+\draw[T] (85.75,-67.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{t0 0 s}};
+\draw[T] (85.75,-64.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{br 1.0 GBaud}};
+\draw[T] (85.75,-60.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{rt 0 s}};
+\draw[T] (85.75,-57.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{prbs 7}};
+\draw[T] (85.75,-53.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{lvl 2}};
+\draw[T] (85.75,-50.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{sym 1}};
+\draw[T] (85.75,-46.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{fs 40.0 GS/s}};
+\draw[T] (85.75,-43.00) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{a 1.0 V}};
+\draw[T] (85.75,-39.50) node[anchor=base west]{\textcolor[rgb]{0, 0, 0}{VG2}};
+\end{tikzpicture}%
