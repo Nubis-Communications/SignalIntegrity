@@ -2233,6 +2233,8 @@ Its noise is configured through the [Edit Properties](15-Main-Schematic-Dialog.m
 
 - **Lanes** - the number of identical, uncorrelated lanes of noise represented by this source; the spectral density is scaled by $\sqrt{\mathrm{Lanes}}$.
 
+### White Noise
+
 For the `WhiteNoise` type, the level can be specified in any one of several equivalent ways using the **White Noise Type** selection; changing one representation updates the others (using the **Noise Bandwidth** where a total-power figure is involved):
 
 | White Noise Type | Description |
@@ -2244,6 +2246,24 @@ For the `WhiteNoise` type, the level can be specified in any one of several equi
 | ENOB | derived from an effective number of bits and a peak-to-peak voltage |
 | COM TX | derived from a COM transmitter cursor height, SNR, and 20-80 risetime (Gaussian spectral shaping) |
 | Johnson | thermal noise derived from a temperature and resistance |
+
+The equivalent quantities are related by the following formulas, where `BW` is the **Noise Bandwidth**.
+
+#### ENOB
+
+The **ENOB** (effective number of bits) representation derives the total rms noise from a peak-to-peak voltage $V_{pp}$ and an effective number of bits $N$ assuming an ideal quantizer:
+
+$$V_{rms} = \frac{V_{pp}}{2^{N}\sqrt{12}}\mbox{,}$$
+
+which is then converted to an amplitude spectral density $\rho = V_{rms}/\sqrt{\mathrm{BW}}$.
+
+#### Johnson
+
+The **Johnson** (thermal) representation derives the amplitude spectral density from an absolute temperature $T$ and a resistance $R$:
+
+$$\rho = \sqrt{4\,k_B\,T\,R} \quad \left[\mathrm{V}/\sqrt{\mathrm{Hz}}\right]\mbox{,}$$
+
+where $k_B$ is Boltzmann's constant.
 
 A **Save Properties to Global Preferences** button stores the current settings as the defaults for new statistical noise sources (see [Statistical Noise Preferences](29-Preferences.md#sub:Statistical-Noise-Preferences)).
 
@@ -2286,6 +2306,9 @@ Like the voltage source, it is available as a one-port, two-port, differential, 
 
 </div>
 
+The **Noise Type** may be one of `WhiteNoise`, `SpectralDensityFile` (read the spectral density from a file), `WaveformFile` (derive the spectral density from a waveform file), `Crosstalk` (use another output probe's waveform as the noise source), or `ShotNoise` (described below).
+
+### White Noise
 
 For the `WhiteNoise` type, the current source level is specified in current units using the **White Noise Type** selection:
 
@@ -2295,6 +2318,24 @@ For the `WhiteNoise` type, the current source level is specified in current unit
 | A/√Hz | amplitude spectral density in amperes per root Hz |
 | A²/GHz | power spectral density in A² per GHz |
 | Arms | total rms noise integrated over the noise bandwidth |
+
+### Shot Noise
+
+The `ShotNoise` type builds the current noise spectral density from the shot-noise associated with a flowing current. Shot noise has a white power spectral density
+
+$$S_i(f) = 2\,q\,I \quad \left[\mathrm{A^2/Hz}\right]$$
+
+where $q$ is the electron charge and $I$ is the current, so the equivalent amplitude spectral density is
+
+$$\rho(f) = \sqrt{2\,q\,I} \quad \left[\mathrm{A}/\sqrt{\mathrm{Hz}}\right]\mbox{.}$$
+
+The density is zeroed at DC and above the entered **Noise Bandwidth**. The **Current Source** selection controls how the current $I$ is obtained:
+
+- **Mean** - a flat (white) density $\sqrt{2\,q\,I}$ is built directly from the entered **Mean (steady-state) Current** $I$.
+
+- **Time-Varying Current** - the density is shaped by a referenced current output probe waveform (specified by **Probe Name**). The probe must exist and must be a [Current Probe](23-Built-in-Devices-Parts.md#device:Current-Probe) (its units must be amperes); otherwise the analysis fails. The white shot-noise level of the waveform's mean current is shaped by the waveform's own normalized spectrum, and the equivalent steady-state current that would produce the same total rms over the noise bandwidth is written back into the **Mean (steady-state) Current** field, namely
+
+$$I_{eq} = \frac{\mathrm{rms}^2}{2\,q\,\mathrm{BW}}\mbox{.}$$
 
 ## Current Statistical Noise Source (Project) {#device:Current-StatisticaL-Noise-Source-Project}
 
