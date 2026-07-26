@@ -84,12 +84,19 @@ To prevent pathological situations resulting from the incorrect entry of jitter 
 
 **Log Intensity**
 
-<div class="center">
-
-| <img src="media/EyeNoLog.png" alt="EyeNoLog" width="200" height="300" /> | <img src="media/EyeLog.png" alt="EyeLog" width="200" height="300" /> | <img src="media/EyeLog2.png" alt="EyeLog2" width="200" height="300" /> |
-|:---|:---|:---|
-| No log intensity | Log intensity (0 to -18 exponent) | Log intensity (-17.999 to -18 exponent) |
-
+<div style="display:flex; flex-wrap:nowrap; justify-content:center; gap:24px; margin:1em 0;">
+<div style="flex:0 0 200px; text-align:center;">
+<img src="media/EyeNoLog_uniform.png" alt="EyeNoLog" width="200" height="228" style="display:block; width:200px !important; height:228px !important; max-width:none !important;" />
+<div>No log intensity</div>
+</div>
+<div style="flex:0 0 200px; text-align:center;">
+<img src="media/EyeLog_uniform.png" alt="EyeLog" width="200" height="228" style="display:block; width:200px !important; height:228px !important; max-width:none !important;" />
+<div>Log intensity (0 to -18 exponent)</div>
+</div>
+<div style="flex:0 0 200px; text-align:center;">
+<img src="media/EyeLog2_uniform.png" alt="EyeLog2" width="200" height="228" style="display:block; width:200px !important; height:228px !important; max-width:none !important;" />
+<div>Log intensity (-17.999 to -18 exponent)</div>
+</div>
 </div>
 
 [Log Intensity](22-Eye-Diagram-Properties.md#sub:Log-Intensity) is used to further enhance the eye diagram. Normally, the intensity is linear (mostly) with the probability. In Log Intensity mode, the intensity is linear with the log of the probability, with the [Min Exponent](22-Eye-Diagram-Properties.md#sub:Min-Exponent) specifying zero intensity, and the [Max Exponent](22-Eye-Diagram-Properties.md#sub:Max-Exponent) specifying full intensity. This is particularly useful to identify the low probability areas of the eye.

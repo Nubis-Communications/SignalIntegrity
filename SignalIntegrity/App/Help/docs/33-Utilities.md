@@ -111,6 +111,61 @@ For example, to run the calculation with verbose progress messages:
 ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -bps 2 --verbose
 ```
 
+### Command-Line Help {#sub:ERL-Help}
+
+Running `ERL --help` prints the following summary of the utility's arguments:
+
+```text
+usage: ERL [-h] [-debug] [-p] [-v] [-port_reorder PORT_REORDER] [-T_r T_R] [-beta_x BETA_X] [-rho_x RHO_X] [-N N] [-N_bx N_BX]
+           [-T_fx T_FX] [-f_b F_B] [-Z0 Z0] [-DER_0 DER_0] [-bps BPS] [-phi PHI] [-f_r F_R] [-tw]
+           [filename]
+
+Effective Return Loss Calculator
+
+                    Calculates ERL mostly according to the IEEE standard.
+
+
+
+positional arguments:
+  filename              name of .s4p file for the ERL measurement
+
+options:
+  -h, --help            show this help message and exit
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -p, --profile         profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -port_reorder PORT_REORDER
+                        (optional) port ordering of 1p,1n,2p,2n of the .s4p file (default is 1,2,3,4).
+  -T_r T_R              (required) transition time associated with a pulse,
+                        specified with units of s or UI (like 5ps or 5e-12 or 0.5UI).
+  -beta_x BETA_X        (required) incremental available signal loss factor,
+                        specified with units of Hz (like 2.53GHz or 2.53e9).
+  -rho_x RHO_X          (required) permitted reflection from a transmission line external to the DUT,
+                        must be between 0 and 1, specified unitless (like 0.5).
+  -N N                  (required) length of reflection signal,
+                        specified with units of UI (like 400UI or 400).
+  -N_bx N_BX            (required) equalizer length associated with reflection signal,
+                        specified with units of UI (like 16UI or 16).
+  -T_fx T_FX            (optional) time-gated propagation delay,
+                        specified with units of s (like 1ns or 1e-9),
+                        defaults to 0.
+  -f_b F_B              (required) baud rate
+                        specified with units of Baud (like 106.25GBaud or 106.25e9).
+  -Z0 Z0                (optional) intended differential-mode characteristic impedance
+                        specified with units of ohm (like 100ohm or 100),
+                        defaults to 100.
+  -DER_0 DER_0          (required) target detector error ratio
+                        specified unitless (like 1e-6).
+  -bps BPS              bits per symbol
+                        1 is NRZ (default), 2 is PAM-4.
+  -phi PHI              sample phases in ptdr (essentially upsample factor)
+                        defaults to 32
+  -f_r F_R              receiver bandwidth as a fraction of the Baud rate
+                        specified unitless (like 0.58), defaults to 0.58.
+  -tw, --tukey_window   apply a Tukey window to the receiver filter
+```
+
 ## Integrated Crosstalk (IXT) {#sub:Integrated-Crosstalk}
 
 The **IXT** utility computes an integrated measure of the crosstalk coupled into a victim channel from one or more aggressor channels. It reports a single figure of merit, in dB, that summarizes how strong the aggregate crosstalk is relative to the victim's through response, integrated over frequency.
@@ -171,7 +226,78 @@ In addition to the arguments above, the following options control the utility's 
 
 - `-p` / `--profile` &ndash; profiles the software and prints timing statistics.
 
+### Command-Line Help {#sub:IXT-Help}
+
+Running `IXT --help` prints the following summary of the utility's arguments:
+
+```text
+usage: IXT [-h] [-sp S_PARAMETERS] [-pr PORT_REORDER] [-se SINGLE_ENDED_PORTS] [-z0 REFERENCE_IMPEDANCE] [-vt]
+           [-vp VICTIM_PORTS] [-vn VICTIM_NAME] [-ap AGGRESSOR_PORTS] [-an AGGRESSOR_NAMES] [-ps PLOT_SAVE] [-mult MULTIPLY]
+           [-debug] [-p] [-v] [-fe END_FREQUENCY] [-n FREQUENCY_POINTS]
+           [filename]
+
+Integrated Crosstalk Calculator
+
+                        Calculates integrated crosstalk
+
+s-parameter file (-f) is read in.  Then, the port reordering (-pr) is applied.  The new s-parameter file has the number of ports
+in the port reordering, in that order.
+Then, single-ended ports (-se) are applied.  The number of these must match the number of ports surviving the port reordering
+and are in order p,n,p,n,....  The new ports, after conversion to mixed mode, are all differential followed by all common.  The
+differential are in order of the first p,n (differential port 1), the second p,n (differential port 2), etc. followed by the
+common-mode ports.  Then, the reference impedances are applied (-z0).  There must be either one value (applied to all ports),
+two values (applied to the two ports, or the first value is applied to the differential ports and the second to the common
+ports) or one value per port surviving the mixed-mode conversion.  Then, if -vt is supplied, all differential and common mode
+ports are converted to voltage transfer functions.  Finally, the victim ports (-vp) and aggressor ports (-ap) are used.
+
+
+
+positional arguments:
+  filename              s-parameter file name
+
+options:
+  -h, --help            show this help message and exit
+  -sp S_PARAMETERS, --s_parameters S_PARAMETERS
+  -pr PORT_REORDER, --port_reorder PORT_REORDER
+                        optional comma seperated list of ports to use
+  -se SINGLE_ENDED_PORTS, --single_ended_ports SINGLE_ENDED_PORTS
+                        optional comma seperated list of single-ended ports for conversion to mixed-mode
+  -z0 REFERENCE_IMPEDANCE, --reference_impedance REFERENCE_IMPEDANCE
+                        optional comma seperated list of reference impedances
+                        1 number means a reference impedance to apply to all ports.
+                        2 numbers means a reference impedance to apply to the first half and the second half of ports (like
+                        differential/common-mode.
+                        otherwise one number per port.
+  -vt, --voltage_transfer_function
+                        (optional, applies to s-parameters) fit to the voltage transfer function
+                        the default is to fit s21, which is the ratio of output
+                        wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).
+  -vp VICTIM_PORTS, --victim_ports VICTIM_PORTS
+                        comma seperated list of the two victim ports: input,output
+  -vn VICTIM_NAME, --victim_name VICTIM_NAME
+  -ap AGGRESSOR_PORTS, --aggressor_ports AGGRESSOR_PORTS
+                        comma seperated list of aggessor ports: input1,output1,input2,output2,... etc.
+  -an AGGRESSOR_NAMES, --aggressor_names AGGRESSOR_NAMES
+  -ps PLOT_SAVE, --plot_save PLOT_SAVE
+  -mult MULTIPLY, --multiply MULTIPLY
+                        comma seperated list of numbers to multiply by each aggressor port crosstalk
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -p, --profile         profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -fe END_FREQUENCY, --end_frequency END_FREQUENCY
+                        (optional) end frequency to resample to
+                        if this is specified, then the number of frequency points must also be specified
+                        (see --frequency_points).
+  -n FREQUENCY_POINTS, --frequency_points FREQUENCY_POINTS
+                        (optional) number of frequency points to resample to
+                        if this is specified, then the end frequency must also be specified (see --end_frequency).
+                        it's a good idea to use as few frequency points as needed to improve speed.
+```
+
 ## Pole/Zero Fitter (PZ) {#sub:Pole-Zero-Fitter}
+
+<img src="media/PZ_debug.png" alt="PZ_debug" width="900" />
 
 The **PZ** utility fits a rational (pole/zero) model &ndash; a gain, a delay, and a set of pole and zero pairs &ndash; to a measured or simulated frequency response. It is useful for extracting a compact, analytic model of a response so that it can be examined, reused, or synthesized.
 
@@ -232,3 +358,144 @@ In addition to the arguments above, the following options control the utility's 
 - `-debug` / `--debug` &ndash; shows debug information and displays the live fitting dashboard (fit comparison, convergence trackers, and pole/zero locations); it also writes intermediate results and goal files.
 
 - `-pf` / `--profile` &ndash; profiles the software and prints timing statistics.
+
+### Command-Line Help {#sub:PZ-Help}
+
+Running `PZ --help` prints the following summary of the utility's arguments:
+
+```text
+usage: PZ [-h] [-ft FIT_TYPE] [-debug] [-pf] [-v] [-zp ZERO_PAIRS] [-pp POLE_PAIRS] [-gf GUESS_FILE] [-of OUTPUT_FILE]
+          [-fe END_FREQUENCY] [-n FREQUENCY_POINTS] [-mind MIN_DELAY] [-maxd MAX_DELAY] [-maxq MAX_Q] [-id INITIAL_DELAY]
+          [-i ITERATIONS] [-pr PRECISION] [-rz] [-lz] [-vt] [-xg] [-xdly] [-r REFERENCE_IMPEDANCE]
+          [filename]
+
+Pole/zero Fitter
+
+                        Fits gain, delay, poles and zeros to response provided.
+
+
+
+positional arguments:
+  filename              name of file for the fit
+                        this could be an:
+                            s-parameter file (s21 assumed for fit),
+                            SignalIntegrity frequency response file (not yet supported), or
+                            a .csv file containing frequency, real part, imaginary part comma separated on each line.
+
+options:
+  -h, --help            show this help message and exit
+  -ft FIT_TYPE, --fit_type FIT_TYPE
+                        (required) type of fit -- either "magnitude" or "complex"
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -pf, --profile        profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -zp ZERO_PAIRS, --zero_pairs ZERO_PAIRS
+                        (required) number of zero pairs
+  -pp POLE_PAIRS, --pole_pairs POLE_PAIRS
+                        (required) number of pole pairs
+  -gf GUESS_FILE, --guess_file GUESS_FILE
+                        (optional) file containing initial guess
+                        this file can be an output file (see --output_file), in which case, the raw fit results are
+                        extracted and used as the starting guess.  this file must be a .json file with the .json
+                        extension.  otherwise, it is assumed to be a text file produced in debug mode (see --debug),
+                        which is usually called test_result.txt.
+  -of OUTPUT_FILE, --output_file OUTPUT_FILE
+                        (optional) output file
+                        no matter how this file is specified, it will have the .json extension added to it.
+  -fe END_FREQUENCY, --end_frequency END_FREQUENCY
+                        (optional) end frequency to resample to
+                        if this is specified, then the number of frequency points must also be specified
+                        (see --frequency_points).
+  -n FREQUENCY_POINTS, --frequency_points FREQUENCY_POINTS
+                        (optional) number of frequency points to resample to
+                        if this is specified, then the end frequency must also be specified (see --end_frequency).
+                        it's a good idea to use as few frequency points as needed to improve speed.
+  -mind MIN_DELAY, --min_delay MIN_DELAY
+                        (optional) minimum delay - defaults to 0
+  -maxd MAX_DELAY, --max_delay MAX_DELAY
+                        (optional) maximum delay
+  -maxq MAX_Q, --max_q MAX_Q
+                        (optional) maximum Q - defaults to 5
+                        limiting the maximum Q forces the result to be at least reasonably behaved and improves
+                        the chances of a successful fit.
+  -id INITIAL_DELAY, --initial_delay INITIAL_DELAY
+                        (optional) initial delay - defaults to 0
+                        it is highly recommended to supply the best guess at the delay for improving the success
+                        of the fit and to limit the delay range (see --max_delay and --min_delay).
+  -i ITERATIONS, --iterations ITERATIONS
+                        (optional) iterations (short,medium,long,infinite) - defaults to medium
+                        normally fit convergence should not end with the expiration of iterations.  if medium
+                        iterations is used, iterations expire after about a minute.  long increases this to
+                        several minutes max.
+  -pr PRECISION, --precision PRECISION
+                        (optional) precision for fit (low,medium,high,super)
+                        this is the main way of controlling how convergence is determined and it determines how little
+                        the error is decreasing before giving up.  low will be very quick, but will result in
+                        sub-optimal fits.  medium is usually good enough, while high gives a very good fit.  super is
+                        used for extremely good fits, but takes longer (possibly several minutes).
+  -rz, --real_zeros     (optional) restrict zeros to be real
+                        often the solution can only have real zeros.
+  -lz, --lhp_zeros      (optional) restrict zeros to the LHP
+                        left-half plane zeros enforces a minimum phase solution.
+  -vt, --voltage_transfer_function
+                        (optional, applies only to s-parameters) fit to the voltage transfer function
+                        when s-parameters are used, the default is to fit s21, which is the ratio of output
+                        wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).
+  -xg, --fix_gain       (optional) fix the dc gain.
+                        choosing this option fixes the dc point to the first frequency point, otherwise, the dc gain is part of
+                        the fit.
+  -xdly, --fix_delay    (optional) fix the delay value.
+                        choosing this option fixes the delay value to 0, if -id not specified or what is specified by -id,
+                        otherwise, the delay is part of the fit.
+  -r REFERENCE_IMPEDANCE, --reference_impedance REFERENCE_IMPEDANCE
+                        (optional, applies only to s-parameters) specify another reference impedance to use
+```
+
+### Output File {#sub:PZ-Output-File}
+
+When an `output_file` is supplied, the fitted model is written as a JSON file (the `.json` extension is added automatically). The file is a single, nested object. Its overall shape is shown in the tree below, and the meaning of each field follows.
+
+```text
+├── raw ...................... raw parameter vector [gain, delay, w0, Q, w0, Q, ...]
+├── configuration ............ the arguments the utility was run with
+├── convergence
+│   ├── iterations ........... number of iterations taken
+│   ├── mse .................. final mean-squared error
+│   ├── time ................. elapsed fitting time (s)
+│   ├── completed ............ finish timestamp (MM/DD/YYYY HH:MM:SS)
+│   ├── why stopped .......... reason the iteration stopped
+│   └── frequency multiplier . internal frequency scaling factor
+├── response
+│   ├── frequency ............ list of frequencies
+│   ├── goal
+│   │   ├── magnitude ........ response being fitted (magnitude)
+│   │   └── phase ............ response being fitted (degrees)
+│   └── result
+│       ├── magnitude ........ fitted model response (magnitude)
+│       └── phase ............ fitted model response (degrees)
+├── gain
+│   ├── value ................ DC gain (linear)
+│   └── dB ................... DC gain (dB)
+├── delay
+│   └── value ................ bulk delay (s)
+├── pole pair / zero pair     (complex-conjugate pairs)
+│   ├── number of ............ count of pairs
+│   └── list [ ]             one entry per pair:
+│       ├── w0 ............... natural angular frequency
+│       ├── Q ................ quality factor
+│       ├── zeta ............. damping ratio
+│       ├── f0 ............... natural frequency (Hz)
+│       ├── wr / fr .......... damped resonant frequency (rad/s and Hz)
+│       └── peakdB ........... resonant peak height (dB)
+└── pole / zero               (individual roots, two per pair)
+    ├── number of ............ twice the number of pairs
+    └── list [ ]             one entry per root:
+        ├── real / imag ...... rectangular coordinates
+        ├── mag .............. magnitude
+        └── angle
+            ├── rad .......... angle (radians)
+            └── deg .......... angle (degrees)
+```
+
+The `raw` array holds the parameters in the order `[gain, delay, w0, Q, w0, Q, ...]` &ndash; the zero pairs first, then the pole pairs. This array (or a whole result file) can be fed back in through `guess_file` to seed a subsequent fit.

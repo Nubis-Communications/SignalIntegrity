@@ -257,7 +257,7 @@ Note that the ’thru’ and ’thru_wires’ state can only be used with device
 | category          |        |         |       | Resistors       |
 | default reference | string |         |       | R?              |
 | reference         | string |         |       |                 |
-| resistance        | float  | r       | ohms  | ohms            |
+| resistance        | float  | r       | ohms  | 50 Ω            |
 
 This is a one and two port resistor with the given resistance.
 
@@ -270,7 +270,7 @@ This is a one and two port resistor with the given resistance.
 | category          |        |         |                    | Resistors       |
 | default reference | string |         |                    | R?              |
 | reference         | string |         |                    |                 |
-| skin effect       | float  | rse     | $\Omega/\sqrt{Hz}$ | ohms            |
+| skin effect       | float  | rse     | $\Omega/\sqrt{Hz}$ | 0               |
 
 This is a two port skin-effect resistor. This resistor has its impedance vary as the square root of frequency and is intended to augment resistor capability when constructing transmission lines.
 
@@ -283,7 +283,7 @@ This is a two port skin-effect resistor. This resistor has its impedance vary as
 | category           |        |         |       | capacitors      |
 | default reference  | string |         |       | C?              |
 | reference          | string |         |       |                 |
-| capacitance        | float  | c       | F     | pF              |
+| capacitance        | float  | c       | F     | 1 pF            |
 | ESR                | float  | esr     | ohm   |                 |
 | dissipation factor | float  | df      |       |                 |
 
@@ -300,7 +300,7 @@ It allows specification of certain non-idealities like effective series resistan
 | category          |        |         |       | Inductors       |
 | default reference | string |         |       | L?              |
 | reference         | string |         |       |                 |
-| inductance        | float  | l       | H     | nH              |
+| inductance        | float  | l       | H     | 1 nH            |
 
 This is a two port inductor with the given inductance.
 
@@ -313,7 +313,7 @@ This is a two port inductor with the given inductance.
 | category          |        |         |       | Inductors       |
 | default reference | string |         |       | M?              |
 | reference         | string |         |       |                 |
-| inductance        | float  | l       | H     | nH              |
+| inductance        | float  | l       | H     | 1 nH            |
 
 This is a four-port mutual inductance. Their no self inductance and only the mutual inductance is specified and modeled. For self inductance, you need to use the
 
@@ -569,7 +569,7 @@ A two-port ideal transmission line with zero delay is simply and ideal thru (no 
 | reference | string |  |  |  |
 | gamma0 ($\mathrm{mm}^{-1}$) | float | gamma0 |  |  |
 | a1 ($\sqrt{\mathrm{ns}}/\mathrm{mm}$) | float | a1 |  |  |
-| a2 ($\mathrm{ns}/\mathrm{mm})$ | float | a1 |  |  |
+| a2 ($\mathrm{ns}/\mathrm{mm})$ | float | a2 |  |  |
 | tau ($\mathrm{ns}/\mathrm{mm})$ | float | tau |  |  |
 | length | float | d | m |  |
 | characteristic impedance | float | zc | $\Omega$ |  |
@@ -613,8 +613,8 @@ It is a transmission line similar to [Transmission Line](23-Built-in-Devices-Par
 | capacitance | float | c | F | $1.0\,\mathrm{pF}$ |
 | dissipation factor | float | df |  |  |
 | conductance | float | g | S | $0\,\mathrm{S}$ |
-| inductance | float | l | H | $1.0\,\mathrm{fH}$ |
-| resistance | float | r | $\Omega$ | $50\,\Omega$ |
+| inductance | float | l | H | $1.0\,\mathrm{nH}$ |
+| resistance | float | r | $\Omega$ | $0\,\Omega$ |
 | skin-effect resistance | float | rse | $\Omega/\sqrt{\mathrm{Hz}}$ | $0\,\Omega/\sqrt{\mathrm{Hz}}$ |
 
 The telegrapher two-port is a model of a single-ended transmission line based on the telegrapher circuit.
@@ -646,20 +646,20 @@ To facilitate per-unit values, the model can be scaled by the amount specified. 
 | scale | float | scale |  |  |
 | mutual capacitance | float | cm | F | $1.0\,\mathrm{pF}$ |
 | mutual dissipation factor | float | dfm |  |  |
-| mutual inductance | float | lm | H | $1.0\,\mathrm{fH}$ |
-| mutual conductance | float | gm | S | S |
-| negative capacitance | float | cn | F | pF |
+| mutual inductance | float | lm | H | $1.0\,\mathrm{nH}$ |
+| mutual conductance | float | gm | S | $0\,\mathrm{S}$ |
+| negative capacitance | float | cn | F | $1.0\,\mathrm{pF}$ |
 | negative dissipation factor | float | dfn |  |  |
-| negative conductance | float | gn | S | S |
-| negative inductance | float | ln | H | fH |
+| negative conductance | float | gn | S | $0\,\mathrm{S}$ |
+| negative inductance | float | ln | H | $1.0\,\mathrm{nH}$ |
 | negative resistance | float | rn | $\Omega$ | $0\,\Omega$ |
 | negative skin-effect resistance | float | rsen | $\Omega/\sqrt{\mathrm{Hz}}$ | $0\,\Omega/\sqrt{\mathrm{Hz}}$ |
-| positive capacitance | float | cp | F | pF |
+| positive capacitance | float | cp | F | $1.0\,\mathrm{pF}$ |
 | positive dissipation factor | float | dfp |  |  |
-| positive conductance | float | gp | S | S |
-| positive inductance | float | lp | H | fH |
+| positive conductance | float | gp | S | $0\,\mathrm{S}$ |
+| positive inductance | float | lp | H | $1.0\,\mathrm{nH}$ |
 | positive resistance | float | rp | $\Omega$ | $0\,\Omega$ |
-| negative skin-effect resistance | float | rsen | $\Omega/\sqrt{\mathrm{Hz}}$ | $0\,\Omega/\sqrt{\mathrm{Hz}}$ |
+| positive skin-effect resistance | float | rsep | $\Omega/\sqrt{\mathrm{Hz}}$ | $0\,\Omega/\sqrt{\mathrm{Hz}}$ |
 
 The telegrapher four-port is a model of a differential transmission line based on the telegrapher circuit.
 
@@ -737,7 +737,6 @@ More documentation on this device may be found here: <http://www2.ece.rochester.
 | show                               | bool   | show       |       | true            |
 | waveform project name              | string | wfprojname |       | None            |
 | use project calculation properties | bool   | calcprop   |       | false           |
-| show                               | bool   | show       |       | false           |
 
 The voltage source is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage [Waveform](28-Waveform.md#sec:Waveform) specified by the file name to the system. When [Simulating](08-Simulation.md#sub:Simulating), the waveform is read in and sampled to base sample rate specified in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties).
 
@@ -762,7 +761,6 @@ If show is true, when the simulation completes, the waveform created by the sour
 | show                               | bool   | show       |       | true            |
 | waveform project name              | string | wfprojname |       | None            |
 | use project calculation properties | bool   | calcprop   |       | false           |
-| show                               | bool   | show       |       | false           |
 
 The current source is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a current [Waveform](28-Waveform.md#sec:Waveform) specified by the file name to the system. When [Simulating](08-Simulation.md#sub:Simulating), the waveform is read in and sampled to base sample rate specified in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties).
 
@@ -783,7 +781,7 @@ If show is true, when the simulation completes, the waveform created by the sour
 | category          |        |         |       | Sources         |
 | default reference | string |         |       | VS?             |
 | reference         | string |         |       | VS1             |
-| amplitude         | float  | a       | V     | V               |
+| amplitude         | float  | a       | V     | 1 V             |
 | show              | bool   | show    |       | true            |
 
 The DC voltage source is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a DC voltage.
@@ -801,7 +799,7 @@ If show is true, when the simulation completes, the waveform created by the sour
 | category          |        |         |       | Sources         |
 | default reference | string |         |       | CS?             |
 | reference         | string |         |       | CS1             |
-| amplitude         | float  | a       | A     | A               |
+| amplitude         | float  | a       | A     | 1 A             |
 | show              | bool   | show    |       | true            |
 
 The DC current source is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a DC current.
@@ -820,10 +818,10 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | default reference | string |         |                    | VG?             |
 | reference         | string |         |                    |                 |
 | amplitude         | float  | vrms    | $\mathrm{V_{rms}}$ | $0\,V_{rms}$    |
-| sample rate       | float  | fs      | S/s                | GS/s            |
-| start time        | float  | t0      | s                  | s               |
-| duration          | float  | dur     | s                  | ns              |
-| horizontal offset | float  | ho      | s                  | ns              |
+| sample rate       | float  | fs      | S/s                | 40 GS/s         |
+| start time        | float  | t0      | s                  | 0 s             |
+| duration          | float  | dur     | s                  | 200 ns          |
+| horizontal offset | float  | ho      | s                  | -100 ns         |
 | show              | bool   | show    |                    | true            |
 
 The voltage noise generator generates random, normally distributed, zero-mean noise with an rms voltage as specified.
@@ -839,12 +837,12 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| start time        | float  | t0      | s     | s               |
-| risetime          | float  | rt      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| start time        | float  | t0      | s     | 0 s             |
+| risetime          | float  | rt      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The voltage step generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage step [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -868,13 +866,13 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| pulse width       | float  | w       | s     | ns              |
-| start time        | float  | t0      | s     | s               |
-| risetime          | float  | rt      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| pulse width       | float  | w       | s     | 1 ns            |
+| start time        | float  | t0      | s     | 0 s             |
+| risetime          | float  | rt      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The voltage pulse generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage pulse [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -898,11 +896,11 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | false           |
 
 The voltage impulse generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage impulse [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -922,14 +920,14 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
 | prbs              | int    | prbs    |       |                 |
-| risetime          | float  | rt      | s     | s               |
+| risetime          | float  | rt      | s     | 0 s             |
 | bitrate           | float  | br      | b/s   | Gb/s            |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The voltage PRBS generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage pseudo-random NRZ [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -957,15 +955,15 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
 | prbs              | int    | prbs    |       |                 |
-| risetime          | float  | rt      | s     | s               |
+| risetime          | float  | rt      | s     | 0 s             |
 | bits per symbol   | int    | bps     |       |                 |
-| baudrate          | float  | br      | Baud  | GBaud           |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| baudrate          | float  | br      | Baud  | 1 GBaud         |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 This device is deprecated and should be replaced with the [Voltage Levels Multi-Level Waveform Generator](23-Built-in-Devices-Parts.md#device:Voltage-Levels-Multi-Level-Waveform-Generator)
@@ -995,15 +993,15 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
 | prbs              | int    | prbs    |       |                 |
 | number of levels  | int    | lvl     |       |                 |
 | number of symbols | int    | sym     |       |                 |
-| baudrate          | float  | br      | Baud  | GBaud           |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| baudrate          | float  | br      | Baud  | 1 GBaud         |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The levels voltage multi-level waveform generator is a replacement for the [Voltage Multi-Level Waveform Generator](23-Built-in-Devices-Parts.md#device:Voltage-Multi-Level-Waveform-Generator), which is deprecated.
@@ -1033,13 +1031,13 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| risetime          | float  | rt      | s     | s               |
-| frequency         | float  | f       | Hz    | MHz             |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| risetime          | float  | rt      | s     | 0 s             |
+| frequency         | float  | f       | Hz    | 1 MHz           |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The voltage clock generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a voltage clock [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -1063,13 +1061,13 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| phase             | float  | ph      | deg   | deg             |
-| frequency         | float  | f       | Hz    | MHz             |
-| amplitude         | float  | a       | V     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
-| start time        | float  | t0      | s     | s               |
+| phase             | float  | ph      | deg   | 0 deg           |
+| frequency         | float  | f       | Hz    | 1 MHz           |
+| amplitude         | float  | a       | V     | 1 V             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
+| start time        | float  | t0      | s     | 0 s             |
 | stop time         | float  | tf      | s     | s               |
 | show              | bool   | show    |       | true            |
 
@@ -1092,12 +1090,12 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | CG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | A     | A               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| start time        | float  | t0      | s     | s               |
-| risetime          | float  | rt      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | A     | 1 A             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| start time        | float  | t0      | s     | 0 s             |
+| risetime          | float  | rt      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The current step generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a current step [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -1121,13 +1119,13 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | CG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | A     | A               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| pulse width       | float  | w       | s     | ns              |
-| start time        | float  | t0      | s     | s               |
-| risetime          | float  | rt      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | A     | 1 A             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| pulse width       | float  | w       | s     | 1 ns            |
+| start time        | float  | t0      | s     | 0 s             |
+| risetime          | float  | rt      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | true            |
 
 The current pulse generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a current pulse [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -1151,11 +1149,11 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | VG?             |
 | reference         | string |         |       |                 |
-| amplitude         | float  | a       | A     | V               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| start time        | float  | t0      | s     | s               |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
+| amplitude         | float  | a       | A     | 1 A             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| start time        | float  | t0      | s     | 0 s             |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
 | show              | bool   | show    |       | false           |
 
 The current impulse generator is used in [Simulation](08-Simulation.md#sec:Simulation) applications to provide a current impulse [Waveform](28-Waveform.md#sec:Waveform) to the system.
@@ -1175,13 +1173,13 @@ If show is true, when the simulation completes, the [Simulation](08-Simulation.m
 | category          |        |         |       | Generators      |
 | default reference | string |         |       | CG?             |
 | reference         | string |         |       |                 |
-| phase             | float  | ph      | deg   | deg             |
-| frequency         | float  | f       | Hz    | MHz             |
-| amplitude         | float  | a       | A     | A               |
-| sample rate       | float  | fs      | S/s   | GS/s            |
-| duration          | float  | dur     | s     | ns              |
-| horizontal offset | float  | ho      | s     | ns              |
-| start time        | float  | t0      | s     | s               |
+| phase             | float  | ph      | deg   | 0 deg           |
+| frequency         | float  | f       | Hz    | 1 MHz           |
+| amplitude         | float  | a       | A     | 1 A             |
+| sample rate       | float  | fs      | S/s   | 40 GS/s         |
+| duration          | float  | dur     | s     | 200 ns          |
+| horizontal offset | float  | ho      | s     | -100 ns         |
+| start time        | float  | t0      | s     | 0 s             |
 | stop time         | float  | tf      | s     | s               |
 | show              | bool   | show    |       | true            |
 
@@ -1242,7 +1240,7 @@ The [Waveform](28-Waveform.md#sec:Waveform) file can be viewed using [Edit Prope
 | default reference | string             |         |       | VO?              |
 | reference         | string             |         |       |                  |
 | delay             | float              | td      | s     | s                |
-| voltage offset    | float              | offset  | V     | V                |
+| voltage offset    | float              | offset  | V     | 0 V              |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
 | include in noise  | string (on or off) | noise   |       | on               |
@@ -1312,7 +1310,7 @@ Note that the reference designator of the stim is not used for anything. See [st
 | default reference | string             |         |       | IO?              |
 | reference         | string             |         |       |                  |
 | delay             | float              | td      | s     | s                |
-| offset            | float              | offset  | V     | V                |
+| offset            | float              | offset  | V     | 0 V              |
 | transconductance  | float              | gain    | V/A   |                  |
 | state             | string (on or off) | state   |       | on               |
 | include in noise  | string (on or off) | noise   |       | on               |
@@ -1349,7 +1347,7 @@ The *include in noise* property determines whether this probe is included in a [
 | default reference | string             |         |       | VO?              |
 | reference         | string             |         |       |                  |
 | delay             | float              | td      | s     | s                |
-| voltage offset    | float              | offset  | V     | V                |
+| voltage offset    | float              | offset  | V     | 0 V              |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
 | include in noise  | string (on or off) | noise   |       | on               |
@@ -1385,9 +1383,9 @@ The *include in noise* property determines whether this probe is included in a [
 | category          |                    |          |       | Ports and Probes |
 | default reference | string             |          |       | VO?              |
 | reference         | string             |          |       |                  |
-| baud rate         | float              | br       | Baud  | GBaud            |
+| baud rate         | float              | br       | Baud  | 1 GBaud          |
 | delay             | float              | td       | s     | s                |
-| voltage offset    | float              | offset   | V     | V                |
+| voltage offset    | float              | offset   | V     | 0 V              |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
 | include in noise  | string (on or off) | noise    |       | on               |
@@ -1430,9 +1428,9 @@ When adding an eye probe, the default values are read from the [Preferences](29-
 | category          |                    |          |       | Ports and Probes |
 | default reference | string             |          |       | VO?              |
 | reference         | string             |          |       |                  |
-| baud rate         | float              | br       | Baud  | GBaud            |
+| baud rate         | float              | br       | Baud  | 1 GBaud          |
 | delay             | float              | td       | s     | s                |
-| voltage offset    | float              | offset   | V     | V                |
+| voltage offset    | float              | offset   | V     | 0 V              |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
 | include in noise  | string (on or off) | noise    |       | on               |
@@ -1599,13 +1597,13 @@ The transresistance amplifier is like a [Current Controlled Voltage Source](23-B
 | category          |        |         |          | Amplifiers              |
 | default reference | string |         |          | D?                      |
 | reference         | string |         |          |                         |
-| output impedance  | float  | zo      | $\Omega$ | $0\,\mathrm{M\Omega}$   |
+| output impedance  | float  | zo      | $\Omega$ | $0\,\Omega$             |
 | input impedance   | float  | zi      | $\Omega$ | $100\,\mathrm{M\Omega}$ |
-| gain              | float  | gain    |          |                         |
+| gain              | float  | gain    |          | 100000                  |
 
 The operational amplifier is an amplifier that outputs a voltage proportional to the difference between the voltages at the input terminals.
 
-Despite the default value of 1.0, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.
+Despite the default value of 100000, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.
 
 ## Eye Waveform {#device:Eye-Waveform}
 
@@ -1617,9 +1615,9 @@ Despite the default value of 1.0, the gain is usually set to a very large number
 | default reference | string             |          |       | Wf?             |
 | reference         | string             |          |       | Wf1             |
 | waveform filename | string             | wffile   |       | ”               |
-| baud rate         | float              | br       | Baud  | GBaud           |
+| baud rate         | float              | br       | Baud  | 1 GBaud         |
 | delay             | float              | td       | s     | s               |
-| voltage offset    | float              | offset   | V     | V               |
+| voltage offset    | float              | offset   | V     | 0 V             |
 | voltage gain      | float              | gain     |       |                 |
 | state             | string (on or off) | state    |       | on              |
 | eye state         | string (on or off) | eyestate |       | on              |
@@ -1657,7 +1655,7 @@ When adding an eye waveform, the default values are read from the [Preferences](
 | reference         | string             |         |       | VO1             |
 | delay             | float              | td      | s     | s               |
 | waveform filename | string             | wffile  |       | ”               |
-| voltage offset    | float              | offset  | V     | V               |
+| voltage offset    | float              | offset  | V     | 0 V             |
 | voltage gain      | float              | gain    |       |                 |
 | state             | string (on or off) | state   |       | on              |
 
@@ -1797,7 +1795,7 @@ The definition of the load standard is an *offset* with given delay (s), charact
 | offset delay                    | float  | od      | s          |                  |
 | offset characteristic impedance | float  | oz0     | $\Omega$   |                  |
 | offset loss                     | float  | ol      | $\Omega/s$ |                  |
-| loss frequency                  | float  | f0      | Hz         | GHz              |
+| loss frequency                  | float  | f0      | Hz         | 1 GHz            |
 
 Calibration standards are generally used in [Network Analyzer Calibration](12-Network-Analyzer-Measurements.md#sub:Network-Analyzer-Calibration) as a step in [Network Analyzer Measurements](12-Network-Analyzer-Measurements.md#sec:Network-Analyzer-Measurements), and are used in conjunction with a [Thru Measurement](23-Built-in-Devices-Parts.md#device:Thru-Measurement).
 
@@ -2054,7 +2052,7 @@ The equalizer element is constructed like an active device which has infinite in
 | reference                | string        | ref     |       | F1              |
 | Tap Delay                | float         | td      | s     | 0 s             |
 | number of precursor taps | int           | pre     |       | 0               |
-| tap values               | list of float | taps    |       | 1.0\]           |
+| tap values               | list of float | taps    |       | [1.0]           |
 
 The equation for the FFE, for given number of taps $M$:
 
@@ -2075,8 +2073,8 @@ Usually the tap delay is the reciprocal of the baud rate for which the equalizer
 | category          |        |         |       | Filters         |
 | default reference | string |         |       | F?              |
 | reference         | string | ref     |       | F1              |
-| cutoff frequency  | float  | fc      | Hz    | GHz             |
-| order             | int    | order   |       |                 |
+| cutoff frequency  | float  | fc      | Hz    | 1 GHz           |
+| order             | int    | order   |       | 4               |
 
 This is a Butterworth filter of the specified order and cutoff frequency, where it reaches -3 dB.
 
@@ -2095,8 +2093,8 @@ Note: This element requires the installation of the scipy package, which is not 
 | category          |        |         |       | Filters         |
 | default reference | string |         |       | F?              |
 | reference         | string | ref     |       | F1              |
-| cutoff frequency  | float  | fc      | Hz    | GHz             |
-| order             | int    | order   |       |                 |
+| cutoff frequency  | float  | fc      | Hz    | 1 GHz           |
+| order             | int    | order   |       | 4               |
 
 This is a Bessel filter of the specified order and cutoff frequency, where it reaches -3 dB.
 
@@ -2115,7 +2113,7 @@ Note: This element requires the installation of the scipy package, which is not 
 | category          |        |         |       | Filters         |
 | default reference | string |         |       | F?              |
 | reference         | string | ref     |       | F1              |
-| eq                | string | eq      |       | ”               |
+| eq                | string | eq      |       |                 |
 
 This is a Laplace domain device.
 

@@ -1009,8 +1009,6 @@ The calculation properties govern how all calculations are performed, and are br
 
 The main, linear calculation properties are intended for use with all of the ***SignalIntegrityApp*** applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:
 
-<div class="center">
-
 | **Property** | **Type** | **Equation** | **Internal Property Name** |
 |:---|:---|:---|:---|
 | user sample rate | base | $userSampleRate$ | UserSampleRate |
@@ -1021,8 +1019,6 @@ The main, linear calculation properties are intended for use with all of the ***
 | frequency resolution | derived | $frequencyResolution=\frac{endFrequency}{frequencyPoints}$ | FrequencyResolution |
 | time length of impulse response | derived | $impulseResponseLength=\frac{frequencyPoints}{endFrequency}$ | ImpulseResponseLength |
 | user sample period | derived | $userSamplePeriod=\frac{1}{userSampleRate}$ | [UserSamplePeriod](UserSamplePeriod){.uri} |
-
-</div>
 
 The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). ***SignalIntegrityApp*** never uses scientific notation or anything like that. Also, if the number has units, the units are shown.
 
