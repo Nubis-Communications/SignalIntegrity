@@ -29,7 +29,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign">
-   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.1</span>
+   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -119,38 +119,36 @@ Usage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.m.tdr   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Measurement.TDR   </td><td class="markdownTableBodyLeft">Time-domain reflectometry    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">si.n   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Noise   </td><td class="markdownTableBodyLeft">Statistical noise analysis    </td></tr>
-<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.opt   </td><td class="markdownTableBodyLeft">SignalIntegrity.Optical   </td><td class="markdownTableBodyLeft">Optical measurements    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.p   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Parsers   </td><td class="markdownTableBodyLeft">Netlist parsers    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.p.dev   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Parsers.Devices   </td><td class="markdownTableBodyLeft">Netlist parser devices    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.prbs   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Prbs   </td><td class="markdownTableBodyLeft">Pseudo-random polynomials and waveforms    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.rat   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Rat   </td><td class="markdownTableBodyLeft">The RAT function    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.sp   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.SParameters   </td><td class="markdownTableBodyLeft">S-parameters    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.sp.dev   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.SParameters.Devices   </td><td class="markdownTableBodyLeft">S-parameter devices    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.spl   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Splines   </td><td class="markdownTableBodyLeft">Spline functions    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.sub   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.SubCircuits   </td><td class="markdownTableBodyLeft">Netlist Subcircuits    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.sy   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Symbolic   </td><td class="markdownTableBodyLeft">Symbolic Solutions    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.sd   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.SystemDescriptions   </td><td class="markdownTableBodyLeft">System descriptions    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.test   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Test   </td><td class="markdownTableBodyLeft">Test helpers    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">si.td   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.TimeDomain   </td><td class="markdownTableBodyLeft">Time-domain    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">si.td.f   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.TimeDomain.Filters   </td><td class="markdownTableBodyLeft">Filters    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">si.td.wf   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.TimeDomain.Waveform   </td><td class="markdownTableBodyLeft">Waveforms    </td></tr>
+<td class="markdownTableBodyLeft">si.td.f   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.TimeDomain.Filters   </td><td class="markdownTableBodyLeft">Filters    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">si.td.wf   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.TimeDomain.Waveform   </td><td class="markdownTableBodyLeft">Waveforms    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">si.wl   </td><td class="markdownTableBodyLeft">SignalIntegrity.Lib.Wavelets   </td><td class="markdownTableBodyLeft">Wavelets   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md2"></a>
@@ -184,6 +182,15 @@ INPUT_FILTER           = ./doxypy.py
 <p>In <a href="https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/SignalIntegrityWindows">SignalIntegrityWindows</a> this needs to be specified as: </p><pre class="fragment">INPUT_FILTER           = doxypy.bat
 </pre><p> Which uses the local <a href="https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Doc/doxypy.bat">doxypy.bat</a>, which simply calls the input filter file.</p>
 <p>In order to render any equations in the documentation, you must have <a href="https://www.ghostscript.com/download/gsdnld.html">GhostScript</a> installed.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Building the Help System (User Manual and Context Help)</h1>
+<p>Separately from the Doxygen API reference above, the application ships a user manual and context-sensitive help. This is built with <a href="https://www.mkdocs.org/">MkDocs</a> from Markdown sources, replacing the former LyX + eLyXer workflow.</p>
+<p>The sources and build tooling live in <code>SignalIntegrity/App/Help</code> (on the <code>gh-pages</code> branch, i.e. the <code>SignalIntegrityPages</code> clone): </p><pre class="fragment">pip install mkdocs
+cd SignalIntegrity/App/Help
+python convert_help.py     # Help.lyx -&gt; docs/ Markdown (needs lyx + pandoc; only when content changes)
+./build.sh                 # or build.bat on Windows: mkdocs build + gen_helpkeys.py
+</pre><p> <code>build.*</code> produces <code>Help/site/</code> plus <code>Help/site/helpkeys</code>. The application reads <code>helpkeys</code> at runtime (<code>SignalIntegrity/App/BuildHelpSystem.py</code>) and opens <code>Help/site/&lt;page&gt;.html#&lt;label&gt;</code> for a given help label, either from the online URL (<code>OnlineHelp.URL</code> preference) or from <code><a href="file://">file://</a>&lt;InstallDir&gt;</code> when offline.</p>
+<p>See <code>SignalIntegrity/App/Help/README.md</code> for details, including the offline Linux directory-mapping workflow and the frozen legacy <code>Help.html.LyXconv/</code> compatibility copy retained for older application versions.</p>
 <p>Currently package documentation is modified only the branch gh-pages. In other words, you should have another repository checked out on the gh-pages branch, generate this documentation, copy it to the gh-pages repository directory and check it in on gh-pages. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

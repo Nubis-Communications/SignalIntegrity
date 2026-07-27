@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['offset_0',['Offset',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1Offset_1_1Offset.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards::Offset']]],
-  ['openstandard_1',['OpenStandard',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1Standards_1_1OpenStandard_1_1OpenStandard.xhtml',1,'SignalIntegrity::Lib::Measurement::CalKit::Standards::OpenStandard']]],
-  ['opticalcalculator_2',['OpticalCalculator',['../classSignalIntegrity_1_1Lib_1_1Optical_1_1OpticalCalculator_1_1OpticalCalculator.xhtml',1,'SignalIntegrity::Lib::Optical::OpticalCalculator']]]
+  ['networkanalyzer_0',['NetworkAnalyzer',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1NetworkAnalyzer_1_1NetworkAnalyzer.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::NetworkAnalyzer']]],
+  ['networkanalyzersimulationnumericparser_1',['NetworkAnalyzerSimulationNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::NetworkAnalyzerSimulationNumericParser']]],
+  ['noiseanalysis_2',['NoiseAnalysis',['../classSignalIntegrity_1_1Lib_1_1Noise_1_1NoiseAnalysis_1_1NoiseAnalysis.xhtml',1,'SignalIntegrity::Lib::Noise::NoiseAnalysis']]],
+  ['noisetransfermatricesprocessor_3',['NoiseTransferMatricesProcessor',['../classSignalIntegrity_1_1Lib_1_1Noise_1_1NoiseTransferMatricesProcessor_1_1NoiseTransferMatricesProcessor.xhtml',1,'SignalIntegrity::Lib::Noise::NoiseTransferMatricesProcessor']]],
+  ['noisewaveform_4',['NoiseWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1NoiseWaveform_1_1NoiseWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::NoiseWaveform']]],
+  ['numeric_5',['Numeric',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Numeric']]]
 ];

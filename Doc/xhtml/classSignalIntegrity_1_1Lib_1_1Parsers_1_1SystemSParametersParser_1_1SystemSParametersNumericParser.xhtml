@@ -29,7 +29,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign">
-   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.1</span>
+   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -104,10 +104,10 @@ Collaboration diagram for SystemSParametersNumericParser:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77" id="r_a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml#a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77">__init__</a> (self, f=None, args=None, callback=None, cacheFileName=None, efl=None, Z0=50.)</td></tr>
-<tr class="memdesc:a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br  />
+<tr class="memitem:a7d9fb95ea1b81fa1e6308bde009f6f49" id="r_a7d9fb95ea1b81fa1e6308bde009f6f49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml#a7d9fb95ea1b81fa1e6308bde009f6f49">__init__</a> (self, f=None, args=None, callback=None, cacheFileName=None, efl=None, Z0=50., allowParallel=False)</td></tr>
+<tr class="memdesc:a7d9fb95ea1b81fa1e6308bde009f6f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br  />
  frequencies may be provided at construction time (or not for symbolic solutions).  <br /></td></tr>
-<tr class="separator:a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7d9fb95ea1b81fa1e6308bde009f6f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86dd74ebf2d2363786ecf7d84ff88f49" id="r_a86dd74ebf2d2363786ecf7d84ff88f49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SystemSParametersParser_1_1SystemSParametersNumericParser.xhtml#a86dd74ebf2d2363786ecf7d84ff88f49">SParameters</a> (self, solvetype='block')</td></tr>
 <tr class="memdesc:a86dd74ebf2d2363786ecf7d84ff88f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the s-parameters of the netlist.  <br /></td></tr>
 <tr class="separator:a86dd74ebf2d2363786ecf7d84ff88f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,10 +186,10 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>generates system s-parameters from a netlist </p>
 
-<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00034">34</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00033">33</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77" name="a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c0a36cf1b07bdf0b5c1a7f9bfe6cb77">&#9670;&#160;</a></span>__init__()</h2>
+<a id="a7d9fb95ea1b81fa1e6308bde009f6f49" name="a7d9fb95ea1b81fa1e6308bde009f6f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d9fb95ea1b81fa1e6308bde009f6f49">&#9670;&#160;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +234,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>allowParallel</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -254,6 +260,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">cacheFileName</td><td>(optional) string name of file used to cache results </td></tr>
     <tr><td class="paramname">efl</td><td>(optional) instance of class FrequencyList containing the evenly space frequency list to use for resampling in cases where time-domain transformations are required </td></tr>
     <tr><td class="paramname">Z0</td><td>float (optional, defaults to 50.) reference impedance for the calculation </td></tr>
+    <tr><td class="paramname">allowParallel</td><td>bool (optional, defaults to False) whether the per-frequency solve may be distributed across processor cores. When False the calculation runs serially; when True it may run in parallel if the cost model deems it worthwhile. </td></tr>
   </table>
   </dd>
 </dl>
@@ -263,7 +270,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml#ab046e9869dd43e9e63671f0a5d87894b">DUTSParametersNumericParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00048">48</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00050">50</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
 
 </div>
 </div>
@@ -310,7 +317,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml#a86dd74ebf2d2363786ecf7d84ff88f49">DUTSParametersNumericParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00069">69</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemSParametersParser_8py_source.xhtml#l00072">72</a> of file <a class="el" href="SystemSParametersParser_8py_source.xhtml">SystemSParametersParser.py</a>.</p>
 
 </div>
 </div>

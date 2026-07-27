@@ -301,10 +301,26 @@
     <li class="toctree-l2"><a class="reference internal" href="#device:GaussianRisetimeFilter">Gaussian Risetime Filter</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#white-noise">White Noise</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#enob">ENOB</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#johnson">Johnson</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#white-noise_1">White Noise</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#shot-noise">Shot Noise</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)</a>
     </li>
@@ -345,6 +361,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
                 </li>
               </ul>
       </div>
@@ -807,7 +827,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">r</td>
 <td style="text-align: left;">ohms</td>
-<td style="text-align: left;">ohms</td>
+<td style="text-align: left;">50 Ω</td>
 </tr>
 </tbody>
 </table>
@@ -851,7 +871,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rse</td>
 <td style="text-align: left;"><span class="arithmatex">\(\Omega/\sqrt{Hz}\)</span></td>
-<td style="text-align: left;">ohms</td>
+<td style="text-align: left;">0</td>
 </tr>
 </tbody>
 </table>
@@ -895,7 +915,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">c</td>
 <td style="text-align: left;">F</td>
-<td style="text-align: left;">pF</td>
+<td style="text-align: left;">1 pF</td>
 </tr>
 <tr>
 <td style="text-align: left;">ESR</td>
@@ -954,7 +974,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">l</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;">nH</td>
+<td style="text-align: left;">1 nH</td>
 </tr>
 </tbody>
 </table>
@@ -998,7 +1018,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">l</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;">nH</td>
+<td style="text-align: left;">1 nH</td>
 </tr>
 </tbody>
 </table>
@@ -1673,7 +1693,7 @@
 <tr>
 <td style="text-align: left;">a2 (<span class="arithmatex">\(\mathrm{ns}/\mathrm{mm})\)</span></td>
 <td style="text-align: left;">float</td>
-<td style="text-align: left;">a1</td>
+<td style="text-align: left;">a2</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
@@ -1837,14 +1857,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">l</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{fH}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{nH}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">resistance</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">r</td>
 <td style="text-align: left;"><span class="arithmatex">\(\Omega\)</span></td>
-<td style="text-align: left;"><span class="arithmatex">\(50\,\Omega\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(0\,\Omega\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">skin-effect resistance</td>
@@ -1930,21 +1950,21 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">lm</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{fH}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{nH}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">mutual conductance</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">gm</td>
 <td style="text-align: left;">S</td>
-<td style="text-align: left;">S</td>
+<td style="text-align: left;"><span class="arithmatex">\(0\,\mathrm{S}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">negative capacitance</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">cn</td>
 <td style="text-align: left;">F</td>
-<td style="text-align: left;">pF</td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{pF}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">negative dissipation factor</td>
@@ -1958,14 +1978,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">gn</td>
 <td style="text-align: left;">S</td>
-<td style="text-align: left;">S</td>
+<td style="text-align: left;"><span class="arithmatex">\(0\,\mathrm{S}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">negative inductance</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ln</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;">fH</td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{nH}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">negative resistance</td>
@@ -1986,7 +2006,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">cp</td>
 <td style="text-align: left;">F</td>
-<td style="text-align: left;">pF</td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{pF}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">positive dissipation factor</td>
@@ -2000,14 +2020,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">gp</td>
 <td style="text-align: left;">S</td>
-<td style="text-align: left;">S</td>
+<td style="text-align: left;"><span class="arithmatex">\(0\,\mathrm{S}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">positive inductance</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">lp</td>
 <td style="text-align: left;">H</td>
-<td style="text-align: left;">fH</td>
+<td style="text-align: left;"><span class="arithmatex">\(1.0\,\mathrm{nH}\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">positive resistance</td>
@@ -2017,9 +2037,9 @@
 <td style="text-align: left;"><span class="arithmatex">\(0\,\Omega\)</span></td>
 </tr>
 <tr>
-<td style="text-align: left;">negative skin-effect resistance</td>
+<td style="text-align: left;">positive skin-effect resistance</td>
 <td style="text-align: left;">float</td>
-<td style="text-align: left;">rsen</td>
+<td style="text-align: left;">rsep</td>
 <td style="text-align: left;"><span class="arithmatex">\(\Omega/\sqrt{\mathrm{Hz}}\)</span></td>
 <td style="text-align: left;"><span class="arithmatex">\(0\,\Omega/\sqrt{\mathrm{Hz}}\)</span></td>
 </tr>
@@ -2226,13 +2246,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;">false</td>
 </tr>
-<tr>
-<td style="text-align: left;">show</td>
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">show</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">false</td>
-</tr>
 </tbody>
 </table>
 <p>The voltage source is used in <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to provide a voltage <a href="28-Waveform.html#sec:Waveform">Waveform</a> specified by the file name to the system. When <a href="08-Simulation.html#sub:Simulating">Simulating</a>, the waveform is read in and sampled to base sample rate specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
@@ -2302,13 +2315,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;">false</td>
 </tr>
-<tr>
-<td style="text-align: left;">show</td>
-<td style="text-align: left;">bool</td>
-<td style="text-align: left;">show</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">false</td>
-</tr>
 </tbody>
 </table>
 <p>The current source is used in <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to provide a current <a href="28-Waveform.html#sec:Waveform">Waveform</a> specified by the file name to the system. When <a href="08-Simulation.html#sub:Simulating">Simulating</a>, the waveform is read in and sampled to base sample rate specified in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
@@ -2355,7 +2361,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2408,7 +2414,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">A</td>
+<td style="text-align: left;">1 A</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2468,28 +2474,28 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2541,42 +2547,42 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">risetime</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2632,49 +2638,49 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">pulse width</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">w</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">1 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">risetime</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2730,35 +2736,35 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2812,14 +2818,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">prbs</td>
@@ -2833,7 +2839,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">bitrate</td>
@@ -2847,21 +2853,21 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -2919,14 +2925,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">prbs</td>
@@ -2940,7 +2946,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">bits per symbol</td>
@@ -2954,28 +2960,28 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">br</td>
 <td style="text-align: left;">Baud</td>
-<td style="text-align: left;">GBaud</td>
+<td style="text-align: left;">1 GBaud</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3034,14 +3040,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">prbs</td>
@@ -3069,28 +3075,28 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">br</td>
 <td style="text-align: left;">Baud</td>
-<td style="text-align: left;">GBaud</td>
+<td style="text-align: left;">1 GBaud</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3149,49 +3155,49 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">risetime</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">frequency</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">f</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">MHz</td>
+<td style="text-align: left;">1 MHz</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3247,49 +3253,49 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ph</td>
 <td style="text-align: left;">deg</td>
-<td style="text-align: left;">deg</td>
+<td style="text-align: left;">0 deg</td>
 </tr>
 <tr>
 <td style="text-align: left;">frequency</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">f</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">MHz</td>
+<td style="text-align: left;">1 MHz</td>
 </tr>
 <tr>
 <td style="text-align: left;">amplitude</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">stop time</td>
@@ -3351,42 +3357,42 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">A</td>
+<td style="text-align: left;">1 A</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">risetime</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3442,49 +3448,49 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">A</td>
+<td style="text-align: left;">1 A</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">pulse width</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">w</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">1 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">risetime</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">rt</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3540,35 +3546,35 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">1 A</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">show</td>
@@ -3622,49 +3628,49 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ph</td>
 <td style="text-align: left;">deg</td>
-<td style="text-align: left;">deg</td>
+<td style="text-align: left;">0 deg</td>
 </tr>
 <tr>
 <td style="text-align: left;">frequency</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">f</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">MHz</td>
+<td style="text-align: left;">1 MHz</td>
 </tr>
 <tr>
 <td style="text-align: left;">amplitude</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">a</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">A</td>
+<td style="text-align: left;">1 A</td>
 </tr>
 <tr>
 <td style="text-align: left;">sample rate</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fs</td>
 <td style="text-align: left;">S/s</td>
-<td style="text-align: left;">GS/s</td>
+<td style="text-align: left;">40 GS/s</td>
 </tr>
 <tr>
 <td style="text-align: left;">duration</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">dur</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">200 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">horizontal offset</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">ho</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">ns</td>
+<td style="text-align: left;">-100 ns</td>
 </tr>
 <tr>
 <td style="text-align: left;">start time</td>
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">t0</td>
 <td style="text-align: left;">s</td>
-<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
 </tr>
 <tr>
 <td style="text-align: left;">stop time</td>
@@ -3820,7 +3826,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -3972,7 +3978,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">transconductance</td>
@@ -4062,7 +4068,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -4145,7 +4151,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">br</td>
 <td style="text-align: left;">Baud</td>
-<td style="text-align: left;">GBaud</td>
+<td style="text-align: left;">1 GBaud</td>
 </tr>
 <tr>
 <td style="text-align: left;">delay</td>
@@ -4159,7 +4165,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -4252,7 +4258,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">br</td>
 <td style="text-align: left;">Baud</td>
-<td style="text-align: left;">GBaud</td>
+<td style="text-align: left;">1 GBaud</td>
 </tr>
 <tr>
 <td style="text-align: left;">delay</td>
@@ -4266,7 +4272,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -4773,7 +4779,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">zo</td>
 <td style="text-align: left;"><span class="arithmatex">\(\Omega\)</span></td>
-<td style="text-align: left;"><span class="arithmatex">\(0\,\mathrm{M\Omega}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(0\,\Omega\)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;">input impedance</td>
@@ -4787,12 +4793,12 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">gain</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">100000</td>
 </tr>
 </tbody>
 </table>
 <p>The operational amplifier is an amplifier that outputs a voltage proportional to the difference between the voltages at the input terminals.</p>
-<p>Despite the default value of 1.0, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.</p>
+<p>Despite the default value of 100000, the gain is usually set to a very large number. This input impedance is the impedance at each of the plus and minus input terminals to ground. The impedance between the inputs is infinite.</p>
 <h2 id="device:Eye-Waveform">Eye Waveform<a class="headerlink" href="#device:Eye-Waveform" title="Permanent link">&para;</a></h2>
 <p><img src="media/EyeWaveform.png" alt="EyeWaveform" width="168" height="221" /></p>
 <table>
@@ -4839,7 +4845,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">br</td>
 <td style="text-align: left;">Baud</td>
-<td style="text-align: left;">GBaud</td>
+<td style="text-align: left;">1 GBaud</td>
 </tr>
 <tr>
 <td style="text-align: left;">delay</td>
@@ -4853,7 +4859,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -4942,7 +4948,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">offset</td>
 <td style="text-align: left;">V</td>
-<td style="text-align: left;">V</td>
+<td style="text-align: left;">0 V</td>
 </tr>
 <tr>
 <td style="text-align: left;">voltage gain</td>
@@ -5380,7 +5386,7 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">f0</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">GHz</td>
+<td style="text-align: left;">1 GHz</td>
 </tr>
 </tbody>
 </table>
@@ -5770,7 +5776,7 @@
 <td style="text-align: left;">list of float</td>
 <td style="text-align: left;">taps</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">1.0]</td>
+<td style="text-align: left;">[1.0]</td>
 </tr>
 </tbody>
 </table>
@@ -5818,14 +5824,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fc</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">GHz</td>
+<td style="text-align: left;">1 GHz</td>
 </tr>
 <tr>
 <td style="text-align: left;">order</td>
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">order</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">4</td>
 </tr>
 </tbody>
 </table>
@@ -5872,14 +5878,14 @@
 <td style="text-align: left;">float</td>
 <td style="text-align: left;">fc</td>
 <td style="text-align: left;">Hz</td>
-<td style="text-align: left;">GHz</td>
+<td style="text-align: left;">1 GHz</td>
 </tr>
 <tr>
 <td style="text-align: left;">order</td>
 <td style="text-align: left;">int</td>
 <td style="text-align: left;">order</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">4</td>
 </tr>
 </tbody>
 </table>
@@ -5926,7 +5932,7 @@
 <td style="text-align: left;">string</td>
 <td style="text-align: left;">eq</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">”</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
@@ -6194,6 +6200,7 @@
 <p><strong>Lanes</strong> - the number of identical, uncorrelated lanes of noise represented by this source; the spectral density is scaled by <span class="arithmatex">\(\sqrt{\mathrm{Lanes}}\)</span>.</p>
 </li>
 </ul>
+<h3 id="white-noise">White Noise<a class="headerlink" href="#white-noise" title="Permanent link">&para;</a></h3>
 <p>For the <code>WhiteNoise</code> type, the level can be specified in any one of several equivalent ways using the <strong>White Noise Type</strong> selection; changing one representation updates the others (using the <strong>Noise Bandwidth</strong> where a total-power figure is involved):</p>
 <table>
 <thead>
@@ -6233,6 +6240,15 @@
 </tr>
 </tbody>
 </table>
+<p>The equivalent quantities are related by the following formulas, where <code>BW</code> is the <strong>Noise Bandwidth</strong>.</p>
+<h4 id="enob">ENOB<a class="headerlink" href="#enob" title="Permanent link">&para;</a></h4>
+<p>The <strong>ENOB</strong> (effective number of bits) representation derives the total rms noise from a peak-to-peak voltage <span class="arithmatex">\(V_{pp}\)</span> and an effective number of bits <span class="arithmatex">\(N\)</span> assuming an ideal quantizer:</p>
+<div class="arithmatex">\[V_{rms} = \frac{V_{pp}}{2^{N}\sqrt{12}}\mbox{,}\]</div>
+<p>which is then converted to an amplitude spectral density <span class="arithmatex">\(\rho = V_{rms}/\sqrt{\mathrm{BW}}\)</span>.</p>
+<h4 id="johnson">Johnson<a class="headerlink" href="#johnson" title="Permanent link">&para;</a></h4>
+<p>The <strong>Johnson</strong> (thermal) representation derives the amplitude spectral density from an absolute temperature <span class="arithmatex">\(T\)</span> and a resistance <span class="arithmatex">\(R\)</span>:</p>
+<div class="arithmatex">\[\rho = \sqrt{4\,k_B\,T\,R} \quad \left[\mathrm{V}/\sqrt{\mathrm{Hz}}\right]\mbox{,}\]</div>
+<p>where <span class="arithmatex">\(k_B\)</span> is Boltzmann's constant.</p>
 <p>A <strong>Save Properties to Global Preferences</strong> button stores the current settings as the defaults for new statistical noise sources (see <a href="29-Preferences.html#sub:Statistical-Noise-Preferences">Statistical Noise Preferences</a>).</p>
 <h2 id="device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)<a class="headerlink" href="#device:Voltage-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
 <p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
@@ -6351,6 +6367,8 @@
 
 </div>
 
+<p>The <strong>Noise Type</strong> may be one of <code>WhiteNoise</code>, <code>SpectralDensityFile</code> (read the spectral density from a file), <code>WaveformFile</code> (derive the spectral density from a waveform file), <code>Crosstalk</code> (use another output probe's waveform as the noise source), or <code>ShotNoise</code> (described below).</p>
+<h3 id="white-noise_1">White Noise<a class="headerlink" href="#white-noise_1" title="Permanent link">&para;</a></h3>
 <p>For the <code>WhiteNoise</code> type, the current source level is specified in current units using the <strong>White Noise Type</strong> selection:</p>
 <table>
 <thead>
@@ -6378,6 +6396,21 @@
 </tr>
 </tbody>
 </table>
+<h3 id="shot-noise">Shot Noise<a class="headerlink" href="#shot-noise" title="Permanent link">&para;</a></h3>
+<p>The <code>ShotNoise</code> type builds the current noise spectral density from the shot-noise associated with a flowing current. Shot noise has a white power spectral density</p>
+<div class="arithmatex">\[S_i(f) = 2\,q\,I \quad \left[\mathrm{A^2/Hz}\right]\]</div>
+<p>where <span class="arithmatex">\(q\)</span> is the electron charge and <span class="arithmatex">\(I\)</span> is the current, so the equivalent amplitude spectral density is</p>
+<div class="arithmatex">\[\rho(f) = \sqrt{2\,q\,I} \quad \left[\mathrm{A}/\sqrt{\mathrm{Hz}}\right]\mbox{.}\]</div>
+<p>The density is zeroed at DC and above the entered <strong>Noise Bandwidth</strong>. The <strong>Current Source</strong> selection controls how the current <span class="arithmatex">\(I\)</span> is obtained:</p>
+<ul>
+<li>
+<p><strong>Mean</strong> - a flat (white) density <span class="arithmatex">\(\sqrt{2\,q\,I}\)</span> is built directly from the entered <strong>Mean (steady-state) Current</strong> <span class="arithmatex">\(I\)</span>.</p>
+</li>
+<li>
+<p><strong>Time-Varying Current</strong> - the density is shaped by a referenced current output probe waveform (specified by <strong>Probe Name</strong>). The probe must exist and must be a <a href="23-Built-in-Devices-Parts.html#device:Current-Probe">Current Probe</a> (its units must be amperes); otherwise the analysis fails. The white shot-noise level of the waveform's mean current is shaped by the waveform's own normalized spectrum, and the equivalent steady-state current that would produce the same total rms over the noise bandwidth is written back into the <strong>Mean (steady-state) Current</strong> field, namely</p>
+</li>
+</ul>
+<div class="arithmatex">\[I_{eq} = \frac{\mathrm{rms}^2}{2\,q\,\mathrm{BW}}\mbox{.}\]</div>
 <h2 id="device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)<a class="headerlink" href="#device:Current-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
 <p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
 <table>
