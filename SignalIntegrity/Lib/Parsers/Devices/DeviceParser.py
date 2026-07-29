@@ -268,10 +268,10 @@ class DeviceFactory(list):
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),**extraArgs)"),
+                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('series',None,False,{'file':None,'sect':None,'lp':None,'rp':None},True,
                      "Series(f,arg['file'],float(arg['sect']),eval('['+arg['lp']+']'),\
-                     eval('['+arg['rp']+']'),float(arg['z0']),**extraArgs)"),
+                     eval('['+arg['rp']+']'),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('currenttovoltageconverter',3,False,{},False,
                      "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),
         ParserDevice('voltagetovoltageconverter',3,False,{},False,
