@@ -42,6 +42,7 @@ class PreferencesDialog(PropertiesDialog):
         self.logarithmicSolutions=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable logarithmically spaced frequencies solutions',None,self.onUpdatePreferences,preferences,'Calculation.LogarithmicSolutions')
         self.non50OhmReferenceImpedanceSolutions=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable non 50 ohm solutions',None,self.onUpdatePreferences,preferences,'Calculation.Non50OhmSolutions')
         self.allowParallelization=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable parallelization of calculations (experimental)',None,self.onUpdatePreferences,preferences,'Calculation.AllowParallelization')
+        self.allowMaximumImpulseResponseLength=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable maximum impulse response length',None,self.onUpdatePreferences,preferences,'Calculation.AllowMaximumImpulseResponseLength')
         self.ignoreMissingOtherWaveforms=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ignore missing other waveforms in calculations',None,self.onUpdatePreferences,preferences,'Calculation.IgnoreMissingOtherWaveforms')
         self.maximumWaveformSize=CalculationPropertySI(self.propertyListFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
         self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')

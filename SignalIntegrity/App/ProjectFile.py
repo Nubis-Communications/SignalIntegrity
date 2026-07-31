@@ -169,6 +169,8 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',self.defaultLogarithmicEndFrequency))
             self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',self.defaultLogarithmicPointsPerDecade))
             self.Add(XMLPropertyDefaultBool('AllowParallelization',False))
+            self.Add(XMLPropertyDefaultBool('LimitImpulseResponseLength',False))
+            self.Add(XMLPropertyDefaultFloat('MaximumImpulseResponseLength',1.))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
@@ -187,6 +189,29 @@ class CalculationPropertiesBase(XMLConfiguration):
             self['TimePoints']=None
             self['FrequencyResolution']=None
             self['ImpulseResponseLength']=None
+
+    def _FrequencyPointsFromImpulseResponseLength(self,ImpulseResponseLength):
+        # convert a desired impulse response length into a frequency point count,
+        # keeping the number of points integer to the end frequency (the resulting
+        # length is approximately - not strictly - the requested length).
+        import math
+        frequency_resolution=1./ImpulseResponseLength
+        return int(max(2,math.ceil(self['EndFrequency']/frequency_resolution)))
+
+    def _EffectiveFrequencyPoints(self):
+        # return the number of frequency points to actually use, applying the
+        # maximum impulse response length cap if enabled.  This does NOT modify any
+        # of the stored CalculationProperties values - it only computes the value to
+        # be used by FrequencyList/Dictionary.  The cap is approximate (points stay
+        # integer to the end frequency), matching _FrequencyPointsFromImpulseResponseLength.
+        frequency_points=self['FrequencyPoints']
+        import SignalIntegrity.App.Project
+        if self.preferences or not self['LimitImpulseResponseLength'] or not SignalIntegrity.App.Preferences['Calculation.AllowMaximumImpulseResponseLength']:
+            return frequency_points
+        current_impulse_response_length=frequency_points/self['EndFrequency']
+        if current_impulse_response_length>self['MaximumImpulseResponseLength']:
+            frequency_points=self._FrequencyPointsFromImpulseResponseLength(self['MaximumImpulseResponseLength'])
+        return frequency_points
 
     def InitFromXml(self,calculationPropertiesElement):
         endFrequency=20e9
@@ -208,6 +233,9 @@ class CalculationPropertiesBase(XMLConfiguration):
         calc_dict = {name:self[name] for name in ['EndFrequency',
                                              'FrequencyPoints',
                                              'UserSampleRate']}
+        # Apply the maximum impulse response length cap to the returned FrequencyPoints
+        # only (without modifying any stored CalculationProperties value).
+        calc_dict['FrequencyPoints']=self._EffectiveFrequencyPoints()
         if self['UnderlyingType'] != 'Linear':
             calc_dict.update({name:self[name] for name in ['UnderlyingType',
                                                   'LogarithmicStartFrequency',
@@ -219,13 +247,20 @@ class CalculationPropertiesBase(XMLConfiguration):
         # down into the sub-project.  Parallelization must remain a per-project decision, so the
         # parent's AllowParallelization value is never allowed to override the sub-project's own.
         return calc_dict
+    def KeywordPairs(self):
+        # Return the calculation properties formatted as a string of space-separated
+        # 'keyword value' pairs (leading space included) suitable for netlist lines and
+        # command-line arguments.  Concentrates the keyword-pair string generation here so
+        # callers (e.g. Device and DeviceProperties) don't duplicate the formatting logic.
+        calc_dict=self.Dictionary()
+        return ''.join([' '+propertyName+' '+str(calc_dict[propertyName]) for propertyName in calc_dict.keys()])
     def IsEvenlySpaced(self):
         return (self['UnderlyingType'] == 'Linear')
     def FrequencyList(self,force_evenly_spaced=False):
         if (self['UnderlyingType'] == 'Linear') or force_evenly_spaced:
             return si.fd.EvenlySpacedFrequencyList(
                 self['EndFrequency'],
-                self['FrequencyPoints'])
+                self._EffectiveFrequencyPoints())
         else:
             return si.fd.LogarithmicallySpacedFrequencyList(
                     self['LogarithmicStartFrequency'],
@@ -243,14 +278,12 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.dict['LogarithmicPointsPerDecade'].dict['write'] = not is_default_linear
             self.dict['ReferenceImpedance'].dict['write'] = self['ReferenceImpedance'] != 50.
             self.dict['AllowParallelization'].dict['write'] = bool(self['AllowParallelization'])
+            self.dict['LimitImpulseResponseLength'].dict['write'] = bool(self['LimitImpulseResponseLength'])
+            self.dict['MaximumImpulseResponseLength'].dict['write'] = bool(self['LimitImpulseResponseLength'])
         return XMLConfiguration.OutputXML(self,indent)
 
     def SetImpulseResponseLength(self,ImpulseResponseLength):
-        import math
-        frequency_resolution=1/ImpulseResponseLength
-        end_frequency=self['EndFrequency']
-        frequency_points=int(max(2,math.ceil(end_frequency/frequency_resolution)))
-        self['FrequencyPoints']=frequency_points
+        self['FrequencyPoints']=self._FrequencyPointsFromImpulseResponseLength(ImpulseResponseLength)
         self.CalculateOthersFromBaseInformation()
 
 class CalculationProperties(CalculationPropertiesBase):

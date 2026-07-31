@@ -244,9 +244,7 @@ class Device(object):
             variablesLine+=(' '+token)
         if not self['calcprop'] == None:
             if self['calcprop']['Value']=='true':
-                calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
-                for propertyName in calculationProperties.Dictionary().keys():
-                    variablesLine+=(' '+propertyName+' '+str(calculationProperties[propertyName]))
+                variablesLine+=SignalIntegrity.App.Project['CalculationProperties'].KeywordPairs()
         return variablesLine
 
 class DeviceFromProject(object):

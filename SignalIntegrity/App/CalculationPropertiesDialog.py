@@ -40,6 +40,13 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.baseSamplePeriod=CalculationPropertySI(self.TimeAndFrequencyFrame,'Base Sample Period',self.onbaseSamplePeriodEntered,None,self.project,'BaseSamplePeriod','s')
         self.timePoints=CalculationProperty(self.TimeAndFrequencyFrame,'Time Points',self.ontimePointsEntered,None,self.project,'TimePoints')
         self.impulseResponseLength=CalculationPropertySI(self.TimeAndFrequencyFrame,'Impulse Response Length',self.onimpulseLengthEntered,None,self.project,'ImpulseResponseLength','s')
+        self.MaximumImpulseResponseLengthFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        if SignalIntegrity.App.Preferences['Calculation.AllowMaximumImpulseResponseLength']:
+            self.MaximumImpulseResponseLengthFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.useMaximumImpulseResponseLength=CalculationPropertyTrueFalseButton(self.MaximumImpulseResponseLengthFrame,'Limit Impulse Response Length',self.onLimitImpulseResponseLengthEntered,None,self.project,'LimitImpulseResponseLength',
+                tooltip='Cap the impulse response length by reducing the number of frequency points.\nThe cap is approximate - the number of points is kept integer to the end frequency.')
+            self.maximumImpulseResponseLength=CalculationPropertySI(self.MaximumImpulseResponseLengthFrame,'Maximum Impulse Response Length',self.onmaximumImpulseLengthEntered,None,self.project,'MaximumImpulseResponseLength','s')
+            self.maximumImpulseResponseLength.Show(self.project['LimitImpulseResponseLength'])
         self.logarithmicFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
         self.logarithmicFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         if SignalIntegrity.App.Preferences['Calculation.LogarithmicSolutions'] or self.project['UnderlyingType'] != 'Linear':
@@ -122,6 +129,17 @@ class CalculationPropertiesDialog(PropertiesDialog):
     def onunderlyingTypeEntered(self,event):
         self.UpdateStrings()
 
+    def onLimitImpulseResponseLengthEntered(self,event):
+        self.UpdateStrings()
+
+    def onmaximumImpulseLengthEntered(self,event):
+        # round the entered value to the 12458 sequence (subject to the
+        # Calculation.Enforce12458 preference via NextHigher12458); the cap
+        # itself is applied in CalculateOthersFromBaseInformation, invoked by
+        # UpdateStrings.
+        self.project['MaximumImpulseResponseLength']=self.NextHigher12458(self.project['MaximumImpulseResponseLength'])
+        self.UpdateStrings()
+
     def UpdateStrings(self):
         self.project.CalculateOthersFromBaseInformation()
         self.endFrequency.UpdateStrings()
@@ -145,6 +163,9 @@ class CalculationPropertiesDialog(PropertiesDialog):
         self.ParallelizationFrame.pack_forget()
         if showParallelization:
             self.ParallelizationFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        if hasattr(self,'maximumImpulseResponseLength'):
+            self.maximumImpulseResponseLength.Show(self.project['LimitImpulseResponseLength'])
+            self.maximumImpulseResponseLength.UpdateStrings()
 
     def onClosing(self):
         self.ok(None)
@@ -161,7 +182,9 @@ class CalculationPropertiesDialog(PropertiesDialog):
     def Save(self):
         self.saved={'EndFrequency':self.project['EndFrequency'],
                     'FrequencyPoints':self.project['FrequencyPoints'],
-                    'UserSampleRate':self.project['UserSampleRate']}
+                    'UserSampleRate':self.project['UserSampleRate'],
+                    'LimitImpulseResponseLength':self.project['LimitImpulseResponseLength'],
+                    'MaximumImpulseResponseLength':self.project['MaximumImpulseResponseLength']}
 
     def Restore(self):
         for key in self.saved:
