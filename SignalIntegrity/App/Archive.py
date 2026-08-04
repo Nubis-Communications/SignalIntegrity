@@ -21,12 +21,35 @@ Archive.py
 import os
 import shutil
 import stat
+import time
 import zipfile
 import glob
 
 from SignalIntegrity.App.Files import FileParts
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityException
+
+def _RmTreeHandlerKeyword():
+    """Returns the keyword to use for shutil.rmtree's error handler.
+    @return string 'onexc' or 'onerror'.
+    @remark rmtree's 'onerror' callback is deprecated as of Python 3.12 in favor
+    of 'onexc' and is slated for removal.  Both are called as
+    (function,path,error), so a single handler serves either one and only the
+    keyword differs.  The keyword is discovered from rmtree's actual signature
+    rather than hard-coded against a version number, so it keeps working both on
+    old interpreters that have only 'onerror' and on future ones that have only
+    'onexc'.
+    """
+    try:
+        import inspect
+        if 'onexc' in inspect.signature(shutil.rmtree).parameters:
+            return 'onexc'
+    except Exception:
+        pass
+    return 'onerror'
+
+#: see _RmTreeHandlerKeyword; resolved once, at import
+RmTreeHandlerKeyword=_RmTreeHandlerKeyword()
 
 class SignalIntegrityExceptionArchive(SignalIntegrityException):
     def __init__(self,message=''):
@@ -359,30 +382,83 @@ class Archive(list):
         Archive._RemoveTree(archiveDir)
 
     @staticmethod
+    def _MakeRemovable(path):
+        """Grants the permissions needed to remove path.
+        @param path string the file or directory that could not be removed.
+        @remark On Windows it is the read-only attribute on the item itself that
+        blocks the removal, so write permission is added to it.  On POSIX it is
+        the *containing* directory that must be writable and searchable for an
+        entry to be unlinked, so write and execute permission are added there as
+        well.  In both cases the permissions are added to the existing mode rather
+        than replacing it, so that (for example) a directory does not lose the
+        read/execute bits it needs in order to be traversed.
+        """
+        for p in (path,os.path.dirname(os.path.abspath(path))):
+            try:
+                mode=os.stat(p).st_mode
+                addition=stat.S_IRUSR|stat.S_IWUSR
+                if stat.S_ISDIR(mode):
+                    addition=addition|stat.S_IXUSR
+                os.chmod(p,mode|addition)
+            except Exception:
+                pass
+
+    @staticmethod
+    def _RmTreeException(error):
+        """Returns the exception reported to an rmtree removal handler.
+        @param error the third argument handed to the handler.
+        @return the exception that caused the removal to fail, or None if it
+        cannot be determined.
+        @remark 'onerror' is called with the sys.exc_info() triple while 'onexc'
+        is called with the exception itself, so both forms are accepted here.
+        """
+        if isinstance(error,BaseException):
+            return error
+        if isinstance(error,tuple) and (len(error) == 3) and isinstance(error[1],BaseException):
+            return error[1]
+        return None
+
+    @staticmethod
     def _RemoveTree(directory,attempts=5,delay=0.2):
         """Removes a directory tree, retrying briefly on transient failures.
         @param directory string the directory tree to remove.
         @param attempts int (optional, defaults to 5) number of removal attempts.
         @param delay float (optional, defaults to 0.2) seconds to wait between attempts.
-        @remark On Windows a file or directory that is still open in any process
-        (a virus scanner, an indexer or an editor that has just been handed the
-        file) cannot be removed, and the removal fails with a PermissionError even
-        though the hold is momentary.  Retrying a few times makes the removal
-        robust against those transient holds; a genuine, persistent hold still
-        raises, so real problems are not hidden.
+        @remark A removal can fail for reasons that have nothing to do with the
+        caller: a read-only file copied out of an archive, or -- on Windows -- a
+        file or directory momentarily held open by a virus scanner, the search
+        indexer or an editor.  The error handler fixes up the permissions and the
+        loop retries a few times, which covers those transient cases.  A genuine,
+        persistent problem still raises after the last attempt, so real errors are
+        not hidden.
         """
-        import time
-        def onerror(function,path,excinfo):
-            # read-only files (common in files copied out of an archive) raise a
-            # PermissionError that clearing the read-only bit fixes
+        # shutil.rmtree's 'onerror' callback is deprecated as of Python 3.12 in
+        # favor of 'onexc'.  Both are called as (function,path,error), so the same
+        # handler serves either one; only the keyword differs.
+        handlerKeyword=RmTreeHandlerKeyword
+        def handler(function,path,error):
+            Archive._MakeRemovable(path)
             try:
-                os.chmod(path,stat.S_IWRITE)
-                function(path)
+                result=function(path)
             except Exception:
+                # The retry itself failed.  On POSIX, rmtree removes by file
+                # descriptor and so can report os.open, which needs flags as
+                # well as a path; calling it with a path alone raises a
+                # TypeError that would mask the real reason for the failure.
+                # Raising the original error instead lets the loop below retry
+                # and, if the trouble persists, report something meaningful.
+                original=Archive._RmTreeException(error)
+                if original is not None:
+                    raise original
                 raise
+            # os.scandir is reported on POSIX and returns an open iterator whose
+            # descriptor would otherwise stay open until it is collected.
+            close=getattr(result,'close',None)
+            if close is not None:
+                close()
         for attempt in range(attempts):
             try:
-                shutil.rmtree(directory,onerror=onerror)
+                shutil.rmtree(directory,**{handlerKeyword:handler})
                 return
             except Exception:
                 if attempt == attempts-1:

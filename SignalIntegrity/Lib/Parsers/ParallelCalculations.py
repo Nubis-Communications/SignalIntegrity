@@ -355,8 +355,13 @@ def _GetPersistentExecutor(workers, mainGuard):
         _PersistentExecutorWorkers = None
     created = False
     if _PersistentExecutor is None:
-        _PersistentExecutor = ProcessPoolExecutor(max_workers=workers,
-                                                  initializer=_InitializeWorker)
+        try:
+            _PersistentExecutor = ProcessPoolExecutor(max_workers=workers,
+                                                      initializer=_InitializeWorker)
+        except TypeError:
+            # ProcessPoolExecutor gained the 'initializer' argument in Python 3.7.
+            # Without it the workers simply keep the cwd they were spawned in.
+            _PersistentExecutor = ProcessPoolExecutor(max_workers=workers)
         _PersistentExecutorWorkers = workers
         created = True
     if created:
