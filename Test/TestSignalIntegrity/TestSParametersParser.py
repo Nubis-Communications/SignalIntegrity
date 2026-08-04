@@ -287,6 +287,93 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
                         'post taper 30e9 40e9',])
         sp=sspnp.SParameters()
         self.SParameterRegressionChecker(sp,self.id()+'.s2p')
+    def PostProcessingParser(self,postLines=[],endFrequency=20e9,frequencyPoints=400):
+        """builds the standard two device test netlist with optional post-processing lines"""
+        fd=si.fd.EvenlySpacedFrequencyList(endFrequency,frequencyPoints)
+        sspnp=si.p.SystemSParametersNumericParser(fd)
+        sspnp.AddLines(['device D1 2 file cable.s2p',
+                        'device D2 2 file filter.s2p',
+                        'port 1 D1 1',
+                        'port 2 D2 2',
+                        'connect D1 2 D2 1']+postLines)
+        return sspnp
+    def PostProcessingExceptionChecker(self,postLines):
+        """asserts that the post-processing lines supplied generate a post-processing exception"""
+        sspnp=self.PostProcessingParser(postLines)
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            sspnp.SParameters()
+        self.assertEqual(cm.exception.parameter,si.SignalIntegrityExceptionPostProcessing().parameter)
+    def testSParametersPostEnforceAll(self):
+        sp=self.PostProcessingParser(['post enforce all']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().EnforceAll(causalityThreshold=10e-6,
+                                                                       maxIterations=30,
+                                                                       maxSingularValue=1.,
+                                                                       preserveDC=False)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostPreserveDC(self):
+        sp=self.PostProcessingParser(['post preserve dc',
+                                      'post enforce causality']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().EnforceCausality(preserveDC=True)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+        spNotPreserved=self.PostProcessingParser(['post enforce causality']).SParameters()
+        self.assertFalse(self.SParametersAreEqual(sp,spNotPreserved,1e-9),self.id()+' DC not preserved')
+    def testSParametersPostPreserveDCUpperCase(self):
+        sp=self.PostProcessingParser(['post preserve DC',
+                                      'post enforce causality']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().EnforceCausality(preserveDC=True)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostPreserveGarbage(self):
+        self.PostProcessingExceptionChecker(['post preserve garbage'])
+    def testSParametersPostLimit(self):
+        sp=self.PostProcessingParser(['post limit -100e-12 500e-12']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().LimitImpulseResponseLength((-100e-12,500e-12))
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostPortReorder(self):
+        sp=self.PostProcessingParser(['post port reorder 2,1']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().PortReorder([2,1])
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostPortReorderNoChange(self):
+        sp=self.PostProcessingParser(['post port reorder 1,2']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters()
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostPortGarbage(self):
+        self.PostProcessingExceptionChecker(['post port garbage'])
+    def testSParametersPostPortReorderGarbage(self):
+        self.PostProcessingExceptionChecker(['post port reorder garbage'])
+    def testSParametersPostPortReorderMissing(self):
+        self.PostProcessingExceptionChecker(['post port reorder'])
+    def testSParametersPostScaleRho(self):
+        sp=self.PostProcessingParser(['post scale rho 0.5']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().ScaleRho(0.5)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostScaleRhoOtherSpellings(self):
+        spExpected=self.PostProcessingParser().SParameters().ScaleRho(0.5)
+        for rho in ['Rho','RHO']:
+            sp=self.PostProcessingParser(['post scale '+rho+' 0.5']).SParameters()
+            self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same for '+rho)
+    def testSParametersPostScaleGarbage(self):
+        self.PostProcessingExceptionChecker(['post scale garbage'])
+    def testSParametersPostScaleRhoGarbage(self):
+        self.PostProcessingExceptionChecker(['post scale rho garbage'])
+    def testSParametersPostScaleRhoMissing(self):
+        self.PostProcessingExceptionChecker(['post scale rho'])
+    def testSParametersPostWaveletDenoise(self):
+        sp=self.PostProcessingParser(['post wavelet denoise 0.001']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().WaveletDenoise(0.001)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostWaveletDenoiseGarbage(self):
+        self.PostProcessingExceptionChecker(['post wavelet denoise garbage'])
+    def testSParametersPostWaveletDenoiseMissing(self):
+        self.PostProcessingExceptionChecker(['post wavelet denoise'])
+    def testSParametersPostTaperMissing(self):
+        self.PostProcessingExceptionChecker(['post taper'])
+    def testSParametersPostLimitMissing(self):
+        self.PostProcessingExceptionChecker(['post limit'])
+    def testSParametersPostComment(self):
+        sp=self.PostProcessingParser(['post ! this is a comment']).SParameters()
+        header=getattr(sp,'header',[])
+        self.assertTrue(any('this is a comment' in line for line in header),
+                        self.id()+' comment not in header: '+str(header))
     #@unittest.expectedFailure
     def testSParametersReferenceStartsWithP(self):
         fd=si.fd.EvenlySpacedFrequencyList(20e9,400)
