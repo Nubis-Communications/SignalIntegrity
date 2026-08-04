@@ -107,7 +107,8 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         if self.ProcessVariables(lineList): return
-        elif lineList[0] in exclusionList: self.m_ul.append(line)
+        elif lineList[0] in exclusionList:
+            self.m_ul.append(self.ReplaceArgsInLine(line))
         elif lineList[0] == 'device':
             argList = lineList[3:]
             if [lineList[2]]+argList in self.m_spcl:
@@ -150,7 +151,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 dev=lineList[i+1]; devPort=int(lineList[i+2])
                 self.m_sd.AddPort(dev,devPort,port,self.m_addThru)
                 i=i+3
-        else: self.m_ul.append(line)
+        else: self.m_ul.append(self.ReplaceArgsInLine(line))
     def _ProcessLines(self,exclusionList=[]):
         """processes all of the lines in a netlist
         @see _ProcessLine() for explanation of parameters and functionality.

@@ -282,6 +282,29 @@ def _WarmUpWorker(_ignored):
     finish importing this module.  Returns the worker pid for debugging."""
     return os.getpid()
 
+def _InitializeWorker():
+    """Pool initializer, run once inside each worker process as it starts.
+
+    Moves the worker out of whatever directory it inherited from the parent at
+    spawn time.  Workers perform no file I/O of their own -- every input arrives
+    pickled in the task payload (see _SolveChunk) -- but a process's current
+    working directory is an open handle on that directory, and on Windows an open
+    handle prevents the directory from being renamed, moved or deleted.  Because
+    the pool is persistent, a worker spawned while the parent happened to be
+    inside a project directory would otherwise keep that directory locked for the
+    rest of the run: deleting it (for example un-extracting a project archive, or
+    simply cleaning up a working directory) would fail with
+    'the process cannot access the file because it is being used by another
+    process'.  Chdir'ing to the temp directory releases that hold.
+    """
+    import tempfile
+    try:
+        os.chdir(tempfile.gettempdir())
+    except Exception:
+        # A worker that cannot chdir is still perfectly able to do its work, so
+        # this must never be allowed to break the pool.
+        pass
+
 # ---------------------------------------------------------------------------
 # Driver side (runs in the main process)
 # ---------------------------------------------------------------------------
@@ -332,7 +355,8 @@ def _GetPersistentExecutor(workers, mainGuard):
         _PersistentExecutorWorkers = None
     created = False
     if _PersistentExecutor is None:
-        _PersistentExecutor = ProcessPoolExecutor(max_workers=workers)
+        _PersistentExecutor = ProcessPoolExecutor(max_workers=workers,
+                                                  initializer=_InitializeWorker)
         _PersistentExecutorWorkers = workers
         created = True
     if created:

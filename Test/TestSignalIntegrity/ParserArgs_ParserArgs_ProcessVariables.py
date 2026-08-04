@@ -16,6 +16,15 @@ class ParserArgs():
         if replacedOne:
             lineList=';'.join(lineList).split(';')
         return lineList
+    def ReplaceArgsInLine(self,line):
+        if not hasattr(self,'m_vars') or not self.m_vars: return line
+        tokens=line.split(' ')
+        replacedOne=False
+        for i in range(len(tokens)):
+            if tokens[i] in self.m_vars:
+                tokens[i]=self.m_vars[tokens[i]]
+                replacedOne=True
+        return ' '.join(tokens) if replacedOne else line
     def ProcessVariables(self,lineList):
         if lineList[0] == 'var':
             variables=dict([(lineList[i*2+1],lineList[i*2+2])

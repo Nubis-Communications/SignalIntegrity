@@ -357,6 +357,18 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
         self.PostProcessingExceptionChecker(['post scale rho garbage'])
     def testSParametersPostScaleRhoMissing(self):
         self.PostProcessingExceptionChecker(['post scale rho'])
+    def testSParametersPostScaleRhoVariable(self):
+        """post-processing lines must have their variables resolved"""
+        sp=self.PostProcessingParser(['var $scale$ 0.5',
+                                      'post scale rho $scale$']).SParameters()
+        spExpected=self.PostProcessingParser().SParameters().ScaleRho(0.5)
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
+    def testSParametersPostTaperVariable(self):
+        """post-processing lines must have their variables resolved"""
+        sp=self.PostProcessingParser(['var $ftaper$ 10e9',
+                                      'post taper $ftaper$']).SParameters()
+        spExpected=self.PostProcessingParser(['post taper 10e9']).SParameters()
+        self.assertTrue(self.SParametersAreEqual(sp,spExpected,1e-9),self.id()+' result not same')
     def testSParametersPostWaveletDenoise(self):
         sp=self.PostProcessingParser(['post wavelet denoise 0.001']).SParameters()
         spExpected=self.PostProcessingParser().SParameters().WaveletDenoise(0.001)

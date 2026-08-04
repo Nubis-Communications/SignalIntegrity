@@ -20,6 +20,7 @@ Archive.py
 
 import os
 import shutil
+import stat
 import zipfile
 import glob
 
@@ -355,4 +356,35 @@ class Archive(list):
         splitDir=archiveDir.replace('\\', '/').split('/')
         dirAbove='/'.join(splitDir[:-1])
         os.chdir(dirAbove)
-        shutil.rmtree(archiveDir)
+        Archive._RemoveTree(archiveDir)
+
+    @staticmethod
+    def _RemoveTree(directory,attempts=5,delay=0.2):
+        """Removes a directory tree, retrying briefly on transient failures.
+        @param directory string the directory tree to remove.
+        @param attempts int (optional, defaults to 5) number of removal attempts.
+        @param delay float (optional, defaults to 0.2) seconds to wait between attempts.
+        @remark On Windows a file or directory that is still open in any process
+        (a virus scanner, an indexer or an editor that has just been handed the
+        file) cannot be removed, and the removal fails with a PermissionError even
+        though the hold is momentary.  Retrying a few times makes the removal
+        robust against those transient holds; a genuine, persistent hold still
+        raises, so real problems are not hidden.
+        """
+        import time
+        def onerror(function,path,excinfo):
+            # read-only files (common in files copied out of an archive) raise a
+            # PermissionError that clearing the read-only bit fixes
+            try:
+                os.chmod(path,stat.S_IWRITE)
+                function(path)
+            except Exception:
+                raise
+        for attempt in range(attempts):
+            try:
+                shutil.rmtree(directory,onerror=onerror)
+                return
+            except Exception:
+                if attempt == attempts-1:
+                    raise
+                time.sleep(delay)
