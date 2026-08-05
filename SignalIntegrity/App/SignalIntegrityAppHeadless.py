@@ -32,6 +32,12 @@ from SignalIntegrity.App.Archive import Archive,SignalIntegrityExceptionArchive
 from SignalIntegrity.Lib.Exception import SignalIntegrityException
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.Result import Result
+from SignalIntegrity.Lib.Log import Logger,LogConfiguration
+
+#: the logger for hierarchical sub-project handling.
+_log=Logger('SubProject')
+#: the logger for calculations.
+_calcLog=Logger('Calculation')
 
 class ProjectStack(object):
     def __init__(self):
@@ -162,6 +168,21 @@ class SignalIntegrityAppHeadless(object):
     def NullCommand(self):
         pass
 
+    @staticmethod
+    def SetLogging(configuration=None,**kwargs):
+        """sets the logging configuration for this run.
+        @param configuration dict (optional) logging configuration.  It may be
+        partial, and may also be a string of the form 'DEBUG:Cache,SubProject'.
+        @param kwargs any logging configuration key may be supplied as a keyword.
+        @return bool whether the configuration was applied.
+        @remark the configuration is process wide and is therefore inherited by
+        every sub-project solved in a hierarchy.  It is deliberately not written to
+        the preferences file, so a script cannot disturb the settings of the
+        interactive user.
+        @see SignalIntegrity.Lib.Log
+        """
+        return LogConfiguration.Configure(configuration,source='api',**kwargs)
+
     def SetVariables(self,args,reportMissing=False):
         variableNames = SignalIntegrity.App.Project['Variables'].Names()
         calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
@@ -172,7 +193,7 @@ class SignalIntegrityAppHeadless(object):
             elif key in calculationPropertyNames:
                 calculationProperties.SetValue(key,args[key])
             elif reportMissing:
-                print('variable '+key+' not in project')
+                _log.warning('variable %s not in project',key)
         calculationProperties.CalculateOthersFromBaseInformation()
 
     def OpenProjectFile(self,filename,args={},writable=False):
@@ -192,6 +213,7 @@ class SignalIntegrityAppHeadless(object):
             self.SetVariables(args, True)
             self.Drawing.InitFromProject()
         except:
+            _log.exception('project could not be opened: %s',filename)
             return False
         if writable:
             # consolidation exists to clean up edits, so it is skipped when read-only
@@ -269,6 +291,7 @@ class SignalIntegrityAppHeadless(object):
             try:
                 sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)['s-parameters']
             except si.SignalIntegrityException as e:
+                _calcLog.warning('%s',e)
                 return Result('s-parameters',None)
             return self._SParametersResult(sp,calculate_impedance_profiles)
         elif not self.Drawing.canCalculateSParameters:
@@ -292,6 +315,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             sp=spnp.SParameters()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('s-parameters',None)
         sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
         return self._SParametersResult(sp,calculate_impedance_profiles)
@@ -374,6 +398,7 @@ class SignalIntegrityAppHeadless(object):
                 (netList,outputWaveformLabels,sourceNames,noiseSourceNames,transferMatrices,
                  inputWaveformList,transferMatricesProcessor)=prepareSimulation()
             except si.SignalIntegrityException as e:
+                _calcLog.warning('%s',e)
                 return Result('simulation',None)
             if TransferMatricesOnly:
                 outputWaveformLabels,sourceNames,transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
@@ -407,6 +432,7 @@ class SignalIntegrityAppHeadless(object):
                     (netList,outputWaveformLabels,sourceNames,noiseSourceNames,transferMatrices,
                      inputWaveformList,transferMatricesProcessor)=prepareSimulation(True)
                 except si.SignalIntegrityException as e:
+                    _calcLog.warning('%s',e)
                     return Result('simulation',None)
                 systemChanged=False
             if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
@@ -638,6 +664,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('virtual probe',None)
 
         sourceNames=netList.MeasureNames()
@@ -661,6 +688,7 @@ class SignalIntegrityAppHeadless(object):
             inputWaveformList=self.Drawing.schematic.InputWaveforms()
             outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('virtual probe',None)
 
         try:
@@ -680,6 +708,7 @@ class SignalIntegrityAppHeadless(object):
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('virtual probe',None)
 
         for outputWaveformIndex in range(len(outputWaveformList)):
@@ -788,6 +817,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             sp=dnp.Deembed()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('de-embed',None)
 
         unknownNames=dnp.m_sd.UnknownNames()
@@ -829,6 +859,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             cal=etnp.CalculateCalibration()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('error terms',None)
         return Result('error terms',{'error terms':cal,
                                      'file names':self.fileparts.FullFilePathExtension('cal'),
@@ -870,6 +901,7 @@ class SignalIntegrityAppHeadless(object):
         try:
             (DUTSp,NetworkAnalyzerProjectFile)=spnp.SParameters()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('network analyzer',None)
         netListText=None
         if NetworkAnalyzerProjectFile != None:
@@ -913,6 +945,7 @@ class SignalIntegrityAppHeadless(object):
             os.chdir(FileParts(os.path.abspath(NetworkAnalyzerProjectFile)).AbsoluteFilePath())
             transferMatrices=snp.TransferMatrices()
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('network analyzer',None)
         finally:
             SignalIntegrityAppHeadless.projectStack.Pull(level)
@@ -983,6 +1016,7 @@ class SignalIntegrityAppHeadless(object):
             for port in range(len(self.wflist)):
                 outputwflist.append(self.transferMatricesProcessor.ProcessWaveforms(self.wflist[port],adaptToLargest=True))
         except si.SignalIntegrityException as e:
+            _calcLog.warning('%s',e)
             return Result('network analyzer',None)
         #
         # The list of list of input waveforms have been processed processed, generating a list of list of output waveforms in 
@@ -1188,29 +1222,30 @@ def ProjectSParameters(filename,callback,**kwargs):
             return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
-    try:
-        app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
-            app.Drawing.DrawSchematic()
-            try:
-                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
-                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
-            except Exception:
-                pass
-            if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
-                result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
-                if result != {}:
-                    sp=result['s-parameters']
-            if app.Drawing.canCalculateSParameters:
-                result=app.CalculateSParameters(callback)
-                if result != {}:
-                    sp=result['s-parameters']
-            elif app.Drawing.canDeembed:
-                result=app.Deembed(callback)
-                if result != {}:
-                    sp=result['s-parameters'][0]
-    except:
-        pass
+    with LogConfiguration.Context(FileParts(filename).FileNameTitle()):
+        try:
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+                app.Drawing.DrawSchematic()
+                try:
+                    from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                    RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+                except Exception:
+                    pass
+                if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
+                    result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
+                    if result != {}:
+                        sp=result['s-parameters']
+                if app.Drawing.canCalculateSParameters:
+                    result=app.CalculateSParameters(callback)
+                    if result != {}:
+                        sp=result['s-parameters']
+                elif app.Drawing.canDeembed:
+                    result=app.Deembed(callback)
+                    if result != {}:
+                        sp=result['s-parameters'][0]
+        except:
+            _log.exception('s-parameters of sub-project %s could not be calculated',filename)
     try:
         from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
         RegressionContext.RecordSParameters(filename,sp,kwargs)
@@ -1228,24 +1263,25 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
             return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     wf=None
-    try:
-        app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
-            app.Drawing.DrawSchematic()
-            try:
-                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
-                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
-            except Exception:
-                pass
-            result={}
-            if app.Drawing.canSimulate:
-                result=app.Simulate(callback)
-            elif app.Drawing.canVirtualProbe:
-                result=app.VirtualProbe(callback)
-            if result != {}:
-                wf = result.OutputWaveform(wfname)
-    except:
-        pass
+    with LogConfiguration.Context(FileParts(filename).FileNameTitle()):
+        try:
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+                app.Drawing.DrawSchematic()
+                try:
+                    from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                    RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+                except Exception:
+                    pass
+                result={}
+                if app.Drawing.canSimulate:
+                    result=app.Simulate(callback)
+                elif app.Drawing.canVirtualProbe:
+                    result=app.VirtualProbe(callback)
+                if result != {}:
+                    wf = result.OutputWaveform(wfname)
+        except:
+            _log.exception('waveform %s of sub-project %s could not be calculated',wfname,filename)
     try:
         from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
         RegressionContext.RecordWaveform(filename,wf,wfname,kwargs)
@@ -1263,33 +1299,34 @@ def ProjectNoise(filename,noise_name,callback,lanes=1.,**kwargs):
             return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sd=None
-    try:
-        app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
-            app.Drawing.DrawSchematic()
-            try:
-                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
-                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
-            except Exception:
-                pass
-            result={}
-            if app.Drawing.canSimulate:
-                result=app.Simulate(callback)
-            elif app.Drawing.canVirtualProbe:
-                result=app.VirtualProbe(callback)
-            if result != {}:
+    with LogConfiguration.Context(FileParts(filename).FileNameTitle()):
+        try:
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+                app.Drawing.DrawSchematic()
                 try:
-                    sd = result['noise']['output_noise_spectral_density'][noise_name]['spectrum']
-                except:
-                    sd = result['output waveforms'][result['output waveform labels'].index(noise_name)].SpectralDensity()
-                lane_scale = math.sqrt(max(float(lanes),0.))
-                if lane_scale != 1. and not sd is None:
+                    from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                    RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+                except Exception:
+                    pass
+                result={}
+                if app.Drawing.canSimulate:
+                    result=app.Simulate(callback)
+                elif app.Drawing.canVirtualProbe:
+                    result=app.VirtualProbe(callback)
+                if result != {}:
                     try:
-                        sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()],sd.Keven)
+                        sd = result['noise']['output_noise_spectral_density'][noise_name]['spectrum']
                     except:
-                        sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()])
-    except:
-        pass
+                        sd = result['output waveforms'][result['output waveform labels'].index(noise_name)].SpectralDensity()
+                    lane_scale = math.sqrt(max(float(lanes),0.))
+                    if lane_scale != 1. and not sd is None:
+                        try:
+                            sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()],sd.Keven)
+                        except:
+                            sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()])
+        except:
+            _log.exception('noise %s of sub-project %s could not be calculated',noise_name,filename)
     try:
         from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
         RegressionContext.RecordNoise(filename,sd,noise_name,kwargs)
@@ -1307,14 +1344,15 @@ def ProjectCalibration(filename,callback,**kwargs):
             return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     result=None
-    try:
-        app=SignalIntegrityAppHeadless()
-        if app.OpenProjectFile(os.path.realpath(filename),kwargs):
-            app.Drawing.DrawSchematic()
-            if app.Drawing.canCalculateErrorTerms:
-                result=app.CalculateErrorTerms(callback)['error terms']
-    except:
-        pass
+    with LogConfiguration.Context(FileParts(filename).FileNameTitle()):
+        try:
+            app=SignalIntegrityAppHeadless()
+            if app.OpenProjectFile(os.path.realpath(filename),kwargs):
+                app.Drawing.DrawSchematic()
+                if app.Drawing.canCalculateErrorTerms:
+                    result=app.CalculateErrorTerms(callback)['error terms']
+        except:
+            _log.exception('calibration of sub-project %s could not be calculated',filename)
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
         if not callback(0,'-'):
