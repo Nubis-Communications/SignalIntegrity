@@ -512,6 +512,10 @@ class EquationsConfiguration(XMLConfiguration):
     def PutTextString(self,textstr):
         lines=textstr.split('\n')
         lines=[str(line) for line in lines]
+        # remove trailing blank lines (text widgets always append a newline at the end,
+        # which would otherwise cause the equations to grow a blank line on each edit)
+        while len(lines) > 0 and lines[-1].strip() == '':
+            lines=lines[:-1]
         pplines=[EquationLineConfiguration() for line in lines]
         for l in range(len(lines)):
             pplines[l]['Line']=lines[l]

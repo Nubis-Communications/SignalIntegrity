@@ -133,7 +133,7 @@ class EquationsDialog(tk.Toplevel):
         return "break"
 
     def onExit(self):
-        SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
+        SignalIntegrity.App.Project[self.project].PutTextString(self.TextString())
         self.parent.statusbar.set(self.titleText+' Modified')
         self.parent.history.Event('modify '+self.titleText)
         self.__root.destroy()
@@ -202,14 +202,19 @@ class EquationsDialog(tk.Toplevel):
         SignalIntegrity.App.Project['Equations.AutoDebug']=self.AutoDebugDoer.Bool()
         self.onTouched()
 
+    def TextString(self):
+        # tkinter text widgets always append a newline at the end of the text, which
+        # would cause a blank line to accumulate at the end of the equations on each edit
+        return self.TextArea.get(1.0,tk.END+'-1c')
+
     def onExecute(self):
         self.onTouched(None,True)
-        SignalIntegrity.App.Project[self.project].PutTextString(self.TextArea.get(1.0,tk.END))
+        SignalIntegrity.App.Project[self.project].PutTextString(self.TextString())
         self.parent.Drawing.DrawSchematic()
 
     def onTouched(self,event=None,force=False):
         if force or SignalIntegrity.App.Project['Equations.AutoDebug']:
-            result=SignalIntegrity.App.Project.EvaluateEquations(self.TextArea.get(1.0,tk.END))
+            result=SignalIntegrity.App.Project.EvaluateEquations(self.TextString())
             if result == None:
                 self.statusbar.set('No Errors')
             else:
