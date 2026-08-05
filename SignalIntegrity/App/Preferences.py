@@ -54,6 +54,22 @@ class Preferences(PreferencesFile):
                 self.fileExists=False
                 return
         self.fileExists=True
+        self.ApplyLoggingPreferences()
+    def ApplyLoggingPreferences(self):
+        """installs the logging configuration held in the preferences.
+        @remark this is done on construction because the preferences are
+        constructed by the application and by every sub-project solved in a
+        hierarchy, which makes the logging configuration automatically available at
+        every level.  The preferences are the lowest precedence source, so a
+        configuration established on the command line, in the environment or by a
+        script survives this.
+        """
+        try:
+            from SignalIntegrity.Lib.Log import LogConfiguration
+            self['Logging'].ApplyPreferences()
+            LogConfiguration.ConfigureFromEnvironment()
+        except:
+            pass
     @classmethod
     def ResolveFileName(cls):
         """Return the preferences file this installation/user/venv resolves to (no side effects on state)."""
@@ -76,6 +92,7 @@ class Preferences(PreferencesFile):
                 except:
                     pass
                 return
+
     def SaveToFile(self):
         if self.fileExists:
             try:

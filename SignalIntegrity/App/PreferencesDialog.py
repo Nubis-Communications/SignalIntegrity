@@ -23,6 +23,7 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,Ca
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
 from SignalIntegrity.App.Theme import ThemeSelector,ThemeColorButton,DialogStyleSelector
+from SignalIntegrity.Lib.Log import LogConfiguration
 
 import sys
 if sys.version_info.major < 3:
@@ -43,10 +44,12 @@ class PreferencesDialog(PropertiesDialog):
         self.cachingTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.archiveAndRegressionTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.calculationTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
+        self.loggingTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.notebook.add(self.appearanceTab,text='Appearance')
         self.notebook.add(self.calculationTab,text='Calculation')
         self.notebook.add(self.cachingTab,text='Caching')
         self.notebook.add(self.archiveAndRegressionTab,text='Archive and Regression')
+        self.notebook.add(self.loggingTab,text='Logging')
 
         # Appearance
         self.themeFrame=ThemeSelector(self.appearanceTab,preferences,self.onUpdateColors)
@@ -76,7 +79,6 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheResult=CalculationPropertyTrueFalseButton(self.cachingTab,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
         self.cacheNumberOfFiles=CalculationProperty(self.cachingTab,'cache files per project',None,self.onUpdatePreferences,preferences,'Cache.NumberOfFiles')
         self.cacheKeepExtraFilesForArchive=CalculationPropertyTrueFalseButton(self.cachingTab,'keep extra cache file for archive',None,self.onUpdatePreferences,preferences,'Cache.KeepExtraFileForArchive')
-        self.cacheLogging=CalculationPropertyTrueFalseButton(self.cachingTab,'log cache (for debugging)',None,self.onUpdatePreferences,preferences,'Cache.Logging')
         self.cacheCheckTimes=CalculationPropertyTrueFalseButton(self.cachingTab,'check cache file times',None,self.onUpdatePreferences,preferences,'Cache.CheckTimes')
 
         # Archive and Regression
@@ -110,7 +112,17 @@ class PreferencesDialog(PropertiesDialog):
         self.stopProcessingOnConvergence = CalculationPropertyTrueFalseButton(self.autoShutoffFrame, 'stop processing based on convergence', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.StopOnConvergence')
         self.maximumProcessingIterations = CalculationProperty(self.autoShutoffFrame, 'maximum processing iterations', self.onMaximumProcessingIterationsEntered, None, preferences, 'Calculation.Processing.MaximumProcessingIterations', tooltip='Used when stop processing based on convergence is enabled; at least two iterations are required to compare results.')
         self.stopProcessingConvergenceThreshold = CalculationPropertySI(self.autoShutoffFrame, 'processing convergence threshold', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.ConvergenceThreshold')
+
+        # Logging
+        self.loggingEnabled=CalculationPropertyTrueFalseButton(self.loggingTab,'enable logging',None,self.onUpdatePreferences,preferences,'Logging.Enabled')
+        # the categories and the destinations live in their own dialog, both because
+        # there are a lot of them and because logging is usually wanted without
+        # visiting the preferences at all.
+        self.loggingButton=tk.Button(self.loggingTab,text='logging categories...',command=self.onLogging)
+        self.loggingButton.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+
         self.Finish()
+
 
 
     def onUpdatePreferences(self):
@@ -119,7 +131,12 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         self.maximumProcessingIterations.Show()
+        self.ShowLoggingProperties()
         self.project.SaveToFile()
+        # applied as an explicit user action, which is why it is applied at the
+        # highest precedence - it must not be undone the next time a project (or a
+        # sub-project) re-applies the preferences.
+        LogConfiguration.Configure(self.project['Logging'].Dictionary(),source='api')
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
 
@@ -135,6 +152,18 @@ class PreferencesDialog(PropertiesDialog):
     def onUpdateFontSize(self):
         self.onUpdatePreferences()
         self.parent.UpdateColorsAndFonts()
+
+    def ShowLoggingProperties(self):
+        # the button is always available - it is the way to the logging categories
+        # and it must not disappear just because logging happens to be turned off.
+        pass
+
+    def onLogging(self):
+        from SignalIntegrity.App.LoggingDialog import LoggingDialog
+        if not hasattr(self,'loggingDialog') or (self.loggingDialog is None) or (not self.loggingDialog.winfo_exists()):
+            self.loggingDialog=LoggingDialog(self.parent,self.project)
+        else:
+            self.loggingDialog.lift()
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.themeFrame.Refresh()
@@ -160,4 +189,5 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
         self.maximumProcessingIterations.Show()
+        self.ShowLoggingProperties()
         PropertiesDialog.Finish(self)
