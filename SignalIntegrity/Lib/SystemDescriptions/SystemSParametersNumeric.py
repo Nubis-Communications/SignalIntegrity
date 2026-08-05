@@ -28,6 +28,11 @@ from SignalIntegrity.Lib.SystemDescriptions.SystemSParameters import SystemSPara
 from SignalIntegrity.Lib.SystemDescriptions.Numeric import Numeric
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionNumeric
 
+from SignalIntegrity.Lib.Log import Logger
+
+#: the logger for everything in this file.
+_log=Logger('Calculation')      # must be a key of Log.Categories
+
 class SystemSParametersNumeric(SystemSParameters,Numeric):
     """Class for computing s-parameters of interconnected systems"""
     def __init__(self,sd=None):
@@ -35,6 +40,7 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         @param sd (optional) instance of class SystemDescription
         """
         SystemSParameters.__init__(self,sd)
+        self.logged=False
     def SParameters(self,**args):
         """Calculates and returns the s-parameters.
         @param args named arguments (name=value).
@@ -117,6 +123,9 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         # pragma: include outdent
             # Wba+Wbx*[(I-Wxx)^-1]*Wxa
             result = array(Wba)+self.Dagger(I-array(Wxx),Left=Wbx,Right=Wxa,Mul=True)
+            if not self.logged:
+                _log.info('inverted a matrix of size %d' % len(Wxx))
+                self.logged=True
         # pragma: silent exclude indent
         except LinAlgError:
             raise SignalIntegrityExceptionNumeric('cannot invert I-Wxx')
