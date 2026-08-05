@@ -21,6 +21,12 @@ results caching
 
 import pickle
 import hashlib
+import logging as _logging
+
+from SignalIntegrity.Lib.Log import Logger
+
+#: the logger for everything in this file.
+_log=Logger('Cache')
 
 class ResultsCache(object):
     """base class for results caching
@@ -30,7 +36,15 @@ class ResultsCache(object):
     files_to_keep = 1
     keep_extra_file_for_archive = True
     check_times = True
-    logging=False
+    @property
+    def logging(self):
+        """whether cache logging is turned on.
+        @return bool whether the 'Cache' logging category is enabled at DEBUG.
+        @remark this used to be a class attribute set from the preferences.  It is
+        retained so that existing code that tests it keeps working, but the cache
+        logging is now controlled through the logging categories.
+        """
+        return _log.isEnabledFor(_logging.DEBUG)
     def __init__(self,name,filename=None):
         """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
@@ -79,16 +93,16 @@ class ResultsCache(object):
         self.hash=self.HashValue()
         import os
         if self.filename is None:
-            if self.logging: print('no filename')
+            _log.debug('no filename')
             return False
         filenames=[self._FileName(files_to_keep_override=1),self._FileName(files_to_keep_override=2)]
         for filename in filenames:
             if not os.path.exists(filename):
-                if self.logging: print(filename+' does not exist')
+                _log.debug('%s does not exist',filename)
                 continue
             if self.check_times:
                 if not self.CheckTimes(filename):
-                    if self.logging: print(filename + ' older')
+                    _log.debug('%s older',filename)
                     continue
             try:
                 with open(filename,'rb') as f:
@@ -96,27 +110,25 @@ class ResultsCache(object):
                     if hash == self.hash:
                         tmp_dict = pickle.load(f)
                         self.__dict__.update(tmp_dict)
-                        if self.logging: print(filename + ' passes cache check')
+                        _log.debug('%s passes cache check',filename)
                         if filename == self._FileName(files_to_keep_override=2) and self.files_to_keep == 1:
                             # this means that the file found is the one for multi-cache, but ideally, it's the one
                             # for single file cache.  Write out the single file cache, so that in the future, it's found
                             # in the single file cache.
                             self.CacheResult()
                         if self.keep_extra_file_for_archive and (filename != self._FileName(files_to_keep_override=1)):
-                            if self.logging: print('copying cached file to single cache for archiving')
+                            _log.debug('copying cached file to single cache for archiving')
                             f.close()
                             # keep an extra single file just for archiving
                             import shutil
                             shutil.copyfile(filename, self._FileName(files_to_keep_override=1))
                         return True
                     else:
-                        if self.logging: # pragma: no cover
-                            print(filename+' hash incorrect')
-                            print(filename+' hash value = '+hash)
-                            print('expecting: '+self.hash)
+                        _log.debug('%s hash incorrect - hash value = %s, expecting %s',
+                                   filename,hash,self.hash)
                         continue
             except:
-                if self.logging: print(filename+' could not be unpickled')
+                _log.debug('%s could not be unpickled',filename)
                 continue
         return False
     def CacheResult(self,keeperList=None):
@@ -157,25 +169,24 @@ class ResultsCache(object):
             number_of_files = len(file_list)
             number_to_delete = max(0, number_of_files - self.files_to_keep + 1)
 
-            if self.logging:
-                print(f'while caching, found {number_of_files} cache files, can keep {self.files_to_keep}, deleting {number_to_delete} files.')
+            _log.debug('while caching, found %d cache files, can keep %d, deleting %d files.',
+                       number_of_files,self.files_to_keep,number_to_delete)
 
             for num in range(number_to_delete):
                 os.remove(file_list[num])
 
         try:
             with open(self._FileName(), 'wb') as f:
-                if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
+                _log.debug('caching %s with hash value: %s',self._FileName(),pickleDict['hash'])
                 pickle.dump(pickleDict['hash'], f, 2)
                 pickle.dump(pickleDict, f, 2)
             if self.keep_extra_file_for_archive and (self._FileName() != self._FileName(files_to_keep_override=1)):
                 # keep an extra single file just for archiving
-                if self.logging: print('copying cached file to single cache for archiving')
+                _log.debug('copying cached file to single cache for archiving')
                 import shutil
                 shutil.copyfile(self._FileName(), self._FileName(files_to_keep_override=1))
         except FileNotFoundError:
-            if self.logging:
-                print(f'failed to write cache file: {self._FileName}')
+            _log.debug('failed to write cache file: %s',self._FileName())
 
         return self
     def CheckTimes(self,cacheFilename):

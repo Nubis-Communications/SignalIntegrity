@@ -20,6 +20,7 @@ PreferencesDialog.py
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
+from SignalIntegrity.Lib.Log import LogConfiguration
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
@@ -55,8 +56,15 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheResult=CalculationPropertyTrueFalseButton(self.CacheFrame,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
         self.cacheNumberOfFiles=CalculationProperty(self.CacheFrame,'cache files per project',None,self.onUpdatePreferences,preferences,'Cache.NumberOfFiles')
         self.cacheKeepExtraFilesForArchive=CalculationPropertyTrueFalseButton(self.CacheFrame,'keep extra cache file for archive',None,self.onUpdatePreferences,preferences,'Cache.KeepExtraFileForArchive')
-        self.cacheLogging=CalculationPropertyTrueFalseButton(self.CacheFrame,'log cache (for debugging)',None,self.onUpdatePreferences,preferences,'Cache.Logging')
         self.cacheCheckTimes=CalculationPropertyTrueFalseButton(self.CacheFrame,'check cache file times',None,self.onUpdatePreferences,preferences,'Cache.CheckTimes')
+        self.LoggingFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.LoggingFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.loggingEnabled=CalculationPropertyTrueFalseButton(self.LoggingFrame,'enable logging',None,self.onUpdatePreferences,preferences,'Logging.Enabled')
+        # the categories and the destinations live in their own dialog, both because
+        # there are a lot of them and because logging is usually wanted without
+        # visiting the preferences at all.
+        self.loggingButton=tk.Button(self.LoggingFrame,text='logging categories...',command=self.onLogging)
+        self.loggingButton.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.propertyListFrame,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
         self.encryptionPassword = CalculationProperty(self.propertyListFrame,'password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
         self.encryptionEnding = CalculationProperty(self.propertyListFrame,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
@@ -71,9 +79,26 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL.Show(self.project['OnlineHelp.UseOnlineHelp'])
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
+        self.ShowLoggingProperties()
         self.project.SaveToFile()
+        # applied as an explicit user action, which is why it is applied at the
+        # highest precedence - it must not be undone the next time a project (or a
+        # sub-project) re-applies the preferences.
+        LogConfiguration.Configure(self.project['Logging'].Dictionary(),source='api')
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
+
+    def ShowLoggingProperties(self):
+        # the button is always available - it is the way to the logging categories
+        # and it must not disappear just because logging happens to be turned off.
+        pass
+
+    def onLogging(self):
+        from SignalIntegrity.App.LoggingDialog import LoggingDialog
+        if not hasattr(self,'loggingDialog') or (self.loggingDialog is None) or (not self.loggingDialog.winfo_exists()):
+            self.loggingDialog=LoggingDialog(self.parent,self.project)
+        else:
+            self.loggingDialog.lift()
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()
@@ -93,4 +118,5 @@ class PreferencesDialog(PropertiesDialog):
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
+        self.ShowLoggingProperties()
         PropertiesDialog.Finish(self)

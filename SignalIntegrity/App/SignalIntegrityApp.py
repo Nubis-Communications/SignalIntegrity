@@ -168,6 +168,7 @@ class SignalIntegrityApp(tk.Frame):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Open-Help-File').AddToolTip('Open the help system in a browser')
         self.PreferencesDoer=Doer(self.onPreferences).AddHelpElement('Control-Help:Preferences').AddToolTip('Edit the preferences')
+        self.LoggingDoer=Doer(self.onLogging).AddHelpElement('Control-Help:Logging').AddToolTip('Turn the logging categories on and off')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Control-Help').AddToolTip('Get help on a control')
         self.SoftwareDocumentationDoer = Doer(self.onSoftwareDocumentation).AddHelpElement('Control-Help:Software-Documentation').AddToolTip('Open the online software documentation')
         self.AboutDoer = Doer(self.onAbout).AddHelpElement('Control-Help:About').AddToolTip('Find out about SignalIntegrity')
@@ -282,6 +283,7 @@ class SignalIntegrityApp(tk.Frame):
         self.SoftwareDocumentationDoer.AddMenuElement(HelpMenu,label='Software Documentation',underline=0)
         HelpMenu.add_separator()
         self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
+        self.LoggingDoer.AddMenuElement(HelpMenu,label='Logging',underline=0)
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
@@ -1282,6 +1284,18 @@ class SignalIntegrityApp(tk.Frame):
             if not self.preferencesDialog.winfo_exists():
                 self.preferencesDialog=PreferencesDialog(self,SignalIntegrity.App.Preferences)
 
+    def onLogging(self):
+        from SignalIntegrity.App.LoggingDialog import LoggingDialog
+        if not hasattr(self, 'loggingDialog'):
+            self.loggingDialog = LoggingDialog(self,SignalIntegrity.App.Preferences)
+        if self.loggingDialog == None:
+            self.loggingDialog = LoggingDialog(self,SignalIntegrity.App.Preferences)
+        else:
+            if not self.loggingDialog.winfo_exists():
+                self.loggingDialog = LoggingDialog(self,SignalIntegrity.App.Preferences)
+            else:
+                self.loggingDialog.lift()
+
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
@@ -1567,7 +1581,25 @@ def main():
     parser.add_argument('filename',nargs='?',default=None)           # positional argument
     parser.add_argument('-pwd', '--pwd')      # option that takes a value
     parser.add_argument('-e', '--external', action='store_true')  # on/off flag
+    parser.add_argument('-l', '--log',
+                        help="logging categories and depth, as '<depth>:<category>[,<category>...]',"
+                             " for example 'DEBUG:Cache,SubProject' or 'INFO:*'")
+    parser.add_argument('--logfile', help='file to write the log to')
     args, unknown = parser.parse_known_args()
+
+    if (not args.log is None) or (not args.logfile is None):
+        # established before anything reads the preferences, and at a higher
+        # precedence than the preferences, so that it applies to the whole run
+        # including every sub-project solved within it.
+        from SignalIntegrity.Lib.Log import LogConfiguration,ParseString
+        try:
+            configuration=ParseString(args.log) if args.log else {'Enabled':True}
+            if not args.logfile is None:
+                configuration['File']=True
+                configuration['FileName']=args.logfile
+            LogConfiguration.Configure(configuration,source='cli')
+        except ValueError as e:
+            parser.error(str(e))
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
     SignalIntegrityApp(args.filename,pwd=args.pwd,external=args.external,args=argsDict)

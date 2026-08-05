@@ -90,14 +90,54 @@ class Cache(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('CacheResults',True))
         self.Add(XMLPropertyDefaultInt('NumberOfFiles',1))
         self.Add(XMLPropertyDefaultBool('KeepExtraFileForArchive',False))
+        # deprecated - retained only so that the setting in an existing preferences
+        # file can be migrated to Logging.Categories.Cache (see
+        # PreferencesFile.HandleBackwardsCompatibility).
         self.Add(XMLPropertyDefaultBool('Logging',False))
         self.Add(XMLPropertyDefaultBool('CheckTimes',True))
     def ApplyPreferences(self):
         from SignalIntegrity.Lib.ResultsCache import ResultsCache
         ResultsCache.files_to_keep = self['NumberOfFiles']
         ResultsCache.keep_extra_file_for_archive = self['KeepExtraFileForArchive']
-        ResultsCache.logging = self['Logging']
         ResultsCache.check_times = self['CheckTimes']
+
+class LoggingCategories(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Categories')
+        from SignalIntegrity.Lib.Log import Categories
+        for category in sorted(Categories.keys()):
+            self.Add(XMLPropertyDefaultBool(category,False))
+
+class Logging(XMLConfiguration):
+    def __init__(self):
+        from SignalIntegrity.Lib.Log import DefaultLogFileName
+        XMLConfiguration.__init__(self,'Logging')
+        self.Add(XMLPropertyDefaultBool('Enabled',False))
+        self.Add(XMLPropertyDefaultString('Level','INFO'))
+        self.Add(XMLPropertyDefaultBool('Console',True))
+        self.Add(XMLPropertyDefaultBool('File',False))
+        self.Add(XMLPropertyDefaultString('FileName',DefaultLogFileName()))
+        self.Add(XMLPropertyDefaultInt('MaxFileSizeKB',1024))
+        self.Add(XMLPropertyDefaultInt('BackupCount',3))
+        self.SubDir(LoggingCategories())
+    def Dictionary(self):
+        from SignalIntegrity.Lib.Log import Categories
+        return {'Enabled':self['Enabled'],
+                'Level':self['Level'],
+                'Console':self['Console'],
+                'File':self['File'],
+                'FileName':self['FileName'],
+                'MaxFileSizeKB':self['MaxFileSizeKB'],
+                'BackupCount':self['BackupCount'],
+                'Categories':{category:bool(self['Categories.'+category])
+                              for category in Categories}}
+    def ApplyPreferences(self):
+        from SignalIntegrity.Lib.Log import LogConfiguration
+        # the preferences are the lowest precedence source of logging
+        # configuration, so that a setting made on the command line, in the
+        # environment or by a script is not clobbered when a sub-project re-reads
+        # and re-applies the preferences.
+        LogConfiguration.Configure(self.Dictionary(),source='preferences')
 
 class LastFiles(XMLConfiguration):
     def __init__(self):
@@ -161,10 +201,19 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Variables())
         self.SubDir(Features())
         self.SubDir(StatisticalNoise())
+        self.SubDir(Logging())
     def HandleBackwardsCompatibility(self):
         self['Devices.EyeDiagram'].HandleBackwardsCompatibility()
+        # cache logging used to be a single bool in the Cache section - migrate it
+        # to the Cache logging category.
+        if self['Cache.Logging']:
+            self['Cache.Logging']=False
+            self['Logging.Enabled']=True
+            self['Logging.Level']='DEBUG'
+            self['Logging.Categories.Cache']=True
     def ApplyPreferences(self):
         self['Calculation'].ApplyPreferences()
         self['ProjectFiles.Encryption'].ApplyPreferences()
         self['Cache'].ApplyPreferences()
+        self['Logging'].ApplyPreferences()
 

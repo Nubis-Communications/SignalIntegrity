@@ -282,7 +282,7 @@ def _WarmUpWorker(_ignored):
     finish importing this module.  Returns the worker pid for debugging."""
     return os.getpid()
 
-def _InitializeWorker():
+def _InitializeWorker(loggingConfiguration=None):
     """Pool initializer, run once inside each worker process as it starts.
 
     Moves the worker out of whatever directory it inherited from the parent at
@@ -296,6 +296,13 @@ def _InitializeWorker():
     simply cleaning up a working directory) would fail with
     'the process cannot access the file because it is being used by another
     process'.  Chdir'ing to the temp directory releases that hold.
+
+    @param loggingConfiguration dict (optional) the logging configuration for this
+    worker, produced by LogConfiguration.WorkerConfiguration() in the parent.
+    @remark the logging configuration must be passed in explicitly because workers
+    are spawned (not forked) on Windows and therefore inherit nothing from the
+    parent process.  Doing this makes worker logging behave the same on Windows
+    and on Linux.
     """
     import tempfile
     try:
@@ -303,6 +310,11 @@ def _InitializeWorker():
     except Exception:
         # A worker that cannot chdir is still perfectly able to do its work, so
         # this must never be allowed to break the pool.
+        pass
+    try:
+        from SignalIntegrity.Lib.Log import LogConfiguration
+        LogConfiguration.ConfigureWorker(loggingConfiguration)
+    except Exception:
         pass
 
 # ---------------------------------------------------------------------------
@@ -356,8 +368,14 @@ def _GetPersistentExecutor(workers, mainGuard):
     created = False
     if _PersistentExecutor is None:
         try:
+            from SignalIntegrity.Lib.Log import LogConfiguration
+            loggingConfiguration=LogConfiguration.WorkerConfiguration()
+        except Exception:
+            loggingConfiguration=None
+        try:
             _PersistentExecutor = ProcessPoolExecutor(max_workers=workers,
-                                                      initializer=_InitializeWorker)
+                                                      initializer=_InitializeWorker,
+                                                      initargs=(loggingConfiguration,))
         except TypeError:
             # ProcessPoolExecutor gained the 'initializer' argument in Python 3.7.
             # Without it the workers simply keep the cwd they were spawned in.
