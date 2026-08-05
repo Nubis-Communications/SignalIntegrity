@@ -997,15 +997,17 @@ Issuing the Calculation Properties command brings up the calculation properties 
 
 <img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" />
 
-The calculation properties govern how all calculations are performed, and are broken into four sections:
+The calculation properties govern how all calculations are performed, and are broken into five sections:
 
 1.  The main, linear calculation properties,
 
-2.  The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under [Logarithmically Spaced Frequencies Solutions](15-Main-Schematic-Dialog.md#sub:Logarithmically-Spaced-Frequencies-Solutions) (only shown if the preference [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) is True),
+2.  The impulse response length limit, as explained under [Limit Impulse Response Length](15-Main-Schematic-Dialog.md#sub:Limit-Impulse-Response-Length) (shown only if the preference [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) is True),
 
-3.  The reference impedance, as explained under [Non 50 Ohm Reference Impedance](15-Main-Schematic-Dialog.md#sub:Non-50-Ohm-Reference-Impedance) (shown only if the preference [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) is True), and
+3.  The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under [Logarithmically Spaced Frequencies Solutions](15-Main-Schematic-Dialog.md#sub:Logarithmically-Spaced-Frequencies-Solutions) (only shown if the preference [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) is True),
 
-4.  The parallelization setting, as explained under [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) (shown only if the preference [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) is True).
+4.  The reference impedance, as explained under [Non 50 Ohm Reference Impedance](15-Main-Schematic-Dialog.md#sub:Non-50-Ohm-Reference-Impedance) (shown only if the preference [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) is True), and
+
+5.  The parallelization setting, as explained under [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) (shown only if the preference [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) is True).
 
 The main, linear calculation properties are intended for use with all of the ***SignalIntegrityApp*** applications and consist of virtually entirely interrelated properties. The base properties are the end frequency and the impulse response length. All other properties are based on one or both of these properties:
 
@@ -1051,6 +1053,26 @@ Depending on the application, it is useful to also read:
 - [Setting Calculation Properties for Deembedding](09-Deembedding.md#sub:Setting-Calculation-Properties-for-Deembedding).
 
 - [Setting Calculation Properties for Virtual Probing](10-Virtual-Probing.md#sub:Setting-Calculation-Properties-for-Virtual-Probing).
+
+### Limit Impulse Response Length {#sub:Limit-Impulse-Response-Length}
+
+Limit impulse response length can only be selected if the [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) preference is set to True. (It may still be available if you open a project for which the impulse response length has been previously limited).
+
+It's importance is mainly when a schematic is included as a sub-schematic of another project, and the calculation properties are being passed down.  If the user knows the limits in electrical length of a particular schematic, the impulse response limit can trim down the number of frequency points calculated, even when a larger number of frequency points is being requested from the top level schematic.
+
+As explained under [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties), the impulse response length is one of the base calculation properties. It is inversely proportional to the frequency resolution, so that a longer impulse response requires a finer frequency resolution and therefore more frequency points. Since the amount of work in a calculation grows with the number of frequency points, a large impulse response length - whether entered deliberately or arrived at while adjusting other properties - can make a calculation very slow.
+
+This section provides a way to place an upper bound on the impulse response length so that the number of frequency points cannot grow without limit. It consists of two controls:
+
+- **Limit Impulse Response Length** - a True/False button that enables or disables the cap. It is stored with the project (internal property name `LimitImpulseResponseLength`) and defaults to False.
+
+- **Maximum Impulse Response Length** - the maximum impulse response length allowed, in seconds (internal property name `MaximumImpulseResponseLength`). This entry is only shown when the limit is enabled.
+
+When the limit is enabled and the impulse response length implied by the calculation properties exceeds the maximum, the number of frequency points actually used in the calculation is reduced so that the impulse response length does not exceed the maximum. The cap is *approximate* - the number of frequency points is kept an integer number to the end frequency - so the effective impulse response length will be at or just below the maximum specified.
+
+It is important to understand that this cap does not alter any of the stored calculation properties shown in the dialog (the end frequency, frequency points, impulse response length, etc. are all left unchanged). The cap is applied only to the number of frequency points that are handed to the actual calculation. In other words, the displayed impulse response length is what you asked for, while the calculation quietly uses a shorter one when the cap is in effect. The end frequency (and therefore the base sample rate) is always preserved; only the frequency resolution is coarsened to shorten the impulse response.
+
+This capability is different from limiting the impulse response length of an individual set of s-parameters (which zeroes the impulse response outside a time window - see the negative and positive time limits in [S-Parameter Properties](13-S-parameter-Viewer.md#Control-Help:S-Parameter-Properties) and the ’limit’ [Post-Processing](25-Post-Processing.md#sec:Post-Processing) command). Here, no response is windowed or zeroed; the length is limited by controlling the frequency resolution of the whole calculation.
 
 ### Logarithmically Spaced Frequencies Solutions {#sub:Logarithmically-Spaced-Frequencies-Solutions}
 

@@ -182,6 +182,10 @@ valid post processing lines are:
 
 - post port reorder <order> - reorders the ports of the final result according to the comma-separated list of one-based port numbers specified (for example, post port reorder 1,3,2,4).
 
+- post scale rho <scale> - scales the time-domain reflection coefficients (rho) of the final result by the scale specified.  Each diagonal (reflect) s-parameter element is converted to its time-domain reflection coefficient (the integral of its impulse response), scaled, and the diagonal element is regenerated from the scaled reflection coefficient.
+
+
+
 - post taper <from> <to> - tapers the frequency response of the final result, keeping it flat up to the from frequency and rolling it off to zero with a raised cosine between the from and to frequencies. If the to frequency is omitted, the last frequency is used.
 
 - post wavelet denoise <threshold> - denoises the final result by keeping only the wavelet transform coefficients of each impulse response whose absolute value exceeds the threshold specified.

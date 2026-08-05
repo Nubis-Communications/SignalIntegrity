@@ -34,6 +34,7 @@ The standard preferences are:
 | enable logarithmically spaced frequencies solutions | [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) | Bool | False |
 | enable non 50 ohm solutions | [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) | Bool | False |
 | enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Bool | False |
+| enable maximum impulse response length | [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) | Bool | False |
 | ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Bool | True |
 | maximum waveform size | [Calculation.MaximumWaveformPoints](29-Preferences.md#sub:Calculation.MaximumWaveformPoints) | Float | 5 Mpts |
 | retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Bool | True |
@@ -290,6 +291,24 @@ It defaults to False. Because it is experimental, it is off by default.
 This preference acts as a hard override: when it is False, no calculation will ever run in parallel, regardless of the per-project [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) calculation property. When it is True, the feature becomes available, and the [Allow Parallelization](15-Main-Schematic-Dialog.md#sub:Allow-Parallelization) property becomes visible in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties) dialog, where it can be enabled on a per-project basis.
 
 A calculation is only permitted to run in parallel when both this preference and the per-project property are True. Even then, a cost model decides, per solve, whether parallel execution is actually worthwhile, so small problems continue to run serially.
+
+<div id="sub:Calculation.AllowMaximumImpulseResponseLength"></div>
+
+## Calculation.AllowMaximumImpulseResponseLength {#calculation.allowmaximumimpulseresponselength .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| enable maximum impulse response length | [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) | Bool | False |
+
+This preference is the global, application-wide switch that makes the [Limit Impulse Response Length](15-Main-Schematic-Dialog.md#sub:Limit-Impulse-Response-Length) controls available in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties) dialog.
+
+It's purpose is to allow the impulse response to be limited when a schematic is a sub-schematic of another project, and the sub-schematic is being invoked with the calculation properties passed through.
+
+It defaults to False.
+
+When this preference is False, the Limit Impulse Response Length and Maximum Impulse Response Length controls are hidden, and no impulse response length cap is ever applied, regardless of the per-project settings. When it is True, those controls become visible in the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties) dialog, where the cap can be enabled and set on a per-project basis.
+
+When the cap is enabled for a project, it limits the impulse response length used in a calculation by reducing the number of frequency points, keeping the number of points an integer number to the end frequency (so the cap is approximate). This does not modify any of the stored calculation properties; it only affects the number of frequency points handed to the calculation. See [Limit Impulse Response Length](15-Main-Schematic-Dialog.md#sub:Limit-Impulse-Response-Length) for the full explanation.
 
 <div id="sub:Calculation.IgnoreMissingOtherWaveforms"></div>
 
