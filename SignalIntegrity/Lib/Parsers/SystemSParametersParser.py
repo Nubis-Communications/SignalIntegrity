@@ -27,6 +27,11 @@ from SignalIntegrity.Lib.CallBacker import CallBacker
 from SignalIntegrity.Lib.ResultsCache import LinesCache
 from SignalIntegrity.Lib.ImpedanceProfile.PeeledLaunches import PeeledLaunches
 
+from SignalIntegrity.Lib.Log import Logger
+
+#: the logger for everything in this file.
+_log=Logger('Calculation')      # must be a key of Log.Categories
+
 class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCache):
     """generates system s-parameters from a netlist"""
     def __init__(self,f=None,args=None,callback=None,cacheFileName=None,efl=None,
@@ -78,6 +83,7 @@ class SystemSParametersNumericParser(SystemDescriptionParser,CallBacker,LinesCac
         # pragma: silent exclude
         if self.HasACallBack():
             callback=lambda progress: self.CallBack(progress)
+        _log.info('solving number of frequencies: %d' % len(self.m_f))
         # pragma: include
         result=Solve(
             'systemsparameters',self.m_sd,spc,len(self.m_f),self.m_Z0,
