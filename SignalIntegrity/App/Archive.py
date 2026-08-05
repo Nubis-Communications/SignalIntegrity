@@ -29,6 +29,13 @@ from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.Lib.FileNameMangling import MangledFileName,ResolveFileName
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityException
+from SignalIntegrity.Lib.Log import Logger
+
+import logging as _logging
+
+#: the logger for everything in this file.
+_log=Logger('Archive')
+
 
 def _RmTreeHandlerKeyword():
     """Returns the keyword to use for shutil.rmtree's error handler.
@@ -57,7 +64,12 @@ class SignalIntegrityExceptionArchive(SignalIntegrityException):
         SignalIntegrityException.__init__(self,'Archive',message)
 
 class Archive(list):
-    logging=True
+    @property
+    def logging(self):
+        """whether archive logging is turned on.
+        @return bool whether the 'Archive' logging category is enabled at DEBUG.
+        """
+        return _log.isEnabledFor(_logging.DEBUG)
     def __init__(self,archiveNonRelativeFiles=False):
         """Constructor
         @param archiveNonRelativeFiles bool (optional, defaults to False) whether to
@@ -212,7 +224,7 @@ class Archive(list):
                                  'args':{},
                                  'referencedBy':equationProjectDir})
         except Exception as e:
-            print(e)
+            _log.exception('building the archive dictionary failed')
             raise(e)
         finally:
             SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=False
@@ -253,7 +265,7 @@ class Archive(list):
                 # the referencing project is itself outside the archived tree, so the
                 # root of the archive is the best that can be done for it
                 destinationDir=archiveDir
-                if self.logging: print(referencingDir+': referencing project is not in the archive')
+                _log.debug('%s: referencing project is not in the archive',referencingDir)
             destination=os.path.join(destinationDir,mangledName).replace('\\','/')
             if not destination in destinationList:
                 destinationList.append(destination)
@@ -292,11 +304,11 @@ class Archive(list):
                 mangledDestList=self._MangledDestinations(filename,elementIndex,archiveDir) if self.archiveNonRelativeFiles else []
                 if mangledDestList == []: # don't copy it to the archive
                     self.destList.append(filename)
-                    if self.logging: print(filename+': not archived - '+reason)
+                    _log.debug('%s: not archived - %s',filename,reason)
                 else:
                     self.destList.append(mangledDestList[0])
                     self.extraCopies.extend([(filename,extraDestFile) for extraDestFile in mangledDestList[1:]])
-                    if self.logging: print(filename+': '+reason+' - archived as '+os.path.basename(mangledDestList[0]))
+                    _log.debug('%s: %s - archived as %s',filename,reason,os.path.basename(mangledDestList[0]))
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 element['orig']=srcfile
@@ -321,13 +333,13 @@ class Archive(list):
                                             shutil.copy2(src=cache_srcfile,dst=cache_dstfile)
                                             shutil.copystat(src=cache_srcfile,dst=cache_dstfile)
                 except Exception as e:
-                    print(e)
+                    _log.warning('while copying %s to the archive: %s',srcfile,e)
             # go through all of the files, straightening out the relative path references
             straighten_paths = False
             if straighten_paths:
                 for element in self:
                     file=element['file']
-                    print('file is: '+file.replace('\\','/'))
+                    _log.debug('file is: %s',file.replace('\\','/'))
                     if file == 'C:/Users/pete_/Documents/NubisSystemSim/Projects/PicMZMSimplified_Archive/ElectricalChannels/Packages/TxElectricalPackage.si':
                         pass
                     deviceList=element['devices']
@@ -359,7 +371,7 @@ class Archive(list):
                                     filename=NewRelativePath(variable['Value'])
                                     variable['Value']=filename
                                 except (AttributeError,TypeError,ValueError) as e:
-                                    if self.logging: print(variable['Value']+': no relative path')
+                                    _log.debug('%s: no relative path',variable['Value'])
                         for device in deviceList:
                             schematic_device = app.Device(device['Ref'])
                             if schematic_device['element_state'] != None and schematic_device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
@@ -373,12 +385,12 @@ class Archive(list):
                                         try:
                                             variable['Value']=NewRelativePath(variable['Value'])
                                         except ValueError:
-                                            if self.logging: print(variable['Value']+': no relative path')
+                                            _log.debug('%s: no relative path',variable['Value'])
                             else:
                                 try:
                                     app.Device(device['Ref'])[device['Keyword']]['Value'] = NewRelativePath(os.path.join(os.path.dirname(element['orig']),app.Device(device['Ref'])[device['Keyword']]['Value']))
                                 except ValueError:
-                                    if self.logging: print(variable['Value']+': no relative path')
+                                    _log.debug('%s: no relative path',variable['Value'])
                         app.SaveProject()
                         app.projectStack.Pull()
             # a file with no relative path is copied once per project referencing it,
@@ -399,7 +411,7 @@ class Archive(list):
                     if os.path.exists(destfile):
                         shutil.copystat(src=srcfile,dst=destfile)
                 except Exception as e:
-                    print(e)
+                    _log.warning('while copying file status of %s: %s',srcfile,e)
         finally:
             os.chdir(currentPath)
         return self
