@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Utilities - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Utilities";
+        var mkdocs_page_input_path = "33-Utilities.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Utilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Effective-Return-Loss">Effective Return Loss (ERL)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:ERL-Theory">Theory of Operation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:ERL-Arguments">Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:ERL-Usage">Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:ERL-Help">Command-Line Help</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Integrated-Crosstalk">Integrated Crosstalk (IXT)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:IXT-Theory">Theory of Operation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:IXT-Arguments">Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:IXT-Usage">Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:IXT-Help">Command-Line Help</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Pole-Zero-Fitter">Pole/Zero Fitter (PZ)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:PZ-Theory">Theory of Operation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:PZ-Arguments">Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:PZ-Usage">Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:PZ-Help">Command-Line Help</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:PZ-Output-File">Output File</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Utilities</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Utilities">Utilities<a class="headerlink" href="#sec:Utilities" title="Permanent link">&para;</a></h1>
+<p>In addition to the main <strong><em>SignalIntegrityApp</em></strong> application, <em>SignalIntegrity</em> ships with a small collection of stand-alone command-line utilities. These utilities perform specialized signal integrity calculations that are convenient to run outside the graphical application &ndash; for example, as part of an automated measurement or characterization flow.</p>
+<p>The utilities currently provided are:</p>
+<ol>
+<li>
+<p><a href="33-Utilities.html#sub:Effective-Return-Loss">Effective Return Loss (ERL)</a> &ndash; computes the effective return loss of a channel from its s-parameters, mostly according to the IEEE COM standard.</p>
+</li>
+<li>
+<p><a href="33-Utilities.html#sub:Integrated-Crosstalk">Integrated Crosstalk (IXT)</a> &ndash; computes an integrated measure of the crosstalk coupled into a victim from one or more aggressors.</p>
+</li>
+<li>
+<p><a href="33-Utilities.html#sub:Pole-Zero-Fitter">Pole/Zero Fitter (PZ)</a> &ndash; fits a rational (pole/zero) model to a measured or simulated response.</p>
+</li>
+</ol>
+<p>Each utility is installed as a console entry point that can be invoked from a command prompt. Every utility accepts a <code>--help</code> (or <code>-h</code>) option that describes its arguments, and a <code>--verbose</code> option that prints information as the calculation proceeds.</p>
+<h2 id="sub:Effective-Return-Loss">Effective Return Loss (ERL)<a class="headerlink" href="#sub:Effective-Return-Loss" title="Permanent link">&para;</a></h2>
+<p>The <strong>ERL</strong> utility computes the effective return loss (ERL) of a channel, mostly according to the method defined in the IEEE COM (Channel Operating Margin) specification. ERL is a single-number, time-domain figure of merit that captures the impact of reflections on a channel. Unlike a simple frequency-domain return loss, ERL accounts for the way a receiver equalizer and the finite length of a reflection actually affect the signal, so it correlates better with system performance.</p>
+<h3 id="sub:ERL-Theory">Theory of Operation<a class="headerlink" href="#sub:ERL-Theory" title="Permanent link">&para;</a></h3>
+<p>ERL is computed from the single-ended-to-differential return loss (<span class="arithmatex">\(S_{11}\)</span>) of the device under test (DUT). The calculation proceeds in the following steps:</p>
+<ul>
+<li>
+<p>The four-port s-parameters of the DUT are read and converted to a differential reflection response.</p>
+</li>
+<li>
+<p>A pulse time-domain reflection (PTDR) waveform is computed by exciting the reflection response with a pulse whose transition time is <code>T_r</code> at the Baud rate <code>f_b</code>, upsampled by a factor of <code>phi</code> sample phases and filtered by a receiver filter with a bandwidth of <code>f_r</code> times the Baud rate (optionally windowed with a Tukey window).</p>
+</li>
+<li>
+<p>The PTDR is gated by two functions that model the way reflections are suppressed near the DUT. The first, <span class="arithmatex">\(G_{rr}\)</span>, models the permitted reflection <code>rho_x</code> from an external transmission line; the second, <span class="arithmatex">\(G_{loss}\)</span>, models the incremental available signal loss <code>beta_x</code>. These gating functions are parameterized by the equalizer length <code>N_bx</code> and the time-gated propagation delay <code>T_fx</code> and applied over the reflection length <code>N</code>.</p>
+</li>
+<li>
+<p>The gated reflection is examined across all <code>phi</code> sample phases and the worst-case (largest standard deviation) phase is retained. This worst-case pulse response is used as a reflection filter.</p>
+</li>
+<li>
+<p>The reflection filter is driven with a long, random symbol sequence (NRZ for <code>bps</code> = 1 or PAM-4 for <code>bps</code> = 2) to produce a distribution of the reflected error voltage. The cumulative distribution of this error is formed and the voltage at which the distribution reaches the target detector error ratio <code>DER_0</code> is found by interpolation.</p>
+</li>
+<li>
+<p>ERL is reported as <span class="arithmatex">\(-20\log_{10}(-v)\)</span> (in dB), where <span class="arithmatex">\(v\)</span> is the error-voltage intercept at <code>DER_0</code>.</p>
+</li>
+</ul>
+<p>The pulse time-domain reflection (PTDR) waveform is generated by the <strong><em>SignalIntegrity</em></strong> schematic shown below, which produces the <code>PTDR</code> waveform that the remaining steps gate and analyze.</p>
+<p><img src="media/ERL_PTDR.png" alt="ERL_PTDR" width="900" height="311" /></p>
+<p>Simulating this schematic produces the raw PTDR waveform &ndash; the reflected response of the DUT to a single pulse &ndash; upsampled to <code>phi</code> sample phases per unit interval.</p>
+<p><img src="media/PTDR_Simulation.png" alt="PTDR_Simulation" width="600" height="447" /></p>
+<p>The two gating functions, <span class="arithmatex">\(G_{rr}\)</span> and <span class="arithmatex">\(G_{loss}\)</span>, are then formed. <span class="arithmatex">\(G_{rr}\)</span> ramps in the permitted external reflection <code>rho_x</code> and <span class="arithmatex">\(G_{loss}\)</span> applies the incremental available signal loss <code>beta_x</code>, both taking effect after the equalizer length <code>N_bx</code> (measured from the time-gated propagation delay <code>T_fx</code>).</p>
+<p><img src="media/ERL_Gating.png" alt="ERL_Gating" width="700" height="469" /></p>
+<p>Multiplying the PTDR by the two gating functions gives the gated reflection <span class="arithmatex">\(R_{eff}\)</span>. This is examined across all <code>phi</code> sample phases and the worst-case phase (the one with the largest standard deviation) is retained and trimmed to its significant extent, as shown below.</p>
+<p><img src="media/ERL_Sampled_PTDR.png" alt="ERL_Sampled_PTDR" width="700" height="597" /></p>
+<p>The worst-case sampled reflection is written out as a reflection filter and used in a second <strong><em>SignalIntegrity</em></strong> schematic, shown below, which drives the filter with a long, random symbol sequence (NRZ for <code>bps</code> = 1 or PAM-4 for <code>bps</code> = 2) to produce the reflected error voltage.</p>
+<p><img src="media/ERL_S11_Error.png" alt="ERL_S11_Error" width="650" height="504" /></p>
+<p>Simulating this schematic yields the error-voltage waveform, whose distribution characterizes the residual reflection seen by the receiver.</p>
+<p><img src="media/ERL_Error_Waveform.png" alt="ERL_Error_Waveform" width="600" height="447" /></p>
+<p>Finally, the cumulative distribution of the error voltage is formed and the voltage at which it reaches the target detector error ratio <code>DER_0</code> is found by interpolation; ERL follows as <span class="arithmatex">\(-20\log_{10}(-v)\)</span>.</p>
+<p><img src="media/ERL_cdf.png" alt="ERL_cdf" width="700" height="597" /></p>
+<p>When run with <code>--verbose</code>, the utility prints the intermediate values and the final ERL result to the console.</p>
+<p><img src="media/ERL_verbose.png" alt="ERL_verbose" width="900" height="219" /></p>
+<h3 id="sub:ERL-Arguments">Arguments<a class="headerlink" href="#sub:ERL-Arguments" title="Permanent link">&para;</a></h3>
+<p>The ERL utility takes the name of a four-port (<code>.s4p</code>) s-parameter file as its positional argument, followed by a set of keyword arguments. The keyword arguments are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Argument</th>
+<th style="text-align: center;">Units</th>
+<th style="text-align: center;">Required</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>port_reorder</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">no (default 1,2,3,4)</td>
+<td style="text-align: left;">port ordering of 1p,1n,2p,2n of the <code>.s4p</code> file.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>T_r</code></td>
+<td style="text-align: center;">s or UI</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">transition time associated with a pulse.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>beta_x</code></td>
+<td style="text-align: center;">Hz</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">incremental available signal loss factor.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>rho_x</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">permitted reflection from a transmission line external to the DUT (0 to 1).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>N</code></td>
+<td style="text-align: center;">UI</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">length of the reflection signal.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>N_bx</code></td>
+<td style="text-align: center;">UI</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">equalizer length associated with the reflection signal.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>Z0</code></td>
+<td style="text-align: center;">ohm</td>
+<td style="text-align: center;">no (default 100)</td>
+<td style="text-align: left;">intended differential-mode characteristic impedance.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>T_fx</code></td>
+<td style="text-align: center;">s</td>
+<td style="text-align: center;">no (default 0)</td>
+<td style="text-align: left;">time-gated propagation delay.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>f_b</code></td>
+<td style="text-align: center;">Baud</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">Baud rate.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>DER_0</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">target detector error ratio.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>bps</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">no (default 1)</td>
+<td style="text-align: left;">bits per symbol (1 = NRZ, 2 = PAM-4).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>phi</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">no (default 32)</td>
+<td style="text-align: left;">number of sample phases in the PTDR (an upsample factor).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>f_r</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">no (default 0.58)</td>
+<td style="text-align: left;">receiver bandwidth as a fraction of the Baud rate.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>tukey_window</code></td>
+<td style="text-align: center;">&ndash;</td>
+<td style="text-align: center;">no (default False)</td>
+<td style="text-align: left;">apply a Tukey window to the receiver filter.</td>
+</tr>
+</tbody>
+</table>
+<p>Arguments that carry units may be entered either in SI form (for example <code>5ps</code>, <code>2.53GHz</code>, <code>106.25GBaud</code>) or as a plain number (for example <code>5e-12</code>, <code>2.53e9</code>, <code>106.25e9</code>). The transition time <code>T_r</code> may additionally be specified in UI (for example <code>0.5UI</code>), in which case it is converted using the Baud rate.</p>
+<h3 id="sub:ERL-Usage">Usage<a class="headerlink" href="#sub:ERL-Usage" title="Permanent link">&para;</a></h3>
+<p>The utility is invoked from a command prompt. The positional argument is the s-parameter file name, followed by keyword/value pairs:</p>
+<pre><code>ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -bps 2
+</code></pre>
+<p>The utility prints the computed ERL (in dB) to standard output. On success the ERL value is printed and the process exits with status 0; on any error the string <code>error</code> is printed and the process exits with status 1.</p>
+<p>In addition to the keyword arguments above, the following options control the utility's output:</p>
+<ul>
+<li>
+<p><code>-v</code> / <code>--verbose</code> &ndash; prints information (the parsed arguments and intermediate results) as the calculation proceeds. Because the ERL value is returned on standard output, do <strong>not</strong> set this option if you are relying on standard output to capture the return value.</p>
+</li>
+<li>
+<p><code>-debug</code> / <code>--debug</code> &ndash; shows debug information and additionally displays diagnostic plots (the gating functions, the pulse TDR, and the error CDF) as the computation proceeds.</p>
+</li>
+<li>
+<p><code>-p</code> / <code>--profile</code> &ndash; profiles the software and prints timing statistics.</p>
+</li>
+</ul>
+<p>For example, to run the calculation with verbose progress messages:</p>
+<pre><code>ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -bps 2 --verbose
+</code></pre>
+<h3 id="sub:ERL-Help">Command-Line Help<a class="headerlink" href="#sub:ERL-Help" title="Permanent link">&para;</a></h3>
+<p>Running <code>ERL --help</code> prints the following summary of the utility's arguments:</p>
+<pre><code class="language-text">usage: ERL [-h] [-debug] [-p] [-v] [-port_reorder PORT_REORDER] [-T_r T_R] [-beta_x BETA_X] [-rho_x RHO_X] [-N N] [-N_bx N_BX]
+           [-T_fx T_FX] [-f_b F_B] [-Z0 Z0] [-DER_0 DER_0] [-bps BPS] [-phi PHI] [-f_r F_R] [-tw]
+           [filename]
+
+Effective Return Loss Calculator
+
+                    Calculates ERL mostly according to the IEEE standard.
+
+
+
+positional arguments:
+  filename              name of .s4p file for the ERL measurement
+
+options:
+  -h, --help            show this help message and exit
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -p, --profile         profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -port_reorder PORT_REORDER
+                        (optional) port ordering of 1p,1n,2p,2n of the .s4p file (default is 1,2,3,4).
+  -T_r T_R              (required) transition time associated with a pulse,
+                        specified with units of s or UI (like 5ps or 5e-12 or 0.5UI).
+  -beta_x BETA_X        (required) incremental available signal loss factor,
+                        specified with units of Hz (like 2.53GHz or 2.53e9).
+  -rho_x RHO_X          (required) permitted reflection from a transmission line external to the DUT,
+                        must be between 0 and 1, specified unitless (like 0.5).
+  -N N                  (required) length of reflection signal,
+                        specified with units of UI (like 400UI or 400).
+  -N_bx N_BX            (required) equalizer length associated with reflection signal,
+                        specified with units of UI (like 16UI or 16).
+  -T_fx T_FX            (optional) time-gated propagation delay,
+                        specified with units of s (like 1ns or 1e-9),
+                        defaults to 0.
+  -f_b F_B              (required) baud rate
+                        specified with units of Baud (like 106.25GBaud or 106.25e9).
+  -Z0 Z0                (optional) intended differential-mode characteristic impedance
+                        specified with units of ohm (like 100ohm or 100),
+                        defaults to 100.
+  -DER_0 DER_0          (required) target detector error ratio
+                        specified unitless (like 1e-6).
+  -bps BPS              bits per symbol
+                        1 is NRZ (default), 2 is PAM-4.
+  -phi PHI              sample phases in ptdr (essentially upsample factor)
+                        defaults to 32
+  -f_r F_R              receiver bandwidth as a fraction of the Baud rate
+                        specified unitless (like 0.58), defaults to 0.58.
+  -tw, --tukey_window   apply a Tukey window to the receiver filter
+</code></pre>
+<h2 id="sub:Integrated-Crosstalk">Integrated Crosstalk (IXT)<a class="headerlink" href="#sub:Integrated-Crosstalk" title="Permanent link">&para;</a></h2>
+<p>The <strong>IXT</strong> utility computes an integrated measure of the crosstalk coupled into a victim channel from one or more aggressor channels. It reports a single figure of merit, in dB, that summarizes how strong the aggregate crosstalk is relative to the victim's through response, integrated over frequency.</p>
+<h3 id="sub:IXT-Theory">Theory of Operation<a class="headerlink" href="#sub:IXT-Theory" title="Permanent link">&para;</a></h3>
+<p>The utility works from the s-parameters of a multi-port network that contains a victim path and one or more aggressor paths. The calculation proceeds in the following steps, applied in order:</p>
+<ul>
+<li>
+<p>The s-parameter file is read.</p>
+</li>
+<li>
+<p>The optional <strong>port reordering</strong> (<code>port_reorder</code>) is applied. The resulting network keeps only the listed ports, in the listed order.</p>
+</li>
+<li>
+<p>The optional <strong>single-ended ports</strong> (<code>single_ended_ports</code>) are applied to convert the network to mixed mode. The number of single-ended ports must match the number of ports surviving the port reordering, given in the order p,n,p,n,&hellip;. After conversion, the new ports are all differential ports (in the order of each successive p,n pair) followed by all common-mode ports.</p>
+</li>
+<li>
+<p>The <strong>reference impedances</strong> (<code>reference_impedance</code>) are applied. You may supply a single value (applied to all ports), two values (the first applied to the first half of the ports and the second to the second half &ndash; for example differential and common-mode), or one value per surviving port.</p>
+</li>
+<li>
+<p>If the <strong>voltage transfer function</strong> option (<code>voltage_transfer_function</code>) is supplied, all differential and common-mode ports are converted to voltage transfer functions. Otherwise the raw s-parameters are used (note that <span class="arithmatex">\(s_{21}\)</span> is the ratio of the output wave to the incident wave, which is not the voltage transfer function <span class="arithmatex">\(s_{21}/(1+s_{11})\)</span>).</p>
+</li>
+<li>
+<p>Finally, the <strong>victim ports</strong> (<code>victim_ports</code>) and <strong>aggressor ports</strong> (<code>aggressor_ports</code>) select the through response of the victim and each aggressor.</p>
+</li>
+</ul>
+<p>The integrated crosstalk is then formed by summing, over frequency, the squared ratio of the aggregate aggressor magnitude to the victim magnitude, averaging over the frequency points used, and expressing the result in dB. When multiple aggressors are given, their contributions are combined in a root-sum-of-squares sense at each frequency, so the reported value represents the aggregate crosstalk from all aggressors.</p>
+<h3 id="sub:IXT-Arguments">Arguments<a class="headerlink" href="#sub:IXT-Arguments" title="Permanent link">&para;</a></h3>
+<p>The IXT utility takes the name of an s-parameter file as its positional argument, followed by keyword arguments. Arguments that take a list of ports or numbers are given as comma-separated values. The keyword arguments are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Argument</th>
+<th style="text-align: center;">Required</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>port_reorder</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">comma-separated list of ports to keep and their new order.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>single_ended_ports</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">comma-separated list of single-ended ports (p,n,p,n,&hellip;) for conversion to mixed mode.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>reference_impedance</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">comma-separated list of reference impedances (1 value for all ports, 2 values for each half, or one value per port).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>voltage_transfer_function</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">fit the voltage transfer function <span class="arithmatex">\(s_{21}/(1+s_{11})\)</span> instead of the raw <span class="arithmatex">\(s_{21}\)</span>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>victim_ports</code></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">the two victim ports, given as input,output.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>aggressor_ports</code></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">aggressor ports, given as input1,output1,input2,output2,&hellip; (one input/output pair per aggressor).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>multiply</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">comma-separated list of factors to multiply each aggressor's crosstalk by.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>end_frequency</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">end frequency to resample to (requires <code>frequency_points</code>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>frequency_points</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">number of frequency points to resample to (requires <code>end_frequency</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>If the s-parameters are not evenly spaced in frequency, <code>end_frequency</code> and <code>frequency_points</code> must both be specified so that the response can be resampled onto an evenly spaced grid.</p>
+<h3 id="sub:IXT-Usage">Usage<a class="headerlink" href="#sub:IXT-Usage" title="Permanent link">&para;</a></h3>
+<p>The utility is invoked from a command prompt. The positional argument is the s-parameter file name, followed by keyword/value pairs. Port lists are comma-separated:</p>
+<pre><code>IXT network.s16p -vp 1,2 -ap 3,4,5,6
+</code></pre>
+<p>This computes the integrated crosstalk into the victim path (from port 1 to port 2) from two aggressor paths (port 3 to port 4 and port 5 to port 6).</p>
+<p>The utility prints the computed integrated crosstalk (in dB) to standard output. On success the value is printed and the process exits with status 0; on any error the string <code>error</code> is printed and the process exits with status 1.</p>
+<p>In addition to the arguments above, the following options control the utility's output:</p>
+<ul>
+<li>
+<p><code>-v</code> / <code>--verbose</code> &ndash; prints information as the calculation proceeds. Because the result is returned on standard output, do <strong>not</strong> set this option if you are relying on standard output to capture the return value.</p>
+</li>
+<li>
+<p><code>-debug</code> / <code>--debug</code> &ndash; shows debug information and displays a plot comparing the victim and aggressor responses as the computation proceeds.</p>
+</li>
+<li>
+<p><code>-p</code> / <code>--profile</code> &ndash; profiles the software and prints timing statistics.</p>
+</li>
+</ul>
+<h3 id="sub:IXT-Help">Command-Line Help<a class="headerlink" href="#sub:IXT-Help" title="Permanent link">&para;</a></h3>
+<p>Running <code>IXT --help</code> prints the following summary of the utility's arguments:</p>
+<pre><code class="language-text">usage: IXT [-h] [-sp S_PARAMETERS] [-pr PORT_REORDER] [-se SINGLE_ENDED_PORTS] [-z0 REFERENCE_IMPEDANCE] [-vt]
+           [-vp VICTIM_PORTS] [-vn VICTIM_NAME] [-ap AGGRESSOR_PORTS] [-an AGGRESSOR_NAMES] [-ps PLOT_SAVE] [-mult MULTIPLY]
+           [-debug] [-p] [-v] [-fe END_FREQUENCY] [-n FREQUENCY_POINTS]
+           [filename]
+
+Integrated Crosstalk Calculator
+
+                        Calculates integrated crosstalk
+
+s-parameter file (-f) is read in.  Then, the port reordering (-pr) is applied.  The new s-parameter file has the number of ports
+in the port reordering, in that order.
+Then, single-ended ports (-se) are applied.  The number of these must match the number of ports surviving the port reordering
+and are in order p,n,p,n,....  The new ports, after conversion to mixed mode, are all differential followed by all common.  The
+differential are in order of the first p,n (differential port 1), the second p,n (differential port 2), etc. followed by the
+common-mode ports.  Then, the reference impedances are applied (-z0).  There must be either one value (applied to all ports),
+two values (applied to the two ports, or the first value is applied to the differential ports and the second to the common
+ports) or one value per port surviving the mixed-mode conversion.  Then, if -vt is supplied, all differential and common mode
+ports are converted to voltage transfer functions.  Finally, the victim ports (-vp) and aggressor ports (-ap) are used.
+
+
+
+positional arguments:
+  filename              s-parameter file name
+
+options:
+  -h, --help            show this help message and exit
+  -sp S_PARAMETERS, --s_parameters S_PARAMETERS
+  -pr PORT_REORDER, --port_reorder PORT_REORDER
+                        optional comma seperated list of ports to use
+  -se SINGLE_ENDED_PORTS, --single_ended_ports SINGLE_ENDED_PORTS
+                        optional comma seperated list of single-ended ports for conversion to mixed-mode
+  -z0 REFERENCE_IMPEDANCE, --reference_impedance REFERENCE_IMPEDANCE
+                        optional comma seperated list of reference impedances
+                        1 number means a reference impedance to apply to all ports.
+                        2 numbers means a reference impedance to apply to the first half and the second half of ports (like
+                        differential/common-mode.
+                        otherwise one number per port.
+  -vt, --voltage_transfer_function
+                        (optional, applies to s-parameters) fit to the voltage transfer function
+                        the default is to fit s21, which is the ratio of output
+                        wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).
+  -vp VICTIM_PORTS, --victim_ports VICTIM_PORTS
+                        comma seperated list of the two victim ports: input,output
+  -vn VICTIM_NAME, --victim_name VICTIM_NAME
+  -ap AGGRESSOR_PORTS, --aggressor_ports AGGRESSOR_PORTS
+                        comma seperated list of aggessor ports: input1,output1,input2,output2,... etc.
+  -an AGGRESSOR_NAMES, --aggressor_names AGGRESSOR_NAMES
+  -ps PLOT_SAVE, --plot_save PLOT_SAVE
+  -mult MULTIPLY, --multiply MULTIPLY
+                        comma seperated list of numbers to multiply by each aggressor port crosstalk
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -p, --profile         profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -fe END_FREQUENCY, --end_frequency END_FREQUENCY
+                        (optional) end frequency to resample to
+                        if this is specified, then the number of frequency points must also be specified
+                        (see --frequency_points).
+  -n FREQUENCY_POINTS, --frequency_points FREQUENCY_POINTS
+                        (optional) number of frequency points to resample to
+                        if this is specified, then the end frequency must also be specified (see --end_frequency).
+                        it's a good idea to use as few frequency points as needed to improve speed.
+</code></pre>
+<h2 id="sub:Pole-Zero-Fitter">Pole/Zero Fitter (PZ)<a class="headerlink" href="#sub:Pole-Zero-Fitter" title="Permanent link">&para;</a></h2>
+<p><img src="media/PZ_debug.png" alt="PZ_debug" width="900" /></p>
+<p>The <strong>PZ</strong> utility fits a rational (pole/zero) model &ndash; a gain, a delay, and a set of pole and zero pairs &ndash; to a measured or simulated frequency response. It is useful for extracting a compact, analytic model of a response so that it can be examined, reused, or synthesized.</p>
+<h3 id="sub:PZ-Theory">Theory of Operation<a class="headerlink" href="#sub:PZ-Theory" title="Permanent link">&para;</a></h3>
+<p>The utility reads a frequency response and fits a transfer function to it consisting of a DC gain, a bulk delay, and the requested number of complex-conjugate pole pairs and zero pairs. The response to fit can be supplied as:</p>
+<ul>
+<li>
+<p>an s-parameter file (in which case <span class="arithmatex">\(s_{21}\)</span> is fitted by default, or the voltage transfer function <span class="arithmatex">\(s_{21}/(1+s_{11})\)</span> if requested),</p>
+</li>
+<li>
+<p>a <code>.csv</code> file with a header line followed by rows of <code>frequency, real_part, imaginary_part</code>.</p>
+</li>
+</ul>
+<p>The fit is performed iteratively using the Levenberg-Marquardt algorithm. Poles are always restricted to the left-half plane (ensuring a stable model); zeros may optionally be restricted to the left-half plane (to force a minimum-phase result) and/or to be real. A maximum-Q constraint keeps the resulting resonances reasonably behaved and improves the chances of a successful fit. Progress (the iteration count and mean-squared error) is shown as the fit proceeds, and in debug mode a live dashboard displays the fit comparison, the convergence history, and the pole/zero locations.</p>
+<p>When it finishes, the utility can write the full results &ndash; the gain, delay, and the location of every pole and zero (as <span class="arithmatex">\(\omega_0\)</span>, Q, natural frequency, real/imaginary parts, magnitude and angle) &ndash; to a <code>.json</code> output file. A previous result (or a debug results text file) can also be supplied as the starting guess for a subsequent fit.</p>
+<h3 id="sub:PZ-Arguments">Arguments<a class="headerlink" href="#sub:PZ-Arguments" title="Permanent link">&para;</a></h3>
+<p>The PZ utility takes the name of the response file as its positional argument, followed by keyword arguments. The most important arguments are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Argument</th>
+<th style="text-align: center;">Required</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>fit_type</code></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">type of fit &ndash; either <code>magnitude</code> or <code>complex</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>zero_pairs</code></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">number of zero pairs to fit.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>pole_pairs</code></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: left;">number of pole pairs to fit.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>guess_file</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">file containing an initial guess (a <code>.json</code> result file or a debug results text file).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>output_file</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">output file for the results (the <code>.json</code> extension is added automatically).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>end_frequency</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">end frequency to resample to (requires <code>frequency_points</code>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>frequency_points</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">number of frequency points to resample to (requires <code>end_frequency</code>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>min_delay</code></td>
+<td style="text-align: center;">no (default 0)</td>
+<td style="text-align: left;">minimum delay allowed in the fit.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>max_delay</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">maximum delay allowed in the fit.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>initial_delay</code></td>
+<td style="text-align: center;">no (default 0)</td>
+<td style="text-align: left;">best-guess starting delay (strongly recommended, along with the delay limits).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>max_q</code></td>
+<td style="text-align: center;">no (default 5)</td>
+<td style="text-align: left;">maximum Q allowed for any pole or zero pair.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>iterations</code></td>
+<td style="text-align: center;">no (default medium)</td>
+<td style="text-align: left;">iteration budget: <code>short</code>, <code>medium</code>, <code>long</code>, or <code>infinite</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>precision</code></td>
+<td style="text-align: center;">no (default medium)</td>
+<td style="text-align: left;">convergence precision: <code>low</code>, <code>medium</code>, <code>high</code>, or <code>super</code>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>real_zeros</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">restrict the zeros to be real.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>lhp_zeros</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">restrict the zeros to the left-half plane (minimum-phase result).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>voltage_transfer_function</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">(s-parameters only) fit the voltage transfer function <span class="arithmatex">\(s_{21}/(1+s_{11})\)</span> instead of <span class="arithmatex">\(s_{21}\)</span>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>fix_gain</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">fix the DC gain to the first frequency point instead of fitting it.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>fix_delay</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">fix the delay instead of fitting it (delay is always fixed for magnitude fits).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>reference_impedance</code></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: left;">(s-parameters only) reference impedance to use.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sub:PZ-Usage">Usage<a class="headerlink" href="#sub:PZ-Usage" title="Permanent link">&para;</a></h3>
+<p>The utility is invoked from a command prompt. The positional argument is the response file name, followed by keyword/value pairs:</p>
+<pre><code>PZ channel.s2p --fit_type complex --pole_pairs 3 --zero_pairs 1 --output_file channel_fit
+</code></pre>
+<p>This fits three pole pairs and one zero pair to <span class="arithmatex">\(s_{21}\)</span> of <code>channel.s2p</code> and writes the result to <code>channel_fit.json</code>.</p>
+<p>The utility prints <code>done</code> when it completes (or <code>error</code> if it fails). It is best used with an explicit <code>output_file</code> so that the fitted model is saved for later use.</p>
+<p>In addition to the arguments above, the following options control the utility's output:</p>
+<ul>
+<li>
+<p><code>-v</code> / <code>--verbose</code> &ndash; prints information (parameters, convergence progress, and results) as the calculation proceeds. Because a status value is returned on standard output, do <strong>not</strong> set this option if you are relying on standard output to capture the return value.</p>
+</li>
+<li>
+<p><code>-debug</code> / <code>--debug</code> &ndash; shows debug information and displays the live fitting dashboard (fit comparison, convergence trackers, and pole/zero locations); it also writes intermediate results and goal files.</p>
+</li>
+<li>
+<p><code>-pf</code> / <code>--profile</code> &ndash; profiles the software and prints timing statistics.</p>
+</li>
+</ul>
+<h3 id="sub:PZ-Help">Command-Line Help<a class="headerlink" href="#sub:PZ-Help" title="Permanent link">&para;</a></h3>
+<p>Running <code>PZ --help</code> prints the following summary of the utility's arguments:</p>
+<pre><code class="language-text">usage: PZ [-h] [-ft FIT_TYPE] [-debug] [-pf] [-v] [-zp ZERO_PAIRS] [-pp POLE_PAIRS] [-gf GUESS_FILE] [-of OUTPUT_FILE]
+          [-fe END_FREQUENCY] [-n FREQUENCY_POINTS] [-mind MIN_DELAY] [-maxd MAX_DELAY] [-maxq MAX_Q] [-id INITIAL_DELAY]
+          [-i ITERATIONS] [-pr PRECISION] [-rz] [-lz] [-vt] [-xg] [-xdly] [-r REFERENCE_IMPEDANCE]
+          [filename]
+
+Pole/zero Fitter
+
+                        Fits gain, delay, poles and zeros to response provided.
+
+
+
+positional arguments:
+  filename              name of file for the fit
+                        this could be an:
+                            s-parameter file (s21 assumed for fit),
+                            SignalIntegrity frequency response file (not yet supported), or
+                            a .csv file containing frequency, real part, imaginary part comma separated on each line.
+
+options:
+  -h, --help            show this help message and exit
+  -ft FIT_TYPE, --fit_type FIT_TYPE
+                        (required) type of fit -- either &quot;magnitude&quot; or &quot;complex&quot;
+  -debug, --debug       shows debug information and plots as the computation proceeds
+  -pf, --profile        profiles the software
+  -v, --verbose         prints information as calculation proceeds.
+                        this should not be set if you are relying on stdout for the return value.
+  -zp ZERO_PAIRS, --zero_pairs ZERO_PAIRS
+                        (required) number of zero pairs
+  -pp POLE_PAIRS, --pole_pairs POLE_PAIRS
+                        (required) number of pole pairs
+  -gf GUESS_FILE, --guess_file GUESS_FILE
+                        (optional) file containing initial guess
+                        this file can be an output file (see --output_file), in which case, the raw fit results are
+                        extracted and used as the starting guess.  this file must be a .json file with the .json
+                        extension.  otherwise, it is assumed to be a text file produced in debug mode (see --debug),
+                        which is usually called test_result.txt.
+  -of OUTPUT_FILE, --output_file OUTPUT_FILE
+                        (optional) output file
+                        no matter how this file is specified, it will have the .json extension added to it.
+  -fe END_FREQUENCY, --end_frequency END_FREQUENCY
+                        (optional) end frequency to resample to
+                        if this is specified, then the number of frequency points must also be specified
+                        (see --frequency_points).
+  -n FREQUENCY_POINTS, --frequency_points FREQUENCY_POINTS
+                        (optional) number of frequency points to resample to
+                        if this is specified, then the end frequency must also be specified (see --end_frequency).
+                        it's a good idea to use as few frequency points as needed to improve speed.
+  -mind MIN_DELAY, --min_delay MIN_DELAY
+                        (optional) minimum delay - defaults to 0
+  -maxd MAX_DELAY, --max_delay MAX_DELAY
+                        (optional) maximum delay
+  -maxq MAX_Q, --max_q MAX_Q
+                        (optional) maximum Q - defaults to 5
+                        limiting the maximum Q forces the result to be at least reasonably behaved and improves
+                        the chances of a successful fit.
+  -id INITIAL_DELAY, --initial_delay INITIAL_DELAY
+                        (optional) initial delay - defaults to 0
+                        it is highly recommended to supply the best guess at the delay for improving the success
+                        of the fit and to limit the delay range (see --max_delay and --min_delay).
+  -i ITERATIONS, --iterations ITERATIONS
+                        (optional) iterations (short,medium,long,infinite) - defaults to medium
+                        normally fit convergence should not end with the expiration of iterations.  if medium
+                        iterations is used, iterations expire after about a minute.  long increases this to
+                        several minutes max.
+  -pr PRECISION, --precision PRECISION
+                        (optional) precision for fit (low,medium,high,super)
+                        this is the main way of controlling how convergence is determined and it determines how little
+                        the error is decreasing before giving up.  low will be very quick, but will result in
+                        sub-optimal fits.  medium is usually good enough, while high gives a very good fit.  super is
+                        used for extremely good fits, but takes longer (possibly several minutes).
+  -rz, --real_zeros     (optional) restrict zeros to be real
+                        often the solution can only have real zeros.
+  -lz, --lhp_zeros      (optional) restrict zeros to the LHP
+                        left-half plane zeros enforces a minimum phase solution.
+  -vt, --voltage_transfer_function
+                        (optional, applies only to s-parameters) fit to the voltage transfer function
+                        when s-parameters are used, the default is to fit s21, which is the ratio of output
+                        wave to incident wave. this is not the voltage transfer function, which is s21/(1+s11).
+  -xg, --fix_gain       (optional) fix the dc gain.
+                        choosing this option fixes the dc point to the first frequency point, otherwise, the dc gain is part of
+                        the fit.
+  -xdly, --fix_delay    (optional) fix the delay value.
+                        choosing this option fixes the delay value to 0, if -id not specified or what is specified by -id,
+                        otherwise, the delay is part of the fit.
+  -r REFERENCE_IMPEDANCE, --reference_impedance REFERENCE_IMPEDANCE
+                        (optional, applies only to s-parameters) specify another reference impedance to use
+</code></pre>
+<h3 id="sub:PZ-Output-File">Output File<a class="headerlink" href="#sub:PZ-Output-File" title="Permanent link">&para;</a></h3>
+<p>When an <code>output_file</code> is supplied, the fitted model is written as a JSON file (the <code>.json</code> extension is added automatically). The file is a single, nested object. Its overall shape is shown in the tree below, and the meaning of each field follows.</p>
+<pre><code class="language-text">├── raw ...................... raw parameter vector [gain, delay, w0, Q, w0, Q, ...]
+├── configuration ............ the arguments the utility was run with
+├── convergence
+│   ├── iterations ........... number of iterations taken
+│   ├── mse .................. final mean-squared error
+│   ├── time ................. elapsed fitting time (s)
+│   ├── completed ............ finish timestamp (MM/DD/YYYY HH:MM:SS)
+│   ├── why stopped .......... reason the iteration stopped
+│   └── frequency multiplier . internal frequency scaling factor
+├── response
+│   ├── frequency ............ list of frequencies
+│   ├── goal
+│   │   ├── magnitude ........ response being fitted (magnitude)
+│   │   └── phase ............ response being fitted (degrees)
+│   └── result
+│       ├── magnitude ........ fitted model response (magnitude)
+│       └── phase ............ fitted model response (degrees)
+├── gain
+│   ├── value ................ DC gain (linear)
+│   └── dB ................... DC gain (dB)
+├── delay
+│   └── value ................ bulk delay (s)
+├── pole pair / zero pair     (complex-conjugate pairs)
+│   ├── number of ............ count of pairs
+│   └── list [ ]             one entry per pair:
+│       ├── w0 ............... natural angular frequency
+│       ├── Q ................ quality factor
+│       ├── zeta ............. damping ratio
+│       ├── f0 ............... natural frequency (Hz)
+│       ├── wr / fr .......... damped resonant frequency (rad/s and Hz)
+│       └── peakdB ........... resonant peak height (dB)
+└── pole / zero               (individual roots, two per pair)
+    ├── number of ............ twice the number of pairs
+    └── list [ ]             one entry per root:
+        ├── real / imag ...... rectangular coordinates
+        ├── mag .............. magnitude
+        └── angle
+            ├── rad .......... angle (radians)
+            └── deg .......... angle (degrees)
+</code></pre>
+<p>The <code>raw</code> array holds the parameters in the order <code>[gain, delay, w0, Q, w0, Q, ...]</code> &ndash; the zero pairs first, then the pole pairs. This array (or a whole result file) can be fed back in through <code>guess_file</code> to seed a subsequent fit.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="32-Parallel-Calculations.html" class="btn btn-neutral float-left" title="Parallel Calculations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="32-Parallel-Calculations.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

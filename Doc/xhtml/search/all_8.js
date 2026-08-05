@@ -5,5 +5,6 @@ var searchData=
   ['hasparam_2',['HasParam',['../classSignalIntegrity_1_1Lib_1_1Optical_1_1OpticalCalculator_1_1OpticalCalculator.xhtml#a10c775f9e076f6704b5271844e0aab91',1,'SignalIntegrity::Lib::Optical::OpticalCalculator::OpticalCalculator']]],
   ['hasvalue_3',['HasValue',['../classSignalIntegrity_1_1Lib_1_1Optical_1_1OpticalCalculator_1_1OpticalCalculator.xhtml#a4f1c5ba9b182b24eb512e8b9f225edf2',1,'SignalIntegrity::Lib::Optical::OpticalCalculator::OpticalCalculator']]],
   ['hasvalues_4',['HasValues',['../classSignalIntegrity_1_1Lib_1_1Optical_1_1OpticalCalculator_1_1OpticalCalculator.xhtml#a8d08dae29158cd31e14a4a6b5260da0f',1,'SignalIntegrity::Lib::Optical::OpticalCalculator::OpticalCalculator']]],
-  ['header_5',['header',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#ae8f626807b2dddc1872b3005556939cd',1,'SignalIntegrity::Lib::SParameters::SParameters::SParameters']]]
+  ['header_5',['header',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameters_1_1SParameters.xhtml#ae8f626807b2dddc1872b3005556939cd',1,'SignalIntegrity::Lib::SParameters::SParameters::SParameters']]],
+  ['help_20system_20user_20manual_20and_20context_20help_6',['Building the Help System (User Manual and Context Help)',['../index.xhtml#autotoc_md3',1,'']]]
 ];

@@ -29,7 +29,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign">
-   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.1</span>
+   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -104,10 +104,10 @@ Collaboration diagram for SimulatorNumericParser:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab046e9869dd43e9e63671f0a5d87894b" id="r_ab046e9869dd43e9e63671f0a5d87894b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml#ab046e9869dd43e9e63671f0a5d87894b">__init__</a> (self, f=None, args=None, callback=None, cacheFileName=None, Z0=50.)</td></tr>
-<tr class="memdesc:ab046e9869dd43e9e63671f0a5d87894b"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br  />
+<tr class="memitem:af8252e70746b5dcffae3bdcabd78272f" id="r_af8252e70746b5dcffae3bdcabd78272f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml#af8252e70746b5dcffae3bdcabd78272f">__init__</a> (self, f=None, args=None, callback=None, cacheFileName=None, Z0=50., allowParallel=False)</td></tr>
+<tr class="memdesc:af8252e70746b5dcffae3bdcabd78272f"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br  />
  frequencies may be provided at construction time (or not for symbolic solutions).  <br /></td></tr>
-<tr class="separator:ab046e9869dd43e9e63671f0a5d87894b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:af8252e70746b5dcffae3bdcabd78272f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e55d14a8006fbeb8ceb744bb8d3ea77" id="r_a6e55d14a8006fbeb8ceb744bb8d3ea77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1SimulatorNumericParser_1_1SimulatorNumericParser.xhtml#a6e55d14a8006fbeb8ceb744bb8d3ea77">TransferMatrices</a> (self)</td></tr>
 <tr class="memdesc:a6e55d14a8006fbeb8ceb744bb8d3ea77"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates transfer matrices for simulation <br  />
  Simulation, insofar as this class is concerned means generating transfer matrices for processing waveforms with.  <br /></td></tr>
@@ -192,10 +192,10 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>performs numeric simulations from netlists </p>
 
-<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00032">32</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00031">31</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab046e9869dd43e9e63671f0a5d87894b" name="ab046e9869dd43e9e63671f0a5d87894b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab046e9869dd43e9e63671f0a5d87894b">&#9670;&#160;</a></span>__init__()</h2>
+<a id="af8252e70746b5dcffae3bdcabd78272f" name="af8252e70746b5dcffae3bdcabd78272f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8252e70746b5dcffae3bdcabd78272f">&#9670;&#160;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +234,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>Z0</em> = <code>50.</code>&#160;</td>
+          <td class="paramname"><em>Z0</em> = <code>50.</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>allowParallel</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -253,6 +259,7 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">callback</td><td>(optional) function taking one argument as a callback </td></tr>
     <tr><td class="paramname">cacheFileName</td><td>(optional) string name of file used to cache results </td></tr>
     <tr><td class="paramname">Z0</td><td>float (optional, defaults to 50.) reference impedance for the calculation </td></tr>
+    <tr><td class="paramname">allowParallel</td><td>bool (optional, defaults to False) whether the per-frequency solve may be distributed across processor cores. When False the calculation runs serially; when True it may run in parallel if the cost model deems it worthwhile. </td></tr>
   </table>
   </dd>
 </dl>
@@ -264,7 +271,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml#a70584a2e8f91ba7040b1231d5e6935ab">NetworkAnalyzerSimulationNumericParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00045">45</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00047">47</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
 
 </div>
 </div>
@@ -292,7 +299,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classSignalIntegrity_1_1Lib_1_1Parsers_1_1NetworkAnalyzerSimulationNumericParser_1_1NetworkAnalyzerSimulationNumericParser.xhtml#a6e55d14a8006fbeb8ceb744bb8d3ea77">NetworkAnalyzerSimulationNumericParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00060">60</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimulatorNumericParser_8py_source.xhtml#l00064">64</a> of file <a class="el" href="SimulatorNumericParser_8py_source.xhtml">SimulatorNumericParser.py</a>.</p>
 
 </div>
 </div>

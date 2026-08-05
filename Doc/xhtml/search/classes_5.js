@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['ffe_0',['FFE',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Equalizer_1_1FFE.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::Equalizer']]],
-  ['filterdescriptor_1',['FilterDescriptor',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FilterDescriptor_1_1FilterDescriptor.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::FilterDescriptor']]],
-  ['firfilter_2',['FirFilter',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1FirFilter_1_1FirFilter.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::FirFilter']]],
-  ['fractionaldelayfilterlinear_3',['FractionalDelayFilterLinear',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1FractionalDelayFilterLinear.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorLinear']]],
-  ['fractionaldelayfiltersinx_4',['FractionalDelayFilterSinX',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1FractionalDelayFilterSinX.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorSinX']]],
-  ['frequencycontent_5',['FrequencyContent',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyContent_1_1FrequencyContent.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyContent']]],
-  ['frequencydomain_6',['FrequencyDomain',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyDomain']]],
-  ['frequencylist_7',['FrequencyList',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList']]],
-  ['frequencyresponse_8',['FrequencyResponse',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyResponse_1_1FrequencyResponse.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyResponse']]]
+  ['encryption_0',['Encryption',['../classSignalIntegrity_1_1Lib_1_1Encryption_1_1Encryption.xhtml',1,'SignalIntegrity::Lib::Encryption']]],
+  ['errorterms_1',['ErrorTerms',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::ErrorTerms']]],
+  ['evenlyspacedfrequencylist_2',['EvenlySpacedFrequencyList',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList']]],
+  ['eyediagrambitmap_3',['EyeDiagramBitmap',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap']]]
 ];

@@ -29,7 +29,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="AppIcon2.ico"/></td>
   <td id="projectalign">
-   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.1</span>
+   <div id="projectname">SignalIntegrity<span id="projectnumber">&#160;1.5.2</span>
    </div>
    <div id="projectbrief">Signal Integrity Tools in Python</div>
   </td>
@@ -308,7 +308,7 @@ DFTUtilities </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>instance of class SpectralDensity where each bin is sqrt(a^2 + b^2). </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>This models the combination of uncorrelated noise sources. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00484">484</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00501">501</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -349,7 +349,7 @@ DFTUtilities </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#a909a2bc6a3c96fc53d3ae93305e81486">FrequencyDomain</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00443">443</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00460">460</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -390,7 +390,7 @@ DFTUtilities </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#ad0b6472ff66225cb296f2e57e933713b">FrequencyDomain</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00460">460</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00477">477</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -431,7 +431,7 @@ DFTUtilities </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#a939522e66c0597dfb811b626acacb484">FrequencyDomain</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00452">452</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00469">469</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -470,7 +470,7 @@ DFTUtilities </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>instance of class SpectralDensity where each bin is |H(f)| * SD(f). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00475">475</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00492">492</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -551,7 +551,7 @@ DFTUtilities </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>Each interior bin is assigned an independent uniformly distributed phase; the DC bin (and the Nyquist bin when Keven) are kept real so that the inverse DFT yields a real-valued waveform. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If td is None, the time descriptor corresponding to self's FrequencyList is used. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00369">369</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00386">386</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -676,9 +676,9 @@ DFTUtilities </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd>The JSON data is assumed to contain frequency in Hz and spectral density in V/sqrt(Hz), typically as arrays keyed by 'x' and 'y'. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>The JSON data must decode to a dictionary that contains a 'noise' (or, alternatively, 'wave') key at the root level. That key holds a dictionary with the frequency in Hz and spectral density in V/sqrt(Hz), typically as arrays keyed by 'x' and 'y'. Any other keys present at the root level are ignored, so additional metadata in the file is tolerated. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00130">130</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00133">133</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -718,7 +718,7 @@ DFTUtilities </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>instance of class SpectralDensity containing self resampled onto fdp using linear interpolation of the V/sqrt(Hz) values. </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>Resampling is performed on the magnitude in V/sqrt(Hz); points beyond self's end frequency are clamped to zero. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00394">394</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00411">411</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -772,7 +772,7 @@ DFTUtilities </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>float Salz SNR in dB. </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>other is resampled to self's frequency list before the computation. The implemented definition is: SalzSNR = 10*log10(mean(PSD_signal[n]/PSD_noise[n])) where PSD = rho^2 and rho is in V/sqrt(Hz). Bins whose noise PSD is below noise_floor are excluded from the mean. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00312">312</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00329">329</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -818,7 +818,7 @@ DFTUtilities </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>float SNR in dB computed as signal_dBm - noise_dBm. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00281">281</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00298">298</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -858,7 +858,7 @@ DFTUtilities </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>float total power in dBm. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The two references differ by exactly 20*log10(R) dB for the same numeric rms. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00264">264</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00281">281</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -881,7 +881,7 @@ DFTUtilities </dd></dl>
 <p>Total RMS across the spectrum. </p>
 <dl class="section return"><dt>Returns</dt><dd>float total rms = sqrt(sum(rms[n]^2)). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00247">247</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00264">264</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -929,7 +929,7 @@ DFTUtilities </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#ad2ac0e6903e8232c93ffc49ea00eb2e7">FrequencyDomain</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00235">235</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00252">252</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -1003,7 +1003,7 @@ DFTUtilities </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>instance of class SpectralDensity containing a flat spectral density evaluated at each frequency in fd. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00423">423</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00440">440</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -1043,7 +1043,7 @@ DFTUtilities </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd>The CSV file contains frequency in Hz in the first column and spectral density in V/sqrt(Hz) in the second column. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00182">182</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00197">197</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1090,7 @@ DFTUtilities </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyDomain_1_1FrequencyDomain.xhtml#a149d9831a7fe7ef63dc1de4598a573a3">FrequencyDomain</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00210">210</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00227">227</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
@@ -1128,9 +1128,9 @@ DFTUtilities </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>self </dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd>The JSON data contains frequency in Hz in 'x' and spectral density in V/sqrt(Hz) in 'y'. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>The JSON data contains a 'noise' key at the root whose value is a dictionary with frequency in Hz in 'x' and spectral density in V/sqrt(Hz) in 'y'. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00195">195</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SpectralDensity_8py_source.xhtml#l00211">211</a> of file <a class="el" href="SpectralDensity_8py_source.xhtml">SpectralDensity.py</a>.</p>
 
 </div>
 </div>
