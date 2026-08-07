@@ -1483,8 +1483,11 @@ class SignalIntegrityApp(tk.Frame):
             self.update()
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             archiveDir=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'_Archive')
-            archiveDict.CopyArchiveFilesToDestination(archiveDir)
-            SignalIntegrity.App.Project.Write(self,os.path.join(archiveDir,self.fileparts.FullFilePathExtension('.si')))
+            projectFile=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FullFilePathExtension('.si'))
+            archiveDict.CopyArchiveFilesToDestination(archiveDir,projectFile)
+            # the project keeps its place relative to the archive root so that the
+            # relative references it holds still resolve inside the archive
+            SignalIntegrity.App.Project.Write(self,archiveDict.ProjectDestination(archiveDir,projectFile))
             archiveDict.ZipArchive(archiveName=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'), archiveDir=self.fileparts.filename+'_Archive')
         except SignalIntegrityExceptionArchive as e:
             msg.destroy()
@@ -1492,7 +1495,7 @@ class SignalIntegrityApp(tk.Frame):
             return
         except Exception as e:
             msg.destroy()
-            messagebox.showerror('During archiving:','An unknown error occurred')
+            messagebox.showerror('During archiving:','Archiving Failed.\n\n'+str(e))
             return
         msg.destroy()
         msg=messagebox.showinfo('Archive complete','Archive created: '+os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'))
@@ -1505,22 +1508,28 @@ class SignalIntegrityApp(tk.Frame):
 
         try:
             Archive.ExtractArchive(filename)
-        except:
+        except SignalIntegrityExceptionArchive as e:
             msg.destroy()
-            messagebox.showerror('During archive extraction:','Extraction Failed.')
+            messagebox.showerror('During archive extraction:','Extraction Failed.\n\n'+e.message)
+            return
+        except Exception as e:
+            msg.destroy()
+            messagebox.showerror('During archive extraction:','Extraction Failed.\n\n'+str(e))
             return
 
         msg.destroy()
 
         fp=FileParts(filename)
+        archiveDir=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'
+        project=Archive.FindProjectInArchive(archiveDir,fp.FileNameTitle())
 
-        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'):
-            filename=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'
+        if project is not None:
+            filename=project
             msg=messagebox.showinfo('Archive Extraction','Archive Extraction Complete')
         else:
             filename=AskOpenFileName(title='Archive Extraction Complete',
                                      filetypes=[('si', '.si')],
-                                     initialdir=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive',
+                                     initialdir=archiveDir,
                                      initialfile=fp.FileNameTitle()+'.si')
         if filename is None:
             return
@@ -1546,17 +1555,19 @@ class SignalIntegrityApp(tk.Frame):
 
         msg=InformationMessage(self,'Archive Freshening','Freshening Archive. Please wait.....')
         try:
-            Archive.Freshen(self.fileparts.FileNameWithExtension())
-        except:
+            Archive.Freshen(self.fileparts.FullFilePathExtension('.si'))
+        except Exception as e:
             msg.destroy()
-            messagebox.showerror('Archive Freshening','Freshening Failed')
+            messagebox.showerror('Archive Freshening','Freshening Failed.\n\n'+str(e))
             return
         msg.destroy()
         msg=messagebox.showinfo('Archive Freshening','Archive Freshened')
 
 
     def onUnExtractArchive(self):
-        if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
+        project=self.fileparts.FullFilePathExtension('.si')
+        archiveRoot=Archive.ArchiveRoot(project)
+        if archiveRoot is None:
             return
 
         if not messagebox.askokcancel('Unexctract Archive', 'Are you absolutely sure?\nThis will delete all of the files in current directory'):
@@ -1564,10 +1575,10 @@ class SignalIntegrityApp(tk.Frame):
         msg=InformationMessage(self,'Archive Unextract','Unextracting Archive. Please wait.....')
         try:
             self.onCloseProject()
-            Archive.UnExtractArchive(self.fileparts.AbsoluteFilePath())
-        except:
+            Archive.UnExtractArchive(archiveRoot)
+        except Exception as e:
             msg.destroy()
-            messagebox.showerror('Archive Unextract','Unextraction Failed')
+            messagebox.showerror('Archive Unextract','Unextraction Failed.\n\n'+str(e))
             return
         msg.destroy()
         msg=messagebox.showinfo('Archive Unextract','Archive Unextracted')

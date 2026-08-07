@@ -258,6 +258,93 @@ class TestArchive(unittest.TestCase):
             self.assertFalse(os.path.exists(archiveDir),self.id()+' archive directory not removed')
         finally:
             os.chdir(currentDir)
+    def Variable(self,type,value):
+        """Builds a project variable of a given type and raw value.
+        @param type string the variable type.
+        @param value the raw value to store, or None for an unset variable.
+        @return VariableConfiguration the variable.
+        @remark An unset variable cannot be made through the item assignment,
+        which stringifies None into the literal 'None'.  It arises from the
+        project file, where an empty <Value/> element reads back as an actual
+        None, so the underlying property value is set here the same way.
+        """
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        variable=VariableConfiguration()
+        variable['Name']='v'
+        variable['Type']=type
+        if value is None:
+            property=variable.dict['Value']
+            property.dict['value']=None
+            property.UpdateValue()
+            self.assertTrue(variable.GetValue('Value') is None,
+                            self.id()+' the unset variable was not built')
+        else:
+            variable['Value']=value
+        return variable
+    def testUnsetVariableValue(self):
+        """An unset variable of any type must evaluate rather than raise.
+        @remark A device bypassed through its element_state leaves its 'file'
+        variable with a value of None.  Only the 'string' type used to be
+        guarded, so every other type raised a TypeError out of len(None), which
+        is what made archiving such a project fail with the unhelpful message
+        'object of type NoneType has no len()'.
+        """
+        for type in ('string','file','float','int','enum'):
+            variable=self.Variable(type,None)
+            self.assertEqual(variable.Value(),'',
+                             self.id()+' unset '+type+' variable did not evaluate empty')
+            # the display string must not raise either
+            variable.DisplayString()
+    def testUnsetVariableDictionary(self):
+        """An unset 'file' variable must not become the current directory.
+        @remark os.path.abspath('') returns the current directory, which would
+        turn an unset file name into a directory name that later looks to the
+        archiver like a real file to archive.
+        """
+        from SignalIntegrity.App.ProjectFile import VariablesConfiguration
+        variables=VariablesConfiguration()
+        variables['Items']=[self.Variable('file',None)]
+        self.assertEqual(variables.Dictionary()['v'],'',
+                         self.id()+' unset file variable did not stay empty')
+        variables['Items']=[self.Variable('file','some.s4p')]
+        self.assertEqual(variables.Dictionary()['v'],
+                         os.path.abspath('some.s4p').replace('\\','/'),
+                         self.id()+' set file variable not made absolute')
+    def testExtractedFileNameRejectsEscapes(self):
+        """Entries that would write outside of the destination must be skipped."""
+        destination=os.path.abspath(self.tempDir)
+        for name in ('../escape.txt','/absolute.txt','a/../../escape.txt','','.'):
+            self.assertTrue(Archive._ExtractedFileName(destination,name) is None,
+                            self.id()+' '+repr(name)+' was not rejected')
+        good=Archive._ExtractedFileName(destination,'Project_Archive/file.txt')
+        self.assertEqual(good,os.path.join(destination,'Project_Archive','file.txt'),
+                         self.id()+' a good entry was not accepted')
+    def testExtractOverReadOnlyFiles(self):
+        """Re-extracting over read-only files must succeed.
+        @remark CopyArchiveFilesToDestination calls copystat, so a read-only
+        source file yields a read-only file inside the archive.  Extracting the
+        archive a second time then failed with a PermissionError.
+        """
+        import zipfile
+        siz=os.path.join(self.tempDir,'Project.siz')
+        with zipfile.ZipFile(siz,'w') as z:
+            z.writestr('Project_Archive/file.txt','contents')
+        Archive.ExtractArchive(siz)
+        extracted=os.path.join(self.tempDir,'Project_Archive','file.txt')
+        self.assertTrue(os.path.exists(extracted),self.id()+' not extracted')
+        os.chmod(extracted,stat.S_IRUSR)
+        Archive.ExtractArchive(siz) # must not raise
+        with open(extracted) as f:
+            self.assertEqual(f.read(),'contents',self.id()+' wrong contents')
+    def testExtractEmptyArchiveReports(self):
+        """An archive with nothing extractable must say so rather than pass."""
+        import zipfile
+        from SignalIntegrity.App.Archive import SignalIntegrityExceptionArchive
+        siz=os.path.join(self.tempDir,'Empty.siz')
+        with zipfile.ZipFile(siz,'w') as z:
+            pass
+        self.assertRaises(SignalIntegrityExceptionArchive,Archive.ExtractArchive,siz)
+        self.assertRaises(SignalIntegrityExceptionArchive,Archive.ExtractArchive,None)
 
 if __name__ == '__main__':
     unittest.main()

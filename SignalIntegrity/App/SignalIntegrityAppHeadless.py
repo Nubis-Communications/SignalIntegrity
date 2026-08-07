@@ -978,12 +978,17 @@ class SignalIntegrityAppHeadless(object):
                 return False
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             archiveDir=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'_Archive')
-            archiveDict.CopyArchiveFilesToDestination(archiveDir)
-            SignalIntegrity.App.Project.Write(self,os.path.join(archiveDir,self.fileparts.FullFilePathExtension('.si')))
+            projectFile=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FullFilePathExtension('.si'))
+            archiveDict.CopyArchiveFilesToDestination(archiveDir,projectFile)
+            # the project keeps its place relative to the archive root so that the
+            # relative references it holds still resolve inside the archive
+            SignalIntegrity.App.Project.Write(self,archiveDict.ProjectDestination(archiveDir,projectFile))
             archiveDict.ZipArchive(archiveName=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'), archiveDir=self.fileparts.filename+'_Archive')
         except SignalIntegrityExceptionArchive as e:
+            print('archiving failed: '+e.message)
             return False
         except Exception as e:
+            print('archiving failed: '+str(e))
             return False
         return True
 
@@ -993,34 +998,41 @@ class SignalIntegrityAppHeadless(object):
 
         try:
             Archive.ExtractArchive(filename)
-        except:
+        except SignalIntegrityExceptionArchive as e:
+            print('archive extraction failed: '+e.message)
+            return False
+        except Exception as e:
+            print('archive extraction failed: '+str(e))
             return False
 
         fp=FileParts(filename)
-
-        if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'):
-            filename=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'+'/'+fp.FileNameTitle()+'.si'
-
-        if filename is None:
+        archiveDir=fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'_Archive'
+        project=Archive.FindProjectInArchive(archiveDir,fp.FileNameTitle())
+        if project is None:
+            print('archive extraction failed: '+fp.FileNameTitle()+
+                  '.si was not found in the extracted archive')
             return False
 
-        return self.OpenProjectFile(filename,args)
+        return self.OpenProjectFile(project,args)
 
     def FreshenArchive(self):
         try:
-            Archive.Freshen(self.fileparts.FileNameWithExtension())
-        except:
+            Archive.Freshen(self.fileparts.FullFilePathExtension('.si'))
+        except Exception as e:
+            print('archive freshening failed: '+str(e))
             return False
         return True
 
     def UnExtractArchive(self):
-        if not Archive.InAnArchive(self.fileparts.FullFilePathExtension()):
+        archiveRoot=Archive.ArchiveRoot(self.fileparts.FullFilePathExtension('.si'))
+        if archiveRoot is None:
             return False
 
         try:
 #             self.onCloseProject()
-            Archive.UnExtractArchive(self.fileparts.AbsoluteFilePath())
-        except:
+            Archive.UnExtractArchive(archiveRoot)
+        except Exception as e:
+            print('archive unextraction failed: '+str(e))
             return False
         return True
 

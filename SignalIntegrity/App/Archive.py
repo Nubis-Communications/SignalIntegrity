@@ -21,6 +21,7 @@ Archive.py
 import os
 import shutil
 import stat
+import sys
 import time
 import zipfile
 import glob
@@ -59,10 +60,96 @@ def _RmTreeHandlerKeyword():
 RmTreeHandlerKeyword=_RmTreeHandlerKeyword()
 
 class SignalIntegrityExceptionArchive(SignalIntegrityException):
-    def __init__(self,message=''):
+    """the exception raised for archiving and archive extraction problems.
+    @remark The second, optional argument is accepted because the exception is
+    raised in places as (context,detail); without it those raises would fail with
+    a TypeError and hide the problem they were meant to report.  Both parts end
+    up in the message, which is what the callers display.
+    """
+    def __init__(self,message='',detail=None):
+        if detail is not None:
+            message=(str(message)+' '+str(detail)).strip()
         SignalIntegrityException.__init__(self,'Archive',message)
 
+class EquationFileRecorder(object):
+    """Records the data files that the project equations read.
+
+    @remark The archive is built by inspecting the file properties of the
+    devices in the schematic, which cannot see a file that the equations open
+    for themselves -- a csv of channel definitions is the usual example.  Such a
+    project archives and extracts without complaint but cannot be calculated
+    afterwards, because evaluating its equations fails with a FileNotFoundError.
+    The files are therefore observed while the equations run, using an audit
+    hook, and added to the archive.  The hook is only installed when an archive
+    is actually being built, does nothing at all unless recording is switched
+    on, and is simply absent on an interpreter that has no auditing, in which
+    case the archive is no worse than it was before.
+    """
+    _files=set()
+    _recording=False
+    _installed=False
+    #: files that are code rather than project data
+    _excludedExtensions=('.py','.pyc','.pyo','.pyd','.so','.dll','.egg','.zip')
+
+    @classmethod
+    def _Hook(cls,event,args):
+        if not cls._recording or (event != 'open'):
+            return
+        try:
+            path,mode=args[0],args[1]
+        except (IndexError,TypeError):
+            return
+        # only files being read are of interest; a file the equations write is
+        # an output, not an input the archive needs to carry
+        if not isinstance(path,str) or ((mode is not None) and ('r' not in str(mode))):
+            return
+        cls._files.add(path)
+
+    @classmethod
+    def _Interesting(cls,path):
+        """Whether a recorded file is project data worth archiving."""
+        try:
+            if not os.path.isfile(path):
+                return False
+        except (OSError,ValueError):
+            return False
+        absolute=os.path.abspath(path)
+        if os.path.splitext(absolute)[1].lower() in cls._excludedExtensions:
+            return False
+        lowered=absolute.lower()
+        for prefix in set([sys.prefix,getattr(sys,'base_prefix',sys.prefix)]):
+            if prefix and lowered.startswith(os.path.abspath(prefix).lower()+os.sep):
+                return False # part of the python installation, not the project
+        return True
+
+    @classmethod
+    def Start(cls):
+        """Begins recording.
+        @return bool whether recording could be started.
+        """
+        if not cls._installed:
+            try:
+                sys.addaudithook(cls._Hook)
+            except (AttributeError,RuntimeError,TypeError) as e:
+                _log.debug('equation data files cannot be recorded: %s',e)
+                return False
+            cls._installed=True
+        cls._files=set()
+        cls._recording=True
+        return True
+
+    @classmethod
+    def Stop(cls):
+        """Ends recording.
+        @return list of the data files the equations read.
+        """
+        cls._recording=False
+        files=sorted(f for f in cls._files if cls._Interesting(f))
+        cls._files=set()
+        return files
+
 class Archive(list):
+
     @property
     def logging(self):
         """whether archive logging is turned on.
@@ -137,13 +224,18 @@ class Archive(list):
                     initial=False
                 if not done:
                     #Force equations to evaluate so that variabels are propagated correctly
-                    SignalIntegrity.App.Project.EvaluateEquations()
+                    # the data files the equations read cannot be discovered from
+                    # the schematic, so they are observed while the equations run
+                    self.AddFilesToArchive(Archive._EvaluateEquationsRecordingFiles())
                     for device in app.Drawing.schematic.deviceList:
                         args={}
                         for variable in device.variablesList:
                             name=variable['Name']
                             value=variable.Value()
-                            if variable['Type'] == 'file':
+                            if (variable['Type'] == 'file') and value:
+                                # an unset file variable has an empty value;
+                                # os.path.abspath('') is the current directory,
+                                # which is not a file to archive
                                 value=os.path.abspath(value)
                             args[name]=value
                         # skip only devices that are removed or bypassed in the netlist
@@ -153,7 +245,10 @@ class Archive(list):
                             continue
                         for property in device.propertiesList:
                             if property['Type']=='file':
-                                filename=os.path.abspath(property.GetValue())
+                                propertyValue=property.GetValue()
+                                if not propertyValue:
+                                    continue # unset file property, nothing to archive
+                                filename=os.path.abspath(propertyValue)
                                 if len(filename.split(os.path.sep)[-1].split('.')) != 2:
                                     continue # file name does not have an extension
                                 if not thisFile in [fileelement['file'] for fileelement in self]:
@@ -206,7 +301,82 @@ class Archive(list):
         finally:
             os.chdir(currentPath)
         return self
-    def CopyArchiveFilesToDestination(self,archiveDir):
+    @staticmethod
+    def _CommonRoot(projectDir,fileList):
+        """Returns the directory the archive is built relative to.
+        @param projectDir string the directory holding the project being archived.
+        @param fileList list of strings the files to be archived.
+        @return string the common ancestor directory of the project and its files.
+        @remark The archive used to be built relative to the project directory
+        alone, so a file the project refers to through '..' landed above the
+        archive and was quietly left out of it: the archive extracted without
+        complaint but the project inside it could not be calculated because its
+        sub-projects and touchstone files were missing.  Building the archive
+        relative to the common ancestor instead copies the whole referenced tree
+        verbatim, which keeps every relative reference between the archived files
+        valid without having to rewrite any of them.  When all of the files are
+        at or below the project directory the common ancestor *is* the project
+        directory, so the usual archive layout is unchanged.  Files on another
+        drive have no common ancestor and are left out, as before.
+        """
+        common=os.path.abspath(projectDir)
+        drive=os.path.splitdrive(common)[0].lower()
+        for filename in fileList:
+            path=os.path.dirname(os.path.abspath(filename))
+            if os.path.splitdrive(path)[0].lower() != drive:
+                _log.warning('%s: on another drive, cannot be archived',filename)
+                continue
+            try:
+                common=os.path.commonpath([common,path])
+            except ValueError:
+                _log.warning('%s: no common path with the project, cannot be archived',filename)
+        return common.replace('\\','/')
+
+    def ProjectDestination(self,archiveDir,projectFile):
+        """Returns where a project file must be written inside the archive.
+        @param archiveDir string the archive directory.
+        @param projectFile string the project file being archived.
+        @return string the file to write the project to.
+        @remark The project keeps its position relative to the common root, which
+        is what makes the relative references it holds resolve inside the archive.
+        """
+        common=getattr(self,'common',None)
+        if common is None:
+            common=os.path.dirname(os.path.abspath(projectFile))
+        relative=os.path.relpath(os.path.abspath(projectFile),common)
+        return os.path.join(archiveDir,relative).replace('\\','/')
+
+    @staticmethod
+    def _EvaluateEquationsRecordingFiles():
+        """Evaluates the project equations, noting the data files they read.
+        @return list of the absolute names of the data files the equations read.
+        """
+        import SignalIntegrity.App.Project
+        project=SignalIntegrity.App.Project
+        recording=EquationFileRecorder.Start()
+        try:
+            # the equations are only re-evaluated when their definition has
+            # changed, and they were already evaluated when the project was
+            # opened, so a re-evaluation is forced here or nothing would be seen
+            if recording:
+                project.variablesDefinition=None
+                project.equationsDefinition=None
+            error=project.EvaluateEquations()
+            if error is not None:
+                _log.warning('evaluating the equations while archiving: %s',error)
+        finally:
+            files=EquationFileRecorder.Stop() if recording else []
+        for filename in files:
+            _log.debug('%s: read by the equations, archiving it',filename)
+        return [os.path.abspath(filename).replace('\\','/') for filename in files]
+
+    def CopyArchiveFilesToDestination(self,archiveDir,projectFile=None):
+        """Copies every file in the archive dictionary into the archive directory.
+        @param archiveDir string the archive directory to build.
+        @param projectFile string (optional) the project being archived, used to
+        locate the common root; the current directory is used when it is omitted.
+        @return self
+        """
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         if not self.Archivable():
@@ -215,21 +385,24 @@ class Archive(list):
         try:
             # archive dictionary exists.  copy all of the files in the archive to a directory underneath the project with the name postpended with '_Archive'
             self.srcList=[element['file'].replace('\\','/') for element in self]
-            self.common=currentPath
+            projectDir=os.path.dirname(os.path.abspath(projectFile)) if projectFile else currentPath
+            self.common=Archive._CommonRoot(projectDir,self.srcList)
+            _log.debug('archive root is %s',self.common)
             try:
-                shutil.rmtree(archiveDir)
+                Archive._RemoveTree(archiveDir)
             except FileNotFoundError:
                 pass
             self.destList = []
             for filename in self.srcList:
                 try:
-                    destfile=(archiveDir+'/'+os.path.relpath(filename, self.common)).replace('\\','/')
-                    if '../' in destfile:
+                    relative=os.path.relpath(filename, self.common)
+                    destfile=(archiveDir+'/'+relative).replace('\\','/')
+                    if '../' in destfile.replace('\\','/'):
                         raise ValueError('file is above archive')
                     self.destList.append(destfile)
                 except ValueError: # a relative path could not be established - don't copy it to the archive
                     self.destList.append(filename)
-                    _log.debug('%s: no relative path',filename)
+                    _log.warning('%s: no relative path to the archive root, not archived',filename)
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 element['orig']=srcfile
@@ -329,72 +502,232 @@ class Archive(list):
 
     @staticmethod
     def ZipArchive(archiveName,archiveDir,removeDir=True):
-        # zip the files
+        """Zips an archive directory into a .siz file.
+        @param archiveName string the name of the archive file to write.
+        @param archiveDir string the archive directory, relative or absolute.
+        @param removeDir bool (optional, defaults to True) whether to remove the
+        archive directory afterwards.
+        @remark The names stored in the zip file are always relative to the
+        *parent* of the archive directory, so that the archive always contains a
+        single 'ProjectName_Archive' folder.  Storing the names as walked would
+        make the content of the zip file depend on the current directory at the
+        time of the archiving (and, for an absolute archive directory, would
+        store the whole path with the drive stripped off), which produces
+        archives that either extract into the wrong place or are empty.
+        """
+        archiveRoot=os.path.abspath(archiveDir)
+        parentDir=os.path.dirname(archiveRoot)
         def zipdir(path, ziph):
             # ziph is zipfile handle
+            written=0
             for root, dirs, files in os.walk(path):
                 for file in files:
-                    ziph.write(os.path.join(root, file))
-        zipf = zipfile.ZipFile(os.path.abspath(os.path.abspath(FileParts(archiveName).FullFilePathExtension('siz'))), 'w', zipfile.ZIP_DEFLATED)
-        zipdir(archiveDir, zipf)
-        zipf.close()
+                    fullPath=os.path.join(root, file)
+                    ziph.write(fullPath,arcname=os.path.relpath(fullPath,parentDir))
+                    written+=1
+            return written
+        zipFileName=os.path.abspath(FileParts(archiveName).FullFilePathExtension('siz'))
+        zipf = zipfile.ZipFile(zipFileName, 'w', zipfile.ZIP_DEFLATED)
+        try:
+            written=zipdir(archiveRoot, zipf)
+        finally:
+            zipf.close()
+        if written == 0:
+            _log.warning('%s: nothing was archived from %s',zipFileName,archiveRoot)
         if removeDir:
-            shutil.rmtree(archiveDir)
+            Archive._RemoveTree(archiveRoot)
+
+    @staticmethod
+    def _ExtractedFileName(destinationDir,entryName):
+        """Returns the file to write for one zip entry, or None to skip it.
+        @param destinationDir string the directory the archive extracts into.
+        @param entryName string the name of the entry in the zip file.
+        @return string the absolute file name, or None if the entry cannot be
+        extracted safely.
+        @remark Entry names are stored with forward slashes.  A name that is
+        absolute, that contains a drive letter, or that climbs above the
+        destination with '..' would write outside of the destination directory,
+        so such entries are skipped rather than extracted.  Archives written by
+        older versions of ZipArchive, which stored the walked path rather than a
+        path relative to the archive directory, can contain such names.
+        """
+        name=entryName.replace('\\','/')
+        parts=[part for part in name.split('/') if part not in ('','.')]
+        if not parts:
+            return None
+        fileName=os.path.abspath(os.path.join(destinationDir,*parts))
+        root=os.path.abspath(destinationDir)
+        if os.path.splitdrive(name)[0] or name.startswith('/') or \
+                (os.path.commonpath([root,fileName]) != root):
+            _log.warning('%s: entry is outside of the archive, skipped',entryName)
+            return None
+        return fileName
+
+    @staticmethod
+    def _MakeWritable(filename):
+        """Grants write permission to an existing file so it can be overwritten.
+        @param filename string the file to make writable.
+        @remark A file copied into an archive keeps the mode of the file it was
+        copied from (CopyArchiveFilesToDestination calls copystat), so a
+        read-only source file yields a read-only file in the archive.  Extracting
+        the archive a second time then fails with a PermissionError on Windows
+        unless the read-only attribute is cleared first.
+        """
+        try:
+            if os.path.exists(filename):
+                os.chmod(filename,os.stat(filename).st_mode|stat.S_IWUSR)
+        except Exception:
+            pass
 
     @staticmethod
     def ExtractArchive(filename):
+        """Extracts a .siz archive next to the archive file.
+        @param filename string the archive (.siz) file to extract.
+        @remark The archive is extracted into the directory containing the
+        archive file, which is where the 'ProjectName_Archive' folder held in the
+        archive lands.  Existing files are overwritten, including read-only ones,
+        so that an archive can be extracted over a previous extraction.
+        """
+        if filename is None:
+            raise SignalIntegrityExceptionArchive('During archive extraction:','no archive file was provided')
         fp=FileParts(filename)
-        projectName=fp.FileNameTitle()
-        archiveDir=projectName+'_Archive'
+        destinationDir=fp.AbsoluteFilePath()
 
-        os.makedirs(archiveDir, exist_ok=True)
+        try:
+            with zipfile.ZipFile(filename) as z:
+                extracted=0
+                for f in z.infolist():
+                    name=Archive._ExtractedFileName(destinationDir,f.filename)
+                    if name is None:
+                        continue
+                    if f.is_dir():
+                        os.makedirs(name, exist_ok=True)
+                        continue
+                    os.makedirs(os.path.dirname(name), exist_ok=True)
+                    Archive._MakeWritable(name)
+                    try:
+                        with open(name, 'wb') as outFile:
+                            outFile.write(z.open(f).read())
+                    except PermissionError as e:
+                        raise SignalIntegrityExceptionArchive(
+                            'During archive extraction:',
+                            name+' could not be written.  It is either read-only or '
+                            'open in another program.\n('+str(e)+')')
+                    extracted+=1
+                    try:
+                        date_time = time.mktime(f.date_time + (0, 0, -1))
+                        os.utime(name, (date_time, date_time))
+                    except (OverflowError,ValueError,OSError) as e:
+                        # a bad or out of range time stamp in the archive must not
+                        # cost us the extracted file
+                        _log.debug('%s: time stamp could not be set: %s',name,e)
+            if extracted == 0:
+                raise SignalIntegrityExceptionArchive('During archive extraction:',
+                                                      filename+' contains no extractable files')
+        except SignalIntegrityExceptionArchive:
+            _log.exception('extracting the archive failed')
+            raise
+        except Exception as e:
+            _log.exception('extracting the archive failed')
+            raise SignalIntegrityExceptionArchive('During archive extraction:',
+                                                  filename+' could not be extracted.\n('+str(e)+')')
 
-        import time
+    @staticmethod
+    def FindProjectInArchive(archiveDir,projectName):
+        """Finds a project file inside an extracted archive.
+        @param archiveDir string the extracted archive directory.
+        @param projectName string the project file name, with or without its
+        extension.
+        @return string the project file, or None if it is not in the archive.
+        @remark The project is at the root of the archive whenever everything it
+        refers to is at or below it, but it sits deeper when it refers to files
+        through '..', because the archive is then built relative to the common
+        ancestor so that those references stay valid.  The root is therefore
+        checked first and the rest of the archive only afterwards, which finds
+        the project in either layout and keeps older archives working.
+        """
+        name=FileParts(projectName).FileNameTitle()+'.si'
+        candidate=os.path.join(archiveDir,name)
+        if os.path.exists(candidate):
+            return candidate.replace('\\','/')
+        matches=[]
+        for root,dirs,files in os.walk(archiveDir):
+            if name in files:
+                matches.append(os.path.join(root,name).replace('\\','/'))
+        if len(matches) == 1:
+            return matches[0]
+        if len(matches) > 1:
+            # the shallowest one is the project; a deeper one of the same name is
+            # a sub-project that happens to share the name
+            matches.sort(key=lambda m: len(m.split('/')))
+            _log.warning('%s: found more than once in the archive, using %s',name,matches[0])
+            return matches[0]
+        return None
 
-        z = zipfile.ZipFile(filename)
-
-        for f in z.infolist():
-            name, date_time = f.filename, f.date_time
-            name = os.path.join(fp.AbsoluteFilePath(), name)
-            os.makedirs(os.path.dirname(name), exist_ok=True)
-            with open(name, 'wb') as outFile:
-                outFile.write(z.open(f).read())
-            date_time = time.mktime(date_time + (0, 0, -1))
-            os.utime(name, (date_time, date_time))
+    @staticmethod
+    def ArchiveRoot(ProjectName):
+        """Returns the archive directory a project has been extracted into.
+        @param ProjectName string the project file.
+        @return string the '<Name>_Archive' directory the project is in, or None
+        if the project is not inside one.
+        @remark The project is not necessarily at the root of the archive, so
+        every directory above it is examined rather than just its own parent.
+        """
+        filename=os.path.abspath(ProjectName).replace('\\','/')
+        directory=os.path.dirname(filename)
+        while True:
+            name=os.path.basename(directory)
+            if name.endswith('_Archive'):
+                title=name[:-len('_Archive')]
+                if os.path.exists(os.path.join(os.path.dirname(directory),title+'.siz')):
+                    return directory
+            parent=os.path.dirname(directory)
+            if parent == directory:
+                return None
+            directory=parent
 
     @staticmethod
     def InAnArchive(ProjectName):
-        fp=FileParts(ProjectName)
-        filename=os.path.abspath(ProjectName)
-        splitDir=filename.replace('\\', '/').split('/')
-        currentDirName=splitDir[-2]
-        dirAbove='/'.join(splitDir[:-2])
-        archiveDirName=fp.FileNameTitle()+'_Archive'
-        archiveFileName=fp.FileNameWithExtension('.siz')
-        return (currentDirName == archiveDirName) and (os.path.exists(dirAbove+'/'+archiveFileName))
+        """Whether a project is one that has been extracted from an archive.
+        @param ProjectName string the project file.
+        @return bool True when the project lives inside an extracted archive.
+        """
+        return Archive.ArchiveRoot(ProjectName) is not None
 
     @staticmethod
     def Freshen(ProjectName):
-        fp=FileParts(ProjectName)
-        filename=os.path.abspath(ProjectName)
-        splitDir=filename.replace('\\', '/').split('/')
-        currentDirName=splitDir[-2]
-        dirAbove='/'.join(splitDir[:-2])
-        archiveDirName=fp.FileNameTitle()+'_Archive'
-        archiveFileName=fp.FileNameWithExtension('.siz')
+        """Rewrites the .siz of the archive a project was extracted from.
+        @param ProjectName string a project inside an extracted archive.
+        """
+        archiveRoot=Archive.ArchiveRoot(ProjectName)
+        if archiveRoot is None:
+            raise SignalIntegrityExceptionArchive('During archiving:',
+                                                  ProjectName+' is not inside an extracted archive')
+        dirAbove=os.path.dirname(archiveRoot)
+        archiveDirName=os.path.basename(archiveRoot)
+        archiveFileName=archiveDirName[:-len('_Archive')]+'.siz'
         currentDir=os.getcwd()
-        os.chdir('..')
         try:
-            Archive.ZipArchive(dirAbove+'/'+archiveFileName,archiveDirName,removeDir=False)
+            os.chdir(dirAbove)
+            Archive.ZipArchive(os.path.join(dirAbove,archiveFileName),archiveDirName,removeDir=False)
         finally:
             os.chdir(currentDir)
 
     @staticmethod
     def UnExtractArchive(archiveDir):
-        splitDir=archiveDir.replace('\\', '/').split('/')
+        """Removes an extracted archive directory.
+        @param archiveDir string the extracted archive directory, or a directory
+        inside one.
+        """
+        archiveRoot=archiveDir
+        if not os.path.basename(os.path.abspath(archiveDir)).endswith('_Archive'):
+            found=Archive.ArchiveRoot(os.path.join(archiveDir,'x.si'))
+            if found is not None:
+                archiveRoot=found
+        splitDir=os.path.abspath(archiveRoot).replace('\\', '/').split('/')
         dirAbove='/'.join(splitDir[:-1])
         os.chdir(dirAbove)
-        Archive._RemoveTree(archiveDir)
+        Archive._RemoveTree(archiveRoot)
 
     @staticmethod
     def _MakeRemovable(path):

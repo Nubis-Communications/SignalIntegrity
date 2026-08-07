@@ -371,9 +371,22 @@ class VariableConfiguration(XMLConfiguration):
         if not isinstance(self['Units'],str): return False
         return True
     def Value(self,forDisplay=False,resolveVariable=True):
+        """Returns the value of the variable.
+        @param forDisplay bool (optional, defaults to False) whether the value is
+        formatted for display.
+        @param resolveVariable bool (optional, defaults to True) whether a value
+        that refers to another variable is resolved to that variable's value.
+        @return the value of the variable.
+        @remark An unset variable has a value of None whatever its type -- a
+        'file' variable belonging to a device that is bypassed through its
+        element_state is the common case -- so None is treated as the empty
+        value for every type.  Restricting that to the 'string' type made the
+        len() below raise a TypeError for any other type, which is what made
+        archiving such a project fail.
+        """
         value=self.GetValue('Value')
         type=self.GetValue('Type')
-        if value is None and type == 'string':
+        if value is None:
             value = ''
         if resolveVariable and (len(value)>0) and (value[0]=='='):
             import SignalIntegrity.App.Project
@@ -381,7 +394,7 @@ class VariableConfiguration(XMLConfiguration):
                 value=SignalIntegrity.App.Project['Variables'].VariableByName(value[1:]).Value(forDisplay,False)
         if type=='file':
             value=('/'.join(str(value).split('\\')))
-        if forDisplay and (type=='float'):
+        if forDisplay and (type=='float') and (value != ''):
             value = str(ToSI(float(value),self.GetValue('Units')))
         return value
     def NetListLine(self):
@@ -415,7 +428,8 @@ class VariableConfiguration(XMLConfiguration):
                 result=result+self.GetValue('Name')
             value=self.GetValue('Value')
             type=self.GetValue('Type')
-            if value is None and type == 'string':
+            if value is None:
+                # an unset variable of any type, see Value()
                 value=''
             prefix,suffix='',''
             if (len(value)>0) and (value[0]=='='):
@@ -436,12 +450,14 @@ class VariableConfiguration(XMLConfiguration):
                 result=result+' ('+value+')'
                 return result
             elif type == 'file':
-                value=('/'.join(str(self.GetValue('Value')).split('\\'))).split('/')[-1]
+                value=('/'.join(str(value).split('\\'))).split('/')[-1]
             elif type == 'float':
                 import SignalIntegrity.App.Project
                 try:
-                    value = str(ToSI(float(self.GetValue('Value')),self.GetValue('Units'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
-                except ValueError:
+                    # the guarded local value is used rather than a fresh read of
+                    # the raw one, which is None for an unset variable
+                    value = str(ToSI(float(value),self.GetValue('Units'),round=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']))
+                except (ValueError,TypeError):
                     value = 'Invalid'
             if not value == None:
                 result=result+prefix+value+suffix
@@ -474,13 +490,22 @@ class VariablesConfiguration(XMLConfiguration):
                 result.append(displayString)
         return result
     def Dictionary(self,variableList=None):
+        """Returns the {name:value} dictionary of the variables.
+        @param variableList (optional) the variables to include, defaulting to
+        all of them.
+        @return dict the variable names and their values.
+        @remark An unset 'file' variable has an empty value; os.path.abspath('')
+        returns the current directory, which would turn an unset file name into a
+        directory name that later looks like a real file to the archiver, so the
+        empty value is passed through untouched instead.
+        """
         if variableList == None:
             variableList=self['Items']
         args={}
         for variable in variableList:
             name=variable['Name']
             value=variable.Value()
-            if variable['Type'] == 'file':
+            if (variable['Type'] == 'file') and (value != '') and (value is not None):
                 value=os.path.abspath(value).replace('\\','/')
             args[name]=value
         return args
