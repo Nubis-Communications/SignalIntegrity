@@ -400,6 +400,51 @@ class TestERLTest(unittest.TestCase,
         del nitro_args['T_r']
         with self.assertRaises(si.SignalIntegrityException) as cme:
             ERL(file_name,nitro_args,verbose=True)
+    def testERLPythonScriptBias(self):
+        from SignalIntegrity.Utilities.ERL.ERL import ERL
+        file_name='sparam_res.s4p'
+        file_name=os.path.join(os.path.dirname(__file__),file_name)
+        nitro_args=self.ERL_Nitro_args()
+        nitro_args['T_r'] = FromSI(nitro_args['T_r'],'s')
+        nitro_args['beta_x'] = FromSI(nitro_args['beta_x'],'Hz')
+        nitro_args['rho_x'] = FromSI(nitro_args['rho_x'],None)
+        nitro_args['N'] = FromSI(nitro_args['N'],'UI')
+        nitro_args['N_bx'] = FromSI(nitro_args['N_bx'],'UI')
+        nitro_args['Z0'] = FromSI(nitro_args['Z0'],'ohm')
+        nitro_args['T_fx'] = FromSI(nitro_args['T_fx'],'s')
+        nitro_args['f_b'] = FromSI(nitro_args['f_b'],'Baud')
+        nitro_args['DER_0'] = FromSI(nitro_args['DER_0'],None)
+        nitro_args['phi'] = FromSI(nitro_args['phi'],None)
+        bias = 0.4
+        unbiased = ERL(file_name,nitro_args,verbose=True)
+        nitro_args['bias'] = bias
+        biased = ERL(file_name,nitro_args,verbose=True)
+        # the bias (in dB) is subtracted directly from the final ERL result
+        self.assertAlmostEqual(biased, unbiased-bias, 5, 'ERL bias not applied correctly')
+    def testERLMainBias(self):
+        import sys
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+        self.formERLMain_argv()
+        sys.argv.append('-b')
+        sys.argv.append('0.4')
+        try:
+            ERL_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,0,'ERL_Main did not exit properly') # should succeed
+            return
+        self.fail('ERL should have exited with SystemExit exception raised')
+    def testERLMainBadBias(self):
+        import sys
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+        self.formERLMain_argv()
+        sys.argv.append('-b')
+        sys.argv.append('50UI')
+        try:
+            ERL_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,1,'ERL_Main did not exit properly') # should fail
+            return
+        self.fail('ERL should have exited with SystemExit exception raised')
     def testCOMSincPulse(self):
         import shutil
         project_file = 'COM_SincPulse.si'

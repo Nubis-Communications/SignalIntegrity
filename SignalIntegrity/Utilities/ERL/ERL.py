@@ -47,6 +47,7 @@ def ERL(filename,args,debug=False,verbose=False):
     | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
     | f_r          | --   | no 0.58     | receiver bandwidth as a fraction of the Baud rate                   |
     | tukey_window | --   | no False    | apply a Tukey window to the receiver filter                         |
+    | bias         | dB   | no 0        | bias subtracted from the final ERL result                           |
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
@@ -78,6 +79,7 @@ def ERL(filename,args,debug=False,verbose=False):
     phi = 32 if 'phi' not in args else int(args['phi'])
     f_r = 0.58 if 'f_r' not in args else float(args['f_r'])
     tukey_window = False if 'tukey_window' not in args else str(args['tukey_window']).strip().lower() in ('true','1','yes')
+    bias = 0. if 'bias' not in args else float(args['bias'])
 
     if debug or verbose:
         print(f"filename = {filename}")
@@ -95,6 +97,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"phi = {ToSI(phi,None)}")
         print(f"f_r = {ToSI(f_r,None)}")
         print(f"tukey_window = {str(tukey_window)}")
+        print(f"bias = {ToSI(bias,'dB')}")
         print(f"verbose = {str(verbose)}")
         print(f"debug = {str(debug)}")
 
@@ -289,6 +292,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"DER intercept at: {ToSI(bin_value,'V')}")
 
     ERL = -20.*np.log10(-bin_value)
+    ERL = ERL - bias
 
     if debug: # pragma: no cover
         sigma_estimate = [0.5*math.erf(0.5*np.sqrt(2)*bin_centers[b]/sigma)+0.5 for b in range(len(bin_centers))]
@@ -354,6 +358,8 @@ defaults to 32')
     parser.add_argument('-f_r',type=str, default='0.58',help='receiver bandwidth as a fraction of the Baud rate\n\
 specified unitless (like 0.58), defaults to 0.58.')
     parser.add_argument('-tw','--tukey_window',action='store_true',help='apply a Tukey window to the receiver filter')
+    parser.add_argument('-b','--bias',type=str, default='0',help='bias (in dB) subtracted from the final ERL result,\n\
+specified unitless (like 0.4), defaults to 0.')
 
     args, unknown = parser.parse_known_args()
 
@@ -465,6 +471,13 @@ specified unitless (like 0.58), defaults to 0.58.')
         Error('error: f_r must be specified')
 
     argsDict['tukey_window']=args.tukey_window
+
+    try:
+        argsDict['bias']=FromSI(args.bias,'')
+        if argsDict['bias'] == None:
+            raise(AttributeError)
+    except (AttributeError,TypeError):
+        Error('error: bias must be specified')
 
     runProfiler=args.profile
 

@@ -1,13 +1,13 @@
 <Project>
 	<CalculationProperties>
 		<AllowParallelization>True</AllowParallelization>
-		<EndFrequency>160000000000.0</EndFrequency>
-		<FrequencyPoints>1600</FrequencyPoints>
+		<EndFrequency>80000000000.0</EndFrequency>
+		<FrequencyPoints>8000</FrequencyPoints>
 		<UserSampleRate>3400000000000.0</UserSampleRate>
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1327x407+104+104</Geometry>
+			<Geometry>1327x407+390+390</Geometry>
 			<Grid>14.0</Grid>
 			<Originx>-3</Originx>
 			<Originy>-6</Originy>
@@ -350,6 +350,12 @@
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
+							<Keyword>element_state</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>=bwf_element_state</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
 							<Keyword>ports</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>2</Value>
@@ -594,7 +600,7 @@
 						<PartProperty>
 							<Keyword>element_state</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>=bwf_element_state</Value>
+							<Value>=sinc_element_state</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -1101,7 +1107,7 @@
 				<Line>if tukey_window == 'True':</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>    bwf_element_state='thru_wires'</Line>
+				<Line>    #sinc_element_state='thru_wires'</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>    tukey_element_state='None'</Line>
@@ -1110,7 +1116,7 @@
 				<Line>elif tukey_window == 'False':</Line>
 			</EquationLine>
 			<EquationLine>
-				<Line>    bwf_element_state='None'</Line>
+				<Line>    #sinc_element_state='None'</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line>    tukey_element_state='thru_wires'</Line>
@@ -1120,6 +1126,27 @@
 			</EquationLine>
 			<EquationLine>
 				<Line>    raise ValueError(&quot;tukey_window must be 'True' or 'False'&quot;)</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line></Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>if butterworth == 'True':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    bwf_element_state='None'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>elif butterworth == 'False':</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    bwf_element_state='thru_wires'</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>else:</Line>
+			</EquationLine>
+			<EquationLine>
+				<Line>    raise ValueError(&quot;butterworth must be 'True' or 'False'&quot;)</Line>
 			</EquationLine>
 			<EquationLine>
 				<Line></Line>
@@ -1199,42 +1226,6 @@
 			<EquationLine>
 				<Line>start=-T_b/2.</Line>
 			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
-			<EquationLine>
-				<Line></Line>
-			</EquationLine>
 		</Lines>
 	</Equations>
 	<Variables>
@@ -1245,7 +1236,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>file</Type>
 				<Units>None</Units>
-				<Value>/home/petep/Work/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p</Value>
+				<Value>C:\Users\ppupalai\Projects\ERLCorrelation\CpxChannel.s4p</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1254,7 +1245,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units>None</Units>
-				<Value>1,2,3,4</Value>
+				<Value>1,3,2,4</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1263,7 +1254,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>ohm</Units>
-				<Value>50.0</Value>
+				<Value>46.25</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1281,7 +1272,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>1e-11</Value>
+				<Value>5e-12</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1308,7 +1299,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>Hz</Units>
-				<Value>61625000000.0</Value>
+				<Value>58437500000.00001</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1317,7 +1308,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>False</Value>
+				<Value>True</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>butterworth</Description>
+				<Name>butterworth</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>True</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1326,7 +1326,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>S/s</Units>
-				<Value>320000000000.0</Value>
+				<Value>160000000000.0</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -1344,7 +1344,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>1e-08</Value>
+				<Value>1e-07</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -1353,7 +1353,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>-1.2525e-08</Value>
+				<Value>-5.7525e-08</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
@@ -1362,17 +1362,17 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>float</Type>
 				<Units>s</Units>
-				<Value>2.5059375e-08</Value>
+				<Value>1.1505625e-07</Value>
 				<Visible>False</Visible>
 			</Variable>
 			<Variable>
-				<Description>bwf element state</Description>
-				<Name>bwf_element_state</Name>
+				<Description>sinc element state</Description>
+				<Name>sinc_element_state</Name>
 				<ReadOnly>True</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>error</Value>
-				<Visible>True</Visible>
+				<Value>None</Value>
+				<Visible>False</Visible>
 			</Variable>
 			<Variable>
 				<Description>tukey element state</Description>
@@ -1380,8 +1380,17 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>error</Value>
-				<Visible>True</Visible>
+				<Value>None</Value>
+				<Visible>False</Visible>
+			</Variable>
+			<Variable>
+				<Description>element state</Description>
+				<Name>bwf_element_state</Name>
+				<ReadOnly>True</ReadOnly>
+				<Type>string</Type>
+				<Units>None</Units>
+				<Value>None</Value>
+				<Visible>False</Visible>
 			</Variable>
 		</Items>
 	</Variables>
