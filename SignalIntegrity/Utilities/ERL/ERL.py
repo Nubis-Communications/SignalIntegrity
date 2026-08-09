@@ -195,12 +195,14 @@ def ERL(filename,args,debug=False,verbose=False):
         for k in range(0,worst_phase_wf.td.K):
             if abs(worst_phase_wf[k]) > epsilon:
                 return k
+        return 0
 
     def kmax():
         for k in range(0,worst_phase_wf.td.K):
             index = worst_phase_wf.td.K-1-k
             if abs(worst_phase_wf[index]) > epsilon:
                 return index
+        return 0
 
     kmin=kmin()
     kmax=kmax()
