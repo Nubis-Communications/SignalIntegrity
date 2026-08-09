@@ -101,6 +101,15 @@ class SParameterFile(SParameters):
         self.header=[]
         self.picture=None
         in_picture=False
+        lastReportedProgress=-1
+        baseName=os.path.basename(name)
+        if not callback is None:
+            # push the file name onto the progress dialog's title stack and
+            # report 0 progress before the (potentially slow) file read so the
+            # progress dialog appears immediately
+            if callback(0.,name='+'+baseName) is False:
+                raise SignalIntegrityExceptionSParameterFile(
+                    'reading '+name+' aborted')
         if 'text' in kwargs:
             spfile=kwargs['text']
         else:
@@ -108,11 +117,24 @@ class SParameterFile(SParameters):
                 from SignalIntegrity.Lib.Encryption import Encryption
                 spfile=Encryption().ReadEncryptedLines(name)
             except IOError:
+                # pragma: silent exclude
+                if not callback is None:
+                    # pop the file name back off the progress dialog's title stack
+                    callback(100.,name='-')
+                # pragma: include
                 raise SignalIntegrityExceptionSParameterFile(name+' not found')
         readHeader=True
+        totalLines=len(spfile) if hasattr(spfile,'__len__') else None
         # pragma: include
-        for line in spfile:
+        for lineIndex,line in enumerate(spfile):
             # pragma: silent exclude
+            if not callback is None and not totalLines is None:
+                progress=int((lineIndex+1)*100//totalLines)
+                if progress != lastReportedProgress:
+                    lastReportedProgress=progress
+                    if callback(progress) is False:
+                        raise SignalIntegrityExceptionSParameterFile(
+                            'reading '+name+' aborted')
             if readHeader:
                 stripped = line.lstrip()
                 first = stripped[:1]
@@ -152,6 +174,11 @@ class SParameterFile(SParameters):
                     nums = np.fromstring(line_no_comment, sep=' ')
                     if nums.size:
                         numeric_chunks.append(nums)
+        # pragma: silent exclude
+        if not callback is None:
+            # pop the file name back off the progress dialog's title stack
+            callback(100.,name='-')
+        # pragma: include
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
         numbers = np.concatenate(numeric_chunks)\
