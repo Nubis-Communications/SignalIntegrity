@@ -9,7 +9,7 @@ class SParameterFile(SParameters):
         sp=True
         self.m_f=[]
         numeric_chunks=[]
-        for line in spfile:
+        for lineIndex,line in enumerate(spfile):
             line_no_comment = line.split('!')[0]
             stripped = line_no_comment.lstrip()
             if len(stripped)>0:

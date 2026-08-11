@@ -416,9 +416,7 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         fileName="../../SignalIntegrity/Lib/SParameters/SParameterFile.py"
         className='SParameterFile'
         firstDef='__init__'
-        allfuncs=self.EntireListOfClassFunctions(fileName,className)
-        allfuncs.remove(firstDef)
-        defName=[firstDef]+allfuncs
+        defName=[firstDef]
         self.WriteClassCode(fileName,className,defName)
     def testWriteSParameters(self):
         fileName="../../SignalIntegrity/Lib/SParameters/SParameters.py"

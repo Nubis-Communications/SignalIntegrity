@@ -1,19 +1,21 @@
 var $file_name$ C:/Users/ppupalai/git/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p
-var $port_reordering$ 1,2,3,4
+var $port_reordering$ 1,3,2,4
 var $Z0$ 50.0
 var $f_b$ 106.25e9
 var $T_r$ 10.0e-12
 var $N$ 800.0
 var $phi$ 10
-var $f_r$ 61.625e9
-var $tukey_window$ False
+var $f_r$ 58.4375e9
+var $tukey_window$ True
+var $butterworth$ True
 var $Fs$ 320.0e9
 var $T_b$ 9.41176470588e-12
 var $ImpulseResponseLength$ 10.0e-9
 var $ho$ -12.525e-9
 var $dur$ 25.059375e-9
+var $sinc_element_state$ None
+var $tukey_element_state$ None
 var $bwf_element_state$ None
-var $tukey_element_state$ thru_wires
 device R1 2 R $Z0$
 device R4 1 R $Z0$
 device R5 2 R $Z0$
@@ -24,6 +26,7 @@ device D4 2 file COM_Hr.si f_r $f_r$ EndFrequency 160000000000.0 FrequencyPoints
 device DUT 1 file ERL_S11.si reorder 1 file_name $file_name$ port_reordering $port_reordering$ Zc $Z0$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
 voltagesource VG3 1
 device D8 2 file COM_SincPulse.si f_b $f_b$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
+device D9 2 file COM_Tukey.si f_b $f_b$ f_r $f_r$ EndFrequency 160000000000.0 FrequencyPoints 1600 UserSampleRate 1062500000000.0 ReferenceImpedance 50.0
 connect R1 1 R5 1 D4 2
 voltageoutput V_actual R1 2
 connect R1 2 DUT 1 D2 2
@@ -31,6 +34,7 @@ voltageoutput V_perfect R5 2
 connect R5 2 D2 1 R4 1
 voltageoutput PTDR D2 3
 connect D2 3 O1 1
-connect D8 2 D3 1
+connect D3 1 D9 2
 connect D3 2 D4 1
 connect D8 1 VG3 1
+connect D8 2 D9 1
