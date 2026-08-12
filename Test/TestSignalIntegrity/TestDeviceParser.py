@@ -380,6 +380,38 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'tline',4)
     def testTline4zctd(self):
         self.Tester(self.id(),'tline',4,zc='100',td='100e-12')
+    def testMCB4Default(self):
+        ssnp=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
+        ssnp.AddLines(['device D 4 mcb',
+                       'port 1 D 1',
+                       'port 2 D 2',
+                       'port 3 D 3',
+                       'port 4 D 4'])
+        sp=ssnp.SParameters()
+        self.assertEqual(sp.m_P,4)
+        self.assertTrue(abs(sp[-1][2][0]) < abs(sp[1][2][0]))
+    def testMCB4ExplicitDefaultDelay(self):
+        linesDefault=['device D 4 mcb',
+                      'port 1 D 1',
+                      'port 2 D 2',
+                      'port 3 D 3',
+                      'port 4 D 4']
+        linesExplicit=['device D 4 mcb td 200e-12',
+                       'port 1 D 1',
+                       'port 2 D 2',
+                       'port 3 D 3',
+                       'port 4 D 4']
+        ssnpDefault=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
+        ssnpDefault.AddLines(linesDefault)
+        spDefault=ssnpDefault.SParameters()
+        ssnpExplicit=si.p.SystemSParametersNumericParser(si.fd.EvenlySpacedFrequencyList(10e9,100))
+        ssnpExplicit.AddLines(linesExplicit)
+        spExplicit=ssnpExplicit.SParameters()
+        self.assertTrue(self.SParametersAreEqual(spDefault,spExplicit))
+    def testMCBWrongPorts(self):
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            self.Tester(self.id(),'mcb',2)
+        self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTelegrapher2Default(self):
         self.Tester(self.id(),'telegrapher',2)
     def testTelegrapher2LC(self):
@@ -424,7 +456,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'relay',3,default='2',term='50.')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,57)
+        self.assertEqual(L,58)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,None,[],[1,2,3]))

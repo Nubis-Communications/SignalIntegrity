@@ -2309,6 +2309,22 @@ class PartPictureVariableDeviceUnderTest(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureDeviceUnderTest','PartPictureDeviceUnderTestAcross','PartPictureDeviceUnderTestDownAndUp','PartPictureDeviceUnderTestSide'],ports)
 
+class PartPictureMCB(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureMCBAcross(PartPictureSpecifiedPortsTextAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureMCBDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureVariableMCB(PartPictureVariable):
+    def __init__(self,ports=4):
+        PartPictureVariable.__init__(self,['PartPictureMCB','PartPictureMCBAcross','PartPictureMCBDownAndUp'],ports)
+
 class PartPictureCTLE(PartPictureSpecifiedPortsText):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='CTLE')

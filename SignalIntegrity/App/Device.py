@@ -1054,6 +1054,33 @@ class DeviceTransmissionLineLossy(Device):
                                       PartPropertyLossdBPerHzPers(),
                                       PartPropertyLossdBPerrootHzPers()]+propertiesList,partPicture)
 
+class DeviceMCB(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceMCBNetListLine(partname='mcb',values=[('td',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('MCB'),
+                                      PartPropertyHelp('device:'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyElementState(),
+                                      PartPropertyDelay(200e-12)]+propertiesList,partPicture)
+
+class DeviceMCBNetListLine(DeviceNetListLine):
+    def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
+        DeviceNetListLine.__init__(self,devicename=devicename,partname=partname,showReference=showReference,showports=showports,values=values)
+    def NetListLine(self,device):
+        # left/right ports are derived from the pin geometry of the current (oriented) picture
+        picture=device.partPicture.current
+        pins=[(pin['Number'],pin['ConnectionPoint'][0],pin['ConnectionPoint'][1]) for pin in picture.pinList]
+        xs=[p[1] for p in pins]; ys=[p[2] for p in pins]
+        if max(xs)-min(xs) >= max(ys)-min(ys):
+            side=1; order=2; mid=(max(xs)+min(xs))/2.
+        else:
+            side=2; order=1; mid=(max(ys)+min(ys))/2.
+        lp=[p[0] for p in sorted([p for p in pins if p[side]<mid],key=lambda p:p[order])]
+        rp=[p[0] for p in sorted([p for p in pins if p[side]>=mid],key=lambda p:p[order])]
+        lprpstr=' lp '+str(lp).strip('[] ').replace(' ','')+' rp '+str(rp).strip('[] ').replace(' ','')
+        return DeviceNetListLine.NetListLine(self,device)+lprpstr
+
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='telegrapher',values=[('r',True),('rse',True),('l',True),('g',True),('c',True),('df',True),('scale',True),('sect',True)])
@@ -1916,6 +1943,7 @@ DeviceList=Devices([
                 DeviceDirectionalCoupler([PartPropertyDescription('Four Port Directional Coupler'),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
+                DeviceMCB([PartPropertyDescription('Four Port MCB'),PartPropertyPorts(4)],PartPictureVariableMCB()),
                 DeviceCOMTransmissionLine([PartPropertyDescription('Two Port COM Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLineLossy([PartPropertyDescription('Two Port Lossy Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),

@@ -186,6 +186,8 @@ class DeviceFactory(list):
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('mcb',4,False,{'td':200e-12,'lp':'1,2','rp':'3,4'},True,
+            "MCB(f,float(arg['td']),eval('['+arg['lp']+']'),eval('['+arg['rp']+']'),Z0=float(arg['z0']))"),
         ParserDevice('tlinecom',2,False,{'gamma0':0,'a1':0,'a2':0,'tau':0,'zc':50,
             'd':0,'z0':50},True,
             "TLineTwoPortCOM(f,float(arg['gamma0']),float(arg['a1']),\
@@ -336,6 +338,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.TerminationL import TerminationL
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossless import TLineLossless
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossy import TLineLossy
+        from SignalIntegrity.Lib.SParameters.Devices.MCB import MCB
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortCOM import TLineTwoPortCOM
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
         from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeviceParser

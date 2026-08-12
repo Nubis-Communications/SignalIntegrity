@@ -25,6 +25,7 @@ from .TerminationC import TerminationC
 from .TerminationL import TerminationL
 from .TLineLossless import TLineLossless
 from .TLineLossy import TLineLossy
+from .MCB import MCB
 from .Mutual import Mutual
 from .TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
 from .TLineTwoPortRLGC import TLineTwoPortRLGC

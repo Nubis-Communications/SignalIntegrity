@@ -48,6 +48,7 @@ from .TransresistanceAmplifier import TransresistanceAmplifier,TransresistanceAm
 from .TransconductanceAmplifier import TransconductanceAmplifier,TransconductanceAmplifierTwoPort,TransconductanceAmplifierThreePort,TransconductanceAmplifierFourPort
 from .TLineTwoPort import TLineTwoPort
 from .TLineFourPort import TLineFourPort
+from .MCBFourPort import MCBFourPort
 from .TLineFourPortLossless import TLineFourPortLossless
 from .TLineTwoPortLossless import TLineTwoPortLossless
 from .TLineTwoPortLossy import TLineTwoPortLossy
