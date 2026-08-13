@@ -58,6 +58,9 @@ class Device(object):
             if partProperty['Keyword'] == keyword:
                 return partProperty
         return None
+    def Categories(self):
+        # category value may hold multiple '|' delimited categories
+        return [c.strip() for c in self['cat'].GetValue().split('|') if c.strip()]
     def AddPartProperty(self,PartProperty):
         if self[PartProperty['Keyword']] is None:
             self.propertiesList=self.propertiesList+[PartProperty]
@@ -1035,7 +1038,7 @@ class DeviceTransmissionLine(Device):
 class DeviceCOMTransmissionLine(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='tlinecom',values=[('gamma0',True),('a1',True),('a2',True),('tau',True),('zc',True),('d',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines|COM'),
                                       PartPropertyPartName('TransmissionLineCOM'),
                                       PartPropertyHelp('device:Transmission-Line-COM'),
                                       PartPropertyDefaultReferenceDesignator('T?'),
@@ -1057,9 +1060,9 @@ class DeviceTransmissionLineLossy(Device):
 class DeviceMCB(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceMCBNetListLine(partname='mcb',values=[('td',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines|COM'),
                                       PartPropertyPartName('MCB'),
-                                      PartPropertyHelp('device:'),
+                                      PartPropertyHelp('device:MCB'),
                                       PartPropertyDefaultReferenceDesignator('T?'),
                                       PartPropertyElementState(),
                                       PartPropertyDelay(200e-12)]+propertiesList,partPicture)
@@ -1080,6 +1083,19 @@ class DeviceMCBNetListLine(DeviceNetListLine):
         rp=[p[0] for p in sorted([p for p in pins if p[side]>=mid],key=lambda p:p[order])]
         lprpstr=' lp '+str(lp).strip('[] ').replace(' ','')+' rp '+str(rp).strip('[] ').replace(' ','')
         return DeviceNetListLine.NetListLine(self,device)+lprpstr
+
+class DeviceTransmissionLineEquation(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='tlineequation',values=[('eq',False),('zc',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('TransmissionLineEquation'),
+                                      PartPropertyHelp('device:'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyDescription('Transmission Line Equation'),
+                                      PartPropertyPorts(2),
+                                      PartPropertyLaplaceEquation(''),
+                                      PartPropertyCharacteristicImpedance()],
+                                      PartPictureVariableLaplace())
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1817,7 +1833,7 @@ class DeviceReference(Device):
         netlist=DeviceNetListLine(partname='reference')
         Device.__init__(self,
                         netlist,
-                        [PartPropertyCategory('Inductors'),
+                        [PartPropertyCategory('Inductors|Miscellaneous'),
                          PartPropertyPartName('Reference'),
                          PartPropertyHelp('device:Reference'),
                          PartPropertyDefaultReferenceDesignator('Ref?'),
@@ -1944,6 +1960,7 @@ DeviceList=Devices([
                 DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
                 DeviceMCB([PartPropertyDescription('Four Port MCB'),PartPropertyPorts(4)],PartPictureVariableMCB()),
+                DeviceTransmissionLineEquation(),
                 DeviceCOMTransmissionLine([PartPropertyDescription('Two Port COM Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLineLossy([PartPropertyDescription('Two Port Lossy Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),

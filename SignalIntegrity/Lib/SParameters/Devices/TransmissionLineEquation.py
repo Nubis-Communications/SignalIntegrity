@@ -1,4 +1,4 @@
-"""Laplace"""
+"""TransmissionLineEquation"""
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -19,7 +19,7 @@
 
 from SignalIntegrity.Lib.SParameters.Devices.Equation import Equation
 
-class Laplace(Equation):
-    """Laplace domain equation"""
+class TransmissionLineEquation(Equation):
+    """two-port transmission line defined by an equation."""
     def _Matrix(self,H):
-        return [[1.,0],[2.*H,-1.]]
+        return [[0.,H],[H,0.]]

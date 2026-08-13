@@ -412,6 +412,77 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         with self.assertRaises(si.SignalIntegrityException) as cm:
             self.Tester(self.id(),'mcb',2)
         self.assertEqual(cm.exception.parameter,'DeviceParser')
+    def testMCBZeroReturnLoss(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        mcb=si.sp.dev.MCB(fl)
+        m=mcb[50]
+        for i in range(4):
+            self.assertAlmostEqual(abs(m[i][i]),0.,places=12)
+        # the two pairs (1<->3, 2<->4) are independent and reciprocal
+        self.assertAlmostEqual(abs(m[0][1]),0.,places=12)
+        self.assertAlmostEqual(abs(m[2][0]-m[0][2]),0.,places=12)
+        self.assertTrue(abs(m[2][0])>0.)
+    def testMCBUsesTwoTransmissionLines(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        mcb=si.sp.dev.MCB(fl)
+        self.assertTrue(isinstance(mcb.m_line1,si.sp.dev.TransmissionLineEquation))
+        self.assertTrue(isinstance(mcb.m_line2,si.sp.dev.TransmissionLineEquation))
+    def testTransmissionLineEquationDirect(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        tle=si.sp.dev.TransmissionLineEquation(fl,'cmath.exp(-j*2*pi*f*100e-12)')
+        self.assertTrue(isinstance(tle,si.sp.dev.Equation))
+        m=tle[25]
+        self.assertEqual(abs(m[0][0]),0.)
+        self.assertEqual(abs(m[1][1]),0.)
+        self.assertAlmostEqual(abs(m[0][1]-m[1][0]),0.,places=12)
+        self.assertAlmostEqual(abs(m[1][0]),1.,places=9)
+    def testTransmissionLineEquationIsEager(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        tle=si.sp.dev.TransmissionLineEquation(fl,'cmath.exp(-j*2*pi*f*100e-12)')
+        self.assertFalse(tle.m_d is None)
+        self.assertEqual(len(tle.m_d),len(fl))
+    def testLaplaceIsEquation(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        lp=si.sp.dev.Laplace(fl,'1.0/(1+s/(2*pi*1e9))')
+        self.assertTrue(isinstance(lp,si.sp.dev.Equation))
+        m=lp[0]
+        self.assertEqual(m[0][0],1.)
+        self.assertEqual(m[0][1],0)
+        self.assertEqual(m[1][1],-1.)
+    def testTlineEquationMatched(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        ssnp=si.p.SystemSParametersNumericParser(fl)
+        ssnp.AddLines(['device D 2 tlineequation cmath.exp(-j*2*pi*f*100e-12) zc 50',
+                       'port 1 D 1','port 2 D 2'])
+        sp=ssnp.SParameters()
+        m=sp[25]
+        self.assertAlmostEqual(abs(m[0][0]),0.,places=9)
+        self.assertAlmostEqual(abs(m[1][1]),0.,places=9)
+        self.assertAlmostEqual(abs(m[1][0]),1.,places=6)
+        self.assertAlmostEqual(abs(m[0][1]-m[1][0]),0.,places=9)
+    def testTlineEquationDefaultZcMatched(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        ssnp=si.p.SystemSParametersNumericParser(fl)
+        ssnp.AddLines(['device D 2 tlineequation cmath.exp(-j*2*pi*f*100e-12)',
+                       'port 1 D 1','port 2 D 2'])
+        sp=ssnp.SParameters()
+        self.assertAlmostEqual(abs(sp[25][0][0]),0.,places=9)
+    def testTlineEquationMismatchedReflects(self):
+        fl=si.fd.EvenlySpacedFrequencyList(10e9,100)
+        ssnp=si.p.SystemSParametersNumericParser(fl)
+        ssnp.AddLines(['device D 2 tlineequation cmath.exp(-j*2*pi*f*100e-12) zc 75',
+                       'port 1 D 1','port 2 D 2'])
+        sp=ssnp.SParameters()
+        # quarter-wave (index 25) input impedance Zc**2/Z0=112.5 -> |S11|=0.3846
+        self.assertAlmostEqual(abs(sp[25][0][0]),0.3846,places=3)
+        # half-wave (index 50) is impedance transparent
+        self.assertAlmostEqual(abs(sp[50][0][0]),0.,places=6)
+        # reciprocity preserved through the reference impedance conversion
+        self.assertAlmostEqual(abs(sp[25][0][1]-sp[25][1][0]),0.,places=9)
+    def testTlineEquationWrongPorts(self):
+        with self.assertRaises(si.SignalIntegrityException) as cm:
+            self.Tester(self.id(),'tlineequation',4,default='cmath.exp(-j*2*pi*f*100e-12)')
+        self.assertEqual(cm.exception.parameter,'DeviceParser')
     def testTelegrapher2Default(self):
         self.Tester(self.id(),'telegrapher',2)
     def testTelegrapher2LC(self):
@@ -456,7 +527,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'relay',3,default='2',term='50.')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,58)
+        self.assertEqual(L,59)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,None,[],[1,2,3]))

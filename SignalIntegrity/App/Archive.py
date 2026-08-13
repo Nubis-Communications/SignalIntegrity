@@ -134,7 +134,10 @@ class Archive(list):
                             if variable['Type'] == 'file':
                                 value=os.path.abspath(value)
                             args[name]=value
-                        if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() != '':
+                        # skip only devices that are removed or bypassed in the netlist
+                        # (see NetList.py); any other element state (including None or '')
+                        # keeps the device, so its referenced files must still be archived
+                        if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
                             continue
                         for property in device.propertiesList:
                             if property['Type']=='file':
