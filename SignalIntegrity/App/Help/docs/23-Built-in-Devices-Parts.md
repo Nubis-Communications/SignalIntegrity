@@ -54,6 +54,8 @@ Transmission Line Devices
 
 - [Transmission Line](23-Built-in-Devices-Parts.md#device:Transmission-Line)
 
+- [MCB](23-Built-in-Devices-Parts.md#device:MCB)
+
 - [COM Transmission Line](23-Built-in-Devices-Parts.md#device:Transmission-Line-COM)
 
 - [Lossy Transmission Line](23-Built-in-Devices-Parts.md#device:Transmission-Line-Lossy)
@@ -557,6 +559,27 @@ This is a one- and two-port ideal transmission line with given characteristic im
 The four-port ideal transmission line only transmits the differential mode.
 
 A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).
+
+## MCB {#device:MCB}
+
+<img src="media/MCB.png" alt="MCB" width="178" height="215" />
+
+| Property Name | Type | Keyword | Units | (Default) Value |
+|:---|:---|:---|:---|:---|
+| category |  |  |  | Transmission Lines |
+| default reference | string |  |  | T? |
+| reference | string |  |  |  |
+| time delay | float | td | s | $200\,\mathrm{ps}$ |
+
+This is a four-port MCB transmission line model. It is an idealized differential channel with a specified electrical delay and a frequency-dependent insertion loss, and is perfectly matched (its return loss is idealized to zero at all four ports).
+
+The insertion loss (in dB) applied to the transmission is
+
+$$\mathrm{loss}\left(f\right)=0.0912+0.3102\sqrt{f_{GHz}}+0.008578\,f_{GHz}+0.000759\,f_{GHz}^{2}$$
+
+where $f_{GHz}$ is the frequency in GHz, and the transmission additionally carries the linear phase corresponding to the time delay specified.
+
+Only the time delay is entered directly. The assignment of the four ports into the left pair and the right pair is determined automatically from the placement and orientation of the part on the schematic (the netlist keywords `lp` and `rp` are generated for you), so that the top-left port transmits to the top-right port and the bottom-left port transmits to the bottom-right port.
 
 ## COM Transmission Line {#device:Transmission-Line-COM}
 
@@ -2204,7 +2227,7 @@ See also the [Raised Cosine Risetime Filter](23-Built-in-Devices-Parts.md#device
 
 ## Voltage Statistical Noise Source {#device:Voltage-StatisticaL-Noise-Source}
 
-<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="200" height="176" />
+<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="80" height="153" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="153" height="153" />
 
 | Property Name     | Type   | Keyword | Units | (Default) Value |
 |:------------------|:-------|:--------|:------|:----------------|
@@ -2267,7 +2290,7 @@ A **Save Properties to Global Preferences** button stores the current settings a
 
 ## Voltage Statistical Noise Source (Project) {#device:Voltage-StatisticaL-Noise-Source-Project}
 
-<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" />
+<img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="80" height="153" />
 
 | Property Name     | Type   | Keyword    | Units | (Default) Value |
 |:------------------|:-------|:-----------|:------|:----------------|
@@ -2285,7 +2308,7 @@ This is useful for building a hierarchy in which the noise of a sub-circuit, cha
 
 ## Current Statistical Noise Source {#device:Current-StatisticaL-Noise-Source}
 
-<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="200" height="176" />
+<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="80" height="153" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="153" height="153" />
 
 | Property Name     | Type   | Keyword | Units | (Default) Value |
 |:------------------|:-------|:--------|:------|:----------------|
@@ -2337,7 +2360,7 @@ $$I_{eq} = \frac{\mathrm{rms}^2}{2\,q\,\mathrm{BW}}\mbox{.}$$
 
 ## Current Statistical Noise Source (Project) {#device:Current-StatisticaL-Noise-Source-Project}
 
-<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" />
+<img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="80" height="153" />
 
 | Property Name     | Type   | Keyword    | Units | (Default) Value |
 |:------------------|:-------|:-----------|:------|:----------------|
