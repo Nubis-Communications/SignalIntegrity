@@ -72,7 +72,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName=projName='Short'
         print(simName)
         tdrsim=SignalIntegrityAppHeadless()
-        tdrsim.OpenProjectFile('TDRSimulation.si')
+        tdrsim.OpenProjectFile('TDRSimulation.si',writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -98,7 +98,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName=projName='Open'
         print(simName)
         tdrsim=SignalIntegrityAppHeadless()
-        tdrsim.OpenProjectFile('TDRSimulation.si')
+        tdrsim.OpenProjectFile('TDRSimulation.si',writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -124,7 +124,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         simName=projName='Load'
         print(simName)
         tdrsim=SignalIntegrityAppHeadless()
-        tdrsim.OpenProjectFile('TDRSimulation.si')
+        tdrsim.OpenProjectFile('TDRSimulation.si',writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -151,7 +151,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'1'
         print(simName)
         tdrsim=SignalIntegrityAppHeadless()
-        tdrsim.OpenProjectFile('TDRSimulation.si')
+        tdrsim.OpenProjectFile('TDRSimulation.si',writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -178,7 +178,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         projName=simName+'2'
         print(simName)
         tdrsim=SignalIntegrityAppHeadless()
-        tdrsim.OpenProjectFile('TDRSimulation.si')
+        tdrsim.OpenProjectFile('TDRSimulation.si',writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -212,7 +212,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -224,7 +224,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -236,7 +236,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -248,7 +248,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -260,7 +260,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -272,7 +272,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -285,7 +285,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N
@@ -298,7 +298,7 @@ class TestTDRErrorTermsTest(unittest.TestCase,
         print(simName)
         projName=simName+'.si'
         spProj=SignalIntegrityAppHeadless()
-        spProj.OpenProjectFile(projName)
+        spProj.OpenProjectFile(projName,writable=True)
         Project = SignalIntegrity.App.Project
         Project['CalculationProperties.EndFrequency']=self.fd.Fe
         Project['CalculationProperties.FrequencyPoints']=self.fd.N

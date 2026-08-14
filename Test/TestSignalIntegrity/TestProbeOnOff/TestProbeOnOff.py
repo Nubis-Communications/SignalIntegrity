@@ -103,7 +103,7 @@ class TestProbeOnOffTest(unittest.TestCase,
             return
 
         app = SignalIntegrityAppHeadless()
-        app.OpenProjectFile('ProbeCircuit.si')
+        app.OpenProjectFile('ProbeCircuit.si',writable=True)
 
         def copyConditional(probe, ext, test):
             if os.path.exists('ProbeCircuit_' + probe + '.' + ext):
@@ -141,7 +141,7 @@ class TestProbeOnOffTest(unittest.TestCase,
 
     def testAAAProbe(self):
         app = SignalIntegrityAppHeadless()
-        app.OpenProjectFile('ProbeCircuit.si')
+        app.OpenProjectFile('ProbeCircuit.si',writable=True)
         app.Device('Waveform')['state']['Value'] = 'off'
         app.Device('Eye')['state']['Value'] = 'off'
         app.SaveProject()

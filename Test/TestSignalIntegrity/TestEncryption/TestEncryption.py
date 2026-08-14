@@ -139,6 +139,7 @@ class TestEncryptionTest(unittest.TestCase,
         self.assertEqual(cm.exception.parameter,'SParameterFile')
     def testEncriptedProject(self):
         pysi=self.Preliminary('tlinetest.si')
+        pysi.readOnly=False
         Encryption(pwd='test',ending='$')
         pysi.SaveProjectToFile('tlinetest$.si')
         self.SParameterResultsChecker('tlinetest$.si')
@@ -149,9 +150,10 @@ class TestEncryptionTest(unittest.TestCase,
         internalFile=pysi.Device('D1')['file']['Value']
         self.assertEqual(internalFile, 'TLineModelDiffModeOnly.si', 'internal device incorrect for test')
         pysi.Device('D1')['file']['Value']='TLineModelDiffModeOnly$.si'
+        pysi.readOnly=False
         pysi.SaveProjectToFile('tlinetest2$.si')
         pysi=SignalIntegrityAppHeadless()
-        pysi.OpenProjectFile(internalFile)
+        pysi.OpenProjectFile(internalFile,writable=True)
         pysi.SaveProjectToFile('TLineModelDiffModeOnly$.si')
         self.SParameterResultsChecker('tlinetest2$.si')
 
