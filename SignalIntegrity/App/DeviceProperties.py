@@ -32,6 +32,61 @@ from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 import SignalIntegrity.App.Project
 
+def LaunchProjectFile(device,filename):
+    """opens a sub-project in another instance of the app, passing the device variables in"""
+    def fileTreatment(value,typeString):
+        if typeString == 'file':
+            try:
+                value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
+            except ValueError: # occurs when drive name is different
+                value=value.replace('\\','/')
+            if ' ' in value:
+                value='"'+value+'"'
+        return value
+
+    kwPairs=' '.join([v['Name']+' '+fileTreatment(v.Value(False,True),v['Type']) for v in device.variablesList])
+
+    try:
+        useCalculationProperties=(device['calcprop']['Value'] == 'true')
+    except TypeError:
+        useCalculationProperties=False
+    if useCalculationProperties:
+        kwPairs+=SignalIntegrity.App.Project['CalculationProperties'].KeywordPairs()
+    from SignalIntegrity.Lib.Encryption import Encryption
+    pwdArgString = '' if Encryption.password == None else ' --pwd "'+Encryption.password+'" '
+    return os.system('SignalIntegrity "'+os.path.abspath(filename)+'"'+pwdArgString+' --external '+kwPairs)
+
+def ViewableFileNameOfDevice(device):
+    """the s-parameter or sub-project file that can be viewed for this device, or None"""
+    try:
+        propertiesList=device.propertiesList
+    except AttributeError:
+        return None
+    for partProperty in propertiesList:
+        if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'filename'):
+            filename=partProperty.GetValue()
+            if filename in [None,'']:
+                return None
+            return filename
+    return None
+
+def ViewDeviceFile(app,device):
+    """views the device's s-parameter file or sub-project, the way the properties dialog view button does"""
+    filename=ViewableFileNameOfDevice(device)
+    if filename is None:
+        return
+    if FileParts(filename).fileext == '.si':
+        if LaunchProjectFile(device,filename) != 0:
+            messagebox.showerror('ProjectFile','could not be opened')
+        return
+    import SignalIntegrity.Lib as si
+    try:
+        sp=si.sp.SParameterFile(filename)
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+        return
+    SParametersDialog(app,sp,filename)
+
 class DeviceProperty(tk.Frame):
     def __init__(self,parentFrame,parent,partProperty):
         tk.Frame.__init__(self,parentFrame)
@@ -139,28 +194,7 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if FileParts(filename).fileext == '.si':
-                def fileTreatment(value,typeString):
-                    if typeString == 'file':
-                        try:
-                            value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
-                        except ValueError: # occurs when drive name is different
-                            value=value.replace('\\','/')
-                        if ' ' in value:
-                            value='"'+value+'"'
-                    return value
-
-                kwPairs=' '.join([v['Name']+' '+fileTreatment(v.Value(False,True),v['Type']) for v in self.device.variablesList])
-
-                try:
-                    useCalculationProperties=(self.device['calcprop']['Value'] == 'true')
-                except TypeError:
-                    useCalculationProperties=False
-                if useCalculationProperties:
-                    kwPairs+=SignalIntegrity.App.Project['CalculationProperties'].KeywordPairs()
-                from SignalIntegrity.Lib.Encryption import Encryption
-                pwdArgString = '' if Encryption.password == None else ' --pwd "'+Encryption.password+'" '
-                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'"'+pwdArgString+' --external '+kwPairs)
-                if result != 0:
+                if LaunchProjectFile(self.device,filename) != 0:
                     messagebox.showerror('ProjectFile','could not be opened')
                     return
             elif self.partProperty['PropertyName'] == 'filename':

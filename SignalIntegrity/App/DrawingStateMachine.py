@@ -544,6 +544,9 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.parent.deviceTearOffMenu=tk.Menu(self.parent, tearoff=0)
             self.parent.deviceTearOffMenu.add_command(label="Edit Properties",command=self.parent.EditSelectedDevice)
+            from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice
+            if not ViewableFileNameOfDevice(self.parent.deviceSelected) is None:
+                self.parent.deviceTearOffMenu.add_command(label="View",command=self.parent.ViewSelectedDeviceFile)
             if not self.parent.deviceSelected.configuration is None:
                 if isinstance(self.parent.deviceSelected.configuration,list):
                     for config in self.parent.deviceSelected.configuration:
