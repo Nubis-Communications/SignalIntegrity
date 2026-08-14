@@ -40,6 +40,7 @@ The standard preferences are:
 | retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Bool | True |
 | open last file on start | [ProjectFiles.OpenLastFile](29-Preferences.md#sub:OpenLastFile) | Bool | True |
 | ask to save current file | [ProjectFiles.AskToSaveCurrentFile](29-Preferences.md#sub:AskToSaveCurrentFile) | Bool | True |
+| open projects read-only | [Features.OpenProjectsReadOnly](29-Preferences.md#sub:OpenProjectsReadOnly) | Bool | True |
 | prefer saving waveforms in LeCroy format | [ProjectFiles.PreferSaveWaveformsLeCroyFormat](29-Preferences.md#sub:PreferSaveWaveformsLeCroyFormat) | Bool | False |
 | cache results | [Cache.CacheResults](29-Preferences.md#sub:Cache.CacheResults) | Bool | True |
 | cache files per project | [Cache.CacheFilesPerProject](29-Preferences.md#sub:Cache.CacheFilesPerProject) | Int | 1 |
@@ -65,6 +66,16 @@ The font size preference controls the fonts everywhere from within the applicati
 Unfortunately, changing the font generally does not take effect until the application is closed and restarted.
 
 Font sizes are not altered in any tikz or pgf plots outputs, which are geared to take the font of an enclosing document.
+
+<div id="sub:OpenProjectsReadOnly"></div>
+
+## Features.OpenProjectsReadOnly {#features.openprojectsreadonly .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| open projects read-only | [Features.OpenProjectsReadOnly](29-Preferences.md#sub:OpenProjectsReadOnly) | Bool | True |
+
+When enabled, projects open read-only unless an explicit command-line option or a writable request from a calling application overrides that default. A project with `ProjectProperties.ReadOnly` set to `True` also opens read-only when no explicit writable request is supplied. See [Read-Only Schematics](15-Main-Schematic-Dialog.md#sub:Read-Only-Schematics) for the available commands and restrictions.
 
 <div id="sub:Appearance.InitialGrid"></div>
 

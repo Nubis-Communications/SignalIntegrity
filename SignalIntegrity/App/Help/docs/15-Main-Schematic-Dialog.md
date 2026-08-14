@@ -40,6 +40,8 @@ The File tasks are:
 
 - [Save Project As…](15-Main-Schematic-Dialog.md#Control-Help:Save-As-Project)
 
+- [Read-Only Schematics](15-Main-Schematic-Dialog.md#sub:Read-Only-Schematics)
+
 - [Clear Schematic](15-Main-Schematic-Dialog.md#Control-Help:Clear-Schematic)
 
 - [Export Netlist](15-Main-Schematic-Dialog.md#Control-Help:Export-Netlist)
@@ -107,6 +109,36 @@ A request to open a project brings up a file dialog so you can choose the file y
 It only accepts files with the .xml extension and the file must have been previously generated with ***SignalIntegrityApp***.
 
 It clears the current project, but this can be undone using [Undo](15-Main-Schematic-Dialog.md#Control-Help:Undo).
+
+### Read-Only Schematics {#sub:Read-Only-Schematics}
+
+A schematic can be opened read-only to inspect, calculate, simulate, export, or archive it without changing the project. The window title includes `(Read Only)` while this mode is active.
+
+Read-only is selected in one of three ways:
+
+- The default is controlled by the [Features.OpenProjectsReadOnly](29-Preferences.md#sub:OpenProjectsReadOnly) preference.
+- A project can set `ProjectProperties.ReadOnly` to `True` in its project data.
+- When starting the application from the command line, `--readonly` forces read-only mode and `--writable` forces writable mode. An explicit command-line choice overrides the project setting and the preference.
+
+While read-only, Save, Save As, Undo, Redo, schematic clearing, adding, deleting, moving, duplicating, rotating, converting, wiring, panning, zooming, and editing part, calculation-property, variable, equation, post-processing, or picture data are disabled. Calculations, simulations, exports, archives, and viewers remain available.
+
+For a file device that refers to an s-parameter file or another project, right-clicking the device selects it and presents a View menu. Control-right-click opens View immediately. Opening a referenced project passes its configured arguments to that project; when the referenced project closes, its device is unselected in the parent read-only schematic.
+
+Use [Make Writable](15-Main-Schematic-Dialog.md#Control-Help:Make-Writable) from the File menu or toolbar to resume editing. The dialog offers two choices:
+
+- **Keep Arguments Passed In** keeps the current schematic, including values supplied when it was opened.
+- **Restore Schematic to Default** reopens the project without those supplied values before enabling editing.
+
+### Make Writable {#Control-Help:Make-Writable}
+
+| *Dialog* | [Main Schematic Dialog](15-Main-Schematic-Dialog.md#sec:Main-Schematic-Dialog) |
+|:--:|:--:|
+| *Menu System* | [File](15-Main-Schematic-Dialog.md#sub:File) Make Writable |
+| *Key Binding* | None |
+| *Toolbar* | <img src="media/edit-3.png" alt="edit-3" width="16" height="16" /> |
+| *Availability* | When a read-only project is open |
+
+This command changes the current read-only project to writable after choosing whether to retain values supplied at opening or restore the project's defaults.
 
 ### Save Project {#Control-Help:Save-Project}
 
