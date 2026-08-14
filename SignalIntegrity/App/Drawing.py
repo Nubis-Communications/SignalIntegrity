@@ -24,6 +24,7 @@ import copy
 
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
+from SignalIntegrity.App.DrawingStateMachineReadOnly import DrawingStateMachineReadOnly
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.Wire import Wire
@@ -37,24 +38,40 @@ class Drawing(tk.Frame):
         self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
+        self.BuildTearOffMenus()
+        self.stateMachine = None
+        self.InstallStateMachine()
+    def BuildTearOffMenus(self):
         self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
+        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
+        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
+        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
+        if self.parent.ReadOnly():
+            return
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
         self.deviceTearOffMenu.add_command(label='Convert',command=self.ConvertSelectedDevice)
-        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
         self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
         self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
         self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
         self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
-        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
         self.multipleSelectionsTearOffMenu.add_command(label="Cut Selected",command=self.CutMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Delete Selected",command=self.DeleteMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Duplicate Selected",command=self.DuplicateMultipleSelections)
-        self.stateMachine = DrawingStateMachine(self)
+    def InstallStateMachine(self):
+        """builds the state machine matching the current read-only mode, preserving the state"""
+        state=None if self.stateMachine is None else self.stateMachine.state
+        self.BuildTearOffMenus()
+        if self.parent.ReadOnly():
+            self.stateMachine = DrawingStateMachineReadOnly(self)
+        else:
+            self.stateMachine = DrawingStateMachine(self)
+        if state is not None:
+            self.stateMachine.state=state
+            self.stateMachine.ForceIntializeState()
     def NearestGridCoordinate(self,x,y):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         grid=drawingPropertiesProject['Grid']
@@ -152,6 +169,7 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         canGenerateTransferMatrices = (canSimulate and foundASource and foundAnOutput) or canVirtualProbe
+        writable = not self.parent.ReadOnly()
         self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
         self.parent.TransferParametersDoer.Activate(canGenerateTransferMatrices)
         self.parent.CalculateDoer.Activate(canCalculate)
@@ -162,15 +180,17 @@ class Drawing(tk.Frame):
         self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
         self.parent.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
         self.parent.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
-        self.parent.ClearProjectDoer.Activate(foundSomething)
+        self.parent.ClearProjectDoer.Activate(foundSomething and writable)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)
         self.parent.ExportPngDoer.Activate(foundSomething)
-        self.parent.PanDoer.Activate(foundSomething)
-        self.parent.ZoomInDoer.Activate(foundSomething)
-        self.parent.ZoomOutDoer.Activate(foundSomething)
+        self.parent.PanDoer.Activate(foundSomething and writable)
+        self.parent.ZoomInDoer.Activate(foundSomething and writable)
+        self.parent.ZoomOutDoer.Activate(foundSomething and writable)
         return canvas
     def EditSelectedDevice(self):
+        if self.parent.ReadOnly():
+            return
         if self.stateMachine.state=='DeviceSelected':
             dpe=DevicePropertiesDialog(self.parent,self.deviceSelected)
             if dpe.result != None:
@@ -329,4 +349,5 @@ class Drawing(tk.Frame):
         self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
         self.schematic = Schematic()
         self.schematic.InitFromProject()
-        self.stateMachine = DrawingStateMachine(self)
+        self.stateMachine = None
+        self.InstallStateMachine()

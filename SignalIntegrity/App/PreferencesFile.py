@@ -136,6 +136,7 @@ class Features(XMLConfiguration):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
         self.Add(XMLPropertyDefaultBool('StatisticalNoise',False))
+        self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',True))
 
 class StatisticalNoise(XMLConfiguration):
     def __init__(self):

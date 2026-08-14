@@ -569,9 +569,20 @@ class PictureConfiguration(XMLConfiguration):
         else:
             return []
 
+class ProjectPropertiesConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'ProjectProperties')
+        self.Add(XMLPropertyDefaultBool('ReadOnly',False))
+    def OutputXML(self,indent):
+        # written only when read-only, so ordinary projects stay identical to files written before this existed
+        if not self.dict['ReadOnly'].value:
+            return []
+        return XMLConfiguration.OutputXML(self,indent)
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
+        self.SubDir(ProjectPropertiesConfiguration())
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())

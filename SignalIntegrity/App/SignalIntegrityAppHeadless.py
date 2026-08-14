@@ -144,6 +144,10 @@ class SignalIntegrityAppHeadless(object):
         SignalIntegrity.App.Preferences=Preferences()
         SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
+        self.readOnly=False
+
+    def ReadOnly(self):
+        return self.readOnly
 
     def NullCommand(self):
         pass
@@ -161,7 +165,7 @@ class SignalIntegrityAppHeadless(object):
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,args={}):
+    def OpenProjectFile(self,filename,args={},writable=False):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -169,6 +173,7 @@ class SignalIntegrityAppHeadless(object):
         filename=str(filename)
         if filename=='':
             return False
+        self.readOnly=not writable
         try:
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
@@ -178,7 +183,9 @@ class SignalIntegrityAppHeadless(object):
             self.Drawing.InitFromProject()
         except:
             return False
-        self.Drawing.schematic.Consolidate()
+        if writable:
+            # consolidation exists to clean up edits, so it is skipped when read-only
+            self.Drawing.schematic.Consolidate()
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
@@ -198,6 +205,8 @@ class SignalIntegrityAppHeadless(object):
             return None
 
     def SaveProjectToFile(self,filename):
+        if self.readOnly:
+            return
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
