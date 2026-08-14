@@ -54,3 +54,23 @@ So, for this example, We can see that there are input variables L, D, and ur, al
 
 Here, we see that the script assumes that the variables L, D, and ur are defined prior to the script running. All the script does is produce the intermediate value A, along with the two variables H and R. When this script exits, the output variables H and R are updated, and any references to these values in the schematics are used.
 
+## Referencing External Files in Equations {#sub:ArchiveFile}
+
+Because an equations script is Python, it can open and read external files. For example, a script might read a `.csv` file that defines a set of channels:
+
+```python
+import csv
+rows = list(csv.DictReader(open('ChannelDefinition.csv')))
+```
+
+A path like this is relative to the location of the project file. However, because the file is opened from inside the script, it is *not* one of the file references that [Archive Project](15-Main-Schematic-Dialog.md#Control-Help:Archive) can discover automatically. As a result it would be left out of an archive, and the extracted project would fail when its equations run.
+
+To make a file that is used by the equations part of the archive, wrap its path in the `ArchiveFile()` function:
+
+```python
+import csv
+rows = list(csv.DictReader(open(ArchiveFile('ChannelDefinition.csv'))))
+```
+
+`ArchiveFile(path)` returns `path` unchanged, so it can be wrapped directly around a call to `open()`, or called on its own line (for example `ArchiveFile(filename)`). During a normal calculation it simply returns its argument and does nothing else. During [Archive Project](15-Main-Schematic-Dialog.md#Control-Help:Archive) it additionally records the file, resolved relative to the project file, so that the file is copied into the archive alongside the project. The argument may be any Python expression, so computed paths are supported.
+

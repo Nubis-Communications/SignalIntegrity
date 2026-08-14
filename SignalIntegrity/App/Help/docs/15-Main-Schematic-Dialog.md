@@ -208,6 +208,8 @@ In the future, a .png or some other rasterized graphics version should be create
 
 Archiving a project takes the project file and all files referenced by it, either directly or indirectly and creates a zipped file containing all of these files. Furthermore, all of the project files that are moved to the archive will have their file references modified so that when the archive is extracted, the file references point to the correct location in the extracted archive.
 
+Files that are referenced only from within a schematic's [Equations](26-Equations.md#sec:Equations) script (for example, a `.csv` file opened by the script) are not discovered automatically. To include such a file in the archive, wrap its path with the `ArchiveFile()` function in the equations — see [Referencing External Files in Equations](26-Equations.md#sub:ArchiveFile).
+
 An example is shown below that highlights how this works. First, let’s examine the directory structure prior to archiving. Here, the project to archive is called Project.si and it is located in the DirBBB directory. Project.si references two files: the project file bbb.si in the DirDDD directory below and aaa.trc located in the DirCCC directory. The project file bbb.si further references the file ccc.s2p located in the DirBBB directory above.
 
 <div class="center">
