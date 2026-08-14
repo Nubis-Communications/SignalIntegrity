@@ -31,6 +31,7 @@ class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
         self.NoProject()
+        self.parent.canvas.bind('<Control-Button-3>',self.onControlMouseButton3TryToViewSomething)
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -109,6 +110,16 @@ class DrawingStateMachine(object):
                     break
         return selectedSomething
 
+    def SelectedThingIsAtButton2Coordinate(self):
+        for device in self.parent.schematic.deviceList:
+            if device.selected and device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
+                return True
+        for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
+            for vertexProject in wireProject['Vertices']:
+                if vertexProject['Selected'] and vertexProject.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.2):
+                    return True
+        return False
+
     def onMouseButton1TryToSelectSomething(self,event):
         self.parent.lift()
         self.Nothing()
@@ -123,6 +134,22 @@ class DrawingStateMachine(object):
         self.SaveButton2Coordinates(event)
         self.SelectSomethingAtButton1Coordinate()
         self.DispatchBasedOnSelections()
+
+    def onControlMouseButton3TryToViewSomething(self,event):
+        if not self.Locked():
+            self.parent.lift()
+            self.Nothing()
+            self.SaveButton1Coordinates(event)
+            from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice,ViewDeviceFile
+            for device in self.parent.schematic.deviceList:
+                if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                    if not ViewableFileNameOfDevice(device) is None:
+                        device.selected=True
+                        self.DispatchBasedOnSelections()
+                        self.parent.update_idletasks()
+                        ViewDeviceFile(self.parent.parent,device)
+                    break
+            self.Unlock()
     def onMouseButton1TryToToggleSomething(self,event):
         self.SaveButton1Coordinates(event)
         toggledSomething=False
@@ -227,7 +254,6 @@ class DrawingStateMachine(object):
             self.parent.parent.FreshenArchiveDoer.Activate(False)
             self.parent.parent.UnExtractArchiveDoer.Activate(False)
             self.parent.parent.MakeWritableDoer.Activate(False)
-            self.parent.parent.OpenDefaultAndMakeWritableDoer.Activate(False)
             self.parent.parent.MakeReadOnlyDoer.Activate(False)
             self.parent.parent.UndoDoer.Activate(False)
             self.parent.parent.RedoDoer.Activate(False)
@@ -357,7 +383,6 @@ class DrawingStateMachine(object):
             self.parent.parent.FreshenArchiveDoer.Activate(inAnArchive)
             self.parent.parent.UnExtractArchiveDoer.Activate(inAnArchive)
             self.parent.parent.MakeWritableDoer.Activate(False)
-            self.parent.parent.OpenDefaultAndMakeWritableDoer.Activate(False)
             self.parent.parent.MakeReadOnlyDoer.Activate(not self.parent.parent.ProjectChanged())
             #self.parent.parent.UndoDoer.Activate(False)
             #self.parent.parent.RedoDoer.Activate(False)
@@ -525,6 +550,7 @@ class DrawingStateMachine(object):
             self.SaveButton2Coordinates(event)
             if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
                 self.Nothing()
+                self.onMouseButton3TryToSelectSomething(event)
             self.Unlock()
     def onMouseButton1Motion_DeviceSelected(self,event):
         if not self.Locked():
@@ -655,7 +681,10 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_WireSelected(self,event):
         pass
     def onMouseButton3_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.Nothing()
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_WireSelected(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -1119,7 +1148,10 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_Selecting(self,event):
         pass
     def onMouseButton3_Selecting(self,event):
-        pass
+        if not self.Locked():
+            self.Nothing()
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_Selecting(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -1272,7 +1304,12 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton3_MultipleSelections(self,event):
         if not self.Locked():
-            self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+            self.SaveButton2Coordinates(event)
+            if self.SelectedThingIsAtButton2Coordinate():
+                self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+            else:
+                self.Nothing()
+                self.onMouseButton3TryToSelectSomething(event)
             self.Unlock()
     def onMouseButton1Motion_MultipleSelections(self,event):
         if not self.Locked():

@@ -121,8 +121,7 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchiveDoer = Doer(self.onExtractArchive).AddHelpElement('Control-Help:Extract-Archive').AddToolTip('Extract archived project')
         self.FreshenArchiveDoer = Doer(self.onFreshenArchive).AddHelpElement('Control-Help:Freshen-Archive').AddToolTip('Freshen archived project')
         self.UnExtractArchiveDoer = Doer(self.onUnExtractArchive).AddHelpElement('Control-Help:Unextract-Archive').AddToolTip('Unextract archived project')
-        self.MakeWritableDoer = Doer(self.onMakeWritable).AddHelpElement('Control-Help:Make-Writable').AddToolTip('Make the read-only schematic writable, keeping the values passed in')
-        self.OpenDefaultAndMakeWritableDoer = Doer(self.onOpenDefaultAndMakeWritable).AddHelpElement('Control-Help:Open-Default-And-Make-Writable').AddToolTip('Reopen the schematic with its default values and make it writable')
+        self.MakeWritableDoer = Doer(self.onMakeWritable).AddHelpElement('Control-Help:Make-Writable').AddToolTip('Make the read-only schematic writable')
         self.MakeReadOnlyDoer = Doer(self.onMakeReadOnly).AddHelpElement('Control-Help:Make-Read-Only').AddToolTip('Make the schematic read-only')
         # ------
         self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('Control-Help:Undo').AddToolTip('Undo last edit')
@@ -205,7 +204,6 @@ class SignalIntegrityApp(tk.Frame):
         self.SaveAsProjectDoer.AddMenuElement(self.FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
         self.FileMenu.add_separator()
         self.MakeWritableDoer.AddMenuElement(self.FileMenu,label='Make Writable',underline=5)
-        self.OpenDefaultAndMakeWritableDoer.AddMenuElement(self.FileMenu,label='Open Default and Make Writable',underline=0)
         self.MakeReadOnlyDoer.AddMenuElement(self.FileMenu,label='Make Read Only',underline=5)
         self.FileMenu.add_separator()
         self.ClearProjectDoer.AddMenuElement(self.FileMenu,label="Clear Schematic",underline=1)
@@ -304,7 +302,6 @@ class SignalIntegrityApp(tk.Frame):
         self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.MakeWritableDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
-        self.OpenDefaultAndMakeWritableDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.MakeReadOnlyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'eye.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-add-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
@@ -442,6 +439,10 @@ class SignalIntegrityApp(tk.Frame):
                 self.root.attributes('-topmost',True)
             elif thisOS == 'Windows':
                 self.root.bind('<Unmap>', self.onMinimize)
+                self.root.attributes('-topmost',True)
+                self.root.lift()
+                self.root.focus_force()
+                self.root.after(100,lambda: self.root.attributes('-topmost',False))
 
         if runMainLoop:
             self.root.mainloop()
@@ -558,7 +559,11 @@ class SignalIntegrityApp(tk.Frame):
     def onMakeWritable(self):
         if not self.readOnly:
             return
-        if not messagebox.askokcancel('Make Writable','Make this schematic writable?\nThe values it was opened with are kept.'):
+        choice=self.MakeWritableChoice()
+        if choice is None:
+            return
+        if choice == 'default':
+            self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),args={},readOnly=False)
             return
         self.readOnly=False
         self.Drawing.InstallStateMachine()
@@ -567,19 +572,36 @@ class SignalIntegrityApp(tk.Frame):
         self.history.Event('make writable')
         self.statusbar.set('Schematic is now writable')
 
+    def MakeWritableChoice(self):
+        dialog=tk.Toplevel(self.root)
+        dialog.title('Make Writable')
+        dialog.transient(self.root)
+        dialog.resizable(False,False)
+        choice=[None]
+        message=tk.Frame(dialog)
+        message.pack(padx=15,pady=(15,8))
+        dialog.questionIcon=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+
+                           '16x16/actions/dialog-question.png')
+        tk.Label(message,image=dialog.questionIcon).pack(side=tk.LEFT,padx=(0,10))
+        tk.Label(message,text='Choose the schematic to edit:').pack(side=tk.LEFT)
+        buttons=tk.Frame(dialog)
+        buttons.pack(padx=15,pady=(0,15))
+        def select(value):
+            choice[0]=value
+            dialog.destroy()
+        tk.Button(buttons,text='Keep Arguments Passed In',command=lambda: select('keep')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Restore Schematic to Default',command=lambda: select('default')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Cancel',command=dialog.destroy).pack(side=tk.LEFT,padx=3)
+        dialog.protocol('WM_DELETE_WINDOW',dialog.destroy)
+        dialog.grab_set()
+        dialog.wait_window()
+        return choice[0]
+
     def onMakeReadOnly(self):
         if self.readOnly or self.ProjectChanged():
             return
         self.SetReadOnly(True)
         self.statusbar.set('Schematic is now read only')
-
-    def onOpenDefaultAndMakeWritable(self):
-        if not self.readOnly:
-            return
-        if not messagebox.askokcancel('Open Default and Make Writable',
-                                      'Reopen this schematic with its default values and make it writable?\nThe values it was opened with are discarded.'):
-            return
-        self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),args={},readOnly=False)
 
     def OpenProjectFile(self,filename,showError=True,args={},readOnly=None):
         if filename is None:
@@ -1468,7 +1490,7 @@ class SignalIntegrityApp(tk.Frame):
         if not SignalIntegrity.App.Project.CheckFileChanged(filename):
             return True
 
-        doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
+        doit = messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
 
         if doit is None:
             return False

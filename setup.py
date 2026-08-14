@@ -82,6 +82,7 @@ setup(
                   pathToMoreIcons+'/edit-undo-3.gif',
                   pathToMoreIcons+'/edit-redo-3.gif',
                   pathToMoreIcons+'/dialog-information-4.gif',
+                  pathToMoreIcons+'/dialog-question.png',
                   pathToMoreIcons+'/sp-view.gif',
                   pathToMoreIcons+'/eye.gif',
                   pathToMoreIcons+'/down.gif',

@@ -22,6 +22,7 @@ import tkinter as tk
 
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
+from SignalIntegrity.App.Files import FileParts
 
 class DrawingStateMachineReadOnly(DrawingStateMachine):
     """state machine for a project opened read-only.
@@ -84,8 +85,6 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
         app.EscapeDoer.Activate(False)
         app.MakeWritableDoer.Activate(True)
         app.MakeReadOnlyDoer.Activate(False)
-        # reopening the default only differs from making writable if the args changed something
-        app.OpenDefaultAndMakeWritableDoer.Activate(app.argsChangedProject)
 
     def Nothing(self,force=False):
         if not hasattr(self,'state'):
@@ -99,14 +98,62 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             self.parent.parent.config(cursor='left_ptr')
             for sequence in ['<Button-1>','<Shift-Button-1>','<Shift-B1-Motion>',
                              '<Shift-ButtonRelease-1>','<Control-Button-1>','<Control-B1-Motion>',
-                             '<Control-ButtonRelease-1>','<Button-3>','<B1-Motion>',
+                             '<Control-ButtonRelease-1>','<Button-3>','<Control-Button-3>','<B1-Motion>',
                              '<ButtonRelease-1>','<ButtonRelease-3>','<Double-Button-1>',
                              '<Motion>','<Right>','<Left>','<Up>','<Down>','<Escape>']:
                 self.parent.canvas.unbind(sequence)
+            self.parent.canvas.bind('<Button-3>',self.onMouseButton3_Nothing)
+            self.parent.canvas.bind('<Control-Button-3>',self.onControlMouseButton3_Nothing)
             self.parent.focus_set()
             self.ActivateDoers()
             self.parent.parent.PanDoer.toolBarElement.button.config(relief=tk.RAISED)
             self.parent.parent.statusbar.set('Read Only')
+            self.parent.DrawSchematic()
+
+    def onMouseButton3_Nothing(self,event):
+        if getattr(event,'state',0) & 0x0004:
+            return 'break'
+        if not self.Locked():
+            self.SaveButton2Coordinates(event)
+            for device in self.parent.schematic.deviceList:
+                if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
+                    if not self.SelectDeviceForView(device) is None:
+                        menu=tk.Menu(self.parent,tearoff=0)
+                        menu.add_command(label='View',command=lambda: self.ViewDevice(device))
+                        self.parent.tk.call('tk_popup',menu,event.x_root,event.y_root)
+                    break
+            self.Unlock()
+
+    def onControlMouseButton3_Nothing(self,event):
+        if not self.Locked():
+            self.SaveButton2Coordinates(event)
+            for device in self.parent.schematic.deviceList:
+                if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
+                    if not self.SelectDeviceForView(device) is None:
+                        self.ViewDevice(device)
+                    break
+            self.Unlock()
+        return 'break'
+
+    def SelectDeviceForView(self,device):
+        from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice
+        filename=ViewableFileNameOfDevice(device)
+        if filename is None:
+            return None
+        self.UnselectAllDevices()
+        device.selected=True
+        self.parent.DrawSchematic()
+        self.parent.update_idletasks()
+        return filename
+
+    def ViewDevice(self,device):
+        from SignalIntegrity.App.DeviceProperties import ViewDeviceFile
+        filename=self.SelectDeviceForView(device)
+        if filename is None:
+            return
+        ViewDeviceFile(self.parent.parent,device)
+        if FileParts(filename).fileext == '.si':
+            self.UnselectAllDevices()
             self.parent.DrawSchematic()
 
     def DeviceSelected(self,force=False):
