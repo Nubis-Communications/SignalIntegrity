@@ -77,8 +77,11 @@ class Archive(list):
             self.AddFileToArchive(filename)
     def BuildArchiveDictionary(self,parent,args={},external=False):
         import SignalIntegrity.App.Project
+        import SignalIntegrity.App.ProjectFile
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         currentPath=os.getcwd()
+        SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=True
+        SignalIntegrity.App.ProjectFile.EquationArchiveFiles.clear()
         try:
             if not isinstance(parent,str):
                 thisFile=os.path.abspath(parent.fileparts.FileNameWithExtension())
@@ -125,7 +128,7 @@ class Archive(list):
                     initial=False
                 if not done:
                     #Force equations to evaluate so that variabels are propagated correctly
-                    SignalIntegrity.App.Project.EvaluateEquations()
+                    SignalIntegrity.App.Project.EvaluateEquations(force=True)
                     for device in app.Drawing.schematic.deviceList:
                         args={}
                         for variable in device.variablesList:
@@ -188,10 +191,20 @@ class Archive(list):
                     element['descended']=True # done searching for file devices in this project
                     if hasattr(app, 'projectStack') and (app.projectStack.stack != []):
                         app.projectStack.Pull()
+            # include files declared inside equations via ArchiveFile()
+            for equationFile in SignalIntegrity.App.ProjectFile.EquationArchiveFiles:
+                if len(os.path.basename(equationFile).split('.')) < 2:
+                    continue
+                if equationFile not in [fileelement['file'] for fileelement in self]:
+                    self.append({'file':equationFile,
+                                 'descended':True,
+                                 'devices':[],
+                                 'args':{}})
         except Exception as e:
             print(e)
             raise(e)
         finally:
+            SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=False
             os.chdir(currentPath)
         return self
     def CopyArchiveFilesToDestination(self,archiveDir):
@@ -283,7 +296,7 @@ class Archive(list):
                                     if self.logging: print(variable['Value']+': no relative path')
                         for device in deviceList:
                             schematic_device = app.Device(device['Ref'])
-                            if schematic_device['element_state'] != None and schematic_device.PartPropertyByKeyword('element_state').GetValue() != '':
+                            if schematic_device['element_state'] != None and schematic_device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
                                 continue
                             filename=app.Device(device['Ref'])[device['Keyword']]['Value']
                             if (filename != None) and (len(filename)>0) and (filename[0]=='='):

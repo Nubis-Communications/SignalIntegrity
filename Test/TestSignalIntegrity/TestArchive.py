@@ -258,6 +258,76 @@ class TestArchive(unittest.TestCase):
             self.assertFalse(os.path.exists(archiveDir),self.id()+' archive directory not removed')
         finally:
             os.chdir(currentDir)
+    def WriteMiniProjectWithEquationFile(self,directory,csvName='dep.csv'):
+        """Writes a minimal project whose equations pull csvName in via ArchiveFile()."""
+        with open(os.path.join(directory,csvName),'w') as f:
+            f.write('a,b\n1,2\n')
+        project=os.path.join(directory,'MiniEqn.si')
+        with open(project,'w') as f:
+            f.write('<Project>\n'
+                    '<Drawing><Schematic><Devices></Devices><Wires></Wires></Schematic></Drawing>\n'
+                    '<Equations>\n<AutoDebug>True</AutoDebug>\n<Lines>\n'
+                    '<EquationLine><Line>import csv</Line></EquationLine>\n'
+                    "<EquationLine><Line>depfile = open(ArchiveFile('"+csvName+"'))</Line></EquationLine>\n"
+                    '<EquationLine><Line>rows = list(csv.DictReader(depfile))</Line></EquationLine>\n'
+                    '<EquationLine><Line>depfile.close()</Line></EquationLine>\n'
+                    '</Lines>\n</Equations>\n'
+                    '<CalculationProperties></CalculationProperties>\n'
+                    '<Variables><Items></Items></Variables>\n'
+                    '</Project>\n')
+        return project
+    def testArchiveFileEquationHelperRecordsDependency(self):
+        import SignalIntegrity.App.ProjectFile as PF
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App as App
+        currentDir=os.getcwd()
+        try:
+            os.chdir(self.tempDir)
+            project=self.WriteMiniProjectWithEquationFile(self.tempDir)
+            app=SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile(project),self.id()+' project could not be opened')
+            ad=Archive()
+            ad.BuildArchiveDictionary(app,App.Project['Variables'].Dictionary())
+            names=[os.path.basename(element['file']) for element in ad]
+            self.assertIn('dep.csv',names,self.id()+' equation-declared file not archived')
+            self.assertFalse(PF.RecordingArchiveFiles,self.id()+' recording flag not reset')
+        finally:
+            os.chdir(currentDir)
+    def testArchiveFileHelperIsNoOpDuringNormalEvaluation(self):
+        import SignalIntegrity.App.ProjectFile as PF
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App as App
+        currentDir=os.getcwd()
+        try:
+            os.chdir(self.tempDir)
+            project=self.WriteMiniProjectWithEquationFile(self.tempDir)
+            app=SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile(project),self.id()+' project could not be opened')
+            PF.RecordingArchiveFiles=False
+            PF.EquationArchiveFiles.clear()
+            error=App.Project.EvaluateEquations(force=True)
+            self.assertIsNone(error,self.id()+' equations raised during normal evaluation: '+str(error))
+            self.assertEqual(PF.EquationArchiveFiles,[],self.id()+' recorded a file while not archiving')
+        finally:
+            os.chdir(currentDir)
+    def testArchiveFileEquationRoundTrip(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        currentDir=os.getcwd()
+        try:
+            os.chdir(self.tempDir)
+            self.WriteMiniProjectWithEquationFile(self.tempDir)
+            app=SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile(os.path.join(self.tempDir,'MiniEqn.si')),
+                            self.id()+' project could not be opened')
+            self.assertTrue(app.Archive(),self.id()+' project could not be archived')
+            siz=os.path.join(self.tempDir,'MiniEqn.siz')
+            self.assertTrue(os.path.exists(siz),self.id()+' no archive produced')
+            Archive.ExtractArchive(siz)
+            archiveDir=os.path.join(self.tempDir,'MiniEqn_Archive')
+            self.assertTrue(os.path.exists(os.path.join(archiveDir,'dep.csv')),
+                            self.id()+' equation-declared file missing from archive')
+        finally:
+            os.chdir(currentDir)
 
 if __name__ == '__main__':
     unittest.main()

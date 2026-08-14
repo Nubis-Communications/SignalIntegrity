@@ -25,6 +25,19 @@ import SignalIntegrity.Lib as si
 import copy
 import os
 
+#: absolute paths of files declared by equations via ArchiveFile(); consumed while archiving
+EquationArchiveFiles = []
+#: ArchiveFile() only records while an archive is being built
+RecordingArchiveFiles = False
+
+def ArchiveFile(path):
+    """Declares a file the equations depend on so the archiver includes it.
+    @return path unchanged, so it can wrap open(): open(ArchiveFile('x.csv')).
+    """
+    if RecordingArchiveFiles:
+        EquationArchiveFiles.append(os.path.abspath(str(path)))
+    return path
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -632,12 +645,12 @@ class ProjectFile(ProjectFileBase):
                 pass
         return returnargs
 
-    def EvaluateEquations(self,equations=None):
+    def EvaluateEquations(self,equations=None,force=False):
         if (equations != None) or (self['Equations.Lines'] != []):
             variablesDefinition=[(variable['Name'],variable['Value']) for variable in self['Variables.Items']]
             equationsDefinition=self['Equations'].GetTextString() if equations == None else equations
             try:
-                calculate = (variablesDefinition != self.variablesDefinition) or (equationsDefinition != self.equationsDefinition)
+                calculate = force or (variablesDefinition != self.variablesDefinition) or (equationsDefinition != self.equationsDefinition)
             except:
                 calculate=True
             if calculate:

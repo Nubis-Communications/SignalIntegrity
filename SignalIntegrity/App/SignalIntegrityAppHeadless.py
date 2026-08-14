@@ -1133,7 +1133,9 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
             deviceList=app.Drawing.schematic.deviceList
             for device in deviceList:
 
-                if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() != '':
+                # skip only devices removed or bypassed in the netlist (see NetList.py);
+                # any other element state (including None or '') keeps the device
+                if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
                     continue
 
                 args={}
