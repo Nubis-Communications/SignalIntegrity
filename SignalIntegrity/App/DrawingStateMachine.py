@@ -83,10 +83,7 @@ class DrawingStateMachine(object):
                 self.Nothing()
             else:
                 nothingSelectedState()
-    def onMouseButton1TryToSelectSomething(self,event):
-        self.parent.lift()
-        self.Nothing()
-        self.SaveButton1Coordinates(event)
+    def SelectSomethingAtButton1Coordinate(self):
         selectedSomething=False
         for device in self.parent.schematic.deviceList:
             if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
@@ -110,7 +107,22 @@ class DrawingStateMachine(object):
                     wire = segmentList.Wire()
                     wireProject['Vertices']=[vertex for vertex in wire]
                     break
+        return selectedSomething
+
+    def onMouseButton1TryToSelectSomething(self,event):
+        self.parent.lift()
+        self.Nothing()
+        self.SaveButton1Coordinates(event)
+        self.SelectSomethingAtButton1Coordinate()
         self.DispatchBasedOnSelections(self.Selecting)
+
+    def onMouseButton3TryToSelectSomething(self,event):
+        """right click selects whatever is under the cursor so its menu can be shown"""
+        self.parent.lift()
+        self.SaveButton1Coordinates(event)
+        self.SaveButton2Coordinates(event)
+        self.SelectSomethingAtButton1Coordinate()
+        self.DispatchBasedOnSelections()
     def onMouseButton1TryToToggleSomething(self,event):
         self.SaveButton1Coordinates(event)
         toggledSomething=False
@@ -413,7 +425,9 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_Nothing(self,event):
         pass
     def onMouseButton3_Nothing(self,event):
-        pass
+        if not self.Locked():
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_Nothing(self,event):
         pass
     def onMouseButton1Release_Nothing(self,event):
