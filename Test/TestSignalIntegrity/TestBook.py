@@ -31,6 +31,21 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        SignalIntegrityAppHeadless()
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=False
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def id(self):
         return '.'.join(unittest.TestCase.id(self).split('.')[-3:])
     def CheckSymbolicResult(self,selfid,symbolic,Text):
@@ -395,6 +410,7 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3')
     def testSymbolicSolutionParserExample3Old(self):
         sdp = si.p.SystemDescriptionParser()
+        self.assertFalse(sdp.MultiPortTee,'')
         sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground','port 1 L 1 2 R 2',
             'connect L 2 R 1 M 1','connect G 1 M 2'])
         # pragma: exclude
@@ -407,6 +423,7 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserExample3(self):
         sdp = si.p.SystemDescriptionParser()
+        self.assertFalse(sdp.MultiPortTee,'multi-port tee should be false for this example')
         sdp.AddLines(['device L 2','device R 2','device M 2','device G 1 ground',
             'port 1 L 1 2 R 2','connect L 2 R 1 M 1','connect G 1 M 2'])
         # pragma: exclude
@@ -418,6 +435,7 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),ssps,'Book Example Symbolic Solution 3 Parser')
     def testSymbolicSolutionParserFileExample3Old(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
+        self.assertFalse(sdp.MultiPortTee,'multi-port tee should be false for this example')
         spc = si.sd.SystemSParameters(sdp.SystemDescription())
         symbolic=si.sd.SystemSParametersSymbolic(spc,size='small')
         symbolic.LaTeXSolution().Emit()
@@ -425,6 +443,9 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         self.CheckSymbolicResult(self.id(),symbolic,'Book Example Symbolic Solution 3 Parser File')
     def testSymbolicSolutionParserFileExample3(self):
         sdp = si.p.SystemDescriptionParser().File('SymbolicSolution3.txt')
+        # pragma: exclude
+        self.assertFalse(sdp.MultiPortTee,'multi-port tee should be false for this example')
+        # pragma: include
         ssps=si.sd.SystemSParametersSymbolic(sdp.SystemDescription(),size='small')
         ssps.LaTeXSolution().Emit()
         # pragma: exclude

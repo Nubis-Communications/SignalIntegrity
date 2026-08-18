@@ -31,6 +31,8 @@ class ResultsCache(object):
     keep_extra_file_for_archive = True
     check_times = True
     logging=False
+    #: global override; set False to disable all caching regardless of preferences
+    enabled = True
     def __init__(self,name,filename=None):
         """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
@@ -76,6 +78,8 @@ class ResultsCache(object):
         results initialized.  Otherwise, it returns False.
         @return bool whether the cache can be used.
         """
+        if not self.enabled:
+            return False
         self.hash=self.HashValue()
         import os
         if self.filename is None:
@@ -129,6 +133,8 @@ class ResultsCache(object):
         automatically when the CheckCache call is made.
         @see CheckCache() 
         """
+        if not self.enabled:
+            return self
         if self.filename is None:
             return
 

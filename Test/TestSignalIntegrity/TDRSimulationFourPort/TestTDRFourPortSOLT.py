@@ -46,6 +46,8 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         pysi=SignalIntegrityAppHeadless()
         self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=False
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -56,6 +58,7 @@ class TestTDRFourPortTest(unittest.TestCase,si.test.SParameterCompareHelper,
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()

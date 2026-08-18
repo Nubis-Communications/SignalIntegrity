@@ -25,6 +25,11 @@ import math
 import os
 
 class TestFrequencyList(unittest.TestCase,si.test.SParameterCompareHelper):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testGenericVsEvenlySpaced(self):
         Fe=10e9
         N=100

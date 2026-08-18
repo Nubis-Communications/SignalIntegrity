@@ -461,7 +461,14 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram.baudrate=eye['BaudRate']
             eyeDiagram.config=eye['Config']
             eyeDiagram.config.SetExternalNoise(eye['ExternalNoise'])
-            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            # label the progress with the eye name, ignored by callbacks that take no message
+            if callback is not None:
+                try: callback(0,'+Eye Diagram: '+eye['Name'])
+                except TypeError: pass
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle(),callback)
+            if callback is not None:
+                try: callback(0,'-')
+                except TypeError: pass
             eyeDiagrams.append(eyeDiagram)
 
         if sna == '{}':
@@ -595,7 +602,14 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram=EyeDiagram(None,headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
-            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            # label the progress with the eye name, ignored by callbacks that take no message
+            if callback is not None:
+                try: callback(0,'+Eye Diagram: '+eye['Name'])
+                except TypeError: pass
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle(),callback)
+            if callback is not None:
+                try: callback(0,'-')
+                except TypeError: pass
             eyeDiagrams.append(eyeDiagram)
         return Result('virtual probe',{'source names':sourceNames,
                                     'output waveform labels':outputWaveformLabels,
@@ -937,13 +951,21 @@ class SignalIntegrityAppHeadless(object):
             return Result('network analyzer',{'s-parameters':sp,
                                               'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
-    def Archive(self,overrideExistance=True):
+    def Archive(self,overrideExistance=True,archiveNonRelativeFiles=None):
+        """Archives the project.
+        @param overrideExistance bool (optional, defaults to True) whether to overwrite an existing archive.
+        @param archiveNonRelativeFiles bool (optional, defaults to None) whether to archive
+        files that no relative path can be formed to; None uses the preference.
+        @return bool True if the archive was created.
+        """
         self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
         fp=self.fileparts
         if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
             if not overrideExistance:
                 return False
-        archiveDict=Archive()
+        if archiveNonRelativeFiles is None:
+            archiveNonRelativeFiles=SignalIntegrity.App.Preferences['ProjectFiles.ArchiveNonRelativeFiles']
+        archiveDict=Archive(archiveNonRelativeFiles)
         try:
             # build archive dictionary
             archiveDict.BuildArchiveDictionary(self,SignalIntegrity.App.Project['Variables'].Dictionary())
@@ -959,6 +981,37 @@ class SignalIntegrityAppHeadless(object):
         except Exception as e:
             return False
         return True
+
+    def GenerateRegression(self,regressionArchiveFile=None,archiveNonRelativeFiles=None,args=None,artifacts=None,callback=None):
+        """Generates the regression archive for the open project.
+        @param regressionArchiveFile string (optional) explicit archive path; when
+        omitted, it is derived as '<project>_regression.siz'.
+        @return string generated regression archive path.
+        """
+        from SignalIntegrity.App.Regression import GenerateRegression
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if regressionArchiveFile is None:
+            regressionArchiveFile=os.path.splitext(projectFile)[0]+'_regression.siz'
+        return GenerateRegression(projectFile,regressionArchiveFile,
+                                  archiveNonRelativeFiles=archiveNonRelativeFiles,
+                                  args=args,artifacts=artifacts,callback=callback)
+
+    def RunRegression(self,regressionArchiveFile=None,archiveNonRelativeFiles=None,args=None,artifacts=None,callback=None,openDiffTool=None):
+        """Runs the regression archive for the open project.
+        @param regressionArchiveFile string (optional) explicit archive path; when
+        omitted, it is derived as '<project>_regression.siz'.
+        @param openDiffTool bool (optional) whether to open meld on failure; defaults
+        to the Regression.OpenDiffToolOnFailure preference.
+        @return list of regression results.
+        """
+        from SignalIntegrity.App.Regression import CheckRegressionByDiff
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if regressionArchiveFile is None:
+            regressionArchiveFile=os.path.splitext(projectFile)[0]+'_regression.siz'
+        return CheckRegressionByDiff(projectFile,regressionArchiveFile,
+                                     archiveNonRelativeFiles=archiveNonRelativeFiles,
+                                     args=args,artifacts=artifacts,callback=callback,
+                                     openDiffTool=openDiffTool)
 
     def ExtractArchive(self,filename,args={}):
         if filename is None:
@@ -1007,6 +1060,11 @@ def ProjectSParameters(filename,callback,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
                 if result != {}:
@@ -1020,6 +1078,11 @@ def ProjectSParameters(filename,callback,**kwargs):
                 if result != {}:
                     sp=result['s-parameters'][0]
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordSParameters(filename,sp,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
@@ -1037,6 +1100,11 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             result={}
             if app.Drawing.canSimulate:
                 result=app.Simulate(callback)
@@ -1045,6 +1113,11 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
             if result != {}:
                 wf = result.OutputWaveform(wfname)
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordWaveform(filename,wf,wfname,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
@@ -1062,6 +1135,11 @@ def ProjectNoise(filename,noise_name,callback,lanes=1.,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             result={}
             if app.Drawing.canSimulate:
                 result=app.Simulate(callback)
@@ -1079,6 +1157,11 @@ def ProjectNoise(filename,noise_name,callback,lanes=1.,**kwargs):
                     except:
                         sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()])
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordNoise(filename,sd,noise_name,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:

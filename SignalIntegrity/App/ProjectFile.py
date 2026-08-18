@@ -25,7 +25,8 @@ import SignalIntegrity.Lib as si
 import copy
 import os
 
-#: absolute paths of files declared by equations via ArchiveFile(); consumed while archiving
+#: (referencing project directory, absolute path) of files declared by equations via
+#: ArchiveFile(); consumed while archiving
 EquationArchiveFiles = []
 #: ArchiveFile() only records while an archive is being built
 RecordingArchiveFiles = False
@@ -35,7 +36,9 @@ def ArchiveFile(path):
     @return path unchanged, so it can wrap open(): open(ArchiveFile('x.csv')).
     """
     if RecordingArchiveFiles:
-        EquationArchiveFiles.append(os.path.abspath(str(path)))
+        from SignalIntegrity.Lib.FileNameMangling import ResolveFileName
+        # the current directory is the directory of the project being descended into
+        EquationArchiveFiles.append((os.getcwd(),ResolveFileName(os.path.abspath(str(path)))))
     return path
 
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
@@ -670,17 +673,22 @@ class ProjectFile(ProjectFileBase):
                 self.equationsDefinition = equationsDefinition
                 self['Equations.Valid']=False
                 sendargs={}; returnargs={}
-                for variable in self['Variables.Items']:
-                    if variable['ReadOnly']:
-                        returnargs[variable['Name']]=None
-                    if not variable['ReadOnly']:
-                        if variable['Type'] in ['file','string','enum']:
-                            sendargs[variable['Name']]=str(variable.Value())
-                        elif variable['Type'] == 'float':
-                            sendargs[variable['Name']]=float(variable.Value())
-                        elif variable['Type'] == 'int':
-                            sendargs[variable['Name']]=int(variable.Value())
                 try:
+                    # Build the send/return argument sets and evaluate.  Coercing a variable
+                    # to its declared type can fail (e.g. an unresolved or self-referential
+                    # equation), so this is kept inside the try: such an error marks the
+                    # equations invalid and is returned rather than raised, so it never
+                    # aborts the schematic render (and therefore opening the project).
+                    for variable in self['Variables.Items']:
+                        if variable['ReadOnly']:
+                            returnargs[variable['Name']]=None
+                        if not variable['ReadOnly']:
+                            if variable['Type'] in ['file','string','enum']:
+                                sendargs[variable['Name']]=str(variable.Value())
+                            elif variable['Type'] == 'float':
+                                sendargs[variable['Name']]=float(variable.Value())
+                            elif variable['Type'] == 'int':
+                                sendargs[variable['Name']]=int(variable.Value())
                     if equations == None:
                         equations=self['Equations'].GetTextString()
                     returnargs=self.EvaluateSafely(equations,sendargs,returnargs)

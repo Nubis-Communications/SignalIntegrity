@@ -68,11 +68,12 @@ from TestPrbsSpecial import *
 from TestProbeOnOff import *
 from TestProbes import *
 from TestRefImp import *
+from TestRegressionFiles import *
 from TestRisetimeFilters import *
 from TestRLGC import *
 from TestRLGCLevMar import *
 from TestRoutineWriter import *
-#from TestSenseResistorInductance import *
+from TestSenseResistorInductance import *
 from TestSeries import *
 from TestSimulator import *
 #from TestSimulatorNumericParser import *

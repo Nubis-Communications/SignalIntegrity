@@ -19,6 +19,7 @@ TestIdealTransformer.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
@@ -28,6 +29,11 @@ class TestIdealTransformer(unittest.TestCase,si.test.SourcesTesterHelper,si.test
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testIdealTransformerSymbolic(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device DV 4','device DC 4','port 1 DC 4 2 DC 3 3 DC 1 4 DV 3',

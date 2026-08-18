@@ -9,11 +9,11 @@ device L4 2 L 999.5e-12
 device C5 1 C 1.165e-12 esr 0 df 0
 device L5 2 L 827.8e-12
 device C6 1 C 524.3e-15 esr 0 df 0
-port 1 td 0 L1 1
+port 1 L1 1
 connect L1 1 C1 1
 connect L1 2 C2 1 L2 1
 connect L2 2 C3 1 L3 1
 connect L4 1 L3 2 C4 1
 connect L5 1 L4 2 C5 1
-port 2 td 0 L5 2
+port 2 L5 2
 connect L5 2 C6 1

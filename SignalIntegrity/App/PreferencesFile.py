@@ -23,8 +23,8 @@ from SignalIntegrity.App.SParameterProperties import SParameterProperties
 
 class DeviceConfigurations(XMLConfiguration):
     def __init__(self):
-        from StatisticalNoisePreferencesFile import VoltageNoiseConfiguration,CurrentNoiseConfiguration
-        from EyeDiagramPreferencesFile import EyeConfiguration
+        from SignalIntegrity.App.StatisticalNoisePreferencesFile import VoltageNoiseConfiguration,CurrentNoiseConfiguration
+        from SignalIntegrity.App.EyeDiagramPreferencesFile import EyeConfiguration
         super().__init__('Devices')
         self.SubDir(EyeConfiguration())
         self.SubDir(VoltageNoiseConfiguration())
@@ -124,6 +124,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
         self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',False))
+        self.Add(XMLPropertyDefaultBool('ArchiveNonRelativeFiles',False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):
@@ -137,6 +138,12 @@ class Features(XMLConfiguration):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
         self.Add(XMLPropertyDefaultBool('StatisticalNoise',False))
+        self.Add(XMLPropertyDefaultBool('Regression',False))
+
+class Regression(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Regression')
+        self.Add(XMLPropertyDefaultBool('OpenDiffToolOnFailure',True))
 
 class StatisticalNoise(XMLConfiguration):
     def __init__(self):
@@ -157,6 +164,7 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Cache())
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
+        self.SubDir(Regression())
         self.SubDir(SParameterProperties(preferences=True))
         self.SubDir(DeviceConfigurations())
         self.SubDir(Variables())

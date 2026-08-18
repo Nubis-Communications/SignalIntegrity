@@ -26,6 +26,7 @@ import zipfile
 import glob
 
 from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.Lib.FileNameMangling import MangledFileName,ResolveFileName
 
 from SignalIntegrity.Lib.Exception import SignalIntegrityException
 
@@ -57,11 +58,17 @@ class SignalIntegrityExceptionArchive(SignalIntegrityException):
 
 class Archive(list):
     logging=True
-    def __init__(self):
+    def __init__(self,archiveNonRelativeFiles=False):
+        """Constructor
+        @param archiveNonRelativeFiles bool (optional, defaults to False) whether to
+        archive files that no relative path can be formed to, under a mangled name.
+        """
         list.__init__(self,[])
+        self.archiveNonRelativeFiles=archiveNonRelativeFiles
     def Archivable(self):
         return self != []
     def AddFileToArchive(self,filename):
+        filename=ResolveFileName(filename)
         if not os.path.exists(filename):
             return
         for file in self:
@@ -135,7 +142,7 @@ class Archive(list):
                             name=variable['Name']
                             value=variable.Value()
                             if variable['Type'] == 'file':
-                                value=os.path.abspath(value)
+                                value=ResolveFileName(os.path.abspath(value))
                             args[name]=value
                         # skip only devices that are removed or bypassed in the netlist
                         # (see NetList.py); any other element state (including None or '')
@@ -145,8 +152,11 @@ class Archive(list):
                         for property in device.propertiesList:
                             if property['Type']=='file':
                                 filename=os.path.abspath(property.GetValue())
-                                if len(filename.split(os.path.sep)[-1].split('.')) != 2:
+                                if len(os.path.basename(filename).split('.')) != 2:
                                     continue # file name does not have an extension
+                                # a mangled copy in this project's directory always wins,
+                                # whether or not the original location can be reached
+                                filename=ResolveFileName(filename)
                                 if not thisFile in [fileelement['file'] for fileelement in self]:
                                     element={'file':thisFile,
                                              'descended':True,
@@ -192,14 +202,15 @@ class Archive(list):
                     if hasattr(app, 'projectStack') and (app.projectStack.stack != []):
                         app.projectStack.Pull()
             # include files declared inside equations via ArchiveFile()
-            for equationFile in SignalIntegrity.App.ProjectFile.EquationArchiveFiles:
+            for equationProjectDir,equationFile in SignalIntegrity.App.ProjectFile.EquationArchiveFiles:
                 if len(os.path.basename(equationFile).split('.')) < 2:
                     continue
                 if equationFile not in [fileelement['file'] for fileelement in self]:
                     self.append({'file':equationFile,
                                  'descended':True,
                                  'devices':[],
-                                 'args':{}})
+                                 'args':{},
+                                 'referencedBy':equationProjectDir})
         except Exception as e:
             print(e)
             raise(e)
@@ -207,6 +218,47 @@ class Archive(list):
             SignalIntegrity.App.ProjectFile.RecordingArchiveFiles=False
             os.chdir(currentPath)
         return self
+    def _MangledDestinations(self,filename,elementIndex,archiveDir):
+        """Where a file that has no relative path is placed in the archive.
+        @param filename string the source file, as an absolute path.
+        @param elementIndex int the index of this file's element in self.
+        @param archiveDir string the root of the archive.
+        @return list of strings the destinations, one per project referencing the file,
+        or an empty list if the file cannot be mangled.
+        @remark The file is copied under a mangled name into the archive directory of
+        each project referencing it, so that the project can go on referencing it by
+        its original absolute path and find the mangled copy beside itself instead.
+        """
+        mangledName=MangledFileName(filename)
+        if mangledName=='':
+            return []
+        referencingDirList=[]
+        referencedBy=self[elementIndex].get('referencedBy',None)
+        if not referencedBy is None:
+            referencingDirList.append(referencedBy.replace('\\','/'))
+        for element in self:
+            for device in element['devices']:
+                if device['File'].replace('\\','/') == filename:
+                    referencingDirList.append(os.path.dirname(element['file'].replace('\\','/')))
+        destinationList=[]
+        for referencingDir in referencingDirList+([self.common] if referencingDirList==[] else []):
+            destinationDir=None
+            try:
+                destinationDir=os.path.join(archiveDir,os.path.relpath(referencingDir,self.common))
+                if '..' in destinationDir.replace('\\','/').split('/'):
+                    destinationDir=None
+            except ValueError:
+                pass
+            if destinationDir is None:
+                # the referencing project is itself outside the archived tree, so the
+                # root of the archive is the best that can be done for it
+                destinationDir=archiveDir
+                if self.logging: print(referencingDir+': referencing project is not in the archive')
+            destination=os.path.join(destinationDir,mangledName).replace('\\','/')
+            if not destination in destinationList:
+                destinationList.append(destination)
+        return destinationList
+
     def CopyArchiveFilesToDestination(self,archiveDir):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
@@ -222,15 +274,29 @@ class Archive(list):
             except FileNotFoundError:
                 pass
             self.destList = []
-            for filename in self.srcList:
+            self.extraCopies = []
+            for elementIndex,filename in enumerate(self.srcList):
+                destfile=None
+                reason=None
                 try:
                     destfile=(archiveDir+'/'+os.path.relpath(filename, self.common)).replace('\\','/')
                     if '../' in destfile:
-                        raise ValueError('file is above archive')
+                        # not an error: the file is simply outside the archived tree
+                        destfile=None
+                        reason='file is above the archive directory'
+                except ValueError:
+                    reason='no relative path to the file can be formed'
+                if not destfile is None:
                     self.destList.append(destfile)
-                except ValueError: # a relative path could not be established - don't copy it to the archive
+                    continue
+                mangledDestList=self._MangledDestinations(filename,elementIndex,archiveDir) if self.archiveNonRelativeFiles else []
+                if mangledDestList == []: # don't copy it to the archive
                     self.destList.append(filename)
-                    if self.logging: print(filename+': no relative path')
+                    if self.logging: print(filename+': not archived - '+reason)
+                else:
+                    self.destList.append(mangledDestList[0])
+                    self.extraCopies.extend([(filename,extraDestFile) for extraDestFile in mangledDestList[1:]])
+                    if self.logging: print(filename+': '+reason+' - archived as '+os.path.basename(mangledDestList[0]))
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 element['orig']=srcfile
@@ -315,6 +381,16 @@ class Archive(list):
                                     if self.logging: print(variable['Value']+': no relative path')
                         app.SaveProject()
                         app.projectStack.Pull()
+            # a file with no relative path is copied once per project referencing it,
+            # so the copies beyond the first are made here
+            for srcfile,destfile in self.extraCopies:
+                try:
+                    os.makedirs(os.path.dirname(destfile),exist_ok=True)
+                    if not os.path.exists(destfile):
+                        shutil.copy2(src=srcfile,dst=destfile)
+                    shutil.copystat(src=srcfile,dst=destfile)
+                except Exception as e:
+                    print(e)
             for element,srcfile,destfile in zip(self,self.srcList,self.destList):
                 element['file']=destfile
                 for device in element['devices']:
@@ -345,10 +421,6 @@ class Archive(list):
     @staticmethod
     def ExtractArchive(filename):
         fp=FileParts(filename)
-        projectName=fp.FileNameTitle()
-        archiveDir=projectName+'_Archive'
-
-        os.makedirs(archiveDir, exist_ok=True)
 
         import time
 

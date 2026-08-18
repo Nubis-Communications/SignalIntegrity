@@ -19,6 +19,7 @@ TestOperationalAmplifier.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 
 import SignalIntegrity.Lib as si
 from numpy import linalg,array
@@ -27,6 +28,11 @@ class TestOperationalAmplifier(unittest.TestCase,si.test.SourcesTesterHelper,si.
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testOperationalAmplifier(self):
         sdp=si.p.SystemDescriptionParser()
         sdp.AddLines(['device A 4','device ZI1 2','device ZI2 2',

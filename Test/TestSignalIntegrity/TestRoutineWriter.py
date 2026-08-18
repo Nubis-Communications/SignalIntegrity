@@ -19,12 +19,18 @@ TestRoutineWriter.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 import SignalIntegrity.Lib as si
 
 class TestRoutineWriter(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testExampleCode(self):
         self.WriteCode('TestSystemDescription.py','testSystemDescriptionExampleBlock(self)',self.standardHeader)
 

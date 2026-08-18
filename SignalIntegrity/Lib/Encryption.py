@@ -95,6 +95,8 @@ class Encryption(object):
         return self
 
     def ReadEncryptedLines(self,filename,split=True):
+        from SignalIntegrity.Lib.FileNameMangling import ResolveFileName
+        filename=ResolveFileName(filename)
         with open(filename,'r') as f:
             text=f.readlines()
         if len(text)==1:

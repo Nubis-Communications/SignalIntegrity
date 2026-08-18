@@ -24,6 +24,11 @@ import math
 import os
 
 class Test(unittest.TestCase,si.test.SourcesTesterHelper):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testSenseResistorInductanceVirtualProbeSymbolic(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines([

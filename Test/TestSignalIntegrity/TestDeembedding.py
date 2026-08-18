@@ -29,6 +29,11 @@ import os
 class TestDeembedding(unittest.TestCase,si.test.ResponseTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testOnePortFixtureDeembedding(self):
         Su=si.dev.TerminationZ(30)
         D=[[1.,2.],[3.,4.]]

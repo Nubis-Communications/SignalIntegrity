@@ -328,6 +328,112 @@ class TestArchive(unittest.TestCase):
                             self.id()+' equation-declared file missing from archive')
         finally:
             os.chdir(currentDir)
+    def testMangledFileName(self):
+        from SignalIntegrity.Lib.FileNameMangling import MangledFileName,IsMangledFileName
+        # only s-parameter file names are mangled, for now
+        for name in ['foo.si','foo.csv','foo.txt','foo.s4','foo.sp','foo.sxp','foo']:
+            self.assertEqual(MangledFileName(os.path.join(self.tempDir,name)),'',
+                             self.id()+' mangled '+name)
+        for name in ['foo.s1p','foo.S4P','foo.s16p']:
+            mangled=MangledFileName(os.path.join(self.tempDir,name))
+            self.assertTrue(IsMangledFileName(mangled),self.id()+' did not mangle '+name)
+            self.assertEqual(os.path.splitext(mangled)[1],os.path.splitext(name)[1],
+                             self.id()+' extension not preserved for '+name)
+            self.assertFalse('/' in mangled or '\\' in mangled or ':' in mangled,
+                             self.id()+' mangled name is not a bare file name')
+        # the drive letter case must not change the mangled name
+        if os.path.splitdrive(self.tempDir)[0] != '':
+            drive,rest=os.path.splitdrive(os.path.join(self.tempDir,'foo.s2p'))
+            self.assertEqual(MangledFileName(drive.lower()+rest),MangledFileName(drive.upper()+rest),
+                             self.id()+' mangled name depends on drive letter case')
+        self.assertFalse(IsMangledFileName('foo.s2p'),self.id()+' plain name reported as mangled')
+    def testResolveFileNamePrefersMangledCopy(self):
+        from SignalIntegrity.Lib.FileNameMangling import MangledFileName,ResolveFileName
+        outside=os.path.join(self.tempDir,'outside'); os.makedirs(outside)
+        project=os.path.join(self.tempDir,'project'); os.makedirs(project)
+        referenced=os.path.join(outside,'TestDut.s2p')
+        with open(referenced,'w') as f: f.write('original\n')
+        # with no mangled copy present, the name is returned untouched
+        self.assertEqual(ResolveFileName(referenced,project),referenced,
+                         self.id()+' resolved without a mangled copy')
+        mangled=os.path.join(project,MangledFileName(referenced))
+        with open(mangled,'w') as f: f.write('mangled\n')
+        # the mangled copy wins even though the original is still reachable
+        self.assertEqual(os.path.normcase(ResolveFileName(referenced,project)),
+                         os.path.normcase(mangled),self.id()+' mangled copy not preferred')
+        # a relative name is never resolved
+        self.assertEqual(ResolveFileName('TestDut.s2p',project),'TestDut.s2p',
+                         self.id()+' resolved a relative name')
+    def NonRelativeProject(self,directory,outsideDir):
+        """Writes a project referencing an s-parameter file that has no relative path.
+        @param directory string where the project is written.
+        @param outsideDir string the directory holding the referenced file.
+        @return tuple (project file name, referenced file name).
+        """
+        source=os.path.join(self.path,'Reordered.si')
+        sparameters=os.path.join(self.path,'TestDut.s4p')
+        if not os.path.exists(source) or not os.path.exists(sparameters):
+            self.skipTest('Reordered.si and TestDut.s4p not available')
+        os.makedirs(outsideDir,exist_ok=True)
+        referenced=os.path.join(outsideDir,'TestDut.s4p').replace('\\','/')
+        shutil.copy2(sparameters,referenced)
+        project=os.path.join(directory,'Reordered.si')
+        with open(source,'r') as f: text=f.read()
+        with open(project,'w') as f: f.write(text.replace('<Value>TestDut.s4p</Value>','<Value>'+referenced+'</Value>'))
+        return (project,referenced)
+    def BuiltArchive(self,project,archiveNonRelativeFiles):
+        """Builds and copies an archive of a project, returning the archive directory."""
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App as App
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile(project),self.id()+' project could not be opened')
+        archiveDir=os.path.join(os.path.dirname(project),'Reordered_Archive').replace('\\','/')
+        archiveDict=Archive(archiveNonRelativeFiles)
+        archiveDict.BuildArchiveDictionary(app,App.Project['Variables'].Dictionary())
+        archiveDict.CopyArchiveFilesToDestination(archiveDir)
+        return archiveDir
+    def testArchiveNonRelativeFileExcludedByDefault(self):
+        currentDir=os.getcwd()
+        try:
+            projectDir=os.path.join(self.tempDir,'project'); os.makedirs(projectDir)
+            project,referenced=self.NonRelativeProject(projectDir,os.path.join(self.tempDir,'outside'))
+            os.chdir(projectDir)
+            archiveDir=self.BuiltArchive(project,False)
+            self.assertEqual([name for name in os.listdir(archiveDir) if name.endswith('.s4p')],[],
+                             self.id()+' non-relative file archived while the option is off')
+        finally:
+            os.chdir(currentDir)
+    def testArchiveNonRelativeFileUnderMangledName(self):
+        from SignalIntegrity.Lib.FileNameMangling import MangledFileName
+        currentDir=os.getcwd()
+        try:
+            projectDir=os.path.join(self.tempDir,'project'); os.makedirs(projectDir)
+            project,referenced=self.NonRelativeProject(projectDir,os.path.join(self.tempDir,'outside'))
+            os.chdir(projectDir)
+            archiveDir=self.BuiltArchive(project,True)
+            mangled=os.path.join(archiveDir,MangledFileName(referenced))
+            self.assertTrue(os.path.exists(mangled),self.id()+' non-relative file not archived')
+            with open(mangled,'r') as f: mangledText=f.read()
+            with open(referenced,'r') as f: referencedText=f.read()
+            self.assertEqual(mangledText,referencedText,self.id()+' archived copy differs from the original')
+        finally:
+            os.chdir(currentDir)
+    def testArchiveUsesExistingMangledFileUnconditionally(self):
+        from SignalIntegrity.Lib.FileNameMangling import MangledFileName
+        currentDir=os.getcwd()
+        try:
+            projectDir=os.path.join(self.tempDir,'project'); os.makedirs(projectDir)
+            project,referenced=self.NonRelativeProject(projectDir,os.path.join(self.tempDir,'outside'))
+            mangledName=MangledFileName(referenced)
+            shutil.copy2(referenced,os.path.join(projectDir,mangledName))
+            os.remove(referenced) # the original location is no longer reachable
+            os.chdir(projectDir)
+            # the option is off: the mangled file is picked up because it is already local
+            archiveDir=self.BuiltArchive(project,False)
+            self.assertTrue(os.path.exists(os.path.join(archiveDir,mangledName)),
+                            self.id()+' existing mangled file not archived')
+        finally:
+            os.chdir(currentDir)
 
 if __name__ == '__main__':
     unittest.main()

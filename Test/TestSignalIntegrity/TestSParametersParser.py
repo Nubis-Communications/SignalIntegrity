@@ -27,6 +27,11 @@ class TestSParametersParserTest(unittest.TestCase,si.test.SParameterCompareHelpe
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def id(self):
         return '_'.join(unittest.TestCase.id(self).split('.')[-2:])
     def testSParameterParserWithFiles(self):

@@ -19,7 +19,8 @@ TestPID.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
-import SignalIntegrity as si
+import os
+import SignalIntegrity.Lib as si
 from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 import math,cmath
 
@@ -35,14 +36,24 @@ class TestPIDTest(unittest.TestCase):
 
     @staticmethod
     def Responses(P,I,D):
+        cwd=os.getcwd()
+        path=os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                           '..','..','..','SignalIntegrity','App','Examples','PID'))
+        os.chdir(path)
+        try:
+            return TestPIDTest._Responses(P,I,D)
+        finally:
+            os.chdir(cwd)
+
+    @staticmethod
+    def _Responses(P,I,D):
         app = SignalIntegrityAppHeadless()
-        path='C:\\Users\\pete_\\Documents\\SignalIntegrity\\SignalIntegrity\\App\\Examples\\PID\\'
-        app.OpenProjectFile(path+'Plant.si')
+        app.OpenProjectFile('Plant.si')
         pidNetList=app.NetListText()
         plantsnsp=si.p.SystemSParametersNumericParser(f).AddLines(pidNetList)
         plantsp=plantsnsp.SParameters()
         app = SignalIntegrityAppHeadless()
-        app.OpenProjectFile(path+'PID.si')
+        app.OpenProjectFile('PID.si')
         app.Device('GP')['gain']['Value']=P
         app.Device('GI')['gain']['Value']=I
         app.Device('GD')['gain']['Value']=D
@@ -56,13 +67,13 @@ class TestPIDTest(unittest.TestCase):
         pidSOLsnp=si.p.SimulatorNumericParser(f).AddLines(pidSimulationOpenLoopNetlist)
         pidSOLsnp=pidSOLsnp.AddKnownDevices(knownSParameters)
         OpenLoopFrequencyResponses = pidOpenLoop=pidSOLsnp.TransferMatrices().FrequencyResponses()
-        OpenLoopOutputList =  ['Vin','VPID','P','I','D']
+        OpenLoopOutputList =  ['VPID','P','I','D']
         app.OpenProjectFile('PIDSimulation.si')
         pidSimulationNetlist=app.NetListText()
         pidSsnp=si.p.SimulatorNumericParser(f).AddLines(pidSimulationNetlist)
         pidSsnp=pidSsnp.AddKnownDevices(knownSParameters)
         ClosedLoopFrequencyResponses = pidSsnp.TransferMatrices().FrequencyResponses()
-        ClosedLoopOutputList = ['Vin','VO','VPID','VU','P','I','D']
+        ClosedLoopOutputList = ['VO','VPID','VU','P','I','D']
         ClosedLoopResults={'C':ClosedLoopFrequencyResponses[ClosedLoopOutputList.index('VO')][0],
                           'U':ClosedLoopFrequencyResponses[ClosedLoopOutputList.index('VU')][0],
                           'PID':ClosedLoopFrequencyResponses[ClosedLoopOutputList.index('VPID')][0],
@@ -86,7 +97,6 @@ class TestPIDTest(unittest.TestCase):
         import numpy as np
         import matplotlib.pyplot as plt
 
-        results=self.Responses(P,I,D)
         fig = plt.figure()
         ax1 = fig.add_subplot(2,3, 1)
         PdB, = ax1.semilogx(f,results['OpenLoop']['P'].Response('dB'),color='blue',linestyle='--')
@@ -178,8 +188,7 @@ class TestPIDTest(unittest.TestCase):
         plt.title('A*B/(A*B+1) = closed loop response')
         ax12.grid()
 
-        fig.show()
-        pass
+        plt.close(fig)
 
 P=60.
 I=500.

@@ -112,10 +112,11 @@ class TestExceptions(unittest.TestCase,si.test.SParameterCompareHelper):
             sn.TransferMatrix()
         si.sd.Numeric.trySVD=True
         self.assertEqual(cm.exception.parameter,'Simulator')
-    @unittest.expectedFailure
+    #@unittest.expectedFailure
     def testSimulatorNumericalErrorNonsenseResult(self):
         """
-        This is a known problem in the trySVD code.
+        This was a problem in the trySVD code, but now passes!
+
         trySVD resolves many problems due to indeterminate internal things, with a good, final determinate
         answer, but in this case, trySVD allows the computation of the voltage with a voltage source tied
         directly to ground.  This is something that needs to be fixed in the future and is why trySVD

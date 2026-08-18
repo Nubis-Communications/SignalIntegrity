@@ -102,6 +102,7 @@ class SignalIntegrityApp(tk.Frame):
 
         # status bar
         self.statusbar=StatusBar(self)
+        self._regressionProgressStack=[]
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.RecentProject0Doer = Doer(self.onRecentProject0).Activate(False)
@@ -121,6 +122,9 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchiveDoer = Doer(self.onExtractArchive).AddHelpElement('Control-Help:Extract-Archive').AddToolTip('Extract archived project')
         self.FreshenArchiveDoer = Doer(self.onFreshenArchive).AddHelpElement('Control-Help:Freshen-Archive').AddToolTip('Freshen archived project')
         self.UnExtractArchiveDoer = Doer(self.onUnExtractArchive).AddHelpElement('Control-Help:Unextract-Archive').AddToolTip('Unextract archived project')
+        regressionEnabled=SignalIntegrity.App.Preferences['Features.Regression']
+        self.GenerateRegressionDoer = Doer(self.onGenerateRegression,regressionEnabled).AddToolTip('Generate regression archive')
+        self.RunRegressionDoer = Doer(self.onRunRegression,regressionEnabled).AddToolTip('Run regression test')
         self.MakeWritableDoer = Doer(self.onMakeWritable).AddHelpElement('Control-Help:Make-Writable').AddToolTip('Make the read-only schematic writable')
         self.MakeReadOnlyDoer = Doer(self.onMakeReadOnly).AddHelpElement('Control-Help:Make-Read-Only').AddToolTip('Make the schematic read-only')
         # ------
@@ -216,6 +220,12 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Extract Archived Project',underline=1)
         self.FreshenArchiveDoer.AddMenuElement(self.FileMenu,label='Freshen Archived Project',underline=0)
         self.UnExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Unextract Archived Project',underline=0)
+        # the Regression submenu is omitted entirely when the feature is disabled
+        if SignalIntegrity.App.Preferences['Features.Regression']:
+            self.RegressionMenu=tk.Menu(self.FileMenu)
+            self.FileMenu.add_cascade(label='Regression',menu=self.RegressionMenu,underline=0)
+            self.GenerateRegressionDoer.AddMenuElement(self.RegressionMenu,label='Generate Regression Archive',underline=0)
+            self.RunRegressionDoer.AddMenuElement(self.RegressionMenu,label='Run Regression Test',underline=0)
         # ------
         EditMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
@@ -1592,7 +1602,7 @@ class SignalIntegrityApp(tk.Frame):
             if not messagebox.askokcancel('Archive', 'Are you sure.  The archive file exists?\nThis will overwrite the contents of the archive.'):
                 return
         msg=InformationMessage(self,'Archiving','Archiving: '+self.fileparts.filename+'.siz\n Please wait.....')
-        archiveDict=Archive()
+        archiveDict=Archive(SignalIntegrity.App.Preferences['ProjectFiles.ArchiveNonRelativeFiles'])
         try:
             # build archive dictionary
             archiveDict.BuildArchiveDictionary(self,SignalIntegrity.App.Project['Variables'].Dictionary())
@@ -1616,6 +1626,103 @@ class SignalIntegrityApp(tk.Frame):
             return
         msg.destroy()
         msg=messagebox.showinfo('Archive complete','Archive created: '+os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'))
+
+    def RegressionArchiveFile(self):
+        # the regression archive is derived from the project name, so it follows the project
+        return os.path.splitext(self.fileparts.FullFilePathExtension('.si'))[0]+'_regression.siz'
+
+    def onAbortRegression(self):
+        self._regressionAborted=True
+
+    def _StartRegressionProgress(self):
+        self._regressionAborted=False
+        self._regressionProgressStack=[]
+        self.statusbar.ShowAbort(self.onAbortRegression)
+
+    def _FinishRegressionProgress(self):
+        self.statusbar.HideAbort()
+
+    def onGenerateRegression(self):
+        from SignalIntegrity.App.Regression import GenerateRegression
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if not projectFile:
+            return
+        archiveFile=self.RegressionArchiveFile()
+        if os.path.exists(archiveFile) and not messagebox.askyesno(
+                'Generate Regression','The regression archive exists. Overwrite it?',parent=self):
+            return
+        self._StartRegressionProgress()
+        try:
+            result=GenerateRegression(projectFile,archiveFile,
+                               callback=self._RegressionProgress)
+            if self._regressionAborted:
+                messagebox.showinfo('Regression','Regression archive generation aborted',parent=self)
+            else:
+                messagebox.showinfo('Regression','Regression archive generated: '+archiveFile,parent=self)
+        except Exception as e:
+            messagebox.showerror('Regression','Regression archive generation failed: '+str(e),parent=self)
+        finally:
+            self._FinishRegressionProgress()
+
+    def onRunRegression(self):
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if not projectFile:
+            return
+        archiveFile=self.RegressionArchiveFile()
+        if not os.path.exists(archiveFile):
+            messagebox.showerror('Regression',
+                                 'No regression archive for this project.\nGenerate one first.',parent=self)
+            return
+        self._StartRegressionProgress()
+        try:
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            app=SignalIntegrityAppHeadless()
+            if not app.OpenProjectFile(projectFile):
+                raise ValueError('project could not be opened')
+            results=app.RunRegression(archiveFile,callback=self._RegressionProgress)
+            if self._regressionAborted:
+                messagebox.showinfo('Regression','Regression run aborted',parent=self)
+            else:
+                failures=[result for result in results if not result.ok]
+                if failures:
+                    messagebox.showerror('Regression',str(len(failures))+' regression checks failed:\n\n'+
+                                         '\n'.join(str(result) for result in failures),parent=self)
+                else:
+                    messagebox.showinfo('Regression','Regression passed: '+str(len(results))+' checks',parent=self)
+        except Exception as e:
+            messagebox.showerror('Regression','Regression run failed: '+str(e),parent=self)
+        finally:
+            self._FinishRegressionProgress()
+            self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),showError=False)
+
+    def _RegressionProgress(self,percent,message=None,name=None):
+        """Updates the status bar with nested file names and percentage."""
+        # a pressed abort button stops the traversal by returning False downstream
+        if getattr(self,'_regressionAborted',False):
+            return False
+        if name is not None:
+            message=name
+        if message is not None and 'complete' in str(message).lower():
+            self.statusbar.set('%s',str(message))
+            self.update()
+            return True
+        if message is not None:
+            message=str(message)
+            if message.startswith('+'):
+                self._regressionProgressStack.append(message[1:])
+            elif message == '-':
+                if self._regressionProgressStack:
+                    self._regressionProgressStack.pop()
+            elif message:
+                if self._regressionProgressStack:
+                    self._regressionProgressStack[-1]=message
+                else:
+                    self._regressionProgressStack.append(message)
+        path=' / '.join(self._regressionProgressStack)
+        statusText=str(int(percent))+'%'+((' '+path) if path else '')
+        self.statusbar.set('%s',statusText)
+        self.update()
+        return True
 
     def ExtractArchive(self,filename,args={}):
         if filename is None:

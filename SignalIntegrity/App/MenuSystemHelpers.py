@@ -219,6 +219,10 @@ class Doer(object):
 class StatusBar(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
+        # frame to the left of the message holds transient controls like the abort button
+        self.buttonFrame = tk.Frame(self)
+        self.abortButton = tk.Button(self.buttonFrame, text='Abort')
+        self.abortButton.pack(side=tk.LEFT)
         self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W, width=1)
         self.label.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
     def set(self, format, *args):
@@ -229,6 +233,13 @@ class StatusBar(tk.Frame):
         self.label.config(text="")
         self.label.update_idletasks()
         self.label.update()
+    def ShowAbort(self, command):
+        self.abortButton.config(command=command)
+        self.buttonFrame.pack(side=tk.LEFT, before=self.label)
+        self.buttonFrame.update_idletasks()
+    def HideAbort(self):
+        self.buttonFrame.pack_forget()
+        self.buttonFrame.update_idletasks()
 
 class ScrollableFrame(ttk.Frame):
     def __init__(self, container, *args, **kwargs):

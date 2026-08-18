@@ -1,0 +1,10 @@
+{
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/Test",
+    "python.testing.pytestArgs": [
+        "TestSignalIntegrity",
+        "-o",
+        "python_files=Test*.py"
+    ]
+}

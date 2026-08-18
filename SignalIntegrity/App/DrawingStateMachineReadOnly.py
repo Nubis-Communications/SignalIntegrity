@@ -23,6 +23,7 @@ import tkinter as tk
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
 from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.App.Archive import Archive
 
 class DrawingStateMachineReadOnly(DrawingStateMachine):
     """state machine for a project opened read-only.
@@ -43,8 +44,10 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
         app.ExportPngDoer.Activate(True)
         app.ArchiveDoer.Activate(True)
         app.ExtractArchiveDoer.Activate(True)
-        app.FreshenArchiveDoer.Activate(False)
-        app.UnExtractArchiveDoer.Activate(False)
+        # neither of these edits the project, so read-only does not restrict them
+        inAnArchive=Archive.InAnArchive(app.fileparts.FullFilePathExtension())
+        app.FreshenArchiveDoer.Activate(inAnArchive)
+        app.UnExtractArchiveDoer.Activate(inAnArchive)
         app.UndoDoer.Activate(False)
         app.RedoDoer.Activate(False)
         app.DeleteSelectedDoer.Activate(False)

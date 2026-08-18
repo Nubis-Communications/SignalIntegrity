@@ -19,14 +19,19 @@ TestAdaptDecimate.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 import SignalIntegrity.Lib as si
 
 class TestAdaptDecimateTest(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseTesterHelper,si.test.SourcesTesterHelper):
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
         si.td.wf.Waveform.adaptionStrategy='SinX'
+        os.chdir(self.cwd)
     def testAdaptDecimatebyHand(self):
         td=si.td.wf.TimeDescriptor(-1e-6,2000,1e9)
         wf=si.td.wf.SineWaveform(td)

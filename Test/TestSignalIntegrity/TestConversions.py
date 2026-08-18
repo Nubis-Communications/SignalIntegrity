@@ -19,6 +19,7 @@ TestConversions.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import unittest
+import os
 
 import SignalIntegrity.Lib as si
 from numpy import linalg
@@ -29,6 +30,11 @@ class TestConversions(unittest.TestCase,si.test.RoutineWriterTesterHelper):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
         si.test.RoutineWriterTesterHelper.__init__(self)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testABCD2SDefault(self):
         R=100
         ABCD=[[1,-R],[0,1]]

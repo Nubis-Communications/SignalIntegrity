@@ -1,4 +1,4 @@
-var $file_name$ C:/Users/ppupalai/git/SignalIntegrity/Test/TestSignalIntegrity/TestERL/sparam_res.s4p
+var $file_name$ {DIR}/sparam_res.s4p
 var $port_reordering$ 1,3,2,4
 var $Z0$ 50.0
 var $f_b$ 106.25e9

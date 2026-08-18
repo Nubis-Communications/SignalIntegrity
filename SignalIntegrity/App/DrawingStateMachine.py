@@ -144,8 +144,11 @@ class DrawingStateMachine(object):
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
                     if not ViewableFileNameOfDevice(device) is None:
+                        # a lightweight select+redraw here (not DispatchBasedOnSelections(), which
+                        # transitions to DeviceSelected() and Consolidate()s the whole schematic again)
+                        # so launching the viewer isn't delayed by a second redundant redraw pass
                         device.selected=True
-                        self.DispatchBasedOnSelections()
+                        self.parent.DrawSchematic()
                         self.parent.update_idletasks()
                         ViewDeviceFile(self.parent.parent,device)
                     break

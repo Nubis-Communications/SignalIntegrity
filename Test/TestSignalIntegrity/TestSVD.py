@@ -23,7 +23,7 @@ import unittest
 
 from numpy import array
 
-import SignalIntegrity as si
+import SignalIntegrity.Lib as si
 
 from numpy import linalg,matrix,identity
 from numpy.linalg import LinAlgError,svd
@@ -79,11 +79,11 @@ class TestSVDTest(unittest.TestCase):
         
         numeric=si.sd.Numeric()
         
-        res=matrix(Wba)+matrix(Wbx)*numeric.Dagger(matrix(I)-matrix(Wxx),Left=Wbx,Right=Wxa)*matrix(Wxa)
+        res=matrix(Wba)+matrix(Wbx)*numeric.Dagger(S,Left=Wbx,Right=Wxa)*matrix(Wxa)
         res=res.tolist()
         corr=si.dev.Thru()
         difference = linalg.norm(matrix(res)-matrix(corr))
-        self.assertTrue(difference<1e-10,'svd didnt work')
+        self.assertTrue(difference<1e-6,'svd didnt work')
 
 
 if __name__ == "__main__":

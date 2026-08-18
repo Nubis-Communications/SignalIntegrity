@@ -20,6 +20,10 @@ from __future__ import absolute_import
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 from .SignalIntegrityAppTestHelper import SignalIntegrityAppTestHelper
+from .RegressionFiles import RegressionFiles
+from .RegressionFiles import RegressionResult
+from .RegressionFiles import RegressionCallSite
+from .RegressionFiles import RegressionContext
 from .TestHelpers import PlotTikZ
 from .TestHelpers import SParameterCompareHelper
 from .TestHelpers import ResponseTesterHelper

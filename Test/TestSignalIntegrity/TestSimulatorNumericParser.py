@@ -28,6 +28,11 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
     def __init__(self, methodName='runTest'):
         si.test.RoutineWriterTesterHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testSimulatorNumericParserExample(self):
         Td=1.23e-9; Zc=55; C=Td/Zc; L=Td*Zc
         Rse=0.001; df=.001; R=.1;

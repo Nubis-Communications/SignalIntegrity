@@ -26,6 +26,11 @@ import os
 
 class TestFrequencyContentTest(unittest.TestCase,si.test.SParameterCompareHelper):
     epsilon=1e-10
+    def setUp(self):
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    def tearDown(self):
+        os.chdir(self.cwd)
     def testFrequencyContentDCSamePoints(self):
         """
         This simple test tests whether a waveform equals the same waveform converted to frequency content and back again
