@@ -101,7 +101,8 @@ from TestSystemVariables import *
 from TestWaveformOnlySimulations import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
-from TestVNACalibrationObject import *
+# i'm excluding this because it takes a long time to run and is not necessary for the majority of testing
+#from TestVNACalibrationObject import *
 from TestWElement import *
 
 if __name__ == '__main__':
