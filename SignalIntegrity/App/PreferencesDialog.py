@@ -47,6 +47,7 @@ class PreferencesDialog(PropertiesDialog):
         self.maximumWaveformSize=CalculationPropertySI(self.propertyListFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
         self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')
         self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
+        self.openProjectsReadOnlyFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open projects read-only by default',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenProjectsReadOnly')
         self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
         self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.propertyListFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
         import tkinter as tk

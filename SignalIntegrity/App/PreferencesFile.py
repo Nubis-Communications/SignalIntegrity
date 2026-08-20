@@ -123,6 +123,7 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
+        self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):
@@ -136,7 +137,6 @@ class Features(XMLConfiguration):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
         self.Add(XMLPropertyDefaultBool('StatisticalNoise',False))
-        self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',True))
 
 class StatisticalNoise(XMLConfiguration):
     def __init__(self):

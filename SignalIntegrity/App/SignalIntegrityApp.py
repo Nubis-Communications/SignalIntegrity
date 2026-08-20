@@ -540,7 +540,7 @@ class SignalIntegrityApp(tk.Frame):
             return bool(explicit)
         if SignalIntegrity.App.Project['ProjectProperties.ReadOnly']:
             return True
-        return bool(SignalIntegrity.App.Preferences['Features.OpenProjectsReadOnly'])
+        return bool(SignalIntegrity.App.Preferences['ProjectFiles.OpenProjectsReadOnly'])
 
     def SetTitle(self):
         if self.fileparts.filename=='':
@@ -559,12 +559,14 @@ class SignalIntegrityApp(tk.Frame):
     def onMakeWritable(self):
         if not self.readOnly:
             return
-        choice=self.MakeWritableChoice()
-        if choice is None:
-            return
-        if choice == 'default':
-            self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),args={},readOnly=False)
-            return
+        # only offer the choice when the passed-in arguments actually differ from the schematic's defaults
+        if self.argsChangedProject:
+            choice=self.MakeWritableChoice()
+            if choice is None:
+                return
+            if choice == 'default':
+                self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),args={},readOnly=False)
+                return
         self.readOnly=False
         self.Drawing.InstallStateMachine()
         self.SetTitle()
@@ -589,8 +591,8 @@ class SignalIntegrityApp(tk.Frame):
         def select(value):
             choice[0]=value
             dialog.destroy()
-        tk.Button(buttons,text='Keep Arguments Passed In',command=lambda: select('keep')).pack(side=tk.LEFT,padx=3)
-        tk.Button(buttons,text='Restore Schematic to Default',command=lambda: select('default')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Keep Arguments Passed In\n(for temporary changes)',command=lambda: select('keep')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Restore Schematic to Default\n(for permanent changes)',command=lambda: select('default')).pack(side=tk.LEFT,padx=3)
         tk.Button(buttons,text='Cancel',command=dialog.destroy).pack(side=tk.LEFT,padx=3)
         dialog.protocol('WM_DELETE_WINDOW',dialog.destroy)
         dialog.grab_set()
