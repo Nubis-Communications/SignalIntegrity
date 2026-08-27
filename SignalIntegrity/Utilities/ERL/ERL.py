@@ -24,6 +24,137 @@ import SignalIntegrity.Lib as si
 import math
 import os
 
+
+class ERLComMatlabPDF:
+    """MATLAB-like PDF helpers used by get_pdf_from_sampled_signal.
+    This class implements a translation of get_pdf_from_sampled_signal() with the 
+    the FAST_NOISE_CONV=0 path in com_ieee8023_4p15p0.m (COM v4.15.0)
+    """
+
+    @staticmethod
+    def d_cpdf(binsize, values, probs):
+        values = np.atleast_1d(np.asarray(values, dtype=float))
+        probs = np.atleast_1d(np.asarray(probs, dtype=float))
+
+        if np.all(values == 0):
+            y = np.array([1.0], dtype=float)
+            x = np.array([0.0], dtype=float)
+            return {
+                'BinSize': float(binsize),
+                'Min': 0,
+                'y': y,
+                'x': x,
+                'vec': y,
+                'bin': x,
+            }
+
+        order = np.argsort(values)
+        values = values[order]
+        probs = probs[order]
+
+        rounded = np.round(values / binsize).astype(int)
+        values = binsize * rounded
+        min_bin = int(rounded[0])
+        max_bin = int(rounded[-1])
+
+        y = np.zeros(max_bin - min_bin + 1, dtype=float)
+        np.add.at(y, rounded - min_bin, probs)
+
+        y_sum = np.sum(y)
+        if y_sum > 0:
+            y = y / y_sum
+
+        support = np.flatnonzero(y)
+        if support.size:
+            start = int(support[0])
+            end = int(support[-1]) + 1
+            y = y[start:end]
+            min_bin += start
+
+        x = np.arange(min_bin, min_bin + len(y), dtype=float) * float(binsize)
+        return {
+            'BinSize': float(binsize),
+            'Min': int(min_bin),
+            'y': y,
+            'x': x,
+            'vec': y,
+            'bin': x,
+        }
+
+    @staticmethod
+    def init_pdf_fast(empty_pdf, values, probs):
+        binsize = float(empty_pdf['BinSize'])
+        values = np.atleast_1d(np.asarray(values, dtype=float))
+        probs = np.atleast_1d(np.asarray(probs, dtype=float))
+
+        rounded = np.round(values / binsize).astype(int)
+        min_bin = int(np.min(rounded))
+        max_bin = int(np.max(rounded))
+
+        y = np.zeros(max_bin - min_bin + 1, dtype=float)
+        np.add.at(y, rounded - min_bin, probs)
+
+        x = np.arange(min_bin, max_bin + 1, dtype=float) * binsize
+        return {
+            'BinSize': binsize,
+            'Min': min_bin,
+            'y': y,
+            'x': x,
+            'vec': y,
+            'bin': x,
+        }
+
+    @staticmethod
+    def conv_fct(p1, p2):
+        if not np.isclose(p1['BinSize'], p2['BinSize']):
+            raise ValueError('bin size must be equal')
+
+        binsize = float(p1['BinSize'])
+        min_bin = int(round(float(p1['Min']) + float(p2['Min'])))
+        y = np.convolve(np.asarray(p1['y'], dtype=float), np.asarray(p2['y'], dtype=float))
+        x = np.arange(min_bin, min_bin + len(y), dtype=float) * binsize
+
+        return {
+            'BinSize': binsize,
+            'Min': min_bin,
+            'y': y,
+            'x': x,
+            'vec': y,
+            'bin': x,
+        }
+
+    @staticmethod
+    def get_pdf_from_sampled_signal(input_vector, L, BinSize, FAST_NOISE_CONV=0):
+        # This Python port intentionally supports only FAST_NOISE_CONV == 0.
+        if FAST_NOISE_CONV != 0:
+            raise ValueError('FAST_NOISE_CONV path is not translated; use FAST_NOISE_CONV=0')
+
+        input_vector = np.asarray(input_vector, dtype=float).reshape(-1)
+        if input_vector.size == 0:
+            return ERLComMatlabPDF.d_cpdf(BinSize, 0, 1)
+
+        if np.max(np.abs(input_vector)) > BinSize:
+            input_vector = input_vector[np.abs(input_vector) > BinSize]
+        else:
+            return ERLComMatlabPDF.d_cpdf(BinSize, 0, 1)
+
+        input_vector[np.abs(input_vector) < BinSize] = 0.0
+
+        signs = np.sign(input_vector)
+        order = np.argsort(np.abs(input_vector))[::-1]
+        input_vector = np.abs(input_vector)[order] * signs[order]
+
+        values = 2 * np.arange(L, dtype=float) / (L - 1) - 1
+        prob = np.ones(L, dtype=float) / L
+
+        pdf = ERLComMatlabPDF.d_cpdf(BinSize, 0, 1)
+        empty_pdf = pdf
+        for val in input_vector:
+            pdfn = ERLComMatlabPDF.init_pdf_fast(empty_pdf, np.abs(val) * values, prob)
+            pdf = ERLComMatlabPDF.conv_fct(pdf, pdfn)
+
+        return pdf
+
 def ERL(filename,args,debug=False,verbose=False):
     """computes effective return loss (ERL) mostly according to IEEE COM
     @param filename absolute path of four-port s-parameter file
@@ -290,29 +421,78 @@ def ERL(filename,args,debug=False,verbose=False):
                                              DER_0)
             break
 
+
+    # MATLAB-COM style PDF/CDF/ERL from sampled worst-phase waveform.
+    # Based on get_pdf_from_sampled_signal() in com_ieee8023_4p15p0.m (COM v4.15.0)
+    pdf_COM_Matlab = ERLComMatlabPDF.get_pdf_from_sampled_signal(
+        np.asarray(worst_phase_wf.Values(), dtype=float),
+        L=int(2 ** bps),
+        BinSize=1e-4,
+        FAST_NOISE_CONV=0,
+    )
+    
+    cdf_COM_Matlab = {
+        'x': np.asarray(pdf_COM_Matlab['x'], dtype=float),
+        'y': np.cumsum(np.asarray(pdf_COM_Matlab['y'], dtype=float)),
+        'vec': np.cumsum(np.asarray(pdf_COM_Matlab['vec'], dtype=float)),
+        'bin': np.asarray(pdf_COM_Matlab['bin'], dtype=float),
+    }
+
+    cdf_com_values = cdf_COM_Matlab['vec']
+    cdf_com_bins = cdf_COM_Matlab['bin']
+    ERL_COM_Matlab = float('nan')
+    for b in range(1, len(cdf_com_values)):
+        if cdf_com_values[b] > DER_0:
+            bin_value_com = linearly_interpolate(
+                cdf_com_bins[b-1],
+                cdf_com_values[b-1],
+                cdf_com_bins[b],
+                cdf_com_values[b],
+                DER_0,
+            )
+            ERL_COM_Matlab = -20.0 * np.log10(-bin_value_com) #No bias here
+            break
+
     if debug or verbose:
         print(f"DER intercept at: {ToSI(bin_value,'V')}")
+        if not np.isnan(ERL_COM_Matlab):
+            print(f"DER COM Matlab intercept at: {ToSI(bin_value_com,'V')}")
+        else:
+            print('DER COM Matlab intercept: not found in cdf_COM_Matlab')
 
     ERL = -20.*np.log10(-bin_value)
     ERL = ERL - bias
 
     if debug: # pragma: no cover
         sigma_estimate = [0.5*math.erf(0.5*np.sqrt(2)*bin_centers[b]/sigma)+0.5 for b in range(len(bin_centers))]
+        erl_label = f'cdf (ERL={ERL:.3f} dB)'
+        if not np.isnan(ERL_COM_Matlab):
+            erl_com_label = f'cdf_COM_Matlab (ERL_COM_Matlab={ERL_COM_Matlab:.3f} dB)'
+        else:
+            erl_com_label = 'cdf_COM_Matlab (ERL_COM_Matlab=n/a)'
 
-        plt.semilogy(bin_centers,cdf,label='cdf')
+        cdf_line, = plt.semilogy(bin_centers,cdf,label=erl_label)
+        cdf_com_line, = plt.semilogy(cdf_COM_Matlab['x'], cdf_COM_Matlab['vec'], label=erl_com_label)
         plt.semilogy(bin_centers,sigma_estimate,label='cdf estimate')
         plt.xlabel('bin')
         plt.ylabel('probability')
         plt.title('cdf')
-        plt.axhline(DER_0,linestyle='--',color='red')
-        plt.axvline(bin_value,linestyle='--',color='red')
+        plt.axhline(DER_0,linestyle='--',color='black')
+        plt.axvline(bin_value,linestyle='--',color=cdf_line.get_color())
+        if not np.isnan(ERL_COM_Matlab):
+            plt.axvline(bin_value_com, linestyle='--', color=cdf_com_line.get_color())
+        plt.ylim(bottom=DER_0 * 1e-3, top=2)
         plt.grid()
-        plt.legend()
+        plt.legend(loc='lower right')
         plt.show()
         plt.cla()
 
     if debug or verbose:
         print(f"ERL: -20*Log_10(-DER intercept = {ToSI(-bin_value,'V')}) = {ToSI(ERL,'dB',round=5)}")
+        if not np.isnan(ERL_COM_Matlab):
+            print(f"ERL_COM_Matlab: {ToSI(ERL_COM_Matlab,'dB',round=5)}")
+        else:
+            print('ERL_COM_Matlab: could not determine DER intercept from cdf_COM_Matlab')
     return ERL
 
 def ERL_Main():
