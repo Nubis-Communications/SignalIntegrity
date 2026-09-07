@@ -996,6 +996,31 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         XF=[[1.,v,v**2] for v in x]
 
+        def fit(X,Y):
+            """Fits a quadratic model to the logarithm of the probabilities.
+            @param X numpy array of rows containing [1, x, x**2].
+            @param Y numpy array containing the corresponding log(probability) values.
+            @return numpy array containing the three fitted coefficients.
+            @remark Uses the normal-equation form of the least-squares calculation for regression compatibility.
+            Invalid floating-point warnings are suppressed because zero probabilities produce -inf on the logarithmic scale.
+            """
+            X=np.asarray(X)
+            Y=np.asarray(Y)
+            with np.errstate(invalid='ignore'):
+                return np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+
+        def evaluate(X,CF):
+            """Evaluates a fitted quadratic model.
+            @param X numpy array of model input rows.
+            @param CF numpy array containing the fitted coefficients.
+            @return numpy array containing the evaluated model values.
+            @remark Invalid floating-point warnings are suppressed when a fit contains non-finite coefficients.
+            """
+            X=np.asarray(X)
+            CF=np.asarray(CF)
+            with np.errstate(invalid='ignore'):
+                return X.dot(CF)
+
         self.measDict['Bathtub']['Vertical']['Level']={e:{'LeftEst':None,'RightEst':None} for e in range(numberOfEyes+1)}
         # estimate the gaussians for the edges
         try:
@@ -1020,10 +1045,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 r=r+1
             if r != R:
                 X=np.array(X); Y=np.array(Y)
-                CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                CF = fit(X,Y)
                 self.measDict['Bathtub']['Vertical']['Level'][0]['LeftEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                             'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                   'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in X.dot(CF)]}}}
+                                   'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in evaluate(X,CF)]}}}
             else:
                 raise
         except Exception as ex:
@@ -1053,10 +1078,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 r=r-1
             if r > 0:
                 X=np.array(X); Y=np.array(Y)
-                CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                CF = fit(X,Y)
                 self.measDict['Bathtub']['Vertical']['Level'][numberOfEyes]['RightEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                             'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                   'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(X.dot(CF).tolist())]}}}
+                                   'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(evaluate(X,CF).tolist())]}}}
             else:
                 raise
         except Exception as ex:
@@ -1092,10 +1117,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     r=r-1
                 if r != 0:
                     X=np.array(X); Y=np.array(Y)
-                    CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                    CF = fit(X,Y)
                     self.measDict['Bathtub']['Vertical']['Level'][e]['RightEst']={'Start':{'Bin':rStart},
                                 'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                       'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(X.dot(CF).tolist())]}}}
+                                       'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(evaluate(X,CF).tolist())]}}}
                 else:
                     raise
             except Exception as ex:
@@ -1124,10 +1149,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 if r != R:
                     X=np.array(X)
                     Y=np.array(Y)
-                    CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                    CF = fit(X,Y)
                     self.measDict['Bathtub']['Vertical']['Level'][e+1]['LeftEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                                 'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                       'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in X.dot(CF)]}}}
+                                       'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in evaluate(X,CF)]}}}
                 else:
                     raise
             except Exception as ex:
@@ -1142,12 +1167,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             try:
                 # calculate the entire left estimate
                 if self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Valid']:
-                    yleft=[np.exp(v[0]) for v in np.array(XF).dot(np.array(self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Coef']))]
+                    yleft=[np.exp(v[0]) for v in evaluate(XF,self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Coef'])]
                 else:
                     yleft=[0. for _ in range(R)]
                 yleftStart=self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Start']['Bin']
                 if self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Valid']:
-                    yright=[np.exp(v[0]) for v in np.array(XF).dot(np.array(self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Coef']))]
+                    yright=[np.exp(v[0]) for v in evaluate(XF,self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Coef'])]
                 else:
                     yright=[0. for _ in range(R)]
                 yrightStart=self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Start']['Bin']
@@ -1350,9 +1375,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         Best values are 20 % or lower.
         @param InvertImage bool, defaults to True.  Non-inverted images are shades of black on the color specified.  Inverted images are shades of
         the color specified on black.
-        @param Color string, defaults to \#ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
-        eye diagram.  '\#ffffff' is white.  '\#000000' is black.
-        @param AnnotationColor string, defaults to \#000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
+        @param Color string, defaults to #ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
+        eye diagram.  '#ffffff' is white.  '#000000' is black.
+        @param AnnotationColor string, defaults to #000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
         for the annotations.
         @param ScaleX float, defaults to 100, scaling of the x axis of the image after construction.
         @param ScaleY float, defaults to 100, scaling of the y axis of the image after construction. 
