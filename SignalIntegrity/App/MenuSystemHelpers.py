@@ -219,8 +219,8 @@ class Doer(object):
 class StatusBar(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
-        self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W)
-        self.label.pack(fill=tk.X)
+        self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W, width=1)
+        self.label.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
     def set(self, format, *args):
         self.label.config(text=format % args)
         self.label.update_idletasks()
