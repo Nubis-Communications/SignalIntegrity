@@ -45,7 +45,7 @@ class PreferencesDialog(PropertiesDialog):
         self.allowMaximumImpulseResponseLength=CalculationPropertyTrueFalseButton(self.propertyListFrame,'enable maximum impulse response length',None,self.onUpdatePreferences,preferences,'Calculation.AllowMaximumImpulseResponseLength')
         self.ignoreMissingOtherWaveforms=CalculationPropertyTrueFalseButton(self.propertyListFrame,'ignore missing other waveforms in calculations',None,self.onUpdatePreferences,preferences,'Calculation.IgnoreMissingOtherWaveforms')
         self.maximumWaveformSize=CalculationPropertySI(self.propertyListFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
-        self.allowTimeBefore0=CalculationPropertyTrueFalseButton(self.propertyListFrame,'allow time before 0 in simulations',None,self.onUpdatePreferences,preferences,'Calculation.AllowTimeBefore0')
+        self.allowTimeBefore0=CalculationPropertyTrueFalseButton(self.propertyListFrame,'allow time before 0 in simulations (experimental)',None,self.onUpdatePreferences,preferences,'Calculation.AllowTimeBefore0')
         self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')
         self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
         self.openProjectsReadOnlyFrame=CalculationPropertyTrueFalseButton(self.propertyListFrame,'open projects read-only by default',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenProjectsReadOnly')
