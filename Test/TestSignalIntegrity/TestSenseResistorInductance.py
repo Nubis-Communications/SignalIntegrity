@@ -25,10 +25,21 @@ import os
 
 class Test(unittest.TestCase,si.test.SourcesTesterHelper):
     def setUp(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        SignalIntegrityAppHeadless()
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=False
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
     def tearDown(self):
         os.chdir(self.cwd)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        import SignalIntegrity.App.Project
+        SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
+        SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def testSenseResistorInductanceVirtualProbeSymbolic(self):
         vpp=si.p.VirtualProbeParser()
         vpp.AddLines([
