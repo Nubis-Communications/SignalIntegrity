@@ -70,6 +70,68 @@ def ViewableFileNameOfDevice(device):
             return filename
     return None
 
+def DeviceViewKind(device):
+    """'file','waveform','noise' if this device has something viewable, or None"""
+    if not ViewableFileNameOfDevice(device) is None:
+        return 'file'
+    try:
+        deviceNetListName=device.netlist['DeviceName']
+    except AttributeError:
+        return None
+    if deviceNetListName in ['voltagesource','currentsource','networkanalyzerport']:
+        if device['wftype'].GetValue() != 'DC':
+            return 'waveform'
+    elif deviceNetListName in ['voltagenoisesource','currentnoisesource']:
+        return 'noise'
+    return None
+
+def WaveformProjectFileNameOfDevice(device):
+    """the sub-project file used to generate this device's waveform, or None if it isn't a project"""
+    try:
+        propertiesList=device.propertiesList
+    except AttributeError:
+        return None
+    for partProperty in propertiesList:
+        if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'waveformfilename'):
+            filename=partProperty.GetValue()
+            if filename in [None,''] or FileParts(filename).fileext != '.si':
+                return None
+            return filename
+    return None
+
+def DeviceViewMenuActions(device):
+    """ordered list of (label,action) tuples for this device's View menu item(s)"""
+    actions=[]
+    kind=DeviceViewKind(device)
+    if kind == 'file':
+        actions.append(('View','file'))
+    elif kind == 'waveform':
+        actions.append(('View Waveform','waveform'))
+    elif kind == 'noise':
+        actions.append(('View Noise','noise'))
+    if not WaveformProjectFileNameOfDevice(device) is None:
+        actions.append(('Open Project','openproject'))
+    return actions
+
+def PerformDeviceViewAction(app,device,action):
+    """performs one of the actions named by DeviceViewMenuActions"""
+    if action == 'file':
+        ViewDeviceFile(app,device)
+    elif action == 'waveform':
+        ViewDeviceWaveform(app,device)
+    elif action == 'noise':
+        ViewDeviceNoise(app,device)
+    elif action == 'openproject':
+        OpenDeviceWaveformProject(app,device)
+
+def OpenDeviceWaveformProject(app,device):
+    """opens the sub-project used to generate this device's waveform in a new instance of the app"""
+    filename=WaveformProjectFileNameOfDevice(device)
+    if filename is None:
+        return
+    if LaunchProjectFile(device,filename) != 0:
+        messagebox.showerror('ProjectFile','could not be opened')
+
 def ViewDeviceFile(app,device):
     """views the device's s-parameter file or sub-project, the way the properties dialog view button does"""
     filename=ViewableFileNameOfDevice(device)
@@ -86,6 +148,72 @@ def ViewDeviceFile(app,device):
         messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
         return
     SParametersDialog(app,sp,filename)
+
+def ViewDeviceWaveform(app,device):
+    """views the device's waveform, the way the properties dialog view waveform button does"""
+    referenceDesignator=device['ref'].GetValue()
+    import SignalIntegrity.Lib as si
+    try:
+        wf=device.Waveform()
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+        return
+    sim=app.simulator
+    sd=sim.SimulatorDialog()
+    sd.title('Waveform')
+    sim.UpdateWaveforms([wf],[referenceDesignator])
+    import platform
+    thisOS=platform.system()
+    if thisOS == 'Linux':
+        sd.attributes('-type','dialog')
+    elif thisOS == 'Windows':
+        sd.attributes('-toolwindow',True)
+    sd.attributes('-topmost', 1)
+    sd.focus_set()
+    sd.grab_set()
+    app.wait_window(sd)
+
+def ViewDeviceNoise(app,device):
+    """views the device's noise spectral density, the way the properties dialog view noise button does"""
+    referenceDesignator=device['ref'].GetValue()
+    import SignalIntegrity.Lib as si
+    try:
+        specDensity=device.SpectralDensity()
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('Noise Viewer',e.parameter+': '+e.message)
+        return
+    sim=app.simulator
+    nd=sim.NoiseDialog()
+    nd.title('Noise')
+    # a current noise source reports its noise in current units (Arms/dBm relative to current)
+    noise_type = 'current' if device['partname'].GetValue().startswith('Current') else 'voltage'
+    noise_dict = {'output_names':[referenceDesignator],
+                     'input_names':[],
+                     'transfer_matrices':None,
+                     'input_noise_spectral_density':{},
+                     'input_noise_spectral_density_list':[],
+                     'output_noise_spectral_density_list':[specDensity],
+                     'output_noise_spectral_density':{referenceDesignator:{'spectrum':specDensity,'type':noise_type,'rms':specDensity.TotalRMS(),'dBm':specDensity.TotaldBm(reference=noise_type)}},
+                     'contributions':None
+                     }
+    import math
+    sdv = noise_dict['output_noise_spectral_density'][referenceDesignator]
+    fe = sdv['spectrum'].Frequencies('GHz')[-1]
+    sdv['rms/sqrt(Hz)'] = sdv['rms']/math.sqrt(fe*1e9)
+    sdv['rms/sqrt(GHz)'] = sdv['rms']/math.sqrt(fe)
+    sdv['dBm/Hz'] = sdv['dBm'] - 10.*math.log10(fe*1e9)
+    sdv['dBm/GHz'] = sdv['dBm'] - 10.*math.log10(fe)
+    sim.UpdateNoise(noise_dict)
+    import platform
+    thisOS=platform.system()
+    if thisOS == 'Linux':
+        nd.attributes('-type','dialog')
+    elif thisOS == 'Windows':
+        nd.attributes('-toolwindow',True)
+    nd.attributes('-topmost', 1)
+    nd.focus_set()
+    nd.grab_set()
+    app.wait_window(nd)
 
 class DeviceProperty(tk.Frame):
     def __init__(self,parentFrame,parent,partProperty):

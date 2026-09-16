@@ -140,17 +140,21 @@ class DrawingStateMachine(object):
             self.parent.lift()
             self.Nothing()
             self.SaveButton1Coordinates(event)
-            from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice,ViewDeviceFile
+            from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions,PerformDeviceViewAction
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
-                    if not ViewableFileNameOfDevice(device) is None:
+                    actions=DeviceViewMenuActions(device)
+                    if len(actions) > 0:
+                        # ctrl-right-click prefers opening the associated project over other view actions
+                        actionsByKey=dict((action,label) for label,action in actions)
+                        action='openproject' if 'openproject' in actionsByKey else actions[0][1]
                         # a lightweight select+redraw here (not DispatchBasedOnSelections(), which
                         # transitions to DeviceSelected() and Consolidate()s the whole schematic again)
                         # so launching the viewer isn't delayed by a second redundant redraw pass
                         device.selected=True
                         self.parent.DrawSchematic()
                         self.parent.update_idletasks()
-                        ViewDeviceFile(self.parent.parent,device)
+                        PerformDeviceViewAction(self.parent.parent,device,action)
                     break
             self.Unlock()
     def onMouseButton1TryToToggleSomething(self,event):
@@ -573,9 +577,10 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.parent.deviceTearOffMenu=tk.Menu(self.parent, tearoff=0)
             self.parent.deviceTearOffMenu.add_command(label="Edit Properties",command=self.parent.EditSelectedDevice)
-            from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice
-            if not ViewableFileNameOfDevice(self.parent.deviceSelected) is None:
-                self.parent.deviceTearOffMenu.add_command(label="View",command=self.parent.ViewSelectedDeviceFile)
+            from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
+            device=self.parent.deviceSelected
+            for label,action in DeviceViewMenuActions(device):
+                self.parent.deviceTearOffMenu.add_command(label=label,command=lambda action=action: self.parent.ViewSelectedDevice(action))
             if not self.parent.deviceSelected.configuration is None:
                 if isinstance(self.parent.deviceSelected.configuration,list):
                     for config in self.parent.deviceSelected.configuration:

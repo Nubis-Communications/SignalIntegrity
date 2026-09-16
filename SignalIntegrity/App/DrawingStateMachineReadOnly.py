@@ -22,7 +22,6 @@ import tkinter as tk
 
 from SignalIntegrity.App.MenuSystemHelpers import Doer
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
-from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.Archive import Archive
 
 class DrawingStateMachineReadOnly(DrawingStateMachine):
@@ -120,9 +119,13 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             self.SaveButton2Coordinates(event)
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
-                    if not self.SelectDeviceForView(device) is None:
+                    from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
+                    actions=DeviceViewMenuActions(device)
+                    if len(actions) > 0:
+                        self.SelectDeviceForView(device)
                         menu=tk.Menu(self.parent,tearoff=0)
-                        menu.add_command(label='View',command=lambda: self.ViewDevice(device))
+                        for label,action in actions:
+                            menu.add_command(label=label,command=lambda action=action: self.ViewDevice(device,action))
                         self.parent.tk.call('tk_popup',menu,event.x_root,event.y_root)
                     break
             self.Unlock()
@@ -132,30 +135,28 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             self.SaveButton2Coordinates(event)
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
-                    if not self.SelectDeviceForView(device) is None:
-                        self.ViewDevice(device)
+                    from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
+                    actions=DeviceViewMenuActions(device)
+                    if len(actions) > 0:
+                        # ctrl-right-click prefers opening the associated project over other view actions
+                        actionKeys=[action for label,action in actions]
+                        action='openproject' if 'openproject' in actionKeys else actions[0][1]
+                        self.SelectDeviceForView(device)
+                        self.ViewDevice(device,action)
                     break
             self.Unlock()
         return 'break'
 
     def SelectDeviceForView(self,device):
-        from SignalIntegrity.App.DeviceProperties import ViewableFileNameOfDevice
-        filename=ViewableFileNameOfDevice(device)
-        if filename is None:
-            return None
         self.UnselectAllDevices()
         device.selected=True
         self.parent.DrawSchematic()
         self.parent.update_idletasks()
-        return filename
 
-    def ViewDevice(self,device):
-        from SignalIntegrity.App.DeviceProperties import ViewDeviceFile
-        filename=self.SelectDeviceForView(device)
-        if filename is None:
-            return
-        ViewDeviceFile(self.parent.parent,device)
-        if FileParts(filename).fileext == '.si':
+    def ViewDevice(self,device,action):
+        from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction
+        PerformDeviceViewAction(self.parent.parent,device,action)
+        if action == 'file':
             self.UnselectAllDevices()
             self.parent.DrawSchematic()
 

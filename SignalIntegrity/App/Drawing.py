@@ -199,10 +199,10 @@ class Drawing(tk.Frame):
                 self.schematic.Consolidate()
                 self.DrawSchematic()
                 self.parent.history.Event('edit device')
-    def ViewSelectedDeviceFile(self):
+    def ViewSelectedDevice(self,action):
         if self.stateMachine.state=='DeviceSelected':
-            from SignalIntegrity.App.DeviceProperties import ViewDeviceFile
-            ViewDeviceFile(self.parent,self.deviceSelected)
+            from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction
+            PerformDeviceViewAction(self.parent,self.deviceSelected,action)
     def DuplicateSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             self.partLoaded=copy.deepcopy(self.deviceSelected)
