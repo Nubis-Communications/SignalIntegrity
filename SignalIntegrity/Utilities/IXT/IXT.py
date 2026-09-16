@@ -58,7 +58,9 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         parser.add_argument('-ap','--aggressor_ports',type=str,help='comma seperated list of aggessor ports: input1,output1,input2,output2,... etc.')
         parser.add_argument('-an', '--aggressor_names', type=str, default='')# make this a hidden argument -- help='comma separated list of labels for aggressors in debug plots')
         parser.add_argument('-ps', '--plot_save', type=str, default='') # file name to save debug plot to (if --debug is set)
-        parser.add_argument('-mult','--multiply',type=str,help='comma seperated list of numbers to multiply by each aggressor port crosstalk')
+        parser.add_argument('-mult','--multiply',type=str,default=None,help='optional comma seperated list of numbers to multiply by each aggressor crosstalk before summing\n\
+1 number means it is applied to all aggressors, otherwise there must be one number per aggressor\n\
+(i.e. one per pair of ports in --aggressor_ports).')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-p','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
@@ -74,11 +76,13 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         return vars(args),unknown
 
     @staticmethod
-    def IXT(victim,aggressors,end_frequency):
+    def IXT(victim,aggressors,end_frequency,multiply=None):
         """Integrated crosstalk (in dB)
         @param victim instance of class FrequencyDomain containing the frequency response of the victim channel.
         @param aggressors instance of class FrequencyDomain containing the frequency response of the aggressor channel.
         @param end_frequency float frequency to integrate the crosstalk to.
+        @param multiply (optional) list of numbers, one per aggressor, to multiply each aggressor's crosstalk by before summing.
+        defaults to 1 for each aggressor if not provided.
         @return integrated crosstalk in dB.
         @remark
         aggressors can be provided as a list of aggressor frequency responses, in which case the integrated crosstalk
@@ -89,6 +93,8 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         import SignalIntegrity.Lib as si
         if isinstance(aggressors,si.fd.FrequencyDomain):
             aggressors=[aggressors]
+        if multiply is None:
+            multiply = [1. for _ in aggressors]
         frequencies = victim.Frequencies()
         victim_mag = victim.Values('mag')
         aggressors_mag = [aggressor.Values('mag') for aggressor in aggressors]
@@ -99,7 +105,7 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
                 continue
             if frequencies[n] > end_frequency:
                 break
-            ixt += (np.sqrt(sum([aggressor_mag[n]**2 for aggressor_mag in aggressors_mag]))/victim_mag[n])**2
+            ixt += (np.sqrt(sum([(m*aggressor_mag[n])**2 for m,aggressor_mag in zip(multiply,aggressors_mag)]))/victim_mag[n])**2
             num += 1
         return 10.*np.log10(ixt/num)
 
@@ -272,6 +278,24 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
             except:
                 self.Error('error extracting transfer functions')
 
+        num_aggressors = len(tm_list)-1
+        try:
+            if self.args['multiply'] is None:
+                multiply_list = [1. for _ in range(num_aggressors)]
+            else:
+                multiply_raw_list = self.args['multiply']
+                if not isinstance(multiply_raw_list,list):
+                    multiply_raw_list = [multiply_raw_list]
+                if len(multiply_raw_list) == 1:
+                    multiply_list = [multiply_raw_list[0] for _ in range(num_aggressors)]
+                elif len(multiply_raw_list) == num_aggressors:
+                    multiply_list = multiply_raw_list
+                else:
+                    self.Error(f'wrong number of multipliers.  Should be 1 or {num_aggressors}.')
+            self.Message('crosstalk multipliers determined')
+        except:
+            self.Error('error determining crosstalk multipliers')
+
         try:
             if self.args['debug']:
                 import matplotlib.pyplot as plt
@@ -293,7 +317,7 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
                     plt.savefig(self.args['plot_save'])
                 else:
                     plt.show()
-            ixt=self.IXT(tm_list[0],tm_list[1:],tm_list[0].Frequencies()[-1])
+            ixt=self.IXT(tm_list[0],tm_list[1:],tm_list[0].Frequencies()[-1],multiply_list)
         except:
             self.Error('integrated crosstalk could not be calculated')
 
