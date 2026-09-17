@@ -188,6 +188,10 @@ def ERL(filename,args,debug=False,verbose=False):
 
     path=os.getcwd()
 
+    # Set to a positive integer to truncate worst_phase_wf before writing ERL_Filter.txt.
+    # Set to None to keep the full waveform.
+    worst_phase_samples = None
+
     if debug or verbose:
         print(args)
 
@@ -229,6 +233,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"f_r = {ToSI(f_r,None)}")
         print(f"tukey_window = {str(tukey_window)}")
         print(f"bias = {ToSI(bias,'dB')}")
+        print(f"worst_phase_samples = {str(worst_phase_samples)}")
         print(f"verbose = {str(verbose)}")
         print(f"debug = {str(debug)}")
 
@@ -345,6 +350,18 @@ def ERL(filename,args,debug=False,verbose=False):
 
     if debug or verbose:
         print(f"min: {kmin}, max: {kmax}")
+
+    if worst_phase_samples is not None and worst_phase_samples > 0 and worst_phase_wf.td.K > worst_phase_samples:
+        worst_phase_wf = si.td.wf.Waveform(
+            si.td.wf.TimeDescriptor(
+                worst_phase_wf.Times()[0],
+                worst_phase_samples,
+                worst_phase_wf.td.Fs,
+            ),
+            worst_phase_wf.Values()[:worst_phase_samples],
+        )
+        if debug or verbose:
+            print(f"Truncated worst_phase_wf to {worst_phase_samples} samples before write")
 
     if debug: # pragma: no cover
         plt.plot([t*f_b for t in R_eff_wf.Times()],R_eff_wf.Values(),label='R_eff')
@@ -488,11 +505,14 @@ def ERL(filename,args,debug=False,verbose=False):
         plt.cla()
 
     if debug or verbose:
-        print(f"ERL: -20*Log_10(-DER intercept = {ToSI(-bin_value,'V')}) = {ToSI(ERL,'dB',round=5)}")
+        print(f"ERL (legacy): -20*Log_10(-DER intercept = {ToSI(-bin_value,'V')}) = {ToSI(ERL,'dB',round=5)}")
         if not np.isnan(ERL_COM_Matlab):
-            print(f"ERL_COM_Matlab: {ToSI(ERL_COM_Matlab,'dB',round=5)}")
+            print(f"ERL_COM_Matlab: -20*Log_10(-DER intercept = {ToSI(-bin_value_com,'V')}) = {ToSI(ERL_COM_Matlab,'dB',round=5)}")
         else:
             print('ERL_COM_Matlab: could not determine DER intercept from cdf_COM_Matlab')
+            
+    ERL = ERL_COM_Matlab #Override with COM Matlab value for consistency with COM v4.15.0
+
     return ERL
 
 def ERL_Main():
@@ -542,7 +562,6 @@ specified unitless (like 0.58), defaults to 0.58.')
     parser.add_argument('-tw','--tukey_window',action='store_true',help='apply a Tukey window to the receiver filter')
     parser.add_argument('-b','--bias',type=str, default='0',help='bias (in dB) subtracted from the final ERL result,\n\
 specified unitless (like 0.4), defaults to 0.')
-
     args, unknown = parser.parse_known_args()
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
