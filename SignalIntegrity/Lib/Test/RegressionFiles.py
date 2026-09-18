@@ -268,7 +268,8 @@ class RegressionFiles(object):
     def __init__(self,write=False,relearn=False,artifacts=None,
                  spCompareResolution=1e-3,allowReferenceImpedanceTranslation=True,
                  measurementRelativeTolerance=1e-6,measurementAbsoluteTolerance=1e-12,
-                 waveformTolerance=1e-4,eyeMeasurementRelativeTolerance=1e-3):
+                 waveformTolerance=1e-4,eyeMeasurementRelativeTolerance=1e-3,
+                 measurementRelativeTolerances=None):
         """Constructor
         @param write bool (optional, defaults to False) whether to write references
         rather than check them.
@@ -290,6 +291,7 @@ class RegressionFiles(object):
         self.measurementRelativeTolerance=measurementRelativeTolerance
         self.measurementAbsoluteTolerance=measurementAbsoluteTolerance
         self.eyeMeasurementRelativeTolerance=eyeMeasurementRelativeTolerance
+        self.measurementRelativeTolerances=dict(measurementRelativeTolerances or {})
         #: waveform samples must agree within this fraction of the waveform's peak
         self.waveformTolerance=waveformTolerance
     def Enabled(self,artifact):
@@ -801,9 +803,10 @@ class RegressionFiles(object):
                 differences.append(str(name)+' added as '+str(new[name]))
             elif name not in new:
                 differences.append(str(name)+' removed (was '+str(old[name])+')')
-            elif not self._MeasurementsClose(old[name],new[name],
-                                              self.eyeMeasurementRelativeTolerance
-                                              if self._IsEyeMeasurement(name) else None):
+            elif not self._MeasurementsClose(
+                    old[name],new[name],self.measurementRelativeTolerances.get(
+                        name,self.eyeMeasurementRelativeTolerance
+                        if self._IsEyeMeasurement(name) else None)):
                 differences.append(str(name)+' was '+str(old[name])+', is now '+str(new[name]))
         return differences
     @staticmethod

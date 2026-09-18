@@ -294,7 +294,8 @@ def _OpenDiffToolPreference():
 
 
 def RunCheckByDiff(adapter,projectFile,regressionArchiveFile,archiveNonRelativeFiles=None,
-                   args=None,artifacts=None,callback=None,openDiffTool=None,disableCaching=True):
+                   args=None,artifacts=None,callback=None,openDiffTool=None,disableCaching=True,
+                   measurementRelativeTolerances=None):
     """Check a project by regenerating its artifacts and diffing the two trees.
     @param adapter RegressionAdapter supplying archiving and calculation.
     @param projectFile string project file to archive and calculate.
@@ -348,7 +349,9 @@ def RunCheckByDiff(adapter,projectFile,regressionArchiveFile,archiveNonRelativeF
                 adapter.CalculateAndRecord(extractedProject,args,callback)
             finally:
                 RegressionContext.Stop()
-        results=RegressionFiles(artifacts=artifacts).DiffTrees(
+        results=RegressionFiles(
+            artifacts=artifacts,
+            measurementRelativeTolerances=measurementRelativeTolerances).DiffTrees(
             referenceRoot,candidateRoot,ignore={'manifest.json'},artifacts=artifacts)
         if openDiffTool and any(not result.ok for result in results):
             meldOpened=_OpenDiffTool(referenceRoot,candidateRoot,results,projectFile)
