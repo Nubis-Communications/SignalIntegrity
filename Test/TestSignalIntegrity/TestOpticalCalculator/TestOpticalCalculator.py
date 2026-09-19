@@ -92,7 +92,8 @@ class TestOpticalCalculatorTest(unittest.TestCase):
             ax.axis('off')
             ax.imshow(picture)
 
-            showit=True
+            import matplotlib
+            showit=matplotlib.get_backend().lower() in [b.lower() for b in matplotlib.rcsetup.interactive_bk]
             if showit:
                 plt.show(block=False)
                 plt.pause(5.0)

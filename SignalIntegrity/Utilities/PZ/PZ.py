@@ -158,10 +158,12 @@ class PZ_Fitter(dict):
             self.axs[1,1].set_ylim(-maxmin_extents,maxmin_extents)
 
         self.fig.canvas.draw()
-        if iteration == 0:
-            print('pausing 5 seconds for you to align the dashboard.', end='\r')
-            plt.pause(5)
-        plt.pause(0.001)
+        import matplotlib
+        if matplotlib.get_backend().lower() in [b.lower() for b in matplotlib.rcsetup.interactive_bk]:
+            if iteration == 0:
+                print('pausing 5 seconds for you to align the dashboard.', end='\r')
+                plt.pause(5)
+            plt.pause(0.001)
 
     @staticmethod
     def ParseKeywordPairs(args_list=[]):
