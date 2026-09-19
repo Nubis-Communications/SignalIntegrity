@@ -93,7 +93,12 @@ class TestOpticalCalculatorTest(unittest.TestCase):
             ax.imshow(picture)
 
             import matplotlib
-            showit=matplotlib.get_backend().lower() in [b.lower() for b in matplotlib.rcsetup.interactive_bk]
+            try:
+                from matplotlib.backends import BackendFilter, backend_registry
+                interactive_backends = backend_registry.list_builtin(BackendFilter.INTERACTIVE)
+            except ImportError: # pragma: no cover
+                interactive_backends = ('gtk3agg', 'gtk3cairo', 'gtk4agg', 'gtk4cairo', 'macosx', 'nbagg', 'notebook', 'qtagg', 'qtcairo', 'qt5agg', 'qt5cairo', 'tkagg', 'tkcairo', 'webagg', 'wx', 'wxagg', 'wxcairo')
+            showit=matplotlib.get_backend().lower() in [b.lower() for b in interactive_backends]
             if showit:
                 plt.show(block=False)
                 plt.pause(5.0)
