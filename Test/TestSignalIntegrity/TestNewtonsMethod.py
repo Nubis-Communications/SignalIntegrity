@@ -29,6 +29,8 @@ class TestNewtonsMethodTests(unittest.TestCase,si.test.RoutineWriterTesterHelper
     def setUp(self):
         self.cwd=os.getcwd()
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        import matplotlib
+        matplotlib.use('Agg')
     def tearDown(self):
         import matplotlib.pyplot as plt
         plt.close('all')

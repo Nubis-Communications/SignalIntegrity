@@ -29,6 +29,8 @@ class TestChirpZTransform(unittest.TestCase,si.test.SParameterCompareHelper):
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
     def setUp(self):
+        import matplotlib
+        matplotlib.use('Agg')
         os.chdir(self.path)
     def tearDown(self):
         import matplotlib.pyplot as plt

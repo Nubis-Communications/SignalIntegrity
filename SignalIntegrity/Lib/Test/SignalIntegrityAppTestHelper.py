@@ -407,7 +407,7 @@ class SignalIntegrityAppTestHelper:
                     stringList.append(jsstring+'\n')
                     return jsstring
                 if type(js) is float:
-                    if js<1e-30:
+                    if abs(js)<1e-15:
                         js=0.0
                     if js<1e-10:
                         precisionToUse=max(0,precision-2)
