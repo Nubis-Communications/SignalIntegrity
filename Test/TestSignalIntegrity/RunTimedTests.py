@@ -1,22 +1,9 @@
 """
-RunTimedTests.py
+Run SignalIntegrity tests with timing and optional time-threshold filtering.
 
-Run the SignalIntegrity unit tests while timing each one, recording the results to a
-CSV file, and optionally running only the subset of tests that previously ran faster
-than a given time threshold.
-
-Examples:
-    # Run every test, timing each, and (over)write the timings CSV:
-    python RunTimedTests.py --record
-
-    # Run only tests whose last recorded time was under 1.5 seconds:
-    python RunTimedTests.py --faster-than 1.5
-
-    # Same, but refresh the CSV timings for the tests that actually ran:
-    python RunTimedTests.py --faster-than 1.5 --update
-
-    # Print the 20 slowest recorded tests and exit:
-    python RunTimedTests.py --list-slowest 20
+Examples: ``--record`` runs every test, ``--faster-than 1.5`` selects previously
+fast tests, ``--update`` refreshes those timings, and ``--list-slowest 20`` lists
+the slowest recorded tests.
 """
 
 # Copyright (c) 2021 Nubis Communications, Inc.
@@ -188,23 +175,13 @@ def ListSlowest(csvPath, count):
     if not times:
         print('No recorded timings found at %s' % csvPath)
         return
-    for key, duration in sorted(times.items(), key=lambda kv: kv[1], reverse=True)[:count]:
-        print('%9.3f s  %s' % (duration, key))
-
-
-def main(argv=None):
+        Run SignalIntegrity unit tests while timing each one, recording results to CSV, and
+        optionally running only tests that were previously faster than a threshold.
     parser = argparse.ArgumentParser(description=__doc__,
-                                     formatter_class=argparse.RawDescriptionHelpFormatter)
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('--record', action='store_true',
-                       help='Run every test, timing each, and (over)write the timings CSV.')
-    group.add_argument('--faster-than', type=float, metavar='SECONDS', dest='faster_than',
-                       help='Run only tests whose last recorded time was under SECONDS. '
-                            'Tests with no recorded time are always included.')
-    group.add_argument('--list-slowest', type=int, metavar='N', dest='list_slowest',
-                       help='Print the N slowest recorded tests and exit.')
-    parser.add_argument('--update', action='store_true',
-                        help='With --faster-than, refresh the CSV timings for the tests that ran.')
+            python RunTimedTests.py --record              # Run every test and write timings.
+            python RunTimedTests.py --faster-than 1.5     # Run tests previously under 1.5 seconds.
+            python RunTimedTests.py --faster-than 1.5 --update  # Also refresh their timings.
+            python RunTimedTests.py --list-slowest 20     # Print the 20 slowest recorded tests.
     parser.add_argument('--csv', default=DEFAULT_CSV,
                         help='Path to the timings CSV (default: %(default)s).')
     parser.add_argument('-v', '--verbosity', type=int, default=2,

@@ -54,7 +54,7 @@ class TestHeadersTest(unittest.TestCase):
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
     def testFiles(self):
-        errors=False
+        errors=[]
         thisDir=os.getcwd()
         rootDir=thisDir+'/../..'
         for r, d, f in os.walk(rootDir):
@@ -123,8 +123,7 @@ class TestHeadersTest(unittest.TestCase):
                     if not donequotes:
                         if inquotes:
                             #error - could not find end of first quoted string
-                            print(pythonFileName+' Error: unresolved quoted string')
-                            errors=True
+                            errors.append(pythonFileName+' Error: unresolved quoted string')
                         else:
                             #error? no quoted string at beginning
                             print(pythonFileName+' Error: no quoted string')
@@ -164,13 +163,12 @@ class TestHeadersTest(unittest.TestCase):
                             doneLicense=False
                     if not doneLicense:
                         # error - no license string
-                        print(pythonFileName+' Error: no license')
-                        errors=True
+                        errors.append(pythonFileName+' Error: no license')
                     else:
                         if licenseLineEnd-licenseLineStart+1 != len(license):
-                            print(pythonFileName+' Error: license length incorrect')
-                            print(str(licenseLineEnd-licenseLineStart+1)+' vs. correct length of '+str(len(license)))
-                            errors=True
+                            errors.append(
+                                pythonFileName+' Error: license length incorrect ('+
+                                str(licenseLineEnd-licenseLineStart+1)+' vs. correct length of '+str(len(license))+')')
                         else:
                             for licenseLineNum in range(len(license)):
                                 actualLine=lines[licenseLineStart+licenseLineNum]
@@ -180,8 +178,7 @@ class TestHeadersTest(unittest.TestCase):
                                     if actualLine[-2:]=='\r\n':
                                         actualLine=actualLine[:-2]+'\n'
                                 if actualLine!=licenseLine:
-                                    print(pythonFileName+' Error: license incorrect')
-                                    errors=True
+                                    errors.append(pythonFileName+' Error: license incorrect')
                                     break
                         pass
                     realLines=[]
@@ -222,8 +219,11 @@ class TestHeadersTest(unittest.TestCase):
                     if self.write:
                         with open(pythonFileName,'w') as f:
                             f.writelines(realLines)
-
         if self.test:
+            if errors:
+                print('\nLicense errors:')
+                for error in errors:
+                    print(error)
             self.assertFalse(errors,'there were license errors')
 
 if __name__ == "__main__":
