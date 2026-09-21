@@ -28,7 +28,7 @@ ERL is computed from the single-ended-to-differential return loss ($S_{11}$) of 
 
 - The gated reflection is examined across all `phi` sample phases and the worst-case (largest standard deviation) phase is retained. This worst-case pulse response is used as a reflection filter.
 
-- The reflection filter is driven with a long, random symbol sequence (NRZ for `bps` = 1 or PAM-4 for `bps` = 2) to produce a distribution of the reflected error voltage. The cumulative distribution of this error is formed and the voltage at which the distribution reaches the target detector error ratio `DER_0` is found by interpolation.
+- The worst-case sampled reflection is converted directly into a discrete probability density function (PDF) using the MATLAB-compatible COM algorithm. It is convolved with equally likely symbol levels to form the reflected-error distribution. The number of levels is controlled by `levels`; the default is 2. The cumulative distribution function (CDF) is formed from that PDF and the voltage at which it reaches the target detector error ratio `DER_0` is found by interpolation.
 
 - ERL is reported as $-20\log_{10}(-v)$ (in dB), where $v$ is the error-voltage intercept at `DER_0`. An optional `bias` (in dB) may be subtracted from this result.
 
@@ -48,7 +48,9 @@ Multiplying the PTDR by the two gating functions gives the gated reflection $R_{
 
 <img src="media/ERL_Sampled_PTDR.png" alt="ERL_Sampled_PTDR" width="700" height="597" />
 
-The worst-case sampled reflection is written out as a reflection filter and used in a second ***SignalIntegrity*** schematic, shown below, which drives the filter with a long, random symbol sequence (NRZ for `bps` = 1 or PAM-4 for `bps` = 2) to produce the reflected error voltage.
+By default, this sampled-waveform PDF/CDF calculation is performed in the ERL utility; it does not write `ERL_Filter.txt` or simulate the second schematic. This matches the translated MATLAB COM `FAST_NOISE_CONV=0` calculation.
+
+For compatibility with the earlier ERL implementation, `--old_cdf` (or `-ocdf`) instead writes the sampled reflection to `ERL_Filter.txt` and uses the second ***SignalIntegrity*** schematic, shown below, to drive the filter with a long random symbol sequence. The legacy calculation supports only power-of-two level counts; use the default CDF calculation for other counts such as PAM-6.
 
 <img src="media/ERL_S11_Error.png" alt="ERL_S11_Error" width="650" height="504" />
 
@@ -56,7 +58,7 @@ Simulating this schematic yields the error-voltage waveform, whose distribution 
 
 <img src="media/ERL_Error_Waveform.png" alt="ERL_Error_Waveform" width="600" height="447" />
 
-Finally, the cumulative distribution of the error voltage is formed and the voltage at which it reaches the target detector error ratio `DER_0` is found by interpolation; ERL follows as $-20\log_{10}(-v)$.
+In this legacy mode, the cumulative distribution of the error voltage is formed and the voltage at which it reaches the target detector error ratio `DER_0` is found by interpolation; ERL follows as $-20\log_{10}(-v)$.
 
 <img src="media/ERL_cdf.png" alt="ERL_cdf" width="700" height="597" />
 
@@ -80,11 +82,13 @@ The ERL utility takes the name of a four-port (`.s4p`) s-parameter file as its p
 | `T_fx`         | s     | no (default 0) | time-gated propagation delay.                                         |
 | `f_b`          | Baud  | yes      | Baud rate.                                                                  |
 | `DER_0`        | &ndash; | yes    | target detector error ratio.                                                |
-| `bps`          | &ndash; | no (default 1) | bits per symbol (1 = NRZ, 2 = PAM-4).                                |
+| `levels`       | &ndash; | no (default 2) | number of symbol levels; must be an integer of at least 2.            |
+| `bps`          | &ndash; | no (default 1.0) | deprecated compatibility argument; fractional values are converted to `round(2**bps)` levels. Do not specify it with `levels`. |
 | `phi`          | &ndash; | no (default 32) | number of sample phases in the PTDR (an upsample factor).          |
 | `f_r`          | &ndash; | no (default 0.58) | receiver bandwidth as a fraction of the Baud rate.               |
 | `tukey_window` | &ndash; | no (default False) | apply a Tukey window to the receiver filter.                    |
 | `bias`         | dB    | no (default 0) | bias subtracted (in dB) from the final ERL result.                    |
+| `old_cdf`      | &ndash; | no (default False) | use the legacy `ERL_S11_Error` simulation-based CDF calculation. |
 
 Arguments that carry units may be entered either in SI form (for example `5ps`, `2.53GHz`, `106.25GBaud`) or as a plain number (for example `5e-12`, `2.53e9`, `106.25e9`). The transition time `T_r` may additionally be specified in UI (for example `0.5UI`), in which case it is converted using the Baud rate.
 
@@ -93,7 +97,7 @@ Arguments that carry units may be entered either in SI form (for example `5ps`, 
 The utility is invoked from a command prompt. The positional argument is the s-parameter file name, followed by keyword/value pairs:
 
 ```
-ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -bps 2
+ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -levels 4
 ```
 
 The utility prints the computed ERL (in dB) to standard output. On success the ERL value is printed and the process exits with status 0; on any error the string `error` is printed and the process exits with status 1.
@@ -106,10 +110,12 @@ In addition to the keyword arguments above, the following options control the ut
 
 - `-p` / `--profile` &ndash; profiles the software and prints timing statistics.
 
+- `-ocdf` / `--old_cdf` &ndash; uses the legacy simulation-based CDF calculation instead of the default MATLAB-compatible sampled-waveform PDF/CDF calculation.
+
 For example, to run the calculation with verbose progress messages:
 
 ```
-ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -bps 2 --verbose
+ERL channel.s4p -T_r 6.16ps -beta_x 2.53GHz -rho_x 0.618 -N 400UI -N_bx 8UI -f_b 106.25GBaud -DER_0 1e-4 -levels 4 --verbose
 ```
 
 ### Command-Line Help {#sub:ERL-Help}
@@ -118,7 +124,7 @@ Running `ERL --help` prints the following summary of the utility's arguments:
 
 ```text
 usage: ERL [-h] [-debug] [-p] [-v] [-port_reorder PORT_REORDER] [-T_r T_R] [-beta_x BETA_X] [-rho_x RHO_X] [-N N] [-N_bx N_BX]
-           [-T_fx T_FX] [-f_b F_B] [-Z0 Z0] [-DER_0 DER_0] [-bps BPS] [-phi PHI] [-f_r F_R] [-tw] [-b BIAS]
+           [-T_fx T_FX] [-f_b F_B] [-Z0 Z0] [-DER_0 DER_0] [-levels LEVELS] [-phi PHI] [-f_r F_R] [-tw] [-b BIAS] [-ocdf]
            [filename]
 
 Effective Return Loss Calculator
@@ -158,8 +164,7 @@ options:
                         defaults to 100.
   -DER_0 DER_0          (required) target detector error ratio
                         specified unitless (like 1e-6).
-  -bps BPS              bits per symbol
-                        1 is NRZ (default), 2 is PAM-4.
+  -levels LEVELS        number of symbol levels (integer, defaults to 2)
   -phi PHI              sample phases in ptdr (essentially upsample factor)
                         defaults to 32
   -f_r F_R              receiver bandwidth as a fraction of the Baud rate
@@ -167,6 +172,7 @@ options:
   -tw, --tukey_window   apply a Tukey window to the receiver filter
   -b BIAS, --bias BIAS  bias (in dB) subtracted from the final ERL result,
                         specified unitless (like 0.4), defaults to 0.
+  -ocdf, --old_cdf      use the legacy ERL_S11_Error CDF calculation
 ```
 
 ## Integrated Crosstalk (IXT) {#sub:Integrated-Crosstalk}

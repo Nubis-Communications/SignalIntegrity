@@ -1,73 +1,102 @@
 #!/usr/bin/env python
-"""Compare a freshly generated ``helpkeys`` file against the legacy key list.
+"""Verify the ``helpkeys`` index of the SignalIntegrity MkDocs help site.
 
-After migrating the help system from LyX/eLyXer to MkDocs, run this to confirm
-that every context-help label the application relies on still resolves to a
-page/anchor in the new site.
+Every context-help request the application makes is resolved by looking a label
+up in ``helpkeys`` and opening the ``page.html#anchor`` it maps to (see
+``SignalIntegrity.App.BuildHelpSystem.HelpSystemKeys``).  This checks that the
+index and the built site agree with each other:
+
+* every label maps to a page that exists in the site,
+* that page really carries an element with the id the label resolves to, and
+* every context-help anchor in the site is present in the index, so that
+  ``helpkeys`` is not stale with respect to a newer build.
 
 Usage::
 
-    python verify_helpkeys.py [new_helpkeys] [legacy_helpkeys]
+    python verify_helpkeys.py [site_dir]
 
-Defaults:
-    new_helpkeys    = ./site/helpkeys              (output of gen_helpkeys.py)
-    legacy_helpkeys = ./Help.html.LyXconv/helpkeys (frozen legacy list)
+If ``site_dir`` is omitted, ``./site`` next to this script is used.  The exit
+code is non-zero if anything is wrong, so this can be wired into CI.
 
-Exit code is non-zero if any legacy label is missing from the new file, so this
-can be wired into CI.
+To check the opposite direction - labels referenced by the application source
+that do not exist in the site at all - use ``Test/Utilities/find_missing_help.py``
+in the SignalIntegrity repository.
 """
 import os
 import sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_NEW = os.path.join(HERE, 'site', 'helpkeys')
-DEFAULT_LEGACY = os.path.join(HERE, 'Help.html.LyXconv', 'helpkeys')
+from gen_helpkeys import scan_site_for_keys
 
 
 def load_keys(path):
-    """Return the set of labels (left-hand side of ' >>> ') in a helpkeys file."""
-    keys = set()
+    """Return a dict of label -> target, and the list of labels appearing twice."""
+    keys = {}
+    duplicates = []
     with open(path, 'r', encoding='utf-8', errors='replace') as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
             tokens = line.split(' >>> ')
-            if len(tokens) == 2:
-                keys.add(tokens[0])
-    return keys
+            if len(tokens) != 2:
+                continue
+            label, target = tokens
+            if label in keys:
+                duplicates.append(label)
+            else:
+                keys[label] = target
+    return keys, duplicates
 
 
 def main(argv):
-    new_path = argv[1] if len(argv) > 1 else DEFAULT_NEW
-    legacy_path = argv[2] if len(argv) > 2 else DEFAULT_LEGACY
+    site_dir = argv[1] if len(argv) > 1 else os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'site')
 
-    for path, what in ((new_path, 'new'), (legacy_path, 'legacy')):
-        if not os.path.isfile(path):
-            sys.stderr.write('%s helpkeys not found: %s\n' % (what, path))
-            return 2
+    if not os.path.isdir(site_dir):
+        sys.stderr.write('site directory not found: %s\n'
+                         '(build the site first: mkdocs build)\n' % site_dir)
+        return 2
+    helpkeys_path = os.path.join(site_dir, 'helpkeys')
+    if not os.path.isfile(helpkeys_path):
+        sys.stderr.write('helpkeys not found: %s\n'
+                         '(generate it first: python gen_helpkeys.py)\n' % helpkeys_path)
+        return 2
 
-    new_keys = load_keys(new_path)
-    legacy_keys = load_keys(legacy_path)
+    keys, duplicates = load_keys(helpkeys_path)
+    anchors = scan_site_for_keys(site_dir)
 
-    missing = sorted(legacy_keys - new_keys)
-    added = sorted(new_keys - legacy_keys)
+    unresolved = []
+    for label in sorted(keys):
+        page, _, anchor = keys[label].partition('#')
+        if not os.path.isfile(os.path.join(site_dir, page)):
+            unresolved.append((label, 'page does not exist: ' + page))
+        elif anchor == '':
+            unresolved.append((label, 'no anchor in target: ' + keys[label]))
+        elif label not in anchors:
+            unresolved.append((label, 'no element with id "' + anchor + '" in ' + page))
 
-    print('legacy labels : %d' % len(legacy_keys))
-    print('new labels    : %d' % len(new_keys))
-    print('missing (in legacy, not in new) : %d' % len(missing))
-    print('added   (in new, not in legacy) : %d' % len(added))
+    unindexed = sorted(set(anchors) - set(keys))
 
-    if missing:
-        print('\n--- MISSING labels (context help will break for these) ---')
-        for k in missing:
-            print('  ' + k)
-    if added:
-        print('\n--- ADDED labels (new anchors not previously present) ---')
-        for k in added:
-            print('  ' + k)
+    print('labels in helpkeys      : %d' % len(keys))
+    print('anchors in the site     : %d' % len(anchors))
+    print('unresolved labels       : %d' % len(unresolved))
+    print('anchors not in helpkeys : %d' % len(unindexed))
+    print('duplicated labels       : %d' % len(duplicates))
 
-    return 1 if missing else 0
+    if unresolved:
+        print('\n--- UNRESOLVED labels (context help will break for these) ---')
+        for label, why in unresolved:
+            print('  %-50s %s' % (label, why))
+    if unindexed:
+        print('\n--- ANCHORS missing from helpkeys (regenerate it) ---')
+        for label in unindexed:
+            print('  ' + label)
+    if duplicates:
+        print('\n--- DUPLICATED labels (the first one wins) ---')
+        for label in sorted(set(duplicates)):
+            print('  ' + label)
+
+    return 1 if (unresolved or unindexed or duplicates) else 0
 
 
 if __name__ == '__main__':

@@ -50,6 +50,7 @@ The standard preferences are:
 | password for encryption | [Encryption.Password](29-Preferences.md#sub:Encryption.Password) | String | None |
 | file ending for encryption | [Encryption.Ending](29-Preferences.md#sub:Encryption.Ending) | String | \$ |
 | archive cached results | [ProjectFiles.ArchiveCachedResults](29-Preferences.md#sub:ArchiveCachedResults) | Bool | False |
+| archive non-relative files | [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) | Bool | False |
 | use online help | [OnlineHelp.UseOnlineHelp](29-Preferences.md#sub:OnlineHelp.UseOnlineHelp) | Bool | True |
 | online help url | [OnlineHelp.URL](29-Preferences.md#sub:OnlineHelp.URL) | String | http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App |
 
@@ -494,6 +495,22 @@ This is the file name ending used to determine whether to encrypt a project file
 Usually, when you [Archive Project](15-Main-Schematic-Dialog.md#Control-Help:Archive), only the source files (project files and referenced s-parameter files) are archived. When this preference is set to True, the cached solutions are also archived. In theory, this speeds up the calculations when archives are extracted (but can also make the archive quite large in size).
 
 Currently, when the archive is created with cached solutions, the update time of the cached solution is retained as it is added to the archive. And, if the archive were to be extracted using archive extraction utilities, these update times would remain untouched. Unfortunately, there is a bug in the Python archive extraction tools that causes the update times to become modified, causing recalculation of the solution and defeating the purpose. Some workaround to this will be found and fixed in the future.
+
+<div id="sub:ArchiveNonRelativeFiles"></div>
+
+## ProjectFiles.ArchiveNonRelativeFiles {#sub:ArchiveNonRelativeFiles}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| archive non-relative files | [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) | Bool | False |
+
+When a project references a file that no relative path can be formed to, that file is normally left out of the archive. This happens when the file is on another drive (for example, a file at `z:/t4_ic_files/foo.s3p` referenced by a project on the `c:` drive), and it happens when the file is simply above the directory being archived. Neither situation causes archiving to fail; the file is reported and skipped, on the assumption that every machine opening the archive reaches the file the same way.
+
+When this preference is set to True, such files are archived under a *mangled* name. The mangled name encodes the original absolute path, with a leading `#` and with each path separator replaced by a `#`, so `z:/t4_ic_files/foo.s3p` is archived as `#z#t4_ic_files#foo.s3p`. The mangled copy is placed in the archived directory of every project that references it.
+
+The project files themselves are left untouched and go on referencing the original absolute path. Whenever an absolute path is referenced, the mangled file is looked for in the directory of the referencing project first, and is used if it is found. That lookup is unconditional and does not depend on this preference, so an extracted archive calculates identically on a machine that cannot reach the original location, and re-archiving an extracted archive picks the mangled file up again.
+
+For now, only s-parameter files (those with a `.sXp` extension, where X is the number of ports) are archived this way.
 
 <div id="sub:OnlineHelp.UseOnlineHelp"></div>
 

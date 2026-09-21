@@ -242,6 +242,8 @@ Archiving a project takes the project file and all files referenced by it, eithe
 
 Files that are referenced only from within a schematic's [Equations](26-Equations.md#sec:Equations) script (for example, a `.csv` file opened by the script) are not discovered automatically. To include such a file in the archive, wrap its path with the `ArchiveFile()` function in the equations — see [Referencing External Files in Equations](26-Equations.md#sub:ArchiveFile).
 
+A file that no relative path can be formed to — one on another drive, or one above the directory being archived — is normally reported and left out of the archive, on the assumption that every machine opening the archive reaches it the same way. This never causes archiving to fail. Setting the preference [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) archives such files instead, under a mangled name placed beside each project that references them. Whenever an absolute path is referenced, that mangled file is looked for in the directory of the referencing project first, whether or not the preference is set.
+
 An example is shown below that highlights how this works. First, let’s examine the directory structure prior to archiving. Here, the project to archive is called Project.si and it is located in the DirBBB directory. Project.si references two files: the project file bbb.si in the DirDDD directory below and aaa.trc located in the DirCCC directory. The project file bbb.si further references the file ccc.s2p located in the DirBBB directory above.
 
 <div class="center">
