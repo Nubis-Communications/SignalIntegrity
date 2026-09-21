@@ -30,6 +30,7 @@ class PreferencesDialog(PropertiesDialog):
         self.foregroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.Foreground')
         self.roundDisplayedValues=CalculationProperty(self.propertyListFrame,'digits to round displayed values',None,self.onUpdatePreferences,preferences,'Appearance.RoundDisplayedValues')
         self.limitText=CalculationProperty(self.propertyListFrame,'limit text in displayed values',None,self.onUpdatePreferences,preferences,'Appearance.LimitText')
+        self.progressDialog=CalculationPropertyTrueFalseButton(self.propertyListFrame,'detached progress bar',None,self.onUpdatePreferences,preferences,'Appearance.ProgressDialog')
         #self.activeBackgroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'active background color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveBackground')
         #self.activeForegroundColorFrame=CalculationPropertyColor(self.propertyListFrame,'active foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveForeground')
         self.showAllPinNumbers=CalculationPropertyTrueFalseButton(self.propertyListFrame,'show all pin numbers',None,self.onUpdatePreferences,preferences,'Appearance.AllPinNumbersVisible')

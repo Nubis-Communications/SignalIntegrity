@@ -22,6 +22,7 @@ ProgressDialog.py
 import tkinter as tk
 
 import SignalIntegrity.App.Project
+import SignalIntegrity.App.Preferences
 
 from math import floor
 
@@ -35,15 +36,19 @@ class ProgressDialog(tk.Toplevel):
         self.title(title)
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
         self.tk.call('wm', 'iconphoto', self._w, self.img)
-        self.protocol("WM_DELETE_WINDOW", self.destroy)
-        self.barFrame=tk.Frame(self)
-        self.barFrame.pack(side=tk.TOP)
-        self.bar = tk.Canvas(self.barFrame,relief=tk.SUNKEN,borderwidth=1,width=600,height=10)
-        self.bar.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
-        self.buttonFrame=tk.Frame(self)
-        self.buttonFrame.pack(side=tk.TOP)
-        self.stopButton = tk.Button(self.buttonFrame,text='Stop',command=self.onStop)
-        self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)
+        self.useProgressDialog = SignalIntegrity.App.Preferences['Appearance.ProgressDialog']
+        if self.useProgressDialog:
+            self.protocol("WM_DELETE_WINDOW", self.destroy)
+            self.barFrame=tk.Frame(self)
+            self.barFrame.pack(side=tk.TOP)
+            self.bar = tk.Canvas(self.barFrame,relief=tk.SUNKEN,borderwidth=1,width=600,height=10)
+            self.bar.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+            self.buttonFrame=tk.Frame(self)
+            self.buttonFrame.pack(side=tk.TOP)
+            self.stopButton = tk.Button(self.buttonFrame,text='Stop',command=self.onStop)
+            self.stopButton.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.NO)
+        else:
+            self.protocol("WM_DELETE_WINDOW", self.onStop)
         self.stopCommand=False
         self.isShowing=False
         self.titleList=[title]
@@ -54,9 +59,16 @@ class ProgressDialog(tk.Toplevel):
         self.geometry("%+d%+d" % (self.parent.root.winfo_x()+self.parent.root.winfo_width()/2-self.winfo_width()/2,
             self.parent.root.winfo_y()+self.parent.root.winfo_height()/2-self.winfo_height()/2))
         self.resizable(False, False)
-        self.deiconify()
-        self.wait_visibility(self)
-        self.grab_set()
+        if self.useProgressDialog:
+            self.deiconify()
+            self.wait_visibility(self)
+            self.grab_set()
+        else:
+            self.parent.statusbar.ShowAbort(self.onStop)
+    def destroy(self):
+        if not self.useProgressDialog:
+            self.parent.statusbar.HideAbort()
+        tk.Toplevel.destroy(self)
     def onStop(self):
         self.stopCommand=True
     def Callback(self,number,name=None):
@@ -72,10 +84,15 @@ class ProgressDialog(tk.Toplevel):
                 self.titleList=self.titleList[:-1]
             if len(self.titleList) > 0:
                 self.title(self.titleList[-1])
-        if floor(number/self.granularity) != self.currentPercent:
-            self.currentPercent = floor(number/self.granularity)  
-            self.bar.create_rectangle(0,0,600*number/100.0,10,fill='blue')
-            self.bar.create_rectangle(600*number/100.0,0,600,10,fill='white',outline='white')
+        percent = floor(number/self.granularity)
+        if percent != self.currentPercent or name != None:
+            self.currentPercent = percent
+            if self.useProgressDialog:
+                self.bar.create_rectangle(0,0,600*number/100.0,10,fill='blue')
+                self.bar.create_rectangle(600*number/100.0,0,600,10,fill='white',outline='white')
+            else:
+                statusText = self.titleList[-1] if len(self.titleList) > 0 else ''
+                self.parent.statusbar.set('%s', statusText+' '+str(percent)+'%')
             self.update()
         if self.stopCommand:
             self.destroy()
