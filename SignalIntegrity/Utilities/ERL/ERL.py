@@ -155,6 +155,31 @@ class ERLComMatlabPDF:
 
         return pdf
 
+
+def FindWaveformSupport(waveform, epsilon):
+    for index in range(waveform.td.K):
+        if abs(waveform[index]) > epsilon:
+            first_index = index
+            break
+    else:
+        return 0, 0
+
+    for index in range(waveform.td.K - 1, -1, -1):
+        if abs(waveform[index]) > epsilon:
+            return first_index, index
+
+
+def LinearlyInterpolate(xi, yi, xf, yf, target):
+    if yi < 10**-300 / 10:
+        return xi
+    yi = np.log10(yi)
+    yf = np.log10(yf)
+    target = np.log10(target)
+    slope = (yf - yi) / (xf - xi)
+    intercept = yi - slope * xi
+    return (target - intercept) / slope
+
+
 def ERL(filename,args,debug=False,verbose=False):
     """computes effective return loss (ERL) mostly according to IEEE COM
     @param filename absolute path of four-port s-parameter file
@@ -179,6 +204,8 @@ def ERL(filename,args,debug=False,verbose=False):
     | f_r          | --   | no 0.58     | receiver bandwidth as a fraction of the Baud rate                   |
     | tukey_window | --   | no False    | apply a Tukey window to the receiver filter                         |
     | bias         | dB   | no 0        | bias subtracted from the final ERL result                           |
+    | old_cdf      | --   | no False    | use the legacy ERL_S11_Error CDF calculation                        |
+    | worst_phase_samples | -- | no None    | truncate the worst-phase waveform before legacy CDF calculation     |
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
@@ -190,7 +217,7 @@ def ERL(filename,args,debug=False,verbose=False):
 
     # Set to a positive integer to truncate worst_phase_wf before writing ERL_Filter.txt.
     # Set to None to keep the full waveform.
-    worst_phase_samples = None
+    worst_phase_samples = None if 'worst_phase_samples' not in args else int(args['worst_phase_samples'])
 
     if debug or verbose:
         print(args)
@@ -215,6 +242,7 @@ def ERL(filename,args,debug=False,verbose=False):
     f_r = 0.58 if 'f_r' not in args else float(args['f_r'])
     tukey_window = False if 'tukey_window' not in args else str(args['tukey_window']).strip().lower() in ('true','1','yes')
     bias = 0. if 'bias' not in args else float(args['bias'])
+    old_cdf = False if 'old_cdf' not in args else str(args['old_cdf']).strip().lower() in ('true','1','yes')
 
     if debug or verbose:
         print(f"filename = {filename}")
@@ -233,6 +261,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"f_r = {ToSI(f_r,None)}")
         print(f"tukey_window = {str(tukey_window)}")
         print(f"bias = {ToSI(bias,'dB')}")
+        print(f"old_cdf = {str(old_cdf)}")
         print(f"worst_phase_samples = {str(worst_phase_samples)}")
         print(f"verbose = {str(verbose)}")
         print(f"debug = {str(debug)}")
@@ -327,21 +356,7 @@ def ERL(filename,args,debug=False,verbose=False):
                                         [R_eff_wf[k*phi+phi_max] for k in range(0,K//phi)])
 
     epsilon=1e-5
-    def kmin():
-        for k in range(0,worst_phase_wf.td.K):
-            if abs(worst_phase_wf[k]) > epsilon:
-                return k
-        return 0
-
-    def kmax():
-        for k in range(0,worst_phase_wf.td.K):
-            index = worst_phase_wf.td.K-1-k
-            if abs(worst_phase_wf[index]) > epsilon:
-                return index
-        return 0
-
-    kmin=kmin()
-    kmax=kmax()
+    kmin,kmax=FindWaveformSupport(worst_phase_wf,epsilon)
     K=kmax-kmin+1
     worst_phase_wf = si.td.wf.Waveform(si.td.wf.TimeDescriptor(worst_phase_wf.Times()[kmin],
                                                                kmax-kmin+1,
@@ -375,68 +390,56 @@ def ERL(filename,args,debug=False,verbose=False):
         plt.show()
         plt.cla()
 
-    worst_phase_wf.WriteToFile('ERL_Filter.txt')
+    if old_cdf:
+        worst_phase_wf.WriteToFile('ERL_Filter.txt')
 
-    args = {'Nbits':4e6,
-            'f_b':f_b,
-            'bps':bps
-            }
+        args = {'Nbits':4e6,
+                'f_b':f_b,
+                'bps':bps
+                }
 
-    if debug: # pragma: no cover
-        kwPairs=' '.join([key+' '+str(args[key]) for key in args.keys()])
-        pwdArgString=''
-        result=os.system('SignalIntegrity "'+os.path.abspath('ERL_S11_Error.si')+'"'+pwdArgString+' --external '+kwPairs)
+        if debug: # pragma: no cover
+            kwPairs=' '.join([key+' '+str(args[key]) for key in args.keys()])
+            pwdArgString=''
+            result=os.system('SignalIntegrity "'+os.path.abspath('ERL_S11_Error.si')+'"'+pwdArgString+' --external '+kwPairs)
 
-    siapp = SignalIntegrityAppHeadless()
-    opened = siapp.OpenProjectFile('ERL_S11_Error.si', args)
-    if not opened: # pragma: no cover
-        raise ERL_Exception('error: project file ERL_S11_Error.si could not be opened')
+        siapp = SignalIntegrityAppHeadless()
+        opened = siapp.OpenProjectFile('ERL_S11_Error.si', args)
+        if not opened: # pragma: no cover
+            raise ERL_Exception('error: project file ERL_S11_Error.si could not be opened')
 
-    result = siapp.Simulate()
-    if result == {}: # pragma: no cover
-        raise ERL_Exception('error: project file ERL_S11_Error.si could not be simulated')
+        result = siapp.Simulate()
+        if result == {}: # pragma: no cover
+            raise ERL_Exception('error: project file ERL_S11_Error.si could not be simulated')
 
-    outputWaveformLabels=result['output waveform labels']
-    outputWaveformList=result['output waveforms']
+        outputWaveformLabels=result['output waveform labels']
+        outputWaveformList=result['output waveforms']
 
-    error_wf = outputWaveformList[outputWaveformLabels.index('V_error')]
+        error_wf = outputWaveformList[outputWaveformLabels.index('V_error')]
+        sigma=np.std(error_wf)
 
-    sigma=np.std(error_wf)
+        if debug or verbose:
+            print(f"min error: {min(error_wf)}, max error: {max(error_wf)}")
 
-    if debug or verbose:
-        print(f"min error: {min(error_wf)}, max error: {max(error_wf)}")
+        histo,bin_edges = np.histogram(error_wf.Values(),
+                             bins = 1000,
+                             range=(-5.*sigma,5.*sigma),
+                             )
+        histo = histo / error_wf.td.K
+        bin_centers=[(bin_edges[b]+bin_edges[b+1])/2. for b in range(bin_edges.shape[0]-1)]
 
-    histo,bin_edges = np.histogram(error_wf.Values(),
-                         bins = 1000,
-                         range=(-5.*sigma,5.*sigma),
-                         )
-    histo = histo / error_wf.td.K
-    bin_centers=[(bin_edges[b]+bin_edges[b+1])/2. for b in range(bin_edges.shape[0]-1)]
+        cdf=list(histo)
+        for b in range(1,len(cdf)):
+            cdf[b]=cdf[b-1]+histo[b]
 
-    cdf=list(histo)
-    for b in range(1,len(cdf)):
-        cdf[b]=cdf[b-1]+histo[b]
-
-
-    def linearly_interpolate(xi,yi,xf,yf,T):
-        if yi < 10**-300/10: # protection when CDF just rose above zero
-            return xi
-        yi=np.log10(yi)
-        yf=np.log10(yf)
-        T=np.log10(T)
-        m=(yf-yi)/(xf-xi)
-        b=yi-m*xi
-        x=(T-b)/m
-        return x
-
-    for b in range(len(cdf)):
-        if cdf[b] > DER_0:
-            bin_value = linearly_interpolate(bin_centers[b-1],
-                                             cdf[b-1],
-                                             bin_centers[b],
-                                             cdf[b],
-                                             DER_0)
-            break
+        for b in range(len(cdf)):
+            if cdf[b] > DER_0:
+                bin_value = LinearlyInterpolate(bin_centers[b-1],
+                                                 cdf[b-1],
+                                                 bin_centers[b],
+                                                 cdf[b],
+                                                 DER_0)
+                break
 
 
     # MATLAB-COM style PDF/CDF/ERL from sampled worst-phase waveform.
@@ -460,44 +463,41 @@ def ERL(filename,args,debug=False,verbose=False):
     ERL_COM_Matlab = float('nan')
     for b in range(1, len(cdf_com_values)):
         if cdf_com_values[b] > DER_0:
-            bin_value_com = linearly_interpolate(
+            bin_value_com = LinearlyInterpolate(
                 cdf_com_bins[b-1],
                 cdf_com_values[b-1],
                 cdf_com_bins[b],
                 cdf_com_values[b],
                 DER_0,
             )
-            ERL_COM_Matlab = -20.0 * np.log10(-bin_value_com) #No bias here
+            ERL_COM_Matlab = -20.0 * np.log10(-bin_value_com) - bias
             break
 
     if debug or verbose:
-        print(f"DER intercept at: {ToSI(bin_value,'V')}")
-        if not np.isnan(ERL_COM_Matlab):
-            print(f"DER COM Matlab intercept at: {ToSI(bin_value_com,'V')}")
-        else:
-            print('DER COM Matlab intercept: not found in cdf_COM_Matlab')
+        if old_cdf:
+            print(f"DER intercept at: {ToSI(bin_value,'V')}")
+        print(f"DER COM Matlab intercept at: {ToSI(bin_value_com,'V')}")
 
-    ERL = -20.*np.log10(-bin_value)
-    ERL = ERL - bias
+    if old_cdf:
+        ERL = -20.*np.log10(-bin_value) - bias
+    else:
+        ERL = ERL_COM_Matlab
 
     if debug: # pragma: no cover
-        sigma_estimate = [0.5*math.erf(0.5*np.sqrt(2)*bin_centers[b]/sigma)+0.5 for b in range(len(bin_centers))]
-        erl_label = f'cdf (ERL={ERL:.3f} dB)'
-        if not np.isnan(ERL_COM_Matlab):
-            erl_com_label = f'cdf_COM_Matlab (ERL_COM_Matlab={ERL_COM_Matlab:.3f} dB)'
-        else:
-            erl_com_label = 'cdf_COM_Matlab (ERL_COM_Matlab=n/a)'
-
-        cdf_line, = plt.semilogy(bin_centers,cdf,label=erl_label)
-        cdf_com_line, = plt.semilogy(cdf_COM_Matlab['x'], cdf_COM_Matlab['vec'], label=erl_com_label)
-        plt.semilogy(bin_centers,sigma_estimate,label='cdf estimate')
+        cdf_com_line, = plt.semilogy(
+            cdf_COM_Matlab['x'], cdf_COM_Matlab['vec'],
+            label=f'cdf_COM_Matlab (ERL={ERL_COM_Matlab:.3f} dB)')
+        if old_cdf:
+            sigma_estimate = [0.5*math.erf(0.5*np.sqrt(2)*bin_centers[b]/sigma)+0.5 for b in range(len(bin_centers))]
+            cdf_line, = plt.semilogy(bin_centers,cdf,label=f'cdf (ERL={ERL:.3f} dB)')
+            plt.semilogy(bin_centers,sigma_estimate,label='cdf estimate')
         plt.xlabel('bin')
         plt.ylabel('probability')
         plt.title('cdf')
         plt.axhline(DER_0,linestyle='--',color='black')
-        plt.axvline(bin_value,linestyle='--',color=cdf_line.get_color())
-        if not np.isnan(ERL_COM_Matlab):
-            plt.axvline(bin_value_com, linestyle='--', color=cdf_com_line.get_color())
+        if old_cdf:
+            plt.axvline(bin_value,linestyle='--',color=cdf_line.get_color())
+        plt.axvline(bin_value_com, linestyle='--', color=cdf_com_line.get_color())
         plt.ylim(bottom=DER_0 * 1e-3, top=2)
         plt.grid()
         plt.legend(loc='lower right')
@@ -505,13 +505,9 @@ def ERL(filename,args,debug=False,verbose=False):
         plt.cla()
 
     if debug or verbose:
-        print(f"ERL (legacy): -20*Log_10(-DER intercept = {ToSI(-bin_value,'V')}) = {ToSI(ERL,'dB',round=5)}")
-        if not np.isnan(ERL_COM_Matlab):
-            print(f"ERL_COM_Matlab: -20*Log_10(-DER intercept = {ToSI(-bin_value_com,'V')}) = {ToSI(ERL_COM_Matlab,'dB',round=5)}")
-        else:
-            print('ERL_COM_Matlab: could not determine DER intercept from cdf_COM_Matlab')
-            
-    ERL = ERL_COM_Matlab #Override with COM Matlab value for consistency with COM v4.15.0
+        if old_cdf:
+            print(f"ERL (legacy): -20*Log_10(-DER intercept = {ToSI(-bin_value,'V')}) = {ToSI(ERL,'dB',round=5)}")
+        print(f"ERL_COM_Matlab: -20*Log_10(-DER intercept = {ToSI(-bin_value_com,'V')}) = {ToSI(ERL_COM_Matlab,'dB',round=5)}")
 
     return ERL
 
@@ -562,6 +558,7 @@ specified unitless (like 0.58), defaults to 0.58.')
     parser.add_argument('-tw','--tukey_window',action='store_true',help='apply a Tukey window to the receiver filter')
     parser.add_argument('-b','--bias',type=str, default='0',help='bias (in dB) subtracted from the final ERL result,\n\
 specified unitless (like 0.4), defaults to 0.')
+    parser.add_argument('-ocdf','--old_cdf',action='store_true',help='use the legacy ERL_S11_Error CDF calculation')
     args, unknown = parser.parse_known_args()
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
@@ -595,9 +592,10 @@ specified unitless (like 0.4), defaults to 0.')
     try:
         argsDict['T_r']=FromSI(args.T_r,'s')
         if argsDict['T_r'] == None:
-            argsDict['T_r']=FromSI(args.T_r,'UI')/argsDict['f_b']
-        if argsDict['T_r'] == None:
-            raise(AttributeError)
+            transition_ui=FromSI(args.T_r,'UI')
+            if transition_ui == None:
+                raise(AttributeError)
+            argsDict['T_r']=transition_ui/argsDict['f_b']
     except (AttributeError,TypeError):
         Error('error: T_r must be specified')
 
@@ -651,16 +649,18 @@ specified unitless (like 0.4), defaults to 0.')
         Error('error: DER_0 must be specified')
 
     try:
-        argsDict['bps']=int(FromSI(args.bps,''))
-        if argsDict['bps'] == None:
+        bps=FromSI(args.bps,'')
+        if bps == None:
             raise(AttributeError)
+        argsDict['bps']=int(bps)
     except (AttributeError,TypeError):
         Error('error: bps must be specified')
 
     try:
-        argsDict['phi']=int(FromSI(args.phi,''))
-        if argsDict['phi'] == None:
+        phi=FromSI(args.phi,'')
+        if phi == None:
             raise(AttributeError)
+        argsDict['phi']=int(phi)
     except (AttributeError,TypeError):
         Error('error: phi must be specified')
 
@@ -672,6 +672,7 @@ specified unitless (like 0.4), defaults to 0.')
         Error('error: f_r must be specified')
 
     argsDict['tukey_window']=args.tukey_window
+    argsDict['old_cdf']=args.old_cdf
 
     try:
         argsDict['bias']=FromSI(args.bias,'')
