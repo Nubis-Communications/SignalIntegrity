@@ -199,7 +199,8 @@ def ERL(filename,args,debug=False,verbose=False):
     | T_fx         | s    | no 0        | time-gated propagation delay                                        |
     | f_b          | Baud | yes         | Baud rate                                                           |
     | DER_0        | --   | yes         | target detector error ratio                                         |
-    | bps          | --   | no 1        | bits per symbol (1=NRZ, 2=PAM-4)                                    |
+    | levels       | --   | no 2        | number of symbol levels                                             |
+    | bps          | --   | no 1        | deprecated bits per symbol compatibility argument                    |
     | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
     | f_r          | --   | no 0.58     | receiver bandwidth as a fraction of the Baud rate                   |
     | tukey_window | --   | no False    | apply a Tukey window to the receiver filter                         |
@@ -237,12 +238,43 @@ def ERL(filename,args,debug=False,verbose=False):
     T_fx = 0 if 'T_fx' not in args else args['T_fx']
     f_b = args['f_b']
     DER_0 = args['DER_0']
-    bps = 1 if 'bps' not in args else int(args['bps'])
+    bps = 1.0 if 'bps' not in args else args['bps']
     phi = 32 if 'phi' not in args else int(args['phi'])
     f_r = 0.58 if 'f_r' not in args else float(args['f_r'])
     tukey_window = False if 'tukey_window' not in args else str(args['tukey_window']).strip().lower() in ('true','1','yes')
     bias = 0. if 'bias' not in args else float(args['bias'])
     old_cdf = False if 'old_cdf' not in args else str(args['old_cdf']).strip().lower() in ('true','1','yes')
+
+    has_bps = 'bps' in args
+    has_levels = 'levels' in args
+    if has_bps and has_levels:
+        raise ERL_Exception('error: specify levels instead of bps; do not enter both')
+
+    if has_levels:
+        try:
+            levels_value = float(args['levels'])
+        except (TypeError, ValueError):
+            raise ERL_Exception('error: levels must be an integer')
+        if not np.isfinite(levels_value) or not levels_value.is_integer() or levels_value < 2:
+            raise ERL_Exception('error: levels must be an integer >= 2')
+        levels = int(levels_value)
+        bps = math.log2(levels)
+    else:
+        try:
+            bps = 1.0 if not has_bps else float(args['bps'])
+        except (TypeError, ValueError):
+            raise ERL_Exception('error: bps must be a finite number')
+        if not np.isfinite(bps):
+            raise ERL_Exception('error: bps must be a finite number')
+        levels = int(math.floor(2.0 ** bps + 0.5))
+        if levels < 2:
+            raise ERL_Exception('error: bps must produce at least 2 levels')
+        if has_bps and verbose:
+            print('warning: bps is deprecated; use levels instead')
+
+    legacy_bps = int(round(math.log2(levels)))
+    if old_cdf and 2 ** legacy_bps != levels:
+        raise ERL_Exception('error: legacy CDF supports only power-of-two levels; use the default CDF for this levels value')
 
     if debug or verbose:
         print(f"filename = {filename}")
@@ -257,6 +289,7 @@ def ERL(filename,args,debug=False,verbose=False):
         print(f"f_b = {ToSI(f_b,'Baud')}")
         print(f"DER_0 = {ToSI(DER_0,None)}")
         print(f"bps = {ToSI(bps,None)}")
+        print(f"levels = {ToSI(levels,None)}")
         print(f"phi = {ToSI(phi,None)}")
         print(f"f_r = {ToSI(f_r,None)}")
         print(f"tukey_window = {str(tukey_window)}")
@@ -395,7 +428,7 @@ def ERL(filename,args,debug=False,verbose=False):
 
         args = {'Nbits':4e6,
                 'f_b':f_b,
-                'bps':bps
+                'bps':legacy_bps
                 }
 
         if debug: # pragma: no cover
@@ -446,7 +479,7 @@ def ERL(filename,args,debug=False,verbose=False):
     # Based on get_pdf_from_sampled_signal() in com_ieee8023_4p15p0.m (COM v4.15.0)
     pdf_COM_Matlab = ERLComMatlabPDF.get_pdf_from_sampled_signal(
         np.asarray(worst_phase_wf.Values(), dtype=float),
-        L=int(2 ** bps),
+        L=levels,
         BinSize=1e-4,
         FAST_NOISE_CONV=0,
     )
@@ -549,8 +582,8 @@ specified with units of ohm (like 100ohm or 100),\n\
 defaults to 100.',default='100ohm')
     parser.add_argument('-DER_0', type=str,  help='(required) target detector error ratio\n\
 specified unitless (like 1e-6).')
-    parser.add_argument('-bps',type=str, default='1',help='bits per symbol\n\
-1 is NRZ (default), 2 is PAM-4.')
+    parser.add_argument('-bps',type=str, default=None, help=argparse.SUPPRESS)
+    parser.add_argument('-levels',type=str, default=None, help='number of symbol levels (integer, defaults to 2)')
     parser.add_argument('-phi',type=str, default='32',help='sample phases in ptdr (essentially upsample factor)\n\
 defaults to 32')
     parser.add_argument('-f_r',type=str, default='0.58',help='receiver bandwidth as a fraction of the Baud rate\n\
@@ -648,13 +681,25 @@ specified unitless (like 0.4), defaults to 0.')
     except (AttributeError,TypeError):
         Error('error: DER_0 must be specified')
 
-    try:
-        bps=FromSI(args.bps,'')
-        if bps == None:
-            raise(AttributeError)
-        argsDict['bps']=int(bps)
-    except (AttributeError,TypeError):
-        Error('error: bps must be specified')
+    if args.bps is not None and args.levels is not None:
+        Error('error: specify levels instead of bps; do not enter both')
+
+    if args.levels is not None:
+        try:
+            levels=FromSI(args.levels,'')
+            if levels == None or not float(levels).is_integer() or levels < 2:
+                raise(AttributeError)
+            argsDict['levels']=int(levels)
+        except (AttributeError,TypeError,ValueError):
+            Error('error: levels must be an integer >= 2')
+    elif args.bps is not None:
+        try:
+            bps=FromSI(args.bps,'')
+            if bps == None or not np.isfinite(float(bps)):
+                raise(AttributeError)
+            argsDict['bps']=float(bps)
+        except (AttributeError,TypeError,ValueError):
+            Error('error: bps must be a finite number')
 
     try:
         phi=FromSI(args.phi,'')

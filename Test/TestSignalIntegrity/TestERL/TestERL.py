@@ -121,6 +121,83 @@ class TestERLTest(unittest.TestCase,
         self.assertEqual(FindWaveformSupport(Waveform([0.0, 1e-6]), 1e-5), (0, 0))
         self.assertEqual(LinearlyInterpolate(1.0, 1e-310, 2.0, 1e-6, 1e-8), 1.0)
         self.assertAlmostEqual(LinearlyInterpolate(1.0, 1e-2, 3.0, 1.0, 1e-1), 2.0)
+
+    def testERLLevelsCalculationAndValidation(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from unittest.mock import patch
+        from SignalIntegrity.Utilities.ERL.ERL import ERL, ERLComMatlabPDF
+
+        file_name = os.path.join(os.path.dirname(__file__), 'sparam_res.s4p')
+        numeric_args = self.ERL_Nitro_args()
+        for key, units in [('T_r','s'), ('beta_x','Hz'), ('rho_x',None), ('N','UI'),
+                           ('N_bx','UI'), ('Z0','ohm'), ('T_fx','s'), ('f_b','Baud'),
+                           ('DER_0',None), ('phi',None)]:
+            numeric_args[key] = FromSI(numeric_args[key], units)
+
+        with patch.object(ERLComMatlabPDF, 'get_pdf_from_sampled_signal',
+                          wraps=ERLComMatlabPDF.get_pdf_from_sampled_signal) as pdf_call:
+            output = StringIO()
+            with redirect_stdout(output):
+                ERL(file_name, dict(numeric_args, bps=2.585), verbose=True)
+            self.assertEqual(pdf_call.call_args.kwargs['L'], 6)
+            self.assertIn('warning: bps is deprecated; use levels instead', output.getvalue())
+
+        with patch.object(ERLComMatlabPDF, 'get_pdf_from_sampled_signal',
+                          wraps=ERLComMatlabPDF.get_pdf_from_sampled_signal) as pdf_call:
+            ERL(file_name, dict(numeric_args, levels=6))
+            self.assertEqual(pdf_call.call_args.kwargs['L'], 6)
+
+        for invalid_args in [
+            dict(numeric_args, levels='not-a-number'),
+            dict(numeric_args, levels=6.5),
+            dict(numeric_args, bps='not-a-number'),
+            dict(numeric_args, bps=float('nan')),
+            dict(numeric_args, bps=-1),
+            dict(numeric_args, bps=1, levels=2),
+            dict(numeric_args, levels=6, old_cdf=True),
+        ]:
+            with self.subTest(invalid_args=invalid_args):
+                with self.assertRaises(si.SignalIntegrityException):
+                    ERL(file_name, invalid_args)
+
+    def testERLMainLevelsArguments(self):
+        import sys
+        from unittest.mock import patch
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+
+        def run_with(arguments):
+            self.formERLMain_argv()
+            sys.argv.extend(arguments)
+            captured = {}
+
+            def fake_erl(filename, args, debug=False, verbose=False):
+                captured.update(args)
+                return 0.0
+
+            with patch.dict(ERL_Main.__globals__, {'ERL': fake_erl}):
+                with self.assertRaises(SystemExit) as exception:
+                    ERL_Main()
+            self.assertEqual(exception.exception.code, 0)
+            return captured
+
+        self.assertNotIn('bps', run_with([]))
+        self.assertEqual(run_with(['-bps', '2.585'])['bps'], 2.585)
+        self.assertEqual(run_with(['-levels', '6'])['levels'], 6)
+
+        self.formERLMain_argv()
+        sys.argv.extend(['-bps', '1.0', '-levels', '2'])
+        with self.assertRaises(SystemExit) as exception:
+            ERL_Main()
+        self.assertEqual(exception.exception.code, 1)
+
+        for invalid_levels in ['not-a-number', '6.5', '1']:
+            with self.subTest(invalid_levels=invalid_levels):
+                self.formERLMain_argv(replace={'levels': invalid_levels})
+                with self.assertRaises(SystemExit) as exception:
+                    ERL_Main()
+                self.assertEqual(exception.exception.code, 1)
+
     def testERLNitroSubprocess(self):
         import subprocess
         script_file = os.path.abspath(os.path.relpath('../../../SignalIntegrity/Utilities/ERL/ERL.py', os.path.dirname(__file__)))
