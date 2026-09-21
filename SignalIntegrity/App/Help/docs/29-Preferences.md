@@ -24,6 +24,7 @@ The standard preferences are:
 | foreground color | [Appearance.Color.Foreground](29-Preferences.md#sub:Appearance.Color.Foreground) | String | black |
 | round displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Int | 4 |
 | limit text in displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.LimitText) | Int | 60 |
+| detached progress bar | [Appearance.ProgressDialog](29-Preferences.md#sub:Appearance.ProgressDialog) | Bool | True |
 | show all pin numbers | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Bool | False |
 | use SinX/X for resampling | [Calculation.UseSinX/X](29-Preferences.md#sub:Calculation.UseSinX) | Bool | True |
 | try SVD in calculations (experimental) | [Calculation.TrySVD](29-Preferences.md#sub:Calculation.TrySVD) | Bool | True |
@@ -67,6 +68,16 @@ The font size preference controls the fonts everywhere from within the applicati
 Unfortunately, changing the font generally does not take effect until the application is closed and restarted.
 
 Font sizes are not altered in any tikz or pgf plots outputs, which are geared to take the font of an enclosing document.
+
+<div id="sub:Appearance.ProgressDialog"></div>
+
+## Appearance.ProgressDialog {#appearance.progressdialog .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| detached progress bar | [Appearance.ProgressDialog](29-Preferences.md#sub:Appearance.ProgressDialog) | Bool | True |
+
+When enabled, calculations show progress in a separate progress dialog with a progress bar and Stop button. When disabled, the progress dialog remains hidden; progress and the Abort button are shown in the application's status bar instead.
 
 <div id="sub:OpenProjectsReadOnly"></div>
 
