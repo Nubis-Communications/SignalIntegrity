@@ -19,10 +19,10 @@ PreferencesDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 import tkinter as tk
 from tkinter import ttk
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI,CalculationPropertyChoices
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
-from SignalIntegrity.Lib.Log import LogConfiguration
+from SignalIntegrity.Lib.Log import Categories,Levels,LogConfiguration
 
 class PreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
@@ -101,11 +101,20 @@ class PreferencesDialog(PropertiesDialog):
 
         # Logging
         self.loggingEnabled=CalculationPropertyTrueFalseButton(self.loggingTab,'enable logging',None,self.onUpdatePreferences,preferences,'Logging.Enabled')
-        # the categories and the destinations live in their own dialog, both because
-        # there are a lot of them and because logging is usually wanted without
-        # visiting the preferences at all.
-        self.loggingButton=tk.Button(self.loggingTab,text='logging categories...',command=self.onLogging)
-        self.loggingButton.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.loggingLevel=CalculationPropertyChoices(self.loggingTab,'logging depth',None,self.onUpdatePreferences,[(level.lower(),level) for level in Levels],preferences,'Logging.Level')
+        self.loggingCategoriesFrame=tk.Frame(self.loggingTab, relief=tk.RIDGE, borderwidth=5)
+        self.loggingCategoriesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        # one on/off button per logging category, generated from the categories themselves
+        # so that adding a category needs no change here.
+        self.loggingCategories={category:CalculationPropertyTrueFalseButton(self.loggingCategoriesFrame,'log '+category,None,
+                            self.onUpdatePreferences,preferences,'Logging.Categories.'+category,
+                            tooltip=Categories[category])
+                         for category in sorted(Categories.keys())}
+        self.loggingDestinationsFrame=tk.Frame(self.loggingTab, relief=tk.RIDGE, borderwidth=5)
+        self.loggingDestinationsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.loggingConsole=CalculationPropertyTrueFalseButton(self.loggingDestinationsFrame,'log to console',None,self.onUpdatePreferences,preferences,'Logging.Console')
+        self.loggingFile=CalculationPropertyTrueFalseButton(self.loggingDestinationsFrame,'log to file',None,self.onUpdatePreferences,preferences,'Logging.File')
+        self.loggingFileName=CalculationProperty(self.loggingDestinationsFrame,'log file',None,self.onUpdatePreferences,preferences,'Logging.FileName')
 
         self.Finish()
 
@@ -125,16 +134,19 @@ class PreferencesDialog(PropertiesDialog):
                                           self.project['OnlineHelp.URL'])
 
     def ShowLoggingProperties(self):
-        # the button is always available - it is the way to the logging categories
-        # and it must not disappear just because logging happens to be turned off.
-        pass
+        enabled=self.project['Logging.Enabled']
+        self.loggingLevel.Show(enabled)
+        for category in self.loggingCategories:
+            self.loggingCategories[category].Show(enabled)
+        self.loggingConsole.Show(enabled)
+        self.loggingFile.Show(enabled)
+        self.loggingFileName.Show(enabled and self.project['Logging.File'])
+        self.loggingCategoriesFrame.pack_forget()
+        self.loggingDestinationsFrame.pack_forget()
+        if enabled:
+            self.loggingCategoriesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+            self.loggingDestinationsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
-    def onLogging(self):
-        from SignalIntegrity.App.LoggingDialog import LoggingDialog
-        if not hasattr(self,'loggingDialog') or (self.loggingDialog is None) or (not self.loggingDialog.winfo_exists()):
-            self.loggingDialog=LoggingDialog(self.parent,self.project)
-        else:
-            self.loggingDialog.lift()
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()
