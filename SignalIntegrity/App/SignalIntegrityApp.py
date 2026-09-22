@@ -1038,13 +1038,16 @@ class SignalIntegrityApp(tk.Frame):
             Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'],
             allowParallel=self.AllowParallelization())
         spnp.AddLines(netList)
+        self.statusbar.set('Calculating S-parameters')
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
             sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return None
+        self.statusbar.set('Calculation Complete')
         return sp
 
     def onCalculateSParameters(self):
@@ -1133,6 +1136,7 @@ class SignalIntegrityApp(tk.Frame):
         sp=self.CalculateSParameters()
         if sp is None:
             return
+        self.statusbar.set('Calculating RLGC Fit')
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
         threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
         for k in range(len(stepResponse)):
@@ -1174,6 +1178,7 @@ class SignalIntegrityApp(tk.Frame):
         device['df'].SetValueFromString(str(df)); device['df']['KeywordVisible']=True; device['df']['Visible']=True
         device['sect']['KeywordVisible']=False; device['sect']['Visible']=False
         self.AddSpecificPart(device,popDialog=False)
+        self.statusbar.set('Calculation Complete')
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
@@ -1198,6 +1203,7 @@ class SignalIntegrityApp(tk.Frame):
         if not self.CheckEquations(): return None
         self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
 
+
     def onTransferParameters(self):
         if self.SimulateDoer.active:
             self.onSimulate(TransferMatricesOnly=True)
@@ -1221,10 +1227,12 @@ class SignalIntegrityApp(tk.Frame):
                 allowParallel=self.AllowParallelization())
         dnp.AddLines(netList)
 
+        self.statusbar.set('Calculating De-embedded S-parameters')
         progressDialog = ProgressDialog(self,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         unknownNames=dnp.m_sd.UnknownNames()
@@ -1236,6 +1244,7 @@ class SignalIntegrityApp(tk.Frame):
             if self.fileparts.filename != '':
                 filename=self.fileparts.filename+'_'+filename
             SParametersDialog(self,sp[u],filename=filename)
+        self.statusbar.set('Calculation Complete')
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
@@ -1576,12 +1585,15 @@ class SignalIntegrityApp(tk.Frame):
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         etnp.AddLines(netList)
+        self.statusbar.set('Calculating Error Terms')
         progressDialog = ProgressDialog(self,"Calculating Error Terms",etnp,etnp.CalculateCalibration,granularity=1.0)
         try:
             cal=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('Error Terms Calculator',e.parameter+': '+e.message)
             return None
+        self.statusbar.set('Calculation Complete')
         return cal
 
     def onCalculateErrorTerms(self):

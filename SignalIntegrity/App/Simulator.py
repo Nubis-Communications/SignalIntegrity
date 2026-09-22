@@ -95,6 +95,7 @@ class Simulator(object):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList,
                                                               time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
     def Simulate(self,TransferMatricesOnly=False):
+        self.parent.statusbar.set('Simulating')
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
@@ -114,6 +115,7 @@ class Simulator(object):
             try:
                 self.transferMatrices=progressDialog.GetResult()
             except si.SignalIntegrityException as e:
+                self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
@@ -137,12 +139,14 @@ class Simulator(object):
                 SParametersDialog(self.parent,sp,
                                   self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                                   'Transfer Parameters',buttonLabelList,time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
+                self.parent.statusbar.set('Calculation Complete')
                 return
 
             progressDialog=ProgressDialog(self.parent,"Input Waveforms",self.parent.Drawing.schematic,self.parent.Drawing.schematic.InputWaveforms, granularity=1.0)
             try:
                 self.inputWaveformList=progressDialog.GetResult()
             except si.SignalIntegrityException as e:
+                self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
@@ -169,6 +173,7 @@ class Simulator(object):
                 if result == None:
                     raise ValueError
             except:
+                self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator','Frequency responses were not calculated')
                 return
 
@@ -183,6 +188,7 @@ class Simulator(object):
                 if result == None:
                     raise ValueError
             except:
+                self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator','Impulse responses were not calculated')
                 return
 
@@ -190,6 +196,7 @@ class Simulator(object):
             try:
                 outputWaveformList = progressDialog.GetResult()
             except si.SignalIntegrityException as e:
+                self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
@@ -219,6 +226,7 @@ class Simulator(object):
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
@@ -266,6 +274,7 @@ class Simulator(object):
                                            outputWaveformLabels
                                            )
         except:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Simulator','Noise analysis failed')
             return
 
@@ -294,8 +303,10 @@ class Simulator(object):
             self.NoiseDialog().SimulateDoer.Activate(True)
             self.UpdateNoise(sna)
         self.parent.root.update()
+        self.parent.statusbar.set('Calculation Complete')
 
     def VirtualProbe(self,TransferMatricesOnly=False):
+        self.parent.statusbar.set('Calculating Virtual Probe')
         netList=self.parent.Drawing.schematic.NetList()
         netListText=netList.Text()
         import SignalIntegrity.Lib as si
@@ -313,6 +324,7 @@ class Simulator(object):
         try:
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
@@ -327,6 +339,7 @@ class Simulator(object):
             SParametersDialog(self.parent,sp,
                               self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
                               'Transfer Parameters',buttonLabelList,time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
+            self.parent.statusbar.set('Calculation Complete')
             return
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
@@ -339,6 +352,7 @@ class Simulator(object):
         try:
             self.inputWaveformList=self.parent.Drawing.schematic.InputWaveforms()
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
@@ -346,6 +360,7 @@ class Simulator(object):
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Virtual Probe',e.parameter+': '+e.message)
             return
 
@@ -366,6 +381,7 @@ class Simulator(object):
             otherWaveformLabels+=sourceNamesToShow
             outputWaveformList+=[self.inputWaveformList[self.sourceNames.index(snt)] for snt in sourceNamesToShow]
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
 
@@ -419,4 +435,5 @@ class Simulator(object):
                             eyeDiagramDict.append(eyeDict)
                         break
         self.UpdateEyeDiagrams(eyeDiagramDict)
+        self.parent.statusbar.set('Calculation Complete')
 
