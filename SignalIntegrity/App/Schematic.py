@@ -52,7 +52,7 @@ class Schematic(CallBacker):
     def InputWaveforms(self):
         inputWaveformList=[]
         for device in self.deviceList:
-            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
+            if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
                 wf = device.Waveform(self.callback)
                 if not wf is None:
                     inputWaveformList.append(wf)

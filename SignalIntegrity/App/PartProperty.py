@@ -198,6 +198,10 @@ class PartPropertyWaveformFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'waveformfilename',type='file',unit=None,keyword='wffile',description='file name',value=fileName)
 
+class PartPropertyFrequencyResponseFileName(PartProperty):
+    def __init__(self,fileName=''):
+        PartProperty.__init__(self,'frequencyresponsefilename',type='file',unit=None,keyword='frfile',description='file name',value=fileName)
+
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
         PartProperty.__init__(self,'resistance',type='float',unit='ohm',keyword=keyword,description=descriptionPrefix+'resistance (ohms)',value=resistance,visible=True,keywordVisible=False)

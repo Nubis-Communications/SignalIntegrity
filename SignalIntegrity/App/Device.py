@@ -1582,6 +1582,24 @@ class DeviceImpulseResponseFilter(Device):
                          PartPictureVariableImpulseResponseFilter())
         self['wffile']['Description']='impulse response file name'
 
+class DeviceFrequencyResponseFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='frequencyresponsefilter',
+                                  values=[('frfile',False),
+                                          ('dcgain',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Frequency Response Filter'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('FrequencyResponseFilter'),
+                         PartPropertyHelp('device:FrequencyResponseFilter'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyFrequencyResponseFileName(),
+                         PartPropertyDCGain()],
+                         PartPictureVariableFrequencyResponseFilter())
+        self['frfile']['Description']='frequency response file name'
+
 class DeviceWElement(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='w',values=[('file',False),('df',True),('scale',True),('sect',True)])
@@ -2042,6 +2060,7 @@ DeviceList=Devices([
                 DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
                 DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay()),
                 DeviceImpulseResponseFilter(),
+                DeviceFrequencyResponseFilter(),
                 DeviceEyeProbe(),
                 DeviceDifferentialEyeProbe(),
                 DeviceEyeWaveform(),

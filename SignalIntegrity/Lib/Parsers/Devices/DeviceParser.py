@@ -102,6 +102,7 @@ class DeviceFactory(list):
         |tlineequation                          |2    |True     |eq zc=50                                                                                       | True                |sp.dev.TransmissionLineEquation(f,eq,Z0=zc).SetReferenceImpedance(z0)                            |
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
+        |frequencyresponsefilter                |2    |True     |filename=None dcGain=None                                                                      | True                |sp.dev.FrequencyResponseFilter(f,filename,dcGain)                                                |
         |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
         |series                                 |any  |False    |filename=None sect=None lp=None rp=None                                                        | True                |sp.dev.Series(f,file,sect,lp,rp,z0)                                                              |
         |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |
@@ -275,6 +276,10 @@ class DeviceFactory(list):
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
+        ParserDevice('frequencyresponsefilter',2,True,
+            {'':None,'dcgain':None},True,
+            "FrequencyResponseFilter(arg[''],\
+            normalizedDCGain=eval(arg['dcgain']),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
                      "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('series',None,False,{'file':None,'sect':None,'lp':None,'rp':None},True,
@@ -361,6 +366,7 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
         from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
+        from SignalIntegrity.Lib.SParameters.Devices.FrequencyResponseFilter import FrequencyResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
         from SignalIntegrity.Lib.SParameters.Devices.Series import Series
         from SignalIntegrity.Lib.SParameters.Devices.GaussianRisetimeFilter import GaussianRisetimeFilter

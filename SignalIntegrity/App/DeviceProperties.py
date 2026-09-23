@@ -275,6 +275,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'waveformfilename':
             extension=('.txt','.trc')
             filetypename='waveforms'
+        elif self.partProperty['PropertyName'] == 'frequencyresponsefilename':
+            extension=('.txt',)
+            filetypename='frequency responses'
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')
             filetypename='calibration file'
@@ -294,8 +297,11 @@ class DeviceProperty(tk.Frame):
                 initialFile=currentFileParts.FileNameWithExtension()
             else:
                 initialFile=currentFileParts.filename+extension[0]
+        filetypes=[(filetypename,extension)]
+        if self.partProperty['PropertyName'] != 'frequencyresponsefilename':
+            filetypes.append(('project','.si'))
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension),('project','.si')],
+                                 filetypes=filetypes,
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -486,7 +492,7 @@ class DeviceProperties(tk.Frame):
         except TypeError:
             pass
         keywords = [property['Keyword'] for property in self.device.propertiesList]
-        if 'wffile' in keywords:
+        if 'wffile' in keywords and 'wfprojname' in keywords:
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
             ext=str.lower(fileName).split('.')[-1]
             self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')

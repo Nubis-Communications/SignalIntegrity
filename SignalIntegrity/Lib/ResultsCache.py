@@ -159,7 +159,7 @@ class ResultsCache(object):
             import glob
             import os
             file_list = glob.glob(self._FileName(wildcard=True))
-            file_list.sort(key=os.path.getmtime, reverse=True)  # Sort by modification time, newest first
+            file_list.sort(key=os.path.getmtime)  # Sort by modification time, oldest first
             number_of_files = len(file_list)
             number_to_delete = max(0, number_of_files - self.files_to_keep + 1)
 
@@ -304,6 +304,11 @@ class LinesCache(ResultsCache):
                                                    for key,value in [(lineList[k],lineList[k+1])
                                                                      for k in range(5,len(lineList),2)]
                                                    if key not in ['wfprojname','dcgain','mults','derivative']}
+                        elif lineList[3] == 'frequencyresponsefilter':
+                            fileList[lineList[4]]={key:value
+                                                   for key,value in [(lineList[k],lineList[k+1])
+                                                                     for k in range(5,len(lineList),2)]
+                                                   if key not in ['dcgain']}
                 elif lineList[0] == 'calibration':
                     fileList[lineList[3]]={key:value
                                            for key,value in [(lineList[k],lineList[k+1])

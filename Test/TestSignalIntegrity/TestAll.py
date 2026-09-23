@@ -53,6 +53,7 @@ from TestHiRes import *
 from TestImpedanceProfile import *
 from TestIXT import *
 from TestImpulseResponseFilter import *
+from TestFrequencyResponseFilter import *
 from TestLaplace import *
 from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
