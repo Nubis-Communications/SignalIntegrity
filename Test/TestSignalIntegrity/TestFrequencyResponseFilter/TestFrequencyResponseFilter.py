@@ -80,6 +80,16 @@ class TestFrequencyResponseFilterTest(unittest.TestCase,
     def testFrequencyResponseFileDC(self):
         sp=si.sp.dev.FrequencyResponseFilter('FrequencyResponseFilter.txt',normalizedDCGain=1.0)
         self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
+    def testFrequencyResponseSimulation(self):
+        si.test.SignalIntegrityAppTestHelper.plotErrors=True
+        self.SimulationResultsChecker('FrequencyResponse.si')
+    def testFrequencyResponseFileFromCSVMatchesText(self):
+        spText=si.sp.dev.FrequencyResponseFilter('FrequencyResponseFilter.txt',normalizedDCGain=None)
+        spCSV=si.sp.dev.FrequencyResponseFilter('FrequencyResponseFilter.csv',normalizedDCGain=None)
+        self.assertTrue(self.SParametersAreEqual(spText,spCSV,1e-9),'csv and txt frequency responses differ')
+    def testFrequencyResponseFileFromS2P(self):
+        sp=si.sp.dev.FrequencyResponseFilter('../../../SignalIntegrity/App/Examples/CableModel/cable.s2p',normalizedDCGain=None)
+        self.SParameterRegressionChecker(sp,self.NameForTest()+'.s2p')
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

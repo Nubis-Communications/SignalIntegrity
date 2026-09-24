@@ -276,7 +276,7 @@ class DeviceProperty(tk.Frame):
             extension=('.txt','.trc')
             filetypename='waveforms'
         elif self.partProperty['PropertyName'] == 'frequencyresponsefilename':
-            extension=('.txt',)
+            extension=('.txt','.csv','.s1p','.s2p')
             filetypename='frequency responses'
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')

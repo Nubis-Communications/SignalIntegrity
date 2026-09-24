@@ -22,9 +22,14 @@ Frequency Response
 from numpy import fft
 import math
 import cmath
+import csv
+import os
+import re
+import sys
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.Splines import Spline
 from SignalIntegrity.Lib.ChirpZTransform import CZT
 from SignalIntegrity.Lib.Rat import Rat
@@ -54,6 +59,73 @@ class FrequencyResponse(FrequencyDomain):
         @see FrequencyDomain.Values() for valid units.
         """
         return self.Values(unit)
+    def ReadFromFile(self,fileName):
+        """reads a frequency response from a file
+        @param fileName string file name to read
+        @return self
+        @remark
+        Supported extensions:
+        - '.csv' via ReadFromCSV()
+        - '.sNp' (Touchstone s-parameter files) via ReadFromSParameterFile()
+        Other extensions fall back to FrequencyDomain.ReadFromFile().
+        """
+        _,file_extension=os.path.splitext(fileName)
+        extension=file_extension.lower()
+        if extension == '.csv':
+            return self.ReadFromCSV(fileName)
+        if re.match(r'^\.s\d+p$',extension):
+            return self.ReadFromSParameterFile(fileName)
+        return FrequencyDomain.ReadFromFile(self,fileName)
+    def ReadFromSParameterFile(self,fileName):
+        """reads a frequency response from a Touchstone s-parameter file
+        @param fileName string name of s-parameter file (e.g. '.s1p', '.s2p') to read
+        @return self
+        @remark
+        The response is taken as the port 1 reflection ($S_{11}$) for a one-port
+        file and as the port 1 to port 2 transfer characteristic ($S_{21}$) for a
+        file with two or more ports.
+        """
+        from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
+        sp=SParameterFile(fileName)
+        (ToP,FromP)=(1,1) if sp.m_P < 2 else (2,1)
+        fr=sp.FrequencyResponse(ToP,FromP)
+        FrequencyDomain.__init__(self,fr.FrequencyList(),list(fr))
+        return self
+    def ReadFromCSV(self,fileName):
+        """reads a frequency response from a CSV file
+        @param fileName string name of file to read
+        @return self
+        @remark
+        The CSV file is assumed to contain frequency in Hz in the first column
+        followed by the complex response.  The response is taken as
+        'frequency,real,imag' when three or more numeric columns are present,
+        or as a purely real 'frequency,real' when only two numeric columns are
+        present.  Any non-numeric lines (such as headers) are skipped until
+        valid comma-separated rows are found.
+        """
+        frequencies=[]
+        resp=[]
+        with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
+            for row in csv.reader(f):
+                if len(row) < 2:
+                    continue
+                try:
+                    frequency=float(row[0].strip())
+                    real=float(row[1].strip())
+                    imag=float(row[2].strip()) if len(row) >= 3 else 0.
+                except (TypeError,ValueError):
+                    continue
+                if not (math.isfinite(frequency) and math.isfinite(real)
+                        and math.isfinite(imag)):
+                    continue
+                frequencies.append(frequency)
+                resp.append(real+1j*imag)
+        if len(frequencies) == 0:
+            raise ValueError('no frequency response data found in '+str(fileName))
+        fl=FrequencyList(frequencies)
+        fl.CheckEvenlySpaced()
+        FrequencyDomain.__init__(self,fl,resp)
+        return self
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,
