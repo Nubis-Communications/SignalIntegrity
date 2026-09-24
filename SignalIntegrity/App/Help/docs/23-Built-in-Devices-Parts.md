@@ -198,6 +198,8 @@ Filters
 
 - [Impulse Response Filter](23-Built-in-Devices-Parts.md#device:ImpulseResponseFilter)
 
+- [Frequency Response Filter](23-Built-in-Devices-Parts.md#device:FrequencyResponseFilter)
+
 - [Raised Cosine Risetime Filter](23-Built-in-Devices-Parts.md#device:RaisedCosineRisetimeFilter)
 
 - [Gaussian Risetime Filter](23-Built-in-Devices-Parts.md#device:GaussianRisetimeFilter)
@@ -2182,6 +2184,39 @@ If a waveform is not actually in the form of an impulse response, it is traditio
 It is also common to enforce the DC gain of the filter. By default, *dcgain* is set to 0., meaning to not enforce this, but if *dcgain* is set to any non-zero value, the DC gain is enforced by ensuring that all of the values in the impulse response add up to the value specified.
 
 Oftentimes, the impulse response desired comes in the form of a step response provided. To handle this option, the time derivative must be taken of the waveform. This is handled by setting *derivative* to true. The default is to not take the derivative.
+
+## Frequency Response Filter {#device:FrequencyResponseFilter}
+
+<img src="media/FrequencyResponseFilter.png" alt="FrequencyResponseFilter" width="154" height="194" />
+
+| Property Name               | Type   | Keyword | Units | (Default) Value |
+|:----------------------------|:-------|:--------|:------|:----------------|
+| category                    |        |         |       | Filters         |
+| default reference           | string |         |       | F?              |
+| reference                   | string | ref     |       | F1              |
+| frequency response filename | string | frfile  |       | ”               |
+| normalized DC gain          | float  | dcgain  |       |                 |
+
+This is a filter generated from a frequency response.
+
+The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.
+
+The frequency response is provided through a file, in one of three formats determined by the file extension:
+
+- A native frequency response file (typically with a *.txt* extension), as produced by writing a frequency response to a file.
+
+- A Touchstone s-parameter file (with a *.s1p* or *.s2p* extension). For a one-port (*.s1p*) file, the port 1 reflection ($S_{11}$) is used as the filter response. For a two-port (*.s2p*) file, the port 1 to port 2 transfer characteristic ($S_{21}$) is used.
+
+- A comma-separated-value file (with a *.csv* extension). The CSV file contains one frequency point per row, with the frequency in Hz in the first column followed by the complex response. When three or more columns are present, the response is read as *frequency,real,imag* (real and imaginary parts). When only two columns are present, the response is read as a purely real *frequency,real*. Any non-numeric rows (such as a header row) are skipped, so a header line like `frequency,real,imag` may be included. For example:
+
+```
+frequency,real,imag
+1e9,1.0,0.0
+2e9,0.5,-0.1
+3e9,0.25,-0.2
+```
+
+It is common to enforce the DC gain of the filter. By default, *dcgain* is set to 0., meaning to not enforce this, but if *dcgain* is set to any non-zero value, the DC gain is enforced.
 
 ## Raised Cosine Risetime Filter {#device:RaisedCosineRisetimeFilter}
 
