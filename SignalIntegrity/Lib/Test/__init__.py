@@ -25,6 +25,7 @@ from .RegressionFiles import RegressionResult
 from .RegressionFiles import RegressionCallSite
 from .RegressionFiles import RegressionContext
 from .TestHelpers import PlotTikZ
+from .TestHelpers import CopyToBook
 from .TestHelpers import SParameterCompareHelper
 from .TestHelpers import ResponseTesterHelper
 from .TestHelpers import SourcesTesterHelper

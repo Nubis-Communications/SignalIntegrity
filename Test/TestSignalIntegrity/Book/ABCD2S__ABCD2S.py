@@ -1,0 +1,13 @@
+def ABCD2S(ABCD,Z0=None,K=None):
+    ABCD=array(ABCD)
+    (Z0,K)=Z0KHelper((Z0,K),len(ABCD))
+    Z01=Z0.item(0,0)
+    Z02=Z0.item(1,1)
+    K1=K.item(0,0)
+    K2=K.item(1,1)
+    C11=array([[0,0],[1.0/(2.0*K2),Z02/(2.0*K2)]])
+    C12=array([[1.0/(2.0*K1),-Z01/(2.0*K1)],[0,0]])
+    C21=array([[0,0],[1.0/(2.0*K2),-Z02/(2.0*K2)]])
+    C22=array([[1.0/(2.0*K1),Z01/(2.0*K1)],[0,0]])
+    result = (C21+C22.dot(ABCD)).dot(inv(C11+C12.dot(ABCD))).tolist()
+    return result

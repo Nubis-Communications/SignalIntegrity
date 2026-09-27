@@ -1,0 +1,19 @@
+device R1 2 R 500.0
+device C1 1 C 100.0e-15 esr 0 df 0
+voltagesource VG1 1
+device L1 2 L 1.0e-6
+device Vr 3 voltagetovoltageconverter
+device I 3 currenttovoltageconverter
+connect R1 1 Vr 2 I 2
+voltageoutput Vo R1 2
+connect R1 2 L1 1 Vr 1
+voltageoutput Vc C1 1
+connect C1 1 L1 2
+voltageoutput Vs VG1 1
+connect VG1 1 I 1
+device Vr_3 1 open
+connect Vr 3 Vr_3 1
+voltageoutput Vr Vr 3
+device I_3 1 open
+connect I 3 I_3 1
+voltageoutput I I 3

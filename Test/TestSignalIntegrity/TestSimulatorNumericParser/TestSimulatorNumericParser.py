@@ -290,10 +290,14 @@ class TestSimulatorNumericParserExample(unittest.TestCase,si.test.RoutineWriterT
                 outputFile = open(filename+str(index)+'.py','w')
             if '##############' in line:
                 outputFile.close()
+                si.test.CopyToBook(filename+str(index)+'.py')
                 writing=False
                 index=index+1
             else:
                 outputFile.write(line)
+        if writing:
+            outputFile.close()
+            si.test.CopyToBook(filename+str(index)+'.py')
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

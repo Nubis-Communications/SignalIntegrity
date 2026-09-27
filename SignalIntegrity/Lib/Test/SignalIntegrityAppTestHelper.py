@@ -21,6 +21,7 @@ SignalIntegrityAppTestHelper.py
 import os
 
 from SignalIntegrity.Lib.Test.RegressionFiles import RegressionFiles
+from SignalIntegrity.Lib.Test.TestHelpers import CopyToBook
 
 class SignalIntegrityAppTestHelper:
     relearn=True
@@ -68,12 +69,14 @@ class SignalIntegrityAppTestHelper:
             self.assertTrue(False,filename + ' couldnt be drawn')
         os.chdir(self.path)
         result=self.RegressionFiles(write=self.forceWritePictures).Picture(tpx.lineList,testFilename)
+        bookSrc=os.path.abspath(testFilename)
         os.chdir(currentDirectory)
         if result.written and not self.relearn:
             self.assertTrue(False, testFilename + ' not found')
         if result.ok and result.message:
             print(testFilename+' okay, but '+result.message)
         self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
+        CopyToBook(bookSrc)
     def NetListChecker(self,pysi,filename,archive=False):
         currentDirectory=os.getcwd()
         os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
@@ -87,12 +90,14 @@ class SignalIntegrityAppTestHelper:
                 self.assertTrue(False,filename + ' couldnt produce netlist')
         os.chdir(self.path)
         result=self.RegressionFiles().NetList(netlist,testFilename)
+        bookSrc=os.path.abspath(testFilename)
         os.chdir(currentDirectory)
         if result.written and not self.relearn:
             self.assertTrue(False, testFilename + ' not found')
         if result.ok and result.message:
             print(testFilename+' okay, but '+result.message)
         self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
+        CopyToBook(bookSrc)
     def SParameterRegressionChecker(self,sp,spfilename):
         currentDirectory=os.getcwd()
         os.chdir(self.path)

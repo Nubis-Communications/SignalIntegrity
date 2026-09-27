@@ -39,24 +39,28 @@ class TestSubcircuit(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test
         sdp.AddLines(['var $Rsh$ 50.','device R 2 R $Rsh$',
             'port 1 R 2 2 R 1 3 R 2 4 R 1'])
         sdp.WriteToFile('ShuntZFourPort.sub')
+        si.test.CopyToBook('ShuntZFourPort.sub')
     def testShuntZThreePortSubCircuitNetlistGenerator(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['var $Rsh$ 50.','device R 4 subcircuit ShuntZFourPort.sub Rsh $Rsh$',
             'device O 1 open','connect O 1 R 4',
             'port 1 R 1 2 R 3 3 R 2'])
         sdp.WriteToFile('ShuntZThreePort.sub')
+        si.test.CopyToBook('ShuntZThreePort.sub')
     def testShuntZTwoPortSubCircuitNetlistGenerator(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['var $Rsh$ 50.','device R 3 subcircuit ShuntZThreePort.sub Rsh $Rsh$',
             'device G 1 ground','connect G 1 R 3',
             'port 1 R 1 2 R 2'])
         sdp.WriteToFile('ShuntZTwoPort.sub')
+        si.test.CopyToBook('ShuntZTwoPort.sub')
     def testSubCircuitUserNetlistGenerator1(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 3 subcircuit ShuntZThreePort.sub Rsh 25.',
                       'device G 1 ground','connect D 3 G 1',
                       'port 1 D 1 2 D 2'])
         sdp.WriteToFile('SubCircuitExample1.txt')
+        si.test.CopyToBook('SubCircuitExample1.txt')
     def testSubCircuitExample1(self):
         fl=[0.]
         sspnp = si.p.SystemSParametersNumericParser(fl).File('SubCircuitExample1.txt')
@@ -104,11 +108,13 @@ class TestSubcircuit(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test
             'device L 2 $DL$','device R 2 $DR$',
             'port 1 L 1 2 R 2','connect L 2 R 1'])
         sdp.WriteToFile('cascade.sub')
+        si.test.CopyToBook('cascade.sub')
     def testSubCircuitUserNetlistGenerator2(self):
         sdp = si.p.SystemDescriptionParser()
         sdp.AddLines(['device D 2 subcircuit cascade.sub DL \'file;../TestSParametersParser/cable.s2p\' DR \'file;../TestSParametersParser/filter.s2p\'',
                       'port 1 D 1 2 D 2'])
         sdp.WriteToFile('SubCircuitExample2.txt')
+        si.test.CopyToBook('SubCircuitExample2.txt')
     def testSubCircuitExample2(self):
         fl=[i*100.*1e6 for i in range(100+1)]
         sspnp = si.p.SystemSParametersNumericParser(fl).File('SubCircuitExample2.txt')

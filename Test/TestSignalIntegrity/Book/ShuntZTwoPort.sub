@@ -1,0 +1,5 @@
+var $Rsh$ 50.
+device R 3 subcircuit ShuntZThreePort.sub Rsh $Rsh$
+device G 1 ground
+connect G 1 R 3
+port 1 R 1 2 R 2

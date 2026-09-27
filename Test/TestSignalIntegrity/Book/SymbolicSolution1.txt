@@ -1,0 +1,4 @@
+device S 2
+device \{\Gamma\}t 1
+port 1 S 1
+connect S 2 \{\Gamma\}t 1

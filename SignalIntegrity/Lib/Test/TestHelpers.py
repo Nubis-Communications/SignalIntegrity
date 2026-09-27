@@ -28,6 +28,15 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyRespo
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
 
+def CopyToBook(filename):
+    # Mirror a generated result file into the sibling Book/ folder the book imports from.
+    import shutil
+    src=os.path.abspath(filename)
+    bookdir=os.path.join(os.path.dirname(src),'..','Book')
+    os.makedirs(bookdir,exist_ok=True)
+    shutil.copy2(src,os.path.join(bookdir,os.path.basename(filename)))
+
+
 def PlotTikZ(filename,plot2save,scale=None):
     try:
         import matplotlib
@@ -59,6 +68,7 @@ def PlotTikZ(filename,plot2save,scale=None):
     for line in lines:
         texfile.write(line)
     texfile.close()
+    CopyToBook(filename)
 
 class SParameterCompareHelper(object):
     def SParametersAreEqual(self,lhs,rhs,epsilon=0.00001):
@@ -87,6 +97,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         regression=FrequencyResponse().ReadFromFile(fileName)
         #os.chdir(path)
         self.assertTrue(regression == fr,text + ' incorrect')
+        CopyToBook(fileName)
     def GetFrequencyResponseResult(self,fileName):
         #path=os.getcwd()
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -125,6 +136,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
                 plt.show()
         #os.chdir(path)
         self.assertTrue(wfsAreEqual,text + ' incorrect')
+        CopyToBook(fileName)
     def GetWaveformResult(self,fileName):
         #path=os.getcwd()
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
@@ -143,6 +155,7 @@ class ResponseTesterHelper(SParameterCompareHelper):
         regression=SParameterFile(fileName,50.)
         #os.chdir(path)
         self.assertTrue(self.SParametersAreEqual(sp,regression,0.00001),text + ' incorrect -- '+fileName)
+        CopyToBook(fileName)
 
 class SourcesTesterHelper(object):
     def CheckSymbolicResult(self,selfid,symbolic,Text):
@@ -157,6 +170,7 @@ class SourcesTesterHelper(object):
                 regression = regression + line
         comparison = symbolic.Get()
         self.assertTrue(regression == comparison,Text + ' incorrect with ' + fileName)
+        CopyToBook(fileName)
 
 class RoutineWriterTesterHelper(object):
     maxNumLines=65
@@ -187,6 +201,7 @@ class RoutineWriterTesterHelper(object):
 #             for line in regressionFile:
 #                 regression.append(line)
         self.assertTrue(regression == sourceCode,Text + ' incorrect')
+        CopyToBook(fileName)
     def WriteCode(self,fileName,Routine,headerLines,printFuncName=False):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         sourceCode = []
@@ -254,6 +269,7 @@ class RoutineWriterTesterHelper(object):
         regression = regressionFile.read()
         regressionFile.close()
         self.assertTrue(regression == mystdout.getvalue(), outputFileName + ' incorrect')
+        CopyToBook(outputFileName)
     def EntireListOfClassFunctions(self,fileName,className):
         #os.chdir(os.path.dirname(os.path.realpath(__file__)))
         defName=[]
@@ -368,6 +384,7 @@ class RoutineWriterTesterHelper(object):
                     outputFile.write(line)
         regression=DocStripped(outputFileName,False).doc
         self.assertTrue(regression == sourceCode, outputFileName + ' incorrect')
+        CopyToBook(outputFileName)
         # for line in regression:
         #     if len(line)>self.maxLineLength:
         #         print(line)
@@ -382,6 +399,7 @@ class RoutineWriterTesterHelper(object):
             with open(lineDefFileName, 'rU' if sys.version_info.major < 3 else 'r') as regressionFile:
                 regression = regressionFile.readlines()
             self.assertTrue(regression == lineDef, lineDefFileName + ' incorrect')
+            CopyToBook(lineDefFileName)
 
 class CallbackTesterHelper(object):
     def __init__(self):

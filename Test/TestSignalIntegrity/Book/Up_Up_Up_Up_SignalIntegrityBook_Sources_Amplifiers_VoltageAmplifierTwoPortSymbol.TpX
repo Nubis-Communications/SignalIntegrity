@@ -1,0 +1,19 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">12,-8 24,-16 12,-24 12,-8</polyline>
+%  <polyline lc="black">8,-16 12,-16</polyline>
+%  <polyline lw="2" lc="red">7.5,-15.5 8.5,-16.5</polyline>
+%  <polyline lw="2" lc="red">8.5,-15.5 7.5,-16.5</polyline>
+%  <polyline lc="black">28,-16 24,-16</polyline>
+%  <polyline lw="2" lc="red">27.5,-15.5 28.5,-16.5</polyline>
+%  <polyline lw="2" lc="red">28.5,-15.5 27.5,-16.5</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (12,-8) -- (24,-16) -- (12,-24) -- (12,-8);
+\path[line width=0.30mm, draw=black] (8,-16) -- (12,-16);
+\path[line width=0.6mm, draw=red] (7.5,-15.5) -- (8.5,-16.5);
+\path[line width=0.6mm, draw=red] (8.5,-15.5) -- (7.5,-16.5);
+\path[line width=0.30mm, draw=black] (28,-16) -- (24,-16);
+\path[line width=0.6mm, draw=red] (27.5,-15.5) -- (28.5,-16.5);
+\path[line width=0.6mm, draw=red] (28.5,-15.5) -- (27.5,-16.5);
+\end{tikzpicture}%

@@ -34,6 +34,14 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
     def setUp(self):
         unittest.TestCase.setUp(self)
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
+        # Mirror inline parser file dumps (book data files) into Book/ as the test writes them.
+        from SignalIntegrity.Lib.Parsers.ParserFile import ParserFile
+        orig=ParserFile.WriteToFile
+        self._origParserWriteToFile=orig
+        def writeToFileAndBook(parser,name,overWrite=True):
+            orig(parser,name,overWrite)
+            si.test.CopyToBook(name)
+        ParserFile.WriteToFile=writeToFileAndBook
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         SignalIntegrityAppHeadless()
@@ -42,6 +50,9 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
     def tearDown(self):
         unittest.TestCase.tearDown(self)
+        if hasattr(self,'_origParserWriteToFile'):
+            from SignalIntegrity.Lib.Parsers.ParserFile import ParserFile
+            ParserFile.WriteToFile=self._origParserWriteToFile
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         SignalIntegrityAppHeadless()
@@ -61,6 +72,7 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
                 regression = regression + line
         comparison = symbolic.Get()
         self.assertTrue(regression == comparison,Text + ' incorrect')
+        si.test.CopyToBook(fileName)
     def testBook(self):
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
         parser = si.p.SystemDescriptionParser()
@@ -156,6 +168,7 @@ class Test(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.ResponseT
         symbolic.DocEnd()
         symbolic.WriteToFile('Symbolic.tex')
         # pragma: exclude
+        si.test.CopyToBook('Symbolic.tex')
         symbolic.Clear()
         symbolic._AddEq('\\mathbf{S}='+symbolic._LaTeXMatrix(si.sy.SeriesZ('Z')))
         symbolic.Emit()
