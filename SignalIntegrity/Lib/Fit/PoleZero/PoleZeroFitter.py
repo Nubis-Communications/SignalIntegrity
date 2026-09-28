@@ -71,6 +71,9 @@ class PoleZeroLevMar(LevMar):
         @param fix_gain (optional, defaults to False) whether the gain is held fixed during the fit.
         @param callback (optional, defaults to None) callback function invoked during iteration.
         """
+        # Seed deterministically so the fit is reproducible regardless of prior global random() use.
+        import random
+        random.seed(0)
         self.num_zero_pairs=num_zero_pairs
         self.num_pole_pairs=num_pole_pairs
         self.min_delay=min_delay
