@@ -22,6 +22,8 @@ WaveformTrimmer.py
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 
+import numpy as np
+
 class WaveformTrimmer(FilterDescriptor,WaveformProcessor):
     """trims waveforms"""
     def __init__(self,TrimLeft,TrimRight):
@@ -54,11 +56,10 @@ class WaveformTrimmer(FilterDescriptor,WaveformProcessor):
         newtd=wf.td*self
         N=K-TT
         if N<=0:
-            return Waveform(newtd,[])
-        if TL>=0 and TL+N<=K:
-            # no padding required (the common adaption case): a plain list slice
-            # preserves the sample values exactly while avoiding a Python
-            # per-sample loop over potentially very large waveforms.
-            return Waveform(newtd,wf[TL:TL+N])
-        return Waveform(newtd,
-            [wf[k+TL] if 0 <= k+TL < K else 0. for k in range(N)])
+            return Waveform(newtd,np.array([],dtype=wf.values.dtype))
+        # map output sample k to input sample k+TL, zero-filling where out of range
+        out=np.zeros(N,dtype=wf.values.dtype)
+        idx=np.arange(N)+TL
+        valid=(idx>=0)&(idx<K)
+        out[valid]=wf.values[idx[valid]]
+        return Waveform(newtd,out)

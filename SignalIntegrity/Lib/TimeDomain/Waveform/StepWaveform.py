@@ -21,6 +21,7 @@ StepWaveform.py
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 import math
+import numpy as np
 
 class StepWaveform(Waveform):
     """step waveform"""
@@ -39,7 +40,7 @@ class StepWaveform(Waveform):
         @note the risetime is applied such that the step reaches half amplitude at the start
         time specified.  Please note the expected non-causality.
         """
-        x=[0 if t < StartTime else Amplitude for t in td.Times()]
+        x=np.where(np.asarray(td.Times())<StartTime,0.,float(Amplitude))
         T=risetime/self.rtvsT
         rcStart=max(0,td.IndexOfTime(StartTime-T/2.))
         if td.TimeOfPoint(rcStart)<StartTime-T/2: rcStart=min(rcStart+1,len(td)-1)

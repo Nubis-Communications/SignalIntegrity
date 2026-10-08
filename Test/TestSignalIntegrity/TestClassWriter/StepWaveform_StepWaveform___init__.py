@@ -1,6 +1,6 @@
 class StepWaveform(Waveform):
     def __init__(self,td,Amplitude=1.,StartTime=0.,risetime=0.):
-        x=[0 if t < StartTime else Amplitude for t in td.Times()]
+        x=np.where(np.asarray(td.Times())<StartTime,0.,float(Amplitude))
         T=risetime/self.rtvsT
         rcStart=max(0,td.IndexOfTime(StartTime-T/2.))
         if td.TimeOfPoint(rcStart)<StartTime-T/2: rcStart=min(rcStart+1,len(td)-1)
