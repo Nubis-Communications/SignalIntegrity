@@ -27,6 +27,8 @@ import string
 import copy
 import os
 
+import numpy as np
+
 from SignalIntegrity.Lib.Conversions import ReferenceImpedance
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyResponse import FrequencyResponse
@@ -61,10 +63,12 @@ class SParameters(SParameterManipulation):
             self.header=['File created by '+__project__+' v'+\
                         __version__+': '+__description__, __url__]
         # pragma: include
-        self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
+        self.m_sToken='S'
+        self.m_d=None if data is None else np.asarray(data,dtype=complex)
+        self.m_Z0=Z0
         self.m_f=FrequencyList(f)
-        if not data is None:
-            if len(data)>0: self.m_P=len(data[0])
+        if not self.m_d is None:
+            if len(self.m_d)>0: self.m_P=len(self.m_d[0])
         else:
             mat=self[0]
             if not mat is None: self.m_P=len(mat[0])
