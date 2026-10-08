@@ -285,9 +285,9 @@ class FrequencyResponse(FrequencyDomain):
         # pragma: silent exclude
         from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
         if not fd.CheckEvenlySpaced():
-            if GenericFrequencyList([0]+fd).CheckEvenlySpaced():
+            if GenericFrequencyList([0.]+list(fd)).CheckEvenlySpaced():
                 # only the DC point is missing.  Restore that first
-                DCRestored=self._SplineResample(GenericFrequencyList([0]+fd))
+                DCRestored=self._SplineResample(GenericFrequencyList([0.]+list(fd)))
                 return DCRestored.Resample(fdp)
         # pragma: include
         evenlySpaced = fd.CheckEvenlySpaced() and fdp.CheckEvenlySpaced()
