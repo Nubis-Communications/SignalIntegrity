@@ -20,6 +20,7 @@ ImpulseWaveform.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+import numpy as np
 
 class ImpulseWaveform(Waveform):
     """pulse waveform"""
@@ -32,4 +33,7 @@ class ImpulseWaveform(Waveform):
         @note The impulse will appear on the sample that is the closest to the start time specified.
         """
         index_of_impulse=round(td.IndexOfTime(StartTime,Integer=False))
-        Waveform.__init__(self,td,[Amplitude if k == index_of_impulse else 0 for k in range(td.K)])
+        x=np.zeros(int(td.K))
+        if 0 <= index_of_impulse < int(td.K):
+            x[index_of_impulse]=Amplitude
+        Waveform.__init__(self,td,x)

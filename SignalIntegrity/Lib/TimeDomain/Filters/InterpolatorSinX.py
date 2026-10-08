@@ -22,6 +22,7 @@ from SignalIntegrity.Lib.TimeDomain.Filters.FirFilter import FirFilter
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 
 import math
+import numpy as np
 
 def SinX(S,U,F):
     """calculates the sinX/X filter taps for Sinx filters
@@ -90,9 +91,8 @@ class InterpolatorSinX(FirFilter):
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
         fd=self.FilterDescriptor()
-        us=[0. for k in range(len(wf)*fd.U)]
-        for k in range(len(wf)):
-            us[k*fd.U]=wf[k]
+        us=np.zeros(len(wf)*fd.U,dtype=wf.values.dtype)
+        us[::fd.U]=wf.values
         return FirFilter.FilterWaveform(self,Waveform(wf.td,us))
 
 class InterpolatorFractionalDelayFilterSinX(WaveformProcessor):
