@@ -20,6 +20,7 @@ SineWaveform.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math
+import numpy as np
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.PulseWaveform import PulseWaveform
@@ -37,8 +38,8 @@ class SineWaveform(Waveform):
         @param StartTime (optional) float start time of sine wave (defaults to -100 s).
         @param StopTime (optional) float stop time of the sine wave (defaults to 100 s).
         """
-        x=[Amplitude*math.sin(2.*math.pi*Frequency*t+Phase/180.*math.pi)
-           for t in td.Times()]
+        times=np.asarray(td.Times())
+        x=Amplitude*np.sin(2.*math.pi*Frequency*times+Phase/180.*math.pi)
         sw=Waveform(td,x)*PulseWaveform(td,Amplitude=1.,StartTime=StartTime,
             PulseWidth=max(StartTime,StopTime)-min(StartTime,StopTime),Risetime=0.)
         Waveform.__init__(self,sw.td,sw.Values())

@@ -3,4 +3,4 @@ class PulseWaveform(Waveform):
         StopTime=StartTime+PulseWidth
         stepup=StepWaveform(td,Amplitude,StartTime,Risetime)
         stepdown=StepWaveform(td,Amplitude,StopTime,Risetime)
-        Waveform.__init__(self,td,[stepup[k]-stepdown[k] for k in range(len(stepup))])
+        Waveform.__init__(self,td,stepup.values-stepdown.values)
