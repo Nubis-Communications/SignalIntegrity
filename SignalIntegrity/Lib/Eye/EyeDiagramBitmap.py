@@ -212,7 +212,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             crwf=ClockRecoveredWaveform(prbswf,BaudRate,clock_recovery_trim_left_right)
             # we update the prbswf reference to affect all things that reference this waveform
             prbswf.td=crwf.td
-            list.__init__(prbswf,crwf.Values())
+            prbswf.values=np.asarray(crwf.Values())
 
         CallBacker.__init__(self,callback)
         ResultsCache.__init__(self,'EyeDiagramBitMap',cacheFileName)

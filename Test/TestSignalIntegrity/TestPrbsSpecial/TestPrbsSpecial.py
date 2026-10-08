@@ -31,7 +31,7 @@ class TestPrbsSpecialTest(unittest.TestCase):
         self.assertEqual(len(prbs13q),len(lines),'PRBS13Q waveform length incorrect')
         for k in range(len(lines)):
             lines[k]=float(lines[k].strip())
-        self.assertEqual(prbs13q.Values(),lines,'PRBS13Q waveform incorrect')
+        self.assertEqual(prbs13q.Values().tolist(),lines,'PRBS13Q waveform incorrect')
     def testSSPRQ(self):
         td = si.td.wf.TimeDescriptor(HorOffset=0, NumPts=len(si.prbs.SSPRQWaveform.pattern)//2, SampleRate = 1)
         ssprq = si.prbs.SSPRQWaveform(baudrate=1, amplitude=1, risetime = 0, delay = 0, td=td)
@@ -40,7 +40,7 @@ class TestPrbsSpecialTest(unittest.TestCase):
         self.assertEqual(len(ssprq),len(lines),'SSPRQ waveform length incorrect')
         for k in range(len(lines)):
             lines[k]=float(lines[k].strip())
-        self.assertEqual(ssprq.Values(),lines,'SSPRQ waveform incorrect')
+        self.assertEqual(ssprq.Values().tolist(),lines,'SSPRQ waveform incorrect')
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
