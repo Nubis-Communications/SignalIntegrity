@@ -10,7 +10,7 @@ class FirFilter(WaveformProcessor):
         return self.m_fd
     def FilterWaveform(self,wf):
         td = wf.td*self.FilterDescriptor()
-        filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
+        filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid')
         return Waveform(td,filteredwf)
     def Print(self):
         self.FilterDescriptor().Print()
