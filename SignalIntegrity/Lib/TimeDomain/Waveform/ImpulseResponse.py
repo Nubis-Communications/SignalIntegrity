@@ -20,6 +20,7 @@ ImpulseResponse.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from numpy import fft,array
+import numpy as np
 import math
 
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
@@ -138,10 +139,10 @@ class ImpulseResponse(Waveform):
         """
         K=len(self)
         if P==K: x = self.Values()
-        elif P<K: x=[self[k] for k in range((K-P)//2,K-(K-P)//2)]
+        elif P<K: x=self.values[(K-P)//2:K-(K-P)//2]
         else:
-            x=[0 for p in range((P-K)//2)]
-            x=x+self.Values()+x
+            pad=np.zeros((P-K)//2,dtype=self.values.dtype)
+            x=np.concatenate((pad,self.values,pad))
         td = self.td
         return ImpulseResponse(TimeDescriptor(td.H-(P-K)/2./td.Fs,P,td.Fs),x)
     def _FractionalDelayTime(self):
