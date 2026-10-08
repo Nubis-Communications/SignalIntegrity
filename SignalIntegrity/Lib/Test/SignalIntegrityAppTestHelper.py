@@ -362,6 +362,14 @@ class SignalIntegrityAppTestHelper:
                     return {'__complex__':True,'Re':obj.real,'Im':obj.imag}
                 if isinstance(obj, np.bool_):
                     return super().encode(bool(obj))
+                if isinstance(obj, np.ndarray):
+                    return obj.tolist()
+                if isinstance(obj, np.generic):
+                    return obj.item()
+                if hasattr(obj,'td') and hasattr(obj,'values'):
+                    # Waveform (and subclasses): serialize as the list of values,
+                    # matching the pre-numpy (list-backed) JSON form.
+                    return obj.values.tolist()
                 return super().default(obj)
 
         class CustomJSONDecoder(json.JSONDecoder):
