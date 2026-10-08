@@ -3,6 +3,6 @@ class FrequencyResponse(FrequencyDomain):
         fd=self.FrequencyList()
         if P == fd.N: X=self.Response()
         elif P < fd.N: X=self.Response()[:P+1]
-        else: X=self.Response()+[0]*(P-fd.N)
+        else: X=np.concatenate((self.Response(),np.zeros(P-fd.N,dtype=complex)))
         return FrequencyResponse(EvenlySpacedFrequencyList(P*fd.Fe/fd.N,P),X)
 ...

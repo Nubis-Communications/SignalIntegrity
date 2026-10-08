@@ -23,22 +23,54 @@ import math
 import cmath
 import sys
 
+import numpy as np
+
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import GenericFrequencyList
 
-class FrequencyDomain(list):
+class FrequencyDomain(object):
     """base class for frequency domain elements.  This class handles all kinds of utility things
     common to all frequency-domain classes.
+    @note the complex frequency-domain values are stored internally as a numpy
+    array (`self.values`); the class provides a sequence-like interface and numpy
+    interoperability via `__array__`.
     """
     def __init__(self,f=None,resp=None):
         """Constructor
         @param f (optional) instance of class FrequencyList
-        @param resp (optional) list of complex frequency content or response
+        @param resp (optional) numpy array/list of complex frequency content or response
         """
         self.m_f=FrequencyList(f)
-        if not resp is None:
-            list.__init__(self,resp)
+        if resp is not None:
+            self.values=np.asarray(resp,dtype=complex)
+        else:
+            self.values=np.array([],dtype=complex)
+    def __len__(self):
+        return len(self.values)
+    def __getitem__(self,index):
+        return self.values[index]
+    def __setitem__(self,index,value):
+        self.values[index]=value
+    def __iter__(self):
+        return iter(self.values)
+    def __array__(self,dtype=None,copy=None):
+        """numpy array interface returning the internal complex values array"""
+        arr=self.values if dtype is None else self.values.astype(dtype)
+        if copy:
+            arr=np.array(arr,copy=True)
+        return arr
+    def __copy__(self):
+        n=self.__class__.__new__(self.__class__)
+        n.__dict__.update(self.__dict__)
+        n.values=np.array(self.values,copy=True)
+        return n
+    def __deepcopy__(self,memo):
+        from copy import deepcopy
+        n=self.__class__.__new__(self.__class__)
+        for k,v in self.__dict__.items():
+            n.__dict__[k]=deepcopy(v,memo)
+        return n
     def FrequencyList(self):
         """FrequencyList
         @return the frequency list in m_f
@@ -69,7 +101,7 @@ class FrequencyDomain(list):
         Returns None if the unit is invalid.
         """
         if unit==None:
-            return list(self)
+            return self.values.copy()
         elif unit =='dB':
             return [-3000. if (abs(self[n]) < 1e-15) else
                      20.*math.log10(abs(self[n]))
@@ -99,13 +131,13 @@ class FrequencyDomain(list):
             frl=[line.strip().split(' ') for line in data[2:]]
             resp=[float(fr[0])+1j*float(fr[1]) for fr in frl]
             self.m_f=EvenlySpacedFrequencyList(Fe,N)
-            list.__init__(self,resp)
+            self.values=np.asarray(resp,dtype=complex)
         else:
             frl=[line.split(' ') for line in data[1:]]
             f=[float(fr[0]) for fr in frl]
             resp=[float(fr[1])+1j*float(fr[2]) for fr in frl]
             self.m_f=GenericFrequencyList(f)
-            list.__init__(self,resp)
+            self.values=np.asarray(resp,dtype=complex)
         return self
     def ReadFromFileStream(self,f):
         """reads in frequency domain content from the file stream specified.
