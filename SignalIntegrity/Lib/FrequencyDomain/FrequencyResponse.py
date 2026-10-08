@@ -20,6 +20,7 @@ Frequency Response
 # If not, see <https://www.gnu.org/licenses/>
 
 from numpy import fft
+import numpy as np
 import math
 import cmath
 import csv
@@ -301,7 +302,7 @@ class FrequencyResponse(FrequencyDomain):
         else: return fr._Decimate(D2)
     def _FractionalDelayTime(self):
         ir = self.ImpulseResponse(None,adjustDelay=False)
-        idx = ir.Values('abs').index(max(ir.Values('abs')))
+        idx = int(np.argmax(ir.Values('abs')))
         TD = ir.td[idx] # the time of the main peak
         # calculate the frequency response with this delay taken out
         # the fractional delay is based on the minimum adjustment to the phase of
