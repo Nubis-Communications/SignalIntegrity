@@ -17,7 +17,7 @@ class FrequencyResponse(FrequencyDomain):
         if evenlySpaced and td is None and not adjustDelay:
             yfp=self.Response()
             ynp=[yfp[fd.N-nn].conjugate() for nn in range(1,fd.N)]
-            y=yfp+ynp
+            y=np.concatenate((yfp,ynp))
             y[0]=y[0].real
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
