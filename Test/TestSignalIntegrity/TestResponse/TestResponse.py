@@ -277,7 +277,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
     def testResUneven(self):
         frc=self.frc()
         f=list(frc.FrequencyList().Frequencies())
-        r=frc.Response()
+        r=list(frc.Response())
         del f[3]
         del r[3]
         frc2=si.fd.FrequencyResponse(f,r)
@@ -287,7 +287,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         Fep=0.5
         frc=self.frc()
         f=list(frc.FrequencyList().Frequencies())
-        r=frc.Response()
+        r=list(frc.Response())
         del f[3]
         del r[3]
         frc2=si.fd.FrequencyResponse(f,r)
@@ -298,7 +298,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         frc=self.frc()
         irc=frc.ImpulseResponse()
         f=list(frc.FrequencyList().Frequencies())
-        r=frc.Response()
+        r=list(frc.Response())
         del f[3]
         del r[3]
         frc2=si.fd.FrequencyResponse(f,r)
@@ -307,7 +307,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
     def testfrcUnevenWriteRead(self):
         frc=self.frc()
         f=list(frc.FrequencyList().Frequencies())
-        r=frc.Response()
+        r=list(frc.Response())
         del f[3]
         del r[3]
         frc=si.fd.FrequencyResponse(f,r).WriteToFile('frcwr.txt')
@@ -391,7 +391,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
     def testResUnevenNoDescriptor(self):
         frc=self.frc()
         f=list(frc.FrequencyList().Frequencies())
-        r=frc.Response()
+        r=list(frc.Response())
         del f[3]
         del r[3]
         frc2=si.fd.FrequencyResponse(f,r)
