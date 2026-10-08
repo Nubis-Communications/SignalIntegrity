@@ -64,7 +64,7 @@ class FirFilter(WaveformProcessor):
         # pragma: silent exclude
         #filteredwf=PySIConvolve(wf.Values(),self.FilterTaps())
         # pragma: include
-        filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid').tolist()
+        filteredwf=convolve(wf.Values(),self.FilterTaps(),'valid')
         return Waveform(td,filteredwf)
     def Print(self):
         """prints an ASCII description of the filter"""
