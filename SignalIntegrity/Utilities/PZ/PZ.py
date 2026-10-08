@@ -653,7 +653,8 @@ the delay is part of the fit.')
                 self.args['output_file']=os.path.splitext(self.args['output_file'])[0]+'.json'
                 import json
                 with open(self.args['output_file'],'w') as f:
-                    json.dump(results,f,indent=4)
+                    json.dump(results,f,indent=4,
+                              default=lambda o: o.tolist() if hasattr(o,'tolist') else o)
         self.Message('done')
         if self.args['debug'] and self.args['command_line']:
             input("Press Enter to continue...")

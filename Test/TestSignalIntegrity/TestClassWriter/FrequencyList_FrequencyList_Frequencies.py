@@ -1,20 +1,20 @@
-class FrequencyList(list):
+class FrequencyList(object):
 ...
     def SetEvenlySpaced(self,Fe,N):
         self.Fe=Fe
         self.N=int(N)
-        list.__init__(self,[Fe/N*n for n in range(self.N+1)])
+        self.values=(Fe/N)*np.arange(self.N+1)
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
-        list.__init__(self,fl)
-        self.N=len(fl)-1
-        self.Fe=fl[-1]
+        self.values=np.asarray(fl,dtype=float)
+        self.N=len(self.values)-1
+        self.Fe=self.values[-1]
         self.m_EvenlySpaced=False
         return self
     def EvenlySpaced(self): return self.m_EvenlySpaced
     def Frequencies(self,unit=None):
-        if unit == None: return list(self)
+        if unit == None: return self.values.copy()
         elif isinstance(unit,float): return (self/unit).Frequencies()
         elif unit == 'GHz': return (self/1.e9).Frequencies()
         elif unit == 'MHz': return (self/1.e6).Frequencies()

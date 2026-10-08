@@ -32,6 +32,6 @@ def SeriesG(G,Z0=50.):
     @todo return actual s-parameters of series conductance, even when conductance is zero (as opposed to the weird numerical approximation).
     """
     infinity=1e25
-    try: Z = 1.0/G
+    try: Z = infinity if G == 0 else 1.0/G
     except ZeroDivisionError: Z = infinity
     return SeriesZ(Z,Z0)

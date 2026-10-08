@@ -202,7 +202,8 @@ class SpectralDensity(FrequencyDomain):
         """
         with open(fileName,'w') as f:
             json.dump({'noise':{'x':self.Frequencies(),
-                                'y':self.Values('V/sqrt(Hz)')}},f,indent=4)
+                                'y':self.Values('V/sqrt(Hz)')}},f,indent=4,
+                      default=lambda o: o.tolist() if hasattr(o,'tolist') else o)
         return self
     def WriteToFile(self,fileName):
         """writes a spectral density to a file
