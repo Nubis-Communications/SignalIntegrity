@@ -24,45 +24,107 @@ import math
 import sys
 import os
 
+import numpy as np
+
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.TimeDomain.Waveform.AdaptedWaveforms import AdaptedWaveforms
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionWaveformFile,SignalIntegrityExceptionWaveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.LeCroyWaveform import to_trc,from_trc
 
-class Waveform(list):
-    """base class for all waveforms"""
+class Waveform(object):
+    """base class for all waveforms
+
+    @note the waveform values are stored internally as a one-dimensional numpy
+    array (`self.values`); the class provides a sequence-like interface
+    (indexing, iteration, len) over those values, and `numpy` interoperability
+    via `__array__` (so `numpy.asarray(waveform)` yields the values array).
+    """
     adaptionStrategy='SinX'
     epsilon=1e-6
     maximumWaveformSize=20e6
     def __init__(self,x=None,y=None):
         """constructor
         @param x instance of class Waveform or TimeDescriptor
-        @param y instance of float, int, or complex or list of such
+        @param y numpy array or list of float/int/complex (or a single
+        float/int/complex) of values
 
         @note here are the outcomes for this constructor:
 
-        |x type          |y type             |outcome                                            |
-        |:--------------:|:-----------------:|:------------------------------------------------- |
-        | Waveform       | don't care        | waveform is x provided (copy constructor)         |
-        | TimeDescriptor | list              | waveform with td=x and values in list provided    |
-        | TimeDescriptor | int,float,complex | waveform with td=x and list of constants provided |
-        | TimeDescriptor | None              | waveform with td=x and list of zeros              |
-        | other (None)   | don't care (None) | empty, uninitialized waveform                     |
+        |x type          |y type                      |outcome                                            |
+        |:--------------:|:--------------------------:|:------------------------------------------------- |
+        | Waveform       | don't care                 | waveform is x provided (copy constructor)         |
+        | TimeDescriptor | array/list                 | waveform with td=x and values provided            |
+        | TimeDescriptor | int,float,complex          | waveform with td=x and array of constants provided|
+        | TimeDescriptor | None                       | waveform with td=x and array of zeros             |
+        | other (None)   | don't care (None)          | empty, uninitialized waveform                     |
         """
         if isinstance(x,Waveform):
             self.td=x.td
-            list.__init__(self,x)
+            self.values=np.array(x.values,copy=True)
         elif isinstance(x,TimeDescriptor):
             self.td=x
-            if isinstance(y,list):
-                list.__init__(self,y)
+            if y is None:
+                self.values=np.zeros(int(x.K))
             elif isinstance(y,(float,int,complex)):
-                list.__init__(self,[y.real for _ in range(x.K)])
+                self.values=np.full(int(x.K),y.real,dtype=float)
             else:
-                list.__init__(self,[0 for _ in range(x.K)])
+                self.values=Waveform._coerce(y)
         else:
             self.td=None
-            list.__init__(self,[])
+            self.values=np.array([],dtype=float)
+    @staticmethod
+    def _coerce(y):
+        """coerces a sequence of values to a one-dimensional numpy array.
+        @param y sequence (numpy array, list, tuple) of values
+        @return numpy array of dtype float64, or complex128 if any value is complex
+        """
+        a=np.asarray(y)
+        if a.dtype==object:
+            a=np.array([complex(v) if isinstance(v,complex) else float(v) for v in y])
+        return a.astype(np.complex128) if np.iscomplexobj(a) else a.astype(np.float64)
+    def __len__(self):
+        """@return int number of values (points) in the waveform"""
+        return len(self.values)
+    def __getitem__(self,index):
+        """indexing into the waveform values
+        @param index int index or slice
+        @return numpy scalar for an int index, or numpy array for a slice
+        """
+        return self.values[index]
+    def __setitem__(self,index,value):
+        """assignment into the waveform values
+        @param index int index or slice
+        @param value value(s) to assign
+        """
+        self.values[index]=value
+    def __iter__(self):
+        """@return iterator over the waveform values"""
+        return iter(self.values)
+    def __array__(self,dtype=None):
+        """numpy array interface
+        @param dtype (optional) requested numpy dtype
+        @return the internal numpy values array (cast to dtype if provided)
+        @note this lets numpy.asarray(waveform) and numpy ufuncs operate directly
+        on the waveform's values.
+        """
+        return self.values if dtype is None else self.values.astype(dtype)
+    def __copy__(self):
+        """shallow copy that gives the copy its own values array
+        @return instance of the same class with copied values and shared metadata
+        """
+        n=self.__class__.__new__(self.__class__)
+        n.__dict__.update(self.__dict__)
+        n.values=np.array(self.values,copy=True)
+        return n
+    def __deepcopy__(self,memo):
+        """deep copy
+        @return instance of the same class with deep-copied attributes
+        """
+        from copy import deepcopy
+        n=self.__class__.__new__(self.__class__)
+        for k,v in self.__dict__.items():
+            n.__dict__[k]=deepcopy(v,memo)
+        return n
     def Times(self,unit=None):
         """time values
         @param unit (optional) string containing unit for time values.
@@ -76,23 +138,23 @@ class Waveform(list):
         return self.td
     def Values(self,unit=None):
         """values
-        returns the list of waveform values
-        @param unit (optional) string containing unit for values in list
+        returns the waveform values as a numpy array
+        @param unit (optional) string containing unit for the values
         @note valid waveform units are:
-        - None - simple list of values returned
-        -'abs' - list of absolute values returned
-        """ 
+        - None - numpy array of values returned
+        -'abs' - numpy array of absolute values returned
+        """
         if unit==None:
-            return list(self)
+            return self.values.copy()
         elif unit =='abs':
-            return [abs(y) for y in self]
+            return np.abs(self.values)
     def OffsetBy(self,v):
         """offset by a dc value
         @param v float amount to offset the waveform by
         @return self
         @todo this is inconsistent and should be removed
         """
-        list.__init__(self,[y+v for y in self])
+        self.values=self.values+v
         return self
     def DelayBy(self,d):
         """delay waveform
@@ -118,13 +180,13 @@ class Waveform(list):
         """
         if isinstance(other,Waveform):
             if self.td == other.td:
-                return Waveform(self.td,[self[k]+other[k] for k in range(len(self))])
+                return Waveform(self.td,self.values+other.values)
             else:
                 [s,o]=AdaptedWaveforms([self,other])
-                return Waveform(s.td,[s[k]+o[k] for k in range(len(s))])
+                return Waveform(s.td,s.values+o.values)
                 #return awf[0]+awf[1]
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v+other.real for v in self])
+            return Waveform(self.td,self.values+other.real)
         # pragma: silent exclude
         else:
             raise SignalIntegrityExceptionWaveform('cannot add waveform to type '+str(other.__class__.__name__))
@@ -146,12 +208,12 @@ class Waveform(list):
         """
         if isinstance(other,Waveform):
             if self.td == other.td:
-                return Waveform(self.td,[self[k]-other[k] for k in range(len(self))])
+                return Waveform(self.td,self.values-other.values)
             else:
                 [s,o]=AdaptedWaveforms([self,other])
-                return Waveform(s.td,[s[k]-o[k] for k in range(len(s))])
+                return Waveform(s.td,s.values-o.values)
         elif isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v-other.real for v in self])
+            return Waveform(self.td,self.values-other.real)
         # pragma: silent exclude
         else:
             raise SignalIntegrityExceptionWaveform('cannot subtract type' + str(other.__class__.__name__) + ' from waveform')
@@ -196,11 +258,11 @@ class Waveform(list):
             return other.ProcessWaveform(self)
         elif isinstance(other,(float,int,complex)):
             result=copy(self)
-            for k in range(len(result)): result[k]*=other.real
+            result.values=result.values*other.real
             return result
         elif isinstance(other,Waveform):
             [s,o]=AdaptedWaveforms([self,other])
-            return Waveform(s.td,[s[k]*o[k] for k in range(len(s))])
+            return Waveform(s.td,s.values*o.values)
         # pragma: silent exclude
         else:
             raise SignalIntegrityExceptionWaveform('cannot multiply waveform by type '+str(other.__class__.__name__))
@@ -218,7 +280,7 @@ class Waveform(list):
         @throw SignalIntegrityExceptionWaveform if other cannot be multiplied.
         """
         if isinstance(other,(float,int,complex)):
-            return Waveform(self.td,[v/other.real for v in self])
+            return Waveform(self.td,self.values/other.real)
         # pragma: silent exclude
         else:
             raise SignalIntegrityExceptionWaveform('cannot divide waveform by type '+str(other.__class__.__name__))
@@ -260,7 +322,7 @@ class Waveform(list):
                     Values=[float(data[k+3]) for k in range(NumPts)]
                     # pragma: silent indent
             self.td=TimeDescriptor(HorOffset,NumPts,SampleRate)
-            list.__init__(self,Values)
+            self.values=Waveform._coerce(Values)
         # pragma: silent exclude indent
         except IOError:
             raise SignalIntegrityExceptionWaveformFile(fileName+' not found')
@@ -288,8 +350,8 @@ class Waveform(list):
             f.write(str(td.H)+'\n')
             f.write(str(int(td.K))+'\n')
             f.write(str(td.Fs)+'\n')
-            for v in self:
-                f.write(str(v)+'\n')
+            for v in self.values:
+                f.write(str(v.item())+'\n')
         return self
     def __eq__(self,other):
         """overloads ==
@@ -421,18 +483,13 @@ class Waveform(list):
         providing a true integral.  Otherwise, the values are simply summed.
         """
         td=copy(self.td)
-        i=[0 for k in range(len(self))]
         T=1./td.Fs if scale else 1.
-        for k in range(len(i)):
-            if k==0:
-                i[k]=self[k]*T+c
-            else:
-                i[k]=i[k-1]+self[k]*T
+        i=np.cumsum(self.values*T)+c
         td.H=td.H+(1./2.)*(1./td.Fs)
         if addPoint:
             td.K=td.K+1
             td.H=td.H=td.H-1./td.Fs
-            i=[c]+i
+            i=np.concatenate(([c],i))
         return Waveform(td,i)
     def Derivative(self,c=0.,removePoint=True,scale=True):
         """derivative of waveform  
@@ -445,13 +502,11 @@ class Waveform(list):
         @todo remove argument c.
         """
         td=copy(self.td)
-        vl=copy(self)
         T=1./td.Fs if scale else 1.
-        for k in range(len(vl)):
-            if k==0:
-                vl[k]=0.
-            else:
-                vl[k]=(self[k]-self[k-1])/T
+        vl=np.empty_like(self.values)
+        if len(vl)>0:
+            vl[0]=0.
+            vl[1:]=np.diff(self.values)/T
         td.H=td.H-(1./2.)*(1./td.Fs)
         if removePoint:
             td.K=td.K-1
@@ -480,8 +535,10 @@ class Waveform(list):
             f.writelines([f'{t} {v}\n' for t,v in zip(self.Times(),self.Values())])
         return self
     def rms(self):
-        import numpy as np
-        return np.sqrt(np.mean(np.square(self)))
+        """root-mean-square of the waveform values
+        @return float rms value
+        """
+        return np.sqrt(np.mean(np.square(self.values)))
     def dBm(self,P=1e-3,R=50):
         return 20*math.log10(self.rms())-10*math.log10(P*R)
 

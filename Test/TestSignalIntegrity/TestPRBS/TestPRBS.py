@@ -270,12 +270,12 @@ class TestPRBSTest(unittest.TestCase,si.test.SignalIntegrityAppTestHelper,si.tes
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def ZeroForcingEqualizer(self,project,waveform,bitrate,value,pre,taps):
-        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp; from numpy import array
+        import SignalIntegrity.App.SignalIntegrityAppHeadless as siapp; from numpy import array, argmax
         from numpy.linalg import inv
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(project)
         pulsewf=app.Simulate().OutputWaveform(waveform)
-        delay=pulsewf.td.TimeOfPoint(pulsewf.Values().index(max(pulsewf.Values())))
+        delay=pulsewf.td.TimeOfPoint(int(argmax(pulsewf.Values())))
         print('delay: '+str(delay))
         H=pulsewf.td.H; ui=1./bitrate
         startTime=delay-(int((delay-H)/ui)-1)*ui
