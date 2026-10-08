@@ -29,6 +29,6 @@ def TerminationG(G,Z0=50.):
     @return the list of list s-parameter matrix for a termination conductance.
     """
     infinity=1e25
-    try: Z = 1.0/G
+    try: Z = infinity if G == 0 else 1.0/G
     except ZeroDivisionError: Z = infinity
     return TerminationZ(Z,Z0)

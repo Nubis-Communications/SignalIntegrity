@@ -194,7 +194,7 @@ class TestStatisticalNoiseTest(unittest.TestCase,
                 f.write('three,4.0e-9\n')
                 f.write('3.0,4.0e-9\n')
             sd=si.fd.SpectralDensity(Keven=False).ReadFromCSV(fileName)
-            self.assertEqual(sd.Frequencies(),[1.0,2.0,3.0])
+            self.assertEqual(sd.Frequencies().tolist(),[1.0,2.0,3.0])
             self.assertEqual(sd.Values('V/sqrt(Hz)'),[2.0e-9,3.0e-9,4.0e-9])
             self.assertFalse(sd.Keven)
         finally:
@@ -246,7 +246,7 @@ class TestStatisticalNoiseTest(unittest.TestCase,
             with os.fdopen(fd,'w') as f:
                 f.write('{"noise":{"x":[1.0,2.0,3.0],"y":[2.0e-9,3.0e-9,4.0e-9]}}\n}\n')
             sd=si.fd.SpectralDensity(Keven=False).ReadFromJson(fileName)
-            self.assertEqual(sd.Frequencies(),[1.0,2.0,3.0])
+            self.assertEqual(sd.Frequencies().tolist(),[1.0,2.0,3.0])
             self.assertEqual(sd.Values('V/sqrt(Hz)'),[2.0e-9,3.0e-9,4.0e-9])
             self.assertFalse(sd.Keven)
         finally:

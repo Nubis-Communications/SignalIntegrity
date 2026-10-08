@@ -276,7 +276,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Checkit(self.id(),irr,irc,False)
     def testResUneven(self):
         frc=self.frc()
-        f=frc.FrequencyList().Frequencies()
+        f=list(frc.FrequencyList().Frequencies())
         r=frc.Response()
         del f[3]
         del r[3]
@@ -286,7 +286,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         Np=20
         Fep=0.5
         frc=self.frc()
-        f=frc.FrequencyList().Frequencies()
+        f=list(frc.FrequencyList().Frequencies())
         r=frc.Response()
         del f[3]
         del r[3]
@@ -297,7 +297,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         Fsp=1
         frc=self.frc()
         irc=frc.ImpulseResponse()
-        f=frc.FrequencyList().Frequencies()
+        f=list(frc.FrequencyList().Frequencies())
         r=frc.Response()
         del f[3]
         del r[3]
@@ -306,7 +306,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Checkit(self.id(),irr,irc,False)
     def testfrcUnevenWriteRead(self):
         frc=self.frc()
-        f=frc.FrequencyList().Frequencies()
+        f=list(frc.FrequencyList().Frequencies())
         r=frc.Response()
         del f[3]
         del r[3]
@@ -390,7 +390,7 @@ class TestResponse(unittest.TestCase,si.test.ResponseTesterHelper):
         self.assertTrue(all([r==r2 for (r,r2) in zip(fr,fr2)]),'pad no points incorrect')
     def testResUnevenNoDescriptor(self):
         frc=self.frc()
-        f=frc.FrequencyList().Frequencies()
+        f=list(frc.FrequencyList().Frequencies())
         r=frc.Response()
         del f[3]
         del r[3]
