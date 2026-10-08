@@ -202,7 +202,7 @@ class FrequencyResponse(FrequencyDomain):
         if evenlySpaced and td is None and not adjustDelay:
             yfp=self.Response()
             ynp=[yfp[fd.N-nn].conjugate() for nn in range(1,fd.N)]
-            y=yfp+ynp
+            y=np.concatenate((yfp,ynp))
             y[0]=y[0].real
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
@@ -232,7 +232,7 @@ class FrequencyResponse(FrequencyDomain):
         fd=self.FrequencyList()
         if P == fd.N: X=self.Response()
         elif P < fd.N: X=self.Response()[:P+1]
-        else: X=self.Response()+[0]*(P-fd.N)
+        else: X=np.concatenate((self.Response(),np.zeros(P-fd.N,dtype=complex)))
         return FrequencyResponse(EvenlySpacedFrequencyList(P*fd.Fe/fd.N,P),X)
     def _Decimate(self,D):
         """decimates the frequency response
