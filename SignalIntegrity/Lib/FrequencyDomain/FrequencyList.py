@@ -25,20 +25,66 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-class FrequencyList(list):
-    """base class for lists of frequencies."""
+import numpy as np
+
+class FrequencyList(object):
+    """base class for lists of frequencies.
+    @note the frequencies are stored internally as a one-dimensional numpy array
+    (`self.values`); the class provides a sequence-like interface (indexing,
+    iteration, len) and numpy interoperability via `__array__`.
+    """
     def __init__(self,f=None):
         """Constructor  
         Initializes a frequency list either from another frequency list or from
-        a list of frequencies provided.
-        @param f (optional) list of frequencies or instance of class FrequencyList
+        a list/array of frequencies provided.
+        @param f (optional) list/numpy array of frequencies or instance of class FrequencyList
         """
         if isinstance(f,FrequencyList):
-            list.__init__(self,f)
+            self.values=np.array(f.values,copy=True)
             self.N=f.N
             self.Fe=f.Fe
             self.m_EvenlySpaced=f.m_EvenlySpaced
-        elif isinstance(f,list): self.SetList(f)
+        elif f is not None:
+            self.SetList(f)
+        else:
+            self.values=np.array([],dtype=float)
+    def __len__(self):
+        """@return int number of frequencies in the list"""
+        return len(self.values)
+    def __getitem__(self,index):
+        """indexing into the frequency list
+        @param index int index or slice
+        @return a Python float for an int index (so downstream per-frequency
+        device math keeps Python scalar-division semantics, e.g. ZeroDivisionError
+        at DC), or a numpy array for a slice
+        """
+        if isinstance(index,(int,np.integer)):
+            return float(self.values[index])
+        return self.values[index]
+    def __setitem__(self,index,value):
+        self.values[index]=value
+    def __iter__(self):
+        return iter(self.values)
+    def __array__(self,dtype=None,copy=None):
+        """numpy array interface returning the internal frequency values array
+        @param dtype (optional) requested numpy dtype
+        @param copy (optional) numpy 2.0 copy semantics
+        """
+        arr=self.values if dtype is None else self.values.astype(dtype)
+        if copy:
+            arr=np.array(arr,copy=True)
+        return arr
+    def __copy__(self):
+        n=self.__class__.__new__(self.__class__)
+        n.__dict__.update(self.__dict__)
+        n.values=np.array(self.values,copy=True)
+        return n
+    def __deepcopy__(self,memo):
+        from copy import deepcopy
+        n=self.__class__.__new__(self.__class__)
+        for k,v in self.__dict__.items():
+            n.__dict__[k]=deepcopy(v,memo)
+        return n
     def SetEvenlySpaced(self,Fe,N):
         """sets evenly spaced
         @param Fe float end frequency for the frequency list
@@ -51,7 +97,7 @@ class FrequencyList(list):
         """
         self.Fe=Fe
         self.N=int(N)
-        list.__init__(self,[Fe/N*n for n in range(self.N+1)])
+        self.values=(Fe/N)*np.arange(self.N+1)
         self.m_EvenlySpaced=True
         return self
     def SetList(self,fl):
@@ -65,9 +111,9 @@ class FrequencyList(list):
         an instance of class FrequencyList, as it mimics this list behavior.  In this case, it will
         install it as if the FrequencyList instance was simply a list of frequencies.
         """
-        list.__init__(self,fl)
-        self.N=len(fl)-1
-        self.Fe=fl[-1]
+        self.values=np.asarray(fl,dtype=float)
+        self.N=len(self.values)-1
+        self.Fe=self.values[-1]
         self.m_EvenlySpaced=False
         return self
     def EvenlySpaced(self): return self.m_EvenlySpaced
@@ -89,7 +135,7 @@ class FrequencyList(list):
 
         if the unit supplied is otherwise invalid, None is returned.
         """
-        if unit == None: return list(self)
+        if unit == None: return self.values.copy()
         elif isinstance(unit,float): return (self/unit).Frequencies()
         elif unit == 'GHz': return (self/1.e9).Frequencies()
         elif unit == 'MHz': return (self/1.e6).Frequencies()

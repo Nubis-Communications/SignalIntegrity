@@ -100,14 +100,18 @@ class Waveform(object):
     def __iter__(self):
         """@return iterator over the waveform values"""
         return iter(self.values)
-    def __array__(self,dtype=None):
+    def __array__(self,dtype=None,copy=None):
         """numpy array interface
         @param dtype (optional) requested numpy dtype
+        @param copy (optional) numpy 2.0 copy semantics
         @return the internal numpy values array (cast to dtype if provided)
         @note this lets numpy.asarray(waveform) and numpy ufuncs operate directly
         on the waveform's values.
         """
-        return self.values if dtype is None else self.values.astype(dtype)
+        arr=self.values if dtype is None else self.values.astype(dtype)
+        if copy:
+            arr=np.array(arr,copy=True)
+        return arr
     def __copy__(self):
         """shallow copy that gives the copy its own values array
         @return instance of the same class with copied values and shared metadata
