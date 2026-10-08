@@ -1190,6 +1190,118 @@ def ProjectCalibration(filename,callback,**kwargs):
             return None
     return result
 
+#: process-level memo for the expensive sub-project open+walk performed while
+#: checking cache modification times.  Keyed by (absolute .si path, its mtime,
+#: canonical resolved args) -> (projectDir, refs) where refs is the list of
+#: file references discovered in the project.  Only the *structure* (which files
+#: a project references) is cached; modification times and cache-file existence
+#: are always re-read on use, so edits to any referenced file are still
+#: detected.  Keying on the .si's own mtime invalidates the entry when the .si
+#: is edited; keying on args keeps parameterized projects (whose args can change
+#: which files they reference) from being conflated.
+_pmtEnumerateCache = {}
+_PMT_MISS = object()
+
+def _pmtArgsKey(args):
+    """Canonical, order-independent, hashable key for an args dict."""
+    if args is None:
+        return None
+    try:
+        return tuple(sorted((str(k), str(v)) for k, v in args.items()))
+    except Exception:
+        return repr(args)
+
+def ClearProjectModificationTimeCache():
+    """Clears the process-level sub-project enumeration memo (mainly for tests)."""
+    _pmtEnumerateCache.clear()
+
+def _EnumerateProjectRefs(fileName,args):
+    """Opens a ``.si`` project and returns ``(projectDir, refs)`` without
+    recursing.  ``refs`` is a list of ``(kind, referencedFileName, deviceArgs)``
+    where ``kind`` is ``'si'`` or ``'leaf'`` and ``referencedFileName`` is the
+    file reference exactly as the original time-check used it (resolved relative
+    to ``projectDir``).  Returns ``None`` if the project cannot be opened or
+    evaluated.  This is the expensive, deep-copy-heavy step; callers memoize it.
+    """
+    # Save/restore the current global project by reference (and the cwd) instead
+    # of using projectStack, which deep-copies the whole project.  OpenProjectFile
+    # rebinds SignalIntegrity.App.Project to a freshly read object rather than
+    # mutating the current one, so restoring the saved reference is sufficient and
+    # avoids two large deepcopies per sub-project open.
+    import SignalIntegrity.App
+    savedProject=SignalIntegrity.App.Project
+    savedcwd=os.getcwd()
+    refs=[]
+    projDir=None
+    result=0
+    try:
+        app=SignalIntegrityAppHeadless()
+        if not app.OpenProjectFile(os.path.realpath(fileName),args):
+            raise ValueError
+        projDir=os.getcwd()
+        app.Drawing.DrawSchematic()
+        import SignalIntegrity.App.Project
+        SignalIntegrity.App.Project.EvaluateEquations()
+        if not app.CheckEquations():
+            raise ValueError
+        if not app.Drawing.canCalculate:
+            raise ValueError
+        deviceList=app.Drawing.schematic.deviceList
+        for device in deviceList:
+
+            # skip only devices removed or bypassed in the netlist (see NetList.py);
+            # any other element state (including None or '') keeps the device
+            if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
+                continue
+
+            deviceArgs={}
+            for variable in device.variablesList:
+                name=variable['Name']
+                value=variable.Value()
+                if variable['Type'] == 'file':
+                    value=os.path.abspath(value)
+                deviceArgs[name]=value
+            propertiesList = device.propertiesList
+            for property in propertiesList:
+                if property['Type']=='file':
+                    filename=property['Value']
+                    if (filename != None) and (len(filename)>0) and (filename[0]=='='):
+                        if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                            variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
+                            filename=variable['Value']
+                        else:
+                            raise ValueError
+                    if filename.endswith('.si'):
+                        refs.append(('si',filename,deviceArgs))
+                    else:
+                        if '.' in filename:
+                            refs.append(('leaf',filename,deviceArgs))
+    except:
+        result=None
+    SignalIntegrity.App.Project=savedProject
+    os.chdir(savedcwd)
+    if result==None:
+        return None
+    return (projDir,refs)
+
+def _CachedEnumerateProjectRefs(fileName,args):
+    """Memoized wrapper around :func:`_EnumerateProjectRefs`.  Only successful
+    enumerations are cached; failures are retried (and thus keep returning the
+    legacy ``None`` -> cache-invalid behavior)."""
+    try:
+        keyPath=os.path.abspath(fileName)
+        mtime=os.path.getmtime(keyPath)
+    except OSError:
+        return None
+    key=(keyPath,mtime,_pmtArgsKey(args))
+    cached=_pmtEnumerateCache.get(key,_PMT_MISS)
+    if cached is not _PMT_MISS:
+        return cached
+    enum=_EnumerateProjectRefs(fileName,args)
+    if enum is not None:
+        _pmtEnumerateCache[key]=enum
+    return enum
+
 def ProjectModificationTime(modificationTimeDict,fileName,args=None):
     #print(os.path.abspath(fileName))
     if modificationTimeDict == None:
@@ -1210,64 +1322,42 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                 cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                 if os.path.exists(cacheFileName):
                     modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
-        level=SignalIntegrityAppHeadless.projectStack.Push()
+        enum=_CachedEnumerateProjectRefs(fileName,args)
         result=0
-        try:
-            app=SignalIntegrityAppHeadless()
-            if not app.OpenProjectFile(os.path.realpath(fileName),args):
-                raise ValueError
-            app.Drawing.DrawSchematic()
-            import SignalIntegrity.App.Project
-            SignalIntegrity.App.Project.EvaluateEquations()
-            if not app.CheckEquations():
-                raise ValueError
-            if not app.Drawing.canCalculate:
-                raise ValueError
-            deviceList=app.Drawing.schematic.deviceList
-            for device in deviceList:
-
-                # skip only devices removed or bypassed in the netlist (see NetList.py);
-                # any other element state (including None or '') keeps the device
-                if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
-                    continue
-
-                args={}
-                for variable in device.variablesList:
-                    name=variable['Name']
-                    value=variable.Value()
-                    if variable['Type'] == 'file':
-                        value=os.path.abspath(value)
-                    args[name]=value
-                propertiesList = device.propertiesList
-                for property in propertiesList:
-                    if property['Type']=='file':
-                        filename=property['Value']
-                        if (filename != None) and (len(filename)>0) and (filename[0]=='='):
-                            import SignalIntegrity.App.Project
-                            if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
-                                variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
-                                filename=variable['Value']
-                            else:
-                                raise ValueError
-                        if filename.endswith('.si'):
-                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename,args)
-                            filenamenoext=FileParts(filename).FileNameTitle()
-                            for postfix in ['','_DUTSParameters','_TransferMatrices']:
-                                for cacheName in ['SParameters','TransferMatrices','Calibration']:
-                                    cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
-                                    if os.path.exists(cacheFileName):
-                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
-                        else:
-                            if '.' in filename:
-                                modificationTimeDict.append({'name':os.path.abspath(filename),
-                                                             'args':args,
-                                                             'time':os.path.getmtime(os.path.abspath(filename)),
-                                                             'traversed':True})
-                        if modificationTimeDict==None:
-                            raise ValueError
-        except:
+        if enum is None:
             result=None
-        SignalIntegrityAppHeadless.projectStack.Pull(level)
+        else:
+            projDir,refs=enum
+            savedcwd=os.getcwd()
+            try:
+                # replay the recursion at the sub-project's own directory so the
+                # CWD-relative resolution of child references and sibling cache
+                # files matches the original (un-memoized) behavior exactly.
+                os.chdir(projDir)
+                for refKind,refFileName,refArgs in refs:
+                    if refKind=='si':
+                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,refFileName,refArgs)
+                        if modificationTimeDict==None:
+                            result=None
+                            break
+                        filenamenoext=FileParts(refFileName).FileNameTitle()
+                        for postfix in ['','_DUTSParameters','_TransferMatrices']:
+                            for cacheName in ['SParameters','TransferMatrices','Calibration']:
+                                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                                if os.path.exists(cacheFileName):
+                                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
+                        if modificationTimeDict==None:
+                            result=None
+                            break
+                    else:
+                        modificationTimeDict.append({'name':os.path.abspath(refFileName),
+                                                     'args':refArgs,
+                                                     'time':os.path.getmtime(os.path.abspath(refFileName)),
+                                                     'traversed':True})
+            except:
+                result=None
+            finally:
+                os.chdir(savedcwd)
         if result==None:
             return result
     modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True
