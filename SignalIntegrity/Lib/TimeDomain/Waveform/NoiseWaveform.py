@@ -37,4 +37,4 @@ class NoiseWaveform(Waveform):
         else:
             # Use a dedicated seeded generator to keep tests deterministic.
             values=numpy.random.RandomState(NoiseWaveform.seed).normal(mean,sigma,int(td.K))
-        Waveform.__init__(self,td,values.tolist())
+        Waveform.__init__(self,td,values)
