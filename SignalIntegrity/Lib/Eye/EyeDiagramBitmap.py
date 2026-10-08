@@ -252,22 +252,80 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             steps=R
         else:
             steps=1
-        pixelator = Pixelator(R,C,steps,mode=enhancementMode)
 
+        # Vectorized bitmap rendering.  This reproduces, exactly, the original
+        # per-sample loop over Pixelator.Results()/Hits() -- bilinear splat of
+        # each (row,column) sample into the eye bitmap with optional sub-step
+        # interpolation to fill vertical gaps -- but with NumPy scatter-adds
+        # instead of ~2 Python calls per sample.  See the Pixelator class for the
+        # scalar reference implementation.
         bitmap=np.zeros((R,C))
-        ri=(self.aprbswf[0]-self.minV)/DeltaV*R
-        ci=(0+midBin)%C
-        for k in range(1,self.aprbswf.td.K):
-            rf=(self.aprbswf[k]-self.minV)/DeltaV*R
-            cf=(k+midBin)%C
-            if (not callback is None) and (k//C != (k-1)//C):
-                if not callback(k/self.aprbswf.td.K*100.):
+        K=self.aprbswf.td.K
+        base=steps                 # Pixelator.step: R (Auto), EnhancementSteps (Fixed), 1 (None)
+        inv_base=1.0/base
+        vals=np.asarray(self.aprbswf.Values(),dtype=float)
+        rcoord=(vals-self.minV)/DeltaV*R
+        col0=(np.arange(K)+midBin)%C
+        # segment j spans sample j -> j+1 (loop was k=1..K-1 using (k-1,k)); the
+        # consecutive column span is always 1 (mod C wrap), and the start sample
+        # of each segment is never splatted (matches useFirst=False).
+        ri_all=rcoord[:-1]
+        rf_all=rcoord[1:]
+        ci_all=col0[:-1].astype(float)
+        if enhancementMode=='Auto':
+            steps_all=np.clip(np.ceil(2.0*np.abs(rf_all-ri_all)),1,base).astype(np.int64)
+        elif enhancementMode=='Fixed':
+            steps_all=np.full(ri_all.shape,int(base),dtype=np.int64)
+        else:
+            steps_all=np.ones(ri_all.shape,dtype=np.int64)
+
+        nseg=ri_all.shape[0]
+        blockSegs=max(C,20000)
+        for segStart in range(0,nseg,blockSegs):
+            segEnd=min(segStart+blockSegs,nseg)
+            if (not callback is None):
+                if not callback(segEnd/K*100.):
                     return
-            results=pixelator.Results(ri, ci, rf, cf, k==0)
-            for result in results:
-                r,c,prob=result[0][0],result[0][1],result[2]
-                bitmap[r][c]+=prob
-            ri=rf; ci=cf
+            ri_c=ri_all[segStart:segEnd]
+            rf_c=rf_all[segStart:segEnd]
+            ci_c=ci_all[segStart:segEnd]
+            steps_c=steps_all[segStart:segEnd]
+            total=int(steps_c.sum())
+            if total==0:
+                continue
+            # expand each segment into its sub-step points n=1..steps (n=0 skipped)
+            starts=np.cumsum(steps_c)-steps_c
+            seg_rep=np.repeat(np.arange(segEnd-segStart),steps_c)
+            steps_rep=np.repeat(steps_c,steps_c)
+            pos=np.arange(total)-np.repeat(starts,steps_c)
+            fr=(pos+1)/steps_rep
+            rr=ri_c[seg_rep]+fr*(rf_c[seg_rep]-ri_c[seg_rep])
+            cc=ci_c[seg_rep]+fr            # column span is 1
+            # bilinear splat -- exact vectorization of Pixelator.Hits()
+            lowestr=rr-0.5
+            rl=np.floor(lowestr).astype(np.int64)
+            rh=np.floor(rr+0.5).astype(np.int64)
+            lrh=lowestr-rl
+            lrl=1.0-lrh
+            lowestc=cc-0.5
+            cl=np.floor(lowestc).astype(np.int64)
+            ch=np.floor(cc+0.5).astype(np.int64)
+            lch=lowestc-cl
+            lcl=1.0-lch
+            rlValid=(rl>=0)&(rl<R)
+            rhValid=(rh>=0)&(rh<R)
+            cl=np.where(cl<0,cl+C,cl)
+            ch=np.where(ch>=C,ch-C,ch)
+            clValid=(cl>=0)&(cl<C)
+            chValid=(ch>=0)&(ch<C)
+            for ridx,rvalid,rw,cidx,cvalid,cw in (
+                    (rl,rlValid,lrl,cl,clValid,lcl),
+                    (rh,rhValid,lrh,cl,clValid,lcl),
+                    (rl,rlValid,lrl,ch,chValid,lch),
+                    (rh,rhValid,lrh,ch,chValid,lch)):
+                m=rvalid&cvalid
+                if m.any():
+                    np.add.at(bitmap,(ridx[m],cidx[m]),(rw*cw*inv_base)[m])
 
         self.rawBitmap=bitmap/np.sum(bitmap)*C
 
