@@ -16,15 +16,15 @@ class FrequencyResponse(FrequencyDomain):
             return newfr.ImpulseResponse(None,adjustDelay).Circulate(time_before_0)
         if evenlySpaced and td is None and not adjustDelay:
             yfp=self.Response()
-            ynp=[yfp[fd.N-nn].conjugate() for nn in range(1,fd.N)]
-            y=yfp+ynp
+            ynp=np.conjugate(yfp[fd.N-1:0:-1])
+            y=np.concatenate((yfp,ynp))
             y[0]=y[0].real
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.K//2)]
-            tn=[Y[k].real for k in range(td.K//2,td.K)]
-            Y=tn+tp
+            half=td.K//2
+            Yr=Y.real
+            Y=np.concatenate((Yr[half:td.K],Yr[:half]))
             return ImpulseResponse(td,Y).Circulate(time_before_0)
         if evenlySpaced and td is None and adjustDelay:
             TD=self._FractionalDelayTime()
