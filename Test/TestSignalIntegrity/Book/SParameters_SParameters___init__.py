@@ -1,9 +1,11 @@
 class SParameters(SParameterManipulation):
     def __init__(self,f,data,Z0=50.0,header=[],picture=None):
-        self.m_sToken='S'; self.m_d=data; self.m_Z0=Z0
+        self.m_sToken='S'
+        self.m_d=None if data is None else np.asarray(data,dtype=complex)
+        self.m_Z0=Z0
         self.m_f=FrequencyList(f)
-        if not data is None:
-            if len(data)>0: self.m_P=len(data[0])
+        if not self.m_d is None:
+            if len(self.m_d)>0: self.m_P=len(self.m_d[0])
         else:
             mat=self[0]
             if not mat is None: self.m_P=len(mat[0])
