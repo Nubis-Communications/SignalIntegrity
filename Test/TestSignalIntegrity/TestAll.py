@@ -70,6 +70,7 @@ from TestProbeOnOff import *
 from TestProbes import *
 from TestRefImp import *
 from TestRegressionFiles import *
+from TestResultsCache import *
 from TestRisetimeFilters import *
 from TestRLGC import *
 from TestRLGCLevMar import *
