@@ -21,6 +21,7 @@ TimeDescriptor.py
 
 from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+import numpy as np
 
 class TimeDescriptor(object):
     """time-axis for waveforms"""
@@ -78,18 +79,19 @@ class TimeDescriptor(object):
         - 'us' - return the time values divided by 1e-6.
         - 'ms' - return the time values divided by 1e-3.
         """
+        times=np.arange(self.K)/self.Fs+self.H
         if unit==None:
-            return [self[k] for k in range(len(self))]
+            return times.tolist()
         elif isinstance(unit,float):
-            return [self[k]/unit for k in range(len(self))]
+            return (times/unit).tolist()
         elif unit=='ps':
-            return [self[k]/1.e-12 for k in range(len(self))]
+            return (times/1.e-12).tolist()
         elif unit=='ns':
-            return [self[k]/1.e-9 for k in range(len(self))]
+            return (times/1.e-9).tolist()
         elif unit =='us':
-            return [self[k]/1.e-6 for k in range(len(self))]
+            return (times/1.e-6).tolist()
         elif unit == 'ms':
-            return [self[k]/1.e-3 for k in range(len(self))]
+            return (times/1.e-3).tolist()
     def ApplyFilter(self,F):
         """calculates effect of filter  
         calculates the new time descriptor of a waveform filtered by a filter

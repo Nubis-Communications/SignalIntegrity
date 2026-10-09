@@ -22,6 +22,7 @@ RaisedCosineFilter.py
 from SignalIntegrity.Lib.TimeDomain.Filters.FirFilter import FirFilter
 from SignalIntegrity.Lib.TimeDomain.Filters.FilterDescriptor import FilterDescriptor
 import math
+import numpy as np
 
 class RaisedCosineFilter(FirFilter):
     """raised cosine filter"""
@@ -30,7 +31,6 @@ class RaisedCosineFilter(FirFilter):
         @param S integer side samples.  The filter is 2*S+1 total samples.
         """
         L=2*S+1
-        w=[math.cos(2*math.pi*(k-S)/L)*0.5+0.5 for k in range(L)]
-        Scale=sum(w)
-        w=[tap/Scale for tap in w]
+        w=np.cos(2*math.pi*(np.arange(L)-S)/L)*0.5+0.5
+        w=w/np.sum(w)
         FirFilter.__init__(self,FilterDescriptor(1,S,2*S),w)

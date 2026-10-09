@@ -158,13 +158,12 @@ class FrequencyList(object):
         in the list is f[n]=n/N*Fe within the epsilon.
         """
         if self.m_EvenlySpaced: return True
-        for n in range(self.N+1):
-            try:
-                if abs(self[n]-self.Fe/self.N*n) > epsilon:
-                    self.m_EvenlySpaced=False
-                    return False
-            except:
-                return False
+        if len(self.values) != self.N+1:
+            return False
+        expected=self.Fe/self.N*np.arange(self.N+1)
+        if np.any(np.abs(self.values-expected) > epsilon):
+            self.m_EvenlySpaced=False
+            return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
     def __div__(self,d):
@@ -175,14 +174,14 @@ class FrequencyList(object):
         @return an instance of class FrequencyList containing self divided by the amount specified.
         """
         if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe/d,self.N)
-        else: return GenericFrequencyList([v/d for v in self])
+        else: return GenericFrequencyList(self.values/d)
     def __mul__(self,d):
         """overloads *
         @param d float frequency to multiply each frequency by.
         @return an instance of class FrequencyList containing self multiplied by the amount specified.
         """
         if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe*d,self.N)
-        else: return GenericFrequencyList([v*d for v in self])
+        else: return GenericFrequencyList(self.values*d)
     def TimeDescriptor(self,Keven=True):
         """associated time descriptor
         @param Keven boolean (optional)
@@ -210,9 +209,8 @@ class FrequencyList(object):
         if self.N != other.N: return False
         if abs(self.Fe - other.Fe) > 1e-5: return False
         if not self.m_EvenlySpaced:
-            for k in range(len(self)):
-                if abs(self[k]-other[k])>1e-6:
-                    return False
+            if np.any(np.abs(self.values-np.asarray(other))>1e-6):
+                return False
         return True
     def __ne__(self,other):
         """overloads !=

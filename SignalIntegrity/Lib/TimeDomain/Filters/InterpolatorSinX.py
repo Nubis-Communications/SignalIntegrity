@@ -32,13 +32,14 @@ def SinX(S,U,F):
     @remark The filter is 2*S*U+1 in length, meaning it has S*U samples on each side of a center
     sample point.
     """
-    sl=[1. if float(k)/U-F-S==0 else
-        math.sin(math.pi*(float(k)/U-F-S))/(math.pi*(float(k)/U-F-S))*\
-        (1./2.+1./2.*math.cos(math.pi*(float(k)/U-S)/S))
-        for k in range(2*U*S+1)]
-    s=sum(sl)/U
-    sl=[sle/s for sle in sl]
-    return sl
+    k=np.arange(2*U*S+1)
+    arg=k/float(U)-F-S
+    with np.errstate(divide='ignore',invalid='ignore'):
+        main=np.sin(np.pi*arg)/(np.pi*arg)*\
+            (1./2.+1./2.*np.cos(np.pi*(k/float(U)-S)/S))
+    sl=np.where(arg==0,1.,main)
+    s=np.sum(sl)/U
+    return (sl/s).tolist()
 
 class FractionalDelayFilterSinX(FirFilter):
     """sinx/x fractional delay filter"""
