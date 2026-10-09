@@ -21,6 +21,7 @@ FirFilter.py
 
 from SignalIntegrity.Lib.TimeDomain.Filters.WaveformProcessor import WaveformProcessor
 
+import numpy as np
 from scipy.signal import convolve
 #from PySICppLib import PySIConvolve
 
@@ -72,6 +73,6 @@ class FirFilter(WaveformProcessor):
         print(str(self.FilterTaps()))
     def NormalizeUnityDCGain(self):
         """normalizes the filter to unity gain at DC"""
-        gain=sum(self.m_ft)
-        self.m_ft = [v/gain for v in self.m_ft]
+        ft=np.asarray(self.m_ft)
+        self.m_ft = ft/np.sum(ft)
         return self
