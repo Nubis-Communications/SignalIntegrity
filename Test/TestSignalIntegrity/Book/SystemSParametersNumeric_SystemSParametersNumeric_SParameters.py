@@ -1,6 +1,7 @@
 class SystemSParametersNumeric(SystemSParameters,Numeric):
     def __init__(self,sd=None):
         SystemSParameters.__init__(self,sd)
+        self.logged=False
     def SParameters(self,**args):
         from numpy.linalg import LinAlgError
         solvetype = args['solvetype'] if 'solvetype' in args else 'block'
@@ -32,4 +33,7 @@ class SystemSParametersNumeric(SystemSParameters,Numeric):
         I=identity(len(Wxx))
         # Wba+Wbx*[(I-Wxx)^-1]*Wxa
         result = array(Wba)+self.Dagger(I-array(Wxx),Left=Wbx,Right=Wxa,Mul=True)
+        if not self.logged:
+            _log.info('inverted a matrix of size %d' % len(Wxx))
+            self.logged=True
         return result.tolist()
