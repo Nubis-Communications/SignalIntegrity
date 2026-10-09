@@ -1,0 +1,57 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="80" y="-49" t="S" h="3" halign="c" lc="black"/>
+%  <rect x="76" y="-44" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">72,-48 76,-48</polyline>
+%  <text x="75" y="-47" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-48 84,-48</polyline>
+%  <text x="85" y="-47" t="2" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-41" t="HDMIThruPort2Peeled.si" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-25" t="?" h="3" halign="c" lc="black"/>
+%  <rect x="52" y="-20" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">48,-24 52,-24</polyline>
+%  <text x="51" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">64,-24 60,-24</polyline>
+%  <text x="61" y="-23" t="2" h="3" halign="l" lc="black"/>
+%  <rect x="96" y="-20" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">92,-24 96,-24</polyline>
+%  <text x="95" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">108,-24 104,-24</polyline>
+%  <text x="105" y="-23" t="2" h="3" halign="l" lc="black"/>
+%  <text x="100" y="-17" t="HDMIThruDeembeddingStructure.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">42,-22 44,-24 42,-26</polyline>
+%  <polyline lc="black">48,-24 44,-24</polyline>
+%  <text x="42" y="-25" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">114,-22 112,-24 114,-26</polyline>
+%  <polyline lc="black">108,-24 112,-24</polyline>
+%  <text x="114" y="-25" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">64,-24 92,-24</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (80,-49) node[anchor=base]{S};
+\path[line width=0.30mm, draw=black] (76,-52) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (72,-48) -- (76,-48);
+\draw[black] (75,-47) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (88,-48) -- (84,-48);
+\draw[black] (85,-47) node[anchor=base west]{2};
+\draw[black] (80,-41) node[anchor=base]{HDMIThruPort2Peeled.si};
+\draw[black] (56,-25) node[anchor=base]{?};
+\path[line width=0.30mm, draw=black] (52,-28) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (48,-24) -- (52,-24);
+\draw[black] (51,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (64,-24) -- (60,-24);
+\draw[black] (61,-23) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (96,-28) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (92,-24) -- (96,-24);
+\draw[black] (95,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (108,-24) -- (104,-24);
+\draw[black] (105,-23) node[anchor=base west]{2};
+\draw[black] (100,-17) node[anchor=base]{HDMIThruDeembeddingStructure.si};
+\path[line width=0.30mm, draw=black] (42,-22) -- (44,-24) -- (42,-26);
+\path[line width=0.30mm, draw=black] (48,-24) -- (44,-24);
+\draw[black] (42,-25) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (114,-22) -- (112,-24) -- (114,-26);
+\path[line width=0.30mm, draw=black] (108,-24) -- (112,-24);
+\draw[black] (114,-25) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (64,-24) -- (92,-24);
+\end{tikzpicture}%

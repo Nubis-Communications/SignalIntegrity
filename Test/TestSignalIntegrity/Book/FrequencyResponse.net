@@ -1,0 +1,6 @@
+device F1 2 frequencyresponsefilter ../../../SignalIntegrity/App/Examples/CableModel/cable.s2p dcgain 0
+device O1 1 open
+voltagesource VG1 1
+connect VG1 1 F1 1
+voltageoutput VO1 F1 2
+connect F1 2 O1 1

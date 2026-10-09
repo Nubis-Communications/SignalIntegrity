@@ -1,0 +1,28 @@
+voltagesource VG1 1
+voltagenoisesource VN1 1
+device O1 1 open
+device O2 1 open
+device O3 1 open
+voltagenoisesource VN2 1
+voltagesource VS1 1
+device O4 1 open
+device O5 1 open
+voltagenoisesource VN3 1
+device O6 1 open
+voltagenoisesource VN4 1
+device O7 1 open
+voltagenoisesource VN5 1
+voltageoutput VO1 O1 1
+connect O1 1 VG1 1
+voltageoutput VO2 VN1 1
+connect VN1 1 O2 1
+voltageoutput VO3 O3 1
+connect O3 1 VN2 1
+voltageoutput VO4 VS1 1
+connect VS1 1 O4 1
+voltageoutput VO5 O5 1
+connect O5 1 VN3 1
+voltageoutput VO6 VN4 1
+connect VN4 1 O6 1
+voltageoutput VO7 VN5 1
+connect VN5 1 O7 1

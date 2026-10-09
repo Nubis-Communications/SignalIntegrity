@@ -1,0 +1,6 @@
+device D1 2 file HDMIThruPort2Peeled.si
+unknown U1 2
+system file HDMIThru.si
+port 1 D1 1
+connect D1 2 U1 2
+port 2 U1 1

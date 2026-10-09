@@ -1,0 +1,8 @@
+device O1 1 open
+voltagesource VG1 2
+voltagenoisesource VN1 1
+device F1 2 butterworthlp order 4 fc 1.0e9
+voltageoutput Test F1 2
+connect F1 2 O1 1
+connect F1 1 VG1 2
+connect VG1 1 VN1 1

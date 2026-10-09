@@ -1,0 +1,61 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="68" y="-24" dx="-8" dy="-8" lc="black"/>
+%  <polyline lc="black">68.75,-21.5 67.25,-21.5</polyline>
+%  <polyline lc="black">68,-20.75 68,-22.25</polyline>
+%  <polyline lc="black">68.75,-26.5 67.25,-26.5</polyline>
+%  <polyline lc="black">68,-28 68,-32</polyline>
+%  <polygon fill="black">70.667,-32 65.333,-32 68,-34.667 70.667,-32</polygon>
+%  <polyline lc="black">68,-16 68,-20</polyline>
+%  <text x="62" y="-28" t="PRBSTestCompareOnlyWaveform.si" h="3" halign="r" lc="black"/>
+%  <text x="62" y="-25" t="VO1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">72,-16 73,-14 74,-18 75,-14 76,-18 77,-14 78,-18 79,-14 80,-16</polyline>
+%  <polyline lc="black">68,-16 72,-16</polyline>
+%  <polyline lc="black">84,-16 80,-16</polyline>
+%  <text x="76" y="-11" t="50.0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">100,-20 98,-21 102,-22 98,-23 102,-24 98,-25 102,-26 98,-27 100,-28</polyline>
+%  <polyline lc="black">100,-28 100,-32</polyline>
+%  <polygon fill="black">97.333,-32 102.667,-32 100,-34.667 97.333,-32</polygon>
+%  <polyline lc="black">100,-16 100,-20</polyline>
+%  <text x="104" y="-27" t="50.0 ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">104,-12 102,-14</polyline>
+%  <polyline lc="black">102,-14 100,-16</polyline>
+%  <text x="104" y="-11" t="VO1" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-61" t="Eye" h="3" halign="c" lc="black"/>
+%  <rect x="56" y="-56" w="8" h="-8" lc="black"/>
+%  <text x="60" y="-53" t="br 56.0 GBaud" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-50" t="PRBSTestCompareOnlyWaveform.si" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-47" t="Wf1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">84,-16 100,-16</polyline>
+%  <ellipse x="100" y="-16" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (68,-24) ellipse (-4mm and -4mm);
+\path[line width=0.30mm, draw=black] (68.75,-21.5) -- (67.25,-21.5);
+\path[line width=0.30mm, draw=black] (68,-20.75) -- (68,-22.25);
+\path[line width=0.30mm, draw=black] (68.75,-26.5) -- (67.25,-26.5);
+\path[line width=0.30mm, draw=black] (68,-28) -- (68,-32);
+\path[line width=0.30mm, fill=black] (70.667,-32) -- (65.333,-32) -- (68,-34.667) -- (70.667,-32) -- cycle;
+\path[line width=0.30mm, draw=black] (68,-16) -- (68,-20);
+\draw[black] (62,-28) node[anchor=base east]{PRBSTestCompareOnlyWaveform.si};
+\draw[black] (62,-25) node[anchor=base east]{VO1};
+\path[line width=0.30mm, draw=black] (72,-16) -- (73,-14) -- (74,-18) -- (75,-14) -- (76,-18) -- (77,-14) -- (78,-18) -- (79,-14) -- (80,-16);
+\path[line width=0.30mm, draw=black] (68,-16) -- (72,-16);
+\path[line width=0.30mm, draw=black] (84,-16) -- (80,-16);
+\draw[black] (76,-11) node[anchor=base]{50.0 ohm};
+\path[line width=0.30mm, draw=black] (100,-20) -- (98,-21) -- (102,-22) -- (98,-23) -- (102,-24) -- (98,-25) -- (102,-26) -- (98,-27) -- (100,-28);
+\path[line width=0.30mm, draw=black] (100,-28) -- (100,-32);
+\path[line width=0.30mm, fill=black] (97.333,-32) -- (102.667,-32) -- (100,-34.667) -- (97.333,-32) -- cycle;
+\path[line width=0.30mm, draw=black] (100,-16) -- (100,-20);
+\draw[black] (104,-27) node[anchor=base west]{50.0 ohm};
+\path[line width=0.9mm, draw=black] (104,-12) -- (102,-14);
+\path[line width=0.30mm, draw=black] (102,-14) -- (100,-16);
+\draw[black] (104,-11) node[anchor=base west]{VO1};
+\draw[black] (60,-61) node[anchor=base]{Eye};
+\path[line width=0.30mm, draw=black] (56,-64) rectangle +(8,8);
+\draw[black] (60,-53) node[anchor=base]{br 56.0 GBaud};
+\draw[black] (60,-50) node[anchor=base]{PRBSTestCompareOnlyWaveform.si};
+\draw[black] (60,-47) node[anchor=base]{Wf1};
+\path[line width=0.30mm, draw=black] (84,-16) -- (100,-16);
+\path[line width=0.30mm, draw=black, fill=black] (100,-16) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

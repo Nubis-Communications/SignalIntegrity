@@ -1,0 +1,29 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">42,-18 44,-20 42,-22</polyline>
+%  <polyline lc="black">48,-20 44,-20</polyline>
+%  <text x="42" y="-21" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">70,-18 68,-20 70,-22</polyline>
+%  <polyline lc="black">64,-20 68,-20</polyline>
+%  <text x="70" y="-21" t="2" h="3" halign="l" lc="black"/>
+%  <rect x="52" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">48,-20 52,-20</polyline>
+%  <text x="51" y="-19" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">64,-20 60,-20</polyline>
+%  <text x="61" y="-19" t="2" h="3" halign="l" lc="black"/>
+%  <text x="56" y="-13" t="toplevel.si" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (42,-18) -- (44,-20) -- (42,-22);
+\path[line width=0.30mm, draw=black] (48,-20) -- (44,-20);
+\draw[black] (42,-21) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (70,-18) -- (68,-20) -- (70,-22);
+\path[line width=0.30mm, draw=black] (64,-20) -- (68,-20);
+\draw[black] (70,-21) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (52,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (48,-20) -- (52,-20);
+\draw[black] (51,-19) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (64,-20) -- (60,-20);
+\draw[black] (61,-19) node[anchor=base west]{2};
+\draw[black] (56,-13) node[anchor=base]{toplevel.si};
+\end{tikzpicture}%

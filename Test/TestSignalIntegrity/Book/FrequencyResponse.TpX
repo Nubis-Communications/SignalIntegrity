@@ -1,0 +1,57 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="63" y="-25.5" t="FR" h="3" halign="c" lc="black"/>
+%  <rect x="59.5" y="-21" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">56,-24.5 59.5,-24.5</polyline>
+%  <text x="59" y="-23.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">70,-24.5 66.5,-24.5</polyline>
+%  <text x="67" y="-23.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="63" y="-18.25" t="frfile cable.s2p" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">98.875,-25.375 97.125,-23.625</polyline>
+%  <polyline lc="black">97.125,-25.375 98.875,-23.625</polyline>
+%  <polyline lc="black">94.5,-24.5 98,-24.5</polyline>
+%  <polyline lc="black">15.75,-32.812 17.5,-32.812 17.5,-30.188 19.25,-30.188</polyline>
+%  <ellipse x="17.5" y="-31.5" dx="7" dy="-7" lc="black"/>
+%  <polyline lc="black">16.844,-29.312 18.156,-29.312</polyline>
+%  <polyline lc="black">17.5,-28.656 17.5,-29.969</polyline>
+%  <polyline lc="black">16.844,-33.688 18.156,-33.688</polyline>
+%  <polyline lc="black">17.5,-35 17.5,-38.5</polyline>
+%  <polygon fill="black">15.167,-38.5 19.833,-38.5 17.5,-40.833 15.167,-38.5</polygon>
+%  <polyline lc="black">17.5,-24.5 17.5,-28</polyline>
+%  <text x="22.75" y="-35.5" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="22.75" y="-32.5" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">98,-21 96.25,-22.75</polyline>
+%  <polyline lc="black">96.25,-22.75 94.5,-24.5</polyline>
+%  <text x="98" y="-20" t="VO1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">56,-24.5 17.5,-24.5</polyline>
+%  <polyline lc="black">70,-24.5 94.5,-24.5</polyline>
+%  <ellipse x="94.5" y="-24.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (63,-25.5) node[anchor=base]{FR};
+\path[line width=0.30mm, draw=black] (59.5,-28) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (56,-24.5) -- (59.5,-24.5);
+\draw[black] (59,-23.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (70,-24.5) -- (66.5,-24.5);
+\draw[black] (67,-23.5) node[anchor=base west]{2};
+\draw[black] (63,-18.25) node[anchor=base]{frfile cable.s2p};
+\path[line width=0.30mm, draw=black] (98.875,-25.375) -- (97.125,-23.625);
+\path[line width=0.30mm, draw=black] (97.125,-25.375) -- (98.875,-23.625);
+\path[line width=0.30mm, draw=black] (94.5,-24.5) -- (98,-24.5);
+\path[line width=0.30mm, draw=black] (15.75,-32.812) -- (17.5,-32.812) -- (17.5,-30.188) -- (19.25,-30.188);
+\path[line width=0.30mm, draw=black] (17.5,-31.5) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (16.844,-29.312) -- (18.156,-29.312);
+\path[line width=0.30mm, draw=black] (17.5,-28.656) -- (17.5,-29.969);
+\path[line width=0.30mm, draw=black] (16.844,-33.688) -- (18.156,-33.688);
+\path[line width=0.30mm, draw=black] (17.5,-35) -- (17.5,-38.5);
+\path[line width=0.30mm, fill=black] (15.167,-38.5) -- (19.833,-38.5) -- (17.5,-40.833) -- (15.167,-38.5) -- cycle;
+\path[line width=0.30mm, draw=black] (17.5,-24.5) -- (17.5,-28);
+\draw[black] (22.75,-35.5) node[anchor=base west]{t0 0 s};
+\draw[black] (22.75,-32.5) node[anchor=base west]{a 1.0 V};
+\path[line width=0.9mm, draw=black] (98,-21) -- (96.25,-22.75);
+\path[line width=0.30mm, draw=black] (96.25,-22.75) -- (94.5,-24.5);
+\draw[black] (98,-20) node[anchor=base west]{VO1};
+\path[line width=0.30mm, draw=black] (56,-24.5) -- (17.5,-24.5);
+\path[line width=0.30mm, draw=black] (70,-24.5) -- (94.5,-24.5);
+\path[line width=0.30mm, draw=black, fill=black] (94.5,-24.5) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

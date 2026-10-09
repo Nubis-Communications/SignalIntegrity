@@ -1,0 +1,51 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <ellipse x="48" y="-36" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">47.25,-33.5 48.75,-33.5</polyline>
+%  <polyline lc="black">48,-32.75 48,-34.25</polyline>
+%  <polyline lc="black">47.25,-38.5 48.75,-38.5</polyline>
+%  <polyline lc="black">48,-40 48,-44</polyline>
+%  <polygon fill="black">45.333,-44 50.667,-44 48,-46.667 45.333,-44</polygon>
+%  <polyline lc="black">48,-28 48,-32</polyline>
+%  <text x="54" y="-37" t="Vin.txt" h="3" halign="l" lc="black"/>
+%  <text x="48" y="-21" t="Eye" h="3" halign="c" lc="black"/>
+%  <rect x="44" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">48,-28 48,-24</polyline>
+%  <text x="42" y="-24" t="br 53.12 GBaud" h="3" halign="r" lc="black"/>
+%  <text x="42" y="-21" t="WithClockRecovery" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">43,-27 45,-29</polyline>
+%  <polyline lc="black">45,-27 43,-29</polyline>
+%  <polyline lc="black">48,-28 44,-28</polyline>
+%  <text x="96" y="-21" t="Eye" h="3" halign="c" lc="black"/>
+%  <rect x="92" y="-16" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">96,-28 96,-24</polyline>
+%  <text x="90" y="-24" t="br 53.12 GBaud" h="3" halign="r" lc="black"/>
+%  <text x="90" y="-21" t="WithoutClockRecovery" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">48,-28 96,-28</polyline>
+%  <ellipse x="48" y="-28" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (48,-36) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (47.25,-33.5) -- (48.75,-33.5);
+\path[line width=0.30mm, draw=black] (48,-32.75) -- (48,-34.25);
+\path[line width=0.30mm, draw=black] (47.25,-38.5) -- (48.75,-38.5);
+\path[line width=0.30mm, draw=black] (48,-40) -- (48,-44);
+\path[line width=0.30mm, fill=black] (45.333,-44) -- (50.667,-44) -- (48,-46.667) -- (45.333,-44) -- cycle;
+\path[line width=0.30mm, draw=black] (48,-28) -- (48,-32);
+\draw[black] (54,-37) node[anchor=base west]{Vin.txt};
+\draw[black] (48,-21) node[anchor=base]{Eye};
+\path[line width=0.30mm, draw=black] (44,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (48,-28) -- (48,-24);
+\draw[black] (42,-24) node[anchor=base east]{br 53.12 GBaud};
+\draw[black] (42,-21) node[anchor=base east]{WithClockRecovery};
+\path[line width=0.30mm, draw=black] (43,-27) -- (45,-29);
+\path[line width=0.30mm, draw=black] (45,-27) -- (43,-29);
+\path[line width=0.30mm, draw=black] (48,-28) -- (44,-28);
+\draw[black] (96,-21) node[anchor=base]{Eye};
+\path[line width=0.30mm, draw=black] (92,-24) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (96,-28) -- (96,-24);
+\draw[black] (90,-24) node[anchor=base east]{br 53.12 GBaud};
+\draw[black] (90,-21) node[anchor=base east]{WithoutClockRecovery};
+\path[line width=0.30mm, draw=black] (48,-28) -- (96,-28);
+\path[line width=0.30mm, draw=black, fill=black] (48,-28) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

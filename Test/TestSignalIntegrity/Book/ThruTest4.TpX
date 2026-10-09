@@ -1,0 +1,43 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="49" y="-28" w="7" h="-14" lc="black"/>
+%  <polyline lc="black">45.5,-31.5 49,-31.5</polyline>
+%  <polyline lc="black">45.5,-38.5 49,-38.5</polyline>
+%  <polyline lc="black">59.5,-31.5 56,-31.5</polyline>
+%  <polyline lc="black">59.5,-38.5 56,-38.5</polyline>
+%  <polyline lc="black">49,-31.5 56,-31.5</polyline>
+%  <polyline lc="black">49,-38.5 56,-38.5</polyline>
+%  <polyline lc="black">40.25,-29.75 42,-31.5 40.25,-33.25</polyline>
+%  <polyline lc="black">45.5,-31.5 42,-31.5</polyline>
+%  <text x="40.25" y="-32.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">40.25,-36.75 42,-38.5 40.25,-40.25</polyline>
+%  <polyline lc="black">45.5,-38.5 42,-38.5</polyline>
+%  <text x="40.25" y="-39.5" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">64.75,-29.75 63,-31.5 64.75,-33.25</polyline>
+%  <polyline lc="black">59.5,-31.5 63,-31.5</polyline>
+%  <text x="64.75" y="-32.5" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">64.75,-36.75 63,-38.5 64.75,-40.25</polyline>
+%  <polyline lc="black">59.5,-38.5 63,-38.5</polyline>
+%  <text x="64.75" y="-39.5" t="4" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (49,-42) rectangle +(7,14);
+\path[line width=0.30mm, draw=black] (45.5,-31.5) -- (49,-31.5);
+\path[line width=0.30mm, draw=black] (45.5,-38.5) -- (49,-38.5);
+\path[line width=0.30mm, draw=black] (59.5,-31.5) -- (56,-31.5);
+\path[line width=0.30mm, draw=black] (59.5,-38.5) -- (56,-38.5);
+\path[line width=0.30mm, draw=black] (49,-31.5) -- (56,-31.5);
+\path[line width=0.30mm, draw=black] (49,-38.5) -- (56,-38.5);
+\path[line width=0.30mm, draw=black] (40.25,-29.75) -- (42,-31.5) -- (40.25,-33.25);
+\path[line width=0.30mm, draw=black] (45.5,-31.5) -- (42,-31.5);
+\draw[black] (40.25,-32.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (40.25,-36.75) -- (42,-38.5) -- (40.25,-40.25);
+\path[line width=0.30mm, draw=black] (45.5,-38.5) -- (42,-38.5);
+\draw[black] (40.25,-39.5) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (64.75,-29.75) -- (63,-31.5) -- (64.75,-33.25);
+\path[line width=0.30mm, draw=black] (59.5,-31.5) -- (63,-31.5);
+\draw[black] (64.75,-32.5) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (64.75,-36.75) -- (63,-38.5) -- (64.75,-40.25);
+\path[line width=0.30mm, draw=black] (59.5,-38.5) -- (63,-38.5);
+\draw[black] (64.75,-39.5) node[anchor=base west]{4};
+\end{tikzpicture}%

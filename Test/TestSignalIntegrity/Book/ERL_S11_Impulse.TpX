@@ -1,0 +1,279 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="file_name sparam_res.s4p" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="port_reordering 1,3,2,4" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-8.75" t="Z0 50.0 ohm" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-11.75" t="f_b 106.2 GBaud" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-14.75" t="T_r 10.0 ps" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-17.75" t="N 800.0 UI" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-20.75" t="phi 10" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-23.75" t="f_r 58.44 GHz" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-26.75" t="tukey_window True" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-29.75" t="butterworth True" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">227.5,-31.5 228.375,-29.75 229.25,-33.25 230.125,-29.75 231,-33.25 231.875,-29.75 232.75,-33.25 233.625,-29.75 234.5,-31.5</polyline>
+%  <polyline lc="black">224,-31.5 227.5,-31.5</polyline>
+%  <polyline lc="black">238,-31.5 234.5,-31.5</polyline>
+%  <text x="231" y="-27" t="=Z0 (50.0 ohm)" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">255.5,-28 253.75,-29.75</polyline>
+%  <polyline lc="black">253.75,-29.75 252,-31.5</polyline>
+%  <text x="255.5" y="-27" t="V_actual" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">276.5,-45.5 277.375,-47.25 278.25,-43.75 279.125,-47.25 280,-43.75 280.875,-47.25 281.75,-43.75 282.625,-47.25 283.5,-45.5</polyline>
+%  <polyline lc="black">283.5,-45.5 287,-45.5</polyline>
+%  <polygon fill="black">287,-47.833 287,-43.167 289.333,-45.5 287,-47.833</polygon>
+%  <polyline lc="black">273,-45.5 276.5,-45.5</polyline>
+%  <text x="281.75" y="-41" t="=Z0 (50.0 ohm)" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">227.5,-45.5 228.375,-43.75 229.25,-47.25 230.125,-43.75 231,-47.25 231.875,-43.75 232.75,-47.25 233.625,-43.75 234.5,-45.5</polyline>
+%  <polyline lc="black">224,-45.5 227.5,-45.5</polyline>
+%  <polyline lc="black">238,-45.5 234.5,-45.5</polyline>
+%  <text x="231" y="-41" t="=Z0 (50.0 ohm)" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">255.5,-42 253.75,-43.75</polyline>
+%  <polyline lc="black">253.75,-43.75 252,-45.5</polyline>
+%  <text x="255.5" y="-41" t="V_perfect" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">260.094,-67.812 261.406,-67.812</polyline>
+%  <polyline lc="black">260.75,-67.156 260.75,-68.469</polyline>
+%  <polyline lc="black">260.094,-72.188 261.406,-72.188</polyline>
+%  <polyline lc="black">259,-63 269.5,-70 259,-77 259,-63</polyline>
+%  <polyline lc="black">255.5,-73.5 259,-73.5</polyline>
+%  <polyline lc="black">255.5,-66.5 259,-66.5</polyline>
+%  <polyline lc="black">273,-70 269.5,-70</polyline>
+%  <text x="262.5" y="-62" t="gain 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="262.5" y="-59" t="zi 100.0 Mohm" h="3" halign="c" lc="black"/>
+%  <text x="262.5" y="-56" t="zo 0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">291.375,-70.875 289.625,-69.125</polyline>
+%  <polyline lc="black">289.625,-70.875 291.375,-69.125</polyline>
+%  <polyline lc="black">287,-70 290.5,-70</polyline>
+%  <rect x="154" y="-42" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">150.5,-45.5 154,-45.5</polyline>
+%  <text x="153.5" y="-44.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">164.5,-45.5 161,-45.5</polyline>
+%  <text x="161.5" y="-44.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="157.5" y="-39.25" t="rt_2080=T_r (10.0 ps)" h="3" halign="c" lc="black"/>
+%  <text x="157.5" y="-36.25" t="file COM_Ht.si" h="3" halign="c" lc="black"/>
+%  <rect x="192.5" y="-42" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">189,-45.5 192.5,-45.5</polyline>
+%  <text x="192" y="-44.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">203,-45.5 199.5,-45.5</polyline>
+%  <text x="200" y="-44.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="196" y="-39.25" t="f_r=f_r (58.44 GHz)" h="3" halign="c" lc="black"/>
+%  <text x="196" y="-36.25" t="file COM_Hr.si" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">290.5,-66.5 288.75,-68.25</polyline>
+%  <polyline lc="black">288.75,-68.25 287,-70</polyline>
+%  <text x="290.5" y="-65.5" t="PTDR" h="3" halign="l" lc="black"/>
+%  <rect x="290.5" y="-28" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">287,-31.5 290.5,-31.5</polyline>
+%  <text x="290" y="-30.5" t="1" h="3" halign="r" lc="black"/>
+%  <text x="294" y="-25.25" t="Zc=Z0 (50.0 ohm)" h="3" halign="c" lc="black"/>
+%  <text x="294" y="-22.25" t="port_reordering=port_reordering (1,3,2,4)" h="3" halign="c" lc="black"/>
+%  <text x="294" y="-19.25" t="file_name=file_name (sparam_res.s4p)" h="3" halign="c" lc="black"/>
+%  <text x="294" y="-16.25" t="ERL_S11.si" h="3" halign="c" lc="black"/>
+%  <text x="294" y="-13.25" t="reorder 1" h="3" halign="c" lc="black"/>
+%  <text x="294" y="-10.25" t="DUT" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">57.75,-67.812 58.625,-67.812 59.5,-65.188 60.375,-67.812 61.25,-67.812</polyline>
+%  <ellipse x="59.5" y="-66.5" dx="7" dy="-7" lc="black"/>
+%  <polyline lc="black">58.844,-64.312 60.156,-64.312</polyline>
+%  <polyline lc="black">59.5,-63.656 59.5,-64.969</polyline>
+%  <polyline lc="black">58.844,-68.688 60.156,-68.688</polyline>
+%  <polyline lc="black">59.5,-70 59.5,-73.5</polyline>
+%  <polygon fill="black">57.167,-73.5 61.833,-73.5 59.5,-75.833 57.167,-73.5</polygon>
+%  <polyline lc="black">59.5,-59.5 59.5,-63</polyline>
+%  <text x="64.75" y="-79.5" t="ho=ho (-10.03 ns)" h="3" halign="l" lc="black"/>
+%  <text x="64.75" y="-76.5" t="dur=dur (20.06 ns)" h="3" halign="l" lc="black"/>
+%  <text x="64.75" y="-73.5" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="64.75" y="-70.5" t="fs=Fs (320.0 GS/s)" h="3" halign="l" lc="black"/>
+%  <text x="64.75" y="-67.5" t="a 2.0 V" h="3" halign="l" lc="black"/>
+%  <rect x="77" y="-42" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">73.5,-45.5 77,-45.5</polyline>
+%  <text x="76.5" y="-44.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">87.5,-45.5 84,-45.5</polyline>
+%  <text x="84.5" y="-44.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="80.5" y="-39.25" t="f_b=f_b (106.2 GBaud)" h="3" halign="c" lc="black"/>
+%  <text x="80.5" y="-36.25" t="file COM_SincPulse.si" h="3" halign="c" lc="black"/>
+%  <rect x="115.5" y="-42" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">112,-45.5 115.5,-45.5</polyline>
+%  <text x="115" y="-44.5" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">126,-45.5 122.5,-45.5</polyline>
+%  <text x="123" y="-44.5" t="2" h="3" halign="l" lc="black"/>
+%  <text x="119" y="-39.25" t="f_r=f_r (58.44 GHz)" h="3" halign="c" lc="black"/>
+%  <text x="119" y="-36.25" t="f_b=f_b (106.2 GBaud)" h="3" halign="c" lc="black"/>
+%  <text x="119" y="-33.25" t="file COM_Tukey.si" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">56,-42 57.75,-43.75</polyline>
+%  <polyline lc="black">57.75,-43.75 59.5,-45.5</polyline>
+%  <text x="56" y="-41" t="V_impulse" h="3" halign="r" lc="black"/>
+%  <polyline lw="3" lc="black">140,-49 141.75,-47.25</polyline>
+%  <polyline lc="black">141.75,-47.25 143.5,-45.5</polyline>
+%  <text x="140" y="-52" t="V_unit_pulse" h="3" halign="r" lc="black"/>
+%  <polyline lw="3" lc="black">185.5,-49 187.25,-47.25</polyline>
+%  <polyline lc="black">187.25,-47.25 189,-45.5</polyline>
+%  <text x="185.5" y="-52" t="V_rise_time_adjusted" h="3" halign="r" lc="black"/>
+%  <polyline lw="3" lc="black">213.5,-49 215.25,-47.25</polyline>
+%  <polyline lc="black">215.25,-47.25 217,-45.5</polyline>
+%  <text x="213.5" y="-52" t="V_filtered" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">238,-31.5 245,-31.5</polyline>
+%  <polyline lc="black">252,-45.5 273,-45.5</polyline>
+%  <polyline lc="black">224,-31.5 217,-31.5</polyline>
+%  <polyline lc="black">217,-31.5 217,-45.5</polyline>
+%  <polyline lc="black">245,-31.5 245,-66.5</polyline>
+%  <polyline lc="black">245,-66.5 255.5,-66.5</polyline>
+%  <polyline lc="black">255.5,-73.5 238,-73.5</polyline>
+%  <polyline lc="black">238,-73.5 238,-45.5</polyline>
+%  <polyline lc="black">245,-31.5 252,-31.5</polyline>
+%  <polyline lc="black">238,-45.5 252,-45.5</polyline>
+%  <polyline lc="black">224,-45.5 217,-45.5</polyline>
+%  <polyline lc="black">217,-45.5 203,-45.5</polyline>
+%  <polyline lc="black">189,-45.5 164.5,-45.5</polyline>
+%  <polyline lc="black">287,-70 273,-70</polyline>
+%  <polyline lc="black">287,-31.5 252,-31.5</polyline>
+%  <polyline lc="black">150.5,-45.5 143.5,-45.5</polyline>
+%  <polyline lc="black">112,-45.5 87.5,-45.5</polyline>
+%  <polyline lc="black">73.5,-45.5 59.5,-45.5</polyline>
+%  <polyline lc="black">59.5,-45.5 59.5,-59.5</polyline>
+%  <polyline lc="black">143.5,-45.5 126,-45.5</polyline>
+%  <ellipse x="238" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="59.5" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="252" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="143.5" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="287" y="-70" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="189" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="245" y="-31.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="252" y="-31.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="217" y="-45.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{file\textunderscore name sparam\textunderscore res.s4p};
+\draw[black] (1.75,-5.75) node[anchor=base west]{port\textunderscore reordering 1,3,2,4};
+\draw[black] (1.75,-8.75) node[anchor=base west]{Z0 50.0 ohm};
+\draw[black] (1.75,-11.75) node[anchor=base west]{f\textunderscore b 106.2 GBaud};
+\draw[black] (1.75,-14.75) node[anchor=base west]{T\textunderscore r 10.0 ps};
+\draw[black] (1.75,-17.75) node[anchor=base west]{N 800.0 UI};
+\draw[black] (1.75,-20.75) node[anchor=base west]{phi 10};
+\draw[black] (1.75,-23.75) node[anchor=base west]{f\textunderscore r 58.44 GHz};
+\draw[black] (1.75,-26.75) node[anchor=base west]{tukey\textunderscore window True};
+\draw[black] (1.75,-29.75) node[anchor=base west]{butterworth True};
+\path[line width=0.30mm, draw=black] (227.5,-31.5) -- (228.375,-29.75) -- (229.25,-33.25) -- (230.125,-29.75) -- (231,-33.25) -- (231.875,-29.75) -- (232.75,-33.25) -- (233.625,-29.75) -- (234.5,-31.5);
+\path[line width=0.30mm, draw=black] (224,-31.5) -- (227.5,-31.5);
+\path[line width=0.30mm, draw=black] (238,-31.5) -- (234.5,-31.5);
+\draw[black] (231,-27) node[anchor=base]{=Z0 (50.0 ohm)};
+\path[line width=0.9mm, draw=black] (255.5,-28) -- (253.75,-29.75);
+\path[line width=0.30mm, draw=black] (253.75,-29.75) -- (252,-31.5);
+\draw[black] (255.5,-27) node[anchor=base west]{V\textunderscore actual};
+\path[line width=0.30mm, draw=black] (276.5,-45.5) -- (277.375,-47.25) -- (278.25,-43.75) -- (279.125,-47.25) -- (280,-43.75) -- (280.875,-47.25) -- (281.75,-43.75) -- (282.625,-47.25) -- (283.5,-45.5);
+\path[line width=0.30mm, draw=black] (283.5,-45.5) -- (287,-45.5);
+\path[line width=0.30mm, fill=black] (287,-47.833) -- (287,-43.167) -- (289.333,-45.5) -- (287,-47.833) -- cycle;
+\path[line width=0.30mm, draw=black] (273,-45.5) -- (276.5,-45.5);
+\draw[black] (281.75,-41) node[anchor=base]{=Z0 (50.0 ohm)};
+\path[line width=0.30mm, draw=black] (227.5,-45.5) -- (228.375,-43.75) -- (229.25,-47.25) -- (230.125,-43.75) -- (231,-47.25) -- (231.875,-43.75) -- (232.75,-47.25) -- (233.625,-43.75) -- (234.5,-45.5);
+\path[line width=0.30mm, draw=black] (224,-45.5) -- (227.5,-45.5);
+\path[line width=0.30mm, draw=black] (238,-45.5) -- (234.5,-45.5);
+\draw[black] (231,-41) node[anchor=base]{=Z0 (50.0 ohm)};
+\path[line width=0.9mm, draw=black] (255.5,-42) -- (253.75,-43.75);
+\path[line width=0.30mm, draw=black] (253.75,-43.75) -- (252,-45.5);
+\draw[black] (255.5,-41) node[anchor=base west]{V\textunderscore perfect};
+\path[line width=0.30mm, draw=black] (260.094,-67.812) -- (261.406,-67.812);
+\path[line width=0.30mm, draw=black] (260.75,-67.156) -- (260.75,-68.469);
+\path[line width=0.30mm, draw=black] (260.094,-72.188) -- (261.406,-72.188);
+\path[line width=0.30mm, draw=black] (259,-63) -- (269.5,-70) -- (259,-77) -- (259,-63);
+\path[line width=0.30mm, draw=black] (255.5,-73.5) -- (259,-73.5);
+\path[line width=0.30mm, draw=black] (255.5,-66.5) -- (259,-66.5);
+\path[line width=0.30mm, draw=black] (273,-70) -- (269.5,-70);
+\draw[black] (262.5,-62) node[anchor=base]{gain 1.0 };
+\draw[black] (262.5,-59) node[anchor=base]{zi 100.0 Mohm};
+\draw[black] (262.5,-56) node[anchor=base]{zo 0 ohm};
+\path[line width=0.30mm, draw=black] (291.375,-70.875) -- (289.625,-69.125);
+\path[line width=0.30mm, draw=black] (289.625,-70.875) -- (291.375,-69.125);
+\path[line width=0.30mm, draw=black] (287,-70) -- (290.5,-70);
+\path[line width=0.30mm, draw=black] (154,-49) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (150.5,-45.5) -- (154,-45.5);
+\draw[black] (153.5,-44.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (164.5,-45.5) -- (161,-45.5);
+\draw[black] (161.5,-44.5) node[anchor=base west]{2};
+\draw[black] (157.5,-39.25) node[anchor=base]{rt\textunderscore 2080=T\textunderscore r (10.0 ps)};
+\draw[black] (157.5,-36.25) node[anchor=base]{file COM\textunderscore Ht.si};
+\path[line width=0.30mm, draw=black] (192.5,-49) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (189,-45.5) -- (192.5,-45.5);
+\draw[black] (192,-44.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (203,-45.5) -- (199.5,-45.5);
+\draw[black] (200,-44.5) node[anchor=base west]{2};
+\draw[black] (196,-39.25) node[anchor=base]{f\textunderscore r=f\textunderscore r (58.44 GHz)};
+\draw[black] (196,-36.25) node[anchor=base]{file COM\textunderscore Hr.si};
+\path[line width=0.9mm, draw=black] (290.5,-66.5) -- (288.75,-68.25);
+\path[line width=0.30mm, draw=black] (288.75,-68.25) -- (287,-70);
+\draw[black] (290.5,-65.5) node[anchor=base west]{PTDR};
+\path[line width=0.30mm, draw=black] (290.5,-35) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (287,-31.5) -- (290.5,-31.5);
+\draw[black] (290,-30.5) node[anchor=base east]{1};
+\draw[black] (294,-25.25) node[anchor=base]{Zc=Z0 (50.0 ohm)};
+\draw[black] (294,-22.25) node[anchor=base]{port\textunderscore reordering=port\textunderscore reordering (1,3,2,4)};
+\draw[black] (294,-19.25) node[anchor=base]{file\textunderscore name=file\textunderscore name (sparam\textunderscore res.s4p)};
+\draw[black] (294,-16.25) node[anchor=base]{ERL\textunderscore S11.si};
+\draw[black] (294,-13.25) node[anchor=base]{reorder 1};
+\draw[black] (294,-10.25) node[anchor=base]{DUT};
+\path[line width=0.30mm, draw=black] (57.75,-67.812) -- (58.625,-67.812) -- (59.5,-65.188) -- (60.375,-67.812) -- (61.25,-67.812);
+\path[line width=0.30mm, draw=black] (59.5,-66.5) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (58.844,-64.312) -- (60.156,-64.312);
+\path[line width=0.30mm, draw=black] (59.5,-63.656) -- (59.5,-64.969);
+\path[line width=0.30mm, draw=black] (58.844,-68.688) -- (60.156,-68.688);
+\path[line width=0.30mm, draw=black] (59.5,-70) -- (59.5,-73.5);
+\path[line width=0.30mm, fill=black] (57.167,-73.5) -- (61.833,-73.5) -- (59.5,-75.833) -- (57.167,-73.5) -- cycle;
+\path[line width=0.30mm, draw=black] (59.5,-59.5) -- (59.5,-63);
+\draw[black] (64.75,-79.5) node[anchor=base west]{ho=ho (-12.53 ns)};
+\draw[black] (64.75,-76.5) node[anchor=base west]{dur=dur (25.06 ns)};
+\draw[black] (64.75,-73.5) node[anchor=base west]{t0 0 s};
+\draw[black] (64.75,-70.5) node[anchor=base west]{fs=Fs (320.0 GS/s)};
+\draw[black] (64.75,-67.5) node[anchor=base west]{a 2.0 V};
+\path[line width=0.30mm, draw=black] (77,-49) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (73.5,-45.5) -- (77,-45.5);
+\draw[black] (76.5,-44.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (87.5,-45.5) -- (84,-45.5);
+\draw[black] (84.5,-44.5) node[anchor=base west]{2};
+\draw[black] (80.5,-39.25) node[anchor=base]{f\textunderscore b=f\textunderscore b (106.2 GBaud)};
+\draw[black] (80.5,-36.25) node[anchor=base]{file COM\textunderscore SincPulse.si};
+\path[line width=0.30mm, draw=black] (115.5,-49) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (112,-45.5) -- (115.5,-45.5);
+\draw[black] (115,-44.5) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (126,-45.5) -- (122.5,-45.5);
+\draw[black] (123,-44.5) node[anchor=base west]{2};
+\draw[black] (119,-39.25) node[anchor=base]{f\textunderscore r=f\textunderscore r (58.44 GHz)};
+\draw[black] (119,-36.25) node[anchor=base]{f\textunderscore b=f\textunderscore b (106.2 GBaud)};
+\draw[black] (119,-33.25) node[anchor=base]{file COM\textunderscore Tukey.si};
+\path[line width=0.9mm, draw=black] (56,-42) -- (57.75,-43.75);
+\path[line width=0.30mm, draw=black] (57.75,-43.75) -- (59.5,-45.5);
+\draw[black] (56,-41) node[anchor=base east]{V\textunderscore impulse};
+\path[line width=0.9mm, draw=black] (140,-49) -- (141.75,-47.25);
+\path[line width=0.30mm, draw=black] (141.75,-47.25) -- (143.5,-45.5);
+\draw[black] (140,-50) node[anchor=north east]{V\textunderscore unit\textunderscore pulse};
+\path[line width=0.9mm, draw=black] (185.5,-49) -- (187.25,-47.25);
+\path[line width=0.30mm, draw=black] (187.25,-47.25) -- (189,-45.5);
+\draw[black] (185.5,-50) node[anchor=north east]{V\textunderscore rise\textunderscore time\textunderscore adjusted};
+\path[line width=0.9mm, draw=black] (213.5,-49) -- (215.25,-47.25);
+\path[line width=0.30mm, draw=black] (215.25,-47.25) -- (217,-45.5);
+\draw[black] (213.5,-50) node[anchor=north east]{V\textunderscore filtered};
+\path[line width=0.30mm, draw=black] (238,-31.5) -- (245,-31.5);
+\path[line width=0.30mm, draw=black] (252,-45.5) -- (273,-45.5);
+\path[line width=0.30mm, draw=black] (224,-31.5) -- (217,-31.5);
+\path[line width=0.30mm, draw=black] (217,-31.5) -- (217,-45.5);
+\path[line width=0.30mm, draw=black] (245,-31.5) -- (245,-66.5);
+\path[line width=0.30mm, draw=black] (245,-66.5) -- (255.5,-66.5);
+\path[line width=0.30mm, draw=black] (255.5,-73.5) -- (238,-73.5);
+\path[line width=0.30mm, draw=black] (238,-73.5) -- (238,-45.5);
+\path[line width=0.30mm, draw=black] (245,-31.5) -- (252,-31.5);
+\path[line width=0.30mm, draw=black] (238,-45.5) -- (252,-45.5);
+\path[line width=0.30mm, draw=black] (224,-45.5) -- (217,-45.5);
+\path[line width=0.30mm, draw=black] (217,-45.5) -- (203,-45.5);
+\path[line width=0.30mm, draw=black] (189,-45.5) -- (164.5,-45.5);
+\path[line width=0.30mm, draw=black] (287,-70) -- (273,-70);
+\path[line width=0.30mm, draw=black] (287,-31.5) -- (252,-31.5);
+\path[line width=0.30mm, draw=black] (150.5,-45.5) -- (143.5,-45.5);
+\path[line width=0.30mm, draw=black] (112,-45.5) -- (87.5,-45.5);
+\path[line width=0.30mm, draw=black] (73.5,-45.5) -- (59.5,-45.5);
+\path[line width=0.30mm, draw=black] (59.5,-45.5) -- (59.5,-59.5);
+\path[line width=0.30mm, draw=black] (143.5,-45.5) -- (126,-45.5);
+\path[line width=0.30mm, draw=black, fill=black] (238,-45.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (59.5,-45.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (252,-45.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (143.5,-45.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (287,-70) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (189,-45.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (245,-31.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (252,-31.5) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (217,-45.5) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

@@ -1,0 +1,101 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="file_name sparam_res.s4p" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-5.75" t="port_reordering 1,2,3,4" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-8.75" t="Zc 50.0 ohm" h="3" halign="l" lc="black"/>
+%  <rect x="70" y="-17.5" w="7" h="-14" lc="black"/>
+%  <polyline lc="black">66.5,-21 70,-21</polyline>
+%  <text x="69.5" y="-20" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">66.5,-28 70,-28</polyline>
+%  <text x="69.5" y="-27" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">80.5,-21 77,-21</polyline>
+%  <text x="77.5" y="-20" t="3" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">80.5,-28 77,-28</polyline>
+%  <text x="77.5" y="-27" t="4" h="3" halign="l" lc="black"/>
+%  <text x="73.5" y="-14.75" t="=file_name (sparam_res.s4p)" h="3" halign="c" lc="black"/>
+%  <text x="73.5" y="-11.75" t="reorder=port_reordering (1,2,3,4)" h="3" halign="c" lc="black"/>
+%  <text x="57.75" y="-22" t="+" h="3" halign="c" lc="black"/>
+%  <text x="57.75" y="-29" t="-" h="3" halign="c" lc="black"/>
+%  <text x="54.25" y="-22" t="D" h="3" halign="c" lc="black"/>
+%  <text x="54.25" y="-29" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="52.5" y="-17.5" w="7" h="-14" lc="black"/>
+%  <polyline lc="black">63,-21 59.5,-21</polyline>
+%  <polyline lc="black">63,-28 59.5,-28</polyline>
+%  <polyline lc="black">49,-21 52.5,-21</polyline>
+%  <polyline lc="black">49,-28 52.5,-28</polyline>
+%  <polyline lc="black">43.75,-19.25 45.5,-21 43.75,-22.75</polyline>
+%  <polyline lc="black">49,-21 45.5,-21</polyline>
+%  <text x="43.75" y="-22" t="1" h="3" halign="r" lc="black"/>
+%  <text x="92.75" y="-22" t="+" h="3" halign="c" lc="black"/>
+%  <text x="92.75" y="-29" t="-" h="3" halign="c" lc="black"/>
+%  <text x="96.25" y="-22" t="D" h="3" halign="c" lc="black"/>
+%  <text x="96.25" y="-29" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="91" y="-17.5" w="7" h="-14" lc="black"/>
+%  <polyline lc="black">87.5,-21 91,-21</polyline>
+%  <polyline lc="black">87.5,-28 91,-28</polyline>
+%  <polyline lc="black">101.5,-21 98,-21</polyline>
+%  <polyline lc="black">101.5,-28 98,-28</polyline>
+%  <polyline lc="black">106.75,-19.25 105,-21 106.75,-22.75</polyline>
+%  <polyline lc="black">101.5,-21 105,-21</polyline>
+%  <text x="106.75" y="-22" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">43.75,-26.25 45.5,-28 43.75,-29.75</polyline>
+%  <polyline lc="black">49,-28 45.5,-28</polyline>
+%  <text x="43.75" y="-29" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">106.75,-26.25 105,-28 106.75,-29.75</polyline>
+%  <polyline lc="black">101.5,-28 105,-28</polyline>
+%  <text x="106.75" y="-29" t="4" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">80.5,-21 87.5,-21</polyline>
+%  <polyline lc="black">63,-21 66.5,-21</polyline>
+%  <polyline lc="black">63,-28 66.5,-28</polyline>
+%  <polyline lc="black">87.5,-28 80.5,-28</polyline>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{file\textunderscore name sparam\textunderscore res.s4p};
+\draw[black] (1.75,-5.75) node[anchor=base west]{port\textunderscore reordering 1,2,3,4};
+\draw[black] (1.75,-8.75) node[anchor=base west]{Zc 50.0 ohm};
+\path[line width=0.30mm, draw=black] (70,-31.5) rectangle +(7,14);
+\path[line width=0.30mm, draw=black] (66.5,-21) -- (70,-21);
+\draw[black] (69.5,-20) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (66.5,-28) -- (70,-28);
+\draw[black] (69.5,-27) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (80.5,-21) -- (77,-21);
+\draw[black] (77.5,-20) node[anchor=base west]{3};
+\path[line width=0.30mm, draw=black] (80.5,-28) -- (77,-28);
+\draw[black] (77.5,-27) node[anchor=base west]{4};
+\draw[black] (73.5,-14.75) node[anchor=base]{=file\textunderscore name (sparam\textunderscore res.s4p)};
+\draw[black] (73.5,-11.75) node[anchor=base]{reorder=port\textunderscore reordering (1,2,3,4)};
+\draw[black] (57.75,-22) node[anchor=base]{+};
+\draw[black] (57.75,-29) node[anchor=base]{-};
+\draw[black] (54.25,-22) node[anchor=base]{D};
+\draw[black] (54.25,-29) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (52.5,-31.5) rectangle +(7,14);
+\path[line width=0.30mm, draw=black] (63,-21) -- (59.5,-21);
+\path[line width=0.30mm, draw=black] (63,-28) -- (59.5,-28);
+\path[line width=0.30mm, draw=black] (49,-21) -- (52.5,-21);
+\path[line width=0.30mm, draw=black] (49,-28) -- (52.5,-28);
+\path[line width=0.30mm, draw=black] (43.75,-19.25) -- (45.5,-21) -- (43.75,-22.75);
+\path[line width=0.30mm, draw=black] (49,-21) -- (45.5,-21);
+\draw[black] (43.75,-22) node[anchor=base east]{1};
+\draw[black] (92.75,-22) node[anchor=base]{+};
+\draw[black] (92.75,-29) node[anchor=base]{-};
+\draw[black] (96.25,-22) node[anchor=base]{D};
+\draw[black] (96.25,-29) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (91,-31.5) rectangle +(7,14);
+\path[line width=0.30mm, draw=black] (87.5,-21) -- (91,-21);
+\path[line width=0.30mm, draw=black] (87.5,-28) -- (91,-28);
+\path[line width=0.30mm, draw=black] (101.5,-21) -- (98,-21);
+\path[line width=0.30mm, draw=black] (101.5,-28) -- (98,-28);
+\path[line width=0.30mm, draw=black] (106.75,-19.25) -- (105,-21) -- (106.75,-22.75);
+\path[line width=0.30mm, draw=black] (101.5,-21) -- (105,-21);
+\draw[black] (106.75,-22) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (43.75,-26.25) -- (45.5,-28) -- (43.75,-29.75);
+\path[line width=0.30mm, draw=black] (49,-28) -- (45.5,-28);
+\draw[black] (43.75,-29) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (106.75,-26.25) -- (105,-28) -- (106.75,-29.75);
+\path[line width=0.30mm, draw=black] (101.5,-28) -- (105,-28);
+\draw[black] (106.75,-29) node[anchor=base west]{4};
+\path[line width=0.30mm, draw=black] (80.5,-21) -- (87.5,-21);
+\path[line width=0.30mm, draw=black] (63,-21) -- (66.5,-21);
+\path[line width=0.30mm, draw=black] (63,-28) -- (66.5,-28);
+\path[line width=0.30mm, draw=black] (87.5,-28) -- (80.5,-28);
+\end{tikzpicture}%

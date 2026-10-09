@@ -1,0 +1,49 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <rect x="64" y="-24" w="16" h="-32" lc="black"/>
+%  <polyline lc="black">56,-32 64,-32</polyline>
+%  <text x="59" y="-31" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">56,-48 64,-48</polyline>
+%  <text x="59" y="-47" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-32 80,-32</polyline>
+%  <text x="85" y="-31" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">88,-48 80,-48</polyline>
+%  <text x="85" y="-47" t="4" h="3" halign="l" lc="black"/>
+%  <text x="72" y="-19" t="CascCableFilter.si" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">44,-28 48,-32 44,-36</polyline>
+%  <polyline lc="black">56,-32 48,-32</polyline>
+%  <text x="44" y="-33" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">100,-28 96,-32 100,-36</polyline>
+%  <polyline lc="black">88,-32 96,-32</polyline>
+%  <text x="100" y="-33" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">44,-44 48,-48 44,-52</polyline>
+%  <polyline lc="black">56,-48 48,-48</polyline>
+%  <text x="44" y="-49" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">100,-44 96,-48 100,-52</polyline>
+%  <polyline lc="black">88,-48 96,-48</polyline>
+%  <text x="100" y="-49" t="4" h="3" halign="l" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (64,-56) rectangle +(16,32);
+\path[line width=0.30mm, draw=black] (56,-32) -- (64,-32);
+\draw[black] (59,-31) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (56,-48) -- (64,-48);
+\draw[black] (59,-47) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (88,-32) -- (80,-32);
+\draw[black] (85,-31) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (88,-48) -- (80,-48);
+\draw[black] (85,-47) node[anchor=base west]{4};
+\draw[black] (72,-19) node[anchor=base]{CascCableFilter.si};
+\path[line width=0.30mm, draw=black] (44,-28) -- (48,-32) -- (44,-36);
+\path[line width=0.30mm, draw=black] (56,-32) -- (48,-32);
+\draw[black] (44,-33) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (100,-28) -- (96,-32) -- (100,-36);
+\path[line width=0.30mm, draw=black] (88,-32) -- (96,-32);
+\draw[black] (100,-33) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (44,-44) -- (48,-48) -- (44,-52);
+\path[line width=0.30mm, draw=black] (56,-48) -- (48,-48);
+\draw[black] (44,-49) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (100,-44) -- (96,-48) -- (100,-52);
+\path[line width=0.30mm, draw=black] (88,-48) -- (96,-48);
+\draw[black] (100,-49) node[anchor=base west]{4};
+\end{tikzpicture}%
