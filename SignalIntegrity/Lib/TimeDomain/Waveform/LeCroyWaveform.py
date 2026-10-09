@@ -280,7 +280,7 @@ def from_trc(filename):
             from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
             from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
             wf=Waveform(TimeDescriptor(horizontalOffset,numPoints,sampleRate),
-                                 [v*vertScale+vertOffset for v in wfBuffer])
+                                 wfBuffer*vertScale+vertOffset)
             return wf
     except:
         raise SignalIntegrityExceptionWaveformFile('LeCroy trace file could not be read: '+filename)

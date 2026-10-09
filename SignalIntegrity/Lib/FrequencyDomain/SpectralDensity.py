@@ -23,6 +23,7 @@ import csv
 import json
 import sys
 import os
+import numpy as np
 from numpy import fft
 
 from SignalIntegrity.Lib.FrequencyDomain.FrequencyDomain import FrequencyDomain
@@ -241,10 +242,13 @@ class SpectralDensity(FrequencyDomain):
         @see FrequencyDomain
         """
         if unit is None or unit == 'V/sqrt(Hz)':
-            return [abs(v) for v in list(self)]
+            return np.abs(self.values).tolist()
         elif unit in ['dBm/Hz','dBmPerHz']:
-            return [-3000. if r < 1e-15 else 20.*math.log10(r)-self.LogRP10
-                    for r in self.Values('V/sqrt(Hz)')]
+            r=np.abs(self.values)
+            result=np.full(len(r),-3000.)
+            mask=r>=1e-15
+            result[mask]=20.*np.log10(r[mask])-self.LogRP10
+            return result.tolist()
         else:
             return FrequencyDomain.Values(self,unit)
     def TotalRMS(self):
@@ -271,7 +275,7 @@ class SpectralDensity(FrequencyDomain):
         rms = DFTUtilities.rho_to_rms(self.Values(), deltaf)
         if reference == 'current':
             # P = rms^2 * R  (current through the reference impedance)
-            total_power = sum(r*r for r in rms) * self.R
+            total_power = np.sum(np.square(np.asarray(rms))) * self.R
             return -3000. if total_power <= 1e-300 else 10.*math.log10(total_power/self.P)
         return DFTUtilities.TotalSpectralContentdBm(
             DFTUtilities.rms_to_dBm(rms))
@@ -332,27 +336,25 @@ class SpectralDensity(FrequencyDomain):
             noise_rho = other_on_self.Values('V/sqrt(Hz)')
 
         # Compute PSD ratios, filtering by noise floor and excluding zero noise values
-        psd_ratios = []
-        for s, n in zip(signal_rho, noise_rho):
-            n_psd = n * n
-            if n_psd >= noise_floor and n_psd > 0:
-                psd_ratios.append((s*s) / n_psd)
-        
+        signal=np.asarray(signal_rho)
+        noise=np.asarray(noise_rho)
+        n_psd=noise*noise
+        mask=(n_psd>=noise_floor)&(n_psd>0)
+        psd_ratios=(signal[mask]*signal[mask])/n_psd[mask]
+
         if len(psd_ratios) == 0:
             # If no bins pass the noise floor filter, try without floor (excluding only zero noise).
             # This handles cases where noise spectral density is extremely small
             # (near machine epsilon) across the entire spectrum.
-            for s, n in zip(signal_rho, noise_rho):
-                n_psd = n * n
-                if n_psd > 0:
-                    psd_ratios.append((s*s) / n_psd)
-        
+            mask=n_psd>0
+            psd_ratios=(signal[mask]*signal[mask])/n_psd[mask]
+
         if len(psd_ratios) == 0:
             # If still no valid ratios, all noise is zero or undefined.
             # This represents infinite SNR, represented as very large dB value.
             return 3000.0  # Represent infinite SNR as very large positive dB
-        
-        salz_linear = sum(psd_ratios) / float(len(psd_ratios))
+
+        salz_linear = np.sum(psd_ratios) / float(len(psd_ratios))
 
         return -3000. if salz_linear < 1e-300 else 10.*math.log10(salz_linear)
     def NoiseWaveform(self,td=None):
@@ -379,7 +381,7 @@ class SpectralDensity(FrequencyDomain):
         A=DFTUtilities.rms_to_A(rms,self.Keven)
         X=DFTUtilities.A_to_X(A,self.Keven,random_phase=True)
         F=DFTUtilities.Half_to_Full(X,self.Keven)
-        x=[v.real for v in fft.ifft(F).tolist()]
+        x=fft.ifft(F).real
         wf_td=fd.TimeDescriptor(Keven=self.Keven)
         wf=Waveform(wf_td,x)
         if td is not None:
@@ -400,9 +402,8 @@ class SpectralDensity(FrequencyDomain):
         old_f=list(fd)
         old_rho=self.Values('V/sqrt(Hz)')
         new_f=list(fdp)
-        interpolated=interp(new_f,old_f,old_rho).tolist()
-        new_rho=[float(v) if f<=old_f[-1] else 0.0
-                 for f,v in zip(new_f,interpolated)]
+        interpolated=interp(new_f,old_f,old_rho)
+        new_rho=np.where(np.asarray(new_f)<=old_f[-1],interpolated,0.0)
         return SpectralDensity(fdp,new_rho,self.Keven)
     @staticmethod
     def WhiteNoise(fd,specification_type,value,noise_bandwidth=None,Keven=True):
@@ -457,11 +458,11 @@ class SpectralDensity(FrequencyDomain):
         """
         if isinstance(other,(float,int)):
             return SpectralDensity(self.FrequencyList(),
-                        [abs(h) * other for h in self.Values()],
+                        np.abs(self.values)*other,
                         self.Keven)
 
         return SpectralDensity(self.FrequencyList(),
-            [abs(h) * s for h, s in zip(list(other), self.Values())],
+            np.abs(np.asarray(other))*np.abs(self.values),
             self.Keven)
 
     def __rmul__(self, other):
@@ -478,7 +479,8 @@ class SpectralDensity(FrequencyDomain):
         @remark This models the combination of uncorrelated noise sources.
         """
         return SpectralDensity(self.FrequencyList(),
-            [math.sqrt(a**2 + b**2) for a, b in zip(self.Values(), other.Values())],
+            np.sqrt(np.square(np.asarray(self.Values()))+
+                    np.square(np.asarray(other.Values()))),
             self.Keven)
 
     ##

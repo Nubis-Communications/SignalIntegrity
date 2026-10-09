@@ -22,6 +22,8 @@ import math
 import cmath
 import random
 
+import numpy as np
+
 class DFTUtilities(object):
     """A set of DFT utilities for dealing with the DFT for handling frequency
     and time-domain information properly.
@@ -134,18 +136,16 @@ class DFTUtilities(object):
 
     @staticmethod
     def Half_to_Full(X,Keven=True):
-        N = len(X) - 1
+        Xarr=np.asarray(X)
+        N = len(Xarr) - 1
         K = DFTUtilities.K(N, Keven)
-        F = [0 for _ in range(K)]
-        for n in range(N + 1):
-            F[n] = X[n]
+        F = np.zeros(K,dtype=complex)
+        F[:N+1]=Xarr
         if Keven:
-            for sigma in range(1, N):
-                F[N+sigma] = X[N-sigma].conjugate()
+            F[N+1:K]=np.conjugate(Xarr[N-1:0:-1])
         else:
-            for sigma in range(1, N+1):
-                F[N+sigma] = X[N-sigma+1].conjugate()
-        return F
+            F[N+1:K]=np.conjugate(Xarr[N:0:-1])
+        return F.tolist()
 
     # ---- DFT <-> amplitude --------------------------------------------------
 
@@ -162,9 +162,10 @@ class DFTUtilities(object):
         """
         N = len(X) - 1
         K = 2 * N if Keven else 2 * N + 1
-        return [abs(X[n]) / K *
-                (1. if (n == 0 or (n == N and Keven)) else 2.)
-                for n in range(N + 1)]
+        factor=np.full(N+1,2.)
+        factor[0]=1.
+        if Keven: factor[N]=1.
+        return (np.abs(np.asarray(X))/K*factor).tolist()
 
     # ---- amplitude -> DFT ---------------------------------------------------
 
@@ -211,8 +212,10 @@ class DFTUtilities(object):
         @see rms_to_A
         """
         N = len(A) - 1
-        return [A[n] / (1. if (n == 0 or (n == N and Keven)) else math.sqrt(2.))
-                for n in range(N + 1)]
+        divisor=np.full(N+1,math.sqrt(2.))
+        divisor[0]=1.
+        if Keven: divisor[N]=1.
+        return (np.asarray(A)/divisor).tolist()
 
     @staticmethod
     def rms_to_A(rms, Keven = True):
@@ -225,8 +228,10 @@ class DFTUtilities(object):
         @see A_to_rms
         """
         N = len(rms) - 1
-        return [rms[n] * (1. if (n == 0 or (n == N and Keven)) else math.sqrt(2.))
-                for n in range(N + 1)]
+        factor=np.full(N+1,math.sqrt(2.))
+        factor[0]=1.
+        if Keven: factor[N]=1.
+        return (np.asarray(rms)*factor).tolist()
 
     # ---- dBm ----------------------------------------------------------------
 
@@ -239,8 +244,11 @@ class DFTUtilities(object):
         @note Values below 1e-15 Vrms clamp to -3000 dBm to avoid log of zero.
         """
         LogRP10 = 10. * math.log10(50.0 * 1e-3)
-        return [-3000. if r < 1e-15 else 20. * math.log10(r) - LogRP10
-                for r in rms]
+        r=np.asarray(rms,dtype=float)
+        result=np.full(len(r),-3000.)
+        mask=r>=1e-15
+        result[mask]=20.*np.log10(r[mask])-LogRP10
+        return result.tolist()
 
     # ---- spectral density ---------------------------------------------------
 
@@ -257,9 +265,10 @@ class DFTUtilities(object):
         """
         N = len(rms) - 1
         sqrt_df = math.sqrt(delta_f)
-        return [rms[n] *
-                (math.sqrt(2.) if (n == 0 or (n == N)) else 1.) /
-                sqrt_df for n in range(N + 1)]
+        factor=np.ones(N+1)
+        factor[0]=math.sqrt(2.)
+        factor[N]=math.sqrt(2.)
+        return (np.asarray(rms)*factor/sqrt_df).tolist()
 
     @staticmethod
     def rho_to_rms(rho, delta_f, Keven = True):
@@ -275,9 +284,10 @@ class DFTUtilities(object):
         """
         N = len(rho) - 1
         sqrt_df = math.sqrt(delta_f)
-        return [rho[n] /
-                (math.sqrt(2.) if (n == 0 or (n == N)) else 1.) *
-                sqrt_df for n in range(N + 1)]
+        factor=np.ones(N+1)
+        factor[0]=math.sqrt(2.)
+        factor[N]=math.sqrt(2.)
+        return (np.asarray(rho)/factor*sqrt_df).tolist()
 
     # ---- totals -------------------------------------------------------------
 
@@ -287,7 +297,7 @@ class DFTUtilities(object):
         @param rms list of float per-bin rms values.
         @return float total rms = sqrt(sum(rms[n]^2)).
         """
-        return math.sqrt(sum(r * r for r in rms))
+        return math.sqrt(np.sum(np.square(np.asarray(rms,dtype=float))))
 
     @staticmethod
     def TotalSpectralContentdBm(dBm):
@@ -298,7 +308,7 @@ class DFTUtilities(object):
         """
         LogRP10 = 10. * math.log10(50.0 * 1e-3)
         return 10. * math.log10(
-            sum(10. ** ((d + LogRP10) / 10.) for d in dBm)) - LogRP10
+            np.sum(10. ** ((np.asarray(dBm,dtype=float) + LogRP10) / 10.))) - LogRP10
 
     # --- spectral density conversions --------------------------------------
 
