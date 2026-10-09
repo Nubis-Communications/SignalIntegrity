@@ -1,26 +1,28 @@
-class Waveform(list):
+class Waveform(object):
     def __init__(self,x=None,y=None):
         if isinstance(x,Waveform):
             self.td=x.td
-            list.__init__(self,x)
+            self.values=np.array(x.values,copy=True)
         elif isinstance(x,TimeDescriptor):
             self.td=x
-            if isinstance(y,list):
-                list.__init__(self,y)
+            if y is None:
+                self.values=np.zeros(int(x.K))
             elif isinstance(y,(float,int,complex)):
-                list.__init__(self,[y.real for _ in range(x.K)])
+                self.values=np.full(int(x.K),y.real,dtype=float)
             else:
-                list.__init__(self,[0 for _ in range(x.K)])
+                self.values=Waveform._coerce(y)
         else:
             self.td=None
-            list.__init__(self,[])
+            self.values=np.array([],dtype=float)
+    @staticmethod
+...
     def Times(self,unit=None):
         return self.td.Times(unit)
     def TimeDescriptor(self):
         return self.td
     def Values(self,unit=None):
         if unit==None:
-            return list(self)
+            return self.values.copy()
         elif unit =='abs':
-            return [abs(y) for y in self]
+            return np.abs(self.values)
 ...
