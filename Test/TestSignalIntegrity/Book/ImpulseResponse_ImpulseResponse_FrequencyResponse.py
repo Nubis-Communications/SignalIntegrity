@@ -4,7 +4,7 @@ class ImpulseResponse(Waveform):
         if not fd and not adjustLength:
             X=fft.fft(self.Values())
             fd=self.td.FrequencyList()
-            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).\
+            return FrequencyResponse(fd,X[:fd.N+1]).\
                 _DelayBy(self.td.H)
         if not fd and adjustLength:
             return self._AdjustLength().FrequencyResponse(None,adjustLength=False)
