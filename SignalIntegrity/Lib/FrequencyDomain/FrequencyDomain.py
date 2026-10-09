@@ -85,7 +85,8 @@ class FrequencyDomain(object):
     def Values(self,unit=None):
         """Values
         @param unit (optional) string containing the unit for the frequencies
-        @return list of complex values corresponding to the frequency-domain elements in the
+        @return numpy array of complex values (when no unit is specified) or a list of
+        float values (for a specified unit) corresponding to the frequency-domain elements in the
         units specified.
         @remark
         Valid unit strings are:
@@ -96,7 +97,7 @@ class FrequencyDomain(object):
         - 'real' - the real part of the values.
         - 'imag' - the imaginary part of the values.
 
-        Returns the list of complex values if no unit specified.
+        Returns a numpy array of complex values if no unit specified.
 
         Returns None if the unit is invalid.
         """
