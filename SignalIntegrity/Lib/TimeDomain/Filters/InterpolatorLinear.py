@@ -57,8 +57,8 @@ class InterpolatorLinear(FirFilter):
         # pragma: include
         FirFilter.__init__(self,
             FilterDescriptor(U,(U-1.)/float(U),2*(U-1.)/float(U)),
-            [float(u+1)/float(U) for u in range(U)]+
-            [1-float(u+1)/float(U) for u in range(U-1)])
+            np.concatenate((np.arange(1,U+1)/float(U),
+                            1.-np.arange(1,U)/float(U))))
     def FilterWaveform(self,wf):
         """overloads base class FilterWaveform
         @param wf instance of class Waveform

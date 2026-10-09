@@ -3,17 +3,11 @@ class ImpulseResponse(Waveform):
     def TrimToThreshold(self,threshold):
         x=self.Values()
         td=self.td
-        maxabsx=max(self.Values('abs'))
+        maxabsx=np.max(self.Values('abs'))
         minv=maxabsx*threshold
-        for k in range(len(x)):
-            if abs(x[k]) >= minv:
-                startidx = k
-                break
-        for k in range(len(x)):
-            ki = len(x)-1-k
-            if abs(x[ki]) >= minv:
-                endidx = ki
-                break
+        qualifying=np.nonzero(np.abs(x)>=minv)[0]
+        startidx=int(qualifying[0])
+        endidx=int(qualifying[-1])
         if (endidx-startidx+1)//2*2 != endidx-startidx+1:
             # the result would not have an even number of points
             if endidx < len(x)-1:
@@ -27,8 +21,8 @@ class ImpulseResponse(Waveform):
                 # points with endidx+1
                 return ImpulseResponse(TimeDescriptor(td[startidx],
                     (endidx+1)-startidx+1,td.Fs),
-                    [x[k] for k in range(startidx,endidx+1)]+[0.])
+                    np.append(x[startidx:endidx+1],0.))
         return ImpulseResponse(TimeDescriptor(td[startidx],
             endidx-startidx+1,td.Fs),
-            [x[k] for k in range(startidx,endidx+1)])
+            x[startidx:endidx+1])
 ...
