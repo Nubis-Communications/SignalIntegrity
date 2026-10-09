@@ -98,7 +98,7 @@ class ImpulseResponse(Waveform):
         if not fd and not adjustLength:
             X=fft.fft(self.Values())
             fd=self.td.FrequencyList()
-            return FrequencyResponse(fd,[X[n] for n in range(fd.N+1)]).\
+            return FrequencyResponse(fd,X[:fd.N+1]).\
                 _DelayBy(self.td.H)
         if not fd and adjustLength:
             return self._AdjustLength().FrequencyResponse(None,adjustLength=False)
@@ -180,17 +180,11 @@ class ImpulseResponse(Waveform):
         """
         x=self.Values()
         td=self.td
-        maxabsx=max(self.Values('abs'))
+        maxabsx=np.max(self.Values('abs'))
         minv=maxabsx*threshold
-        for k in range(len(x)):
-            if abs(x[k]) >= minv:
-                startidx = k
-                break
-        for k in range(len(x)):
-            ki = len(x)-1-k
-            if abs(x[ki]) >= minv:
-                endidx = ki
-                break
+        qualifying=np.nonzero(np.abs(x)>=minv)[0]
+        startidx=int(qualifying[0])
+        endidx=int(qualifying[-1])
         if (endidx-startidx+1)//2*2 != endidx-startidx+1:
             # the result would not have an even number of points
             if endidx < len(x)-1:
@@ -204,10 +198,10 @@ class ImpulseResponse(Waveform):
                 # points with endidx+1
                 return ImpulseResponse(TimeDescriptor(td[startidx],
                     (endidx+1)-startidx+1,td.Fs),
-                    [x[k] for k in range(startidx,endidx+1)]+[0.])
+                    np.append(x[startidx:endidx+1],0.))
         return ImpulseResponse(TimeDescriptor(td[startidx],
             endidx-startidx+1,td.Fs),
-            [x[k] for k in range(startidx,endidx+1)])
+            x[startidx:endidx+1])
     def FirFilter(self):
         """FIR filter equivalent of impulse response for processing
         
@@ -231,10 +225,9 @@ class ImpulseResponse(Waveform):
             return self
         duration=self.td.K/self.td.Fs
         last_time=self.td.H+duration
-        tv=array([[t,v] for t,v in zip(self.Times(),self.Values())])
-        for k in range(tv.shape[0]):
-            if tv[k][0] < -time_before_0:
-                tv[k][0] = tv[k][0]+duration
+        tv=np.column_stack((self.Times(),self.Values()))
+        mask=tv[:,0]<-time_before_0
+        tv[mask,0]=tv[mask,0]+duration
         tv=tv[tv[:, 0].argsort()]
         new_td=TimeDescriptor(tv[0][0],self.td.K,self.td.Fs)
         new_values=tv[:,1].tolist()
