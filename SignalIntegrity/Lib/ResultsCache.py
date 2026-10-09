@@ -33,6 +33,13 @@ class ResultsCache(object):
     logging=False
     #: global override; set False to disable all caching regardless of preferences
     enabled = True
+    #: cache structure/format version.  Bump this whenever the on-disk layout or
+    #: the structure of any cached object changes.  Caches written by an older
+    #: version (or with no version stamp at all) are then silently treated as a
+    #: miss and recomputed, instead of being loaded and producing corrupt results
+    #: (for example an empty TransferMatrices whose FrequencyList still claims N
+    #: points, which later indexes out of range).
+    cacheStructureVersion = 2
     def __init__(self,name,filename=None):
         """constructor\n
         When a project with a given filename is processed, various results in that project can be cached.
@@ -96,6 +103,17 @@ class ResultsCache(object):
                     continue
             try:
                 with open(filename,'rb') as f:
+                    try:
+                        version = pickle.load(f)
+                    except Exception:
+                        version = None
+                    if version != self.cacheStructureVersion:
+                        # a cache written by older/incompatible code (or with no
+                        # version stamp).  Ignore it silently (optionally logged)
+                        # and fall through to a recompute rather than loading a
+                        # structurally incompatible result.
+                        if self.logging: print(filename+' has an incompatible cache version; ignoring')
+                        continue
                     hash = pickle.load(f)
                     if hash == self.hash:
                         tmp_dict = pickle.load(f)
@@ -172,6 +190,7 @@ class ResultsCache(object):
         try:
             with open(self._FileName(), 'wb') as f:
                 if self.logging: print('caching '+self._FileName()+' with hash value:'+pickleDict['hash'])
+                pickle.dump(self.cacheStructureVersion, f, 2)
                 pickle.dump(pickleDict['hash'], f, 2)
                 pickle.dump(pickleDict, f, 2)
             if self.keep_extra_file_for_archive and (self._FileName() != self._FileName(files_to_keep_override=1)):
