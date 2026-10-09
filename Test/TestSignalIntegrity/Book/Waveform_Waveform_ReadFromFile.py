@@ -1,4 +1,4 @@
-class Waveform(list):
+class Waveform(object):
     def ReadFromFile(self,fileName):
         with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
             data=f.readlines()
@@ -7,7 +7,7 @@ class Waveform(list):
             SampleRate=float(data[2])
             Values=[float(data[k+3]) for k in range(NumPts)]
         self.td=TimeDescriptor(HorOffset,NumPts,SampleRate)
-        list.__init__(self,Values)
+        self.values=Waveform._coerce(Values)
         return self
     def WriteToFile(self,fileName):
         with open(fileName,"w") as f:
@@ -15,7 +15,7 @@ class Waveform(list):
             f.write(str(td.H)+'\n')
             f.write(str(int(td.K))+'\n')
             f.write(str(td.Fs)+'\n')
-            for v in self:
-                f.write(str(v)+'\n')
+            for v in self.values:
+                f.write(str(v.item())+'\n')
         return self
 ...

@@ -7,4 +7,4 @@ class WaveformDecimator(FilterDescriptor,WaveformProcessor):
         return self.DecimateWaveform(wf)
     def DecimateWaveform(self,wf):
         td=wf.td*self
-        return Waveform(td,[wf[k*self.df+self.dph] for k in range(td.K)])
+        return Waveform(td,wf.values[self.dph:self.dph+int(td.K)*self.df:self.df])
