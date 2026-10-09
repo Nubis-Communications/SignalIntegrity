@@ -125,7 +125,7 @@ class FrequencyList(object):
     def Frequencies(self,unit=None):
         """Frequencies
         @param unit optional string containing unit to use
-        @return list of frequencies in the frequency list in the unit specified
+        @return numpy array of frequencies in the frequency list in the unit specified
         @remark Valid units are:
         - GHz - each frequency element is divided by 1e9.
         - MHz - each frequency element is divided by 1e6.
