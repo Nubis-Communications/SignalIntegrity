@@ -90,7 +90,8 @@ class FrequencyContent(FrequencyDomain):
     def Values(self,unit=None):
         """frequency content values
         @param unit (optional) string containing the unit for the values desired.
-        @return a list of complex values representing the frequency content.
+        @return numpy array of complex values (when no unit is specified) or a list of
+        float values (for a specified frequency-content unit) representing the frequency content.
         @remark
         Valid frequency content units are:\n
         - 'rms' - the root-mean-squared (rms) value.
