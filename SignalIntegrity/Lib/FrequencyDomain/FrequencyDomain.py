@@ -54,6 +54,13 @@ class FrequencyDomain(object):
         self.values[index]=value
     def __iter__(self):
         return iter(self.values)
+    def __repr__(self):
+        """value-based representation (matches the historical list representation)
+        @return repr of the complex values as a python list
+        @note deterministic and value-based so it can be used in results-cache hash
+        computations; the default object repr would embed a memory address and break caching.
+        """
+        return repr(self.values.tolist())
     def __array__(self,dtype=None,copy=None):
         """numpy array interface returning the internal complex values array"""
         arr=self.values if dtype is None else self.values.astype(dtype)
