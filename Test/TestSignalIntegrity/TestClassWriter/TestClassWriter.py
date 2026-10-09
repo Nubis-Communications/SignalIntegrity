@@ -623,6 +623,10 @@ class TestWriteClass(unittest.TestCase,si.test.RoutineWriterTesterHelper):
         allfuncs.remove('SParameters')
         allfuncs.remove('Keep')
         allfuncs.remove('Remove')
+        # boilerplate sequence/array dunders added by the numpy-composition
+        # conversion are excluded from this processing-methods snapshot
+        for _dunder in ['__len__','__getitem__','__setitem__','__iter__','__array__']:
+            if _dunder in allfuncs: allfuncs.remove(_dunder)
         defName=[firstDef]+allfuncs
         self.WriteClassCode(fileName,className,defName,lineDefs=True)
     def testWriteTransferMatricesProcessor(self):

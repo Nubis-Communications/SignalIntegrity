@@ -23,15 +23,16 @@ from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
 from SignalIntegrity.Lib.CallBacker import CallBacker
 
 from numpy import zeros
+import numpy as np
 import copy
 
-class TransferMatrices(list,CallBacker):
+class TransferMatrices(CallBacker):
     """Class that is used for processing waveforms in simulation."""
     cacheResponses=True
     def __init__(self,f,d):
         """Constructor
         @param f instance of class FrequencyList
-        @param d list of list of list matrices
+        @param d numpy array / list of list of list matrices
         @remark
         The list of list of list matrices in d are such that each element in the list
         represents a list of list matrix for a given frequency.  The list of list matrix
@@ -45,13 +46,26 @@ class TransferMatrices(list,CallBacker):
         for a frequency is produced by the two classes SimulatorNumeric and VirtualProbeNumeric.
         """
         self.f=FrequencyList(f)
-        list.__init__(self,d)
+        self.values=np.asarray(d,dtype=complex)
         CallBacker.__init__(self)
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
         self.fr=None
         self.ir=None
         self.td=None
+    def __len__(self):
+        return len(self.values)
+    def __getitem__(self,index):
+        return self.values[index]
+    def __setitem__(self,index,value):
+        self.values[index]=value
+    def __iter__(self):
+        return iter(self.values)
+    def __array__(self,dtype=None,copy=None):
+        arr=self.values if dtype is None else self.values.astype(dtype)
+        if copy:
+            arr=np.array(arr,copy=True)
+        return arr
     def SParameters(self):
         """SParameters
         @return list of list of lists representing the transfer matrices as s-parameters.
