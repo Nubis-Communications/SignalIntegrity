@@ -74,8 +74,8 @@ class SParameters(SParameterManipulation):
             if not mat is None: self.m_P=len(mat[0])
     def __getitem__(self,item): return self.m_d[item]
     """overloads [item]
-    @param item integer index of list of list s-parameter matrix
-    @return list of list s-parameter matrix at index location
+    @param item integer index of the s-parameter matrix
+    @return numpy array (PxP matrix) of s-parameters at index location
     """
     def __len__(self): return len(self.m_f)
     """overloads len()
