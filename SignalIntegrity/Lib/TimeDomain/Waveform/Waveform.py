@@ -377,9 +377,8 @@ class Waveform(object):
             return False
         if self.td != other.td:
             return False
-        for k in range(len(self)):
-            if abs(self[k]-other[k])>self.epsilon:
-                return False
+        if np.any(np.abs(self.values-np.asarray(other))>self.epsilon):
+            return False
         return True
     def __ne__(self,other):
         """overloads !=

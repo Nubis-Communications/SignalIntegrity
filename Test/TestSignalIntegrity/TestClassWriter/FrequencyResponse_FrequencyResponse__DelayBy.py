@@ -2,8 +2,7 @@ class FrequencyResponse(FrequencyDomain):
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,
-        [self[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD)
-            for n in range(fd.N+1)])
+        self.values*np.exp(-1j*2.*math.pi*np.asarray(fd.Frequencies())*TD))
 ...
     def _FractionalDelayTime(self):
         ir = self.ImpulseResponse(None,adjustDelay=False)

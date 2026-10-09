@@ -130,8 +130,7 @@ class FrequencyResponse(FrequencyDomain):
     def _DelayBy(self,TD):
         fd=self.FrequencyList()
         return FrequencyResponse(fd,
-        [self[n]*cmath.exp(-1j*2.*math.pi*fd[n]*TD)
-            for n in range(fd.N+1)])
+        self.values*np.exp(-1j*2.*math.pi*np.asarray(fd.Frequencies())*TD))
     def ImpulseResponse(self,td=None,adjustDelay=True,time_before_0=None):
         """the time-domain impulse response
         @param td (optional) instance of class TimeDescriptor.
@@ -195,21 +194,21 @@ class FrequencyResponse(FrequencyDomain):
                     cs=CubicSpline(oldfd,self.Response())
                     newresp=cs(newfd)
 
-                newresp=[nr if f <= oldfd[-1] else 0.0001 for f,nr in zip(newfd,newresp)]
+                newresp=np.where(np.asarray(newfd)<=oldfd[-1],newresp,0.0001)
             # pragma: silent include indent
             newfr=FrequencyResponse(newfd,newresp)
             return newfr.ImpulseResponse(None,adjustDelay).Circulate(time_before_0)
         if evenlySpaced and td is None and not adjustDelay:
             yfp=self.Response()
-            ynp=[yfp[fd.N-nn].conjugate() for nn in range(1,fd.N)]
+            ynp=np.conjugate(yfp[fd.N-1:0:-1])
             y=np.concatenate((yfp,ynp))
             y[0]=y[0].real
             y[fd.N]=y[fd.N].real
             Y=fft.ifft(y)
             td=fd.TimeDescriptor()
-            tp=[Y[k].real for k in range(td.K//2)]
-            tn=[Y[k].real for k in range(td.K//2,td.K)]
-            Y=tn+tp
+            half=td.K//2
+            Yr=Y.real
+            Y=np.concatenate((Yr[half:td.K],Yr[:half]))
             return ImpulseResponse(td,Y).Circulate(time_before_0)
         if evenlySpaced and td is None and adjustDelay:
             TD=self._FractionalDelayTime()
@@ -243,7 +242,7 @@ class FrequencyResponse(FrequencyDomain):
         """
         fd=self.FrequencyList()
         R=self.Response()
-        X=[R[n*D] for n in range(fd.N//D+1)]
+        X=R[:(fd.N//D)*D+1:D]
         return FrequencyResponse(EvenlySpacedFrequencyList(fd.N//D*D//fd.N*fd.Fe,fd.N//D),X)
     def _SplineResample(self,fdp):
         fd=self.FrequencyList()
@@ -261,7 +260,7 @@ class FrequencyResponse(FrequencyDomain):
                 from scipy.interpolate import CubicSpline
                 cs=CubicSpline(fd,self.Response())
                 newresp=cs(fdp)
-            newresp=[nr if f <= fd[-1] else 0.0001 for f,nr in zip(fdp,newresp)]
+            newresp=np.where(np.asarray(fdp)<=fd[-1],newresp,0.0001)
         # pragma: silent include indent
         return FrequencyResponse(fdp,newresp)
     def Resample(self,fdp):

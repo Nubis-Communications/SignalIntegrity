@@ -10,18 +10,19 @@ class TimeDescriptor(object):
         return item/self.Fs+self.H
 ...
     def Times(self,unit=None):
+        times=np.arange(self.K)/self.Fs+self.H
         if unit==None:
-            return [self[k] for k in range(len(self))]
+            return times.tolist()
         elif isinstance(unit,float):
-            return [self[k]/unit for k in range(len(self))]
+            return (times/unit).tolist()
         elif unit=='ps':
-            return [self[k]/1.e-12 for k in range(len(self))]
+            return (times/1.e-12).tolist()
         elif unit=='ns':
-            return [self[k]/1.e-9 for k in range(len(self))]
+            return (times/1.e-9).tolist()
         elif unit =='us':
-            return [self[k]/1.e-6 for k in range(len(self))]
+            return (times/1.e-6).tolist()
         elif unit == 'ms':
-            return [self[k]/1.e-3 for k in range(len(self))]
+            return (times/1.e-3).tolist()
     def ApplyFilter(self,F):
         return TimeDescriptor(
             HorOffset=self.H+(F.S-F.D)/self.Fs,

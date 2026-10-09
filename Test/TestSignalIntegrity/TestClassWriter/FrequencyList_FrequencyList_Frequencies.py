@@ -21,23 +21,22 @@ class FrequencyList(object):
         elif unit == 'kHz': return (self/1.e3).Frequencies()
     def CheckEvenlySpaced(self,epsilon=0.01):
         if self.m_EvenlySpaced: return True
-        for n in range(self.N+1):
-            try:
-                if abs(self[n]-self.Fe/self.N*n) > epsilon:
-                    self.m_EvenlySpaced=False
-                    return False
-            except:
-                return False
+        if len(self.values) != self.N+1:
+            return False
+        expected=self.Fe/self.N*np.arange(self.N+1)
+        if np.any(np.abs(self.values-expected) > epsilon):
+            self.m_EvenlySpaced=False
+            return False
         self.SetEvenlySpaced(self.Fe,self.N)
         return True
     def __div__(self,d):
         return self.__truediv__(d)
     def __truediv__(self,d):
         if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe/d,self.N)
-        else: return GenericFrequencyList([v/d for v in self])
+        else: return GenericFrequencyList(self.values/d)
     def __mul__(self,d):
         if self.EvenlySpaced(): return EvenlySpacedFrequencyList(self.Fe*d,self.N)
-        else: return GenericFrequencyList([v*d for v in self])
+        else: return GenericFrequencyList(self.values*d)
     def TimeDescriptor(self,Keven=True):
         N=self.N
         K=2*N
