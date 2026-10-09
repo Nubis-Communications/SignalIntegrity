@@ -51,6 +51,8 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         SignalIntegrity.App.Preferences['Appearance.LimitText']=60
         self.RoundDisplayedValues=SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']
         SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=4
+        self.MultiPortTee=SignalIntegrity.App.Preferences['Calculation.MultiPortTee']
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=True
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -64,6 +66,7 @@ class TestBalunTest(unittest.TestCase,si.test.SourcesTesterHelper,
         SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences['Appearance.LimitText']=self.TextLimit
         SignalIntegrity.App.Preferences['Appearance.RoundDisplayedValues']=self.RoundDisplayedValues
+        SignalIntegrity.App.Preferences['Calculation.MultiPortTee']=self.MultiPortTee
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
