@@ -1,13 +1,14 @@
-class TransferMatrices(list,CallBacker):
+class TransferMatrices(CallBacker):
     def __init__(self,f,d):
         self.f=FrequencyList(f)
-        list.__init__(self,d)
+        self.values=np.asarray(d,dtype=complex)
         CallBacker.__init__(self)
         self.Inputs=len(d[0][0])
         self.Outputs=len(d[0])
         self.fr=None
         self.ir=None
         self.td=None
+...
     def SParameters(self):
         if self.Inputs == self.Outputs:
             return SParameters(self.f,self)
