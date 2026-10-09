@@ -10,7 +10,6 @@ class WaveformTrimmer(FilterDescriptor,WaveformProcessor):
         newtd=wf.td*self
         N=K-TT
         if N<=0:
-        if N<=0:
             return Waveform(newtd,np.array([],dtype=wf.values.dtype))
         # map output sample k to input sample k+TL, zero-filling where out of range
         out=np.zeros(N,dtype=wf.values.dtype)
