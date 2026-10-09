@@ -111,20 +111,21 @@ class FrequencyDomain(object):
         if unit==None:
             return self.values.copy()
         elif unit =='dB':
-            return [-3000. if (abs(self[n]) < 1e-15) else
-                     20.*math.log10(abs(self[n]))
-                        for n in range(len(self.m_f))]
+            mag=np.abs(self.values)
+            result=np.full(len(mag),-3000.)
+            nonzero=mag>=1e-15
+            result[nonzero]=20.*np.log10(mag[nonzero])
+            return result.tolist()
         elif unit == 'mag':
-            return [abs(self[n]) for n in range(len(self.m_f))]
+            return np.abs(self.values).tolist()
         elif unit == 'rad':
-            return [cmath.phase(self[n]) for n in range(len(self.m_f))]
+            return np.angle(self.values).tolist()
         elif unit == 'deg':
-            return [cmath.phase(self[n])*180./math.pi
-                        for n in range(len(self.m_f))]
+            return np.degrees(np.angle(self.values)).tolist()
         elif unit == 'real':
-            return [self[n].real for n in range(len(self.m_f))]
+            return self.values.real.tolist()
         elif unit == 'imag':
-            return [self[n].imag for n in range(len(self.m_f))]
+            return self.values.imag.tolist()
     def ReadFromLines(self,data):
         """reads in frequency domain content from the lines specified.
         @param data list of lines to read from
@@ -197,9 +198,8 @@ class FrequencyDomain(object):
             return False # pragma: no cover
         if len(self) != len(other):
             return False # pragma: no cover
-        for k in range(len(self)):
-            if abs(self[k] - other[k]) > 1e-5:
-                return False # pragma: no cover
+        if np.any(np.abs(self.values - np.asarray(other)) > 1e-5):
+            return False # pragma: no cover
         return True
     def __ne__(self,other):
         """overloads !=
@@ -235,7 +235,7 @@ class FrequencyDomain(object):
         """
         import copy
         rv=copy.deepcopy(self)
-        rv.__init__(self.Frequencies(),[sd/od for sd,od in zip(self.Values(),other.Values())])
+        rv.__init__(self.Frequencies(),self.values/np.asarray(other))
         return rv
     def __mul__(self,other):
         """overloads *
@@ -244,7 +244,7 @@ class FrequencyDomain(object):
         """
         import copy
         rv=copy.deepcopy(self)
-        rv.__init__(self.Frequencies(),[sd*od for sd,od in zip(self.Values(),other.Values())])
+        rv.__init__(self.Frequencies(),self.values*np.asarray(other))
         return rv
 
     ##
