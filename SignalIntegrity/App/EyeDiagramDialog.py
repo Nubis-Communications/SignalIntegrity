@@ -20,6 +20,7 @@ EyeDiagramDialog.py
 
 import tkinter as tk
 from tkinter import messagebox
+import sys
 
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
@@ -32,12 +33,13 @@ from SignalIntegrity.Lib.ToSI import ToSI
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
 
-from PIL import ImageTk
+from PIL import Image,ImageTk
 
 class EyeDiagramDialog(tk.Toplevel):
     def __init__(self, parent, name):
         tk.Toplevel.__init__(self, parent.parent)
         self.parent=parent
+        self.displayScale=self.parent.parent.displayScale
         self.withdraw()
         self.name=name
         self.title('Eye Diagram: '+name)
@@ -103,7 +105,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
-        self.eyeStatus=StatusBar(self)
+        self.eyeStatus=StatusBar(self,displayScale=self.displayScale)
         self.eyeStatus.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
 
         self.eyeFrame=tk.Frame(self, relief=tk.RIDGE, borderwidth=5) 
@@ -112,7 +114,7 @@ class EyeDiagramDialog(tk.Toplevel):
         self.eyeFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
 
         # status bar
-        self.statusbar=StatusBar(self)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale)
         self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
 
         self.eyeDiagram=EyeDiagram(self,self.name)
@@ -139,8 +141,8 @@ class EyeDiagramDialog(tk.Toplevel):
         if not self.knowDelta:
             self.adjusting=False
             self.adjustCount=0
-            self.deltaWidth=4
-            self.deltaHeight=4
+            self.deltaWidth=round(4*self.displayScale)
+            self.deltaHeight=round(4*self.displayScale)
             self.knowDelta=True
         else:
             if self.adjusting:
@@ -160,8 +162,12 @@ class EyeDiagramDialog(tk.Toplevel):
                 newImageHeight=self.eyeCanvas.winfo_height()-self.deltaHeight
                 if (newImageWidth != self.eyeImage.width()) or (newImageHeight != self.eyeImage.height()):
                     if (newImageHeight > 0) and (newImageWidth > 0):
-                        img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight))
-                        self.eyeImage=ImageTk.PhotoImage(img)
+                        if sys.platform.startswith('linux'):
+                            resampling=getattr(Image,'Resampling',Image).LANCZOS
+                            img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight),resampling)
+                        else:
+                            img=self.eyeDiagram.img.resize((newImageWidth,newImageHeight))
+                        self.eyeImage=ImageTk.PhotoImage(img,master=self.eyeCanvas)
                         self.eyeCanvas.create_image(newImageWidth/2,newImageHeight/2,image=self.eyeImage)
             self.adjusting=False
 
@@ -263,11 +269,21 @@ class EyeDiagramDialog(tk.Toplevel):
         self.eyeCanvas.pack_forget()
         config=self.eyeArgs['Config']
         R=config['Rows']; C=config['Columns']
-        C=int(C*config['ScaleX']/100.*config['UI']); R=int(R*config['ScaleY']/100.)
+        if sys.platform.startswith('linux'):
+            C=round(C*config['ScaleX']/100.*config['UI']*self.displayScale)
+            R=round(R*config['ScaleY']/100.*self.displayScale)
+        else:
+            C=int(C*config['ScaleX']/100.*config['UI'])
+            R=int(R*config['ScaleY']/100.)
         self.eyeCanvas=tk.Canvas(self.eyeFrame,width=C,height=R)
         if not self.eyeDiagram.img is None:
             self.eyeStatus.set(ToSI(int(self.eyeDiagram.prbswf.td.K/self.eyeDiagram.prbswf.td.Fs*self.eyeDiagram.baudrate),'UI')+' at '+ToSI(self.eyeDiagram.baudrate,'Baud'))
-            self.eyeImage=ImageTk.PhotoImage(self.eyeDiagram.img)
+            if sys.platform.startswith('linux') and self.displayScale > 1.0:
+                resampling=getattr(Image,'Resampling',Image).LANCZOS
+                image=self.eyeDiagram.img.resize((C,R),resampling)
+            else:
+                image=self.eyeDiagram.img
+            self.eyeImage=ImageTk.PhotoImage(image,master=self.eyeCanvas)
             self.eyeCanvas.create_image(C/2,R/2,image=self.eyeImage)
             self.eyeCanvas.pack(expand=tk.YES,fill=tk.BOTH)
             self.statusbar.set('Calculation complete')

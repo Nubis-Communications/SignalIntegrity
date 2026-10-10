@@ -21,6 +21,9 @@ MenuSystemHelpers.py
 
 import tkinter as tk
 from tkinter import ttk
+import os
+import sys
+from PIL import Image, ImageTk
 
 class ToolTip(object):
     """
@@ -108,7 +111,18 @@ class CheckButtonMenuElement(object):
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         if 'iconfile' in kw:
-            self.icon = tk.PhotoImage(file=kw['iconfile'])
+            displayScale=1.0
+            if sys.platform.startswith('linux'):
+                displayScale=max(displayScale,float(frame.tk.call('tk','scaling'))/(96.0/72.0))
+                displayScale=max(displayScale,float(os.environ.get('GDK_SCALE','1')))
+            if displayScale > 1.0:
+                with Image.open(kw['iconfile']) as image:
+                    width,height=image.size
+                    resampling=getattr(Image,'Resampling',Image).LANCZOS
+                    image=image.resize((round(width*displayScale),round(height*displayScale)),resampling)
+                    self.icon=ImageTk.PhotoImage(image,master=frame)
+            else:
+                self.icon = tk.PhotoImage(file=kw['iconfile'])
             del kw['iconfile']
             kw['image']=self.icon
         self.button=tk.Button(frame,kw)
@@ -217,14 +231,24 @@ class Doer(object):
         return self
 
 class StatusBar(tk.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
+    def __init__(self, master, displayScale=1.0):
+        if sys.platform.startswith('linux'):
+            height=round(24*displayScale)
+            tk.Frame.__init__(self, master, height=height, bd=1, relief=tk.SUNKEN)
+            self.pack_propagate(False)
+        else:
+            tk.Frame.__init__(self, master)
         # frame to the left of the message holds transient controls like the abort button
         self.buttonFrame = tk.Frame(self)
         self.abortButton = tk.Button(self.buttonFrame, text='Abort')
         self.abortButton.pack(side=tk.LEFT)
-        self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W, width=1)
-        self.label.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
+        if sys.platform.startswith('linux'):
+            self.label = tk.Label(self, bd=2, relief=tk.SUNKEN, anchor=tk.W, width=1)
+            self.label.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES,
+                            padx=round(displayScale), pady=round(displayScale))
+        else:
+            self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W, width=1)
+            self.label.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
     def set(self, format, *args):
         self.label.config(text=format % args)
         self.label.update_idletasks()

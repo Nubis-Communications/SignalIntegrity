@@ -42,7 +42,7 @@ class PreferencesDialog(PropertiesDialog):
         self.notebook.add(self.archiveAndRegressionTab,text='Archive and Regression')
 
         # Appearance
-        self.fontSizeFrame=CalculationProperty(self.appearanceTab,'font size',None,self.onUpdatePreferences,preferences,'Appearance.FontSize')
+        self.fontSizeFrame=CalculationProperty(self.appearanceTab,'font size',None,self.onUpdateFontSize,preferences,'Appearance.FontSize')
         self.initialGridFrame=CalculationProperty(self.appearanceTab,'initial grid',None,self.onUpdatePreferences,preferences,'Appearance.InitialGrid')
         self.backgroundColorFrame=CalculationPropertyColor(self.appearanceTab,'background color',None,self.onUpdateColors,preferences,'Appearance.Color.Background')
         self.foregroundColorFrame=CalculationPropertyColor(self.appearanceTab,'foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.Foreground')
@@ -108,6 +108,9 @@ class PreferencesDialog(PropertiesDialog):
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
+    def onUpdateFontSize(self):
+        self.onUpdatePreferences()
+        self.parent.UpdateColorsAndFonts()
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
         self.onUpdatePreferences()

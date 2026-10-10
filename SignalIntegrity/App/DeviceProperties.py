@@ -32,6 +32,22 @@ from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 import SignalIntegrity.App.Project
 
+class DevicePartPictureCanvas(tk.Canvas):
+    strokeItemTypes={'line','rectangle','oval','arc','polygon'}
+
+    def __init__(self,parent,displayScale,**kwargs):
+        self.displayScale=displayScale
+        tk.Canvas.__init__(self,parent,**kwargs)
+
+    def _create(self,itemType,args,kwargs):
+        if itemType in self.strokeItemTypes:
+            kwargs=kwargs.copy()
+            kwargs['width']=float(kwargs.get('width',1))*self.displayScale+max(0,self.displayScale-1)
+            dash=kwargs.get('dash')
+            if isinstance(dash,(tuple,list)):
+                kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
+        return tk.Canvas._create(self,itemType,args,kwargs)
+
 def LaunchProjectFile(device,filename):
     """opens a sub-project in another instance of the app, passing the device variables in"""
     def fileTreatment(value,typeString):
@@ -457,9 +473,10 @@ class DeviceProperty(tk.Frame):
         self.parentFrame.focus()
 
 class DeviceProperties(tk.Frame):
-    def __init__(self,parent,device,advancedMode=False):
+    def __init__(self,parent,device,advancedMode=False,displayScale=1.0):
         tk.Frame.__init__(self,parent)
         self.parent=parent
+        self.displayScale=displayScale
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
         self.isAProjectDevice=False
@@ -582,11 +599,11 @@ class DeviceProperties(tk.Frame):
             showBoxOffButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         partPictureFrame = tk.Frame(self)
         partPictureFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
-        self.partPictureCanvas = tk.Canvas(partPictureFrame)
+        self.partPictureCanvas = DevicePartPictureCanvas(partPictureFrame,self.displayScale)
         self.partPictureCanvas.config(relief=tk.SUNKEN,borderwidth=1)
         self.partPictureCanvas.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
-        device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+        device.DrawDevice(self.partPictureCanvas,20*self.displayScale,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
         (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
@@ -615,7 +632,7 @@ class DeviceProperties(tk.Frame):
         if not self.device['ports'] is None:
             self.device.partPicture.ports=self.device['ports'].GetValue()
         self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+        self.device.DrawDevice(self.partPictureCanvas,20*self.displayScale,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
         (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
@@ -868,8 +885,9 @@ class DevicePropertiesDialog(tk.Toplevel):
         self.device = copy.deepcopy(device)
         self.title(self.device['desc'].PropertyString(stype='raw'))
         self.parent = parent
+        self.displayScale=getattr(parent,'displayScale',1.0)
         self.result = None
-        self.DeviceProperties = DeviceProperties(self,self.device)
+        self.DeviceProperties = DeviceProperties(self,self.device,displayScale=self.displayScale)
         self.initial_focus = self.DeviceProperties
         self.DeviceProperties.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
         self.buttonbox()

@@ -21,6 +21,8 @@ Drawing.py
 import tkinter as tk
 
 import copy
+import re
+import sys
 
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
@@ -31,16 +33,48 @@ from SignalIntegrity.App.Wire import Wire
 
 import SignalIntegrity.App.Project
 
+def ScaleWindowGeometry(geometry,scale):
+    match=re.match(r'^(\d+)x(\d+)',geometry)
+    if match is None:
+        return geometry
+    width=round(int(match.group(1))*scale)
+    height=round(int(match.group(2))*scale)
+    return str(width)+'x'+str(height)+geometry[match.end():]
+
+class SchematicCanvas(tk.Canvas):
+    strokeItemTypes={'line','rectangle','oval','arc','polygon'}
+
+    def __init__(self,parent,displayScale,**kwargs):
+        self.displayScale=displayScale
+        tk.Canvas.__init__(self,parent,**kwargs)
+
+    def _create(self,itemType,args,kwargs):
+        if itemType in self.strokeItemTypes:
+            kwargs=kwargs.copy()
+            kwargs['width']=float(kwargs.get('width',1))*self.displayScale+max(0,self.displayScale-1)
+            dash=kwargs.get('dash')
+            if isinstance(dash,(tuple,list)):
+                kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
+        return tk.Canvas._create(self,itemType,args,kwargs)
+
 class Drawing(tk.Frame):
     def __init__(self,parent):
         tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.canvas = SchematicCanvas(self,parent.displayScale,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
         self.BuildTearOffMenus()
         self.stateMachine = None
         self.InstallStateMachine()
+    def DisplayGrid(self):
+        grid=SignalIntegrity.App.Project['Drawing.DrawingProperties']['Grid']
+        return grid*self.parent.displayScale
+    def ProjectGeometry(self):
+        geometry=self.parent.root.geometry()
+        if sys.platform.startswith('linux'):
+            geometry=ScaleWindowGeometry(geometry,1.0/self.parent.displayScale)
+        return geometry
     def BuildTearOffMenus(self):
         self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
@@ -74,13 +108,13 @@ class Drawing(tk.Frame):
             self.stateMachine.ForceIntializeState()
     def NearestGridCoordinate(self,x,y):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        grid=drawingPropertiesProject['Grid']
+        grid=self.DisplayGrid()
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         return (int(round(float(x)/grid))-originx,int(round(float(y)/grid))-originy)
     def AugmentorToGridCoordinate(self,x,y):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        grid=drawingPropertiesProject['Grid']
+        grid=self.DisplayGrid()
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
@@ -93,14 +127,15 @@ class Drawing(tk.Frame):
             return canvas
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         if not canvas is None and hasattr(self, 'Drawing'):
-            drawingPropertiesProject['Geometry']=self.root.geometry()
-        grid=drawingPropertiesProject['Grid']
+            drawingPropertiesProject['Geometry']=self.ProjectGeometry()
+        grid=self.DisplayGrid()
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
-        locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
+        displayScale=self.parent.displayScale
+        locations=[(7*displayScale,PartPicture.textSpacing*(v+1)+3*displayScale) for v in range(V)]
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
@@ -350,7 +385,10 @@ class Drawing(tk.Frame):
         # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
         # properties first, which made it work, but it was an accident.
         #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
-        self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
+        geometry=drawingProperties['Geometry'].split('+')[0]
+        if sys.platform.startswith('linux'):
+            geometry=ScaleWindowGeometry(geometry,self.parent.displayScale)
+        self.parent.root.geometry(geometry)
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = None

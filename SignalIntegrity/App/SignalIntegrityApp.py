@@ -28,6 +28,7 @@ import sys
 import copy
 import os
 import io
+import subprocess
 
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -80,6 +81,7 @@ class SignalIntegrityApp(tk.Frame):
         SignalIntegrity.App.Preferences=Preferences()
         self.external=external
         self.root = tk.Tk()
+        self.displayScale=self.ConfigureDisplayScaling()
         self.root.withdraw()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -101,7 +103,7 @@ class SignalIntegrityApp(tk.Frame):
                                           SignalIntegrity.App.Preferences['OnlineHelp.URL'])
 
         # status bar
-        self.statusbar=StatusBar(self)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale)
         self._regressionProgressStack=[]
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
@@ -306,6 +308,7 @@ class SignalIntegrityApp(tk.Frame):
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
+        self.toolbarFrame=ToolBarFrame
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         iconsdir=SignalIntegrity.App.IconsDir+''
         self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
@@ -469,11 +472,14 @@ class SignalIntegrityApp(tk.Frame):
         #print 'width: '+str(event.width)+', height'+str(event.height)
 
         self.deltaWidth=4
-        self.deltaHeight=50
+        if sys.platform.startswith('linux'):
+            self.deltaHeight=self.toolbarFrame.winfo_reqheight()+self.statusbar.winfo_reqheight()
+        else:
+            self.deltaHeight=50
 
         try:
             self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
-            SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
+            SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.Drawing.ProjectGeometry()
         except tk.TclError:
             pass
 
@@ -1432,16 +1438,38 @@ class SignalIntegrityApp(tk.Frame):
             if not self.preferencesDialog.winfo_exists():
                 self.preferencesDialog=PreferencesDialog(self,SignalIntegrity.App.Preferences)
 
+    def ConfigureDisplayScaling(self):
+        if not sys.platform.startswith('linux'):
+            return 1.0
+
+        displayScale=max(1.0,float(self.root.tk.call('tk','scaling'))/(96.0/72.0))
+        if 'GDK_SCALE' in os.environ:
+            displayScale=max(displayScale,float(os.environ['GDK_SCALE']))
+        try:
+            resources=subprocess.run(
+                ['xrdb','-query'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                universal_newlines=True,check=False
+            ).stdout
+        except FileNotFoundError:
+            resources=''
+        for resource in resources.splitlines():
+            name,separator,value=resource.partition(':')
+            if separator and name.strip() == 'Xft.dpi':
+                displayScale=max(displayScale,float(value.strip())/96.0)
+                break
+
+        if displayScale <= 0:
+            raise ValueError('Display scale must be greater than zero')
+        self.root.tk.call('tk','scaling',(96.0/72.0)*displayScale)
+        return displayScale
+
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
             default_font = font.nametofont("TkDefaultFont")
-            try:
-                default_font.configure(size=fontSizeDesired)
-                self.root.option_add("*Font", default_font)
-                PartPicture.textSpacing=fontSizeDesired+5
-            except:
-                pass
+            default_font.configure(size=fontSizeDesired)
+            self.root.option_add("*Font", default_font)
+            PartPicture.textSpacing=round((fontSizeDesired+5)*self.displayScale)
 
         w=tk.Button(self.root)
 

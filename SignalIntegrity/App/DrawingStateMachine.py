@@ -1121,7 +1121,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
@@ -1175,7 +1175,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
@@ -1439,7 +1439,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+originx)*grid,

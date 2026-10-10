@@ -20,6 +20,7 @@ ProgressDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import tkinter as tk
+import sys
 
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
@@ -100,12 +101,24 @@ class ProgressDialog(tk.Toplevel):
         return True
     def GetResult(self):
         self.classOfThing.InstallCallback(self.Callback)
-        self.Callback(0)
+        canvas=None
+        canvasBindtags=None
+        if sys.platform.startswith('linux'):
+            drawing=getattr(self.parent,'Drawing',None)
+            canvas=getattr(drawing,'canvas',None)
+            if canvas is not None:
+                canvasBindtags=canvas.bindtags()
+                widgetBindtag=str(canvas)
+                if widgetBindtag in canvasBindtags:
+                    canvas.bindtags(tuple(tag for tag in canvasBindtags if tag != widgetBindtag))
         try:
+            self.Callback(0)
             self.result = self.thingToDo()
         except:
             raise
         finally:
+            if canvas is not None and canvasBindtags is not None:
+                canvas.bindtags(canvasBindtags)
             self.destroy()
             self.classOfThing.RemoveCallback()
         return self.result
