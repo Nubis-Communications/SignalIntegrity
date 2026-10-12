@@ -1,4 +1,4 @@
-var $VS1_wffile$ C:/Users/danie/Documents/GitHub/SignalIntegrity/Test/TestSignalIntegrity/TestNonlinearIteration/DanielTestTwoProbe_nonlin_source_parameterized.si
+var $VS1_wffile$ {DIR}/DanielTestTwoProbe_nonlin_source_parameterized.si
 var $VS1_wfprojname$ VO2
 var $VS1_NLS1_scale$ 4.0
 var $VS1_tf_fn$ scale_nonlin.py
