@@ -171,6 +171,14 @@ class SignalIntegrityAppHeadless(object):
         if isinstance(filename,tuple):
             filename=''
         filename=str(filename)
+        # the subproject is threaded through its own parameter; it is never a
+        # project variable, so route it out of args (using it as the subproject
+        # when one was not supplied explicitly) to avoid misapplying it as a
+        # missing project variable.
+        if 'subproject' in args:
+            if subproject is None:
+                subproject=args['subproject']
+            args={key:value for key,value in args.items() if key != 'subproject'}
         subprojectOnly = filename in ['',None,'None']
         if subprojectOnly and subproject==None:
             return False
@@ -1057,9 +1065,23 @@ class SignalIntegrityAppHeadless(object):
         return True
 
 def ProjectSParameters(filename,callback=None,subproject=None,**kwargs):
-    if callback != None and filename not in ['',None,'None']:
-        if not callback(0,'+'+FileParts(filename).FileNameTitle()):
-            return None
+    # push a descriptive title onto the progress dialog's title stack so the
+    # user can see what is being traversed.  Sub-projects (tabs in the current
+    # file) have no filename, so without this their name was never shown and the
+    # trailing pop below was unbalanced.
+    pushedTitle=False
+    if callback != None:
+        titleName=None
+        if filename not in ['',None,'None']:
+            titleName=FileParts(filename).FileNameTitle()
+            if subproject not in [None,'','None']:
+                titleName=titleName+':'+str(subproject)
+        elif subproject not in [None,'','None']:
+            titleName=str(subproject)
+        if titleName != None:
+            pushedTitle=True
+            if not callback(0,'+'+titleName):
+                return None
     level=SignalIntegrityAppHeadless.projectStack.Push()
     sp=None
     try:
@@ -1095,7 +1117,7 @@ def ProjectSParameters(filename,callback=None,subproject=None,**kwargs):
     except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
-    if callback != None:
+    if callback != None and pushedTitle:
         if not callback(0,'-'):
             return None
     return sp
@@ -1273,6 +1295,14 @@ def _EnumerateProjectRefs(fileName,args,subproject=None):
             subproj=None
             if device['subproject'] != None:
                 subproj=device['subproject']['Value']
+            # the subproject is threaded through the dedicated subproject argument,
+            # not as a project variable; keep it out of deviceArgs (and fall back
+            # to it when the device carries no subproject part property) so it is
+            # not misapplied as a missing project variable.
+            if 'subproject' in deviceArgs:
+                if subproj in [None,'']:
+                    subproj=deviceArgs['subproject']
+                del deviceArgs['subproject']
             propertiesList = device.propertiesList
             for property in propertiesList:
                 if property['Type']=='file':
