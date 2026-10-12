@@ -1,7 +1,11 @@
 <SignalIntegrity>
+	<Equations>
+		<AutoDebug>True</AutoDebug>
+	</Equations>
 	<Projects>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>2000</FrequencyPoints>
 				<UserSampleRate>2e+12</UserSampleRate>
@@ -11,10 +15,10 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>1053x387+1960+69</Geometry>
+							<Geometry>1166x387+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>-1</Originx>
-							<Originy>18</Originy>
+							<Originy>22</Originy>
 						</DrawingProperties>
 						<Schematic>
 							<Devices>
@@ -79,42 +83,6 @@
 									</PartProperties>
 								</Device>
 								<Device>
-									<ClassName>DeviceOutput</ClassName>
-									<PartPicture>
-										<Index>0</Index>
-										<MirroredHorizontally>False</MirroredHorizontally>
-										<MirroredVertically>False</MirroredVertically>
-										<Orientation>0</Orientation>
-										<Origin>(31, -14)</Origin>
-									</PartPicture>
-									<PartProperties>
-										<PartProperty>
-											<Keyword>gain</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>1.0</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>offset</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>0.0</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>td</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>-8.6e-09</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>Vdiff</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-									</PartProperties>
-								</Device>
-								<Device>
 									<ClassName>DeviceFile</ClassName>
 									<PartPicture>
 										<Index>1</Index>
@@ -124,6 +92,12 @@
 										<Origin>(21, -14)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -227,6 +201,24 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>state</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>noise</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ac_coupled</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>gain</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>0.5</Value>
@@ -253,84 +245,6 @@
 									</PartProperties>
 								</Device>
 								<Device>
-									<ClassName>DeviceVoltagePRBSGenerator</ClassName>
-									<PartPicture>
-										<Index>0</Index>
-										<MirroredHorizontally>True</MirroredHorizontally>
-										<MirroredVertically>False</MirroredVertically>
-										<Orientation>0</Orientation>
-										<Origin>(11, -11)</Origin>
-									</PartPicture>
-									<PartProperties>
-										<PartProperty>
-											<Keyword>ho</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>-1e-07</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>dur</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>2e-07</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>t0</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>0.0</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>br</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>5000000000.0</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>rt</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>1e-10</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>prbs</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>7</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>fs</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>40000000000.0</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>a</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>2.0</Value>
-											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>wftype</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>prbs</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>ports</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>1</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>VG1</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-									</PartProperties>
-								</Device>
-								<Device>
 									<ClassName>DeviceFile</ClassName>
 									<PartPicture>
 										<Index>0</Index>
@@ -340,6 +254,12 @@
 										<Origin>(39, -14)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -403,19 +323,115 @@
 									</PartProperties>
 								</Device>
 								<Device>
-									<ClassName>DeviceOutput</ClassName>
+									<ClassName>DeviceEyeProbe</ClassName>
+									<EyeDiagram>
+										<Alignment>
+											<AutoAlign>True</AutoAlign>
+											<BERForAlignment>-3</BERForAlignment>
+											<Horizontal>Middle</Horizontal>
+											<Levels>4</Levels>
+											<Mode>Horizontal</Mode>
+											<Vertical>MaxMin</Vertical>
+										</Alignment>
+										<Annotation>
+											<Annotate>False</Annotate>
+											<Color>#ffffff</Color>
+											<Contours>
+												<Show>False</Show>
+												<Which>Eye</Which>
+											</Contours>
+											<EyeHeight>True</EyeHeight>
+											<EyeWidth>True</EyeWidth>
+											<LabelMeanLevels>False</LabelMeanLevels>
+											<LevelExtents>False</LevelExtents>
+											<MeanLevels>True</MeanLevels>
+										</Annotation>
+										<Bathtub>
+											<DecadesFromJoinForFit>0.5</DecadesFromJoinForFit>
+											<Measure>True</Measure>
+											<MinPointsForFit>6</MinPointsForFit>
+										</Bathtub>
+										<ClockRecovery>
+											<Recover>False</Recover>
+											<TrimLeftRight>20</TrimLeftRight>
+										</ClockRecovery>
+										<Color>#fffeea</Color>
+										<Columns>200</Columns>
+										<Decision>
+											<Mode>Mid</Mode>
+										</Decision>
+										<EnhancedPrecision>
+											<FixedEnhancement>10</FixedEnhancement>
+											<Mode>Auto</Mode>
+										</EnhancedPrecision>
+										<Invert>True</Invert>
+										<JitterNoise>
+											<JitterDeterministicPkS>0</JitterDeterministicPkS>
+											<JitterS>0</JitterS>
+											<LogIntensity>
+												<LogIntensity>False</LogIntensity>
+												<MaxExponent>0</MaxExponent>
+												<MinExponent>-12</MinExponent>
+											</LogIntensity>
+											<MaxKernelPixels>100000</MaxKernelPixels>
+											<Noise>0.0</Noise>
+										</JitterNoise>
+										<Measure>
+											<BERForMeasure>-6</BERForMeasure>
+											<Measure>True</Measure>
+											<RxTx>Rx</RxTx>
+											<TxInputPowerAvailable>False</TxInputPowerAvailable>
+											<TxInputPowerW>0</TxInputPowerW>
+											<WaveformType>V</WaveformType>
+										</Measure>
+										<Mode>ISI</Mode>
+										<Rows>200</Rows>
+										<Saturation>20</Saturation>
+										<ScaleX>75.0</ScaleX>
+										<ScaleY>150.0</ScaleY>
+										<UI>3</UI>
+										<YAxis>
+											<Max>1.0</Max>
+											<Min>0.0</Min>
+											<Mode>Auto</Mode>
+										</YAxis>
+									</EyeDiagram>
 									<PartPicture>
 										<Index>0</Index>
 										<MirroredHorizontally>False</MirroredHorizontally>
 										<MirroredVertically>False</MirroredVertically>
 										<Orientation>0</Orientation>
-										<Origin>(46, -14)</Origin>
+										<Origin>(33, -17)</Origin>
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>state</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>noise</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>eyestate</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ac_coupled</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>gain</Keyword>
 											<KeywordVisible>True</KeywordVisible>
-											<Value>1.1</Value>
+											<Value>1.0</Value>
 											<Visible>False</Visible>
 										</PartProperty>
 										<PartProperty>
@@ -431,10 +447,262 @@
 											<Visible>True</Visible>
 										</PartProperty>
 										<PartProperty>
+											<Keyword>br</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>5000000000.0</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ports</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>1</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>ref</Keyword>
 											<KeywordVisible>False</KeywordVisible>
-											<Value>Veq</Value>
+											<Value>Vdiff</Value>
 											<Visible>True</Visible>
+										</PartProperty>
+									</PartProperties>
+								</Device>
+								<Device>
+									<ClassName>DeviceEyeProbe</ClassName>
+									<EyeDiagram>
+										<Alignment>
+											<AutoAlign>True</AutoAlign>
+											<BERForAlignment>-3</BERForAlignment>
+											<Horizontal>Middle</Horizontal>
+											<Levels>4</Levels>
+											<Mode>Horizontal</Mode>
+											<Vertical>MaxMin</Vertical>
+										</Alignment>
+										<Annotation>
+											<Annotate>False</Annotate>
+											<Color>#ffffff</Color>
+											<Contours>
+												<Show>False</Show>
+												<Which>Eye</Which>
+											</Contours>
+											<EyeHeight>True</EyeHeight>
+											<EyeWidth>True</EyeWidth>
+											<LabelMeanLevels>False</LabelMeanLevels>
+											<LevelExtents>False</LevelExtents>
+											<MeanLevels>True</MeanLevels>
+										</Annotation>
+										<Bathtub>
+											<DecadesFromJoinForFit>0.5</DecadesFromJoinForFit>
+											<Measure>True</Measure>
+											<MinPointsForFit>6</MinPointsForFit>
+										</Bathtub>
+										<ClockRecovery>
+											<Recover>False</Recover>
+											<TrimLeftRight>20</TrimLeftRight>
+										</ClockRecovery>
+										<Color>#fffeea</Color>
+										<Columns>200</Columns>
+										<Decision>
+											<Mode>Mid</Mode>
+										</Decision>
+										<EnhancedPrecision>
+											<FixedEnhancement>10</FixedEnhancement>
+											<Mode>Auto</Mode>
+										</EnhancedPrecision>
+										<Invert>True</Invert>
+										<JitterNoise>
+											<JitterDeterministicPkS>0</JitterDeterministicPkS>
+											<JitterS>0</JitterS>
+											<LogIntensity>
+												<LogIntensity>False</LogIntensity>
+												<MaxExponent>0</MaxExponent>
+												<MinExponent>-12</MinExponent>
+											</LogIntensity>
+											<MaxKernelPixels>100000</MaxKernelPixels>
+											<Noise>0.0</Noise>
+										</JitterNoise>
+										<Measure>
+											<BERForMeasure>-6</BERForMeasure>
+											<Measure>True</Measure>
+											<RxTx>Rx</RxTx>
+											<TxInputPowerAvailable>False</TxInputPowerAvailable>
+											<TxInputPowerW>0</TxInputPowerW>
+											<WaveformType>V</WaveformType>
+										</Measure>
+										<Mode>ISI</Mode>
+										<Rows>200</Rows>
+										<Saturation>20</Saturation>
+										<ScaleX>75.0</ScaleX>
+										<ScaleY>150.0</ScaleY>
+										<UI>3</UI>
+										<YAxis>
+											<Max>1.0</Max>
+											<Min>0.0</Min>
+											<Mode>Auto</Mode>
+										</YAxis>
+									</EyeDiagram>
+									<PartPicture>
+										<Index>0</Index>
+										<MirroredHorizontally>False</MirroredHorizontally>
+										<MirroredVertically>False</MirroredVertically>
+										<Orientation>0</Orientation>
+										<Origin>(51, -14)</Origin>
+									</PartPicture>
+									<PartProperties>
+										<PartProperty>
+											<Keyword>state</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>noise</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>eyestate</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>on</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ac_coupled</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>gain</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>1.0</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>offset</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>0.0</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>td</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>-8.800000000000001e-09</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>br</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>5000000000.0</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ports</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>1</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ref</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>Vo1</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+									</PartProperties>
+								</Device>
+								<Device>
+									<ClassName>DeviceVoltageLevelsMultiLevelWaveformGenerator</ClassName>
+									<PartPicture>
+										<Index>0</Index>
+										<MirroredHorizontally>True</MirroredHorizontally>
+										<MirroredVertically>False</MirroredVertically>
+										<Orientation>0</Orientation>
+										<Origin>(11, -11)</Origin>
+									</PartPicture>
+									<PartProperties>
+										<PartProperty>
+											<Keyword>show</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ho</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>-1.0000000000000001e-07</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>dur</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>5.000000000000001e-07</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>t0</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>-1e-10</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>br</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>5000000000.0</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>rt</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>5e-11</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>prbs</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>13</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>lvl</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>4</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>sym</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>2</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>fs</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>40000000000.0</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>a</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>1.0</Value>
+											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>wftype</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>lmlw</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ports</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>1</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>ref</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>VG1</Value>
+											<Visible>False</Visible>
 										</PartProperty>
 									</PartProperties>
 								</Device>
@@ -503,6 +771,29 @@
 								<Wire>
 									<Vertices>
 										<Vertex>
+											<Coord>(33, -16)</Coord>
+										</Vertex>
+										<Vertex>
+											<Coord>(31, -16)</Coord>
+										</Vertex>
+										<Vertex>
+											<Coord>(31, -13)</Coord>
+										</Vertex>
+									</Vertices>
+								</Wire>
+								<Wire>
+									<Vertices>
+										<Vertex>
+											<Coord>(51, -13)</Coord>
+										</Vertex>
+										<Vertex>
+											<Coord>(46, -13)</Coord>
+										</Vertex>
+									</Vertices>
+								</Wire>
+								<Wire>
+									<Vertices>
+										<Vertex>
 											<Coord>(46, -13)</Coord>
 										</Vertex>
 										<Vertex>
@@ -516,14 +807,11 @@
 					<Name>Page 1</Name>
 				</Page>
 			</Pages>
-			<PostProcessing>
-				<Lines>
-				</Lines>
-			</PostProcessing>
 			<Selected>0</Selected>
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>4000</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -533,7 +821,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>816x326+1960+69</Geometry>
+							<Geometry>816x326+1204+250</Geometry>
 							<Grid>22.0</Grid>
 							<Originx>2</Originx>
 							<Originy>4</Originy>
@@ -719,6 +1007,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -751,21 +1045,16 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
 				</Page>
 			</Pages>
-			<PostProcessing>
-				<Lines>
-				</Lines>
-			</PostProcessing>
 			<Selected>0</Selected>
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>40</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -775,7 +1064,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>1036x344+1960+69</Geometry>
+							<Geometry>1036x344+1204+250</Geometry>
 							<Grid>14.0</Grid>
 							<Originx>-16</Originx>
 							<Originy>-1</Originy>
@@ -885,21 +1174,16 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
 				</Page>
 			</Pages>
-			<PostProcessing>
-				<Lines>
-				</Lines>
-			</PostProcessing>
 			<Selected>0</Selected>
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>2000</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -909,7 +1193,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>972x558+2441+245</Geometry>
+							<Geometry>972x558+1204+250</Geometry>
 							<Grid>22.0</Grid>
 							<Originx>3</Originx>
 							<Originy>4</Originy>
@@ -926,6 +1210,12 @@
 										<Origin>(3, -1)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -1089,6 +1379,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -1155,6 +1451,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -1197,6 +1499,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -1238,6 +1546,12 @@
 										<Origin>(20, 5)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -1341,6 +1655,7 @@
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>200</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -1350,7 +1665,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>878x270+2441+245</Geometry>
+							<Geometry>878x270+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>2</Originx>
 							<Originy>3</Originy>
@@ -1428,6 +1743,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -1469,6 +1790,12 @@
 										<Origin>(20, 3)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -1540,6 +1867,7 @@
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>2000</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -1549,7 +1877,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>533x200+2441+245</Geometry>
+							<Geometry>533x200+1204+250</Geometry>
 							<Grid>16</Grid>
 							<Originx>1</Originx>
 							<Originy>4</Originy>
@@ -1567,10 +1895,28 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>filetype</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>SParameterFile</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>file</Keyword>
 											<KeywordVisible>False</KeywordVisible>
 											<Value>HDMICableSENoDeembedding.s4p</Value>
 											<Visible>True</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>subproject</Keyword>
+											<KeywordVisible>True</KeywordVisible>
+											<Value>None</Value>
+											<Visible>False</Visible>
 										</PartProperty>
 										<PartProperty>
 											<Keyword>ports</Keyword>
@@ -1582,18 +1928,6 @@
 											<Keyword>ref</Keyword>
 											<KeywordVisible>False</KeywordVisible>
 											<Value>D1</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>filetype</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>SParameterFile</Value>
-											<Visible>False</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>subproject</Keyword>
-											<KeywordVisible>True</KeywordVisible>
-											<Value>None</Value>
 											<Visible>False</Visible>
 										</PartProperty>
 									</PartProperties>
@@ -1626,12 +1960,6 @@
 											<Value>1</Value>
 											<Visible>True</Visible>
 										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>None</Value>
-											<Visible>False</Visible>
-										</PartProperty>
 									</PartProperties>
 								</Device>
 								<Device>
@@ -1661,12 +1989,6 @@
 											<KeywordVisible>False</KeywordVisible>
 											<Value>2</Value>
 											<Visible>True</Visible>
-										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>None</Value>
-											<Visible>False</Visible>
 										</PartProperty>
 									</PartProperties>
 								</Device>
@@ -1698,12 +2020,6 @@
 											<Value>3</Value>
 											<Visible>True</Visible>
 										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>None</Value>
-											<Visible>False</Visible>
-										</PartProperty>
 									</PartProperties>
 								</Device>
 								<Device>
@@ -1734,17 +2050,9 @@
 											<Value>4</Value>
 											<Visible>True</Visible>
 										</PartProperty>
-										<PartProperty>
-											<Keyword>ref</Keyword>
-											<KeywordVisible>False</KeywordVisible>
-											<Value>None</Value>
-											<Visible>False</Visible>
-										</PartProperty>
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
@@ -1764,6 +2072,7 @@
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>200</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -1773,7 +2082,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>686x309+2441+245</Geometry>
+							<Geometry>686x309+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>2</Originx>
 							<Originy>1</Originy>
@@ -1790,6 +2099,12 @@
 										<Origin>(16, 3)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -1917,6 +2232,12 @@
 									</PartPicture>
 									<PartProperties>
 										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>TabInCurrent</Value>
@@ -1966,14 +2287,11 @@
 					<Name>Page 1</Name>
 				</Page>
 			</Pages>
-			<PostProcessing>
-				<Lines>
-				</Lines>
-			</PostProcessing>
 			<Selected>0</Selected>
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>2000</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -1983,7 +2301,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>708x365+0+0</Geometry>
+							<Geometry>708x365+1204+250</Geometry>
 							<Grid>16</Grid>
 							<Originx>3</Originx>
 							<Originy>7</Originy>
@@ -2004,6 +2322,12 @@
 											<Keyword>ports</Keyword>
 											<KeywordVisible>True</KeywordVisible>
 											<Value>2</Value>
+											<Visible>False</Visible>
+										</PartProperty>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
 											<Visible>False</Visible>
 										</PartProperty>
 										<PartProperty>
@@ -2099,21 +2423,16 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
 				</Page>
 			</Pages>
-			<PostProcessing>
-				<Lines>
-				</Lines>
-			</PostProcessing>
 			<Selected>0</Selected>
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>40</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -2123,7 +2442,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>708x315+2441+245</Geometry>
+							<Geometry>708x315+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>6</Originx>
 							<Originy>7</Originy>
@@ -2140,6 +2459,12 @@
 										<Origin>(4, -1)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>False</KeywordVisible>
@@ -2233,8 +2558,6 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
@@ -2254,6 +2577,7 @@
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>200</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -2263,7 +2587,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>681x336+1960+69</Geometry>
+							<Geometry>681x336+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>1</Originx>
 							<Originy>4</Originy>
@@ -2280,6 +2604,12 @@
 										<Origin>(11, 3)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -2373,8 +2703,6 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
@@ -2391,6 +2719,7 @@
 		</Project>
 		<Project>
 			<CalculationProperties>
+				<AllowParallelization>True</AllowParallelization>
 				<EndFrequency>20000000000.0</EndFrequency>
 				<FrequencyPoints>200</FrequencyPoints>
 				<UserSampleRate>40000000000.0</UserSampleRate>
@@ -2400,7 +2729,7 @@
 				<Page>
 					<Drawing>
 						<DrawingProperties>
-							<Geometry>723x406+1960+69</Geometry>
+							<Geometry>723x406+1204+250</Geometry>
 							<Grid>16.0</Grid>
 							<Originx>2</Originx>
 							<Originy>1</Originy>
@@ -2417,6 +2746,12 @@
 										<Origin>(11, 3)</Origin>
 									</PartPicture>
 									<PartProperties>
+										<PartProperty>
+											<Keyword>calcprop</Keyword>
+											<KeywordVisible>False</KeywordVisible>
+											<Value>false</Value>
+											<Visible>False</Visible>
+										</PartProperty>
 										<PartProperty>
 											<Keyword>filetype</Keyword>
 											<KeywordVisible>True</KeywordVisible>
@@ -2510,8 +2845,6 @@
 									</PartProperties>
 								</Device>
 							</Devices>
-							<Wires>
-							</Wires>
 						</Schematic>
 					</Drawing>
 					<Name>Page 1</Name>
@@ -2527,5 +2860,5 @@
 			<Selected>0</Selected>
 		</Project>
 	</Projects>
-	<Selected>0</Selected>
+	<Selected>9</Selected>
 </SignalIntegrity>
