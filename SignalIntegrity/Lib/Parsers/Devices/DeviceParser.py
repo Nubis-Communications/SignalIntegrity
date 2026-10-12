@@ -220,7 +220,7 @@ class DeviceFactory(list):
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),float(arg['sect']),\
             float(arg['scale']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'subproject':'','scale':1},True,
+        ParserDevice('rlgcfit',2,False,{'file':'','subproject':'','scale':1},True,
             "RLGCFitFromFile(f,arg['file'],subproject=arg['subproject'],scale=float(arg['scale']),\
             Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,

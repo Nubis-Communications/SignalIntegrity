@@ -1352,7 +1352,7 @@ class DeviceRLGCFitFromFileNetListLine(DeviceNetListLine):
 
 class DeviceRLGCFitFromFile(Device):
     def __init__(self):
-        netlist=DeviceRLGCFitFromFileNetListLine(partname='rlgcfit',values=[('file',True),('scale',True)])
+        netlist=DeviceRLGCFitFromFileNetListLine(partname='rlgcfit',values=[('file',True),('subproject',True),('scale',True)])
         Device.__init__(self,netlist,[PartPropertyDescription('Two Port RLGC fitted transmission line'),
                                       PartPropertyPorts(2),
                                       PartPropertyCategory('Transmission Lines'),
@@ -1360,7 +1360,9 @@ class DeviceRLGCFitFromFile(Device):
                                       PartPropertyHelp('device:RLGC-Fit'),
                                       PartPropertyDefaultReferenceDesignator('T?'),
                                       PartPropertyCalculationProperties(),
+                                      PartPropertyFileType(),
                                       PartPropertyFileName(),
+                                      PartPropertySubprojectName(),
                                       PartPropertyScale(scale=1),
                                       PartPropertyReorder()],
                             PartPictureVariableTransmissionLineTwoPort())
