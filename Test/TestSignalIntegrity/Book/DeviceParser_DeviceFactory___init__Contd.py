@@ -2,6 +2,9 @@ class DeviceFactory(list):
 ...
     def __init__Contd(self):
         list.__init__(self,list(self+[
+        ParserDevice('subproject',None,True,{'':None},True,"SParameterFile(None\
+            ,None,callback,subproject=arg[''],**extraArgs).Resample(f).\
+            SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
             Z0=float(arg['z0']))"),
@@ -32,9 +35,9 @@ class DeviceFactory(list):
             float(arg['cn']),float(arg['dfn']),float(arg['cm']),float(arg['dfm']),\
             float(arg['gm']),float(arg['lm']),float(arg['z0']),float(arg['sect']),\
             float(arg['scale']))"),
-        ParserDevice('rlgcfit',2,False,{'file':None,'scale':1},True,
-            "RLGCFitFromFile(f,arg['file'],scale=float(arg['scale']),\
-            Z0=float(arg['z0']),**extraArgs)"),
+        ParserDevice('rlgcfit',2,False,{'file':'','subproject':'','scale':1},True,
+            "RLGCFitFromFile(f,arg['file'],subproject=arg['subproject'],\
+            scale=float(arg['scale']),Z0=float(arg['z0']),**extraArgs)"),
         ParserDevice('w','2,4,6,8,10,12,14,16',True,{'':None,'df':0.,'sect':0,
             'scale':1.},True,"WElementFile(f,arg[''],float(arg['df']),\
             float(arg['z0']),float(arg['sect']),float(arg['scale']))"),
