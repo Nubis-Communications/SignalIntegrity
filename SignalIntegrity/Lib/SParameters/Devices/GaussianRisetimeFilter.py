@@ -18,7 +18,7 @@ GaussianRisetimeFilter.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE
+from SignalIntegrity.Lib.SParameters.Devices.EqualizerFFE import FFE
 from SignalIntegrity.Lib.TimeDomain.Filters.Risetime.Gaussian import Gaussian
 
 class GaussianRisetimeFilter(FFE):

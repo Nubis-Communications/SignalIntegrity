@@ -364,7 +364,8 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.WElement import WElementFile
         from SignalIntegrity.Lib.SParameters.Devices.ClassicalFilter import ButterworthLowPassFilter,BesselLowPassFilter
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
-        from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerFFE import FFE
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.FrequencyResponseFilter import FrequencyResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel

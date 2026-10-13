@@ -1,4 +1,4 @@
-"""Equalizer"""
+"""EqualizerCTLE"""
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -18,8 +18,6 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
-
-import cmath
 
 class CTLE(SParameters):
     """Continuous time linear equalizer"""
@@ -45,30 +43,5 @@ class CTLE(SParameters):
         N=(self.powgDC+self.joverfz*f)*(self.powgDC2+self.joverfLF*f)
         D=(1.+self.joverfp1*f)*(1.+self.joverfp2*f)*(1.+self.joverfLF*f)
         return N/D
-    def __getitem__(self,n):
-        return [[1.,0],[2.*self._Evaluate(self.m_f[n]),-1.]]
-
-class FFE(SParameters):
-    """Linear feed-forward equalizer"""
-    def __init__(self,f,Td,taps,numPreCursorTaps,Z0=50.):
-        """Constructor
-        @param f list of float frequencies
-        @param Td float time delay of each tap
-        @param taps list of float values of the taps
-        @param numPreCursorTaps integer number of precursor taps
-        @param Z0 float (optional, defaults to 50) reference impedance
-        @remark Usually Td is the reciprocal of the baud rate or sometimes, half the reciprocal.
-        """
-        self.Td=Td
-        self.taps=taps
-        self.PC=numPreCursorTaps
-        SParameters.__init__(self,f,None,Z0)
-    def _Evaluate(self,f):
-        """Evaluate FFE
-        @param f float frequency
-        @return FFE evaluated at f
-        """
-        K=len(self.taps)
-        return sum([self.taps[k]*cmath.exp(1j*2.*cmath.pi*f*-(k-self.PC)*self.Td) for k in range(K)])
     def __getitem__(self,n):
         return [[1.,0],[2.*self._Evaluate(self.m_f[n]),-1.]]

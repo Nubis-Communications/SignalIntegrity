@@ -37,7 +37,8 @@ from .TLineDifferentialRLGC import TLineDifferentialRLGC
 from .TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
 from .WElement import WElement,WElementFile
 from .ClassicalFilter import BesselLowPassFilter,ButterworthLowPassFilter
-from .Equalizer import CTLE,FFE
+from .EqualizerCTLE import CTLE
+from .EqualizerFFE import FFE
 from .Laplace import Laplace
 from .ImpulseResponseFilter import ImpulseResponseFilter
 from .FrequencyResponseFilter import FrequencyResponseFilter
