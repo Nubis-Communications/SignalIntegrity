@@ -96,6 +96,7 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
+    extras_require={'test': ['pytest>=6']},
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [

@@ -293,6 +293,11 @@ class TestArchive(unittest.TestCase):
             self.assertFalse(PF.RecordingArchiveFiles,self.id()+' recording flag not reset')
         finally:
             os.chdir(currentDir)
+    def testEquationEvaluatorSharesNamespace(self):
+        import SignalIntegrity.App.ProjectFile as PF
+        result=PF.ProjectFile.EvaluateSafely(
+            'T_b=1/f_b',{'f_b':106.25e9},{'T_b':None})
+        self.assertAlmostEqual(result['T_b'],1/106.25e9)
     def testArchiveFileHelperIsNoOpDuringNormalEvaluation(self):
         import SignalIntegrity.App.ProjectFile as PF
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless

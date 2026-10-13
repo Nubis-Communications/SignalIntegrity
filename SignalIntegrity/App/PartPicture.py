@@ -196,12 +196,13 @@ class PartPicture(object):
         else: GoingUp=False
 
         V=len(self.visiblePartPropertyList)
+        textSpacing=PartPicture.textSpacing*getattr(canvas,'displayScale',1.0)
         if GoingUp:
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-PartPicture.textSpacing*v) for v in range(V)]
+            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-textSpacing*v) for v in range(V)]
         else:
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid+PartPicture.textSpacing*(V-v)-PartPicture.textSpacing) for v in range(V)]
+            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid+textSpacing*(V-v)-textSpacing) for v in range(V)]
 
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],

@@ -3,6 +3,14 @@
 
 Testing of SignalIntegrity is accomplished through the use of the unittest framework.  There are a variety of unit tests along with regression results in [Test](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Test) and in the subdirectory [TestSignalIntegrity](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Test/TestSignalIntegrity), which contains all of the tests
 
+The test suite can also be run with pytest from the repository root. Install the test
+dependencies with `python -m pip install -e ".[test]"`, then run:
+
+    pytest
+
+The root `pytest.ini` configuration selects `TestSignalIntegrity/TestAll.py`, which
+collects the unittest cases from the test modules.
+
 For the most part, the [SignalIntegrityApp](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/SignalIntegrity/App) GUI based application is tested by hand, insofar as the GUI is concerned, but in [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) are tests for testing a _headless_ version of PySIApp that can also be used within a scripted environment.  In other words, the headless version can be utilized to load a project file and obtain whatever results that project file produces.  This is a big aid to scripted applications and [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) tests this headless application.
 
 The [Test](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/Test) directory contains two scripts (for Linux and Windows).  The Linux scripts is a _bash_ script and has the extension '.sh'.  The Windows script is a batch file and has the extension '.bat'.  The script is CoverageTest and is the only test that ever really needs to be run. It runs all of the unit tests for the [SignalIntegrity](https://github.com/TeledyneLeCroy/SignalIntegrity/tree/master/SignalIntegrity) package.

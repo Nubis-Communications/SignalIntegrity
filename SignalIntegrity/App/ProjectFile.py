@@ -657,19 +657,11 @@ class ProjectFile(ProjectFileBase):
         #
         # I ran into what might have been the problem that he was seeing, and I did verify that his code works, but before doing that
         # I was able to fix the problem by simply using a raw string.
-        for argkey in sendargs.keys():
-            arg=sendargs[argkey]
-            if isinstance(arg,str):
-                exec(argkey+' = r"'+arg+'"')
-            else:
-                exec(argkey+' = '+str(arg))
-        exec(equations)
-        for argkey in returnargs.keys():
-            try:
-                exec(str("returnargs[argkey] = eval(argkey)"))
-            except NameError:
-                pass
-        return returnargs
+        namespace=globals().copy()
+        namespace.update(sendargs)
+        namespace.update(returnargs)
+        exec(equations,namespace)
+        return {key:namespace.get(key) for key in returnargs}
 
     def EvaluateEquations(self,equations=None,force=False):
         if (equations != None) or (self['Equations.Lines'] != []):

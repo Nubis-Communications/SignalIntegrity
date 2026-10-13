@@ -3,9 +3,7 @@
     "python.testing.pytestEnabled": true,
     "python.testing.cwd": "${workspaceFolder}/Test",
     "python.testing.pytestArgs": [
-        "TestSignalIntegrity/TestAll.py",
-        "-o",
-        "pythonpath=TestSignalIntegrity"
+        "TestSignalIntegrity/TestAll.py"
     ],
     "python-envs.defaultEnvManager": "ms-python.python:system"
 }

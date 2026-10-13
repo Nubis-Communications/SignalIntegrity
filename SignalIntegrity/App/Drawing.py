@@ -128,14 +128,14 @@ class Drawing(tk.Frame):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         if not canvas is None and hasattr(self, 'Drawing'):
             drawingPropertiesProject['Geometry']=self.ProjectGeometry()
-        grid=self.DisplayGrid()
+        displayScale=getattr(canvas,'displayScale',1.0)
+        grid=drawingPropertiesProject['Grid']*displayScale
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
-        displayScale=self.parent.displayScale
-        locations=[(7*displayScale,PartPicture.textSpacing*(v+1)+3*displayScale) for v in range(V)]
+        locations=[(7*displayScale,PartPicture.textSpacing*(v+1)*displayScale+3*displayScale) for v in range(V)]
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
         devicePinConnectedList=self.schematic.DevicePinConnectedList()

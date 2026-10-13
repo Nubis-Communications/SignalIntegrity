@@ -1469,7 +1469,7 @@ class SignalIntegrityApp(tk.Frame):
             default_font = font.nametofont("TkDefaultFont")
             default_font.configure(size=fontSizeDesired)
             self.root.option_add("*Font", default_font)
-            PartPicture.textSpacing=round((fontSizeDesired+5)*self.displayScale)
+            PartPicture.textSpacing=round(fontSizeDesired+5)
 
         w=tk.Button(self.root)
 
