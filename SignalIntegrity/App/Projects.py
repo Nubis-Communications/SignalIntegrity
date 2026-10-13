@@ -130,6 +130,7 @@ class Projects(tk.Frame):
         self.tabControl.bind('<Button-3>', self.onTearOff)
         self.tabControl.bind('<Button-1>', self.onTouched)
         self.projectList[self.selectedProject].SelectProject()
+        self.tabControl.select(self.selectedProject)
         self.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.initialized=True
     def InitFromProject(self):
