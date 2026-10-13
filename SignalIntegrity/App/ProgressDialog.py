@@ -20,7 +20,6 @@ ProgressDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import tkinter as tk
-import sys
 
 import SignalIntegrity.App.Project
 import SignalIntegrity.App.Preferences
@@ -101,16 +100,22 @@ class ProgressDialog(tk.Toplevel):
         return True
     def GetResult(self):
         self.classOfThing.InstallCallback(self.Callback)
+        # Disable interaction with the schematic while the calculation runs by
+        # temporarily removing the canvas widget's own bind tag - the drawing state
+        # machine's mouse/keyboard bindings live on that tag, so removing it stops
+        # the user from selecting or editing the schematic mid-calculation.  The
+        # progress dialog and the status-bar abort button are separate widgets and
+        # remain active.  The bind tags are restored when the calculation finishes
+        # or is aborted.
         canvas=None
         canvasBindtags=None
-        if sys.platform.startswith('linux'):
-            drawing=getattr(self.parent,'Drawing',None)
-            canvas=getattr(drawing,'canvas',None)
-            if canvas is not None:
-                canvasBindtags=canvas.bindtags()
-                widgetBindtag=str(canvas)
-                if widgetBindtag in canvasBindtags:
-                    canvas.bindtags(tuple(tag for tag in canvasBindtags if tag != widgetBindtag))
+        drawing=getattr(self.parent,'Drawing',None)
+        canvas=getattr(drawing,'canvas',None)
+        if canvas is not None:
+            canvasBindtags=canvas.bindtags()
+            widgetBindtag=str(canvas)
+            if widgetBindtag in canvasBindtags:
+                canvas.bindtags(tuple(tag for tag in canvasBindtags if tag != widgetBindtag))
         try:
             self.Callback(0)
             self.result = self.thingToDo()
