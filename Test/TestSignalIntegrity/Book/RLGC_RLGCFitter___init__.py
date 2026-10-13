@@ -5,34 +5,36 @@ class RLGCFitter(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
+        # frequency-dependent base vectors (numpy arrays) used to evaluate the
+        # transmission-line s-parameters and their partial derivatives for every
+        # frequency at once.  These must be set up before Initialize, which
+        # evaluates fF.
+        self.farr=np.array(self.f,dtype=float)
+        self.sqrtfarr=np.sqrt(self.farr)
+        self.p2farr=2.*math.pi*self.farr
+        self.onesarr=np.ones(len(self.f))
+        self.zerosarr=np.zeros(len(self.f))
+        self.dZdRsearr=self.sqrtfarr
         LevMar.Initialize(self, array([[g] for g in guess]), array(v))
-        self.ones=[1 for _ in self.f]
-        self.dZdR=self.ones
-        self.dZdRse=[math.sqrt(f) for f in self.f]
-        self.p2f=[2.*math.pi*f for f in self.f]
-        self.dZdL=[1j*p2f for p2f in self.p2f]
-        self.zeros=[0 for _ in self.f]
-        self.dZdG=self.zeros
-        self.dZdC=self.zeros
-        self.dZddf=self.zeros
-        self.dYdR=self.zeros
-        self.dYdRse=self.zeros
-        self.dYdL=self.zeros
-        self.dYdG=self.ones
     def fF(self,a):
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
-        self.Z=[R+Rse*(1+1j)*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
-        self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
-        self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]
-        self.Zc=[cmath.sqrt(z/y) for (z,y) in zip(self.Z,self.Y)]
-        self.rho=[(zc-self.Z0)/(zc+self.Z0) for zc in self.Zc]
-        self.rho2=[r*r for r in self.rho]
-        self.eg=[cmath.exp(-g) for g in self.gamma]
-        self.e2g=[egx*egx for egx in self.eg]
-        self.D=[1-r2*e2 for (e2,r2) in zip(self.e2g,self.rho2)]
-        self.S11=[r*(1-e2)/d for (r,e2,d) in zip(self.rho,self.e2g,self.D)]
-        self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
-        S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
-        vS=self.VectorizeSp(S)
-        return array(vS)
+        if G==0: G=self.epsilonG
+        if R==0: R=self.epsilonG
+        self.Z=R+Rse*(1+1j)*self.sqrtfarr+1j*self.p2farr*L
+        self.Y=G+self.p2farr*C*(1j+df)
+        self.gamma=np.sqrt(self.Z*self.Y)
+        self.Zc=np.sqrt(self.Z/self.Y)
+        self.rho=(self.Zc-self.Z0)/(self.Zc+self.Z0)
+        self.rho2=self.rho*self.rho
+        self.eg=np.exp(-self.gamma)
+        self.e2g=self.eg*self.eg
+        self.D=1-self.rho2*self.e2g
+        self.S11=self.rho*(1-self.e2g)/self.D
+        self.S12=(1-self.rho2)*self.eg/self.D
+        # vectorized s-parameters: per frequency the 2x2 matrix [[S11,S12],[S12,S11]]
+        # unrolled as [S11,S12,S12,S11]
+        vS=np.empty((4*len(self.f),1),dtype=complex)
+        vS[0::4,0]=self.S11; vS[1::4,0]=self.S12
+        vS[2::4,0]=self.S12; vS[3::4,0]=self.S11
+        return vS
 ...
