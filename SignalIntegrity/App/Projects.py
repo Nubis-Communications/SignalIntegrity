@@ -226,6 +226,8 @@ class Projects(tk.Frame):
             selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
             SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
             SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
+            SignalIntegrity.App.Project.dict['Variables']=selectedProject['Variables']
+            SignalIntegrity.App.Project.dict['Equations']=selectedProject['Equations']
             selectedPage=selectedProject['Pages'][selectedProject['Selected']]
             SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
             self.projectList[self.selectedProject].SelectProject()
@@ -267,6 +269,8 @@ class Projects(tk.Frame):
         selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
         selectedProject.dict['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
         selectedProject.dict['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
+        selectedProject.dict['Variables']=SignalIntegrity.App.Project['Variables']
+        selectedProject.dict['Equations']=SignalIntegrity.App.Project['Equations']
         selectedPage=selectedProject['Pages'][selectedProject['Selected']]
         selectedPage.dict['Drawing']=SignalIntegrity.App.Project['Drawing']
         self.selectedProject=tab
@@ -274,6 +278,8 @@ class Projects(tk.Frame):
         selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
         SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
         SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
+        SignalIntegrity.App.Project.dict['Variables']=selectedProject['Variables']
+        SignalIntegrity.App.Project.dict['Equations']=selectedProject['Equations']
         selectedPage=selectedProject['Pages'][selectedProject['Selected']]
         SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
         self.projectList[self.selectedProject].SelectProject()
