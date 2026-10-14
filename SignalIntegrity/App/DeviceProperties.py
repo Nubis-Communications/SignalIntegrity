@@ -86,6 +86,22 @@ def ViewableFileNameOfDevice(device):
             return filename
     return None
 
+def SubprojectTabNameOfDevice(device):
+    """the name of the in-file tab (sub-project) this device references, or None"""
+    try:
+        filetype=device['filetype']
+        subproject=device['subproject']
+    except (TypeError,ValueError,KeyError,AttributeError):
+        return None
+    if filetype is None or subproject is None:
+        return None
+    if filetype['Value'] != 'TabInCurrent':
+        return None
+    name=subproject['Value']
+    if name in [None,'']:
+        return None
+    return name
+
 def DeviceViewKind(device):
     """'file','waveform','noise' if this device has something viewable, or None"""
     if not ViewableFileNameOfDevice(device) is None:
@@ -527,13 +543,15 @@ class DeviceProperties(tk.Frame):
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
                 filename=self.device[fileTypeKeywords[0]]['Value']
+                if filename is None:
+                    filename=''
                 if (len(filename)>1) and (filename[0]=='='):
                     import SignalIntegrity.App.Project
                     if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
                         filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                         if filename == None:
                             filename=''
-                self.isAProjectDevice = filename.split('.')[-1]=='si'
+                self.isAProjectDevice = (filename.split('.')[-1]=='si') or (SubprojectTabNameOfDevice(self.device) is not None)
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -672,6 +690,7 @@ class DeviceProperties(tk.Frame):
             # the variables are passed into the script by name, as they are passed into a sub-project
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables')
             return
+        subproject=SubprojectTabNameOfDevice(self.device)
         if self.device['file'] != None:
             filename=self.device['file']['Value']
         elif self.device['wffile'] != None:
@@ -685,7 +704,8 @@ class DeviceProperties(tk.Frame):
                     filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                     if filename == None:
                         filename=''
-            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        if filename != None or subproject != None:
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename,subproject=subproject)
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(tk.ALL)
@@ -713,13 +733,15 @@ class DeviceProperties(tk.Frame):
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
                 filename=self.device[fileTypeKeywords[0]]['Value']
+                if filename is None:
+                    filename=''
                 if (len(filename)>1) and (filename[0]=='='):
                     import SignalIntegrity.App.Project
                     if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
                         filename = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])['Value']
                         if filename == None:
                             filename=''
-                self.isAProjectDevice = filename.split('.')[-1]=='si'
+                self.isAProjectDevice = (filename.split('.')[-1]=='si') or (SubprojectTabNameOfDevice(self.device) is not None)
             else:
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
