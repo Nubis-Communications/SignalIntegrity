@@ -607,6 +607,8 @@ class ProjectConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('Name','Main'))
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
+        self.SubDir(VariablesConfiguration())
+        self.SubDir(EquationsConfiguration())
         self.Add(XMLProperty('Pages',[PageConfiguration() for _ in range(0)],'array',arrayType=PageConfiguration()))
         self.Add(XMLPropertyDefaultInt('Selected',0))
 
@@ -637,6 +639,8 @@ class ProjectFile(ProjectFileBase):
         selected=self['Projects'][0]
         selected.dict['CalculationProperties']=self['CalculationProperties']
         selected.dict['PostProcessing']=self['PostProcessing']
+        selected.dict['Variables']=self['Variables']
+        selected.dict['Equations']=self['Equations']
         selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
         selected['Selected']=0
         selectedPage=selected['Pages'][0]
@@ -655,6 +659,8 @@ class ProjectFile(ProjectFileBase):
                 selected=self['Projects'][0]
                 selected.dict['CalculationProperties']=self['CalculationProperties']
                 selected.dict['PostProcessing']=self['PostProcessing']
+                selected.dict['Variables']=self['Variables']
+                selected.dict['Equations']=self['Equations']
                 selected.dict['Pages']=XMLProperty('Pages',[PageConfiguration()],'array',arrayType=PageConfiguration())
                 selected['Selected']=0
                 selectedPage=selected['Pages'][0]
@@ -672,9 +678,19 @@ class ProjectFile(ProjectFileBase):
                 selectedPage.dict['Drawing']=self['Drawing']
             else:
                 selected=self['Selected']
+                # backward compatibility: multi-project files written before
+                # Variables/Equations became per-project stored a single shared
+                # set at the top level.  Distribute a copy to every project so
+                # each tab starts with the same set it had before.
+                if len(self['Variables.Items'])>0 or len(self['Equations.Lines'])>0:
+                    for projectConfiguration in self['Projects']:
+                        projectConfiguration.dict['Variables']=copy.deepcopy(self['Variables'])
+                        projectConfiguration.dict['Equations']=copy.deepcopy(self['Equations'])
                 selectedProject=self['Projects'][selected]
                 self.dict['CalculationProperties']=selectedProject['CalculationProperties']
                 self.dict['PostProcessing']=selectedProject['PostProcessing']
+                self.dict['Variables']=selectedProject['Variables']
+                self.dict['Equations']=selectedProject['Equations']
                 selectedPage=selectedProject['Pages'][selectedProject['Selected']]
                 self.dict['Drawing']=selectedPage['Drawing']
         return self
@@ -694,12 +710,16 @@ class ProjectFile(ProjectFileBase):
         currentlySelectedProject=self['Projects'][self['Selected']]
         currentlySelectedProject.dict['CalculationProperties']=self['CalculationProperties']
         currentlySelectedProject.dict['PostProcessing']=self['PostProcessing']
+        currentlySelectedProject.dict['Variables']=self['Variables']
+        currentlySelectedProject.dict['Equations']=self['Equations']
         currentlySelectedPage=currentlySelectedProject['Pages'][currentlySelectedProject['Selected']]
         currentlySelectedPage.dict['Drawing']=self['Drawing']
         self['Selected']=selectIndex
         newlySelectedProject=self['Projects'][self['Selected']]
         self.dict['CalculationProperties']=newlySelectedProject['CalculationProperties']
         self.dict['PostProcessing']=newlySelectedProject['PostProcessing']
+        self.dict['Variables']=newlySelectedProject['Variables']
+        self.dict['Equations']=newlySelectedProject['Equations']
         newlySelectedPage=newlySelectedProject['Pages'][newlySelectedProject['Selected']]
         self.dict['Drawing']=newlySelectedPage['Drawing']
         return self
@@ -733,6 +753,8 @@ class ProjectFile(ProjectFileBase):
         selectedProject=self['Projects'][self['Selected']]
         selectedProject.dict['CalculationProperties']=self['CalculationProperties']
         selectedProject.dict['PostProcessing']=self['PostProcessing']
+        selectedProject.dict['Variables']=self['Variables']
+        selectedProject.dict['Equations']=self['Equations']
         selectedPage=selectedProject['Pages'][selectedProject['Selected']]
         selectedPage.dict['Drawing']=self['Drawing']
         if not filename is None:
@@ -740,6 +762,8 @@ class ProjectFile(ProjectFileBase):
             projectCopy=copy.deepcopy(self)
             del projectCopy.dict['CalculationProperties']
             del projectCopy.dict['PostProcessing']
+            del projectCopy.dict['Variables']
+            del projectCopy.dict['Equations']
             del projectCopy.dict['Drawing']
             # Now, after all of this, decide whether we want to save in legacy format
             legacyFormat=True
@@ -758,6 +782,8 @@ class ProjectFile(ProjectFileBase):
             if legacyFormat:
                 projectCopy.dict['CalculationProperties']=self['Projects'][0]['CalculationProperties']
                 projectCopy.dict['PostProcessing']=self['Projects'][0]['PostProcessing']
+                projectCopy.dict['Variables']=self['Projects'][0]['Variables']
+                projectCopy.dict['Equations']=self['Projects'][0]['Equations']
                 projectCopy.dict['Drawing']=self['Projects'][0]['Pages'][0]['Drawing']
                 for device in self['Drawing.Schematic.Devices']:
                     for prop in device['PartProperties']:
