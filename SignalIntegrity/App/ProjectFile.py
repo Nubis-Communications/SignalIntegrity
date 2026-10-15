@@ -696,7 +696,7 @@ class ProjectFile(ProjectFileBase):
         return self
 
     def Select(self,subProjectName):
-        if subProjectName in [None,'']:
+        if subProjectName in [None,'','None']:
             return self
         selectIndex=None
         for p in range(len(self['Projects'])):
