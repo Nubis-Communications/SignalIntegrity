@@ -40,18 +40,21 @@ class SParameters(SParameterManipulation):
                 ph=cmath.phase(val)
                 if ph == -math.pi: ph=math.pi
                 return ph
+            def fmt(value):
+                r=round(value,digits)
+                return str(r)
             for r in range(self.m_P):
                 for c in range(self.m_P):
                     val = mat[r][c]
                     if cpxType == 'MA':
-                        line.append(str(round(abs(val),digits)))
-                        line.append(str(round(phase(val)*180./math.pi,digits)))
+                        line.append(fmt(abs(val)))
+                        line.append(fmt(phase(val)*180./math.pi))
                     elif cpxType == 'RI':
-                        line.append(str(round(val.real,digits)))
-                        line.append(str(round(val.imag,digits)))
+                        line.append(fmt(val.real))
+                        line.append(fmt(val.imag))
                     elif cpxType == 'DB':
-                        line.append(str(round(20*math.log10(abs(val)),digits)))
-                        line.append(str(round(phase(val)*180./math.pi,digits)))
+                        line.append(fmt(20*math.log10(abs(val))))
+                        line.append(fmt(phase(val)*180./math.pi))
             pline = ' '.join(line)+'\n'
             lines.append(pline)
         return lines
