@@ -81,7 +81,9 @@ def ViewableFileNameOfDevice(device):
     for partProperty in propertiesList:
         if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'filename'):
             filename=partProperty.GetValue()
-            if filename in [None,'']:
+            # 'None' is the sentinel stored for devices that reference an in-file tab
+            # rather than a file on disk; those are viewed as sub-projects, not files
+            if filename in [None,'','None']:
                 return None
             return filename
     return None
@@ -141,6 +143,8 @@ def DeviceViewMenuActions(device):
         actions.append(('View Waveform','waveform'))
     elif kind == 'noise':
         actions.append(('View Noise','noise'))
+    if kind != 'file' and not SubprojectTabNameOfDevice(device) is None:
+        actions.append(('View','subproject'))
     if not WaveformProjectFileNameOfDevice(device) is None:
         actions.append(('Open Project','openproject'))
     return actions
@@ -153,8 +157,39 @@ def PerformDeviceViewAction(app,device,action):
         ViewDeviceWaveform(app,device)
     elif action == 'noise':
         ViewDeviceNoise(app,device)
+    elif action == 'subproject':
+        ViewDeviceSubproject(app,device)
     elif action == 'openproject':
         OpenDeviceWaveformProject(app,device)
+
+def ViewDeviceSubproject(app,device):
+    """selects the in-file tab (sub-project) this device references in the current window,
+    passing in the device's variables (and the parent calculation properties when the device
+    uses them) and evaluating the tab's equations, so it looks and behaves like the sub-project
+    as computed - just with its tab selected."""
+    import SignalIntegrity.App.Project
+    tabname=SubprojectTabNameOfDevice(device)
+    if tabname is None:
+        return
+    names=[project['Name'] for project in SignalIntegrity.App.Project['Projects']]
+    if tabname not in names:
+        messagebox.showerror('Subproject','subproject tab "'+str(tabname)+'" not found')
+        return
+    # resolve the arguments in the current (parent) context before switching tabs
+    args=SignalIntegrity.App.Project['Variables'].Dictionary(device.variablesList)
+    try:
+        useCalculationProperties=(device['calcprop']['Value'] == 'true')
+    except TypeError:
+        useCalculationProperties=False
+    if useCalculationProperties:
+        args.update(SignalIntegrity.App.Project['CalculationProperties'].Dictionary())
+    index=names.index(tabname)
+    app.InternalProjects.tabControl.select(index)
+    app.InternalProjects.SelectTab(index)
+    app.SetVariables(args)
+    # DrawSchematic re-evaluates the tab's equations and refreshes the variable display
+    app.Drawing.DrawSchematic()
+    app.history.Event('view subproject tab')
 
 def OpenDeviceWaveformProject(app,device):
     """opens the sub-project used to generate this device's waveform in a new instance of the app"""
@@ -292,6 +327,9 @@ class DeviceProperty(tk.Frame):
                 # self.propertyFileCalcButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
                 self.propertyFileViewButton = tk.Button(self,text='view',command=self.onFileView)
                 self.propertyFileViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        elif self.partProperty['PropertyName'] == 'subproject' and not SubprojectTabNameOfDevice(self.device) is None:
+            self.propertySubprojectViewButton = tk.Button(self,text='view',command=self.onSubprojectView)
+            self.propertySubprojectViewButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
     def onFileBrowse(self):
         # this is a seemingly ugly workaround
@@ -429,6 +467,14 @@ class DeviceProperty(tk.Frame):
                     return
                 else:
                     self.parent.parent.parent.ViewCalibration(calibration)
+
+    def onSubprojectView(self):
+        self.parentFrame.focus()
+        app=self.parent.parent.parent
+        device=self.device
+        # close the (modal) properties dialog so the selected sub-project tab is visible
+        self.parent.parent.cancel()
+        ViewDeviceSubproject(app,device)
 
     def onFileCalc(self):
         device=self.parent.device
