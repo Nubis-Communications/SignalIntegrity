@@ -209,6 +209,7 @@ class Projects(tk.Frame):
         active_tab = self.tabControl.index(self.tabControl.select())
         SignalIntegrity.App.Project['Selected']=active_tab
         self.selectedProject=active_tab
+        SignalIntegrity.App.Project._LoadTabIntoWork(active_tab)
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
         self.Drawing().stateMachine.Nothing()
@@ -223,13 +224,7 @@ class Projects(tk.Frame):
             if SignalIntegrity.App.Project['Selected']>=len(SignalIntegrity.App.Project['Projects']):
                 SignalIntegrity.App.Project['Selected']=len(SignalIntegrity.App.Project['Projects'])-1
                 self.selectedProject=SignalIntegrity.App.Project['Selected']
-            selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-            SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
-            SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
-            SignalIntegrity.App.Project.dict['Variables']=selectedProject['Variables']
-            SignalIntegrity.App.Project.dict['Equations']=selectedProject['Equations']
-            selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-            SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+            SignalIntegrity.App.Project._LoadTabIntoWork(SignalIntegrity.App.Project['Selected'])
             self.projectList[self.selectedProject].SelectProject()
             active_tab = self.tabControl.index(self.tabControl.select())
             self.tabControl.forget(active_tab)
@@ -266,22 +261,13 @@ class Projects(tk.Frame):
             return
         self.SelectTab(clicked_tab)
     def SelectTab(self,tab):
-        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-        selectedProject.dict['CalculationProperties']=SignalIntegrity.App.Project['CalculationProperties']
-        selectedProject.dict['PostProcessing']=SignalIntegrity.App.Project['PostProcessing']
-        selectedProject.dict['Variables']=SignalIntegrity.App.Project['Variables']
-        selectedProject.dict['Equations']=SignalIntegrity.App.Project['Equations']
-        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        selectedPage.dict['Drawing']=SignalIntegrity.App.Project['Drawing']
+        # record the leaving tab's edited state so undo can return here; switching tabs does
+        # not persist edits (only an explicit save does), so there is no write-back into the
+        # leaving tab, and the entered tab is loaded as a fresh copy of its stored state
+        self.root.history.Event('switch tab')
         self.selectedProject=tab
         SignalIntegrity.App.Project['Selected']=self.selectedProject
-        selectedProject=SignalIntegrity.App.Project['Projects'][SignalIntegrity.App.Project['Selected']]
-        SignalIntegrity.App.Project.dict['CalculationProperties']=selectedProject['CalculationProperties']
-        SignalIntegrity.App.Project.dict['PostProcessing']=selectedProject['PostProcessing']
-        SignalIntegrity.App.Project.dict['Variables']=selectedProject['Variables']
-        SignalIntegrity.App.Project.dict['Equations']=selectedProject['Equations']
-        selectedPage=selectedProject['Pages'][selectedProject['Selected']]
-        SignalIntegrity.App.Project.dict['Drawing']=selectedPage['Drawing']
+        SignalIntegrity.App.Project._LoadTabIntoWork(self.selectedProject)
         self.projectList[self.selectedProject].SelectProject()
         self.Drawing().InitFromProject()
         self.Drawing().stateMachine.Nothing()
