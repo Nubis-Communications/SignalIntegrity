@@ -40,13 +40,12 @@ class PolePairMagnitude(object):
     """
         pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = α/(γ+jδ)
     """
-    def __init__(self,ω,ωp,Qp):
+    def __init__(self,ω,ωp,Qp,compute_derivatives=True):
         self.ω=ω
         self.ωp=ωp
         self.Qp=Qp
         ω2=ω*ω
         ωp2=ωp*ωp
-        Qp2=Qp*Qp
         α=ωp2
         γ=ωp2-ω2
         δ=ωp/Qp*ω
@@ -56,6 +55,13 @@ class PolePairMagnitude(object):
         αγ=α*γ
         αδ=α*δ
         self.H=np.sqrt(αγ*αγ+αδ*αδ)/γ2pδ2       # H(ω)
+        self._α=α; self._αγ=αγ; self._αδ=αδ; self._γ2pδ2=γ2pδ2
+        if compute_derivatives:
+            self.ComputeDerivatives()
+    def ComputeDerivatives(self):
+        ω=self.ω; ωp=self.ωp; Qp=self.Qp
+        Qp2=Qp*Qp
+        α=self._α; αγ=self._αγ; αδ=self._αδ; γ2pδ2=self._γ2pδ2
         pαpωp=2*ωp                              # ∂α/∂ωp
         #pαpQp=0                                 # ∂α/∂Qp
         pγpωp=2*ωp                              # ∂γ/∂ωp
@@ -66,10 +72,9 @@ class PolePairMagnitude(object):
         γ2pδ2_2=γ2pδ2*γ2pδ2
         self.pHpω0= α*(γ2pδ2*pαpωp-αγ*pγpωp-αδ*pδpωp)/(self.H*γ2pδ2_2)      # ∂H/∂ωp
         self.pHpQ=  α*(                    -αδ*pδpQp)/(self.H*γ2pδ2_2)      # ∂H/∂Qp
-        pass
 
 class ZeroPairMagnitude(object):
-    def __init__(self,ω,ωz,Qz):
+    def __init__(self,ω,ωz,Qz,compute_derivatives=True):
         """
             zero pair expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/ωz^2 = (α+jβ)/γ
         """
@@ -78,19 +83,25 @@ class ZeroPairMagnitude(object):
         self.Qz=Qz
         ωz2=ωz*ωz
         ω2=ω*ω
-        Qz2=Qz*Qz
         α=ωz2-ω2
         α2=α*α
         β=ω*ωz/Qz
         β2=β*β
         γ=ωz2
+
+        α2pβ2=α2+β2
+        self.H=np.sqrt(α2pβ2)/γ                 # |H(ω)|
+        self._α=α; self._β=β; self._γ=γ; self._α2pβ2=α2pβ2
+        if compute_derivatives:
+            self.ComputeDerivatives()
+    def ComputeDerivatives(self):
+        ω=self.ω; ωz=self.ωz; Qz=self.Qz
+        Qz2=Qz*Qz
+        α=self._α; β=self._β; γ=self._γ; α2pβ2=self._α2pβ2
         γ2=γ*γ
         γ3=γ2*γ
         αγ=α*γ
         βγ=β*γ
-
-        α2pβ2=α2+β2
-        self.H=np.sqrt(α2pβ2)/γ                 # |H(ω)|
 
         pαpωz=2*ωz                              # ∂α/∂ωz
         #pαpQz=0                                 # ∂α/∂Qz
@@ -101,7 +112,6 @@ class ZeroPairMagnitude(object):
 
         self.pHpω0= (αγ*pαpωz+βγ*pβpωz-α2pβ2*pγpωz)/(self.H*γ3)         # ∂H/∂ωz
         self.pHpQ=  (         βγ*pβpQz            )/(self.H*γ3)         # ∂H/∂Qz
-        pass
 
 class TransferFunctionOneFrequencyMagnitude(object):
     def __init__(self,
@@ -179,30 +189,37 @@ class TransferFunctionMagnitudeVectorized(object):
         Gain G and time delay Td followed by two variables per pole/zero pair
         of ωz, Qz or ωp, and Qp
         """
-        self.ω_list = np.array(ω_list)
+        self.ω_list = np.asarray(ω_list)
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
         self.gain = GainMagnitude(self.ω_list,self.variable_list[0],fix_gain)
         self.delay = DelayMagnitude(self.ω_list,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairMagnitude(self.ω_list,
                                         self.variable_list[s*2+2+0], # ωz
-                                        self.variable_list[s*2+2+1]) # Qz
+                                        self.variable_list[s*2+2+1], # Qz
+                                        compute_derivatives=False)
                                 for s in range(num_zero_pairs)]
         self.section_list.extend([PolePairMagnitude(self.ω_list,
                                         self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
-                                        self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
+                                        self.variable_list[(s+num_zero_pairs)*2+2+1],   # Qp
+                                        compute_derivatives=False)
                                 for s in range(num_pole_pairs)])
 
         self.H=self.gain.H*self.delay.H*math.prod([self.section_list[s].H for s in range(len(self.section_list))])
-        self.pd=[]
-        self.pd.append(self.gain.pHpG/self.gain.H*self.H)
-        self.pd.append(self.delay.pHpTd/self.delay.H*self.H)
-        for section in self.section_list:
-            this_pd=[]
-            this_pd.append(section.pHpω0/section.H*self.H)
-            this_pd.append(section.pHpQ/section.H*self.H)
-            self.pd.extend(this_pd)
-        self.fF=self.H.tolist()
-        self.fJ=np.array(self.pd).T.tolist()
+        self.fF=self.H.reshape(-1,1)
+        self._fJ=None
+    @property
+    def fJ(self):
+        # the Jacobian is only needed at accepted points, so compute it lazily
+        if self._fJ is None:
+            self.pd=[]
+            self.pd.append(self.gain.pHpG/self.gain.H*self.H)
+            self.pd.append(self.delay.pHpTd/self.delay.H*self.H)
+            for section in self.section_list:
+                section.ComputeDerivatives()
+                self.pd.append(section.pHpω0/section.H*self.H)
+                self.pd.append(section.pHpQ/section.H*self.H)
+            self._fJ=np.array(self.pd).T
+        return self._fJ
 
 if __name__ == '__main__': # pragma: no cover
     #o=BiquadSection(0.147,0.989,0.119,0.602,0.532)

@@ -37,7 +37,7 @@ class DelayComplex(object):
         self.pHpTd=10000 if fix_delay else -1j*ω*self.H
 
 class PolePairComplex(object):
-    def __init__(self,ω,ωp,Qp):
+    def __init__(self,ω,ωp,Qp,compute_derivatives=True):
         """
             pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = (α+jβ)/(γ+jδ)
         """
@@ -46,14 +46,20 @@ class PolePairComplex(object):
         self.Qp=Qp
         ω2=ω*ω
         ωp2=ωp*ωp
-        Qp2=Qp*Qp
         α=ωp2
         β=0
         γ=ωp2-ω2
         δ=ωp/Qp*ω
+        self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
+        self._α=α; self._γ=γ; self._δ=δ
+        if compute_derivatives:
+            self.ComputeDerivatives()
+    def ComputeDerivatives(self):
+        ω=self.ω; ωp=self.ωp; Qp=self.Qp
+        Qp2=Qp*Qp
+        α=self._α; γ=self._γ; δ=self._δ
         γ2=γ*γ
         δ2=δ*δ
-        self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
         pαpωp=2*ωp                              # ∂α/∂ωp
         #pαpQp=0                                 # ∂α/∂Qp
         #pβpωp=0                                 # ∂β/∂ωp
@@ -82,7 +88,7 @@ class PolePairComplex(object):
         self.pHpQ=RepHpQp+1j*ImpHpQp            # ∂H/∂Qp
 
 class ZeroPairComplex(object):
-    def __init__(self,ω,ωz,Qz):
+    def __init__(self,ω,ωz,Qz,compute_derivatives=True):
         """
             zero pair expressed as H(s) = (s^2+ωz/Qz*s+ωz^2)/ωz^2 = (α+jβ)/(γ+jδ)
         """
@@ -91,13 +97,19 @@ class ZeroPairComplex(object):
         self.Qz=Qz
         ωz2=ωz*ωz
         ω2=ω*ω
-        Qz2=Qz*Qz
         α=ωz2-ω2
         β=ω*ωz/Qz
         γ=ωz2
         δ=0
-        γ2=γ*γ
         self.H=(α+1j*β)/(γ+1j*δ)                # H(ω)
+        self._α=α; self._β=β; self._γ=γ
+        if compute_derivatives:
+            self.ComputeDerivatives()
+    def ComputeDerivatives(self):
+        ω=self.ω; ωz=self.ωz; Qz=self.Qz
+        Qz2=Qz*Qz
+        α=self._α; β=self._β; γ=self._γ
+        γ2=γ*γ
         pαpωz=2*ωz                              # ∂α/∂ωz
         #pαpQz=0                                 # ∂α/∂Qz
         pβpωz=ω/Qz                              # ∂β/∂ωz
@@ -199,30 +211,37 @@ class TransferFunctionComplexVectorized(object):
         Gain G and time delay Td followed by two variables per pole/zero pair
         of ωz, Qz or ωp, and Qp
         """
-        self.ω_list = np.array(ω_list)
+        self.ω_list = np.asarray(ω_list)
         self.variable_list = variable_list.reshape(variable_list.shape[0],)
         self.gain = GainComplex(self.ω_list,self.variable_list[0],fix_gain)
         self.delay = DelayComplex(self.ω_list,self.variable_list[1],fix_delay)
         self.section_list = [ZeroPairComplex(self.ω_list,
                                         self.variable_list[s*2+2+0], # ωz
-                                        self.variable_list[s*2+2+1]) # Qz
+                                        self.variable_list[s*2+2+1], # Qz
+                                        compute_derivatives=False)
                                 for s in range(num_zero_pairs)]
         self.section_list.extend([PolePairComplex(self.ω_list,
                                         self.variable_list[(s+num_zero_pairs)*2+2+0],  # ωp
-                                        self.variable_list[(s+num_zero_pairs)*2+2+1])   # Qp
+                                        self.variable_list[(s+num_zero_pairs)*2+2+1],   # Qp
+                                        compute_derivatives=False)
                                 for s in range(num_pole_pairs)])
 
         self.H=self.gain.H*self.delay.H*math.prod([self.section_list[s].H for s in range(len(self.section_list))])
-        self.pd=[]
-        self.pd.append(self.gain.pHpG/self.gain.H*self.H)
-        self.pd.append(self.delay.pHpTd/self.delay.H*self.H)
-        for section in self.section_list:
-            this_pd=[]
-            this_pd.append(section.pHpω0/section.H*self.H)
-            this_pd.append(section.pHpQ/section.H*self.H)
-            self.pd.extend(this_pd)
-        self.fF=self.H.tolist()
-        self.fJ=np.array(self.pd).T.tolist()
+        self.fF=self.H.reshape(-1,1)
+        self._fJ=None
+    @property
+    def fJ(self):
+        # the Jacobian is only needed at accepted points, so compute it lazily
+        if self._fJ is None:
+            self.pd=[]
+            self.pd.append(self.gain.pHpG/self.gain.H*self.H)
+            self.pd.append(self.delay.pHpTd/self.delay.H*self.H)
+            for section in self.section_list:
+                section.ComputeDerivatives()
+                self.pd.append(section.pHpω0/section.H*self.H)
+                self.pd.append(section.pHpQ/section.H*self.H)
+            self._fJ=np.array(self.pd).T
+        return self._fJ
 
 
 if __name__ == '__main__': # pragma: no cover
