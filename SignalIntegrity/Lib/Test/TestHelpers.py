@@ -34,7 +34,14 @@ def CopyToBook(filename):
     src=os.path.abspath(filename)
     bookdir=os.path.join(os.path.dirname(src),'..','Book')
     os.makedirs(bookdir,exist_ok=True)
-    shutil.copy2(src,os.path.join(bookdir,os.path.basename(filename)))
+    dst=os.path.join(bookdir,os.path.basename(filename))
+    if os.path.exists(dst) and os.path.splitext(filename)[1].lower()=='.tex':
+        with open(src,'rb') as source, open(dst,'rb') as target:
+            sourceText=source.read().replace(b'\r\n',b'\n').replace(b'\r',b'\n')
+            targetText=target.read().replace(b'\r\n',b'\n').replace(b'\r',b'\n')
+        if sourceText==targetText:
+            return
+    shutil.copy2(src,dst)
 
 
 def PlotTikZ(filename,plot2save,scale=None):
@@ -443,6 +450,5 @@ class DocStripped(object):
         return len(self.doc)
     def __getitem__(self,item):
         return self.doc[item]
-
 
 
