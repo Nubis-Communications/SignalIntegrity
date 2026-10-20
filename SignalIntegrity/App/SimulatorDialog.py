@@ -39,6 +39,7 @@ class SimulatorDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent.parent)
         self.parent=parent
+        self.displayScale=getattr(parent.parent,'displayScale',1.0)
         self.withdraw()
         self.title('Simulation')
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
@@ -136,12 +137,13 @@ class SimulatorDialog(tk.Toplevel):
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
-        self.statusbar=StatusBar(self)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale)
         self.statusbar.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         labelFrame = tk.Frame(self)
         labelFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.plotLabel = tk.Label(labelFrame,fg='black')
-        self.plotLabel.pack(fill=tk.X)
+        plotLabelPadding=round(3*self.displayScale) if self.displayScale > 1.0 else 0
+        self.plotLabel.pack(fill=tk.X,pady=plotLabelPadding)
 
         plotWidth=SignalIntegrity.App.Preferences['Appearance.PlotWidth']
         plotHeight=SignalIntegrity.App.Preferences['Appearance.PlotHeight']
