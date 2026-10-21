@@ -40,6 +40,7 @@ class MultiLevelWaveform(Waveform):
         """
         symbols=int(math.ceil(td.Duration()*baudrate)); levels=pow(2,bitsPerSymbol)
         pattern=PseudoRandomPolynomial(polynomial).Pattern(symbols*bitsPerSymbol) if isinstance(polynomial,int) else polynomial
-        wf=sum([SerialDataWaveform([pattern[(i*bitsPerSymbol+k)%(len(pattern))] for i in range(symbols)],
-                baudrate,pow(2.,(bitsPerSymbol-k-1.))/(levels-1)*amplitude,risetime,delay,td) for k in range(bitsPerSymbol)])
-        Waveform.__init__(self,wf)
+        patterns=[[pattern[(i*bitsPerSymbol+k)%(len(pattern))] for i in range(symbols)] for k in range(bitsPerSymbol)]
+        amplitudes=[pow(2.,(bitsPerSymbol-k-1.))/(levels-1)*amplitude for k in range(bitsPerSymbol)]
+        v=SerialDataWaveform._Render(td,baudrate,patterns,amplitudes,risetime,delay)
+        Waveform.__init__(self,Waveform(td,v))

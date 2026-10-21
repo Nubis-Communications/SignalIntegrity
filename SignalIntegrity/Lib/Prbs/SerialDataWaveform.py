@@ -19,6 +19,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import math
+import numpy as np
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial import PseudoRandomPolynomial
@@ -55,42 +56,63 @@ class SerialDataWaveform(Waveform):
             td=self.TimeDescriptor(bitRate, sampleRate, len(pattern))
         else:
             td=tdOrFs
-        T=max(risetime/self.rtvsT,1/td.Fs)
-        patternTimeLength=len(pattern)/bitRate
+        v=SerialDataWaveform._Render(td,bitRate,[pattern],[amplitude],risetime,delay)
+        Waveform.__init__(self,Waveform(td,v))
+    @staticmethod
+    def _Render(td,bitRate,patterns,amplitudes,risetime,delay):
+        """vectorized serial-data renderer
+        @param td instance of TimeDescriptor for the output waveform.
+        @param bitRate float bit (symbol) rate.
+        @param patterns list of equal-length binary patterns (one per bit position).
+        @param amplitudes list of float amplitudes, one for each pattern.
+        @param risetime float risetime of a 1/2 cosine response.
+        @param delay float delay in time into the pattern.
+        @return list of float sample values equal to the sum of the serial-data
+        waveforms for each (pattern,amplitude) pair.
+        @throw SignalIntegrityExceptionWaveform if the risetime exceeds the unit interval.
+        @note this reproduces the per-bit SerialDataWaveform algorithm exactly while
+        computing the shared sample geometry only once.  Multi-level waveforms are the
+        sum of several single-bit waveforms, so rendering them in a single pass (rather
+        than building and summing a separate waveform per bit) is what makes them fast.
+        """
+        N=len(td)
         unitInterval=1./bitRate
-
         if td.Fs == bitRate and risetime == 0.:
-            Waveform.__init__(self,Waveform(td,[2.*amplitude*(pattern[v]-0.5) for v in range(len(td))]))
-            return
-
+            acc=np.zeros(N)
+            for pattern,amplitude in zip(patterns,amplitudes):
+                acc=acc+2.*amplitude*(np.asarray(pattern,dtype=float)-0.5)
+            return acc.tolist()
+        T=max(risetime/SerialDataWaveform.rtvsT,1/td.Fs)
         if T>unitInterval:
             # todo: would like to handle this case in the future
             raise SignalIntegrityExceptionWaveform('PRBS risetime too high\nfor waveform generation. '+\
-                   'Limit is '+ToSI(unitInterval*self.rtvsT,'s')+' for given bitrate')
-        v=[0. for _ in range(len(td))]
-        for k in range(len(td)):
-            t=td[k]
-            timeInPattern=((t-delay)%patternTimeLength+patternTimeLength)%patternTimeLength
-            thisBit=int(math.floor(timeInPattern/unitInterval))
-            timeInBit=timeInPattern-thisBit*unitInterval
-            thisBitValue=pattern[thisBit]
-            if timeInBit>=T/2. and (timeInBit-unitInterval)<=-T/2.:
-                v[k]=2.*amplitude*(thisBitValue-0.5)
-            elif timeInBit<T/2.:
-                previousBit=(thisBit-1+len(pattern))%len(pattern)
-                previousBitTransition=thisBitValue-pattern[previousBit]
-                if previousBitTransition==0:
-                    v[k]=2.*amplitude*(thisBitValue-0.5)
-                else:
-                    v[k]=amplitude*previousBitTransition*math.cos(math.pi*(timeInBit/T+3./2.))
-            elif (timeInBit-unitInterval)>-T/2.:
-                nextBit=(thisBit+1)%len(pattern)
-                nextBitTransition=pattern[nextBit]-thisBitValue
-                if nextBitTransition==0:
-                    v[k]=2.*amplitude*(thisBitValue-0.5)
-                else:
-                    v[k]=amplitude*nextBitTransition*math.cos(math.pi*((timeInBit-unitInterval)/T+3./2.))
-        Waveform.__init__(self,Waveform(td,v))
+                   'Limit is '+ToSI(unitInterval*SerialDataWaveform.rtvsT,'s')+' for given bitrate')
+        patternLength=len(patterns[0])
+        patternTimeLength=patternLength*unitInterval
+        t=np.arange(N)/td.Fs+td.H
+        timeInPattern=np.mod(np.mod(t-delay,patternTimeLength)+patternTimeLength,patternTimeLength)
+        thisBit=np.floor(timeInPattern/unitInterval).astype(np.int64)
+        np.clip(thisBit,0,patternLength-1,out=thisBit)
+        timeInBit=timeInPattern-thisBit*unitInterval
+        risingEdge=timeInBit<T/2.
+        fallingEdge=(timeInBit-unitInterval)>-T/2.
+        previousBit=(thisBit-1)%patternLength
+        nextBit=(thisBit+1)%patternLength
+        cosRising=np.cos(np.pi*(timeInBit/T+3./2.))
+        cosFalling=np.cos(np.pi*((timeInBit-unitInterval)/T+3./2.))
+        acc=np.zeros(N)
+        for pattern,amplitude in zip(patterns,amplitudes):
+            p=np.asarray(pattern,dtype=float)
+            thisBitValue=p[thisBit]
+            v=2.*amplitude*(thisBitValue-0.5)
+            previousBitTransition=thisBitValue-p[previousBit]
+            v=np.where(risingEdge & (previousBitTransition!=0.),
+                       amplitude*previousBitTransition*cosRising,v)
+            nextBitTransition=p[nextBit]-thisBitValue
+            v=np.where(fallingEdge & (nextBitTransition!=0.),
+                       amplitude*nextBitTransition*cosFalling,v)
+            acc=acc+v
+        return acc.tolist()
     @staticmethod
     def TimeDescriptor(bitRate,sampleRate,patternLength):
         timeLength=patternLength/bitRate
