@@ -94,10 +94,6 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         6.  Annotations
         7.  CreateImage
         """
-    # Optional override (in points) for the maximum upsampled segment size used by the segmented
-    # waveform upsampling in the constructor.  When None, 1/10 of Waveform.maximumWaveformSize is
-    # used.  Exposed primarily so tests can force segmentation on modestly sized waveforms.
-    SegmentChunkSize=None
     def HashValue(self,stuffToHash=''):
         """Generates the hash for a definition.  
         It is formed by hashing the bitmap definition with whatever else is hashed.
@@ -110,7 +106,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
                     repr(self.EnhancementSteps)+repr(self.Levels)+repr(self.recover_clock)+\
-                    repr(self.clock_recovery_trim_left_right)+repr('aprbswf-streamed-v1')
+                    repr(self.clock_recovery_trim_left_right)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
 
     def __init__(self,callback=None,
@@ -210,7 +206,6 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.measDict=None
         self.annotationBitmap=None
         self.img=None
-        self.segmented=False
 
         if recover_clock:
             from SignalIntegrity.Lib.Eye import ClockRecoveredWaveform
@@ -232,18 +227,15 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         Fs=BaudRate*C
         UpsampleFactor=Fs/prbswf.td.Fs
 
-        # The eye y-axis extents only need bitmap-row resolution (every downstream measurement is taken
-        # off the bitmap), so for Auto mode they come from the original waveform samples plus a 10%
-        # margin.  This, together with the chunked rendering below, means the fully upsampled waveform is
-        # never held in memory -- only one segment at a time.
-        bigTd=TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs)
-        from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
-        chunkUpsampledMax=Waveform.maximumWaveformSize/10 if self.SegmentChunkSize is None else self.SegmentChunkSize
-        self.segmented=(UpsampleFactor>1) and (prbswf.td.K*UpsampleFactor>chunkUpsampledMax)
+        # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there
+        # is the assumption that there is a point at exactly time zero, and that is the center of the unit interval.
+        # the amount of points to remove is trimmed from the left to make the very first sample at the center of a unit interval.
+        self.aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
+        self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
 
         if YAxisMode=='Auto':
-            maxV=max(prbswf.Values())
-            minV=min(prbswf.Values())
+            maxV=max(self.aprbswf.Values())
+            minV=min(self.aprbswf.Values())
             self.maxV=maxV+abs(maxV-minV)*.1
             self.minV=minV-abs(maxV-minV)*.1
         else:
@@ -253,105 +245,30 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         DeltaV=self.maxV-self.minV
         midBin=C//2
 
-        if EnhancementMode=='Fixed':
-            base=EnhancementSteps      # Pixelator.step: fixed sub-steps
-        elif EnhancementMode=='Auto':
-            base=R                     # up to R sub-steps, chosen per segment
+        enhancementMode=EnhancementMode
+        if enhancementMode=='Fixed':
+            steps=EnhancementSteps
+        elif enhancementMode=='Auto':
+            steps=R
         else:
-            base=1
-        inv_base=1.0/base
+            steps=1
 
-        # Accumulate the eye bitmap one upsampled segment at a time.  Each segment is upsampled (with
-        # guard samples that absorb the interpolation filter startup -- see _UpsampledChunks), splatted,
-        # and discarded.  Consecutive segments share one carried sample so the pair straddling a segment
-        # boundary is splatted exactly once, reproducing a contiguous accumulation.  The first segment is
-        # left-trimmed so its first sample lands at the center of a unit interval.
+        # Vectorized bitmap rendering.  This reproduces, exactly, the original
+        # per-sample loop over Pixelator.Results()/Hits() -- bilinear splat of
+        # each (row,column) sample into the eye bitmap with optional sub-step
+        # interpolation to fill vertical gaps -- but with NumPy scatter-adds
+        # instead of ~2 Python calls per sample.  See the Pixelator class for the
+        # scalar reference implementation.
         bitmap=np.zeros((R,C))
-        bigK=int(bigTd.K)
-        gk=0                   # global index of the next new upsampled sample
-        carry=None             # last value of the previous segment, bridging the boundary
-        firstChunkH=None
-        TL=0
-        for chunk in self._UpsampledChunks(prbswf,bigTd,UpsampleFactor,int(chunkUpsampledMax)):
-            cv=np.asarray(chunk.Values(),dtype=float)
-            if firstChunkH is None:
-                firstChunkH=chunk.td.H
-                TL=max(0,C-int(round((firstChunkH-math.floor(firstChunkH/UI)*UI)*Fs)))
-                cv=cv[TL:]
-            if carry is None:
-                startIndex=gk
-                newCount=len(cv)
-            else:
-                cv=np.concatenate(([carry],cv))
-                startIndex=gk-1
-                newCount=len(cv)-1
-            if len(cv)>=2:
-                self._SplatChunk(bitmap,cv,startIndex,R,C,midBin,self.minV,DeltaV,base,inv_base,EnhancementMode)
-            gk+=newCount
-            if len(cv)>0:
-                carry=cv[-1]
-            if (not callback is None):
-                if not callback(min(100.,100.*gk/max(1,bigK-TL))):
-                    return
-
-        self.rawBitmap=bitmap/np.sum(bitmap)*C
-
-        for c in range(C):
-            self.rawBitmap[:,c]=self.rawBitmap[:,c]/sum(self.rawBitmap[:,c])
-
-        # sampledWf: the original waveform resampled to one point per unit interval at the eye center
-        # (default/unaligned phase here; AutoAlign recomputes it at the aligned phase).  Resampling the
-        # original directly avoids ever decimating a huge upsampled waveform.
-        self._alignH0=firstChunkH+TL/Fs
-        self._Nui=gk//C
-        self.sampledWf=prbswf.Adapt(TimeDescriptor(self._alignH0,self._Nui,self.BaudRate))
-
-        self.CacheResult()
-
-    def _UpsampledChunks(self,wf,bigTd,UpsampleFactor,chunkUpsampledMax):
-        """Yield the upsampled waveform to bigTd one memory-bounded segment at a time.
-        Each yielded segment is a piece of the waveform that wf.Adapt(bigTd) would produce, upsampled on
-        its own with `guard` input samples of context on each side so the sinx/x interpolation and
-        fractional delay filters trim cleanly; the guard is exactly what Adapt discards as startup, so
-        consecutive segments tile the target grid seamlessly.  The non-segmented case yields a single
-        segment equal to wf.Adapt(bigTd).  The fully upsampled waveform is never assembled.
-        @param wf instance of class Waveform to upsample.
-        @param bigTd instance of class TimeDescriptor of the full upsampled grid.
-        @param UpsampleFactor float ratio bigTd.Fs/wf.td.Fs.
-        @param chunkUpsampledMax int maximum number of upsampled points produced per segment.
-        """
-        from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
-        from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
-        if not self.segmented:
-            yield wf.Adapt(bigTd)
-            return
-        from SignalIntegrity.Lib.TimeDomain.Filters.InterpolatorSinX import InterpolatorSinX,FractionalDelayFilterSinX
-        H0=wf.td.H; Fs0=wf.td.Fs; K0=wf.td.K; Fs=bigTd.Fs
-        bigK=int(bigTd.K); U=UpsampleFactor
-        # one-sided input support of the interpolation (S input samples) and fractional delay
-        # (S upsampled samples) filters, with margin, so Adapt has enough context to trim cleanly.
-        guard=InterpolatorSinX.S+FractionalDelayFilterSinX.S+4
-        # leave headroom so each guarded segment's own upsample stays under the maximum waveform size.
-        chunkLen=max(1,int(chunkUpsampledMax)-2*guard*int(math.ceil(U)))
-        srcVals=wf.Values()
-        j0=0
-        while j0<bigK:
-            j1=min(j0+chunkLen,bigK)
-            a0=max(0,int(math.floor(j0/U))-guard)
-            a1=min(K0,int(math.ceil(j1/U))+guard)
-            subwf=Waveform(TimeDescriptor(H0+a0/Fs0,a1-a0,Fs0),srcVals[a0:a1])
-            yield subwf.Adapt(TimeDescriptor(H0+j0/Fs,j1-j0,Fs))
-            j0=j1
-
-    def _SplatChunk(self,bitmap,cv,startIndex,R,C,midBin,minV,DeltaV,base,inv_base,enhancementMode):
-        """Bilinear-splat one upsampled segment's consecutive-sample pairs into the eye bitmap.
-        Vectorizes Pixelator.Results()/Hits() exactly as the whole-waveform renderer did, but for one
-        segment: cv are the segment's values and startIndex is the global index of cv[0], used to place
-        each sample in its bitmap column ((k+midBin) mod C).
-        """
-        K=len(cv)
-        rcoord=(cv-minV)/DeltaV*R
-        col0=(np.arange(K)+startIndex+midBin)%C
+        K=self.aprbswf.td.K
+        base=steps                 # Pixelator.step: R (Auto), EnhancementSteps (Fixed), 1 (None)
+        inv_base=1.0/base
+        vals=np.asarray(self.aprbswf.Values(),dtype=float)
+        rcoord=(vals-self.minV)/DeltaV*R
+        col0=(np.arange(K)+midBin)%C
+        # segment j spans sample j -> j+1 (loop was k=1..K-1 using (k-1,k)); the
+        # consecutive column span is always 1 (mod C wrap), and the start sample
+        # of each segment is never splatted (matches useFirst=False).
         ri_all=rcoord[:-1]
         rf_all=rcoord[1:]
         ci_all=col0[:-1].astype(float)
@@ -366,6 +283,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         blockSegs=max(C,20000)
         for segStart in range(0,nseg,blockSegs):
             segEnd=min(segStart+blockSegs,nseg)
+            if (not callback is None):
+                if not callback(segEnd/K*100.):
+                    return
             ri_c=ri_all[segStart:segEnd]
             rf_c=rf_all[segStart:segEnd]
             ci_c=ci_all[segStart:segEnd]
@@ -406,6 +326,18 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 m=rvalid&cvalid
                 if m.any():
                     np.add.at(bitmap,(ridx[m],cidx[m]),(rw*cw*inv_base)[m])
+
+        self.rawBitmap=bitmap/np.sum(bitmap)*C
+
+        for c in range(C):
+            self.rawBitmap[:,c]=self.rawBitmap[:,c]/sum(self.rawBitmap[:,c])
+
+        self.aprbswf=self.aprbswf.DelayBy(-UI/2)
+        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(self.aprbswf.td.H,self.aprbswf.td.K,self.BaudRate)).DelayBy(UI/2)
+
+        # don't cache the waveform
+        del self.prbswf
+        self.CacheResult()
 
     def Bitmap(self):
         """Returns the raw bitmap
@@ -661,11 +593,11 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             for c in range(C):
                 self.rawBitmap[r][(c+C//2)%C]=bitmap[r][(c+columnAtEyeCenter)%C]
 
-        # Resample the original waveform at the aligned eye-center phase (columnAtEyeCenter is d columns
-        # from mid-UI), one point per unit interval -- the full upsampled waveform is never needed here.
-        UI=1./self.BaudRate
-        d=columnAtEyeCenter-C//2
-        self.sampledWf=self.prbswf.Adapt(TimeDescriptor(self._alignH0+d*UI/C,self._Nui,self.BaudRate))
+        H=self.aprbswf.td.H
+        self.aprbswf=self.aprbswf.DelayBy(-(columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.aprbswf.Adapt(TimeDescriptor(H,self.aprbswf.td.K,self.BaudRate))
+        self.sampledWf=self.sampledWf.DelayBy((columnAtEyeCenter-C//2)/C/self.BaudRate)
+        self.sampledWf=self.sampledWf.DelayBy(1./self.BaudRate/2.)
         return
 
     def Measure(self,
