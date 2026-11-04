@@ -244,7 +244,13 @@ class SignalIntegrityAppHeadless(object):
         return bool(SignalIntegrity.App.Preferences['Calculation.AllowParallelization']) \
             and bool(SignalIntegrity.App.Project['CalculationProperties.AllowParallelization'])
 
-    def CalculateSParameters(self,callback=None):
+    def CalculateSParameters(self,callback=None,calculate_impedance_profiles=False):
+        """calculates the s-parameters of the project
+        @param callback (optional) function called with progress
+        @param calculate_impedance_profiles (optional) boolean whether to also return the impedance
+        profile of each port under the key 'impedance profiles' (defaults to False)
+        @return Result dictionary, empty on failure
+        """
         import SignalIntegrity.Lib as si
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
@@ -254,9 +260,7 @@ class SignalIntegrityAppHeadless(object):
                 sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)['s-parameters']
             except si.SignalIntegrityException as e:
                 return Result('s-parameters',None)
-            return Result('s-parameters',{'s-parameters':sp,
-                                          'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                          'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
+            return self._SParametersResult(sp,calculate_impedance_profiles)
         elif not self.Drawing.canCalculateSParameters:
             return Result('s-parameters',None)
         netListText=self.NetListText()
@@ -280,9 +284,19 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return Result('s-parameters',None)
         sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
-        return Result('s-parameters',{'s-parameters':sp,
-                                      'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                      'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
+        return self._SParametersResult(sp,calculate_impedance_profiles)
+
+    def _SParametersResult(self,sp,calculate_impedance_profiles):
+        import SignalIntegrity.Lib as si
+        result={'s-parameters':sp,
+                'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                'variables':SignalIntegrity.App.Project['Variables'].Dictionary()}
+        if calculate_impedance_profiles:
+            # list index p is port p+1
+            result['impedance profiles']=[si.ip.ImpedanceProfileWaveform(
+                sp,port=p+1,method='estimated',align='middle',includePortZ=True)
+                for p in range(sp.m_P)]
+        return Result('s-parameters',result)
 
     def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):

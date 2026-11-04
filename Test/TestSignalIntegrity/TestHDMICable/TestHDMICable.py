@@ -98,6 +98,14 @@ class TestHDMICableTest(unittest.TestCase,
         self.DeembeddingResultsChecker('HDMIThruPort2.si')
     def testHDMICableRawMM(self):
         self.SParameterResultsChecker('HDMICableRawMM.si')
+    def testHDMICableRawMMImpedanceProfiles(self):
+        result=self.SParameterResultsChecker('HDMICableRawMM.si',calculate_impedance_profiles=True)
+        sp=result['s-parameters']
+        for p,wf in enumerate(result['impedance profiles']):
+            expected=si.ip.ImpedanceProfileWaveform(sp,port=p+1,method='estimated',align='middle',includePortZ=True)
+            self.assertTrue(wf==expected,'impedance profile port '+str(p+1)+' differs from library calculation')
+    def testHDMICableDeembeddedMMImpedanceProfiles(self):
+        self.SParameterResultsChecker('HDMICableDeembeddedMM.si',calculate_impedance_profiles=True)
     def testHDMIThruMiddle(self):
         self.SParameterResultsChecker('HDMIThruMiddle.si')
     def testHDMIThruMiddleModel(self):

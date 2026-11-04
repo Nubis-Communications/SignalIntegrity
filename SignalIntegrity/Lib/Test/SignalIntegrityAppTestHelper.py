@@ -226,15 +226,23 @@ class SignalIntegrityAppTestHelper:
         if checkNetlist:
             self.NetListChecker(pysi,filename,archive)
         return pysi
-    def SParameterResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False):
+    def SParameterResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False,calculate_impedance_profiles=False):
         pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist, args, archive)
-        result=pysi.CalculateSParameters()
+        result=pysi.CalculateSParameters(calculate_impedance_profiles=calculate_impedance_profiles)
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
         spfilename=result['file names']
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result['s-parameters']
         self.SParameterRegressionChecker(sp, spfilename)
+        if calculate_impedance_profiles:
+            impedanceProfiles=result['impedance profiles']
+            self.assertEqual(len(impedanceProfiles),sp.m_P,filename+' impedance profile count incorrect')
+            for p in range(len(impedanceProfiles)):
+                wffilename=self.FileNameForTest(filename)+'_ImpedanceProfile'+str(p+1)+'.txt'
+                self.WaveformRegressionChecker(impedanceProfiles[p], wffilename)
+        else:
+            self.assertNotIn('impedance profiles',result,filename+' produced unrequested impedance profiles')
         self.ArchiveCleanup(filename,pysi,archive)
         return result
     def CalibrationResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True, args={}):
