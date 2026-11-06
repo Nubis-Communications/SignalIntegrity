@@ -535,7 +535,7 @@ class SignalIntegrityAppHeadless(object):
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
-            self.transferMatrices=self.transferMatrices.Resample(fd)
+            transferMatrices=transferMatrices.Resample(fd)
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -599,14 +599,14 @@ class SignalIntegrityAppHeadless(object):
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
+            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            for device in self.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
-                                     'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                     'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)],
                                      'Config':device.configuration}
                             eyeDiagramDict.append(eyeDict)
                         break
@@ -614,9 +614,10 @@ class SignalIntegrityAppHeadless(object):
         eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
         eyeDiagrams=[]
         for eye in eyeDiagramDict:
-            eyeDiagram=EyeDiagram(None,headless=True)
+            eyeDiagram=EyeDiagram(None,eye['Name'],headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
+            eyeDiagram.config=eye['Config']
             # label the progress with the eye name, ignored by callbacks that take no message
             if callback is not None:
                 try: callback(0,'+Eye Diagram: '+eye['Name'])
@@ -676,19 +677,16 @@ class SignalIntegrityAppHeadless(object):
         if len(unknownNames)==1:
             sp=[sp]
 
-        return Result('de-embed',{'unknown names':unknownNames,
-                                  's-parameters':sp,
-                                  'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
-
-        filename=[]
+        # the file names that SignalIntegrityApp saves the de-embedded s-parameters to
+        fileNames=[]
         for u in range(len(unknownNames)):
-            extension='.s'+str(sp[u].m_P)+'p'
-            filename=unknownNames[u]+extension
+            fileName=unknownNames[u]+'.s'+str(sp[u].m_P)+'p'
             if self.fileparts.filename != '':
-                filename.append(self.fileparts.filename+'_'+filename)
+                fileName=self.fileparts.filename+'_'+fileName
+            fileNames.append(fileName)
         return Result('de-embed',{'unknown names':unknownNames,
                                   's-parameters':sp,
-                                  'file name':filename,
+                                  'file names':fileNames,
                                   'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def CalculateErrorTerms(self,callback=None):
@@ -737,6 +735,8 @@ class SignalIntegrityAppHeadless(object):
         return None
 
     def SimulateNetworkAnalyzerModel(self,callback=None,SParameters=False):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
         netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return Result('network analyzer',None)
         import SignalIntegrity.Lib as si
@@ -856,7 +856,7 @@ class SignalIntegrityAppHeadless(object):
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
-            self.transferMatrices=self.transferMatrices.Resample(fd)
+            transferMatrices=transferMatrices.Resample(fd)
 
         self.transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
