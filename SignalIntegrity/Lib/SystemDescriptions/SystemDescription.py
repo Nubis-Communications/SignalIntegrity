@@ -4,8 +4,9 @@ SystemDescription.py
 from __future__ import print_function
 from __future__ import absolute_import
 
-# Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
+# Copyright (c) 2021-2025 Nubis Communications, Inc.
+# Copyright (c) 2026 Ciena, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
