@@ -30,6 +30,8 @@ class SignalIntegrityAppTestHelper:
     SPCompareResolution=1e-3
     allowReferenceImpedanceTranslation=True
     diff_projects=True
+    # whether pictures and netlists checked are mirrored into the Book folder
+    copyToBook=True
     def __init__(self,path):
         self.path=path
     def RegressionFiles(self,write=False):
@@ -76,7 +78,8 @@ class SignalIntegrityAppTestHelper:
         if result.ok and result.message:
             print(testFilename+' okay, but '+result.message)
         self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
-        CopyToBook(bookSrc)
+        if self.copyToBook:
+            CopyToBook(bookSrc)
     def NetListChecker(self,pysi,filename,archive=False):
         currentDirectory=os.getcwd()
         os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
@@ -97,7 +100,8 @@ class SignalIntegrityAppTestHelper:
         if result.ok and result.message:
             print(testFilename+' okay, but '+result.message)
         self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
-        CopyToBook(bookSrc)
+        if self.copyToBook:
+            CopyToBook(bookSrc)
     def SParameterRegressionChecker(self,sp,spfilename):
         currentDirectory=os.getcwd()
         os.chdir(self.path)

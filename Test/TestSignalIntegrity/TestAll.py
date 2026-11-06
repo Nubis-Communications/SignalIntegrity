@@ -101,6 +101,7 @@ from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
 from TestSParametersParser import *
 from TestSystemVariables import *
+from TestScriptedSources import *
 from TestWaveformOnlySimulations import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *

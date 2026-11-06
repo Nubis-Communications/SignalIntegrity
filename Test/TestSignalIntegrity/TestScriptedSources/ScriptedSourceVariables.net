@@ -1,0 +1,7 @@
+var $amplitude$ 1.0
+voltagesource VS1 1 amplitude $amplitude$ freq 500.0e6 cycles 3 shape triangle
+device R1 2 R 50.0
+device C1 1 C 10.0e-12 esr 0 df 0
+connect R1 1 VS1 1
+voltageoutput VO1 R1 2
+connect R1 2 C1 1
