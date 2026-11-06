@@ -1,6 +1,6 @@
 # SignalIntegrity: Signal and Power Integrity Tools
 
-[Go to the official website for these tools](https://github.com/TeledyneLeCroy/SignalIntegrity/wiki)
+[Go to Ciena's website](https://www.ciena.com/)
 
 ***
 [Download the latest release](https://github.com/TeledyneLeCroy/SignalIntegrity/releases)

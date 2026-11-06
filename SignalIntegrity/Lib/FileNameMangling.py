@@ -8,8 +8,9 @@ project file itself is left untouched and continues to reference the absolute
 path; the mangled copy is found at reference time instead.
 """
 
-# Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
+# Copyright (c) 2021-2025 Nubis Communications, Inc.
+# Copyright (c) 2026 Ciena, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
