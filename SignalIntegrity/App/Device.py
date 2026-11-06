@@ -199,6 +199,58 @@ class Device(object):
                 waveform=amplitude
             elif wfType == 'statistical':
                 waveform=0.0
+            elif wfType == 'scripted':
+                waveform = self.ScriptedWaveform()
+        return waveform
+    def ScriptContext(self):
+        """the variables passed into a scripted source's script
+
+        The device variables are passed in by name, as they are passed into a sub-project, with float
+        and int variables converted to numbers.  The device properties take precedence over device
+        variables of the same name."""
+        import SignalIntegrity.App.Project
+        import SignalIntegrity.Lib as si
+        context = SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
+        for variable in self.variablesList:
+            name = variable['Name']
+            try:
+                if variable['Type'] == 'float':
+                    context[name] = float(context[name])
+                elif variable['Type'] == 'int':
+                    context[name] = int(context[name])
+            except (TypeError, ValueError):
+                raise si.SignalIntegrityExceptionWaveform('scripted source error: variable '+name+' value '+str(context[name])+' is not a valid '+variable['Type'])
+        context.update({
+            'ho': float(self['ho'].GetValue()),
+            'dur': float(self['dur'].GetValue()),
+            't0': float(self['t0'].GetValue()),
+            'fs': float(self['fs'].GetValue()),
+            'math': math,
+        })
+        return context
+    def ScriptedWaveform(self,script=None):
+        """executes the script (the device's script, if None) and returns the waveform in output_waveform"""
+        import SignalIntegrity.Lib as si
+        if script is None:
+            script = self['script']['Value']
+        if script is None:
+            script = ''
+        context = self.ScriptContext()
+        try:
+            exec(script, context)
+        except Exception as e:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: '+type(e).__name__+': '+str(e))
+        output_waveform = context.get('output_waveform', None)
+        if output_waveform is None:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: script did not set output_waveform')
+        try:
+            output_waveform = [float(x) for x in output_waveform]
+        except Exception as e:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: output_waveform must be a list of numbers: '+str(e))
+        td = self.WaveformTimeDescriptor()
+        waveform = si.td.wf.Waveform(td)
+        for k in range(min(len(waveform),len(output_waveform))):
+            waveform[k] = output_waveform[k]
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si
@@ -762,6 +814,65 @@ class DeviceCurrentSineGenerator(Device):
             PartPropertyPhase(),
             PartPropertyWaveformType('sine')]+propertiesList,partPicture)
         self['t0']['Visible']=False; self['tf']['Visible']=False
+
+# Default scripts for scripted sources
+def _ScriptTemplate(sourceType,unit):
+    return '''# '''+sourceType+''' Scripted Source
+#
+# Properties passed in:
+#   ho  - horizontal offset (s)
+#   dur - duration (s)
+#   t0  - start time (s)
+#   fs  - sample rate (S/s)
+#   math - the Python math module
+# The device variables (added with the Variables button in the part properties dialog)
+# are also passed in by name.
+#
+# The script must set output_waveform to a list of K = ceil(fs*dur) values ('''+unit+''')
+# where the value at index k is at time ho + k/fs.
+#
+# Example: a sine wave of amplitude a and frequency f that starts at time t0
+a = 1.0 # amplitude ('''+unit+''')
+f = 1e9 # frequency (Hz)
+K = int(math.ceil(fs*dur))
+output_waveform = [a*math.sin(2.*math.pi*f*(ho+k/fs-t0)) if ho+k/fs >= t0 else 0. for k in range(K)]
+'''
+
+_voltageSourceScriptTemplate = _ScriptTemplate('Voltage','V')
+_currentSourceScriptTemplate = _ScriptTemplate('Current','A')
+
+
+class DeviceVoltageScriptedSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Scripted Source'),
+            PartPropertyHelp('device:Voltage-Scripted-Source'),
+            PartPropertyDefaultReferenceDesignator('VS?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyWaveformType('scripted'),
+            PartPropertyScript(_voltageSourceScriptTemplate)]+propertiesList,partPicture)
+
+class DeviceCurrentScriptedSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='currentsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Scripted Source'),
+            PartPropertyHelp('device:Current-Scripted-Source'),
+            PartPropertyDefaultReferenceDesignator('CS?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyWaveformType('scripted'),
+            PartPropertyScript(_currentSourceScriptTemplate)]+propertiesList,partPicture)
 
 class DeviceMeasurement(Device):
     def __init__(self):
@@ -2017,6 +2128,10 @@ DeviceList=Devices([
                 DeviceCurrentImpulseGenerator([PartPropertyDescription('Two Port Current Impulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceImpulseGeneratorTwoPort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
+                DeviceVoltageScriptedSource([PartPropertyDescription('One Port Voltage Scripted Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceScriptedGeneratorOnePort()),
+                DeviceVoltageScriptedSource([PartPropertyDescription('Two Port Voltage Scripted Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceScriptedGeneratorTwoPort()),
+                DeviceCurrentScriptedSource([PartPropertyDescription('One Port Current Scripted Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceScriptedGeneratorOnePort()),
+                DeviceCurrentScriptedSource([PartPropertyDescription('Two Port Current Scripted Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceScriptedGeneratorTwoPort()),
                 Port(),
                 DeviceMeasurement(),
                 DeviceOutput(),

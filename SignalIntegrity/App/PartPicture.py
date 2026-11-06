@@ -1464,6 +1464,28 @@ class PartPictureVariableCurrentSourceSineGeneratorTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorTwoPort'],2)
 
+class PartPictureVoltageSourceScriptedGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceScriptedGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceScriptedGeneratorTwoPort'],2)
+
+class PartPictureCurrentSourceScriptedGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceScriptedGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceScriptedGeneratorTwoPort'],2)
+
 class PartPictureCurrentSourceOnePort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False,True,False)],[(0,1),(2,3)],[(0,0),(2,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
@@ -1522,6 +1544,28 @@ class PartPictureCurrentSourceSineGeneratorOnePort(PartPictureCurrentSourceOnePo
 class PartPictureVariableCurrentSourceSineGeneratorOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorOnePort'],1)
+
+class PartPictureVoltageSourceScriptedGeneratorOnePort(PartPictureVoltageSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureVoltageSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceScriptedGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceScriptedGeneratorOnePort'],1)
+
+class PartPictureCurrentSourceScriptedGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureCurrentSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceScriptedGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceScriptedGeneratorOnePort'],1)
 
 class PartPictureProbe(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

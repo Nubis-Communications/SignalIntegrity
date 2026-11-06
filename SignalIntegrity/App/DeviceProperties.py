@@ -115,7 +115,7 @@ def WaveformProjectFileNameOfDevice(device):
             return filename
     return None
 
-def DeviceViewMenuActions(device):
+def DeviceViewMenuActions(device,editable=True):
     """ordered list of (label,action) tuples for this device's View menu item(s)"""
     actions=[]
     kind=DeviceViewKind(device)
@@ -123,6 +123,8 @@ def DeviceViewMenuActions(device):
         actions.append(('View','file'))
     elif kind == 'waveform':
         actions.append(('View Waveform','waveform'))
+        if editable and device['wftype'].GetValue() == 'scripted':
+            actions.append(('Edit Script','editscript'))
     elif kind == 'noise':
         actions.append(('View Noise','noise'))
     if not WaveformProjectFileNameOfDevice(device) is None:
@@ -139,6 +141,8 @@ def PerformDeviceViewAction(app,device,action):
         ViewDeviceNoise(app,device)
     elif action == 'openproject':
         OpenDeviceWaveformProject(app,device)
+    elif action == 'editscript':
+        EditDeviceScript(app,device)
 
 def OpenDeviceWaveformProject(app,device):
     """opens the sub-project used to generate this device's waveform in a new instance of the app"""
@@ -174,10 +178,14 @@ def ViewDeviceWaveform(app,device):
     except si.SignalIntegrityException as e:
         messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
         return
+    ViewWaveform(app,wf,referenceDesignator)
+
+def ViewWaveform(app,wf,name):
+    """views a waveform in a modal simulator dialog"""
     sim=app.simulator
     sd=sim.SimulatorDialog()
     sd.title('Waveform')
-    sim.UpdateWaveforms([wf],[referenceDesignator])
+    sim.UpdateWaveforms([wf],[name])
     import platform
     thisOS=platform.system()
     if thisOS == 'Linux':
@@ -188,6 +196,14 @@ def ViewDeviceWaveform(app,device):
     sd.focus_set()
     sd.grab_set()
     app.wait_window(sd)
+
+def EditDeviceScript(app,device):
+    """edits the script of a scripted source in the schematic, recording the change in the history"""
+    from SignalIntegrity.App.ScriptEditorDialog import ScriptEditorDialog
+    if ScriptEditorDialog(app,device,app).modified:
+        app.statusbar.set('Script Modified')
+        app.history.Event('modify script')
+        app.Drawing.DrawSchematic()
 
 def ViewDeviceNoise(app,device):
     """views the device's noise spectral density, the way the properties dialog view noise button does"""
@@ -485,6 +501,7 @@ class DeviceProperties(tk.Frame):
         self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
         self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
         self.noiseViewButton = tk.Button(partViewFrame,text='view noise',command=self.onNoiseView)
+        self.scriptEditButton = tk.Button(partViewFrame,text='edit script',command=self.onScriptEdit)
         if isinstance(self.device,Device): # part other than file - allow viewing
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
@@ -502,6 +519,8 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                    if self.device['wftype'].GetValue() == 'scripted':
+                        self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         try:
@@ -537,7 +556,7 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.IsScriptedSource():
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -611,7 +630,14 @@ class DeviceProperties(tk.Frame):
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
 
+    def IsScriptedSource(self):
+        return isinstance(self.device,Device) and not self.device['script'] is None
+
     def onVariables(self):
+        if self.IsScriptedSource():
+            # the variables are passed into the script by name, as they are passed into a sub-project
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables')
+            return
         if self.device['file'] != None:
             filename=self.device['file']['Value']
         elif self.device['wffile'] != None:
@@ -646,6 +672,7 @@ class DeviceProperties(tk.Frame):
         self.rotationFrame.pack_forget()
         self.partViewButton.pack_forget()
         self.waveformViewButton.pack_forget()
+        self.scriptEditButton.pack_forget()
         self.variablesButton.pack_forget()
         self.isAProjectDevice=False
         if isinstance(self.device,Device): # part other than file - allow viewing
@@ -665,9 +692,11 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                    if self.device['wftype'].GetValue() == 'scripted':
+                        self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.IsScriptedSource():
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
@@ -817,6 +846,16 @@ class DeviceProperties(tk.Frame):
             self.wait_window(sd)
         finally:
             self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
+
+    def onScriptEdit(self):
+        self.focus()
+        from SignalIntegrity.App.ScriptEditorDialog import ScriptEditorDialog
+        if ScriptEditorDialog(self.parent,self.device,self.parent.parent).modified:
+            # apply() rebuilds the device from the property entry strings, so the hidden
+            # script property's entry string must hold the edited script
+            for propFrame in self.propertyFrameList:
+                if propFrame.partProperty['Keyword'] == 'script':
+                    propFrame.propertyString.set(propFrame.partProperty.PropertyString(stype='entry'))
 
     def onNoiseView(self):
         self.focus()

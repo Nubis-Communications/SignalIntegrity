@@ -120,7 +120,7 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
                     from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
-                    actions=DeviceViewMenuActions(device)
+                    actions=DeviceViewMenuActions(device,editable=False)
                     if len(actions) > 0:
                         self.SelectDeviceForView(device)
                         menu=tk.Menu(self.parent,tearoff=0)
@@ -136,7 +136,7 @@ class DrawingStateMachineReadOnly(DrawingStateMachine):
             for device in self.parent.schematic.deviceList:
                 if device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
                     from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
-                    actions=DeviceViewMenuActions(device)
+                    actions=DeviceViewMenuActions(device,editable=False)
                     if len(actions) > 0:
                         # ctrl-right-click prefers opening the associated project over other view actions
                         actionKeys=[action for label,action in actions]

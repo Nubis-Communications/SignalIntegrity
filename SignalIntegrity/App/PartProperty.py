@@ -655,3 +655,8 @@ class PartPropertyACCoupled(PartProperty):
     validEntries=['true','false']
     def __init__(self,state='false'):
         PartProperty.__init__(self,'ac_coupled',type='enum',keyword='ac_coupled',description='ac coupled',value=state,visible=False,keywordVisible=True)
+
+
+class PartPropertyScript(PartProperty):
+    def __init__(self,script=''):
+        PartProperty.__init__(self,'script',type='string',unit=None,keyword='script',description='Python script for waveform generation',value=script,hidden=True)

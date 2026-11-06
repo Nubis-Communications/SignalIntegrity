@@ -93,6 +93,8 @@ class VariablePropertyDialog(PropertiesDialog):
 class VariablesDialog(PropertiesDialog):
 
     def __init__(self, parent,project=None,top=None,title='System Variables',filename=None):
+        # the system variables are edited when no project is supplied, otherwise these are device variables
+        self.systemVariables=(project == None)
         if project == None: project = SignalIntegrity.App.Project['Variables.Items']
         if top == None: top = parent
         PropertiesDialog.__init__(self, parent, project, top, title)
@@ -150,6 +152,7 @@ class VariablesDialog(PropertiesDialog):
         self.variablesFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
 
         self.variableFrameList = []
+        self.previousValues = {id(variable):variable['Value'] for variable in self.project}
 
         for v in range(len(self.project)):
             variable = self.project[v]
@@ -303,12 +306,26 @@ class VariablesDialog(PropertiesDialog):
     def onVariableEntered(self, v):
         vc=v.widget.master.project
         string=vc['Value']
-        if (self.filename != None) and isinstance(string,str) and (len(string)>0) and (string[0]=='=') and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
-            doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?')
+        previousValue=self.previousValues.get(id(vc),vc['Value'])
+        self.previousValues[id(vc)]=string
+        if (not self.systemVariables) and isinstance(string,str) and (len(string)>1) and (string[0]=='=') and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
+            doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?',parent=self)
             if doit:
                 variableToAdd=copy.deepcopy(vc)
                 variableToAdd['Name']=string[1:]
+                variableToAdd['Value']=self.SystemVariableValue(vc,previousValue)
                 SignalIntegrity.App.Project['Variables.Items'].append(variableToAdd)
+
+    @staticmethod
+    def SystemVariableValue(variable,previousValue):
+        """the value for a new system variable referenced by a device variable, which is the
+        device variable's value before it was changed to reference the system variable"""
+        previous=copy.deepcopy(variable)
+        previous['Value']=previousValue
+        value=previous.Value()
+        if isinstance(value,str) and (len(value)>0) and (value[0]=='='):
+            value=VariableConfiguration()['Value'] if variable['Type'] in ['float','int'] else ''
+        return value
 
 
     def onAddVariable(self):
