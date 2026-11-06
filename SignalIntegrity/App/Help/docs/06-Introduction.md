@@ -18,6 +18,8 @@ If you want, go right to the [Table of Contents](http://Help.html).
 
 7.  [Utilities](33-Utilities.md#sec:Utilities) &ndash; a set of command-line tools that perform useful signal integrity calculations outside the main application.
 
+8.  [Scripting SignalIntegrity](34-Scripting-SignalIntegrity.md#sec:Scripting-SignalIntegrity) &ndash; performing any of these calculations from a Python script, without the graphical user interface.
+
 The basic philosophy behind this tool can be summarized as follows:
 
 - A high percentage of tasks required by signal integrity engineers that are usually performed using expensive, closed, black box systems can be performed using this free, open-source tool.
