@@ -99,6 +99,7 @@ from TDRSimulationTwoPort import *
 from TDRSimulationFourPort import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
+from TestSignalIntegrityAppHeadless import *
 from TestSParametersParser import *
 from TestSystemVariables import *
 from TestScriptedSources import *
