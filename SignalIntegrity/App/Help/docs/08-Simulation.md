@@ -52,11 +52,15 @@ Generators:
 
 - [Voltage Sine Generator](23-Built-in-Devices-Parts.md#device:Voltage-Sine-Generator)
 
+- [Voltage Scripted Source](23-Built-in-Devices-Parts.md#device:Voltage-Scripted-Source)
+
 - [Current Step Generator](23-Built-in-Devices-Parts.md#device:Current-Step-Generator)
 
 - [Current Pulse Generator](23-Built-in-Devices-Parts.md#device:Current-Pulse-Generator)
 
 - [Current Sine Generator](23-Built-in-Devices-Parts.md#device:Current-Sine-Generator)
+
+- [Current Scripted Source](23-Built-in-Devices-Parts.md#device:Current-Scripted-Source)
 
 ## Output Probes for Simulation {#sub:Output-Probes-for-Simulation}
 
