@@ -31,6 +31,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
     plot=False
     debug=False
     checkPictures=True
+    copyToBook=False
     epsilon=50e-12
     def setUp(self):
         unittest.TestCase.setUp(self)

@@ -460,7 +460,7 @@ class SignalIntegrityAppHeadless(object):
 
                     for inputWaveform in inputWaveformList:
                         if isinstance(inputWaveform, DependentWaveform):
-                            inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList)
+                            inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList, i)
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 

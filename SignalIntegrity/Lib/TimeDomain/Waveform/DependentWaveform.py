@@ -24,6 +24,8 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescripto
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
 import SignalIntegrity.App.ProjectFile
 import math
+import os
+import sys
 import numpy as np
 
 class DependentWaveform(Waveform):
@@ -50,7 +52,7 @@ class DependentWaveform(Waveform):
         self.td = None
         list.__init__(self, [0]) #Default is a blank waveform
 
-    def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList):
+    def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList, iteration=None):
 
         allOutputPorts =  self.OutputPortName #Get all port names
 
@@ -68,6 +70,8 @@ class DependentWaveform(Waveform):
             
         #Set up arguments to pass to transform function 
         sendargs = inputWaveforms
+        # 0-based index of the iteration that just completed; device variables of the same name override it
+        sendargs['iteration'] = iteration
         
         #Transferring variables list to a dictionary
         for i in range(len(self.VariablesList)):
@@ -100,6 +104,10 @@ class DependentWaveform(Waveform):
             raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
         equations = file.read()
         file.close()
+        #Allow the transform file to import sibling modules from its own directory
+        transformDir = os.path.dirname(os.path.abspath(self.TransformFN))
+        if transformDir not in sys.path:
+            sys.path.insert(0, transformDir)
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             

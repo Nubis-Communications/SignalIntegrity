@@ -26,6 +26,7 @@ from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
 
 from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
+from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
 
 import SignalIntegrity.App.Project
 
@@ -286,7 +287,7 @@ class Simulator(object):
                     #Now if that is fine - update the dependent waveforms
                     for inputWaveform in self.inputWaveformList:
                         if isinstance(inputWaveform, DependentWaveform):
-                            inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList)
+                            inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList, i)
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
