@@ -2443,9 +2443,11 @@ The source is available as a one-port, two-port, differential, and common-mode e
 
 <div class="center">
 
-<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="208" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="208" />
 
 </div>
+
+In these equivalent circuits, ports 1 and 2 are the + and − conductors on one side of the element and ports 3 and 4 are the + and − conductors on the other, and vn is the noise voltage of the source. The differential element places vn/2 in series with each conductor, with opposite polarities, so that the differential voltage is increased by vn; the common-mode element places vn in series with both conductors, so that the common-mode voltage is increased by vn.
 
 Its noise is configured through the [Edit Properties](15-Main-Schematic-Dialog.md#Control-Help:Edit-Properties) command, which opens the statistical noise properties dialog with the following fields:
 
@@ -2524,9 +2526,11 @@ Like the voltage source, it is available as a one-port, two-port, differential, 
 
 <div class="center">
 
-<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="288" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="288" />
 
 </div>
+
+In these equivalent circuits, ports 1 and 2 are the + and − conductors on one side of the element and ports 3 and 4 are the + and − conductors on the other, and in is the noise current of the source. The differential element drives in/2 from the − conductor into the + conductor; the common-mode element drives in from ground into each conductor.
 
 The **Noise Type** may be one of `WhiteNoise`, `SpectralDensityFile` (read the spectral density from a file), `WaveformFile` (derive the spectral density from a waveform file), `Crosstalk` (use another output probe's waveform as the noise source), or `ShotNoise` (described below).
 

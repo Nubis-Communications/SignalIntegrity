@@ -2,7 +2,7 @@
 
 <div class="center">
 
-<img src="media/StatisticalNoiseDialog.png" alt="StatisticalNoiseDialog" width="604" height="483" />
+<img src="media/StatisticalNoiseDialog.png" alt="StatisticalNoiseDialog" width="604" height="469" />
 
 </div>
 
@@ -88,7 +88,7 @@ Opens the [Statistical Noise Measurements](31-Statistical-Noise-Dialog.md#sub:St
 
 <div class="center">
 
-<img src="media/StatisticalNoiseMeasurements.png" alt="StatisticalNoiseMeasurements" width="604" height="483" />
+<img src="media/StatisticalNoiseMeasurements.png" alt="StatisticalNoiseMeasurements" width="604" height="490" />
 
 </div>
 

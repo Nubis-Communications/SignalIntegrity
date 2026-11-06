@@ -10,12 +10,10 @@ from PIL import Image, ImageDraw, ImageFont
 MEDIA_DIR = os.path.join(os.path.dirname(__file__), "docs", "media")
 
 # (filename, width, height)
-# The statistical noise source device symbols are now rendered from the actual
-# part pictures, so only the dialog screenshots remain as placeholders here.
-IMAGES = [
-    ("StatisticalNoiseDialog.png", 604, 483),
-    ("StatisticalNoiseMeasurements.png", 604, 483),
-]
+# The statistical noise source device symbols, the noise injection equivalent circuits, and the
+# statistical noise dialog screenshots have all been replaced with real images, so there are no
+# placeholders left to generate.  Running this script must not overwrite those images.
+IMAGES = []
 
 BG = (245, 245, 245)
 BORDER = (150, 150, 150)
