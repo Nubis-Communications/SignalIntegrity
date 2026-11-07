@@ -10,5 +10,5 @@ var searchData=
   ['classicalfilter_7',['ClassicalFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1ClassicalFilter_1_1ClassicalFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::ClassicalFilter']]],
   ['clockrecoveredwaveform_8',['ClockRecoveredWaveform',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1ClockRecovery_1_1ClockRecoveredWaveform.xhtml',1,'SignalIntegrity::Lib::Eye::ClockRecovery']]],
   ['clockwaveform_9',['ClockWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1ClockWaveform_1_1ClockWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::ClockWaveform']]],
-  ['ctle_10',['CTLE',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Equalizer_1_1CTLE.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::Equalizer']]]
+  ['ctle_10',['CTLE',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1EqualizerCTLE_1_1CTLE.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::EqualizerCTLE']]]
 ];

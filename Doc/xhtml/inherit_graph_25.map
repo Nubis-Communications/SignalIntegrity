@@ -1,3 +1,36 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1Fit_1_1PoleZero_1_1QuadraticMagnitude_1_1PolePairMagnitude.xhtml" title="pole pair expressed as H(s) = ωp^2/(s^2+ωp/Qp*s+ωp^2) = α/(γ+jδ)" alt="" coords="5,5,136,31"/>
+<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Numeric_1_1Numeric.xhtml" title="handles numeric details of derived class solutions" alt="" coords="434,245,504,272"/>
+<area shape="rect" id="Node000001" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderNumeric_1_1DeembedderNumeric.xhtml" title="Performs numerical device deembedding." alt="" coords="636,194,781,221"/>
+<area shape="poly" id="edge59_Node000000_Node000001" title=" " alt="" coords="519,245,639,222,644,221,520,250"/>
+<area shape="rect" id="Node000013" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersNumeric_1_1SystemSParametersNumeric.xhtml" title="Class for computing s&#45;parameters of interconnected systems." alt="" coords="613,296,804,322"/>
+<area shape="poly" id="edge60_Node000000_Node000013" title=" " alt="" coords="520,266,645,295,639,295,519,271"/>
+<area shape="rect" id="Node000010" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeNumeric_1_1VirtualProbeNumeric.xhtml" title="class for performing virtual probing numerically." alt="" coords="857,194,998,221"/>
+<area shape="poly" id="edge61_Node000000_Node000010" title=" " alt="" coords="519,254,650,247,806,230,866,222,871,221,807,236,650,252,520,259"/>
+<area shape="rect" id="Node000004" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Symbolic_1_1Symbolic.xhtml" title="base class for all symbolic solutions." alt="" coords="219,68,294,94"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml" title="Produces symbolic solutions to deembedding problems." alt="" coords="634,93,783,120"/>
+<area shape="poly" id="edge62_Node000004_Node000003" title=" " alt="" coords="310,81,635,100,632,104,310,86"/>
+<area shape="rect" id="Node000005" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescriptionSymbolic_1_1SystemDescriptionSymbolic.xhtml" title="Solves system descriptions in the most basic manner common to all of the simulation,..." alt="" coords="376,42,562,69"/>
+<area shape="poly" id="edge63_Node000004_Node000005" title=" " alt="" coords="309,72,378,66,373,68,311,77"/>
+<area shape="rect" id="Node000006" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParametersSymbolic_1_1SystemSParametersSymbolic.xhtml" title="Class for solving symbolically the s&#45;parameters of interconnected systems." alt="" coords="610,42,807,69"/>
+<area shape="poly" id="edge64_Node000005_Node000006" title=" " alt="" coords="577,53,612,55,607,56,578,58"/>
+<area shape="rect" id="Node000007" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SimulatorSymbolic_1_1SimulatorSymbolic.xhtml" title="class for producing symbolic solutions to simulation problems." alt="" coords="863,17,993,44"/>
+<area shape="poly" id="edge65_Node000006_Node000007" title=" " alt="" coords="821,40,865,37,860,38,822,45"/>
+<area shape="rect" id="Node000011" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbeSymbolic_1_1VirtualProbeSymbolic.xhtml" title="Class that provides symbolic solutions to virtual probe problems." alt="" coords="855,93,1001,120"/>
+<area shape="poly" id="edge66_Node000006_Node000011" title=" " alt="" coords="784,70,870,92,864,92,784,76"/>
+<area shape="rect" id="Node000014" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml" title="Allows the construction of system descriptions for use with all of the classes that solve schematics ..." alt="" coords="5,169,138,196"/>
+<area shape="rect" id="Node000012" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemSParameters_1_1SystemSParameters.xhtml" title="base class for housekeeping involving system s&#45;parameters calculations" alt="" coords="186,169,328,196"/>
+<area shape="poly" id="edge67_Node000014_Node000012" title=" " alt="" coords="153,180,188,181,183,183,154,185"/>
+<area shape="poly" id="edge77_Node000012_Node000013" title=" " alt="" coords="280,205,322,247,349,266,377,281,436,300,497,310,557,314,615,317,610,317,557,320,496,315,434,305,375,286,346,270,319,251,278,210"/>
+<area shape="poly" id="edge76_Node000012_Node000005" title=" " alt="" coords="293,158,443,71,447,68,295,163"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Deembedder_1_1Deembedder.xhtml" title="housekeeping base class for deembedders" alt="" coords="422,194,517,221"/>
+<area shape="poly" id="edge68_Node000012_Node000002" title=" " alt="" coords="343,190,424,201,418,202,344,195"/>
+<area shape="rect" id="Node000008" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Simulator_1_1Simulator.xhtml" title="Base class for dealing with housekeeping for simulations." alt="" coords="431,144,507,170"/>
+<area shape="poly" id="edge71_Node000012_Node000008" title=" " alt="" coords="343,169,433,161,428,162,344,175"/>
+<area shape="poly" id="edge69_Node000002_Node000001" title=" " alt="" coords="532,205,638,207,633,208,532,210"/>
+<area shape="poly" id="edge70_Node000002_Node000003" title=" " alt="" coords="531,193,561,180,575,168,584,155,593,142,609,129,633,121,638,119,612,134,597,146,588,158,579,172,564,185,533,198"/>
+<area shape="poly" id="edge72_Node000008_Node000007" title=" " alt="" coords="499,131,560,79,582,51,592,38,609,28,641,16,675,9,743,3,808,6,867,16,862,17,808,11,743,8,676,14,643,22,611,33,596,42,586,54,564,83,502,136"/>
+<area shape="rect" id="Node000009" href="$classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1VirtualProbe_1_1VirtualProbe.xhtml" title="Base class for virtual probing." alt="" coords="662,144,755,170"/>
+<area shape="poly" id="edge73_Node000008_Node000009" title=" " alt="" coords="522,154,665,156,659,157,523,160"/>
+<area shape="poly" id="edge74_Node000009_Node000010" title=" " alt="" coords="770,168,869,194,864,194,770,174"/>
+<area shape="poly" id="edge75_Node000009_Node000011" title=" " alt="" coords="769,140,869,120,864,121,771,145"/>
 </map>

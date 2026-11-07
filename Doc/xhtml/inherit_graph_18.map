@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1ImpedanceProfile_1_1ImpedanceProfile_1_1ImpedanceProfile.xhtml" title="Impedance profile generated using the peeling algorithm." alt="" coords="5,5,128,31"/>
+<area shape="rect" id="Node000000" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml" title="Frequency lists." alt="" coords="5,56,109,83"/>
+<area shape="rect" id="Node000001" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml" title="A evenly spaced list of frequencies." alt="" coords="180,5,368,32"/>
+<area shape="poly" id="edge54_Node000000_Node000001" title=" " alt="" coords="123,50,156,41,209,31,204,34,157,47,125,55"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml" title="A generic list of frequencies assumed to be not evenly spaced." alt="" coords="200,56,348,83"/>
+<area shape="poly" id="edge55_Node000000_Node000002" title=" " alt="" coords="124,67,202,68,197,71,125,72"/>
+<area shape="rect" id="Node000003" href="$classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1LogarithmicallySpacedFrequencyList.xhtml" title="a logarithmically spaced frequency list" alt="" coords="157,107,391,133"/>
+<area shape="poly" id="edge56_Node000000_Node000003" title=" " alt="" coords="124,84,157,92,210,106,204,106,156,97,124,89"/>
 </map>

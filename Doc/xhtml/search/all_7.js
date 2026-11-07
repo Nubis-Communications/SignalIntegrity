@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['g_0',['g',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml#a73c18c59a39b18382081ec00bb456d43',1,'SignalIntegrity::Lib::Wavelets::Wavelets::Wavelet']]],
+  ['g_0',['g',['../classSignalIntegrity_1_1Lib_1_1Wavelets_1_1Wavelets_1_1Wavelet.xhtml#a17b3ce62c3173a51d8eb9d727f377275',1,'SignalIntegrity::Lib::Wavelets::Wavelets::Wavelet']]],
   ['gaussian_1',['Gaussian',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1Risetime_1_1Gaussian_1_1Gaussian.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::Risetime::Gaussian']]],
   ['gaussianrisetimefilter_2',['GaussianRisetimeFilter',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1GaussianRisetimeFilter_1_1GaussianRisetimeFilter.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::GaussianRisetimeFilter']]],
   ['genericfrequencylist_3',['GenericFrequencyList',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1GenericFrequencyList.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList']]],
