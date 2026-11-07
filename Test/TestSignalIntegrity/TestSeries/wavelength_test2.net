@@ -37,7 +37,7 @@ device L17 2 L 125.0e-12
 device L18 2 L 125.0e-12
 device C9 1 C 1.0e-15 esr 0 df 0
 device L19 2 L 125.0e-12
-device D1 2 series file tline_section.si sect 10 L 250.0e-12 C 1.0e-15 EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 200000000000.0 ReferenceImpedance 50.0
+device D1 2 series file tline_section.si sect 10.0 lp 1 rp 2 L 250.0e-12 C 1.0e-15 EndFrequency 100000000000.0 FrequencyPoints 200 UserSampleRate 200000000000.0 ReferenceImpedance 50.0
 device R5 1 R 10.0e3
 device R6 2 R 1.0
 connect R2 2 T1 1

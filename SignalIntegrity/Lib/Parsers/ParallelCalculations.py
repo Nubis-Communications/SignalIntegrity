@@ -282,6 +282,35 @@ def _WarmUpWorker(_ignored):
     finish importing this module.  Returns the worker pid for debugging."""
     return os.getpid()
 
+def _InitializeWorker():
+    """Pool initializer, run once inside each worker process as it starts.
+
+    Moves the worker out of whatever directory it inherited from the parent at
+    spawn time.  Workers perform no file I/O of their own -- every input arrives
+    pickled in the task payload (see _SolveChunk) -- but a process's current
+    working directory is an open handle on that directory, and on Windows an open
+    handle prevents the directory from being renamed, moved or deleted.  Because
+    the pool is persistent, a worker spawned while the parent happened to be
+    inside a project directory would otherwise keep that directory locked for the
+    rest of the run: deleting it (for example un-extracting a project archive, or
+    simply cleaning up a working directory) would fail with
+    'the process cannot access the file because it is being used by another
+    process'.  Chdir'ing to the temp directory releases that hold.
+    """
+    import tempfile
+    # Re-assert the BLAS thread limit here as well as in the parent.  This runs
+    # before this worker imports numpy, so it is honored no matter when the
+    # worker was spawned -- including workers created outside the parent's
+    # _WorkerThreadLimit guard.
+    for name in _ThreadLimitEnvVars:
+        os.environ[name] = str(max(1, int(ThreadsPerWorker)))
+    try:
+        os.chdir(tempfile.gettempdir())
+    except Exception:
+        # A worker that cannot chdir is still perfectly able to do its work, so
+        # this must never be allowed to break the pool.
+        pass
+
 # ---------------------------------------------------------------------------
 # Driver side (runs in the main process)
 # ---------------------------------------------------------------------------
@@ -322,6 +351,30 @@ def _GetPersistentExecutor(workers, mainGuard):
     """
     global _PersistentExecutor, _PersistentExecutorWorkers
     from concurrent.futures import ProcessPoolExecutor
+    import multiprocessing
+    # 'spawn' is forced on every platform.  It is already the default on Windows,
+    # but on Linux/macOS the default is 'fork', which breaks two things this
+    # module depends on:
+    #
+    #  * BLAS thread limiting.  _WorkerThreadLimit works by setting
+    #    OMP_NUM_THREADS and friends so that each worker's *freshly imported*
+    #    numpy/BLAS back-end reads them at initialization.  A forked child does
+    #    not re-import anything: it inherits the parent's already-initialized
+    #    OpenBLAS/OpenMP runtime, which has long since latched its thread count
+    #    at the full core count.  The env vars are therefore silently ignored and
+    #    N workers each run N BLAS threads -- an N-squared oversubscription that
+    #    thrashes the scheduler and makes the "parallel" run far slower than
+    #    serial, up to apparently hanging the machine.
+    #  * Fork safety.  Forking a process that already holds an OpenMP runtime,
+    #    a Tk main loop and matplotlib state is not supported; the child can
+    #    deadlock in the inherited OpenMP thread pool before it runs any work.
+    #
+    # Spawning costs more at startup, but that cost is paid once for the whole
+    # run because the pool is persistent.
+    try:
+        mpContext = multiprocessing.get_context('spawn')
+    except (ValueError, AttributeError):
+        mpContext = None
     if (_PersistentExecutor is not None and
             _PersistentExecutorWorkers != workers):
         try:
@@ -332,7 +385,16 @@ def _GetPersistentExecutor(workers, mainGuard):
         _PersistentExecutorWorkers = None
     created = False
     if _PersistentExecutor is None:
-        _PersistentExecutor = ProcessPoolExecutor(max_workers=workers)
+        kwargs = {'max_workers': workers}
+        if mpContext is not None:
+            kwargs['mp_context'] = mpContext
+        try:
+            _PersistentExecutor = ProcessPoolExecutor(initializer=_InitializeWorker,
+                                                      **kwargs)
+        except TypeError:
+            # ProcessPoolExecutor gained the 'initializer' argument in Python 3.7.
+            # Without it the workers simply keep the cwd they were spawned in.
+            _PersistentExecutor = ProcessPoolExecutor(**kwargs)
         _PersistentExecutorWorkers = workers
         created = True
     if created:

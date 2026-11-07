@@ -25,6 +25,22 @@ import SignalIntegrity.Lib as si
 import copy
 import os
 
+#: (referencing project directory, absolute path) of files declared by equations via
+#: ArchiveFile(); consumed while archiving
+EquationArchiveFiles = []
+#: ArchiveFile() only records while an archive is being built
+RecordingArchiveFiles = False
+
+def ArchiveFile(path):
+    """Declares a file the equations depend on so the archiver includes it.
+    @return path unchanged, so it can wrap open(): open(ArchiveFile('x.csv')).
+    """
+    if RecordingArchiveFiles:
+        from SignalIntegrity.Lib.FileNameMangling import ResolveFileName
+        # the current directory is the directory of the project being descended into
+        EquationArchiveFiles.append((os.getcwd(),ResolveFileName(os.path.abspath(str(path)))))
+    return path
+
 class DeviceNetListKeywordConfiguration(XMLConfiguration):
     def __init__(self):
         XMLConfiguration.__init__(self,'DeviceNetListKeyword',write=False)
@@ -150,6 +166,7 @@ class CalculationPropertiesBase(XMLConfiguration):
     defaultLogarithmicStartFrequency=1e6
     defaultLogarithmicEndFrequency=20e9
     defaultLogarithmicPointsPerDecade=10
+    defaultTimeBefore0=1e-9
     def __init__(self,Name,preferences=False):
         self.preferences=preferences
         XMLConfiguration.__init__(self,Name)
@@ -168,7 +185,11 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('LogarithmicStartFrequency',self.defaultLogarithmicStartFrequency))
             self.Add(XMLPropertyDefaultFloat('LogarithmicEndFrequency',self.defaultLogarithmicEndFrequency))
             self.Add(XMLPropertyDefaultInt('LogarithmicPointsPerDecade',self.defaultLogarithmicPointsPerDecade))
+            self.Add(XMLPropertyDefaultString('TimeBeforeZeroMode','legacy')) # 'legacy' or 'custom'
+            self.Add(XMLPropertyDefaultFloat('TimeBeforeZeroSpecified',self.defaultTimeBefore0))
             self.Add(XMLPropertyDefaultBool('AllowParallelization',False))
+            self.Add(XMLPropertyDefaultBool('LimitImpulseResponseLength',False))
+            self.Add(XMLPropertyDefaultFloat('MaximumImpulseResponseLength',1.))
             self.CalculateOthersFromBaseInformation()
     def InitFromXML(self,element):
         XMLConfiguration.InitFromXML(self,element)
@@ -187,6 +208,29 @@ class CalculationPropertiesBase(XMLConfiguration):
             self['TimePoints']=None
             self['FrequencyResolution']=None
             self['ImpulseResponseLength']=None
+
+    def _FrequencyPointsFromImpulseResponseLength(self,ImpulseResponseLength):
+        # convert a desired impulse response length into a frequency point count,
+        # keeping the number of points integer to the end frequency (the resulting
+        # length is approximately - not strictly - the requested length).
+        import math
+        frequency_resolution=1./ImpulseResponseLength
+        return int(max(2,math.ceil(self['EndFrequency']/frequency_resolution)))
+
+    def _EffectiveFrequencyPoints(self):
+        # return the number of frequency points to actually use, applying the
+        # maximum impulse response length cap if enabled.  This does NOT modify any
+        # of the stored CalculationProperties values - it only computes the value to
+        # be used by FrequencyList/Dictionary.  The cap is approximate (points stay
+        # integer to the end frequency), matching _FrequencyPointsFromImpulseResponseLength.
+        frequency_points=self['FrequencyPoints']
+        import SignalIntegrity.App.Project
+        if self.preferences or not self['LimitImpulseResponseLength'] or not SignalIntegrity.App.Preferences['Calculation.AllowMaximumImpulseResponseLength']:
+            return frequency_points
+        current_impulse_response_length=frequency_points/self['EndFrequency']
+        if current_impulse_response_length>self['MaximumImpulseResponseLength']:
+            frequency_points=self._FrequencyPointsFromImpulseResponseLength(self['MaximumImpulseResponseLength'])
+        return frequency_points
 
     def InitFromXml(self,calculationPropertiesElement):
         endFrequency=20e9
@@ -208,6 +252,9 @@ class CalculationPropertiesBase(XMLConfiguration):
         calc_dict = {name:self[name] for name in ['EndFrequency',
                                              'FrequencyPoints',
                                              'UserSampleRate']}
+        # Apply the maximum impulse response length cap to the returned FrequencyPoints
+        # only (without modifying any stored CalculationProperties value).
+        calc_dict['FrequencyPoints']=self._EffectiveFrequencyPoints()
         if self['UnderlyingType'] != 'Linear':
             calc_dict.update({name:self[name] for name in ['UnderlyingType',
                                                   'LogarithmicStartFrequency',
@@ -219,13 +266,20 @@ class CalculationPropertiesBase(XMLConfiguration):
         # down into the sub-project.  Parallelization must remain a per-project decision, so the
         # parent's AllowParallelization value is never allowed to override the sub-project's own.
         return calc_dict
+    def KeywordPairs(self):
+        # Return the calculation properties formatted as a string of space-separated
+        # 'keyword value' pairs (leading space included) suitable for netlist lines and
+        # command-line arguments.  Concentrates the keyword-pair string generation here so
+        # callers (e.g. Device and DeviceProperties) don't duplicate the formatting logic.
+        calc_dict=self.Dictionary()
+        return ''.join([' '+propertyName+' '+str(calc_dict[propertyName]) for propertyName in calc_dict.keys()])
     def IsEvenlySpaced(self):
         return (self['UnderlyingType'] == 'Linear')
     def FrequencyList(self,force_evenly_spaced=False):
         if (self['UnderlyingType'] == 'Linear') or force_evenly_spaced:
             return si.fd.EvenlySpacedFrequencyList(
                 self['EndFrequency'],
-                self['FrequencyPoints'])
+                self._EffectiveFrequencyPoints())
         else:
             return si.fd.LogarithmicallySpacedFrequencyList(
                     self['LogarithmicStartFrequency'],
@@ -243,14 +297,21 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.dict['LogarithmicPointsPerDecade'].dict['write'] = not is_default_linear
             self.dict['ReferenceImpedance'].dict['write'] = self['ReferenceImpedance'] != 50.
             self.dict['AllowParallelization'].dict['write'] = bool(self['AllowParallelization'])
+            self.dict['LimitImpulseResponseLength'].dict['write'] = bool(self['LimitImpulseResponseLength'])
+            self.dict['MaximumImpulseResponseLength'].dict['write'] = bool(self['LimitImpulseResponseLength'])
+            is_default_time_before_zero = all([self['TimeBeforeZeroMode'] == 'legacy',
+                    self['TimeBeforeZeroSpecified'] == self.defaultTimeBefore0])
+            self.dict['TimeBeforeZeroMode'].dict['write'] = not is_default_time_before_zero
+            self.dict['TimeBeforeZeroSpecified'].dict['write'] = not is_default_time_before_zero
         return XMLConfiguration.OutputXML(self,indent)
+    def TimeBeforeZero(self):
+        if self['TimeBeforeZeroMode'] == 'legacy':
+            return None
+        else:
+            return self['TimeBeforeZeroSpecified']
 
     def SetImpulseResponseLength(self,ImpulseResponseLength):
-        import math
-        frequency_resolution=1/ImpulseResponseLength
-        end_frequency=self['EndFrequency']
-        frequency_points=int(max(2,math.ceil(end_frequency/frequency_resolution)))
-        self['FrequencyPoints']=frequency_points
+        self['FrequencyPoints']=self._FrequencyPointsFromImpulseResponseLength(ImpulseResponseLength)
         self.CalculateOthersFromBaseInformation()
 
 class CalculationProperties(CalculationPropertiesBase):
@@ -479,6 +540,10 @@ class EquationsConfiguration(XMLConfiguration):
     def PutTextString(self,textstr):
         lines=textstr.split('\n')
         lines=[str(line) for line in lines]
+        # remove trailing blank lines (text widgets always append a newline at the end,
+        # which would otherwise cause the equations to grow a blank line on each edit)
+        while len(lines) > 0 and lines[-1].strip() == '':
+            lines=lines[:-1]
         pplines=[EquationLineConfiguration() for line in lines]
         for l in range(len(lines)):
             pplines[l]['Line']=lines[l]
@@ -519,9 +584,20 @@ class PictureConfiguration(XMLConfiguration):
         else:
             return []
 
+class ProjectPropertiesConfiguration(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'ProjectProperties')
+        self.Add(XMLPropertyDefaultBool('ReadOnly',False))
+    def OutputXML(self,indent):
+        # written only when read-only, so ordinary projects stay identical to files written before this existed
+        if not self.dict['ReadOnly'].value:
+            return []
+        return XMLConfiguration.OutputXML(self,indent)
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
+        self.SubDir(ProjectPropertiesConfiguration())
         self.SubDir(DrawingConfiguration())
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
@@ -581,26 +657,18 @@ class ProjectFile(ProjectFileBase):
         #
         # I ran into what might have been the problem that he was seeing, and I did verify that his code works, but before doing that
         # I was able to fix the problem by simply using a raw string.
-        for argkey in sendargs.keys():
-            arg=sendargs[argkey]
-            if isinstance(arg,str):
-                exec(argkey+' = r"'+arg+'"')
-            else:
-                exec(argkey+' = '+str(arg))
-        exec(equations)
-        for argkey in returnargs.keys():
-            try:
-                exec(str("returnargs[argkey] = eval(argkey)"))
-            except NameError:
-                pass
-        return returnargs
+        namespace=globals().copy()
+        namespace.update(sendargs)
+        namespace.update(returnargs)
+        exec(equations,namespace)
+        return {key:namespace.get(key) for key in returnargs}
 
-    def EvaluateEquations(self,equations=None):
+    def EvaluateEquations(self,equations=None,force=False):
         if (equations != None) or (self['Equations.Lines'] != []):
             variablesDefinition=[(variable['Name'],variable['Value']) for variable in self['Variables.Items']]
             equationsDefinition=self['Equations'].GetTextString() if equations == None else equations
             try:
-                calculate = (variablesDefinition != self.variablesDefinition) or (equationsDefinition != self.equationsDefinition)
+                calculate = force or (variablesDefinition != self.variablesDefinition) or (equationsDefinition != self.equationsDefinition)
             except:
                 calculate=True
             if calculate:
@@ -609,17 +677,22 @@ class ProjectFile(ProjectFileBase):
                 self.equationsDefinition = equationsDefinition
                 self['Equations.Valid']=False
                 sendargs={}; returnargs={}
-                for variable in self['Variables.Items']:
-                    if variable['ReadOnly']:
-                        returnargs[variable['Name']]=None
-                    if not variable['ReadOnly']:
-                        if variable['Type'] in ['file','string','enum']:
-                            sendargs[variable['Name']]=str(variable.Value())
-                        elif variable['Type'] == 'float':
-                            sendargs[variable['Name']]=float(variable.Value())
-                        elif variable['Type'] == 'int':
-                            sendargs[variable['Name']]=int(variable.Value())
                 try:
+                    # Build the send/return argument sets and evaluate.  Coercing a variable
+                    # to its declared type can fail (e.g. an unresolved or self-referential
+                    # equation), so this is kept inside the try: such an error marks the
+                    # equations invalid and is returned rather than raised, so it never
+                    # aborts the schematic render (and therefore opening the project).
+                    for variable in self['Variables.Items']:
+                        if variable['ReadOnly']:
+                            returnargs[variable['Name']]=None
+                        if not variable['ReadOnly']:
+                            if variable['Type'] in ['file','string','enum']:
+                                sendargs[variable['Name']]=str(variable.Value())
+                            elif variable['Type'] == 'float':
+                                sendargs[variable['Name']]=float(variable.Value())
+                            elif variable['Type'] == 'int':
+                                sendargs[variable['Name']]=int(variable.Value())
                     if equations == None:
                         equations=self['Equations'].GetTextString()
                     returnargs=self.EvaluateSafely(equations,sendargs,returnargs)

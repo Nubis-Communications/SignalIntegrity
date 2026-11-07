@@ -1,0 +1,24 @@
+device R5 2 R 50.0
+device R7 1 R 50.0
+voltagesource VG1 1
+voltagenoisesource XTALK 2
+device F1 2 gaussianrisetimefilter 18.2e-12 rt_type 1090
+device F2 2 ffe [0.0005910497574428382,-8.395388354835449e-05,-0.00020735915327216913,0.012649470666001875,-0.10682550745782599,0.7996351513399264,-0.053225228862439924,0.02468460114872478,-0.0011339301672109827,1.5140036109103584e-05,0.0009486075274978328] td 18.867925e-12 pre 5
+device O1 1 open
+voltagenoisesource COM-RX 2
+voltagenoisesource RX-ADC 2
+device T1 2 tlinecom gamma0 0 a1 382.06e-6 a2 95.909e-6 tau 5.79e-3 zc 100.0 d 100.0e-3
+device F3 2 ctle gdc -6.0 gdc2 -1.0 fz 21.2e9 flf 662.5e6 fp1 21.2e9 fp2 53.0e9
+voltagenoisesource COM-TX 2
+connect F1 2 R5 1
+connect R5 2 COM-TX 1
+connect R7 1 T1 2 XTALK 1
+connect F1 1 VG1 1
+connect XTALK 2 COM-RX 1
+eyeprobe Equalized F2 2
+connect F2 2 O1 1
+eyeprobe Unequalized RX-ADC 2
+connect RX-ADC 2 F2 1
+connect COM-RX 2 F3 1
+connect F3 2 RX-ADC 1
+connect COM-TX 2 T1 1

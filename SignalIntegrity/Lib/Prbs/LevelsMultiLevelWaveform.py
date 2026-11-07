@@ -21,6 +21,8 @@
 
 import math
 
+import numpy as np
+
 from SignalIntegrity.Lib.TimeDomain.Waveform import Waveform
 from SignalIntegrity.Lib.Prbs.PseudoRandomPolynomial import PseudoRandomPolynomial
 from SignalIntegrity.Lib.Prbs.SerialDataWaveform import SerialDataWaveform
@@ -82,6 +84,6 @@ class LevelsMultiLevelWaveform(Waveform):
         levels_list = [levels_amplitude_list[level] for level in levels_list]
         Waveform.__init__(self,td,None)
         UI=1/baudrate
-        times=self.td.Times()
-        for k in range(len(self)):
-            self[k] = levels_list[int((times[k]-delay-1/(2.*td.Fs))/UI)]
+        times=np.asarray(self.td.Times())
+        indices=((times-delay-1/(2.*td.Fs))/UI).astype(np.int64)
+        self[:]=np.asarray(levels_list)[indices].tolist()

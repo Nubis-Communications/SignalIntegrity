@@ -25,6 +25,9 @@ from .TerminationC import TerminationC
 from .TerminationL import TerminationL
 from .TLineLossless import TLineLossless
 from .TLineLossy import TLineLossy
+from .Equation import Equation
+from .TransmissionLineEquation import TransmissionLineEquation
+from .MCB import MCB
 from .Mutual import Mutual
 from .TLineDifferentialRLGCApproximate import TLineDifferentialRLGCApproximate
 from .TLineTwoPortRLGC import TLineTwoPortRLGC
@@ -34,9 +37,11 @@ from .TLineDifferentialRLGC import TLineDifferentialRLGC
 from .TLineTwoPortRLGCApproximate import TLineTwoPortRLGCApproximate
 from .WElement import WElement,WElementFile
 from .ClassicalFilter import BesselLowPassFilter,ButterworthLowPassFilter
-from .Equalizer import CTLE,FFE
+from .EqualizerCTLE import CTLE
+from .EqualizerFFE import FFE
 from .Laplace import Laplace
 from .ImpulseResponseFilter import ImpulseResponseFilter
+from .FrequencyResponseFilter import FrequencyResponseFilter
 from .Parallel import Parallel
 from .Series import Series
 from .TLineTwoPortCOM import TLineTwoPortCOM

@@ -144,6 +144,10 @@ class SignalIntegrityAppHeadless(object):
         SignalIntegrity.App.Preferences=Preferences()
         SignalIntegrity.App.InstallDir=os.path.dirname(os.path.abspath(__file__))
         self.Drawing=DrawingHeadless(self)
+        self.readOnly=False
+
+    def ReadOnly(self):
+        return self.readOnly
 
     def NullCommand(self):
         pass
@@ -161,7 +165,7 @@ class SignalIntegrityAppHeadless(object):
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,args={}):
+    def OpenProjectFile(self,filename,args={},writable=False):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -169,6 +173,7 @@ class SignalIntegrityAppHeadless(object):
         filename=str(filename)
         if filename=='':
             return False
+        self.readOnly=not writable
         try:
             self.fileparts=FileParts(filename)
             os.chdir(self.fileparts.AbsoluteFilePath())
@@ -178,7 +183,9 @@ class SignalIntegrityAppHeadless(object):
             self.Drawing.InitFromProject()
         except:
             return False
-        self.Drawing.schematic.Consolidate()
+        if writable:
+            # consolidation exists to clean up edits, so it is skipped when read-only
+            self.Drawing.schematic.Consolidate()
         for device in self.Drawing.schematic.deviceList:
             device.selected=False
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
@@ -198,6 +205,8 @@ class SignalIntegrityAppHeadless(object):
             return None
 
     def SaveProjectToFile(self,filename):
+        if self.readOnly:
+            return
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
@@ -235,7 +244,13 @@ class SignalIntegrityAppHeadless(object):
         return bool(SignalIntegrity.App.Preferences['Calculation.AllowParallelization']) \
             and bool(SignalIntegrity.App.Project['CalculationProperties.AllowParallelization'])
 
-    def CalculateSParameters(self,callback=None):
+    def CalculateSParameters(self,callback=None,calculate_impedance_profiles=False):
+        """calculates the s-parameters of the project
+        @param callback (optional) function called with progress
+        @param calculate_impedance_profiles (optional) boolean whether to also return the impedance
+        profile of each port under the key 'impedance profiles' (defaults to False)
+        @return Result dictionary, empty on failure
+        """
         import SignalIntegrity.Lib as si
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
@@ -245,9 +260,7 @@ class SignalIntegrityAppHeadless(object):
                 sp=self.SimulateNetworkAnalyzerModel(callback,SParameters=True)['s-parameters']
             except si.SignalIntegrityException as e:
                 return Result('s-parameters',None)
-            return Result('s-parameters',{'s-parameters':sp,
-                                          'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                          'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
+            return self._SParametersResult(sp,calculate_impedance_profiles)
         elif not self.Drawing.canCalculateSParameters:
             return Result('s-parameters',None)
         netListText=self.NetListText()
@@ -271,9 +284,19 @@ class SignalIntegrityAppHeadless(object):
         except si.SignalIntegrityException as e:
             return Result('s-parameters',None)
         sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
-        return Result('s-parameters',{'s-parameters':sp,
-                                      'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                      'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
+        return self._SParametersResult(sp,calculate_impedance_profiles)
+
+    def _SParametersResult(self,sp,calculate_impedance_profiles):
+        import SignalIntegrity.Lib as si
+        result={'s-parameters':sp,
+                'file names':self.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                'variables':SignalIntegrity.App.Project['Variables'].Dictionary()}
+        if calculate_impedance_profiles:
+            # list index p is port p+1
+            result['impedance profiles']=[si.ip.ImpedanceProfileWaveform(
+                sp,port=p+1,method='estimated',align='middle',includePortZ=True)
+                for p in range(sp.m_P)]
+        return Result('s-parameters',result)
 
     def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
         if not hasattr(self.Drawing,'canCalculate'):
@@ -348,7 +371,8 @@ class SignalIntegrityAppHeadless(object):
             SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
             try:
-                outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList)
+                outputWaveformList = transferMatricesProcessor.ProcessWaveforms(inputWaveformList,
+                        time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 
@@ -452,7 +476,14 @@ class SignalIntegrityAppHeadless(object):
             eyeDiagram.baudrate=eye['BaudRate']
             eyeDiagram.config=eye['Config']
             eyeDiagram.config.SetExternalNoise(eye['ExternalNoise'])
-            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            # label the progress with the eye name, ignored by callbacks that take no message
+            if callback is not None:
+                try: callback(0,'+Eye Diagram: '+eye['Name'])
+                except TypeError: pass
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle(),callback)
+            if callback is not None:
+                try: callback(0,'-')
+                except TypeError: pass
             eyeDiagrams.append(eyeDiagram)
 
         if sna == '{}':
@@ -504,7 +535,7 @@ class SignalIntegrityAppHeadless(object):
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
-            self.transferMatrices=self.transferMatrices.Resample(fd)
+            transferMatrices=transferMatrices.Resample(fd)
 
         transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -568,14 +599,14 @@ class SignalIntegrityAppHeadless(object):
         eyeDiagramDict=[]
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
-            outputWaveformLabel = self.outputWaveformLabels[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
+            outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
+            for device in self.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
                             eyeDict={'Name':outputWaveformLabel,
                                      'BaudRate':device['br'].GetValue(),
-                                     'Waveform':outputWaveformList[self.outputWaveformLabels.index(outputWaveformLabel)],
+                                     'Waveform':outputWaveformList[outputWaveformLabels.index(outputWaveformLabel)],
                                      'Config':device.configuration}
                             eyeDiagramDict.append(eyeDict)
                         break
@@ -583,10 +614,18 @@ class SignalIntegrityAppHeadless(object):
         eyeDiagramLabels=[eye['Name'] for eye in eyeDiagramDict]
         eyeDiagrams=[]
         for eye in eyeDiagramDict:
-            eyeDiagram=EyeDiagram(None,headless=True)
+            eyeDiagram=EyeDiagram(None,eye['Name'],headless=True)
             eyeDiagram.prbswf=eye['Waveform']
             eyeDiagram.baudrate=eye['BaudRate']
-            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle())
+            eyeDiagram.config=eye['Config']
+            # label the progress with the eye name, ignored by callbacks that take no message
+            if callback is not None:
+                try: callback(0,'+Eye Diagram: '+eye['Name'])
+                except TypeError: pass
+            eyeDiagram.CalculateEyeDiagram(self.fileparts.FileNameTitle(),callback)
+            if callback is not None:
+                try: callback(0,'-')
+                except TypeError: pass
             eyeDiagrams.append(eyeDiagram)
         return Result('virtual probe',{'source names':sourceNames,
                                     'output waveform labels':outputWaveformLabels,
@@ -638,19 +677,16 @@ class SignalIntegrityAppHeadless(object):
         if len(unknownNames)==1:
             sp=[sp]
 
-        return Result('de-embed',{'unknown names':unknownNames,
-                                  's-parameters':sp,
-                                  'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
-
-        filename=[]
+        # the file names that SignalIntegrityApp saves the de-embedded s-parameters to
+        fileNames=[]
         for u in range(len(unknownNames)):
-            extension='.s'+str(sp[u].m_P)+'p'
-            filename=unknownNames[u]+extension
+            fileName=unknownNames[u]+'.s'+str(sp[u].m_P)+'p'
             if self.fileparts.filename != '':
-                filename.append(self.fileparts.filename+'_'+filename)
+                fileName=self.fileparts.filename+'_'+fileName
+            fileNames.append(fileName)
         return Result('de-embed',{'unknown names':unknownNames,
                                   's-parameters':sp,
-                                  'file name':filename,
+                                  'file names':fileNames,
                                   'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
     def CalculateErrorTerms(self,callback=None):
@@ -699,6 +735,8 @@ class SignalIntegrityAppHeadless(object):
         return None
 
     def SimulateNetworkAnalyzerModel(self,callback=None,SParameters=False):
+        if not hasattr(self.Drawing,'canCalculate'):
+            self.Drawing.DrawSchematic()
         netList=self.Drawing.schematic.NetList().Text()
         if not self.CheckEquations(): return Result('network analyzer',None)
         import SignalIntegrity.Lib as si
@@ -818,7 +856,7 @@ class SignalIntegrityAppHeadless(object):
 
         if not SignalIntegrity.App.Project['CalculationProperties'].IsEvenlySpaced():
             fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(force_evenly_spaced = True)
-            self.transferMatrices=self.transferMatrices.Resample(fd)
+            transferMatrices=transferMatrices.Resample(fd)
 
         self.transferMatricesProcessor=si.td.f.TransferMatricesProcessor(transferMatrices)
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -928,13 +966,21 @@ class SignalIntegrityAppHeadless(object):
             return Result('network analyzer',{'s-parameters':sp,
                                               'variables':SignalIntegrity.App.Project['Variables'].Dictionary()})
 
-    def Archive(self,overrideExistance=True):
+    def Archive(self,overrideExistance=True,archiveNonRelativeFiles=None):
+        """Archives the project.
+        @param overrideExistance bool (optional, defaults to True) whether to overwrite an existing archive.
+        @param archiveNonRelativeFiles bool (optional, defaults to None) whether to archive
+        files that no relative path can be formed to; None uses the preference.
+        @return bool True if the archive was created.
+        """
         self.fileparts.fileext='.si' # this is to fix a bug in case the extension gets changed from '.si' to something else, which I've seen
         fp=self.fileparts
         if os.path.exists(fp.AbsoluteFilePath()+'/'+fp.FileNameTitle()+'.siz'):
             if not overrideExistance:
                 return False
-        archiveDict=Archive()
+        if archiveNonRelativeFiles is None:
+            archiveNonRelativeFiles=SignalIntegrity.App.Preferences['ProjectFiles.ArchiveNonRelativeFiles']
+        archiveDict=Archive(archiveNonRelativeFiles)
         try:
             # build archive dictionary
             archiveDict.BuildArchiveDictionary(self,SignalIntegrity.App.Project['Variables'].Dictionary())
@@ -950,6 +996,37 @@ class SignalIntegrityAppHeadless(object):
         except Exception as e:
             return False
         return True
+
+    def GenerateRegression(self,regressionArchiveFile=None,archiveNonRelativeFiles=None,args=None,artifacts=None,callback=None):
+        """Generates the regression archive for the open project.
+        @param regressionArchiveFile string (optional) explicit archive path; when
+        omitted, it is derived as '<project>_regression.siz'.
+        @return string generated regression archive path.
+        """
+        from SignalIntegrity.App.Regression import GenerateRegression
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if regressionArchiveFile is None:
+            regressionArchiveFile=os.path.splitext(projectFile)[0]+'_regression.siz'
+        return GenerateRegression(projectFile,regressionArchiveFile,
+                                  archiveNonRelativeFiles=archiveNonRelativeFiles,
+                                  args=args,artifacts=artifacts,callback=callback)
+
+    def RunRegression(self,regressionArchiveFile=None,archiveNonRelativeFiles=None,args=None,artifacts=None,callback=None,openDiffTool=None):
+        """Runs the regression archive for the open project.
+        @param regressionArchiveFile string (optional) explicit archive path; when
+        omitted, it is derived as '<project>_regression.siz'.
+        @param openDiffTool bool (optional) whether to open meld on failure; defaults
+        to the Regression.OpenDiffToolOnFailure preference.
+        @return list of regression results.
+        """
+        from SignalIntegrity.App.Regression import CheckRegressionByDiff
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if regressionArchiveFile is None:
+            regressionArchiveFile=os.path.splitext(projectFile)[0]+'_regression.siz'
+        return CheckRegressionByDiff(projectFile,regressionArchiveFile,
+                                     archiveNonRelativeFiles=archiveNonRelativeFiles,
+                                     args=args,artifacts=artifacts,callback=callback,
+                                     openDiffTool=openDiffTool)
 
     def ExtractArchive(self,filename,args={}):
         if filename is None:
@@ -998,6 +1075,11 @@ def ProjectSParameters(filename,callback,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             if app.Drawing.canCalculateSParametersFromNetworkAnalyzerModel:
                 result = app.SimulateNetworkAnalyzerModel(callback,SParameters=True)
                 if result != {}:
@@ -1011,6 +1093,11 @@ def ProjectSParameters(filename,callback,**kwargs):
                 if result != {}:
                     sp=result['s-parameters'][0]
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordSParameters(filename,sp,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
@@ -1028,6 +1115,11 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             result={}
             if app.Drawing.canSimulate:
                 result=app.Simulate(callback)
@@ -1036,6 +1128,11 @@ def ProjectWaveform(filename,wfname,callback,**kwargs):
             if result != {}:
                 wf = result.OutputWaveform(wfname)
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordWaveform(filename,wf,wfname,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
@@ -1053,6 +1150,11 @@ def ProjectNoise(filename,noise_name,callback,lanes=1.,**kwargs):
         app=SignalIntegrityAppHeadless()
         if app.OpenProjectFile(os.path.realpath(filename),kwargs):
             app.Drawing.DrawSchematic()
+            try:
+                from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+                RegressionContext.RecordProjectArtifacts(filename,app,kwargs)
+            except Exception:
+                pass
             result={}
             if app.Drawing.canSimulate:
                 result=app.Simulate(callback)
@@ -1070,6 +1172,11 @@ def ProjectNoise(filename,noise_name,callback,lanes=1.,**kwargs):
                     except:
                         sd = type(sd)(sd.FrequencyList(),[value*lane_scale for value in sd.Values()])
     except:
+        pass
+    try:
+        from SignalIntegrity.Lib.Test.RegressionFiles import RegressionContext
+        RegressionContext.RecordNoise(filename,sd,noise_name,kwargs)
+    except Exception:
         pass
     SignalIntegrityAppHeadless.projectStack.Pull(level)
     if callback != None:
@@ -1097,6 +1204,118 @@ def ProjectCalibration(filename,callback,**kwargs):
             return None
     return result
 
+#: process-level memo for the expensive sub-project open+walk performed while
+#: checking cache modification times.  Keyed by (absolute .si path, its mtime,
+#: canonical resolved args) -> (projectDir, refs) where refs is the list of
+#: file references discovered in the project.  Only the *structure* (which files
+#: a project references) is cached; modification times and cache-file existence
+#: are always re-read on use, so edits to any referenced file are still
+#: detected.  Keying on the .si's own mtime invalidates the entry when the .si
+#: is edited; keying on args keeps parameterized projects (whose args can change
+#: which files they reference) from being conflated.
+_pmtEnumerateCache = {}
+_PMT_MISS = object()
+
+def _pmtArgsKey(args):
+    """Canonical, order-independent, hashable key for an args dict."""
+    if args is None:
+        return None
+    try:
+        return tuple(sorted((str(k), str(v)) for k, v in args.items()))
+    except Exception:
+        return repr(args)
+
+def ClearProjectModificationTimeCache():
+    """Clears the process-level sub-project enumeration memo (mainly for tests)."""
+    _pmtEnumerateCache.clear()
+
+def _EnumerateProjectRefs(fileName,args):
+    """Opens a ``.si`` project and returns ``(projectDir, refs)`` without
+    recursing.  ``refs`` is a list of ``(kind, referencedFileName, deviceArgs)``
+    where ``kind`` is ``'si'`` or ``'leaf'`` and ``referencedFileName`` is the
+    file reference exactly as the original time-check used it (resolved relative
+    to ``projectDir``).  Returns ``None`` if the project cannot be opened or
+    evaluated.  This is the expensive, deep-copy-heavy step; callers memoize it.
+    """
+    # Save/restore the current global project by reference (and the cwd) instead
+    # of using projectStack, which deep-copies the whole project.  OpenProjectFile
+    # rebinds SignalIntegrity.App.Project to a freshly read object rather than
+    # mutating the current one, so restoring the saved reference is sufficient and
+    # avoids two large deepcopies per sub-project open.
+    import SignalIntegrity.App
+    savedProject=SignalIntegrity.App.Project
+    savedcwd=os.getcwd()
+    refs=[]
+    projDir=None
+    result=0
+    try:
+        app=SignalIntegrityAppHeadless()
+        if not app.OpenProjectFile(os.path.realpath(fileName),args):
+            raise ValueError
+        projDir=os.getcwd()
+        app.Drawing.DrawSchematic()
+        import SignalIntegrity.App.Project
+        SignalIntegrity.App.Project.EvaluateEquations()
+        if not app.CheckEquations():
+            raise ValueError
+        if not app.Drawing.canCalculate:
+            raise ValueError
+        deviceList=app.Drawing.schematic.deviceList
+        for device in deviceList:
+
+            # skip only devices removed or bypassed in the netlist (see NetList.py);
+            # any other element state (including None or '') keeps the device
+            if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
+                continue
+
+            deviceArgs={}
+            for variable in device.variablesList:
+                name=variable['Name']
+                value=variable.Value()
+                if variable['Type'] == 'file':
+                    value=os.path.abspath(value)
+                deviceArgs[name]=value
+            propertiesList = device.propertiesList
+            for property in propertiesList:
+                if property['Type']=='file':
+                    filename=property['Value']
+                    if (filename != None) and (len(filename)>0) and (filename[0]=='='):
+                        if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
+                            variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
+                            filename=variable['Value']
+                        else:
+                            raise ValueError
+                    if filename.endswith('.si'):
+                        refs.append(('si',filename,deviceArgs))
+                    else:
+                        if '.' in filename:
+                            refs.append(('leaf',filename,deviceArgs))
+    except:
+        result=None
+    SignalIntegrity.App.Project=savedProject
+    os.chdir(savedcwd)
+    if result==None:
+        return None
+    return (projDir,refs)
+
+def _CachedEnumerateProjectRefs(fileName,args):
+    """Memoized wrapper around :func:`_EnumerateProjectRefs`.  Only successful
+    enumerations are cached; failures are retried (and thus keep returning the
+    legacy ``None`` -> cache-invalid behavior)."""
+    try:
+        keyPath=os.path.abspath(fileName)
+        mtime=os.path.getmtime(keyPath)
+    except OSError:
+        return None
+    key=(keyPath,mtime,_pmtArgsKey(args))
+    cached=_pmtEnumerateCache.get(key,_PMT_MISS)
+    if cached is not _PMT_MISS:
+        return cached
+    enum=_EnumerateProjectRefs(fileName,args)
+    if enum is not None:
+        _pmtEnumerateCache[key]=enum
+    return enum
+
 def ProjectModificationTime(modificationTimeDict,fileName,args=None):
     #print(os.path.abspath(fileName))
     if modificationTimeDict == None:
@@ -1117,62 +1336,42 @@ def ProjectModificationTime(modificationTimeDict,fileName,args=None):
                 cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
                 if os.path.exists(cacheFileName):
                     modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
-        level=SignalIntegrityAppHeadless.projectStack.Push()
+        enum=_CachedEnumerateProjectRefs(fileName,args)
         result=0
-        try:
-            app=SignalIntegrityAppHeadless()
-            if not app.OpenProjectFile(os.path.realpath(fileName),args):
-                raise ValueError
-            app.Drawing.DrawSchematic()
-            import SignalIntegrity.App.Project
-            SignalIntegrity.App.Project.EvaluateEquations()
-            if not app.CheckEquations():
-                raise ValueError
-            if not app.Drawing.canCalculate:
-                raise ValueError
-            deviceList=app.Drawing.schematic.deviceList
-            for device in deviceList:
-
-                if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() != '':
-                    continue
-
-                args={}
-                for variable in device.variablesList:
-                    name=variable['Name']
-                    value=variable.Value()
-                    if variable['Type'] == 'file':
-                        value=os.path.abspath(value)
-                    args[name]=value
-                propertiesList = device.propertiesList
-                for property in propertiesList:
-                    if property['Type']=='file':
-                        filename=property['Value']
-                        if (filename != None) and (len(filename)>0) and (filename[0]=='='):
-                            import SignalIntegrity.App.Project
-                            if filename[1:] in SignalIntegrity.App.Project['Variables'].Names():
-                                variable = SignalIntegrity.App.Project['Variables'].VariableByName(filename[1:])
-                                filename=variable['Value']
-                            else:
-                                raise ValueError
-                        if filename.endswith('.si'):
-                            modificationTimeDict=ProjectModificationTime(modificationTimeDict,filename,args)
-                            filenamenoext=FileParts(filename).FileNameTitle()
-                            for postfix in ['','_DUTSParameters','_TransferMatrices']:
-                                for cacheName in ['SParameters','TransferMatrices','Calibration']:
-                                    cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
-                                    if os.path.exists(cacheFileName):
-                                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
-                        else:
-                            if '.' in filename:
-                                modificationTimeDict.append({'name':os.path.abspath(filename),
-                                                             'args':args,
-                                                             'time':os.path.getmtime(os.path.abspath(filename)),
-                                                             'traversed':True})
-                        if modificationTimeDict==None:
-                            raise ValueError
-        except:
+        if enum is None:
             result=None
-        SignalIntegrityAppHeadless.projectStack.Pull(level)
+        else:
+            projDir,refs=enum
+            savedcwd=os.getcwd()
+            try:
+                # replay the recursion at the sub-project's own directory so the
+                # CWD-relative resolution of child references and sibling cache
+                # files matches the original (un-memoized) behavior exactly.
+                os.chdir(projDir)
+                for refKind,refFileName,refArgs in refs:
+                    if refKind=='si':
+                        modificationTimeDict=ProjectModificationTime(modificationTimeDict,refFileName,refArgs)
+                        if modificationTimeDict==None:
+                            result=None
+                            break
+                        filenamenoext=FileParts(refFileName).FileNameTitle()
+                        for postfix in ['','_DUTSParameters','_TransferMatrices']:
+                            for cacheName in ['SParameters','TransferMatrices','Calibration']:
+                                cacheFileName=FileParts(filenamenoext+postfix+'_cached'+cacheName).FileNameWithExtension('.p')
+                                if os.path.exists(cacheFileName):
+                                    modificationTimeDict=ProjectModificationTime(modificationTimeDict,cacheFileName,None)
+                        if modificationTimeDict==None:
+                            result=None
+                            break
+                    else:
+                        modificationTimeDict.append({'name':os.path.abspath(refFileName),
+                                                     'args':refArgs,
+                                                     'time':os.path.getmtime(os.path.abspath(refFileName)),
+                                                     'traversed':True})
+            except:
+                result=None
+            finally:
+                os.chdir(savedcwd)
         if result==None:
             return result
     modificationTimeDict[[file['name'] for file in modificationTimeDict].index(os.path.abspath(fileName))]['traversed']=True

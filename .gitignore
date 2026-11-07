@@ -11,3 +11,5 @@ SignalIntegrity.egg-info/
 Doc/xhtml
 build/
 dist/
+Test/TestSignalIntegrity/TestSignalIntegrityApp/_checkall.py
+Test/TestSignalIntegrity/test_timings.csv

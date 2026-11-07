@@ -43,6 +43,7 @@ class SParametersParser(SParameters):
         @see LimitImpulseResponseLength
         @see SetReferenceImpedance
         @see RemoveImpulseResponseOffset
+        @see ScaleRho
         """
         SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
         self.preserveDC = False
@@ -120,6 +121,15 @@ class SParametersParser(SParameters):
                             taper_frequency = None
                         self.Taper(from_frequency=max_frequency_of_interest,
                                    to_frequency=taper_frequency)
+                    else:
+                        raise IndexError
+                elif tokens[1] == 'scale':
+                    if tokens[2] in ['rho','Rho','RHO']:
+                        try:
+                            sp=self.ScaleRho(float(tokens[3]))
+                        except:
+                            raise IndexError
+                        SParameters.__init__(self,sp.m_f,sp.m_d,sp.m_Z0)
                     else:
                         raise IndexError
                 elif tokens[1] == 'wavelet':

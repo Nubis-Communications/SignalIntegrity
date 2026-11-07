@@ -25,6 +25,7 @@ import cmath
 import math
 import os
 import sys
+import inspect
 import numpy as np
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
@@ -35,6 +36,24 @@ from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameterFile
 class SParameterFile(SParameters):
     """class for s-parameters read from a file"""
     sort_frequencies=True
+    @staticmethod
+    def _CallbackAcceptsName(callback):
+        """Whether the callback accepts a 'name' keyword argument.
+        File-reading progress is only reported through callbacks that manage a
+        progress dialog title stack (which accept a 'name' argument).  The generic
+        Lib-level single-argument progress callback is left untouched.
+        @param callback function ptr callback function (or None).
+        @return bool True if callback is not None and accepts a 'name' argument.
+        """
+        if callback is None:
+            return False
+        try:
+            params=inspect.signature(callback).parameters
+        except (TypeError,ValueError):
+            return False
+        if 'name' in params:
+            return True
+        return any(p.kind==inspect.Parameter.VAR_KEYWORD for p in params.values())
     def __init__(self,name,Z0=None,callback=None,**kwargs):
         """Constructor
         @param name string file name of s-parameter file to read.
@@ -101,6 +120,22 @@ class SParameterFile(SParameters):
         self.header=[]
         self.picture=None
         in_picture=False
+        lastReportedProgress=-1
+        baseName=os.path.basename(name)
+        # only report file-reading progress through the callback if the callback
+        # supports the 'name' argument used to manage the progress dialog's title
+        # stack (e.g. an App ProgressDialog callback).  The generic Lib-level
+        # callback contract only takes a single progress argument and is used to
+        # count progress in the frequency loops, so reporting file-read progress
+        # through it would corrupt that counting and its abort semantics.
+        progressCallback=callback if self._CallbackAcceptsName(callback) else None
+        if not progressCallback is None:
+            # push the file name onto the progress dialog's title stack and
+            # report 0 progress before the (potentially slow) file read so the
+            # progress dialog appears immediately
+            if progressCallback(0.,name='+'+baseName) is False:
+                raise SignalIntegrityExceptionSParameterFile(
+                    'reading '+name+' aborted')
         if 'text' in kwargs:
             spfile=kwargs['text']
         else:
@@ -108,11 +143,22 @@ class SParameterFile(SParameters):
                 from SignalIntegrity.Lib.Encryption import Encryption
                 spfile=Encryption().ReadEncryptedLines(name)
             except IOError:
+                if not progressCallback is None:
+                    # pop the file name back off the progress dialog's title stack
+                    progressCallback(100.,name='-')
                 raise SignalIntegrityExceptionSParameterFile(name+' not found')
         readHeader=True
+        totalLines=len(spfile) if hasattr(spfile,'__len__') else None
         # pragma: include
-        for line in spfile:
+        for lineIndex,line in enumerate(spfile):
             # pragma: silent exclude
+            if not progressCallback is None and not totalLines is None:
+                progress=int((lineIndex+1)*100//totalLines)
+                if progress != lastReportedProgress:
+                    lastReportedProgress=progress
+                    if progressCallback(progress) is False:
+                        raise SignalIntegrityExceptionSParameterFile(
+                            'reading '+name+' aborted')
             if readHeader:
                 stripped = line.lstrip()
                 first = stripped[:1]
@@ -152,6 +198,11 @@ class SParameterFile(SParameters):
                     nums = np.fromstring(line_no_comment, sep=' ')
                     if nums.size:
                         numeric_chunks.append(nums)
+        # pragma: silent exclude
+        if not progressCallback is None:
+            # pop the file name back off the progress dialog's title stack
+            progressCallback(100.,name='-')
+        # pragma: include
         if not sp: return
         if self.m_Z0==None: self.m_Z0=Z0
         numbers = np.concatenate(numeric_chunks)\

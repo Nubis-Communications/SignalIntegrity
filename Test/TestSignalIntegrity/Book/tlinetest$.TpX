@@ -1,0 +1,35 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">66,-42 68,-44 66,-46</polyline>
+%  <polyline lc="black">72,-44 68,-44</polyline>
+%  <text x="66" y="-45" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">94,-42 92,-44 94,-46</polyline>
+%  <polyline lc="black">88,-44 92,-44</polyline>
+%  <text x="94" y="-45" t="2" h="3" halign="l" lc="black"/>
+%  <rect x="76" y="-40" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">72,-44 76,-44</polyline>
+%  <text x="75" y="-43" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">88,-44 84,-44</polyline>
+%  <text x="85" y="-43" t="2" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-37" t="Zc 50.0 ohm" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-34" t="Material FR4" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-31" t="Length 1.0 in" h="3" halign="c" lc="black"/>
+%  <text x="80" y="-28" t="TLineModelDiffModeOnly.si" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (66,-42) -- (68,-44) -- (66,-46);
+\path[line width=0.30mm, draw=black] (72,-44) -- (68,-44);
+\draw[black] (66,-45) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (94,-42) -- (92,-44) -- (94,-46);
+\path[line width=0.30mm, draw=black] (88,-44) -- (92,-44);
+\draw[black] (94,-45) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (76,-48) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (72,-44) -- (76,-44);
+\draw[black] (75,-43) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (88,-44) -- (84,-44);
+\draw[black] (85,-43) node[anchor=base west]{2};
+\draw[black] (80,-37) node[anchor=base]{Zc 50.0 ohm};
+\draw[black] (80,-34) node[anchor=base]{Material FR4};
+\draw[black] (80,-31) node[anchor=base]{Length 1.0 in};
+\draw[black] (80,-28) node[anchor=base]{TLineModelDiffModeOnly.si};
+\end{tikzpicture}%

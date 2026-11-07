@@ -79,7 +79,7 @@ class TestIXTTest(unittest.TestCase,
     def IXT_args():
         return {'port_reorder':'1,2,3,4,16,15,14,13','single_ended_ports':'1,2,5,6,3,4,7,8',
                 'reference_impedance':'46.25,50','voltage_transfer_function':'True','victim_ports':'1,2','aggressor_ports':'3,2',
-                'end_frequency':'55e9','frequency_points':'40','multiply':'8'}
+                'end_frequency':'55e9','frequency_points':'40','total_aggressor_lanes':'8'}
     def IXT_args_for_calculator(self):
         args=self.IXT_args()
         args['port_reorder']=eval('['+args['port_reorder']+']')
@@ -103,7 +103,7 @@ class TestIXTTest(unittest.TestCase,
         result = subprocess.getoutput(cmd_str)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '-50.141 dB'
+        target = '-41.111 dB'
         self.assertEqual(result_dB, target, 'IXT produced incorrect value')
     def testIXTSubprocessMissingSp(self):
         import subprocess
@@ -301,6 +301,15 @@ class TestIXTTest(unittest.TestCase,
                     except FileNotFoundError:
                         pass
         self.fail('IXT should have exited with SystemExit exception raised')
+
+    def testIXTMainBadTotalAggressorLanes(self):
+        from SignalIntegrity.Utilities.IXT.IXT import IXT_Main
+
+        for total_aggressor_lanes in ['0', '-1', 'not-a-number', '8,8']:
+            self.formIXTMain_argv(replace={'total_aggressor_lanes':total_aggressor_lanes})
+            with self.assertRaises(SystemExit) as exception:
+                IXT_Main()
+            self.assertEqual(exception.exception.code, 1)
     def testIXTPythonScript(self):
         from SignalIntegrity.Utilities.IXT.IXT import IXT_Calculator
         script_file = os.path.abspath(os.path.relpath('../../../SignalIntegrity/Utilities/IXT/IXT.py', os.path.dirname(__file__)))
@@ -311,7 +320,7 @@ class TestIXTTest(unittest.TestCase,
         result = IXT_Calculator(**ixt_args)
         result_dB = ToSI(result['ixt'],'dB',round=5)
         # print('result: ',result_dB)
-        target = '-50.141 dB'
+        target = '-41.111 dB'
         self.assertEqual(result_dB, target, 'IXT produced incorrect value')
     def testIXTPythonScriptNoVt(self):
         from SignalIntegrity.Utilities.IXT.IXT import IXT_Calculator
@@ -324,7 +333,7 @@ class TestIXTTest(unittest.TestCase,
         result = IXT_Calculator(**ixt_args)
         result_dB = ToSI(result['ixt'],'dB',round=5)
         # print('result: ',result_dB)
-        target = '-50.432 dB'
+        target = '-41.401 dB'
         self.assertEqual(result_dB, target, 'IXT produced incorrect value')
     def testIXTPythonScriptNoVtError(self):
         from SignalIntegrity.Utilities.IXT.IXT import IXT_Calculator
@@ -372,6 +381,38 @@ class TestIXTTest(unittest.TestCase,
         #result = IXT_Calculator(**ixt_args)
         with self.assertRaises(Exception) as cme:
             IXT_Calculator(**ixt_args)
+
+    def testIXTTotalAggressorLaneScaling(self):
+        from SignalIntegrity.Utilities.IXT.IXT import IXT_Calculator
+
+        class FakeFrequencyResponse:
+            def Frequencies(self):
+                return [0., 1.]
+
+            def Values(self, value_type):
+                return [1., 1.] if value_type == 'mag' else None
+
+        victim = FakeFrequencyResponse()
+        aggressors = [FakeFrequencyResponse(), FakeFrequencyResponse()]
+        single_lane_result = IXT_Calculator.IXT(victim, aggressors, 1.)
+        total_lane_result = IXT_Calculator.IXT(victim, aggressors, 1., 8)
+        fractional_lane_result = IXT_Calculator.IXT(victim, aggressors, 1., 2.5)
+        single_value_list_result = IXT_Calculator.IXT(victim, aggressors, 1., [8])
+        per_lane_result = IXT_Calculator.IXT(victim, aggressors, 1., [4, 8])
+
+        self.assertAlmostEqual(total_lane_result - single_lane_result, 10. * math.log10(8.))
+        self.assertAlmostEqual(fractional_lane_result - single_lane_result, 10. * math.log10(2.5))
+        self.assertAlmostEqual(single_value_list_result, total_lane_result)
+        self.assertAlmostEqual(per_lane_result - single_lane_result, 10. * math.log10((4. + 8.) / 2.))
+
+        with self.assertRaises(ValueError):
+            IXT_Calculator.IXT(victim, aggressors, 1., [8, 8, 8])
+        with self.assertRaises(ValueError):
+            IXT_Calculator.IXT(victim, aggressors, 1., [0, 8])
+        with self.assertRaises(ValueError):
+            IXT_Calculator.IXT(victim, aggressors, 1., [-1, 8])
+        with self.assertRaises(ValueError):
+            IXT_Calculator.IXT(victim, aggressors, 1., ['invalid', 8])
 
 if __name__ == '__main__': # pragma: no cover
     unittest.main()

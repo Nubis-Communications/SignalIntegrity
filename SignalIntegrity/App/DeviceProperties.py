@@ -32,6 +32,221 @@ from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 import SignalIntegrity.App.Project
 
+class DevicePartPictureCanvas(tk.Canvas):
+    strokeItemTypes={'line','rectangle','oval','arc','polygon'}
+
+    def __init__(self,parent,displayScale,**kwargs):
+        self.displayScale=displayScale
+        tk.Canvas.__init__(self,parent,**kwargs)
+
+    def _create(self,itemType,args,kwargs):
+        if itemType in self.strokeItemTypes:
+            kwargs=kwargs.copy()
+            kwargs['width']=float(kwargs.get('width',1))*self.displayScale+max(0,self.displayScale-1)
+            dash=kwargs.get('dash')
+            if isinstance(dash,(tuple,list)):
+                kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
+        return tk.Canvas._create(self,itemType,args,kwargs)
+
+def LaunchProjectFile(device,filename):
+    """opens a sub-project in another instance of the app, passing the device variables in"""
+    def fileTreatment(value,typeString):
+        if typeString == 'file':
+            try:
+                value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
+            except ValueError: # occurs when drive name is different
+                value=value.replace('\\','/')
+            if ' ' in value:
+                value='"'+value+'"'
+        return value
+
+    kwPairs=' '.join([v['Name']+' '+fileTreatment(v.Value(False,True),v['Type']) for v in device.variablesList])
+
+    try:
+        useCalculationProperties=(device['calcprop']['Value'] == 'true')
+    except TypeError:
+        useCalculationProperties=False
+    if useCalculationProperties:
+        kwPairs+=SignalIntegrity.App.Project['CalculationProperties'].KeywordPairs()
+    from SignalIntegrity.Lib.Encryption import Encryption
+    pwdArgString = '' if Encryption.password == None else ' --pwd "'+Encryption.password+'" '
+    return os.system('SignalIntegrity "'+os.path.abspath(filename)+'"'+pwdArgString+' --external '+kwPairs)
+
+def ViewableFileNameOfDevice(device):
+    """the s-parameter or sub-project file that can be viewed for this device, or None"""
+    try:
+        propertiesList=device.propertiesList
+    except AttributeError:
+        return None
+    for partProperty in propertiesList:
+        if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'filename'):
+            filename=partProperty.GetValue()
+            if filename in [None,'']:
+                return None
+            return filename
+    return None
+
+def DeviceViewKind(device):
+    """'file','waveform','noise' if this device has something viewable, or None"""
+    if not ViewableFileNameOfDevice(device) is None:
+        return 'file'
+    try:
+        deviceNetListName=device.netlist['DeviceName']
+    except AttributeError:
+        return None
+    if deviceNetListName in ['voltagesource','currentsource','networkanalyzerport']:
+        if device['wftype'].GetValue() != 'DC':
+            return 'waveform'
+    elif deviceNetListName in ['voltagenoisesource','currentnoisesource']:
+        return 'noise'
+    return None
+
+def WaveformProjectFileNameOfDevice(device):
+    """the sub-project file used to generate this device's waveform, or None if it isn't a project"""
+    try:
+        propertiesList=device.propertiesList
+    except AttributeError:
+        return None
+    for partProperty in propertiesList:
+        if (partProperty['Type'] == 'file') and (partProperty['PropertyName'] == 'waveformfilename'):
+            filename=partProperty.GetValue()
+            if filename in [None,''] or FileParts(filename).fileext != '.si':
+                return None
+            return filename
+    return None
+
+def DeviceViewMenuActions(device,editable=True):
+    """ordered list of (label,action) tuples for this device's View menu item(s)"""
+    actions=[]
+    kind=DeviceViewKind(device)
+    if kind == 'file':
+        actions.append(('View','file'))
+    elif kind == 'waveform':
+        actions.append(('View Waveform','waveform'))
+        if editable and device['wftype'].GetValue() == 'scripted':
+            actions.append(('Edit Script','editscript'))
+    elif kind == 'noise':
+        actions.append(('View Noise','noise'))
+    if not WaveformProjectFileNameOfDevice(device) is None:
+        actions.append(('Open Project','openproject'))
+    return actions
+
+def PerformDeviceViewAction(app,device,action):
+    """performs one of the actions named by DeviceViewMenuActions"""
+    if action == 'file':
+        ViewDeviceFile(app,device)
+    elif action == 'waveform':
+        ViewDeviceWaveform(app,device)
+    elif action == 'noise':
+        ViewDeviceNoise(app,device)
+    elif action == 'openproject':
+        OpenDeviceWaveformProject(app,device)
+    elif action == 'editscript':
+        EditDeviceScript(app,device)
+
+def OpenDeviceWaveformProject(app,device):
+    """opens the sub-project used to generate this device's waveform in a new instance of the app"""
+    filename=WaveformProjectFileNameOfDevice(device)
+    if filename is None:
+        return
+    if LaunchProjectFile(device,filename) != 0:
+        messagebox.showerror('ProjectFile','could not be opened')
+
+def ViewDeviceFile(app,device):
+    """views the device's s-parameter file or sub-project, the way the properties dialog view button does"""
+    filename=ViewableFileNameOfDevice(device)
+    if filename is None:
+        return
+    if FileParts(filename).fileext == '.si':
+        if LaunchProjectFile(device,filename) != 0:
+            messagebox.showerror('ProjectFile','could not be opened')
+        return
+    import SignalIntegrity.Lib as si
+    try:
+        sp=si.sp.SParameterFile(filename)
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('S-parameter Viewer',e.parameter+': '+e.message)
+        return
+    SParametersDialog(app,sp,filename)
+
+def ViewDeviceWaveform(app,device):
+    """views the device's waveform, the way the properties dialog view waveform button does"""
+    referenceDesignator=device['ref'].GetValue()
+    import SignalIntegrity.Lib as si
+    try:
+        wf=device.Waveform()
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('Waveform Viewer',e.parameter+': '+e.message)
+        return
+    ViewWaveform(app,wf,referenceDesignator)
+
+def ViewWaveform(app,wf,name):
+    """views a waveform in a modal simulator dialog"""
+    sim=app.simulator
+    sd=sim.SimulatorDialog()
+    sd.title('Waveform')
+    sim.UpdateWaveforms([wf],[name])
+    import platform
+    thisOS=platform.system()
+    if thisOS == 'Linux':
+        sd.attributes('-type','dialog')
+    elif thisOS == 'Windows':
+        sd.attributes('-toolwindow',True)
+    sd.attributes('-topmost', 1)
+    sd.focus_set()
+    sd.grab_set()
+    app.wait_window(sd)
+
+def EditDeviceScript(app,device):
+    """edits the script of a scripted source in the schematic, recording the change in the history"""
+    from SignalIntegrity.App.ScriptEditorDialog import ScriptEditorDialog
+    if ScriptEditorDialog(app,device,app).modified:
+        app.statusbar.set('Script Modified')
+        app.history.Event('modify script')
+        app.Drawing.DrawSchematic()
+
+def ViewDeviceNoise(app,device):
+    """views the device's noise spectral density, the way the properties dialog view noise button does"""
+    referenceDesignator=device['ref'].GetValue()
+    import SignalIntegrity.Lib as si
+    try:
+        specDensity=device.SpectralDensity()
+    except si.SignalIntegrityException as e:
+        messagebox.showerror('Noise Viewer',e.parameter+': '+e.message)
+        return
+    sim=app.simulator
+    nd=sim.NoiseDialog()
+    nd.title('Noise')
+    # a current noise source reports its noise in current units (Arms/dBm relative to current)
+    noise_type = 'current' if device['partname'].GetValue().startswith('Current') else 'voltage'
+    noise_dict = {'output_names':[referenceDesignator],
+                     'input_names':[],
+                     'transfer_matrices':None,
+                     'input_noise_spectral_density':{},
+                     'input_noise_spectral_density_list':[],
+                     'output_noise_spectral_density_list':[specDensity],
+                     'output_noise_spectral_density':{referenceDesignator:{'spectrum':specDensity,'type':noise_type,'rms':specDensity.TotalRMS(),'dBm':specDensity.TotaldBm(reference=noise_type)}},
+                     'contributions':None
+                     }
+    import math
+    sdv = noise_dict['output_noise_spectral_density'][referenceDesignator]
+    fe = sdv['spectrum'].Frequencies('GHz')[-1]
+    sdv['rms/sqrt(Hz)'] = sdv['rms']/math.sqrt(fe*1e9)
+    sdv['rms/sqrt(GHz)'] = sdv['rms']/math.sqrt(fe)
+    sdv['dBm/Hz'] = sdv['dBm'] - 10.*math.log10(fe*1e9)
+    sdv['dBm/GHz'] = sdv['dBm'] - 10.*math.log10(fe)
+    sim.UpdateNoise(noise_dict)
+    import platform
+    thisOS=platform.system()
+    if thisOS == 'Linux':
+        nd.attributes('-type','dialog')
+    elif thisOS == 'Windows':
+        nd.attributes('-toolwindow',True)
+    nd.attributes('-topmost', 1)
+    nd.focus_set()
+    nd.grab_set()
+    app.wait_window(nd)
+
 class DeviceProperty(tk.Frame):
     def __init__(self,parentFrame,parent,partProperty):
         tk.Frame.__init__(self,parentFrame)
@@ -92,6 +307,9 @@ class DeviceProperty(tk.Frame):
         elif self.partProperty['PropertyName'] == 'waveformfilename':
             extension=('.txt','.trc')
             filetypename='waveforms'
+        elif self.partProperty['PropertyName'] == 'frequencyresponsefilename':
+            extension=('.txt','.csv','.s1p','.s2p')
+            filetypename='frequency responses'
         elif self.partProperty['PropertyName'] == 'errorterms':
             extension=('.cal')
             filetypename='calibration file'
@@ -111,8 +329,11 @@ class DeviceProperty(tk.Frame):
                 initialFile=currentFileParts.FileNameWithExtension()
             else:
                 initialFile=currentFileParts.filename+extension[0]
+        filetypes=[(filetypename,extension)]
+        if self.partProperty['PropertyName'] != 'frequencyresponsefilename':
+            filetypes.append(('project','.si'))
         filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,extension),('project','.si')],
+                                 filetypes=filetypes,
                                  initialdir=initialDirectory,
                                  initialfile=initialFile)
         if filename is None:
@@ -139,29 +360,7 @@ class DeviceProperty(tk.Frame):
         if filename != '':
             import SignalIntegrity.Lib as si
             if FileParts(filename).fileext == '.si':
-                def fileTreatment(value,typeString):
-                    if typeString == 'file':
-                        try:
-                            value=os.path.relpath(value, os.path.dirname(filename)).replace('\\','/')
-                        except ValueError: # occurs when drive name is different
-                            value=value.replace('\\','/')
-                        if ' ' in value:
-                            value='"'+value+'"'
-                    return value
-
-                kwPairs=' '.join([v['Name']+' '+fileTreatment(v.Value(False,True),v['Type']) for v in self.device.variablesList])
-
-                try:
-                    useCalculationProperties=(self.device['calcprop']['Value'] == 'true')
-                except TypeError:
-                    useCalculationProperties=False
-                if useCalculationProperties:
-                    calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
-                    kwPairs+=' '+' '.join([propertyName+' '+str(calculationProperties[propertyName]) for propertyName in calculationProperties.Dictionary().keys()])
-                from SignalIntegrity.Lib.Encryption import Encryption
-                pwdArgString = '' if Encryption.password == None else ' --pwd "'+Encryption.password+'" '
-                result=os.system('SignalIntegrity "'+os.path.abspath(filename)+'"'+pwdArgString+' --external '+kwPairs)
-                if result != 0:
+                if LaunchProjectFile(self.device,filename) != 0:
                     messagebox.showerror('ProjectFile','could not be opened')
                     return
             elif self.partProperty['PropertyName'] == 'filename':
@@ -290,9 +489,10 @@ class DeviceProperty(tk.Frame):
         self.parentFrame.focus()
 
 class DeviceProperties(tk.Frame):
-    def __init__(self,parent,device,advancedMode=False):
+    def __init__(self,parent,device,advancedMode=False,displayScale=1.0):
         tk.Frame.__init__(self,parent)
         self.parent=parent
+        self.displayScale=displayScale
         self.title = device.PartPropertyByName('type').PropertyString(stype='raw')
         self.device=device
         self.isAProjectDevice=False
@@ -301,6 +501,7 @@ class DeviceProperties(tk.Frame):
         self.partViewButton = tk.Button(partViewFrame,text='view s-parameters according to calc properties',command=self.onPartView)
         self.waveformViewButton = tk.Button(partViewFrame,text='view waveform',command=self.onWaveformView)
         self.noiseViewButton = tk.Button(partViewFrame,text='view noise',command=self.onNoiseView)
+        self.scriptEditButton = tk.Button(partViewFrame,text='edit script',command=self.onScriptEdit)
         if isinstance(self.device,Device): # part other than file - allow viewing
             fileTypeKeywords = list(set(['wffile','file']).intersection(set([property['Keyword'] for property in self.device.propertiesList])))
             if len(fileTypeKeywords) == 1:
@@ -318,6 +519,8 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                    if self.device['wftype'].GetValue() == 'scripted':
+                        self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         try:
@@ -325,7 +528,7 @@ class DeviceProperties(tk.Frame):
         except TypeError:
             pass
         keywords = [property['Keyword'] for property in self.device.propertiesList]
-        if 'wffile' in keywords:
+        if 'wffile' in keywords and 'wfprojname' in keywords:
             fileName = self.device.propertiesList[keywords.index('wffile')].GetValue()
             ext=str.lower(fileName).split('.')[-1]
             self.device.propertiesList[keywords.index('wfprojname')]['Hidden']=(ext != 'si')
@@ -353,7 +556,7 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.IsScriptedSource():
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -415,11 +618,11 @@ class DeviceProperties(tk.Frame):
             showBoxOffButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         partPictureFrame = tk.Frame(self)
         partPictureFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
-        self.partPictureCanvas = tk.Canvas(partPictureFrame)
+        self.partPictureCanvas = DevicePartPictureCanvas(partPictureFrame,self.displayScale)
         self.partPictureCanvas.config(relief=tk.SUNKEN,borderwidth=1)
         self.partPictureCanvas.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         self.partPictureCanvas.bind('<Button-1>',self.onMouseButton1InPartPicture)
-        device.DrawDevice(self.partPictureCanvas,20,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
+        device.DrawDevice(self.partPictureCanvas,20*self.displayScale,-device.partPicture.current.origin[0]+5,-device.partPicture.current.origin[1]+5)
         (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
@@ -427,7 +630,14 @@ class DeviceProperties(tk.Frame):
             offsety=max(-miny,0)
             self.partPictureCanvas.move(tk.ALL,offsetx,offsety)
 
+    def IsScriptedSource(self):
+        return isinstance(self.device,Device) and not self.device['script'] is None
+
     def onVariables(self):
+        if self.IsScriptedSource():
+            # the variables are passed into the script by name, as they are passed into a sub-project
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables')
+            return
         if self.device['file'] != None:
             filename=self.device['file']['Value']
         elif self.device['wffile'] != None:
@@ -448,7 +658,7 @@ class DeviceProperties(tk.Frame):
         if not self.device['ports'] is None:
             self.device.partPicture.ports=self.device['ports'].GetValue()
         self.device.partPicture.SwitchPartPicture(self.device.partPicture.partPictureSelected)
-        self.device.DrawDevice(self.partPictureCanvas,20,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
+        self.device.DrawDevice(self.partPictureCanvas,20*self.displayScale,-self.device.partPicture.current.origin[0]+5,-self.device.partPicture.current.origin[1]+5)
         (minx,miny,maxx,maxy)=self.partPictureCanvas.bbox(tk.ALL) # bounding box that contains part picture
         if minx < 0 or miny < 0: # the top or left side of the picture is clipped
             # adjust the picture so that the left and top of the picture is in the window
@@ -462,6 +672,7 @@ class DeviceProperties(tk.Frame):
         self.rotationFrame.pack_forget()
         self.partViewButton.pack_forget()
         self.waveformViewButton.pack_forget()
+        self.scriptEditButton.pack_forget()
         self.variablesButton.pack_forget()
         self.isAProjectDevice=False
         if isinstance(self.device,Device): # part other than file - allow viewing
@@ -481,9 +692,11 @@ class DeviceProperties(tk.Frame):
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
                     if not self.device['wftype'].GetValue() == 'DC':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                    if self.device['wftype'].GetValue() == 'scripted':
+                        self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice:
+        if self.isAProjectDevice or self.IsScriptedSource():
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
@@ -634,6 +847,16 @@ class DeviceProperties(tk.Frame):
         finally:
             self.parent.protocol("WM_DELETE_WINDOW", self.parent.cancel)
 
+    def onScriptEdit(self):
+        self.focus()
+        from SignalIntegrity.App.ScriptEditorDialog import ScriptEditorDialog
+        if ScriptEditorDialog(self.parent,self.device,self.parent.parent).modified:
+            # apply() rebuilds the device from the property entry strings, so the hidden
+            # script property's entry string must hold the edited script
+            for propFrame in self.propertyFrameList:
+                if propFrame.partProperty['Keyword'] == 'script':
+                    propFrame.propertyString.set(propFrame.partProperty.PropertyString(stype='entry'))
+
     def onNoiseView(self):
         self.focus()
         device=self.device
@@ -701,8 +924,9 @@ class DevicePropertiesDialog(tk.Toplevel):
         self.device = copy.deepcopy(device)
         self.title(self.device['desc'].PropertyString(stype='raw'))
         self.parent = parent
+        self.displayScale=getattr(parent,'displayScale',1.0)
         self.result = None
-        self.DeviceProperties = DeviceProperties(self,self.device)
+        self.DeviceProperties = DeviceProperties(self,self.device,displayScale=self.displayScale)
         self.initial_focus = self.DeviceProperties
         self.DeviceProperties.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,padx=5, pady=5)
         self.buttonbox()

@@ -18,6 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from scipy import linalg
+import numpy as np
 import math
 import sys
 
@@ -66,6 +67,13 @@ class WElement(SParameters):
     calculated by approximating distributed parameters with a finite number
     of sections specified."""
     rtFraction=.01
+    useLegacySolve=False
+    """bool whether to use the legacy interconnected-system solve for each section.
+
+    The default (False) computes each section's s-parameters directly from small
+    (wires x wires) series-impedance and shunt-admittance matrices, which is
+    numerically identical to the legacy solve but dramatically faster.  Set to
+    True to fall back to the original interconnected s-parameter system solve."""
     def __init__(self,f, wires, R, Rse, df, Cm, Gm, Lm, Z0=50., K=0, scale=1.):
         """Constructor  
         ports are 1,2,3,4, etc. on left and W, W+1, W+2, W+4, etc. on right where W=wires
@@ -176,6 +184,16 @@ class WElement(SParameters):
             for o in range(w+1,wires):
                 self.m_spdl.append(('M_'+str(w+1)+'_'+str(o+1),dev.Mutual(f,Lm[o][w]/K,Z0))) # see note about [o][w] order above
                 self.m_spdl.append(('C_'+str(w+1)+'_'+str(o+1),dev.SeriesC(f,Cm[o][w]/K,Z0,df[o][w])))
+        # frequency-independent per-section matrices for the fast analytic solve.
+        # the lower-triangular [o][w] (o>=w) storage of the mutual/inductance/
+        # capacitance/conductance matrices is expanded to full symmetric matrices.
+        self.m_wires=wires
+        self.m_Rsec=[R[w]/K for w in range(wires)]
+        self.m_Rsesec=[Rse[w]/K for w in range(wires)]
+        self.m_Lsec=[[Lm[max(a,b)][min(a,b)]/K for b in range(wires)] for a in range(wires)]
+        self.m_Csec=[[Cm[max(a,b)][min(a,b)]/K for b in range(wires)] for a in range(wires)]
+        self.m_Gsec=[[Gm[max(a,b)][min(a,b)]/K for b in range(wires)] for a in range(wires)]
+        self.m_dfsec=[[df[max(a,b)][min(a,b)] for b in range(wires)] for a in range(wires)]
         SParameters.__init__(self,f,None,Z0)
     def NetList(self):
         """NetList
@@ -183,12 +201,50 @@ class WElement(SParameters):
         @remark this is really for testing only.
         """
         return self.NetListLines
+    def SectionSParameters(self,n):
+        """s-parameters of a single section (1/K of the line) at frequency index n.
+
+        Computed directly from the section series-impedance matrix (series R, skin-
+        effect resistance and the full mutual inductance matrix) and the shunt nodal
+        admittance matrix (self/mutual capacitance - including loss tangent - and
+        self/mutual conductance).  This is numerically identical to interconnecting
+        the individual lumped-element s-parameter devices, but avoids the large
+        per-frequency matrix solve.
+        @param n integer frequency index
+        @return list of list s-parameter matrix of the section (2*wires ports)
+        """
+        wires=self.m_wires; Z0=self.m_Z0
+        w=2.0*math.pi*self.m_f[n]; sqrtf=math.sqrt(self.m_f[n])
+        Lsec=self.m_Lsec; Csec=self.m_Csec; Gsec=self.m_Gsec; dfsec=self.m_dfsec
+        # series impedance matrix (coupled inductors in series with R and Rse)
+        Zs=np.array([[(self.m_Rsec[a]+self.m_Rsesec[a]*(1+1j)*sqrtf+1j*w*Lsec[a][a])
+                      if a==b else (1j*w*Lsec[a][b])
+                      for b in range(wires)] for a in range(wires)],dtype=complex)
+        # shunt nodal admittance matrix (caps/conductances to ground and between nodes)
+        Yp=np.zeros((wires,wires),dtype=complex)
+        for a in range(wires):
+            acc=w*Csec[a][a]*(1j+dfsec[a][a])+Gsec[a][a]
+            for b in range(wires):
+                if b==a: continue
+                ymut=w*Csec[a][b]*(1j+dfsec[a][b])+Gsec[a][b]
+                Yp[a][b]=-ymut
+                acc+=ymut
+            Yp[a][a]=acc
+        Ys=np.linalg.inv(Zs)
+        N=wires
+        Y=np.zeros((2*N,2*N),dtype=complex)
+        Y[:N,:N]=Ys; Y[:N,N:]=-Ys; Y[N:,:N]=-Ys; Y[N:,N:]=Ys+Yp
+        I=np.identity(2*N)
+        return ((I-Z0*Y).dot(np.linalg.inv(I+Z0*Y))).tolist()
     def __getitem__(self,n):
         """overloads [n]
         @return list of list s-parameter matrix for the nth frequency element
         """
-        for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
-        sp=self.m_sspn.SParameters()
+        if self.useLegacySolve:
+            for ds in self.m_spdl: self.m_sspn.AssignSParameters(ds[0],ds[1][n])
+            sp=self.m_sspn.SParameters()
+        else:
+            sp=self.SectionSParameters(n)
         if sp == 1: return sp
         lp=[w+1 for w in range(len(sp)//2)]; rp=[w+len(sp)//2+1 for w in range(len(sp)//2)]
         return T2S(linalg.fractional_matrix_power(S2T(sp,lp,rp),self.m_K),lp,rp)

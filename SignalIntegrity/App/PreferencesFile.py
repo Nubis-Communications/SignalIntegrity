@@ -23,8 +23,8 @@ from SignalIntegrity.App.SParameterProperties import SParameterProperties
 
 class DeviceConfigurations(XMLConfiguration):
     def __init__(self):
-        from StatisticalNoisePreferencesFile import VoltageNoiseConfiguration,CurrentNoiseConfiguration
-        from EyeDiagramPreferencesFile import EyeConfiguration
+        from SignalIntegrity.App.StatisticalNoisePreferencesFile import VoltageNoiseConfiguration,CurrentNoiseConfiguration
+        from SignalIntegrity.App.EyeDiagramPreferencesFile import EyeConfiguration
         super().__init__('Devices')
         self.SubDir(EyeConfiguration())
         self.SubDir(VoltageNoiseConfiguration())
@@ -53,6 +53,7 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('GridsOnPlots',True))
         self.Add(XMLPropertyDefaultInt('RoundDisplayedValues',4))
         self.Add(XMLPropertyDefaultInt('LimitText',60))
+        self.Add(XMLPropertyDefaultBool('ProgressDialog',True))
         self.SubDir(Color())
 
 class Variables(XMLConfiguration):
@@ -73,7 +74,12 @@ class Calculation(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('IgnoreMissingOtherWaveforms',True))
         self.Add(XMLPropertyDefaultBool('LogarithmicSolutions',False))
         self.Add(XMLPropertyDefaultBool('Non50OhmSolutions',False))
+        self.Add(XMLPropertyDefaultBool('AllowTimeBefore0',False))
+        self.Add(XMLPropertyDefaultBool('DefaultLegacyTimeBefore0',True))
+        self.Add(XMLPropertyDefaultFloat('DefaultTimeBefore0',1e-9))
         self.Add(XMLPropertyDefaultBool('AllowParallelization',False))
+        self.Add(XMLPropertyDefaultBool('AllowMaximumImpulseResponseLength',False))
+
     def ApplyPreferences(self):
         import SignalIntegrity.Lib as si
         si.td.wf.Waveform.adaptionStrategy='SinX' if self['UseSinX'] else 'Linear'
@@ -122,6 +128,8 @@ class ProjectFiles(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('AskToSaveCurrentFile',True))
         self.Add(XMLPropertyDefaultBool('PreferSaveWaveformsLeCroyFormat',False))
         self.Add(XMLPropertyDefaultBool('ArchiveCachedResults',False))
+        self.Add(XMLPropertyDefaultBool('OpenProjectsReadOnly',False))
+        self.Add(XMLPropertyDefaultBool('ArchiveNonRelativeFiles',False))
         self.SubDir(Encryption())
 
 class OnlineHelp(XMLConfiguration):
@@ -135,6 +143,12 @@ class Features(XMLConfiguration):
         XMLConfiguration.__init__(self,'Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
         self.Add(XMLPropertyDefaultBool('StatisticalNoise',False))
+        self.Add(XMLPropertyDefaultBool('Regression',False))
+
+class Regression(XMLConfiguration):
+    def __init__(self):
+        XMLConfiguration.__init__(self,'Regression')
+        self.Add(XMLPropertyDefaultBool('OpenDiffToolOnFailure',True))
 
 class StatisticalNoise(XMLConfiguration):
     def __init__(self):
@@ -155,6 +169,7 @@ class PreferencesFile(ProjectFileBase):
         self.SubDir(Cache())
         self.SubDir(OnlineHelp())
         self.SubDir(Calculation())
+        self.SubDir(Regression())
         self.SubDir(SParameterProperties(preferences=True))
         self.SubDir(DeviceConfigurations())
         self.SubDir(Variables())

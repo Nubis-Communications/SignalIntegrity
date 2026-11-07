@@ -58,6 +58,9 @@ class Device(object):
             if partProperty['Keyword'] == keyword:
                 return partProperty
         return None
+    def Categories(self):
+        # category value may hold multiple '|' delimited categories
+        return [c.strip() for c in self['cat'].GetValue().split('|') if c.strip()]
     def AddPartProperty(self,PartProperty):
         if self[PartProperty['Keyword']] is None:
             self.propertiesList=self.propertiesList+[PartProperty]
@@ -196,6 +199,58 @@ class Device(object):
                 waveform=amplitude
             elif wfType == 'statistical':
                 waveform=0.0
+            elif wfType == 'scripted':
+                waveform = self.ScriptedWaveform()
+        return waveform
+    def ScriptContext(self):
+        """the variables passed into a scripted source's script
+
+        The device variables are passed in by name, as they are passed into a sub-project, with float
+        and int variables converted to numbers.  The device properties take precedence over device
+        variables of the same name."""
+        import SignalIntegrity.App.Project
+        import SignalIntegrity.Lib as si
+        context = SignalIntegrity.App.Project['Variables'].Dictionary(self.variablesList)
+        for variable in self.variablesList:
+            name = variable['Name']
+            try:
+                if variable['Type'] == 'float':
+                    context[name] = float(context[name])
+                elif variable['Type'] == 'int':
+                    context[name] = int(context[name])
+            except (TypeError, ValueError):
+                raise si.SignalIntegrityExceptionWaveform('scripted source error: variable '+name+' value '+str(context[name])+' is not a valid '+variable['Type'])
+        context.update({
+            'ho': float(self['ho'].GetValue()),
+            'dur': float(self['dur'].GetValue()),
+            't0': float(self['t0'].GetValue()),
+            'fs': float(self['fs'].GetValue()),
+            'math': math,
+        })
+        return context
+    def ScriptedWaveform(self,script=None):
+        """executes the script (the device's script, if None) and returns the waveform in output_waveform"""
+        import SignalIntegrity.Lib as si
+        if script is None:
+            script = self['script']['Value']
+        if script is None:
+            script = ''
+        context = self.ScriptContext()
+        try:
+            exec(script, context)
+        except Exception as e:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: '+type(e).__name__+': '+str(e))
+        output_waveform = context.get('output_waveform', None)
+        if output_waveform is None:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: script did not set output_waveform')
+        try:
+            output_waveform = [float(x) for x in output_waveform]
+        except Exception as e:
+            raise si.SignalIntegrityExceptionWaveform('scripted source error: output_waveform must be a list of numbers: '+str(e))
+        td = self.WaveformTimeDescriptor()
+        waveform = si.td.wf.Waveform(td)
+        for k in range(min(len(waveform),len(output_waveform))):
+            waveform[k] = output_waveform[k]
         return waveform
     def WaveformTimeDescriptor(self):
         import SignalIntegrity.Lib as si
@@ -244,9 +299,7 @@ class Device(object):
             variablesLine+=(' '+token)
         if not self['calcprop'] == None:
             if self['calcprop']['Value']=='true':
-                calculationProperties=SignalIntegrity.App.Project['CalculationProperties']
-                for propertyName in calculationProperties.Dictionary().keys():
-                    variablesLine+=(' '+propertyName+' '+str(calculationProperties[propertyName]))
+                variablesLine+=SignalIntegrity.App.Project['CalculationProperties'].KeywordPairs()
         return variablesLine
 
 class DeviceFromProject(object):
@@ -762,6 +815,65 @@ class DeviceCurrentSineGenerator(Device):
             PartPropertyWaveformType('sine')]+propertiesList,partPicture)
         self['t0']['Visible']=False; self['tf']['Visible']=False
 
+# Default scripts for scripted sources
+def _ScriptTemplate(sourceType,unit):
+    return '''# '''+sourceType+''' Scripted Source
+#
+# Properties passed in:
+#   ho  - horizontal offset (s)
+#   dur - duration (s)
+#   t0  - start time (s)
+#   fs  - sample rate (S/s)
+#   math - the Python math module
+# The device variables (added with the Variables button in the part properties dialog)
+# are also passed in by name.
+#
+# The script must set output_waveform to a list of K = ceil(fs*dur) values ('''+unit+''')
+# where the value at index k is at time ho + k/fs.
+#
+# Example: a sine wave of amplitude a and frequency f that starts at time t0
+a = 1.0 # amplitude ('''+unit+''')
+f = 1e9 # frequency (Hz)
+K = int(math.ceil(fs*dur))
+output_waveform = [a*math.sin(2.*math.pi*f*(ho+k/fs-t0)) if ho+k/fs >= t0 else 0. for k in range(K)]
+'''
+
+_voltageSourceScriptTemplate = _ScriptTemplate('Voltage','V')
+_currentSourceScriptTemplate = _ScriptTemplate('Current','A')
+
+
+class DeviceVoltageScriptedSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='voltagesource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Voltage Scripted Source'),
+            PartPropertyHelp('device:Voltage-Scripted-Source'),
+            PartPropertyDefaultReferenceDesignator('VS?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyWaveformType('scripted'),
+            PartPropertyScript(_voltageSourceScriptTemplate)]+propertiesList,partPicture)
+
+class DeviceCurrentScriptedSource(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceNetListLine(devicename='currentsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Generators'),
+            PartPropertyPartName('Current Scripted Source'),
+            PartPropertyHelp('device:Current-Scripted-Source'),
+            PartPropertyDefaultReferenceDesignator('CS?'),
+            PartPropertyShow(),
+            PartPropertyHorizontalOffset(),
+            PartPropertyDuration(),
+            PartPropertyStartTime(),
+            PartPropertySampleRate(),
+            PartPropertyWaveformType('scripted'),
+            PartPropertyScript(_currentSourceScriptTemplate)]+propertiesList,partPicture)
+
 class DeviceMeasurement(Device):
     def __init__(self):
         netlist=DeviceNetListLine(devicename='meas',showReference=False,showports=False)
@@ -1037,7 +1149,7 @@ class DeviceTransmissionLine(Device):
 class DeviceCOMTransmissionLine(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='tlinecom',values=[('gamma0',True),('a1',True),('a2',True),('tau',True),('zc',True),('d',True)])
-        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines|COM'),
                                       PartPropertyPartName('TransmissionLineCOM'),
                                       PartPropertyHelp('device:Transmission-Line-COM'),
                                       PartPropertyDefaultReferenceDesignator('T?'),
@@ -1055,6 +1167,46 @@ class DeviceTransmissionLineLossy(Device):
                                       PartPropertyCharacteristicImpedance(),
                                       PartPropertyLossdBPerHzPers(),
                                       PartPropertyLossdBPerrootHzPers()]+propertiesList,partPicture)
+
+class DeviceMCB(Device):
+    def __init__(self,propertiesList,partPicture):
+        netlist=DeviceMCBNetListLine(partname='mcb',values=[('td',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines|COM'),
+                                      PartPropertyPartName('MCB'),
+                                      PartPropertyHelp('device:MCB'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyElementState(),
+                                      PartPropertyDelay(200e-12)]+propertiesList,partPicture)
+
+class DeviceMCBNetListLine(DeviceNetListLine):
+    def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
+        DeviceNetListLine.__init__(self,devicename=devicename,partname=partname,showReference=showReference,showports=showports,values=values)
+    def NetListLine(self,device):
+        # left/right ports are derived from the pin geometry of the current (oriented) picture
+        picture=device.partPicture.current
+        pins=[(pin['Number'],pin['ConnectionPoint'][0],pin['ConnectionPoint'][1]) for pin in picture.pinList]
+        xs=[p[1] for p in pins]; ys=[p[2] for p in pins]
+        if max(xs)-min(xs) >= max(ys)-min(ys):
+            side=1; order=2; mid=(max(xs)+min(xs))/2.
+        else:
+            side=2; order=1; mid=(max(ys)+min(ys))/2.
+        lp=[p[0] for p in sorted([p for p in pins if p[side]<mid],key=lambda p:p[order])]
+        rp=[p[0] for p in sorted([p for p in pins if p[side]>=mid],key=lambda p:p[order])]
+        lprpstr=' lp '+str(lp).strip('[] ').replace(' ','')+' rp '+str(rp).strip('[] ').replace(' ','')
+        return DeviceNetListLine.NetListLine(self,device)+lprpstr
+
+class DeviceTransmissionLineEquation(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='tlineequation',values=[('eq',False),('zc',True)])
+        Device.__init__(self,netlist,[PartPropertyCategory('Transmission Lines'),
+                                      PartPropertyPartName('TransmissionLineEquation'),
+                                      PartPropertyHelp('device:'),
+                                      PartPropertyDefaultReferenceDesignator('T?'),
+                                      PartPropertyDescription('Transmission Line Equation'),
+                                      PartPropertyPorts(2),
+                                      PartPropertyLaplaceEquation(''),
+                                      PartPropertyCharacteristicImpedance()],
+                                      PartPictureVariableLaplace())
 
 class DeviceTelegrapherTwoPort(Device):
     def __init__(self,propertiesList,partPicture):
@@ -1541,6 +1693,24 @@ class DeviceImpulseResponseFilter(Device):
                          PartPictureVariableImpulseResponseFilter())
         self['wffile']['Description']='impulse response file name'
 
+class DeviceFrequencyResponseFilter(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='frequencyresponsefilter',
+                                  values=[('frfile',False),
+                                          ('dcgain',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Frequency Response Filter'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Filters'),
+                         PartPropertyPartName('FrequencyResponseFilter'),
+                         PartPropertyHelp('device:FrequencyResponseFilter'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyFrequencyResponseFileName(),
+                         PartPropertyDCGain()],
+                         PartPictureVariableFrequencyResponseFilter())
+        self['frfile']['Description']='frequency response file name'
+
 class DeviceWElement(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(partname='w',values=[('file',False),('df',True),('scale',True),('sect',True)])
@@ -1792,7 +1962,7 @@ class DeviceReference(Device):
         netlist=DeviceNetListLine(partname='reference')
         Device.__init__(self,
                         netlist,
-                        [PartPropertyCategory('Inductors'),
+                        [PartPropertyCategory('Inductors|Miscellaneous'),
                          PartPropertyPartName('Reference'),
                          PartPropertyHelp('device:Reference'),
                          PartPropertyDefaultReferenceDesignator('Ref?'),
@@ -1918,6 +2088,8 @@ DeviceList=Devices([
                 DeviceDirectionalCoupler([PartPropertyDescription('Four Port Directional Coupler'),PartPropertyPorts(4)],PartPictureVariableDirectionalCouplerFourPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Two Port Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLine([PartPropertyDescription('Four Port Transmission Line'),PartPropertyPorts(4)],PartPictureVariableTransmissionLineFourPort()),
+                DeviceMCB([PartPropertyDescription('Four Port MCB'),PartPropertyPorts(4)],PartPictureVariableMCB()),
+                DeviceTransmissionLineEquation(),
                 DeviceCOMTransmissionLine([PartPropertyDescription('Two Port COM Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTransmissionLineLossy([PartPropertyDescription('Two Port Lossy Transmission Line'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
                 DeviceTelegrapherTwoPort([PartPropertyDescription('Two Port Telegrapher'),PartPropertyPorts(2)],PartPictureVariableTransmissionLineTwoPort()),
@@ -1956,6 +2128,10 @@ DeviceList=Devices([
                 DeviceCurrentImpulseGenerator([PartPropertyDescription('Two Port Current Impulse Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceImpulseGeneratorTwoPort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('One Port Current Sine Generator'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceSineGeneratorOnePort()),
                 DeviceCurrentSineGenerator([PartPropertyDescription('Two Port Current Sine Generator'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceSineGeneratorTwoPort()),
+                DeviceVoltageScriptedSource([PartPropertyDescription('One Port Voltage Scripted Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceScriptedGeneratorOnePort()),
+                DeviceVoltageScriptedSource([PartPropertyDescription('Two Port Voltage Scripted Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceScriptedGeneratorTwoPort()),
+                DeviceCurrentScriptedSource([PartPropertyDescription('One Port Current Scripted Source'),PartPropertyPorts(1)],PartPictureVariableCurrentSourceScriptedGeneratorOnePort()),
+                DeviceCurrentScriptedSource([PartPropertyDescription('Two Port Current Scripted Source'),PartPropertyPorts(2)],PartPictureVariableCurrentSourceScriptedGeneratorTwoPort()),
                 Port(),
                 DeviceMeasurement(),
                 DeviceOutput(),
@@ -1999,6 +2175,7 @@ DeviceList=Devices([
                 DeviceWElement([PartPropertyPorts(4,False)],PartPictureVariableWElement()),
                 DeviceRelay([PartPropertyPorts(3,False)],PartPictureVariableRelay()),
                 DeviceImpulseResponseFilter(),
+                DeviceFrequencyResponseFilter(),
                 DeviceEyeProbe(),
                 DeviceDifferentialEyeProbe(),
                 DeviceEyeWaveform(),

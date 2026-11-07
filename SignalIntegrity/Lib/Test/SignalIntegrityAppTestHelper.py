@@ -20,6 +20,9 @@ SignalIntegrityAppTestHelper.py
 # If not, see <https://www.gnu.org/licenses/>
 import os
 
+from SignalIntegrity.Lib.Test.RegressionFiles import RegressionFiles
+from SignalIntegrity.Lib.Test.TestHelpers import CopyToBook
+
 class SignalIntegrityAppTestHelper:
     relearn=True
     plotErrors=False
@@ -27,41 +30,31 @@ class SignalIntegrityAppTestHelper:
     SPCompareResolution=1e-3
     allowReferenceImpedanceTranslation=True
     diff_projects=True
+    # whether pictures and netlists checked are mirrored into the Book folder
+    copyToBook=True
     def __init__(self,path):
         self.path=path
+    def RegressionFiles(self,write=False):
+        """The comparison core configured the way this helper behaves.
+        @param write bool (optional, defaults to False) whether to rewrite references.
+        @return instance of class RegressionFiles
+        """
+        return RegressionFiles(write=write,relearn=self.relearn,
+                               spCompareResolution=self.SPCompareResolution,
+                               allowReferenceImpedanceTranslation=self.allowReferenceImpedanceTranslation)
     def FileNameForTest(self,filename):
         return filename.replace('..', 'Up').replace('/','_').split('.')[0]
     @staticmethod
     def PrintDiffableDictionary(input_value,indent=0):
-        lines=[]
-        indent_string=' '*indent
-        if isinstance(input_value,dict):
-            for key in input_value.keys():
-                lines.append(indent_string+str(key))
-                lines=lines+SignalIntegrityAppTestHelper.PrintDiffableDictionary(input_value[key],indent+4)
-        else:
-            lines.append(indent_string+str(input_value))
-        return lines
+        return RegressionFiles.DiffableDictionary(input_value,indent)
     def ProjectChecker(self,pysi,filename):
         import SignalIntegrity.App.Project
-        project_dictionary = SignalIntegrity.App.Project.ToDictionary()
-        import json
         testFilename=self.FileNameForTest(filename)+'.json'
-        if not os.path.exists(testFilename):
-            with open(testFilename,'w') as f:
-                json.dump(project_dictionary,f)
-        with open(testFilename) as f:
-            regression = json.load(f)
-        lines = self.PrintDiffableDictionary(project_dictionary)
-        regression_lines = self.PrintDiffableDictionary(regression)
-        same = lines == regression_lines
-        if not same and self.diff_projects:
-            import difflib
-            for line in difflib.unified_diff(
-                regression_lines,lines,
-                fromfile='regression', tofile='current', lineterm='\n', n=5):
-                print(line)
-        self.assertTrue(same,filename+': project file changed')
+        result=self.RegressionFiles().Project(
+            SignalIntegrity.App.Project.ToDictionary(),testFilename)
+        if not result.ok and self.diff_projects and result.message:
+            print(result.message)
+        self.assertTrue(result.ok,filename+': project file changed')
     def PictureChecker(self,pysi,filename,archive=False):
         if not self.checkPictures:
             return
@@ -77,30 +70,16 @@ class SignalIntegrityAppTestHelper:
         except:
             self.assertTrue(False,filename + ' couldnt be drawn')
         os.chdir(self.path)
-        if not os.path.exists(testFilename) or self.forceWritePictures:
-            tpx.WriteToFile(testFilename)
-            if not self.relearn:
-                self.assertTrue(False, testFilename + ' not found')
-        with open(testFilename) as f:
-            regression=f.readlines()
-        if tpx.lineList==regression:
-            os.chdir(currentDirectory)
-            return
-        # if we get here, we need a more complicated test because ordering may have changed
-        self.assertTrue(len(tpx.lineList)==len(regression),testFilename + ' incorrect')
-        itemsToCheck=[True for _ in range(len(regression))]
-        for tpxline in tpx.lineList:
-            foundOne=False
-            for k in range(len(regression)):
-                if itemsToCheck[k] and not foundOne:
-                    if tpxline==regression[k]:
-                        itemsToCheck[k] = False
-                        foundOne=True
-                if foundOne:
-                    continue
-            self.assertTrue(foundOne,testFilename + ' incorrect')
-        print(testFilename+' okay, but in different order')
+        result=self.RegressionFiles(write=self.forceWritePictures).Picture(tpx.lineList,testFilename)
+        bookSrc=os.path.abspath(testFilename)
         os.chdir(currentDirectory)
+        if result.written and not self.relearn:
+            self.assertTrue(False, testFilename + ' not found')
+        if result.ok and result.message:
+            print(testFilename+' okay, but '+result.message)
+        self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
+        if self.copyToBook:
+            CopyToBook(bookSrc)
     def NetListChecker(self,pysi,filename,archive=False):
         currentDirectory=os.getcwd()
         os.chdir(self.path+('/'+os.path.splitext(filename)[0]+'_Archive' if archive else ''))
@@ -112,56 +91,28 @@ class SignalIntegrityAppTestHelper:
                 netlist=pysi.Drawing.schematic.NetList().Text()
             except:
                 self.assertTrue(False,filename + ' couldnt produce netlist')
-        netlist=[line+'\n' for line in netlist]
         os.chdir(self.path)
-        if not os.path.exists(testFilename):
-            with open(testFilename,"w") as f:
-                for line in netlist:
-                    f.write(line)
-                if not self.relearn:
-                    self.assertTrue(False, testFilename + ' not found')
-        with open(testFilename) as f:
-            regression=f.readlines()
-        self.assertTrue(len(netlist)==len(regression),testFilename + ' incorrect')
-        for netline,regressionline in zip(netlist,regression):
-            if netline != regressionline:
-                if (netline[:len('connect')]=='connect') and (regression[:len('connect')]=='connect'):
-                    netconnecttokens=netline[len('connect'):]
-                    regressiontokens=regressionline[len('connect'):]
-                    if len(netconnecttokens)//2*2!=len(netconnecttokens):
-                        self.fail(testFilename + ' incorrect')
-                    if len(regressiontokens)//2*2!=len(regressiontokens):
-                        self.fail(testFilename + ' incorrect')
-                    if len(netconnecttokens)!=len(regressiontokens):
-                        self.fail(testFilename + ' incorrect')
-                    nets=[(netconnecttokens[i],netconnecttokens[i+1]) for i in range(len(netconnecttokens)/2)]
-                    regs=[(regressiontokens[i],regressiontokens[i+1]) for i in range(len(regressiontokens)/2)]
-                    itemsToCheck=[True for _ in range(len(regs))]
-                    for net in nets:
-                        foundOne=False
-                        for k in range(len(regs)):
-                            if itemsToCheck[k] and not foundOne:
-                                if net==regs[k]:
-                                    itemsToCheck[k] = False
-                                    foundOne=True
-                            if foundOne:
-                                continue
-                        self.assertTrue(foundOne,testFilename + ' incorrect')
-                    print(testFilename+' okay, but connections in different order')
+        result=self.RegressionFiles().NetList(netlist,testFilename)
+        bookSrc=os.path.abspath(testFilename)
         os.chdir(currentDirectory)
+        if result.written and not self.relearn:
+            self.assertTrue(False, testFilename + ' not found')
+        if result.ok and result.message:
+            print(testFilename+' okay, but '+result.message)
+        self.assertTrue(result.ok,testFilename + ': '+(result.message if result.message else 'incorrect'))
+        if self.copyToBook:
+            CopyToBook(bookSrc)
     def SParameterRegressionChecker(self,sp,spfilename):
-        from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
         currentDirectory=os.getcwd()
         os.chdir(self.path)
-        if not os.path.exists(spfilename):
-            sp.WriteToFile(spfilename,'R '+str(sp.m_Z0))
-            if not self.relearn:
-                self.assertTrue(False, spfilename + ' not found')
-        regression=SParameterFile(spfilename)
-        if (sp.m_Z0 != regression.m_Z0) and self.allowReferenceImpedanceTranslation:
-            sp.SetReferenceImpedance(regression.m_Z0)
-        SpAreEqual=self.SParametersAreEqual(sp, regression,self.SPCompareResolution)
+        result=self.RegressionFiles().SParameters(sp,spfilename)
+        if result.written and not self.relearn:
+            os.chdir(currentDirectory)
+            self.assertTrue(False, spfilename + ' not found')
+        SpAreEqual=result.ok
         if not SpAreEqual:
+            from SignalIntegrity.Lib.SParameters.SParameterFile import SParameterFile
+            regression=SParameterFile(spfilename)
             if SignalIntegrityAppTestHelper.plotErrors:
                 import matplotlib.pyplot as plt
                 plt.clf()
@@ -197,7 +148,7 @@ class SignalIntegrityAppTestHelper:
                         plt.grid(True)
                         plt.show()
 
-        self.assertTrue(SpAreEqual,spfilename + ' incorrect')
+        self.assertTrue(SpAreEqual,spfilename + ': '+(result.message if result.message else 'incorrect'))
         os.chdir(currentDirectory)
     def CalibrationRegressionChecker(self,cal,calfilename):
         from SignalIntegrity.Lib.Measurement.Calibration.Calibration import Calibration
@@ -279,15 +230,23 @@ class SignalIntegrityAppTestHelper:
         if checkNetlist:
             self.NetListChecker(pysi,filename,archive)
         return pysi
-    def SParameterResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False):
+    def SParameterResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True,args={},archive=False,calculate_impedance_profiles=False):
         pysi=self.Preliminary(filename, checkProject, checkPicture, checkNetlist, args, archive)
-        result=pysi.CalculateSParameters()
+        result=pysi.CalculateSParameters(calculate_impedance_profiles=calculate_impedance_profiles)
         self.assertNotEqual(result,{},filename+' produced none')
         os.chdir(self.path)
         spfilename=result['file names']
         spfilename=self.FileNameForTest(filename)+'.'+spfilename.split('.')[-1]
         sp=result['s-parameters']
         self.SParameterRegressionChecker(sp, spfilename)
+        if calculate_impedance_profiles:
+            impedanceProfiles=result['impedance profiles']
+            self.assertEqual(len(impedanceProfiles),sp.m_P,filename+' impedance profile count incorrect')
+            for p in range(len(impedanceProfiles)):
+                wffilename=self.FileNameForTest(filename)+'_ImpedanceProfile'+str(p+1)+'.txt'
+                self.WaveformRegressionChecker(impedanceProfiles[p], wffilename)
+        else:
+            self.assertNotIn('impedance profiles',result,filename+' produced unrequested impedance profiles')
         self.ArchiveCleanup(filename,pysi,archive)
         return result
     def CalibrationResultsChecker(self,filename,checkProject=False,checkPicture=True,checkNetlist=True, args={}):
@@ -465,7 +424,7 @@ class SignalIntegrityAppTestHelper:
                     stringList.append(jsstring+'\n')
                     return jsstring
                 if type(js) is float:
-                    if js<1e-30:
+                    if abs(js)<1e-15:
                         js=0.0
                     if js<1e-10:
                         precisionToUse=max(0,precision-2)

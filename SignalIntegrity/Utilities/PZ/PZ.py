@@ -158,10 +158,17 @@ class PZ_Fitter(dict):
             self.axs[1,1].set_ylim(-maxmin_extents,maxmin_extents)
 
         self.fig.canvas.draw()
-        if iteration == 0:
-            print('pausing 5 seconds for you to align the dashboard.', end='\r')
-            plt.pause(5)
-        plt.pause(0.001)
+        import matplotlib
+        try:
+            from matplotlib.backends import BackendFilter, backend_registry
+            interactive_backends = backend_registry.list_builtin(BackendFilter.INTERACTIVE)
+        except ImportError: # pragma: no cover
+            interactive_backends = ('gtk3agg', 'gtk3cairo', 'gtk4agg', 'gtk4cairo', 'macosx', 'nbagg', 'notebook', 'qtagg', 'qtcairo', 'qt5agg', 'qt5cairo', 'tkagg', 'tkcairo', 'webagg', 'wx', 'wxagg', 'wxcairo')
+        if matplotlib.get_backend().lower() in [b.lower() for b in interactive_backends]:
+            if iteration == 0:
+                print('pausing 5 seconds for you to align the dashboard.', end='\r')
+                plt.pause(5)
+            plt.pause(0.001)
 
     @staticmethod
     def ParseKeywordPairs(args_list=[]):

@@ -1,0 +1,19 @@
+voltagesource VG1 1
+device R1 2 R 50.0
+device T1 2 tline zc 150.0 td 100.0e-12
+device R2 1 R 50.0
+device VO2 3 voltagetovoltageconverter
+device G1 1 ground
+device IO1 3 currenttovoltageconverter
+connect R1 1 VG1 1
+connect R1 2 T1 1
+connect IO1 1 T1 2 VO2 2
+voltageoutput VO1 IO1 2
+connect IO1 2 R2 1
+connect VO2 1 G1 1
+device VO2_3 1 open
+connect VO2 3 VO2_3 1
+voltageoutput VO2 VO2 3
+device IO1_3 1 open
+connect IO1 3 IO1_3 1
+voltageoutput IO1 IO1 3

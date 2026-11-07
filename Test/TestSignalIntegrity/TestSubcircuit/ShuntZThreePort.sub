@@ -1,0 +1,5 @@
+var $Rsh$ 50.
+device R 4 subcircuit ShuntZFourPort.sub Rsh $Rsh$
+device O 1 open
+connect O 1 R 4
+port 1 R 1 2 R 3 3 R 2

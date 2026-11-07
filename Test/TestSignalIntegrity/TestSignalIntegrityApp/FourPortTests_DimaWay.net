@@ -10,10 +10,10 @@ device R3 1 R 1.0e12
 device R4 1 R 2.0e12
 device MM3 4 mixedmode
 device MM4 4 mixedmode
-port 1 td 0 MM3 3
-port 2 td 0 MM4 3
-port 3 td 0 MM3 4
-port 4 td 0 MM4 4
+port 1 MM3 3
+port 2 MM4 3
+port 3 MM3 4
+port 4 MM4 4
 connect T4 1 MM3 1
 connect T6 3 R3 1 T4 3 T5 3
 connect MM4 1 T4 2

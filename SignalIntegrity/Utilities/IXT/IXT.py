@@ -58,7 +58,7 @@ wave to incident wave. this is not the voltage transfer function, which is s21/(
         parser.add_argument('-ap','--aggressor_ports',type=str,help='comma seperated list of aggessor ports: input1,output1,input2,output2,... etc.')
         parser.add_argument('-an', '--aggressor_names', type=str, default='')# make this a hidden argument -- help='comma separated list of labels for aggressors in debug plots')
         parser.add_argument('-ps', '--plot_save', type=str, default='') # file name to save debug plot to (if --debug is set)
-        parser.add_argument('-mult','--multiply',type=str,help='comma seperated list of numbers to multiply by each aggressor port crosstalk')
+        parser.add_argument('-tal','--total_aggressor_lanes',type=str,default=None,help='optional total number of statistically independent lanes for each aggressor; one value applies to all aggressors, or provide one per aggressor')
         parser.add_argument('-debug','--debug',action='store_true', help='shows debug information and plots as the computation proceeds')
         parser.add_argument('-p','--profile',action='store_true', help='profiles the software')
         parser.add_argument('-v','--verbose',action='store_true', help='prints information as calculation proceeds.\n\
@@ -74,11 +74,13 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         return vars(args),unknown
 
     @staticmethod
-    def IXT(victim,aggressors,end_frequency):
+    def IXT(victim,aggressors,end_frequency,total_aggressor_lanes=None):
         """Integrated crosstalk (in dB)
         @param victim instance of class FrequencyDomain containing the frequency response of the victim channel.
         @param aggressors instance of class FrequencyDomain containing the frequency response of the aggressor channel.
         @param end_frequency float frequency to integrate the crosstalk to.
+        @param total_aggressor_lanes (optional) total number of statistically independent lanes for each aggressor.
+        A scalar is applied to every aggressor; a list supplies one value per aggressor.
         @return integrated crosstalk in dB.
         @remark
         aggressors can be provided as a list of aggressor frequency responses, in which case the integrated crosstalk
@@ -89,6 +91,17 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         import SignalIntegrity.Lib as si
         if isinstance(aggressors,si.fd.FrequencyDomain):
             aggressors=[aggressors]
+        if total_aggressor_lanes is None:
+            total_aggressor_lanes = [1. for _ in aggressors]
+        elif not isinstance(total_aggressor_lanes, list):
+            total_aggressor_lanes = [total_aggressor_lanes for _ in aggressors]
+        elif len(total_aggressor_lanes) == 1:
+            total_aggressor_lanes = [total_aggressor_lanes[0] for _ in aggressors]
+        if len(total_aggressor_lanes) != len(aggressors):
+            raise ValueError('number of total aggressor lane values must match the number of aggressors')
+        if any(float(lanes) < 1. for lanes in total_aggressor_lanes):
+            raise ValueError('total number of aggressor lanes must be at least 1')
+        lane_scales = [np.sqrt(float(lanes)) for lanes in total_aggressor_lanes]
         frequencies = victim.Frequencies()
         victim_mag = victim.Values('mag')
         aggressors_mag = [aggressor.Values('mag') for aggressor in aggressors]
@@ -99,7 +112,7 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
                 continue
             if frequencies[n] > end_frequency:
                 break
-            ixt += (np.sqrt(sum([aggressor_mag[n]**2 for aggressor_mag in aggressors_mag]))/victim_mag[n])**2
+            ixt += (np.sqrt(sum([(lane_scale*aggressor_mag[n])**2 for lane_scale,aggressor_mag in zip(lane_scales,aggressors_mag)]))/victim_mag[n])**2
             num += 1
         return 10.*np.log10(ixt/num)
 
@@ -273,6 +286,20 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
                 self.Error('error extracting transfer functions')
 
         try:
+            total_aggressor_lanes = self.args['total_aggressor_lanes']
+            if total_aggressor_lanes is not None:
+                if not isinstance(total_aggressor_lanes, list):
+                    total_aggressor_lanes = [total_aggressor_lanes]
+                total_aggressor_lanes = [float(lanes) for lanes in total_aggressor_lanes]
+                if any(lanes < 1 for lanes in total_aggressor_lanes):
+                    self.Error('total number of aggressor lanes must be at least 1')
+                if len(total_aggressor_lanes) not in (1, len(tm_list)-1):
+                    self.Error(f'wrong number of total aggressor lane values. Should be 1 or {len(tm_list)-1}.')
+            self.Message('total number of aggressor lanes determined')
+        except:
+            self.Error('error determining total number of aggressor lanes')
+
+        try:
             if self.args['debug']:
                 import matplotlib.pyplot as plt
                 plt.cla()
@@ -293,7 +320,7 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
                     plt.savefig(self.args['plot_save'])
                 else:
                     plt.show()
-            ixt=self.IXT(tm_list[0],tm_list[1:],tm_list[0].Frequencies()[-1])
+            ixt=self.IXT(tm_list[0],tm_list[1:],tm_list[0].Frequencies()[-1],total_aggressor_lanes)
         except:
             self.Error('integrated crosstalk could not be calculated')
 
@@ -318,8 +345,7 @@ def IXT_Main():
     args['reference_impedance']=ConvertStringToList(args['reference_impedance'])
     args['victim_ports']=ConvertStringToList(args['victim_ports'])
     args['aggressor_ports']=ConvertStringToList(args['aggressor_ports'])
-    args['multiply']=ConvertStringToList(args['multiply'])
-
+    args['total_aggressor_lanes']=ConvertStringToList(args['total_aggressor_lanes'])
     args['command_line']=True
     if args['profile']:
         import cProfile

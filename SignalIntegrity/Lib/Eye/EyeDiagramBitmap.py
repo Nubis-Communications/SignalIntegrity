@@ -252,22 +252,80 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             steps=R
         else:
             steps=1
-        pixelator = Pixelator(R,C,steps,mode=enhancementMode)
 
+        # Vectorized bitmap rendering.  This reproduces, exactly, the original
+        # per-sample loop over Pixelator.Results()/Hits() -- bilinear splat of
+        # each (row,column) sample into the eye bitmap with optional sub-step
+        # interpolation to fill vertical gaps -- but with NumPy scatter-adds
+        # instead of ~2 Python calls per sample.  See the Pixelator class for the
+        # scalar reference implementation.
         bitmap=np.zeros((R,C))
-        ri=(self.aprbswf[0]-self.minV)/DeltaV*R
-        ci=(0+midBin)%C
-        for k in range(1,self.aprbswf.td.K):
-            rf=(self.aprbswf[k]-self.minV)/DeltaV*R
-            cf=(k+midBin)%C
-            if (not callback is None) and (k//C != (k-1)//C):
-                if not callback(k/self.aprbswf.td.K*100.):
+        K=self.aprbswf.td.K
+        base=steps                 # Pixelator.step: R (Auto), EnhancementSteps (Fixed), 1 (None)
+        inv_base=1.0/base
+        vals=np.asarray(self.aprbswf.Values(),dtype=float)
+        rcoord=(vals-self.minV)/DeltaV*R
+        col0=(np.arange(K)+midBin)%C
+        # segment j spans sample j -> j+1 (loop was k=1..K-1 using (k-1,k)); the
+        # consecutive column span is always 1 (mod C wrap), and the start sample
+        # of each segment is never splatted (matches useFirst=False).
+        ri_all=rcoord[:-1]
+        rf_all=rcoord[1:]
+        ci_all=col0[:-1].astype(float)
+        if enhancementMode=='Auto':
+            steps_all=np.clip(np.ceil(2.0*np.abs(rf_all-ri_all)),1,base).astype(np.int64)
+        elif enhancementMode=='Fixed':
+            steps_all=np.full(ri_all.shape,int(base),dtype=np.int64)
+        else:
+            steps_all=np.ones(ri_all.shape,dtype=np.int64)
+
+        nseg=ri_all.shape[0]
+        blockSegs=max(C,20000)
+        for segStart in range(0,nseg,blockSegs):
+            segEnd=min(segStart+blockSegs,nseg)
+            if (not callback is None):
+                if not callback(segEnd/K*100.):
                     return
-            results=pixelator.Results(ri, ci, rf, cf, k==0)
-            for result in results:
-                r,c,prob=result[0][0],result[0][1],result[2]
-                bitmap[r][c]+=prob
-            ri=rf; ci=cf
+            ri_c=ri_all[segStart:segEnd]
+            rf_c=rf_all[segStart:segEnd]
+            ci_c=ci_all[segStart:segEnd]
+            steps_c=steps_all[segStart:segEnd]
+            total=int(steps_c.sum())
+            if total==0:
+                continue
+            # expand each segment into its sub-step points n=1..steps (n=0 skipped)
+            starts=np.cumsum(steps_c)-steps_c
+            seg_rep=np.repeat(np.arange(segEnd-segStart),steps_c)
+            steps_rep=np.repeat(steps_c,steps_c)
+            pos=np.arange(total)-np.repeat(starts,steps_c)
+            fr=(pos+1)/steps_rep
+            rr=ri_c[seg_rep]+fr*(rf_c[seg_rep]-ri_c[seg_rep])
+            cc=ci_c[seg_rep]+fr            # column span is 1
+            # bilinear splat -- exact vectorization of Pixelator.Hits()
+            lowestr=rr-0.5
+            rl=np.floor(lowestr).astype(np.int64)
+            rh=np.floor(rr+0.5).astype(np.int64)
+            lrh=lowestr-rl
+            lrl=1.0-lrh
+            lowestc=cc-0.5
+            cl=np.floor(lowestc).astype(np.int64)
+            ch=np.floor(cc+0.5).astype(np.int64)
+            lch=lowestc-cl
+            lcl=1.0-lch
+            rlValid=(rl>=0)&(rl<R)
+            rhValid=(rh>=0)&(rh<R)
+            cl=np.where(cl<0,cl+C,cl)
+            ch=np.where(ch>=C,ch-C,ch)
+            clValid=(cl>=0)&(cl<C)
+            chValid=(ch>=0)&(ch<C)
+            for ridx,rvalid,rw,cidx,cvalid,cw in (
+                    (rl,rlValid,lrl,cl,clValid,lcl),
+                    (rh,rhValid,lrh,cl,clValid,lcl),
+                    (rl,rlValid,lrl,ch,chValid,lch),
+                    (rh,rhValid,lrh,ch,chValid,lch)):
+                m=rvalid&cvalid
+                if m.any():
+                    np.add.at(bitmap,(ridx[m],cidx[m]),(rw*cw*inv_base)[m])
 
         self.rawBitmap=bitmap/np.sum(bitmap)*C
 
@@ -996,6 +1054,31 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
 
         XF=[[1.,v,v**2] for v in x]
 
+        def fit(X,Y):
+            """Fits a quadratic model to the logarithm of the probabilities.
+            @param X numpy array of rows containing [1, x, x**2].
+            @param Y numpy array containing the corresponding log(probability) values.
+            @return numpy array containing the three fitted coefficients.
+            @remark Uses the normal-equation form of the least-squares calculation for regression compatibility.
+            Invalid floating-point warnings are suppressed because zero probabilities produce -inf on the logarithmic scale.
+            """
+            X=np.asarray(X)
+            Y=np.asarray(Y)
+            with np.errstate(invalid='ignore'):
+                return np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+
+        def evaluate(X,CF):
+            """Evaluates a fitted quadratic model.
+            @param X numpy array of model input rows.
+            @param CF numpy array containing the fitted coefficients.
+            @return numpy array containing the evaluated model values.
+            @remark Invalid floating-point warnings are suppressed when a fit contains non-finite coefficients.
+            """
+            X=np.asarray(X)
+            CF=np.asarray(CF)
+            with np.errstate(invalid='ignore'):
+                return X.dot(CF)
+
         self.measDict['Bathtub']['Vertical']['Level']={e:{'LeftEst':None,'RightEst':None} for e in range(numberOfEyes+1)}
         # estimate the gaussians for the edges
         try:
@@ -1020,10 +1103,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 r=r+1
             if r != R:
                 X=np.array(X); Y=np.array(Y)
-                CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                CF = fit(X,Y)
                 self.measDict['Bathtub']['Vertical']['Level'][0]['LeftEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                             'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                   'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in X.dot(CF)]}}}
+                                   'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in evaluate(X,CF)]}}}
             else:
                 raise
         except Exception as ex:
@@ -1053,10 +1136,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 r=r-1
             if r > 0:
                 X=np.array(X); Y=np.array(Y)
-                CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                CF = fit(X,Y)
                 self.measDict['Bathtub']['Vertical']['Level'][numberOfEyes]['RightEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                             'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                   'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(X.dot(CF).tolist())]}}}
+                                   'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(evaluate(X,CF).tolist())]}}}
             else:
                 raise
         except Exception as ex:
@@ -1092,10 +1175,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     r=r-1
                 if r != 0:
                     X=np.array(X); Y=np.array(Y)
-                    CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                    CF = fit(X,Y)
                     self.measDict['Bathtub']['Vertical']['Level'][e]['RightEst']={'Start':{'Bin':rStart},
                                 'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                       'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(X.dot(CF).tolist())]}}}
+                                       'Wf':{'x':[x[v] for v in range(rEnd,rStart+1)],'y':[np.exp(v[0]) for v in reversed(evaluate(X,CF).tolist())]}}}
                 else:
                     raise
             except Exception as ex:
@@ -1124,10 +1207,10 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                 if r != R:
                     X=np.array(X)
                     Y=np.array(Y)
-                    CF = np.linalg.inv(np.transpose(X).dot(X)).dot(np.transpose(X)).dot(Y)
+                    CF = fit(X,Y)
                     self.measDict['Bathtub']['Vertical']['Level'][e+1]['LeftEst']={'Start':{'Bin':rStart},'End':{'Bin':rEnd},
                                 'Est':{'Coef':CF.tolist(),'Valid':CF[2][0]<0,
-                                       'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in X.dot(CF)]}}}
+                                       'Wf':{'x':[x[v] for v in range(rStart,rEnd+1)],'y':[np.exp(v[0]) for v in evaluate(X,CF)]}}}
                 else:
                     raise
             except Exception as ex:
@@ -1142,12 +1225,12 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
             try:
                 # calculate the entire left estimate
                 if self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Valid']:
-                    yleft=[np.exp(v[0]) for v in np.array(XF).dot(np.array(self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Coef']))]
+                    yleft=[np.exp(v[0]) for v in evaluate(XF,self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Est']['Coef'])]
                 else:
                     yleft=[0. for _ in range(R)]
                 yleftStart=self.measDict['Bathtub']['Vertical']['Level'][t]['LeftEst']['Start']['Bin']
                 if self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Valid']:
-                    yright=[np.exp(v[0]) for v in np.array(XF).dot(np.array(self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Coef']))]
+                    yright=[np.exp(v[0]) for v in evaluate(XF,self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Est']['Coef'])]
                 else:
                     yright=[0. for _ in range(R)]
                 yrightStart=self.measDict['Bathtub']['Vertical']['Level'][t]['RightEst']['Start']['Bin']
@@ -1350,9 +1433,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         Best values are 20 % or lower.
         @param InvertImage bool, defaults to True.  Non-inverted images are shades of black on the color specified.  Inverted images are shades of
         the color specified on black.
-        @param Color string, defaults to \#ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
-        eye diagram.  '\#ffffff' is white.  '\#000000' is black.
-        @param AnnotationColor string, defaults to \#000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
+        @param Color string, defaults to #ffffff, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B, for the
+        eye diagram.  '#ffffff' is white.  '#000000' is black.
+        @param AnnotationColor string, defaults to #000000, hexadecimal code where each of the three bytes represents the 0-255 value of R, G, and B,
         for the annotations.
         @param ScaleX float, defaults to 100, scaling of the x axis of the image after construction.
         @param ScaleY float, defaults to 100, scaling of the y axis of the image after construction. 

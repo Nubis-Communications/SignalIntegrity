@@ -1,0 +1,6 @@
+device T2 2 tline zc 50.0 td 0
+device T3 4 tline zc 50.0 td 0
+device T5 2 tline zc 50.0 td 0
+device T6 4 tline zc 50.0 td 0
+device T7 4 telegrapher rp 0 rsep 0 lp 1.0e-9 gp 0 cp 1.0e-12 dfp 0 rn 0 rsen 0 ln 1.0e-9 gn 0 cn 1.0e-12 dfn 0 lm 1.0e-9 gm 0 cm 1.0e-12 dfm 0 scale 1.0 sect 0
+device T1 2 tline zc 50.0 td 0

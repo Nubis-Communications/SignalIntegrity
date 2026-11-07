@@ -1,0 +1,61 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">26,-33.5 28,-33.5 28,-30.5 30,-30.5</polyline>
+%  <ellipse x="28" y="-32" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">27.25,-29.5 28.75,-29.5</polyline>
+%  <polyline lc="black">28,-28.75 28,-30.25</polyline>
+%  <polyline lc="black">27.25,-34.5 28.75,-34.5</polyline>
+%  <polyline lc="black">28,-36 28,-40</polyline>
+%  <polygon fill="black">25.333,-40 30.667,-40 28,-42.667 25.333,-40</polygon>
+%  <polyline lc="black">28,-24 28,-28</polyline>
+%  <text x="34" y="-36" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="34" y="-33" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">128,-28 126,-29 130,-30 126,-31 130,-32 126,-33 130,-34 126,-35 128,-36</polyline>
+%  <polyline lc="black">128,-36 128,-40</polyline>
+%  <polygon fill="black">125.333,-40 130.667,-40 128,-42.667 125.333,-40</polygon>
+%  <polyline lc="black">128,-24 128,-28</polyline>
+%  <text x="132" y="-35" t="50.0 ohm" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">56,-24 57,-22 58,-26 59,-22 60,-26 61,-22 62,-26 63,-22 64,-24</polyline>
+%  <polyline lc="black">52,-24 56,-24</polyline>
+%  <polyline lc="black">68,-24 64,-24</polyline>
+%  <text x="60" y="-19" t="50.0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">132,-20 130,-22</polyline>
+%  <polyline lc="black">130,-22 128,-24</polyline>
+%  <text x="132" y="-19" t="Vout" h="3" halign="l" lc="black"/>
+%  <text x="80" y="-25" t="Test" h="3" halign="l" lc="black"/>
+%  <text x="116" y="-25" t="Test" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">28,-24 52,-24</polyline>
+%  <polyline lc="black">68,-24 80,-24</polyline>
+%  <polyline lc="black">116,-24 128,-24</polyline>
+%  <ellipse x="128" y="-24" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (26,-33.5) -- (28,-33.5) -- (28,-30.5) -- (30,-30.5);
+\path[line width=0.30mm, draw=black] (28,-32) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (27.25,-29.5) -- (28.75,-29.5);
+\path[line width=0.30mm, draw=black] (28,-28.75) -- (28,-30.25);
+\path[line width=0.30mm, draw=black] (27.25,-34.5) -- (28.75,-34.5);
+\path[line width=0.30mm, draw=black] (28,-36) -- (28,-40);
+\path[line width=0.30mm, fill=black] (25.333,-40) -- (30.667,-40) -- (28,-42.667) -- (25.333,-40) -- cycle;
+\path[line width=0.30mm, draw=black] (28,-24) -- (28,-28);
+\draw[black] (34,-36) node[anchor=base west]{t0 0 s};
+\draw[black] (34,-33) node[anchor=base west]{a 1.0 V};
+\path[line width=0.30mm, draw=black] (128,-28) -- (126,-29) -- (130,-30) -- (126,-31) -- (130,-32) -- (126,-33) -- (130,-34) -- (126,-35) -- (128,-36);
+\path[line width=0.30mm, draw=black] (128,-36) -- (128,-40);
+\path[line width=0.30mm, fill=black] (125.333,-40) -- (130.667,-40) -- (128,-42.667) -- (125.333,-40) -- cycle;
+\path[line width=0.30mm, draw=black] (128,-24) -- (128,-28);
+\draw[black] (132,-35) node[anchor=base west]{50.0 ohm};
+\path[line width=0.30mm, draw=black] (56,-24) -- (57,-22) -- (58,-26) -- (59,-22) -- (60,-26) -- (61,-22) -- (62,-26) -- (63,-22) -- (64,-24);
+\path[line width=0.30mm, draw=black] (52,-24) -- (56,-24);
+\path[line width=0.30mm, draw=black] (68,-24) -- (64,-24);
+\draw[black] (60,-19) node[anchor=base]{50.0 ohm};
+\path[line width=0.9mm, draw=black] (132,-20) -- (130,-22);
+\path[line width=0.30mm, draw=black] (130,-22) -- (128,-24);
+\draw[black] (132,-19) node[anchor=base west]{Vout};
+\draw[black] (80,-25) node[anchor=base west]{Test};
+\draw[black] (116,-25) node[anchor=base east]{Test};
+\path[line width=0.30mm, draw=black] (28,-24) -- (52,-24);
+\path[line width=0.30mm, draw=black] (68,-24) -- (80,-24);
+\path[line width=0.30mm, draw=black] (116,-24) -- (128,-24);
+\path[line width=0.30mm, draw=black, fill=black] (128,-24) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

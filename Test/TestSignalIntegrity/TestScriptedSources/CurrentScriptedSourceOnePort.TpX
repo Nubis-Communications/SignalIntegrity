@@ -1,0 +1,51 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <text x="1.75" y="-2.75" t="amplitude 20.0 mA" h="3" halign="l" lc="black"/>
+%  <text x="24.5" y="-39.5" t="py" h="3" halign="c" lc="black"/>
+%  <ellipse x="24.5" y="-38.5" dx="7" dy="-7" lc="black"/>
+%  <polyline arr1="h44" arrs="0.5" lc="black">24.5,-35.875 24.5,-41.125</polyline>
+%  <polyline lc="black">24.5,-42 24.5,-45.5</polyline>
+%  <polygon fill="black">22.167,-45.5 26.833,-45.5 24.5,-47.833 22.167,-45.5</polygon>
+%  <polyline lc="black">24.5,-31.5 24.5,-35</polyline>
+%  <text x="29.75" y="-42.5" t="amplitude=amplitude (20.0 mA)" h="3" halign="l" lc="black"/>
+%  <text x="29.75" y="-39.5" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">70,-31.5 70.875,-29.75 71.75,-33.25 72.625,-29.75 73.5,-33.25 74.375,-29.75 75.25,-33.25 76.125,-29.75 77,-31.5</polyline>
+%  <polyline lc="black">66.5,-31.5 70,-31.5</polyline>
+%  <polyline lc="black">80.5,-31.5 77,-31.5</polyline>
+%  <text x="73.5" y="-27" t="50.0 ohm" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">80.5,-35 78.75,-35.875 82.25,-36.75 78.75,-37.625 82.25,-38.5 78.75,-39.375 82.25,-40.25 78.75,-41.125 80.5,-42</polyline>
+%  <polyline lc="black">80.5,-42 80.5,-45.5</polyline>
+%  <polygon fill="black">78.167,-45.5 82.833,-45.5 80.5,-47.833 78.167,-45.5</polygon>
+%  <polyline lc="black">80.5,-31.5 80.5,-35</polyline>
+%  <text x="84" y="-41.25" t="50.0 ohm" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">84,-28 82.25,-29.75</polyline>
+%  <polyline lc="black">82.25,-29.75 80.5,-31.5</polyline>
+%  <text x="84" y="-27" t="VO1" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">66.5,-31.5 24.5,-31.5</polyline>
+%  <ellipse x="80.5" y="-31.5" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\draw[black] (1.75,-2.75) node[anchor=base west]{amplitude 20.0 mA};
+\draw[black] (24.5,-39.5) node[anchor=base]{py};
+\path[line width=0.30mm, draw=black] (24.5,-38.5) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black, <-] (24.5,-35.875) -- (24.5,-41.125);
+\path[line width=0.30mm, draw=black] (24.5,-42) -- (24.5,-45.5);
+\path[line width=0.30mm, fill=black] (22.167,-45.5) -- (26.833,-45.5) -- (24.5,-47.833) -- (22.167,-45.5) -- cycle;
+\path[line width=0.30mm, draw=black] (24.5,-31.5) -- (24.5,-35);
+\draw[black] (29.75,-42.5) node[anchor=base west]{amplitude=amplitude (20.0 mA)};
+\draw[black] (29.75,-39.5) node[anchor=base west]{t0 0 s};
+\path[line width=0.30mm, draw=black] (70,-31.5) -- (70.875,-29.75) -- (71.75,-33.25) -- (72.625,-29.75) -- (73.5,-33.25) -- (74.375,-29.75) -- (75.25,-33.25) -- (76.125,-29.75) -- (77,-31.5);
+\path[line width=0.30mm, draw=black] (66.5,-31.5) -- (70,-31.5);
+\path[line width=0.30mm, draw=black] (80.5,-31.5) -- (77,-31.5);
+\draw[black] (73.5,-27) node[anchor=base]{50.0 ohm};
+\path[line width=0.30mm, draw=black] (80.5,-35) -- (78.75,-35.875) -- (82.25,-36.75) -- (78.75,-37.625) -- (82.25,-38.5) -- (78.75,-39.375) -- (82.25,-40.25) -- (78.75,-41.125) -- (80.5,-42);
+\path[line width=0.30mm, draw=black] (80.5,-42) -- (80.5,-45.5);
+\path[line width=0.30mm, fill=black] (78.167,-45.5) -- (82.833,-45.5) -- (80.5,-47.833) -- (78.167,-45.5) -- cycle;
+\path[line width=0.30mm, draw=black] (80.5,-31.5) -- (80.5,-35);
+\draw[black] (84,-41.25) node[anchor=base west]{50.0 ohm};
+\path[line width=0.9mm, draw=black] (84,-28) -- (82.25,-29.75);
+\path[line width=0.30mm, draw=black] (82.25,-29.75) -- (80.5,-31.5);
+\draw[black] (84,-27) node[anchor=base west]{VO1};
+\path[line width=0.30mm, draw=black] (66.5,-31.5) -- (24.5,-31.5);
+\path[line width=0.30mm, draw=black, fill=black] (80.5,-31.5) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

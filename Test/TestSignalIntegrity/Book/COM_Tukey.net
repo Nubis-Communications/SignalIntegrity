@@ -1,0 +1,7 @@
+var $f_b$ 106.25e9
+var $f_r$ 61.625e9
+var $f_per$ 89.25e9
+var $laplace_eq$ '(1. if f <= 61625000000.0 else (0.5*(1-np.cos(2*pi*(f-106250000000.0)/89250000000.0)) if f <= 106250000000.0 else 0.))'
+device F1 2 laplace $laplace_eq$
+port 1 F1 1
+port 2 F1 2

@@ -78,6 +78,126 @@ class TestERLTest(unittest.TestCase,
     def ERL_Nitro_args():
         return {'port_reorder':'1,2,3,4','T_r':'10ps','beta_x':'0GHz','rho_x':'0.618','N':'800UI',
                 'N_bx':'0','Z0':'100ohm','T_fx':'0s','f_b':'106.25GBaud','DER_0':'1e-6','phi':'10'}
+    def testERLComMatlabPDF(self):
+        from SignalIntegrity.Utilities.ERL.ERL import ERLComMatlabPDF
+        pdf = ERLComMatlabPDF.d_cpdf(0.1, [-0.2, 0.1, 0.2], [1.0, 2.0, 1.0])
+        self.assertEqual(pdf['Min'], -2)
+        np.testing.assert_allclose(pdf['y'], [0.25, 0.0, 0.0, 0.5, 0.25])
+        self.assertAlmostEqual(np.sum(pdf['y']), 1.0)
+
+        zero_mass_pdf = ERLComMatlabPDF.d_cpdf(0.1, [0.1, 0.2], [0.0, 0.0])
+        self.assertEqual(np.sum(zero_mass_pdf['y']), 0.0)
+
+        initialized_pdf = ERLComMatlabPDF.init_pdf_fast(pdf, [-0.1, 0.2], [0.25, 0.75])
+        np.testing.assert_allclose(initialized_pdf['x'], [-0.1, 0.0, 0.1, 0.2])
+        convolved_pdf = ERLComMatlabPDF.conv_fct(pdf, initialized_pdf)
+        self.assertEqual(convolved_pdf['Min'], -3)
+        self.assertEqual(len(convolved_pdf['x']), len(convolved_pdf['y']))
+
+        with self.assertRaises(ValueError):
+            ERLComMatlabPDF.conv_fct(pdf, {'BinSize': 0.2})
+        with self.assertRaises(ValueError):
+            ERLComMatlabPDF.get_pdf_from_sampled_signal([0.1], 2, 0.1, FAST_NOISE_CONV=1)
+
+        empty_pdf = ERLComMatlabPDF.get_pdf_from_sampled_signal([], 2, 0.1)
+        below_threshold_pdf = ERLComMatlabPDF.get_pdf_from_sampled_signal([0.01, -0.02], 2, 0.1)
+        np.testing.assert_allclose(empty_pdf['y'], [1.0])
+        np.testing.assert_allclose(below_threshold_pdf['y'], [1.0])
+
+        sampled_pdf = ERLComMatlabPDF.get_pdf_from_sampled_signal([-0.2, 0.3], 2, 0.1)
+        self.assertAlmostEqual(np.sum(sampled_pdf['y']), 1.0)
+
+    def testERLInternalHelpers(self):
+        from SignalIntegrity.Utilities.ERL.ERL import FindWaveformSupport,LinearlyInterpolate
+
+        class Waveform:
+            def __init__(self, values):
+                self.values = values
+                self.td = type('TimeDescriptor', (), {'K': len(values)})()
+            def __getitem__(self, index):
+                return self.values[index]
+
+        self.assertEqual(FindWaveformSupport(Waveform([0.0, 0.1, 0.0, -0.2, 0.0]), 1e-5), (1, 3))
+        self.assertEqual(FindWaveformSupport(Waveform([0.0, 1e-6]), 1e-5), (0, 0))
+        self.assertEqual(LinearlyInterpolate(1.0, 1e-310, 2.0, 1e-6, 1e-8), 1.0)
+        self.assertAlmostEqual(LinearlyInterpolate(1.0, 1e-2, 3.0, 1.0, 1e-1), 2.0)
+
+    def testERLLevelsCalculationAndValidation(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from unittest.mock import patch
+        from SignalIntegrity.Utilities.ERL.ERL import ERL, ERLComMatlabPDF
+
+        file_name = os.path.join(os.path.dirname(__file__), 'sparam_res.s4p')
+        numeric_args = self.ERL_Nitro_args()
+        for key, units in [('T_r','s'), ('beta_x','Hz'), ('rho_x',None), ('N','UI'),
+                           ('N_bx','UI'), ('Z0','ohm'), ('T_fx','s'), ('f_b','Baud'),
+                           ('DER_0',None), ('phi',None)]:
+            numeric_args[key] = FromSI(numeric_args[key], units)
+
+        with patch.object(ERLComMatlabPDF, 'get_pdf_from_sampled_signal',
+                          wraps=ERLComMatlabPDF.get_pdf_from_sampled_signal) as pdf_call:
+            output = StringIO()
+            with redirect_stdout(output):
+                ERL(file_name, dict(numeric_args, bps=2.585), verbose=True)
+            self.assertEqual(pdf_call.call_args.kwargs['L'], 6)
+            self.assertIn('warning: bps is deprecated; use levels instead', output.getvalue())
+
+        with patch.object(ERLComMatlabPDF, 'get_pdf_from_sampled_signal',
+                          wraps=ERLComMatlabPDF.get_pdf_from_sampled_signal) as pdf_call:
+            ERL(file_name, dict(numeric_args, levels=6))
+            self.assertEqual(pdf_call.call_args.kwargs['L'], 6)
+
+        for invalid_args in [
+            dict(numeric_args, levels='not-a-number'),
+            dict(numeric_args, levels=6.5),
+            dict(numeric_args, bps='not-a-number'),
+            dict(numeric_args, bps=float('nan')),
+            dict(numeric_args, bps=-1),
+            dict(numeric_args, bps=1, levels=2),
+            dict(numeric_args, levels=6, old_cdf=True),
+        ]:
+            with self.subTest(invalid_args=invalid_args):
+                with self.assertRaises(si.SignalIntegrityException):
+                    ERL(file_name, invalid_args)
+
+    def testERLMainLevelsArguments(self):
+        import sys
+        from unittest.mock import patch
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+
+        def run_with(arguments):
+            self.formERLMain_argv()
+            sys.argv.extend(arguments)
+            captured = {}
+
+            def fake_erl(filename, args, debug=False, verbose=False):
+                captured.update(args)
+                return 0.0
+
+            with patch.dict(ERL_Main.__globals__, {'ERL': fake_erl}):
+                with self.assertRaises(SystemExit) as exception:
+                    ERL_Main()
+            self.assertEqual(exception.exception.code, 0)
+            return captured
+
+        self.assertNotIn('bps', run_with([]))
+        self.assertEqual(run_with(['-bps', '2.585'])['bps'], 2.585)
+        self.assertEqual(run_with(['-levels', '6'])['levels'], 6)
+
+        self.formERLMain_argv()
+        sys.argv.extend(['-bps', '1.0', '-levels', '2'])
+        with self.assertRaises(SystemExit) as exception:
+            ERL_Main()
+        self.assertEqual(exception.exception.code, 1)
+
+        for invalid_levels in ['not-a-number', '6.5', '1']:
+            with self.subTest(invalid_levels=invalid_levels):
+                self.formERLMain_argv(replace={'levels': invalid_levels})
+                with self.assertRaises(SystemExit) as exception:
+                    ERL_Main()
+                self.assertEqual(exception.exception.code, 1)
+
     def testERLNitroSubprocess(self):
         import subprocess
         script_file = os.path.abspath(os.path.relpath('../../../SignalIntegrity/Utilities/ERL/ERL.py', os.path.dirname(__file__)))
@@ -87,11 +207,11 @@ class TestERLTest(unittest.TestCase,
         nitro_args=self.ERL_Nitro_args()
         for key in nitro_args:
             cmd_str += ' -'+key+' '+nitro_args[key]
-        result = subprocess.getoutput(cmd_str)
-        result_dB = ToSI(float(result),'dB',round=5)
-        # print('result: ',result_dB)
-        target = '9.3858 dB'
-        self.assertEqual(result_dB, target, 'ERL produced incorrect value')
+        for old_cdf, target in [(False, '9.4347 dB'), (True, '9.4066 dB')]:
+            command = cmd_str if not old_cdf else cmd_str+' -ocdf'
+            result = subprocess.getoutput(command)
+            result_dB = ToSI(float(result),'dB',round=5)
+            self.assertEqual(result_dB, target, 'ERL produced incorrect value')
     def testERLNitroSubprocessMissingSp(self):
         import subprocess
         script_file = os.path.abspath(os.path.relpath('../../../SignalIntegrity/Utilities/ERL/ERL.py', os.path.dirname(__file__)))
@@ -118,6 +238,10 @@ class TestERLTest(unittest.TestCase,
                 sys.argv.append('-'+key)
                 sys.argv.append(value)
             # sys.argv.append('-d')
+        for key in replace:
+            if key not in nitro_args and key not in missing:
+                sys.argv.append('-'+key)
+                sys.argv.append(replace[key])
     def testERLMain(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
         self.formERLMain_argv()
@@ -345,6 +469,24 @@ class TestERLTest(unittest.TestCase,
             self.assertEqual(e.code,1,'ERL_Main did not exit properly') # should fail
             return
         self.fail('ERL should have exited with SystemExit exception raised')
+    def testERLMainBadOptionalValues(self):
+        from unittest.mock import patch
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+        original_from_si = ERL_Main.__globals__['FromSI']
+        def from_si(value, units):
+            if value == 'invalid':
+                return None
+            return original_from_si(value, units)
+        for argument in ['T_r','bps','phi','f_r']:
+            with self.subTest(argument=argument):
+                self.formERLMain_argv(replace={argument:'invalid'})
+                try:
+                    with patch.dict(ERL_Main.__globals__, {'FromSI': from_si}):
+                        ERL_Main()
+                except SystemExit as e:
+                    self.assertEqual(e.code,1,'ERL_Main did not exit properly')
+                    continue
+                self.fail('ERL should have exited with SystemExit exception raised')
     def testERLPythonScript(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL
         file_name='sparam_res.s4p'
@@ -363,8 +505,12 @@ class TestERLTest(unittest.TestCase,
         result = ERL(file_name,nitro_args,verbose=True)
         result_dB = ToSI(float(result),'dB',round=5)
         # print('result: ',result_dB)
-        target = '9.3858 dB'
+        target = '9.4347 dB'
         self.assertEqual(result_dB, target, 'ERL produced incorrect value')
+        nitro_args['old_cdf'] = True
+        old_cdf_result = ERL(file_name,nitro_args,verbose=True)
+        old_cdf_result_dB = ToSI(float(old_cdf_result),'dB',round=5)
+        self.assertEqual(old_cdf_result_dB, '9.4066 dB', 'ERL old CDF produced incorrect value')
     def testERLPythonScriptMissingSp(self):
         from SignalIntegrity.Utilities.ERL.ERL import ERL
         file_name='missing.s4p'
@@ -400,6 +546,66 @@ class TestERLTest(unittest.TestCase,
         del nitro_args['T_r']
         with self.assertRaises(si.SignalIntegrityException) as cme:
             ERL(file_name,nitro_args,verbose=True)
+    def testERLPythonScriptBias(self):
+        from SignalIntegrity.Utilities.ERL.ERL import ERL
+        file_name='sparam_res.s4p'
+        file_name=os.path.join(os.path.dirname(__file__),file_name)
+        nitro_args=self.ERL_Nitro_args()
+        nitro_args['T_r'] = FromSI(nitro_args['T_r'],'s')
+        nitro_args['beta_x'] = FromSI(nitro_args['beta_x'],'Hz')
+        nitro_args['rho_x'] = FromSI(nitro_args['rho_x'],None)
+        nitro_args['N'] = FromSI(nitro_args['N'],'UI')
+        nitro_args['N_bx'] = FromSI(nitro_args['N_bx'],'UI')
+        nitro_args['Z0'] = FromSI(nitro_args['Z0'],'ohm')
+        nitro_args['T_fx'] = FromSI(nitro_args['T_fx'],'s')
+        nitro_args['f_b'] = FromSI(nitro_args['f_b'],'Baud')
+        nitro_args['DER_0'] = FromSI(nitro_args['DER_0'],None)
+        nitro_args['phi'] = FromSI(nitro_args['phi'],None)
+        bias = 0.4
+        for old_cdf in [False, True]:
+            nitro_args['old_cdf'] = old_cdf
+            nitro_args.pop('bias', None)
+            unbiased = ERL(file_name,nitro_args,verbose=True)
+            nitro_args['bias'] = bias
+            biased = ERL(file_name,nitro_args,verbose=True)
+            # The bias (in dB) is subtracted directly from the selected CDF result.
+            self.assertAlmostEqual(biased, unbiased-bias, 5,
+                                   'ERL bias not applied correctly for old_cdf=%s' % old_cdf)
+    def testERLPythonScriptWorstPhaseTruncation(self):
+        from SignalIntegrity.Utilities.ERL.ERL import ERL
+        file_name=os.path.join(os.path.dirname(__file__),'sparam_res.s4p')
+        nitro_args=self.ERL_Nitro_args()
+        for key, units in [('T_r','s'), ('beta_x','Hz'), ('rho_x',None), ('N','UI'),
+                           ('N_bx','UI'), ('Z0','ohm'), ('T_fx','s'), ('f_b','Baud'),
+                           ('DER_0',None), ('phi',None)]:
+            nitro_args[key] = FromSI(nitro_args[key],units)
+        nitro_args['old_cdf'] = True
+        nitro_args['worst_phase_samples'] = 50
+        self.assertTrue(np.isfinite(ERL(file_name,nitro_args,verbose=True)))
+    def testERLMainBias(self):
+        import sys
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+        self.formERLMain_argv()
+        sys.argv.append('-b')
+        sys.argv.append('0.4')
+        try:
+            ERL_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,0,'ERL_Main did not exit properly') # should succeed
+            return
+        self.fail('ERL should have exited with SystemExit exception raised')
+    def testERLMainBadBias(self):
+        import sys
+        from SignalIntegrity.Utilities.ERL.ERL import ERL_Main
+        self.formERLMain_argv()
+        sys.argv.append('-b')
+        sys.argv.append('50UI')
+        try:
+            ERL_Main()
+        except SystemExit as e:
+            self.assertEqual(e.code,1,'ERL_Main did not exit properly') # should fail
+            return
+        self.fail('ERL should have exited with SystemExit exception raised')
     def testCOMSincPulse(self):
         import shutil
         project_file = 'COM_SincPulse.si'

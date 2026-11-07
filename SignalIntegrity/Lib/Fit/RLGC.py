@@ -20,6 +20,7 @@ RLGC.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import math,cmath
+import numpy as np
 from numpy import array
 from SignalIntegrity.Lib.Fit.LevMar import LevMar
 
@@ -45,24 +46,21 @@ class RLGCFitter(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
-        LevMar.Initialize(self, array([[g] for g in guess]), array(v))
-        self.ones=[1 for _ in self.f]
-        self.dZdR=self.ones
+        # frequency-dependent base vectors (numpy arrays) used to evaluate the
+        # transmission-line s-parameters and their partial derivatives for every
+        # frequency at once.  These must be set up before Initialize, which
+        # evaluates fF.
+        self.farr=np.array(self.f,dtype=float)
+        self.sqrtfarr=np.sqrt(self.farr)
+        self.p2farr=2.*math.pi*self.farr
+        self.onesarr=np.ones(len(self.f))
+        self.zerosarr=np.zeros(len(self.f))
         # pragma: silent exclude
-        # I thought dZdRse ought to be sqrt(f)*(1+1j) but fitter works much, much better without
-        # it.  I need to look forward at this.
+        # The partial derivative of Z with respect to Rse ought to be sqrt(f)*(1+1j),
+        # but the fitter converges much, much better using just sqrt(f).
         # pragma: include
-        self.dZdRse=[math.sqrt(f) for f in self.f]
-        self.p2f=[2.*math.pi*f for f in self.f]
-        self.dZdL=[1j*p2f for p2f in self.p2f]
-        self.zeros=[0 for _ in self.f]
-        self.dZdG=self.zeros
-        self.dZdC=self.zeros
-        self.dZddf=self.zeros
-        self.dYdR=self.zeros
-        self.dYdRse=self.zeros
-        self.dYdL=self.zeros
-        self.dYdG=self.ones
+        self.dZdRsearr=self.sqrtfarr
+        LevMar.Initialize(self, array([[g] for g in guess]), array(v))
     def fF(self,a):
         """Calculates the s-parameters of a two-port transmission line as a function of transmission line parameters provided.
         @param a list of transmission line parameters __a__.  
@@ -78,34 +76,25 @@ class RLGCFitter(LevMar):
         having its columns stacked on top of one another, thus forming one long vector.
         """
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
-        # pragma: silent exclude
-        import numpy
-        npstate=numpy.seterr()['divide']
-        numpy.seterr(divide='raise')
-        try:
-            test=1./G
-        except:
-            G=self.epsilonG
-        try:
-            test=1./R
-        except:
-            R=self.epsilonG
-        numpy.seterr(divide=npstate)
-        # pragma: include
-        self.Z=[R+Rse*(1+1j)*math.sqrt(f)+1j*2.*math.pi*f*L for f in self.f]
-        self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
-        self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]
-        self.Zc=[cmath.sqrt(z/y) for (z,y) in zip(self.Z,self.Y)]
-        self.rho=[(zc-self.Z0)/(zc+self.Z0) for zc in self.Zc]
-        self.rho2=[r*r for r in self.rho]
-        self.eg=[cmath.exp(-g) for g in self.gamma]
-        self.e2g=[egx*egx for egx in self.eg]
-        self.D=[1-r2*e2 for (e2,r2) in zip(self.e2g,self.rho2)]
-        self.S11=[r*(1-e2)/d for (r,e2,d) in zip(self.rho,self.e2g,self.D)]
-        self.S12=[(1-r2)*e/d for (r2,e,d) in zip(self.rho2,self.eg,self.D)]
-        S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
-        vS=self.VectorizeSp(S)
-        return array(vS)
+        if G==0: G=self.epsilonG
+        if R==0: R=self.epsilonG
+        self.Z=R+Rse*(1+1j)*self.sqrtfarr+1j*self.p2farr*L
+        self.Y=G+self.p2farr*C*(1j+df)
+        self.gamma=np.sqrt(self.Z*self.Y)
+        self.Zc=np.sqrt(self.Z/self.Y)
+        self.rho=(self.Zc-self.Z0)/(self.Zc+self.Z0)
+        self.rho2=self.rho*self.rho
+        self.eg=np.exp(-self.gamma)
+        self.e2g=self.eg*self.eg
+        self.D=1-self.rho2*self.e2g
+        self.S11=self.rho*(1-self.e2g)/self.D
+        self.S12=(1-self.rho2)*self.eg/self.D
+        # vectorized s-parameters: per frequency the 2x2 matrix [[S11,S12],[S12,S11]]
+        # unrolled as [S11,S12,S12,S11]
+        vS=np.empty((4*len(self.f),1),dtype=complex)
+        vS[0::4,0]=self.S11; vS[1::4,0]=self.S12
+        vS[2::4,0]=self.S12; vS[3::4,0]=self.S11
+        return vS
     def fJ(self,a,Fa=None):
         """Calculates the Jacobian matrix as a function of transmission line parameters provided.
         @param a list of transmission line parameters __a__.  
@@ -124,31 +113,22 @@ class RLGCFitter(LevMar):
         """
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,L,G,C,Rse,df)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0])
-        dZ=[self.dZdR,self.dZdL,self.dZdG,self.dZdC,self.dZdRse,self.dZddf]
-        dYdC=[p2f*(1j+df) for p2f in self.p2f]
-        dYddf=[p2f*C for p2f in self.p2f]
-        dY=[self.dYdR,self.dYdL,self.dYdG,dYdC,self.dYdRse,dYddf]
-        dgamma=[[1./(2.*cmath.sqrt(z*y))*(dz*y+z*dy)
-                for (z,y,dz,dy) in zip(self.Z,self.Y,dZ[i],dY[i])]
-                    for i in range(6)]
-        dZc=[[-1./2*(-dz*y+z*dy)/(y*y*cmath.sqrt(z/y))
-                for (z,y,dz,dy) in zip(self.Z,self.Y,dZ[i],dY[i])]
-                    for i in range(6)]
-        drho=[[2.*dzc*self.Z0/((zc+self.Z0)*(zc+self.Z0))
-                for (zc,dzc) in zip(self.Zc,dZc[i])] for i in range(6)]
-        D2=[d*d for d in self.D]
-        dS11=[[-2.*r*e2*(r2-1)/d2*dg+(1-e2)*(1+r2*e2)/d2*dr
-                for (r,r2,e2,d2,dg,dr) in
-                    zip(self.rho,self.rho2,self.e2g,D2,dgdx,drdx)]
-                            for (dgdx,drdx) in zip(dgamma,drho)]
-        dS12=[[e*(r2-1)*(1+r2*e2)/d2*dg-2.*r*e*(1-e2)/d2*dr
-                for (r,r2,e,e2,d2,dg,dr) in
-                    zip(self.rho,self.rho2,self.eg,self.e2g,D2,dgdx,drdx)]
-                            for (dgdx,drdx) in zip(dgamma,drho)]
-        dS=[[[[dS11[i][n],dS12[i][n]],[dS12[i][n],dS11[i][n]]]
-                for n in range(len(self.f))] for i in range(6)]
-        vdS=[self.VectorizeSp(ds) for ds in dS]
-        return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
+        Z=self.Z; Y=self.Y; gamma=self.gamma; Zc=self.Zc
+        rho=self.rho; rho2=self.rho2; eg=self.eg; e2g=self.e2g
+        dZ=[self.onesarr,1j*self.p2farr,self.zerosarr,
+            self.zerosarr,self.dZdRsearr,self.zerosarr]
+        dY=[self.zerosarr,self.zerosarr,self.onesarr,
+            self.p2farr*(1j+df),self.zerosarr,self.p2farr*C]
+        D2=self.D*self.D
+        J=np.empty((4*len(self.f),len(a)),dtype=complex)
+        for m in range(len(a)):
+            dgamma=(dZ[m]*Y+Z*dY[m])/(2.*gamma)
+            dZc=-1./2*(-dZ[m]*Y+Z*dY[m])/(Y*Y*Zc)
+            drho=2.*dZc*self.Z0/((Zc+self.Z0)*(Zc+self.Z0))
+            dS11=-2.*rho*e2g*(rho2-1)/D2*dgamma+(1-e2g)*(1+rho2*e2g)/D2*drho
+            dS12=eg*(rho2-1)*(1+rho2*e2g)/D2*dgamma-2.*rho*eg*(1-e2g)/D2*drho
+            J[0::4,m]=dS11; J[1::4,m]=dS12; J[2::4,m]=dS12; J[3::4,m]=dS11
+        return J
     def VectorizeSp(self,sp):
         """Helper function to vectorize s-parameters
         @param sp instance of class SParameters
@@ -196,102 +176,66 @@ class RLGCFitter2(LevMar):
         self.Z0=self.m_sp.m_Z0
         v=self.VectorizeSp(sp)
         LevMar.__init__(self,callback)
+        # frequency-dependent base vectors (numpy arrays), set up before Initialize
+        # (which evaluates fF), used to evaluate every frequency at once.
+        self.farr=np.array(self.f,dtype=float)
+        self.sqrtfarr=np.sqrt(self.farr)
+        self.p2farr=2.*math.pi*self.farr
+        self.onesarr=np.ones(len(self.f))
+        self.zerosarr=np.zeros(len(self.f))
+        self.dZdRsearr=self.sqrtfarr*(1+1j)
+        self.dZdLarr=1j*self.p2farr
         LevMar.Initialize(self, array([[g] for g in guess]), v)
-        self.ones=[1 for _ in self.f]
-        self.dZdR=self.ones
-        self.dZdRse=[math.sqrt(f)*(1+1j) for f in self.f]
-        self.p2f=[2.*math.pi*f for f in self.f]
-        self.dZdL=[1j*p2f for p2f in self.p2f]
-        self.zeros=[0 for _ in self.f]
-        self.dZdG=self.zeros
-        self.dZdC=self.zeros
-        self.dZddf=self.zeros
-        self.dYdR=self.zeros
-        self.dYdRse=self.zeros
-        self.dYdL0=self.zeros
-        self.dYdLinf=self.zeros
-        self.dYdfm=self.zeros
-        self.dYdb=self.zeros
-        self.dYdG=self.ones
     def fF(self,a):
         (R,G,C,Rse,df,L0,Linf,fm,b)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0],a[6][0],a[7][0],a[8][0])
-        # pragma: silent exclude
-        import numpy
-        npstate=numpy.seterr()['divide']
-        numpy.seterr(divide='raise')
-        try:
-            test=1./G
-        except:
-            G=1e-12
-        try:
-            test=1./R
-        except:
-            R=1e-12
-        numpy.seterr(divide=npstate)
-        # pragma: include
-        self.ffm=[f/fm for f in self.f]
-        self.ffmb=[pow(ffm,b) for ffm in self.ffm]
-        self.L=[(L0+Linf*ffmb)/(1.+ffmb) for ffmb in self.ffmb]
-        self.Z=[R+Rse*(1+1j)*math.sqrt(f)+1j*2.*math.pi*f*L for (L,f) in zip(self.L,self.f)]
-        self.Y=[G+2.*math.pi*f*C*(1j+df) for f in self.f]
-        self.gamma=[cmath.sqrt(z*y) for (z,y) in zip(self.Z,self.Y)]
-        self.Zc=[cmath.sqrt(z/y) for (z,y) in zip(self.Z,self.Y)]
-        self.rho=[(zc-self.Z0)/(zc+self.Z0) for zc in self.Zc]
-        self.rho2=[r*r for r in self.rho]
-        self.eg=[cmath.exp(-g) for g in self.gamma]
-        self.e2g=[egx*egx for egx in self.eg]
-        self.S11=[r*(1-e2)/(1-r2*e2) for (r,e2,r2) in zip(self.rho,self.e2g,self.rho2)]
-        self.S12=[(1-r2)*e/(1-r2*e2) for (r2,e,e2) in zip(self.rho2,self.eg,self.e2g)]
-        S=[[[s11,s12],[s12,s11]] for (s11,s12) in zip(self.S11,self.S12)]
-        vS=self.VectorizeSp(S)
-        return array(vS)
+        if G==0: G=1e-12
+        if R==0: R=1e-12
+        self.ffm=self.farr/fm
+        self.ffmb=np.power(self.ffm,b)
+        self.L=(L0+Linf*self.ffmb)/(1.+self.ffmb)
+        self.Z=R+Rse*(1+1j)*self.sqrtfarr+1j*self.p2farr*self.L
+        self.Y=G+self.p2farr*C*(1j+df)
+        self.gamma=np.sqrt(self.Z*self.Y)
+        self.Zc=np.sqrt(self.Z/self.Y)
+        self.rho=(self.Zc-self.Z0)/(self.Zc+self.Z0)
+        self.rho2=self.rho*self.rho
+        self.eg=np.exp(-self.gamma)
+        self.e2g=self.eg*self.eg
+        self.S11=self.rho*(1-self.e2g)/(1-self.rho2*self.e2g)
+        self.S12=(1-self.rho2)*self.eg/(1-self.rho2*self.e2g)
+        vS=np.empty((4*len(self.f),1),dtype=complex)
+        vS[0::4,0]=self.S11; vS[1::4,0]=self.S12
+        vS[2::4,0]=self.S12; vS[3::4,0]=self.S11
+        return vS
     def fJ(self,a,Fa=None):
         if self.m_Fa is None: self.m_Fa=self.fF(a)
         (R,G,C,Rse,df,L0,Linf,fm,b)=(a[0][0],a[1][0],a[2][0],a[3][0],a[4][0],a[5][0],a[6][0],a[7][0],a[8][0])
-        dffmbdfm=[-ffmb*b/fm for ffmb in self.ffmb]
-        dffmbdb=[ffmb*math.log(ffm.real+1e-15) for (ffmb,ffm) in zip(self.ffm,self.ffmb)]
-        dLdL0=[1./(1.+ffmb) for ffmb in self.ffmb]
-        dLdLinf=[ffmb/(1.+ffmb) for ffmb in self.ffmb]
-        dLdfm=[(Linf-L0)/((1.+ffmb)*(1.+ffmb))*dffmbdfme for (ffmb,dffmbdfme) in zip(self.ffmb,dffmbdfm)]
-        dLdb=[(Linf-L0)/((1.+ffmb)*(1.+ffmb))*dffmbdbe for (ffmb,dffmbdbe) in zip(self.ffmb,dffmbdb)]
-        dZdL0=[dZdL*dLdL0e for (dZdL,dLdL0e) in zip(self.dZdL,dLdL0)]
-        dZdLinf=[dZdL*dLdLinfe for (dZdL,dLdLinfe) in zip(self.dZdL,dLdLinf)]
-        dZdfm=[dZdL*dLdfme for (dZdL,dLdfme) in zip(self.dZdL,dLdfm)]
-        dZdb=[dZdL*dLdbe for (dZdL,dLdbe) in zip(self.dZdL,dLdb)]
-        dZ=[self.dZdR,self.dZdG,self.dZdC,self.dZdRse,self.dZddf,dZdL0,dZdLinf,dZdfm,dZdb]
-        dYdC=[p2f*(1j+df) for p2f in self.p2f]
-        dYddf=[p2f*C for p2f in self.p2f]
-        dY=[self.dYdR,self.dYdG,dYdC,self.dYdRse,dYddf,self.dYdL0,self.dYdLinf,self.dYdfm,self.dYdb]
-        dgamma=[[1./(2.*cmath.sqrt(z*y))*(dz*y+z*dy)
-                for (z,y,dz,dy) in zip(self.Z,self.Y,dZ[i],dY[i])]
-                    for i in range(9)]
-        dZc=[[-1./2*(-dz*y+z*dy)/(y*y*cmath.sqrt(z/y))
-                for (z,y,dz,dy) in zip(self.Z,self.Y,dZ[i],dY[i])]
-                    for i in range(9)]
-        drho=[[2.*dzc*self.Z0/((zc+self.Z0)*(zc+self.Z0))
-                for (zc,dzc) in zip(self.Zc,dZc[i])]
-                    for i in range(9)]
-        e3g=[egx*egx*egx for egx in self.eg]
-        e4g=[egx*egx*egx*egx for egx in self.eg]
-        rho3=[r*r*r for r in self.rho]
-        rho4=[r*r*r*r for r in self.rho]
-        dS11=[[(2*r*e2-2.*r3*e2)/((r2*e2-1)*(r2*e2-1))*dg+
-            (-e2-r2*e4+1.+r2*e2)/((r2*e2-1)*(r2*e2-1))*dr
-                for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
-                    zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgammadx,drhodx)]
-                            for (dgammadx,drhodx) in zip(dgamma,drho)]
-        dS12=[[(e3*r4-e-e3*r2+e*r2)/((r2*e2-1)*(r2*e2-1))*dg+
-            (-2.*e*r+2.*e3*r)/((r2*e2-1)*(r2*e2-1))*dr
-                for (r,r2,r3,r4,e,e2,e3,e4,dg,dr) in
-                    zip(self.rho,self.rho2,rho3,rho4,self.eg,
-                        self.e2g,e3g,e4g,dgammadx,drhodx)]
-                            for (dgammadx,drhodx) in zip(dgamma,drho)]
-        dS=[[[[dS11[i][n],dS12[i][n]],[dS12[i][n],dS11[i][n]]]
-                for n in range(len(self.f))]
-                    for i in range(9)]
-        vdS=[self.VectorizeSp(ds) for ds in dS]
-        return array([[vdS[m][r][0] for m in range(len(a))] for r in range(len(Fa))])
+        Z=self.Z; Y=self.Y; gamma=self.gamma; Zc=self.Zc
+        rho=self.rho; rho2=self.rho2; eg=self.eg; e2g=self.e2g
+        ffm=self.ffm; ffmb=self.ffmb
+        dffmbdfm=-ffmb*b/fm
+        dffmbdb=ffmb*np.log(np.real(ffm)+1e-15)
+        dLdL0=1./(1.+ffmb)
+        dLdLinf=ffmb/(1.+ffmb)
+        dLdfm=(Linf-L0)/((1.+ffmb)*(1.+ffmb))*dffmbdfm
+        dLdb=(Linf-L0)/((1.+ffmb)*(1.+ffmb))*dffmbdb
+        dZdL=self.dZdLarr
+        dZ=[self.onesarr,self.zerosarr,self.zerosarr,self.dZdRsearr,self.zerosarr,
+            dZdL*dLdL0,dZdL*dLdLinf,dZdL*dLdfm,dZdL*dLdb]
+        dY=[self.zerosarr,self.onesarr,self.p2farr*(1j+df),self.zerosarr,self.p2farr*C,
+            self.zerosarr,self.zerosarr,self.zerosarr,self.zerosarr]
+        e3g=eg*e2g; e4g=e2g*e2g; rho3=rho*rho2; rho4=rho2*rho2
+        den2=(rho2*e2g-1)*(rho2*e2g-1)
+        J=np.empty((4*len(self.f),len(a)),dtype=complex)
+        for i in range(len(a)):
+            dz=dZ[i]; dy=dY[i]
+            dg=(dz*Y+Z*dy)/(2.*gamma)
+            dzc=-1./2*(-dz*Y+Z*dy)/(Y*Y*Zc)
+            dr=2.*dzc*self.Z0/((Zc+self.Z0)*(Zc+self.Z0))
+            dS11=(2*rho*e2g-2.*rho3*e2g)/den2*dg+(-e2g-rho2*e4g+1.+rho2*e2g)/den2*dr
+            dS12=(e3g*rho4-eg-e3g*rho2+eg*rho2)/den2*dg+(-2.*eg*rho+2.*e3g*rho)/den2*dr
+            J[0::4,i]=dS11; J[1::4,i]=dS12; J[2::4,i]=dS12; J[3::4,i]=dS11
+        return J
     def VectorizeSp(self,sp):
         N=range(len(sp));P=range(len(sp[0]))
         v=[[sp[n][r][c]] for n in N for r in P for c in P]

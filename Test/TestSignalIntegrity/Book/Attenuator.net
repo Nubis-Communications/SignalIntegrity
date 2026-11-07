@@ -1,0 +1,41 @@
+device R1 2 R 16.666667
+device R2 2 R 16.666667
+device R3 2 R 16.666667
+voltagenoisesource VN1 2
+voltagenoisesource VN2 2
+voltagenoisesource VN3 2
+voltagesource VG1 1
+device R4 2 R 50.0
+voltagenoisesource VN4 2
+device R5 2 R 50.0
+voltagenoisesource VN5 2
+device G1 1 ground
+device R6 2 R 50.0
+voltagenoisesource VN6 2
+device G2 1 ground
+voltagesource VG2 1
+device R7 2 R 50.0
+voltagenoisesource VN7 2
+device R8 2 R 50.0
+voltagenoisesource VN8 2
+device G3 1 ground
+connect R1 1 VN1 2
+connect R1 2 R2 1 R3 1
+connect R2 2 VN3 1
+connect VN2 2 R3 2
+connect VN1 1 R4 2
+connect VN2 1 R6 1
+voltageoutput VO1 R5 1
+connect R5 1 VN3 2
+connect VG1 1 VN4 1
+connect R4 1 VN4 2
+connect R5 2 VN5 2
+connect VN5 1 G1 1
+connect R6 2 VN6 2
+connect VN6 1 G2 1
+connect VN7 1 VG2 1
+connect R7 1 VN7 2
+voltageoutput VO2 R7 2
+connect R7 2 R8 1
+connect VN8 2 R8 2
+connect VN8 1 G3 1

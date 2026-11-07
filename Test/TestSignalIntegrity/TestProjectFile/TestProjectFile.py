@@ -20,6 +20,7 @@ TestSignalIntegrityApp.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import unittest
+import os
 
 from SignalIntegrity.App.PreferencesFile import PreferencesFile
 from SignalIntegrity.App.Preferences import Preferences
@@ -29,11 +30,14 @@ class TestProjectFileTest(unittest.TestCase):
         unittest.TestCase.__init__(self,methodName)
 
     def setUp(self):
-        pass
+        self.cwd=os.getcwd()
+        os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 
     def tearDown(self):
-        pass
+        if os.path.exists('preferencesOldStyle.xml'):
+            os.remove('preferencesOldStyle.xml')
+        os.chdir(self.cwd)
 
 
     def testProjectFileOldSurvival(self):

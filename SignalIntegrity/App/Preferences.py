@@ -19,41 +19,24 @@ Preferences.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.App.PreferencesFile import PreferencesFile
+from SignalIntegrity.App.ProjectFileBase import ResolvePreferencesPath
 
-import os,errno
+import os
 import shutil
 import platform
 
 from SignalIntegrity.__about__ import __version__
 
 class Preferences(PreferencesFile):
+    baseWindows='c:/Nubis/SignalIntegrity'
+    baseLinux='~/.signalintegrity'
+    envVar='SIGNALINTEGRITY_PREFERENCES'
     def __init__(self,preferencesFileName=None):
         PreferencesFile.__init__(self)
         self.fileExists=False
         if preferencesFileName is None:
-            thisOS=platform.system()
-            if thisOS == 'Linux':
-                pathToPreferencesFile = os.path.expanduser('~')+'/.signalintegrity'
-                self.preferencesFileName=pathToPreferencesFile+'/preferences'
-            else:
-                pathToPreferencesFile = 'c:/Nubis/SignalIntegrity'
-                legacyPreferencesFileName = 'c:/LeCroy/SignalIntegrity/preferences.xml'
-                self.preferencesFileName=pathToPreferencesFile+'/preferences.xml'
-                if (not os.path.isfile(self.preferencesFileName)) and os.path.isfile(legacyPreferencesFileName):
-                    try:
-                        os.makedirs(pathToPreferencesFile)
-                    except OSError as e:
-                        if e.errno != errno.EEXIST:
-                            return
-                    try:
-                        shutil.copy2(legacyPreferencesFileName,self.preferencesFileName)
-                    except:
-                        pass
-            try:
-                os.makedirs(pathToPreferencesFile)
-            except OSError as e:
-                if e.errno != errno.EEXIST:
-                    return
+            self.preferencesFileName=ResolvePreferencesPath(self.baseWindows,self.baseLinux,self.envVar)
+            self._SeedFromLegacy(self.preferencesFileName)
         else:
             self.preferencesFileName=preferencesFileName
         try:
@@ -71,6 +54,28 @@ class Preferences(PreferencesFile):
                 self.fileExists=False
                 return
         self.fileExists=True
+    @classmethod
+    def ResolveFileName(cls):
+        """Return the preferences file this installation/user/venv resolves to (no side effects on state)."""
+        return ResolvePreferencesPath(cls.baseWindows,cls.baseLinux,cls.envVar)
+    def _SeedFromLegacy(self,targetFileName):
+        # First run at a tagged location: carry forward settings from the old flat/legacy file.
+        if os.path.isfile(targetFileName):
+            return
+        if platform.system() == 'Linux':
+            candidates=[os.path.expanduser(self.baseLinux)+'/preferences.xml']
+        else:
+            candidates=[self.baseWindows+'/preferences.xml','c:/LeCroy/SignalIntegrity/preferences.xml']
+        for source in candidates:
+            if os.path.abspath(source)==os.path.abspath(targetFileName):
+                continue
+            if os.path.isfile(source):
+                try:
+                    os.makedirs(os.path.dirname(targetFileName),exist_ok=True)
+                    shutil.copy2(source,targetFileName)
+                except:
+                    pass
+                return
     def SaveToFile(self):
         if self.fileExists:
             try:

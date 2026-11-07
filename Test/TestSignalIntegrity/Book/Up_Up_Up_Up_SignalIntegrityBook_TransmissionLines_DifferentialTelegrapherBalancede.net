@@ -1,0 +1,27 @@
+device Rp 2 R 50.0
+device M1 4 M 1.0e-9
+device Rn 2 R 50.0
+device Cm 2 C 1.0e-12 esr 0 df 0
+device Cn 1 C 1.0e-12 esr 0 df 0
+device Cp 1 C 1.0e-12 esr 0 df 0
+device Gm 2 R 50.0
+device Gn 1 R 50.0
+device Gp 1 R 50.0
+voltagesource V 2
+voltagesource V 2
+device Z0 2 R 50.0
+device G1 1 ground
+device Z0 2 R 50.0
+device Z0 2 R 50.0
+device Z0 2 R 50.0
+device G2 1 ground
+connect Z0 2 Rp 1
+connect Rp 2 M1 1
+connect M1 3 Rn 2
+connect M1 2 Cp 1 Cm 2 Gm 2 Z0 2 Gp 1
+connect Cn 1 Z0 2 Gm 1 Gn 1 M1 4 Cm 1
+connect Rn 1 Z0 2
+connect V 2 Z0 1
+connect G1 1 V 1 V 1
+connect V 2 Z0 1
+connect Z0 1 G2 1 Z0 1

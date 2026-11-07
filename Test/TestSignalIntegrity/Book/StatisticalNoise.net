@@ -1,0 +1,11 @@
+device O1 1 open
+device F2 2 butterworthlp order 8 fc 40.0e9
+voltagenoisesource VN1 2
+voltagesource VG1 2
+voltagenoisesource VN2 1
+voltageoutput Comp O1 1
+connect O1 1 VN1 2
+connect F2 1 VG1 2
+voltageoutput Uncomp VN1 1
+connect VN1 1 F2 2
+connect VN2 1 VG1 1

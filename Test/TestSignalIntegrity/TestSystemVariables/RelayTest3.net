@@ -11,8 +11,8 @@ device RCNetwork2 2 file RCFilter/RCTest.si R 500.0 C 5.0e-12
 connect Tline 1 K1 1
 connect K1 2 RCNetwork 1
 connect K1 3 RCNetwork2 1
-port 1 td 0 K1 4
+port 1 K1 4
 connect K2 1 Tline 2
 connect K2 2 RCNetwork 2
 connect RCNetwork2 2 K2 3
-port 2 td 0 K2 4
+port 2 K2 4

@@ -21,49 +21,100 @@ Drawing.py
 import tkinter as tk
 
 import copy
+import re
+import sys
 
 from SignalIntegrity.App.Schematic import Schematic
 from SignalIntegrity.App.DrawingStateMachine import DrawingStateMachine
+from SignalIntegrity.App.DrawingStateMachineReadOnly import DrawingStateMachineReadOnly
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.Wire import Wire
 
 import SignalIntegrity.App.Project
 
+def ScaleWindowGeometry(geometry,scale):
+    match=re.match(r'^(\d+)x(\d+)',geometry)
+    if match is None:
+        return geometry
+    width=round(int(match.group(1))*scale)
+    height=round(int(match.group(2))*scale)
+    return str(width)+'x'+str(height)+geometry[match.end():]
+
+class SchematicCanvas(tk.Canvas):
+    strokeItemTypes={'line','rectangle','oval','arc','polygon'}
+
+    def __init__(self,parent,displayScale,**kwargs):
+        self.displayScale=displayScale
+        tk.Canvas.__init__(self,parent,**kwargs)
+
+    def _create(self,itemType,args,kwargs):
+        if itemType in self.strokeItemTypes:
+            kwargs=kwargs.copy()
+            kwargs['width']=float(kwargs.get('width',1))*self.displayScale+max(0,self.displayScale-1)
+            dash=kwargs.get('dash')
+            if isinstance(dash,(tuple,list)):
+                kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
+        return tk.Canvas._create(self,itemType,args,kwargs)
+
 class Drawing(tk.Frame):
     def __init__(self,parent):
         tk.Frame.__init__(self,parent)
         self.parent=parent
-        self.canvas = tk.Canvas(self,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
+        self.canvas = SchematicCanvas(self,parent.displayScale,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
+        self.BuildTearOffMenus()
+        self.stateMachine = None
+        self.InstallStateMachine()
+    def DisplayGrid(self):
+        grid=SignalIntegrity.App.Project['Drawing.DrawingProperties']['Grid']
+        return grid*self.parent.displayScale
+    def ProjectGeometry(self):
+        geometry=self.parent.root.geometry()
+        if sys.platform.startswith('linux'):
+            geometry=ScaleWindowGeometry(geometry,1.0/self.parent.displayScale)
+        return geometry
+    def BuildTearOffMenus(self):
         self.deviceTearOffMenu=tk.Menu(self, tearoff=0)
+        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
+        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
+        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
+        if self.parent.ReadOnly():
+            return
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
         self.deviceTearOffMenu.add_command(label='Convert',command=self.ConvertSelectedDevice)
-        self.canvasTearOffMenu=tk.Menu(self, tearoff=0)
         self.canvasTearOffMenu.add_command(label='Add Part',command=self.parent.onAddPart)
         self.canvasTearOffMenu.add_command(label='Add Wire',command=self.parent.onAddWire)
         self.canvasTearOffMenu.add_command(label='Add Port',command=self.parent.onAddPort)
-        self.wireTearOffMenu=tk.Menu(self, tearoff=0)
         self.wireTearOffMenu.add_command(label="Delete Vertex",command=self.DeleteSelectedVertex)
         self.wireTearOffMenu.add_command(label="Duplicate Vertex",command=self.DuplicateSelectedVertex)
         self.wireTearOffMenu.add_command(label="Delete Wire",command=self.DeleteSelectedWire)
-        self.multipleSelectionsTearOffMenu=tk.Menu(self, tearoff=0)
         self.multipleSelectionsTearOffMenu.add_command(label="Cut Selected",command=self.CutMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Delete Selected",command=self.DeleteMultipleSelections)
         self.multipleSelectionsTearOffMenu.add_command(label="Duplicate Selected",command=self.DuplicateMultipleSelections)
-        self.stateMachine = DrawingStateMachine(self)
+    def InstallStateMachine(self):
+        """builds the state machine matching the current read-only mode, preserving the state"""
+        state=None if self.stateMachine is None else self.stateMachine.state
+        self.BuildTearOffMenus()
+        if self.parent.ReadOnly():
+            self.stateMachine = DrawingStateMachineReadOnly(self)
+        else:
+            self.stateMachine = DrawingStateMachine(self)
+        if state is not None:
+            self.stateMachine.state=state
+            self.stateMachine.ForceIntializeState()
     def NearestGridCoordinate(self,x,y):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        grid=drawingPropertiesProject['Grid']
+        grid=self.DisplayGrid()
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         return (int(round(float(x)/grid))-originx,int(round(float(y)/grid))-originy)
     def AugmentorToGridCoordinate(self,x,y):
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-        grid=drawingPropertiesProject['Grid']
+        grid=self.DisplayGrid()
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
@@ -76,14 +127,15 @@ class Drawing(tk.Frame):
             return canvas
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         if not canvas is None and hasattr(self, 'Drawing'):
-            drawingPropertiesProject['Geometry']=self.root.geometry()
-        grid=drawingPropertiesProject['Grid']
+            drawingPropertiesProject['Geometry']=self.ProjectGeometry()
+        displayScale=getattr(canvas,'displayScale',1.0)
+        grid=drawingPropertiesProject['Grid']*displayScale
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
         SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
-        locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
+        locations=[(7*displayScale,PartPicture.textSpacing*(v+1)*displayScale+3*displayScale) for v in range(V)]
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
@@ -152,6 +204,7 @@ class Drawing(tk.Frame):
         canCalculateSParametersFromNetworkAnalyzerModel = canSimulateNetworkAnalyzerModel
         canCalculate = canSimulate or canCalculateSParameters or canVirtualProbe or canDeembed or canCalculateErrorTerms or canSimulateNetworkAnalyzerModel or canCalculateSParametersFromNetworkAnalyzerModel
         canGenerateTransferMatrices = (canSimulate and foundASource and foundAnOutput) or canVirtualProbe
+        writable = not self.parent.ReadOnly()
         self.parent.SimulateDoer.Activate(canSimulate or canSimulateNetworkAnalyzerModel)
         self.parent.TransferParametersDoer.Activate(canGenerateTransferMatrices)
         self.parent.CalculateDoer.Activate(canCalculate)
@@ -162,15 +215,17 @@ class Drawing(tk.Frame):
         self.parent.CalculateErrorTermsDoer.Activate(canCalculateErrorTerms)
         self.parent.CalculateSParametersFromNetworkAnalyzerModelDoer.Activate(canCalculateSParametersFromNetworkAnalyzerModel)
         self.parent.SimulateNetworkAnalyzerModelDoer.Activate(canSimulateNetworkAnalyzerModel)
-        self.parent.ClearProjectDoer.Activate(foundSomething)
+        self.parent.ClearProjectDoer.Activate(foundSomething and writable)
         self.parent.ExportNetListDoer.Activate(foundSomething)
         self.parent.ExportTpXDoer.Activate(foundSomething)
         self.parent.ExportPngDoer.Activate(foundSomething)
-        self.parent.PanDoer.Activate(foundSomething)
-        self.parent.ZoomInDoer.Activate(foundSomething)
-        self.parent.ZoomOutDoer.Activate(foundSomething)
+        self.parent.PanDoer.Activate(foundSomething and writable)
+        self.parent.ZoomInDoer.Activate(foundSomething and writable)
+        self.parent.ZoomOutDoer.Activate(foundSomething and writable)
         return canvas
     def EditSelectedDevice(self):
+        if self.parent.ReadOnly():
+            return
         if self.stateMachine.state=='DeviceSelected':
             dpe=DevicePropertiesDialog(self.parent,self.deviceSelected)
             if dpe.result != None:
@@ -179,6 +234,10 @@ class Drawing(tk.Frame):
                 self.schematic.Consolidate()
                 self.DrawSchematic()
                 self.parent.history.Event('edit device')
+    def ViewSelectedDevice(self,action):
+        if self.stateMachine.state=='DeviceSelected':
+            from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction
+            PerformDeviceViewAction(self.parent,self.deviceSelected,action)
     def DuplicateSelectedDevice(self):
         if self.stateMachine.state=='DeviceSelected':
             self.partLoaded=copy.deepcopy(self.deviceSelected)
@@ -326,7 +385,11 @@ class Drawing(tk.Frame):
         # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
         # properties first, which made it work, but it was an accident.
         #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
-        self.parent.root.geometry(drawingProperties['Geometry'].split('+')[0])
+        geometry=drawingProperties['Geometry'].split('+')[0]
+        if sys.platform.startswith('linux'):
+            geometry=ScaleWindowGeometry(geometry,self.parent.displayScale)
+        self.parent.root.geometry(geometry)
         self.schematic = Schematic()
         self.schematic.InitFromProject()
-        self.stateMachine = DrawingStateMachine(self)
+        self.stateMachine = None
+        self.InstallStateMachine()

@@ -1,0 +1,99 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">98.875,-35.875 97.125,-34.125</polyline>
+%  <polyline lc="black">97.125,-35.875 98.875,-34.125</polyline>
+%  <polyline lc="black">94.5,-35 98,-35</polyline>
+%  <text x="56" y="-36" t="LPF" h="3" halign="c" lc="black"/>
+%  <rect x="52.5" y="-31.5" w="7" h="-7" lc="black"/>
+%  <polyline lc="black">49,-35 52.5,-35</polyline>
+%  <text x="52" y="-34" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">63,-35 59.5,-35</polyline>
+%  <text x="60" y="-34" t="2" h="3" halign="l" lc="black"/>
+%  <text x="56" y="-28.75" t="order 8" h="3" halign="c" lc="black"/>
+%  <text x="56" y="-25.75" t="fc 40.0 GHz" h="3" halign="c" lc="black"/>
+%  <polyline lw="3" lc="black">66.5,-31.5 64.75,-33.25</polyline>
+%  <polyline lc="black">64.75,-33.25 63,-35</polyline>
+%  <text x="66.5" y="-30.5" t="Uncomp" h="3" halign="l" lc="black"/>
+%  <text x="80.5" y="-36" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <ellipse x="80.5" y="-35" dx="-7" dy="-7" lc="black"/>
+%  <polyline lc="black">82.688,-34.344 82.688,-35.656</polyline>
+%  <polyline lc="black">83.344,-35 82.031,-35</polyline>
+%  <polyline lc="black">78.312,-34.344 78.312,-35.656</polyline>
+%  <polyline lc="black">87.5,-35 84,-35</polyline>
+%  <polyline lc="black">73.5,-35 77,-35</polyline>
+%  <text x="80.5" y="-43.25" t="VN1" h="3" halign="c" lc="black"/>
+%  <polyline lc="black">47.25,-43.312 49,-43.312 49,-40.688 50.75,-40.688</polyline>
+%  <ellipse x="49" y="-42" dx="7" dy="-7" lc="black"/>
+%  <polyline lc="black">48.344,-39.812 49.656,-39.812</polyline>
+%  <polyline lc="black">49,-39.156 49,-40.469</polyline>
+%  <polyline lc="black">48.344,-44.188 49.656,-44.188</polyline>
+%  <polyline lc="black">49,-35 49,-38.5</polyline>
+%  <polyline lc="black">49,-49 49,-45.5</polyline>
+%  <text x="54.25" y="-46" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="54.25" y="-43" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <text x="49" y="-57" t="" tex="$\sigma$" h="3" halign="c" lc="black"/>
+%  <ellipse x="49" y="-56" dx="7" dy="-7" lc="black"/>
+%  <polyline lc="black">48.344,-53.812 49.656,-53.812</polyline>
+%  <polyline lc="black">49,-53.156 49,-54.469</polyline>
+%  <polyline lc="black">48.344,-58.188 49.656,-58.188</polyline>
+%  <polyline lc="black">49,-59.5 49,-63</polyline>
+%  <polygon fill="black">46.667,-63 51.333,-63 49,-65.333 46.667,-63</polygon>
+%  <polyline lc="black">49,-49 49,-52.5</polyline>
+%  <text x="54.25" y="-57" t="VN2" h="3" halign="l" lc="black"/>
+%  <polyline lw="3" lc="black">98,-31.5 96.25,-33.25</polyline>
+%  <polyline lc="black">96.25,-33.25 94.5,-35</polyline>
+%  <text x="98" y="-30.5" t="Comp" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">73.5,-35 63,-35</polyline>
+%  <polyline lc="black">94.5,-35 87.5,-35</polyline>
+%  <ellipse x="63" y="-35" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%  <ellipse x="94.5" y="-35" dx="0.875" dy="-0.875" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (98.875,-35.875) -- (97.125,-34.125);
+\path[line width=0.30mm, draw=black] (97.125,-35.875) -- (98.875,-34.125);
+\path[line width=0.30mm, draw=black] (94.5,-35) -- (98,-35);
+\draw[black] (56,-36) node[anchor=base]{LPF};
+\path[line width=0.30mm, draw=black] (52.5,-38.5) rectangle +(7,7);
+\path[line width=0.30mm, draw=black] (49,-35) -- (52.5,-35);
+\draw[black] (52,-34) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (63,-35) -- (59.5,-35);
+\draw[black] (60,-34) node[anchor=base west]{2};
+\draw[black] (56,-28.75) node[anchor=base]{order 8};
+\draw[black] (56,-25.75) node[anchor=base]{fc 40.0 GHz};
+\path[line width=0.9mm, draw=black] (66.5,-31.5) -- (64.75,-33.25);
+\path[line width=0.30mm, draw=black] (64.75,-33.25) -- (63,-35);
+\draw[black] (66.5,-30.5) node[anchor=base west]{Uncomp};
+\draw[black] (80.5,-36) node[anchor=base]{$\sigma$};
+\path[line width=0.30mm, draw=black] (80.5,-35) ellipse (-3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (82.688,-34.344) -- (82.688,-35.656);
+\path[line width=0.30mm, draw=black] (83.344,-35) -- (82.031,-35);
+\path[line width=0.30mm, draw=black] (78.312,-34.344) -- (78.312,-35.656);
+\path[line width=0.30mm, draw=black] (87.5,-35) -- (84,-35);
+\path[line width=0.30mm, draw=black] (73.5,-35) -- (77,-35);
+\draw[black] (80.5,-41.25) node[anchor=north]{VN1};
+\path[line width=0.30mm, draw=black] (47.25,-43.312) -- (49,-43.312) -- (49,-40.688) -- (50.75,-40.688);
+\path[line width=0.30mm, draw=black] (49,-42) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (48.344,-39.812) -- (49.656,-39.812);
+\path[line width=0.30mm, draw=black] (49,-39.156) -- (49,-40.469);
+\path[line width=0.30mm, draw=black] (48.344,-44.188) -- (49.656,-44.188);
+\path[line width=0.30mm, draw=black] (49,-35) -- (49,-38.5);
+\path[line width=0.30mm, draw=black] (49,-49) -- (49,-45.5);
+\draw[black] (54.25,-46) node[anchor=base west]{t0 0 s};
+\draw[black] (54.25,-43) node[anchor=base west]{a 1.0 V};
+\draw[black] (49,-57) node[anchor=base]{$\sigma$};
+\path[line width=0.30mm, draw=black] (49,-56) ellipse (3.5mm and -3.5mm);
+\path[line width=0.30mm, draw=black] (48.344,-53.812) -- (49.656,-53.812);
+\path[line width=0.30mm, draw=black] (49,-53.156) -- (49,-54.469);
+\path[line width=0.30mm, draw=black] (48.344,-58.188) -- (49.656,-58.188);
+\path[line width=0.30mm, draw=black] (49,-59.5) -- (49,-63);
+\path[line width=0.30mm, fill=black] (46.667,-63) -- (51.333,-63) -- (49,-65.333) -- (46.667,-63) -- cycle;
+\path[line width=0.30mm, draw=black] (49,-49) -- (49,-52.5);
+\draw[black] (54.25,-57) node[anchor=base west]{VN2};
+\path[line width=0.9mm, draw=black] (98,-31.5) -- (96.25,-33.25);
+\path[line width=0.30mm, draw=black] (96.25,-33.25) -- (94.5,-35);
+\draw[black] (98,-30.5) node[anchor=base west]{Comp};
+\path[line width=0.30mm, draw=black] (73.5,-35) -- (63,-35);
+\path[line width=0.30mm, draw=black] (94.5,-35) -- (87.5,-35);
+\path[line width=0.30mm, draw=black, fill=black] (63,-35) ellipse (0.438mm and -0.438mm);
+\path[line width=0.30mm, draw=black, fill=black] (94.5,-35) ellipse (0.438mm and -0.438mm);
+\end{tikzpicture}%

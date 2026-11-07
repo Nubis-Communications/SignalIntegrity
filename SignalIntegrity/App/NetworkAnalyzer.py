@@ -59,6 +59,7 @@ class NetworkAnalyzerSimulator(object):
         self.parent.Drawing.stateMachine.Nothing()
         netList=self.parent.Drawing.schematic.NetList().Text()
         import SignalIntegrity.Lib as si
+        self.parent.statusbar.set('Simulating' if not SParameters else 'Calculating S-parameters')
         fd=si.fd.EvenlySpacedFrequencyList(
                 SignalIntegrity.App.Project['CalculationProperties.EndFrequency'],
                 SignalIntegrity.App.Project['CalculationProperties.FrequencyPoints'])
@@ -77,6 +78,7 @@ class NetworkAnalyzerSimulator(object):
                 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
                 self.spd=self.spd=SParametersDialog(self.parent,DUTSp,filename=self.parent.fileparts.FullFilePathExtension('s'+str(DUTSp.m_P)+'p'))
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('DUT S-parameter Calculator',e.parameter+': '+e.message)
             return None
         #
@@ -104,6 +106,7 @@ class NetworkAnalyzerSimulator(object):
             netList=self.parent.Drawing.schematic.NetList()
             netListText=self.parent.NetListText()
         if netListText==None:
+            self.parent.statusbar.set('Calculation Failed')
             return
         #
         # Now, with the dut s-parameters and the netlist of the network analyzer model, get the transfer matrices for a simulation with the DUT
@@ -119,6 +122,7 @@ class NetworkAnalyzerSimulator(object):
             os.chdir(FileParts(os.path.abspath(NetworkAnalyzerProjectFile)).AbsoluteFilePath())
             self.transferMatrices=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Transfer Matrices Calculation: ',e.parameter+': '+e.message)
             return None
         finally:
@@ -184,6 +188,7 @@ class NetworkAnalyzerSimulator(object):
         try:
             outputWaveformList = progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Simulator',e.parameter+': '+e.message)
             return
         #
@@ -259,6 +264,7 @@ class NetworkAnalyzerSimulator(object):
             self.SimulatorDialog().ViewSpectralContentDoer.Set(snp.simulationType == 'CW')
             self.SimulatorDialog().ViewSpectralDensityDoer.Set(False)
             self.UpdateWaveforms(outputWaveformList, self.outputWaveformLabels)
+            self.parent.statusbar.set('Calculation Complete')
         else:
             frequencyContentList=[wf.FrequencyContent(fd) for wf in outputWaveformList]
 
@@ -277,4 +283,5 @@ class NetworkAnalyzerSimulator(object):
                 A=[[Afc[r][c][n] for c in range(snp.simulationNumPorts)] for r in range(snp.simulationNumPorts)]
                 data[n]=(matrix(B)*matrix(A).getI()).tolist()
             sp=si.sp.SParameters(frequencyList,data)
+            self.parent.statusbar.set('Calculation Complete')
             return sp

@@ -174,7 +174,7 @@ filtered delta lamda and mse both went below threshold
 5.99e+00
 6.56e+11
 1.92e-01
-2.61e+00
+2.60e+00
 1.04e+11
 0
 0e+00
@@ -224,7 +224,7 @@ filtered delta lamda and mse both went below threshold
 2.06e+11
 1.19e-01
 4.21e+00
-3.28e+10
+3.29e+10
 0
 0e+00
 0

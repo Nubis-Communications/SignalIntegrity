@@ -19,7 +19,58 @@ ProjectFileBase.py
 # If not, see <https://www.gnu.org/licenses/>
 import xml.etree.ElementTree as et
 import os
+import sys
+import platform
+import hashlib
 from SignalIntegrity.Lib.Encryption import Encryption
+
+def _InVirtualEnvironment():
+    return (getattr(sys,'base_prefix',sys.prefix) != sys.prefix) or hasattr(sys,'real_prefix')
+
+def _VirtualEnvironmentTag():
+    # Unique-yet-readable folder name for the active venv so different venvs never share a file.
+    if not _InVirtualEnvironment():
+        return None
+    prefix=os.path.abspath(sys.prefix)
+    name=os.path.basename(prefix.rstrip('/\\')) or 'venv'
+    return name+'_'+hashlib.sha256(prefix.encode('utf-8')).hexdigest()[:8]
+
+def _UserTag():
+    # Linux home directories already separate users; only Windows needs an explicit per-user folder.
+    if platform.system() == 'Linux':
+        return None
+    user=None
+    try:
+        import getpass
+        user=getpass.getuser()
+    except Exception:
+        user=os.environ.get('USERNAME') or os.environ.get('USER')
+    if not user:
+        return None
+    return ''.join(c if (c.isalnum() or c in ('-','_','.')) else '_' for c in user)
+
+def ResolvePreferencesPath(baseWindows,baseLinux,envVar,fileName='preferences.xml'):
+    """Resolve the preferences file path: env override wins, else base dir + per-user (Windows)
+    + per-venv subfolders. Ensures the parent directory exists."""
+    override=os.environ.get(envVar)
+    if override:
+        path=override
+    else:
+        directory=os.path.expanduser(baseLinux) if platform.system() == 'Linux' else baseWindows
+        userTag=_UserTag()
+        if userTag is not None:
+            directory=directory+'/'+userTag
+        venvTag=_VirtualEnvironmentTag()
+        if venvTag is not None:
+            directory=directory+'/'+venvTag
+        path=directory+'/'+fileName
+    try:
+        parent=os.path.dirname(path)
+        if parent:
+            os.makedirs(parent,exist_ok=True)
+    except OSError:
+        pass
+    return path
 
 class XMLProperty(object):
     def __init__(self,propertyName,propertyValue=None,propertyType=None,write=True,arrayType=None,writeDefault=True):

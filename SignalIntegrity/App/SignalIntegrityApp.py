@@ -28,6 +28,7 @@ import sys
 import copy
 import os
 import io
+import subprocess
 
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -67,13 +68,20 @@ from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
 
 class SignalIntegrityApp(tk.Frame):
-    def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={}):
+    def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={},readOnly=None):
         thisFileDir=os.path.dirname(os.path.realpath(__file__))
         sys.path=[thisFileDir]+sys.path
+
+        # read-only state must exist before the Drawing is built - it asks for it
+        self.readOnly=False
+        self.readOnlyRequested=readOnly
+        self.openArgs={}
+        self.argsChangedProject=False
 
         SignalIntegrity.App.Preferences=Preferences()
         self.external=external
         self.root = tk.Tk()
+        self.displayScale=self.ConfigureDisplayScaling()
         self.root.withdraw()
 
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
@@ -95,7 +103,8 @@ class SignalIntegrityApp(tk.Frame):
                                           SignalIntegrity.App.Preferences['OnlineHelp.URL'])
 
         # status bar
-        self.statusbar=StatusBar(self)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale)
+        self._regressionProgressStack=[]
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.RecentProject0Doer = Doer(self.onRecentProject0).Activate(False)
@@ -115,6 +124,11 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchiveDoer = Doer(self.onExtractArchive).AddHelpElement('Control-Help:Extract-Archive').AddToolTip('Extract archived project')
         self.FreshenArchiveDoer = Doer(self.onFreshenArchive).AddHelpElement('Control-Help:Freshen-Archive').AddToolTip('Freshen archived project')
         self.UnExtractArchiveDoer = Doer(self.onUnExtractArchive).AddHelpElement('Control-Help:Unextract-Archive').AddToolTip('Unextract archived project')
+        regressionEnabled=SignalIntegrity.App.Preferences['Features.Regression']
+        self.GenerateRegressionDoer = Doer(self.onGenerateRegression,regressionEnabled).AddToolTip('Generate regression archive')
+        self.RunRegressionDoer = Doer(self.onRunRegression,regressionEnabled).AddToolTip('Run regression test')
+        self.MakeWritableDoer = Doer(self.onMakeWritable).AddHelpElement('Control-Help:Make-Writable').AddToolTip('Make the read-only schematic writable')
+        self.MakeReadOnlyDoer = Doer(self.onMakeReadOnly).AddHelpElement('Control-Help:Make-Read-Only').AddToolTip('Make the schematic read-only')
         # ------
         self.UndoDoer = Doer(self.onUndo).AddKeyBindElement(self.root,'<Control-z>').AddHelpElement('Control-Help:Undo').AddToolTip('Undo last edit')
         self.RedoDoer = Doer(self.onRedo).AddKeyBindElement(self.root,'<Control-Z>').AddHelpElement('Control-Help:Redo').AddToolTip('Redo undid edit')
@@ -195,6 +209,9 @@ class SignalIntegrityApp(tk.Frame):
         self.SaveProjectDoer.AddMenuElement(self.FileMenu,label="Save Project",accelerator='Ctrl+S',underline=0)
         self.SaveAsProjectDoer.AddMenuElement(self.FileMenu,label="Save Project As...",accelerator='Ctrl+Shift-S',underline=1)
         self.FileMenu.add_separator()
+        self.MakeWritableDoer.AddMenuElement(self.FileMenu,label='Make Writable',underline=5)
+        self.MakeReadOnlyDoer.AddMenuElement(self.FileMenu,label='Make Read Only',underline=5)
+        self.FileMenu.add_separator()
         self.ClearProjectDoer.AddMenuElement(self.FileMenu,label="Clear Schematic",underline=1)
         self.FileMenu.add_separator()
         self.ExportNetListDoer.AddMenuElement(self.FileMenu,label="Export NetList",underline=0)
@@ -205,6 +222,12 @@ class SignalIntegrityApp(tk.Frame):
         self.ExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Extract Archived Project',underline=1)
         self.FreshenArchiveDoer.AddMenuElement(self.FileMenu,label='Freshen Archived Project',underline=0)
         self.UnExtractArchiveDoer.AddMenuElement(self.FileMenu,label='Unextract Archived Project',underline=0)
+        # the Regression submenu is omitted entirely when the feature is disabled
+        if SignalIntegrity.App.Preferences['Features.Regression']:
+            self.RegressionMenu=tk.Menu(self.FileMenu)
+            self.FileMenu.add_cascade(label='Regression',menu=self.RegressionMenu,underline=0)
+            self.GenerateRegressionDoer.AddMenuElement(self.RegressionMenu,label='Generate Regression Archive',underline=0)
+            self.RunRegressionDoer.AddMenuElement(self.RegressionMenu,label='Run Regression Test',underline=0)
         # ------
         EditMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Edit',menu=EditMenu,underline=0)
@@ -285,11 +308,14 @@ class SignalIntegrityApp(tk.Frame):
         self.AboutDoer.AddMenuElement(HelpMenu,label='About',underline=0)
         # The Toolbar
         ToolBarFrame = tk.Frame(self)
+        self.toolbarFrame=ToolBarFrame
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         iconsdir=SignalIntegrity.App.IconsDir+''
         self.NewProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-new-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.OpenProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-open-2.gif',).Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.SaveProjectDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.MakeWritableDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
+        self.MakeReadOnlyDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'eye.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         tk.Frame(ToolBarFrame,bd=2,relief=tk.SUNKEN).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         self.AddPartDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-add-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.DeleteSelectedDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'edit-delete-6.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
@@ -426,6 +452,10 @@ class SignalIntegrityApp(tk.Frame):
                 self.root.attributes('-topmost',True)
             elif thisOS == 'Windows':
                 self.root.bind('<Unmap>', self.onMinimize)
+                self.root.attributes('-topmost',True)
+                self.root.lift()
+                self.root.focus_force()
+                self.root.after(100,lambda: self.root.attributes('-topmost',False))
 
         if runMainLoop:
             self.root.mainloop()
@@ -442,16 +472,21 @@ class SignalIntegrityApp(tk.Frame):
         #print 'width: '+str(event.width)+', height'+str(event.height)
 
         self.deltaWidth=4
-        self.deltaHeight=50
+        if sys.platform.startswith('linux'):
+            self.deltaHeight=self.toolbarFrame.winfo_reqheight()+self.statusbar.winfo_reqheight()
+        else:
+            self.deltaHeight=50
 
         try:
             self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
-            SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.root.geometry()
+            SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.Drawing.ProjectGeometry()
         except tk.TclError:
             pass
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
+        if self.readOnly:
+            return
         if event.keysym == 'Delete': # delete
             self.Drawing.DeleteSelected()
 
@@ -474,6 +509,14 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.OpenProjectFile(filename)
 
+    @staticmethod
+    def SameValue(one,other):
+        """compares values that may be strings or numbers, so '1e9' and 1000000000.0 match"""
+        try:
+            return float(one)==float(other)
+        except (TypeError,ValueError):
+            return str(one)==str(other)
+
     def SetVariables(self,args,reportMissing=False):
         variableNames = SignalIntegrity.App.Project['Variables'].Names()
         calculationProperties = SignalIntegrity.App.Project['CalculationProperties']
@@ -482,16 +525,103 @@ class SignalIntegrityApp(tk.Frame):
         # type is linear
         if all([prop in args.keys() for prop in ['EndFrequency','FrequencyPoints']]) and not 'UnderlyingType' in args.keys():
             args['UnderlyingType'] = 'Linear'
+        self.argsChangedProject=False
         for key in args.keys():
             if key in variableNames:
-                SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]['Value']=args[key]
+                variable=SignalIntegrity.App.Project['Variables.Items'][variableNames.index(key)]
+                if not self.SameValue(variable['Value'],args[key]):
+                    self.argsChangedProject=True
+                variable['Value']=args[key]
             elif key in calculationPropertyNames:
+                if not self.SameValue(calculationProperties[key],args[key]):
+                    self.argsChangedProject=True
                 calculationProperties.SetValue(key,args[key])
             elif reportMissing:
                 print('variable '+key+' not in project')
         calculationProperties.CalculateOthersFromBaseInformation()
 
-    def OpenProjectFile(self,filename,showError=True,args={}):
+    def ReadOnly(self):
+        return self.readOnly
+
+    def ProjectChanged(self):
+        """whether the project in memory differs from the file on disk"""
+        if self.fileparts.filename=='':
+            return True
+        filename=os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.FileNameWithExtension(ext='.si'))
+        return SignalIntegrity.App.Project.CheckFileChanged(filename)
+
+    def ResolveReadOnly(self,explicit):
+        """an explicit request wins over the project's own setting, which wins over the preference"""
+        if explicit is not None:
+            return bool(explicit)
+        if SignalIntegrity.App.Project['ProjectProperties.ReadOnly']:
+            return True
+        return bool(SignalIntegrity.App.Preferences['ProjectFiles.OpenProjectsReadOnly'])
+
+    def SetTitle(self):
+        if self.fileparts.filename=='':
+            self.root.title('SignalIntegrity')
+            return
+        self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle()+
+                        (' (Archive)' if Archive.InAnArchive(self.fileparts.FullFilePathExtension()) else '')+
+                        (' (Read Only)' if self.readOnly else ''))
+
+    def SetReadOnly(self,readOnly):
+        self.readOnly=bool(readOnly)
+        self.Drawing.InstallStateMachine()
+        self.SetTitle()
+        self.Drawing.stateMachine.Nothing(True)
+
+    def onMakeWritable(self):
+        if not self.readOnly:
+            return
+        # only offer the choice when the passed-in arguments actually differ from the schematic's defaults
+        if self.argsChangedProject:
+            choice=self.MakeWritableChoice()
+            if choice is None:
+                return
+            if choice == 'default':
+                self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),args={},readOnly=False)
+                return
+        self.readOnly=False
+        self.Drawing.InstallStateMachine()
+        self.SetTitle()
+        self.Drawing.stateMachine.Nothing(True)
+        self.history.Event('make writable')
+        self.statusbar.set('Schematic is now writable')
+
+    def MakeWritableChoice(self):
+        dialog=tk.Toplevel(self.root)
+        dialog.title('Make Writable')
+        dialog.transient(self.root)
+        dialog.resizable(False,False)
+        choice=[None]
+        message=tk.Frame(dialog)
+        message.pack(padx=15,pady=(15,8))
+        dialog.questionIcon=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+
+                           '16x16/actions/dialog-question.png')
+        tk.Label(message,image=dialog.questionIcon).pack(side=tk.LEFT,padx=(0,10))
+        tk.Label(message,text='Choose the schematic to edit:').pack(side=tk.LEFT)
+        buttons=tk.Frame(dialog)
+        buttons.pack(padx=15,pady=(0,15))
+        def select(value):
+            choice[0]=value
+            dialog.destroy()
+        tk.Button(buttons,text='Keep Arguments Passed In\n(for temporary changes)',command=lambda: select('keep')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Restore Schematic to Default\n(for permanent changes)',command=lambda: select('default')).pack(side=tk.LEFT,padx=3)
+        tk.Button(buttons,text='Cancel',command=dialog.destroy).pack(side=tk.LEFT,padx=3)
+        dialog.protocol('WM_DELETE_WINDOW',dialog.destroy)
+        dialog.grab_set()
+        dialog.wait_window()
+        return choice[0]
+
+    def onMakeReadOnly(self):
+        if self.readOnly or self.ProjectChanged():
+            return
+        self.SetReadOnly(True)
+        self.statusbar.set('Schematic is now read only')
+
+    def OpenProjectFile(self,filename,showError=True,args={},readOnly=None):
         if filename is None:
             filename=''
         if isinstance(filename,tuple):
@@ -508,14 +638,14 @@ class SignalIntegrityApp(tk.Frame):
             os.chdir(self.fileparts.AbsoluteFilePath())
             self.fileparts=FileParts(filename)
             SignalIntegrity.App.Project=ProjectFile().Read(self.fileparts.FullFilePathExtension('.si'))
+            self.openArgs=dict(args)
             self.SetVariables(args, reportMissing=True)
+            self.readOnly=self.ResolveReadOnly(self.readOnlyRequested if readOnly is None else readOnly)
             self.Drawing.InitFromProject()
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
-            self.root.title('SignalIntegrity: '+self.fileparts.FileNameTitle()+(' (Archive)'
-                                                                                if Archive.InAnArchive(self.fileparts.FullFilePathExtension())
-                                                                                else ''))
+            self.SetTitle()
         except:
             os.chdir(cd)
             if showError:
@@ -535,6 +665,10 @@ class SignalIntegrityApp(tk.Frame):
 
         SignalIntegrity.App.Project=ProjectFile()
         SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
+        self.readOnly=False
+        self.openArgs={}
+        self.argsChangedProject=False
+        self.Drawing.InstallStateMachine()
         self.Drawing.InitFromProject()
         self.Drawing.DrawSchematic()
         self.history.Event('new project')
@@ -545,6 +679,10 @@ class SignalIntegrityApp(tk.Frame):
             return
         self.simulator.DeleteDialogs()
         SignalIntegrity.App.Project=ProjectFile()
+        self.readOnly=False
+        self.openArgs={}
+        self.argsChangedProject=False
+        self.Drawing.InstallStateMachine()
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
         self.Drawing.DrawSchematic()
@@ -553,6 +691,8 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.stateMachine.NoProject(True)
 
     def SaveProjectToFile(self,filename):
+        if self.readOnly:
+            return
         self.Drawing.stateMachine.Nothing()
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
@@ -561,6 +701,7 @@ class SignalIntegrityApp(tk.Frame):
         filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
         self.root.title("SignalIntegrity: "+self.fileparts.FileNameTitle())
+        self.MakeReadOnlyDoer.Activate(True)
         self.statusbar.set('Project Saved')
 
     def onSaveProject(self):
@@ -790,6 +931,8 @@ class SignalIntegrityApp(tk.Frame):
     def onDuplicate(self):
         self.Drawing.DuplicateSelectedDevice()
     def onAddWire(self):
+        if self.readOnly:
+            return
         from SignalIntegrity.App.Wire import Vertex,Wire
         wireProject=Wire()
         wireProject['Vertices']=[Vertex((0,0),False)]
@@ -822,6 +965,8 @@ class SignalIntegrityApp(tk.Frame):
         self.AddSpecificPart(DeviceStim())
 
     def AddSpecificPart(self,part,popDialog=True,updateRef=True):
+        if self.readOnly:
+            return
         self.Drawing.stateMachine.Nothing()
         devicePicked=part
         defaultProperty = devicePicked['defref']
@@ -899,13 +1044,16 @@ class SignalIntegrityApp(tk.Frame):
             Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'],
             allowParallel=self.AllowParallelization())
         spnp.AddLines(netList)
+        self.statusbar.set('Calculating S-parameters')
         progressDialog = ProgressDialog(self,"Calculating S-parameters",spnp,spnp.SParameters,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
             sp.picture = SignalIntegrity.App.Project['Picture'].GetTextString()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('S-parameter Calculator',e.parameter+': '+e.message)
             return None
+        self.statusbar.set('Calculation Complete')
         return sp
 
     def onCalculateSParameters(self):
@@ -928,6 +1076,8 @@ class SignalIntegrityApp(tk.Frame):
         SignalIntegrity.App.Project['Picture'].PutLines([])
 
     def onViewPicture(self):
+        if self.readOnly:
+            return
         from SignalIntegrity.App.Picture import PictureDialog
         try:
             pil_image = PictureDialog.uudecode_to_photoimage_from_text(SignalIntegrity.App.Project['Picture'].GetTextString())
@@ -992,6 +1142,7 @@ class SignalIntegrityApp(tk.Frame):
         sp=self.CalculateSParameters()
         if sp is None:
             return
+        self.statusbar.set('Calculating RLGC Fit')
         stepResponse=sp.FrequencyResponse(2,1).ImpulseResponse().Integral()
         threshold=(stepResponse[len(stepResponse)-1]+stepResponse[0])/2.0
         for k in range(len(stepResponse)):
@@ -1033,6 +1184,7 @@ class SignalIntegrityApp(tk.Frame):
         device['df'].SetValueFromString(str(df)); device['df']['KeywordVisible']=True; device['df']['Visible']=True
         device['sect']['KeywordVisible']=False; device['sect']['Visible']=False
         self.AddSpecificPart(device,popDialog=False)
+        self.statusbar.set('Calculation Complete')
 
     def onCalculationProperties(self):
         self.Drawing.stateMachine.Nothing()
@@ -1057,6 +1209,7 @@ class SignalIntegrityApp(tk.Frame):
         if not self.CheckEquations(): return None
         self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
 
+
     def onTransferParameters(self):
         if self.SimulateDoer.active:
             self.onSimulate(TransferMatricesOnly=True)
@@ -1080,10 +1233,12 @@ class SignalIntegrityApp(tk.Frame):
                 allowParallel=self.AllowParallelization())
         dnp.AddLines(netList)
 
+        self.statusbar.set('Calculating De-embedded S-parameters')
         progressDialog = ProgressDialog(self,"Calculating De-embedded S-parameters",dnp,dnp.Deembed,granularity=1.0)
         try:
             sp=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('Deembedder',e.parameter+': '+e.message)
             return
         unknownNames=dnp.m_sd.UnknownNames()
@@ -1095,6 +1250,7 @@ class SignalIntegrityApp(tk.Frame):
             if self.fileparts.filename != '':
                 filename=self.fileparts.filename+'_'+filename
             SParametersDialog(self,sp[u],filename=filename)
+        self.statusbar.set('Calculation Complete')
 
     def onCalculate(self):
         self.Drawing.stateMachine.Nothing()
@@ -1282,16 +1438,38 @@ class SignalIntegrityApp(tk.Frame):
             if not self.preferencesDialog.winfo_exists():
                 self.preferencesDialog=PreferencesDialog(self,SignalIntegrity.App.Preferences)
 
+    def ConfigureDisplayScaling(self):
+        if not sys.platform.startswith('linux'):
+            return 1.0
+
+        displayScale=max(1.0,float(self.root.tk.call('tk','scaling'))/(96.0/72.0))
+        if 'GDK_SCALE' in os.environ:
+            displayScale=max(displayScale,float(os.environ['GDK_SCALE']))
+        try:
+            resources=subprocess.run(
+                ['xrdb','-query'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                universal_newlines=True,check=False
+            ).stdout
+        except FileNotFoundError:
+            resources=''
+        for resource in resources.splitlines():
+            name,separator,value=resource.partition(':')
+            if separator and name.strip() == 'Xft.dpi':
+                displayScale=max(displayScale,float(value.strip())/96.0)
+                break
+
+        if displayScale <= 0:
+            raise ValueError('Display scale must be greater than zero')
+        self.root.tk.call('tk','scaling',(96.0/72.0)*displayScale)
+        return displayScale
+
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
             default_font = font.nametofont("TkDefaultFont")
-            try:
-                default_font.configure(size=fontSizeDesired)
-                self.root.option_add("*Font", default_font)
-                PartPicture.textSpacing=fontSizeDesired+5
-            except:
-                pass
+            default_font.configure(size=fontSizeDesired)
+            self.root.option_add("*Font", default_font)
+            PartPicture.textSpacing=round(fontSizeDesired+5)
 
         w=tk.Button(self.root)
 
@@ -1351,6 +1529,9 @@ class SignalIntegrityApp(tk.Frame):
     def CheckSaveCurrentProject(self):
         if self.Drawing.stateMachine.state == 'NoProject':
             return True
+        # a read-only project cannot have been edited, and args applied at open always differ from disk
+        if self.readOnly:
+            return True
         if not SignalIntegrity.App.Preferences['ProjectFiles.AskToSaveCurrentFile']:
             return True
 
@@ -1358,7 +1539,7 @@ class SignalIntegrityApp(tk.Frame):
         if not SignalIntegrity.App.Project.CheckFileChanged(filename):
             return True
 
-        doit =  messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
+        doit = messagebox.askyesnocancel('Wait....','Do you want to save the current project first?')
 
         if doit is None:
             return False
@@ -1432,12 +1613,15 @@ class SignalIntegrityApp(tk.Frame):
             SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
             cacheFileName=cacheFileName)
         etnp.AddLines(netList)
+        self.statusbar.set('Calculating Error Terms')
         progressDialog = ProgressDialog(self,"Calculating Error Terms",etnp,etnp.CalculateCalibration,granularity=1.0)
         try:
             cal=progressDialog.GetResult()
         except si.SignalIntegrityException as e:
+            self.statusbar.set('Calculation Failed')
             messagebox.showerror('Error Terms Calculator',e.parameter+': '+e.message)
             return None
+        self.statusbar.set('Calculation Complete')
         return cal
 
     def onCalculateErrorTerms(self):
@@ -1458,7 +1642,7 @@ class SignalIntegrityApp(tk.Frame):
             if not messagebox.askokcancel('Archive', 'Are you sure.  The archive file exists?\nThis will overwrite the contents of the archive.'):
                 return
         msg=InformationMessage(self,'Archiving','Archiving: '+self.fileparts.filename+'.siz\n Please wait.....')
-        archiveDict=Archive()
+        archiveDict=Archive(SignalIntegrity.App.Preferences['ProjectFiles.ArchiveNonRelativeFiles'])
         try:
             # build archive dictionary
             archiveDict.BuildArchiveDictionary(self,SignalIntegrity.App.Project['Variables'].Dictionary())
@@ -1482,6 +1666,103 @@ class SignalIntegrityApp(tk.Frame):
             return
         msg.destroy()
         msg=messagebox.showinfo('Archive complete','Archive created: '+os.path.join(self.fileparts.AbsoluteFilePath(),self.fileparts.filename+'.siz'))
+
+    def RegressionArchiveFile(self):
+        # the regression archive is derived from the project name, so it follows the project
+        return os.path.splitext(self.fileparts.FullFilePathExtension('.si'))[0]+'_regression.siz'
+
+    def onAbortRegression(self):
+        self._regressionAborted=True
+
+    def _StartRegressionProgress(self):
+        self._regressionAborted=False
+        self._regressionProgressStack=[]
+        self.statusbar.ShowAbort(self.onAbortRegression)
+
+    def _FinishRegressionProgress(self):
+        self.statusbar.HideAbort()
+
+    def onGenerateRegression(self):
+        from SignalIntegrity.App.Regression import GenerateRegression
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if not projectFile:
+            return
+        archiveFile=self.RegressionArchiveFile()
+        if os.path.exists(archiveFile) and not messagebox.askyesno(
+                'Generate Regression','The regression archive exists. Overwrite it?',parent=self):
+            return
+        self._StartRegressionProgress()
+        try:
+            result=GenerateRegression(projectFile,archiveFile,
+                               callback=self._RegressionProgress)
+            if self._regressionAborted:
+                messagebox.showinfo('Regression','Regression archive generation aborted',parent=self)
+            else:
+                messagebox.showinfo('Regression','Regression archive generated: '+archiveFile,parent=self)
+        except Exception as e:
+            messagebox.showerror('Regression','Regression archive generation failed: '+str(e),parent=self)
+        finally:
+            self._FinishRegressionProgress()
+
+    def onRunRegression(self):
+        projectFile=self.fileparts.FullFilePathExtension('.si')
+        if not projectFile:
+            return
+        archiveFile=self.RegressionArchiveFile()
+        if not os.path.exists(archiveFile):
+            messagebox.showerror('Regression',
+                                 'No regression archive for this project.\nGenerate one first.',parent=self)
+            return
+        self._StartRegressionProgress()
+        try:
+            from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+            app=SignalIntegrityAppHeadless()
+            if not app.OpenProjectFile(projectFile):
+                raise ValueError('project could not be opened')
+            results=app.RunRegression(archiveFile,callback=self._RegressionProgress)
+            if self._regressionAborted:
+                messagebox.showinfo('Regression','Regression run aborted',parent=self)
+            else:
+                failures=[result for result in results if not result.ok]
+                if failures:
+                    messagebox.showerror('Regression',str(len(failures))+' regression checks failed:\n\n'+
+                                         '\n'.join(str(result) for result in failures),parent=self)
+                else:
+                    messagebox.showinfo('Regression','Regression passed: '+str(len(results))+' checks',parent=self)
+        except Exception as e:
+            messagebox.showerror('Regression','Regression run failed: '+str(e),parent=self)
+        finally:
+            self._FinishRegressionProgress()
+            self.OpenProjectFile(self.fileparts.FullFilePathExtension('.si'),showError=False)
+
+    def _RegressionProgress(self,percent,message=None,name=None):
+        """Updates the status bar with nested file names and percentage."""
+        # a pressed abort button stops the traversal by returning False downstream
+        if getattr(self,'_regressionAborted',False):
+            return False
+        if name is not None:
+            message=name
+        if message is not None and 'complete' in str(message).lower():
+            self.statusbar.set('%s',str(message))
+            self.update()
+            return True
+        if message is not None:
+            message=str(message)
+            if message.startswith('+'):
+                self._regressionProgressStack.append(message[1:])
+            elif message == '-':
+                if self._regressionProgressStack:
+                    self._regressionProgressStack.pop()
+            elif message:
+                if self._regressionProgressStack:
+                    self._regressionProgressStack[-1]=message
+                else:
+                    self._regressionProgressStack.append(message)
+        path=' / '.join(self._regressionProgressStack)
+        statusText=str(int(percent))+'%'+((' '+path) if path else '')
+        self.statusbar.set('%s',statusText)
+        self.update()
+        return True
 
     def ExtractArchive(self,filename,args={}):
         if filename is None:
@@ -1511,7 +1792,7 @@ class SignalIntegrityApp(tk.Frame):
         if filename is None:
             return
 
-        self.OpenProjectFile(filename,args)
+        self.OpenProjectFile(filename,args=args)
 
     def onExtractArchive(self):
         if not self.CheckSaveCurrentProject():
@@ -1567,10 +1848,13 @@ def main():
     parser.add_argument('filename',nargs='?',default=None)           # positional argument
     parser.add_argument('-pwd', '--pwd')      # option that takes a value
     parser.add_argument('-e', '--external', action='store_true')  # on/off flag
+    readOnlyGroup = parser.add_mutually_exclusive_group()
+    readOnlyGroup.add_argument('-r', '--readonly', dest='readOnly', action='store_true', default=None)
+    readOnlyGroup.add_argument('-w', '--writable', dest='readOnly', action='store_false', default=None)
     args, unknown = parser.parse_known_args()
 
     argsDict=dict(zip(unknown[0::2],unknown[1::2]))
-    SignalIntegrityApp(args.filename,pwd=args.pwd,external=args.external,args=argsDict)
+    SignalIntegrityApp(args.filename,pwd=args.pwd,external=args.external,args=argsDict,readOnly=args.readOnly)
  
 if __name__ == '__main__': # pragma: no cover
     runProfiler=False

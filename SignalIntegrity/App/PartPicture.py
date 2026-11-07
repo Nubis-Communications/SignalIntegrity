@@ -196,12 +196,13 @@ class PartPicture(object):
         else: GoingUp=False
 
         V=len(self.visiblePartPropertyList)
+        textSpacing=PartPicture.textSpacing*getattr(canvas,'displayScale',1.0)
         if GoingUp:
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-PartPicture.textSpacing*v) for v in range(V)]
+            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-textSpacing*v) for v in range(V)]
         else:
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
-            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid+PartPicture.textSpacing*(V-v)-PartPicture.textSpacing) for v in range(V)]
+            (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid+textSpacing*(V-v)-textSpacing) for v in range(V)]
 
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],
@@ -1463,6 +1464,28 @@ class PartPictureVariableCurrentSourceSineGeneratorTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorTwoPort'],2)
 
+class PartPictureVoltageSourceScriptedGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureVoltageSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceScriptedGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceScriptedGeneratorTwoPort'],2)
+
+class PartPictureCurrentSourceScriptedGeneratorTwoPort(PartPictureCurrentSourceTwoPort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceTwoPort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureCurrentSourceTwoPort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceScriptedGeneratorTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceScriptedGeneratorTwoPort'],2)
+
 class PartPictureCurrentSourceOnePort(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPicture.__init__(self,origin,[PartPin(1,(1,0),'t',False,True,False)],[(0,1),(2,3)],[(0,0),(2,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
@@ -1521,6 +1544,28 @@ class PartPictureCurrentSourceSineGeneratorOnePort(PartPictureCurrentSourceOnePo
 class PartPictureVariableCurrentSourceSineGeneratorOnePort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureCurrentSourceSineGeneratorOnePort'],1)
+
+class PartPictureVoltageSourceScriptedGeneratorOnePort(PartPictureVoltageSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureVoltageSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureVoltageSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableVoltageSourceScriptedGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureVoltageSourceScriptedGeneratorOnePort'],1)
+
+class PartPictureCurrentSourceScriptedGeneratorOnePort(PartPictureCurrentSourceOnePort):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureCurrentSourceOnePort.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'py')
+        PartPictureCurrentSourceOnePort.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableCurrentSourceScriptedGeneratorOnePort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureCurrentSourceScriptedGeneratorOnePort'],1)
 
 class PartPictureProbe(PartPicture):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
@@ -2309,6 +2354,22 @@ class PartPictureVariableDeviceUnderTest(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureDeviceUnderTest','PartPictureDeviceUnderTestAcross','PartPictureDeviceUnderTestDownAndUp','PartPictureDeviceUnderTestSide'],ports)
 
+class PartPictureMCB(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureMCBAcross(PartPictureSpecifiedPortsTextAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureMCBDownAndUp(PartPictureSpecifiedPortsTextDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsTextDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='MCB')
+
+class PartPictureVariableMCB(PartPictureVariable):
+    def __init__(self,ports=4):
+        PartPictureVariable.__init__(self,['PartPictureMCB','PartPictureMCBAcross','PartPictureMCBDownAndUp'],ports)
+
 class PartPictureCTLE(PartPictureSpecifiedPortsText):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='CTLE')
@@ -2356,6 +2417,14 @@ class PartPictureImpulseResponseFilter(PartPictureSpecifiedPortsText):
 class PartPictureVariableImpulseResponseFilter(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureImpulseResponseFilter'],2)
+
+class PartPictureFrequencyResponseFilter(PartPictureSpecifiedPortsText):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsText.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically,text='FR')
+
+class PartPictureVariableFrequencyResponseFilter(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureFrequencyResponseFilter'],2)
 
 class PartPictureWElement(PartPictureSpecifiedPortsText):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):

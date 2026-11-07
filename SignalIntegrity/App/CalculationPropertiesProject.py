@@ -38,7 +38,7 @@ class CalculationProperty(tk.Frame):
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.string=tk.StringVar()
         self.label = tk.Label(self,width=self.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -93,7 +93,7 @@ class CalculationProperty(tk.Frame):
         return "break"
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -197,7 +197,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.string=tk.StringVar()
         self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -233,7 +233,7 @@ class CalculationPropertyTrueFalseButton(tk.Frame):
             self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -253,7 +253,7 @@ class CalculationPropertyChoices(tk.Frame):
         self.choiceStrings=choiceStrings
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.string=tk.StringVar()
         self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -297,7 +297,7 @@ class CalculationPropertyChoices(tk.Frame):
         self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         else:
             self.pack_forget()
     def UpdateStrings(self):
@@ -314,7 +314,7 @@ class CalculationPropertyColor(tk.Frame):
         self.updateStringsCallback=updateStringsCallback
         self.project=project
         self.projectPath=projectPath
-        self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+        self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.string=tk.StringVar()
         self.label = tk.Label(self,width=CalculationProperty.labelWidth,text=textLabel+': ',anchor='e')
         self.label.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -345,7 +345,7 @@ class CalculationPropertyColor(tk.Frame):
             self.UpdateStrings()
     def Show(self,whetherTo=True):
         if whetherTo:
-            self.pack(side=tk.TOP,fill=tk.X,expand=tk.YES)
+            self.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         else:
             self.pack_forget()
     def UpdateStrings(self):

@@ -38,6 +38,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent.parent)
         self.parent=parent
+        self.displayScale=getattr(parent.parent,'displayScale',1.0)
         self.withdraw()
         self.title('Statistical Noise')
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+'AppIcon2.gif')
@@ -112,12 +113,13 @@ class StatisticalNoiseDialog(tk.Toplevel):
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
-        self.statusbar=StatusBar(self)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale)
         self.statusbar.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         labelFrame = tk.Frame(self)
         labelFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.plotLabel = tk.Label(labelFrame,fg='black')
-        self.plotLabel.pack(fill=tk.X)
+        plotLabelPadding=round(3*self.displayScale) if self.displayScale > 1.0 else 0
+        self.plotLabel.pack(fill=tk.X,pady=plotLabelPadding)
 
         plotWidth=SignalIntegrity.App.Preferences['Appearance.PlotWidth']
         plotHeight=SignalIntegrity.App.Preferences['Appearance.PlotHeight']
@@ -296,7 +298,8 @@ class StatisticalNoiseDialog(tk.Toplevel):
                 self.plt.plot(fcFrequencies,fcValues,label=fcName,c=fcColor)
 
         self.plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
-        self.plt.legend(loc='upper right',labelspacing=0.1)
+        labelSpacing=0.5 if sys.platform.startswith('linux') and self.displayScale > 1.0 else 0.1
+        self.plt.legend(loc='upper right',labelspacing=labelSpacing)
 
         # Choose filtered min/max if available, otherwise fall back to overall min/max
         if minv_filtered is not None and maxv_filtered is not None:
@@ -421,7 +424,12 @@ class StatisticalNoiseDialog(tk.Toplevel):
                     integrated_signal_noise_dBm = signal_spectral_density['dBm']
                     integrated_signal_noise_rms = signal_spectral_density['rms']
                     signal_noise_string = f"Signal power:  {ToSI(integrated_signal_noise_rms,rms_units,round=3)}, {ToSI(integrated_signal_noise_dBm,'dBm',round=3)}\n"
-                    signal_noise_string+= f"SNR: {ToSI(integrated_signal_noise_dBm-integrated_noise_dBm,'dB',round=3)}, SNR: {ToSI(integrated_signal_noise_dBm-integrated_noise_dBm,'dB',round=3)}\n"
+                    snr_values = self.statistical_noise_analysis['signal_to_noise_ratio'][self.waveformNamesList[0]]
+                    signal_noise_string+= (
+                        f"Total noise: {ToSI(integrated_noise_rms,rms_units,round=3)}, "
+                        f"{ToSI(integrated_noise_dBm,'dBm',round=3)}, "
+                        f"SNR: {ToSI(integrated_signal_noise_dBm-integrated_noise_dBm,'dB',round=3)}, "
+                        f"Salz SNR: {ToSI(snr_values['SalzSNR'],'dB',round=3)}\n")
                 except:
                     signal_noise_string = ''
                 noise_string = f"Total noise: {ToSI(integrated_noise_rms,rms_units,round=3)}, {ToSI(integrated_noise_dBm,'dBm',round=3)}\n"
@@ -483,5 +491,3 @@ class StatisticalNoiseDialog(tk.Toplevel):
         if not windowOpen:
             self.StatisticalNoiseMeasurementsDialog().UpdateMeasurements(self.statistical_noise_analysis)
         self.StatisticalNoiseMeasurementsDialog().lift()
-
-

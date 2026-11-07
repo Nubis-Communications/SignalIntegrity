@@ -33,6 +33,7 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
     def __init__(self, parent, name):
         tk.Toplevel.__init__(self, parent)
         self.parent = parent
+        self.displayScale = getattr(parent, 'displayScale', 1.0)
         self.withdraw()
         self.name = name
         self.title('Eye Diagram: ' + name)
@@ -40,17 +41,23 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         self.tk.call('wm', 'iconphoto', self._w, self.img)
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
 
-        self.statusbar = StatusBar(self)
+        self.statusbar = StatusBar(self, displayScale=self.displayScale)
         self.statusbar.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
 
-        self.tabControl = ttk.Notebook(self)
+        self.tabControl = ttk.Notebook(self, style='EyeDiagram.TNotebook')
         self.tabControl.pack(expand=1, fill=tk.BOTH)
 
         self._treeStyle = ttk.Style(self)
         self._headerFont = tkfont.nametofont('TkHeadingFont').copy()
         self._headerFont.configure(weight='bold')
         self._treeStyle.configure('EyeDiagram.Treeview.Heading', font=self._headerFont)
-        self._groupFont = tkfont.nametofont('TkDefaultFont').copy()
+        self._cellFont = tkfont.nametofont('TkDefaultFont').copy()
+        if self.displayScale > 1.0:
+            self._treeStyle.configure(
+                'EyeDiagram.Treeview',
+                font=self._cellFont,
+                rowheight=self._cellFont.metrics('linespace') + self._scaled(6))
+        self._groupFont = self._cellFont.copy()
         self._groupFont.configure(weight='bold')
 
         self.tab1 = ttk.Frame(self.tabControl)
@@ -72,11 +79,14 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
 
     # ── widget helpers ────────────────────────────────────────────────────────
 
+    def _scaled(self, value):
+        return round(value * self.displayScale)
+
     def _makeTree(self, parent):
         """Create a Treeview with horizontal + vertical scrollbars inside *parent*."""
         xScroll = ttk.Scrollbar(parent, orient=tk.HORIZONTAL)
         xScroll.pack(side=tk.BOTTOM, fill=tk.X)
-        frame = tk.Frame(parent, relief=tk.RIDGE, borderwidth=5)
+        frame = tk.Frame(parent, relief=tk.RIDGE, borderwidth=self._scaled(5))
         frame.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         tree = ttk.Treeview(frame, show='headings', style='EyeDiagram.Treeview')
         tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
@@ -101,14 +111,14 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             return str(value)
 
     def _autoSizeColumns(self, tree, all_center=False, min_width=80, max_width=700, pad=24):
-        cell_font = tkfont.nametofont('TkDefaultFont')
         for i, col in enumerate(tree['columns']):
             max_px = self._headerFont.measure(str(col))
             for item in tree.get_children(''):
                 vals = tree.item(item, 'values')
                 if i < len(vals):
-                    max_px = max(max_px, cell_font.measure(str(vals[i])))
-            width = max(min_width, min(max_width, max_px + pad))
+                    max_px = max(max_px, self._cellFont.measure(str(vals[i])))
+            width = max(self._scaled(min_width),
+                        min(self._scaled(max_width), max_px + self._scaled(pad)))
             anchor = 'center' if (all_center or i > 0) else 'w'
             tree.column(col, width=width, anchor=anchor, stretch=tk.NO)
 
@@ -118,20 +128,21 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         if not active:
             return
         max_w = max(
-            sum(int(t.column(c, 'width')) for c in t['columns']) + 25 + 10
+            sum(int(t.column(c, 'width')) for c in t['columns']) + self._scaled(35)
             for t in active
         )
         try:
-            row_height = int(self._treeStyle.lookup('Treeview', 'rowheight'))
+            row_height = int(self._treeStyle.lookup('EyeDiagram.Treeview', 'rowheight'))
         except (TypeError, ValueError):
             row_height = 0
         if row_height <= 0:
-            row_height = tkfont.nametofont('TkDefaultFont').metrics('linespace') + 6
-        heading_height = self._headerFont.metrics('linespace') + 10
+            row_height = self._cellFont.metrics('linespace') + self._scaled(6)
+        heading_height = self._headerFont.metrics('linespace') + self._scaled(10)
         max_rows = max(len(t.get_children('')) for t in active)
-        table_h  = heading_height + max_rows * row_height + 10
-        window_w = max(400, max_w)
-        window_h = max(300, min(1000, table_h + self.statusbar.winfo_reqheight() + 70))
+        table_h  = heading_height + max_rows * row_height + self._scaled(10)
+        window_w = max(self._scaled(400), max_w)
+        window_h = max(self._scaled(300),
+                       min(self._scaled(1000), table_h + self.statusbar.winfo_reqheight() + self._scaled(70)))
         self.geometry(f'{window_w}x{window_h}')
 
     # ── standard dialog overrides ─────────────────────────────────────────────
@@ -173,10 +184,10 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
 
         self._tree1['columns'] = ['Measurement'] + val_ids
         self._tree1.heading('Measurement', text='Measurement')
-        self._tree1.column('Measurement', width=200, anchor='w', stretch=tk.NO)
+        self._tree1.column('Measurement', width=self._scaled(200), anchor='w', stretch=tk.NO)
         for vid in val_ids:
             self._tree1.heading(vid, text='')
-            self._tree1.column(vid, width=110, anchor='center', stretch=tk.NO)
+            self._tree1.column(vid, width=self._scaled(110), anchor='center', stretch=tk.NO)
 
         def group1(title, subcol_labels):
             row = [title] + subcol_labels + ['' for _ in range(n_vals - len(subcol_labels))]
@@ -253,7 +264,7 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
             self._tree2['columns'] = col_ids
             for cid in col_ids:
                 self._tree2.heading(cid, text='')
-                self._tree2.column(cid, width=80, anchor='center', stretch=tk.NO)
+                self._tree2.column(cid, width=self._scaled(80), anchor='center', stretch=tk.NO)
 
             def insert2(values, is_group=False):
                 padded = list(values) + ['' for _ in range(total_cols - len(values))]
@@ -335,11 +346,11 @@ class EyeDiagramMeasurementsDialog(tk.Toplevel):
         if 'Optical' in meas:
             self._tree3['columns'] = ['Measurement', 'Linear', 'dB']
             self._tree3.heading('Measurement', text='Measurement')
-            self._tree3.column('Measurement', width=260, anchor='w',      stretch=tk.NO)
+            self._tree3.column('Measurement', width=self._scaled(260), anchor='w', stretch=tk.NO)
             self._tree3.heading('Linear', text='Linear')
-            self._tree3.column('Linear',      width=120, anchor='center', stretch=tk.NO)
+            self._tree3.column('Linear', width=self._scaled(120), anchor='center', stretch=tk.NO)
             self._tree3.heading('dB', text='dB')
-            self._tree3.column('dB',          width=120, anchor='center', stretch=tk.NO)
+            self._tree3.column('dB', width=self._scaled(120), anchor='center', stretch=tk.NO)
 
             optical  = meas['Optical']
             wt_label = {'W': 'W', 'FW': 'Fractional Power',

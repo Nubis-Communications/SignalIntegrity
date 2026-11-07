@@ -71,6 +71,9 @@ class PoleZeroLevMar(LevMar):
         @param fix_gain (optional, defaults to False) whether the gain is held fixed during the fit.
         @param callback (optional, defaults to None) callback function invoked during iteration.
         """
+        # Seed deterministically so the fit is reproducible regardless of prior global random() use.
+        import random
+        random.seed(0)
         self.num_zero_pairs=num_zero_pairs
         self.num_pole_pairs=num_pole_pairs
         self.min_delay=min_delay
@@ -92,7 +95,7 @@ class PoleZeroLevMar(LevMar):
         self.mul=math.pow(10,math.floor(math.log10(self.f[-1])/3)*3)
         # scale all of the frequencies by this multiplier
         self.f=[v/self.mul for v in self.f]
-        self.w=[2.*math.pi*f for f in self.f]
+        self.w=np.array([2.*math.pi*f for f in self.f])
         self.y=np.array(fr.Values('mag' if self.fit_type == 'magnitude' else None)).reshape(-1, 1)
         self._tf_class = TransferFunctionMagnitudeVectorized if self.fit_type == 'magnitude' else TransferFunctionComplexVectorized
         if guess is None:
@@ -121,10 +124,10 @@ class PoleZeroLevMar(LevMar):
         self.ccm._tolerance=0
     def fF(self,a):
         self.tf=self._tf_class(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
-        return np.array(self.tf.fF).reshape(-1, 1)
+        return self.tf.fF
     def fJ(self,a,Fa=None):
         # self.tf=self._tf_class(self.w,a,self.num_zero_pairs,self.num_pole_pairs)
-        return np.array(self.tf.fJ)
+        return self.tf.fJ
     def AdjustVariablesAfterIteration(self,a):
         from random import random
         wmax=self.f[-1]*2.*np.pi*self.max_frequency_multiplier

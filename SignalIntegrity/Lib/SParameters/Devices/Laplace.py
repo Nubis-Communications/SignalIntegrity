@@ -17,29 +17,9 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from SignalIntegrity.Lib.SParameters.SParameters import SParameters
-from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSParameters
+from SignalIntegrity.Lib.SParameters.Devices.Equation import Equation
 
-class Laplace(SParameters):
+class Laplace(Equation):
     """Laplace domain equation"""
-    def __init__(self,f,eq,Z0=50.):
-        self.f=f
-        self.eq=eq
-        SParameters.__init__(self,f,None,Z0)
-    def _Evaluate(self,f):
-        """Evaluate equation
-        @param f float frequency
-        @return laplace equation evaluated at f
-        """
-        import math,cmath
-        import numpy as np
-        Fs=2.*self.m_f[-1]
-        Ts=1./Fs
-        pi=np.pi
-        w=2*pi*f
-        j=1j
-        s=j*w
-        z=cmath.exp(s*Ts)
-        return eval(self.eq)
-    def __getitem__(self,n):
-        return [[1.,0],[2.*self._Evaluate(self.m_f[n]),-1.]]
+    def _Matrix(self,H):
+        return [[1.,0],[2.*H,-1.]]

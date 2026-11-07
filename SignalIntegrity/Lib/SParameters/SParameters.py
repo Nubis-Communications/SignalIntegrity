@@ -140,6 +140,12 @@ class SParameters(SParameterManipulation):
                 ph=cmath.phase(val)
                 if ph == -math.pi: ph=math.pi
                 return ph
+            def fmt(value):
+                r=round(value,digits)
+                # pragma: silent exclude
+                if r == 0.0: r=0.0 # normalize -0.0 to 0.0
+                # pragma: include
+                return str(r)
             # pragma: include
             for r in range(self.m_P):
                 for c in range(self.m_P):
@@ -150,14 +156,14 @@ class SParameters(SParameterManipulation):
                     # pragma: include
                     val = mat[r][c]
                     if cpxType == 'MA':
-                        line.append(str(round(abs(val),digits)))
-                        line.append(str(round(phase(val)*180./math.pi,digits)))
+                        line.append(fmt(abs(val)))
+                        line.append(fmt(phase(val)*180./math.pi))
                     elif cpxType == 'RI':
-                        line.append(str(round(val.real,digits)))
-                        line.append(str(round(val.imag,digits)))
+                        line.append(fmt(val.real))
+                        line.append(fmt(val.imag))
                     elif cpxType == 'DB':
-                        line.append(str(round(20*math.log10(abs(val)),digits)))
-                        line.append(str(round(phase(val)*180./math.pi,digits)))
+                        line.append(fmt(20*math.log10(abs(val))))
+                        line.append(fmt(phase(val)*180./math.pi))
                     # pragma: silent exclude
                     tokensOnLine=tokensOnLine+1
                     # pragma: include

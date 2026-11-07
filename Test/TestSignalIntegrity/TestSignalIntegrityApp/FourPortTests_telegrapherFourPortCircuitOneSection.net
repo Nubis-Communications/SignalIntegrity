@@ -9,13 +9,13 @@ device cp 1 C 20.0e-12 esr 0 df 0
 device gp 1 R 100.0e9
 device gm 2 R 100.0e9
 device gn 1 R 100.0e9
-port 1 td 0 rp 1
+port 1 rp 1
 connect rp 2 lp 1
-port 3 td 0 rn 1
+port 3 rn 1
 connect rn 2 ln 1
 connect lp 2 lm 1
 connect ln 2 lm 3
-port 2 td 0 gm 1
+port 2 gm 1
 connect gm 1 lm 2 cp 1 cm 2 gp 1
-port 4 td 0 lm 4
+port 4 lm 4
 connect lm 4 gn 1 cm 1 cn 1 gm 2

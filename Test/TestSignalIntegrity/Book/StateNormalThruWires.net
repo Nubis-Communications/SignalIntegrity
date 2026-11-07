@@ -1,0 +1,6 @@
+var $dummy1_state$ None
+var $dummy2_state$ thru_wires
+device D1 2 file dummy.si EndFrequency 20000000000.0 FrequencyPoints 2000 UserSampleRate 40000000000.0 ReferenceImpedance 50.0
+port 1 D1 2
+port 2 D1 2
+connect D1 2 D1 1

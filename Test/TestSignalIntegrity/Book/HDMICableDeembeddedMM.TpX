@@ -1,0 +1,85 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">19.25,-19.25 22,-22 19.25,-24.75</polyline>
+%  <polyline lc="black">27.5,-22 22,-22</polyline>
+%  <text x="19.25" y="-23" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">101.75,-19.25 99,-22 101.75,-24.75</polyline>
+%  <polyline lc="black">93.5,-22 99,-22</polyline>
+%  <text x="101.75" y="-23" t="2" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">19.25,-30.25 22,-33 19.25,-35.75</polyline>
+%  <polyline lc="black">27.5,-33 22,-33</polyline>
+%  <text x="19.25" y="-34" t="3" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">101.75,-30.25 99,-33 101.75,-35.75</polyline>
+%  <polyline lc="black">93.5,-33 99,-33</polyline>
+%  <text x="101.75" y="-34" t="4" h="3" halign="l" lc="black"/>
+%  <text x="41.25" y="-23" t="+" h="3" halign="c" lc="black"/>
+%  <text x="41.25" y="-34" t="-" h="3" halign="c" lc="black"/>
+%  <text x="35.75" y="-23" t="D" h="3" halign="c" lc="black"/>
+%  <text x="35.75" y="-34" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="33" y="-16.5" w="11" h="-22" lc="black"/>
+%  <polyline lc="black">49.5,-22 44,-22</polyline>
+%  <polyline lc="black">49.5,-33 44,-33</polyline>
+%  <polyline lc="black">27.5,-22 33,-22</polyline>
+%  <polyline lc="black">27.5,-33 33,-33</polyline>
+%  <text x="79.75" y="-23" t="+" h="3" halign="c" lc="black"/>
+%  <text x="79.75" y="-34" t="-" h="3" halign="c" lc="black"/>
+%  <text x="85.25" y="-23" t="D" h="3" halign="c" lc="black"/>
+%  <text x="85.25" y="-34" t="C" h="3" halign="c" lc="black"/>
+%  <rect x="77" y="-16.5" w="11" h="-22" lc="black"/>
+%  <polyline lc="black">71.5,-22 77,-22</polyline>
+%  <polyline lc="black">71.5,-33 77,-33</polyline>
+%  <polyline lc="black">93.5,-22 88,-22</polyline>
+%  <polyline lc="black">93.5,-33 88,-33</polyline>
+%  <rect x="55" y="-16.5" w="11" h="-22" lc="black"/>
+%  <polyline lc="black">49.5,-22 55,-22</polyline>
+%  <text x="52.5" y="-21" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">49.5,-33 55,-33</polyline>
+%  <text x="52.5" y="-32" t="2" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">71.5,-22 66,-22</polyline>
+%  <text x="68.5" y="-21" t="4" h="3" halign="l" lc="black"/>
+%  <polyline lc="black">71.5,-33 66,-33</polyline>
+%  <text x="68.5" y="-32" t="3" h="3" halign="l" lc="black"/>
+%  <text x="60.5" y="-12.75" t="HDMICableDeembeddedSE.si" h="3" halign="c" lc="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (19.25,-19.25) -- (22,-22) -- (19.25,-24.75);
+\path[line width=0.30mm, draw=black] (27.5,-22) -- (22,-22);
+\draw[black] (19.25,-23) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (101.75,-19.25) -- (99,-22) -- (101.75,-24.75);
+\path[line width=0.30mm, draw=black] (93.5,-22) -- (99,-22);
+\draw[black] (101.75,-23) node[anchor=base west]{2};
+\path[line width=0.30mm, draw=black] (19.25,-30.25) -- (22,-33) -- (19.25,-35.75);
+\path[line width=0.30mm, draw=black] (27.5,-33) -- (22,-33);
+\draw[black] (19.25,-34) node[anchor=base east]{3};
+\path[line width=0.30mm, draw=black] (101.75,-30.25) -- (99,-33) -- (101.75,-35.75);
+\path[line width=0.30mm, draw=black] (93.5,-33) -- (99,-33);
+\draw[black] (101.75,-34) node[anchor=base west]{4};
+\draw[black] (41.25,-23) node[anchor=base]{+};
+\draw[black] (41.25,-34) node[anchor=base]{-};
+\draw[black] (35.75,-23) node[anchor=base]{D};
+\draw[black] (35.75,-34) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (33,-38.5) rectangle +(11,22);
+\path[line width=0.30mm, draw=black] (49.5,-22) -- (44,-22);
+\path[line width=0.30mm, draw=black] (49.5,-33) -- (44,-33);
+\path[line width=0.30mm, draw=black] (27.5,-22) -- (33,-22);
+\path[line width=0.30mm, draw=black] (27.5,-33) -- (33,-33);
+\draw[black] (79.75,-23) node[anchor=base]{+};
+\draw[black] (79.75,-34) node[anchor=base]{-};
+\draw[black] (85.25,-23) node[anchor=base]{D};
+\draw[black] (85.25,-34) node[anchor=base]{C};
+\path[line width=0.30mm, draw=black] (77,-38.5) rectangle +(11,22);
+\path[line width=0.30mm, draw=black] (71.5,-22) -- (77,-22);
+\path[line width=0.30mm, draw=black] (71.5,-33) -- (77,-33);
+\path[line width=0.30mm, draw=black] (93.5,-22) -- (88,-22);
+\path[line width=0.30mm, draw=black] (93.5,-33) -- (88,-33);
+\path[line width=0.30mm, draw=black] (55,-38.5) rectangle +(11,22);
+\path[line width=0.30mm, draw=black] (49.5,-22) -- (55,-22);
+\draw[black] (52.5,-21) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (49.5,-33) -- (55,-33);
+\draw[black] (52.5,-32) node[anchor=base east]{2};
+\path[line width=0.30mm, draw=black] (71.5,-22) -- (66,-22);
+\draw[black] (68.5,-21) node[anchor=base west]{4};
+\path[line width=0.30mm, draw=black] (71.5,-33) -- (66,-33);
+\draw[black] (68.5,-32) node[anchor=base west]{3};
+\draw[black] (60.5,-12.75) node[anchor=base]{HDMICableDeembeddedSE.si};
+\end{tikzpicture}%

@@ -1,0 +1,39 @@
+device T3 2 tline zc 55.0 td 400.0e-12
+device T4 2 tline zc 35.0 td 1.1e-9
+device D10 2 voltageamplifier gain 1.0 zi 100.0e6 zo 55.0
+device T9 2 tline zc 60.0 td 300.0e-12
+device D21 2 voltageamplifier gain 1.0 zi 100.0e6 zo 45.0
+device T17 2 tline zc 45.0 td 1.2e-9
+voltagesource VG3 1
+device R5 1 R 50.0
+device D17 3 directionalcoupler
+device D18 3 directionalcoupler
+device R6 1 R 50.0
+device R7 1 R 50.0
+device D19 3 directionalcoupler
+device D20 3 directionalcoupler
+device R8 1 R 50.0
+device T5 2 tline zc 50.0 td 100.0e-12
+device G1 1 ground
+connect T3 1 D18 1
+connect T3 2 T5 1
+voltageoutput V2 D17 1
+connect D17 1 T4 2
+connect D10 2 T4 1
+connect G1 1 D10 1
+connect T9 1 D19 1
+connect T9 2 T5 2
+voltageoutput V3 D20 1
+connect D20 1 T17 2
+connect VG3 1 D21 1
+connect D21 2 T17 1
+voltageoutput A2 R5 1
+connect R5 1 D17 3
+connect D18 2 D17 2
+voltageoutput B2 R6 1
+connect R6 1 D18 3
+voltageoutput B3 D19 3
+connect D19 3 R7 1
+connect D20 2 D19 2
+voltageoutput A3 R8 1
+connect R8 1 D20 3

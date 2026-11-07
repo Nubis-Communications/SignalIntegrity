@@ -1,0 +1,135 @@
+device R_1 2
+device R_2 2
+device R_3 2
+device R_4 2
+device R_5 2
+device R_6 2
+device Rse_1 2
+device Rse_2 2
+device Rse_3 2
+device Rse_4 2
+device Rse_5 2
+device Rse_6 2
+device L_1 2
+device L_2 2
+device L_3 2
+device L_4 2
+device L_5 2
+device L_6 2
+device G_1 1
+device G_2 1
+device G_3 1
+device G_4 1
+device G_5 1
+device G_6 1
+device C_1 1
+device C_2 1
+device C_3 1
+device C_4 1
+device C_5 1
+device C_6 1
+device M_1_2 4
+device C_1_2 2
+device G_1_2 2
+device M_1_3 4
+device C_1_3 2
+device G_1_3 2
+device M_1_4 4
+device C_1_4 2
+device G_1_4 2
+device M_1_5 4
+device C_1_5 2
+device G_1_5 2
+device M_1_6 4
+device C_1_6 2
+device G_1_6 2
+device M_2_3 4
+device C_2_3 2
+device G_2_3 2
+device M_2_4 4
+device C_2_4 2
+device G_2_4 2
+device M_2_5 4
+device C_2_5 2
+device G_2_5 2
+device M_2_6 4
+device C_2_6 2
+device G_2_6 2
+device M_3_4 4
+device C_3_4 2
+device G_3_4 2
+device M_3_5 4
+device C_3_5 2
+device G_3_5 2
+device M_3_6 4
+device C_3_6 2
+device G_3_6 2
+device M_4_5 4
+device C_4_5 2
+device G_4_5 2
+device M_4_6 4
+device C_4_6 2
+device G_4_6 2
+device M_5_6 4
+device C_5_6 2
+device G_5_6 2
+port 1 R_1 1
+port 2 R_2 1
+port 3 R_3 1
+port 4 R_4 1
+port 5 R_5 1
+port 6 R_6 1
+port 7 C_1 1
+port 8 C_2 1
+port 9 C_3 1
+port 10 C_4 1
+port 11 C_5 1
+port 12 C_6 1
+connect R_1 2 Rse_1 1
+connect R_2 2 Rse_2 1
+connect R_3 2 Rse_3 1
+connect R_4 2 Rse_4 1
+connect R_5 2 Rse_5 1
+connect R_6 2 Rse_6 1
+connect Rse_1 2 L_1 1
+connect Rse_2 2 L_2 1
+connect Rse_3 2 L_3 1
+connect Rse_4 2 L_4 1
+connect Rse_5 2 L_5 1
+connect Rse_6 2 L_6 1
+connect L_1 2 M_1_2 1
+connect M_1_2 2 M_1_3 1
+connect M_1_3 2 M_1_4 1
+connect M_1_4 2 M_1_5 1
+connect M_1_5 2 M_1_6 1
+connect M_1_6 2 C_1 1 G_1 1 C_1_2 1 G_1_2 1 C_1_3 1 G_1_3 1 C_1_4 1 G_1_4 1 C_1_5 1 G_1_5 1 C_1_6 1 G_1_6 1
+connect L_2 2 M_1_2 3
+connect M_1_2 4 M_2_3 1
+connect M_2_3 2 M_2_4 1
+connect M_2_4 2 M_2_5 1
+connect M_2_5 2 M_2_6 1
+connect M_2_6 2 C_2 1 G_2 1 C_1_2 2 G_1_2 2 C_2_3 1 G_2_3 1 C_2_4 1 G_2_4 1 C_2_5 1 G_2_5 1 C_2_6 1 G_2_6 1
+connect L_3 2 M_1_3 3
+connect M_1_3 4 M_2_3 3
+connect M_2_3 4 M_3_4 1
+connect M_3_4 2 M_3_5 1
+connect M_3_5 2 M_3_6 1
+connect M_3_6 2 C_3 1 G_3 1 C_1_3 2 G_1_3 2 C_2_3 2 G_2_3 2 C_3_4 1 G_3_4 1 C_3_5 1 G_3_5 1 C_3_6 1 G_3_6 1
+connect L_4 2 M_1_4 3
+connect M_1_4 4 M_2_4 3
+connect M_2_4 4 M_3_4 3
+connect M_3_4 4 M_4_5 1
+connect M_4_5 2 M_4_6 1
+connect M_4_6 2 C_4 1 G_4 1 C_1_4 2 G_1_4 2 C_2_4 2 G_2_4 2 C_3_4 2 G_3_4 2 C_4_5 1 G_4_5 1 C_4_6 1 G_4_6 1
+connect L_5 2 M_1_5 3
+connect M_1_5 4 M_2_5 3
+connect M_2_5 4 M_3_5 3
+connect M_3_5 4 M_4_5 3
+connect M_4_5 4 M_5_6 1
+connect M_5_6 2 C_5 1 G_5 1 C_1_5 2 G_1_5 2 C_2_5 2 G_2_5 2 C_3_5 2 G_3_5 2 C_4_5 2 G_4_5 2 C_5_6 1 G_5_6 1
+connect L_6 2 M_1_6 3
+connect M_1_6 4 M_2_6 3
+connect M_2_6 4 M_3_6 3
+connect M_3_6 4 M_4_6 3
+connect M_4_6 4 M_5_6 3
+connect M_5_6 4 C_6 1 G_6 1 C_1_6 2 G_1_6 2 C_2_6 2 G_2_6 2 C_3_6 2 G_3_6 2 C_4_6 2 G_4_6 2 C_5_6 2 G_5_6 2

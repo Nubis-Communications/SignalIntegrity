@@ -41,9 +41,9 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: include
     def PrecalculateFrequencyResponses(self):
         return self.TransferMatrices.FrequencyResponses()
-    def PrecalculateImpulseResponses(self,td=None):
-        return self.TransferMatrices.ImpulseResponses(td)
-    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False):
+    def PrecalculateImpulseResponses(self,td=None,time_before_0=None):
+        return self.TransferMatrices.ImpulseResponses(td,time_before_0=time_before_0)
+    def ProcessWaveforms(self,wfl,td=None,adaptToLargest=False,time_before_0=None):
         """processes input waveforms and produces output waveforms
         @param wfl list of Waveform input waveforms to process.  If numbers are in the
         waveform list, they are assumed to be DC waveforms, that are treated specially.
@@ -54,16 +54,21 @@ class TransferMatricesProcessor(CallBacker):
         during summation to choose the waveform with the largest absolute value of a point.
         This helps when models have frequency responses near the end frequency and causes
         the adaption to resample the smaller waveforms, which have less effect.
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @remark Externally, the order of the input and output waveforms are known.  The
         input waveforms must be provided in that order and the output waveforms are
         produced in that order.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
-        ir = self.TransferMatrices.ImpulseResponses(td)
+        ir = self.TransferMatrices.ImpulseResponses(td,time_before_0=time_before_0)
         fr = self.TransferMatrices.FrequencyResponses() # for DC inputs
         result=[]
         for o in range(len(ir)):

@@ -107,15 +107,27 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
         lineList=self.ReplaceArgs(LineSplitter(line))
         if len(lineList) == 0: return
         if self.ProcessVariables(lineList): return
-        elif lineList[0] in exclusionList: self.m_ul.append(line)
+        elif lineList[0] in exclusionList:
+            self.m_ul.append(self.ReplaceArgsInLine(line))
         elif lineList[0] == 'device':
+            # pragma: silent exclude
+            from SignalIntegrity.Lib.Test.RegressionFiles import RegressionCallSite
+            # pragma: include
             argList = lineList[3:]
-            if [lineList[2]]+argList in self.m_spcl:
-                dev = DeviceParser(self.m_f,int(lineList[2]),self.callback,None,
-                                   Z0=self.m_Z0)
-                dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
-            else: dev=DeviceParser(self.m_f,int(lineList[2]),self.callback,argList,
-                                   Z0=self.m_Z0)
+            # pragma: silent exclude
+            RegressionCallSite.Push(lineList[1])
+            try:
+            # pragma: include outdent
+                if [lineList[2]]+argList in self.m_spcl:
+                    dev = DeviceParser(self.m_f,int(lineList[2]),self.callback,None,
+                                       Z0=self.m_Z0)
+                    dev.m_spf = self.m_spc[self.m_spcl.index([lineList[2]]+argList)][1]
+                else: dev=DeviceParser(self.m_f,int(lineList[2]),self.callback,argList,
+                                       Z0=self.m_Z0)
+            # pragma: silent exclude indent
+            finally:
+                RegressionCallSite.Pop()
+            # pragma: include
             self.m_sd.AddDevice(lineList[1],int(lineList[2]),dev.m_sp)
             if not dev.m_spf is None:
                 self.m_spc.append((lineList[1],dev.m_spf))
@@ -150,7 +162,7 @@ class SystemDescriptionParser(ParserFile,ParserArgs):
                 dev=lineList[i+1]; devPort=int(lineList[i+2])
                 self.m_sd.AddPort(dev,devPort,port,self.m_addThru)
                 i=i+3
-        else: self.m_ul.append(line)
+        else: self.m_ul.append(self.ReplaceArgsInLine(line))
     def _ProcessLines(self,exclusionList=[]):
         """processes all of the lines in a netlist
         @see _ProcessLine() for explanation of parameters and functionality.

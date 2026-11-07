@@ -82,6 +82,7 @@ setup(
                   pathToMoreIcons+'/edit-undo-3.gif',
                   pathToMoreIcons+'/edit-redo-3.gif',
                   pathToMoreIcons+'/dialog-information-4.gif',
+                  pathToMoreIcons+'/dialog-question.png',
                   pathToMoreIcons+'/sp-view.gif',
                   pathToMoreIcons+'/eye.gif',
                   pathToMoreIcons+'/down.gif',
@@ -95,6 +96,7 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
+    extras_require={'test': ['pytest>=6']},
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [

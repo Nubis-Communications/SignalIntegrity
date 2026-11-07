@@ -143,20 +143,25 @@ class SParameterManipulation(object):
                 for c in range(len(pr))]
                     for r in range(len(pr))]
                         for n in range(len(self.m_d))],self.m_Z0)
-    def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False):
+    def DetermineImpulseResponseLength(self,epsilon=1e-6,allLengths=False,time_before_0=None):
         """determines the impulse response lengths of the ports by comparing impulse response to threshold.
         @param epsilon (optional, defaults to 1e-6) absolute threshold on impulse response.
         @param allLengths (optional, defaults to False) whether to return the lengths of each port combination
+        @param time_before_0 (optional, defaults to None) float of assumed time before time 0
         @return returns a tuple containining (negativeTime,positiveTime) if allLengths is false (default) containing
         the most negative time and most positive time for all impulse responses, otherwise if allLengths is true, it returns
         a list of list of tuples as stated for each impulse response.
+        @remark Normally impulse responses created from frequency responses are assumed to have equal time
+        before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
+        is specified, the impulse response is assumed circular, and the time before the amount (the negative of
+        the time_before_0 specified) is placed at the end of the impulse response.
         """
         lengths=[[(None,None) for _ in range(self.m_P)] for _ in range(self.m_P)]
         for toPort in range(self.m_P):
             for fromPort in range(self.m_P):
                 (negativeTimeLimit,positiveTimeLimit)=(None,None)
                 fr=self.FrequencyResponse(toPort+1,fromPort+1)
-                ir=fr.ImpulseResponse()
+                ir=fr.ImpulseResponse(time_before_0=time_before_0)
                 if ir is not None:
                     t=ir.td
                     for k in range(len(t)):
@@ -316,6 +321,37 @@ class SParameterManipulation(object):
                         self.m_d[n][toPort][fromPort]=frv[n]
         self.ResampleToUnevenlySpaced()
         return self
+    def ScaleRho(self,scale):
+        """Scales the time-domain reflection coefficients (rho) of the s-parameters.  
+        For each diagonal s-parameter element (i.e. each reflect s-parameter), the impulse
+        response is computed and integrated to form the time-domain reflection coefficient
+        (rho) - i.e. the step response.  This reflection coefficient is scaled by the scale
+        provided and the diagonal s-parameter element is regenerated from the scaled
+        reflection coefficient.
+        @param scale float scale factor to apply to the time-domain reflection coefficients.
+        @return new instance of SParameters with the diagonal elements scaled.
+        @remark self is affected (the diagonal elements are replaced with the scaled versions).
+        """
+        from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+        self.ResampleToEvenlySpaced()
+        for port in range(self.m_P):
+            fr=self.FrequencyResponse(port+1,port+1)
+            ir=fr.ImpulseResponse()
+            if ir is None: continue
+            # integrate the impulse response to form the time-domain reflection coefficient
+            rho=np.cumsum(ir.Values())
+            # scale the reflection coefficient
+            rho=[rhov*scale for rhov in rho]
+            # differentiate the scaled reflection coefficient to regenerate the impulse response
+            values=[rho[0]]+[rho[k]-rho[k-1] for k in range(1,len(rho))]
+            # @todo get rid of this hack
+            ir.__init__(ir.TimeDescriptor(),values)
+            frv=ir.FrequencyResponse().Response()
+            for n in range(len(frv)):
+                self.m_d[n][port][port]=frv[n]
+        self.ResampleToUnevenlySpaced()
+        return SParameters(self.m_f,self.m_d,self.m_Z0,
+                           getattr(self,'header',[]),getattr(self,'picture',None))
     def Taper(self,from_frequency,to_frequency=None):
         """Tapers the frequency response.  
         The response is windowed as flat out to the from_frequency and tapered to zero using

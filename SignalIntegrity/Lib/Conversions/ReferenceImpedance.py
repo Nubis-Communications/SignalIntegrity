@@ -33,8 +33,19 @@ def ReferenceImpedance(S,Z0f,Z0i=None,Kf=None,Ki=None):
     @return the converted s-parameters
     @see Z0KHelper to see how the reference impedance
     and scaling factor are determined."""
+    # pragma: silent exclude
+    # np.array_equal always returns a scalar bool, so this is safe whether the
+    # raw inputs are None, scalars, lists, or numpy arrays (avoids the
+    # "truth value of an array is ambiguous" error that == / and would raise).
+    if np.array_equal(Z0f,Z0i) and np.array_equal(Kf,Ki):
+        return S
+    # pragma: include
     (Z0f,Kf)=Z0KHelper((Z0f,Kf),len(S))
     (Z0i,Ki)=Z0KHelper((Z0i,Ki),len(S))
+    # pragma: silent exclude
+    if np.array_equal(Z0f,Z0i) and np.array_equal(Kf,Ki):
+        return S
+    # pragma: include
     I=array(identity(len(S)))
     p=(array(Z0f)-array(Z0i)).dot(inv(array(Z0f)+array(Z0i)))
     Kf=array(Ki).dot(inv(array(Kf)))

@@ -1,0 +1,65 @@
+%<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
+%  <polyline lc="black">50,-49.5 52,-49.5 52,-46.5 54,-46.5</polyline>
+%  <ellipse x="52" y="-48" dx="8" dy="-8" lc="black"/>
+%  <polyline lc="black">51.25,-45.5 52.75,-45.5</polyline>
+%  <polyline lc="black">52,-44.75 52,-46.25</polyline>
+%  <polyline lc="black">51.25,-50.5 52.75,-50.5</polyline>
+%  <polyline lc="black">52,-40 52,-44</polyline>
+%  <polyline lc="black">52,-56 52,-52</polyline>
+%  <text x="58" y="-52" t="t0 0 s" h="3" halign="l" lc="black"/>
+%  <text x="58" y="-49" t="a 1.0 V" h="3" halign="l" lc="black"/>
+%  <polygon fill="black">49.333,-60 54.667,-60 52,-62.667 49.333,-60</polygon>
+%  <polyline lc="black">52,-56 52,-60</polyline>
+%  <polyline lc="black">73,-41 71,-39</polyline>
+%  <polyline lc="black">71,-41 73,-39</polyline>
+%  <polyline lc="black">68,-40 72,-40</polyline>
+%  <polyline lw="3" lc="black">72,-44 70,-42</polyline>
+%  <polyline lc="black">70,-42 68,-40</polyline>
+%  <text x="72" y="-47" t="Vo" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-41" t="CTLE" h="3" halign="c" lc="black"/>
+%  <rect x="56" y="-36" w="8" h="-8" lc="black"/>
+%  <polyline lc="black">52,-40 56,-40</polyline>
+%  <text x="55" y="-39" t="1" h="3" halign="r" lc="black"/>
+%  <polyline lc="black">68,-40 64,-40</polyline>
+%  <text x="65" y="-39" t="2" h="3" halign="l" lc="black"/>
+%  <text x="60" y="-33" t="gdc -8.0 dB" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-30" t="gdc2 0 dB" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-27" t="fz 22.4 GHz" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-24" t="flf 700.0 MHz" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-21" t="fp1 22.4 GHz" h="3" halign="c" lc="black"/>
+%  <text x="60" y="-18" t="fp2 56.0 GHz" h="3" halign="c" lc="black"/>
+%  <ellipse x="68" y="-40" dx="1" dy="-1" lc="black" fill="black"/>
+%</TpX>
+\centering
+\begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
+\path[line width=0.30mm, draw=black] (50,-49.5) -- (52,-49.5) -- (52,-46.5) -- (54,-46.5);
+\path[line width=0.30mm, draw=black] (52,-48) ellipse (4mm and -4mm);
+\path[line width=0.30mm, draw=black] (51.25,-45.5) -- (52.75,-45.5);
+\path[line width=0.30mm, draw=black] (52,-44.75) -- (52,-46.25);
+\path[line width=0.30mm, draw=black] (51.25,-50.5) -- (52.75,-50.5);
+\path[line width=0.30mm, draw=black] (52,-40) -- (52,-44);
+\path[line width=0.30mm, draw=black] (52,-56) -- (52,-52);
+\draw[black] (58,-52) node[anchor=base west]{t0 0 s};
+\draw[black] (58,-49) node[anchor=base west]{a 1.0 V};
+\path[line width=0.30mm, fill=black] (49.333,-60) -- (54.667,-60) -- (52,-62.667) -- (49.333,-60) -- cycle;
+\path[line width=0.30mm, draw=black] (52,-56) -- (52,-60);
+\path[line width=0.30mm, draw=black] (73,-41) -- (71,-39);
+\path[line width=0.30mm, draw=black] (71,-41) -- (73,-39);
+\path[line width=0.30mm, draw=black] (68,-40) -- (72,-40);
+\path[line width=0.9mm, draw=black] (72,-44) -- (70,-42);
+\path[line width=0.30mm, draw=black] (70,-42) -- (68,-40);
+\draw[black] (72,-45) node[anchor=north west]{Vo};
+\draw[black] (60,-41) node[anchor=base]{CTLE};
+\path[line width=0.30mm, draw=black] (56,-44) rectangle +(8,8);
+\path[line width=0.30mm, draw=black] (52,-40) -- (56,-40);
+\draw[black] (55,-39) node[anchor=base east]{1};
+\path[line width=0.30mm, draw=black] (68,-40) -- (64,-40);
+\draw[black] (65,-39) node[anchor=base west]{2};
+\draw[black] (60,-33) node[anchor=base]{gdc -8.0 dB};
+\draw[black] (60,-30) node[anchor=base]{gdc2 0 dB};
+\draw[black] (60,-27) node[anchor=base]{fz 22.4 GHz};
+\draw[black] (60,-24) node[anchor=base]{flf 700.0 MHz};
+\draw[black] (60,-21) node[anchor=base]{fp1 22.4 GHz};
+\draw[black] (60,-18) node[anchor=base]{fp2 56.0 GHz};
+\path[line width=0.30mm, draw=black, fill=black] (68,-40) ellipse (0.5mm and -0.5mm);
+\end{tikzpicture}%

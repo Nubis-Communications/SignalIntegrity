@@ -38,6 +38,7 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent)
         self.parent = parent
+        self.displayScale = getattr(parent, 'displayScale', 1.0)
         self.withdraw()
         self.title('Statistical Noise Measurements')
         self.img = tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir + 'AppIcon2.gif')
@@ -71,16 +72,22 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
 
         self.measurements = None
 
-        self.statusbar = StatusBar(self)
+        self.statusbar = StatusBar(self, displayScale=self.displayScale)
         self.statusbar.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
 
-        self.tableFrame = tk.Frame(self, relief=tk.RIDGE, borderwidth=5)
+        self.tableFrame = tk.Frame(self, relief=tk.RIDGE, borderwidth=self._scaled(5))
         self.tableFrame.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
 
         self.treeStyle = ttk.Style(self)
         self.headerFont = tkfont.nametofont('TkHeadingFont').copy()
         self.headerFont.configure(weight='bold')
         self.treeStyle.configure('StatisticalNoise.Treeview.Heading', font=self.headerFont)
+        self.cellFont = tkfont.nametofont('TkDefaultFont').copy()
+        if self.displayScale > 1.0:
+            self.treeStyle.configure(
+                'StatisticalNoise.Treeview',
+                font=self.cellFont,
+                rowheight=self.cellFont.metrics('linespace') + self._scaled(6))
 
         self.measurementTree = ttk.Treeview(self.tableFrame, show='headings', style='StatisticalNoise.Treeview')
         self.measurementTree.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
@@ -101,6 +108,9 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
         self.resizable(True, True)
         self.deiconify()
         self.lift()
+
+    def _scaled(self, value):
+        return round(value * self.displayScale)
 
     def onClosing(self):
         self.withdraw()
@@ -265,14 +275,14 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
         self.measurementTree.insert('', tk.END, values=row)
 
     def _autoSizeOutputColumns(self, output_names, min_width=170, max_width=700, pad=24):
-        cell_font = tkfont.nametofont('TkDefaultFont')
         for output_index, output_name in enumerate(output_names, start=1):
             max_pixels = self.headerFont.measure(str(output_name))
             for item in self.measurementTree.get_children(''):
                 values = self.measurementTree.item(item, 'values')
                 if output_index < len(values):
-                    max_pixels = max(max_pixels, cell_font.measure(str(values[output_index])))
-            width = max(min_width, min(max_width, max_pixels + pad))
+                    max_pixels = max(max_pixels, self.cellFont.measure(str(values[output_index])))
+            width = max(self._scaled(min_width),
+                        min(self._scaled(max_width), max_pixels + self._scaled(pad)))
             self.measurementTree.column(output_name, width=width, anchor='center', stretch=tk.NO)
 
     def _autoSizeWindowToTable(self):
@@ -285,17 +295,19 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
 
         row_count = len(self.measurementTree.get_children(''))
         try:
-            row_height = int(self.treeStyle.lookup('Treeview', 'rowheight'))
+            row_height = int(self.treeStyle.lookup('StatisticalNoise.Treeview', 'rowheight'))
         except (TypeError, ValueError):
             row_height = 0
         if row_height <= 0:
-            row_height = tkfont.nametofont('TkDefaultFont').metrics('linespace') + 6
-        heading_height = self.headerFont.metrics('linespace') + 10
+            row_height = self.cellFont.metrics('linespace') + self._scaled(6)
+        heading_height = self.headerFont.metrics('linespace') + self._scaled(10)
         table_height = heading_height + row_count * row_height
         table_height += int(2 * self.tableFrame.cget('borderwidth'))
 
         window_width = table_width
         window_height = table_height + self.statusbar.winfo_reqheight() + self.xScroll.winfo_reqheight()
+        if self.displayScale > 1.0:
+            window_height = max(self._scaled(300), min(self._scaled(1000), window_height))
 
         self.geometry(f'{window_width}x{window_height}')
 
@@ -357,11 +369,11 @@ class StatisticalNoiseMeasurementsDialog(tk.Toplevel):
         self.measurementTree['columns'] = columns
 
         self.measurementTree.heading('Measurement', text='Measurement')
-        self.measurementTree.column('Measurement', width=260, anchor='w', stretch=tk.NO)
+        self.measurementTree.column('Measurement', width=self._scaled(260), anchor='w', stretch=tk.NO)
 
         for output_name in output_names:
             self.measurementTree.heading(output_name, text=output_name)
-            self.measurementTree.column(output_name, width=170, anchor='center', stretch=tk.NO)
+            self.measurementTree.column(output_name, width=self._scaled(170), anchor='center', stretch=tk.NO)
 
         column_count = len(columns)
 

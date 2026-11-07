@@ -31,6 +31,7 @@ class DrawingStateMachine(object):
     def __init__(self,parent):
         self.parent=parent
         self.NoProject()
+        self.parent.canvas.bind('<Control-Button-3>',self.onControlMouseButton3TryToViewSomething)
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -83,10 +84,7 @@ class DrawingStateMachine(object):
                 self.Nothing()
             else:
                 nothingSelectedState()
-    def onMouseButton1TryToSelectSomething(self,event):
-        self.parent.lift()
-        self.Nothing()
-        self.SaveButton1Coordinates(event)
+    def SelectSomethingAtButton1Coordinate(self):
         selectedSomething=False
         for device in self.parent.schematic.deviceList:
             if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
@@ -110,7 +108,55 @@ class DrawingStateMachine(object):
                     wire = segmentList.Wire()
                     wireProject['Vertices']=[vertex for vertex in wire]
                     break
+        return selectedSomething
+
+    def SelectedThingIsAtButton2Coordinate(self):
+        for device in self.parent.schematic.deviceList:
+            if device.selected and device.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
+                return True
+        for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
+            for vertexProject in wireProject['Vertices']:
+                if vertexProject['Selected'] and vertexProject.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.2):
+                    return True
+        return False
+
+    def onMouseButton1TryToSelectSomething(self,event):
+        self.parent.lift()
+        self.Nothing()
+        self.SaveButton1Coordinates(event)
+        self.SelectSomethingAtButton1Coordinate()
         self.DispatchBasedOnSelections(self.Selecting)
+
+    def onMouseButton3TryToSelectSomething(self,event):
+        """right click selects whatever is under the cursor so its menu can be shown"""
+        self.parent.lift()
+        self.SaveButton1Coordinates(event)
+        self.SaveButton2Coordinates(event)
+        self.SelectSomethingAtButton1Coordinate()
+        self.DispatchBasedOnSelections()
+
+    def onControlMouseButton3TryToViewSomething(self,event):
+        if not self.Locked():
+            self.parent.lift()
+            self.Nothing()
+            self.SaveButton1Coordinates(event)
+            from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions,PerformDeviceViewAction
+            for device in self.parent.schematic.deviceList:
+                if device.IsAt(self.parent.Button1Coord,self.parent.Button1Augmentor,0.1):
+                    actions=DeviceViewMenuActions(device)
+                    if len(actions) > 0:
+                        # ctrl-right-click prefers opening the associated project over other view actions
+                        actionsByKey=dict((action,label) for label,action in actions)
+                        action='openproject' if 'openproject' in actionsByKey else actions[0][1]
+                        # a lightweight select+redraw here (not DispatchBasedOnSelections(), which
+                        # transitions to DeviceSelected() and Consolidate()s the whole schematic again)
+                        # so launching the viewer isn't delayed by a second redundant redraw pass
+                        device.selected=True
+                        self.parent.DrawSchematic()
+                        self.parent.update_idletasks()
+                        PerformDeviceViewAction(self.parent.parent,device,action)
+                    break
+            self.Unlock()
     def onMouseButton1TryToToggleSomething(self,event):
         self.SaveButton1Coordinates(event)
         toggledSomething=False
@@ -214,6 +260,8 @@ class DrawingStateMachine(object):
             self.parent.parent.ExtractArchiveDoer.Activate(True)
             self.parent.parent.FreshenArchiveDoer.Activate(False)
             self.parent.parent.UnExtractArchiveDoer.Activate(False)
+            self.parent.parent.MakeWritableDoer.Activate(False)
+            self.parent.parent.MakeReadOnlyDoer.Activate(False)
             self.parent.parent.UndoDoer.Activate(False)
             self.parent.parent.RedoDoer.Activate(False)
             self.parent.parent.DeleteSelectedDoer.Activate(False)
@@ -341,6 +389,8 @@ class DrawingStateMachine(object):
             inAnArchive=Archive.InAnArchive(self.parent.parent.fileparts.FullFilePathExtension())
             self.parent.parent.FreshenArchiveDoer.Activate(inAnArchive)
             self.parent.parent.UnExtractArchiveDoer.Activate(inAnArchive)
+            self.parent.parent.MakeWritableDoer.Activate(False)
+            self.parent.parent.MakeReadOnlyDoer.Activate(not self.parent.parent.ProjectChanged())
             #self.parent.parent.UndoDoer.Activate(False)
             #self.parent.parent.RedoDoer.Activate(False)
             self.parent.parent.DeleteSelectedDoer.Activate(False)
@@ -407,7 +457,9 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_Nothing(self,event):
         pass
     def onMouseButton3_Nothing(self,event):
-        pass
+        if not self.Locked():
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_Nothing(self,event):
         pass
     def onMouseButton1Release_Nothing(self,event):
@@ -505,6 +557,7 @@ class DrawingStateMachine(object):
             self.SaveButton2Coordinates(event)
             if not self.parent.deviceSelected.IsAt(self.parent.Button2Coord,self.parent.Button2Augmentor,0.1):
                 self.Nothing()
+                self.onMouseButton3TryToSelectSomething(event)
             self.Unlock()
     def onMouseButton1Motion_DeviceSelected(self,event):
         if not self.Locked():
@@ -524,6 +577,10 @@ class DrawingStateMachine(object):
         if not self.Locked():
             self.parent.deviceTearOffMenu=tk.Menu(self.parent, tearoff=0)
             self.parent.deviceTearOffMenu.add_command(label="Edit Properties",command=self.parent.EditSelectedDevice)
+            from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
+            device=self.parent.deviceSelected
+            for label,action in DeviceViewMenuActions(device):
+                self.parent.deviceTearOffMenu.add_command(label=label,command=lambda action=action: self.parent.ViewSelectedDevice(action))
             if not self.parent.deviceSelected.configuration is None:
                 if isinstance(self.parent.deviceSelected.configuration,list):
                     for config in self.parent.deviceSelected.configuration:
@@ -632,7 +689,10 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_WireSelected(self,event):
         pass
     def onMouseButton3_WireSelected(self,event):
-        pass
+        if not self.Locked():
+            self.Nothing()
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_WireSelected(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -1061,7 +1121,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
@@ -1096,7 +1156,10 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_Selecting(self,event):
         pass
     def onMouseButton3_Selecting(self,event):
-        pass
+        if not self.Locked():
+            self.Nothing()
+            self.onMouseButton3TryToSelectSomething(event)
+            self.Unlock()
     def onMouseButton1Motion_Selecting(self,event):
         if not self.Locked():
             coord=self.parent.NearestGridCoordinate(event.x,event.y)
@@ -1112,7 +1175,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+self.parent.Button1Augmentor[0]+originx)*grid,
@@ -1249,7 +1312,12 @@ class DrawingStateMachine(object):
         pass
     def onMouseButton3_MultipleSelections(self,event):
         if not self.Locked():
-            self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+            self.SaveButton2Coordinates(event)
+            if self.SelectedThingIsAtButton2Coordinate():
+                self.parent.tk.call('tk_popup',self.parent.multipleSelectionsTearOffMenu, event.x_root, event.y_root)
+            else:
+                self.Nothing()
+                self.onMouseButton3TryToSelectSomething(event)
             self.Unlock()
     def onMouseButton1Motion_MultipleSelections(self,event):
         if not self.Locked():
@@ -1371,7 +1439,7 @@ class DrawingStateMachine(object):
                         vertexProject['Selected']=True
             self.parent.DrawSchematic()
             drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
-            grid=drawingPropertiesProject['Grid']
+            grid=self.parent.DisplayGrid()
             originx=drawingPropertiesProject['Originx']
             originy=drawingPropertiesProject['Originy']
             self.parent.canvas.create_rectangle((self.parent.Button1Coord[0]+originx)*grid,

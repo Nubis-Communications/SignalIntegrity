@@ -82,6 +82,7 @@ class DeviceFactory(list):
         |transconductance\n amplifier           |2-4  |False    |gain=None zo=1e8 zi=1e8 z0=50                                                                  | False               |dev.TransconductanceAmplifier(ports,gain,zi,zo)                                                  |
         |opamp                                  |3    |False    |zi=1e8 zd=1e8 zo=0 gain=1e8 z0=50                                                              | False               |dev.OperationalAmplifier(zi,zd,zo,gain,z0)                                                       |
         |tline                                  |2,4  |False    |zc=50 td=0                                                                                     | True                |sp.dev.TLineLossless(f,ports,zc,td)                                                              |
+        |mcb                                    |4    |False    |td=200e-12 lp=1,2 rp=3,4                                                                       | True                |sp.dev.MCB(f,td,lp,rp,z0)                                                                        |
         |tlineCOM                               |2    |False    |gamma0=0 a1=0 a2=0 tau=0 zc=50 d=0 z0=50                                                       | True                |sp.dev.TLineTwoPortCOM(f,gamma0,a1,a2,tau,zc,d/1e-3,z0)                                          |
         |tlinelossy                             |2    |False    |zc=50 td=0 LdBperHzpers=0 LdBperrootHzpers=0                                                   | True                |sp.dev.TLineLossy(f,ports,zc,td,LdBperHzpers,LdBperrootHzpers)                                   |
         |telegrapher                            |2    |False    |r=0 rse=0 l=0 c=0 df=0 g=0 z0=50 sect=0                                                        | True                |sp.dev.TLineTwoPortRLGC(\n f,r,rse,l,g,c,df,z0,sect,scale)                                       |
@@ -98,8 +99,10 @@ class DeviceFactory(list):
         |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
         |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
         |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
+        |tlineequation                          |2    |True     |eq zc=50                                                                                       | True                |sp.dev.TransmissionLineEquation(f,eq,Z0=zc).SetReferenceImpedance(z0)                            |
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
         |impulseresponsefilter                  |2    |True     |filename=None wfprojname=None dcGain=None mulTs=True derivative=False                          | True                |sp.dev.ImpulseResponseFilter(f,filename,dcGain,mulTs,derivative                                  |
+        |frequencyresponsefilter                |2    |True     |filename=None dcGain=None                                                                      | True                |sp.dev.FrequencyResponseFilter(f,filename,dcGain)                                                |
         |parallel                               |2    |False    |filename=None sect=None                                                                        | True                |sp.dev.Parallel(f,file,sect,z0)                                                                  |
         |series                                 |any  |False    |filename=None sect=None lp=None rp=None                                                        | True                |sp.dev.Series(f,file,sect,lp,rp,z0)                                                              |
         |currenttovoltageconverter              |3    |False    |z0=50                                                                                          | False               |dev.IdealCurrentToVoltageConverter(z0)                                                           |
@@ -186,6 +189,9 @@ class DeviceFactory(list):
         ParserDevice('tline','2,4',False,{'zc':50.,'td':0.},True,
             "TLineLossless(f,ports,float(arg['zc']),float(arg['td']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('mcb',4,False,{'td':200e-12,'lp':'1,2','rp':'3,4'},True,
+            "MCB(f,float(arg['td']),eval('['+arg['lp']+']'),eval('['+arg['rp']+']'),\
+            Z0=float(arg['z0']))"),
         ParserDevice('tlinecom',2,False,{'gamma0':0,'a1':0,'a2':0,'tau':0,'zc':50,
             'd':0,'z0':50},True,
             "TLineTwoPortCOM(f,float(arg['gamma0']),float(arg['a1']),\
@@ -256,6 +262,9 @@ class DeviceFactory(list):
             float(arg['td']),eval(arg['']),eval(arg['pre']),Z0=float(arg['z0']))"),
         ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('tlineequation',2,True,{'':'','zc':50.},True,
+            "TransmissionLineEquation(f,str(arg['']),Z0=float(arg['zc'])).\
+            SetReferenceImpedance(float(arg['z0']))"),
         ParserDevice('raisedcosinerisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
             "RaisedCosineRisetimeFilter(f,float(arg['']),arg['rt_type']=='1090',float(arg['z0']))"),
         ParserDevice('gaussianrisetimefilter',2,True,{'':None,'rt_type':'1090'},True,
@@ -267,11 +276,15 @@ class DeviceFactory(list):
             "ImpulseResponseFilter(arg[''],wfProjName=arg['wfprojname'],\
             normalizedDCGain=eval(arg['dcgain']),multiplyByTs=(arg['mults']=='true'),\
             derivative=(arg['derivative']=='true'),**extraArgs).Resample(f)"),
+        ParserDevice('frequencyresponsefilter',2,True,
+            {'':None,'dcgain':None},True,
+            "FrequencyResponseFilter(arg[''],\
+            normalizedDCGain=eval(arg['dcgain']),**extraArgs).Resample(f)"),
         ParserDevice('parallel',2,False,{'file':None,'sect':None},True,
-                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),**extraArgs)"),
+                     "Parallel(f,arg['file'],float(arg['sect']),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('series',None,False,{'file':None,'sect':None,'lp':None,'rp':None},True,
                      "Series(f,arg['file'],float(arg['sect']),eval('['+arg['lp']+']'),\
-                     eval('['+arg['rp']+']'),float(arg['z0']),**extraArgs)"),
+                     eval('['+arg['rp']+']'),float(arg['z0']),callback,**extraArgs)"),
         ParserDevice('currenttovoltageconverter',3,False,{},False,
                      "IdealCurrentToVoltageConverter(Z0=float(arg['z0']))"),
         ParserDevice('voltagetovoltageconverter',3,False,{},False,
@@ -336,6 +349,8 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.TerminationL import TerminationL
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossless import TLineLossless
         from SignalIntegrity.Lib.SParameters.Devices.TLineLossy import TLineLossy
+        from SignalIntegrity.Lib.SParameters.Devices.TransmissionLineEquation import TransmissionLineEquation
+        from SignalIntegrity.Lib.SParameters.Devices.MCB import MCB
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortCOM import TLineTwoPortCOM
         from SignalIntegrity.Lib.SParameters.Devices.TLineTwoPortRLGC import TLineTwoPortRLGC
         from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDeviceParser
@@ -349,8 +364,10 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.WElement import WElementFile
         from SignalIntegrity.Lib.SParameters.Devices.ClassicalFilter import ButterworthLowPassFilter,BesselLowPassFilter
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
-        from SignalIntegrity.Lib.SParameters.Devices.Equalizer import FFE,CTLE
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerFFE import FFE
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
+        from SignalIntegrity.Lib.SParameters.Devices.FrequencyResponseFilter import FrequencyResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
         from SignalIntegrity.Lib.SParameters.Devices.Series import Series
         from SignalIntegrity.Lib.SParameters.Devices.GaussianRisetimeFilter import GaussianRisetimeFilter

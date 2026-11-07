@@ -75,6 +75,10 @@ class History(object):
         self.FigureState()
         self.parent.statusbar.set('Redid: '+element.eventName)
     def FigureState(self):
+        if self.parent.ReadOnly():
+            self.parent.UndoDoer.Activate(False)
+            self.parent.RedoDoer.Activate(False)
+            return
         if len(self.history) <= 1:
             self.parent.UndoDoer.Activate(False)
             self.parent.RedoDoer.Activate(False)

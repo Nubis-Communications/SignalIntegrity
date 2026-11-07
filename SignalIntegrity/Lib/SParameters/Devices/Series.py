@@ -22,7 +22,7 @@ from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 class Series(SParameters):
     """s-parameters of two port device placed in series with itself multiple times"""
-    def __init__(self,f: float, name: str, numberInSeries: float, lp: list =[1], rp: list =[2], Z0: float =50, **kwargs):
+    def __init__(self,f: float, name: str, numberInSeries: float, lp: list =[1], rp: list =[2], Z0: float =50, callback=None, **kwargs):
         """Constructor
         @param f list of float frequencies
         @param name string file name of s-parameter file to read
@@ -30,6 +30,7 @@ class Series(SParameters):
         @param lp list of ints left ports in order
         @param rp list of ints right ports in order
         @param Z0 (optional) float reference impedance (defaults to 50 ohms)
+        @param callback function ptr (optional, defaults to None) callback function.
         @param **kwargs dict (optional, defaults to {}) dictionary of arguments for the file
         @remark The number of left ports ought to equal the number of right ports, otherwise you should
         expect this fail.
@@ -40,7 +41,7 @@ class Series(SParameters):
         # pragma: include
         self.lp=lp
         self.rp=rp
-        self.m_dev=SParameterFile(name,None,None,**kwargs).Resample(f).SetReferenceImpedance(Z0)
+        self.m_dev=SParameterFile(name,None,callback,**kwargs).Resample(f).SetReferenceImpedance(Z0)
         SParameters.__init__(self,f,None,Z0)
     def __getitem__(self,n: int):
         """overloads [n]

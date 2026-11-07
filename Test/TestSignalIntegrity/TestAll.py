@@ -24,6 +24,7 @@ matplotlib.use('Tkagg')
 import unittest
 
 from TestAdaptDecimate import *
+from TestArchive import *
 from TestBalun import *
 from TestBook import *
 from TestBookDevices import *
@@ -52,6 +53,7 @@ from TestHiRes import *
 from TestImpedanceProfile import *
 from TestIXT import *
 from TestImpulseResponseFilter import *
+from TestFrequencyResponseFilter import *
 from TestLaplace import *
 from TestLeCroyWaveforms import *
 from TestMixedModeTermination import *
@@ -67,11 +69,13 @@ from TestPrbsSpecial import *
 from TestProbeOnOff import *
 from TestProbes import *
 from TestRefImp import *
+from TestRegressionFiles import *
+from TestResultsCache import *
 from TestRisetimeFilters import *
 from TestRLGC import *
 from TestRLGCLevMar import *
 from TestRoutineWriter import *
-#from TestSenseResistorInductance import *
+from TestSenseResistorInductance import *
 from TestSeries import *
 from TestSimulator import *
 #from TestSimulatorNumericParser import *
@@ -95,12 +99,15 @@ from TDRSimulationTwoPort import *
 from TDRSimulationFourPort import *
 from TDRSimulationFourPortScaled import *
 from TestSignalIntegrityApp import *
+from TestSignalIntegrityAppHeadless import *
 from TestSParametersParser import *
 from TestSystemVariables import *
+from TestScriptedSources import *
 from TestWaveformOnlySimulations import *
 from YuriyWaveTest import *
 from TestLevMarNumeric import *
-from TestVNACalibrationObject import *
+# i'm excluding this because it takes a long time to run and is not necessary for the majority of testing
+#from TestVNACalibrationObject import *
 from TestWElement import *
 
 if __name__ == '__main__':
