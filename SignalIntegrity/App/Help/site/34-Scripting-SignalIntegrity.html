@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Scripting SignalIntegrity - SignalIntegrity Help</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Scripting SignalIntegrity";
+        var mkdocs_page_input_path = "34-Scripting-SignalIntegrity.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> SignalIntegrity Help
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">SignalIntegrity Help</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="01-About.html">About</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="02-Contact.html">Contact</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="03-License.html">License</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="04-Book.html">Book</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="05-On-line-Video-Examples.html">On-line Video Examples</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="06-Introduction.html">Introduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="07-S-Parameter-Generation.html">S-Parameter Generation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="08-Simulation.html">Simulation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="09-Deembedding.html">Deembedding</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="10-Virtual-Probing.html">Virtual Probing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="11-RLGC-Fit.html">RLGC Fit</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="12-Network-Analyzer-Measurements.html">Network Analyzer Measurements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="13-S-parameter-Viewer.html">S-parameter Viewer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="14-Simulator-Dialog.html">Simulator Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="15-Main-Schematic-Dialog.html">Main Schematic Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="16-Eye-Diagram-Dialog.html">Eye Diagram Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="17-Eye-Diagram-Calculation.html">Eye Diagram Calculation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="18-Eye-Diagram-Measurements-Dialog.html">Eye Diagram Measurements Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="19-Bathtub-Curves-Dialog.html">Bathtub Curves Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="20-Sampled-Waveforms-Dialog.html">Sampled Waveforms Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="21-Eye-Diagram-Properties-Dialog.html">Eye Diagram Properties Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="22-Eye-Diagram-Properties.html">Eye Diagram Properties</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="23-Built-in-Devices-Parts.html">Built-in Devices (Parts)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="24-Netlist.html">Netlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="25-Post-Processing.html">Post-Processing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="26-Equations.html">Equations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="27-Errors-and-Exceptions.html">Errors and Exceptions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="28-Waveform.html">Waveform</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="29-Preferences.html">Preferences</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="30-Encryption.html">Encryption</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="31-Statistical-Noise-Dialog.html">Statistical Noise Dialog</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="32-Parallel-Calculations.html">Parallel Calculations</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Scripting SignalIntegrity</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Getting-Started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Headless-Application">The Headless Application</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Opening-a-Project">Opening a Project</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Arguments">Arguments</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Equations">Equations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Changing-Parts">Changing Parts</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Calculating">Calculating</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Callbacks">Callbacks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Results">Results</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Simulation-Results">Simulation and Virtual Probe Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-SParameter-Results">S-parameter Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Deembedding-Results">De-embedding Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Error-Terms-Results">Error Terms Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Network-Analyzer-Results">Network Analyzer Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Noise-Results">Statistical Noise Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripting-Eye-Diagram-Results">Eye Diagram Results</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Working-With-Results">Working With Results</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Project-Functions">Project Functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Sweeps">Sweeping Variables</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Archives-and-Regression">Archives and Regression</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Preferences">Preferences and Caching</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:Scripting-Command-Line">Command Line</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SignalIntegrity Help</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Scripting SignalIntegrity</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sec:Scripting-SignalIntegrity">Scripting SignalIntegrity<a class="headerlink" href="#sec:Scripting-SignalIntegrity" title="Permanent link">&para;</a></h1>
+<p>Everything that <strong><em>SignalIntegrityApp</em></strong> calculates can also be calculated from a Python script, without the graphical user interface. This is called running <em>SignalIntegrity</em> headless. A typical use is to draw and debug a schematic interactively, save it as a project, and then calculate it from a script: sweeping its variables, running it as part of an automated flow, or collecting its results for further processing.</p>
+<p>Headless calculation is provided by the class <code>SignalIntegrityAppHeadless</code>. It opens the same project files as <strong><em>SignalIntegrityApp</em></strong>, applies arguments to the project's <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a> and <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, performs the calculation, and returns a <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Results">result dictionary</a> containing the waveforms, s-parameters, and other results that the graphical application would display.</p>
+<h2 id="sub:Scripting-Getting-Started">Getting Started<a class="headerlink" href="#sub:Scripting-Getting-Started" title="Permanent link">&para;</a></h2>
+<p>The following script opens the RC example project that is installed with <em>SignalIntegrity</em>, simulates it, and writes the output waveform named Vout to a file:</p>
+<pre><code class="language-python">import os
+import SignalIntegrity.App
+from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+project = os.path.join(os.path.dirname(SignalIntegrity.App.__file__), 'Examples', 'RC.si')
+output = os.path.abspath('Vout.txt')  # before opening the project, which changes the working directory
+
+app = SignalIntegrityAppHeadless()
+if not app.OpenProjectFile(project):
+    raise RuntimeError('could not open ' + project)
+
+result = app.Simulate()
+if not result:
+    raise RuntimeError('the simulation failed')
+
+vout = result.OutputWaveform('Vout')
+print(vout.td.H, vout.td.K, vout.td.Fs)  # time of the first point, number of points, sample rate
+vout.WriteToFile(output)
+</code></pre>
+<p>The steps are always the same:</p>
+<ol>
+<li>
+<p>Create a <code>SignalIntegrityAppHeadless</code>.</p>
+</li>
+<li>
+<p>Open a project with <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Opening-a-Project">OpenProjectFile</a>, optionally passing <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Arguments">Arguments</a>.</p>
+</li>
+<li>
+<p>Perform the calculation that the project is drawn for (see <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Calculating">Calculating</a>).</p>
+</li>
+<li>
+<p>Check that the result is not empty and use its contents (see <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Results">Results</a>).</p>
+</li>
+</ol>
+<p>The objects in the results (waveforms, s-parameters, transfer matrices, and so on) are classes of the <em>SignalIntegrity</em> library, which is normally imported as:</p>
+<pre><code class="language-python">import SignalIntegrity.Lib as si
+</code></pre>
+<h2 id="sub:Scripting-Headless-Application">The Headless Application<a class="headerlink" href="#sub:Scripting-Headless-Application" title="Permanent link">&para;</a></h2>
+<p><code>SignalIntegrityAppHeadless()</code> takes no arguments. Creating one reads the <a href="29-Preferences.html#sec:Preferences">Preferences</a> (see <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Preferences">Preferences and Caching</a>).</p>
+<p>The open project is held globally in <code>SignalIntegrity.App.Project</code>, so only one project is open at a time. Opening a project, in this or another <code>SignalIntegrityAppHeadless</code>, replaces the project that was open. To calculate other projects from within a script while keeping the current one, use the <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Project-Functions">Project Functions</a>, which save and restore the current project.</p>
+<p>The methods of <code>SignalIntegrityAppHeadless</code> are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>OpenProjectFile(filename, args={}, writable=False)</code></td>
+<td style="text-align: left;">opens a project, applying the arguments. See <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Opening-a-Project">Opening a Project</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SetVariables(args, reportMissing=False)</code></td>
+<td style="text-align: left;">applies arguments to the open project. See <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Arguments">Arguments</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Simulate(callback=None, TransferMatricesOnly=False, EyeDiagrams=False)</code></td>
+<td style="text-align: left;">performs a <a href="08-Simulation.html#sec:Simulation">Simulation</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TransferParameters(callback=None)</code></td>
+<td style="text-align: left;">calculates only the transfer matrices of a simulation or virtual probe project.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>VirtualProbe(callback=None, TransferMatricesOnly=False, EyeDiagrams=False)</code></td>
+<td style="text-align: left;">performs <a href="10-Virtual-Probing.html#sec:Virtual-Probing">Virtual Probing</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CalculateSParameters(callback=None, calculate_impedance_profiles=False)</code></td>
+<td style="text-align: left;">performs <a href="07-S-Parameter-Generation.html#sec:S-parameter-Generation">S-Parameter Generation</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Deembed(callback=None)</code></td>
+<td style="text-align: left;">performs <a href="09-Deembedding.html#sec:Deembedding">Deembedding</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CalculateErrorTerms(callback=None)</code></td>
+<td style="text-align: left;">calculates the calibration error terms of a <a href="12-Network-Analyzer-Measurements.html#sec:Network-Analyzer-Measurements">Network Analyzer Measurements</a> calibration project.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SimulateNetworkAnalyzerModel(callback=None, SParameters=False)</code></td>
+<td style="text-align: left;">simulates a network analyzer model project.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Device(ref)</code></td>
+<td style="text-align: left;">returns the part with the reference designator ref, or None. See <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Changing-Parts">Changing Parts</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NetListText()</code></td>
+<td style="text-align: left;">returns the <a href="24-Netlist.html#sec:Netlist">Netlist</a> of the schematic as a list of strings.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SaveProject()</code>, <code>SaveProjectToFile(filename)</code></td>
+<td style="text-align: left;">save the project, only when it was opened writable.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ReadOnly()</code></td>
+<td style="text-align: left;">returns whether the project was opened read-only.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Archive(...)</code>, <code>ExtractArchive(...)</code>, <code>FreshenArchive()</code>, <code>UnExtractArchive()</code></td>
+<td style="text-align: left;">archive functions. See <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Archives-and-Regression">Archives and Regression</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GenerateRegression(...)</code>, <code>RunRegression(...)</code></td>
+<td style="text-align: left;">regression functions. See <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Archives-and-Regression">Archives and Regression</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sub:Scripting-Opening-a-Project">Opening a Project<a class="headerlink" href="#sub:Scripting-Opening-a-Project" title="Permanent link">&para;</a></h2>
+<pre><code class="language-python">ok = app.OpenProjectFile(filename, args={}, writable=False)
+</code></pre>
+<ul>
+<li>
+<p>filename – the project file name. The extension .si is assumed.</p>
+</li>
+<li>
+<p>args – (optional) a dictionary of <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Arguments">Arguments</a> applied to the project after it is read.</p>
+</li>
+<li>
+<p>writable – (optional, defaults to False) whether the project can be saved. A project opened read-only (the default) is never written; SaveProject and SaveProjectToFile do nothing.</p>
+</li>
+</ul>
+<p>OpenProjectFile returns True if the project was opened and False otherwise (for example, if the file does not exist).</p>
+<p>Opening a project changes the current working directory to the directory containing the project. This is how files referenced by the project with relative paths are found. As a consequence:</p>
+<ul>
+<li>
+<p>relative file names used by the script after the project is opened are relative to the project's directory, so a script that writes results should determine the absolute paths of its output files before opening the project, and</p>
+</li>
+<li>
+<p>the script must not change the working directory between opening a project and calculating it, or the files the project references with relative paths will not be found and the calculation will fail.</p>
+</li>
+</ul>
+<h2 id="sub:Scripting-Arguments">Arguments<a class="headerlink" href="#sub:Scripting-Arguments" title="Permanent link">&para;</a></h2>
+<p>Arguments are a dictionary of names and values. Each name is matched against the project in the following order:</p>
+<ol>
+<li>
+<p>If the name is a <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variable</a>, the variable's value is set to the value supplied.</p>
+</li>
+<li>
+<p>Otherwise, if the name is a calculation property (see below), the property is set to the value supplied.</p>
+</li>
+<li>
+<p>Otherwise, the argument is ignored and, when the arguments are applied by OpenProjectFile, the message variable <em>name</em> not in project is printed.</p>
+</li>
+</ol>
+<p>Arguments are how a project is parameterized for scripting. Any part property in the schematic whose value is = followed by a variable name takes its value from that variable (see <a href="15-Main-Schematic-Dialog.html#Control-Help:Parameterize-Project">Parameterize Schematic</a>), so passing that variable as an argument changes the part. These are the same arguments that a parent project passes to a project used as a part, such as a project used as the file of a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a>.</p>
+<p>Values can be given as numbers or as strings. A float variable given as a string must be written without units (for example '1e-9', not '1 ns').</p>
+<p>The calculation properties that can be set as arguments are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EndFrequency</td>
+<td style="text-align: left;">the end frequency (Hz)</td>
+</tr>
+<tr>
+<td style="text-align: left;">FrequencyPoints</td>
+<td style="text-align: left;">the number of frequency points</td>
+</tr>
+<tr>
+<td style="text-align: left;">UserSampleRate</td>
+<td style="text-align: left;">the sample rate of the output waveforms (S/s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">ReferenceImpedance</td>
+<td style="text-align: left;">the reference impedance of s-parameter calculations (ohms)</td>
+</tr>
+<tr>
+<td style="text-align: left;">UnderlyingType</td>
+<td style="text-align: left;">the frequency list type, Linear or Logarithmic</td>
+</tr>
+<tr>
+<td style="text-align: left;">LogarithmicStartFrequency, LogarithmicEndFrequency, LogarithmicPointsPerDecade</td>
+<td style="text-align: left;">the logarithmic frequency list, when UnderlyingType is Logarithmic</td>
+</tr>
+<tr>
+<td style="text-align: left;">TimeBeforeZeroMode, TimeBeforeZeroSpecified</td>
+<td style="text-align: left;">the time before zero of simulated waveforms</td>
+</tr>
+<tr>
+<td style="text-align: left;">AllowParallelization</td>
+<td style="text-align: left;">whether the calculation may be performed in parallel (see <a href="32-Parallel-Calculations.html#sec:Parallel-Calculations">Parallel Calculations</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">LimitImpulseResponseLength, MaximumImpulseResponseLength</td>
+<td style="text-align: left;">the limit on the impulse response length</td>
+</tr>
+</tbody>
+</table>
+<p>The remaining calculation properties (BaseSampleRate, BaseSamplePeriod, UserSamplePeriod, TimePoints, FrequencyResolution, and ImpulseResponseLength) are always recalculated from these after the arguments are applied, so there is no point in passing them. See <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> for the meaning of each property.</p>
+<p>For example, to simulate a project with the schematic variable amplitude set to 2 and an end frequency of 10 GHz:</p>
+<pre><code class="language-python">app = SignalIntegrityAppHeadless()
+app.OpenProjectFile('MyProject.si', {'amplitude': 2.0, 'EndFrequency': 10e9})
+result = app.Simulate()
+</code></pre>
+<p>Arguments can also be applied to a project that is already open:</p>
+<pre><code class="language-python">app.SetVariables({'amplitude': 3.0}, reportMissing=True)
+app.Drawing.DrawSchematic()
+result = app.Simulate()
+</code></pre>
+<p>SetVariables only prints the message for unknown names when reportMissing is True.</p>
+<h3 id="sub:Scripting-Equations">Equations<a class="headerlink" href="#sub:Scripting-Equations" title="Permanent link">&para;</a></h3>
+<p>If the project has <a href="26-Equations.html#sec:Equations">Equations</a>, they are run when the schematic is drawn, which happens automatically before the first calculation. The equations use the variables as set by the arguments and set any output variables. If the equations fail, every calculation returns an empty result.</p>
+<p>After changing variables or parts of a project that has already been calculated, call app.Drawing.DrawSchematic() before calculating again so that the equations are run with the new values. Alternatively, open the project again with the new arguments, which always starts from the project as saved.</p>
+<h3 id="sub:Scripting-Changing-Parts">Changing Parts<a class="headerlink" href="#sub:Scripting-Changing-Parts" title="Permanent link">&para;</a></h3>
+<p>Parts can also be changed directly. Device returns the part with the given reference designator, and its properties are accessed by keyword (the keywords are listed for each part in <a href="23-Built-in-Devices-Parts.html#sec:Built-in-Devices">Built-in Devices (Parts)</a>):</p>
+<pre><code class="language-python">resistor = app.Device('R1')
+print(resistor['r'].GetValue())       # the value, in the property's units
+resistor['r'].SetValueFromString('100')
+result = app.Simulate()
+</code></pre>
+<p>SetValueFromString accepts the value as it would be typed in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> dialog, including = followed by a variable name. The change is to the open project only; it is saved only if the project was opened writable and is saved.</p>
+<h2 id="sub:Scripting-Calculating">Calculating<a class="headerlink" href="#sub:Scripting-Calculating" title="Permanent link">&para;</a></h2>
+<p>A project is drawn for a particular kind of calculation, determined by the parts it contains, in the same way that <strong><em>SignalIntegrityApp</em></strong> enables only certain calculations for a schematic. After app.Drawing.DrawSchematic() has been called (each calculation calls it if it has not been), the following flags of app.Drawing indicate which calculations are possible:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Flag</th>
+<th style="text-align: left;">Calculation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">canSimulate</td>
+<td style="text-align: left;">Simulate</td>
+</tr>
+<tr>
+<td style="text-align: left;">canGenerateTransferMatrices</td>
+<td style="text-align: left;">TransferParameters</td>
+</tr>
+<tr>
+<td style="text-align: left;">canVirtualProbe</td>
+<td style="text-align: left;">VirtualProbe</td>
+</tr>
+<tr>
+<td style="text-align: left;">canCalculateSParameters</td>
+<td style="text-align: left;">CalculateSParameters</td>
+</tr>
+<tr>
+<td style="text-align: left;">canDeembed</td>
+<td style="text-align: left;">Deembed</td>
+</tr>
+<tr>
+<td style="text-align: left;">canCalculateErrorTerms</td>
+<td style="text-align: left;">CalculateErrorTerms</td>
+</tr>
+<tr>
+<td style="text-align: left;">canSimulateNetworkAnalyzerModel</td>
+<td style="text-align: left;">SimulateNetworkAnalyzerModel, and CalculateSParameters</td>
+</tr>
+</tbody>
+</table>
+<p>Calling a calculation that the project is not drawn for returns an empty result, except that Simulate on a network analyzer model project performs SimulateNetworkAnalyzerModel and returns its result.</p>
+<p>The calculations and their arguments are:</p>
+<ul>
+<li>
+<p><code>Simulate(callback=None, TransferMatricesOnly=False, EyeDiagrams=False)</code> – simulates the project. If TransferMatricesOnly is True, only the transfer matrices are calculated, and the result contains no waveforms. If EyeDiagrams is True, the eye diagrams of the eye probes and eye waveforms whose eye diagrams are turned on are also calculated.</p>
+</li>
+<li>
+<p><code>TransferParameters(callback=None)</code> – calculates only the transfer matrices of a simulation or virtual probe project.</p>
+</li>
+<li>
+<p><code>VirtualProbe(callback=None, TransferMatricesOnly=False, EyeDiagrams=False)</code> – performs virtual probing. TransferMatricesOnly is as for Simulate. If EyeDiagrams is True, the eye diagrams of the eye probes whose eye diagrams are turned on are also calculated.</p>
+</li>
+<li>
+<p><code>CalculateSParameters(callback=None, calculate_impedance_profiles=False)</code> – calculates the s-parameters of the project. If calculate_impedance_profiles is True, the impedance profile of each port is also calculated. For a network analyzer model project, this calculates the s-parameters that the modeled network analyzer would measure.</p>
+</li>
+<li>
+<p><code>Deembed(callback=None)</code> – calculates the s-parameters of each unknown device.</p>
+</li>
+<li>
+<p><code>CalculateErrorTerms(callback=None)</code> – calculates the calibration error terms.</p>
+</li>
+<li>
+<p><code>SimulateNetworkAnalyzerModel(callback=None, SParameters=False)</code> – simulates the network analyzer model, producing the waveforms at the network analyzer's receivers, or, if SParameters is True, the s-parameters that the modeled network analyzer would measure.</p>
+</li>
+</ul>
+<h3 id="sub:Scripting-Callbacks">Callbacks<a class="headerlink" href="#sub:Scripting-Callbacks" title="Permanent link">&para;</a></h3>
+<p>Every calculation takes an optional callback function, which is called periodically during the calculation to report progress and to give the opportunity to abort. It is called with the progress in percent as its first argument and, in some cases, a message as its second argument (for example, the name of a sub-project or eye diagram being calculated), so it should be written to accept an optional second argument. It must return True for the calculation to continue; returning False aborts the calculation, which then returns an empty result.</p>
+<pre><code class="language-python">def progress(percent, message=None):
+    if message is not None:
+        print(message)
+    print('%5.1f%%' % percent, end='\r')
+    return True
+
+result = app.Simulate(callback=progress)
+</code></pre>
+<h2 id="sub:Scripting-Results">Results<a class="headerlink" href="#sub:Scripting-Results" title="Permanent link">&para;</a></h2>
+<p>Each calculation returns a result dictionary (an instance of <code>SignalIntegrity.App.Result.Result</code>, which is a Python dict). If the calculation could not be performed, the dictionary is empty, so a result is tested with:</p>
+<pre><code class="language-python">result = app.Simulate()
+if not result:
+    print('the simulation failed')
+</code></pre>
+<p>A calculation fails if the project is not drawn for it, if its equations fail, if a part cannot be calculated (for example, because a file it references cannot be read, or a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Scripted Source</a> script raises an error), or if it is aborted by the callback. Unlike <strong><em>SignalIntegrityApp</em></strong>, the headless application does not report why a calculation failed; opening the project in <strong><em>SignalIntegrityApp</em></strong> and performing the same calculation shows the error.</p>
+<p>Every non-empty result contains:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">the type of result: simulation, virtual probe, s-parameters, de-embed, error terms, or network analyzer</td>
+</tr>
+<tr>
+<td style="text-align: left;">variables</td>
+<td style="text-align: left;">a dictionary of the <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a> by name, with their values after the calculation, including output variables set by the <a href="26-Equations.html#sec:Equations">Equations</a>. It is empty if the project has no variables.</td>
+</tr>
+</tbody>
+</table>
+<p>The other contents depend on the type of result, as described below.</p>
+<p>The result dictionary also provides the following methods:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>OutputWaveform(name)</code></td>
+<td style="text-align: left;">the output waveform named name (<code>si.td.wf.Waveform</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FrequencyResponse(from_name, to_name)</code></td>
+<td style="text-align: left;">the frequency response from the source named from_name to the output named to_name (<code>si.fd.FrequencyResponse</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>EyeDiagram(name)</code></td>
+<td style="text-align: left;">the eye diagram named name</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Legacy()</code></td>
+<td style="text-align: left;">the results as a tuple, in the form returned by older versions of <em>SignalIntegrity</em>. This is deprecated.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sub:Scripting-Simulation-Results">Simulation and Virtual Probe Results<a class="headerlink" href="#sub:Scripting-Simulation-Results" title="Permanent link">&para;</a></h3>
+<p>Simulate returns a result of type simulation, and VirtualProbe returns a result of type virtual probe; TransferParameters returns the type of the project it calculates. These results contain:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">source names</td>
+<td style="text-align: left;">list of the names of the sources: the reference designators of the sources and generators in a simulation, or of the voltage measure probes in a virtual probe project</td>
+</tr>
+<tr>
+<td style="text-align: left;">output waveform labels</td>
+<td style="text-align: left;">list of the names of the output waveforms (see below)</td>
+</tr>
+<tr>
+<td style="text-align: left;">transfer matrices</td>
+<td style="text-align: left;">the transfer matrices (<code>si.fd.TransferMatrices</code>), relating each source to each output probe</td>
+</tr>
+<tr>
+<td style="text-align: left;">output waveforms</td>
+<td style="text-align: left;">list of the output waveforms (<code>si.td.wf.Waveform</code>), in the order of output waveform labels. Not present when only the transfer matrices are calculated.</td>
+</tr>
+<tr>
+<td style="text-align: left;">noise</td>
+<td style="text-align: left;">(simulation only) the <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Noise-Results">Statistical Noise Results</a>. Not present when only the transfer matrices are calculated.</td>
+</tr>
+<tr>
+<td style="text-align: left;">eye diagram labels</td>
+<td style="text-align: left;">(only when eye diagrams are calculated) list of the names of the eye diagrams</td>
+</tr>
+<tr>
+<td style="text-align: left;">eye diagrams</td>
+<td style="text-align: left;">(only when eye diagrams are calculated) list of the <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Eye-Diagram-Results">eye diagrams</a>, in the order of eye diagram labels</td>
+</tr>
+</tbody>
+</table>
+<p>The output waveform labels are the reference designators of the output probes, in the order of the outputs of the transfer matrices, followed by the names of any <a href="23-Built-in-Devices-Parts.html#device:Waveform">Waveform</a> parts, followed by the reference designators of any sources whose show property is true. The waveforms of sources that are shown are the waveforms the sources produce. Only the output probes have rows in the transfer matrices, so the transfer matrices may have fewer outputs than there are output waveform labels.</p>
+<p>The output waveforms are produced as they are displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>: the gain, offset, delay, and AC coupling of each output probe are applied, and the waveforms of the output probes are at the UserSampleRate of the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>.</p>
+<p>For example, the RC example of <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Getting-Started">Getting Started</a> has one source and two output probes:</p>
+<pre><code class="language-python">result = app.Simulate()
+print(result['source names'])              # ['VG1']
+print(result['output waveform labels'])    # ['Vin', 'Vout']
+fr = result.FrequencyResponse('VG1', 'Vout')
+print(fr.Frequencies()[1], fr.Values('dB')[1])
+</code></pre>
+<h3 id="sub:Scripting-SParameter-Results">S-parameter Results<a class="headerlink" href="#sub:Scripting-SParameter-Results" title="Permanent link">&para;</a></h3>
+<p>CalculateSParameters returns a result of type s-parameters, containing:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">s-parameters</td>
+<td style="text-align: left;">the s-parameters (<code>si.sp.SParameters</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">file names</td>
+<td style="text-align: left;">the file name that <strong><em>SignalIntegrityApp</em></strong> would save the s-parameters to: the project name with the extension .s<em>P</em>p, where <em>P</em> is the number of ports</td>
+</tr>
+<tr>
+<td style="text-align: left;">impedance profiles</td>
+<td style="text-align: left;">(only when calculate_impedance_profiles is True) list of the impedance profile of each port (<code>si.ip.ImpedanceProfileWaveform</code>); element <em>p</em> is for port <em>p</em>+1</td>
+</tr>
+</tbody>
+</table>
+<p>The s-parameters are not written to a file by the calculation. To write them:</p>
+<pre><code class="language-python">result = app.CalculateSParameters()
+result['s-parameters'].WriteToFile(result['file names'])
+</code></pre>
+<h3 id="sub:Scripting-Deembedding-Results">De-embedding Results<a class="headerlink" href="#sub:Scripting-Deembedding-Results" title="Permanent link">&para;</a></h3>
+<p>Deembed returns a result of type de-embed, containing:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">unknown names</td>
+<td style="text-align: left;">list of the reference designators of the unknown devices</td>
+</tr>
+<tr>
+<td style="text-align: left;">s-parameters</td>
+<td style="text-align: left;">list of the de-embedded s-parameters (<code>si.sp.SParameters</code>) of each unknown device, in the order of unknown names. This is a list even when there is one unknown device.</td>
+</tr>
+<tr>
+<td style="text-align: left;">file names</td>
+<td style="text-align: left;">list of the file names that <strong><em>SignalIntegrityApp</em></strong> would save the s-parameters of each unknown device to, in the order of unknown names: the project name, an underscore, and the unknown device's reference designator, with the extension .s<em>P</em>p</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sub:Scripting-Error-Terms-Results">Error Terms Results<a class="headerlink" href="#sub:Scripting-Error-Terms-Results" title="Permanent link">&para;</a></h3>
+<p>CalculateErrorTerms returns a result of type error terms, containing:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">error terms</td>
+<td style="text-align: left;">the calibration (<code>si.m.cal.Calibration</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">file names</td>
+<td style="text-align: left;">the file name that <strong><em>SignalIntegrityApp</em></strong> would save the calibration to: the project name with the extension .cal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sub:Scripting-Network-Analyzer-Results">Network Analyzer Results<a class="headerlink" href="#sub:Scripting-Network-Analyzer-Results" title="Permanent link">&para;</a></h3>
+<p>SimulateNetworkAnalyzerModel returns a result of type network analyzer. When SParameters is False, it contains the source names, output waveform labels, transfer matrices, and output waveforms, as for a <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Simulation-Results">simulation</a>, with the output waveform labels naming each receiver waveform and the driven port. When SParameters is True, it contains:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">s-parameters</td>
+<td style="text-align: left;">the s-parameters that the modeled network analyzer would measure (<code>si.sp.SParameters</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>CalculateSParameters on a network analyzer model project returns these s-parameters as a result of type s-parameters.</p>
+<h3 id="sub:Scripting-Noise-Results">Statistical Noise Results<a class="headerlink" href="#sub:Scripting-Noise-Results" title="Permanent link">&para;</a></h3>
+<p>The noise entry of a simulation result contains the results of the <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. It is an empty dictionary when the project has no enabled statistical noise sources. Otherwise, it is a dictionary containing:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">output_names</td>
+<td style="text-align: left;">list of the names of the outputs included in the noise analysis</td>
+</tr>
+<tr>
+<td style="text-align: left;">noise_display_output_names</td>
+<td style="text-align: left;">list of the names of the outputs whose <em>include in noise</em> property is set; these are the outputs shown in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">input_names</td>
+<td style="text-align: left;">list of the names of the statistical noise sources</td>
+</tr>
+<tr>
+<td style="text-align: left;">output_types, input_types</td>
+<td style="text-align: left;">dictionaries giving, for each output and each noise source, whether it is a voltage or a current</td>
+</tr>
+<tr>
+<td style="text-align: left;">transfer_matrices</td>
+<td style="text-align: left;">the transfer matrices from the noise sources to the outputs (<code>si.fd.TransferMatrices</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">input_noise_spectral_density</td>
+<td style="text-align: left;">dictionary, by noise source name, of the noise produced by each noise source</td>
+</tr>
+<tr>
+<td style="text-align: left;">output_noise_spectral_density</td>
+<td style="text-align: left;">dictionary, by output name, of the total noise at each output</td>
+</tr>
+<tr>
+<td style="text-align: left;">signal_noise_spectral_density</td>
+<td style="text-align: left;">dictionary, by output name, of the signal at each output</td>
+</tr>
+<tr>
+<td style="text-align: left;">signal_to_noise_ratio</td>
+<td style="text-align: left;">dictionary, by output name, of a dictionary containing SNR and SalzSNR (dB)</td>
+</tr>
+<tr>
+<td style="text-align: left;">contributions</td>
+<td style="text-align: left;">dictionary, by output name, of a dictionary, by noise source name, of the noise contributed by each noise source to each output</td>
+</tr>
+<tr>
+<td style="text-align: left;">input_noise_spectral_density_list, output_noise_spectral_density_list, signal_noise_spectral_density_list</td>
+<td style="text-align: left;">the spectra of the corresponding dictionaries, as lists in the order of input_names or output_names</td>
+</tr>
+</tbody>
+</table>
+<p>Each entry of the spectral density dictionaries is a dictionary containing:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">spectrum</td>
+<td style="text-align: left;">the spectral density (<code>si.fd.SpectralDensity</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">voltage or current</td>
+</tr>
+<tr>
+<td style="text-align: left;">rms</td>
+<td style="text-align: left;">the total rms value (V or A)</td>
+</tr>
+<tr>
+<td style="text-align: left;">dBm</td>
+<td style="text-align: left;">the total power (dBm)</td>
+</tr>
+<tr>
+<td style="text-align: left;">rms/sqrt(Hz), rms/sqrt(GHz), dBm/Hz, dBm/GHz</td>
+<td style="text-align: left;">(output_noise_spectral_density only) the average noise density</td>
+</tr>
+<tr>
+<td style="text-align: left;">SNR, SalzSNR</td>
+<td style="text-align: left;">(contributions only) the signal-to-noise ratio (dB) at the output if this noise source were the only noise</td>
+</tr>
+</tbody>
+</table>
+<p>These are the values shown in the <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Measurements">Statistical Noise Measurements</a>. For example:</p>
+<pre><code class="language-python">noise = result['noise']
+for output in noise['noise_display_output_names']:
+    print(output, noise['output_noise_spectral_density'][output]['rms'],
+          noise['signal_to_noise_ratio'][output]['SNR'])
+</code></pre>
+<p>The noise analysis is performed by headless simulations regardless of the <a href="29-Preferences.html#sec:Preferences">Features.StatisticalNoise</a> preference.</p>
+<h3 id="sub:Scripting-Eye-Diagram-Results">Eye Diagram Results<a class="headerlink" href="#sub:Scripting-Eye-Diagram-Results" title="Permanent link">&para;</a></h3>
+<p>When Simulate or VirtualProbe is called with EyeDiagrams=True, each eye diagram in the result provides:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Measurements()</code></td>
+<td style="text-align: left;">a dictionary of the eye diagram measurements, as shown in the <a href="18-Eye-Diagram-Measurements-Dialog.html#sec:Eye-Diagram-Measurements-Dialog">Eye Diagram Measurements Dialog</a>, or None if measurements are not enabled in the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties</a> of the eye probe</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Image()</code></td>
+<td style="text-align: left;">the eye diagram image (a PIL Image), which can be saved with its save method</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>BitMap()</code></td>
+<td style="text-align: left;">the raw eye diagram bitmap (a numpy array)</td>
+</tr>
+</tbody>
+</table>
+<p>The measurements dictionary contains entries such as Eye, Level, Linearity, RLM, Noise, SNR, Bathtub, and Probabilities, depending on the measurements enabled in the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties</a> of the eye probe. For example:</p>
+<pre><code class="language-python">outputDirectory = os.path.abspath('Eyes')  # before opening the project
+os.makedirs(outputDirectory, exist_ok=True)
+
+app = SignalIntegrityAppHeadless()
+app.OpenProjectFile('MyEyeProject.si')
+result = app.Simulate(EyeDiagrams=True)
+for name in result['eye diagram labels']:
+    eye = result.EyeDiagram(name)
+    eye.Image().save(os.path.join(outputDirectory, name + '.png'))
+    measurements = eye.Measurements()
+    if measurements is not None:
+        print(name, list(measurements.keys()))
+</code></pre>
+<h2 id="sub:Scripting-Working-With-Results">Working With Results<a class="headerlink" href="#sub:Scripting-Working-With-Results" title="Permanent link">&para;</a></h2>
+<p>The results are objects of the <em>SignalIntegrity</em> library. Some commonly used members are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Object</th>
+<th style="text-align: left;">Members</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>si.td.wf.Waveform</code></td>
+<td style="text-align: left;"><code>Times()</code> and <code>Values()</code> – lists of the times and values; <code>td.H</code>, <code>td.K</code>, <code>td.Fs</code> – the time of the first point, the number of points, and the sample rate; <code>WriteToFile(filename)</code> and <code>ReadFromFile(filename)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>si.sp.SParameters</code></td>
+<td style="text-align: left;"><code>m_P</code> – the number of ports; <code>f()</code> – the frequencies; <code>s[n][r][c]</code> – the s-parameter from port <em>c</em>+1 to port <em>r</em>+1 at frequency index <em>n</em>; <code>FrequencyResponse(r, c)</code> – the frequency response from port <em>c</em> to port <em>r</em>; <code>WriteToFile(filename)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>si.fd.TransferMatrices</code></td>
+<td style="text-align: left;"><code>FrequencyResponse(o, s)</code> – the frequency response from source <em>s</em> to output <em>o</em> (both numbered from 1); <code>SParameters()</code> – the transfer matrices as s-parameters</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>si.fd.FrequencyResponse</code></td>
+<td style="text-align: left;"><code>Frequencies()</code> and <code>Values(unit)</code> – the frequencies and the values, where unit may be omitted or be 'dB', 'mag', or 'deg'; <code>ImpulseResponse()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>si.fd.SpectralDensity</code></td>
+<td style="text-align: left;"><code>Frequencies()</code> and <code>Values()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>si.m.cal.Calibration</code></td>
+<td style="text-align: left;"><code>WriteToFile(filename)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sub:Scripting-Project-Functions">Project Functions<a class="headerlink" href="#sub:Scripting-Project-Functions" title="Permanent link">&para;</a></h2>
+<p>The following functions in <code>SignalIntegrity.App.SignalIntegrityAppHeadless</code> calculate a project and return a single result from it. They are what <strong><em>SignalIntegrityApp</em></strong> uses to calculate projects that are used as parts, and they are convenient in scripts that combine the results of several projects. Each saves the currently open project (and the current working directory) before opening the project, and restores them afterward, so they can be called while another project is open.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ProjectWaveform(filename, wfname, callback, **args)</code></td>
+<td style="text-align: left;">the output waveform named wfname of a simulation or virtual probe project</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ProjectSParameters(filename, callback, **args)</code></td>
+<td style="text-align: left;">the s-parameters of an s-parameter generation or network analyzer model project, or the s-parameters of the first unknown device of a de-embedding project</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ProjectNoise(filename, noise_name, callback, lanes=1., **args)</code></td>
+<td style="text-align: left;">the output noise spectral density of the output named noise_name, multiplied by <span class="arithmatex">\(\sqrt{\mathrm{lanes}}\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ProjectCalibration(filename, callback, **args)</code></td>
+<td style="text-align: left;">the calibration of a calibration project</td>
+</tr>
+</tbody>
+</table>
+<p>The arguments are passed as keyword arguments, and the callback may be None. Each function returns None if the project cannot be calculated. For example:</p>
+<pre><code class="language-python">from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectWaveform
+
+vout = ProjectWaveform('MyProject.si', 'Vout', None, amplitude=2.0, EndFrequency=10e9)
+if vout is None:
+    print('the project could not be calculated')
+</code></pre>
+<h2 id="sub:Scripting-Sweeps">Sweeping Variables<a class="headerlink" href="#sub:Scripting-Sweeps" title="Permanent link">&para;</a></h2>
+<p>A common use of scripting is to calculate a project for a range of values of its variables. Opening the project for each set of values ensures that each calculation starts from the project as saved:</p>
+<pre><code class="language-python">from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+for resistance in [25., 50., 100.]:
+    app = SignalIntegrityAppHeadless()
+    if not app.OpenProjectFile('MyProject.si', {'R': resistance}):
+        raise RuntimeError('could not open the project')
+    result = app.Simulate()
+    if not result:
+        print('R =', resistance, 'failed')
+        continue
+    vout = result.OutputWaveform('Vout')
+    print('R =', resistance, 'peak =', max(vout.Values()))
+</code></pre>
+<h2 id="sub:Scripting-Archives-and-Regression">Archives and Regression<a class="headerlink" href="#sub:Scripting-Archives-and-Regression" title="Permanent link">&para;</a></h2>
+<p>The archive functions of the <a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a> are available for the open project:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Archive(overrideExistance=True, archiveNonRelativeFiles=None)</code></td>
+<td style="text-align: left;">creates an archive of the project, as <a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a> does. If overrideExistance is False and the archive exists, it is not overwritten. archiveNonRelativeFiles overrides the <a href="29-Preferences.html#sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles</a> preference when it is not None. Returns True if the archive was created.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ExtractArchive(filename, args={})</code></td>
+<td style="text-align: left;">extracts the archive filename, as <a href="15-Main-Schematic-Dialog.html#Control-Help:Extract-Archive">Extract Archived Project</a> does, and opens the extracted project with the arguments. Returns True if the project was opened.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>FreshenArchive()</code></td>
+<td style="text-align: left;">as <a href="15-Main-Schematic-Dialog.html#Control-Help:Freshen-Archive">Freshen Archived Project</a>. Returns True on success.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>UnExtractArchive()</code></td>
+<td style="text-align: left;">as <a href="15-Main-Schematic-Dialog.html#Control-Help:Unextract-Archive">Unextract Archived Project</a>. Returns True on success.</td>
+</tr>
+</tbody>
+</table>
+<p>Regression archives record the results of a project and the projects it uses, so that later versions of the project, or of <em>SignalIntegrity</em>, can be checked against them:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GenerateRegression(regressionArchiveFile=None, archiveNonRelativeFiles=None, args=None, artifacts=None, callback=None)</code></td>
+<td style="text-align: left;">generates a regression archive for the open project, named, if regressionArchiveFile is not supplied, after the project with _regression.siz appended. Returns the name of the regression archive.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RunRegression(regressionArchiveFile=None, archiveNonRelativeFiles=None, args=None, artifacts=None, callback=None, openDiffTool=None)</code></td>
+<td style="text-align: left;">checks the open project against its regression archive. Returns a list of results, one for each file checked; each is true if the file matched, and has the members filename, ok, message (describing the difference), and written. If openDiffTool is True (by default, as set by the Regression.OpenDiffToolOnFailure preference), the differing files are opened in meld, if it is installed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sub:Scripting-Preferences">Preferences and Caching<a class="headerlink" href="#sub:Scripting-Preferences" title="Permanent link">&para;</a></h2>
+<p>Headless calculations use the <a href="29-Preferences.html#sec:Preferences">Preferences</a> of the user running the script, in the same file that <strong><em>SignalIntegrityApp</em></strong> uses. Each SignalIntegrityAppHeadless reads the preferences when it is created, and so do the <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Project-Functions">Project Functions</a>, so changes made in memory to SignalIntegrity.App.Preferences do not last. To calculate with different preferences, such as on a build server, set the environment variable SIGNALINTEGRITY_PREFERENCES to the name of a preferences file before <em>SignalIntegrity</em> is used:</p>
+<pre><code class="language-python">import os
+os.environ['SIGNALINTEGRITY_PREFERENCES'] = '/path/to/preferences.xml'
+</code></pre>
+<p>If the file does not exist, it is created (from the preferences of an older installation, if one is found, or otherwise with the default preferences).</p>
+<p>Preferences that commonly matter to scripts are:</p>
+<ul>
+<li>
+<p>Cache.CacheResults – whether calculation results are cached. When it is enabled, cache files are written in the project's directory, and calculating a project again uses the cached results when nothing that affects them has changed.</p>
+</li>
+<li>
+<p>Calculation.AllowParallelization – whether calculations may be performed in parallel (see <a href="32-Parallel-Calculations.html#sec:Parallel-Calculations">Parallel Calculations</a>).</p>
+</li>
+<li>
+<p>ProjectFiles.Encryption.Password – the password used to read encrypted projects (see <a href="30-Encryption.html#sec:Encryption">Encryption</a>).</p>
+</li>
+</ul>
+<h2 id="sub:Scripting-Command-Line">Command Line<a class="headerlink" href="#sub:Scripting-Command-Line" title="Permanent link">&para;</a></h2>
+<p><strong><em>SignalIntegrityApp</em></strong> can also be started from the command line with arguments for the project, in which case the project opens in the graphical application with the arguments applied:</p>
+<pre><code>SignalIntegrity [project.si] [-r | --readonly | -w | --writable] [-e | --external] [--pwd password] [name value ...]
+</code></pre>
+<ul>
+<li>
+<p>project.si – the project to open.</p>
+</li>
+<li>
+<p>-r, --readonly and -w, --writable – open the project read-only or writable, overriding the project and the preferences (see <a href="15-Main-Schematic-Dialog.html#sub:Read-Only-Schematics">Read-Only Schematics</a>).</p>
+</li>
+<li>
+<p>-e, --external – the application was started by another application that waits for it to close. The window cannot be minimized, and the project is not added to the list of recently opened projects.</p>
+</li>
+<li>
+<p>--pwd password – the password used to read encrypted projects, overriding the ProjectFiles.Encryption.Password preference.</p>
+</li>
+<li>
+<p>name value ... – pairs of names and values, applied as <a href="34-Scripting-SignalIntegrity.html#sub:Scripting-Arguments">Arguments</a> to the project when it is opened. The values are passed as strings.</p>
+</li>
+</ul>
+<p>For example, to open a project with the variable amplitude set to 2 and an end frequency of 10 GHz:</p>
+<pre><code>SignalIntegrity MyProject.si amplitude 2 EndFrequency 10e9
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="33-Utilities.html" class="btn btn-neutral float-left" title="Utilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="33-Utilities.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="javascripts/mathjax.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="javascripts/anchorfix.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -174,6 +174,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Transmission-Line">Transmission Line</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:MCB">MCB</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Transmission-Line-COM">COM Transmission Line</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Transmission-Line-Lossy">Lossy Transmission Line</a>
@@ -219,6 +221,20 @@
     <li class="toctree-l2"><a class="reference internal" href="#device:Current-Impulse-Generator">Current Impulse Generator</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Current-Sine-Generator">Current Sine Generator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Voltage-Scripted-Source">Voltage Scripted Source</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripted-Source-Script">The Script</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripted-Source-Variables">Device Variables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripted-Source-Script-Editor">Script Editor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Scripted-Source-View-Waveform">Viewing the Waveform</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Current-Scripted-Source">Current Scripted Source</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Port">Port</a>
     </li>
@@ -296,6 +312,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:ImpulseResponseFilter">Impulse Response Filter</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:FrequencyResponseFilter">Frequency Response Filter</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:GaussianRisetimeFilter">Gaussian Risetime Filter</a>
@@ -365,6 +383,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
                 </li>
               </ul>
       </div>
@@ -466,6 +488,9 @@
 <p><a href="23-Built-in-Devices-Parts.html#device:Transmission-Line">Transmission Line</a></p>
 </li>
 <li>
+<p><a href="23-Built-in-Devices-Parts.html#device:MCB">MCB</a></p>
+</li>
+<li>
 <p><a href="23-Built-in-Devices-Parts.html#device:Transmission-Line-COM">COM Transmission Line</a></p>
 </li>
 <li>
@@ -529,6 +554,9 @@
 <p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Sine-Generator">Voltage Sine Generator</a></p>
 </li>
 <li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Voltage Scripted Source</a></p>
+</li>
+<li>
 <p><a href="23-Built-in-Devices-Parts.html#device:Current-Step-Generator">Current Step Generator</a></p>
 </li>
 <li>
@@ -539,6 +567,9 @@
 </li>
 <li>
 <p><a href="23-Built-in-Devices-Parts.html#device:Current-Sine-Generator">Current Sine Generator</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:Current-Scripted-Source">Current Scripted Source</a></p>
 </li>
 </ul>
 <p>Statistical Noise Sources</p>
@@ -677,6 +708,9 @@
 </li>
 <li>
 <p><a href="23-Built-in-Devices-Parts.html#device:ImpulseResponseFilter">Impulse Response Filter</a></p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#device:FrequencyResponseFilter">Frequency Response Filter</a></p>
 </li>
 <li>
 <p><a href="23-Built-in-Devices-Parts.html#device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter</a></p>
@@ -1642,6 +1676,54 @@
 <p>This is a one- and two-port ideal transmission line with given characteristic impedance and delay.</p>
 <p>The four-port ideal transmission line only transmits the differential mode.</p>
 <p>A two-port ideal transmission line with zero delay is simply and ideal thru (no matter what the characteristic impedance).</p>
+<h2 id="device:MCB">MCB<a class="headerlink" href="#device:MCB" title="Permanent link">&para;</a></h2>
+<p><img src="media/MCB.png" alt="MCB" width="178" height="215" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Transmission Lines</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">T?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">time delay</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">td</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;"><span class="arithmatex">\(200\,\mathrm{ps}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This is a four-port MCB transmission line model. It is an idealized differential channel with a specified electrical delay and a frequency-dependent insertion loss, and is perfectly matched (its return loss is idealized to zero at all four ports).</p>
+<p>The insertion loss (in dB) applied to the transmission is</p>
+<div class="arithmatex">\[\mathrm{loss}\left(f\right)=0.0912+0.3102\sqrt{f_{GHz}}+0.008578\,f_{GHz}+0.000759\,f_{GHz}^{2}\]</div>
+<p>where <span class="arithmatex">\(f_{GHz}\)</span> is the frequency in GHz, and the transmission additionally carries the linear phase corresponding to the time delay specified.</p>
+<p>Only the time delay is entered directly. The assignment of the four ports into the left pair and the right pair is determined automatically from the placement and orientation of the part on the schematic (the netlist keywords <code>lp</code> and <code>rp</code> are generated for you), so that the top-left port transmits to the top-right port and the bottom-left port transmits to the bottom-right port.</p>
 <h2 id="device:Transmission-Line-COM">COM Transmission Line<a class="headerlink" href="#device:Transmission-Line-COM" title="Permanent link">&para;</a></h2>
 <p><img src="media/COMTransmissionLine.png" alt="COMTransmissionLine" width="126" height="197" /></p>
 <table>
@@ -3693,6 +3775,286 @@
 <p>The waveform is such that it has the frequency specified and has the phase specified at time zero.</p>
 <p>When the sine wave is active can be controlled by the start and stop time. Before the start time and after the stop time, the waveform is zero.</p>
 <p>If show is true, when the simulation completes, the <a href="08-Simulation.html#sec:Simulation">Simulation</a> created by the source is added to the waveform list and displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
+<h2 id="device:Voltage-Scripted-Source">Voltage Scripted Source<a class="headerlink" href="#device:Voltage-Scripted-Source" title="Permanent link">&para;</a></h2>
+<p><img src="media/VoltageScriptedSourceOnePort.png" alt="VoltageScriptedSourceOnePort" width="129" height="169" /><img src="media/VoltageScriptedSourceTwoPort.png" alt="VoltageScriptedSourceTwoPort" width="129" height="154" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Generators</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">VS?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">false</td>
+</tr>
+<tr>
+<td style="text-align: left;">horizontal offset</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">ho</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">-100 ns</td>
+</tr>
+<tr>
+<td style="text-align: left;">duration</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">dur</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">200 ns</td>
+</tr>
+<tr>
+<td style="text-align: left;">start time</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">t0</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
+</tr>
+<tr>
+<td style="text-align: left;">sample rate</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">fs</td>
+<td style="text-align: left;">S/s</td>
+<td style="text-align: left;">40 GS/s</td>
+</tr>
+</tbody>
+</table>
+<p>The voltage scripted source is used in <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to provide a voltage <a href="28-Waveform.html#sec:Waveform">Waveform</a> to the system that is generated by a Python script. It is drawn like a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a> with py in the middle, and comes in one port (with the minus terminal grounded) and two port versions.</p>
+<p>The waveform created has the sample rate provided and extends in time from the horizontal offset, the time of the first point in the waveform, for the duration specified. The values of the waveform are calculated by the script, as described in <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script">The Script</a>. The script is held in the part and saved with the project; it is not shown as a property, but is edited with the <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script-Editor">Script Editor</a>.</p>
+<p>Values can be passed into the script through <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Variables">Device Variables</a>, in the same way that variables are passed into a project used as a source.</p>
+<p>Editing the part properties shows the following dialog:</p>
+<div class="center">
+
+<img src="media/ScriptedSourcePartProperties.png" alt="ScriptedSourcePartProperties" width="399" height="597" />
+
+</div>
+
+<p>In addition to the properties, the dialog contains:</p>
+<ul>
+<li>
+<p>view waveform – runs the script and shows the resulting waveform. See <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-View-Waveform">Viewing the Waveform</a>.</p>
+</li>
+<li>
+<p>edit script – opens the <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script-Editor">Script Editor</a>.</p>
+</li>
+<li>
+<p>Variables – opens the <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Variables">Device Variables</a> dialog.</p>
+</li>
+</ul>
+<p>If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
+<h3 id="sub:Scripted-Source-Script">The Script<a class="headerlink" href="#sub:Scripted-Source-Script" title="Permanent link">&para;</a></h3>
+<p>The script is Python code that is executed each time the waveform is needed: when simulating, when viewing the waveform, and when executing the script from the <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script-Editor">Script Editor</a>.</p>
+<p>The following names are defined when the script runs:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ho</td>
+<td style="text-align: left;">the horizontal offset, the time of the first point in the waveform (s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">dur</td>
+<td style="text-align: left;">the duration of the waveform (s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">t0</td>
+<td style="text-align: left;">the start time (s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">fs</td>
+<td style="text-align: left;">the sample rate (S/s)</td>
+</tr>
+<tr>
+<td style="text-align: left;">math</td>
+<td style="text-align: left;">the Python math module</td>
+</tr>
+<tr>
+<td style="text-align: left;">variables</td>
+<td style="text-align: left;">each <a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Variables">Device Variable</a> by its name</td>
+</tr>
+</tbody>
+</table>
+<p>The script must set the variable output_waveform to a list of numbers. The waveform has K = ceil(fs·dur) points, and the value at index k is the value of the waveform at time ho + k/fs, in volts for the voltage scripted source and in amperes for the <a href="23-Built-in-Devices-Parts.html#device:Current-Scripted-Source">Current Scripted Source</a>. If output_waveform has fewer than K values, the remaining points are zero; if it has more, the extra values are ignored.</p>
+<p>The start time is passed to the script, but the script decides how it is used. A device variable with the same name as one of the properties (ho, dur, t0, or fs) does not replace the property.</p>
+<p>When a new part is placed, its script documents these names and produces a sine wave of amplitude 1 and frequency 1 GHz that starts at the start time:</p>
+<pre><code class="language-python"># Voltage Scripted Source
+#
+# Properties passed in:
+#   ho  - horizontal offset (s)
+#   dur - duration (s)
+#   t0  - start time (s)
+#   fs  - sample rate (S/s)
+#   math - the Python math module
+# The device variables (added with the Variables button in the part properties dialog)
+# are also passed in by name.
+#
+# The script must set output_waveform to a list of K = ceil(fs*dur) values (V)
+# where the value at index k is at time ho + k/fs.
+#
+# Example: a sine wave of amplitude a and frequency f that starts at time t0
+a = 1.0 # amplitude (V)
+f = 1e9 # frequency (Hz)
+K = int(math.ceil(fs*dur))
+output_waveform = [a*math.sin(2.*math.pi*f*(ho+k/fs-t0)) if ho+k/fs &gt;= t0 else 0. for k in range(K)]
+</code></pre>
+<p>If the script raises an exception, does not set output_waveform, or sets it to something other than a list of numbers, the waveform cannot be produced and the error is reported, naming the problem (for example, a NameError for a name that is not defined).</p>
+<p>Because the script is Python code that runs on your computer whenever the waveform is calculated, only simulate projects containing scripted sources that come from a source you trust.</p>
+<h3 id="sub:Scripted-Source-Variables">Device Variables<a class="headerlink" href="#sub:Scripted-Source-Variables" title="Permanent link">&para;</a></h3>
+<p>Values are passed into the script through device variables, in the same way that variables are passed into a project used as the file of a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Source">Voltage Source</a>. Pressing Variables in the part properties dialog opens the device variables dialog:</p>
+<div class="center">
+
+<img src="media/ScriptedSourceVariables.png" alt="ScriptedSourceVariables" width="591" height="82" />
+
+</div>
+
+<p>The device variables are added, edited, deleted, and reordered as described for the <a href="15-Main-Schematic-Dialog.html#Control-Help:Schematic-Variables">Schematic Variables</a>. Each device variable is defined in the script under its name. Float and int variables are passed in as numbers; string, enum, and file variables are passed in as strings.</p>
+<p>The value of a device variable can refer to a schematic variable by entering = followed by the schematic variable name (for example, =amplitude). When the waveform is calculated, the value of the schematic variable is passed into the script. If the schematic variable does not exist, you are asked whether to add it to the schematic variables; if you do, it is added with the value the device variable had before it was changed to refer to it.</p>
+<p>Referring to schematic variables in this way allows the waveform to be controlled from outside the part, including from a parent project when this project is itself used as a source. For example, with a device variable amplitude whose value is =amplitude, a script can use:</p>
+<pre><code class="language-python">K = int(math.ceil(fs*dur))
+output_waveform = [amplitude*math.sin(2.*math.pi*1e9*(ho+k/fs-t0)) if ho+k/fs &gt;= t0 else 0. for k in range(K)]
+</code></pre>
+<p>Device variables that are visible are shown on the part in the schematic and appear on the part's line in the <a href="24-Netlist.html#sec:Netlist">Netlist</a>.</p>
+<h3 id="sub:Scripted-Source-Script-Editor">Script Editor<a class="headerlink" href="#sub:Scripted-Source-Script-Editor" title="Permanent link">&para;</a></h3>
+<p>The script is edited by pressing edit script in the part properties dialog, or, in a schematic that is not read-only, by right-clicking the part and choosing Edit Script. This opens the script in an editor like the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Schematic-Equations">Schematic Equations</a> editor:</p>
+<div class="center">
+
+<img src="media/ScriptedSourceScriptEditor.png" alt="ScriptedSourceScriptEditor" width="680" height="385" />
+
+</div>
+
+<p>The Debug menu contains:</p>
+<ul>
+<li>
+<p>Execute script – runs the script as it is in the editor, with the part's properties and device variables, and shows the resulting waveform. Errors are shown in the status bar.</p>
+</li>
+<li>
+<p>Auto debug – when checked, the script is run as it is edited and the status bar shows any errors, or No Errors.</p>
+</li>
+</ul>
+<p>Closing the editor saves the script in the part. When the editor was opened from the part properties dialog, the change takes effect when OK is pressed and is discarded if Cancel is pressed. When it was opened by right-clicking the part, the change is made to the part immediately and can be undone.</p>
+<h3 id="sub:Scripted-Source-View-Waveform">Viewing the Waveform<a class="headerlink" href="#sub:Scripted-Source-View-Waveform" title="Permanent link">&para;</a></h3>
+<p>The waveform produced by the script is viewed by pressing view waveform in the part properties dialog, or by right-clicking the part and choosing View Waveform. View Waveform is available even when the schematic is read-only, in which case Edit Script is not offered.</p>
+<h2 id="device:Current-Scripted-Source">Current Scripted Source<a class="headerlink" href="#device:Current-Scripted-Source" title="Permanent link">&para;</a></h2>
+<p><img src="media/CurrentScriptedSourceOnePort.png" alt="CurrentScriptedSourceOnePort" width="129" height="169" /><img src="media/CurrentScriptedSourceTwoPort.png" alt="CurrentScriptedSourceTwoPort" width="129" height="154" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Generators</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">CS?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">false</td>
+</tr>
+<tr>
+<td style="text-align: left;">horizontal offset</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">ho</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">-100 ns</td>
+</tr>
+<tr>
+<td style="text-align: left;">duration</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">dur</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">200 ns</td>
+</tr>
+<tr>
+<td style="text-align: left;">start time</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">t0</td>
+<td style="text-align: left;">s</td>
+<td style="text-align: left;">0 s</td>
+</tr>
+<tr>
+<td style="text-align: left;">sample rate</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">fs</td>
+<td style="text-align: left;">S/s</td>
+<td style="text-align: left;">40 GS/s</td>
+</tr>
+</tbody>
+</table>
+<p>The current scripted source is used in <a href="08-Simulation.html#sec:Simulation">Simulation</a> applications to provide a current <a href="28-Waveform.html#sec:Waveform">Waveform</a> to the system that is generated by a Python script. It is drawn like a <a href="23-Built-in-Devices-Parts.html#device:Current-Source">Current Source</a> with py in the middle, and comes in one port and two port versions.</p>
+<p>It works exactly like the <a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Voltage Scripted Source</a>, except that the values in output_waveform are currents, in amperes. See:</p>
+<ul>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script">The Script</a> – the names passed into the script and the waveform it must produce.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Variables">Device Variables</a> – passing values into the script.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script-Editor">Script Editor</a> – editing and debugging the script.</p>
+</li>
+<li>
+<p><a href="23-Built-in-Devices-Parts.html#sub:Scripted-Source-View-Waveform">Viewing the Waveform</a> – viewing the waveform produced.</p>
+</li>
+</ul>
+<p>As with any current source, the circuit it drives must provide a path for the current, including at DC.</p>
+<p>If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
 <h2 id="device:Port">Port<a class="headerlink" href="#device:Port" title="Permanent link">&para;</a></h2>
 <p><img src="media/Port.png" alt="Port" width="93" height="48" /></p>
 <table>
@@ -3843,11 +4205,11 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
-<td style="text-align: left;">include in noise</td>
-<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">include in noise measurements</td>
+<td style="text-align: left;">string (no, yes, full breakdown)</td>
 <td style="text-align: left;">noise</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">on</td>
+<td style="text-align: left;">yes</td>
 </tr>
 </tbody>
 </table>
@@ -3867,7 +4229,7 @@
 </li>
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
-<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<p>The <em>include in noise measurements</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>yes</em>, the output noise spectral density propagated to this probe is computed, shown in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; <em>no</em> omits the probe from those results. The <em>full breakdown</em> choice behaves like <em>yes</em> and additionally opens a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown">Full Breakdown</a> dialog showing the total noise and each source's contribution at this probe. Older <em>on</em>/<em>off</em> values are supported as <em>yes</em>/<em>no</em>. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Stim">Stim<a class="headerlink" href="#device:Stim" title="Permanent link">&para;</a></h2>
 <p><img src="media/Stim.png" alt="Stim" width="106" height="72" /></p>
 <table>
@@ -3995,11 +4357,11 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
-<td style="text-align: left;">include in noise</td>
-<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">include in noise measurements</td>
+<td style="text-align: left;">string (no, yes, full breakdown)</td>
 <td style="text-align: left;">noise</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">on</td>
+<td style="text-align: left;">yes</td>
 </tr>
 </tbody>
 </table>
@@ -4021,7 +4383,7 @@
 </ul>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a current probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Current-Controlled-Voltage-Source">Current Controlled Voltage Source</a> is created with the current sense aligned with the direction of current in the current probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>If the state is set to off, the waveform is not calculated.</p>
-<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<p>The <em>include in noise measurements</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>yes</em>, the output noise spectral density propagated to this probe is computed, shown in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; <em>no</em> omits the probe from those results. The <em>full breakdown</em> choice behaves like <em>yes</em> and additionally opens a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown">Full Breakdown</a> dialog showing the total noise and each source's contribution at this probe. Older <em>on</em>/<em>off</em> values are supported as <em>yes</em>/<em>no</em>. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Voltage-Diff-Probe">Voltage Diff Probe<a class="headerlink" href="#device:Voltage-Diff-Probe" title="Permanent link">&para;</a></h2>
 <p><img src="media/DiffProbe.png" alt="DiffProbe" width="110" height="127" /></p>
 <table>
@@ -4085,11 +4447,11 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
-<td style="text-align: left;">include in noise</td>
-<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">include in noise measurements</td>
+<td style="text-align: left;">string (no, yes, full breakdown)</td>
 <td style="text-align: left;">noise</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">on</td>
+<td style="text-align: left;">yes</td>
 </tr>
 </tbody>
 </table>
@@ -4111,7 +4473,7 @@
 </ul>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Diff-Probe">Voltage Diff Probe</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>If the state is set to off, the waveform is not calculated.</p>
-<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; when set to <em>off</em>, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<p>The <em>include in noise measurements</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>yes</em>, the output noise spectral density propagated to this probe is computed, shown in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>; <em>no</em> omits the probe from those results. The <em>full breakdown</em> choice behaves like <em>yes</em> and additionally opens a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown">Full Breakdown</a> dialog showing the total noise and each source's contribution at this probe. Older <em>on</em>/<em>off</em> values are supported as <em>yes</em>/<em>no</em>. This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <h2 id="device:Eye-Probe">Eye Probe<a class="headerlink" href="#device:Eye-Probe" title="Permanent link">&para;</a></h2>
 <p><img src="media/EyeProbe.png" alt="EyeProbe" width="103" height="161" /></p>
 <table>
@@ -4182,11 +4544,11 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
-<td style="text-align: left;">include in noise</td>
-<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">include in noise measurements</td>
+<td style="text-align: left;">string (no, yes, full breakdown)</td>
 <td style="text-align: left;">noise</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">on</td>
+<td style="text-align: left;">yes</td>
 </tr>
 <tr>
 <td style="text-align: left;">eye state</td>
@@ -4214,7 +4576,7 @@
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
 <p>If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.</p>
-<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. For eye probes, this property only controls whether the probe appears in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>; even when it is set to <em>off</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<p>The <em>include in noise measurements</em> property controls this probe's display in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a> and <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. The <em>yes</em> choice displays its total output noise; <em>no</em> hides it. The <em>full breakdown</em> choice behaves like <em>yes</em> and additionally opens a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown">Full Breakdown</a> dialog showing the total noise and each source's contribution at this probe. Older <em>on</em>/<em>off</em> values are supported as <em>yes</em>/<em>no</em>. Even when set to <em>no</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <p>When simulations are complete, for each Eye Probe, the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.</p>
 <p>The eye diagram and other post-processing is performed according to the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a>, that are unique for each eye probe, and can be accessed through the eye diagram configuration in the Eye Probe properties dialog in the button below:</p>
 <p><img src="media/EyeProbePropertiesdialog.png" alt="EyeProbePropertiesdialog" width="475" height="599" /></p>
@@ -4289,11 +4651,11 @@
 <td style="text-align: left;">on</td>
 </tr>
 <tr>
-<td style="text-align: left;">include in noise</td>
-<td style="text-align: left;">string (on or off)</td>
+<td style="text-align: left;">include in noise measurements</td>
+<td style="text-align: left;">string (no, yes, full breakdown)</td>
 <td style="text-align: left;">noise</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">on</td>
+<td style="text-align: left;">yes</td>
 </tr>
 <tr>
 <td style="text-align: left;">eye state</td>
@@ -4318,7 +4680,7 @@
 </ul>
 <p>If the state is set to off, the waveform is not calculated.</p>
 <p>If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.</p>
-<p>The <em>include in noise</em> property determines whether this probe is included in a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>. When set to <em>on</em>, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>, and listed in the <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. For eye probes, this property only controls whether the probe appears in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a>; even when it is set to <em>off</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
+<p>The <em>include in noise measurements</em> property controls this probe's display in the <a href="31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog">Statistical Noise Dialog</a> and <a href="31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements">Noise Measurements</a>. The <em>yes</em> choice displays its total output noise; <em>no</em> hides it. The <em>full breakdown</em> choice behaves like <em>yes</em> and additionally opens a <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown">Full Breakdown</a> dialog showing the total noise and each source's contribution at this probe. Older <em>on</em>/<em>off</em> values are supported as <em>yes</em>/<em>no</em>. Even when set to <em>no</em>, the total integrated output noise is still applied to the eye diagram as its external noise (see <a href="31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis">Statistical Noise Analysis</a>). This property is only visible when the statistical noise feature is enabled in the <a href="29-Preferences.html#sec:Preferences">Preferences</a>.</p>
 <p>When examining the <a href="24-Netlist.html#sec:Netlist">Netlist</a>, you will not find a differential probe in it. Instead, during netlist creation, a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Diff-Probe">Voltage Diff Probe</a> is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an <a href="23-Built-in-Devices-Parts.html#device:Open">Open</a>. A voltage <a href="23-Built-in-Devices-Parts.html#device:Output-Probe">Voltage Output Probe</a> then probes the open.</p>
 <p>When simulations are complete, for each Eye Probe, the <a href="16-Eye-Diagram-Dialog.html#sec:Eye-Diagram-Dialog">Eye Diagram Dialog</a> is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.</p>
 <p>The eye diagram and other post-processing is performed according to the <a href="21-Eye-Diagram-Properties-Dialog.html#sec:Eye-Diagram-Properties-Dialog">Eye Diagram Properties Dialog</a>, that are unique for each eye probe, and can be accessed through the eye diagram configuration in the Eye Probe properties dialog in the button below:</p>
@@ -6028,6 +6390,76 @@
 <p>If a waveform is not actually in the form of an impulse response, it is traditional to multiply the waveform values by the sample period. To do this, <em>mults</em> is set to true. This is the usual case, so true is the default value.</p>
 <p>It is also common to enforce the DC gain of the filter. By default, <em>dcgain</em> is set to 0., meaning to not enforce this, but if <em>dcgain</em> is set to any non-zero value, the DC gain is enforced by ensuring that all of the values in the impulse response add up to the value specified.</p>
 <p>Oftentimes, the impulse response desired comes in the form of a step response provided. To handle this option, the time derivative must be taken of the waveform. This is handled by setting <em>derivative</em> to true. The default is to not take the derivative.</p>
+<h2 id="device:FrequencyResponseFilter">Frequency Response Filter<a class="headerlink" href="#device:FrequencyResponseFilter" title="Permanent link">&para;</a></h2>
+<p><img src="media/FrequencyResponseFilter.png" alt="FrequencyResponseFilter" width="154" height="194" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Units</th>
+<th style="text-align: left;">(Default) Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">category</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Filters</td>
+</tr>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">F?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">ref</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">F1</td>
+</tr>
+<tr>
+<td style="text-align: left;">frequency response filename</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">frfile</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">”</td>
+</tr>
+<tr>
+<td style="text-align: left;">normalized DC gain</td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">dcgain</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>This is a filter generated from a frequency response.</p>
+<p>The filter element is constructed like an active device which has infinite input impedance at port 1, zero output impedance at port 2, The transfer characteristics from port 1 to 2 as the filter response, and perfect reverse isolation.</p>
+<p>The frequency response is provided through a file, in one of three formats determined by the file extension:</p>
+<ul>
+<li>
+<p>A native frequency response file (typically with a <em>.txt</em> extension), as produced by writing a frequency response to a file.</p>
+</li>
+<li>
+<p>A Touchstone s-parameter file (with a <em>.s1p</em> or <em>.s2p</em> extension). For a one-port (<em>.s1p</em>) file, the port 1 reflection (<span class="arithmatex">\(S_{11}\)</span>) is used as the filter response. For a two-port (<em>.s2p</em>) file, the port 1 to port 2 transfer characteristic (<span class="arithmatex">\(S_{21}\)</span>) is used.</p>
+</li>
+<li>
+<p>A comma-separated-value file (with a <em>.csv</em> extension). The CSV file contains one frequency point per row, with the frequency in Hz in the first column followed by the complex response. When three or more columns are present, the response is read as <em>frequency,real,imag</em> (real and imaginary parts). When only two columns are present, the response is read as a purely real <em>frequency,real</em>. Any non-numeric rows (such as a header row) are skipped, so a header line like <code>frequency,real,imag</code> may be included. For example:</p>
+</li>
+</ul>
+<pre><code>frequency,real,imag
+1e9,1.0,0.0
+2e9,0.5,-0.1
+3e9,0.25,-0.2
+</code></pre>
+<p>It is common to enforce the DC gain of the filter. By default, <em>dcgain</em> is set to 0., meaning to not enforce this, but if <em>dcgain</em> is set to any non-zero value, the DC gain is enforced.</p>
 <h2 id="device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter<a class="headerlink" href="#device:RaisedCosineRisetimeFilter" title="Permanent link">&para;</a></h2>
 <p><img src="media/RaisedCosineRisetimeFilter.png" alt="RaisedCosineRisetimeFilter" width="172" height="211" /></p>
 <table>
@@ -6138,7 +6570,7 @@
 <p>Gaussian risetime filters are most commonly used in the standards, usually with a 20-80 risetime specified.</p>
 <p>See also the <a href="23-Built-in-Devices-Parts.html#device:RaisedCosineRisetimeFilter">Raised Cosine Risetime Filter</a>.</p>
 <h2 id="device:Voltage-StatisticaL-Noise-Source">Voltage Statistical Noise Source<a class="headerlink" href="#device:Voltage-StatisticaL-Noise-Source" title="Permanent link">&para;</a></h2>
-<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="200" height="176" /></p>
+<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="80" height="153" /><img src="media/StatisticalNoiseSourceDifferential.png" alt="StatisticalNoiseSourceDifferential" width="153" height="153" /></p>
 <table>
 <thead>
 <tr>
@@ -6184,10 +6616,11 @@
 <p>The source is available as a one-port, two-port, differential, and common-mode element. The differential element injects its noise in series between the two conductors of a differential pair (differential-mode), while the common-mode element injects the same noise onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:</p>
 <div class="center">
 
-<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+<img src="media/StatisticalNoiseSourceDifferentialInjection.png" alt="StatisticalNoiseSourceDifferentialInjection" width="400" height="208" /><img src="media/StatisticalNoiseSourceCommonModeInjection.png" alt="StatisticalNoiseSourceCommonModeInjection" width="400" height="208" />
 
 </div>
 
+<p>In these equivalent circuits, ports 1 and 2 are the + and − conductors on one side of the element and ports 3 and 4 are the + and − conductors on the other, and vn is the noise voltage of the source. The differential element places vn/2 in series with each conductor, with opposite polarities, so that the differential voltage is increased by vn; the common-mode element places vn in series with both conductors, so that the common-mode voltage is increased by vn.</p>
 <p>Its noise is configured through the <a href="15-Main-Schematic-Dialog.html#Control-Help:Edit-Properties">Edit Properties</a> command, which opens the statistical noise properties dialog with the following fields:</p>
 <ul>
 <li>
@@ -6251,7 +6684,7 @@
 <p>where <span class="arithmatex">\(k_B\)</span> is Boltzmann's constant.</p>
 <p>A <strong>Save Properties to Global Preferences</strong> button stores the current settings as the defaults for new statistical noise sources (see <a href="29-Preferences.html#sub:Statistical-Noise-Preferences">Statistical Noise Preferences</a>).</p>
 <h2 id="device:Voltage-StatisticaL-Noise-Source-Project">Voltage Statistical Noise Source (Project)<a class="headerlink" href="#device:Voltage-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
-<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
+<p><img src="media/StatisticalNoiseSourceOnePort.png" alt="StatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/StatisticalNoiseSourceTwoPort.png" alt="StatisticalNoiseSourceTwoPort" width="80" height="153" /></p>
 <table>
 <thead>
 <tr>
@@ -6317,7 +6750,7 @@
 <p>The project variant of the voltage statistical noise source obtains its noise spectral density from another SignalIntegrity project. The referenced project is calculated (optionally using the calculation properties and schematic variables of the current project) and the resulting waveform's spectral density becomes the injected noise, scaled by <span class="arithmatex">\(\sqrt{\mathrm{Lanes}}\)</span>.</p>
 <p>This is useful for building a hierarchy in which the noise of a sub-circuit, characterized in its own project, drives a statistical noise source in a higher-level design.</p>
 <h2 id="device:Current-StatisticaL-Noise-Source">Current Statistical Noise Source<a class="headerlink" href="#device:Current-StatisticaL-Noise-Source" title="Permanent link">&para;</a></h2>
-<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="200" height="176" /></p>
+<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="80" height="153" /><img src="media/CurrentStatisticalNoiseSourceDifferential.png" alt="CurrentStatisticalNoiseSourceDifferential" width="153" height="153" /></p>
 <table>
 <thead>
 <tr>
@@ -6363,10 +6796,11 @@
 <p>Like the voltage source, it is available as a one-port, two-port, differential, and common-mode element. The differential element injects a noise current differentially between the two conductors of a differential pair (differential-mode), while the common-mode element injects an equal noise current onto both conductors relative to ground (common-mode). The two variants inject noise into the circuit as illustrated below:</p>
 <div class="center">
 
-<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="300" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="300" />
+<img src="media/CurrentStatisticalNoiseSourceDifferentialInjection.png" alt="CurrentStatisticalNoiseSourceDifferentialInjection" width="400" height="288" /><img src="media/CurrentStatisticalNoiseSourceCommonModeInjection.png" alt="CurrentStatisticalNoiseSourceCommonModeInjection" width="400" height="288" />
 
 </div>
 
+<p>In these equivalent circuits, ports 1 and 2 are the + and − conductors on one side of the element and ports 3 and 4 are the + and − conductors on the other, and in is the noise current of the source. The differential element drives in/2 from the − conductor into the + conductor; the common-mode element drives in from ground into each conductor.</p>
 <p>The <strong>Noise Type</strong> may be one of <code>WhiteNoise</code>, <code>SpectralDensityFile</code> (read the spectral density from a file), <code>WaveformFile</code> (derive the spectral density from a waveform file), <code>Crosstalk</code> (use another output probe's waveform as the noise source), or <code>ShotNoise</code> (described below).</p>
 <h3 id="white-noise_1">White Noise<a class="headerlink" href="#white-noise_1" title="Permanent link">&para;</a></h3>
 <p>For the <code>WhiteNoise</code> type, the current source level is specified in current units using the <strong>White Noise Type</strong> selection:</p>
@@ -6412,7 +6846,7 @@
 </ul>
 <div class="arithmatex">\[I_{eq} = \frac{\mathrm{rms}^2}{2\,q\,\mathrm{BW}}\mbox{.}\]</div>
 <h2 id="device:Current-StatisticaL-Noise-Source-Project">Current Statistical Noise Source (Project)<a class="headerlink" href="#device:Current-StatisticaL-Noise-Source-Project" title="Permanent link">&para;</a></h2>
-<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="200" height="176" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="200" height="176" /></p>
+<p><img src="media/CurrentStatisticalNoiseSourceOnePort.png" alt="CurrentStatisticalNoiseSourceOnePort" width="80" height="174" /><img src="media/CurrentStatisticalNoiseSourceTwoPort.png" alt="CurrentStatisticalNoiseSourceTwoPort" width="80" height="153" /></p>
 <table>
 <thead>
 <tr>

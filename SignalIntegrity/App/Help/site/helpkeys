@@ -44,6 +44,7 @@ Control-Help:Flip-Horizontally >>> 15-Main-Schematic-Dialog.html#Control-Help:Fl
 Control-Help:Flip-Vertically >>> 15-Main-Schematic-Dialog.html#Control-Help:Flip-Vertically
 Control-Help:Freshen-Archive >>> 15-Main-Schematic-Dialog.html#Control-Help:Freshen-Archive
 Control-Help:Linear-Vertical-Scale >>> 13-S-parameter-Viewer.html#Control-Help:Linear-Vertical-Scale
+Control-Help:Make-Writable >>> 15-Main-Schematic-Dialog.html#Control-Help:Make-Writable
 Control-Help:New-Project >>> 15-Main-Schematic-Dialog.html#Control-Help:New-Project
 Control-Help:Noise-Measurements >>> 31-Statistical-Noise-Dialog.html#Control-Help:Noise-Measurements
 Control-Help:Only-Recalculate-Eye-Diagram >>> 16-Eye-Diagram-Dialog.html#Control-Help:Only-Recalculate-Eye-Diagram
@@ -120,6 +121,7 @@ device:Current-DC-Source >>> 23-Built-in-Devices-Parts.html#device:Current-DC-So
 device:Current-Impulse-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Impulse-Generator
 device:Current-Probe >>> 23-Built-in-Devices-Parts.html#device:Current-Probe
 device:Current-Pulse-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Pulse-Generator
+device:Current-Scripted-Source >>> 23-Built-in-Devices-Parts.html#device:Current-Scripted-Source
 device:Current-Sine-Generator >>> 23-Built-in-Devices-Parts.html#device:Current-Sine-Generator
 device:Current-Source >>> 23-Built-in-Devices-Parts.html#device:Current-Source
 device:Current-StatisticaL-Noise-Source >>> 23-Built-in-Devices-Parts.html#device:Current-StatisticaL-Noise-Source
@@ -140,6 +142,7 @@ device:ImpulseResponseFilter >>> 23-Built-in-Devices-Parts.html#device:ImpulseRe
 device:Inductor >>> 23-Built-in-Devices-Parts.html#device:Inductor
 device:Laplace >>> 23-Built-in-Devices-Parts.html#device:Laplace
 device:Load-Standard >>> 23-Built-in-Devices-Parts.html#device:Load-Standard
+device:MCB >>> 23-Built-in-Devices-Parts.html#device:MCB
 device:Measure-Probe >>> 23-Built-in-Devices-Parts.html#device:Measure-Probe
 device:Mutual >>> 23-Built-in-Devices-Parts.html#device:Mutual
 device:Net-Name >>> 23-Built-in-Devices-Parts.html#device:Net-Name
@@ -188,6 +191,7 @@ device:Voltage-Multi-Level-Waveform-Generator >>> 23-Built-in-Devices-Parts.html
 device:Voltage-Noise-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Noise-Generator
 device:Voltage-PRBS-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-PRBS-Generator
 device:Voltage-Pulse-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Pulse-Generator
+device:Voltage-Scripted-Source >>> 23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source
 device:Voltage-Sine-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Sine-Generator
 device:Voltage-Source >>> 23-Built-in-Devices-Parts.html#device:Voltage-Source
 device:Voltage-StatisticaL-Noise-Source >>> 23-Built-in-Devices-Parts.html#device:Voltage-StatisticaL-Noise-Source
@@ -230,6 +234,7 @@ sec:RLGC-Fit >>> 11-RLGC-Fit.html#sec:RLGC-Fit
 sec:S-parameter-Generation >>> 07-S-Parameter-Generation.html#sec:S-parameter-Generation
 sec:S-parameter-Viewer >>> 13-S-parameter-Viewer.html#sec:S-parameter-Viewer
 sec:Sampled-Waveforms-Dialog >>> 20-Sampled-Waveforms-Dialog.html#sec:Sampled-Waveforms-Dialog
+sec:Scripting-SignalIntegrity >>> 34-Scripting-SignalIntegrity.html#sec:Scripting-SignalIntegrity
 sec:Simulation >>> 08-Simulation.html#sec:Simulation
 sec:Simulator-Dialog >>> 14-Simulator-Dialog.html#sec:Simulator-Dialog
 sec:Statistical-Noise-Dialog >>> 31-Statistical-Noise-Dialog.html#sec:Statistical-Noise-Dialog
@@ -255,9 +260,12 @@ sub:Appearance.PlotCursorValues >>> 29-Preferences.html#sub:Appearance.PlotCurso
 sub:Appearance.PlotDPI >>> 29-Preferences.html#sub:Appearance.PlotDPI
 sub:Appearance.PlotHeight >>> 29-Preferences.html#sub:Appearance.PlotHeight
 sub:Appearance.PlotWidth >>> 29-Preferences.html#sub:Appearance.PlotWidth
+sub:Appearance.ProgressDialog >>> 29-Preferences.html#sub:Appearance.ProgressDialog
 sub:Appearance.RoundDisplayedValues >>> 29-Preferences.html#sub:Appearance.RoundDisplayedValues
 sub:Appearance.ShowAllPinNumbers-1 >>> 29-Preferences.html#sub:Appearance.ShowAllPinNumbers-1
 sub:ArchiveCachedResults >>> 29-Preferences.html#sub:ArchiveCachedResults
+sub:ArchiveFile >>> 26-Equations.html#sub:ArchiveFile
+sub:ArchiveNonRelativeFiles >>> 29-Preferences.html#sub:ArchiveNonRelativeFiles
 sub:AskToSaveCurrentFile >>> 29-Preferences.html#sub:AskToSaveCurrentFile
 sub:Attaching-Ports-to-a-Schematic >>> 07-S-Parameter-Generation.html#sub:Attaching-Ports-to-a-Schematic
 sub:Attaching-Ports-to-a-Schematic-for-Deembedding >>> 09-Deembedding.html#sub:Attaching-Ports-to-a-Schematic-for-Deembedding
@@ -270,6 +278,7 @@ sub:Cache.CheckCacheFileTimes >>> 29-Preferences.html#sub:Cache.CheckCacheFileTi
 sub:Cache.LogCache >>> 29-Preferences.html#sub:Cache.LogCache
 sub:Calculate >>> 15-Main-Schematic-Dialog.html#sub:Calculate
 sub:Calculating-S-parameters >>> 07-S-Parameter-Generation.html#sub:Calculating-S-parameters
+sub:Calculation.AllowMaximumImpulseResponseLength >>> 29-Preferences.html#sub:Calculation.AllowMaximumImpulseResponseLength
 sub:Calculation.AllowNonUniqueSolutions >>> 29-Preferences.html#sub:Calculation.AllowNonUniqueSolutions
 sub:Calculation.AllowParallelization >>> 29-Preferences.html#sub:Calculation.AllowParallelization
 sub:Calculation.CheckConditionNumber >>> 29-Preferences.html#sub:Calculation.CheckConditionNumber
@@ -325,6 +334,7 @@ sub:IXT-Usage >>> 33-Utilities.html#sub:IXT-Usage
 sub:Integrated-Crosstalk >>> 33-Utilities.html#sub:Integrated-Crosstalk
 sub:Invert-Plot >>> 22-Eye-Diagram-Properties.html#sub:Invert-Plot
 sub:Label-Mean-Levels >>> 22-Eye-Diagram-Properties.html#sub:Label-Mean-Levels
+sub:Limit-Impulse-Response-Length >>> 15-Main-Schematic-Dialog.html#sub:Limit-Impulse-Response-Length
 sub:Linearity >>> 18-Eye-Diagram-Measurements-Dialog.html#sub:Linearity
 sub:Log-Intensity >>> 22-Eye-Diagram-Properties.html#sub:Log-Intensity
 sub:Logarithmically-Spaced-Frequencies-Solutions >>> 15-Main-Schematic-Dialog.html#sub:Logarithmically-Spaced-Frequencies-Solutions
@@ -348,6 +358,7 @@ sub:Numeric >>> 27-Errors-and-Exceptions.html#sub:Numeric
 sub:OnlineHelp.URL >>> 29-Preferences.html#sub:OnlineHelp.URL
 sub:OnlineHelp.UseOnlineHelp >>> 29-Preferences.html#sub:OnlineHelp.UseOnlineHelp
 sub:OpenLastFile >>> 29-Preferences.html#sub:OpenLastFile
+sub:OpenProjectsReadOnly >>> 29-Preferences.html#sub:OpenProjectsReadOnly
 sub:Output-Probes-for Simulation >>> 08-Simulation.html#sub:Output-Probes-for Simulation
 sub:Output-Probes-for-Simulation >>> 08-Simulation.html#sub:Output-Probes-for-Simulation
 sub:Output-Probes-for-Virtual-Probing >>> 10-Virtual-Probing.html#sub:Output-Probes-for-Virtual-Probing
@@ -367,6 +378,7 @@ sub:Pole-Zero-Fitter >>> 33-Utilities.html#sub:Pole-Zero-Fitter
 sub:PostProcessing >>> 27-Errors-and-Exceptions.html#sub:PostProcessing
 sub:PreferSaveWaveformsLeCroyFormat >>> 29-Preferences.html#sub:PreferSaveWaveformsLeCroyFormat
 sub:Random-Jitter >>> 22-Eye-Diagram-Properties.html#sub:Random-Jitter
+sub:Read-Only-Schematics >>> 15-Main-Schematic-Dialog.html#sub:Read-Only-Schematics
 sub:Read-Waveforms >>> 14-Simulator-Dialog.html#sub:Read-Waveforms
 sub:Recover-Clock >>> 22-Eye-Diagram-Properties.html#sub:Recover-Clock
 sub:Resolution >>> 18-Eye-Diagram-Measurements-Dialog.html#sub:Resolution
@@ -383,6 +395,32 @@ sub:SParameterProperties.SignificantDigits >>> 29-Preferences.html#sub:SParamete
 sub:Saturation >>> 22-Eye-Diagram-Properties.html#sub:Saturation
 sub:Scale-X >>> 22-Eye-Diagram-Properties.html#sub:Scale-X
 sub:Scale-Y >>> 22-Eye-Diagram-Properties.html#sub:Scale-Y
+sub:Scripted-Source-Script >>> 23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script
+sub:Scripted-Source-Script-Editor >>> 23-Built-in-Devices-Parts.html#sub:Scripted-Source-Script-Editor
+sub:Scripted-Source-Variables >>> 23-Built-in-Devices-Parts.html#sub:Scripted-Source-Variables
+sub:Scripted-Source-View-Waveform >>> 23-Built-in-Devices-Parts.html#sub:Scripted-Source-View-Waveform
+sub:Scripting-Archives-and-Regression >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Archives-and-Regression
+sub:Scripting-Arguments >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Arguments
+sub:Scripting-Calculating >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Calculating
+sub:Scripting-Callbacks >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Callbacks
+sub:Scripting-Changing-Parts >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Changing-Parts
+sub:Scripting-Command-Line >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Command-Line
+sub:Scripting-Deembedding-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Deembedding-Results
+sub:Scripting-Equations >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Equations
+sub:Scripting-Error-Terms-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Error-Terms-Results
+sub:Scripting-Eye-Diagram-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Eye-Diagram-Results
+sub:Scripting-Getting-Started >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Getting-Started
+sub:Scripting-Headless-Application >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Headless-Application
+sub:Scripting-Network-Analyzer-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Network-Analyzer-Results
+sub:Scripting-Noise-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Noise-Results
+sub:Scripting-Opening-a-Project >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Opening-a-Project
+sub:Scripting-Preferences >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Preferences
+sub:Scripting-Project-Functions >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Project-Functions
+sub:Scripting-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Results
+sub:Scripting-SParameter-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-SParameter-Results
+sub:Scripting-Simulation-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Simulation-Results
+sub:Scripting-Sweeps >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Sweeps
+sub:Scripting-Working-With-Results >>> 34-Scripting-SignalIntegrity.html#sub:Scripting-Working-With-Results
 sub:Setting-Calculation-Properties >>> 07-S-Parameter-Generation.html#sub:Setting-Calculation-Properties
 sub:Setting-Calculation-Properties-for-Deembedding >>> 09-Deembedding.html#sub:Setting-Calculation-Properties-for-Deembedding
 sub:Setting-Calculation-Properties-for-Simulation >>> 08-Simulation.html#sub:Setting-Calculation-Properties-for-Simulation
@@ -400,6 +438,7 @@ sub:Sources-and-Generators >>> 08-Simulation.html#sub:Sources-and-Generators
 sub:Standard-Preferences >>> 29-Preferences.html#sub:Standard-Preferences
 sub:Statistical-Noise-Analysis >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Analysis
 sub:Statistical-Noise-Calculate-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Calculate-Menu
+sub:Statistical-Noise-Full-Breakdown >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Full-Breakdown
 sub:Statistical-Noise-Help-Menu >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Help-Menu
 sub:Statistical-Noise-Measurements >>> 31-Statistical-Noise-Dialog.html#sub:Statistical-Noise-Measurements
 sub:Statistical-Noise-Preferences >>> 29-Preferences.html#sub:Statistical-Noise-Preferences

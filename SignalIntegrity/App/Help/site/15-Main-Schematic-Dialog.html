@@ -110,6 +110,10 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Open-Project">Open Project</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Read-Only-Schematics">Read-Only Schematics</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Make-Writable">Make Writable</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-Project">Save Project</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Save-As-Project">Save Project As…</a>
@@ -203,6 +207,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#sub:Calculate">Calculate</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#Control-Help:Calculation-Properties">Calculation Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sub:Limit-Impulse-Response-Length">Limit Impulse Response Length</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a>
     </li>
@@ -335,6 +341,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -415,6 +425,9 @@
 </li>
 <li>
 <p><a href="15-Main-Schematic-Dialog.html#Control-Help:Save-As-Project">Save Project As…</a></p>
+</li>
+<li>
+<p><a href="15-Main-Schematic-Dialog.html#sub:Read-Only-Schematics">Read-Only Schematics</a></p>
 </li>
 <li>
 <p><a href="15-Main-Schematic-Dialog.html#Control-Help:Clear-Schematic">Clear Schematic</a></p>
@@ -546,6 +559,50 @@
 <p>A request to open a project brings up a file dialog so you can choose the file you want to work with.</p>
 <p>It only accepts files with the .xml extension and the file must have been previously generated with <strong><em>SignalIntegrityApp</em></strong>.</p>
 <p>It clears the current project, but this can be undone using <a href="15-Main-Schematic-Dialog.html#Control-Help:Undo">Undo</a>.</p>
+<h3 id="sub:Read-Only-Schematics">Read-Only Schematics<a class="headerlink" href="#sub:Read-Only-Schematics" title="Permanent link">&para;</a></h3>
+<p>A schematic can be opened read-only to inspect, calculate, simulate, export, or archive it without changing the project. The window title includes <code>(Read Only)</code> while this mode is active.</p>
+<p>Read-only is selected in one of three ways:</p>
+<ul>
+<li>The default is controlled by the <a href="29-Preferences.html#sub:OpenProjectsReadOnly">Features.OpenProjectsReadOnly</a> preference.</li>
+<li>A project can set <code>ProjectProperties.ReadOnly</code> to <code>True</code> in its project data.</li>
+<li>When starting the application from the command line, <code>--readonly</code> forces read-only mode and <code>--writable</code> forces writable mode. An explicit command-line choice overrides the project setting and the preference.</li>
+</ul>
+<p>While read-only, Save, Save As, Undo, Redo, schematic clearing, adding, deleting, moving, duplicating, rotating, converting, wiring, panning, zooming, and editing part, calculation-property, variable, equation, post-processing, or picture data are disabled. Calculations, simulations, exports, archives, and viewers remain available.</p>
+<p>For a file device that refers to an s-parameter file or another project, right-clicking the device selects it and presents a View menu. Control-right-click opens View immediately. Opening a referenced project passes its configured arguments to that project; when the referenced project closes, its device is unselected in the parent read-only schematic.</p>
+<p>For a source or generator, the View menu offers View Waveform. For a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Voltage Scripted Source</a> or <a href="23-Built-in-Devices-Parts.html#device:Current-Scripted-Source">Current Scripted Source</a>, this runs its script and shows the resulting waveform; Edit Script is offered only when the schematic is writable.</p>
+<p>Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Make-Writable">Make Writable</a> from the File menu or toolbar to resume editing. The dialog offers two choices:</p>
+<ul>
+<li><strong>Keep Arguments Passed In</strong> keeps the current schematic, including values supplied when it was opened.</li>
+<li><strong>Restore Schematic to Default</strong> reopens the project without those supplied values before enabling editing.</li>
+</ul>
+<h3 id="Control-Help:Make-Writable">Make Writable<a class="headerlink" href="#Control-Help:Make-Writable" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><em>Dialog</em></th>
+<th style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sec:Main-Schematic-Dialog">Main Schematic Dialog</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em>Menu System</em></td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:File">File</a> Make Writable</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Key Binding</em></td>
+<td style="text-align: center;">None</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Toolbar</em></td>
+<td style="text-align: center;"><img src="media/edit-3.png" alt="edit-3" width="16" height="16" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em>Availability</em></td>
+<td style="text-align: center;">When a read-only project is open</td>
+</tr>
+</tbody>
+</table>
+<p>This command changes the current read-only project to writable after choosing whether to retain values supplied at opening or restore the project's defaults.</p>
 <h3 id="Control-Help:Save-Project">Save Project<a class="headerlink" href="#Control-Help:Save-Project" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -752,6 +809,8 @@
 </tbody>
 </table>
 <p>Archiving a project takes the project file and all files referenced by it, either directly or indirectly and creates a zipped file containing all of these files. Furthermore, all of the project files that are moved to the archive will have their file references modified so that when the archive is extracted, the file references point to the correct location in the extracted archive.</p>
+<p>Files that are referenced only from within a schematic's <a href="26-Equations.html#sec:Equations">Equations</a> script (for example, a <code>.csv</code> file opened by the script) are not discovered automatically. To include such a file in the archive, wrap its path with the <code>ArchiveFile()</code> function in the equations — see <a href="26-Equations.html#sub:ArchiveFile">Referencing External Files in Equations</a>.</p>
+<p>A file that no relative path can be formed to — one on another drive, or one above the directory being archived — is normally reported and left out of the archive, on the assumption that every machine opening the archive reaches it the same way. This never causes archiving to fail. Setting the preference <a href="29-Preferences.html#sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles</a> archives such files instead, under a mangled name placed beside each project that references them. Whenever an absolute path is referenced, that mangled file is looked for in the directory of the referencing project first, whether or not the preference is set.</p>
 <p>An example is shown below that highlights how this works. First, let’s examine the directory structure prior to archiving. Here, the project to archive is called Project.si and it is located in the DirBBB directory. Project.si references two files: the project file bbb.si in the DirDDD directory below and aaa.trc located in the DirCCC directory. The project file bbb.si further references the file ccc.s2p located in the DirBBB directory above.</p>
 <div class="center">
 
@@ -2048,10 +2107,13 @@
 </table>
 <p>Issuing the Calculation Properties command brings up the calculation properties dialog:</p>
 <p><img src="media/CalculationPropertiesDefault.png" alt="CalculationPropertiesDefault" width="540" height="325" /></p>
-<p>The calculation properties govern how all calculations are performed, and are broken into four sections:</p>
+<p>The calculation properties govern how all calculations are performed, and are broken into five sections:</p>
 <ol>
 <li>
 <p>The main, linear calculation properties,</p>
+</li>
+<li>
+<p>The impulse response length limit, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Limit-Impulse-Response-Length">Limit Impulse Response Length</a> (shown only if the preference <a href="29-Preferences.html#sub:Calculation.AllowMaximumImpulseResponseLength">Calculation.AllowMaximumImpulseResponseLength</a> is True),</p>
 </li>
 <li>
 <p>The frequency list type, for calculations on a logarithmically spaced frequency spacing, as explained under <a href="15-Main-Schematic-Dialog.html#sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions</a> (only shown if the preference <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> is True),</p>
@@ -2150,6 +2212,22 @@
 <p><a href="10-Virtual-Probing.html#sub:Setting-Calculation-Properties-for-Virtual-Probing">Setting Calculation Properties for Virtual Probing</a>.</p>
 </li>
 </ul>
+<h3 id="sub:Limit-Impulse-Response-Length">Limit Impulse Response Length<a class="headerlink" href="#sub:Limit-Impulse-Response-Length" title="Permanent link">&para;</a></h3>
+<p>Limit impulse response length can only be selected if the <a href="29-Preferences.html#sub:Calculation.AllowMaximumImpulseResponseLength">Calculation.AllowMaximumImpulseResponseLength</a> preference is set to True. (It may still be available if you open a project for which the impulse response length has been previously limited).</p>
+<p>It's importance is mainly when a schematic is included as a sub-schematic of another project, and the calculation properties are being passed down.  If the user knows the limits in electrical length of a particular schematic, the impulse response limit can trim down the number of frequency points calculated, even when a larger number of frequency points is being requested from the top level schematic.</p>
+<p>As explained under <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a>, the impulse response length is one of the base calculation properties. It is inversely proportional to the frequency resolution, so that a longer impulse response requires a finer frequency resolution and therefore more frequency points. Since the amount of work in a calculation grows with the number of frequency points, a large impulse response length - whether entered deliberately or arrived at while adjusting other properties - can make a calculation very slow.</p>
+<p>This section provides a way to place an upper bound on the impulse response length so that the number of frequency points cannot grow without limit. It consists of two controls:</p>
+<ul>
+<li>
+<p><strong>Limit Impulse Response Length</strong> - a True/False button that enables or disables the cap. It is stored with the project (internal property name <code>LimitImpulseResponseLength</code>) and defaults to False.</p>
+</li>
+<li>
+<p><strong>Maximum Impulse Response Length</strong> - the maximum impulse response length allowed, in seconds (internal property name <code>MaximumImpulseResponseLength</code>). This entry is only shown when the limit is enabled.</p>
+</li>
+</ul>
+<p>When the limit is enabled and the impulse response length implied by the calculation properties exceeds the maximum, the number of frequency points actually used in the calculation is reduced so that the impulse response length does not exceed the maximum. The cap is <em>approximate</em> - the number of frequency points is kept an integer number to the end frequency - so the effective impulse response length will be at or just below the maximum specified.</p>
+<p>It is important to understand that this cap does not alter any of the stored calculation properties shown in the dialog (the end frequency, frequency points, impulse response length, etc. are all left unchanged). The cap is applied only to the number of frequency points that are handed to the actual calculation. In other words, the displayed impulse response length is what you asked for, while the calculation quietly uses a shorter one when the cap is in effect. The end frequency (and therefore the base sample rate) is always preserved; only the frequency resolution is coarsened to shorten the impulse response.</p>
+<p>This capability is different from limiting the impulse response length of an individual set of s-parameters (which zeroes the impulse response outside a time window - see the negative and positive time limits in <a href="13-S-parameter-Viewer.html#Control-Help:S-Parameter-Properties">S-Parameter Properties</a> and the ’limit’ <a href="25-Post-Processing.html#sec:Post-Processing">Post-Processing</a> command). Here, no response is windowed or zeroed; the length is limited by controlling the frequency resolution of the whole calculation.</p>
 <h3 id="sub:Logarithmically-Spaced-Frequencies-Solutions">Logarithmically Spaced Frequencies Solutions<a class="headerlink" href="#sub:Logarithmically-Spaced-Frequencies-Solutions" title="Permanent link">&para;</a></h3>
 <p>Logarithmically spaced frequencies solutions can only be selected if the <a href="29-Preferences.html#sub:Calculation.LogarithmicSolutions">Calculation.LogarithmicSolutions</a> preference is set to True. (They may still be available if you open a project for which logarithmically spaced frequencies have been chosen).</p>
 <p>It was found that for certain solutions, something other than linear frequency spacing might be useful. The characteristics that dictate a need for something other than linear frequency spacing would be especially when:</p>

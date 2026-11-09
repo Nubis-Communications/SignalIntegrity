@@ -146,6 +146,8 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Equations</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sub:ArchiveFile">Referencing External Files in Equations</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -175,6 +177,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
                 </li>
               </ul>
       </div>
@@ -256,6 +262,17 @@
 </div>
 
 <p>Here, we see that the script assumes that the variables L, D, and ur are defined prior to the script running. All the script does is produce the intermediate value A, along with the two variables H and R. When this script exits, the output variables H and R are updated, and any references to these values in the schematics are used.</p>
+<h2 id="sub:ArchiveFile">Referencing External Files in Equations<a class="headerlink" href="#sub:ArchiveFile" title="Permanent link">&para;</a></h2>
+<p>Because an equations script is Python, it can open and read external files. For example, a script might read a <code>.csv</code> file that defines a set of channels:</p>
+<pre><code class="language-python">import csv
+rows = list(csv.DictReader(open('ChannelDefinition.csv')))
+</code></pre>
+<p>A path like this is relative to the location of the project file. However, because the file is opened from inside the script, it is <em>not</em> one of the file references that <a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a> can discover automatically. As a result it would be left out of an archive, and the extracted project would fail when its equations run.</p>
+<p>To make a file that is used by the equations part of the archive, wrap its path in the <code>ArchiveFile()</code> function:</p>
+<pre><code class="language-python">import csv
+rows = list(csv.DictReader(open(ArchiveFile('ChannelDefinition.csv'))))
+</code></pre>
+<p><code>ArchiveFile(path)</code> returns <code>path</code> unchanged, so it can be wrapped directly around a call to <code>open()</code>, or called on its own line (for example <code>ArchiveFile(filename)</code>). During a normal calculation it simply returns its argument and does nothing else. During <a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a> it additionally records the file, resolved relative to the project file, so that the file is copied into the archive alongside the project. The argument may be any Python expression, so computed paths are supported.</p>
               
             </div>
           </div><footer>

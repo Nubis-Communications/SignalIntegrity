@@ -162,6 +162,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#appearance.fontsize">Appearance.FontSize</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#appearance.progressdialog">Appearance.ProgressDialog</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#features.openprojectsreadonly">Features.OpenProjectsReadOnly</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#appearance.initialgrid">Appearance.InitialGrid</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#appearance.color.background">Appearance.Color.Background</a>
@@ -194,6 +198,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#calculation.allowparallelization">Calculation.AllowParallelization</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#calculation.allowmaximumimpulseresponselength">Calculation.AllowMaximumImpulseResponseLength</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#calculation.ignoremissingotherwaveforms">Calculation.IgnoreMissingOtherWaveforms</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#calculation.maximumwaveformpoints">Calculation.MaximumWaveformPoints</a>
@@ -221,6 +227,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#encryption.ending">Encryption.Ending</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#sub:ArchiveCachedResults">ProjectFiles.ArchiveCachedResults</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#onlinehelp.useonlinehelp">OnlineHelp.UseOnlineHelp</a>
     </li>
@@ -267,6 +275,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="33-Utilities.html">Utilities</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
                 </li>
               </ul>
       </div>
@@ -360,6 +372,12 @@
 <td style="text-align: left;">60</td>
 </tr>
 <tr>
+<td style="text-align: left;">detached progress bar</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:Appearance.ProgressDialog">Appearance.ProgressDialog</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
 <td style="text-align: left;">show all pin numbers</td>
 <td style="text-align: left;"><a href="29-Preferences.html#sub:Appearance.RoundDisplayedValues">Appearance.RoundDisplayedValues</a></td>
 <td style="text-align: left;">Bool</td>
@@ -420,6 +438,12 @@
 <td style="text-align: left;">False</td>
 </tr>
 <tr>
+<td style="text-align: left;">enable maximum impulse response length</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:Calculation.AllowMaximumImpulseResponseLength">Calculation.AllowMaximumImpulseResponseLength</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">False</td>
+</tr>
+<tr>
 <td style="text-align: left;">ignore missing other waveforms in calculations</td>
 <td style="text-align: left;"><a href="29-Preferences.html#sub:Calculation.IgnoreMissingOtherWaveforms">Calculation.IgnoreMissingOtherWaveforms</a></td>
 <td style="text-align: left;">Bool</td>
@@ -446,6 +470,12 @@
 <tr>
 <td style="text-align: left;">ask to save current file</td>
 <td style="text-align: left;"><a href="29-Preferences.html#sub:AskToSaveCurrentFile">ProjectFiles.AskToSaveCurrentFile</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">True</td>
+</tr>
+<tr>
+<td style="text-align: left;">open projects read-only</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:OpenProjectsReadOnly">Features.OpenProjectsReadOnly</a></td>
 <td style="text-align: left;">Bool</td>
 <td style="text-align: left;">True</td>
 </tr>
@@ -504,6 +534,12 @@
 <td style="text-align: left;">False</td>
 </tr>
 <tr>
+<td style="text-align: left;">archive non-relative files</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">False</td>
+</tr>
+<tr>
 <td style="text-align: left;">use online help</td>
 <td style="text-align: left;"><a href="29-Preferences.html#sub:OnlineHelp.UseOnlineHelp">OnlineHelp.UseOnlineHelp</a></td>
 <td style="text-align: left;">Bool</td>
@@ -541,6 +577,50 @@
 <p>The font size preference controls the fonts everywhere from within the application.</p>
 <p>Unfortunately, changing the font generally does not take effect until the application is closed and restarted.</p>
 <p>Font sizes are not altered in any tikz or pgf plots outputs, which are geared to take the font of an enclosing document.</p>
+<div id="sub:Appearance.ProgressDialog"></div>
+
+<h2 class="unnumbered" id="appearance.progressdialog">Appearance.ProgressDialog<a class="headerlink" href="#appearance.progressdialog" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Preference Description</strong></th>
+<th style="text-align: left;"><strong>Preference Name</strong></th>
+<th style="text-align: left;"><strong>Type</strong></th>
+<th style="text-align: left;"><strong>(Default) Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">detached progress bar</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:Appearance.ProgressDialog">Appearance.ProgressDialog</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">True</td>
+</tr>
+</tbody>
+</table>
+<p>When enabled, calculations show progress in a separate progress dialog with a progress bar and Stop button. When disabled, the progress dialog remains hidden; progress and the Abort button are shown in the application's status bar instead.</p>
+<div id="sub:OpenProjectsReadOnly"></div>
+
+<h2 class="unnumbered" id="features.openprojectsreadonly">Features.OpenProjectsReadOnly<a class="headerlink" href="#features.openprojectsreadonly" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Preference Description</strong></th>
+<th style="text-align: left;"><strong>Preference Name</strong></th>
+<th style="text-align: left;"><strong>Type</strong></th>
+<th style="text-align: left;"><strong>(Default) Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">open projects read-only</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:OpenProjectsReadOnly">Features.OpenProjectsReadOnly</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">True</td>
+</tr>
+</tbody>
+</table>
+<p>When enabled, projects open read-only unless an explicit command-line option or a writable request from a calling application overrides that default. A project with <code>ProjectProperties.ReadOnly</code> set to <code>True</code> also opens read-only when no explicit writable request is supplied. See <a href="15-Main-Schematic-Dialog.html#sub:Read-Only-Schematics">Read-Only Schematics</a> for the available commands and restrictions.</p>
 <div id="sub:Appearance.InitialGrid"></div>
 
 <h2 class="unnumbered" id="appearance.initialgrid">Appearance.InitialGrid<a class="headerlink" href="#appearance.initialgrid" title="Permanent link">&para;</a></h2>
@@ -942,6 +1022,32 @@
 <p>It defaults to False. Because it is experimental, it is off by default.</p>
 <p>This preference acts as a hard override: when it is False, no calculation will ever run in parallel, regardless of the per-project <a href="15-Main-Schematic-Dialog.html#sub:Allow-Parallelization">Allow Parallelization</a> calculation property. When it is True, the feature becomes available, and the <a href="15-Main-Schematic-Dialog.html#sub:Allow-Parallelization">Allow Parallelization</a> property becomes visible in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> dialog, where it can be enabled on a per-project basis.</p>
 <p>A calculation is only permitted to run in parallel when both this preference and the per-project property are True. Even then, a cost model decides, per solve, whether parallel execution is actually worthwhile, so small problems continue to run serially.</p>
+<div id="sub:Calculation.AllowMaximumImpulseResponseLength"></div>
+
+<h2 class="unnumbered" id="calculation.allowmaximumimpulseresponselength">Calculation.AllowMaximumImpulseResponseLength<a class="headerlink" href="#calculation.allowmaximumimpulseresponselength" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Preference Description</strong></th>
+<th style="text-align: left;"><strong>Preference Name</strong></th>
+<th style="text-align: left;"><strong>Type</strong></th>
+<th style="text-align: left;"><strong>(Default) Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">enable maximum impulse response length</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:Calculation.AllowMaximumImpulseResponseLength">Calculation.AllowMaximumImpulseResponseLength</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">False</td>
+</tr>
+</tbody>
+</table>
+<p>This preference is the global, application-wide switch that makes the <a href="15-Main-Schematic-Dialog.html#sub:Limit-Impulse-Response-Length">Limit Impulse Response Length</a> controls available in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> dialog.</p>
+<p>It's purpose is to allow the impulse response to be limited when a schematic is a sub-schematic of another project, and the sub-schematic is being invoked with the calculation properties passed through.</p>
+<p>It defaults to False.</p>
+<p>When this preference is False, the Limit Impulse Response Length and Maximum Impulse Response Length controls are hidden, and no impulse response length cap is ever applied, regardless of the per-project settings. When it is True, those controls become visible in the <a href="15-Main-Schematic-Dialog.html#Control-Help:Calculation-Properties">Calculation Properties</a> dialog, where the cap can be enabled and set on a per-project basis.</p>
+<p>When the cap is enabled for a project, it limits the impulse response length used in a calculation by reducing the number of frequency points, keeping the number of points an integer number to the end frequency (so the cap is approximate). This does not modify any of the stored calculation properties; it only affects the number of frequency points handed to the calculation. See <a href="15-Main-Schematic-Dialog.html#sub:Limit-Impulse-Response-Length">Limit Impulse Response Length</a> for the full explanation.</p>
 <div id="sub:Calculation.IgnoreMissingOtherWaveforms"></div>
 
 <h2 class="unnumbered" id="calculation.ignoremissingotherwaveforms">Calculation.IgnoreMissingOtherWaveforms<a class="headerlink" href="#calculation.ignoremissingotherwaveforms" title="Permanent link">&para;</a></h2>
@@ -1272,6 +1378,31 @@
 </table>
 <p>Usually, when you <a href="15-Main-Schematic-Dialog.html#Control-Help:Archive">Archive Project</a>, only the source files (project files and referenced s-parameter files) are archived. When this preference is set to True, the cached solutions are also archived. In theory, this speeds up the calculations when archives are extracted (but can also make the archive quite large in size).</p>
 <p>Currently, when the archive is created with cached solutions, the update time of the cached solution is retained as it is added to the archive. And, if the archive were to be extracted using archive extraction utilities, these update times would remain untouched. Unfortunately, there is a bug in the Python archive extraction tools that causes the update times to become modified, causing recalculation of the solution and defeating the purpose. Some workaround to this will be found and fixed in the future.</p>
+<div id="sub:ArchiveNonRelativeFiles"></div>
+
+<h2 id="sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles<a class="headerlink" href="#sub:ArchiveNonRelativeFiles" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Preference Description</strong></th>
+<th style="text-align: left;"><strong>Preference Name</strong></th>
+<th style="text-align: left;"><strong>Type</strong></th>
+<th style="text-align: left;"><strong>(Default) Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">archive non-relative files</td>
+<td style="text-align: left;"><a href="29-Preferences.html#sub:ArchiveNonRelativeFiles">ProjectFiles.ArchiveNonRelativeFiles</a></td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">False</td>
+</tr>
+</tbody>
+</table>
+<p>When a project references a file that no relative path can be formed to, that file is normally left out of the archive. This happens when the file is on another drive (for example, a file at <code>z:/t4_ic_files/foo.s3p</code> referenced by a project on the <code>c:</code> drive), and it happens when the file is simply above the directory being archived. Neither situation causes archiving to fail; the file is reported and skipped, on the assumption that every machine opening the archive reaches the file the same way.</p>
+<p>When this preference is set to True, such files are archived under a <em>mangled</em> name. The mangled name encodes the original absolute path, with a leading <code>#</code> and with each path separator replaced by a <code>#</code>, so <code>z:/t4_ic_files/foo.s3p</code> is archived as <code>#z#t4_ic_files#foo.s3p</code>. The mangled copy is placed in the archived directory of every project that references it.</p>
+<p>The project files themselves are left untouched and go on referencing the original absolute path. Whenever an absolute path is referenced, the mangled file is looked for in the directory of the referencing project first, and is used if it is found. That lookup is unconditional and does not depend on this preference, so an extracted archive calculates identically on a machine that cannot reach the original location, and re-archiving an extracted archive picks the mangled file up again.</p>
+<p>For now, only s-parameter files (those with a <code>.sXp</code> extension, where X is the number of ports) are archived this way.</p>
 <div id="sub:OnlineHelp.UseOnlineHelp"></div>
 
 <h2 class="unnumbered" id="onlinehelp.useonlinehelp">OnlineHelp.UseOnlineHelp<a class="headerlink" href="#onlinehelp.useonlinehelp" title="Permanent link">&para;</a></h2>
