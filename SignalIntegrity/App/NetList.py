@@ -474,7 +474,7 @@ class NetList(object):
         noiseProperty=device['noise']
         if noiseProperty is None:
             return True
-        return noiseProperty.GetValue() == 'on'
+        return noiseProperty.GetValue() in ['on','yes','full breakdown']
     def _ShowInNoise(self,device):
         # Determines whether a kept probe is shown in the statistical noise
         # spectral density plots and listed in the noise measurements.  This is
@@ -485,7 +485,7 @@ class NetList(object):
         noiseProperty=device['noise']
         if noiseProperty is None:
             return True
-        return noiseProperty.GetValue() == 'on'
+        return noiseProperty.GetValue() in ['on','yes','full breakdown']
     def SourceNames(self):
         return self.sourceNames
     def MeasureNames(self):

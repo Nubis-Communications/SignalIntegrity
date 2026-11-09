@@ -516,9 +516,16 @@ class PartPropertyIncludeInNoise(PartProperty):
     # carry this property, but for them it only controls whether the probe
     # appears in the statistical noise dialog - the total integrated output
     # noise is always applied to the eye diagram as its external noise.
-    validEntries=['on','off']
-    def __init__(self,state='on'):
+    validEntries=['no','yes','full breakdown']
+    def __init__(self,state='yes'):
+        state={'on':'yes','off':'no'}.get(state,state)
         PartProperty.__init__(self,'noise',type='enum',keyword='noise',description='include in noise measurements',value=state,visible=False,keywordVisible=True)
+
+    def GetValue(self,name=None):
+        value=PartProperty.GetValue(self,name)
+        if name in [None,'Value']:
+            return {'on':'yes','off':'no'}.get(value,value)
+        return value
 
 class PartPropertyShow(PartProperty):
     validEntries=['true','false']

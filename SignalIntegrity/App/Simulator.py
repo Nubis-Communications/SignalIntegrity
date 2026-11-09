@@ -43,6 +43,9 @@ class Simulator(object):
         if hasattr(self,'noiseDialog'):
             if self.noiseDialog.winfo_exists():
                 self.noiseDialog.destroy()
+        for dialog in getattr(self,'noiseBreakdownDialogs',{}).values():
+            if dialog.winfo_exists():
+                dialog.destroy()
 
     def SimulatorDialog(self):
         if not hasattr(self,'simulatorDialog'):
@@ -81,6 +84,25 @@ class Simulator(object):
 
     def UpdateNoise(self,statistical_noise_analysis):
         self.NoiseDialog().UpdateNoiseSpectralDensities(statistical_noise_analysis).state('normal')
+        if not hasattr(self,'noiseBreakdownDialogs'):
+            self.noiseBreakdownDialogs={}
+        displayNames=statistical_noise_analysis.get('noise_display_output_names',statistical_noise_analysis.get('output_names',[]))
+        probeNames=[device['ref'].GetValue() for device in self.parent.Drawing.schematic.deviceList
+                    if device['ref'] is not None and device['noise'] is not None
+                    and device['noise'].GetValue() == 'full breakdown'
+                    and device['ref'].GetValue() in displayNames
+                    and device['ref'].GetValue() in (statistical_noise_analysis.get('contributions') or {})]
+        for name in list(self.noiseBreakdownDialogs):
+            if name not in probeNames:
+                dialog=self.noiseBreakdownDialogs.pop(name)
+                if dialog.winfo_exists():
+                    dialog.destroy()
+        for name in probeNames:
+            if name not in self.noiseBreakdownDialogs or not self.noiseBreakdownDialogs[name].winfo_exists():
+                self.noiseBreakdownDialogs[name]=StatisticalNoiseDialog(self)
+            dialog=self.noiseBreakdownDialogs[name]
+            dialog.UpdateNoiseBreakdown(statistical_noise_analysis,name).state('normal')
+            dialog.SimulateDoer.Activate(True)
 
     def UpdateEyeDiagrams(self,eyeDiagramDict):
         import SignalIntegrity.Lib as si
