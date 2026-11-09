@@ -36,9 +36,33 @@ Statistical noise sources come in both voltage and current forms (see the [Volta
 
 Each output probe reports its noise in units appropriate to the quantity it measures: a current output probe reports its noise in current units ($\mathrm{A_{rms}}$, $\mathrm{A_{rms}}/\sqrt{\mathrm{Hz}}$), while every other probe reports voltage units ($\mathrm{V_{rms}}$, $\mathrm{V_{rms}}/\sqrt{\mathrm{Hz}}$).
 
-Only the outputs whose *include in noise* probe property is set are shown in the spectral density plots and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). Eye probes with the property turned off remain part of the underlying results (so their external noise is still applied to the eye diagrams) but are omitted from this dialog.
+The probe property *include in noise measurements* has three choices:
+
+| Choice | Effect |
+|:---|:---|
+| no | Omits the probe from the statistical noise plots and measurements. |
+| yes | Includes the probe's total output noise spectrum in the main dialog and its results in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). |
+| full breakdown | Includes the probe just as *yes* does, and also opens a separate [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog for that probe. |
+
+The default is *yes*. Existing projects containing *on* or *off* values remain supported; these are interpreted as *yes* or *no*, respectively. Eye probes set to *no* remain part of the underlying results (so their external noise is still applied to the eye diagrams) but are omitted from the statistical noise plots and measurements.
 
 For each eye probe, the total integrated output noise (the rms noise reported in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements)) is placed into the read-only [External Noise](22-Eye-Diagram-Properties.md#sub:Noise) box of that eye's [Eye Diagram Properties](21-Eye-Diagram-Properties-Dialog.md#sec:Eye-Diagram-Properties-Dialog). There it is root-sum-squared with the user-entered [Inherent Noise](22-Eye-Diagram-Properties.md#sub:Noise) to form the total vertical noise applied to the eye diagram (i.e. $\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}$). In this way the noise computed by the statistical noise analysis is automatically added to the eye diagrams.
+
+## Full Breakdown {#sub:Statistical-Noise-Full-Breakdown}
+
+<div class="center">
+
+<img src="media/StatisticalNoiseFullBreakdown.png" alt="Full breakdown showing total noise and individual source contributions at a probe" width="604" />
+
+</div>
+
+For every probe whose *include in noise measurements* property is set to *full breakdown*, simulation opens an additional dialog titled **Noise: &lt;probe&gt; - Full Breakdown**. The probe also remains in the main statistical noise dialog and measurements, exactly as with *yes*.
+
+The breakdown plot contains the probe's total output noise spectrum, labelled with the probe reference, and one spectrum for each statistical noise source, labelled **&lt;probe&gt; due to &lt;source&gt;**. Each source trace is its contribution **at this probe**, after propagation through the circuit, not the spectrum injected at the source. These contributions combine as uncorrelated noise power to produce the total spectrum.
+
+Use the **Selection** menu to show or hide the total and individual source traces independently. The plotting, autoscale, and **Noise Measurements** controls are available as in the main dialog. **View Transfer Parameters** is disabled in the breakdown dialog; use the main noise dialog to inspect those parameters. Recalculating refreshes the breakdown windows and closes any whose probes no longer request *full breakdown*.
+
+Selecting *full breakdown* changes only the graphical presentation. Compared with *yes*, it does not change the noise calculations, the noise applied to eye diagrams, or the measurements dictionary returned by headless calls.
 
 ## Statistical Noise Selection Menu {#sub:Statistical-Noise-Selection-Menu}
 
@@ -50,7 +74,7 @@ The selection menu shows the selection tasks along with a list of all displayed 
 
 - [Toggle All](14-Simulator-Dialog.md#Control-Help:Toggle-Selections) - toggles all display states.
 
-The selection menu is disabled when there is a single output probe.
+In a full breakdown dialog, the selection menu lists the probe total and each source contribution. The selection menu is disabled when there is only one available trace.
 
 ## Statistical Noise Calculate Menu {#sub:Statistical-Noise-Calculate-Menu}
 

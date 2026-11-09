@@ -1434,7 +1434,7 @@ The [Waveform](28-Waveform.md#sec:Waveform) file can be viewed using [Edit Prope
 | voltage offset    | float              | offset  | V     | 0 V              |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
-| include in noise  | string (on or off) | noise   |       | on               |
+| include in noise measurements | string (no, yes, full breakdown) | noise | | yes |
 
 The output probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1452,7 +1452,7 @@ There are some special prefixes on the reference that cause the calculation resu
 
 If the state is set to off, the waveform is not calculated.
 
-The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+The *include in noise measurements* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *yes*, the output noise spectral density propagated to this probe is computed, shown in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); *no* omits the probe from those results. The *full breakdown* choice behaves like *yes* and additionally opens a [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog showing the total noise and each source's contribution at this probe. Older *on*/*off* values are supported as *yes*/*no*. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 ## Stim {#device:Stim}
 
@@ -1504,7 +1504,7 @@ Note that the reference designator of the stim is not used for anything. See [st
 | offset            | float              | offset  | V     | 0 V              |
 | transconductance  | float              | gain    | V/A   |                  |
 | state             | string (on or off) | state   |       | on               |
-| include in noise  | string (on or off) | noise   |       | on               |
+| include in noise measurements | string (no, yes, full breakdown) | noise | | yes |
 
 The current probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output current waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1526,7 +1526,7 @@ When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a cur
 
 If the state is set to off, the waveform is not calculated.
 
-The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+The *include in noise measurements* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *yes*, the output noise spectral density propagated to this probe is computed, shown in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); *no* omits the probe from those results. The *full breakdown* choice behaves like *yes* and additionally opens a [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog showing the total noise and each source's contribution at this probe. Older *on*/*off* values are supported as *yes*/*no*. Because the current probe measures current, its noise is reported in current units. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 ## Voltage Diff Probe {#device:Voltage-Diff-Probe}
 
@@ -1541,7 +1541,7 @@ The *include in noise* property determines whether this probe is included in a [
 | voltage offset    | float              | offset  | V     | 0 V              |
 | voltage gain      | float              | gain    |       |                  |
 | state             | string (on or off) | state   |       | on               |
-| include in noise  | string (on or off) | noise   |       | on               |
+| include in noise measurements | string (no, yes, full breakdown) | noise | | yes |
 
 The voltage diff probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing).
 
@@ -1563,7 +1563,7 @@ When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a dif
 
 If the state is set to off, the waveform is not calculated.
 
-The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); when set to *off*, this probe is omitted from those results. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+The *include in noise measurements* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *yes*, the output noise spectral density propagated to this probe is computed, shown in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements); *no* omits the probe from those results. The *full breakdown* choice behaves like *yes* and additionally opens a [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog showing the total noise and each source's contribution at this probe. Older *on*/*off* values are supported as *yes*/*no*. This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 ## Eye Probe {#device:Eye-Probe}
 
@@ -1579,7 +1579,7 @@ The *include in noise* property determines whether this probe is included in a [
 | voltage offset    | float              | offset   | V     | 0 V              |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
-| include in noise  | string (on or off) | noise    |       | on               |
+| include in noise measurements | string (no, yes, full breakdown) | noise | | yes |
 | eye state         | string (on or off) | eyestate |       | on               |
 
 The eye probe is used in [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) applications to specify output waveforms along with eye diagrams to be produced as a result of the calculation. See [Output Probes for Simulation](08-Simulation.md#sub:Output-Probes-for-Simulation) and [Output Probes for Virtual Probing](10-Virtual-Probing.md#sub:Output-Probes-for-Virtual-Probing). As such, this probe behaves exactly like a [Voltage Diff Probe](23-Built-in-Devices-Parts.md#device:Voltage-Diff-Probe), with the addition of the eye diagram.
@@ -1600,7 +1600,7 @@ If the state is set to off, the waveform is not calculated.
 
 If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
 
-The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). For eye probes, this property only controls whether the probe appears in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog); even when it is set to *off*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+The *include in noise measurements* property controls this probe's display in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog) and [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). The *yes* choice displays its total output noise; *no* hides it. The *full breakdown* choice behaves like *yes* and additionally opens a [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog showing the total noise and each source's contribution at this probe. Older *on*/*off* values are supported as *yes*/*no*. Even when set to *no*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 When simulations are complete, for each Eye Probe, the [Eye Diagram Dialog](16-Eye-Diagram-Dialog.md#sec:Eye-Diagram-Dialog) is opened, and an eye diagram calculated, using the specified baud rate to determine the unit interval.
 
@@ -1624,7 +1624,7 @@ When adding an eye probe, the default values are read from the [Preferences](29-
 | voltage offset    | float              | offset   | V     | 0 V              |
 | voltage gain      | float              | gain     |       |                  |
 | state             | string (on or off) | state    |       | on               |
-| include in noise  | string (on or off) | noise    |       | on               |
+| include in noise measurements | string (no, yes, full breakdown) | noise | | yes |
 | eye state         | string (on or off) | eyestate |       | on               |
 
 There are some special prefixes on the reference that cause the calculation result to be special calculations:
@@ -1639,7 +1639,7 @@ If the state is set to off, the waveform is not calculated.
 
 If the state is set to on, but the eyestate is set to off, the waveform is produced, but the eye diagram is not.
 
-The *include in noise* property determines whether this probe is included in a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis). When set to *on*, the output noise spectral density propagated to this probe is computed, shown in the spectral density plots of the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog), and listed in the [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). For eye probes, this property only controls whether the probe appears in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog); even when it is set to *off*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
+The *include in noise measurements* property controls this probe's display in the [Statistical Noise Dialog](31-Statistical-Noise-Dialog.md#sec:Statistical-Noise-Dialog) and [Noise Measurements](31-Statistical-Noise-Dialog.md#Control-Help:Noise-Measurements). The *yes* choice displays its total output noise; *no* hides it. The *full breakdown* choice behaves like *yes* and additionally opens a [Full Breakdown](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Full-Breakdown) dialog showing the total noise and each source's contribution at this probe. Older *on*/*off* values are supported as *yes*/*no*. Even when set to *no*, the total integrated output noise is still applied to the eye diagram as its external noise (see [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis)). This property is only visible when the statistical noise feature is enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
 When examining the [Netlist](24-Netlist.md#sec:Netlist), you will not find a differential probe in it. Instead, during netlist creation, a [Voltage Diff Probe](23-Built-in-Devices-Parts.md#device:Voltage-Diff-Probe) is created with the voltage sense aligned according to the diff probe, and the voltage output connected with the minus pin to ground and the plus pin connected to an [Open](23-Built-in-Devices-Parts.md#device:Open). A voltage [Voltage Output Probe](23-Built-in-Devices-Parts.md#device:Output-Probe) then probes the open.
 
