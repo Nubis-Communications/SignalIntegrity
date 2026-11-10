@@ -21,6 +21,7 @@ TestWaveformProcessor.py
 
 import os
 import unittest
+import copy
 
 import SignalIntegrity.Lib as si
 import SignalIntegrity.App as siapp
@@ -79,6 +80,34 @@ class TestWaveformProcessorTest(unittest.TestCase,
         app.OpenProjectFile('WaveformProcessorTest_nononlin.si')
         self.assertEqual(app.Drawing.schematic.DependentSourceCount(),0)
         self.assertEqual(app.Drawing.schematic.ProcessingIterationCount(True,12),1)
+
+    def testLegacyWaveformProcessorProjectsLoad(self):
+        import SignalIntegrity.App.Project
+        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessor
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        cases = [
+            ('WaveformProcessorTest.si', 'DeviceWaveformProcessorOutputSource', 'DeviceDependentVoltageSource'),
+            ('WaveformProcessorTestTwoProbe_nonlin_source.si', 'DeviceWaveformProcessor', 'DeviceNonlinearSource'),
+        ]
+        for filename, currentClassName, legacyClassName in cases:
+            app = SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile(filename))
+            devices = SignalIntegrity.App.Project['Drawing.Schematic.Devices']
+            deviceProject = next(copy.deepcopy(device) for device in devices if device['ClassName'] == currentClassName)
+            deviceProject['ClassName'] = legacyClassName
+            for propertyProject in deviceProject['PartProperties']:
+                if propertyProject['Keyword'] == 'wftype':
+                    propertyProject['Value'] = 'Depen'
+                elif propertyProject['Keyword'] == 'dependent':
+                    propertyProject['Keyword'] = 'depen'
+
+            device = DeviceFromProject(deviceProject).result
+            expectedClass = DeviceWaveformProcessorOutputSource if legacyClassName == 'DeviceDependentVoltageSource' else DeviceWaveformProcessor
+            self.assertIsInstance(device, expectedClass)
+            self.assertEqual(device['wftype'].GetValue(), 'Dependent')
+            if legacyClassName == 'DeviceDependentVoltageSource':
+                self.assertEqual(device['dependent'].GetValue(), 'VO1')
 
     def testWaveformProcessorPortDependentFail1(self):
 

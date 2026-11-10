@@ -67,7 +67,6 @@ class Processing(XMLConfiguration):
         self.Add(XMLPropertyDefaultBool('StopOnConvergence', False))
         self.Add(XMLPropertyDefaultInt('MaximumProcessingIterations', 100))
         self.Add(XMLPropertyDefaultFloat('ConvergenceThreshold', 1E-3))
-        self.Add(XMLPropertyDefaultBool('PlotAllIterations', False))
 
 class Calculation(XMLConfiguration):
     def __init__(self):

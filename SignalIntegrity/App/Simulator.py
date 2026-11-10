@@ -220,11 +220,8 @@ class Simulator(object):
         maximumProcessingIterations = SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
         iterations = self.parent.Drawing.schematic.ProcessingIterationCount(stopOnConvergence,maximumProcessingIterations)
 
-        DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.PlotAllIterations'] and iterations > 1
-        AUTOSHUTOFF_ITERATION = stopOnConvergence and iterations > 1
-        if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
-            allOutputWaveformList = []
-            allOutputWaveformLabel = []
+        AutoShutoff = stopOnConvergence and iterations > 1
+        lastOutputWaveformList = None
 
         for i in range(int(iterations)):
             iterationStatus = 'Waveform Processing iteration {0} of {1}'.format(i+1,iterations)
@@ -313,37 +310,33 @@ class Simulator(object):
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
 
-            if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
-                #Save all waveforms (main output and "other" waveforms) for plotting each iteration at the end
-                allOutputWaveformList.append(outputWaveformList)
-                allOutputWaveformLabel.append(self.outputWaveformLabels + otherWaveformLabels)
+            if AutoShutoff and lastOutputWaveformList is not None:
+                converged = True
+                for j in range(len(outputWaveformList)):
+                    import numpy
+                    #Calculate magnitude of change for each waveform
+                    diffWvfm = outputWaveformList[j] - lastOutputWaveformList[j]
+                    magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
 
-                if (AUTOSHUTOFF_ITERATION and i > 0): #If not on first iteration, compare to previous iteration to see if reached the end
-                    converged = True
-                    lastOutputWaveformList = allOutputWaveformList[i-1]
-                    for j in range(len(outputWaveformList)):
-                        import numpy
-                        #Calculate magnitude of change for each waveform
-                        diffWvfm = outputWaveformList[j] - lastOutputWaveformList[j]
-                        magnChange = numpy.sqrt(numpy.mean(numpy.square(diffWvfm)))
+                    #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
+                    threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.Processing.ConvergenceThreshold']
 
-                        #Calculate "changed" threshold based on average intensity of old waveform plus a user defined scaling factor
-                        threshold = numpy.sqrt(numpy.mean(numpy.square(lastOutputWaveformList[j])))*SignalIntegrity.App.Preferences['Calculation.Processing.ConvergenceThreshold']
+                    #Minimum threshold to avoid issue with close to 0 waveforms - kinda arbitrary
+                    MIN_THRESHOLD = 1E-7
+                    threshold = numpy.max([MIN_THRESHOLD, threshold])
 
-                        #Minimum threshold to avoid issue with close to 0 waveforms - kinda arbitrary
-                        MIN_THRESHOLD = 1E-7
-                        threshold = numpy.max([MIN_THRESHOLD, threshold])
-
-                        #If change bigger than threshold, did not converge, so keep iterating
-                        if (magnChange > threshold):
-                            converged = False
-                            break
-
-                    #If converged, can exit out of the iteration loop
-                    if (converged):
-                        #Update iterations to account for the number of iterations actually done
-                        iterations = i + 1
+                    #If change bigger than threshold, did not converge, so keep iterating
+                    if (magnChange > threshold):
+                        converged = False
                         break
+
+                #If converged, can exit out of the iteration loop
+                if (converged):
+                    #Update iterations to account for the number of iterations actually done
+                    iterations = i + 1
+                    break
+
+            lastOutputWaveformList = outputWaveformList
 
         #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
@@ -351,22 +344,6 @@ class Simulator(object):
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(self.outputWaveformLabels)]]+outputWaveformList[len(self.outputWaveformLabels):]
         outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
-
-        if (DISP_EVERY_ITERATION):
-            #Unpack the saved intermediate iteration values one iteration at a time
-            #Don't do the final iteration since that is the "output values"
-            for i in range(iterations-1):
-                currOutputWaveformList = allOutputWaveformList[i]
-                currOutputWaveformLabels = allOutputWaveformLabel[i]
-
-                currOutputWaveformList = [wf.Adapt(
-                    si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
-                        for wf in currOutputWaveformList[:len(self.outputWaveformLabels)]]+currOutputWaveformList[len(self.outputWaveformLabels):]
-                currOutputWaveformLabels = [currLabel + f"_it_{i}" for currLabel in currOutputWaveformLabels]
-
-                #Assign to the overall output lists which will be plotted
-                outputWaveformList += currOutputWaveformList
-                outputWaveformLabels += currOutputWaveformLabels
 
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
@@ -394,12 +371,6 @@ class Simulator(object):
             for device in self.parent.Drawing.schematic.deviceList:
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     matched = device['ref'].GetValue() == outputWaveformLabel
-                    if (DISP_EVERY_ITERATION and not matched):
-                        for it in range(iterations):
-                            #Check if it matches a "saved" waveform from a previous iteration
-                            if (device['ref'].GetValue() + f"_it_{it}" == outputWaveformLabel):
-                                matched = True
-                                break
                     if matched:
                         device.configuration.SetExternalNoise(sna.Noise(outputWaveformLabel))
                         if device['eyestate'].GetValue() == 'on':

@@ -102,7 +102,6 @@ class PreferencesDialog(PropertiesDialog):
         self.multiPortTee=CalculationPropertyTrueFalseButton(self.calculationFrame,'employ multi-port tee elements',None,self.onUpdatePreferences,preferences,'Calculation.MultiPortTee')
         self.ignoreMissingOtherWaveforms=CalculationPropertyTrueFalseButton(self.calculationFrame,'ignore missing other waveforms in calculations',None,self.onUpdatePreferences,preferences,'Calculation.IgnoreMissingOtherWaveforms')
         self.maximumWaveformSize=CalculationPropertySI(self.calculationFrame,'maximum waveform size',None,self.onUpdatePreferences,preferences,'Calculation.MaximumWaveformSize','pts')
-        self.plotAllIterations = CalculationPropertyTrueFalseButton(self.calculationTab, 'plot all processing iterations', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.PlotAllIterations')
         self.autoShutoffFrame=tk.Frame(self.calculationTab)
         self.autoShutoffFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.stopProcessingOnConvergence = CalculationPropertyTrueFalseButton(self.autoShutoffFrame, 'stop processing based on convergence', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.StopOnConvergence')

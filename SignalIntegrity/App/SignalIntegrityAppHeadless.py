@@ -385,7 +385,7 @@ class SignalIntegrityAppHeadless(object):
         maximumProcessingIterations = SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
         iterations = self.Drawing.schematic.ProcessingIterationCount(stopOnConvergence,maximumProcessingIterations)
 
-        AUTOSHUTOFF_ITERATION = stopOnConvergence and iterations > 1
+        AutoShutoff = stopOnConvergence and iterations > 1
         for i in range(int(iterations)):
             if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
                 try:
@@ -461,7 +461,7 @@ class SignalIntegrityAppHeadless(object):
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 
-            if (AUTOSHUTOFF_ITERATION): #If not on first iteration, compare to previous iteration to see if reached the end
+            if (AutoShutoff): #If not on first iteration, compare to previous iteration to see if reached the end
                 if (i > 0):
                     fullLabels = outputWaveformLabels+otherWaveformLabels
                     converged = True

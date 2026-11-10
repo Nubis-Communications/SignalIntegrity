@@ -326,7 +326,11 @@ class DeviceFromProject(object):
             if partPropertyProject['Keyword'] == 'ports':
                 ports=int(partPropertyProject['Value'])
                 break
-        className=deviceProject['ClassName']
+        legacyClassNames = {
+            'DeviceDependentVoltageSource': 'DeviceWaveformProcessorOutputSource',
+            'DeviceNonlinearSource': 'DeviceWaveformProcessor',
+        }
+        className=legacyClassNames.get(deviceProject['ClassName'],deviceProject['ClassName'])
         self.result=None
         if className=='DeviceFile':
             self.result=DeviceFile([PartPropertyDescription('Variable Port File'),PartPropertyPorts(ports,False)],PartPictureVariableSpecifiedPorts(ports))
@@ -366,11 +370,19 @@ class DeviceFromProject(object):
         if self.result is None:
             raise
         for partPropertyProject in deviceProject['PartProperties']:
-            devicePartProperty=self.result[partPropertyProject['Keyword']]
+            keyword=partPropertyProject['Keyword']
+            if keyword == 'depen':
+                keyword = 'dependent'
+            devicePartProperty=self.result[keyword]
             if not devicePartProperty is None:
                 for propertyItemName in partPropertyProject.dict:
                     if partPropertyProject.dict[propertyItemName].dict['write']:
-                        devicePartProperty[propertyItemName]=partPropertyProject.GetValue(propertyItemName)
+                        propertyValue=partPropertyProject.GetValue(propertyItemName)
+                        if propertyItemName == 'Keyword' and propertyValue == 'depen':
+                            propertyValue = 'dependent'
+                        elif keyword == 'wftype' and propertyItemName == 'Value' and propertyValue == 'Depen':
+                            propertyValue = 'Dependent'
+                        devicePartProperty[propertyItemName]=propertyValue
                 if devicePartProperty['Type'] == 'file':
                     if isinstance(devicePartProperty['Value'],str):
                         # keep Linux file system format
