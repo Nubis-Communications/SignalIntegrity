@@ -1,5 +1,5 @@
 """
-TestNonlinearIterations.py
+TestWaveformProcessor.py
 """
 
 # Copyright (c) 2021 Nubis Communications, Inc.
@@ -25,7 +25,7 @@ import unittest
 import SignalIntegrity.Lib as si
 import SignalIntegrity.App as siapp
 
-class TestNonlinearIterationTest(unittest.TestCase,
+class TestWaveformProcessorTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):
     relearn=True
     plot=False
@@ -63,7 +63,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
 
-    def testNonlinBase(self):
+    def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
 
     def testProcessingIterationCount(self):
@@ -80,20 +80,20 @@ class TestNonlinearIterationTest(unittest.TestCase,
         self.assertEqual(app.Drawing.schematic.DependentSourceCount(),0)
         self.assertEqual(app.Drawing.schematic.ProcessingIterationCount(True,12),1)
 
-    def testNonlinWPortFail1(self):
+    def testWaveformProcessorPortDependentFail1(self):
 
         filename = 'WaveformProcessorTest_port_dependent.si'
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
-    def testNonlinWPortFail2(self):
+    def testWaveformProcessorPortDependentFail2(self):
         filename = 'WaveformProcessorTest_port_dependent.si'
         pysi=self.Preliminary(filename)
         result=pysi.CalculateSParameters()
         self.assertFalse(result, filename+' produced something - this is unexpected')
         
-    def testNonlinAutoshutoff(self):
+    def testWaveformProcessorAutoshutoff(self):
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         #Turn on autoshutoff
@@ -118,7 +118,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
 
-    def NonlinParameterTest(self, scale = 4, tf_fn = 'scale_nonlin'):
+    def WaveformProcessorParameterTest(self, scale = 4, tf_fn = 'scale_nonlin'):
         base_fn = 'WaveformProcessorTestTwoProbe_nonlin_source_parameterized'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
@@ -127,46 +127,46 @@ class TestNonlinearIterationTest(unittest.TestCase,
         app.SaveProjectToFile(filename)
         return filename
     
-    def testNonlinParameterizedBase(self):
+    def testWaveformProcessorParameterizedBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_parameterized.py')
 
-    def testNonlinParameterizedParams(self):
-        self.SimulationResultsChecker(self.NonlinParameterTest(scale=8, tf_fn='scaledown_nonlin'))
+    def testWaveformProcessorParameterizedParams(self):
+        self.SimulationResultsChecker(self.WaveformProcessorParameterTest(scale=8, tf_fn='scaledown_nonlin'))
 
-    def testNonlinParameterizedFail1(self):
-        filename = (self.NonlinParameterTest(scale=8, tf_fn = 'fake_file'))
+    def testWaveformProcessorParameterizedFail1(self):
+        filename = (self.WaveformProcessorParameterTest(scale=8, tf_fn = 'fake_file'))
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
-    def testNonlinParameterizedFail2(self):
-        filename = (self.NonlinParameterTest(scale=8, tf_fn = 'scale_nonlin_noOutput'))
+    def testWaveformProcessorParameterizedFail2(self):
+        filename = (self.WaveformProcessorParameterTest(scale=8, tf_fn = 'scale_nonlin_noOutput'))
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
-    def testNonlinParameterizedFail3(self):
-        filename = (self.NonlinParameterTest(scale=8, tf_fn = 'scale_nonlin_error'))
+    def testWaveformProcessorParameterizedFail3(self):
+        filename = (self.WaveformProcessorParameterTest(scale=8, tf_fn = 'scale_nonlin_error'))
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
-    def testNonlinParameterizedFail4(self):
+    def testWaveformProcessorParameterizedFail4(self):
 
         filename = 'WaveformProcessorTestTwoProbe_nonlin_source_parameterized_missing.py'
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
-    def testNoNonlin(self):
+    def testNoWaveformProcessor(self):
         self.SimulationResultsChecker('WaveformProcessorTest_nononlin.si')
-    def testNonlinParametersNested(self):
+    def testWaveformProcessorParametersNested(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_nested.si')
 
-    def testNonlinParametersOtherVarTypes(self):
+    def testWaveformProcessorParametersOtherVarTypes(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_parameterized_intstrtest.si')
 
-    def NonlinNestedParameterTest(self, scale1 = 2, scale2 = 16):
+    def WaveformProcessorNestedParameterTest(self, scale1 = 2, scale2 = 16):
         base_fn = 'WaveformProcessorTestTwoProbe_nonlin_source_nested'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
@@ -175,10 +175,10 @@ class TestNonlinearIterationTest(unittest.TestCase,
         app.SaveProjectToFile(filename)
         return filename
     
-    def testNonlinParmetersNested2(self):
-        self.SimulationResultsChecker(self.NonlinNestedParameterTest(scale1 = 2, scale2 = 16),)
+    def testWaveformProcessorTwoInput(self):
+        self.SimulationResultsChecker(self.WaveformProcessorNestedParameterTest(scale1 = 2, scale2 = 16),)
 
-    def testNonlinParmetersNested2(self):
+    def testWaveformProcessorTwoInput(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_twoport_source.si')
 
     @unittest.skip("Obsolete failure mode: on the InNextRelease base the impulse-response "

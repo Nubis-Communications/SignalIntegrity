@@ -1,5 +1,5 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="1.75" y="-2.75" t="VS1_wffile WaveformProcessorTestTwoProbe_nonlin_source_parameterized.si" h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-2.75" t="VS1_wffile WaveformProcessorTestTwoProbe_nonlin_source_param..." h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-5.75" t="VS1_wfprojname VO2" h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-8.75" t="VS1_NLS1_scale 16.0 " h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-11.75" t="VS1_tf_fn scale_nonlin.py" h="3" halign="l" lc="black"/>
@@ -13,7 +13,7 @@
 %  <polyline lc="black">56,-72 56,-76</polyline>
 %  <text x="62" y="-90" t="tf_fn=VS1_tf_fn (scale_nonlin.py)" h="3" halign="l" lc="black"/>
 %  <text x="62" y="-87" t="NLS1_scale=VS1_NLS1_scale (16.0 )" h="3" halign="l" lc="black"/>
-%  <text x="62" y="-84" t="wffile WaveformProcessorTestTwoProbe_nonlin_source_parameterized.si" h="3" halign="l" lc="black"/>
+%  <text x="62" y="-84" t="wffile WaveformProcessorTestTwoProbe_nonlin_source_parameter..." h="3" halign="l" lc="black"/>
 %  <text x="62" y="-81" t="VO2" h="3" halign="l" lc="black"/>
 %  <polyline lw="3" lc="black">60,-52 58,-54</polyline>
 %  <polyline lc="black">58,-54 56,-56</polyline>
@@ -55,7 +55,7 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\draw[black] (1.75,-2.75) node[anchor=base west]{VS1\textunderscore wffile WaveformProcessorTestTwoProbe\textunderscore nonlin\textunderscore source\textunderscore parameterized.si};
+\draw[black] (1.75,-2.75) node[anchor=base west]{VS1\textunderscore wffile WaveformProcessorTestTwoProbe\textunderscore nonlin\textunderscore source\textunderscore param...};
 \draw[black] (1.75,-5.75) node[anchor=base west]{VS1\textunderscore wfprojname VO2};
 \draw[black] (1.75,-8.75) node[anchor=base west]{VS1\textunderscore NLS1\textunderscore scale 16.0 };
 \draw[black] (1.75,-11.75) node[anchor=base west]{VS1\textunderscore tf\textunderscore fn scale\textunderscore nonlin.py};
@@ -69,7 +69,7 @@
 \path[line width=0.30mm, draw=black] (56,-72) -- (56,-76);
 \draw[black] (62,-90) node[anchor=base west]{tf\textunderscore fn=VS1\textunderscore tf\textunderscore fn (scale\textunderscore nonlin.py)};
 \draw[black] (62,-87) node[anchor=base west]{NLS1\textunderscore scale=VS1\textunderscore NLS1\textunderscore scale (16.0 )};
-\draw[black] (62,-84) node[anchor=base west]{wffile WaveformProcessorTestTwoProbe\textunderscore nonlin\textunderscore source\textunderscore parameterized.si};
+\draw[black] (62,-84) node[anchor=base west]{wffile WaveformProcessorTestTwoProbe\textunderscore nonlin\textunderscore source\textunderscore parameter...};
 \draw[black] (62,-81) node[anchor=base west]{VO2};
 \path[line width=0.9mm, draw=black] (60,-52) -- (58,-54);
 \path[line width=0.30mm, draw=black] (58,-54) -- (56,-56);

@@ -1,5 +1,5 @@
 """
-__init__.py
+scale_nonlin_noOutput.py
 """
 
 # Copyright (c) 2018 Teledyne LeCroy, Inc.
@@ -18,6 +18,24 @@ __init__.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from __future__ import absolute_import
+from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
-from .TestNonlinearIteration import TestNonlinearIterationTest
+#Code which will be run by a dependent voltage source to perform voltage transformation
+#This transform processes its first input waveform.
+# inpputs: inputWaveforms - dictionary containing Waveform to utilize
+# outputs: outputWaveform - set to transformed Waveform
+
+#Check if scale variable initialized (passed in)
+try:
+    print(f"Scale factor: {scale}")
+except NameError:
+    print('Scale not passed in!')
+    scale = 2
+
+inputWaveform = input_waveform_1
+#outputWaveform = inputWaveform*scale
+
+
+
+
+
