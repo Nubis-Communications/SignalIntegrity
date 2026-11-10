@@ -32,7 +32,7 @@ class DeviceConfigurations(XMLConfiguration):
 
 class Color(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Color')
+        super().__init__('Color')
         self.Add(XMLPropertyDefaultString('Background'))
         self.Add(XMLPropertyDefaultString('Foreground'))
         self.Add(XMLPropertyDefaultString('ActiveBackground'))
@@ -42,7 +42,7 @@ class Color(XMLConfiguration):
 
 class Appearance(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Appearance')
+        super().__init__('Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
         self.Add(XMLPropertyDefaultInt('InitialGrid',16))
         self.Add(XMLPropertyDefaultFloat('PlotWidth',5))
@@ -63,7 +63,7 @@ class Variables(XMLConfiguration):
 
 class Calculation(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Calculation')
+        super().__init__('Calculation')
         self.Add(XMLPropertyDefaultBool('TrySVD',True))
         self.Add(XMLPropertyDefaultBool('AllowNonUniqueSolutions',False))
         self.Add(XMLPropertyDefaultBool('CheckConditionNumber',True))
@@ -91,7 +91,7 @@ class Calculation(XMLConfiguration):
 
 class Cache(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Cache')
+        super().__init__('Cache')
         self.Add(XMLPropertyDefaultBool('CacheResults',True))
         self.Add(XMLPropertyDefaultInt('NumberOfFiles',1))
         self.Add(XMLPropertyDefaultBool('KeepExtraFileForArchive',False))
@@ -106,13 +106,13 @@ class Cache(XMLConfiguration):
 
 class LastFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'LastFiles')
+        super().__init__('LastFiles')
         self.Add(XMLPropertyDefaultString('Name'))
         self.Add(XMLPropertyDefaultString('Directory'))
 
 class Encryption(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Encryption')
+        super().__init__('Encryption')
         self.Add(XMLPropertyDefaultString('Password',''))
         self.Add(XMLPropertyDefaultString('Ending','$'))
     def ApplyPreferences(self):
@@ -121,7 +121,7 @@ class Encryption(XMLConfiguration):
 
 class ProjectFiles(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'ProjectFiles')
+        super().__init__('ProjectFiles')
         self.Add(XMLPropertyDefaultBool('OpenLastFile',True))
         self.Add(XMLPropertyDefaultBool('RetainLastFilesOpened',True))
         self.Add(XMLProperty('LastFile',[LastFiles() for _ in range(4)],'array',arrayType=LastFiles()))
@@ -134,13 +134,13 @@ class ProjectFiles(XMLConfiguration):
 
 class OnlineHelp(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'OnlineHelp')
+        super().__init__('OnlineHelp')
         self.Add(XMLPropertyDefaultBool('UseOnlineHelp',True))
         self.Add(XMLPropertyDefaultString('URL','https://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App'))
 
 class Features(XMLConfiguration):
     def __init__(self):
-        XMLConfiguration.__init__(self,'Features')
+        super().__init__('Features')
         self.Add(XMLPropertyDefaultBool('NetworkAnalyzerModel',False))
         self.Add(XMLPropertyDefaultBool('StatisticalNoise',False))
         self.Add(XMLPropertyDefaultBool('Regression',False))
