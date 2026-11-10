@@ -552,7 +552,7 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Dependent':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                     if self.device['wftype'].GetValue() == 'scripted':
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -593,7 +593,7 @@ class DeviceProperties(tk.Frame):
                       command=self.onVariables)
         if self.isAProjectDevice or self.IsScriptedSource() or (
                 self.device['wftype'] is not None
-                and self.device['wftype'].GetValue() == 'Depen'):
+                and self.device['wftype'].GetValue() == 'Dependent'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -689,7 +689,7 @@ class DeviceProperties(tk.Frame):
                     if filename == None:
                         filename=''
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
-        elif self.device['wftype'].GetValue() == 'Depen':
+        elif self.device['wftype'].GetValue() == 'Dependent':
             #Dependent devices have variables without an associated filename
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=None, parameterizable=True)
         
@@ -731,7 +731,7 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Depen':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Dependent':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                     if self.device['wftype'].GetValue() == 'scripted':
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
@@ -739,7 +739,7 @@ class DeviceProperties(tk.Frame):
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         if self.isAProjectDevice or self.IsScriptedSource() or (
                 self.device['wftype'] is not None
-                and self.device['wftype'].GetValue() == 'Depen'):
+                and self.device['wftype'].GetValue() == 'Dependent'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice

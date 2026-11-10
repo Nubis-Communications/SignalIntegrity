@@ -32,9 +32,8 @@ except NameError:
     print('Scale not passed in!')
     scale = 2
 
-inputWaveform = VO1 
+inputWaveform = input_waveform_1
 
 outputWaveform = inputWaveform*scale
-print('RAN IT')
 
 

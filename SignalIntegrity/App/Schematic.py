@@ -58,13 +58,28 @@ class Schematic(CallBacker):
                     inputWaveformList.append(wf)
         return inputWaveformList
     
-    def HasDependentSource(self):
+    def DependentSourceCount(self):
+        count = 0
         for device in self.deviceList:
-            if not device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
-                wftype = device['wftype']
-                if wftype != None and wftype.GetValue() == 'Depen':
-                    return True
-        return False
+            if device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
+                continue
+            wftype = device['wftype']
+            if wftype != None and wftype.GetValue() == 'Dependent':
+                count += 1
+        return count
+    def HasDependentSource(self):
+        return self.DependentSourceCount() > 0
+    def ProcessingIterationCount(self,stopOnConvergence,maximumProcessingIterations):
+        dependentSourceCount = self.DependentSourceCount()
+        if dependentSourceCount == 0:
+            return 1
+        if stopOnConvergence:
+            try:
+                maximumProcessingIterations = int(maximumProcessingIterations)
+            except (TypeError,ValueError):
+                maximumProcessingIterations = 100
+            return max(2,maximumProcessingIterations)
+        return dependentSourceCount + 1
     def OtherWaveforms(self):
         otherWaveformList=[]
         for device in self.deviceList:

@@ -255,7 +255,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceNonlinearSource</ClassName>
+					<ClassName>DeviceWaveformProcessor</ClassName>
 					<PartPicture>
 						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -285,7 +285,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -309,7 +309,7 @@
 								<ReadOnly>False</ReadOnly>
 								<Type>float</Type>
 								<Units></Units>
-								<Value>=missing_var</Value>
+								<Value>=NLS1_scale</Value>
 								<Visible>True</Visible>
 							</Variable>
 						</Items>
@@ -388,12 +388,21 @@
 	<Variables>
 		<Items>
 			<Variable>
+				<Description>scale</Description>
+				<Name>NLS1_scale</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>8</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
 				<Description>tf_fn</Description>
 				<Name>tf_fn</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>scale_nonlin.py</Value>
+				<Value>fake_file.py</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>

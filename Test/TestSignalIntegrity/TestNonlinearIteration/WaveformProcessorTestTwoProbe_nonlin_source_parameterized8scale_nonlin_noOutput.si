@@ -255,7 +255,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceNonlinearSource</ClassName>
+					<ClassName>DeviceWaveformProcessor</ClassName>
 					<PartPicture>
 						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -285,7 +285,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -402,7 +402,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>scaledown_nonlin.py</Value>
+				<Value>scale_nonlin_noOutput.py</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>

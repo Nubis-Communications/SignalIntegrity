@@ -106,6 +106,7 @@ class PreferencesDialog(PropertiesDialog):
         self.autoShutoffFrame=tk.Frame(self.calculationTab)
         self.autoShutoffFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.stopProcessingOnConvergence = CalculationPropertyTrueFalseButton(self.autoShutoffFrame, 'stop processing based on convergence', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.StopOnConvergence')
+        self.maximumProcessingIterations = CalculationProperty(self.autoShutoffFrame, 'maximum processing iterations', self.onMaximumProcessingIterationsEntered, None, preferences, 'Calculation.Processing.MaximumProcessingIterations', tooltip='Used when stop processing based on convergence is enabled; at least two iterations are required to compare results.')
         self.stopProcessingConvergenceThreshold = CalculationPropertySI(self.autoShutoffFrame, 'processing convergence threshold', None, self.onUpdatePreferences,preferences, 'Calculation.Processing.ConvergenceThreshold')
         self.Finish()
 
@@ -115,9 +116,20 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
+        self.maximumProcessingIterations.Show()
         self.project.SaveToFile()
         HelpSystemKeys.InstallHelpURLBase(self.project['OnlineHelp.UseOnlineHelp'],
                                           self.project['OnlineHelp.URL'])
+
+    def onMaximumProcessingIterationsEntered(self,event):
+        try:
+            maximum = int(self.project['Calculation.Processing.MaximumProcessingIterations'])
+        except (TypeError,ValueError):
+            maximum = 2
+        maximum = max(2,maximum)
+        self.project['Calculation.Processing.MaximumProcessingIterations'] = maximum
+        self.maximumProcessingIterations.SetString(maximum)
+        self.onUpdatePreferences()
     def onUpdateFontSize(self):
         self.onUpdatePreferences()
         self.parent.UpdateColorsAndFonts()
@@ -141,4 +153,5 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))
         self.stopProcessingConvergenceThreshold.Show(self.project['Calculation.Processing.StopOnConvergence'])
+        self.maximumProcessingIterations.Show()
         PropertiesDialog.Finish(self)

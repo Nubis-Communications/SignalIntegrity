@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1707x976+401+11</Geometry>
+			<Geometry>1707x976+78+78</Geometry>
 			<Grid>16</Grid>
 			<Originx>-3</Originx>
 			<Originy>4</Originy>
@@ -255,9 +255,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceNonlinearSource</ClassName>
+					<ClassName>DeviceWaveformProcessor</ClassName>
 					<PartPicture>
-						<Index>0</Index>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
@@ -273,7 +273,7 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>testnotthere.py</Value>
+							<Value>=tf_fn</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -285,7 +285,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -309,7 +309,7 @@
 								<ReadOnly>False</ReadOnly>
 								<Type>float</Type>
 								<Units></Units>
-								<Value>4</Value>
+								<Value>=NLS1_scale</Value>
 								<Visible>True</Visible>
 							</Variable>
 						</Items>
@@ -385,4 +385,26 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>scale</Description>
+				<Name>NLS1_scale</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>float</Type>
+				<Units></Units>
+				<Value>8</Value>
+				<Visible>True</Visible>
+			</Variable>
+			<Variable>
+				<Description>tf_fn</Description>
+				<Name>tf_fn</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>scaledown_nonlin.py</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

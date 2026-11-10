@@ -21,11 +21,11 @@ scale_nonlin.py
 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from Amplifier import amplifier_iip2_iip3_slew
 #Code which will be run by a dependent voltage source to perform voltage transformation
-#This simple explanation will just scale VO3 probe (if VO3 not there, exception occurs which is not well handled)
+#This transform processes its first input waveform.
 # inputs: inputWaveforms - dictionary containing Waveform to utilize
 # outputs: outputWaveform - set to transformed Waveform
 
-inputWaveform = NLS1 #Assuming only 1 waveform input, will pick out that waveform
+inputWaveform = input_waveform_1
 
 if iteration <0:
     outputWaveform = inputWaveform
@@ -45,13 +45,3 @@ else:
     );
 
     outputWaveform = Waveform(inputWaveform.TimeDescriptor(), list(outputWaveform_values))
-
-    print('RAN IT')
-
-
-
-
-
-
-
-

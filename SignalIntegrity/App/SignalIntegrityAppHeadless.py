@@ -110,7 +110,7 @@ class DrawingHeadless(object):
                 foundAnUnknown = True
             elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','nonlinearsource']:
                 foundASource = True
-                if device['wftype'] != None and device['wftype'].GetValue() == 'Depen':
+                if device['wftype'] != None and device['wftype'].GetValue() == 'Dependent':
                     foundDependentSource = True
             elif device.netlist['DeviceName'] == 'calibration':
                 foundACalibration=True
@@ -381,14 +381,11 @@ class SignalIntegrityAppHeadless(object):
             transferMatrices = []
 
         # Determine the number of iterations for the dependent-source iterative solution
-        if self.Drawing.schematic.HasDependentSource():
-            iterations = SignalIntegrity.App.Project['CalculationProperties']['ProcessingIterations']
-            if iterations == None:
-                iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
-        else:
-            iterations = 1
+        stopOnConvergence = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']
+        maximumProcessingIterations = SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
+        iterations = self.Drawing.schematic.ProcessingIterationCount(stopOnConvergence,maximumProcessingIterations)
 
-        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = stopOnConvergence and iterations > 1
         for i in range(int(iterations)):
             if TransferMatricesOnly or self.Drawing.canGenerateTransferMatrices or len(self.Drawing.schematic.OtherWaveforms()) == 0:
                 try:

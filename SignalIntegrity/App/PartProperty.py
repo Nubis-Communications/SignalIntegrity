@@ -208,7 +208,7 @@ class PartPropertyTransformFileName(PartProperty):
 
 class PartPropertyDependentProbe(PartProperty):
     def __init__(self,dependentprobe=''):
-        PartProperty.__init__(self,'dependentprobe',type='string',unit=None,keyword='depen',description='dependent probe',value=dependentprobe)
+        PartProperty.__init__(self,'dependentprobe',type='string',unit=None,keyword='dependent',description='dependent probe',value=dependentprobe)
 
 
 class PartPropertyResistance(PartProperty):

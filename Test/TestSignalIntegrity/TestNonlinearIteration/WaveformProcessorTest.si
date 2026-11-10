@@ -111,7 +111,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceDependentVoltageSource</ClassName>
+					<ClassName>DeviceWaveformProcessorOutputSource</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -133,7 +133,7 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>depen</Keyword>
+							<Keyword>dependent</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>VO1</Value>
 							<Visible>False</Visible>
@@ -147,7 +147,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

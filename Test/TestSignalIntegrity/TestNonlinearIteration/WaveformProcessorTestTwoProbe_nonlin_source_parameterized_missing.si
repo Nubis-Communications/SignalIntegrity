@@ -255,9 +255,9 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceNonlinearSource</ClassName>
+					<ClassName>DeviceWaveformProcessor</ClassName>
 					<PartPicture>
-						<Index>0</Index>
+						<Index>1</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
@@ -273,8 +273,8 @@
 						<PartProperty>
 							<Keyword>trfile</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>scale_nonlin.py</Value>
-							<Visible>False</Visible>
+							<Value>=tf_fn</Value>
+							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
 							<Keyword>show</Keyword>
@@ -285,7 +285,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -309,7 +309,7 @@
 								<ReadOnly>False</ReadOnly>
 								<Type>float</Type>
 								<Units></Units>
-								<Value>4</Value>
+								<Value>=missing_var</Value>
 								<Visible>True</Visible>
 							</Variable>
 						</Items>
@@ -385,4 +385,17 @@
 	<Equations>
 		<AutoDebug>True</AutoDebug>
 	</Equations>
+	<Variables>
+		<Items>
+			<Variable>
+				<Description>tf_fn</Description>
+				<Name>tf_fn</Name>
+				<ReadOnly>False</ReadOnly>
+				<Type>string</Type>
+				<Units></Units>
+				<Value>scale_nonlin.py</Value>
+				<Visible>True</Visible>
+			</Variable>
+		</Items>
+	</Variables>
 </Project>

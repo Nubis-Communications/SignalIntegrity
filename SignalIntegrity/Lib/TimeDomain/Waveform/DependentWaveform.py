@@ -58,11 +58,14 @@ class DependentWaveform(Waveform):
 
         #Dictionary of input waveforms to send to function
         inputWaveforms = {}
+        inputWaveformAliases = {}
 
         #Read in all of the input waveforms into inputWaveforms dictionary
         for i in range(len(allOutputPorts)):
             if (allOutputPorts[i] in OutputWaveformLabels):
-                inputWaveforms[allOutputPorts[i]] = OutputWaveformList[OutputWaveformLabels.index(allOutputPorts[i])]
+                inputWaveform = OutputWaveformList[OutputWaveformLabels.index(allOutputPorts[i])]
+                inputWaveforms[allOutputPorts[i]] = inputWaveform
+                inputWaveformAliases['input_waveform_' + str(i+1)] = inputWaveform
             else:
                 raise SignalIntegrityExceptionDependentWaveform(
                     'dependent output port not found: ' + (allOutputPorts[i]))
@@ -94,6 +97,7 @@ class DependentWaveform(Waveform):
             elif variable['Type'] == 'int':
                 sendargs[variable['Name']]=int(value)
 
+        sendargs.update(inputWaveformAliases)
 
         returnargs = {'outputWaveform': Waveform()}
 

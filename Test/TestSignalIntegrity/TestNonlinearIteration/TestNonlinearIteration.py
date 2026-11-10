@@ -42,6 +42,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         self.Autoshutoff=SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']
+        self.MaximumProcessingIterations=SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=False
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
@@ -53,6 +54,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=self.Autoshutoff
+        SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']=self.MaximumProcessingIterations
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
@@ -62,17 +64,31 @@ class TestNonlinearIterationTest(unittest.TestCase,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
 
     def testNonlinBase(self):
-        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_source.si')
+        self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
+
+    def testProcessingIterationCount(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        app = SignalIntegrityAppHeadless()
+        app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si')
+        schematic = app.Drawing.schematic
+        dependentSourceCount = schematic.DependentSourceCount()
+        self.assertGreater(dependentSourceCount,0)
+        self.assertEqual(schematic.ProcessingIterationCount(False,100),dependentSourceCount+1)
+        self.assertEqual(schematic.ProcessingIterationCount(True,12),12)
+        self.assertEqual(schematic.ProcessingIterationCount(True,1),2)
+        app.OpenProjectFile('WaveformProcessorTest_nononlin.si')
+        self.assertEqual(app.Drawing.schematic.DependentSourceCount(),0)
+        self.assertEqual(app.Drawing.schematic.ProcessingIterationCount(True,12),1)
 
     def testNonlinWPortFail1(self):
 
-        filename = 'DanielTest_port_dependent.si'
+        filename = 'WaveformProcessorTest_port_dependent.si'
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
     def testNonlinWPortFail2(self):
-        filename = 'DanielTest_port_dependent.si'
+        filename = 'WaveformProcessorTest_port_dependent.si'
         pysi=self.Preliminary(filename)
         result=pysi.CalculateSParameters()
         self.assertFalse(result, filename+' produced something - this is unexpected')
@@ -82,14 +98,16 @@ class TestNonlinearIterationTest(unittest.TestCase,
         import SignalIntegrity.App.Project
         #Turn on autoshutoff
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=True
+        #This fixture's saved waveforms represent the legacy two-pass result.
+        SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']=2
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
         #Run test - have to make new file name cause waveform of authoshutoff will be different then large # iterations
         #cause it clips the waveform more
-        origFileName = 'DanielTestTwoProbe_nonlin_source.si'
-        newFileName = 'DanielTestTwoProbe_nonlin_source_AS.si'
+        origFileName = 'WaveformProcessorTestTwoProbe_nonlin_source.si'
+        newFileName = 'WaveformProcessorTestTwoProbe_nonlin_source_AS.si'
         pysi.OpenProjectFile(origFileName)
         pysi.SaveProjectToFile(newFileName)
         self.SimulationResultsChecker(newFileName)
@@ -101,16 +119,16 @@ class TestNonlinearIterationTest(unittest.TestCase,
 
 
     def NonlinParameterTest(self, scale = 4, tf_fn = 'scale_nonlin'):
-        base_fn = 'DanielTestTwoProbe_nonlin_source_parameterized'
+        base_fn = 'WaveformProcessorTestTwoProbe_nonlin_source_parameterized'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(base_fn + '.si',{'NLS1_scale':scale, 'tf_fn':tf_fn + '.py'})
-        filename='DanielTestTwoProbe_nonlin_source_parameterized'+str(scale)+tf_fn + '.si'
+        filename='WaveformProcessorTestTwoProbe_nonlin_source_parameterized'+str(scale)+tf_fn + '.si'
         app.SaveProjectToFile(filename)
         return filename
     
     def testNonlinParameterizedBase(self):
-        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_source_parameterized.py')
+        self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_parameterized.py')
 
     def testNonlinParameterizedParams(self):
         self.SimulationResultsChecker(self.NonlinParameterTest(scale=8, tf_fn='scaledown_nonlin'))
@@ -135,25 +153,25 @@ class TestNonlinearIterationTest(unittest.TestCase,
 
     def testNonlinParameterizedFail4(self):
 
-        filename = 'DanielTestTwoProbe_nonlin_source_parameterized_missing.py'
+        filename = 'WaveformProcessorTestTwoProbe_nonlin_source_parameterized_missing.py'
         pysi=self.Preliminary(filename)
         result=pysi.Simulate()
         self.assertFalse(result, filename+' produced something - this is unexpected')
 
     def testNoNonlin(self):
-        self.SimulationResultsChecker('DanielTest_nononlin.si')
+        self.SimulationResultsChecker('WaveformProcessorTest_nononlin.si')
     def testNonlinParametersNested(self):
-        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_source_nested.si')
+        self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_nested.si')
 
     def testNonlinParametersOtherVarTypes(self):
-        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_source_parameterized_intstrtest.si')
+        self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source_parameterized_intstrtest.si')
 
     def NonlinNestedParameterTest(self, scale1 = 2, scale2 = 16):
-        base_fn = 'DanielTestTwoProbe_nonlin_source_nested'
+        base_fn = 'WaveformProcessorTestTwoProbe_nonlin_source_nested'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(base_fn + '.si',{'NLS1_scale':scale1, 'VS1_NLS1_scale':scale2})
-        filename='DanielTestTwoProbe_nonlin_source_nested'+str(scale1)+ ',' + str(scale2)+ '.si'
+        filename='WaveformProcessorTestTwoProbe_nonlin_source_nested'+str(scale1)+ ',' + str(scale2)+ '.si'
         app.SaveProjectToFile(filename)
         return filename
     
@@ -161,7 +179,7 @@ class TestNonlinearIterationTest(unittest.TestCase,
         self.SimulationResultsChecker(self.NonlinNestedParameterTest(scale1 = 2, scale2 = 16),)
 
     def testNonlinParmetersNested2(self):
-        self.SimulationResultsChecker('DanielTestTwoProbe_nonlin_twoport_source.si')
+        self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_twoport_source.si')
 
     @unittest.skip("Obsolete failure mode: on the InNextRelease base the impulse-response "
                    "length management always produces a valid (non-empty) output waveform, so "

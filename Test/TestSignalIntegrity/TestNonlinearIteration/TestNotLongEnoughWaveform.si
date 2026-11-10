@@ -579,7 +579,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceNonlinearSource</ClassName>
+					<ClassName>DeviceWaveformProcessor</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -609,7 +609,7 @@
 						<PartProperty>
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>Depen</Value>
+							<Value>Dependent</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

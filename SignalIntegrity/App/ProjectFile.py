@@ -174,6 +174,7 @@ class CalculationPropertiesBase(XMLConfiguration):
             self.Add(XMLPropertyDefaultFloat('EndFrequency',20e9))
             self.Add(XMLPropertyDefaultInt('FrequencyPoints',2000))
             self.Add(XMLPropertyDefaultFloat('UserSampleRate',40e9))
+            # Retained to read legacy projects; runtime iteration counts are derived from preferences and dependent sources.
             self.Add(XMLPropertyDefaultInt('ProcessingIterations', 2))
             self.Add(XMLPropertyDefaultFloat('UserSamplePeriod',write=False))
             self.Add(XMLPropertyDefaultFloat('BaseSampleRate',write=False))

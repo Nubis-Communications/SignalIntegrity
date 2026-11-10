@@ -216,22 +216,21 @@ class Simulator(object):
                 return
         #Outer iterations loop for iterative nonlinear solutions - repeats the processing of waveforms on each
         #iteration and updates the values of the dependent waveforms.
-        if self.parent.Drawing.schematic.HasDependentSource(): #If have dependent source, do iterations
-            iterations = SignalIntegrity.App.Project['CalculationProperties']['ProcessingIterations']
-            if iterations == None:
-                iterations = 1 #Default behavior to avoid backwards compatibility issue with new iterative feature
-        else:
-            iterations = 1
+        stopOnConvergence = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']
+        maximumProcessingIterations = SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
+        iterations = self.parent.Drawing.schematic.ProcessingIterationCount(stopOnConvergence,maximumProcessingIterations)
 
         DISP_EVERY_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.PlotAllIterations'] and iterations > 1
-        AUTOSHUTOFF_ITERATION = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence'] and iterations > 1
+        AUTOSHUTOFF_ITERATION = stopOnConvergence and iterations > 1
         if (DISP_EVERY_ITERATION or AUTOSHUTOFF_ITERATION):
             allOutputWaveformList = []
             allOutputWaveformLabel = []
 
         for i in range(int(iterations)):
+            iterationStatus = 'Waveform Processing iteration {0} of {1}'.format(i+1,iterations)
+            self.parent.statusbar.set(iterationStatus)
             if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
-                progressDialog=ProgressDialog(self.parent,"Waveform Processing",self.transferMatriceProcessor,self._ProcessWaveforms)
+                progressDialog=ProgressDialog(self.parent,iterationStatus,self.transferMatriceProcessor,self._ProcessWaveforms)
                 try:
                     outputWaveformList = progressDialog.GetResult()
                 except si.SignalIntegrityException as e:
