@@ -93,10 +93,10 @@ class NetList(object):
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:
                 self.textToShow.append(device.NetListLine())
-                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','nonlinearsource']:
+                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','waveformprocessorsource']:
                     ref_name=device['ref'].GetValue()
                     deviceName=device.netlist['DeviceName']
-                    if deviceName == 'nonlinearsource':
+                    if deviceName == 'waveformprocessorsource':
                         inputPortsProperty=device['inputports']
                         outputPortsProperty=device['outputports']
                         variablePorts=(inputPortsProperty is not None and outputPortsProperty is not None
@@ -131,7 +131,7 @@ class NetList(object):
                         self.sourceNames.append(ref_name)
                     else:
                         self.sourceNames.append(ref_name)
-                    if deviceName != 'nonlinearsource' and not device['show'] == None:
+                    if deviceName != 'waveformprocessorsource' and not device['show'] == None:
                         if device['show']['Value'] == 'true':
                             self.sourceNamesToShow.append(device['ref'].GetValue())
         # gather up all device pin coordinates
@@ -483,7 +483,7 @@ class NetList(object):
                     self.noiseSourceNames = [s for s in self.noiseSourceNames if s != ref] + [ref]
                     endinglines.append('currentnoisesource '+ref+' 1')
                     endinglines.append('connect '+ref+' 1 '+tokens[1]+' 5 '+tokens[1]+' 6')
-            elif tokens[0] in ['nonlinearsource']:
+            elif tokens[0] in ['waveformprocessorsource']:
                 numports = int(tokens[2])
                 numinputs,numoutputs,variablePorts=self.waveformProcessorPortCounts[tokens[1]]
                 line=['device '+tokens[1]+' '+str(numports)+' open']

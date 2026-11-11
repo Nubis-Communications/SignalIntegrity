@@ -649,7 +649,7 @@ class DeviceWaveformProcessorOutputSource(Device):
         
 class DeviceWaveformProcessor(Device):
     def __init__(self,propertiesList,partPicture):
-        netlist=DeviceNetListLine(devicename='nonlinearsource')
+        netlist=DeviceNetListLine(devicename='waveformprocessorsource')
         Device.__init__(self,netlist,[
             PartPropertyCategory('Waveform Processors'),
             PartPropertyPartName('WaveformProcessor'),
@@ -672,7 +672,7 @@ output_waveform_1 = input_waveform_1 * gain
 
 class DeviceWaveformProcessorVariable(Device):
     def __init__(self,inputPorts=1,outputPorts=1):
-        netlist=DeviceNetListLine(devicename='nonlinearsource')
+        netlist=DeviceNetListLine(devicename='waveformprocessorsource')
         Device.__init__(self,netlist,[
             PartPropertyCategory('Waveform Processors'),
             PartPropertyPartName('WaveformProcessorVariable'),

@@ -108,7 +108,7 @@ class DrawingHeadless(object):
                 foundASystem = True
             elif deviceType == 'Unknown':
                 foundAnUnknown = True
-            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','nonlinearsource']:
+            elif device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','waveformprocessorsource']:
                 foundASource = True
                 if device['wftype'] != None and device['wftype'].GetValue() == 'Dependent':
                     foundDependentSource = True

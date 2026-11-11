@@ -66,7 +66,8 @@ class TestWaveformProcessorTest(unittest.TestCase,
 
     def testVariableProcessorIsPaletteDefault(self):
         from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorVariable
-        from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
+        from SignalIntegrity.App.DeviceProperties import DeviceProperties, DeviceViewMenuActions
+        from unittest.mock import Mock
 
         self.assertFalse(any(isinstance(device,DeviceWaveformProcessor) for device in DeviceList))
         variableProcessor=next(device for device in DeviceList
@@ -74,6 +75,17 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertEqual(variableProcessor['inputports'].GetValue(),1)
         self.assertEqual(variableProcessor['outputports'].GetValue(),1)
         self.assertIn(('Edit Script','editscript'),DeviceViewMenuActions(variableProcessor))
+
+        class PropertiesProbe:
+            IsScriptedSource=DeviceProperties.IsScriptedSource
+            UpdateScriptEditorButton=DeviceProperties.UpdateScriptEditorButton
+
+        propertiesProbe=PropertiesProbe()
+        propertiesProbe.device=variableProcessor
+        propertiesProbe.scriptEditButton=Mock()
+        propertiesProbe.UpdateScriptEditorButton()
+        propertiesProbe.scriptEditButton.pack.assert_called_once_with(
+            expand=0,fill='none',anchor='center')
 
     def testShownProcessorOutputsAreOtherWaveforms(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
@@ -83,6 +95,8 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_twoport_source.si'))
         processor=next(device for device in app.Drawing.schematic.deviceList
                        if isinstance(device,DeviceWaveformProcessorVariable))
+        self.assertEqual(processor.netlist['DeviceName'],'waveformprocessorsource')
+        self.assertIn('waveformprocessorsource',processor.NetListLine())
         outputName=processor['ref'].GetValue()+'_out1'
         hiddenResult=app.Simulate()
         processor['show']['Value']='true'

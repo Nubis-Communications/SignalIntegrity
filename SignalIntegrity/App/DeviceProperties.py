@@ -562,10 +562,7 @@ class DeviceProperties(tk.Frame):
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-                elif self.device.netlist['DeviceName'] == 'nonlinearsource' and self.IsScriptedSource():
-                    self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-                elif self.device.netlist['DeviceName'] == 'nonlinearsource' and self.IsScriptedSource():
-                    self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        self.UpdateScriptEditorButton()
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
         except TypeError:
@@ -678,6 +675,10 @@ class DeviceProperties(tk.Frame):
     def IsScriptedSource(self):
         return isinstance(self.device,Device) and not self.device['script'] is None
 
+    def UpdateScriptEditorButton(self):
+        if self.IsScriptedSource():
+            self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+
     def onVariables(self):
         if self.IsScriptedSource():
             # the variables are passed into the script by name, as they are passed into a sub-project
@@ -745,6 +746,7 @@ class DeviceProperties(tk.Frame):
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+            self.UpdateScriptEditorButton()
         if self.isAProjectDevice or self.IsScriptedSource() or (
                 self.device['wftype'] is not None
                 and self.device['wftype'].GetValue() == 'Dependent'):
