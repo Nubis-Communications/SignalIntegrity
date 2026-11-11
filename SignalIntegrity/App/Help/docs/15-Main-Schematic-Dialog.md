@@ -124,7 +124,7 @@ While read-only, Save, Save As, Undo, Redo, schematic clearing, adding, deleting
 
 For a file device that refers to an s-parameter file or another project, right-clicking the device selects it and presents a View menu. Control-right-click opens View immediately. Opening a referenced project passes its configured arguments to that project; when the referenced project closes, its device is unselected in the parent read-only schematic.
 
-For a source or generator, the View menu offers View Waveform. For a [Voltage Scripted Source](23-Built-in-Devices-Parts.md#device:Voltage-Scripted-Source) or [Current Scripted Source](23-Built-in-Devices-Parts.md#device:Current-Scripted-Source), this runs its script and shows the resulting waveform; Edit Script is offered only when the schematic is writable.
+For a source or generator, the View menu offers View Waveform. For a [Voltage Scripted Source](23-Built-in-Devices-Parts.md#device:Voltage-Scripted-Source) or [Current Scripted Source](23-Built-in-Devices-Parts.md#device:Current-Scripted-Source), this runs its script and shows the resulting waveform; Edit Script is offered only when the schematic is writable. A [Waveform Processor](23-Built-in-Devices-Parts.md#device:Waveform-Processor) also offers Edit Script and a Variables dialog with Import from Script; see [Waveform Processors](35-Waveform-Processors.md#sec:Waveform-Processors) for its script interface.
 
 Use [Make Writable](15-Main-Schematic-Dialog.md#Control-Help:Make-Writable) from the File menu or toolbar to resume editing. The dialog offers two choices:
 

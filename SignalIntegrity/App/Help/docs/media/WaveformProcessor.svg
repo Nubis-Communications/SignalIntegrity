@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Two-input, two-output waveform processor</title>
+  <desc id="desc">A four-port device symbol with two pins on each side and py with a right-facing processing arrow inside.</desc>
+  <g fill="none" stroke="#222" stroke-width="2">
+    <rect x="80" y="40" width="80" height="160" />
+    <path d="M40 80 H80 M40 160 H80 M160 80 H200 M160 160 H200" />
+    <path d="M100 134 H140" marker-end="url(#arrow)" />
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#222" />
+    </marker>
+  </defs>
+  <g fill="#222" font-family="sans-serif" font-size="30">
+    <text x="120" y="116" text-anchor="middle">py</text>
+  </g>
+</svg>

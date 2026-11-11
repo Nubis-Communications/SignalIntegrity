@@ -214,6 +214,10 @@ Waveforms
 
 - [Waveform](23-Built-in-Devices-Parts.md#device:Waveform)
 
+Waveform Processors
+
+- [Waveform Processor](23-Built-in-Devices-Parts.md#device:Waveform-Processor)
+
 De-embedding Elements
 
 - [Unknown](23-Built-in-Devices-Parts.md#device:Unknown)
@@ -1383,6 +1387,30 @@ It works exactly like the [Voltage Scripted Source](23-Built-in-Devices-Parts.md
 As with any current source, the circuit it drives must provide a path for the current, including at DC.
 
 If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the [Simulator Dialog](14-Simulator-Dialog.md#sec:Simulator-Dialog).
+
+## Waveform Processor {#device:Waveform-Processor}
+
+<img src="media/WaveformProcessor.svg" alt="Two-input, two-output waveform processor symbol" width="480" />
+
+| Property Name | Type | Keyword | Default |
+|:---|:---|:---|:---|
+| default reference | string | | WFP? |
+| reference | string | | |
+| input ports | int | inputports | 1 |
+| output ports | int | outputports | 1 |
+| show | bool | show | false |
+| script | Python | script | embedded example |
+
+The waveform processor applies a Python transform to one or more measured input
+waveforms and supplies one or more waveforms to the circuit. The `py` label
+identifies the Python processor, and the arrow indicates processing flow from
+inputs to outputs. Inputs are numbered top-to-bottom on the left, followed by
+outputs numbered top-to-bottom on the right. Port numbers belong to the pins and
+remain fixed when the symbol is rotated. The default has one input and one output.
+Use **Waveform Processor Python Script** in the Add Part picker to create a
+processor directly from a Python file. For the script interface, examples,
+variables, and import workflow, see
+[Waveform Processors](35-Waveform-Processors.md#sec:Waveform-Processors).
 
 ## Port {#device:Port}
 
