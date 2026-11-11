@@ -126,6 +126,16 @@ class TestScriptedSourcesTest(unittest.TestCase,
         doubled=self.SimulatedWaveforms('VoltageScriptedSourceOnePort.si',{'amplitude':2.0})
         for label in ['VS1','VO1']:
             self.assertWaveformsScaled(doubled[label],default[label],2.,label)
+
+    def testShownScriptedSourceAppearsInOtherWaveforms(self):
+        app=self.OpenProject('VoltageScriptedSourceOnePort.si')
+        result=app.Simulate()
+        self.assertIn('VS1',result['other waveform labels'])
+        self.assertIn('VS1',result['output waveform labels'])
+        otherIndex=result['other waveform labels'].index('VS1')
+        outputIndex=result['output waveform labels'].index('VS1')
+        self.assertEqual(result['other waveforms'][otherIndex],result['output waveforms'][outputIndex])
+
     def testScriptedSourceVariableTypes(self):
         """device variables are passed in by name with float and int variables converted to numbers"""
         source=self.OpenProject('ScriptedSourceVariables.si').Device('VS1')

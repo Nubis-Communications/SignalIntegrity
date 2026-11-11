@@ -75,6 +75,27 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertEqual(variableProcessor['outputports'].GetValue(),1)
         self.assertIn(('Edit Script','editscript'),DeviceViewMenuActions(variableProcessor))
 
+    def testShownProcessorOutputsAreOtherWaveforms(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_twoport_source.si'))
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if isinstance(device,DeviceWaveformProcessorVariable))
+        outputName=processor['ref'].GetValue()+'_out1'
+        hiddenResult=app.Simulate()
+        processor['show']['Value']='true'
+        shownResult=app.Simulate()
+
+        self.assertNotIn(outputName,hiddenResult['other waveform labels'])
+        self.assertIn(outputName,shownResult['other waveform labels'])
+        self.assertNotIn(outputName,shownResult['output waveform labels'])
+        self.assertEqual(len(shownResult['other waveform labels']),len(shownResult['other waveforms']))
+        self.assertEqual(hiddenResult['output waveform labels'],shownResult['output waveform labels'])
+        self.assertEqual(hiddenResult['output waveforms'],shownResult['output waveforms'])
+        self.assertEqual(hiddenResult['transfer matrices'],shownResult['transfer matrices'])
+
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
 

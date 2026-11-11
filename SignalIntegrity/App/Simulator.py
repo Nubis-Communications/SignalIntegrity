@@ -350,16 +350,20 @@ class Simulator(object):
         transferOutputNames,self.sourceNames,self.transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
             self.transferMatrices)
         self.outputWaveformLabels=transferOutputNames
-        hiddenWaveformProcessorLabels = set(netList.WaveformProcessorOutputNames()+netList.WaveformProcessorSourceNames())
+        hiddenWaveformProcessorLabels=set(netList.WaveformProcessorOutputNames()+netList.WaveformProcessorSourceNames())
         visibleWaveformIndices=[i for i,name in enumerate(outputWaveformLabels)
                                 if name not in hiddenWaveformProcessorLabels]
         outputWaveformList=[outputWaveformList[i] for i in visibleWaveformIndices]
         outputWaveformLabels=[outputWaveformLabels[i] for i in visibleWaveformIndices]
+        processorSourceNamesToShow=netList.WaveformProcessorSourceNamesToShow()
+        processorSourceWaveforms=[self.inputWaveformList[netList.SourceNames().index(name)]
+                                  for name in processorSourceNamesToShow]
 
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
-        self.UpdateWaveforms(outputWaveformList, outputWaveformLabels)
+        self.UpdateWaveforms(outputWaveformList+processorSourceWaveforms,
+                     outputWaveformLabels+processorSourceNamesToShow)
         self.parent.root.update()
 
         try:

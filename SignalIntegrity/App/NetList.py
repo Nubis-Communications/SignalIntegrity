@@ -31,6 +31,7 @@ class NetList(object):
         self.sourceNames=[]
         self.sourceNamesToShow=[]
         self.waveformProcessorSourceNames=[]
+        self.waveformProcessorSourceNamesToShow=[]
         self.waveformProcessorOutputNames=[]
         self.waveformProcessorInputMappings=[]
         self.stimNames=[]
@@ -117,6 +118,8 @@ class NetList(object):
                         self.waveformProcessorOutputNames.extend(processorInputs)
                         self.waveformProcessorInputMappings.append((processorSources[0],processorInputs[0]))
                         self.sourceNames.extend(processorSources)
+                        if device['show'] is not None and device['show'].GetValue() == 'true':
+                            self.waveformProcessorSourceNamesToShow.extend(processorSources)
                     elif deviceName in ['voltagenoisesource','currentnoisesource']:
                         if device['ports']['Value'] == '4':
                             # this is a four-port noise source.  It has presumably had a '_$D$' (differential) or
@@ -513,6 +516,8 @@ class NetList(object):
         return self.outputNames
     def WaveformProcessorSourceNames(self):
         return self.waveformProcessorSourceNames
+    def WaveformProcessorSourceNamesToShow(self):
+        return self.waveformProcessorSourceNamesToShow
     def WaveformProcessorOutputNames(self):
         return self.waveformProcessorOutputNames
     def LinearizeWaveformProcessorTransferMatrices(self,transferMatrices):
@@ -587,6 +592,8 @@ class NetList(object):
         return self.waveformNames
     def SourceNamesToShow(self):
         return self.sourceNamesToShow
+    def WaveformProcessorSourceNamesToShow(self):
+        return self.waveformProcessorSourceNamesToShow
     def NoiseSourceNames(self):
         return self.noiseSourceNames
     def NoiseOutputNames(self):

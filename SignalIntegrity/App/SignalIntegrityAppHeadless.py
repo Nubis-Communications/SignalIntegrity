@@ -413,10 +413,11 @@ class SignalIntegrityAppHeadless(object):
                 del otherWaveformsTemp
                 del otherWaveformLabelsTemp
 
-                outputWaveformList+=otherWaveforms
                 sourceNamesToShow=netList.SourceNamesToShow()
                 otherWaveformLabels+=sourceNamesToShow
-                outputWaveformList+=[inputWaveformList[sourceNames.index(snt)] for snt in sourceNamesToShow]
+                otherWaveformList=otherWaveforms+[inputWaveformList[sourceNames.index(snt)]
+                                                  for snt in sourceNamesToShow]
+                outputWaveformList+=otherWaveformList
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 
@@ -501,6 +502,11 @@ class SignalIntegrityAppHeadless(object):
             si.td.wf.TimeDescriptor(wf.td.H,int(wf.td.K*userSampleRate/wf.td.Fs),userSampleRate))
                 for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
         outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
+        processorSourceNamesToShow=netList.WaveformProcessorSourceNamesToShow()
+        processorSourceWaveforms=[inputWaveformList[sourceNames.index(name)]
+                                  for name in processorSourceNamesToShow]
+        resultOtherWaveformLabels=otherWaveformLabels+processorSourceNamesToShow
+        resultOtherWaveforms=otherWaveformList+processorSourceWaveforms
 
         transferOutputNames,sourceNames,transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
             transferMatrices)
@@ -526,6 +532,8 @@ class SignalIntegrityAppHeadless(object):
                           'output waveform labels':outputWaveformLabels,
                           'transfer matrices':transferMatrices,
                           'output waveforms':outputWaveformList,
+                          'other waveform labels':resultOtherWaveformLabels,
+                          'other waveforms':resultOtherWaveforms,
                           'variables':SignalIntegrity.App.Project['Variables'].Dictionary(),
                           'noise':sna})
         # gather up the eye probes and create a dialog for each one
@@ -570,6 +578,8 @@ class SignalIntegrityAppHeadless(object):
                                     'output waveform labels':outputWaveformLabels,
                                     'transfer matrices':transferMatrices,
                                     'output waveforms':outputWaveformList,
+                                    'other waveform labels':resultOtherWaveformLabels,
+                                    'other waveforms':resultOtherWaveforms,
                                     'eye diagram labels':eyeDiagramLabels,
                                     'eye diagrams':eyeDiagrams,
                                     'variables':SignalIntegrity.App.Project['Variables'].Dictionary(),
