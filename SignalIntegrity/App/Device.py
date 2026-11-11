@@ -219,6 +219,9 @@ class Device(object):
                     probeName = self['dependent'].GetValue()
                 waveform = si.td.wf.DependentWaveform.DependentWaveform(probeName, self['trfile'].GetValue(), self.variablesList)
         return waveform
+    def Waveforms(self,callback=None):
+        waveform=self.Waveform(callback)
+        return [] if waveform is None else [waveform]
     def ScriptContext(self):
         """the variables passed into a scripted source's script
 
@@ -352,6 +355,18 @@ class DeviceFromProject(object):
             self.result=DeviceSeries(ports)
         elif className=='DeviceThru':
             self.result=DeviceThru(ports)
+        elif className in ['DeviceWaveformProcessorVariable','DeviceWaveformProcessor']:
+            legacyWaveformProcessor=className == 'DeviceWaveformProcessor'
+            inputPorts=1
+            outputPorts=1
+            for partPropertyProject in deviceProject['PartProperties']:
+                if partPropertyProject['Keyword'] == 'inputports':
+                    inputPorts=int(partPropertyProject.GetValue('Value'))
+                elif partPropertyProject['Keyword'] == 'outputports':
+                    outputPorts=int(partPropertyProject.GetValue('Value'))
+            self.result=DeviceWaveformProcessorVariable(inputPorts,outputPorts)
+            if legacyWaveformProcessor:
+                self.result['legacywaveformprocessor']['Value']='true'
         # elif className=='DeviceVoltageMultiLevelWaveformGenerator':
         #     pass
         else:
@@ -387,9 +402,20 @@ class DeviceFromProject(object):
                     if isinstance(devicePartProperty['Value'],str):
                         # keep Linux file system format
                         devicePartProperty['Value']=devicePartProperty['Value'].replace('\\','/')
+        if isinstance(self.result,DeviceWaveformProcessorVariable):
+            self.result.legacyWaveformProcessor=(self.result['legacywaveformprocessor'].GetValue() == 'true')
+            self.result.UpdatePortConfiguration()
         self.result.variablesList=deviceProject['Variables']['Items']
         partPictureList=self.result.partPicture.partPictureClassList
-        self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
+        if isinstance(self.result,DeviceWaveformProcessorVariable):
+            partPictureProject=deviceProject['PartPicture']
+            partPictureIndex=partPictureProject['Index'] if partPictureProject['Index'] is not None else 0
+            self.result.partPicture=PartPictureVariableWaveformProcessor(
+                self.result['inputports'].GetValue(),self.result['outputports'].GetValue(),
+                partPictureIndex,partPictureProject['Origin'],str(partPictureProject['Orientation']),
+                partPictureProject['MirroredHorizontally'],partPictureProject['MirroredVertically'])
+        else:
+            self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
         if not self.result.configuration is None:
             if isinstance(self.result.configuration,list):
                 for c in range(len(self.result.configuration)):
@@ -585,7 +611,7 @@ class DeviceWaveformProcessorOutputSource(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='voltagesource')
         Device.__init__(self,netlist,[
-            PartPropertyCategory('Sources'),
+            PartPropertyCategory('Waveform Processors'),
             PartPropertyPartName('Dependent Voltage Source'),
             PartPropertyHelp('device:Dependent-Voltage-Source'),
             PartPropertyDefaultReferenceDesignator('DVS?'),
@@ -600,8 +626,8 @@ class DeviceWaveformProcessor(Device):
     def __init__(self,propertiesList,partPicture):
         netlist=DeviceNetListLine(devicename='nonlinearsource')
         Device.__init__(self,netlist,[
-            PartPropertyCategory('Sources'),
-            PartPropertyPartName('NonlinearSource'),
+            PartPropertyCategory('Waveform Processors'),
+            PartPropertyPartName('WaveformProcessor'),
             PartPropertyHelp('device:Nonlinear-Source'),
             PartPropertyDefaultReferenceDesignator('NLS?'),
             PartPropertyCalculationProperties(),
@@ -610,6 +636,66 @@ class DeviceWaveformProcessor(Device):
             #PartPropertyDependentProbe(),
             PartPropertyShow(),
             PartPropertyWaveformType('Dependent')]+propertiesList,partPicture)
+
+class DeviceWaveformProcessorVariable(Device):
+    def __init__(self,inputPorts=1,outputPorts=1):
+        netlist=DeviceNetListLine(devicename='nonlinearsource')
+        Device.__init__(self,netlist,[
+            PartPropertyCategory('Waveform Processors'),
+            PartPropertyPartName('WaveformProcessorVariable'),
+            PartPropertyDescription('Variable-Port Waveform Processor'),
+            PartPropertyHelp('device:Nonlinear-Source'),
+            PartPropertyDefaultReferenceDesignator('WFP?'),
+            PartPropertyCalculationProperties(),
+            PartPropertyTransformFileName(),
+            PartPropertyShow(),
+            PartPropertyWaveformType('Dependent'),
+            PartPropertyInputPorts(inputPorts),
+            PartPropertyOutputPorts(outputPorts),
+            PartProperty('Legacy Waveform Processor',type='string',keyword='legacywaveformprocessor',
+                         value='false',hidden=True,visible=False,keywordVisible=False),
+            PartPropertyPorts(inputPorts+outputPorts)],
+            PartPictureVariableWaveformProcessor(inputPorts,outputPorts))
+        self.UpdatePortConfiguration()
+
+    def UpdatePortConfiguration(self):
+        inputPorts=max(1,int(self['inputports'].GetValue()))
+        outputPorts=max(1,int(self['outputports'].GetValue()))
+        self['inputports']['Value']=inputPorts
+        self['outputports']['Value']=outputPorts
+        self['ports']['Value']=inputPorts+outputPorts
+        self.partPicture.SetPortCounts(inputPorts,outputPorts)
+
+    def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
+        self.UpdatePortConfiguration()
+        Device.DrawDevice(self,canvas,grid,x,y,pinsConnectedList)
+
+    def PinCoordinates(self):
+        self.UpdatePortConfiguration()
+        return Device.PinCoordinates(self)
+
+    def NetListLine(self):
+        self.UpdatePortConfiguration()
+        return Device.NetListLine(self)
+
+    def Waveform(self,callback=None):
+        return self.Waveforms(callback)[0]
+
+    def Waveforms(self,callback=None):
+        self.UpdatePortConfiguration()
+        reference=self['ref'].GetValue()
+        legacyWaveformProcessor=getattr(self,'legacyWaveformProcessor',False)
+        if legacyWaveformProcessor:
+            inputProbeNames=[reference]
+            outputWaveformNames=['outputWaveform']
+        else:
+            inputProbeNames=[reference+'_in'+str(i+1) for i in range(self['inputports'].GetValue())]
+            outputWaveformNames=['output_waveform_'+str(i+1)
+                                 for i in range(self['outputports'].GetValue())]
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+        return [DependentWaveform(inputProbeNames,self['trfile'].GetValue(),self.variablesList,
+                                  outputWaveformName=outputWaveformNames[i])
+                for i in range(self['outputports'].GetValue())]
 
 
 class DeviceVoltageStepGenerator(Device):
@@ -2157,8 +2243,7 @@ DeviceList=Devices([
                 DeviceVoltageSource([PartPropertyDescription('One Port Voltage Source'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceOnePort()),
                 DeviceVoltageSource([PartPropertyDescription('Two Port Voltage Source'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceTwoPort()),
                 DeviceWaveformProcessorOutputSource([PartPropertyDescription('Two Port Dependent Voltage Source'),PartPropertyPorts(2)],PartPictureDependentVariableVoltageSourceTwoPort()),
-                DeviceWaveformProcessor([PartPropertyDescription('Nonlinear Source (1 input)'), PartPropertyPorts(2)],PartPictureVariableNonlinear(2)),
-                DeviceWaveformProcessor([PartPropertyDescription('Nonlinear Source (2 input)'), PartPropertyPorts(3)],PartPictureVariableNonlinear(3)),
+                DeviceWaveformProcessorVariable(),
                 DeviceVoltageNoiseSource([PartPropertyDescription('One Port Voltage Noise Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceNoiseSourceOnePort()),
                 DeviceVoltageNoiseSource([PartPropertyDescription('Two Port Voltage Noise Generator'),PartPropertyPorts(2)],PartPictureVariableVoltageSourceNoiseSourceTwoPort()),
                 DeviceVoltageStepGenerator([PartPropertyDescription('One Port Voltage Step Generator'),PartPropertyPorts(1)],PartPictureVariableVoltageSourceStepGeneratorOnePort()),

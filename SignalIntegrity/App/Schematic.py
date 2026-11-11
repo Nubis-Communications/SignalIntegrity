@@ -53,9 +53,7 @@ class Schematic(CallBacker):
         inputWaveformList=[]
         for device in self.deviceList:
             if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
-                wf = device.Waveform(self.callback)
-                if not wf is None:
-                    inputWaveformList.append(wf)
+                inputWaveformList.extend(device.Waveforms(self.callback))
         return inputWaveformList
     
     def DependentSourceCount(self):

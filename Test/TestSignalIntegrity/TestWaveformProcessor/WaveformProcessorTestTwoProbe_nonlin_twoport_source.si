@@ -297,7 +297,7 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceWaveformProcessor</ClassName>
+					<ClassName>DeviceWaveformProcessorVariable</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
@@ -328,6 +328,18 @@
 							<Keyword>wftype</Keyword>
 							<KeywordVisible>True</KeywordVisible>
 							<Value>Dependent</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>inputports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>outputports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

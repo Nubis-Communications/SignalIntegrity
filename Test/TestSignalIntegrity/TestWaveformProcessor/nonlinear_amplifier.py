@@ -44,4 +44,5 @@ else:
         slewrate,
     );
 
-    outputWaveform = Waveform(inputWaveform.TimeDescriptor(), list(outputWaveform_values))
+    output_waveform_1 = Waveform(inputWaveform.TimeDescriptor(), list(outputWaveform_values))
+

@@ -31,15 +31,13 @@
 %  <polyline lw="3" lc="black">136,-60 134,-62</polyline>
 %  <polyline lc="black">134,-62 132,-64</polyline>
 %  <text x="136" y="-59" t="VO2" h="3" halign="l" lc="black"/>
-%  <text x="124" y="-65" t="N" h="3" halign="c" lc="black"/>
 %  <rect x="120" y="-56" w="8" h="-16" lc="black"/>
 %  <polyline lc="black">116,-60 120,-60</polyline>
-%  <text x="119" y="-59" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">116,-68 120,-68</polyline>
-%  <text x="119" y="-67" t="2" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">132,-64 128,-64</polyline>
-%  <text x="129" y="-63" t="3" h="3" halign="l" lc="black"/>
 %  <text x="124" y="-53" t="scale 1.0 " h="3" halign="c" lc="black"/>
+%  <text x="124" y="-63.6" t="py" h="3" halign="c" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">122,-65.4 126,-65.4</polyline>
 %  <polyline lc="black">64,-56 56,-56</polyline>
 %  <polyline lc="black">80,-56 88,-56</polyline>
 %  <polyline lc="black">88,-56 116,-56</polyline>
@@ -85,15 +83,13 @@
 \path[line width=0.9mm, draw=black] (136,-60) -- (134,-62);
 \path[line width=0.30mm, draw=black] (134,-62) -- (132,-64);
 \draw[black] (136,-59) node[anchor=base west]{VO2};
-\draw[black] (124,-65) node[anchor=base]{N};
 \path[line width=0.30mm, draw=black] (120,-72) rectangle +(8,16);
 \path[line width=0.30mm, draw=black] (116,-60) -- (120,-60);
-\draw[black] (119,-59) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (116,-68) -- (120,-68);
-\draw[black] (119,-67) node[anchor=base east]{2};
 \path[line width=0.30mm, draw=black] (132,-64) -- (128,-64);
-\draw[black] (129,-63) node[anchor=base west]{3};
 \draw[black] (124,-53) node[anchor=base]{scale 1.0 };
+\draw[black] (124,-63.6) node[anchor=base]{py};
+\path[line width=0.30mm, draw=black, ->] (122,-65.4) -- (126,-65.4);
 \path[line width=0.30mm, draw=black] (64,-56) -- (56,-56);
 \path[line width=0.30mm, draw=black] (80,-56) -- (88,-56);
 \path[line width=0.30mm, draw=black] (88,-56) -- (116,-56);

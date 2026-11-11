@@ -64,6 +64,15 @@ class TestWaveformProcessorTest(unittest.TestCase,
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
 
+    def testVariableProcessorIsPaletteDefault(self):
+        from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorVariable
+
+        self.assertFalse(any(isinstance(device,DeviceWaveformProcessor) for device in DeviceList))
+        variableProcessor=next(device for device in DeviceList
+                               if isinstance(device,DeviceWaveformProcessorVariable))
+        self.assertEqual(variableProcessor['inputports'].GetValue(),1)
+        self.assertEqual(variableProcessor['outputports'].GetValue(),1)
+
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
 
@@ -139,22 +148,23 @@ class TestWaveformProcessorTest(unittest.TestCase,
             Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
         parser.AddLines(netList.Text())
         rawTransferMatrices = parser.TransferMatrices()
-        self.assertIn('NLS1_2',netList.OutputNames())
+        self.assertIn('NLS1_in1',netList.OutputNames())
+        self.assertIn('NLS1_in2',netList.OutputNames())
 
         expectedOutputs,expectedSources,expectedMatrices = netList.LinearizeWaveformProcessorTransferMatrices(rawTransferMatrices)
         result = app.TransferParameters()
         self.assertEqual(result['output waveform labels'],expectedOutputs)
         self.assertEqual(result['source names'],expectedSources)
-        self.assertNotIn('NLS1',result['output waveform labels'])
-        self.assertNotIn('NLS1_2',result['output waveform labels'])
-        self.assertNotIn('NLS1',result['source names'])
+        self.assertNotIn('NLS1_in1',result['output waveform labels'])
+        self.assertNotIn('NLS1_in2',result['output waveform labels'])
+        self.assertNotIn('NLS1_out1',result['source names'])
 
         outputIndex = expectedOutputs.index('VO2')
         sourceIndex = expectedSources.index('VS1')
         rawOutputIndex = netList.OutputNames().index('VO2')
-        rawInputIndex = netList.OutputNames().index('NLS1')
+        rawInputIndex = netList.OutputNames().index('NLS1_in1')
         rawSourceIndex = netList.SourceNames().index('VS1')
-        rawProcessorSourceIndex = netList.SourceNames().index('NLS1')
+        rawProcessorSourceIndex = netList.SourceNames().index('NLS1_out1')
         for frequencyIndex,rawMatrix in enumerate(rawTransferMatrices):
             feedback = rawMatrix[rawInputIndex][rawProcessorSourceIndex]
             expected = rawMatrix[rawOutputIndex][rawSourceIndex]
@@ -163,9 +173,130 @@ class TestWaveformProcessorTest(unittest.TestCase,
 
         self.assertEqual(result['transfer matrices'],expectedMatrices)
 
+    def testVariableProcessorLinearizationUsesOnlyPortOne(self):
+        from SignalIntegrity.App.NetList import NetList
+        from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import FrequencyList
+        from SignalIntegrity.Lib.FrequencyDomain.TransferMatrices import TransferMatrices
+
+        netList=NetList.__new__(NetList)
+        netList.outputNames=['VO','WFP_in1','WFP_in2']
+        netList.sourceNames=['SRC','WFP_out1','WFP_out2']
+        netList.waveformProcessorSourceNames=['WFP_out1','WFP_out2']
+        netList.waveformProcessorLinearSourceNames=['WFP_out1']
+        netList.waveformProcessorOutputNames=['WFP_in1','WFP_in2']
+        netList.waveformProcessorInputMappings=[('WFP_out1','WFP_in1')]
+        raw=TransferMatrices(FrequencyList([1e9]),[[[10.,3.,7.],[2.,0.1,0.4],[9.,0.8,0.2]]])
+
+        outputs,sources,linearized=netList.LinearizeWaveformProcessorTransferMatrices(raw)
+        self.assertEqual(outputs,['VO'])
+        self.assertEqual(sources,['SRC'])
+        self.assertAlmostEqual(linearized[0][0][0],10. + 3. * 2. / (1. - 0.1))
+
+    def testVariableWaveformProcessorPortsAndOutputs(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+        from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+
+        defaultProcessor=DeviceWaveformProcessorVariable()
+        defaultBox=defaultProcessor.partPicture.current.innerBox
+        self.assertEqual(defaultBox[1][0]-defaultBox[0][0],defaultBox[1][1]-defaultBox[0][1])
+        self.assertLess(defaultProcessor.partPicture.current.propertiesLocation[1],defaultBox[0][1])
+        self.assertEqual(defaultBox[0][1]-defaultProcessor.partPicture.current.propertiesLocation[1],0.5)
+        self.assertTrue(all(not pin['NumberVisible'] and pin['NumberingMatters']
+                    for pin in defaultProcessor.partPicture.current.pinList))
+
+        threePortProcessor=DeviceWaveformProcessorVariable(2,1)
+        threePortBox=threePortProcessor.partPicture.current.innerBox
+        self.assertEqual(threePortBox[1][0]-threePortBox[0][0],2)
+        self.assertEqual(threePortBox[1][1]-threePortBox[0][1],4)
+        threePortCoordinates=threePortProcessor.PinCoordinates()
+        self.assertEqual([coordinate[0] for coordinate in threePortCoordinates],[0,0,4])
+        self.assertEqual([coordinate[1] for coordinate in threePortCoordinates],[1,3,2])
+
+        fivePortProcessor=DeviceWaveformProcessorVariable(3,2)
+        fivePortBox=fivePortProcessor.partPicture.current.innerBox
+        self.assertEqual(fivePortBox[1][0]-fivePortBox[0][0],2)
+        self.assertEqual(fivePortBox[1][1]-fivePortBox[0][1],6)
+        fivePortCoordinates=fivePortProcessor.PinCoordinates()
+        self.assertEqual([coordinate[0] for coordinate in fivePortCoordinates],[0,0,0,4,4])
+        self.assertEqual([coordinate[1] for coordinate in fivePortCoordinates],[1,3,5,2,4])
+
+        sixPortProcessor=DeviceWaveformProcessorVariable(3,3)
+        sixPortBox=sixPortProcessor.partPicture.current.innerBox
+        self.assertEqual(sixPortBox[1][0]-sixPortBox[0][0],2)
+        self.assertEqual(sixPortBox[1][1]-sixPortBox[0][1],6)
+        sixPortCoordinates=sixPortProcessor.PinCoordinates()
+        self.assertEqual([coordinate[0] for coordinate in sixPortCoordinates],[0,0,0,4,4,4])
+        self.assertEqual([coordinate[1] for coordinate in sixPortCoordinates],[1,3,5,1,3,5])
+
+        processor=DeviceWaveformProcessorVariable(2,2)
+        processor['ref']['Value']='WFP1'
+        processor['trfile']['Value']='waveform_processor_multi_output.py'
+        self.assertEqual(processor['inputports'].GetValue(),2)
+        self.assertEqual(processor['outputports'].GetValue(),2)
+        self.assertFalse(processor['inputports']['Visible'])
+        self.assertFalse(processor['outputports']['Visible'])
+        self.assertEqual(processor['ports'].GetValue(),4)
+        processorBox=processor.partPicture.current.innerBox
+        self.assertEqual(processorBox[1][0]-processorBox[0][0],4)
+        self.assertEqual(processorBox[1][1]-processorBox[0][1],2)
+        coordinates=processor.PinCoordinates()
+        self.assertEqual(len(coordinates),4)
+        self.assertEqual([coordinate[0] for coordinate in coordinates],[0,0,4,4])
+
+        outputWaveforms=processor.Waveforms()
+        self.assertEqual([waveform.OutputWaveformName for waveform in outputWaveforms],
+                         ['output_waveform_1','output_waveform_2'])
+        inputWaveforms=[Waveform(TimeDescriptor(0,3,1e9),[1.,2.,3.]),
+                        Waveform(TimeDescriptor(0,3,1e9),[10.,20.,30.])]
+        inputLabels=['WFP1_in1','WFP1_in2']
+        for waveform in outputWaveforms:
+            waveform.UpdateWaveform(inputLabels,inputWaveforms,0)
+        self.assertEqual(list(outputWaveforms[0]),[11.,22.,33.])
+        self.assertEqual(list(outputWaveforms[1]),[2.,4.,6.])
+        processor.partPicture.current.SetOrigin((17,23))
+        processor.partPicture.current.ApplyOrientation('90',True,False)
+        processor['inputports']['Value']=3
+        processor.UpdatePortConfiguration()
+        self.assertEqual(processor.partPicture.current.origin,(17,23))
+        self.assertEqual(processor.partPicture.current.orientation,'90')
+        self.assertTrue(processor.partPicture.current.mirroredHorizontally)
+
+    def testFixedWaveformProcessorDrawsFlowArrow(self):
+        from SignalIntegrity.App.PartPicture import PartPictureNonlinear
+
+        class Canvas:
+            displayScale=1.0
+
+            def __init__(self):
+                self.lines=[]
+                self.texts=[]
+
+            def create_line(self,*coordinates,**options):
+                self.lines.append((coordinates,options))
+
+            def create_text(self,*coordinates,**options):
+                self.texts.append((coordinates,options))
+
+            def create_rectangle(self,*coordinates,**options):
+                pass
+
+        picture=PartPictureNonlinear(2,(0,0),'0',False,False)
+        picture.Selected(False)
+        picture.InsertVisiblePartProperties([])
+        canvas=Canvas()
+        picture.DrawDevice(None,canvas,16,(0,0))
+
+        text=next((coordinates,options) for coordinates,options in canvas.texts
+                   if options.get('text') == 'py')
+        arrow=next((coordinates,options) for coordinates,options in canvas.lines
+                    if options.get('arrow') == 'last')
+        self.assertLess(text[0][1],arrow[0][1])
+        self.assertLess(arrow[0][0],arrow[0][2])
+
     def testLegacyWaveformProcessorProjectsLoad(self):
         import SignalIntegrity.App.Project
-        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessor
+        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessorVariable
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
         cases = [
@@ -185,11 +316,20 @@ class TestWaveformProcessorTest(unittest.TestCase,
                     propertyProject['Keyword'] = 'depen'
 
             device = DeviceFromProject(deviceProject).result
-            expectedClass = DeviceWaveformProcessorOutputSource if legacyClassName == 'DeviceDependentVoltageSource' else DeviceWaveformProcessor
+            expectedClass = DeviceWaveformProcessorOutputSource if legacyClassName == 'DeviceDependentVoltageSource' else DeviceWaveformProcessorVariable
             self.assertIsInstance(device, expectedClass)
             self.assertEqual(device['wftype'].GetValue(), 'Dependent')
             if legacyClassName == 'DeviceDependentVoltageSource':
                 self.assertEqual(device['dependent'].GetValue(), 'VO1')
+            else:
+                self.assertEqual(device['inputports'].GetValue(),1)
+                self.assertEqual(device['outputports'].GetValue(),1)
+                self.assertTrue(device.legacyWaveformProcessor)
+                roundTripProject=copy.deepcopy(deviceProject)
+                roundTripProject['ClassName']='DeviceWaveformProcessorVariable'
+                roundTripProject['PartProperties'].append(copy.deepcopy(device['legacywaveformprocessor']))
+                roundTripDevice=DeviceFromProject(roundTripProject).result
+                self.assertTrue(roundTripDevice.legacyWaveformProcessor)
 
     def testWaveformProcessorPortDependentFail1(self):
 
@@ -286,7 +426,7 @@ class TestWaveformProcessorTest(unittest.TestCase,
         app.SaveProjectToFile(filename)
         return filename
     
-    def testWaveformProcessorTwoInput(self):
+    def testWaveformProcessorNestedParameters2(self):
         self.SimulationResultsChecker(self.WaveformProcessorNestedParameterTest(scale1 = 2, scale2 = 16),)
 
     def testWaveformProcessorTwoInput(self):

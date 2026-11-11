@@ -30,7 +30,7 @@ import numpy as np
 
 class DependentWaveform(Waveform):
     """step waveform"""
-    def __init__(self, OutputPortName, TransformFN, VariablesList = []):
+    def __init__(self, OutputPortName, TransformFN, VariablesList = [], outputWaveformName='outputWaveform'):
         """Constructor  
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
         @param outputPortName output port whose voltage is taken as input into transformation function 
@@ -48,6 +48,7 @@ class DependentWaveform(Waveform):
         
         self.TransformFN = TransformFN
         self.VariablesList = VariablesList
+        self.OutputWaveformName = outputWaveformName
 
         self.td = None
         list.__init__(self, [0]) #Default is a blank waveform
@@ -99,7 +100,7 @@ class DependentWaveform(Waveform):
 
         sendargs.update(inputWaveformAliases)
 
-        returnargs = {'outputWaveform': Waveform()}
+        returnargs = {self.OutputWaveformName: Waveform()}
 
         #Read in transform function
         try:
@@ -115,7 +116,7 @@ class DependentWaveform(Waveform):
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             
-        super().__init__(x=returnargs['outputWaveform'])
+        super().__init__(x=returnargs[self.OutputWaveformName])
 
     @staticmethod
     def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):

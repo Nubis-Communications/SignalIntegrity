@@ -32,7 +32,7 @@ except NameError:
     print('Scale not passed in!')
     scale = 2
 
-outputWaveform = (input_waveform_1 - input_waveform_2) * scale
+output_waveform_1 = (input_waveform_1 - input_waveform_2) * scale
 
 
 

@@ -185,6 +185,13 @@ class PartPropertyDefaultReferenceDesignator(PartPropertyReadOnly):
 class PartPropertyPorts(PartProperty):
     def __init__(self,numPorts=1,hidden=True):
         PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',keyword='ports',value=numPorts,hidden=hidden)
+class PartPropertyInputPorts(PartProperty):
+    def __init__(self,numPorts=1):
+        PartProperty.__init__(self,'inputports',type='int',unit=None,keyword='inputports',description='input ports',value=numPorts,visible=False,keywordVisible=False)
+
+class PartPropertyOutputPorts(PartProperty):
+    def __init__(self,numPorts=1):
+        PartProperty.__init__(self,'outputports',type='int',unit=None,keyword='outputports',description='output ports',value=numPorts,visible=False,keywordVisible=False)
 
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):

@@ -38,6 +38,8 @@ class NetList(object):
         self.noiseSourceNames=[]
         self.noiseOutputNames=[]
         self.noiseDisplayOutputNames=[]
+        self.waveformProcessorLinearSourceNames=[]
+        self.waveformProcessorPortCounts={}
         deviceList = schematic.deviceList
 
         wires_list = copy.deepcopy(SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'])
@@ -92,7 +94,30 @@ class NetList(object):
                 self.textToShow.append(device.NetListLine())
                 if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','nonlinearsource']:
                     ref_name=device['ref'].GetValue()
-                    if device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
+                    deviceName=device.netlist['DeviceName']
+                    if deviceName == 'nonlinearsource':
+                        inputPortsProperty=device['inputports']
+                        outputPortsProperty=device['outputports']
+                        variablePorts=(inputPortsProperty is not None and outputPortsProperty is not None
+                                       and not getattr(device,'legacyWaveformProcessor',False))
+                        if variablePorts:
+                            inputCount=max(1,int(inputPortsProperty.GetValue()))
+                            outputCount=max(1,int(outputPortsProperty.GetValue()))
+                            processorSources=[ref_name+'_out'+str(i+1) for i in range(outputCount)]
+                            processorInputs=[ref_name+'_in'+str(i+1) for i in range(inputCount)]
+                        else:
+                            inputCount=int(device['ports'].GetValue())-1
+                            outputCount=1
+                            processorSources=[ref_name]
+                            processorInputs=[ref_name if i == 0 else ref_name+'_'+str(i+1)
+                                             for i in range(inputCount)]
+                        self.waveformProcessorPortCounts[ref_name]=(inputCount,outputCount,variablePorts)
+                        self.waveformProcessorSourceNames.extend(processorSources)
+                        self.waveformProcessorLinearSourceNames.append(processorSources[0])
+                        self.waveformProcessorOutputNames.extend(processorInputs)
+                        self.waveformProcessorInputMappings.append((processorSources[0],processorInputs[0]))
+                        self.sourceNames.extend(processorSources)
+                    elif deviceName in ['voltagenoisesource','currentnoisesource']:
                         if device['ports']['Value'] == '4':
                             # this is a four-port noise source.  It has presumably had a '_$D$' (differential) or
                             # '_$C$' (common-mode) appended to its reference, so we need to remove that for the
@@ -103,9 +128,7 @@ class NetList(object):
                         self.sourceNames.append(ref_name)
                     else:
                         self.sourceNames.append(ref_name)
-                        if device.netlist['DeviceName'] == 'nonlinearsource':
-                            self.waveformProcessorSourceNames.append(ref_name)
-                    if not device['show'] == None:
+                    if deviceName != 'nonlinearsource' and not device['show'] == None:
                         if device['show']['Value'] == 'true':
                             self.sourceNamesToShow.append(device['ref'].GetValue())
         # gather up all device pin coordinates
@@ -458,27 +481,22 @@ class NetList(object):
                     endinglines.append('currentnoisesource '+ref+' 1')
                     endinglines.append('connect '+ref+' 1 '+tokens[1]+' 5 '+tokens[1]+' 6')
             elif tokens[0] in ['nonlinearsource']:
-                
-                #REplace nonlinear source with an open circuit and a voltage source on node 2
-                #Do not have the code to support a two port open circuit, so for now doing a hack of using a very large resistor instead. 
-                #line = 'device ' + tokens[1] + ' 2 R inf'
                 numports = int(tokens[2])
-                numinputs = numports - 1 #Currently hardcoded for only 1 output, can change to differential output in future!
-                line1 = 'voltagesource ' + tokens[1] + 's 1'
-                line2 = 'device ' + tokens[1] + ' ' + str(numports) + ' open'
-                line = [line1, line2]
+                numinputs,numoutputs,variablePorts=self.waveformProcessorPortCounts[tokens[1]]
+                line=['device '+tokens[1]+' '+str(numports)+' open']
+                for outputIndex in range(numoutputs):
+                    sourceRef=(tokens[1]+'_out'+str(outputIndex+1)+'s' if variablePorts
+                               else tokens[1]+'s')
+                    line.append('voltagesource '+sourceRef+' 1')
+                    endinglines.append('connect '+sourceRef+' 1 '+tokens[1]+' '+str(numinputs+outputIndex+1))
 
-                endinglines.append('connect ' + tokens[1] + 's 1 ' + tokens[1] + ' ' + str(numports)) #Connect new voltage source to output pin
-                for i in range(numinputs):
-                    if i == 0:
-                        probename = tokens[1]
-                        self.waveformProcessorInputMappings.append((tokens[1],probename))
+                for inputIndex in range(numinputs):
+                    if variablePorts:
+                        probeName=tokens[1]+'_in'+str(inputIndex+1)
                     else:
-                        probename = tokens[1] + '_' + str(i+1)
-                    endinglines.append('voltageoutput ' + probename + ' ' + tokens[1] + ' ' + str(i + 1)) #Connect voltage probe to input pin
-
-                    self.waveformProcessorOutputNames.append(probename)
-                    self.outputNames.append(probename) #Add port name to list of output names
+                        probeName=tokens[1] if inputIndex == 0 else tokens[1]+'_'+str(inputIndex+1)
+                    endinglines.append('voltageoutput '+probeName+' '+tokens[1]+' '+str(inputIndex+1))
+                    self.outputNames.append(probeName)
 
                 #Todo, add probe
                 #print(tokens)
@@ -507,13 +525,13 @@ class NetList(object):
         import numpy as np
         from SignalIntegrity.Lib.FrequencyDomain.TransferMatrices import TransferMatrices
 
-        processorSources=[name for name in self.waveformProcessorSourceNames if name in self.sourceNames]
+        processorSources=[name for name in self.waveformProcessorLinearSourceNames if name in self.sourceNames]
         processorInputs=[(source,inputName) for source,inputName in self.waveformProcessorInputMappings
                          if source in processorSources and inputName in self.outputNames]
         if len(processorInputs) != len(processorSources):
             raise ValueError('waveform processor source/probe labels do not match transfer matrix labels')
 
-        hiddenSources=set(processorSources)
+        hiddenSources=set(self.waveformProcessorSourceNames)
         hiddenOutputs=set(self.waveformProcessorOutputNames)
         outputIndices=[i for i,name in enumerate(self.outputNames) if name not in hiddenOutputs]
         sourceIndices=[i for i,name in enumerate(self.sourceNames) if name not in hiddenSources]
