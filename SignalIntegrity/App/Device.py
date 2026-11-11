@@ -23,12 +23,12 @@ from SignalIntegrity.App.DeviceNetListLine import DeviceNetListLine
 from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
 
 class Device(object):
-    def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=[]):
+    def __init__(self,netlist,propertiesList,partPicture,configuration=None,variablesList=None):
         self.netlist=netlist
         if propertiesList==None:
             propertiesList=[]
         self.propertiesList=propertiesList
-        self.variablesList=variablesList
+        self.variablesList=[] if variablesList is None else variablesList
         self.partPicture=partPicture
         self.configuration=configuration
         self.selected=False
@@ -663,6 +663,15 @@ class DeviceWaveformProcessor(Device):
             PartPropertyWaveformType('Dependent')]+propertiesList,partPicture)
 
 _waveformProcessorScriptTemplate='''# Waveform processor script
+# <waveform-processor-interface>
+# {
+#   "version": 1,
+#   "ports": {"inputs": 1, "outputs": 1},
+#   "variables": [
+#     {"name": "gain", "description": "Linear voltage gain", "type": "float", "default": 0.9, "units": "V/V", "visible": true, "read_only": false, "in_cache": true}
+#   ]
+# }
+# </waveform-processor-interface>
 # Measured inputs are available as input_waveform_1, input_waveform_2, etc.
 # Assign each output as output_waveform_1, output_waveform_2, etc.
 # Device variables are also available by name.
@@ -748,6 +757,17 @@ class DeviceWaveformProcessorVariable(Device):
         for dependentWaveform in dependentWaveforms:
             dependentWaveform.UpdateWaveform(inputWaveformNames,inputWaveforms,0)
         return dependentWaveforms[0]
+
+class DeviceWaveformProcessorPythonScriptPicker(Device):
+    isWaveformProcessorScriptPicker=True
+
+    def __init__(self):
+        Device.__init__(self,DeviceNetListLine(devicename='waveformprocessorscriptpicker'),[
+            PartPropertyCategory('Waveform Processors'),
+            PartPropertyPartName('Waveform Processor Python Script'),
+            PartPropertyDescription('Create a waveform processor from a Python script'),
+            PartPropertyPorts(2)],
+            PartPictureVariableWaveformProcessor(1,1))
 
 
 class DeviceVoltageStepGenerator(Device):

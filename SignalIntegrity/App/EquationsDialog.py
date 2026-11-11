@@ -68,6 +68,7 @@ class EquationsDialog(tk.Toplevel):
         # The menu system
             
         TheMenu=tk.Menu(self)
+        self.TheMenu=TheMenu
         self.config(menu=TheMenu)
 
 

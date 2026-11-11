@@ -36,7 +36,7 @@ from SignalIntegrity.App.DeviceExtendedConfiguration import DeviceExtendedConfig
 DeviceExtendedConfiguration.headless=False
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
-from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim,DeviceNetName
+from SignalIntegrity.App.Device import DeviceOutput,DeviceMeasurement,Port,DeviceStim,DeviceNetName,DeviceWaveformProcessorPythonScriptPicker
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.DevicePicker import DevicePickerDialog
 from SignalIntegrity.App.Drawing import Drawing
@@ -842,7 +842,8 @@ class SignalIntegrityApp(tk.Frame):
             messagebox.showerror('Export Bitmap Image','Image could not be generated or written ')
 
     def onAddPart(self):
-        self.onAddPartFromSpecificList(DeviceList+DeviceListUnknown+DeviceListSystem)
+        deviceList=DeviceList+DeviceListUnknown+DeviceListSystem+[DeviceWaveformProcessorPythonScriptPicker()]
+        self.onAddPartFromSpecificList(deviceList)
 
     def onAddUnknown(self):
         self.onAddPartFromSpecificList(DeviceListUnknown)
@@ -855,7 +856,27 @@ class SignalIntegrityApp(tk.Frame):
         dpd=DevicePickerDialog(self,deviceList)
         if dpd.result != None:
             devicePicked=copy.deepcopy(deviceList[dpd.result]).InitializeFromPreferences()
+            if getattr(devicePicked,'isWaveformProcessorScriptPicker',False):
+                self.onAddWaveformProcessorPythonScript()
+                return
             self.AddSpecificPart(devicePicked)
+    def onAddWaveformProcessorPythonScript(self):
+        from SignalIntegrity.App.FilePicker import AskOpenFileName
+        from SignalIntegrity.App.WaveformProcessorScript import CreateWaveformProcessorFromScript
+
+        filename=AskOpenFileName(parent=self,
+                                 filetypes=[('Python scripts','*.py'),('all','.*')],
+                                 initialdir=self.fileparts.AbsoluteFilePath())
+        if filename is None:
+            return
+        try:
+            with open(filename,'r',encoding='utf-8-sig') as scriptFile:
+                script=scriptFile.read()
+            device=CreateWaveformProcessorFromScript(script)
+        except (OSError,UnicodeError,ValueError) as error:
+            messagebox.showerror('Waveform Processor Script',str(error),parent=self)
+            return
+        self.AddSpecificPart(device)
     def onDeletePart(self):
         self.Drawing.DeleteSelectedDevice()
     def onDeleteSelected(self):

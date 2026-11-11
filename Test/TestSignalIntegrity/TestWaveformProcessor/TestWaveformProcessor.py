@@ -65,8 +65,9 @@ class TestWaveformProcessorTest(unittest.TestCase,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
 
     def testVariableProcessorIsPaletteDefault(self):
-        from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorPythonScriptPicker, DeviceWaveformProcessorVariable
         from SignalIntegrity.App.DeviceProperties import DeviceProperties, DeviceViewMenuActions
+        from SignalIntegrity.App.WaveformProcessorScript import ParseWaveformProcessorInterface
         from unittest.mock import Mock
 
         self.assertFalse(any(isinstance(device,DeviceWaveformProcessor) for device in DeviceList))
@@ -75,6 +76,11 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertEqual(variableProcessor['inputports'].GetValue(),1)
         self.assertEqual(variableProcessor['outputports'].GetValue(),1)
         self.assertIn(('Edit Script','editscript'),DeviceViewMenuActions(variableProcessor))
+        picker=DeviceWaveformProcessorPythonScriptPicker()
+        self.assertEqual(picker['partname'].GetValue(),'Waveform Processor Python Script')
+        self.assertIn('Waveform Processors',picker.Categories())
+        prototype=DeviceWaveformProcessorVariable()
+        self.assertEqual(ParseWaveformProcessorInterface(prototype['script'].GetValue())[:2],(1,1))
 
         class PropertiesProbe:
             IsScriptedSource=DeviceProperties.IsScriptedSource
@@ -86,6 +92,83 @@ class TestWaveformProcessorTest(unittest.TestCase,
         propertiesProbe.UpdateScriptEditorButton()
         propertiesProbe.scriptEditButton.pack.assert_called_once_with(
             expand=0,fill='none',anchor='center')
+
+    def testWaveformProcessorScriptInterfaceParser(self):
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.Device import DeviceThru, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.DeviceProperties import VariablesDialog
+        from SignalIntegrity.App.WaveformProcessorScript import CreateWaveformProcessorFromScript, ParseWaveformProcessorInterface, ReconcileProcessorVariables
+        from unittest.mock import Mock
+
+        script='''# <waveform-processor-interface>
+# {
+#   "version": 1,
+#   "ports": {"inputs": 2, "outputs": 1},
+#   "variables": [{
+#     "name": "gain",
+#     "description": "Linear voltage gain",
+#     "type": "float",
+#     "default": 0.9,
+#     "units": "V/V",
+#     "visible": true,
+#     "read_only": false,
+#     "in_cache": true
+#   }]
+# }
+# </waveform-processor-interface>
+output_waveform_1 = input_waveform_1 * gain
+'''
+        inputPorts,outputPorts,variables=ParseWaveformProcessorInterface(script)
+        self.assertEqual((inputPorts,outputPorts),(2,1))
+        self.assertEqual(len(variables),1)
+        self.assertEqual(variables[0]['Name'],'gain')
+        self.assertEqual(variables[0]['Value'],'0.9')
+        self.assertEqual(variables[0]['Units'],'V/V')
+
+        invalidScript=script.replace('"name": "gain"','"name": "not-valid"')
+        with self.assertRaises(ValueError):
+            ParseWaveformProcessorInterface(invalidScript)
+
+        existingGain=copy.deepcopy(variables[0])
+        existingGain['Value']='1.25'
+        obsoleteVariable=VariableConfiguration()
+        obsoleteVariable['Name']='obsolete'
+        reconciled,removed=ReconcileProcessorVariables([existingGain,obsoleteVariable],variables)
+        self.assertEqual(reconciled[0]['Value'],'1.25')
+        self.assertEqual(reconciled[0]['Description'],'Linear voltage gain')
+        self.assertEqual(removed,['obsolete'])
+
+        importedDevice=CreateWaveformProcessorFromScript(script)
+        self.assertEqual(importedDevice['inputports'].GetValue(),2)
+        self.assertEqual(importedDevice['outputports'].GetValue(),1)
+        self.assertEqual(importedDevice.variablesList[0]['Name'],'gain')
+
+        existingDevice=DeviceWaveformProcessorVariable()
+        existingDevice['script']['Value']=script
+        dialog=VariablesDialog.__new__(VariablesDialog)
+        dialog.device=existingDevice
+        dialog.project=existingDevice.variablesList
+        dialog.parent=Mock()
+        dialog.parent.DeviceProperties=Mock()
+        dialog.parent.DeviceProperties.propertyFrameList=[]
+        portPropertyFrames=[]
+        for keyword in ['inputports','outputports']:
+            propertyFrame=Mock()
+            propertyFrame.partProperty=existingDevice[keyword]
+            propertyFrame.propertyString=Mock()
+            propertyFrame.propertyString.get.return_value=propertyFrame.partProperty.PropertyString(stype='entry')
+            portPropertyFrames.append(propertyFrame)
+            dialog.parent.DeviceProperties.propertyFrameList.append(propertyFrame)
+        dialog.top=Mock()
+        dialog.DrawVariables=Mock()
+        dialog.onImportFromScript()
+        self.assertEqual(existingDevice['inputports'].GetValue(),2)
+        self.assertEqual(existingDevice['outputports'].GetValue(),1)
+        self.assertEqual(len(existingDevice.PinCoordinates()),3)
+        self.assertEqual([variable['Name'] for variable in existingDevice.variablesList],['gain'])
+        self.assertEqual([frame.propertyString.set.call_args.args[0] for frame in portPropertyFrames],['2','1'])
+        dialog.parent.DeviceProperties.UpdatePicture.assert_called_once_with()
+        self.assertEqual(DeviceThru(2).variablesList,[])
 
     def testShownProcessorOutputsAreOtherWaveforms(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
@@ -349,12 +432,36 @@ class TestWaveformProcessorTest(unittest.TestCase,
         try:
             app=SignalIntegrityAppHeadless()
             self.assertTrue(app.OpenProjectFile('amplifier_test.si'))
-            self.assertTrue(app.Simulate())
+            from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+            from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+
+            processor=next(device for device in app.Drawing.schematic.deviceList
+                           if device['ref'] is not None and device['ref'].GetValue() == 'AMP')
+            timeDescriptor=TimeDescriptor(0,8,1e9)
+            inputWaveform=Waveform(timeDescriptor,[0.01*index for index in range(8)])
+            outputWaveform=processor.Waveforms()[0]
+            outputWaveform.UpdateWaveform(['AMP_in1'],[inputWaveform],0)
+            self.assertEqual(outputWaveform.td,timeDescriptor)
+            self.assertEqual(len(outputWaveform),8)
         finally:
             sys.path[:]=originalPath
             sys.modules.pop('Amplifier',None)
             if originalModule is not None:
                 sys.modules['Amplifier']=originalModule
+
+    def testAmplifierProjectDeclaresScriptInterface(self):
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.WaveformProcessorScript import ParseWaveformProcessorInterface
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('amplifier_test.si'))
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if device['ref'] is not None and device['ref'].GetValue() == 'AMP')
+        inputPorts,outputPorts,variables=ParseWaveformProcessorInterface(processor['script'].GetValue())
+        self.assertEqual((inputPorts,outputPorts),(1,1))
+        self.assertEqual([(variable['Name'],variable['Type'],variable['Units']) for variable in variables],
+                         [('IIP2','float','dBm'),('IIP3','float','dBm'),
+                          ('bandwidth','float','Hz'),('slewrate','float','V/s')])
 
     def testLegacyWaveformProcessorProjectsLoad(self):
         import SignalIntegrity.App.Project
