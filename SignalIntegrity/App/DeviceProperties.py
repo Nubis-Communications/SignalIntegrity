@@ -127,6 +127,10 @@ def DeviceViewMenuActions(device,editable=True):
         actions.append(('View Waveform','waveform'))
         if editable and device['wftype'].GetValue() == 'scripted':
             actions.append(('Edit Script','editscript'))
+    elif editable and device['script'] is not None:
+        actions.append(('Edit Script','editscript'))
+    elif editable and device['script'] is not None:
+        actions.append(('Edit Script','editscript'))
     elif kind == 'noise':
         actions.append(('View Noise','noise'))
     if not WaveformProjectFileNameOfDevice(device) is None:
@@ -558,6 +562,10 @@ class DeviceProperties(tk.Frame):
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                elif self.device.netlist['DeviceName'] == 'nonlinearsource' and self.IsScriptedSource():
+                    self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+                elif self.device.netlist['DeviceName'] == 'nonlinearsource' and self.IsScriptedSource():
+                    self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
         except TypeError:

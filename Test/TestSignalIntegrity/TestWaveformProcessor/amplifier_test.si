@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>645x363+807+1024</Geometry>
+			<Geometry>645x363+312+312</Geometry>
 			<Grid>14</Grid>
 			<Originx>5</Originx>
 			<Originy>5</Originy>
@@ -31,9 +31,9 @@
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
-							<Keyword>trfile</Keyword>
+							<Keyword>script</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>nonlinear_amplifier.py</Value>
+							<Value>&quot;&quot;&quot;&#10;scale_nonlin.py&#10;&quot;&quot;&quot;&#10;&#10;# Copyright (c) 2018 Teledyne LeCroy, Inc.&#10;# All rights reserved worldwide.&#10;#&#10;# This file is part of SignalIntegrity.&#10;#&#10;# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms&#10;# of the GNU General Public License as published by the Free Software Foundation, either&#10;# version 3 of the License, or any later version.&#10;#&#10;# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;&#10;# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&#10;# See the GNU General Public License for more details.&#10;#&#10;# You should have received a copy of the GNU General Public License along with this program.&#10;# If not, see &lt;https://www.gnu.org/licenses/&gt;&#10;&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform&#10;from Amplifier import amplifier_iip2_iip3_slew&#10;#Code which will be run by a dependent voltage source to perform voltage transformation&#10;#This transform processes its first input waveform.&#10;# inputs: inputWaveforms - dictionary containing Waveform to utilize&#10;# outputs: outputWaveform - set to transformed Waveform&#10;&#10;x = input_waveform_1.Values()&#10;fs =input_waveform_1.TimeDescriptor().Fs&#10;&#10;outputWaveform_values = amplifier_iip2_iip3_slew(&#10;        x,&#10;        fs,&#10;        0.0,&#10;        IIP2,&#10;        IIP3,&#10;        bandwidth,&#10;        slewrate,&#10;);&#10;&#10;output_waveform_1 = Waveform(input_waveform_1.TimeDescriptor(), list(outputWaveform_values))&#10;&#10;</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -58,6 +58,12 @@
 							<Keyword>outputports</Keyword>
 							<KeywordVisible>False</KeywordVisible>
 							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>legacywaveformprocessor</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>

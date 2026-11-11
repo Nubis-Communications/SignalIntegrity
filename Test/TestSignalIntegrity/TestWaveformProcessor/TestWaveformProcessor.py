@@ -66,12 +66,14 @@ class TestWaveformProcessorTest(unittest.TestCase,
 
     def testVariableProcessorIsPaletteDefault(self):
         from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.DeviceProperties import DeviceViewMenuActions
 
         self.assertFalse(any(isinstance(device,DeviceWaveformProcessor) for device in DeviceList))
         variableProcessor=next(device for device in DeviceList
                                if isinstance(device,DeviceWaveformProcessorVariable))
         self.assertEqual(variableProcessor['inputports'].GetValue(),1)
         self.assertEqual(variableProcessor['outputports'].GetValue(),1)
+        self.assertIn(('Edit Script','editscript'),DeviceViewMenuActions(variableProcessor))
 
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
@@ -202,6 +204,8 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertEqual(defaultBox[1][0]-defaultBox[0][0],defaultBox[1][1]-defaultBox[0][1])
         self.assertLess(defaultProcessor.partPicture.current.propertiesLocation[1],defaultBox[0][1])
         self.assertEqual(defaultBox[0][1]-defaultProcessor.partPicture.current.propertiesLocation[1],0.5)
+        self.assertIsNone(defaultProcessor['trfile'])
+        self.assertIn('output_waveform_1 = input_waveform_1 * gain',defaultProcessor['script'].GetValue())
         self.assertTrue(all(not pin['NumberVisible'] and pin['NumberingMatters']
                     for pin in defaultProcessor.partPicture.current.pinList))
 
@@ -231,7 +235,8 @@ class TestWaveformProcessorTest(unittest.TestCase,
 
         processor=DeviceWaveformProcessorVariable(2,2)
         processor['ref']['Value']='WFP1'
-        processor['trfile']['Value']='waveform_processor_multi_output.py'
+        processor['script']['Value']=('output_waveform_1 = input_waveform_1 + input_waveform_2\n'
+                          'output_waveform_2 = input_waveform_1 * 2\n')
         self.assertEqual(processor['inputports'].GetValue(),2)
         self.assertEqual(processor['outputports'].GetValue(),2)
         self.assertFalse(processor['inputports']['Visible'])
@@ -254,6 +259,9 @@ class TestWaveformProcessorTest(unittest.TestCase,
             waveform.UpdateWaveform(inputLabels,inputWaveforms,0)
         self.assertEqual(list(outputWaveforms[0]),[11.,22.,33.])
         self.assertEqual(list(outputWaveforms[1]),[2.,4.,6.])
+        preview=processor.ScriptedWaveform(
+            'output_waveform_1 = input_waveform_1 * 2\noutput_waveform_2 = input_waveform_2\n')
+        self.assertEqual(list(preview),[2.,4.,6.,8.,10.,12.,14.,16.])
         processor.partPicture.current.SetOrigin((17,23))
         processor.partPicture.current.ApplyOrientation('90',True,False)
         processor['inputports']['Value']=3
@@ -294,6 +302,25 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertLess(text[0][1],arrow[0][1])
         self.assertLess(arrow[0][0],arrow[0][2])
 
+    def testEmbeddedProcessorImportsProjectLocalModule(self):
+        import sys
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        projectDirectory=os.getcwd()
+        originalPath=sys.path[:]
+        originalModule=sys.modules.pop('Amplifier',None)
+        sys.path=[path for path in sys.path
+                  if os.path.abspath(path or projectDirectory) != projectDirectory]
+        try:
+            app=SignalIntegrityAppHeadless()
+            self.assertTrue(app.OpenProjectFile('amplifier_test.si'))
+            self.assertTrue(app.Simulate())
+        finally:
+            sys.path[:]=originalPath
+            sys.modules.pop('Amplifier',None)
+            if originalModule is not None:
+                sys.modules['Amplifier']=originalModule
+
     def testLegacyWaveformProcessorProjectsLoad(self):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessorVariable
@@ -309,6 +336,21 @@ class TestWaveformProcessorTest(unittest.TestCase,
             devices = SignalIntegrity.App.Project['Drawing.Schematic.Devices']
             deviceProject = next(copy.deepcopy(device) for device in devices if device['ClassName'] == currentClassName)
             deviceProject['ClassName'] = legacyClassName
+            scriptProperty=None
+            if legacyClassName == 'DeviceNonlinearSource':
+                scriptProperty=next(copy.deepcopy(propertyProject)
+                                    for propertyProject in deviceProject['PartProperties']
+                                    if propertyProject['Keyword'] == 'script')
+                deviceProject['PartProperties']=[propertyProject
+                                                 for propertyProject in deviceProject['PartProperties']
+                                                 if propertyProject['Keyword'] != 'script']
+                transformProperty=copy.deepcopy(scriptProperty)
+                transformProperty['Keyword']='trfile'
+                transformProperty['PropertyName']='transformfilename'
+                transformProperty['Description']='transform file name'
+                transformProperty['Type']='file'
+                transformProperty['Value']='scale_nonlin.py'
+                deviceProject['PartProperties'].append(transformProperty)
             for propertyProject in deviceProject['PartProperties']:
                 if propertyProject['Keyword'] == 'wftype':
                     propertyProject['Value'] = 'Depen'
@@ -325,8 +367,18 @@ class TestWaveformProcessorTest(unittest.TestCase,
                 self.assertEqual(device['inputports'].GetValue(),1)
                 self.assertEqual(device['outputports'].GetValue(),1)
                 self.assertTrue(device.legacyWaveformProcessor)
+                self.assertIn('outputWaveform = inputWaveform*scale',device['script'].GetValue())
                 roundTripProject=copy.deepcopy(deviceProject)
                 roundTripProject['ClassName']='DeviceWaveformProcessorVariable'
+                roundTripProject['PartProperties']=[propertyProject
+                                                     for propertyProject in roundTripProject['PartProperties']
+                                                     if propertyProject['Keyword'] != 'trfile']
+                scriptProperty['Keyword']='script'
+                scriptProperty['PropertyName']='script'
+                scriptProperty['Description']='Python script for waveform processor'
+                scriptProperty['Type']='string'
+                scriptProperty['Value']=device['script'].GetValue()
+                roundTripProject['PartProperties'].append(scriptProperty)
                 roundTripProject['PartProperties'].append(copy.deepcopy(device['legacywaveformprocessor']))
                 roundTripDevice=DeviceFromProject(roundTripProject).result
                 self.assertTrue(roundTripDevice.legacyWaveformProcessor)
@@ -373,7 +425,15 @@ class TestWaveformProcessorTest(unittest.TestCase,
         base_fn = 'WaveformProcessorTestTwoProbe_nonlin_source_parameterized'
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app=SignalIntegrityAppHeadless()
-        app.OpenProjectFile(base_fn + '.si',{'NLS1_scale':scale, 'tf_fn':tf_fn + '.py'})
+        app.OpenProjectFile(base_fn + '.si',{'NLS1_scale':scale})
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if device['ref'].GetValue() == 'NLS1')
+        transformFileName=tf_fn+'.py'
+        try:
+            with open(transformFileName,'r') as transformFile:
+                processor['script']['Value']=transformFile.read()
+        except FileNotFoundError:
+            processor['script']['Value']='raise FileNotFoundError('+repr(transformFileName)+')\n'
         filename='WaveformProcessorTestTwoProbe_nonlin_source_parameterized'+str(scale)+tf_fn + '.si'
         app.SaveProjectToFile(filename)
         return filename

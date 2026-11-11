@@ -60,12 +60,7 @@
 							<Value>false</Value>
 							<Visible>False</Visible>
 						</PartProperty>
-						<PartProperty>
-							<Keyword>trfile</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value></Value>
-							<Visible>False</Visible>
-						</PartProperty>
+						<PartProperty><Keyword>script</Keyword><KeywordVisible>True</KeywordVisible><Value>raise FileNotFoundError("transform file not found: ")</Value><Visible>False</Visible></PartProperty>
 						<PartProperty>
 							<Keyword>show</Keyword>
 							<KeywordVisible>True</KeywordVisible>

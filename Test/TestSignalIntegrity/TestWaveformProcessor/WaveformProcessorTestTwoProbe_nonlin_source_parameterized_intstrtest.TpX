@@ -35,7 +35,6 @@
 %  <polyline lc="black">104,-56 100,-56</polyline>
 %  <text x="96" y="-49" t="test_int=NLS1_test_int (3)" h="3" halign="c" lc="black"/>
 %  <text x="96" y="-46" t="test_str=tf_fn (scale_nonlin.py)" h="3" halign="c" lc="black"/>
-%  <text x="96" y="-43" t="trfile test_int_str_vars.py" h="3" halign="c" lc="black"/>
 %  <text x="96" y="-55.6" t="py" h="3" halign="c" lc="black"/>
 %  <polyline arr2="h44" arrs="0.5" lc="black">94,-57.4 98,-57.4</polyline>
 %  <polyline lw="3" lc="black">108,-52 106,-54</polyline>
@@ -85,7 +84,6 @@
 \path[line width=0.30mm, draw=black] (104,-56) -- (100,-56);
 \draw[black] (96,-49) node[anchor=base]{test\textunderscore int=NLS1\textunderscore test\textunderscore int (3)};
 \draw[black] (96,-46) node[anchor=base]{test\textunderscore str=tf\textunderscore fn (scale\textunderscore nonlin.py)};
-\draw[black] (96,-43) node[anchor=base]{trfile test\textunderscore int\textunderscore str\textunderscore vars.py};
 \draw[black] (96,-55.6) node[anchor=base]{py};
 \path[line width=0.30mm, draw=black, ->] (94,-57.4) -- (98,-57.4);
 \path[line width=0.9mm, draw=black] (108,-52) -- (106,-54);

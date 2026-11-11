@@ -30,7 +30,7 @@ import numpy as np
 
 class DependentWaveform(Waveform):
     """step waveform"""
-    def __init__(self, OutputPortName, TransformFN, VariablesList = [], outputWaveformName='outputWaveform'):
+    def __init__(self, OutputPortName, TransformFN, VariablesList = [], outputWaveformName='outputWaveform', script=None):
         """Constructor  
         constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
         @param outputPortName output port whose voltage is taken as input into transformation function 
@@ -47,6 +47,7 @@ class DependentWaveform(Waveform):
                     'Incorrect argument type for OutputPortName: ' + (OutputPortName))
         
         self.TransformFN = TransformFN
+        self.Script = script
         self.VariablesList = VariablesList
         self.OutputWaveformName = outputWaveformName
 
@@ -102,17 +103,21 @@ class DependentWaveform(Waveform):
 
         returnargs = {self.OutputWaveformName: Waveform()}
 
-        #Read in transform function
-        try:
-            file = open(self.TransformFN,"r") 
-        except FileNotFoundError:
-            raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
-        equations = file.read()
-        file.close()
-        #Allow the transform file to import sibling modules from its own directory
-        transformDir = os.path.dirname(os.path.abspath(self.TransformFN))
-        if transformDir not in sys.path:
-            sys.path.insert(0, transformDir)
+        if self.Script is None:
+            try:
+                file = open(self.TransformFN,"r")
+            except FileNotFoundError:
+                raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
+            equations = file.read()
+            file.close()
+            transformDir = os.path.dirname(os.path.abspath(self.TransformFN))
+            if transformDir not in sys.path:
+                sys.path.insert(0, transformDir)
+        else:
+            equations=self.Script
+            projectDir=os.getcwd()
+            if projectDir not in sys.path:
+                sys.path.insert(0, projectDir)
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             

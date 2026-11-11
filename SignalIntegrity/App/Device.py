@@ -256,6 +256,11 @@ class Device(object):
         if script is None:
             script = ''
         context = self.ScriptContext()
+        import os
+        import sys
+        projectDir=os.getcwd()
+        if projectDir not in sys.path:
+            sys.path.insert(0,projectDir)
         try:
             exec(script, context)
         except Exception as e:
@@ -388,6 +393,26 @@ class DeviceFromProject(object):
             keyword=partPropertyProject['Keyword']
             if keyword == 'depen':
                 keyword = 'dependent'
+            if keyword == 'trfile' and self.result['script'] is not None:
+                transformFileName=partPropertyProject.GetValue('Value')
+                if isinstance(transformFileName,str) and transformFileName.startswith('='):
+                    variableName=transformFileName[1:]
+                    transformFileName=next((variable.GetValue('Value')
+                                             for variable in deviceProject['Variables']['Items']
+                                             if variable.GetValue('Name') == variableName),None)
+                    if transformFileName is None:
+                        try:
+                            projectVariables=SignalIntegrity.App.Project['Variables'].Dictionary()
+                            transformFileName=projectVariables.get(variableName)
+                        except (KeyError,TypeError):
+                            transformFileName=None
+                try:
+                    with open(transformFileName,'r') as transformFile:
+                        self.result['script']['Value']=transformFile.read()
+                except (FileNotFoundError,TypeError):
+                    errorMessage='transform file not found: '+str(transformFileName)
+                    self.result['script']['Value']='raise FileNotFoundError('+repr(errorMessage)+')\n'
+                continue
             devicePartProperty=self.result[keyword]
             if not devicePartProperty is None:
                 for propertyItemName in partPropertyProject.dict:
@@ -637,6 +662,14 @@ class DeviceWaveformProcessor(Device):
             PartPropertyShow(),
             PartPropertyWaveformType('Dependent')]+propertiesList,partPicture)
 
+_waveformProcessorScriptTemplate='''# Waveform processor script
+# Measured inputs are available as input_waveform_1, input_waveform_2, etc.
+# Assign each output as output_waveform_1, output_waveform_2, etc.
+# Device variables are also available by name.
+gain = 0.9
+output_waveform_1 = input_waveform_1 * gain
+'''
+
 class DeviceWaveformProcessorVariable(Device):
     def __init__(self,inputPorts=1,outputPorts=1):
         netlist=DeviceNetListLine(devicename='nonlinearsource')
@@ -647,7 +680,7 @@ class DeviceWaveformProcessorVariable(Device):
             PartPropertyHelp('device:Nonlinear-Source'),
             PartPropertyDefaultReferenceDesignator('WFP?'),
             PartPropertyCalculationProperties(),
-            PartPropertyTransformFileName(),
+            PartPropertyScript(_waveformProcessorScriptTemplate),
             PartPropertyShow(),
             PartPropertyWaveformType('Dependent'),
             PartPropertyInputPorts(inputPorts),
@@ -681,8 +714,10 @@ class DeviceWaveformProcessorVariable(Device):
     def Waveform(self,callback=None):
         return self.Waveforms(callback)[0]
 
-    def Waveforms(self,callback=None):
+    def Waveforms(self,callback=None,script=None):
         self.UpdatePortConfiguration()
+        if script is None:
+            script=self['script'].GetValue()
         reference=self['ref'].GetValue()
         legacyWaveformProcessor=getattr(self,'legacyWaveformProcessor',False)
         if legacyWaveformProcessor:
@@ -693,9 +728,26 @@ class DeviceWaveformProcessorVariable(Device):
             outputWaveformNames=['output_waveform_'+str(i+1)
                                  for i in range(self['outputports'].GetValue())]
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
-        return [DependentWaveform(inputProbeNames,self['trfile'].GetValue(),self.variablesList,
-                                  outputWaveformName=outputWaveformNames[i])
+        return [DependentWaveform(inputProbeNames,None,self.variablesList,
+                                  outputWaveformName=outputWaveformNames[i],script=script)
                 for i in range(self['outputports'].GetValue())]
+
+    def ScriptedWaveform(self,script=None):
+        from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
+        from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+
+        self.UpdatePortConfiguration()
+        reference=self['ref'].GetValue()
+        legacyWaveformProcessor=getattr(self,'legacyWaveformProcessor',False)
+        inputWaveformNames=([reference] if legacyWaveformProcessor else
+                            [reference+'_in'+str(i+1) for i in range(self['inputports'].GetValue())])
+        timeDescriptor=TimeDescriptor(0,8,1e9)
+        inputWaveforms=[Waveform(timeDescriptor,[float(index+1) for index in range(8)])
+                        for _ in inputWaveformNames]
+        dependentWaveforms=self.Waveforms(script=script)
+        for dependentWaveform in dependentWaveforms:
+            dependentWaveform.UpdateWaveform(inputWaveformNames,inputWaveforms,0)
+        return dependentWaveforms[0]
 
 
 class DeviceVoltageStepGenerator(Device):
