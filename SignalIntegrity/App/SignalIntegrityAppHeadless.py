@@ -338,6 +338,8 @@ class SignalIntegrityAppHeadless(object):
             noiseSourceNames = netList.NoiseSourceNames()
 
             if TransferMatricesOnly:
+                outputWaveformLabels,sourceNames,transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
+                    transferMatrices)
 
                 outputWaveformLabels,sourceNames,transferMatrices = transferMatrices.Remove(
                     outputWaveformLabels,  # outputs
@@ -500,12 +502,22 @@ class SignalIntegrityAppHeadless(object):
                 for wf in outputWaveformList[:len(outputWaveformLabels)]]+outputWaveformList[len(outputWaveformLabels):]
         outputWaveformLabels=outputWaveformLabels+otherWaveformLabels
 
+        transferOutputNames,sourceNames,transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
+            transferMatrices)
+        hiddenWaveformProcessorLabels = set(netList.WaveformProcessorOutputNames()+netList.WaveformProcessorSourceNames())
+        visibleWaveformIndices=[i for i,name in enumerate(outputWaveformLabels)
+                                if name not in hiddenWaveformProcessorLabels]
+        outputWaveformList=[outputWaveformList[i] for i in visibleWaveformIndices]
+        outputWaveformLabels=[outputWaveformLabels[i] for i in visibleWaveformIndices]
+
         try:
             from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
             sna = StatisticalNoiseAnalysis(self.Drawing.schematic,
                                            transferMatrices,
                                            outputWaveformList,
-                                           outputWaveformLabels)
+                                           outputWaveformLabels,
+                                           transferOutputNames,
+                                           sourceNames)
         except:
             return Result('simulation',None)
 

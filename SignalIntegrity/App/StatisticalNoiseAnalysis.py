@@ -22,7 +22,9 @@ class StatisticalNoiseAnalysis(dict):
     def __init__(self, schematic,
                  transferMatrices,
                  output_waveforms,
-                 output_waveform_names):
+                 output_waveform_names,
+                 transfer_output_names=None,
+                 transfer_source_names=None):
 
         dict.__init__(self)
 
@@ -35,9 +37,14 @@ class StatisticalNoiseAnalysis(dict):
             if netlist.NoiseSourceNames() is None or len(netlist.NoiseSourceNames()) == 0:
                 return
 
+            if transfer_output_names is None:
+                transfer_output_names=netlist.OutputNames()
+            if transfer_source_names is None:
+                transfer_source_names=netlist.SourceNames()
+
             outputWaveformLabels,sourceNames,transferMatrices = transferMatrices.Keep(
-                netlist.OutputNames(),         # outputs
-                netlist.SourceNames(),         # sources
+                transfer_output_names,        # outputs
+                transfer_source_names,        # sources
                 netlist.NoiseOutputNames(),    # outputs to keep
                 netlist.NoiseSourceNames()     # sources to keep
                 )

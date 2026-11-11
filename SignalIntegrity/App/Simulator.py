@@ -147,6 +147,8 @@ class Simulator(object):
             self.noiseSourceNames = netList.NoiseSourceNames()
 
             if TransferMatricesOnly:
+                self.outputWaveformLabels,self.sourceNames,self.transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
+                    self.transferMatrices)
 
                 self.outputWaveformLabels,self.sourceNames,self.transferMatrices = self.transferMatrices.Remove(
                     self.outputWaveformLabels,  # outputs
@@ -345,6 +347,15 @@ class Simulator(object):
                 for wf in outputWaveformList[:len(self.outputWaveformLabels)]]+outputWaveformList[len(self.outputWaveformLabels):]
         outputWaveformLabels=self.outputWaveformLabels+otherWaveformLabels
 
+        transferOutputNames,self.sourceNames,self.transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
+            self.transferMatrices)
+        self.outputWaveformLabels=transferOutputNames
+        hiddenWaveformProcessorLabels = set(netList.WaveformProcessorOutputNames()+netList.WaveformProcessorSourceNames())
+        visibleWaveformIndices=[i for i,name in enumerate(outputWaveformLabels)
+                                if name not in hiddenWaveformProcessorLabels]
+        outputWaveformList=[outputWaveformList[i] for i in visibleWaveformIndices]
+        outputWaveformLabels=[outputWaveformLabels[i] for i in visibleWaveformIndices]
+
         self.SimulatorDialog().title('Sim: '+self.parent.fileparts.FileNameTitle())
         self.SimulatorDialog().ExamineTransferMatricesDoer.Activate(True)
         self.SimulatorDialog().SimulateDoer.Activate(True)
@@ -356,7 +367,9 @@ class Simulator(object):
             sna = StatisticalNoiseAnalysis(self.parent.Drawing.schematic,
                                            self.transferMatrices,
                                            outputWaveformList,
-                                           outputWaveformLabels
+                                           outputWaveformLabels,
+                                           transferOutputNames,
+                                           self.sourceNames
                                            )
         except:
             self.parent.statusbar.set('Calculation Failed')

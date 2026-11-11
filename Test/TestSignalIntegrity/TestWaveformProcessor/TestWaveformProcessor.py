@@ -81,6 +81,88 @@ class TestWaveformProcessorTest(unittest.TestCase,
         self.assertEqual(app.Drawing.schematic.DependentSourceCount(),0)
         self.assertEqual(app.Drawing.schematic.ProcessingIterationCount(True,12),1)
 
+    def testWaveformProcessorTransferParameterLinearization(self):
+        import copy
+        import SignalIntegrity.App.Project
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app = SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+        netList = app.Drawing.schematic.NetList()
+        parser = si.p.SimulatorNumericParser(
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
+        parser.AddLines(netList.Text())
+        rawTransferMatrices = parser.TransferMatrices()
+        rawTransferMatricesBeforeLinearization = copy.deepcopy(rawTransferMatrices)
+
+        expectedOutputs,expectedSources,expectedMatrices = netList.LinearizeWaveformProcessorTransferMatrices(rawTransferMatrices)
+        result = app.TransferParameters()
+        self.assertEqual(rawTransferMatrices,rawTransferMatricesBeforeLinearization)
+        self.assertEqual(result['output waveform labels'],expectedOutputs)
+        self.assertEqual(result['source names'],expectedSources)
+        self.assertNotIn('NLS1',result['output waveform labels'])
+        self.assertNotIn('NLS1_2',result['output waveform labels'])
+        self.assertNotIn('NLS1',result['source names'])
+        self.assertEqual(netList.LinearizeWaveformProcessorTransferMatrices([]),([],[],[]))
+
+        outputIndex = expectedOutputs.index('VO2')
+        sourceIndex = expectedSources.index('VS1')
+        rawOutputIndex = netList.OutputNames().index('VO2')
+        rawInputIndex = netList.OutputNames().index('NLS1')
+        rawSourceIndex = netList.SourceNames().index('VS1')
+        rawProcessorSourceIndex = netList.SourceNames().index('NLS1')
+        for frequencyIndex,rawMatrix in enumerate(rawTransferMatrices):
+            feedback = rawMatrix[rawInputIndex][rawProcessorSourceIndex]
+            expected = rawMatrix[rawOutputIndex][rawSourceIndex]
+            expected += rawMatrix[rawOutputIndex][rawProcessorSourceIndex] * rawMatrix[rawInputIndex][rawSourceIndex] / (1.0-feedback)
+            self.assertAlmostEqual(abs(result['transfer matrices'][frequencyIndex][outputIndex][sourceIndex]-expected),0.0,places=10)
+
+        self.assertEqual(result['transfer matrices'],expectedMatrices)
+
+        simulationResult = app.Simulate()
+        self.assertNotIn('NLS1',simulationResult['source names'])
+        self.assertNotIn('NLS1',simulationResult['output waveform labels'])
+        self.assertNotIn('NLS1_2',simulationResult['output waveform labels'])
+        self.assertEqual(len(simulationResult['transfer matrices'][0]),len(simulationResult['output waveform labels']))
+        self.assertEqual(len(simulationResult['transfer matrices'][0][0]),len(simulationResult['source names']))
+
+    def testTwoInputProcessorTransferParametersUseInput1(self):
+        import SignalIntegrity.App.Project
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app = SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_twoport_source.si'))
+        netList = app.Drawing.schematic.NetList()
+        parser = si.p.SimulatorNumericParser(
+            SignalIntegrity.App.Project['CalculationProperties'].FrequencyList(),
+            Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'])
+        parser.AddLines(netList.Text())
+        rawTransferMatrices = parser.TransferMatrices()
+        self.assertIn('NLS1_2',netList.OutputNames())
+
+        expectedOutputs,expectedSources,expectedMatrices = netList.LinearizeWaveformProcessorTransferMatrices(rawTransferMatrices)
+        result = app.TransferParameters()
+        self.assertEqual(result['output waveform labels'],expectedOutputs)
+        self.assertEqual(result['source names'],expectedSources)
+        self.assertNotIn('NLS1',result['output waveform labels'])
+        self.assertNotIn('NLS1_2',result['output waveform labels'])
+        self.assertNotIn('NLS1',result['source names'])
+
+        outputIndex = expectedOutputs.index('VO2')
+        sourceIndex = expectedSources.index('VS1')
+        rawOutputIndex = netList.OutputNames().index('VO2')
+        rawInputIndex = netList.OutputNames().index('NLS1')
+        rawSourceIndex = netList.SourceNames().index('VS1')
+        rawProcessorSourceIndex = netList.SourceNames().index('NLS1')
+        for frequencyIndex,rawMatrix in enumerate(rawTransferMatrices):
+            feedback = rawMatrix[rawInputIndex][rawProcessorSourceIndex]
+            expected = rawMatrix[rawOutputIndex][rawSourceIndex]
+            expected += rawMatrix[rawOutputIndex][rawProcessorSourceIndex] * rawMatrix[rawInputIndex][rawSourceIndex] / (1.0-feedback)
+            self.assertAlmostEqual(abs(result['transfer matrices'][frequencyIndex][outputIndex][sourceIndex]-expected),0.0,places=10)
+
+        self.assertEqual(result['transfer matrices'],expectedMatrices)
+
     def testLegacyWaveformProcessorProjectsLoad(self):
         import SignalIntegrity.App.Project
         from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessor

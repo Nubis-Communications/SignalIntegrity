@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>747x363+78+78</Geometry>
+			<Geometry>747x363+208+208</Geometry>
 			<Grid>14</Grid>
 			<Originx>1</Originx>
 			<Originy>4</Originy>
@@ -109,7 +109,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(1, 3)</Origin>
+						<Origin>(1, 9)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -127,7 +127,7 @@
 						<PartProperty>
 							<Keyword>dur</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1.0000000000000001e-07</Value>
+							<Value>2.0000000000000002e-07</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -296,7 +296,7 @@
 							<TxInputPowerW>0</TxInputPowerW>
 							<WaveformType>V</WaveformType>
 						</Measure>
-						<Mode>ISI</Mode>
+						<Mode>JitterNoise</Mode>
 						<Rows>200</Rows>
 						<Saturation>20</Saturation>
 						<ScaleX>75.0</ScaleX>
@@ -325,7 +325,7 @@
 						<PartProperty>
 							<Keyword>noise</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>on</Value>
+							<Value>yes</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -378,6 +378,79 @@
 						</PartProperty>
 					</PartProperties>
 				</Device>
+				<Device>
+					<ClassName>DeviceVoltageStatisticalNoiseSource</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(1, 5)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>mode</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>single-ended</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>statistical</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>VN1</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+					</PartProperties>
+					<VoltageNoise>
+						<Crosstalk>
+							<ProbeName></ProbeName>
+						</Crosstalk>
+						<Enable>True</Enable>
+						<Lanes>1.0</Lanes>
+						<SpectralDensityFile>
+							<FileName></FileName>
+						</SpectralDensityFile>
+						<Type>WhiteNoise</Type>
+						<WaveformFile>
+							<FileName></FileName>
+						</WaveformFile>
+						<WhiteNoise>
+							<Johnson>
+								<Resistance>50.0</Resistance>
+								<Temperature_Kelvin>298.15</Temperature_Kelvin>
+							</Johnson>
+							<NoiseBandwidth>400000000000.0</NoiseBandwidth>
+							<NoisedBmPerHz>-167.83421912312048</NoisedBmPerHz>
+							<SNR>
+								<COM_TX>
+									<Risetime>0.0</Risetime>
+									<SNRdB>58.803319253201025</SNRdB>
+									<h0>1.0</h0>
+								</COM_TX>
+								<ENOB>
+									<ENOB>8.975584600757678</ENOB>
+								</ENOB>
+								<Vpp>1.0</Vpp>
+							</SNR>
+							<VPerRootHz>9.073483337175421e-10</VPerRootHz>
+							<VRms>0.0005738574731411973</VRms>
+							<VSquaredPerGHz>8.232809987000001e-10</VSquaredPerGHz>
+							<WhiteNoiseType>Johnson</WhiteNoiseType>
+						</WhiteNoise>
+					</VoltageNoise>
+				</Device>
 			</Devices>
 			<Wires>
 				<Wire>
@@ -397,6 +470,9 @@
 						</Vertex>
 						<Vertex>
 							<Coord>(2, 3)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(2, 5)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>

@@ -30,6 +30,9 @@ class NetList(object):
         self.measureNames=[]
         self.sourceNames=[]
         self.sourceNamesToShow=[]
+        self.waveformProcessorSourceNames=[]
+        self.waveformProcessorOutputNames=[]
+        self.waveformProcessorInputMappings=[]
         self.stimNames=[]
         self.definingStimList=[]
         self.noiseSourceNames=[]
@@ -100,6 +103,8 @@ class NetList(object):
                         self.sourceNames.append(ref_name)
                     else:
                         self.sourceNames.append(ref_name)
+                        if device.netlist['DeviceName'] == 'nonlinearsource':
+                            self.waveformProcessorSourceNames.append(ref_name)
                     if not device['show'] == None:
                         if device['show']['Value'] == 'true':
                             self.sourceNamesToShow.append(device['ref'].GetValue())
@@ -467,10 +472,12 @@ class NetList(object):
                 for i in range(numinputs):
                     if i == 0:
                         probename = tokens[1]
+                        self.waveformProcessorInputMappings.append((tokens[1],probename))
                     else:
                         probename = tokens[1] + '_' + str(i+1)
                     endinglines.append('voltageoutput ' + probename + ' ' + tokens[1] + ' ' + str(i + 1)) #Connect voltage probe to input pin
 
+                    self.waveformProcessorOutputNames.append(probename)
                     self.outputNames.append(probename) #Add port name to list of output names
 
                 #Todo, add probe
@@ -486,6 +493,48 @@ class NetList(object):
         return self.textToShow
     def OutputNames(self):
         return self.outputNames
+    def WaveformProcessorSourceNames(self):
+        return self.waveformProcessorSourceNames
+    def WaveformProcessorOutputNames(self):
+        return self.waveformProcessorOutputNames
+    def LinearizeWaveformProcessorTransferMatrices(self,transferMatrices):
+        """Return transfer matrices with processors replaced by unity gain from input 1 to output."""
+        if not self.waveformProcessorSourceNames:
+            return self.outputNames,self.sourceNames,transferMatrices
+        if not transferMatrices:
+            return [],[],transferMatrices
+
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.TransferMatrices import TransferMatrices
+
+        processorSources=[name for name in self.waveformProcessorSourceNames if name in self.sourceNames]
+        processorInputs=[(source,inputName) for source,inputName in self.waveformProcessorInputMappings
+                         if source in processorSources and inputName in self.outputNames]
+        if len(processorInputs) != len(processorSources):
+            raise ValueError('waveform processor source/probe labels do not match transfer matrix labels')
+
+        hiddenSources=set(processorSources)
+        hiddenOutputs=set(self.waveformProcessorOutputNames)
+        outputIndices=[i for i,name in enumerate(self.outputNames) if name not in hiddenOutputs]
+        sourceIndices=[i for i,name in enumerate(self.sourceNames) if name not in hiddenSources]
+        inputProbeIndices=[self.outputNames.index(inputName) for _,inputName in processorInputs]
+        processorSourceIndices=[self.sourceNames.index(source) for source,_ in processorInputs]
+        identity=np.eye(len(processorSources),dtype=complex)
+
+        linearizedMatrices=[]
+        for transferMatrix in transferMatrices:
+            matrix=np.asarray(transferMatrix,dtype=complex)
+            direct=matrix[np.ix_(outputIndices,sourceIndices)]
+            outputFromProcessor=matrix[np.ix_(outputIndices,processorSourceIndices)]
+            inputFromSources=matrix[np.ix_(inputProbeIndices,sourceIndices)]
+            inputFromProcessor=matrix[np.ix_(inputProbeIndices,processorSourceIndices)]
+            processorOutputs=np.linalg.solve(identity-inputFromProcessor,inputFromSources)
+            linearizedMatrices.append((direct+outputFromProcessor@processorOutputs).tolist())
+
+        outputNames=[self.outputNames[i] for i in outputIndices]
+        sourceNames=[self.sourceNames[i] for i in sourceIndices]
+        return outputNames,sourceNames,TransferMatrices(transferMatrices.f,linearizedMatrices)
+
     def _IncludeInNoise(self,device):
         # Determines whether a probe's output is kept in the transfer matrices
         # and the noise results dictionary.  Eye probes are always kept (so
