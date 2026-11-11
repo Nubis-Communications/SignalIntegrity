@@ -31,7 +31,7 @@ if type(test_int) is not int:
 if type(test_str) is not str:
     raise Exception("NOT A STRING")
 inputWaveform = input_waveform_1
-outputWaveform = inputWaveform
+output_waveform_1 = inputWaveform
 
 
 

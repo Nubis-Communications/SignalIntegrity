@@ -99,8 +99,7 @@ class NetList(object):
                     if deviceName == 'waveformprocessorsource':
                         inputPortsProperty=device['inputports']
                         outputPortsProperty=device['outputports']
-                        variablePorts=(inputPortsProperty is not None and outputPortsProperty is not None
-                                       and not getattr(device,'legacyWaveformProcessor',False))
+                        variablePorts=inputPortsProperty is not None and outputPortsProperty is not None
                         if variablePorts:
                             inputCount=max(1,int(inputPortsProperty.GetValue()))
                             outputCount=max(1,int(outputPortsProperty.GetValue()))

@@ -1,5 +1,6 @@
 %<TpX v="5" TeXFormat="tikz" PdfTeXFormat="tikz" ArrowsSize="0.7" StarsSize="1" DefaultFontHeight="5" DefaultSymbolSize="30" ApproximationPrecision="0.01" PicScale="1" Border="2" BitmapRes="20000" HatchingStep="2" DottedSize="0.5" DashSize="1" LineWidth="0.3" TeXFigure="none" FontSizeInTeX="0">
-%  <text x="1.75" y="-2.75" t="NLS1_scale 4.0 " h="3" halign="l" lc="black"/>
+%  <text x="1.75" y="-2.75" t="NLS1_scale 4.0
+        " h="3" halign="l" lc="black"/>
 %  <text x="1.75" y="-5.75" t="tf_fn scale_nonlin.py" h="3" halign="l" lc="black"/>
 %  <ellipse x="56" y="-80" dx="8" dy="-8" lc="black"/>
 %  <polyline lc="black">55.25,-77.5 56.75,-77.5</polyline>
@@ -33,7 +34,8 @@
 %  <rect x="92" y="-52" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">88,-56 92,-56</polyline>
 %  <polyline lc="black">104,-56 100,-56</polyline>
-%  <text x="96" y="-49" t="scale=NLS1_scale (4.0 )" h="3" halign="c" lc="black"/>
+%  <text x="96" y="-49" t="scale=NLS1_scale (4.0
+        )" h="3" halign="c" lc="black"/>
 %  <text x="96" y="-55.6" t="py" h="3" halign="c" lc="black"/>
 %  <polyline arr2="h44" arrs="0.5" lc="black">94,-57.4 98,-57.4</polyline>
 %  <polyline lw="3" lc="black">108,-52 106,-54</polyline>
@@ -47,7 +49,8 @@
 %</TpX>
 \centering
 \begin{tikzpicture}[x=1.00mm, y=1.00mm, inner xsep=0pt, inner ysep=0pt, outer xsep=0pt, outer ysep=0pt]
-\draw[black] (1.75,-2.75) node[anchor=base west]{NLS1\textunderscore scale 4.0 };
+\draw[black] (1.75,-2.75) node[anchor=base west]{NLS1\textunderscore scale 4.0
+        };
 \draw[black] (1.75,-5.75) node[anchor=base west]{tf\textunderscore fn scale\textunderscore nonlin.py};
 \path[line width=0.30mm, draw=black] (56,-80) ellipse (4mm and -4mm);
 \path[line width=0.30mm, draw=black] (55.25,-77.5) -- (56.75,-77.5);
@@ -81,7 +84,8 @@
 \path[line width=0.30mm, draw=black] (92,-60) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (88,-56) -- (92,-56);
 \path[line width=0.30mm, draw=black] (104,-56) -- (100,-56);
-\draw[black] (96,-49) node[anchor=base]{scale=NLS1\textunderscore scale (4.0 )};
+\draw[black] (96,-49) node[anchor=base]{scale=NLS1\textunderscore scale (4.0
+        )};
 \draw[black] (96,-55.6) node[anchor=base]{py};
 \path[line width=0.30mm, draw=black, ->] (94,-57.4) -- (98,-57.4);
 \path[line width=0.9mm, draw=black] (108,-52) -- (106,-54);

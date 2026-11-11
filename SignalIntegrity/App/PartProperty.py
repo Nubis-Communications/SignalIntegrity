@@ -209,10 +209,6 @@ class PartPropertyFrequencyResponseFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'frequencyresponsefilename',type='file',unit=None,keyword='frfile',description='file name',value=fileName)
 
-class PartPropertyTransformFileName(PartProperty):
-    def __init__(self,fileName=''):
-        PartProperty.__init__(self,'transformfilename',type='file',unit=None,keyword='trfile',description='transform file name',value=fileName)
-
 class PartPropertyDependentProbe(PartProperty):
     def __init__(self,dependentprobe=''):
         PartProperty.__init__(self,'dependentprobe',type='string',unit=None,keyword='dependent',description='dependent probe',value=dependentprobe)

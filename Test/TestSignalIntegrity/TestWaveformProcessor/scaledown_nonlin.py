@@ -33,7 +33,7 @@ except NameError:
     scale = 2
 print('SCALE DOWN')
 inputWaveform = input_waveform_1
-outputWaveform = inputWaveform/scale
+output_waveform_1 = inputWaveform/scale
 
 
 

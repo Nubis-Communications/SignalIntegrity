@@ -65,12 +65,15 @@ class TestWaveformProcessorTest(unittest.TestCase,
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
 
     def testVariableProcessorIsPaletteDefault(self):
-        from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessor, DeviceWaveformProcessorPythonScriptPicker, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.Device import DeviceList, DeviceWaveformProcessorPythonScriptPicker, DeviceWaveformProcessorVariable
         from SignalIntegrity.App.DeviceProperties import DeviceProperties, DeviceViewMenuActions
         from SignalIntegrity.App.WaveformProcessorScript import ParseWaveformProcessorInterface
         from unittest.mock import Mock
 
-        self.assertFalse(any(isinstance(device,DeviceWaveformProcessor) for device in DeviceList))
+        self.assertFalse(any(device['partname'].GetValue() == 'WaveformProcessor'
+                     for device in DeviceList))
+        self.assertFalse(any(device['partname'].GetValue() == 'Dependent Voltage Source'
+                     for device in DeviceList))
         variableProcessor=next(device for device in DeviceList
                                if isinstance(device,DeviceWaveformProcessorVariable))
         self.assertEqual(variableProcessor['inputports'].GetValue(),1)
@@ -238,9 +241,9 @@ output_waveform_1 = input_waveform_1 * gain
         outputIndex = expectedOutputs.index('VO2')
         sourceIndex = expectedSources.index('VS1')
         rawOutputIndex = netList.OutputNames().index('VO2')
-        rawInputIndex = netList.OutputNames().index('NLS1')
+        rawInputIndex = netList.OutputNames().index('NLS1_in1')
         rawSourceIndex = netList.SourceNames().index('VS1')
-        rawProcessorSourceIndex = netList.SourceNames().index('NLS1')
+        rawProcessorSourceIndex = netList.SourceNames().index('NLS1_out1')
         for frequencyIndex,rawMatrix in enumerate(rawTransferMatrices):
             feedback = rawMatrix[rawInputIndex][rawProcessorSourceIndex]
             expected = rawMatrix[rawOutputIndex][rawSourceIndex]
@@ -322,10 +325,11 @@ output_waveform_1 = input_waveform_1 * gain
         self.assertEqual(defaultBox[1][0]-defaultBox[0][0],defaultBox[1][1]-defaultBox[0][1])
         self.assertLess(defaultProcessor.partPicture.current.propertiesLocation[1],defaultBox[0][1])
         self.assertEqual(defaultBox[0][1]-defaultProcessor.partPicture.current.propertiesLocation[1],0.5)
-        self.assertIsNone(defaultProcessor['trfile'])
+        self.assertFalse(any(property['Keyword'] == 'trfile'
+                     for property in defaultProcessor.propertiesList))
         self.assertIn('output_waveform_1 = input_waveform_1 * gain',defaultProcessor['script'].GetValue())
         self.assertTrue(all(not pin['NumberVisible'] and pin['NumberingMatters']
-                    for pin in defaultProcessor.partPicture.current.pinList))
+                            for pin in defaultProcessor.partPicture.current.pinList))
 
         threePortProcessor=DeviceWaveformProcessorVariable(2,1)
         threePortBox=threePortProcessor.partPicture.current.innerBox
@@ -354,12 +358,7 @@ output_waveform_1 = input_waveform_1 * gain
         processor=DeviceWaveformProcessorVariable(2,2)
         processor['ref']['Value']='WFP1'
         processor['script']['Value']=('output_waveform_1 = input_waveform_1 + input_waveform_2\n'
-                          'output_waveform_2 = input_waveform_1 * 2\n')
-        self.assertEqual(processor['inputports'].GetValue(),2)
-        self.assertEqual(processor['outputports'].GetValue(),2)
-        self.assertFalse(processor['inputports']['Visible'])
-        self.assertFalse(processor['outputports']['Visible'])
-        self.assertEqual(processor['ports'].GetValue(),4)
+                                      'output_waveform_2 = input_waveform_1 * 2\n')
         processorBox=processor.partPicture.current.innerBox
         self.assertEqual(processorBox[1][0]-processorBox[0][0],4)
         self.assertEqual(processorBox[1][1]-processorBox[0][1],2)
@@ -387,6 +386,32 @@ output_waveform_1 = input_waveform_1 * gain
         self.assertEqual(processor.partPicture.current.origin,(17,23))
         self.assertEqual(processor.partPicture.current.orientation,'90')
         self.assertTrue(processor.partPicture.current.mirroredHorizontally)
+
+    def testRetiredWaveformProcessorClassesAreRejected(self):
+        import SignalIntegrity.App.Project
+        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+        variableProject=next(copy.deepcopy(device)
+                             for device in SignalIntegrity.App.Project['Drawing.Schematic.Devices']
+                             if device['ClassName'] == 'DeviceWaveformProcessorVariable')
+        self.assertIsInstance(DeviceFromProject(variableProject).result,DeviceWaveformProcessorVariable)
+        for className in ['DeviceWaveformProcessor','DeviceNonlinearSource',
+                          'DeviceWaveformProcessorOutputSource','DeviceDependentVoltageSource']:
+            unsupportedProject=copy.deepcopy(variableProject)
+            unsupportedProject['ClassName']=className
+            with self.assertRaises(ValueError):
+                DeviceFromProject(unsupportedProject)
+        trfileProject=copy.deepcopy(variableProject)
+        trfileProperty=copy.deepcopy(next(propertyProject
+                                          for propertyProject in trfileProject['PartProperties']
+                                          if propertyProject['Keyword'] == 'script'))
+        trfileProperty['Keyword']='trfile'
+        trfileProject['PartProperties'].append(trfileProperty)
+        with self.assertRaises(ValueError):
+            DeviceFromProject(trfileProject)
 
     def testFixedWaveformProcessorDrawsFlowArrow(self):
         from SignalIntegrity.App.PartPicture import PartPictureNonlinear
@@ -463,67 +488,22 @@ output_waveform_1 = input_waveform_1 * gain
                          [('IIP2','float','dBm'),('IIP3','float','dBm'),
                           ('bandwidth','float','Hz'),('slewrate','float','V/s')])
 
-    def testLegacyWaveformProcessorProjectsLoad(self):
+    def testRemovedLegacyWaveformProcessorClassesAreRejected(self):
         import SignalIntegrity.App.Project
-        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorOutputSource, DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.Device import DeviceFromProject, DeviceWaveformProcessorVariable
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
 
-        cases = [
-            ('WaveformProcessorTest.si', 'DeviceWaveformProcessorOutputSource', 'DeviceDependentVoltageSource'),
-            ('WaveformProcessorTestTwoProbe_nonlin_source.si', 'DeviceWaveformProcessor', 'DeviceNonlinearSource'),
-        ]
-        for filename, currentClassName, legacyClassName in cases:
-            app = SignalIntegrityAppHeadless()
-            self.assertTrue(app.OpenProjectFile(filename))
-            devices = SignalIntegrity.App.Project['Drawing.Schematic.Devices']
-            deviceProject = next(copy.deepcopy(device) for device in devices if device['ClassName'] == currentClassName)
-            deviceProject['ClassName'] = legacyClassName
-            scriptProperty=None
-            if legacyClassName == 'DeviceNonlinearSource':
-                scriptProperty=next(copy.deepcopy(propertyProject)
-                                    for propertyProject in deviceProject['PartProperties']
-                                    if propertyProject['Keyword'] == 'script')
-                deviceProject['PartProperties']=[propertyProject
-                                                 for propertyProject in deviceProject['PartProperties']
-                                                 if propertyProject['Keyword'] != 'script']
-                transformProperty=copy.deepcopy(scriptProperty)
-                transformProperty['Keyword']='trfile'
-                transformProperty['PropertyName']='transformfilename'
-                transformProperty['Description']='transform file name'
-                transformProperty['Type']='file'
-                transformProperty['Value']='scale_nonlin.py'
-                deviceProject['PartProperties'].append(transformProperty)
-            for propertyProject in deviceProject['PartProperties']:
-                if propertyProject['Keyword'] == 'wftype':
-                    propertyProject['Value'] = 'Depen'
-                elif propertyProject['Keyword'] == 'dependent':
-                    propertyProject['Keyword'] = 'depen'
-
-            device = DeviceFromProject(deviceProject).result
-            expectedClass = DeviceWaveformProcessorOutputSource if legacyClassName == 'DeviceDependentVoltageSource' else DeviceWaveformProcessorVariable
-            self.assertIsInstance(device, expectedClass)
-            self.assertEqual(device['wftype'].GetValue(), 'Dependent')
-            if legacyClassName == 'DeviceDependentVoltageSource':
-                self.assertEqual(device['dependent'].GetValue(), 'VO1')
-            else:
-                self.assertEqual(device['inputports'].GetValue(),1)
-                self.assertEqual(device['outputports'].GetValue(),1)
-                self.assertTrue(device.legacyWaveformProcessor)
-                self.assertIn('outputWaveform = inputWaveform*scale',device['script'].GetValue())
-                roundTripProject=copy.deepcopy(deviceProject)
-                roundTripProject['ClassName']='DeviceWaveformProcessorVariable'
-                roundTripProject['PartProperties']=[propertyProject
-                                                     for propertyProject in roundTripProject['PartProperties']
-                                                     if propertyProject['Keyword'] != 'trfile']
-                scriptProperty['Keyword']='script'
-                scriptProperty['PropertyName']='script'
-                scriptProperty['Description']='Python script for waveform processor'
-                scriptProperty['Type']='string'
-                scriptProperty['Value']=device['script'].GetValue()
-                roundTripProject['PartProperties'].append(scriptProperty)
-                roundTripProject['PartProperties'].append(copy.deepcopy(device['legacywaveformprocessor']))
-                roundTripDevice=DeviceFromProject(roundTripProject).result
-                self.assertTrue(roundTripDevice.legacyWaveformProcessor)
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+        deviceProject=next(copy.deepcopy(device) for device in SignalIntegrity.App.Project['Drawing.Schematic.Devices']
+                           if device['ClassName'] == 'DeviceWaveformProcessorVariable')
+        self.assertIsInstance(DeviceFromProject(deviceProject).result,DeviceWaveformProcessorVariable)
+        for className in ['DeviceWaveformProcessor','DeviceNonlinearSource',
+                          'DeviceWaveformProcessorOutputSource','DeviceDependentVoltageSource']:
+            unsupportedProject=copy.deepcopy(deviceProject)
+            unsupportedProject['ClassName']=className
+            with self.assertRaises(ValueError):
+                DeviceFromProject(unsupportedProject)
 
     def testWaveformProcessorPortDependentFail1(self):
 

@@ -154,6 +154,10 @@ class TestRegressionFiles(unittest.TestCase):
         r=RegressionFiles().Picture(list(reversed(picture)),filename)
         self.assertTrue(r.ok,self.id()+' reordered picture failed')
         self.assertIn('different order',r.message,self.id()+' reordering not reported')
+        multilinePicture=['% <text t="first line \n    second line"/>\n']
+        RegressionFiles(write=True).Picture(multilinePicture,filename)
+        self.assertTrue(RegressionFiles().Picture(multilinePicture,filename).ok,
+                self.id()+' multiline picture failed')
         self.assertFalse(RegressionFiles().Picture(['\\line(1,1)\n','\\line(0,1)\n'],filename).ok,
                          self.id()+' changed picture passed')
 

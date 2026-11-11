@@ -23,21 +23,19 @@ from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
 from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
 import SignalIntegrity.App.ProjectFile
-import math
 import os
 import sys
-import numpy as np
 
 class DependentWaveform(Waveform):
-    """step waveform"""
-    def __init__(self, OutputPortName, TransformFN, VariablesList = [], outputWaveformName='outputWaveform', script=None):
-        """Constructor  
-        constructs a dependent waveform, whose value depends on the measured output probe value through an arbitrary transform function. 
+    """A waveform whose value depends on measured output probes and an embedded script."""
+    def __init__(self, OutputPortName, VariablesList=None, outputWaveformName='outputWaveform', script=None):
+        """Constructs a dependent waveform using embedded script text.
         @param outputPortName output port whose voltage is taken as input into transformation function 
             Expects either string of port names separated by comma, or a list of strings with each port name
-        @param transformFN file name of function which transforms outputPort's voltage into the new voltage of this waveform.
-        @param VaraiblesList list of device variables that can be utilized by transform file
+        @param VariablesList list of device variables available to the script
         """ 
+        if script is None:
+            raise SignalIntegrityExceptionDependentWaveform('embedded waveform processor script is required')
         if (isinstance(OutputPortName, str)):
             self.OutputPortName = [s.strip() for s in OutputPortName.split(',')]
         elif (isinstance(OutputPortName, list) and isinstance(OutputPortName[0], str)):
@@ -46,9 +44,8 @@ class DependentWaveform(Waveform):
             raise SignalIntegrityExceptionDependentWaveform(
                     'Incorrect argument type for OutputPortName: ' + (OutputPortName))
         
-        self.TransformFN = TransformFN
         self.Script = script
-        self.VariablesList = VariablesList
+        self.VariablesList = [] if VariablesList is None else VariablesList
         self.OutputWaveformName = outputWaveformName
 
         self.td = None
@@ -73,7 +70,7 @@ class DependentWaveform(Waveform):
                     'dependent output port not found: ' + (allOutputPorts[i]))
                 return
             
-        #Set up arguments to pass to transform function 
+        #Set up arguments to pass to the waveform processor script.
         sendargs = inputWaveforms
         # 0-based index of the iteration that just completed; device variables of the same name override it
         sendargs['iteration'] = iteration
@@ -103,21 +100,10 @@ class DependentWaveform(Waveform):
 
         returnargs = {self.OutputWaveformName: Waveform()}
 
-        if self.Script is None:
-            try:
-                file = open(self.TransformFN,"r")
-            except FileNotFoundError:
-                raise SignalIntegrityExceptionDependentWaveform('transform file not found: '+(self.TransformFN))
-            equations = file.read()
-            file.close()
-            transformDir = os.path.dirname(os.path.abspath(self.TransformFN))
-            if transformDir not in sys.path:
-                sys.path.insert(0, transformDir)
-        else:
-            equations=self.Script
-            projectDir=os.getcwd()
-            if projectDir not in sys.path:
-                sys.path.insert(0, projectDir)
+        equations=self.Script
+        projectDir=os.getcwd()
+        if projectDir not in sys.path:
+            sys.path.insert(0, projectDir)
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
             
@@ -125,7 +111,7 @@ class DependentWaveform(Waveform):
 
     @staticmethod
     def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):
-        #Assumes input waveform called inputWaveform in file, and output waveform stored in variable outputVariable
+        #The embedded script must assign each requested output waveform variable.
         for argkey in sendargs.keys():
             #arg=sendargs[argkey]
             exec(argkey+' = sendargs[argkey]')
@@ -134,11 +120,11 @@ class DependentWaveform(Waveform):
         except Exception:
             import traceback
             #Handles arbitrary exception since any could occur realistically
-            raise SignalIntegrityExceptionDependentWaveform('Exception occurred in transform file: ' + traceback.format_exc())
+            raise SignalIntegrityExceptionDependentWaveform('Exception occurred in waveform processor script: ' + traceback.format_exc())
         for argkey in returnargs.keys():
             try:
                 exec(str("returnargs[argkey] = eval(argkey)"))
             except NameError:
-                raise SignalIntegrityExceptionDependentWaveform('Transform file does not set output variable: ' +argkey)
+                raise SignalIntegrityExceptionDependentWaveform('waveform processor script does not set output variable: ' +argkey)
         return returnargs 
 

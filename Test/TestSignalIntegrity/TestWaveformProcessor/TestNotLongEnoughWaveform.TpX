@@ -73,13 +73,11 @@
 %  <ellipse x="24" y="-20" dx="-1" dy="-1" lc="black" fill="black"/>
 %  <polyline lc="black">24,-24 24,-20</polyline>
 %  <text x="24" y="-17" t="1.0 V" h="3" halign="c" lc="black"/>
-%  <text x="76" y="-29" t="N" h="3" halign="c" lc="black"/>
 %  <rect x="72" y="-24" w="8" h="-8" lc="black"/>
 %  <polyline lc="black">68,-28 72,-28</polyline>
-%  <text x="71" y="-27" t="1" h="3" halign="r" lc="black"/>
 %  <polyline lc="black">84,-28 80,-28</polyline>
-%  <text x="81" y="-27" t="2" h="3" halign="l" lc="black"/>
-%  <text x="76" y="-21" t="trfile testSimple.py" h="3" halign="c" lc="black"/>
+%  <text x="76" y="-27.6" t="py" h="3" halign="c" lc="black"/>
+%  <polyline arr2="h44" arrs="0.5" lc="black">74,-29.4 78,-29.4</polyline>
 %  <polyline lw="3" lc="black">64,-24 62,-26</polyline>
 %  <polyline lc="black">62,-26 60,-28</polyline>
 %  <text x="64" y="-23" t="VO1" h="3" halign="l" lc="black"/>
@@ -183,13 +181,11 @@
 \path[line width=0.30mm, draw=black, fill=black] (24,-20) ellipse (-0.5mm and -0.5mm);
 \path[line width=0.30mm, draw=black] (24,-24) -- (24,-20);
 \draw[black] (24,-17) node[anchor=base]{1.0 V};
-\draw[black] (76,-29) node[anchor=base]{N};
 \path[line width=0.30mm, draw=black] (72,-32) rectangle +(8,8);
 \path[line width=0.30mm, draw=black] (68,-28) -- (72,-28);
-\draw[black] (71,-27) node[anchor=base east]{1};
 \path[line width=0.30mm, draw=black] (84,-28) -- (80,-28);
-\draw[black] (81,-27) node[anchor=base west]{2};
-\draw[black] (76,-21) node[anchor=base]{trfile testSimple.py};
+\draw[black] (76,-27.6) node[anchor=base]{py};
+\path[line width=0.30mm, draw=black, ->] (74,-29.4) -- (78,-29.4);
 \path[line width=0.9mm, draw=black] (64,-24) -- (62,-26);
 \path[line width=0.30mm, draw=black] (62,-26) -- (60,-28);
 \draw[black] (64,-23) node[anchor=base west]{VO1};
