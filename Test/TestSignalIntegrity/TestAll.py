@@ -48,6 +48,7 @@ from TestFilters import *
 from TestFrequencyContent import *
 from TestFrequencyList import *
 from TestGui import *
+from TestGuiCore import *
 from TestHDMICable import *
 from TestHeaders import *
 from TestHiRes import *
@@ -67,6 +68,7 @@ from TestPDN import *
 from TestPoleZeroFitter import *
 from TestPowerDelivery import *
 from TestPRBS import *
+from TestQtApp import *
 from TestPrbsSpecial import *
 from TestProbeOnOff import *
 from TestProbes import *
