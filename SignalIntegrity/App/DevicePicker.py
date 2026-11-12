@@ -31,12 +31,9 @@ class DevicePicker(tk.Frame):
         self.displayScale=getattr(parent,'displayScale',1.0)
         self.treeStyle=ttk.Style(self)
         self.treeFont=tkfont.nametofont('TkDefaultFont').copy()
-        if self.displayScale > 1.0:
-            self.treeStyle.configure(
-                'DevicePicker.Treeview',
-                font=self.treeFont,
-                rowheight=self.treeFont.metrics('linespace')+round(2*self.displayScale))
+        self.UpdateStyle()
         self.tree = ttk.Treeview(self,style='DevicePicker.Treeview')
+        self.tree.bind('<<ThemeChanged>>',self.UpdateStyle)
         self.tree.pack(fill=tk.BOTH,expand=tk.YES)
         self.tree["columns"]=("description")
         self.tree.column("description")
@@ -57,6 +54,13 @@ class DevicePicker(tk.Frame):
         self.selected=None
         self.tree.bind('<<TreeviewSelect>>',self.onPartSelection)
         self.tree.bind('<Double-1>',self.onDoubleClick)
+
+    def UpdateStyle(self,event=None):
+        if self.displayScale > 1.0:
+            self.treeStyle.configure(
+                'DevicePicker.Treeview',
+                font=self.treeFont,
+                rowheight=self.treeFont.metrics('linespace')+round(2*self.displayScale))
 
     def onPartSelection(self,event):
         item = self.tree.selection()[0]

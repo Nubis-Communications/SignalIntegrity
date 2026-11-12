@@ -18,7 +18,7 @@ PictureDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import tkinter as tk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 import base64
 import io
 from PIL import Image, ImageTk
@@ -108,7 +108,7 @@ class PictureDialog(tk.Toplevel):
         try:
             self.pil_image.save(filename)
         except:
-            tk.messagebox.showerror('picture', 'image could not be saved')
+            messagebox.showerror('picture', 'image could not be saved')
             return
 
     def onDelete(self):
@@ -125,7 +125,7 @@ class PictureDialog(tk.Toplevel):
             import pyperclipimg
             pyperclipimg.copy(self.pil_image)
         except:
-            tk.messagebox.showerror('picture','could not copy image to clipboard')
+            messagebox.showerror('picture','could not copy image to clipboard')
 
     def onPaste(self):
         self.onExit()

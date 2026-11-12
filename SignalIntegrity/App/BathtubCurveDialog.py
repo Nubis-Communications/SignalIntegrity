@@ -80,14 +80,14 @@ class BathtubCurveDialog(tk.Toplevel):
         rightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
         leftPlotFrame=tk.Frame(leftFrame)
         leftPlotFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
-        self.leftLabel = tk.Label(leftPlotFrame,fg='black')
+        self.leftLabel = tk.Label(leftPlotFrame)
         self.leftLabel.pack(fill=tk.X)
         numberOfEyes=len(measDict['Eye'])
         rightPlotFrames=[tk.Frame(rightFrame) for _ in range(numberOfEyes)]
         self.rightPlotLabels=[None for _ in range(numberOfEyes)]
         for e in range(numberOfEyes):
             rightPlotFrames[e].pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES,anchor=tk.NW)
-            self.rightPlotLabels[e]=tk.Label(rightPlotFrames[e],fg='black')
+            self.rightPlotLabels[e]=tk.Label(rightPlotFrames[e])
             self.rightPlotLabels[e].pack(fill=tk.X)
 
         plotWidth=SignalIntegrity.App.Preferences['Appearance.PlotWidth']

@@ -40,10 +40,22 @@ class Color(XMLConfiguration):
         self.Add(XMLPropertyDefaultString('DisabledForeground'))
         self.Add(XMLPropertyDefaultString('Plot'))
 
+class ThemeOverrides(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Themes')
+        for name in ('Light','Dark'):
+            theme=XMLConfiguration(name)
+            theme.Add(XMLPropertyDefaultString('Palette','Default'))
+            theme.Add(XMLPropertyDefaultString('Background'))
+            theme.Add(XMLPropertyDefaultString('Foreground'))
+            self.SubDir(theme)
+
 class Appearance(XMLConfiguration):
     def __init__(self):
         super().__init__('Appearance')
         self.Add(XMLPropertyDefaultInt('FontSize',12))
+        self.Add(XMLPropertyDefaultString('Theme','Legacy'))
+        self.Add(XMLPropertyDefaultString('DialogStyle','Native'))
         self.Add(XMLPropertyDefaultInt('InitialGrid',16))
         self.Add(XMLPropertyDefaultFloat('PlotWidth',5))
         self.Add(XMLPropertyDefaultFloat('PlotHeight',2))
@@ -55,6 +67,7 @@ class Appearance(XMLConfiguration):
         self.Add(XMLPropertyDefaultInt('LimitText',60))
         self.Add(XMLPropertyDefaultBool('ProgressDialog',True))
         self.SubDir(Color())
+        self.SubDir(ThemeOverrides())
 
 class Variables(XMLConfiguration):
     def __init__(self):

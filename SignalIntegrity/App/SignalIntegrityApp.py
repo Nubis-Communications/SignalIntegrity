@@ -20,7 +20,7 @@ SignalIntegrityApp.py
 
 import tkinter as tk
 from tkinter import font
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 from PIL import Image
 
@@ -47,12 +47,13 @@ from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
 from SignalIntegrity.App.EquationsDialog import EquationsDialog
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.History import History
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,ConfigureDisplayScaling
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,IconLabel,ConfigureDisplayScaling
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.About import AboutDialog
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
+from SignalIntegrity.App.Theme import ApplyTheme
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
@@ -597,9 +598,7 @@ class SignalIntegrityApp(tk.Frame):
         choice=[None]
         message=tk.Frame(dialog)
         message.pack(padx=15,pady=(15,8))
-        dialog.questionIcon=tk.PhotoImage(file=SignalIntegrity.App.IconsBaseDir+
-                           '16x16/actions/dialog-question.png')
-        tk.Label(message,image=dialog.questionIcon).pack(side=tk.LEFT,padx=(0,10))
+        IconLabel(message,iconfile=SignalIntegrity.App.IconsDir+'dialog-question.png').pack(side=tk.LEFT,padx=(0,10))
         tk.Label(message,text='Choose the schematic to edit:').pack(side=tk.LEFT)
         buttons=tk.Frame(dialog)
         buttons.pack(padx=15,pady=(0,15))
@@ -1147,7 +1146,7 @@ class SignalIntegrityApp(tk.Frame):
                 SignalIntegrity.App.Project['Picture'].PutLines(lines)
                 self.onViewPicture()
         except:
-            tk.messagebox.showerror('picture', 'could not be pasted from clipboard')
+            messagebox.showerror('picture', 'could not be pasted from clipboard')
 
     def PrintProgress(self,iteration):
         self.statusbar.set('Fitting - iteration:'+str(self.m_fitter.ccm._IterationsTaken)+' mse:'+str(self.m_fitter.m_mse))
@@ -1469,48 +1468,7 @@ class SignalIntegrityApp(tk.Frame):
             self.root.option_add("*Font", default_font)
             PartPicture.textSpacing=round(fontSizeDesired+5)
 
-        w=tk.Button(self.root)
-
-        backgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Background']
-        if backgroundColor in [None,'None']:
-            backgroundColor=w['background']
-
-        foregroundColor=SignalIntegrity.App.Preferences['Appearance.Color.Foreground']
-        if foregroundColor in [None,'None']:
-            foregroundColor=w['foreground']
-
-        activeForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveForeground']
-        if activeForegroundColor in [None,'None']:
-            activeForegroundColor=w['activeforeground']
-
-        activeBackgroundColor=SignalIntegrity.App.Preferences['Appearance.Color.ActiveBackground']
-        if activeBackgroundColor in [None,'None']:
-            activeBackgroundColor=w['activebackground']
-
-        disabledForegroundColor=SignalIntegrity.App.Preferences['Appearance.Color.DisabledForeground']
-        if disabledForegroundColor in [None,'None']:
-            disabledForegroundColor=w['disabledforeground']
-
-        try:
-            self.root.tk_setPalette(
-                foreground=foregroundColor,
-                background=backgroundColor,
-                activeforeground=activeForegroundColor,
-                activebackground=activeBackgroundColor,
-                disabledforeground=disabledForegroundColor
-                )
-        except:
-            pass
-
-        matPlotLibColor=SignalIntegrity.App.Preferences['Appearance.Color.Plot']
-        if not matPlotLibColor is None:
-            import matplotlib as mpl
-            try:
-                mpl.rc("figure", facecolor=matPlotLibColor)
-            except:
-                pass
-
-        self.root.update_idletasks()
+        ApplyTheme(self.root,SignalIntegrity.App.Preferences)
 
     def UpdateFeatures(self):
         networkAnalyzerModelEnabled = SignalIntegrity.App.Preferences['Features.NetworkAnalyzerModel']

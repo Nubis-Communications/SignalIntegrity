@@ -20,7 +20,7 @@ VariablesDialog.py
 import os
 
 import tkinter as tk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 import copy
 
@@ -28,7 +28,7 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, C
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
-from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,LoadIcon
+from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,ToolBarElement
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.FilePicker import AskOpenFileName
 
@@ -123,16 +123,10 @@ class VariablesDialog(PropertiesDialog):
 
         self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
-        self.addButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-add-2.gif')
-        self.upButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'up.gif')
-        self.downButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'down.gif')
-        self.delButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-delete-6.gif')
-        self.editButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-3.gif')
         self.DrawVariables()
 
-        addButton = tk.Button(self.controlFrame)
-        addButton.configure(width=self.addButtonGraphic.width(),height=self.addButtonGraphic.height(), image=self.addButtonGraphic, command=self.onAddVariable)
-        addButton.pack(side=tk.LEFT)
+        self.addButton=ToolBarElement(self.controlFrame,iconfile=SignalIntegrity.App.IconsDir+'edit-add-2.gif',
+                                      command=self.onAddVariable).Pack(side=tk.LEFT).button
 
         if self.isWaveformProcessor:
             tk.Button(self.controlFrame, text='import from script', command=self.onImportFromScript).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -152,7 +146,7 @@ class VariablesDialog(PropertiesDialog):
 
     def DrawVariables(self):
         if hasattr(self, 'variablesFrame'):
-            self.variablesFrame.pack_forget()
+            self.variablesFrame.destroy()
 
         if self.useScrollbar:
             self.variablesFrame = tk.Frame(self.container.scrollable_frame)
@@ -169,21 +163,13 @@ class VariablesDialog(PropertiesDialog):
             variableFrame = tk.Frame(self.variablesFrame)
             variableFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
-            editButton = tk.Button(variableFrame)
-            editButton.configure(width=self.editButtonGraphic.width(),height=self.editButtonGraphic.height(), image=self.editButtonGraphic, command=lambda v=v: self.onEditVariable(v))
-            editButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-
-            delButton = tk.Button(variableFrame)
-            delButton.configure(width=self.delButtonGraphic.width(),height=self.delButtonGraphic.height(), image=self.delButtonGraphic, command=lambda v=v: self.onDeleteVariable(v))
-            delButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-
-            upButton = tk.Button(variableFrame)
-            upButton.configure(width=self.upButtonGraphic.width(),height=self.upButtonGraphic.height(), image=self.upButtonGraphic, command=lambda v=v: self.onUpVariable(v))
-            upButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-
-            downButton = tk.Button(variableFrame)
-            downButton.configure(width=self.downButtonGraphic.width(),height=self.downButtonGraphic.height(), image=self.downButtonGraphic, command=lambda v=v: self.onDownVariable(v))
-            downButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+            for icon,command in (
+                    ('edit-3.gif',lambda v=v: self.onEditVariable(v)),
+                    ('edit-delete-6.gif',lambda v=v: self.onDeleteVariable(v)),
+                    ('up.gif',lambda v=v: self.onUpVariable(v)),
+                    ('down.gif',lambda v=v: self.onDownVariable(v))):
+                ToolBarElement(variableFrame,iconfile=SignalIntegrity.App.IconsDir+icon,
+                               command=command).Pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
             visible=SizeSelectionIndicator(tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v)))
             visible.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)

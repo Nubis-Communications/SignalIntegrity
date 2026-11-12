@@ -19,7 +19,7 @@ EyeDiagramDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import tkinter as tk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 import sys
 
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar

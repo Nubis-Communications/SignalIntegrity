@@ -30,6 +30,7 @@ from SignalIntegrity.App.DrawingStateMachineReadOnly import DrawingStateMachineR
 from SignalIntegrity.App.DeviceProperties import DevicePropertiesDialog
 from SignalIntegrity.App.PartPicture import PartPicture
 from SignalIntegrity.App.Wire import Wire
+from SignalIntegrity.App.Theme import ThemedCanvas
 
 import SignalIntegrity.App.Project
 
@@ -41,12 +42,12 @@ def ScaleWindowGeometry(geometry,scale):
     height=round(int(match.group(2))*scale)
     return str(width)+'x'+str(height)+geometry[match.end():]
 
-class SchematicCanvas(tk.Canvas):
+class SchematicCanvas(ThemedCanvas):
     strokeItemTypes={'line','rectangle','oval','arc','polygon'}
 
     def __init__(self,parent,displayScale,**kwargs):
         self.displayScale=displayScale
-        tk.Canvas.__init__(self,parent,**kwargs)
+        ThemedCanvas.__init__(self,parent,**kwargs)
 
     def _create(self,itemType,args,kwargs):
         if itemType in self.strokeItemTypes:
@@ -55,7 +56,7 @@ class SchematicCanvas(tk.Canvas):
             dash=kwargs.get('dash')
             if isinstance(dash,(tuple,list)):
                 kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
-        return tk.Canvas._create(self,itemType,args,kwargs)
+        return ThemedCanvas._create(self,itemType,args,kwargs)
 
 class Drawing(tk.Frame):
     def __init__(self,parent):

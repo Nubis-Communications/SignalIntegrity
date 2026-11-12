@@ -20,7 +20,7 @@ StatisticalNoiseMeasurementsDialog.py
 
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 import tkinter.font as tkfont
 import re
 import csv

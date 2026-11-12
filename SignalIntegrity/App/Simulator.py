@@ -18,7 +18,7 @@ Simulator.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.ProgressDialog import ProgressDialog

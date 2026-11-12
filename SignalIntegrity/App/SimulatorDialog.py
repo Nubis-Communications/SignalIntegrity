@@ -21,7 +21,7 @@ SimulatorDialog.py
 import sys
 
 import tkinter as tk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
@@ -141,7 +141,7 @@ class SimulatorDialog(tk.Toplevel):
         self.statusbar.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         labelFrame = tk.Frame(self)
         labelFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.plotLabel = tk.Label(labelFrame,fg='black')
+        self.plotLabel = tk.Label(labelFrame)
         plotLabelPadding=round(3*self.displayScale) if self.displayScale > 1.0 else 0
         self.plotLabel.pack(fill=tk.X,pady=plotLabelPadding)
 

@@ -22,6 +22,7 @@ InformationDialog.py
 import tkinter as tk
 
 import SignalIntegrity.App.Project
+from SignalIntegrity.App.MenuSystemHelpers import ToolBarElement
 
 class InformationMessage(tk.Toplevel):
     def __init__(self, parent, title, message):
@@ -29,15 +30,8 @@ class InformationMessage(tk.Toplevel):
         self.withdraw()
         self.parent=parent
         self.title(title)
-        #img = tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
-        #self.tk.call('wm', 'iconphoto', self._w, img)
-        #self.protocol("WM_DELETE_WINDOW", self.destroy)
-        try:
-            self.infoimg=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'dialog-information-4.gif')
-            self.info=tk.Button(self,image=self.infoimg,borderwidth=0)
-        except AttributeError:
-            self.info=tk.Button(self)
-            pass
+        self.info=ToolBarElement(self,iconfile=SignalIntegrity.App.IconsDir+'dialog-information-4.gif',
+                                borderwidth=0).button
         self.info.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
         self.label=tk.Label(self,height=3,width=50,text=message)
         self.label.pack(side=tk.LEFT,expand=tk.YES, fill=tk.BOTH)

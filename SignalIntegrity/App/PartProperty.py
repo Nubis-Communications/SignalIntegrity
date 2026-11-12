@@ -123,7 +123,7 @@ class PartProperty(PartPropertyConfiguration):
         if (len(string)>0) and (string[0]=='='):
             self['Value'] = string
             if askToAdd and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
-                from tkinter import messagebox
+                from SignalIntegrity.App import MessageBox as messagebox
                 doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?')
                 if doit:
                     from SignalIntegrity.App.ProjectFile import VariableConfiguration

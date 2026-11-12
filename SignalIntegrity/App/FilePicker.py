@@ -22,6 +22,7 @@ FilePicker.py
 from tkinter import filedialog
 
 from SignalIntegrity.App.Files import FileParts
+from SignalIntegrity.App.Dialogs import ThemedFileDialog,UseThemedDialogs
 
 def _FileNameChecker(filename):
     if filename is None:
@@ -34,7 +35,7 @@ def _FileNameChecker(filename):
     return filename
 
 def AskSaveAsFilename(**kw):
-    filename=filedialog.asksaveasfilename(**kw)
+    filename=ThemedFileDialog('save',**kw).Show() if UseThemedDialogs(kw.get('parent')) else filedialog.asksaveasfilename(**kw)
     return _FileNameChecker(filename)
 
 def AskOpenFileName(**kw):
@@ -47,9 +48,9 @@ def AskOpenFileName(**kw):
                 extindex=filetypeext.index(ext)
                 if extindex != 0:
                     kw['filetypes']=[filetypes[extindex]]+filetypes[0:extindex]+filetypes[extindex+1:]
-    filename=filedialog.askopenfilename(**kw)
+    filename=ThemedFileDialog('open',**kw).Show() if UseThemedDialogs(kw.get('parent')) else filedialog.askopenfilename(**kw)
     return _FileNameChecker(filename)
 
 def AskOpenDirectory(**kw):
-    filedir=filedialog.askdirectory(**kw)
+    filedir=ThemedFileDialog('directory',**kw).Show() if UseThemedDialogs(kw.get('parent')) else filedialog.askdirectory(**kw)
     return _FileNameChecker(filedir)

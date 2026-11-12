@@ -37,7 +37,6 @@ with open(os.path.join(base_dir, "SignalIntegrity", "__about__.py"), "r") as f:
 install_requires=['setuptools>=58.2.0','pip>=20.2.4','numpy>=1.13.0','matplotlib>=2.2.3','urllib3>=1.22.0','Pillow>=5.4.1','scipy>=1.2.1']
 
 pathToIcons='SignalIntegrity/App/icons/png'
-pathToMoreIcons=pathToIcons+'/16x16/actions'
 pathToImages='SignalIntegrity/Images'
 pathToHelp='https://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App/Help/site/index.html'
 with open(os.path.join(base_dir, "README.md"), "r") as f:
@@ -61,37 +60,6 @@ setup(
                 (pathToIcons, [pathToIcons+'/AppIcon2.gif',
                                pathToIcons+'/AppIcon2.ico',
                                pathToIcons+'/gpl.gif']),
-                (pathToMoreIcons,
-                  [pathToMoreIcons+'/document-new-3.gif',
-                  pathToMoreIcons+'/document-open-2.gif',
-                  pathToMoreIcons+'/document-save-2.gif',
-                  pathToMoreIcons+'/tooloptions.gif',
-                  pathToMoreIcons+'/help-contents-5.gif',
-                  pathToMoreIcons+'/edit-add-2.gif',
-                  pathToMoreIcons+'/edit-delete-6.gif',
-                  pathToMoreIcons+'/draw-line-3.gif',
-                  pathToMoreIcons+'/edit-copy-3.gif',
-                  pathToMoreIcons+'/object-rotate-left-4.gif',
-                  pathToMoreIcons+'/object-flip-horizontal-3.gif',
-                  pathToMoreIcons+'/object-flip-vertical-3.gif',
-                  pathToMoreIcons+'/zoom-in-3.gif',
-                  pathToMoreIcons+'/zoom-out-3.gif',
-                  pathToMoreIcons+'/edit-move.gif',
-                  pathToMoreIcons+'/system-run-3.gif',
-                  pathToMoreIcons+'/help-3.gif',
-                  pathToMoreIcons+'/edit-undo-3.gif',
-                  pathToMoreIcons+'/edit-redo-3.gif',
-                  pathToMoreIcons+'/dialog-information-4.gif',
-                  pathToMoreIcons+'/dialog-question.png',
-                  pathToMoreIcons+'/sp-view.gif',
-                  pathToMoreIcons+'/eye.gif',
-                  pathToMoreIcons+'/down.gif',
-                  pathToMoreIcons+'/up.gif',
-                  pathToMoreIcons+'/edit-3.gif',
-                  pathToMoreIcons+'/variables-view.gif',
-                  pathToMoreIcons+'/equations-view.gif',
-                  pathToMoreIcons+'/photo.gif',
-                  pathToMoreIcons+'/info.gif']),
                 (pathToImages,
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],

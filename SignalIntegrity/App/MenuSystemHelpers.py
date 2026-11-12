@@ -26,6 +26,7 @@ import os
 import sys
 import subprocess
 from PIL import Image, ImageDraw, ImageTk
+from SignalIntegrity.App.ToolbarIcons import ICON_PATHS,RenderToolbarIcon
 
 def ConfigureDisplayScaling(root):
     if not sys.platform.startswith('linux'):
@@ -72,6 +73,8 @@ def SizeSelectionIndicator(widget):
     size=max(10,round(tkfont.Font(root=widget,font=widget.cget('font')).metrics('linespace')*0.75))
     red,green,blue=widget.winfo_rgb(widget.cget('foreground'))
     color=(red//256,green//256,blue//256,255)
+    if getattr(widget,'_indicatorKey',None) == (size,color):
+        return widget
     images=[]
     for selected in (False,True):
         image=Image.new('RGBA',(size*4,size*4))
@@ -89,6 +92,7 @@ def SizeSelectionIndicator(widget):
         resampling=getattr(Image,'Resampling',Image).LANCZOS
         images.append(ImageTk.PhotoImage(image.resize((size,size),resampling),master=widget))
     widget._indicatorImages=images
+    widget._indicatorKey=(size,color)
     widget.configure(indicatoron=False,image=images[0],selectimage=images[1],
                      compound=tk.LEFT,relief=tk.FLAT,offrelief=tk.FLAT,
                      borderwidth=0,padx=max(2,round(size/5)),pady=1)
@@ -133,8 +137,11 @@ class ToolTip(object):
                        "help", "noActivates")
         except tk.TclError:
             pass
+        theme=getattr(self.widget._root(),'appearanceTheme',None)
+        background="#ffffe0" if theme is None or theme.name == 'Legacy' else theme.palette['activebackground']
+        foreground="#000000" if theme is None or theme.name == 'Legacy' else theme.palette['activeforeground']
         label = tk.Label(tw, text=self.text, justify=tk.LEFT,
-                         background="#ffffe0", relief=tk.SOLID, borderwidth=1)
+                         background=background, foreground=foreground, relief=tk.SOLID, borderwidth=1)
         label.pack(ipadx=1)
 
     def hidetip(self):
@@ -177,13 +184,48 @@ class CheckButtonMenuElement(object):
         self.active=active
         self.menu.entryconfigure(self.label,state='normal' if self.active else 'disabled')
 
+class ThemedIcon(object):
+    def __init__(self,widget,iconFile,size=20):
+        self.widget=widget
+        self.iconFile=iconFile
+        self.baseSize=size
+        self.iconKey=None
+
+    def UpdateIcon(self):
+        displayScale=max(1.0,float(self.widget.tk.call('tk','scaling'))/(96.0/72.0))
+        if sys.platform.startswith('linux'):
+            displayScale=max(displayScale,float(os.environ.get('GDK_SCALE','1')))
+        name=os.path.splitext(os.path.basename(self.iconFile))[0]
+        colorOption='disabledforeground' if str(self.widget.cget('state')) == 'disabled' else 'foreground'
+        color=tuple(value//257 for value in self.widget.winfo_rgb(self.widget.cget(colorOption)))
+        size=round(self.baseSize*displayScale)
+        key=(name,color,size)
+        if self.iconKey == key:
+            return
+        if name in ICON_PATHS:
+            self.icon=ImageTk.PhotoImage(RenderToolbarIcon(name,color,size),master=self.widget)
+        else:
+            with Image.open(self.iconFile) as image:
+                width,height=image.size
+                resampling=getattr(Image,'Resampling',Image).LANCZOS
+                image=image.resize((round(width*displayScale),round(height*displayScale)),resampling)
+                self.icon=ImageTk.PhotoImage(image,master=self.widget)
+        self.widget.configure(image=self.icon)
+        self.iconKey=key
+
+class IconLabel(tk.Label):
+    def __init__(self,parent,iconfile,size=20,**kw):
+        tk.Label.__init__(self,parent,**kw)
+        self.iconRenderer=ThemedIcon(self,iconfile,size)
+        self.iconRenderer.UpdateIcon()
+
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
-        if 'iconfile' in kw:
-            self.icon=LoadIcon(frame,kw['iconfile'])
-            del kw['iconfile']
-            kw['image']=self.icon
+        self.iconFile=kw.pop('iconfile',None)
+        self.iconKey=None
         self.button=tk.Button(frame,kw)
+        self.button.toolbarElement=self
+        self.iconRenderer=None if self.iconFile is None else ThemedIcon(self.button,self.iconFile)
         self.active=None
         if 'state' in kw:
             active=kw['state'] == 'normal'
@@ -195,6 +237,12 @@ class ToolBarElement(object):
             return
         self.active=active
         self.button.config(state='normal' if self.active else 'disabled')
+        self.UpdateIcon()
+    def UpdateIcon(self):
+        if self.iconRenderer is not None:
+            self.iconRenderer.UpdateIcon()
+            self.icon=self.iconRenderer.icon
+            self.iconKey=self.iconRenderer.iconKey
     def Pack(self,**kw):
         self.button.pack(kw)
         return self

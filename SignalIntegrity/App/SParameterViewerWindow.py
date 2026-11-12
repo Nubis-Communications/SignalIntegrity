@@ -20,7 +20,7 @@ SParameterViewerWindow.py
 import sys
 
 import tkinter as tk
-from tkinter import  messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 from PIL import Image
 
@@ -255,19 +255,19 @@ class SParametersDialog(tk.Toplevel):
             bottomFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         topLeftFrame=tk.Frame(topFrame)
         topLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
-        self.topLeftLabel = tk.Label(topLeftFrame,fg='black')
+        self.topLeftLabel = tk.Label(topLeftFrame)
         self.topLeftLabel.pack(fill=tk.X)
         topRightFrame=tk.Frame(topFrame)
         topRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
-        self.topRightLabel = tk.Label(topRightFrame,fg='black')
+        self.topRightLabel = tk.Label(topRightFrame)
         self.topRightLabel.pack(fill=tk.X)
         bottomLeftFrame=tk.Frame(bottomFrame)
         bottomLeftFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
-        self.bottomLeftLabel = tk.Label(bottomLeftFrame,fg='black')
+        self.bottomLeftLabel = tk.Label(bottomLeftFrame)
         self.bottomLeftLabel.pack(fill=tk.X)
         bottomRightFrame=tk.Frame(bottomFrame)
         bottomRightFrame.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
-        self.bottomRightlabel = tk.Label(bottomRightFrame,fg='black')
+        self.bottomRightlabel = tk.Label(bottomRightFrame)
         self.bottomRightlabel.pack(fill=tk.X)
 
         plotWidth=SignalIntegrity.App.Preferences['Appearance.PlotWidth']
@@ -1578,7 +1578,7 @@ class SParametersDialog(tk.Toplevel):
                 self.sp.picture = lines
                 self.onViewPicture()
         except:
-            tk.messagebox.showerror('picture', 'could not be pasted from clipboard')
+            messagebox.showerror('picture', 'could not be pasted from clipboard')
 
     def onHelp(self):
         if Doer.helpKeys is None:

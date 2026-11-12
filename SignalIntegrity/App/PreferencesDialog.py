@@ -22,6 +22,7 @@ from tkinter import ttk
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor,CalculationPropertySI
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
+from SignalIntegrity.App.Theme import ThemeSelector,ThemeColorButton,DialogStyleSelector
 
 import sys
 if sys.version_info.major < 3:
@@ -48,10 +49,12 @@ class PreferencesDialog(PropertiesDialog):
         self.notebook.add(self.archiveAndRegressionTab,text='Archive and Regression')
 
         # Appearance
+        self.themeFrame=ThemeSelector(self.appearanceTab,preferences,self.onUpdateColors)
+        self.dialogStyleFrame=DialogStyleSelector(self.appearanceTab,preferences,self.onUpdatePreferences)
         self.fontSizeFrame=CalculationProperty(self.appearanceTab,'font size',None,self.onUpdateFontSize,preferences,'Appearance.FontSize')
         self.initialGridFrame=CalculationProperty(self.appearanceTab,'initial grid',None,self.onUpdatePreferences,preferences,'Appearance.InitialGrid')
-        self.backgroundColorFrame=CalculationPropertyColor(self.appearanceTab,'background color',None,self.onUpdateColors,preferences,'Appearance.Color.Background')
-        self.foregroundColorFrame=CalculationPropertyColor(self.appearanceTab,'foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.Foreground')
+        self.backgroundColorFrame=ThemeColorButton(self.appearanceTab,'background color',preferences,'Background',self.onUpdateColors)
+        self.foregroundColorFrame=ThemeColorButton(self.appearanceTab,'foreground color',preferences,'Foreground',self.onUpdateColors)
         self.roundDisplayedValues=CalculationProperty(self.appearanceTab,'digits to round displayed values',None,self.onUpdatePreferences,preferences,'Appearance.RoundDisplayedValues')
         self.limitText=CalculationProperty(self.appearanceTab,'limit text in displayed values',None,self.onUpdatePreferences,preferences,'Appearance.LimitText')
         self.progressDialog=CalculationPropertyTrueFalseButton(self.appearanceTab,'detached progress bar',None,self.onUpdatePreferences,preferences,'Appearance.ProgressDialog')
@@ -134,6 +137,9 @@ class PreferencesDialog(PropertiesDialog):
         self.parent.UpdateColorsAndFonts()
     def onUpdateColors(self):
         self.parent.UpdateColorsAndFonts()
+        self.themeFrame.Refresh()
+        self.backgroundColorFrame.Refresh()
+        self.foregroundColorFrame.Refresh()
         self.onUpdatePreferences()
 
     def onUpdatePassword(self):
@@ -148,6 +154,7 @@ class PreferencesDialog(PropertiesDialog):
         self.onUpdatePreferences()
 
     def Finish(self):
+        self.themeFrame.Refresh()
         self.onlineHelpURL.Show(self.project.GetValue('OnlineHelp.UseOnlineHelp'))
         self.cacheNumberOfFiles.Show(self.project['Cache.CacheResults'])
         self.cacheKeepExtraFilesForArchive.Show(self.project['Cache.CacheResults'] and (self.project['Cache.NumberOfFiles'] > 1))

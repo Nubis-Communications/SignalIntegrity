@@ -20,7 +20,7 @@ DeviceProperties.py
 import os
 
 import tkinter as tk
-from tkinter import messagebox
+from SignalIntegrity.App import MessageBox as messagebox
 
 import copy
 
@@ -31,15 +31,16 @@ from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
 from SignalIntegrity.App.MenuSystemHelpers import SizeSelectionIndicator
+from SignalIntegrity.App.Theme import ThemedCanvas
 
 import SignalIntegrity.App.Project
 
-class DevicePartPictureCanvas(tk.Canvas):
+class DevicePartPictureCanvas(ThemedCanvas):
     strokeItemTypes={'line','rectangle','oval','arc','polygon'}
 
     def __init__(self,parent,displayScale,**kwargs):
         self.displayScale=displayScale
-        tk.Canvas.__init__(self,parent,**kwargs)
+        ThemedCanvas.__init__(self,parent,**kwargs)
 
     def _create(self,itemType,args,kwargs):
         if itemType in self.strokeItemTypes:
@@ -48,7 +49,7 @@ class DevicePartPictureCanvas(tk.Canvas):
             dash=kwargs.get('dash')
             if isinstance(dash,(tuple,list)):
                 kwargs['dash']=tuple(max(1,round(value*self.displayScale)) for value in dash)
-        return tk.Canvas._create(self,itemType,args,kwargs)
+        return ThemedCanvas._create(self,itemType,args,kwargs)
 
 def LaunchProjectFile(device,filename):
     """opens a sub-project in another instance of the app, passing the device variables in"""
