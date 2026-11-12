@@ -1,0 +1,14 @@
+{
+  "name": "signalintegrity-desktop",
+  "private": true,
+  "version": "1.5.6",
+  "description": "SignalIntegrity desktop GUI (Tauri)",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

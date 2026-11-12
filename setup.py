@@ -64,11 +64,13 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
+    package_data={'SignalIntegrity.Server':['ui/*.html','ui/*.js','ui/*.css']},
     extras_require={'test': ['pytest>=6']},
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [
           'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main',
+          'SignalIntegrityServer = SignalIntegrity.Server.SignalIntegrityServer:main',
           'ERL = SignalIntegrity.Utilities.ERL.ERL:ERL_Main',
           'PZ = SignalIntegrity.Utilities.PZ.PZ:PZ_Main',
           'IXT = SignalIntegrity.Utilities.IXT.IXT:IXT_Main']},

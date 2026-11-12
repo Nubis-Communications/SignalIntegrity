@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignalIntegrity</title>
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header id="toolbar">
+  <button id="btnOpen" title="Open project (Ctrl+O)">Open</button>
+  <button id="btnSave" title="Save project (Ctrl+S)" disabled>Save</button>
+  <button id="btnSaveAs" title="Save project as" disabled>Save As</button>
+  <span class="sep"></span>
+  <button id="btnZoomIn" title="Zoom in">Zoom In</button>
+  <button id="btnZoomOut" title="Zoom out">Zoom Out</button>
+  <button id="btnZoomFit" title="Zoom to fit (Ctrl+0)">Fit</button>
+  <span class="sep"></span>
+  <button id="btnRotate" title="Rotate selected device (Ctrl+R)" disabled>Rotate</button>
+  <span class="sep"></span>
+  <button class="calc" data-kind="simulate" disabled>Simulate</button>
+  <button class="calc" data-kind="sparameters" disabled>S-parameters</button>
+  <button class="calc" data-kind="virtualprobe" disabled>Virtual Probe</button>
+  <button class="calc" data-kind="deembed" disabled>De-embed</button>
+  <span class="sep"></span>
+  <button id="btnNetlist" disabled>Netlist</button>
+</header>
+<main>
+  <aside id="left">
+    <section>
+      <h2>Variables</h2>
+      <table id="variables"><thead><tr><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
+    </section>
+    <section>
+      <h2>Calculation Properties</h2>
+      <form id="calcProps"></form>
+    </section>
+  </aside>
+  <div id="canvasHost"><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
+  <aside id="right">
+    <section>
+      <h2>Device Properties</h2>
+      <table id="properties"><thead><tr><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
+    </section>
+  </aside>
+</main>
+<footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
+
+<dialog id="fileDialog">
+  <h3 id="fileDialogTitle">Open Project</h3>
+  <div class="row"><button id="fileUp" type="button">Up</button><input id="filePath" type="text" spellcheck="false"></div>
+  <ul id="fileList"></ul>
+  <div class="row"><input id="fileName" type="text" placeholder="file name.si" spellcheck="false"></div>
+  <div class="buttons"><button id="fileCancel" type="button">Cancel</button><button id="fileOk" type="button">Open</button></div>
+</dialog>
+<dialog id="textDialog">
+  <h3 id="textDialogTitle"></h3>
+  <pre id="textDialogBody"></pre>
+  <div class="buttons"><button id="textDialogClose" type="button">Close</button></div>
+</dialog>
+<dialog id="progressDialog">
+  <h3 id="progressTitle">Calculating...</h3>
+  <progress id="progressBar" max="100" value="0"></progress>
+  <div class="buttons"><button id="progressCancel" type="button">Cancel</button></div>
+</dialog>
+<dialog id="resultsDialog">
+  <h3 id="resultsTitle">Results</h3>
+  <nav id="resultsTabs"></nav>
+  <div id="resultsPlot"></div>
+  <div class="buttons"><button id="resultsClose" type="button">Close</button></div>
+</dialog>
+</body>
+</html>

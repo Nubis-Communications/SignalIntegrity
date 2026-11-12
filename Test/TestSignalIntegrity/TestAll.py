@@ -48,6 +48,7 @@ from TestFilters import *
 from TestFrequencyContent import *
 from TestFrequencyList import *
 from TestGui import *
+from TestGuiCore import *
 from TestHDMICable import *
 from TestHeaders import *
 from TestHiRes import *
@@ -79,6 +80,7 @@ from TestRLGCLevMar import *
 from TestRoutineWriter import *
 from TestSenseResistorInductance import *
 from TestSeries import *
+from TestServer import *
 from TestSimulator import *
 #from TestSimulatorNumericParser import *
 from TestSources import *
