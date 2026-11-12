@@ -5,10 +5,11 @@ var searchData=
   ['deembeddernumericparser_2',['DeembedderNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderNumericParser_1_1DeembedderNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::DeembedderNumericParser']]],
   ['deembedderparser_3',['DeembedderParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1DeembedderParser_1_1DeembedderParser.xhtml',1,'SignalIntegrity::Lib::Parsers::DeembedderParser']]],
   ['deembeddersymbolic_4',['DeembedderSymbolic',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1DeembedderSymbolic_1_1DeembedderSymbolic.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::DeembedderSymbolic']]],
-  ['device_5',['Device',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Device_1_1Device.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Device']]],
-  ['devicefactory_6',['DeviceFactory',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser']]],
-  ['deviceparser_7',['DeviceParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser']]],
-  ['dftutilities_8',['DFTUtilities',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities']]],
-  ['differentiator_9',['Differentiator',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1Differentiator_1_1Differentiator.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::Differentiator']]],
-  ['dutsparametersnumericparser_10',['DUTSParametersNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::DUTSParametersNumericParser']]]
+  ['dependentwaveform_5',['DependentWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1DependentWaveform_1_1DependentWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::DependentWaveform']]],
+  ['device_6',['Device',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1Device_1_1Device.xhtml',1,'SignalIntegrity::Lib::SystemDescriptions::Device']]],
+  ['devicefactory_7',['DeviceFactory',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceFactory.xhtml',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser']]],
+  ['deviceparser_8',['DeviceParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1Devices_1_1DeviceParser_1_1DeviceParser.xhtml',1,'SignalIntegrity::Lib::Parsers::Devices::DeviceParser']]],
+  ['dftutilities_9',['DFTUtilities',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities']]],
+  ['differentiator_10',['Differentiator',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1Differentiator_1_1Differentiator.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::Differentiator']]],
+  ['dutsparametersnumericparser_11',['DUTSParametersNumericParser',['../classSignalIntegrity_1_1Lib_1_1Parsers_1_1DUTSParametersNumericParser_1_1DUTSParametersNumericParser.xhtml',1,'SignalIntegrity::Lib::Parsers::DUTSParametersNumericParser']]]
 ];

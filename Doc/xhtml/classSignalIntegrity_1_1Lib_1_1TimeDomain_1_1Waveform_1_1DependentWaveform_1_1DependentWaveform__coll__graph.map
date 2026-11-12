@@ -1,0 +1,5 @@
+<map id="DependentWaveform" name="DependentWaveform">
+<area shape="rect" id="Node000001" title="A waveform whose value depends on measured output probes and an embedded script." alt="" coords="5,336,138,405"/>
+<area shape="rect" id="Node000002" href="$classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1Waveform_1_1Waveform.xhtml" title="base class for all waveforms" alt="" coords="11,5,132,288"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,301,74,337,69,335,70,305"/>
+</map>
