@@ -1,6 +1,7 @@
 """
 Open.py
 """
+import numpy
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -18,10 +19,15 @@ Open.py
 #
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
-def Open():
+
+import numpy as np
+
+def Open(ports = 1):
     """Open
     Ideal Open
-    @returns the list of list s-parameter matrix of ground.
-    this is simply a 1x1 matrix containing 1, or [[1]]
+    @param ports integer, optional (defaults to 1) number of ports
+    @returns the list of list s-parameter matrix of open.
+    For a single port open, this is just [[1.]], otherwise it is a list of list
+    identity matrix that is ports x ports. 
     """
-    return [[1.]]
+    return np.identity(ports).tolist()

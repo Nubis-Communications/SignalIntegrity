@@ -1,2 +1,2 @@
-def Open():
-    return [[1.]]
+def Open(ports = 1):
+    return np.identity(ports).tolist()

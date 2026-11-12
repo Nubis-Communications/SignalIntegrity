@@ -336,6 +336,34 @@ class StatisticalNoiseDialog(tk.Toplevel):
 
         return self
 
+    def UpdateNoiseBreakdown(self,statistical_noise_analysis,probeName):
+        import math
+        total=statistical_noise_analysis['output_noise_spectral_density'][probeName]
+        contributions=statistical_noise_analysis['contributions'][probeName]
+        names=[probeName]+[probeName+' due to '+source for source in statistical_noise_analysis['input_names']]
+        entries=[dict(total)]+[dict(contributions[source]) for source in statistical_noise_analysis['input_names']]
+        for entry in entries:
+            endFrequency=entry['spectrum'].Frequencies()[-1]
+            entry['rms/sqrt(Hz)']=entry['rms']/math.sqrt(endFrequency)
+            entry['rms/sqrt(GHz)']=entry['rms']/math.sqrt(endFrequency/1e9)
+            entry['dBm/Hz']=entry['dBm']-10.*math.log10(endFrequency)
+            entry['dBm/GHz']=entry['dBm']-10.*math.log10(endFrequency/1e9)
+        view={
+            'output_names':names,
+            'input_names':[],
+            'transfer_matrices':None,
+            'output_noise_spectral_density_list':[entry['spectrum'] for entry in entries],
+            'output_noise_spectral_density':dict(zip(names,entries)),
+            'signal_noise_spectral_density':{
+                name:statistical_noise_analysis['signal_noise_spectral_density'][probeName] for name in names},
+            'signal_to_noise_ratio':{
+                name:(statistical_noise_analysis['signal_to_noise_ratio'][probeName] if index == 0
+                      else {key:entries[index][key] for key in ['SNR','SalzSNR']})
+                for index,name in enumerate(names)},
+            'contributions':{probeName:contributions}}
+        self.title('Noise: '+probeName+' - Full Breakdown')
+        return self.UpdateNoiseSpectralDensities(view)
+
     def UpdateNoiseSpectralDensities(self,statistical_noise_analysis,waveformTypes=None):
         # waveformTypes is either None, or a list of strings per waveform where each element is either 'dots' or 'lines'
         self.statistical_noise_analysis=statistical_noise_analysis

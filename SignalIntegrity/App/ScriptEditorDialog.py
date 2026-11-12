@@ -19,6 +19,8 @@ ScriptEditorDialog.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import tkinter as tk
+from tkinter import messagebox
+import os
 
 import SignalIntegrity.App.Project
 
@@ -40,6 +42,10 @@ class ScriptEditorDialog(object):
         dialog.withdraw()
         dialog.titleText='Script - '+str(device['ref'].GetValue())
         dialog.title(dialog.titleText)
+        fileMenu=tk.Menu(dialog.TheMenu,tearoff=False)
+        dialog.TheMenu.insert_cascade(0,label='File',menu=fileMenu,underline=0)
+        fileMenu.add_command(label='Import...',command=self.onImport)
+        fileMenu.add_command(label='Save As...',command=self.onSaveAs)
         dialog.TextArea.delete(1.0,tk.END)
         dialog.TextArea.insert(1.0,self.originalScript)
         dialog.TextArea.config(height=25)
@@ -63,6 +69,46 @@ class ScriptEditorDialog(object):
                 parent.grab_set()
             except tk.TclError:
                 pass
+
+    def _InitialDirectory(self):
+        fileparts=getattr(self.app,'fileparts',None)
+        return fileparts.AbsoluteFilePath() if fileparts is not None else os.getcwd()
+
+    def onImport(self):
+        from SignalIntegrity.App.FilePicker import AskOpenFileName
+        filename=AskOpenFileName(parent=self.dialog,
+                                 filetypes=[('Python scripts','*.py'),('All files','*')],
+                                 initialdir=self._InitialDirectory())
+        if filename is None:
+            return
+        try:
+            with open(filename,'r',encoding='utf-8-sig') as scriptFile:
+                script=scriptFile.read()
+        except OSError as error:
+            messagebox.showerror('Import Script',str(error),parent=self.dialog)
+            return
+        self.dialog.TextArea.delete(1.0,tk.END)
+        self.dialog.TextArea.insert(1.0,script)
+        self.onTouched()
+        self.dialog.TextArea.focus_set()
+
+    def onSaveAs(self):
+        from SignalIntegrity.App.FilePicker import AskSaveAsFilename
+        reference=self.device['ref'].GetValue() or 'waveform_processor'
+        filename=AskSaveAsFilename(parent=self.dialog,
+                                   initialdir=self._InitialDirectory(),
+                                   initialfile=str(reference)+'.py',
+                                   defaultextension='.py',
+                                   filetypes=[('Python scripts','*.py'),('All files','*')])
+        if filename is None:
+            return
+        try:
+            with open(filename,'w',encoding='utf-8',newline='') as scriptFile:
+                scriptFile.write(self.dialog.TextString())
+        except OSError as error:
+            messagebox.showerror('Save Script As',str(error),parent=self.dialog)
+            return
+        self.dialog.statusbar.set('Script saved: '+filename)
 
     def Run(self):
         """runs the edited script, returning the waveform, or None after reporting the error"""

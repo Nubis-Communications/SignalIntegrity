@@ -45,6 +45,19 @@ bypassing its checks or confirmations.
   `setup.py` dependencies/package versions, updating Doxygen version information, and
   optionally publishing documentation to `gh-pages`. The user runs tests and handles
   test results; do not run tests unless explicitly asked.
+- Doxygen publishing uses the separate `SignalIntegrityPages` checkout. Before
+  building, verify the `PROJECT_NUMBER` in both `Doc/SignalIntegrityLinux` and
+  `Doc/SignalIntegrityWindows` matches the release version. On the `gh-pages` branch,
+  fetch and fast-forward pull `origin/gh-pages` before generating documentation. If
+  that checkout has local changes, inspect and preserve them; do not overwrite or
+  include unrelated changes in a documentation commit.
+- From the SignalIntegrity repository root, run `./LinkDoc.sh`, then run
+  `doxygen SignalIntegrityLinux` from `Doc/` (use `SignalIntegrityWindows` on
+  Windows). The link directs `Doc/xhtml` output into
+  `SignalIntegrityPages/Doc/xhtml`. Always run `./UnlinkDoc.sh` from the source
+  repository root after generation, including when Doxygen fails. Review the
+  generated documentation, then stage and publish only `Doc/xhtml` in the Pages
+  checkout; do not commit unrelated Pages changes.
 
 ## Safety and interaction requirements
 
@@ -80,7 +93,9 @@ bypassing its checks or confirmations.
 1. Inspect status and current branches; read the release script. Report unrelated dirty
    files, branch divergence, or unclear versioning before starting.
 2. Ask the user to confirm the manual checklist is complete, including tests and
-   Doxygen/package metadata. Respect that the user runs tests separately.
+   Doxygen/package metadata. Respect that the user runs tests separately. If
+   documentation is to be published, perform its Pages sync/build/review/publish
+   workflow above before the release merge.
 3. Determine the version from `InNextRelease`, compare the branch changes with `master`,
    and draft the temporary versioned Markdown release notes. Show the draft to the user
    for review and incorporate their corrections before proceeding.

@@ -66,6 +66,10 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: silent exclude
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
         # pragma: include
+
+        #Replace any 1 sample waveforms with floats - so they are handled as DC values 
+        wfl = [wflm[0] if issubclass(type(wflm), list) and len(wflm) == 1
+               else wflm for wflm in wfl]
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
         ir = self.TransferMatrices.ImpulseResponses(td,time_before_0=time_before_0)
@@ -90,8 +94,8 @@ class TransferMatricesProcessor(CallBacker):
                         if absMax>=largestValue:
                             largestIndex=wfi; largestValue=absMax
                 acc=[acc[largestIndex]]+acc[0:largestIndex]+acc[largestIndex+1:]
-            # if the first element of the accumulator is not a waveform (a number, assuming a DC value),
-            # then rearrange so a waveform comes first.
+            # if the first element of the accumulator is not a waveform (a number,
+            # assuming a DC value), then rearrange so a waveform comes first.
             if not isinstance(acc[0],Waveform):
                 for wfi in range(len(acc)):
                     if isinstance(acc[wfi],Waveform):

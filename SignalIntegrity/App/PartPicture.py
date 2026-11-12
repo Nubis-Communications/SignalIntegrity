@@ -1197,9 +1197,21 @@ class PartPictureVoltageSourceTwoPort(PartPicture):
         PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
         PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,False,connected)
 
+class PartPictureDependentVoltageSourceTwoPort(PartPicture):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPicture.__init__(self,origin,[PartPin(2,(1,0),'t',False,True,True),PartPin(1,(1,4),'b',False,True,True)],[(0,1),(2,3)],[(0,0),(2,4)],(2.5,2),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPicture.DrawDependent(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawPlusMinus(self,canvas,grid,drawingOrigin,1)
+        PartPicture.DrawDevice(self,device,canvas,grid,drawingOrigin,False,connected)
+
 class PartPictureVariableVoltageSourceTwoPort(PartPictureVariable):
     def __init__(self):
         PartPictureVariable.__init__(self,['PartPictureVoltageSourceTwoPort'],2)
+
+class PartPictureDependentVariableVoltageSourceTwoPort(PartPictureVariable):
+    def __init__(self):
+        PartPictureVariable.__init__(self,['PartPictureDependentVoltageSourceTwoPort'],2)
 
 class PartPictureVoltageSourceStepGeneratorTwoPort(PartPictureVoltageSourceTwoPort):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
@@ -2140,6 +2152,66 @@ class PartPictureVariableUnknown(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureUnknown','PartPictureUnknownAcross','PartPictureUnknownDownAndUp','PartPictureUnknownSide'],ports)
 
+class PartPictureNonlinear(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        centerX=(drawingOrigin[0]+self.origin[0]+(self.innerBox[0][0]+self.innerBox[1][0])/2.)*grid
+        centerY=(drawingOrigin[1]+self.origin[1]+(self.innerBox[0][1]+self.innerBox[1][1])/2.)*grid
+        textPoint=ct.Translate((centerX,centerY-grid*0.35))
+        arrowStart=ct.Translate((centerX-grid*0.5,centerY+grid*0.35))
+        arrowEnd=ct.Translate((centerX+grid*0.5,centerY+grid*0.35))
+        canvas.create_text(textPoint[0],textPoint[1],text='py',fill=self.color)
+        canvas.create_line(arrowStart[0],arrowStart[1],arrowEnd[0],arrowEnd[1],
+                           fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+
+class PartPictureNonlinearAcross(PartPictureSpecifiedPortsAcross):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsAcross.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsAcross.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureNonlinearDownAndUp(PartPictureSpecifiedPortsDownAndUp):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsDownAndUp.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsDownAndUp.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureNonlinearSide(PartPictureSpecifiedPortsSide):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPortsSide.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        self.DrawCharacterInMiddle(canvas,grid,drawingOrigin,'N')
+        PartPictureSpecifiedPortsSide.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+
+class PartPictureVariableNonlinear(PartPictureVariable):
+    def __init__(self,ports=1):
+        PartPictureVariable.__init__(self,['PartPictureNonlinear','PartPictureNonlinearAcross','PartPictureNonlinearDownAndUp','PartPictureNonlinearSide'],ports)
+
+class PartPictureFixedWaveformProcessor(PartPictureSpecifiedPorts):
+    def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
+        PartPictureSpecifiedPorts.__init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPictureSpecifiedPorts.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        centerX=(drawingOrigin[0]+self.origin[0]+(self.innerBox[0][0]+self.innerBox[1][0])/2.)*grid
+        centerY=(drawingOrigin[1]+self.origin[1]+(self.innerBox[0][1]+self.innerBox[1][1])/2.)*grid
+        textPoint=ct.Translate((centerX,centerY-grid*0.35))
+        arrowStart=ct.Translate((centerX-grid*0.5,centerY+grid*0.35))
+        arrowEnd=ct.Translate((centerX+grid*0.5,centerY+grid*0.35))
+        canvas.create_text(textPoint[0],textPoint[1],text='py',fill=self.color)
+        canvas.create_line(arrowStart[0],arrowStart[1],arrowEnd[0],arrowEnd[1],
+                           fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+
+class PartPictureVariableFixedWaveformProcessor(PartPictureVariable):
+    def __init__(self,ports=2):
+        PartPictureVariable.__init__(self,['PartPictureFixedWaveformProcessor','PartPictureNonlinearAcross','PartPictureNonlinearDownAndUp','PartPictureNonlinearSide'],ports)
+
+
 class PartPictureVoltageProbe(PartPictureBox):
     def __init__(self,ports,origin,orientation,mirroredHorizontally,mirroredVertically):
         PartPictureBox.__init__(self,origin,[PartPin(1,(1,4),'b',False,True,True),PartPin(2,(1,0),'t',False,True,True)],[(0.5,1),(1.5,3)],[(0.5,0),(1.5,4)],(0,2),orientation,mirroredHorizontally,mirroredVertically)
@@ -2179,6 +2251,77 @@ class PartPictureSystemSide(PartPictureSpecifiedPortsSide):
 class PartPictureVariableSystem(PartPictureVariable):
     def __init__(self,ports=4):
         PartPictureVariable.__init__(self,['PartPictureSystem','PartPictureSystemAcross','PartPictureSystemDownAndUp','PartPictureSystemSide'],ports)
+
+class PartPictureWaveformProcessor(PartPictureBox):
+    def __init__(self,inputPorts,outputPorts,origin,orientation,mirroredHorizontally,mirroredVertically):
+        rows=max(inputPorts,outputPorts)
+        if inputPorts == outputPorts == 2:
+            bodyWidth=4
+            bodyHeight=2
+        else:
+            bodyWidth=2
+            bodyHeight=2 if rows == 1 else 2*rows
+        width=4
+        height=2 if rows == 1 else max(4,bodyHeight)
+        bodyLeft=(width-bodyWidth)/2.
+        bodyTop=(height-bodyHeight)/2.
+        bodyRight=bodyLeft+bodyWidth
+
+        def pinY(index,count):
+            if count == 1:
+                return height/2.
+            offset=1 if count < rows else 0
+            return 1.+offset+2*index
+
+        pins=[PartPin(index+1,(0,pinY(index,inputPorts)),'l',False,True,True)
+              for index in range(inputPorts)]
+        pins += [PartPin(inputPorts+index+1,(4,pinY(index,outputPorts)),'r',False,True,True)
+                 for index in range(outputPorts)]
+        PartPictureBox.__init__(self,origin,pins,[(bodyLeft,bodyTop),(bodyRight,bodyTop+bodyHeight)],[(0,0),(width,height)],
+                                (width/2.,bodyTop-0.5),orientation,mirroredHorizontally,mirroredVertically)
+    def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
+        PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
+        ct=self.CoordinateTranslater(grid,drawingOrigin)
+        left=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
+        right=(drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid
+        top=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid
+        bottom=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
+        centerX=(left+right)/2.
+        centerY=(top+bottom)/2.
+        textPoint=ct.Translate((centerX,centerY-grid*0.35))
+        arrowStart=ct.Translate((centerX-grid*0.5,centerY+grid*0.35))
+        arrowEnd=ct.Translate((centerX+grid*0.5,centerY+grid*0.35))
+        canvas.create_text(textPoint[0],textPoint[1],text='py',fill=self.color)
+        canvas.create_line(arrowStart[0],arrowStart[1],arrowEnd[0],arrowEnd[1],
+                           fill=self.color,arrow='last',arrowshape=((8*grid)/20,(10*grid)/20,(3*grid)/20))
+
+class PartPictureVariableWaveformProcessor(object):
+    def __init__(self,inputPorts=1,outputPorts=1,partPictureSelected=0,origin=(0,0),orientation='0',mirroredHorizontally=False,mirroredVertically=False):
+        self.partPictureClassList=['PartPictureWaveformProcessor']
+        self.partPictureSelected=partPictureSelected
+        self.origin=origin
+        self.orientation=orientation
+        self.mirroredHorizontally=mirroredHorizontally
+        self.mirroredVertically=mirroredVertically
+        self.SetPortCounts(inputPorts,outputPorts,force=True)
+    def SetPortCounts(self,inputPorts,outputPorts,force=False):
+        inputPorts=max(1,int(inputPorts))
+        outputPorts=max(1,int(outputPorts))
+        if not force and inputPorts == self.inputPorts and outputPorts == self.outputPorts:
+            return
+        if hasattr(self,'current'):
+            self.origin=self.current.origin
+            self.orientation=self.current.orientation
+            self.mirroredHorizontally=self.current.mirroredHorizontally
+            self.mirroredVertically=self.current.mirroredVertically
+        self.inputPorts=inputPorts
+        self.outputPorts=outputPorts
+        self.ports=inputPorts+outputPorts
+        self.current=PartPictureWaveformProcessor(inputPorts,outputPorts,self.origin,self.orientation,
+                                                  self.mirroredHorizontally,self.mirroredVertically)
+    def SwitchPartPicture(self,item):
+        self.partPictureSelected=item
+        self.SetPortCounts(self.inputPorts,self.outputPorts,force=True)
 
 class PartPictureVariableVoltageProbe(PartPictureVariable):
     def __init__(self):

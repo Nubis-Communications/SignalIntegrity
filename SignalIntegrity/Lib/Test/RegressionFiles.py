@@ -502,26 +502,27 @@ class RegressionFiles(object):
         @param filename string the reference file.
         @return RegressionResult
         """
+        lines=[line.rstrip()+'\n' for line in ''.join(lineList).splitlines()]
         if not os.path.exists(filename):
             missing=self._Missing('picture',filename)
             if missing is not None:
                 return missing
-            self._WriteLines(filename,lineList)
+            self._WriteLines(filename,lines)
             return RegressionResult('picture',filename,written=True)
         if self.write:
-            self._WriteLines(filename,lineList)
+            self._WriteLines(filename,lines)
             return RegressionResult('picture',filename,written=True)
         with open(filename) as f:
             regression=f.readlines()
-        if lineList == regression:
+        if lines == regression:
             return RegressionResult('picture',filename)
-        if len(lineList) != len(regression):
+        if len(lines) != len(regression):
             return RegressionResult('picture',filename,False,
-                                    'picture has '+str(len(lineList))+' lines, reference has '+str(len(regression)))
+                                    'picture has '+str(len(lines))+' lines, reference has '+str(len(regression)))
         # the drawing emits the same geometry in a varying order
-        if self._SameIgnoringOrder(lineList,regression):
+        if self._SameIgnoringOrder(lines,regression):
             return RegressionResult('picture',filename,True,'picture in a different order')
-        return RegressionResult('picture',filename,False,self._FirstLineDifference(lineList,regression))
+        return RegressionResult('picture',filename,False,self._FirstLineDifference(lines,regression))
 
     def SParameters(self,sp,filename):
         """Writes or checks s-parameters.

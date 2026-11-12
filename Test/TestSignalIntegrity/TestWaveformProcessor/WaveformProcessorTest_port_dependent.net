@@ -1,0 +1,5 @@
+device NLS1 2 open
+voltagesource NLS1_out1s 1
+port 1 NLS1 1
+connect NLS1_out1s 1 NLS1 2
+voltageoutput NLS1_in1 NLS1 1

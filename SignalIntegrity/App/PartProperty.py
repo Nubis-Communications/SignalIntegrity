@@ -185,6 +185,13 @@ class PartPropertyDefaultReferenceDesignator(PartPropertyReadOnly):
 class PartPropertyPorts(PartProperty):
     def __init__(self,numPorts=1,hidden=True):
         PartProperty.__init__(self,'ports',type='int',unit=None,description='ports',keyword='ports',value=numPorts,hidden=hidden)
+class PartPropertyInputPorts(PartProperty):
+    def __init__(self,numPorts=1):
+        PartProperty.__init__(self,'inputports',type='int',unit=None,keyword='inputports',description='input ports',value=numPorts,visible=False,keywordVisible=False)
+
+class PartPropertyOutputPorts(PartProperty):
+    def __init__(self,numPorts=1):
+        PartProperty.__init__(self,'outputports',type='int',unit=None,keyword='outputports',description='output ports',value=numPorts,visible=False,keywordVisible=False)
 
 class PartPropertyFileName(PartProperty):
     def __init__(self,fileName=''):
@@ -201,6 +208,11 @@ class PartPropertyWaveformFileName(PartProperty):
 class PartPropertyFrequencyResponseFileName(PartProperty):
     def __init__(self,fileName=''):
         PartProperty.__init__(self,'frequencyresponsefilename',type='file',unit=None,keyword='frfile',description='file name',value=fileName)
+
+class PartPropertyDependentProbe(PartProperty):
+    def __init__(self,dependentprobe=''):
+        PartProperty.__init__(self,'dependentprobe',type='string',unit=None,keyword='dependent',description='dependent probe',value=dependentprobe)
+
 
 class PartPropertyResistance(PartProperty):
     def __init__(self,resistance=50.,keyword='r',descriptionPrefix=''):
@@ -516,9 +528,16 @@ class PartPropertyIncludeInNoise(PartProperty):
     # carry this property, but for them it only controls whether the probe
     # appears in the statistical noise dialog - the total integrated output
     # noise is always applied to the eye diagram as its external noise.
-    validEntries=['on','off']
-    def __init__(self,state='on'):
+    validEntries=['no','yes','full breakdown']
+    def __init__(self,state='yes'):
+        state={'on':'yes','off':'no'}.get(state,state)
         PartProperty.__init__(self,'noise',type='enum',keyword='noise',description='include in noise measurements',value=state,visible=False,keywordVisible=True)
+
+    def GetValue(self,name=None):
+        value=PartProperty.GetValue(self,name)
+        if name in [None,'Value']:
+            return {'on':'yes','off':'no'}.get(value,value)
+        return value
 
 class PartPropertyShow(PartProperty):
     validEntries=['true','false']

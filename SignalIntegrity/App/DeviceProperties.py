@@ -30,6 +30,7 @@ from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
+
 import SignalIntegrity.App.Project
 
 class DevicePartPictureCanvas(tk.Canvas):
@@ -125,6 +126,10 @@ def DeviceViewMenuActions(device,editable=True):
         actions.append(('View Waveform','waveform'))
         if editable and device['wftype'].GetValue() == 'scripted':
             actions.append(('Edit Script','editscript'))
+    elif editable and device['script'] is not None:
+        actions.append(('Edit Script','editscript'))
+    elif editable and device['script'] is not None:
+        actions.append(('Edit Script','editscript'))
     elif kind == 'noise':
         actions.append(('View Noise','noise'))
     if not WaveformProjectFileNameOfDevice(device) is None:
@@ -517,12 +522,13 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Dependent':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                     if self.device['wftype'].GetValue() == 'scripted':
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+        self.UpdateScriptEditorButton()
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice
         except TypeError:
@@ -556,7 +562,9 @@ class DeviceProperties(tk.Frame):
         self.variablesButton = tk.Button(self.variablesFrame,
                       text='Variables',
                       command=self.onVariables)
-        if self.isAProjectDevice or self.IsScriptedSource():
+        if self.isAProjectDevice or self.IsScriptedSource() or (
+                self.device['wftype'] is not None
+                and self.device['wftype'].GetValue() == 'Dependent'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         else:
             self.variablesButton.pack_forget()
@@ -633,6 +641,10 @@ class DeviceProperties(tk.Frame):
     def IsScriptedSource(self):
         return isinstance(self.device,Device) and not self.device['script'] is None
 
+    def UpdateScriptEditorButton(self):
+        if self.IsScriptedSource():
+            self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
+
     def onVariables(self):
         if self.IsScriptedSource():
             # the variables are passed into the script by name, as they are passed into a sub-project
@@ -652,6 +664,10 @@ class DeviceProperties(tk.Frame):
                     if filename == None:
                         filename=''
             VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=filename)
+        elif self.device['wftype'].GetValue() == 'Dependent':
+            #Dependent devices have variables without an associated filename
+            VariablesDialog(self.parent, self.device.variablesList, self.parent.parent, 'Device Variables',filename=None, parameterizable=True)
+        
 
     def UpdatePicture(self):
         self.partPictureCanvas.delete(tk.ALL)
@@ -690,13 +706,16 @@ class DeviceProperties(tk.Frame):
                 if self.device.netlist['DeviceName']=='device':
                     self.partViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource']:
-                    if not self.device['wftype'].GetValue() == 'DC':
+                    if not self.device['wftype'].GetValue() == 'DC' and not self.device['wftype'].GetValue() == 'Dependent':
                         self.waveformViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                     if self.device['wftype'].GetValue() == 'scripted':
                         self.scriptEditButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
                 elif self.device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
                     self.noiseViewButton.pack(expand=tk.NO,fill=tk.NONE,anchor=tk.CENTER)
-        if self.isAProjectDevice or self.IsScriptedSource():
+            self.UpdateScriptEditorButton()
+        if self.isAProjectDevice or self.IsScriptedSource() or (
+                self.device['wftype'] is not None
+                and self.device['wftype'].GetValue() == 'Dependent'):
             self.variablesButton.pack(side=tk.TOP,expand=tk.NO,fill=tk.X)
         try:
             self.device['calcprop']['Hidden']= not self.isAProjectDevice

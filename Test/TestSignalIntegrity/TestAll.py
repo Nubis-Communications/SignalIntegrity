@@ -60,6 +60,7 @@ from TestMixedModeTermination import *
 from TestNewtonsMethod import *
 from TestOpticalCalculator import *
 from TestPAM6 import *
+from TestWaveformProcessor import *
 from TestPI import *
 from TestPDN import *
 from TestPoleZeroFitter import *

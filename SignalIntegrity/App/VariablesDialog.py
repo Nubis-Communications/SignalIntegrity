@@ -92,7 +92,7 @@ class VariablePropertyDialog(PropertiesDialog):
 
 class VariablesDialog(PropertiesDialog):
 
-    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None):
+    def __init__(self, parent,project=None,top=None,title='System Variables',filename=None, parameterizable = False):
         # the system variables are edited when no project is supplied, otherwise these are device variables
         self.systemVariables=(project == None)
         if project == None: project = SignalIntegrity.App.Project['Variables.Items']
@@ -101,6 +101,11 @@ class VariablesDialog(PropertiesDialog):
         self.transient(self.top)
 
         self.filename=filename
+        self.device=getattr(parent,'device',None)
+        self.isWaveformProcessor=(self.device is not None
+                      and self.device['script'] is not None
+                      and self.device['inputports'] is not None
+                      and self.device['outputports'] is not None)
         self.savedVariables=copy.deepcopy(self.project)
 
         self.useScrollbar=(len(self.project)>30)
@@ -129,8 +134,12 @@ class VariablesDialog(PropertiesDialog):
         addButton.configure(width=self.addButtonGraphic.width(),height=self.addButtonGraphic.height(), image=self.addButtonGraphic, command=self.onAddVariable)
         addButton.pack(side=tk.LEFT)
 
-        if self.filename != None:
+        if self.isWaveformProcessor:
+            tk.Button(self.controlFrame, text='import from script', command=self.onImportFromScript).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        elif self.filename != None:
             tk.Button(self.controlFrame, text='import from project', command=self.onImportFromProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+            tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
+        elif parameterizable:
             tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
 
         PropertiesDialog.bind(self, '<Return>', self.ok)
@@ -258,6 +267,36 @@ class VariablesDialog(PropertiesDialog):
             self.variableFrameList[v].UpdateStrings()
     def onFileView(self,v):
         pass
+
+    def onImportFromScript(self):
+        from SignalIntegrity.App.WaveformProcessorScript import ParseWaveformProcessorInterface, ReconcileProcessorVariables
+
+        try:
+            inputPorts,outputPorts,importedVariables=ParseWaveformProcessorInterface(
+                self.device['script'].GetValue() or '')
+            reconciledVariables,removedNames=ReconcileProcessorVariables(self.project,importedVariables)
+        except ValueError as error:
+            messagebox.showerror('Import Processor Interface',str(error),parent=self)
+            return
+
+        if removedNames and not messagebox.askyesno(
+                'Import Processor Interface',
+                'Remove variables not declared by the script?\n\n'+', '.join(removedNames),
+                parent=self):
+            return
+
+        self.project[:]=reconciledVariables
+        self.device.variablesList=self.project
+        self.device['inputports']['Value']=inputPorts
+        self.device['outputports']['Value']=outputPorts
+        self.device.UpdatePortConfiguration()
+        for propertyFrame in self.parent.DeviceProperties.propertyFrameList:
+            if propertyFrame.partProperty['Keyword'] in ['inputports','outputports']:
+                propertyFrame.propertyString.set(propertyFrame.partProperty.PropertyString(stype='entry'))
+        self.DrawVariables()
+        self.parent.DeviceProperties.UpdatePicture()
+        self.top.statusbar.set('Processor interface imported')
+        self.top.history.Event('import waveform processor interface')
 
     def onParameterizeProject(self):
         device = self.parent.device
@@ -395,4 +434,3 @@ class VariablesDialog(PropertiesDialog):
     def cancel(self, event):
         self.project=self.savedVariables
         PropertiesDialog.destroy(self)
-

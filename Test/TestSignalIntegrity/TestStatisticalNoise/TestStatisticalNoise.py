@@ -747,6 +747,90 @@ class TestStatisticalNoiseTest(unittest.TestCase,
         print('\nAll SalzSNRdB noise floor filtering tests completed successfully!')
 
 
+class TestNoiseBreakdownTest(unittest.TestCase):
+    def testNoiseChoicesAndLegacyValues(self):
+        from unittest.mock import Mock
+        from SignalIntegrity.App.PartProperty import PartPropertyIncludeInNoise
+        from SignalIntegrity.App.NetList import NetList
+
+        self.assertEqual(PartPropertyIncludeInNoise.validEntries,['no','yes','full breakdown'])
+        for state,included in [('on',True),('off',False),('yes',True),('no',False),('full breakdown',True)]:
+            with self.subTest(state=state):
+                prop=PartPropertyIncludeInNoise(state)
+                self.assertEqual(prop.GetValue(),{'on':'yes','off':'no'}.get(state,state))
+                prop['Value']=state
+                self.assertEqual(prop.PropertyString('entry'),{'on':'yes','off':'no'}.get(state,state))
+                device={'partname':Mock(),'noise':prop}
+                device['partname'].GetValue.return_value='Output'
+                self.assertEqual(NetList._IncludeInNoise(None,device),included)
+                self.assertEqual(NetList._ShowInNoise(None,device),included)
+                device['partname'].GetValue.return_value='EyeProbe'
+                self.assertTrue(NetList._IncludeInNoise(None,device))
+                self.assertEqual(NetList._ShowInNoise(None,device),included)
+
+    def testBreakdownSpectra(self):
+        from unittest.mock import Mock
+        from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
+        from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+
+        frequencies=EvenlySpacedFrequencyList(1e9,10)
+        spectra=[SpectralDensity(frequencies,[density]*11) for density in [5e-12,1e-12,4e-12]]
+        for probeType in ['voltage','current']:
+            with self.subTest(probeType=probeType):
+                entries=[{'spectrum':spectrum,'type':probeType,'rms':spectrum.TotalRMS(),
+                          'dBm':spectrum.TotaldBm(reference=probeType),'SNR':20.,'SalzSNR':19.}
+                         for spectrum in spectra]
+                analysis={'input_names':['N1','N2'],
+                          'output_noise_spectral_density':{'P1':entries[0]},
+                          'contributions':{'P1':dict(zip(['N1','N2'],entries[1:]))},
+                          'signal_noise_spectral_density':{'P1':entries[0]},
+                          'signal_to_noise_ratio':{'P1':{'SNR':15.,'SalzSNR':14.}}}
+                dialog=Mock()
+                StatisticalNoiseDialog.UpdateNoiseBreakdown(dialog,analysis,'P1')
+                view=dialog.UpdateNoiseSpectralDensities.call_args[0][0]
+                self.assertEqual(view['output_names'],['P1','P1 due to N1','P1 due to N2'])
+                for index,name in enumerate(view['output_names']):
+                    entry=view['output_noise_spectral_density'][name]
+                    self.assertIs(entry['spectrum'],spectra[index])
+                    self.assertEqual(entry['type'],probeType)
+                    self.assertAlmostEqual(entry['rms/sqrt(GHz)'],entries[index]['rms'])
+                    self.assertAlmostEqual(entry['dBm/Hz'],entries[index]['dBm']-90.)
+                    self.assertNotIn('rms/sqrt(Hz)',entries[index])
+
+    def testBreakdownDialogLifecycle(self):
+        from unittest.mock import Mock,patch
+        from SignalIntegrity.App.Simulator import Simulator
+
+        simulator=Simulator(Mock())
+        simulator.noiseDialog=Mock()
+        from SignalIntegrity.App.PartProperty import PartPropertyIncludeInNoise,PartPropertyReferenceDesignator
+        probes=[{'ref':PartPropertyReferenceDesignator(name),'noise':PartPropertyIncludeInNoise('full breakdown')}
+            for name in ['P1','P2']]
+        simulator.parent.Drawing.schematic.deviceList=probes
+        analysis={'output_names':['P1','P2'],'contributions':{'P1':{},'P2':{}}}
+        with patch('SignalIntegrity.App.Simulator.StatisticalNoiseDialog',side_effect=lambda parent:Mock()) as constructor:
+            simulator.UpdateNoise(analysis)
+            self.assertEqual(constructor.call_count,2)
+            first=simulator.noiseBreakdownDialogs['P1']
+            second=simulator.noiseBreakdownDialogs['P2']
+            simulator.UpdateNoise(analysis)
+            self.assertEqual(constructor.call_count,2)
+            self.assertEqual(first.UpdateNoiseBreakdown.call_count,2)
+            second.winfo_exists.return_value=False
+            simulator.UpdateNoise(analysis)
+            self.assertEqual(constructor.call_count,3)
+            replacement=simulator.noiseBreakdownDialogs['P2']
+            probes[1]['noise'].SetValueFromString('yes')
+            simulator.UpdateNoise(analysis)
+            replacement.destroy.assert_called_once()
+            self.assertEqual(list(simulator.noiseBreakdownDialogs),['P1'])
+            simulator.DeleteDialogs()
+            first.destroy.assert_called_once()
+            simulator.UpdateNoise({'output_names':['P1'],'contributions':None})
+            self.assertEqual(simulator.noiseBreakdownDialogs,{})
+
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

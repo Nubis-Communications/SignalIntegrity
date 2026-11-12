@@ -30,11 +30,17 @@ class NetList(object):
         self.measureNames=[]
         self.sourceNames=[]
         self.sourceNamesToShow=[]
+        self.waveformProcessorSourceNames=[]
+        self.waveformProcessorSourceNamesToShow=[]
+        self.waveformProcessorOutputNames=[]
+        self.waveformProcessorInputMappings=[]
         self.stimNames=[]
         self.definingStimList=[]
         self.noiseSourceNames=[]
         self.noiseOutputNames=[]
         self.noiseDisplayOutputNames=[]
+        self.waveformProcessorLinearSourceNames=[]
+        self.waveformProcessorPortCounts={}
         deviceList = schematic.deviceList
 
         wires_list = copy.deepcopy(SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'])
@@ -87,9 +93,33 @@ class NetList(object):
         for device in deviceList:
             if not device['partname'].GetValue() in ['Port','Measure','Output','Stim','NetName','EyeProbe']:
                 self.textToShow.append(device.NetListLine())
-                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource']:
+                if device.netlist['DeviceName'] in ['networkanalyzerport','voltagesource','currentsource','voltagenoisesource','currentnoisesource','waveformprocessorsource']:
                     ref_name=device['ref'].GetValue()
-                    if device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']:
+                    deviceName=device.netlist['DeviceName']
+                    if deviceName == 'waveformprocessorsource':
+                        inputPortsProperty=device['inputports']
+                        outputPortsProperty=device['outputports']
+                        variablePorts=inputPortsProperty is not None and outputPortsProperty is not None
+                        if variablePorts:
+                            inputCount=max(1,int(inputPortsProperty.GetValue()))
+                            outputCount=max(1,int(outputPortsProperty.GetValue()))
+                            processorSources=[ref_name+'_out'+str(i+1) for i in range(outputCount)]
+                            processorInputs=[ref_name+'_in'+str(i+1) for i in range(inputCount)]
+                        else:
+                            inputCount=int(device['ports'].GetValue())-1
+                            outputCount=1
+                            processorSources=[ref_name]
+                            processorInputs=[ref_name if i == 0 else ref_name+'_'+str(i+1)
+                                             for i in range(inputCount)]
+                        self.waveformProcessorPortCounts[ref_name]=(inputCount,outputCount,variablePorts)
+                        self.waveformProcessorSourceNames.extend(processorSources)
+                        self.waveformProcessorLinearSourceNames.append(processorSources[0])
+                        self.waveformProcessorOutputNames.extend(processorInputs)
+                        self.waveformProcessorInputMappings.append((processorSources[0],processorInputs[0]))
+                        self.sourceNames.extend(processorSources)
+                        if device['show'] is not None and device['show'].GetValue() == 'true':
+                            self.waveformProcessorSourceNamesToShow.extend(processorSources)
+                    elif deviceName in ['voltagenoisesource','currentnoisesource']:
                         if device['ports']['Value'] == '4':
                             # this is a four-port noise source.  It has presumably had a '_$D$' (differential) or
                             # '_$C$' (common-mode) appended to its reference, so we need to remove that for the
@@ -100,7 +130,7 @@ class NetList(object):
                         self.sourceNames.append(ref_name)
                     else:
                         self.sourceNames.append(ref_name)
-                    if not device['show'] == None:
+                    if deviceName != 'waveformprocessorsource' and not device['show'] == None:
                         if device['show']['Value'] == 'true':
                             self.sourceNamesToShow.append(device['ref'].GetValue())
         # gather up all device pin coordinates
@@ -452,14 +482,81 @@ class NetList(object):
                     self.noiseSourceNames = [s for s in self.noiseSourceNames if s != ref] + [ref]
                     endinglines.append('currentnoisesource '+ref+' 1')
                     endinglines.append('connect '+ref+' 1 '+tokens[1]+' 5 '+tokens[1]+' 6')
+            elif tokens[0] in ['waveformprocessorsource']:
+                numports = int(tokens[2])
+                numinputs,numoutputs,variablePorts=self.waveformProcessorPortCounts[tokens[1]]
+                line=['device '+tokens[1]+' '+str(numports)+' open']
+                for outputIndex in range(numoutputs):
+                    sourceRef=(tokens[1]+'_out'+str(outputIndex+1)+'s' if variablePorts
+                               else tokens[1]+'s')
+                    line.append('voltagesource '+sourceRef+' 1')
+                    endinglines.append('connect '+sourceRef+' 1 '+tokens[1]+' '+str(numinputs+outputIndex+1))
+
+                for inputIndex in range(numinputs):
+                    if variablePorts:
+                        probeName=tokens[1]+'_in'+str(inputIndex+1)
+                    else:
+                        probeName=tokens[1] if inputIndex == 0 else tokens[1]+'_'+str(inputIndex+1)
+                    endinglines.append('voltageoutput '+probeName+' '+tokens[1]+' '+str(inputIndex+1))
+                    self.outputNames.append(probeName)
+
+                #Todo, add probe
+                #print(tokens)
             if not line == None:
-                textToShow.append(line)
+                if (isinstance(line, list)):
+                    textToShow += line #Enables substituting multiple lines for single lines 
+                else:
+                    textToShow.append(line)
         self.textToShow=textToShow+endinglines+SignalIntegrity.App.Project['PostProcessing'].NetListLines()
 
     def Text(self):
         return self.textToShow
     def OutputNames(self):
         return self.outputNames
+    def WaveformProcessorSourceNames(self):
+        return self.waveformProcessorSourceNames
+    def WaveformProcessorSourceNamesToShow(self):
+        return self.waveformProcessorSourceNamesToShow
+    def WaveformProcessorOutputNames(self):
+        return self.waveformProcessorOutputNames
+    def LinearizeWaveformProcessorTransferMatrices(self,transferMatrices):
+        """Return transfer matrices with processors replaced by unity gain from input 1 to output."""
+        if not self.waveformProcessorSourceNames:
+            return self.outputNames,self.sourceNames,transferMatrices
+        if not transferMatrices:
+            return [],[],transferMatrices
+
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.TransferMatrices import TransferMatrices
+
+        processorSources=[name for name in self.waveformProcessorLinearSourceNames if name in self.sourceNames]
+        processorInputs=[(source,inputName) for source,inputName in self.waveformProcessorInputMappings
+                         if source in processorSources and inputName in self.outputNames]
+        if len(processorInputs) != len(processorSources):
+            raise ValueError('waveform processor source/probe labels do not match transfer matrix labels')
+
+        hiddenSources=set(self.waveformProcessorSourceNames)
+        hiddenOutputs=set(self.waveformProcessorOutputNames)
+        outputIndices=[i for i,name in enumerate(self.outputNames) if name not in hiddenOutputs]
+        sourceIndices=[i for i,name in enumerate(self.sourceNames) if name not in hiddenSources]
+        inputProbeIndices=[self.outputNames.index(inputName) for _,inputName in processorInputs]
+        processorSourceIndices=[self.sourceNames.index(source) for source,_ in processorInputs]
+        identity=np.eye(len(processorSources),dtype=complex)
+
+        linearizedMatrices=[]
+        for transferMatrix in transferMatrices:
+            matrix=np.asarray(transferMatrix,dtype=complex)
+            direct=matrix[np.ix_(outputIndices,sourceIndices)]
+            outputFromProcessor=matrix[np.ix_(outputIndices,processorSourceIndices)]
+            inputFromSources=matrix[np.ix_(inputProbeIndices,sourceIndices)]
+            inputFromProcessor=matrix[np.ix_(inputProbeIndices,processorSourceIndices)]
+            processorOutputs=np.linalg.solve(identity-inputFromProcessor,inputFromSources)
+            linearizedMatrices.append((direct+outputFromProcessor@processorOutputs).tolist())
+
+        outputNames=[self.outputNames[i] for i in outputIndices]
+        sourceNames=[self.sourceNames[i] for i in sourceIndices]
+        return outputNames,sourceNames,TransferMatrices(transferMatrices.f,linearizedMatrices)
+
     def _IncludeInNoise(self,device):
         # Determines whether a probe's output is kept in the transfer matrices
         # and the noise results dictionary.  Eye probes are always kept (so
@@ -474,7 +571,7 @@ class NetList(object):
         noiseProperty=device['noise']
         if noiseProperty is None:
             return True
-        return noiseProperty.GetValue() == 'on'
+        return noiseProperty.GetValue() in ['on','yes','full breakdown']
     def _ShowInNoise(self,device):
         # Determines whether a kept probe is shown in the statistical noise
         # spectral density plots and listed in the noise measurements.  This is
@@ -485,7 +582,7 @@ class NetList(object):
         noiseProperty=device['noise']
         if noiseProperty is None:
             return True
-        return noiseProperty.GetValue() == 'on'
+        return noiseProperty.GetValue() in ['on','yes','full breakdown']
     def SourceNames(self):
         return self.sourceNames
     def MeasureNames(self):
@@ -494,6 +591,8 @@ class NetList(object):
         return self.waveformNames
     def SourceNamesToShow(self):
         return self.sourceNamesToShow
+    def WaveformProcessorSourceNamesToShow(self):
+        return self.waveformProcessorSourceNamesToShow
     def NoiseSourceNames(self):
         return self.noiseSourceNames
     def NoiseOutputNames(self):
