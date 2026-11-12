@@ -111,20 +111,16 @@ class DependentWaveform(Waveform):
 
     @staticmethod
     def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):
-        #The embedded script must assign each requested output waveform variable.
-        for argkey in sendargs.keys():
-            #arg=sendargs[argkey]
-            exec(argkey+' = sendargs[argkey]')
+        namespace = globals().copy()
+        namespace.update(sendargs)
         try:
-            exec(str(equations), locals())
+            exec(str(equations), namespace, namespace)
         except Exception:
             import traceback
             #Handles arbitrary exception since any could occur realistically
             raise SignalIntegrityExceptionDependentWaveform('Exception occurred in waveform processor script: ' + traceback.format_exc())
         for argkey in returnargs.keys():
-            try:
-                exec(str("returnargs[argkey] = eval(argkey)"))
-            except NameError:
+            if argkey not in namespace:
                 raise SignalIntegrityExceptionDependentWaveform('waveform processor script does not set output variable: ' +argkey)
+            returnargs[argkey] = namespace[argkey]
         return returnargs 
-
