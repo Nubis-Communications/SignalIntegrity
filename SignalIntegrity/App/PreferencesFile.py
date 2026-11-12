@@ -250,4 +250,3 @@ class PreferencesFile(ProjectFileBase):
         self['ProjectFiles.Encryption'].ApplyPreferences()
         self['Cache'].ApplyPreferences()
         self['Logging'].ApplyPreferences()
-
