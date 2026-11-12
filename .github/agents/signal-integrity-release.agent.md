@@ -58,6 +58,19 @@ bypassing its checks or confirmations.
   repository root after generation, including when Doxygen fails. Review the
   generated documentation, then stage and publish only `Doc/xhtml` in the Pages
   checkout; do not commit unrelated Pages changes.
+- The Help sources and build tools also live in the `SignalIntegrityPages`
+  checkout. Fetch and fast-forward pull `origin/gh-pages` first, and inspect any
+  local changes before building. From the SignalIntegrity repository root, run
+  `./LinkHelp.sh`, then from `SignalIntegrity/App/Help` run `./build.sh` and
+  `python verify_helpkeys.py site`. This builds the site and context-help index in
+  the Pages checkout; the build prerequisites are MkDocs, Pillow, and
+  pymdown-extensions. If they are missing, use an isolated environment rather than
+  changing system packages or project dependencies. Always run `./UnlinkHelp.sh`
+  from the source repository root after the build, including when it fails. Review
+  the generated site, then stage and publish only Help source changes and
+  `SignalIntegrity/App/Help/site`; do not include unrelated Pages changes.
+  `deploy.sh` also mirrors Doxygen output and stages additional paths, so do not
+  use it for a Help-only publication.
 
 ## Safety and interaction requirements
 
@@ -94,8 +107,8 @@ bypassing its checks or confirmations.
    files, branch divergence, or unclear versioning before starting.
 2. Ask the user to confirm the manual checklist is complete, including tests and
    Doxygen/package metadata. Respect that the user runs tests separately. If
-   documentation is to be published, perform its Pages sync/build/review/publish
-   workflow above before the release merge.
+   documentation is to be published, perform the relevant Pages sync/build/review/
+   publish workflow above before the release merge.
 3. Determine the version from `InNextRelease`, compare the branch changes with `master`,
    and draft the temporary versioned Markdown release notes. Show the draft to the user
    for review and incorporate their corrections before proceeding.
