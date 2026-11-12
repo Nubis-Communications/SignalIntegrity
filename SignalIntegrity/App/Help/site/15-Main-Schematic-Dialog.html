@@ -345,6 +345,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="35-Waveform-Processors.html">Waveform Processors</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -569,7 +573,7 @@
 </ul>
 <p>While read-only, Save, Save As, Undo, Redo, schematic clearing, adding, deleting, moving, duplicating, rotating, converting, wiring, panning, zooming, and editing part, calculation-property, variable, equation, post-processing, or picture data are disabled. Calculations, simulations, exports, archives, and viewers remain available.</p>
 <p>For a file device that refers to an s-parameter file or another project, right-clicking the device selects it and presents a View menu. Control-right-click opens View immediately. Opening a referenced project passes its configured arguments to that project; when the referenced project closes, its device is unselected in the parent read-only schematic.</p>
-<p>For a source or generator, the View menu offers View Waveform. For a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Voltage Scripted Source</a> or <a href="23-Built-in-Devices-Parts.html#device:Current-Scripted-Source">Current Scripted Source</a>, this runs its script and shows the resulting waveform; Edit Script is offered only when the schematic is writable.</p>
+<p>For a source or generator, the View menu offers View Waveform. For a <a href="23-Built-in-Devices-Parts.html#device:Voltage-Scripted-Source">Voltage Scripted Source</a> or <a href="23-Built-in-Devices-Parts.html#device:Current-Scripted-Source">Current Scripted Source</a>, this runs its script and shows the resulting waveform; Edit Script is offered only when the schematic is writable. A <a href="23-Built-in-Devices-Parts.html#device:Waveform-Processor">Waveform Processor</a> also offers Edit Script and a Variables dialog with Import from Script; see <a href="35-Waveform-Processors.html#sec:Waveform-Processors">Waveform Processors</a> for its script interface.</p>
 <p>Use <a href="15-Main-Schematic-Dialog.html#Control-Help:Make-Writable">Make Writable</a> from the File menu or toolbar to resume editing. The dialog offers two choices:</p>
 <ul>
 <li><strong>Keep Arguments Passed In</strong> keeps the current schematic, including values supplied when it was opened.</li>
@@ -2182,7 +2186,7 @@
 <td style="text-align: left;">user sample period</td>
 <td style="text-align: left;">derived</td>
 <td style="text-align: left;"><span class="arithmatex">\(userSamplePeriod=\frac{1}{userSampleRate}\)</span></td>
-<td style="text-align: left;"><a class="uri" href="UserSamplePeriod">UserSamplePeriod</a></td>
+<td style="text-align: left;"><code>UserSamplePeriod</code></td>
 </tr>
 </tbody>
 </table>
@@ -2915,7 +2919,7 @@
 <tbody>
 <tr>
 <td style="text-align: center;"><em>Menu System</em></td>
-<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> <a href="#sec:Archiving">Archiving</a>Software Documentation</td>
+<td style="text-align: center;"><a href="15-Main-Schematic-Dialog.html#sub:Help">Help</a> <a href="#Control-Help:Archive">Archiving</a>Software Documentation</td>
 </tr>
 <tr>
 <td style="text-align: center;"><em>Navigation</em></td>

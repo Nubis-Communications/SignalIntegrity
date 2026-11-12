@@ -236,6 +236,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Current-Scripted-Source">Current Scripted Source</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device:Waveform-Processor">Waveform Processor</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Port">Port</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#device:Measure-Probe">Voltage Measure Probe</a>
@@ -387,6 +389,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="34-Scripting-SignalIntegrity.html">Scripting SignalIntegrity</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="35-Waveform-Processors.html">Waveform Processors</a>
                 </li>
               </ul>
       </div>
@@ -727,6 +733,10 @@
 <li>
 <p><a href="23-Built-in-Devices-Parts.html#device:Waveform">Waveform</a></p>
 </li>
+</ul>
+<p>Waveform Processors</p>
+<ul>
+<li><a href="23-Built-in-Devices-Parts.html#device:Waveform-Processor">Waveform Processor</a></li>
 </ul>
 <p>De-embedding Elements</p>
 <ul>
@@ -4055,6 +4065,66 @@ output_waveform = [amplitude*math.sin(2.*math.pi*1e9*(ho+k/fs-t0)) if ho+k/fs &g
 </ul>
 <p>As with any current source, the circuit it drives must provide a path for the current, including at DC.</p>
 <p>If show is true, when the simulation completes, the waveform created by the source is added to the waveform list and displayed in the <a href="14-Simulator-Dialog.html#sec:Simulator-Dialog">Simulator Dialog</a>.</p>
+<h2 id="device:Waveform-Processor">Waveform Processor<a class="headerlink" href="#device:Waveform-Processor" title="Permanent link">&para;</a></h2>
+<p><img src="media/WaveformProcessor.svg" alt="Two-input, two-output waveform processor symbol" width="480" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Keyword</th>
+<th style="text-align: left;">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">default reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">WFP?</td>
+</tr>
+<tr>
+<td style="text-align: left;">reference</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">input ports</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">inputports</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">output ports</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">outputports</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">show</td>
+<td style="text-align: left;">false</td>
+</tr>
+<tr>
+<td style="text-align: left;">script</td>
+<td style="text-align: left;">Python</td>
+<td style="text-align: left;">script</td>
+<td style="text-align: left;">embedded example</td>
+</tr>
+</tbody>
+</table>
+<p>The waveform processor applies a Python transform to one or more measured input
+waveforms and supplies one or more waveforms to the circuit. The <code>py</code> label
+identifies the Python processor, and the arrow indicates processing flow from
+inputs to outputs. Inputs are numbered top-to-bottom on the left, followed by
+outputs numbered top-to-bottom on the right. Port numbers belong to the pins and
+remain fixed when the symbol is rotated. The default has one input and one output.
+Use <strong>Waveform Processor Python Script</strong> in the Add Part picker to create a
+processor directly from a Python file. For the script interface, examples,
+variables, and import workflow, see
+<a href="35-Waveform-Processors.html#sec:Waveform-Processors">Waveform Processors</a>.</p>
 <h2 id="device:Port">Port<a class="headerlink" href="#device:Port" title="Permanent link">&para;</a></h2>
 <p><img src="media/Port.png" alt="Port" width="93" height="48" /></p>
 <table>

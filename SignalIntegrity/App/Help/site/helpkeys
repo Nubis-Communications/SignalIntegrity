@@ -199,6 +199,7 @@ device:Voltage-StatisticaL-Noise-Source-Project >>> 23-Built-in-Devices-Parts.ht
 device:Voltage-Step-Generator >>> 23-Built-in-Devices-Parts.html#device:Voltage-Step-Generator
 device:W-Element >>> 23-Built-in-Devices-Parts.html#device:W-Element
 device:Waveform >>> 23-Built-in-Devices-Parts.html#device:Waveform
+device:Waveform-Processor >>> 23-Built-in-Devices-Parts.html#device:Waveform-Processor
 device:Xtalk-Measurement >>> 23-Built-in-Devices-Parts.html#device:Xtalk-Measurement
 par:Add-Schematic-Variable >>> 15-Main-Schematic-Dialog.html#par:Add-Schematic-Variable
 par:Edit-a-Variable >>> 15-Main-Schematic-Dialog.html#par:Edit-a-Variable
@@ -241,6 +242,7 @@ sec:Statistical-Noise-Dialog >>> 31-Statistical-Noise-Dialog.html#sec:Statistica
 sec:Utilities >>> 33-Utilities.html#sec:Utilities
 sec:Virtual-Probing >>> 10-Virtual-Probing.html#sec:Virtual-Probing
 sec:Waveform >>> 28-Waveform.html#sec:Waveform
+sec:Waveform-Processors >>> 35-Waveform-Processors.html#sec:Waveform-Processors
 sub:Alignment-Mode >>> 22-Eye-Diagram-Properties.html#sub:Alignment-Mode
 sub:Allow-Parallelization >>> 15-Main-Schematic-Dialog.html#sub:Allow-Parallelization
 sub:Annotate-Contour >>> 22-Eye-Diagram-Properties.html#sub:Annotate-Contour

@@ -1058,7 +1058,7 @@ The main, linear calculation properties are intended for use with all of the ***
 | number of time points | derived | $timePoints=2\cdot frequencyPoints$ | TimePoints |
 | frequency resolution | derived | $frequencyResolution=\frac{endFrequency}{frequencyPoints}$ | FrequencyResolution |
 | time length of impulse response | derived | $impulseResponseLength=\frac{frequencyPoints}{endFrequency}$ | ImpulseResponseLength |
-| user sample period | derived | $userSamplePeriod=\frac{1}{userSampleRate}$ | [UserSamplePeriod](UserSamplePeriod){.uri} |
+| user sample period | derived | $userSamplePeriod=\frac{1}{userSampleRate}$ | `UserSamplePeriod` |
 
 The value is modified by clicking inside the white area where the property value is shown. Note that all property values that are numbers are shown in engineering notation (i.e. a number with a suffix indicating the exponent). ***SignalIntegrityApp*** never uses scientific notation or anything like that. Also, if the number has units, the units are shown.
 
@@ -1514,7 +1514,7 @@ Control help stays active until you either press the escape key, or touch somewh
 
 | *Dialog* | [Main Schematic Dialog](15-Main-Schematic-Dialog.md#sec:Main-Schematic-Dialog), [S-parameter Viewer](13-S-parameter-Viewer.md#sec:S-parameter-Viewer), and [Simulator Dialog](14-Simulator-Dialog.md#sec:Simulator-Dialog) |
 |:--:|:--:|
-| *Menu System* | [Help](15-Main-Schematic-Dialog.md#sub:Help) [Archiving](#sec:Archiving)Software Documentation |
+| *Menu System* | [Help](15-Main-Schematic-Dialog.md#sub:Help) [Archiving](#Control-Help:Archive)Software Documentation |
 | *Navigation* | Alt+H,S |
 | *Key Binding* | None |
 | *Toolbar* | None |
@@ -1533,4 +1533,3 @@ This opens a web browser, leading the user to the software documentation. This i
 | *Availability* |                       Always                        |
 
 Preferences allows editing of any of the various global [Preferences](29-Preferences.md#sec:Preferences) for the application.
-
