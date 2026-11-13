@@ -95,6 +95,26 @@ class ProjectSession(object):
         self.readOnly=False
         self.stack=[]
         return self.Render()
+    def New(self,filename):
+        """starts an empty project and saves it to filename, as the tk app's File/New Project does"""
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        from SignalIntegrity.App.Files import FileParts
+        filename=os.path.realpath(str(filename))
+        if not filename.lower().endswith('.si'):
+            filename=filename+'.si'
+        if not os.path.isdir(os.path.dirname(filename)):
+            raise SessionError('folder not found: '+os.path.dirname(filename))
+        SignalIntegrity.App.Project=ProjectFile()
+        SignalIntegrity.App.Project['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
+        self.app.readOnly=False
+        self.app.fileparts=FileParts(filename)
+        self.app.Drawing.InitFromProject()
+        self.filename=filename
+        self.readOnly=False
+        self.stack=[]
+        self.Save()
+        return self.Render()
     def Save(self,filename=None):
         self._Writable()
         filename=self.filename if filename is None else os.path.realpath(str(filename))
@@ -212,6 +232,64 @@ class ProjectSession(object):
     def RotateDevice(self,index):
         self._Writable()
         self._Device(index).partPicture.current.Rotate()
+    # ---- the parts stencil, using the same catalog as the tk Add Part dialog
+    @staticmethod
+    def _Catalog():
+        from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
+        return [d for d in DeviceList+DeviceListUnknown+DeviceListSystem if d.enabled]
+    def PartCatalog(self,previews=False):
+        """@return [{index,partname,description,categories,preview?}] grouped the way the tk picker groups them"""
+        catalog=[]
+        for index,device in enumerate(self._Catalog()):
+            entry={'index':index,'partname':device['partname'].GetValue(),
+                   'description':' '.join(str(device['desc'].GetValue()).split()) if device['desc'] is not None else '',
+                   'categories':device.Categories()}
+            if previews:
+                entry['preview']=self.PartPreview(index)
+            catalog.append(entry)
+        return catalog
+    def PartPreview(self,index):
+        """@return {items,bbox} drawing primitives of a catalog part at the origin"""
+        catalog=self._Catalog()
+        if not isinstance(index,int) or not 0<=index<len(catalog):
+            raise SessionError('no part with index '+str(index))
+        canvas=RecordingCanvas()
+        try:
+            device=copy.deepcopy(catalog[index])
+            device.DrawDevice(canvas,16,0,0)
+        except Exception:
+            canvas.items=[]
+        return {'items':canvas.items,'bbox':canvas.BoundingBox()}
+    def AddPart(self,index,x,y):
+        """places a catalog part with its origin at the grid point nearest pixel x,y, gives it a
+        unique reference designator (and port number) as the tk app does, and selects it
+        @return the new device index"""
+        from SignalIntegrity.App.PartProperty import PartPropertyReferenceDesignator
+        self._Writable()
+        catalog=self._Catalog()
+        if not isinstance(index,int) or not 0<=index<len(catalog):
+            raise SessionError('no part with index '+str(index))
+        device=copy.deepcopy(catalog[index]).InitializeFromPreferences()
+        schematic=self.app.Drawing.schematic
+        if device['defref'] is not None:
+            reference=schematic.NewUniqueReferenceDesignator(device['defref'].GetValue())
+            if reference is not None:
+                device.AddPartProperty(PartPropertyReferenceDesignator(''))
+                device['ref'].SetValueFromString(reference)
+        if device['partname'].GetValue()=='Port' and device['pn'] is not None:
+            numbers=[int(d['pn'].GetValue()) for d in schematic.deviceList if d['partname'].GetValue()=='Port']
+            device['pn'].SetValueFromString(str(max(numbers,default=0)+1))
+        grid=self.Grid(); ox,oy=self.Origin()
+        device.partPicture.current.SetOrigin((int(round(float(x)/grid))-ox,int(round(float(y)/grid))-oy))
+        schematic.deviceList.append(device)
+        newIndex=len(schematic.deviceList)-1
+        self.Select(newIndex)
+        return newIndex
+    def DeleteDevice(self,index):
+        self._Writable()
+        self._Device(index)
+        del self.app.Drawing.schematic.deviceList[index]
+        self.Select(None)
     def Variables(self):
         return [{'name':v['Name'],'value':v['Value'],'type':v['Type'],'units':v['Units'],
                  'description':v['Description'],'visible':bool(v['Visible']),

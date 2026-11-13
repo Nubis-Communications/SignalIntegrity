@@ -282,5 +282,163 @@ class TestProjectSessionTest(unittest.TestCase):
             os.chdir(self.cwd)
             shutil.rmtree(directory,ignore_errors=True)
 
+class TestPartStencilTest(unittest.TestCase):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        self.session=ProjectSession()
+        self.catalog=self.session.PartCatalog()
+    def tearDown(self):
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Part(self,description):
+        return [p['index'] for p in self.catalog if p['description']==description][0]
+    def testCatalog(self):
+        self.assertGreater(len(self.catalog),100)
+        self.assertEqual([p['index'] for p in self.catalog],list(range(len(self.catalog))))
+        descriptions=[p['description'] for p in self.catalog]
+        self.assertEqual(len(descriptions),len(set(descriptions)))
+        categories={c for p in self.catalog for c in p['categories']}
+        for category in ['Resistors','Sources','Generators','Amplifiers','Transmission Lines']:
+            self.assertIn(category,categories)
+        previews=self.session.PartCatalog(previews=True)
+        json.dumps(previews)
+        self.assertTrue(all(p['preview']['items'] for p in previews))
+        with self.assertRaises(SessionError):
+            self.session.PartPreview(len(self.catalog))
+    def testNewAddDelete(self):
+        with self.assertRaises(SessionError):
+            self.session.AddPart(0,0,0)
+        drawing=self.session.New(os.path.join(self.directory,'blank'))
+        self.assertTrue(drawing['filename'].endswith('blank.si'))
+        self.assertTrue(os.path.isfile(drawing['filename']))
+        self.assertEqual(drawing['devices'],[])
+        grid=self.session.Grid()
+        resistor=self._Part('Two Port Resistor')
+        first=self.session.AddPart(resistor,10*grid+3,5*grid-2)
+        second=self.session.AddPart(resistor,20*grid,5*grid)
+        devices=self.session.Render()['devices']
+        self.assertEqual([d['ref'] for d in devices],['R1','R2'])
+        self.assertTrue(devices[second]['selected'] and not devices[first]['selected'])
+        ox,oy=self.session.Origin()
+        origin=self.session.app.Drawing.schematic.deviceList[first].partPicture.current.origin
+        self.assertEqual(tuple(origin),(10-ox,5-oy))
+        port=self._Part('Port')
+        self.session.AddPart(port,0,0); self.session.AddPart(port,0,10*grid)
+        numbers=[p['value'] for i in (2,3) for p in self.session.DeviceProperties(i) if p['keyword']=='pn']
+        self.assertEqual(numbers,['1','2'])
+        # the catalog itself must not change when a part is placed and edited
+        self.session.SetDeviceProperty(first,'r','33')
+        self.assertNotIn('33',json.dumps(self.session.PartPreview(resistor)))
+        self.session.DeleteDevice(first)
+        devices=self.session.Render()['devices']
+        self.assertEqual([(d['partname'],d['ref']) for d in devices],[('Resistor','R2'),('Port',''),('Port','')])
+        self.assertFalse(any(d['selected'] for d in devices))
+        with self.assertRaises(SessionError):
+            self.session.DeleteDevice(10)
+        self.session.Save()
+        self.assertEqual(len(ProjectSession().Open(drawing['filename'])['devices']),3)
+    def testReadOnlyLevelRejectsEdits(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        self.session.View(pid,'file')
+        with self.assertRaises(SessionError):
+            self.session.AddPart(0,0,0)
+        with self.assertRaises(SessionError):
+            self.session.DeleteDevice(0)
+
+class TestThemesTest(unittest.TestCase):
+    DARK_THEME='''{
+        // a comment, a trailing comma and a URL that is not a comment
+        "name": "Child Dark",
+        "type": "dark",
+        "include": "./base.json",
+        "colors": {
+            "editor.foreground": "#e0e0e0",
+            "textLink.foreground": "#4daafc",
+            "terminal.ansiBlue": "#6699ff", "terminal.ansiYellow": "#ffcc00",
+            "terminal.ansiGreen": "#66cc66", "terminal.ansiRed": "#ff6666",
+        },
+        "$schema": "vscode://schemas/color-theme", /* block comment */
+    }'''
+    BASE_THEME='{"colors":{"editor.background":"#1a1b26","sideBar.background":"#16161e","editor.foreground":"#000000"}}'
+    PACKAGE={'name':'test-themes','displayName':'%displayName%',
+             'contributes':{'themes':[{'label':'Child Dark','uiTheme':'vs-dark','path':'./themes/child.json'},
+                                      {'label':'Plain Light','uiTheme':'vs','path':'./themes/light.json'},
+                                      {'label':'TextMate','uiTheme':'vs','path':'./themes/old.tmTheme'}]}}
+    def setUp(self):
+        from SignalIntegrity.GuiCore import Themes
+        self.Themes=Themes
+        self.directory=tempfile.mkdtemp()
+        self.extension=os.path.join(self.directory,'extensions','publisher.test-themes-1.0.0')
+        os.makedirs(os.path.join(self.extension,'themes'))
+        self._Write('package.json',json.dumps(self.PACKAGE))
+        self._Write('package.nls.json','{"displayName":"Test Themes"}')
+        self._Write('themes/child.json',self.DARK_THEME)
+        self._Write('themes/base.json',self.BASE_THEME)
+        self._Write('themes/light.json','{"type":"light","colors":{"editor.background":"#fdf6e3"}}')
+    def tearDown(self):
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Write(self,name,text):
+        with open(os.path.join(self.extension,*name.split('/')),'w') as f:
+            f.write(text)
+    def testJsonc(self):
+        value=self.Themes.ParseJsonc('{"a":"http://x", // c\n"b":[1,2,],/* d */}')
+        self.assertEqual(value,{'a':'http://x','b':[1,2]})
+    def testDiscoverAndInclude(self):
+        themes=self.Themes.DiscoverThemes([os.path.join(self.directory,'extensions')])
+        self.assertEqual([t['id'] for t in themes[:2]],['builtin:light','builtin:dark'])
+        labels={t['label']:t for t in themes[2:]}
+        self.assertEqual(sorted(labels),['Child Dark','Plain Light'])
+        self.assertEqual(labels['Child Dark']['extension'],'Test Themes')
+        name,palette=self.Themes.LoadTheme(labels['Child Dark']['id'])
+        self.assertEqual(name,'Child Dark')
+        self.assertTrue(palette['dark'])
+        self.assertEqual(palette['background'],'#1a1b26')   # from the included file
+        self.assertEqual(palette['panel'],'#16161e')
+        self.assertEqual(palette['foreground'],'#e0e0e0')   # the including file wins
+        self.assertEqual(palette['traces'][:4],['#6699ff','#ffcc00','#66cc66','#ff6666'])
+        name,palette=self.Themes.LoadTheme(labels['Plain Light']['id'])
+        self.assertFalse(palette['dark'])
+        self.assertEqual(palette['schematicBackground'],'#fdf6e3')
+        self.assertEqual(name,'light')
+    def testVsix(self):
+        import zipfile
+        vsix=os.path.join(self.directory,'test.vsix')
+        with zipfile.ZipFile(vsix,'w') as z:
+            for root,_,files in os.walk(self.extension):
+                for f in files:
+                    full=os.path.join(root,f)
+                    z.write(full,'extension/'+os.path.relpath(full,self.extension).replace(os.sep,'/'))
+        themes=self.Themes.ThemesInPackage(vsix)
+        self.assertEqual([t['label'] for t in themes],['Child Dark','Plain Light'])
+        self.assertEqual(self.Themes.LoadTheme(themes[0]['id'])[1]['background'],'#1a1b26')
+        self.assertEqual(self.Themes.LoadTheme(vsix)[0],'Child Dark')
+    def testErrors(self):
+        with self.assertRaises(self.Themes.ThemeError):
+            self.Themes.LoadTheme(os.path.join(self.directory,'missing.json'))
+        self._Write('themes/loop.json','{"include":"./loop.json"}')
+        with self.assertRaises(self.Themes.ThemeError):
+            self.Themes.LoadTheme(os.path.join(self.extension,'themes','loop.json'))
+    def testReadableSchematic(self):
+        for themeId in self.Themes.BUILTIN:
+            palette=self.Themes.LoadTheme(themeId)[1]
+            colorMap=self.Themes.SchematicColorMap(palette)
+            self.assertEqual(set(colorMap),{'black','blue','salmon','white'})
+            ink=self.Themes._Rgb(colorMap['black'])[0]; paper=self.Themes._Rgb(colorMap['white'])[0]
+            self.assertGreater(self.Themes._Contrast(ink,paper),7.)
+        # a selection color that would vanish on the background is replaced
+        palette=self.Themes.Palette({'type':'dark','colors':{'editor.background':'#000000','textLink.foreground':'#010101'}})
+        self.assertGreaterEqual(self.Themes._Contrast(self.Themes._Rgb(palette['schematicSelected'])[0],(0,0,0)),3.)
+    def testSavedTheme(self):
+        from unittest import mock
+        settings=os.path.join(self.directory,'settings','gui-theme.json')
+        with mock.patch.object(self.Themes,'SettingsFile',return_value=settings):
+            self.assertEqual(self.Themes.CurrentTheme()[0],'builtin:light')
+            self.Themes.SaveThemeId('builtin:dark')
+            self.assertEqual(self.Themes.CurrentTheme()[:2],('builtin:dark','SignalIntegrity Dark'))
+            self.Themes.SaveThemeId(os.path.join(self.directory,'gone.json'))
+            self.assertEqual(self.Themes.CurrentTheme()[0],'builtin:light')
+
 if __name__ == '__main__':
     unittest.main()

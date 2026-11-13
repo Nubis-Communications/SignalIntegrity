@@ -25,10 +25,13 @@ from PySide6.QtWidgets import QGraphicsView, QGraphicsScene
 
 TEXT_FONT=QFont('Helvetica')
 TEXT_FONT.setPixelSize(11)
+PART_MIME='application/x-signalintegrity-part'
 
-def _color(name):
+def _color(name,colorMap=None):
+    if colorMap and name:
+        name=colorMap.get(str(name).lower(),name)
     color=QColor(name) if name else QColor()
-    return color if color.isValid() else QColor('black')
+    return color if color.isValid() else QColor(colorMap.get('black','black') if colorMap else 'black')
 
 def _arrowhead(tip,tail,shape):
     """tk.Canvas arrowshape (d1,d2,d3): d1 tip-to-neck, d2 tip-to-trailing points, d3 half width"""
@@ -42,13 +45,14 @@ def _arrowhead(tip,tail,shape):
                       QPointF(tip[0]-ux*d1,tip[1]-uy*d1),
                       QPointF(tip[0]-ux*d2-px*d3,tip[1]-uy*d2-py*d3)])
 
-def AddPrimitives(scene,items):
-    """adds RecordingCanvas primitives to a QGraphicsScene"""
+def AddPrimitives(scene,items,colorMap=None):
+    """adds RecordingCanvas primitives to a QGraphicsScene, optionally recoloring tk color names"""
+    _c=lambda name: _color(name,colorMap)
     for item in items:
         kind=item['type']
         if kind=='line':
             pts=item['points']
-            pen=QPen(_color(item['color']),item.get('width',1.))
+            pen=QPen(_c(item['color']),item.get('width',1.))
             pen.setCapStyle(Qt.RoundCap)
             if 'dash' in item:
                 pen.setDashPattern(item['dash'])
@@ -59,7 +63,7 @@ def AddPrimitives(scene,items):
             arrow=item.get('arrow')
             if arrow and len(pts)>=4:
                 shape=item.get('arrowshape',[8.,10.,3.])
-                brush=QBrush(_color(item['color']))
+                brush=QBrush(_c(item['color']))
                 if arrow in ('last','both'):
                     scene.addPolygon(_arrowhead(pts[-2:],pts[-4:-2],shape),QPen(Qt.NoPen),brush)
                 if arrow in ('first','both'):
@@ -67,14 +71,14 @@ def AddPrimitives(scene,items):
         elif kind=='polygon':
             pts=item['points']
             polygon=QPolygonF([QPointF(pts[k],pts[k+1]) for k in range(0,len(pts)-1,2)])
-            pen=QPen(_color(item['outline'])) if item.get('outline') else QPen(Qt.NoPen)
-            brush=QBrush(_color(item['fill'])) if item.get('fill') else QBrush()
+            pen=QPen(_c(item['outline'])) if item.get('outline') else QPen(Qt.NoPen)
+            brush=QBrush(_c(item['fill'])) if item.get('fill') else QBrush()
             scene.addPolygon(polygon,pen,brush)
         elif kind in ('rectangle','oval'):
             x0,y0,x1,y1=item['bbox']
             rect=QRectF(QPointF(min(x0,x1),min(y0,y1)),QPointF(max(x0,x1),max(y0,y1)))
-            pen=QPen(_color(item['outline'])) if item.get('outline') else QPen(Qt.NoPen)
-            brush=QBrush(_color(item['fill'])) if item.get('fill') else QBrush()
+            pen=QPen(_c(item['outline'])) if item.get('outline') else QPen(Qt.NoPen)
+            brush=QBrush(_c(item['fill'])) if item.get('fill') else QBrush()
             if kind=='rectangle':
                 scene.addRect(rect,pen,brush)
             else:
@@ -85,10 +89,10 @@ def AddPrimitives(scene,items):
             path=QPainterPath()
             path.arcMoveTo(rect,item['start'])
             path.arcTo(rect,item['start'],item['extent'])
-            scene.addPath(path,QPen(_color(item['outline'])))
+            scene.addPath(path,QPen(_c(item['outline'])))
         elif kind=='text':
             textItem=scene.addSimpleText(item['text'],TEXT_FONT)
-            textItem.setBrush(QBrush(_color(item['color'])))
+            textItem.setBrush(QBrush(_c(item['color'])))
             r=textItem.boundingRect()
             anchor=item.get('anchor') or 'center'
             x=item['x']-(0. if 'w' in anchor else r.width() if 'e' in anchor else r.width()/2.)
@@ -96,11 +100,15 @@ def AddPrimitives(scene,items):
             textItem.setPos(x,y)
 
 class SchematicView(QGraphicsView):
-    """read/select/move view of a schematic rendered from GuiCore primitives"""
+    """select/move view of a schematic rendered from GuiCore primitives, accepting parts
+    dragged from the stencil or placed with a click"""
     deviceClicked=Signal(object)
     deviceDoubleClicked=Signal(int)
     deviceDragged=Signal(int,int,int)
     deviceContextMenu=Signal(int,object,bool)
+    partDropped=Signal(int,float,float)
+    deleteRequested=Signal()
+    placingCancelled=Signal()
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setScene(QGraphicsScene(self))
@@ -108,25 +116,39 @@ class SchematicView(QGraphicsView):
         self.setBackgroundBrush(QBrush(QColor('white')))
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
         self.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.setAcceptDrops(True)
         self.devices=[]
         self.grid=16
+        self.colorMap=None
+        self.drawing=None
+        self.fitRect=QRectF()
+        self.placing=None
         self._press=None
         self._pressDevice=None
+    def ApplyPalette(self,palette):
+        from SignalIntegrity.GuiCore.Themes import SchematicColorMap
+        self.colorMap=SchematicColorMap(palette)
+        self.setBackgroundBrush(QBrush(QColor(palette['schematicBackground'])))
+        if self.drawing is not None:
+            self.SetDrawing(self.drawing)
     def SetDrawing(self,drawing,fit=False):
+        self.drawing=drawing
         scene=self.scene()
         scene.clear()
-        AddPrimitives(scene,drawing['items'])
+        AddPrimitives(scene,drawing['items'],self.colorMap)
         self.devices=drawing['devices']
         self.grid=drawing['grid']
-        bbox=drawing['bbox']
-        if bbox is not None:
-            margin=2*self.grid
-            scene.setSceneRect(QRectF(bbox[0]-margin,bbox[1]-margin,bbox[2]-bbox[0]+2*margin,bbox[3]-bbox[1]+2*margin))
+        bbox=drawing['bbox'] or [0,0,40*self.grid,30*self.grid]
+        margin=2*self.grid
+        self.fitRect=QRectF(bbox[0]-margin,bbox[1]-margin,bbox[2]-bbox[0]+2*margin,bbox[3]-bbox[1]+2*margin)
+        # leave room around the drawing to drop new parts
+        room=40*self.grid
+        scene.setSceneRect(self.fitRect.adjusted(-room,-room,room,room))
         if fit:
             self.ZoomFit()
     def ZoomFit(self):
-        if not self.scene().sceneRect().isEmpty():
-            self.fitInView(self.scene().sceneRect(),Qt.KeepAspectRatio)
+        if not self.fitRect.isEmpty():
+            self.fitInView(self.fitRect,Qt.KeepAspectRatio)
     def Zoom(self,factor):
         self.scale(factor,factor)
     def DeviceAt(self,scenePoint):
@@ -139,6 +161,12 @@ class SchematicView(QGraphicsView):
     def wheelEvent(self,event):
         self.Zoom(1.15 if event.angleDelta().y()>0 else 1/1.15)
     def mousePressEvent(self,event):
+        if event.button()==Qt.LeftButton and self.placing is not None:
+            point=self.mapToScene(event.position().toPoint())
+            index=self.placing
+            self.StopPlacing()
+            self.partDropped.emit(index,point.x(),point.y())
+            return
         if event.button()==Qt.LeftButton:
             point=self.mapToScene(event.position().toPoint())
             self._pressDevice=self.DeviceAt(point)
@@ -168,3 +196,39 @@ class SchematicView(QGraphicsView):
         if index is None:
             return super().contextMenuEvent(event)
         self.deviceContextMenu.emit(index,event.globalPos(),bool(event.modifiers() & Qt.ControlModifier))
+    # ---- placing parts from the stencil
+    def StartPlacing(self,index):
+        self.placing=index
+        self.setDragMode(QGraphicsView.NoDrag)
+        self.viewport().setCursor(Qt.CrossCursor)
+        self.setFocus()
+    def StopPlacing(self):
+        self.placing=None
+        self.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.viewport().unsetCursor()
+    def keyPressEvent(self,event):
+        if event.key()==Qt.Key_Escape and self.placing is not None:
+            self.StopPlacing()
+            self.placingCancelled.emit()
+            return
+        if event.key() in (Qt.Key_Delete,Qt.Key_Backspace):
+            self.deleteRequested.emit()
+            return
+        super().keyPressEvent(event)
+    def dragEnterEvent(self,event):
+        if event.mimeData().hasFormat(PART_MIME):
+            event.acceptProposedAction()
+        else:
+            super().dragEnterEvent(event)
+    def dragMoveEvent(self,event):
+        if event.mimeData().hasFormat(PART_MIME):
+            event.acceptProposedAction()
+        else:
+            super().dragMoveEvent(event)
+    def dropEvent(self,event):
+        if not event.mimeData().hasFormat(PART_MIME):
+            return super().dropEvent(event)
+        index=int(bytes(event.mimeData().data(PART_MIME)).decode())
+        point=self.mapToScene(event.position().toPoint())
+        event.acceptProposedAction()
+        self.partDropped.emit(index,point.x(),point.y())

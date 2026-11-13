@@ -56,6 +56,7 @@ setup(
                  'SignalIntegrity.Utilities':'SignalIntegrity/Utilities'},
     packages=find_packages('.'),
     include_package_data=True,
+    package_data={'SignalIntegrity.QtApp':['icons/*.png','icons/*.ico']},
     data_files=[('.',['LICENSE.txt','README.md']),
                 (pathToIcons, [pathToIcons+'/AppIcon2.gif',
                                pathToIcons+'/AppIcon2.ico',

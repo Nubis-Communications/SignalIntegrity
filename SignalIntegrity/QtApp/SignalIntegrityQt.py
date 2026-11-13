@@ -27,8 +27,14 @@ def main(argv=None):
         sys.stderr.write('PySide6 is required: pip install SignalIntegrity[qt]\n')
         return 1
     from SignalIntegrity.QtApp.MainWindow import MainWindow
+    from SignalIntegrity.QtApp.Theme import AppIcon
+    if sys.platform.startswith('win'):
+        # gives the app its own taskbar entry and icon instead of python.exe's
+        import ctypes
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('Nubis.SignalIntegrity.Qt')
     app=QApplication.instance() or QApplication(argv)
     app.setApplicationName('SignalIntegrity (Qt)')
+    app.setWindowIcon(AppIcon())
     window=MainWindow()
     window.show()
     if len(argv)>1:

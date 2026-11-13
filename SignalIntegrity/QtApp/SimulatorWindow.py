@@ -43,8 +43,8 @@ def _SetPreference(name,value):
         pass
 
 def _Colors():
-    import matplotlib
-    return matplotlib.rcParams['axes.prop_cycle'].by_key()['color']
+    from SignalIntegrity.QtApp.Theme import Current
+    return Current()['traces']
 
 class PlotPanel(QWidget):
     """matplotlib figure with the navigation toolbar starting in pan mode and an autoscale button,
@@ -194,7 +194,10 @@ class SimulatorWindow(QMainWindow):
         if self.maxy is not None:
             self.plt.set_ylim(top=self.maxy)
         if self.showGridsAction.isChecked():
-            self.plt.grid(True,'both')
+            from SignalIntegrity.QtApp.Theme import GridColor
+            self.plt.grid(True,'both',color=GridColor())
+        from SignalIntegrity.QtApp.Theme import StyleAxes
+        StyleAxes(self.panel.figure,self.plt)
         self.zoomsInitialized=True
         self.panel.canvas.draw()
         self._TrackLimits()
@@ -316,9 +319,12 @@ class SParametersWindow(QMainWindow):
                 plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
                 plt.set_ylabel(ylabel,fontsize=10)
                 if _Preference('Appearance.GridsOnPlots',True):
-                    plt.grid(True,'both')
+                    from SignalIntegrity.QtApp.Theme import GridColor
+                    plt.grid(True,'both',color=GridColor())
                 if sp.m_P<=4:
                     plt.legend(loc='upper right',labelspacing=0.1)
+                from SignalIntegrity.QtApp.Theme import StyleAxes
+                StyleAxes(panel.figure,plt)
                 panel.autoscaleButton.clicked.connect(lambda checked=False,p=panel: (p.axes.autoscale(True),p.canvas.draw()))
                 self.panels.append(panel)
                 tabs.addTab(panel,panel.label.text())

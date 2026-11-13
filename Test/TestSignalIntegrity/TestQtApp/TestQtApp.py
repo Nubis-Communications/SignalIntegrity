@@ -147,5 +147,109 @@ class TestQtAppTest(unittest.TestCase):
         self.assertEqual(int(round(lines**0.5))**2,lines)
         self.assertEqual(str(panels[0].toolbar.mode),'pan/zoom')
 
+@unittest.skipUnless(havePySide6,'PySide6 is not installed')
+class TestQtStencilAndThemesTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.qapp=QApplication.instance() or QApplication([])
+    def setUp(self):
+        import tempfile
+        from unittest import mock
+        from SignalIntegrity.GuiCore import Themes
+        from SignalIntegrity.QtApp.MainWindow import MainWindow
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        # never touch the user's saved theme
+        self.patch=mock.patch.object(Themes,'SettingsFile',return_value=os.path.join(self.directory,'gui-theme.json'))
+        self.patch.start()
+        self.errors=[]
+        self.window=MainWindow()
+        self.window.Error=self.errors.append
+        self.window.resize(1200,800)
+    def tearDown(self):
+        import shutil
+        from SignalIntegrity.QtApp import Theme
+        Theme.Apply('builtin:light',save=False)
+        self.window.close()
+        self.patch.stop()
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Part(self,description):
+        return [p['index'] for p in self.window.partsDock.catalog if p['description']==description][0]
+    def testStencilPopulatedAndFiltered(self):
+        dock=self.window.partsDock
+        tree=dock.tree
+        self.assertGreater(len(dock.catalog),100)
+        self.assertGreater(tree.topLevelItemCount(),10)
+        self.assertFalse(dock.widget().isEnabled())    # nothing open yet
+        dock.search.setText('skin resistor')
+        visible=[tree.topLevelItem(i).child(k).text(0) for i in range(tree.topLevelItemCount())
+                 for k in range(tree.topLevelItem(i).childCount())
+                 if not tree.topLevelItem(i).isHidden() and not tree.topLevelItem(i).child(k).isHidden()]
+        self.assertEqual(visible,['Two Port Skin-Effect Resistor'])
+    def testNewDropPlaceDelete(self):
+        from PySide6.QtCore import Qt, QPoint, QPointF
+        from PySide6.QtGui import QDropEvent
+        from PySide6.QtTest import QTest
+        self.assertTrue(self.window.OpenProject(os.path.join(self.directory,'fresh'),new=True))
+        self.assertTrue(self.window.partsDock.widget().isEnabled())
+        view=self.window.view
+        # drag a resistor from the stencil and drop it on the schematic
+        item=[it for it in self.window.partsDock.tree.findItems('Two Port Resistor',Qt.MatchExactly|Qt.MatchRecursive)][0]
+        data=self.window.partsDock.tree.mimeData([item])
+        drop=QDropEvent(QPointF(view.viewport().rect().center()),Qt.CopyAction,data,Qt.LeftButton,Qt.NoModifier)
+        view.dropEvent(drop)
+        self.assertEqual([d['ref'] for d in view.devices],['R1'])
+        self.assertEqual(self.window.selected,0)
+        self.assertTrue(self.window.deleteAction.isEnabled())
+        # double-click arms placement, a click places it
+        self.window.OnPlaceRequested(self._Part('One Port Capacitor to Ground'))
+        self.assertIsNotNone(view.placing)
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,view.viewport().rect().center()+QPoint(80,0))
+        self.assertIsNone(view.placing)
+        self.assertEqual([d['ref'] for d in view.devices],['R1','C1'])
+        # Esc cancels placement
+        self.window.OnPlaceRequested(0)
+        QTest.keyClick(view,Qt.Key_Escape)
+        self.assertIsNone(view.placing)
+        self.assertEqual(len(view.devices),2)
+        # Delete removes the selected part
+        QTest.keyClick(view,Qt.Key_Delete)
+        self.assertEqual([d['ref'] for d in view.devices],['R1'])
+        self.assertIsNone(self.window.selected)
+        self.assertFalse(self.window.deleteAction.isEnabled())
+        self.window.OnSave()
+        self.assertEqual(self.errors,[])
+    def testThemeSwitchRecolors(self):
+        from SignalIntegrity.GuiCore import Themes
+        from SignalIntegrity.QtApp import Theme
+        self.window.OpenProject(os.path.join(EXAMPLES,'RLC.si'))
+        def background():
+            return self.window.view.backgroundBrush().color().name()
+        self.window.SetTheme('builtin:dark')
+        dark=Themes.LoadTheme('builtin:dark')[1]
+        self.assertEqual(background(),dark['schematicBackground'])
+        self.assertEqual(Theme.CurrentId(),'builtin:dark')
+        self.assertEqual(Themes.SavedThemeId(),'builtin:dark')
+        from PySide6.QtCore import Qt
+        inks={item.pen().color().name() for item in self.window.view.scene().items()
+              if hasattr(item,'pen') and item.pen().style()!=Qt.NoPen}
+        self.assertIn(dark['schematicInk'],inks)
+        self.assertNotIn('#000000',inks)
+        # a theme file the user picks from disk
+        path=os.path.join(self.directory,'mine.json')
+        with open(path,'w') as f:
+            f.write('{"name":"Mine","type":"dark","colors":{"editor.background":"#202030",}}')
+        self.window.SetTheme(path)
+        self.assertEqual(background(),'#202030')
+        self.assertEqual(self.window.themeName,'Mine')
+        self.window.SetTheme(os.path.join(self.directory,'missing.json'))
+        self.assertEqual(len(self.errors),1)
+        self.assertEqual(background(),'#202030')
+        self.window.BuildThemeMenu()
+        labels=[a.text() for a in self.window.themeMenu.actions()]
+        self.assertIn('SignalIntegrity Dark',labels)
+        self.assertIn('Load Theme File...',labels)
+
 if __name__ == '__main__':
     unittest.main()
