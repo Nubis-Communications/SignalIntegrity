@@ -34,9 +34,9 @@ flowchart LR
 Startup sequence:
 
 1. Tauri opens the main window on a bundled loading page (`Tauri/loading`).
-2. `main.rs` looks for a Python interpreter (`$SIGNALINTEGRITY_PYTHON`, then `python`,
-   `python3`, `py -3`) and runs `python -m SignalIntegrity.Server [project.si]` with its
-   stdout piped and no console window.
+2. `main.rs` looks for a Python interpreter (`$SIGNALINTEGRITY_PYTHON`, then the checkout's
+   `.venv`, then `python`, `python3`, `py -3`) and runs `python -m SignalIntegrity.Server [project.si]`
+   with its stdout piped and no console window.
 3. The server binds a random free port on `127.0.0.1`, creates a random access token, and
    prints one JSON ready line. Only the parent process can see it.
 4. The shell navigates the window to `http://127.0.0.1:<port>/#token=<token>`. From then on,
@@ -68,6 +68,16 @@ without a checkout use whatever `SignalIntegrity` the chosen interpreter imports
 Prerequisites: Rust (stable, MSVC toolchain on Windows), Node.js 18+ (only for the Tauri CLI
 and bundling), Python 3 with SignalIntegrity's requirements. Windows also needs the WebView2
 runtime, which is preinstalled on Windows 10/11.
+
+Keep the Python requirements out of the global installation with a virtual environment in
+the checkout. The shell finds `.venv` automatically, `.venv/` is ignored by git, and
+`.vscode/settings.json` selects it:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\python -m pip install -e .[test]
+.venv\Scripts\python -m SignalIntegrity.Server --browser   # browser-only, without Rust
+```
 
 ```bash
 cd Tauri

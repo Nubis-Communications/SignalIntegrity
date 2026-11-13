@@ -24,11 +24,18 @@ struct ServerInfo {
     url: String,
 }
 
-/// python interpreters to try, in order: $SIGNALINTEGRITY_PYTHON, then python, python3, py -3
+/// python interpreters to try, in order: $SIGNALINTEGRITY_PYTHON, the checkout's .venv, then python, python3, py -3
 fn python_candidates() -> Vec<(String, Vec<String>)> {
     let mut candidates = Vec::new();
     if let Ok(python) = std::env::var("SIGNALINTEGRITY_PYTHON") {
         candidates.push((python, vec![]));
+    }
+    if let Some(root) = source_root() {
+        let venv = root.join(".venv");
+        let python = if cfg!(windows) { venv.join("Scripts").join("python.exe") } else { venv.join("bin").join("python") };
+        if python.is_file() {
+            candidates.push((python.to_string_lossy().into_owned(), vec![]));
+        }
     }
     candidates.push(("python".into(), vec![]));
     candidates.push(("python3".into(), vec![]));
