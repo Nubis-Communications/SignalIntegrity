@@ -52,12 +52,8 @@ class TestIXTTest(unittest.TestCase,
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-        import platform
-        thisOS=platform.system()
-        if thisOS == 'Linux':
-            self.python = 'python3'
-        else:
-            self.python = 'python.exe'
+        import sys
+        self.python = '"'+sys.executable+'"'
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)
@@ -282,11 +278,7 @@ class TestIXTTest(unittest.TestCase,
         self.formIXTMain_argv(replace={'frequency_points':'50kHz'})
         #sys.argv.append('-v')
         #sys.argv.append('-p')
-        if self.python == 'python3': # linux
-            output = '/dev/null'
-        else: # windows
-            output = 'nul'
-        with open(output,'w') as f:
+        with open(os.devnull,'w') as f:
             from contextlib import redirect_stderr
             with redirect_stderr(f):
                 try:
@@ -295,7 +287,6 @@ class TestIXTTest(unittest.TestCase,
                     self.assertEqual(e.code,2,'IXT_Main did not exit properly') # should fail
                     return
                 finally:
-                    import os
                     try:
                         os.remove('NULL')
                     except FileNotFoundError:
