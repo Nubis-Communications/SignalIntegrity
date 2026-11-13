@@ -1,6 +1,6 @@
 [package]
 name = "signalintegrity-desktop"
-version = "1.5.6"
+version = "1.5.7"
 description = "SignalIntegrity desktop GUI (Tauri shell around the SignalIntegrity Python server)"
 authors = ["Nubis Communications, Inc."]
 license = "GPL-3.0-or-later"
