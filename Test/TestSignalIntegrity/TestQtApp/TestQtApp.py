@@ -72,27 +72,80 @@ class TestQtAppTest(unittest.TestCase):
         self.assertEqual(self.window.selected,device['index'])
         self.assertTrue(self.window.rotateAction.isEnabled())
         row=self.window.propertyKeywords.index('r')
-        self.window.propertiesTable.item(row,1).setText('22')
-        self.assertTrue(self.window.propertiesTable.item(row,1).text().startswith('22.0'))
+        self.window.propertiesTable.item(row,3).setText('22')
+        self.assertTrue(self.window.propertiesTable.item(row,3).text().startswith('22.0'))
         self.assertIn('device R1 1 R 22.0',self.window.session.NetList())
+        self.assertEqual(self.errors,[])
+    def testPropertyVisibilityCheckboxes(self):
+        from PySide6.QtCore import Qt
+        self.window.OpenProject(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in self.window.view.devices if d['ref']=='PID'][0]['index']
+        self.window.OnDeviceClicked(pid)
+        row=self.window.propertyKeywords.index('ref')
+        texts=lambda: [i.text() for i in self.window.view.scene().items() if hasattr(i,'text') and callable(i.text)]
+        self.assertNotIn('ref PID',texts())
+        self.window.propertiesTable.item(row,1).setCheckState(Qt.Checked)
+        self.assertIn('ref PID',texts())
+        self.window.variablesTable.item(0,0).setCheckState(Qt.Unchecked)
+        self.assertNotIn('PID_P 60.0 ',texts())
+        self.assertEqual(self.errors,[])
+    def testTraversal(self):
+        self.window.OpenProject(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in self.window.view.devices if d['ref']=='PID'][0]['index']
+        self.window.OnDeviceClicked(pid)
+        self.assertTrue(self.window.viewDeviceAction.isEnabled())
+        self.assertFalse(self.window.upAction.isEnabled())
+        self.window.OnViewSelected()
+        self.assertIn('PIDSimulation.si > PID.si (Read Only)',self.window.windowTitle())
+        self.assertTrue(self.window.upAction.isEnabled())
+        self.assertFalse(self.window.saveAction.isEnabled())
+        self.assertEqual([self.window.variablesTable.item(r,2).text() for r in range(3)],['60.0','500.0','15.0'])
+        self.window.OnAscend()
+        self.assertNotIn('Read Only',self.window.windowTitle())
+        self.assertEqual(self.window.selected,pid)
         self.assertEqual(self.errors,[])
     def testSimulateShowsResults(self):
         self.window.OpenProject(os.path.join(EXAMPLES,'RLC.si'))
         self.window.RunCalculation('simulate')
         self._Wait()
         self.assertEqual(self.errors,[])
-        self.assertEqual(len(self.window.resultsWindows),1)
-        axes=self.window.resultsWindows[0].figures[0].axes[0]
-        self.assertEqual([line.get_label() for line in axes.get_lines()],['Vout'])
+        simulator=list(self.window.simulatorWindows.values())[0]
+        self.assertEqual([line.get_label() for line in simulator.plt.get_lines()],['Vout'])
+        # like the tk simulator dialog, the toolbar starts in pan mode
+        self.assertEqual(str(simulator.panel.toolbar.mode),'pan/zoom')
+    def testZoomRetainedAcrossRecalculation(self):
+        self.window.OpenProject(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        self.window.RunCalculation('simulate')
+        self._Wait()
+        simulator=list(self.window.simulatorWindows.values())[0]
+        self.assertEqual([l.get_label() for l in simulator.plt.get_lines()],['VO','VPID','VU','P','I','D','Vin'])
+        simulator.plt.set_xlim(-0.2,0.4)
+        simulator.plt.set_ylim(-1.,2.)
+        simulator.recalculate.emit()
+        self._Wait()
+        self.assertIs(list(self.window.simulatorWindows.values())[0],simulator)
+        self.assertEqual(tuple(simulator.plt.get_xlim()),(-0.2,0.4))
+        self.assertEqual(tuple(simulator.plt.get_ylim()),(-1.,2.))
+        # hiding a waveform keeps the zoom too
+        simulator.selections[0].setChecked(False)
+        simulator.onSelection()
+        self.assertEqual(tuple(simulator.plt.get_xlim()),(-0.2,0.4))
+        self.assertNotIn('VO',[l.get_label() for l in simulator.plt.get_lines()])
+        simulator.onAutoscale()
+        self.assertNotEqual(tuple(simulator.plt.get_xlim()),(-0.2,0.4))
+        simulator.contentAction.trigger()
+        self.assertEqual(simulator.panel.label.text(),'Spectral Content')
+        self.assertEqual(self.errors,[])
     def testSParametersShowsResults(self):
         self.window.OpenProject(os.path.join(EXAMPLES,'RLCTest2SP.si'))
         self.window.RunCalculation('sparameters')
         self._Wait()
         self.assertEqual(self.errors,[])
-        figures=self.window.resultsWindows[0].figures
-        self.assertEqual(len(figures),2)
-        lines=len(figures[0].axes[0].get_lines())
+        panels=self.window.resultsWindows[0].panels
+        self.assertEqual(len(panels),2)
+        lines=len(panels[0].axes.get_lines())
         self.assertEqual(int(round(lines**0.5))**2,lines)
+        self.assertEqual(str(panels[0].toolbar.mode),'pan/zoom')
 
 if __name__ == '__main__':
     unittest.main()

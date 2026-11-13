@@ -23,11 +23,11 @@ from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QAction, QKeySequence
 from PySide6.QtWidgets import (QMainWindow, QDockWidget, QTableWidget, QTableWidgetItem, QFileDialog,
     QMessageBox, QWidget, QFormLayout, QLineEdit, QPushButton, QPlainTextEdit, QDialog, QVBoxLayout,
-    QProgressDialog, QHeaderView, QAbstractItemView)
+    QProgressDialog, QHeaderView, QAbstractItemView, QMenu, QComboBox)
 
 from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
 from SignalIntegrity.QtApp.SchematicView import SchematicView
-from SignalIntegrity.QtApp.ResultsWindow import ResultsWindow
+from SignalIntegrity.QtApp.SimulatorWindow import SimulatorWindow, SParametersWindow, EyeDiagramWindow
 
 CALCULATION_TITLES={'simulate':'Simulate','sparameters':'Calculate S-parameters',
                     'virtualprobe':'Virtual Probe','deembed':'De-embed'}
@@ -35,7 +35,7 @@ CALCULATION_TITLES={'simulate':'Simulate','sparameters':'Calculate S-parameters'
 class CalculationWorker(QThread):
     """runs a ProjectSession calculation off the GUI thread"""
     progress=Signal(int)
-    succeeded=Signal(dict)
+    succeeded=Signal(object)
     failed=Signal(str)
     def __init__(self,session,kind,parent=None):
         super().__init__(parent)
@@ -72,6 +72,9 @@ class MainWindow(QMainWindow):
         self.selected=None
         self.worker=None
         self.resultsWindows=[]
+        self.simulatorWindows={}
+        self.eyeWindows={}
+        self.lastCalculation=None
         self._updating=False
         self.resize(1200,800)
         self.view=SchematicView(self)
@@ -79,6 +82,7 @@ class MainWindow(QMainWindow):
         self.view.deviceClicked.connect(self.OnDeviceClicked)
         self.view.deviceDoubleClicked.connect(lambda index: self.propertiesDock.raise_())
         self.view.deviceDragged.connect(self.OnDeviceDragged)
+        self.view.deviceContextMenu.connect(self.OnDeviceContextMenu)
         self._BuildDocks()
         self._BuildActions()
         self.UpdateTitle()
@@ -90,17 +94,20 @@ class MainWindow(QMainWindow):
         table.setHorizontalHeaderLabels(headers)
         table.verticalHeader().setVisible(False)
         table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        for c,header in enumerate(headers):
+            if header in ('Show','Keyword'):
+                table.horizontalHeader().setSectionResizeMode(c,QHeaderView.ResizeToContents)
         table.setSelectionMode(QAbstractItemView.SingleSelection)
         return table
     def _BuildDocks(self):
-        self.variablesTable=self._Table(['Variable','Value','Units'])
+        self.variablesTable=self._Table(['Show','Variable','Value','Units'])
         self.variablesTable.itemChanged.connect(self.OnVariableChanged)
         self.variablesDock=QDockWidget('Variables',self)
         self.variablesDock.setObjectName('variables')
         self.variablesDock.setWidget(self.variablesTable)
         self.addDockWidget(Qt.LeftDockWidgetArea,self.variablesDock)
 
-        self.propertiesTable=self._Table(['Property','Value','Unit'])
+        self.propertiesTable=self._Table(['Show','Keyword','Property','Value','Unit'])
         self.propertiesTable.itemChanged.connect(self.OnPropertyChanged)
         self.propertiesDock=QDockWidget('Device Properties',self)
         self.propertiesDock.setObjectName('properties')
@@ -147,6 +154,8 @@ class MainWindow(QMainWindow):
             viewMenu.addAction(dock.toggleViewAction())
         deviceMenu=menuBar.addMenu('&Device')
         self.rotateAction=self._Action(deviceMenu,'&Rotate',self.OnRotate,'Ctrl+R')
+        self.viewDeviceAction=self._Action(deviceMenu,'&View / Open Project',self.OnViewSelected,'Ctrl+E')
+        self.upAction=self._Action(deviceMenu,'&Up to Parent Project',self.OnAscend,'Alt+Up')
         calculateMenu=menuBar.addMenu('&Calculate')
         self.calculationActions={kind:self._Action(calculateMenu,title,lambda checked=False,k=kind: self.RunCalculation(k))
                                  for kind,title in CALCULATION_TITLES.items()}
@@ -155,27 +164,39 @@ class MainWindow(QMainWindow):
         helpMenu=menuBar.addMenu('&Help')
         self._Action(helpMenu,'&About',self.OnAbout)
         for action in [self.openAction,self.saveAction,None,self.zoomInAction,self.zoomOutAction,self.zoomFitAction,None,
-                       self.rotateAction,None]+list(self.calculationActions.values()):
+                       self.rotateAction,self.viewDeviceAction,self.upAction,None]+list(self.calculationActions.values()):
             if action is None:
                 toolBar.addSeparator()
             else:
                 toolBar.addAction(action)
     # ---- state
     def UpdateTitle(self):
-        name=os.path.basename(self.session.filename) if self.session.IsOpen() else 'untitled'
-        self.setWindowTitle('SignalIntegrity (Qt) - '+name)
+        if not self.session.IsOpen():
+            self.setWindowTitle('SignalIntegrity (Qt) - untitled')
+            return
+        drawing=self.drawing if getattr(self,'drawing',None) else self.session.Render()
+        self.setWindowTitle('SignalIntegrity (Qt) - '+' > '.join(drawing['path'])+(' (Read Only)' if drawing['readOnly'] else ''))
     def UpdateEnables(self):
         isOpen=self.session.IsOpen()
         busy=self.worker is not None
+        writable=isOpen and not self.session.readOnly
         capabilities=self.session.Capabilities() if isOpen else {}
         for kind,action in self.calculationActions.items():
             action.setEnabled(isOpen and not busy and capabilities.get(kind,False))
-        for action in (self.saveAction,self.saveAsAction,self.netListAction):
-            action.setEnabled(isOpen and not busy)
-        self.rotateAction.setEnabled(isOpen and not busy and self.selected is not None)
+        for action in (self.saveAction,self.saveAsAction):
+            action.setEnabled(writable and not busy)
+        self.netListAction.setEnabled(isOpen and not busy)
+        self.rotateAction.setEnabled(writable and not busy and self.selected is not None)
+        self.viewDeviceAction.setEnabled(isOpen and not busy and self.selected is not None
+                                         and len(self.session.ViewActions(self.selected))>0)
+        self.upAction.setEnabled(isOpen and not busy and len(self.session.stack)>0)
+        for edit in self.calculationEdits.values():
+            edit.setReadOnly(not writable)
         self.openAction.setEnabled(not busy)
     def Redraw(self,fit=False):
-        self.view.SetDrawing(self.session.Render(),fit)
+        self.drawing=self.session.Render()
+        self.view.SetDrawing(self.drawing,fit)
+        self.UpdateTitle()
         self.UpdateEnables()
     def Error(self,message):
         QMessageBox.critical(self,'SignalIntegrity',str(message))
@@ -186,15 +207,23 @@ class MainWindow(QMainWindow):
         except SessionError as e:
             self.Error(e)
             return False
-        self.selected=None
+        for window in list(self.simulatorWindows.values())+list(self.eyeWindows.values())+self.resultsWindows:
+            window.close()
+        self.simulatorWindows={}; self.eyeWindows={}; self.resultsWindows=[]
+        self.ShowLevel(drawing)
+        self.statusBar().showMessage('opened '+drawing['filename'])
+        return True
+    def ShowLevel(self,drawing):
+        """shows a project level after opening, descending or ascending"""
+        self.drawing=drawing
+        selected=[d['index'] for d in drawing['devices'] if d['selected']]
+        self.selected=selected[0] if selected else None
         self.view.SetDrawing(drawing,fit=True)
         self.RefreshVariables()
         self.RefreshCalculationProperties()
         self.RefreshProperties()
         self.UpdateTitle()
         self.UpdateEnables()
-        self.statusBar().showMessage('opened '+drawing['filename'])
-        return True
     def OnOpen(self):
         filename,_=QFileDialog.getOpenFileName(self,'Open Project','','SignalIntegrity projects (*.si);;All files (*)')
         if filename:
@@ -213,45 +242,84 @@ class MainWindow(QMainWindow):
                 self.Error(e)
             self.UpdateTitle()
     # ---- tables
-    def _FillTable(self,table,rows):
+    def _CheckItem(self,checked,editable):
+        item=QTableWidgetItem()
+        flags=Qt.ItemIsEnabled|Qt.ItemIsUserCheckable if editable else Qt.ItemIsEnabled
+        item.setFlags(flags)
+        item.setCheckState(Qt.Checked if checked else Qt.Unchecked)
+        return item
+    def _FillTable(self,table,rows,valueColumn):
+        """rows are (checks,cells,editable,choices): checks are leading checkbox values, choices an enum list"""
         self._updating=True
+        table.setRowCount(0)
         table.setRowCount(len(rows))
-        for r,(cells,editable) in enumerate(rows):
-            for c,text in enumerate(cells):
-                item=QTableWidgetItem('' if text is None else str(text))
+        for r,(checks,cells,editable,choices) in enumerate(rows):
+            for c,checked in enumerate(checks):
+                table.setItem(r,c,self._CheckItem(checked,editable))
+            for c,text in enumerate(cells,len(checks)):
+                hasCombo=c==valueColumn and bool(choices)
+                item=QTableWidgetItem('' if text is None or hasCombo else str(text))
                 flags=Qt.ItemIsSelectable|Qt.ItemIsEnabled
-                if c==1 and editable:
+                if c==valueColumn and editable and not choices:
                     flags|=Qt.ItemIsEditable
                 item.setFlags(flags)
                 table.setItem(r,c,item)
+                if c==valueColumn and choices:
+                    combo=QComboBox()
+                    combo.addItems(choices)
+                    combo.setCurrentText(str(text))
+                    combo.setEnabled(editable)
+                    combo.currentTextChanged.connect(lambda value,row=r: self.OnEnumChanged(row,value))
+                    table.setCellWidget(r,c,combo)
         self._updating=False
     def RefreshVariables(self):
         variables=self.session.Variables() if self.session.IsOpen() else []
-        self._FillTable(self.variablesTable,[((v['name'],v['value'],v['units']),not v['readOnly']) for v in variables])
+        self.variableNames=[v['name'] for v in variables]
+        self._FillTable(self.variablesTable,[((v['visible'],),(v['name'],v['value'],v['units']),not v['readOnly'],None)
+                                             for v in variables],2)
     def RefreshProperties(self):
         properties=[] if self.selected is None else self.session.DeviceProperties(self.selected)
         self.propertyKeywords=[p['keyword'] for p in properties]
-        self._FillTable(self.propertiesTable,[((p['description'] or p['name'],p['value'],p['unit']),not p['readOnly']) for p in properties])
+        self._FillTable(self.propertiesTable,[((p['visible'],p['keywordVisible']),(p['description'] or p['name'],p['value'],p['unit']),
+                                               not p['readOnly'],p['validEntries']) for p in properties],3)
     def RefreshCalculationProperties(self):
         values=self.session.CalculationProperties()
         for name,edit in self.calculationEdits.items():
             edit.setText(str(values[name]))
     def OnVariableChanged(self,item):
-        if self._updating or item.column()!=1:
+        if self._updating or item.column() not in (0,2):
             return
-        name=self.variablesTable.item(item.row(),0).text()
+        name=self.variableNames[item.row()]
         try:
-            self.session.SetVariable(name,item.text())
+            if item.column()==0:
+                self.session.SetVariableVisible(name,item.checkState()==Qt.Checked)
+            else:
+                self.session.SetVariable(name,item.text())
         except SessionError as e:
             self.Error(e)
         self.RefreshVariables()
         self.RefreshProperties()
         self.Redraw()
     def OnPropertyChanged(self,item):
-        if self._updating or item.column()!=1 or self.selected is None:
+        if self._updating or self.selected is None or item.column() not in (0,1,3):
+            return
+        keyword=self.propertyKeywords[item.row()]
+        try:
+            if item.column()==0:
+                self.session.SetDevicePropertyVisibility(self.selected,keyword,visible=item.checkState()==Qt.Checked)
+            elif item.column()==1:
+                self.session.SetDevicePropertyVisibility(self.selected,keyword,keywordVisible=item.checkState()==Qt.Checked)
+            else:
+                self.session.SetDeviceProperty(self.selected,keyword,item.text())
+        except SessionError as e:
+            self.Error(e)
+        self.RefreshProperties()
+        self.Redraw()
+    def OnEnumChanged(self,row,value):
+        if self._updating or self.selected is None:
             return
         try:
-            self.session.SetDeviceProperty(self.selected,self.propertyKeywords[item.row()],item.text())
+            self.session.SetDeviceProperty(self.selected,self.propertyKeywords[row],value)
         except SessionError as e:
             self.Error(e)
         self.RefreshProperties()
@@ -270,12 +338,67 @@ class MainWindow(QMainWindow):
         self.RefreshProperties()
         self.Redraw()
     def OnDeviceDragged(self,index,dx,dy):
+        if self.session.readOnly:
+            return
         self.session.MoveDevice(index,dx,dy)
         self.Redraw()
     def OnRotate(self):
-        if self.selected is not None:
+        if self.selected is not None and not self.session.readOnly:
             self.session.RotateDevice(self.selected)
             self.Redraw()
+    # ---- hierarchy traversal and device views (tk right-click View / Open Project)
+    def OnDeviceContextMenu(self,index,globalPos,control):
+        if self.worker is not None:
+            return
+        self.OnDeviceClicked(index)
+        actions=self.session.ViewActions(index)
+        if control and actions:
+            # like the tk app, ctrl-right-click goes straight to the project
+            keys=[a['action'] for a in actions]
+            self.ViewDevice(index,'openproject' if 'openproject' in keys else keys[0])
+            return
+        menu=QMenu(self)
+        for a in actions:
+            menu.addAction(a['label'],lambda action=a['action']: self.ViewDevice(index,action))
+        if not self.session.readOnly:
+            if actions:
+                menu.addSeparator()
+            menu.addAction('Edit Properties',self.propertiesDock.raise_)
+            menu.addAction('Rotate',self.OnRotate)
+        if self.session.stack:
+            menu.addSeparator()
+            menu.addAction('Up to Parent Project',self.OnAscend)
+        if not menu.isEmpty():
+            menu.exec(globalPos)
+    def OnViewSelected(self):
+        if self.selected is None:
+            return
+        actions=self.session.ViewActions(self.selected)
+        if actions:
+            keys=[a['action'] for a in actions]
+            self.ViewDevice(self.selected,'openproject' if 'openproject' in keys else keys[0])
+    def ViewDevice(self,index,action):
+        try:
+            kind,value=self.session.View(index,action)
+        except SessionError as e:
+            self.Error(e)
+            return
+        if kind=='project':
+            self.ShowLevel(value)
+            self.statusBar().showMessage('opened '+value['filename']+' (read only)')
+        elif value.waveforms:
+            window=SimulatorWindow(self,recalculatable=False).UpdateResult(value,'Waveform: '+value.title)
+            self.resultsWindows.append(window)
+            window.show()
+        else:
+            window=SParametersWindow(value,'S-parameters: '+value.title,self)
+            self.resultsWindows.append(window)
+            window.show()
+    def OnAscend(self):
+        try:
+            self.ShowLevel(self.session.Ascend())
+        except SessionError as e:
+            self.Error(e)
     # ---- calculation
     def RunCalculation(self,kind):
         if self.worker is not None:
@@ -295,9 +418,26 @@ class MainWindow(QMainWindow):
         if self.worker is not None:
             self.worker.cancelled=True
     def _CalculationSucceeded(self,kind,result):
-        window=ResultsWindow(result,CALCULATION_TITLES[kind]+' - '+os.path.basename(self.session.filename),self)
-        self.resultsWindows.append(window)
-        window.show()
+        self.lastCalculation=kind
+        title=os.path.basename(self.session.filename)
+        if result.waveforms:
+            key=self.session.filename
+            window=self.simulatorWindows.get(key)
+            if window is None:
+                window=SimulatorWindow(self)
+                window.recalculate.connect(lambda: self.lastCalculation and self.RunCalculation(self.lastCalculation))
+                self.simulatorWindows[key]=window
+            window.UpdateResult(result,'Sim: '+title)
+            window.show(); window.raise_()
+        if result.sparameters:
+            window=SParametersWindow(result,CALCULATION_TITLES[kind]+' - '+title,self)
+            self.resultsWindows.append(window)
+            window.show()
+        for name,image in result.eyes:
+            if name in self.eyeWindows:
+                self.eyeWindows[name].close()
+            self.eyeWindows[name]=EyeDiagramWindow(name,image,self)
+            self.eyeWindows[name].show()
     def _CalculationFailed(self,message):
         self.Error(message)
     def _CalculationFinished(self):

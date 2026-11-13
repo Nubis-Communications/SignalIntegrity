@@ -28,6 +28,7 @@ from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
 
 EXAMPLES=os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),
     '..','..','..','SignalIntegrity','App','Examples'))
+TESTS=os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
 
 class TestRecordingCanvasTest(unittest.TestCase):
     def testPrimitives(self):
@@ -111,19 +112,137 @@ class TestProjectSessionTest(unittest.TestCase):
         filename=os.path.join(EXAMPLES,'RLC.si')
         self.session.Open(filename)
         result=self.session.Calculate('simulate')
-        json.dumps(result)
+        json.dumps(result.Summary())
         app=SignalIntegrityAppHeadless()
         app.OpenProjectFile(filename)
         reference=app.Simulate()
         labels=reference['output waveform labels']
-        self.assertEqual([wf['name'] for wf in result['waveforms']][:len(labels)],labels)
-        for wf,ref in zip(result['waveforms'],reference['output waveforms']):
+        self.assertEqual([name for name,_ in result.waveforms],labels)
+        series=result.Series('time')['series']
+        for wf,ref in zip(series,reference['output waveforms']):
             self.assertEqual(len(wf['y']),len(ref))
             for a,b in zip(wf['y'],ref.Values()):
                 self.assertAlmostEqual(a,b,12)
+    def testSimulationWaveformsMatchTkDialog(self):
+        # the tk simulator dialog shows the output waveforms, other waveforms and shown sources once each
+        self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        result=self.session.Calculate('simulate')
+        self.assertEqual([name for name,_ in result.waveforms],['VO','VPID','VU','P','I','D','Vin'])
+        info=result.WaveformInfo()
+        self.assertEqual(info[-1]['points'],115000)
+        self.assertEqual(info[0]['points'],65001)
+    def testSeriesDecimationAndRange(self):
+        self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        result=self.session.Calculate('simulate')
+        x,y=result.Arrays(1)
+        full=result.Series('time',[1],maxPoints=1000)['series'][0]
+        self.assertLessEqual(len(full['x']),1000)
+        # decimation keeps the extremes of the waveform
+        self.assertAlmostEqual(max(full['y']),float(y.max()),12)
+        self.assertAlmostEqual(min(full['y']),float(y.min()),12)
+        zoom=result.Series('time',[1],xmin=0.,xmax=20e-6,maxPoints=100000)['series'][0]
+        self.assertEqual(len(zoom['x']),zoom['total'])
+        self.assertLess(zoom['total'],len(x))
+        self.assertLessEqual(zoom['x'][0],0.)
+        self.assertGreaterEqual(zoom['x'][-1],20e-6)
+        limits=result.AutoscaleLimits('time')
+        self.assertEqual(limits[0],float(min(result.Arrays(i)[0][0] for i in range(len(result.waveforms)))))
+        content=result.Series('content',[0],maxPoints=500)
+        self.assertLessEqual(len(content['series'][0]['x']),500)
+        json.dumps(content)
+    def testEyeDiagramsDoNotAlterWaveforms(self):
+        # clock recovery modifies the waveform it is given, so the eye must be computed on a copy
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        filename=os.path.join(TESTS,'TestClockRecovery','ClockRecoveryCompare.si')
+        self.session.Open(filename)
+        result=self.session.Calculate('simulate')
+        self.assertEqual([n for n,_ in result.eyes],['WithClockRecovery','WithoutClockRecovery'])
+        for _,image in result.eyes:
+            self.assertGreater(image.size[0]*image.size[1],0)
+        self.assertTrue(result.Summary()['eyes'][0]['image'].startswith('data:image/png;base64,'))
+        app=SignalIntegrityAppHeadless()
+        app.OpenProjectFile(filename)
+        reference=app.Simulate()
+        for (name,wf),ref in zip(result.waveforms,reference['output waveforms']):
+            self.assertEqual(len(wf),len(ref),name)
+    def testFailureReasonIsReported(self):
+        self.session.Open(os.path.join(TESTS,'TestWaveformProcessor','amplifier_test.si'))
+        with self.assertRaises(SessionError) as e:
+            self.session.Calculate('simulate')
+        self.assertIn('unconnected device ports',str(e.exception))
+    def testDCWaveform(self):
+        from SignalIntegrity.GuiCore.Results import ResultData
+        data=ResultData('waveform','dc')
+        data.waveforms=[('V',1.5)]
+        series=data.Series('time')['series'][0]
+        self.assertEqual(series['dc'],1.5)
+        self.assertEqual(data.AutoscaleLimits('time')[2:],[1.5,1.5])
+    def testPropertyAndVariableVisibility(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        texts=lambda: [i['text'] for i in self.session.Render()['items'] if i['type']=='text']
+        self.assertNotIn('ref PID',texts())
+        properties=self.session.SetDevicePropertyVisibility(pid,'ref',keywordVisible=True)
+        self.assertTrue([p for p in properties if p['keyword']=='ref'][0]['keywordVisible'])
+        self.assertIn('ref PID',texts())
+        self.session.SetDevicePropertyVisibility(pid,'ref',visible=False)
+        self.assertNotIn('ref PID',texts())
+        self.assertIn('PID_P 60.0 ',texts())
+        self.assertFalse(self.session.SetVariableVisible('PID_P',False)[0]['visible'])
+        self.assertNotIn('PID_P 60.0 ',texts())
+        calcprop=[p for p in self.session.DeviceProperties(pid) if p['keyword']=='calcprop'][0]
+        self.assertEqual(calcprop['validEntries'],['true','false'])
+        with self.assertRaises(SessionError):
+            self.session.SetDeviceProperty(pid,'calcprop','maybe')
+    def testTraversal(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        source=[d for d in drawing['devices'] if d['ref']=='Vin'][0]['index']
+        self.assertEqual(self.session.ViewActions(pid),[{'label':'Open Project','action':'file'}])
+        self.assertEqual(self.session.ViewActions(source),[{'label':'View Waveform','action':'waveform'}])
+        # an unsaved edit in the parent must survive descending and ascending
+        self.session.MoveDevice(source,1,0)
+        kind,child=self.session.View(pid,'file')
+        self.assertEqual(kind,'project')
+        self.assertEqual(child['path'],['PIDSimulation.si','PID.si'])
+        self.assertTrue(child['readOnly'])
+        # the device variables are passed into the sub-project
+        self.assertEqual({v['name']:v['value'] for v in self.session.Variables()},{'P':'60.0','I':'500.0','D':'15.0'})
+        with self.assertRaises(SessionError):
+            self.session.MoveDevice(0,1,0)
+        with self.assertRaises(SessionError):
+            self.session.Save()
+        self.assertTrue(self.session.Capabilities()['sparameters'])
+        parent=self.session.Ascend()
+        self.assertFalse(parent['readOnly'])
+        self.assertEqual(parent['path'],['PIDSimulation.si'])
+        self.assertTrue(parent['devices'][pid]['selected'])
+        moved=[d for d in parent['devices'] if d['ref']=='Vin'][0]['bbox']
+        self.assertEqual(moved,[b+(self.session.Grid() if k%2==0 else 0) for k,b in enumerate(drawing['devices'][source]['bbox'])])
+        with self.assertRaises(SessionError):
+            self.session.Ascend()
+        kind,waveform=self.session.View(source,'waveform')
+        self.assertEqual(kind,'result')
+        self.assertEqual(waveform.WaveformInfo()[0]['name'],'Vin')
+    def testWaveformProjectTraversal(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'PRBSExample','PRBSTest.si'))
+        source=[d for d in drawing['devices'] if d['ref']=='VS1'][0]['index']
+        self.assertIn({'label':'Open Project','action':'openproject'},self.session.ViewActions(source))
+        kind,child=self.session.View(source,'openproject')
+        self.assertEqual(child['path'],['PRBSTest.si','PRBSGenerator.si'])
+        self.session.Ascend()
+    def testSParameterFileView(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'telegrapherTestTwoPort.si'))
+        for device in drawing['devices']:
+            for action in self.session.ViewActions(device['index']):
+                if action['action']=='file' and action['label']=='View':
+                    kind,result=self.session.View(device['index'],'file')
+                    self.assertEqual(kind,'result')
+                    self.assertEqual(len(result.sparameters),1)
+                    return
     def testSParameters(self):
         self.session.Open(os.path.join(EXAMPLES,'RLCTest2SP.si'))
-        result=self.session.Calculate('sparameters')
+        result=self.session.Calculate('sparameters').Summary()
         sp=result['sparameters'][0]
         self.assertEqual(len(sp['traces']),sp['ports']**2)
         self.assertEqual(len(sp['traces'][0]['dB']),len(sp['frequencies']))
@@ -131,7 +250,7 @@ class TestProjectSessionTest(unittest.TestCase):
     def testDeembed(self):
         self.session.Open(os.path.join(EXAMPLES,'DeembedCableFilter.si'))
         result=self.session.Calculate('deembed')
-        self.assertGreater(len(result['sparameters']),0)
+        self.assertGreater(len(result.sparameters),0)
     def testCalculateNotSupported(self):
         self.session.Open(os.path.join(EXAMPLES,'RLC.si'))
         with self.assertRaises(SessionError):
@@ -142,7 +261,7 @@ class TestProjectSessionTest(unittest.TestCase):
         self.session.Open(os.path.join(EXAMPLES,'RLCTest2SP.si'))
         with self.assertRaises(SessionError):
             self.session.Calculate('sparameters',lambda progress: False)
-        self.assertGreater(len(self.session.Calculate('sparameters',lambda progress: True)['sparameters']),0)
+        self.assertGreater(len(self.session.Calculate('sparameters',lambda progress: True).sparameters),0)
     def testSaveRoundTrip(self):
         directory=tempfile.mkdtemp()
         try:

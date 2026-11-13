@@ -100,6 +100,7 @@ class SchematicView(QGraphicsView):
     deviceClicked=Signal(object)
     deviceDoubleClicked=Signal(int)
     deviceDragged=Signal(int,int,int)
+    deviceContextMenu=Signal(int,object,bool)
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setScene(QGraphicsScene(self))
@@ -162,3 +163,8 @@ class SchematicView(QGraphicsView):
             self.deviceDoubleClicked.emit(index)
             return
         super().mouseDoubleClickEvent(event)
+    def contextMenuEvent(self,event):
+        index=self.DeviceAt(self.mapToScene(event.pos()))
+        if index is None:
+            return super().contextMenuEvent(event)
+        self.deviceContextMenu.emit(index,event.globalPos(),bool(event.modifiers() & Qt.ControlModifier))
