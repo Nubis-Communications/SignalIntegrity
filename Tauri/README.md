@@ -88,6 +88,11 @@ npm run tauri build         # installers in src-tauri/target/release/bundle
 cd src-tauri && cargo build --release
 ```
 
+In VS Code, open **Run and Debug** and select `SignalIntegrity: Web`, or `SignalIntegrity: Desktop (Tauri)`. The Python
+configurations use the selected interpreter; select the checkout's `.venv`. The Tauri
+configuration runs the development command in a terminal and requires Node/npm and Rust
+on the terminal's PATH. It does not attach a debugger to Rust or the Python sidecar.
+
 Run a project directly: `signalintegrity-desktop path/to/project.si`. Set
 `SIGNALINTEGRITY_PYTHON` to choose the interpreter.
 
