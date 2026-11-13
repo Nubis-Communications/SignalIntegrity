@@ -16,6 +16,7 @@ the web UI in `ui/`) and the Tauri shell in `Tauri/`.
 | Drawing primitives as SVG | `ui/schematic.js` |
 | Plot interaction | `ui/plot.js` (a `Plot` class with matplotlib semantics) |
 | Colours | CSS variables in `ui/app.css`, filled from the palette by `CSS_VARS` in `app.js` |
+| A dockable pane | a `<section class="pane" data-pane="id">` with `.pane-header` and `.pane-body` in `index.html`, and its id in `DEFAULT.areas` (and `weight`) in `ui/dock.js`; saved layouts without it fall back to the default |
 | Security (host/origin/token/CSP) | `HttpServer.py`; don't weaken it (see README "Security model") |
 | Desktop shell, sidecar start-up, window options | `Tauri/src-tauri/src/main.rs`, `tauri.conf.json` |
 

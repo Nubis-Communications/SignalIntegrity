@@ -98,6 +98,7 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `noiseSeries` | `resultId`, `indices?`, `points?` | `{series:[{index,name,x,y}],autoscale}` noise densities in dBm/Hz |
 | `menus` | – | `{menus:[{title,items}],toolbar,toolbarLabels,iconSize,icons}` from `GuiCore.Menus`/`GuiCore.Icons` (`icons` are SVG strings by command id) |
 | `recentProjects` / `clearRecentProjects` | – | recent project paths, newest first; `open`, `new` and `save` with a `filename` add to it |
+| `layout` / `setLayout` | – / `layout` (object, up to 16 KB of JSON) | the saved dock layout of the web UI or `null` / the layout as saved (`web-layout.json` in the GUI settings folder) |
 
 To add a method or a UI command, see [RECIPES.md](RECIPES.md).
 
@@ -121,6 +122,7 @@ calculation.
 | `HttpServer.py` | `SignalIntegrityServer` (a `ThreadingHTTPServer`) and the request handler (security checks, static files, JSON). |
 | `Api.py` | `Api` method dispatcher, parameter validation and calculation jobs. |
 | `ui/index.html`, `ui/app.css` | Page layout and styles. |
+| `ui/dock.js` | VS Code style docking: panes in the left/right side bars or bottom panel, header drag to move, collapse, sashes to resize, header context menu, layout saved with `setLayout`. |
 | `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), parts stencil (HTML5 drag-and-drop of `text/x-si-part`, click-to-place, Delete), theme menu (applies the palette to CSS variables, the schematic color map and plot traces), device context menu and hierarchy navigation, property/variable tables with Show/Keyword checkboxes, file dialog, progress, and the simulator results dialog. |
 | `ui/schematic.js` | Turns GuiCore primitives into SVG (tk-style arrowheads, arcs and text anchors), recoloring the tk part colors through the theme's color map. Also draws the label-free stencil thumbnails. |
 | `ui/favicon.png` | App icon used as the favicon and toolbar logo. |

@@ -12,31 +12,47 @@
 <!-- menu bar and toolbar are built by app.js from GuiCore/Menus.py (api 'menus') -->
 <nav id="menubar"><img class="logo" src="favicon.png" alt=""></nav>
 <header id="toolbar"></header>
-<main>
-  <aside id="left">
-    <section id="parts" class="disabled">
-      <h2>Parts</h2>
-      <input id="partSearch" type="search" placeholder="Search parts..." spellcheck="false">
-      <div id="partGroups"></div>
-      <div id="partsHint">Drag a part onto the schematic, or click it and then click where it goes (Esc cancels).</div>
+<!-- panes start in their default docks; dock.js moves them to the saved layout -->
+<main id="workbench">
+  <div class="dock vertical" id="dock-left" data-area="left">
+    <section class="pane disabled" id="parts" data-pane="parts">
+      <div class="pane-header"><span class="chevron"></span><h2>Parts</h2></div>
+      <div class="pane-body">
+        <input id="partSearch" type="search" placeholder="Search parts..." spellcheck="false">
+        <div id="partGroups"></div>
+        <div id="partsHint">Drag a part onto the schematic, or click it and then click where it goes (Esc cancels).</div>
+      </div>
     </section>
-    <section>
-      <h2>Variables</h2>
-      <table id="variables"><colgroup><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show on schematic">Show</th><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
+    <section class="pane" data-pane="variables">
+      <div class="pane-header"><span class="chevron"></span><h2>Variables</h2></div>
+      <div class="pane-body">
+        <table id="variables"><colgroup><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show on schematic">Show</th><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
+      </div>
     </section>
-    <section>
-      <h2>Calculation Properties</h2>
-      <form id="calcProps"></form>
+    <section class="pane" data-pane="calc">
+      <div class="pane-header"><span class="chevron"></span><h2>Calculation Properties</h2></div>
+      <div class="pane-body"><form id="calcProps"></form></div>
     </section>
-  </aside>
-  <div id="canvasHost"><div id="hierarchy"></div><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
-  <aside id="right">
-    <section>
-      <h2>Device Properties</h2>
-      <table id="properties"><colgroup><col class="chk"><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show the property on the schematic">Show</th><th title="show the keyword with the property">Kw</th><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
+  </div>
+  <div class="sash ew" data-area="left"></div>
+  <div id="center">
+    <div id="canvasHost"><div id="hierarchy"></div><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
+    <div class="sash ns" data-area="bottom" hidden></div>
+    <div class="dock horizontal" id="dock-bottom" data-area="bottom" hidden></div>
+  </div>
+  <div class="sash ew" data-area="right"></div>
+  <div class="dock vertical" id="dock-right" data-area="right">
+    <section class="pane" data-pane="properties">
+      <div class="pane-header"><span class="chevron"></span><h2>Device Properties</h2></div>
+      <div class="pane-body">
+        <table id="properties"><colgroup><col class="chk"><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show the property on the schematic">Show</th><th title="show the keyword with the property">Kw</th><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
+      </div>
     </section>
-  </aside>
+  </div>
 </main>
+<div id="dropOverlay"></div>
+<div id="dragLabel"></div>
+<ul id="paneMenu" class="dropdown" hidden></ul>
 <footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
 <menu id="contextMenu" hidden></menu>
 <div id="dropdowns"></div>

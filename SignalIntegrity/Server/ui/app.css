@@ -42,18 +42,59 @@ body { display: flex; flex-direction: column; }
 button, select { font: inherit; padding: 4px 10px; border: 1px solid var(--border); background: var(--input-bg); color: var(--fg); border-radius: 3px; cursor: pointer; }
 button:hover:not(:disabled) { background: var(--hover); border-color: var(--accent); }
 button:disabled { opacity: .45; cursor: default; }
-main { flex: 1; display: grid; grid-template-columns: 300px 1fr 300px; min-height: 0; }
-aside { background: var(--panel); overflow: auto; border-right: 1px solid var(--border); }
-#right { border-right: none; border-left: 1px solid var(--border); }
-aside section { padding: 6px 8px; }
-h2 { font-size: 13px; margin: 4px 0 6px; }
+main { flex: 1; display: flex; min-height: 0; }
+#center { flex: 1; min-width: 200px; display: flex; flex-direction: column; min-height: 0; }
+#canvasHost { flex: 1; min-height: 100px; }
+
+/* docks, panes and sashes, after the VS Code workbench */
+.dock { display: flex; flex: none; min-width: 0; min-height: 0; overflow: hidden; background: var(--panel); }
+.dock.vertical { flex-direction: column; max-width: 45vw; }
+.dock.horizontal { flex-direction: row; max-height: 60vh; }
+.dock[hidden], .sash[hidden] { display: none; }
+.pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.pane.dragging { opacity: .45; }
+.pane-header { display: flex; align-items: center; flex: none; height: 22px; padding: 0 6px 0 2px; cursor: pointer; user-select: none; }
+.dock.vertical .pane:not(:first-child) > .pane-header { border-top: 1px solid var(--border); }
+.pane-header:hover { background: var(--hover); }
+.pane-header:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+.pane-header h2 { margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pane-header .chevron { flex: none; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
+.pane-header .chevron::before { content: ""; width: 5px; height: 5px; border: solid currentColor; border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-1px) rotate(45deg); transition: transform .1s; }
+.pane.collapsed .chevron::before { transform: translateX(-1px) rotate(-45deg); }
+.dock.horizontal .pane-header { padding-left: 10px; }
+.dock.horizontal .chevron { display: none; }
+.pane-body { flex: 1; min-height: 0; overflow: auto; padding: 4px 8px 6px; }
+.pane.collapsed .pane-body { display: none; }
+.sash { flex: 0 0 1px; position: relative; z-index: 4; background: var(--border); touch-action: none; }
+.dock.vertical > .sash { background: transparent; }
+.sash::before { content: ""; position: absolute; background: transparent; transition: background-color .1s ease-out; }
+.sash.ew { cursor: ew-resize; }
+.sash.ew::before { top: 0; bottom: 0; left: -1.5px; width: 4px; }
+.sash.ns { cursor: ns-resize; }
+.sash.ns::before { left: 0; right: 0; top: -1.5px; height: 4px; }
+.sash:hover::before { background: var(--accent); transition-delay: .3s; }
+.sash.active::before { background: var(--accent); transition-delay: 0s; }
+body.sashing-ew, body.sashing-ew * { cursor: ew-resize !important; user-select: none; }
+body.sashing-ns, body.sashing-ns * { cursor: ns-resize !important; user-select: none; }
+body.docking, body.docking * { cursor: grabbing !important; user-select: none; }
+#dropOverlay { position: fixed; z-index: 40; display: none; pointer-events: none;
+  background: color-mix(in srgb, var(--accent) 22%, transparent); transition: left .07s, top .07s, width .07s, height .07s; }
+#dropOverlay.visible { display: block; }
+#dragLabel { position: fixed; z-index: 41; display: none; pointer-events: none; padding: 2px 8px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; background: var(--panel); color: var(--fg); border: 1px solid var(--accent); border-radius: 3px; }
+#dragLabel.visible { display: block; }
+#paneMenu { min-width: 200px; }
+#paneMenu li { padding-left: 14px; }
+#paneMenu li .label { margin-left: 0; padding-left: 0; }
 table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 th, td { border: 1px solid var(--border); padding: 2px 4px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 th { background: var(--toolbar); font-weight: 600; }
 td input { width: 100%; border: none; font: inherit; padding: 0; background: transparent; color: var(--fg); }
 td input:focus { outline: 1px solid var(--accent); background: var(--input-bg); color: var(--input-fg); }
 td.ro { color: var(--muted); }
-form label { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 4px; align-items: center; }
+form label { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px; margin-bottom: 4px; align-items: center; }
+form label input { min-width: 0; width: 100%; }
 form input, dialog input[type=text] { font: inherit; padding: 2px 4px; background: var(--input-bg); color: var(--input-fg); border: 1px solid var(--border); }
 #canvasHost { position: relative; overflow: hidden; background: var(--canvas); }
 #canvasHost.drop-target { outline: 2px dashed var(--accent); outline-offset: -4px; }
@@ -133,9 +174,9 @@ td select option { background: var(--input-bg); color: var(--input-fg); }
 #contextMenu li.sep { padding: 0; margin: 4px 0; border-top: 1px solid var(--border); cursor: default; }
 
 /* parts stencil */
-#parts { display: flex; flex-direction: column; min-height: 0; }
-#partSearch { width: 100%; margin-bottom: 4px; }
-#partGroups { overflow: auto; max-height: 46vh; border: 1px solid var(--border); }
+#parts:not(.collapsed) .pane-body { display: flex; flex-direction: column; }
+#partSearch { width: 100%; margin-bottom: 4px; flex: none; }
+#partGroups { flex: 1; min-height: 40px; overflow: auto; border: 1px solid var(--border); }
 #parts.disabled #partGroups { opacity: .45; pointer-events: none; }
 #partGroups details { border-bottom: 1px solid var(--border); }
 #partGroups summary { padding: 3px 6px; cursor: pointer; font-weight: 600; background: var(--toolbar); user-select: none; }

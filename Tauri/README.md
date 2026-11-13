@@ -108,6 +108,12 @@ file-drop handler otherwise swallows HTML5 drag-and-drop, which the parts stenci
 Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Wheel to zoom, drag to pan, Fit.
+- **Dockable panes, as in VS Code:** Parts, Variables, Calculation Properties and Device Properties
+  live in the primary (left) or secondary (right) side bar or the bottom panel. Drag a pane's
+  header to move it (a highlight shows where it will land; drop near an edge of the schematic to
+  dock it there), click the header to collapse it, and right-click it to move it, collapse it or
+  reset the layout. Drag the edges between areas and between panes to resize (they highlight
+  like VS Code sashes; double-click an area edge to reset its size). The layout is remembered.
 - **Menus and toolbar:** dropdown menus laid out like the tk app (File, Edit, Parts, Wires, View,
   Calculate, Variables, Help) with icons, shortcuts and flyout submenus, and a toolbar of 24-pixel
   icons with captions. Both are built from `GuiCore.Menus` and `GuiCore.Icons`, the same definitions the Qt

@@ -1,6 +1,7 @@
 // SignalIntegrity web GUI - talks to SignalIntegrity.Server over a token-protected local JSON API.
 import { el, renderPrimitives, primitivesBox } from './schematic.js';
 import { Plot, COLORS, engineering } from './plot.js';
+import { initDock } from './dock.js';
 
 const $ = id => document.getElementById(id);
 const CALC_TITLES = { simulate: 'Simulate', sparameters: 'S-parameters', virtualprobe: 'Virtual Probe', deembed: 'De-embed' };
@@ -1291,6 +1292,8 @@ window.addEventListener('keydown', e => {
 // ---------- start-up
 (async () => {
   updateEnables();
+  initDock(token ? { load: () => api('layout'), store: layout => api('setLayout', { layout }) }
+    : { load: () => null, store: () => {} });
   if (!token) return status('No access token - start the GUI from SignalIntegrityServer or the desktop app.');
   try {
     const { version } = await api('version');

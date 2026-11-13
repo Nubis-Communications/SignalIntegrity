@@ -18,6 +18,7 @@ Api.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import os
+import json
 import threading
 import itertools
 from collections import OrderedDict
@@ -62,12 +63,14 @@ class Api(object):
              'selectVertex','moveVertex','deleteVertex','duplicateVertex',
              'equations','checkEquations','setEquations','postProcessing','setPostProcessing',
              'archive','extractArchive','exportNetlist','exportTikz','exportImage',
-             'preferences','setPreference','help','sparameterTime','noiseSeries']
+             'preferences','setPreference','help','sparameterTime','noiseSeries','layout','setLayout']
     # these never touch the project, so they neither wait for nor are blocked by a running calculation
     UNLOCKED=('job','cancel','plotData','listDirectory','version','themes','theme','setTheme','themesInPackage',
-              'menus','recentProjects','clearRecentProjects','help','sparameterTime','noiseSeries')
+              'menus','recentProjects','clearRecentProjects','help','sparameterTime','noiseSeries','layout','setLayout')
     LISTABLE=('.si','.json','.vsix','.siz','.txt','.tpx','.tex','.png','.jpg')
     MAX_RESULTS=8
+    LAYOUT_FILE='web-layout.json'
+    MAX_LAYOUT=16384
     def __init__(self,session=None):
         self.session=ProjectSession() if session is None else session
         self.lock=threading.Lock()
@@ -293,6 +296,28 @@ class Api(object):
             return Themes.ThemesInPackage(path)
         except Exception as e:
             raise ApiError('could not read '+path+': '+str(e))
+    # ---- dock layout of the web UI (in the settings folder, since the desktop app's port changes per run)
+    def _LayoutFile(self):
+        return os.path.join(Settings.SettingsDirectory(),self.LAYOUT_FILE)
+    def _layout(self,params):
+        try:
+            with open(self._LayoutFile()) as f:
+                layout=json.load(f)
+        except (OSError,ValueError):
+            return None
+        return layout if isinstance(layout,dict) else None
+    def _setLayout(self,params):
+        layout=self._Get(params,'layout',dict)
+        text=json.dumps(layout)
+        if len(text)>self.MAX_LAYOUT:
+            raise ApiError('layout is too large')
+        try:
+            os.makedirs(Settings.SettingsDirectory(),exist_ok=True)
+            with open(self._LayoutFile(),'w') as f:
+                f.write(text)
+        except OSError as e:
+            raise ApiError('could not save the layout: '+str(e))
+        return layout
     def _save(self,params):
         filename=self._Get(params,'filename',str,True)
         saved=self.session.Save(filename)

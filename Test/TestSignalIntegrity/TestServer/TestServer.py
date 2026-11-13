@@ -52,6 +52,18 @@ class TestServerApiTest(unittest.TestCase):
         self.api=Api()
     def tearDown(self):
         os.chdir(self.cwd)
+    def testDockLayout(self):
+        self.assertIsNone(self.api.Dispatch('layout',{}))
+        layout={'areas':{'left':['parts'],'right':['properties','variables'],'bottom':['calc']},
+                'size':{'left':250,'right':320,'bottom':180},'weight':{'parts':2},'collapsed':{'variables':True}}
+        self.assertEqual(self.api.Dispatch('setLayout',{'layout':layout}),layout)
+        self.assertEqual(Api().Dispatch('layout',{}),layout)
+        for bad in ({},{'layout':[1]},{'layout':{'x':'y'*20000}}):
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('setLayout',bad)
+        with open(os.path.join(self.settings,Api.LAYOUT_FILE),'w') as f:
+            f.write('not json')
+        self.assertIsNone(self.api.Dispatch('layout',{}))
     def testWiresMenusAndRecent(self):
         import sys, tempfile, shutil
         sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
