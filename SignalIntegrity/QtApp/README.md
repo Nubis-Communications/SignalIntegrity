@@ -24,6 +24,11 @@ python -m venv .venv
 The tk GUI is still started with `SignalIntegrity`. PySide6 is an optional extra, so a
 standard install does not pull it in.
 
+In VS Code, select **SignalIntegrity (PySide6)** under
+Run and Debug and press F5. Both use the selected Python interpreter; the PySide6
+configuration requires the `qt` extra in that environment.
+On Windows with Tk 9, the existing tk application can fail during menu initialization.
+
 ## What's included
 
 | Area | Behaviour |

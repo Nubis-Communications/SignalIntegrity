@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SignalIntegrity (PySide6)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "SignalIntegrity.QtApp",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        }
+    ]
+}
