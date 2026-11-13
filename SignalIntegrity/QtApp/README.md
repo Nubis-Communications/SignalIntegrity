@@ -12,6 +12,15 @@ SignalIntegrityQt [project.si]         # console script added to setup.py
 python -m SignalIntegrity.QtApp [project.si]
 ```
 
+From a source checkout, use a virtual environment so nothing is installed into the global
+Python (`.venv/` is ignored by git, and `.vscode/settings.json` selects it):
+
+```powershell
+python -m venv .venv
+.venv\Scripts\python -m pip install -e .[qt,test]
+.venv\Scripts\python -m SignalIntegrity.QtApp SignalIntegrity\App\Examples\PID\PIDSimulation.si
+```
+
 The tk GUI is still started with `SignalIntegrity`. PySide6 is an optional extra, so a
 standard install does not pull it in.
 
