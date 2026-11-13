@@ -20,16 +20,19 @@ SParameterViewerPreferencesDialog.py
 
 from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationProperty,CalculationPropertyTrueFalseButton,CalculationPropertyColor
 
+def AddPlotPreferences(dialog,parentFrame,preferences):
+    dialog.plotWidthFrame=CalculationProperty(parentFrame,'plot width',None,dialog.onUpdatePreferences,preferences,'Appearance.PlotWidth')
+    dialog.plotHeightFrame=CalculationProperty(parentFrame,'plot height',None,dialog.onUpdatePreferences,preferences,'Appearance.PlotHeight')
+    dialog.plotDPIFrame=CalculationProperty(parentFrame,'plot DPI',None,dialog.onUpdatePreferences,preferences,'Appearance.PlotDPI')
+    dialog.matPlotLibColorFrame=CalculationPropertyColor(parentFrame,'plot color',None,dialog.onUpdateColors,preferences,'Appearance.Color.Plot')
+    dialog.plotCursors=CalculationPropertyTrueFalseButton(parentFrame,'show cursor values on plots',None,dialog.onUpdatePreferences,preferences,'Appearance.PlotCursorValues')
+    dialog.significantDigits=CalculationProperty(parentFrame,'significant digits',None,dialog.onUpdatePreferences,preferences,'SParameterProperties.SignificantDigits')
+    dialog.maxSParameterButtons=CalculationProperty(parentFrame,'max s-parameter buttons',None,dialog.onUpdatePreferences,preferences,'SParameterProperties.MaxSParameterButtons')
+
 class SParameterViewerPreferencesDialog(PropertiesDialog):
     def __init__(self, parent,preferences):
         PropertiesDialog.__init__(self,parent,preferences,parent,'Preferences')
-        self.plotWidthFrame=CalculationProperty(self.propertyListFrame,'plot width',None,self.onUpdatePreferences,preferences,'Appearance.PlotWidth')
-        self.plotHeightFrame=CalculationProperty(self.propertyListFrame,'plot height',None,self.onUpdatePreferences,preferences,'Appearance.PlotHeight')
-        self.plotDPIFrame=CalculationProperty(self.propertyListFrame,'plot DPI',None,self.onUpdatePreferences,preferences,'Appearance.PlotDPI')
-        self.matPlotLibColorFrame=CalculationPropertyColor(self.propertyListFrame,'plot color',None,self.onUpdateColors,preferences,'Appearance.Color.Plot')
-        self.plotCursors=CalculationPropertyTrueFalseButton(self.propertyListFrame,'show cursor values on plots',None,self.onUpdatePreferences,preferences,'Appearance.PlotCursorValues')
-        self.significantDigits=CalculationProperty(self.propertyListFrame,'significant digits',None,self.onUpdatePreferences,preferences,'SParameterProperties.SignificantDigits')
-        self.maxSParameterButtons=CalculationProperty(self.propertyListFrame,'max s-parameter buttons',None,self.onUpdatePreferences,preferences,'SParameterProperties.MaxSParameterButtons')
+        AddPlotPreferences(self,self.propertyListFrame,preferences)
         self.Finish()
     def onUpdatePreferences(self):
         self.project.SaveToFile()

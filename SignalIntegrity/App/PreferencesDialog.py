@@ -23,6 +23,7 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,Ca
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.Lib.Encryption import Encryption
 from SignalIntegrity.App.Theme import ThemeSelector,ThemeColorButton,DialogStyleSelector
+from SignalIntegrity.App.SParameterViewerPreferencesDialog import AddPlotPreferences
 
 import sys
 if sys.version_info.major < 3:
@@ -40,10 +41,12 @@ class PreferencesDialog(PropertiesDialog):
         self.notebook.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
         # each tab body is a recessed panel so it reads as separate from the tab strip
         self.appearanceTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
+        self.plotsAndFilesTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.cachingTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.archiveAndRegressionTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.calculationTab=tk.Frame(self.notebook,relief=tk.GROOVE,borderwidth=2)
         self.notebook.add(self.appearanceTab,text='Appearance')
+        self.notebook.add(self.plotsAndFilesTab,text='Plots and Files')
         self.notebook.add(self.calculationTab,text='Calculation')
         self.notebook.add(self.cachingTab,text='Caching')
         self.notebook.add(self.archiveAndRegressionTab,text='Archive and Regression')
@@ -61,16 +64,23 @@ class PreferencesDialog(PropertiesDialog):
         #self.activeBackgroundColorFrame=CalculationPropertyColor(self.appearanceTab,'active background color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveBackground')
         #self.activeForegroundColorFrame=CalculationPropertyColor(self.appearanceTab,'active foreground color',None,self.onUpdateColors,preferences,'Appearance.Color.ActiveForeground')
         self.showAllPinNumbers=CalculationPropertyTrueFalseButton(self.appearanceTab,'show all pin numbers',None,self.onUpdatePreferences,preferences,'Appearance.AllPinNumbersVisible')
-        self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.appearanceTab,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')
-        self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.appearanceTab,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
-        self.openProjectsReadOnlyFrame=CalculationPropertyTrueFalseButton(self.appearanceTab,'open projects read-only by default',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenProjectsReadOnly')
-        self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.appearanceTab,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
-        self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.appearanceTab,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
         self.parameterizeVisible=CalculationPropertyTrueFalseButton(self.appearanceTab,'parameterize visible properties only',None,self.onUpdatePreferences,preferences,'Variables.ParameterizeOnlyVisible')
         self.OnlineHelpFrame=tk.Frame(self.appearanceTab, relief=tk.RIDGE, borderwidth=5)
         self.OnlineHelpFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.useOnlineHelp=CalculationPropertyTrueFalseButton(self.OnlineHelpFrame,'use online help',None,self.onUpdatePreferences,preferences,'OnlineHelp.UseOnlineHelp')
         self.onlineHelpURL=CalculationProperty(self.OnlineHelpFrame,'online help url',None,self.onUpdatePreferences,preferences,'OnlineHelp.URL')
+
+        # Plots and Files
+        self.plotsFrame=tk.LabelFrame(self.plotsAndFilesTab,text='Plots',relief=tk.RIDGE,borderwidth=5)
+        self.plotsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        AddPlotPreferences(self,self.plotsFrame,preferences)
+        self.filesFrame=tk.LabelFrame(self.plotsAndFilesTab,text='Files',relief=tk.RIDGE,borderwidth=5)
+        self.filesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.retainRecentFilesFrame=CalculationPropertyTrueFalseButton(self.filesFrame,'retain recent project files',None,self.onUpdatePreferences,preferences,'ProjectFiles.RetainLastFilesOpened')
+        self.openLastFileFrame=CalculationPropertyTrueFalseButton(self.filesFrame,'open last file on start',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenLastFile')
+        self.openProjectsReadOnlyFrame=CalculationPropertyTrueFalseButton(self.filesFrame,'open projects read-only by default',None,self.onUpdatePreferences,preferences,'ProjectFiles.OpenProjectsReadOnly')
+        self.askSaveCurrentFileFrame=CalculationPropertyTrueFalseButton(self.filesFrame,'ask to save current file',None,self.onUpdatePreferences,preferences,'ProjectFiles.AskToSaveCurrentFile')
+        self.preferLeCroyWaveform=CalculationPropertyTrueFalseButton(self.filesFrame,'prefer saving waveforms in LeCroy format',None,self.onUpdatePreferences,preferences,'ProjectFiles.PreferSaveWaveformsLeCroyFormat')
 
         # Caching
         self.cacheResult=CalculationPropertyTrueFalseButton(self.cachingTab,'cache results',None,self.onUpdatePreferences,preferences,'Cache.CacheResults')
@@ -80,12 +90,18 @@ class PreferencesDialog(PropertiesDialog):
         self.cacheCheckTimes=CalculationPropertyTrueFalseButton(self.cachingTab,'check cache file times',None,self.onUpdatePreferences,preferences,'Cache.CheckTimes')
 
         # Archive and Regression
-        self.archiveCachedResults = CalculationPropertyTrueFalseButton(self.archiveAndRegressionTab,'archive cached results',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveCachedResults')
-        self.archiveNonRelativeFiles = CalculationPropertyTrueFalseButton(self.archiveAndRegressionTab,'archive non-relative files',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveNonRelativeFiles')
-        self.encryptionPassword = CalculationProperty(self.archiveAndRegressionTab,'password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
-        self.encryptionEnding = CalculationProperty(self.archiveAndRegressionTab,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
-        self.regressionEnabled = CalculationPropertyTrueFalseButton(self.archiveAndRegressionTab,'enable regression tools',None,self.onUpdatePreferences,preferences,'Features.Regression')
-        self.regressionOpenDiffTool = CalculationPropertyTrueFalseButton(self.archiveAndRegressionTab,'open meld on regression failure',None,self.onUpdatePreferences,preferences,'Regression.OpenDiffToolOnFailure')
+        self.archiveFrame=tk.LabelFrame(self.archiveAndRegressionTab,text='Archive',relief=tk.RIDGE,borderwidth=5)
+        self.archiveFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.archiveCachedResults = CalculationPropertyTrueFalseButton(self.archiveFrame,'archive cached results',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveCachedResults')
+        self.archiveNonRelativeFiles = CalculationPropertyTrueFalseButton(self.archiveFrame,'archive non-relative files',None,self.onUpdatePreferences,preferences,'ProjectFiles.ArchiveNonRelativeFiles')
+        self.encryptionFrame=tk.LabelFrame(self.archiveAndRegressionTab,text='Encryption',relief=tk.RIDGE,borderwidth=5)
+        self.encryptionFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.encryptionPassword = CalculationProperty(self.encryptionFrame,'password for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Password')
+        self.encryptionEnding = CalculationProperty(self.encryptionFrame,'file ending for encryption',None,self.onUpdatePassword,preferences,'ProjectFiles.Encryption.Ending')
+        self.regressionFrame=tk.LabelFrame(self.archiveAndRegressionTab,text='Regression',relief=tk.RIDGE,borderwidth=5)
+        self.regressionFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
+        self.regressionEnabled = CalculationPropertyTrueFalseButton(self.regressionFrame,'enable regression tools',None,self.onUpdatePreferences,preferences,'Features.Regression')
+        self.regressionOpenDiffTool = CalculationPropertyTrueFalseButton(self.regressionFrame,'open meld on regression failure',None,self.onUpdatePreferences,preferences,'Regression.OpenDiffToolOnFailure')
 
         # Calculation (calculation properties dialog gating flags on top, core calculation flags below)
         self.calculationPropertiesFrame=tk.Frame(self.calculationTab, relief=tk.RIDGE, borderwidth=5)

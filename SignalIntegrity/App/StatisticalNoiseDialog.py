@@ -71,6 +71,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         # ------
         self.HelpDoer = Doer(self.onHelp).AddHelpElement('Control-Help:Statistical-Noise-Open-Help-File').AddToolTip('Open the help system in a browser')
         self.ControlHelpDoer = Doer(self.onControlHelp).AddHelpElement('Control-Help:Statistical-Noise-Control-Help').AddToolTip('Get help on a control')
+        self.PreferencesDoer = Doer(self.onPreferences).AddHelpElement('Control-Help:Statistical-Noise-Preferences').AddToolTip('Edit the preferences')
         # ------
         self.EscapeDoer = Doer(self.onEscape).AddKeyBindElement(self,'<Escape>').DisableHelp()
 
@@ -105,6 +106,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
         self.ControlHelpDoer.AddMenuElement(HelpMenu,label='Control Help',underline=0)
+        self.PreferencesDoer.AddMenuElement(HelpMenu,label='Preferences',underline=0)
 
         # The Toolbar
         ToolBarFrame = tk.Frame(self)

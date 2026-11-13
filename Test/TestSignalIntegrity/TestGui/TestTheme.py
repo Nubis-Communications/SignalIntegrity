@@ -257,6 +257,91 @@ class TestTheme(unittest.TestCase):
                         self.assertEqual(color(widget, 'foreground'),
                                          self.root.winfo_rgb(self.root.appearanceTheme.palette['foreground']))
 
+    def test_main_preferences_groups_settings_and_shares_viewer_preferences(self):
+        from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
+        from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
+        import SignalIntegrity.App
+        self.apply('Dark')
+        app = tk.Frame(self.root)
+        app.UpdateColorsAndFonts = Mock()
+        viewer = tk.Frame(self.root)
+        viewer.UpdateSParameterButtonsView = Mock()
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, 'preferences.xml')
+            with patch.object(SignalIntegrity.App, 'Preferences', self.preferences), \
+                    patch.object(self.preferences, 'SaveToFile',
+                                 side_effect=lambda: self.preferences.Write(path), create=True):
+                main = PreferencesDialog(app, self.preferences)
+                plots = SParameterViewerPreferencesDialog(viewer, self.preferences)
+                try:
+                    self.assertIn('Plots and Files', [main.notebook.tab(tab, 'text')
+                                                     for tab in main.notebook.tabs()])
+                    for frame, controls in (
+                            (main.archiveFrame, (main.archiveCachedResults, main.archiveNonRelativeFiles)),
+                            (main.encryptionFrame, (main.encryptionPassword, main.encryptionEnding)),
+                            (main.regressionFrame, (main.regressionEnabled, main.regressionOpenDiffTool))):
+                        self.assertEqual(frame.master, main.archiveAndRegressionTab)
+                        for control in controls:
+                            self.assertEqual(control.master, frame)
+                    for name in ('plotWidthFrame', 'plotHeightFrame', 'plotDPIFrame',
+                                 'matPlotLibColorFrame', 'plotCursors', 'significantDigits',
+                                 'maxSParameterButtons'):
+                        control = getattr(main, name)
+                        self.assertEqual(control.projectPath, getattr(plots, name).projectPath)
+                        self.assertEqual(control.master, main.plotsFrame)
+                    self.assertEqual(main.plotsFrame.master, main.plotsAndFilesTab)
+                    self.assertEqual(main.filesFrame.master, main.plotsAndFilesTab)
+                    self.assertEqual(main.openLastFileFrame.master, main.filesFrame)
+                    main.plotWidthFrame.Set('6.5')
+                    main.plotWidthFrame.UpdateStrings()
+                    plots.plotWidthFrame.UpdateStrings()
+                    self.assertEqual(float(plots.plotWidthFrame.GetString()), 6.5)
+                    self.assertEqual(PreferencesFile().Read(path)['Appearance.PlotWidth'], 6.5)
+                    plots.maxSParameterButtons.Set('32')
+                    plots.maxSParameterButtons.UpdateStrings()
+                    self.assertEqual(PreferencesFile().Read(path)['SParameterProperties.MaxSParameterButtons'], 32)
+                    viewer.UpdateSParameterButtonsView.assert_called()
+                    with patch('SignalIntegrity.App.CalculationPropertiesProject.colorchooser.askcolor',
+                               return_value=((34, 68, 102), '#224466')):
+                        main.matPlotLibColorFrame.entry.invoke()
+                    self.assertEqual(PreferencesFile().Read(path)['Appearance.Color.Plot'], '#224466')
+                    app.UpdateColorsAndFonts.assert_called_once()
+                    for theme in ('Light', 'Legacy', 'Dark'):
+                        self.apply(theme)
+                        for frame in (main.archiveFrame, main.encryptionFrame, main.regressionFrame):
+                            self.assertGreaterEqual(
+                                ContrastRatio(frame, frame.cget('foreground'), frame.cget('background')), 4.5)
+                finally:
+                    plots.destroy()
+                    main.destroy()
+
+    def test_noise_viewer_help_menu_opens_and_reuses_plot_preferences(self):
+        from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
+        from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
+        import SignalIntegrity.App
+        app = tk.Frame(self.root)
+        app.root = self.root
+        app.onCalculate = Mock()
+        parent = tk.Frame(app)
+        parent.parent = app
+        with patch.object(SignalIntegrity.App, 'Preferences', self.preferences), \
+                patch.object(Doer, 'inHelp', False):
+            dialog = StatisticalNoiseDialog(parent)
+            try:
+                helpMenu = dialog.nametowidget(dialog.TheMenu.entrycget('Help', 'menu'))
+                helpMenu.invoke('Preferences')
+                preferences = dialog.preferencesDialog
+                self.assertIsInstance(preferences, SParameterViewerPreferencesDialog)
+                self.assertIs(preferences.project, self.preferences)
+                helpMenu.invoke('Preferences')
+                self.assertIs(dialog.preferencesDialog, preferences)
+                preferences.destroy()
+                helpMenu.invoke('Preferences')
+                self.assertIsNot(dialog.preferencesDialog, preferences)
+                self.assertTrue(dialog.preferencesDialog.winfo_exists())
+            finally:
+                dialog.destroy()
+
     def test_invalid_theme_and_color_are_reported_before_palette_changes(self):
         self.apply('Light')
         baseline = self.root.cget('background')
