@@ -28,7 +28,6 @@ import sys
 import copy
 import os
 import io
-import subprocess
 
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -48,7 +47,7 @@ from SignalIntegrity.App.PostProcessingDialog import PostProcessingDialog
 from SignalIntegrity.App.EquationsDialog import EquationsDialog
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
 from SignalIntegrity.App.History import History
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,ConfigureDisplayScaling
 from SignalIntegrity.App.BuildHelpSystem import HelpSystemKeys
 from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.About import AboutDialog
@@ -1460,29 +1459,7 @@ class SignalIntegrityApp(tk.Frame):
                 self.preferencesDialog=PreferencesDialog(self,SignalIntegrity.App.Preferences)
 
     def ConfigureDisplayScaling(self):
-        if not sys.platform.startswith('linux'):
-            return 1.0
-
-        displayScale=max(1.0,float(self.root.tk.call('tk','scaling'))/(96.0/72.0))
-        if 'GDK_SCALE' in os.environ:
-            displayScale=max(displayScale,float(os.environ['GDK_SCALE']))
-        try:
-            resources=subprocess.run(
-                ['xrdb','-query'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,
-                universal_newlines=True,check=False
-            ).stdout
-        except FileNotFoundError:
-            resources=''
-        for resource in resources.splitlines():
-            name,separator,value=resource.partition(':')
-            if separator and name.strip() == 'Xft.dpi':
-                displayScale=max(displayScale,float(value.strip())/96.0)
-                break
-
-        if displayScale <= 0:
-            raise ValueError('Display scale must be greater than zero')
-        self.root.tk.call('tk','scaling',(96.0/72.0)*displayScale)
-        return displayScale
+        return ConfigureDisplayScaling(self.root)
 
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']

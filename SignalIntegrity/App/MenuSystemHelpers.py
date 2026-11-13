@@ -24,7 +24,33 @@ from tkinter import ttk
 from tkinter import font as tkfont
 import os
 import sys
+import subprocess
 from PIL import Image, ImageDraw, ImageTk
+
+def ConfigureDisplayScaling(root):
+    if not sys.platform.startswith('linux'):
+        return 1.0
+
+    displayScale=max(1.0,float(root.tk.call('tk','scaling'))/(96.0/72.0))
+    if 'GDK_SCALE' in os.environ:
+        displayScale=max(displayScale,float(os.environ['GDK_SCALE']))
+    try:
+        resources=subprocess.run(
+            ['xrdb','-query'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+            universal_newlines=True,check=False
+        ).stdout
+    except FileNotFoundError:
+        resources=''
+    for resource in resources.splitlines():
+        name,separator,value=resource.partition(':')
+        if separator and name.strip() == 'Xft.dpi':
+            displayScale=max(displayScale,float(value.strip())/96.0)
+            break
+
+    if displayScale <= 0:
+        raise ValueError('Display scale must be greater than zero')
+    root.tk.call('tk','scaling',(96.0/72.0)*displayScale)
+    return displayScale
 
 def LoadIcon(frame,filename):
     displayScale=1.0

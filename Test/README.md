@@ -11,6 +11,11 @@ dependencies with `python -m pip install -e ".[test]"`, then run:
 The root `pytest.ini` configuration selects `TestSignalIntegrity/TestAll.py`, which
 collects the unittest cases from the test modules.
 
+Linux display-scaling regression tests live in `TestSignalIntegrity/TestGui` and
+are included in `TestAll.py`. Run them separately from the repository root with
+`python -m unittest Test.TestSignalIntegrity.TestGui`. They skip without a Tk
+display; set `SIGNALINTEGRITY_REQUIRE_GUI_TESTS=1` to require one.
+
 For the most part, the [SignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/SignalIntegrity/App) GUI based application is tested by hand, insofar as the GUI is concerned, but in [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) are tests for testing a _headless_ version of PySIApp that can also be used within a scripted environment.  In other words, the headless version can be utilized to load a project file and obtain whatever results that project file produces.  This is a big aid to scripted applications and [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) tests this headless application.
 
 The [Test](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Test) directory contains two scripts (for Linux and Windows).  The Linux scripts is a _bash_ script and has the extension '.sh'.  The Windows script is a batch file and has the extension '.bat'.  The script is CoverageTest and is the only test that ever really needs to be run. It runs all of the unit tests for the [SignalIntegrity](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/SignalIntegrity) package.

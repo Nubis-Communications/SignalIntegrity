@@ -47,6 +47,7 @@ from TestEyeDiagram import *
 from TestFilters import *
 from TestFrequencyContent import *
 from TestFrequencyList import *
+from TestGui import *
 from TestHDMICable import *
 from TestHeaders import *
 from TestHiRes import *
