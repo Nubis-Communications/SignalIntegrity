@@ -28,7 +28,7 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, C
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
-from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame
+from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,LoadIcon
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.FilePicker import AskOpenFileName
 
@@ -123,11 +123,11 @@ class VariablesDialog(PropertiesDialog):
 
         self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
-        self.addButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'edit-add-2.gif')
-        self.upButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'up.gif')
-        self.downButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'down.gif')
-        self.delButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'edit-delete-6.gif')
-        self.editButtonGraphic=tk.PhotoImage(file=SignalIntegrity.App.IconsDir+'edit-3.gif')
+        self.addButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-add-2.gif')
+        self.upButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'up.gif')
+        self.downButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'down.gif')
+        self.delButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-delete-6.gif')
+        self.editButtonGraphic=LoadIcon(self,SignalIntegrity.App.IconsDir+'edit-3.gif')
         self.DrawVariables()
 
         addButton = tk.Button(self.controlFrame)
@@ -185,7 +185,7 @@ class VariablesDialog(PropertiesDialog):
             downButton.configure(width=self.downButtonGraphic.width(),height=self.downButtonGraphic.height(), image=self.downButtonGraphic, command=lambda v=v: self.onDownVariable(v))
             downButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
-            visible=tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v))
+            visible=SizeSelectionIndicator(tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v)))
             visible.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
             if variable['Visible']: visible.select()
             else: visible.deselect()

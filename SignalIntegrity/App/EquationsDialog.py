@@ -22,6 +22,7 @@ import tkinter as tk
 from tkinter import font
 
 import os
+import sys
 
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
@@ -36,9 +37,11 @@ class EquationsDialog(tk.Toplevel):
         self.titleText=titleText
         self.parent=parent
         self.__root = self
-        #self.withdraw()
+        self.withdraw()
 
-        self.statusbar=StatusBar(self)
+        self.displayScale=getattr(parent,'displayScale',1.0)
+        self.statusbar=StatusBar(self,displayScale=self.displayScale,multiline=True)
+        self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
         self.NewFileDoer = Doer(self.onNewFile)
@@ -130,10 +133,18 @@ class EquationsDialog(tk.Toplevel):
             self.TextArea.config(height=min(25,max(1,len(text_str))))  
         
         self.protocol("WM_DELETE_WINDOW", self.onExit)
-        self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
         # self.TextArea.bind(":", self.autoindent)
         self.onTouched()
+        self.SizeToContents()
         self.deiconify()
+
+    def SizeToContents(self):
+        if sys.platform.startswith('linux') or sys.platform == 'win32':
+            self.TextArea.config(width=80,height=25)
+            self.update_idletasks()
+            width=min(self.winfo_reqwidth(),round(self.winfo_screenwidth()*0.9))
+            height=min(self.winfo_reqheight(),round(self.winfo_screenheight()*0.9))
+            self.geometry('%dx%d' % (width,height))
 
     def autoindent(self,event):
         # the text widget that received the event

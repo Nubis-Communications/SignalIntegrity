@@ -24,7 +24,7 @@ from tkinter import colorchooser
 from SignalIntegrity.App.FilePicker import AskOpenFileName,AskSaveAsFilename
 from SignalIntegrity.Lib.ToSI import FromSI,ToSI
 from SignalIntegrity.App.Files import FileParts,ConvertFileNameToRelativePath
-from SignalIntegrity.App.MenuSystemHelpers import ToolTip
+from SignalIntegrity.App.MenuSystemHelpers import ToolTip,SizeSelectionIndicator
 
 import SignalIntegrity.App.Project
 
@@ -268,7 +268,7 @@ class CalculationPropertyChoices(tk.Frame):
         self.entry.bind('<FocusOut>',self.onUntouched)
         self.entry.pack(side=tk.LEFT, expand=tk.YES, fill=tk.X)
         for text,value in self.choiceStrings:
-            b = tk.Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed)
+            b = SizeSelectionIndicator(tk.Radiobutton(self.entry,text=text,variable=self.string,value=value,command=self.onPressed))
             b.pack(anchor=tk.W)
         if not ((self.project is None) or (self.projectPath is None)):
             if not self.project[self.projectPath] in [enum for _,enum in self.choiceStrings]:

@@ -30,6 +30,7 @@ from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
 from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.Device import Device
 from SignalIntegrity.App.VariablesDialog import VariablesDialog
+from SignalIntegrity.App.MenuSystemHelpers import SizeSelectionIndicator
 
 import SignalIntegrity.App.Project
 
@@ -265,9 +266,9 @@ class DeviceProperty(tk.Frame):
         self.propertyString=tk.StringVar(value=str(self.partProperty.PropertyString(stype='entry')))
         self.propertyVisible=tk.IntVar(value=int(self.partProperty['Visible']))
         self.keywordVisible=tk.IntVar(value=int(self.partProperty['KeywordVisible']))
-        propertyVisibleCheckBox = tk.Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible)
+        propertyVisibleCheckBox = SizeSelectionIndicator(tk.Checkbutton(self,variable=self.propertyVisible,command=self.onPropertyVisible))
         propertyVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        keywordVisibleCheckBox = tk.Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible)
+        keywordVisibleCheckBox = SizeSelectionIndicator(tk.Checkbutton(self,variable=self.keywordVisible,command=self.onKeywordVisible))
         keywordVisibleCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         propertyLabel = tk.Label(self,width=35,text=self.partProperty['Description']+': ',anchor='e')
         propertyLabel.pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -583,10 +584,11 @@ class DeviceProperties(tk.Frame):
         self.rotationString=tk.StringVar(value=str(self.device.partPicture.current.orientation))
         rotationLabel = tk.Label(self.rotationFrame,text='rotation: ')
         rotationLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(self.rotationFrame,text='0',variable=self.rotationString,value='0',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(self.rotationFrame,text='90',variable=self.rotationString,value='90',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(self.rotationFrame,text='180',variable=self.rotationString,value='180',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-        tk.Radiobutton(self.rotationFrame,text='270',variable=self.rotationString,value='270',command=self.onOrientationChange).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
+        self.rotationRadioButtons=[
+            SizeSelectionIndicator(tk.Radiobutton(self.rotationFrame,text=value,variable=self.rotationString,value=value,command=self.onOrientationChange))
+            for value in ('0','90','180','270')]
+        for radioButton in self.rotationRadioButtons:
+            radioButton.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Button(self.rotationFrame,text='toggle',command=self.onToggleRotation).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         tk.Frame(self.rotationFrame,height=2,bd=2,relief=tk.RAISED).pack(side=tk.LEFT,fill=tk.X,padx=5,pady=5)
         tk.Button(self.rotationFrame,text='help',command=self.onHelp).pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
@@ -604,10 +606,10 @@ class DeviceProperties(tk.Frame):
         mirrorLabel = tk.Label(self.mirrorFrame,text='mirror: ')
         mirrorLabel.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         self.mirrorVerticallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredVertically))
-        mirrorVerticallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange)
+        mirrorVerticallyCheckBox = SizeSelectionIndicator(tk.Checkbutton(self.mirrorFrame,text='Vertically',variable=self.mirrorVerticallyVar,command=self.onOrientationChange))
         mirrorVerticallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         self.mirrorHorizontallyVar=tk.IntVar(value=int(self.device.partPicture.current.mirroredHorizontally))
-        mirrorHorizontallyCheckBox = tk.Checkbutton(self.mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange)
+        mirrorHorizontallyCheckBox = SizeSelectionIndicator(tk.Checkbutton(self.mirrorFrame,text='Horizontally',variable=self.mirrorHorizontallyVar,command=self.onOrientationChange))
         mirrorHorizontallyCheckBox.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
         if advancedMode:
             advancedModeFrame=tk.Frame(propertyListFrame)

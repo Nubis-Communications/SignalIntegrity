@@ -21,9 +21,52 @@ MenuSystemHelpers.py
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font as tkfont
 import os
 import sys
-from PIL import Image, ImageTk
+from PIL import Image, ImageDraw, ImageTk
+
+def LoadIcon(frame,filename):
+    displayScale=1.0
+    if sys.platform.startswith('linux'):
+        displayScale=max(displayScale,float(frame.tk.call('tk','scaling'))/(96.0/72.0))
+        displayScale=max(displayScale,float(os.environ.get('GDK_SCALE','1')))
+    if displayScale > 1.0:
+        with Image.open(filename) as image:
+            width,height=image.size
+            resampling=getattr(Image,'Resampling',Image).LANCZOS
+            image=image.resize((round(width*displayScale),round(height*displayScale)),resampling)
+            return ImageTk.PhotoImage(image,master=frame)
+    return tk.PhotoImage(file=filename,master=frame)
+
+def SizeSelectionIndicator(widget):
+    if not sys.platform.startswith('linux'):
+        return widget
+    # Font metrics are already in display pixels, including Tk's DPI scaling.
+    size=max(10,round(tkfont.Font(root=widget,font=widget.cget('font')).metrics('linespace')*0.75))
+    red,green,blue=widget.winfo_rgb(widget.cget('foreground'))
+    color=(red//256,green//256,blue//256,255)
+    images=[]
+    for selected in (False,True):
+        image=Image.new('RGBA',(size*4,size*4))
+        draw=ImageDraw.Draw(image)
+        bounds=(4,4,size*4-5,size*4-5)
+        if isinstance(widget,tk.Radiobutton):
+            draw.ellipse(bounds,outline=color,width=4)
+            if selected:
+                draw.ellipse((size,size,size*3-1,size*3-1),fill=color)
+        else:
+            draw.rectangle(bounds,outline=color,width=4)
+            if selected:
+                draw.line([(size*0.8,size*2),(size*1.6,size*2.8),(size*3.2,size*1.2)],
+                          fill=color,width=6)
+        resampling=getattr(Image,'Resampling',Image).LANCZOS
+        images.append(ImageTk.PhotoImage(image.resize((size,size),resampling),master=widget))
+    widget._indicatorImages=images
+    widget.configure(indicatoron=False,image=images[0],selectimage=images[1],
+                     compound=tk.LEFT,relief=tk.FLAT,offrelief=tk.FLAT,
+                     borderwidth=0,padx=max(2,round(size/5)),pady=1)
+    return widget
 
 class ToolTip(object):
     """
@@ -111,18 +154,7 @@ class CheckButtonMenuElement(object):
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         if 'iconfile' in kw:
-            displayScale=1.0
-            if sys.platform.startswith('linux'):
-                displayScale=max(displayScale,float(frame.tk.call('tk','scaling'))/(96.0/72.0))
-                displayScale=max(displayScale,float(os.environ.get('GDK_SCALE','1')))
-            if displayScale > 1.0:
-                with Image.open(kw['iconfile']) as image:
-                    width,height=image.size
-                    resampling=getattr(Image,'Resampling',Image).LANCZOS
-                    image=image.resize((round(width*displayScale),round(height*displayScale)),resampling)
-                    self.icon=ImageTk.PhotoImage(image,master=frame)
-            else:
-                self.icon = tk.PhotoImage(file=kw['iconfile'])
+            self.icon=LoadIcon(frame,kw['iconfile'])
             del kw['iconfile']
             kw['image']=self.icon
         self.button=tk.Button(frame,kw)
@@ -231,7 +263,9 @@ class Doer(object):
         return self
 
 class StatusBar(tk.Frame):
-    def __init__(self, master, displayScale=1.0):
+    def __init__(self, master, displayScale=1.0, multiline=False):
+        self.multiline=multiline
+        self.displayScale=displayScale
         if sys.platform.startswith('linux'):
             height=round(24*displayScale)
             tk.Frame.__init__(self, master, height=height, bd=1, relief=tk.SUNKEN)
@@ -246,17 +280,20 @@ class StatusBar(tk.Frame):
             self.label = tk.Label(self, bd=2, relief=tk.SUNKEN, anchor=tk.W, width=1)
             self.label.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES,
                             padx=round(displayScale), pady=round(displayScale))
+            self.configure(height=max(height,self.label.winfo_reqheight()+2*(round(displayScale)+1)))
         else:
             self.label = tk.Label(self, bd=1, relief=tk.SUNKEN, anchor=tk.W, width=1)
             self.label.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
+        self.minimumHeight=self.winfo_reqheight()
     def set(self, format, *args):
         self.label.config(text=format % args)
+        if self.multiline and sys.platform.startswith('linux'):
+            self.configure(height=max(self.minimumHeight,
+                self.label.winfo_reqheight()+2*(round(self.displayScale)+1)))
         self.label.update_idletasks()
         self.label.update()
     def clear(self):
-        self.label.config(text="")
-        self.label.update_idletasks()
-        self.label.update()
+        self.set("")
     def ShowAbort(self, command):
         self.abortButton.config(command=command)
         self.buttonFrame.pack(side=tk.LEFT, before=self.label)

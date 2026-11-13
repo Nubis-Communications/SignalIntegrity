@@ -59,6 +59,7 @@ class ScriptEditorDialog(object):
         dialog.protocol('WM_DELETE_WINDOW',self.onExit)
         self.onTouched()
         dialog.transient(parent)
+        dialog.SizeToContents()
         dialog.deiconify()
         dialog.wait_visibility()
         dialog.grab_set()

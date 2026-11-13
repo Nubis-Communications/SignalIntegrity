@@ -21,13 +21,22 @@ DevicePicker.py
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font as tkfont
 
 class DevicePicker(tk.Frame):
     def __init__(self,parent,deviceList):
         tk.Frame.__init__(self,parent)
         self.config()
         self.parent=parent
-        self.tree = ttk.Treeview(self)
+        self.displayScale=getattr(parent,'displayScale',1.0)
+        self.treeStyle=ttk.Style(self)
+        self.treeFont=tkfont.nametofont('TkDefaultFont').copy()
+        if self.displayScale > 1.0:
+            self.treeStyle.configure(
+                'DevicePicker.Treeview',
+                font=self.treeFont,
+                rowheight=self.treeFont.metrics('linespace')+round(2*self.displayScale))
+        self.tree = ttk.Treeview(self,style='DevicePicker.Treeview')
         self.tree.pack(fill=tk.BOTH,expand=tk.YES)
         self.tree["columns"]=("description")
         self.tree.column("description")
@@ -63,6 +72,7 @@ class DevicePickerDialog(tk.Toplevel):
         self.title('Add Part')
 
         self.parent = parent
+        self.displayScale=getattr(parent,'displayScale',1.0)
 
         self.result = None
 
