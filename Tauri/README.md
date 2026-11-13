@@ -91,14 +91,27 @@ cd src-tauri && cargo build --release
 Run a project directly: `signalintegrity-desktop path/to/project.si`. Set
 `SIGNALINTEGRITY_PYTHON` to choose the interpreter.
 
-Icons in `src-tauri/icons` were generated with `npx tauri icon app-icon.png` from the
-existing SignalIntegrity application icon.
+Icons in `src-tauri/icons` were generated with `npx tauri icon app-icon.png`. `app-icon.png`
+(an eye diagram glowing amber on a violet tile) and `../SignalIntegrity/Server/ui/favicon.png`
+are rendered by `MakeIcons.py` (`python MakeIcons.py <folder> tauri`, needs Pillow and numpy).
+
+The window sets `dragDropEnabled: false` in `tauri.conf.json`. On Windows, Tauri's native
+file-drop handler otherwise swallows HTML5 drag-and-drop, which the parts stencil uses.
 
 ## Features
 
 Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Wheel to zoom, drag to pan, Fit.
+- **Parts stencil:** all 144 parts of the tk Add Part picker in collapsible groups (Resistors,
+  Sources, Generators, Amplifiers, Ports and Probes...) with thumbnails and search. Drag a part
+  onto the schematic, or click it and then click where it goes (Esc cancels). Parts snap to the
+  grid and get the next reference designator and port number. Delete removes the selection.
+- **New** (Ctrl+N) creates an empty project, as tk's File > New Project does.
+- **Themes:** the Theme menu lists SignalIntegrity Light/Dark and every color theme installed
+  in VS Code (and Insiders, VSCodium, Cursor, Windsurf). **Load Theme File...** accepts a VS Code
+  theme `.json` or a `.vsix` downloaded from the Marketplace or Open VSX. The theme colors the
+  UI, the schematic, the stencil and the plots, and is shared with the Qt GUI.
 - Click to select a device (highlighted blue), drag to move it on the grid, Ctrl+R to rotate.
 - Edit device properties (enums as drop-downs), project variables and calculation properties in place.
 - **Show on schematic:** Show/Kw checkboxes per property and Show per variable. These are the
@@ -120,8 +133,9 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
   selections are **kept across recalculations**, as in the tk simulator dialog.
 - Open, Save, Save As (built-in file browser), Netlist viewer, keyboard shortcuts.
 
-Not yet ported (use the tk GUI): placing parts and drawing wires, undo/redo, statistical noise
-windows, the equations and post-processing editors, `.siz` archives, preferences, and help.
+Not yet ported (use the tk GUI): drawing wires, copy/paste, flipping parts, undo/redo,
+statistical noise windows, the equations and post-processing editors, `.siz` archives,
+preferences, and help. Parts placed here can be wired in the tk GUI; both use the same files.
 
 ## Changes in this PR
 
@@ -139,6 +153,9 @@ windows, the equations and post-processing editors, `.siz` archives, preferences
 - Unit and HTTP tests (above).
 - Browser end-to-end check of the web UI with the bundled examples: render, select, property
   edit, S-parameters (`telegrapherFourPort.si`), open dialog, and simulate (`RLC.si`).
+- Browser check of the stencil and themes: HTML5 drag-and-drop of a resistor, click-to-place
+  of a capacitor (references R2/C2 after the existing R1/C1), Delete, switching to VS Code's
+  Dark Modern theme (UI, schematic, thumbnails and plot traces recolored), and simulate.
 - `cargo build` of the shell on Windows (MSVC, WebView2). The app was launched with
   `RLC.si`: the sidecar started, the schematic rendered, and the sidecar was terminated when
   the window closed.

@@ -51,12 +51,14 @@ class Api(object):
     Every public method takes a params dict and returns JSON-serializable data.  Calculations
     run as background jobs because the engine uses a process-global project; while a job runs,
     every call that touches the project is rejected with status 409."""
-    METHODS=['open','save','render','deviceAt','select','deviceProperties','setDeviceProperty',
+    METHODS=['open','new','save','render','deviceAt','select','deviceProperties','setDeviceProperty',
              'setPropertyVisibility','moveDevice','rotateDevice','variables','setVariable','setVariableVisible',
              'calculationProperties','setCalculationProperties','netlist','calculate','job','cancel',
-             'plotData','viewActions','view','ascend','listDirectory','version']
+             'plotData','viewActions','view','ascend','listDirectory','version',
+             'partCatalog','addPart','deleteDevice','themes','theme','setTheme','themesInPackage']
     # these never touch the project, so they neither wait for nor are blocked by a running calculation
-    UNLOCKED=('job','cancel','plotData','listDirectory','version')
+    UNLOCKED=('job','cancel','plotData','listDirectory','version','themes','theme','setTheme','themesInPackage')
+    LISTABLE=('.si','.json','.vsix')
     MAX_RESULTS=8
     def __init__(self,session=None):
         self.session=ProjectSession() if session is None else session
@@ -66,6 +68,7 @@ class Api(object):
         self.results=OrderedDict()
         self._ids=itertools.count(1)
         self._resultIds=itertools.count(1)
+        self.catalog=None
     def Dispatch(self,method,params):
         if method not in self.METHODS:
             raise ApiError('unknown method '+str(method),404)
@@ -105,6 +108,47 @@ class Api(object):
         return {'version':__version__}
     def _open(self,params):
         return self.session.Open(self._Get(params,'filename',str))
+    def _new(self,params):
+        return self.session.New(self._Get(params,'filename',str))
+    # ---- parts stencil
+    def _partCatalog(self,params):
+        if self.catalog is None:
+            self.catalog=self.session.PartCatalog(previews=True)
+        return self.catalog
+    def _addPart(self,params):
+        index=self.session.AddPart(self._Get(params,'part',int),self._Get(params,'x',float),self._Get(params,'y',float))
+        drawing=self.session.Render()
+        drawing['added']=index
+        return drawing
+    def _deleteDevice(self,params):
+        self.session.DeleteDevice(self._Get(params,'index',int))
+        return self.session.Render()
+    # ---- themes
+    def _ThemeResult(self,themeId,name,palette):
+        from SignalIntegrity.GuiCore import Themes
+        return {'id':themeId,'name':name,'palette':palette,'colorMap':Themes.SchematicColorMap(palette)}
+    def _themes(self,params):
+        from SignalIntegrity.GuiCore import Themes
+        return Themes.DiscoverThemes()
+    def _theme(self,params):
+        from SignalIntegrity.GuiCore import Themes
+        return self._ThemeResult(*Themes.CurrentTheme())
+    def _setTheme(self,params):
+        from SignalIntegrity.GuiCore import Themes
+        themeId=self._Get(params,'id',str)
+        try:
+            name,palette=Themes.LoadTheme(themeId)
+        except (Themes.ThemeError,OSError) as e:
+            raise ApiError(str(e))
+        Themes.SaveThemeId(themeId)
+        return self._ThemeResult(themeId,self._Get(params,'name',str,True) or name,palette)
+    def _themesInPackage(self,params):
+        from SignalIntegrity.GuiCore import Themes
+        path=self._Get(params,'path',str)
+        try:
+            return Themes.ThemesInPackage(path)
+        except Exception as e:
+            raise ApiError('could not read '+path+': '+str(e))
     def _save(self,params):
         return {'filename':self.session.Save(self._Get(params,'filename',str,True))}
     def _render(self,params):
@@ -210,6 +254,10 @@ class Api(object):
         return job.Status(includeResult=False)
     def _listDirectory(self,params):
         path=self._Get(params,'path',str,True)
+        extensions=self._Get(params,'extensions',list,True) or ['.si']
+        if not all(isinstance(e,str) and e.lower() in self.LISTABLE for e in extensions):
+            raise ApiError('extensions must be among '+', '.join(self.LISTABLE))
+        extensions=tuple(e.lower() for e in extensions)
         if not path:
             path=os.path.dirname(self.session.filename) if self.session.IsOpen() else os.path.expanduser('~')
         path=os.path.realpath(path)
@@ -226,7 +274,7 @@ class Api(object):
             full=os.path.join(path,name)
             if os.path.isdir(full):
                 entries.append({'name':name,'path':full,'directory':True})
-            elif name.lower().endswith('.si'):
+            elif name.lower().endswith(extensions):
                 entries.append({'name':name,'path':full,'directory':False})
         parent=os.path.dirname(path)
         return {'path':path,'parent':parent if parent!=path else None,'entries':entries}

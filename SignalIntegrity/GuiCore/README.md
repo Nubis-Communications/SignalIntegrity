@@ -16,6 +16,7 @@ or the `.si` project format. Scripts that use `SignalIntegrityAppHeadless`, `si.
 | `RecordingCanvas.py` | Implements the six `tk.Canvas` calls the schematic code uses (`create_line`, `create_polygon`, `create_rectangle`, `create_oval`, `create_arc`, `create_text`) and records them as JSON-serializable dicts. |
 | `Session.py` | `ProjectSession` is a façade over `SignalIntegrityAppHeadless`: it opens and saves projects, renders, selects and moves devices, edits properties, property visibility and variables, sets calculation properties, shows the netlist, runs calculations, and traverses the project hierarchy. |
 | `Results.py` | `ResultData` keeps the original SignalIntegrity waveforms, s-parameters and eye-diagram images of a calculation or device view. It provides plot data (time, spectral content, spectral density) for any x range, with min/max decimation, and autoscale limits chosen the way the tk simulator dialog chooses them. |
+| `Themes.py` | Finds and loads VS Code color themes (installed extensions, theme `.json` files and `.vsix` packages) and maps them to the palette both GUIs use. Stdlib only. |
 
 ## How rendering works
 
@@ -51,6 +52,7 @@ Coordinates are in the same pixel units the tk application uses (`grid` pixels p
 | Method | Returns |
 |---|---|
 | `Open(filename)` | render dict (below); raises `SessionError` on failure |
+| `New(filename)` | starts an empty project and saves it to `filename`, as the tk **File > New Project** does; returns the render dict |
 | `Save(filename=None)` | the saved path (`.si` is appended if missing) |
 | `Render()` | `{filename,title,path,readOnly,canAscend,grid,items,bbox,devices,capabilities,equationsValid}` |
 | `DeviceAt(x,y)` / `Select(index)` | device index under a pixel point / select one device |
@@ -64,6 +66,12 @@ Coordinates are in the same pixel units the tk application uses (`grid` pixels p
 | `ViewActions(index)` | the device's tk **View** menu actions: `file` (View an s-parameter file / Open Project for a `.si` file), `openproject` (a source's waveform project), `waveform` (View Waveform) |
 | `View(index,action)` | `('project',render)` after descending, or `('result',ResultData)` |
 | `Descend(index,filename)` / `Ascend()` | enters a sub-project read-only, passing the device variables (plus calculation properties when `calcprop` is true) exactly like the tk app's `LaunchProjectFile`; returns to the parent with its unsaved edits |
+| `PartCatalog(previews=False)` | every part in the tk **Add Part** picker (`DeviceList`, `DeviceListUnknown`, `DeviceListSystem`, enabled parts only) as `[{index,partname,description,categories,preview?}]`; `description` is unique and is the label the stencils show |
+| `PartPreview(index)` | `{items,bbox}` primitives of a catalog part drawn at the origin, used for stencil thumbnails |
+| `AddPart(index,x,y)` | places a copy of a catalog part with its origin on the grid point nearest pixel `x,y`, initialized from preferences, with a unique reference designator (`R1`, `R2`...) and, for ports, the next port number, as the tk app does; selects it and returns its device index |
+| `DeleteDevice(index)` | removes a device |
+
+`AddPart` and `DeleteDevice` raise `SessionError` at a read-only (traversed) level.
 
 ### ResultData
 
@@ -86,6 +94,39 @@ checks this to 12 decimal places.
 
 If the progress callback returns `False`, the calculation is cancelled and `Calculate` raises
 `SessionError`.
+
+## Themes
+
+Both GUIs can be restyled with any VS Code color theme. `Themes.py` reads the standard VS Code
+formats, so the themes on the VS Code Marketplace and Open VSX work without conversion.
+
+```mermaid
+flowchart LR
+    Ext["installed VS Code extensions<br/>(~/.vscode/extensions, built-in themes)"] --> D[DiscoverThemes]
+    File["theme .json (JSONC)"] --> L[LoadTheme]
+    Vsix[".vsix package"] --> L
+    D --> L
+    L -->|"include chain, colors"| P[Palette]
+    P --> Qt["Qt: QPalette + style sheet + matplotlib"]
+    P --> Web["Tauri: CSS variables + SVG + plot"]
+    P --> S["SchematicColorMap: black/blue/salmon/white -> theme"]
+```
+
+| Function | Purpose |
+|---|---|
+| `DiscoverThemes(folders=None)` | the built-in **SignalIntegrity Light**/**Dark** themes, then every JSON color theme contributed by extensions in `VSCodeExtensionFolders()` (VS Code, Insiders, VSCodium, Cursor and Windsurf user extensions, plus the themes built into VS Code) as `[{id,label,uiTheme,extension}]` |
+| `ThemesInPackage(path)` | the themes in one `.vsix` file or extension folder |
+| `LoadTheme(id)` | `(name, palette)` for a built-in id, a theme `.json` path, an extension folder, a `.vsix` (its first theme), or a `package.vsix::extension/themes/x.json` id |
+| `Palette(theme)` | maps workbench colors (`editor.background`, `sideBar.*`, `button.*`, `list.activeSelection*`, `statusBar.*`, `terminal.ansi*`...) to the GUI palette: window, panel, toolbar, input, selection and status bar colors, schematic ink/selection/background, and plot trace colors |
+| `SchematicColorMap(palette)` | how the tk part-picture colors are recolored: `black` ink, `blue` selection, `salmon` disabled parts and `white` fills |
+| `CurrentTheme()` / `SaveThemeId(id)` | the theme both GUIs use, stored in `gui-theme.json` under `%APPDATA%\SignalIntegrity` (`~/.config/SignalIntegrity` on Linux, `~/Library/Application Support/SignalIntegrity` on macOS); falls back to the light theme if the saved theme is gone |
+
+Theme files are JSON with comments and trailing commas (JSONC); `include` chains are followed
+as VS Code does. TextMate `.tmTheme` themes and token colors are ignored, since the GUIs only
+need workbench colors. The palette keeps the schematic readable: if a theme's link color is
+too close to its background, a standard blue is used for the selection, and plot traces fall
+back to a built-in set when a theme has fewer than four distinct ANSI colors with enough
+contrast.
 
 ## Limits
 

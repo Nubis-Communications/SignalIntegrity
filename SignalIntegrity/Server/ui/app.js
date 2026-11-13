@@ -1,5 +1,5 @@
 // SignalIntegrity web GUI - talks to SignalIntegrity.Server over a token-protected local JSON API.
-import { el, renderPrimitives } from './schematic.js';
+import { el, renderPrimitives, primitivesBox } from './schematic.js';
 import { Plot, COLORS, engineering } from './plot.js';
 
 const $ = id => document.getElementById(id);
@@ -28,7 +28,8 @@ export async function api(method, params = {}) {
 }
 
 // ---------- state
-const state = { drawing: null, selected: null, busy: false, view: { s: 1, tx: 0, ty: 0 }, lastCalculation: null };
+const state = { drawing: null, selected: null, busy: false, view: { s: 1, tx: 0, ty: 0 }, lastCalculation: null,
+  colorMap: null, palette: null, theme: null, catalog: [], placing: null };
 const svg = $('schematic'), viewport = $('viewport');
 
 function status(text) { $('status').textContent = text; }
@@ -39,9 +40,13 @@ function updateEnables() {
   const open = !!state.drawing, busy = state.busy, ro = readOnly();
   const caps = open ? state.drawing.capabilities : {};
   $('btnOpen').disabled = busy;
+  $('btnNew').disabled = busy;
   for (const id of ['btnSave', 'btnSaveAs']) $(id).disabled = !open || busy || ro;
   $('btnNetlist').disabled = !open || busy;
   $('btnRotate').disabled = !open || busy || ro || state.selected === null;
+  $('btnDelete').disabled = !open || busy || ro || state.selected === null;
+  $('parts').classList.toggle('disabled', !open || busy || ro);
+  if ((!open || busy || ro) && state.placing !== null) stopPlacing();
   $('btnView').disabled = !open || busy || state.selected === null || !(state.viewActions && state.viewActions.length);
   $('btnUp').disabled = !open || busy || !state.drawing.canAscend;
   for (const b of document.querySelectorAll('button.calc')) b.disabled = !open || busy || !caps[b.dataset.kind];
@@ -90,7 +95,7 @@ function deviceAt(p) {
 }
 async function setDrawing(drawing, fit = false) {
   state.drawing = drawing;
-  renderPrimitives(viewport, drawing.items);
+  renderPrimitives(viewport, drawing.items, state.colorMap);
   const sel = drawing.devices.find(d => d.selected);
   state.selected = sel ? sel.index : null;
   state.viewActions = state.selected === null ? [] : await api('viewActions', { index: state.selected });
@@ -106,6 +111,11 @@ let drag = null;
 svg.addEventListener('pointerdown', async evt => {
   hideContextMenu();
   if (evt.button !== 0 || !state.drawing || state.busy) return;
+  if (state.placing !== null) {
+    const part = state.placing;
+    stopPlacing();
+    return addPart(part, toScene(evt));
+  }
   svg.setPointerCapture(evt.pointerId);
   const p = toScene(evt);
   const index = deviceAt(p);
@@ -115,7 +125,7 @@ svg.addEventListener('pointerdown', async evt => {
     const d = state.drawing.devices.find(x => x.index === index);
     const [x0, y0, x1, y1] = d.bbox;
     const ghost = el('rect', { x: Math.min(x0, x1), y: Math.min(y0, y1), width: Math.abs(x1 - x0), height: Math.abs(y1 - y0),
-      fill: 'none', stroke: '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
+      fill: 'none', stroke: state.palette ? state.palette.accent : '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
     drag = { kind: 'device', index, start: p, ghost, dx: 0, dy: 0 };
   } else {
     if (state.selected !== null) await selectDevice(null);
@@ -173,6 +183,7 @@ svg.addEventListener('contextmenu', async evt => {
     if (items.length) items.push(null);
     items.push(['Edit Properties', () => { const i = $('properties').querySelector('input:not([type=checkbox]),select'); if (i) i.focus(); }]);
     items.push(['Rotate', () => $('btnRotate').click()]);
+    items.push(['Delete', () => $('btnDelete').click()]);
   }
   if (state.drawing.canAscend) { items.push(null); items.push(['Up to Parent Project', ascend]); }
   const menu = $('contextMenu');
@@ -303,17 +314,22 @@ async function openProject(filename) {
   } catch (e) { error(e); }
 }
 function fileDialog(mode) {
+  // mode: open | save | new | theme
+  const TITLES = { open: 'Open Project', save: 'Save Project As', new: 'New Project File', theme: 'Load Theme (VS Code .json or .vsix)' };
+  const naming = mode === 'save' || mode === 'new';
   return new Promise(resolve => {
     const dlg = $('fileDialog');
     let current = null, chosen = null;
-    $('fileDialogTitle').textContent = mode === 'open' ? 'Open Project' : 'Save Project As';
-    $('fileOk').textContent = mode === 'open' ? 'Open' : 'Save';
+    $('fileDialogTitle').textContent = TITLES[mode];
+    $('fileOk').textContent = naming ? (mode === 'new' ? 'Create' : 'Save') : 'Open';
     $('fileName').value = mode === 'save' && state.drawing ? state.drawing.title : '';
-    $('fileName').style.display = mode === 'save' ? '' : 'none';
+    $('fileName').style.display = naming ? '' : 'none';
     const finish = value => { dlg.close(); resolve(value); };
     const load = async path => {
       try {
-        const listing = await api('listDirectory', path ? { path } : {});
+        const params = path ? { path } : {};
+        if (mode === 'theme') params.extensions = ['.json', '.vsix'];
+        const listing = await api('listDirectory', params);
         current = listing; $('filePath').value = listing.path;
         const ul = $('fileList'); clear(ul);
         for (const entry of listing.entries) {
@@ -333,7 +349,7 @@ function fileDialog(mode) {
     $('filePath').onkeydown = e => { if (e.key === 'Enter') load($('filePath').value); };
     $('fileCancel').onclick = () => finish(null);
     $('fileOk').onclick = () => {
-      if (mode === 'save') {
+      if (naming) {
         const name = $('fileName').value.trim();
         if (!name || !current) return;
         finish(current.path + (current.path.includes('\\') ? '\\' : '/') + name);
@@ -345,6 +361,15 @@ function fileDialog(mode) {
   });
 }
 $('btnOpen').onclick = async () => { const f = await fileDialog('open'); if (f) await openProject(f); };
+$('btnNew').onclick = async () => {
+  const f = await fileDialog('new');
+  if (!f) return;
+  try {
+    closeResults(true);
+    await showLevel(await api('new', { filename: f }));
+    status('created ' + state.drawing.filename + '  -  drag parts from the Parts stencil onto the schematic');
+  } catch (e) { error(e); }
+};
 $('btnSave').onclick = async () => { try { status('saved ' + (await api('save')).filename); } catch (e) { error(e); } };
 $('btnSaveAs').onclick = async () => {
   const f = await fileDialog('save');
@@ -357,6 +382,191 @@ $('btnZoomFit').onclick = zoomFit;
 $('btnRotate').onclick = async () => {
   if (state.selected === null) return;
   try { await setDrawing(await api('rotateDevice', { index: state.selected })); } catch (e) { error(e); }
+};
+$('btnDelete').onclick = async () => {
+  if (state.selected === null || readOnly()) return;
+  try { await setDrawing(await api('deleteDevice', { index: state.selected })); await refreshProperties(); } catch (e) { error(e); }
+};
+
+// ---------- parts stencil
+const PART_TYPE = 'text/x-si-part';
+function partThumbnail(part) {
+  const s = el('svg', { viewBox: '0 0 1 1', preserveAspectRatio: 'xMidYMid meet' });
+  const g = el('g', {}, s);
+  renderPrimitives(g, part.preview.items, state.colorMap, true);
+  const box = primitivesBox(part.preview.items, true);
+  if (box) s.setAttribute('viewBox', `${box[0] - 2} ${box[1] - 2} ${box[2] - box[0] + 4} ${box[3] - box[1] + 4}`);
+  return s;
+}
+function buildStencil() {
+  const host = $('partGroups');
+  const open = new Set([...host.querySelectorAll('details[open]')].map(d => d.dataset.group));
+  clear(host);
+  const groups = new Map();
+  for (const part of state.catalog) {
+    for (const group of part.categories.length ? part.categories : ['Miscellaneous']) {
+      if (!groups.has(group)) groups.set(group, []);
+      groups.get(group).push(part);
+    }
+  }
+  for (const [group, parts] of groups) {
+    const details = document.createElement('details');
+    details.dataset.group = group;
+    details.open = open.has(group);
+    const summary = document.createElement('summary');
+    const count = document.createElement('span'); count.className = 'count';
+    summary.append(group, count);
+    details.appendChild(summary);
+    for (const part of parts) {
+      const row = document.createElement('div');
+      row.className = 'part'; row.draggable = true; row.dataset.part = part.index;
+      row.dataset.search = (part.partname + ' ' + part.description + ' ' + part.categories.join(' ')).toLowerCase();
+      row.title = part.partname + '\n' + part.description;
+      const label = document.createElement('span'); label.textContent = part.description || part.partname;
+      row.append(partThumbnail(part), label);
+      row.addEventListener('dragstart', e => {
+        e.dataTransfer.setData(PART_TYPE, String(part.index));
+        e.dataTransfer.setData('text/plain', part.description);
+        e.dataTransfer.effectAllowed = 'copy';
+      });
+      row.addEventListener('click', () => startPlacing(part.index));
+      details.appendChild(row);
+    }
+    host.appendChild(details);
+  }
+  filterStencil();
+}
+function filterStencil() {
+  const words = $('partSearch').value.toLowerCase().split(/\s+/).filter(Boolean);
+  for (const details of $('partGroups').children) {
+    let shown = 0;
+    for (const row of details.querySelectorAll('.part')) {
+      const show = words.every(w => row.dataset.search.includes(w));
+      row.hidden = !show; shown += show;
+    }
+    details.hidden = shown === 0;
+    details.querySelector('.count').textContent = '(' + shown + ')';
+    if (words.length) details.open = shown > 0;
+  }
+}
+$('partSearch').addEventListener('input', filterStencil);
+function startPlacing(index) {
+  if (!state.drawing || readOnly() || state.busy) return;
+  stopPlacing();
+  state.placing = index;
+  svg.classList.add('placing');
+  const row = $('partGroups').querySelector(`.part[data-part="${index}"]`);
+  if (row) row.classList.add('armed');
+  const part = state.catalog[index];
+  status('click on the schematic to place ' + (part ? part.description : 'the part') + ' (Esc cancels)');
+}
+function stopPlacing() {
+  state.placing = null;
+  svg.classList.remove('placing');
+  for (const row of $('partGroups').querySelectorAll('.part.armed')) row.classList.remove('armed');
+}
+async function addPart(index, p) {
+  try {
+    await setDrawing(await api('addPart', { part: index, x: p.x, y: p.y }));
+    await refreshProperties();
+    const d = state.drawing.devices[state.selected];
+    status('added ' + (d ? (d.ref ? d.ref + ' ' : '') + d.partname : 'part'));
+  } catch (e) { error(e); }
+}
+const canvasHost = $('canvasHost');
+const acceptsPart = e => state.drawing && !readOnly() && !state.busy && [...e.dataTransfer.types].includes(PART_TYPE);
+canvasHost.addEventListener('dragover', e => {
+  if (!acceptsPart(e)) return;
+  e.preventDefault(); e.dataTransfer.dropEffect = 'copy';
+  canvasHost.classList.add('drop-target');
+});
+canvasHost.addEventListener('dragleave', () => canvasHost.classList.remove('drop-target'));
+canvasHost.addEventListener('drop', e => {
+  canvasHost.classList.remove('drop-target');
+  if (!acceptsPart(e)) return;
+  e.preventDefault();
+  const index = parseInt(e.dataTransfer.getData(PART_TYPE), 10);
+  if (Number.isInteger(index)) addPart(index, toScene(e));
+});
+async function loadStencil() {
+  try { state.catalog = await api('partCatalog'); buildStencil(); } catch (e) { status('could not load the parts catalog: ' + e.message); }
+}
+
+// ---------- themes (VS Code color themes)
+const CSS_VARS = { '--bg': 'panel', '--panel': 'panel', '--fg': 'panelForeground', '--border': 'border', '--accent': 'accent',
+  '--toolbar': 'toolbar', '--button-bg': 'buttonBackground', '--button-fg': 'buttonForeground', '--input-bg': 'inputBackground',
+  '--input-fg': 'inputForeground', '--selection': 'selection', '--selection-fg': 'selectionForeground', '--hover': 'hover',
+  '--status-bg': 'statusBar', '--status-fg': 'statusBarForeground', '--canvas': 'schematicBackground',
+  '--plot-bg': 'background', '--plot-fg': 'foreground', '--grid': 'grid', '--muted': 'grid' };
+function applyTheme(theme) {
+  state.theme = theme; state.palette = theme.palette; state.colorMap = theme.colorMap;
+  const root = document.documentElement.style;
+  for (const [name, key] of Object.entries(CSS_VARS)) if (theme.palette[key]) root.setProperty(name, theme.palette[key]);
+  root.setProperty('color-scheme', theme.palette.dark ? 'dark' : 'light');
+  COLORS.splice(0, COLORS.length, ...theme.palette.traces);
+  if (state.drawing) renderPrimitives(viewport, state.drawing.items, state.colorMap);
+  if (state.catalog.length) buildStencil();
+  if ($('resultsDialog').open && currentTab) {
+    if (currentTab.kind === 'waveforms') buildSelectionList();
+    currentTab.show();
+  }
+}
+async function setTheme(id, name) {
+  try { applyTheme(await api('setTheme', name ? { id, name } : { id })); status('theme: ' + state.theme.name); } catch (e) { error(e); }
+}
+function choose(title, labels) {
+  return new Promise(resolve => {
+    const dlg = $('choiceDialog'), list = $('choiceList');
+    $('choiceTitle').textContent = title; clear(list);
+    labels.forEach((label, i) => { const o = document.createElement('option'); o.value = i; o.textContent = label; list.appendChild(o); });
+    list.selectedIndex = 0;
+    const finish = v => { dlg.close(); resolve(v); };
+    $('choiceOk').onclick = () => finish(list.selectedIndex);
+    list.ondblclick = () => finish(list.selectedIndex);
+    $('choiceCancel').onclick = () => finish(null);
+    dlg.oncancel = () => resolve(null);
+    dlg.showModal();
+  });
+}
+async function loadThemeFile() {
+  const f = await fileDialog('theme');
+  if (!f) return;
+  if (!f.toLowerCase().endsWith('.vsix')) return setTheme(f);
+  try {
+    const themes = await api('themesInPackage', { path: f });
+    if (!themes.length) return error(new Error('no color themes in ' + f));
+    const i = themes.length === 1 ? 0 : await choose('Choose a theme', themes.map(t => t.label));
+    if (i !== null) await setTheme(themes[i].id, themes[i].label);
+  } catch (e) { error(e); }
+}
+function hideThemeMenu() { $('themeMenu').hidden = true; }
+document.addEventListener('pointerdown', e => { if (!$('themeMenu').contains(e.target) && e.target !== $('btnTheme')) hideThemeMenu(); });
+$('btnTheme').onclick = async () => {
+  const menu = $('themeMenu');
+  if (!menu.hidden) return hideThemeMenu();
+  let themes;
+  try { themes = await api('themes'); } catch (e) { return error(e); }
+  clear(menu);
+  const add = (text, cls, onClick) => {
+    const li = document.createElement('li'); li.textContent = text; if (cls) li.className = cls;
+    if (onClick) li.addEventListener('click', () => { hideThemeMenu(); onClick(); });
+    menu.appendChild(li);
+  };
+  const groups = [['SignalIntegrity', t => t.extension === 'SignalIntegrity'],
+    ['VS Code dark themes', t => t.extension !== 'SignalIntegrity' && !['vs', 'hc-light'].includes(t.uiTheme)],
+    ['VS Code light themes', t => t.extension !== 'SignalIntegrity' && ['vs', 'hc-light'].includes(t.uiTheme)]];
+  for (const [heading, rule] of groups) {
+    const list = themes.filter(rule);
+    if (!list.length) continue;
+    add(heading, 'heading');
+    for (const t of list) add(t.label, state.theme && state.theme.id === t.id ? 'current' : '', () => setTheme(t.id, t.label));
+  }
+  add('', 'sep');
+  add('Load Theme File...', '', loadThemeFile);
+  const r = $('btnTheme').getBoundingClientRect();
+  menu.hidden = false;
+  menu.style.top = r.bottom + 2 + 'px';
+  menu.style.left = Math.max(4, r.right - menu.offsetWidth) + 'px';
 };
 $('btnNetlist').onclick = async () => {
   try {
@@ -576,10 +786,13 @@ function showResults(result, title, recalculable) {
 // ---------- keyboard
 window.addEventListener('keydown', e => {
   if (document.querySelector('dialog[open]:modal')) return;
+  if (e.key === 'Escape') { if (state.placing !== null) { stopPlacing(); status('placement cancelled'); } hideThemeMenu(); hideContextMenu(); return; }
+  const typing = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement && document.activeElement.tagName);
+  if (!typing && (e.key === 'Delete' || e.key === 'Backspace') && !$('btnDelete').disabled) { e.preventDefault(); return $('btnDelete').click(); }
   if (e.altKey && e.key === 'ArrowUp' && !$('btnUp').disabled) { e.preventDefault(); return ascend(); }
   if (!(e.ctrlKey || e.metaKey)) return;
   const k = e.key.toLowerCase();
-  const map = { o: 'btnOpen', s: 'btnSave', r: 'btnRotate', e: 'btnView', 0: 'btnZoomFit' };
+  const map = { n: 'btnNew', o: 'btnOpen', s: 'btnSave', r: 'btnRotate', e: 'btnView', 0: 'btnZoomFit' };
   if (map[k] && !$(map[k]).disabled) { e.preventDefault(); $(map[k]).click(); }
 });
 
@@ -590,6 +803,8 @@ window.addEventListener('keydown', e => {
   try {
     const { version } = await api('version');
     status('SignalIntegrity ' + version + ' - open a project (.si) to begin');
+    applyTheme(await api('theme'));
+    await loadStencil();
     await showLevel(await api('render'));
     status('opened ' + state.drawing.filename);
   } catch (e) { /* no project open yet */ }

@@ -144,6 +144,67 @@ class TestServerApiTest(unittest.TestCase):
         self.assertEqual(waveform['kind'],'result')
         self.assertEqual(waveform['result']['waveforms'][0]['name'],'Vin')
         self.assertIn('resultId',waveform['result'])
+    def testStencilNewAddDelete(self):
+        import tempfile, shutil
+        directory=tempfile.mkdtemp()
+        try:
+            catalog=self.api.Dispatch('partCatalog',{})
+            self.assertGreater(len(catalog),100)
+            self.assertTrue(all(p['preview']['items'] for p in catalog))
+            self.assertIs(self.api.Dispatch('partCatalog',{}),catalog)   # cached
+            resistor=[p['index'] for p in catalog if p['description']=='Two Port Resistor'][0]
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('addPart',{'part':resistor,'x':0,'y':0})   # nothing open
+            drawing=self.api.Dispatch('new',{'filename':os.path.join(directory,'fresh')})
+            self.assertEqual(drawing['devices'],[])
+            self.assertTrue(os.path.isfile(os.path.join(directory,'fresh.si')))
+            drawing=self.api.Dispatch('addPart',{'part':resistor,'x':100,'y':50.5})
+            self.assertEqual(drawing['added'],0)
+            self.assertEqual(drawing['devices'][0]['ref'],'R1')
+            self.assertTrue(drawing['devices'][0]['selected'])
+            drawing=self.api.Dispatch('addPart',{'part':resistor,'x':300,'y':50})
+            self.assertEqual([d['ref'] for d in drawing['devices']],['R1','R2'])
+            for bad in ({'part':'1','x':0,'y':0},{'part':9999,'x':0,'y':0},{'part':resistor,'x':'a','y':0}):
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('addPart',bad)
+            drawing=self.api.Dispatch('deleteDevice',{'index':0})
+            self.assertEqual([d['ref'] for d in drawing['devices']],['R2'])
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('deleteDevice',{'index':5})
+        finally:
+            os.chdir(self.cwd)
+            shutil.rmtree(directory,ignore_errors=True)
+    def testThemes(self):
+        import tempfile, shutil
+        from unittest import mock
+        from SignalIntegrity.GuiCore import Themes
+        directory=tempfile.mkdtemp()
+        try:
+            with mock.patch.object(Themes,'SettingsFile',return_value=os.path.join(directory,'gui-theme.json')):
+                themes=self.api.Dispatch('themes',{})
+                self.assertEqual([t['id'] for t in themes[:2]],['builtin:light','builtin:dark'])
+                self.assertEqual(self.api.Dispatch('theme',{})['id'],'builtin:light')
+                dark=self.api.Dispatch('setTheme',{'id':'builtin:dark'})
+                self.assertTrue(dark['palette']['dark'])
+                self.assertEqual(set(dark['colorMap']),{'black','blue','salmon','white'})
+                self.assertEqual(self.api.Dispatch('theme',{})['id'],'builtin:dark')
+                path=os.path.join(directory,'mine.json')
+                with open(path,'w') as f:
+                    f.write('{"type":"light","colors":{"editor.background":"#fafaf0",},}')
+                mine=self.api.Dispatch('setTheme',{'id':path,'name':'Mine'})
+                self.assertEqual((mine['name'],mine['palette']['schematicBackground']),('Mine','#fafaf0'))
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('setTheme',{'id':os.path.join(directory,'missing.json')})
+                self.assertEqual(self.api.Dispatch('theme',{})['id'],path)
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('themesInPackage',{'path':os.path.join(directory,'missing.vsix')})
+                listing=self.api.Dispatch('listDirectory',{'path':directory,'extensions':['.json','.vsix']})
+                self.assertIn('mine.json',[e['name'] for e in listing['entries']])
+                self.assertNotIn('mine.json',[e['name'] for e in self.api.Dispatch('listDirectory',{'path':directory})['entries']])
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('listDirectory',{'path':directory,'extensions':['.py']})
+        finally:
+            shutil.rmtree(directory,ignore_errors=True)
 
 class TestServerHttpTest(unittest.TestCase):
     @classmethod
@@ -175,6 +236,8 @@ class TestServerHttpTest(unittest.TestCase):
         self.assertIn(b'SignalIntegrity',data)
         self.assertIn("default-src 'self'",response.getheader('Content-Security-Policy'))
         self.assertEqual(self.Request('GET','/app.js')[0],200)
+        status,data,response=self.Request('GET','/favicon.png')
+        self.assertEqual((status,response.getheader('Content-Type'),data[:4]),(200,'image/png',b'\x89PNG'))
         self.assertEqual(self.Request('GET','/../HttpServer.py')[0],404)
         self.assertEqual(self.Request('GET','/%2e%2e/HttpServer.py')[0],404)
     def testAuthorization(self):

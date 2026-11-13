@@ -64,7 +64,7 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    package_data={'SignalIntegrity.Server':['ui/*.html','ui/*.js','ui/*.css']},
+    package_data={'SignalIntegrity.Server':['ui/*.html','ui/*.js','ui/*.css','ui/*.png']},
     extras_require={'test': ['pytest>=6']},
     python_requires='>=3.6',
     entry_points={

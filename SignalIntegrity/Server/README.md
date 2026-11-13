@@ -38,7 +38,7 @@ like a local editor process:
 | Static files | Served only from `ui/`, with an extension allow-list and a real-path containment check (no path traversal). |
 | Browser hardening | Strict `Content-Security-Policy` (`default-src 'self'`, no inline script), `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, `Cache-Control: no-store`. The UI uses `textContent` and DOM APIs only, never `innerHTML`. |
 | Resource limits | 1 MiB request body limit, 30 s socket timeout, `Connection: close`. |
-| File browsing | `listDirectory` lists only folders and `.si` files. It is authenticated like every other method. |
+| File browsing | `listDirectory` lists only folders and `.si` files (or, when asked, `.json`/`.vsix` theme files; other extensions are rejected). It is authenticated like every other method. |
 
 Do not put the server behind a reverse proxy or bind it to another interface.
 
@@ -52,6 +52,7 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 |---|---|---|
 | `version` | – | `{version}` |
 | `open` | `filename` | render (see GuiCore) |
+| `new` | `filename` | creates and saves an empty project; render |
 | `save` | `filename?` | `{filename}` |
 | `render` | – | render |
 | `deviceAt` | `x`, `y` | `{index}` |
@@ -71,7 +72,14 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `job` | `id` | job (`{id,kind,state,progress,error,result?}`); `result` is a result summary |
 | `cancel` | `id` | job |
 | `plotData` | `resultId`, `view` (`time`/`content`/`density`), `indices?`, `xmin?`, `xmax?`, `points?` | `{series:[{index,name,dc,x,y,total}],autoscale}` for that x range, min/max-decimated to `points` |
-| `listDirectory` | `path?` | `{path,parent,entries:[{name,path,directory}]}` |
+| `listDirectory` | `path?`, `extensions?` (any of `.si`, `.json`, `.vsix`; default `.si`) | `{path,parent,entries:[{name,path,directory}]}` |
+| `partCatalog` | – | the parts stencil: `[{index,partname,description,categories,preview:{items,bbox}}]` (computed once per server) |
+| `addPart` | `part` (catalog index), `x`, `y` (schematic pixels) | render with `added` (the new device index, selected) |
+| `deleteDevice` | `index` | render |
+| `themes` | – | built-in and installed VS Code themes `[{id,label,uiTheme,extension}]` |
+| `theme` | – | the saved theme `{id,name,palette,colorMap}` |
+| `setTheme` | `id` (built-in id, theme id, `.json` path or `.vsix` path), `name?` | `{id,name,palette,colorMap}`; also saves it for both GUIs |
+| `themesInPackage` | `path` (`.vsix` or extension folder) | the themes it contains |
 
 A result summary is `{resultId,type,title,waveforms:[{index,name,dc,points,start,sampleRate}],sparameters:[...],eyes:[{name,image}]}`.
 Waveform samples are not sent with the summary. The UI requests `plotData` for the visible x range
@@ -80,7 +88,8 @@ any zoom. The server keeps the last 8 results.
 
 Calculations run as one background job at a time, because the engine keeps a process-global
 project. Poll `job` until `state` is `done` or `failed`. While a job is running, project calls
-return 409; `job`, `cancel`, `plotData`, `listDirectory` and `version` never wait for the
+return 409; `job`, `cancel`, `plotData`, `listDirectory`, `version` and the theme methods never wait
+for the
 calculation.
 
 ## Files
@@ -91,8 +100,9 @@ calculation.
 | `HttpServer.py` | `SignalIntegrityServer` (a `ThreadingHTTPServer`) and the request handler (security checks, static files, JSON). |
 | `Api.py` | `Api` method dispatcher, parameter validation and calculation jobs. |
 | `ui/index.html`, `ui/app.css` | Page layout and styles. |
-| `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), device context menu and hierarchy navigation, property/variable tables with Show/Keyword checkboxes, file dialog, progress, and the simulator results dialog. |
-| `ui/schematic.js` | Turns GuiCore primitives into SVG (tk-style arrowheads, arcs and text anchors). |
+| `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), parts stencil (HTML5 drag-and-drop of `text/x-si-part`, click-to-place, Delete), theme menu (applies the palette to CSS variables, the schematic color map and plot traces), device context menu and hierarchy navigation, property/variable tables with Show/Keyword checkboxes, file dialog, progress, and the simulator results dialog. |
+| `ui/schematic.js` | Turns GuiCore primitives into SVG (tk-style arrowheads, arcs and text anchors), recoloring the tk part colors through the theme's color map. Also draws the label-free stencil thumbnails. |
+| `ui/favicon.png` | App icon used as the favicon and toolbar logo. |
 | `ui/plot.js` | Dependency-free interactive SVG plot reproducing matplotlib's navigation in the tk dialogs: pan mode by default (left-drag pans, right-drag zooms x and y independently about the pointer, hold `x`/`y` to constrain), zoom-box mode (left zooms in, right zooms out, a flat box zooms one axis), Home/Back/Forward history, and autoscale. |
 
 The web UI has no third-party JavaScript and needs no build step.

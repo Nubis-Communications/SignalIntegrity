@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SignalIntegrity</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="app.css">
 <script type="module" src="app.js"></script>
 </head>
 <body>
 <header id="toolbar">
+  <img class="logo" src="favicon.png" alt="">
+  <button id="btnNew" title="New project (Ctrl+N)">New</button>
   <button id="btnOpen" title="Open project (Ctrl+O)">Open</button>
   <button id="btnSave" title="Save project (Ctrl+S)" disabled>Save</button>
   <button id="btnSaveAs" title="Save project as" disabled>Save As</button>
@@ -18,6 +21,7 @@
   <button id="btnZoomFit" title="Zoom to fit (Ctrl+0)">Fit</button>
   <span class="sep"></span>
   <button id="btnRotate" title="Rotate selected device (Ctrl+R)" disabled>Rotate</button>
+  <button id="btnDelete" title="Delete selected device (Delete)" disabled>Delete</button>
   <button id="btnView" title="View the selected device or open its project (Ctrl+E)" disabled>View / Open Project</button>
   <button id="btnUp" title="Up to the parent project (Alt+Up)" disabled>Up</button>
   <span class="sep"></span>
@@ -27,9 +31,17 @@
   <button class="calc" data-kind="deembed" disabled>De-embed</button>
   <span class="sep"></span>
   <button id="btnNetlist" disabled>Netlist</button>
+  <span class="spacer"></span>
+  <button id="btnTheme" title="Color theme (VS Code themes)">Theme &#x25BE;</button>
 </header>
 <main>
   <aside id="left">
+    <section id="parts" class="disabled">
+      <h2>Parts</h2>
+      <input id="partSearch" type="search" placeholder="Search parts..." spellcheck="false">
+      <div id="partGroups"></div>
+      <div id="partsHint">Drag a part onto the schematic, or click it and then click where it goes (Esc cancels).</div>
+    </section>
     <section>
       <h2>Variables</h2>
       <table id="variables"><colgroup><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show on schematic">Show</th><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
@@ -49,6 +61,7 @@
 </main>
 <footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
 <menu id="contextMenu" hidden></menu>
+<menu id="themeMenu" hidden></menu>
 
 <dialog id="fileDialog">
   <h3 id="fileDialogTitle">Open Project</h3>
@@ -56,6 +69,11 @@
   <ul id="fileList"></ul>
   <div class="row"><input id="fileName" type="text" placeholder="file name.si" spellcheck="false"></div>
   <div class="buttons"><button id="fileCancel" type="button">Cancel</button><button id="fileOk" type="button">Open</button></div>
+</dialog>
+<dialog id="choiceDialog">
+  <h3 id="choiceTitle"></h3>
+  <select id="choiceList" size="8"></select>
+  <div class="buttons"><button id="choiceCancel" type="button">Cancel</button><button id="choiceOk" type="button">OK</button></div>
 </dialog>
 <dialog id="textDialog">
   <h3 id="textDialogTitle"></h3>
