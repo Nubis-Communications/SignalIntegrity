@@ -11,7 +11,8 @@ dependencies with `python -m pip install -e ".[test]"`, then run:
 The root `pytest.ini` configuration selects `TestSignalIntegrity/TestAll.py`, which
 collects the unittest cases from the test modules.
 
-GUI regressions, including Linux display scaling, in
+GUI regressions, including Linux display scaling and measurement-table section
+label contrast across theme palettes and live theme changes, in
 [TestGui](TestSignalIntegrity/TestGui) are included in `TestAll.py`.
 They skip when no Tk display is available. To run just these tests from the
 repository root:

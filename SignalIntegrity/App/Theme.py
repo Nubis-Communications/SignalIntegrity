@@ -210,6 +210,12 @@ class ThemeManager:
             self.entryColors[widget] = colors
 
     def StyleWidget(self, widget):
+        if isinstance(widget, ttk.Treeview) and 'group' in widget.tk.splitlist(
+                widget.tk.call(widget._w, 'tag', 'names')):
+            widget.tag_configure(
+                'group',
+                background='#e8e8e8' if self.name == 'Legacy' else self.palette['readonlybackground'],
+                foreground='' if self.name == 'Legacy' else self.palette['foreground'])
         if isinstance(widget, tk.Entry) and not isinstance(widget, ttk.Widget):
             self.RememberEntry(widget)
             if self.name == 'Legacy':

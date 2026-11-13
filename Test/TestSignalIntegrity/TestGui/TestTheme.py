@@ -191,6 +191,47 @@ class TestTheme(unittest.TestCase):
                 stream.write('<Preferences>\n<Appearance><FontSize>9</FontSize></Appearance>\n</Preferences>\n')
             self.assertEqual(PreferencesFile().Read(oldPath)['Appearance.Theme'], 'Legacy')
 
+    def test_measurement_group_rows_follow_theme_on_open_and_palette_changes(self):
+        from SignalIntegrity.App.EyeDiagramMeasurementsDialog import EyeDiagramMeasurementsDialog
+        from SignalIntegrity.App.StatisticalNoiseMeasurementsDialog import StatisticalNoiseMeasurementsDialog
+        import SignalIntegrity.App
+        for initial in ('Dark', 'Legacy'):
+            self.apply(initial)
+            dialogs = []
+            with patch.object(SignalIntegrity.App, 'Preferences', self.preferences):
+                try:
+                    eye = EyeDiagramMeasurementsDialog(self.root, 'Test')
+                    dialogs.append(eye)
+                    noise = StatisticalNoiseMeasurementsDialog(self.root)
+                    dialogs.append(noise)
+                    for name, variant in ((initial, 'Default'), ('Dark', 'Slate'),
+                                          ('Dark', 'Midnight'), ('Light', 'Default'),
+                                          ('Light', 'Warm'), ('Light', 'Cool'), ('Legacy', None)):
+                        if name != 'Legacy':
+                            self.preferences['Appearance.Themes.' + name + '.Palette'] = variant
+                        if (name, variant) != (initial, 'Default'):
+                            self.apply(name)
+                        for tab, tree in ((eye.tab1, eye._tree1), (eye.tab2, eye._tree2),
+                                          (eye.tab3, eye._tree3), (None, noise.measurementTree)):
+                            if tab is not None:
+                                eye.tabControl.select(tab)
+                            self.root.update_idletasks()
+                            with self.subTest(initial=initial, theme=name, palette=variant, tree=str(tree)):
+                                background = str(tree.tag_configure('group', 'background'))
+                                foreground = str(tree.tag_configure('group', 'foreground'))
+                                if name == 'Legacy':
+                                    self.assertEqual(background, '#e8e8e8')
+                                    self.assertEqual(foreground, '')
+                                else:
+                                    palette = self.root.appearanceTheme.palette
+                                    self.assertEqual(background, palette['readonlybackground'])
+                                    self.assertEqual(foreground, palette['foreground'])
+                                    self.assertGreaterEqual(
+                                        ContrastRatio(self.root, foreground, background), 4.5)
+                finally:
+                    for dialog in dialogs:
+                        dialog.destroy()
+
     def test_preference_selector_rows_follow_legacy_colors_and_theme_switches(self):
         from SignalIntegrity.App.Theme import DialogStyleSelector
         self.preferences['Appearance.Color.Background'] = '#eeddcc'
