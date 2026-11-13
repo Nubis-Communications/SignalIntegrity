@@ -424,6 +424,255 @@ class TestWiresTest(unittest.TestCase):
         self.session.SelectWire(0)    # selecting is allowed, editing is not
         self.assertTrue(child['wires'])
 
+class TestEditingTest(unittest.TestCase):
+    """undo/redo, clipboard, flip and wire-corner editing"""
+    def setUp(self):
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        shutil.copy(os.path.join(EXAMPLES,'RLC.si'),self.directory)
+        self.session=ProjectSession()
+        self.session.Open(os.path.join(self.directory,'RLC.si'))
+        self.resistor=[d for d in self.session.Render()['devices'] if d['partname']=='Resistor'][0]['index']
+    def tearDown(self):
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Origin(self,index):
+        return tuple(self.session.app.Drawing.schematic.deviceList[index].partPicture.current.origin)
+    def testUndoRedo(self):
+        s=self.session
+        self.assertFalse(s.CanUndo() or s.CanRedo())
+        before=self._Origin(self.resistor)
+        s.MoveDevice(self.resistor,2,0)
+        s.SetDeviceProperty(self.resistor,'r','75')
+        drawing=s.Render()
+        self.assertEqual((drawing['canUndo'],drawing['undoName']),(True,'edit property'))
+        self.assertEqual(s.Undo(),'edit property')
+        self.assertTrue([p for p in s.DeviceProperties(self.resistor) if p['keyword']=='r'][0]['value'].startswith('50'))
+        self.assertEqual(s.Undo(),'move part')
+        self.assertEqual(self._Origin(self.resistor),before)
+        self.assertFalse(s.CanUndo())
+        with self.assertRaises(SessionError):
+            s.Undo()
+        self.assertEqual(s.Redo(),'move part')
+        self.assertNotEqual(self._Origin(self.resistor),before)
+        # a new edit after an undo drops the redo branch, as in tk
+        s.RotateDevice(self.resistor)
+        self.assertFalse(s.CanRedo())
+        s.SetEquations('x=1')
+        s.Undo()
+        self.assertEqual(s.Equations(),'')
+        wires=len(s.Wires())
+        s.DeleteWire(0)
+        s.Undo()
+        self.assertEqual(len(s.Wires()),wires)
+    def testHistoryIsPerLevel(self):
+        s=ProjectSession()
+        drawing=s.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        s.MoveDevice(pid,1,0)
+        s.View(pid,'file')
+        self.assertFalse(s.Render()['canUndo'])
+        with self.assertRaises(SessionError):
+            s.Undo()
+        s.Ascend()
+        self.assertEqual(s.Undo(),'move part')
+    def testClipboardAndFlip(self):
+        s=self.session
+        self.assertFalse(s.Render()['canPaste'])
+        with self.assertRaises(SessionError):
+            s.Paste()
+        s.Copy(self.resistor)
+        pasted=s.Paste()
+        devices=s.Render()['devices']
+        self.assertEqual(devices[pasted]['ref'],'R2')
+        self.assertTrue(devices[pasted]['selected'])
+        x,y=self._Origin(self.resistor)
+        self.assertEqual(self._Origin(pasted),(x+2,y+2))
+        duplicate=s.Duplicate(pasted,20*s.Grid(),3*s.Grid())
+        self.assertEqual(s.Render()['devices'][duplicate]['ref'],'R3')
+        ox,oy=s.Origin()
+        self.assertEqual(self._Origin(duplicate),(20-ox,3-oy))
+        count=len(s.Render()['devices'])
+        s.Cut(duplicate)
+        self.assertEqual(len(s.Render()['devices']),count-1)
+        pasted=s.Paste()
+        self.assertEqual(s.Render()['devices'][pasted]['ref'],'R3')
+        picture=s.app.Drawing.schematic.deviceList[self.resistor].partPicture.current
+        s.FlipDevice(self.resistor,'horizontal')
+        self.assertTrue(picture.mirroredHorizontally)
+        s.FlipDevice(self.resistor,'vertical')
+        self.assertTrue(picture.mirroredVertically)
+        with self.assertRaises(SessionError):
+            s.FlipDevice(self.resistor,'diagonal')
+    def testVertices(self):
+        s=self.session
+        wire=s.Wires()[0]
+        x,y=wire['points'][0],wire['points'][1]
+        self.assertEqual(s.VertexAt(x+1,y-1),[0,0])
+        self.assertIsNone(s.VertexAt(x+40,y+40))
+        s.SelectVertex(0,0)
+        self.assertEqual(s.Render()['selectedVertex'],[0,0])
+        self.assertEqual(s.DuplicateVertex(0,0),[0,1])
+        self.assertEqual(s.Render()['selectedVertex'],[0,1])
+        g=s.Grid()
+        s.MoveVertex(0,1,x,y+2*g+3)
+        self.assertIsNone(s.Render()['selectedVertex'])
+        corners=[[w['points'][k],w['points'][k+1]] for w in s.Wires() for k in range(0,len(w['points']),2)]
+        self.assertIn([x,y+2*g],corners)
+        before=len(s.Wires())
+        w=[i for i,ww in enumerate(s.Wires()) if len(ww['points'])==4][0]
+        s.DeleteVertex(w,0)
+        self.assertEqual(len(s.Wires()),before-1)
+        for bad in ((0,99),(99,0),('0',0)):
+            with self.assertRaises(SessionError):
+                s.SelectVertex(*bad)
+
+class TestProjectToolsTest(unittest.TestCase):
+    """equations, post-processing, archives and exports"""
+    def setUp(self):
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        shutil.copy(os.path.join(EXAMPLES,'RLC.si'),self.directory)
+        self.session=ProjectSession()
+        self.session.Open(os.path.join(self.directory,'RLC.si'))
+    def tearDown(self):
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def testEquationsAndPostProcessing(self):
+        s=self.session
+        self.assertEqual(s.Equations(),'')
+        self.assertIsNotNone(s.CheckEquations('x = 1 +'))
+        self.assertIsNone(s.CheckEquations('x = 1 + 2'))
+        self.assertIsNone(s.SetEquations('a = 2\nb = a * 3\n\n'))
+        self.assertEqual(s.Equations(),'a = 2\nb = a * 3')
+        s.SetPostProcessing('print(1)\n')
+        self.assertEqual(s.PostProcessing(),'print(1)')
+        s.Save()
+        other=ProjectSession(); other.Open(s.filename)
+        self.assertEqual((other.Equations(),other.PostProcessing()),('a = 2\nb = a * 3','print(1)'))
+    def testExports(self):
+        from PIL import Image
+        s=self.session
+        netlist=s.ExportNetList(os.path.join(self.directory,'out'))
+        self.assertTrue(netlist.endswith('out.txt'))
+        with open(netlist) as f:
+            self.assertIn('device R1',f.read())
+        with open(s.ExportTikZ(os.path.join(self.directory,'drawing'))) as f:
+            text=f.read()
+        self.assertIn('<TpX',text)
+        self.assertIn('\\begin{tikzpicture}',text)
+        with open(s.ExportTikZ(os.path.join(self.directory,'drawing.tex'))) as f:
+            self.assertIn('\\begin{tikzpicture}',f.read())
+        image=Image.open(s.ExportImage(os.path.join(self.directory,'drawing')))
+        self.assertEqual(image.format,'PNG')
+        self.assertGreater(image.size[0],200)
+        self.assertGreater(len(image.convert('L').getcolors(256*256) or []),2)
+        dark=Image.open(s.ExportImage(os.path.join(self.directory,'dark.png'),colorMap={'black':'#ffffff','white':'#000000'}))
+        self.assertEqual(dark.getpixel((1,1)),(0,0,0))
+        with self.assertRaises(SessionError):
+            s.ExportNetList(os.path.join(self.directory,'missing','x.txt'))
+    def testArchive(self):
+        s=self.session
+        archive=s.Archive()
+        self.assertTrue(archive.endswith('RLC.siz') and os.path.isfile(archive))
+        other=ProjectSession()
+        drawing=other.ExtractArchive(archive)
+        self.assertTrue(drawing['filename'].endswith(os.path.join('RLC_Archive','RLC.si')))
+        self.assertEqual(len(drawing['devices']),len(s.Render()['devices']))
+        self.assertFalse(drawing['readOnly'])
+        with self.assertRaises(SessionError):
+            other.ExtractArchive(os.path.join(self.directory,'RLC.si'))
+
+class TestResultViewsTest(unittest.TestCase):
+    """the S-parameter viewer's time-domain views and the statistical noise results"""
+    def setUp(self):
+        self.cwd=os.getcwd()
+    def tearDown(self):
+        os.chdir(self.cwd)
+    def testSParameterTimeViews(self):
+        s=ProjectSession()
+        s.Open(os.path.join(EXAMPLES,'RLCTest2SP.si'))
+        result=s.Calculate('sparameters')
+        P=result.sparameters[0][1].m_P
+        impulse=result.SParameterTime(0,'impulse',300)
+        self.assertEqual(len(impulse['traces']),P*P)
+        self.assertTrue(all(len(t['x'])<=300 for t in impulse['traces']))
+        step=result.SParameterTime(0,'step')
+        impedance=result.SParameterTime(0,'impedance')
+        self.assertEqual([t['name'] for t in impedance['traces']],['S'+str(p)+str(p) for p in range(1,P+1)])
+        for trace in impedance['traces']:
+            self.assertTrue(all(v<=3000. for v in trace['y'] if v is not None))
+        # port 1 sees L in series with C, an open at DC (capped at 3000 ohms); ports 2 and 3 are
+        # ideal amplifier outputs (zo=0); every port starts at the 50 ohm reference
+        self.assertEqual([round(t['y'][-1]) for t in impedance['traces']],[3000,0,0])
+        self.assertTrue(all(abs(t['y'][0]-50.)<0.1 for t in impedance['traces']))
+        # impedance is plotted against half the round-trip time
+        self.assertAlmostEqual(impedance['traces'][0]['x'][-1]*2,step['traces'][0]['x'][-1],12)
+        json.dumps(step)
+        with self.assertRaises(ValueError):
+            result.SParameterTime(0,'bogus')
+    def testStatisticalNoise(self):
+        s=ProjectSession()
+        s.Open(os.path.join(TESTS,'TestStatisticalNoise','StatisticalNoise.si'))
+        result=s.Calculate('simulate')
+        info=result.NoiseInfo()
+        self.assertEqual([i['name'] for i in info],['Comp','Uncomp'])
+        comp=info[0]
+        self.assertEqual(comp['type'],'voltage')
+        self.assertAlmostEqual(comp['rms'],result.noise['output_noise_spectral_density']['Comp']['rms'],15)
+        self.assertEqual([c['name'] for c in comp['contributions']],['VN1','VN2'])
+        # independent contributions add in power
+        self.assertAlmostEqual(sum(c['rms']**2 for c in comp['contributions']),comp['rms']**2,9)
+        # VN1 does not reach Uncomp: no -3000 dBm floor values
+        unreached=info[1]['contributions'][0]
+        self.assertEqual((unreached['name'],unreached['rms'],unreached['dBm'],unreached['SNR']),('VN1',0.,None,None))
+        series=result.NoiseSeries(maxPoints=100)
+        self.assertEqual(len(series['series']),2)
+        self.assertTrue(all(len(t['x'])<=100 for t in series['series']))
+        self.assertLess(series['autoscale'][2],series['autoscale'][3])
+        self.assertEqual(json.loads(json.dumps(result.Summary()))['noise'][0]['name'],'Comp')
+        s.Open(os.path.join(EXAMPLES,'RLC.si'))
+        self.assertEqual(s.Calculate('simulate').NoiseInfo(),[])
+
+class TestPreferencesAndHelpTest(unittest.TestCase):
+    def setUp(self):
+        from unittest import mock
+        self.directory=tempfile.mkdtemp()
+        self.patch=mock.patch.dict(os.environ,{'SIGNALINTEGRITY_PREFERENCES':os.path.join(self.directory,'preferences.xml')})
+        self.patch.start()
+        self.session=ProjectSession()
+    def tearDown(self):
+        self.patch.stop()
+        shutil.rmtree(self.directory,ignore_errors=True)
+        ProjectSession()
+    def testPreferences(self):
+        from SignalIntegrity.GuiCore import Preferences
+        self.assertEqual(Preferences.FileName(),os.path.join(self.directory,'preferences.xml'))
+        sections=Preferences.Items()
+        self.assertEqual(sections[0]['section'],'Appearance')
+        paths={i['path']:i for s in sections for i in s['items']}
+        self.assertIn('Appearance.FontSize',paths)
+        self.assertFalse(any(p.startswith(('Encryption','ProjectFiles.LastFile','Version')) for p in paths))
+        self.assertEqual(Preferences.Set('Appearance.FontSize','13'),13)
+        self.assertIs(Preferences.Set('Appearance.GridsOnPlots','false'),False)
+        self.assertEqual(Preferences.Set('Calculation.Processing.ConvergenceThreshold',2e-3),2e-3)
+        with open(Preferences.FileName()) as f:
+            self.assertIn('<FontSize>13</FontSize>',f.read())
+        for path,value in (('Appearance.FontSize','big'),('Appearance.FontSize',1.5),('Appearance.GridsOnPlots','maybe'),
+                           ('Encryption.Password','x'),('Nope.Nothing',1)):
+            with self.assertRaises(Preferences.PreferencesError):
+                Preferences.Set(path,value)
+        json.dumps(sections)
+    def testHelpUrls(self):
+        from SignalIntegrity.GuiCore import Help, Preferences
+        Preferences.Set('OnlineHelp.UseOnlineHelp',False)
+        url=Help.Url('equations')
+        self.assertTrue(url.startswith('file:'))
+        self.assertIn('Help/site/',url)
+        self.assertTrue(Help.Url('documentation').endswith('Doc/xhtml/index.xhtml'))
+        with self.assertRaises(ValueError):
+            Help.Url('nothing')
+
 class TestSettingsTest(unittest.TestCase):
     def setUp(self):
         from unittest import mock
@@ -470,7 +719,7 @@ class TestSettingsTest(unittest.TestCase):
 class TestMenusTest(unittest.TestCase):
     def testDefinition(self):
         from SignalIntegrity.GuiCore import Menus
-        self.assertEqual([title for title,_ in Menus.MENUS],['File','Edit','Parts','Wires','View','Calculate','Help'])
+        self.assertEqual([title for title,_ in Menus.MENUS],['File','Edit','Parts','Wires','View','Calculate','Variables','Help'])
         for gui in ('qt','web'):
             ids=Menus.CommandIds(gui)+Menus.SubmenuIds(gui)
             self.assertEqual(len(ids),len(set(ids)),gui)

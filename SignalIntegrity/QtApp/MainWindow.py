@@ -27,11 +27,11 @@ from PySide6.QtWidgets import (QMainWindow, QDockWidget, QTableWidget, QTableWid
 
 from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
 from SignalIntegrity.GuiCore import Themes, Settings
-from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS
+from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS, TOOLBAR_ICON_SIZE
 from SignalIntegrity.QtApp import Theme
 from SignalIntegrity.QtApp.SchematicView import SchematicView
 from SignalIntegrity.QtApp.PartsDock import PartsDock
-from SignalIntegrity.QtApp.SimulatorWindow import SimulatorWindow, SParametersWindow, EyeDiagramWindow
+from SignalIntegrity.QtApp.SimulatorWindow import SimulatorWindow, SParametersWindow, EyeDiagramWindow, NoiseWindow
 
 CALCULATION_TITLES={'simulate':'Simulate','sparameters':'Calculate S-parameters',
                     'virtualprobe':'Virtual Probe','deembed':'De-embed'}
@@ -92,6 +92,7 @@ class MainWindow(QMainWindow):
         self.view.deleteRequested.connect(self.OnDelete)
         self.view.cancelRequested.connect(self.OnCancel)
         self.view.wireFinished.connect(self.OnWireFinished)
+        self.view.vertexDragged.connect(self.OnVertexDragged)
         self.setWindowIcon(Theme.AppIcon())
         self._BuildDocks()
         self._BuildActions()
@@ -149,12 +150,22 @@ class MainWindow(QMainWindow):
     def _Handlers(self):
         """one handler per GuiCore.Menus command id"""
         handlers={'new':self.OnNew,'open':self.OnOpen,'save':self.OnSave,'saveAs':self.OnSaveAs,
+                  'archive':self.OnArchive,'extractArchive':self.OnExtractArchive,
+                  'exportNetlist':lambda: self.OnExport('netlist'),'exportTikz':lambda: self.OnExport('tikz'),
+                  'exportImage':lambda: self.OnExport('image'),
                   'netlist':self.OnNetList,'exit':self.close,
+                  'undo':self.OnUndo,'redo':self.OnRedo,
+                  'cut':self.OnCut,'copy':self.OnCopy,'paste':self.OnPaste,'duplicate':self.OnDuplicate,
                   'delete':self.OnDelete,'cancel':self.OnCancel,
                   'rotate':self.OnRotate,'properties':self.OnEditProperties,'deletePart':self.OnDeletePart,
+                  'flipHorizontal':lambda: self.OnFlip('horizontal'),'flipVertical':lambda: self.OnFlip('vertical'),
                   'wire':self.OnWireMode,'deleteWire':self.OnDeleteWire,
+                  'deleteVertex':self.OnDeleteVertex,'duplicateVertex':self.OnDuplicateVertex,
                   'zoomIn':lambda: self.view.Zoom(1.25),'zoomOut':lambda: self.view.Zoom(0.8),'zoomFit':self.view.ZoomFit,
-                  'viewDevice':self.OnViewSelected,'up':self.OnAscend,'about':self.OnAbout}
+                  'viewDevice':self.OnViewSelected,'up':self.OnAscend,
+                  'postProcessing':self.OnPostProcessing,'equations':self.OnEquations,
+                  'help':lambda: self.OnHelp('introduction'),'documentation':lambda: self.OnHelp('documentation'),
+                  'preferences':self.OnPreferences,'about':self.OnAbout}
         handlers.update({kind:(lambda k=kind: self.RunCalculation(k)) for kind in CALCULATION_TITLES})
         return handlers
     def _SubmenuBuilders(self):
@@ -179,7 +190,7 @@ class MainWindow(QMainWindow):
                     action.setCheckable(item['checkable'])
                     if item['shortcut']:
                         action.setShortcut(QKeySequence(item['shortcut']))
-                        if '+' not in item['shortcut']:
+                        if len(item['shortcut'])==1 or item['shortcut'] in ('Del','Esc'):
                             # single keys (Del, Esc, W) act on the schematic only, not while typing in a table
                             action.setShortcutContext(Qt.WidgetWithChildrenShortcut)
                             self.view.addAction(action)
@@ -188,7 +199,7 @@ class MainWindow(QMainWindow):
                     self.actions[item['id']]=action
         toolBar=self.addToolBar('Main')
         toolBar.setObjectName('main')
-        toolBar.setIconSize(QSize(32,32))
+        toolBar.setIconSize(QSize(TOOLBAR_ICON_SIZE,TOOLBAR_ICON_SIZE))
         toolBar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         for commandId in TOOLBAR:
             if commandId is None:
@@ -303,6 +314,25 @@ class MainWindow(QMainWindow):
         self.actions['deletePart'].setEnabled(writable and not busy and self.selected is not None)
         self.actions['properties'].setEnabled(isOpen and self.selected is not None)
         self.actions['deleteWire'].setEnabled(writable and not busy and selectedWire is not None)
+        drawing=getattr(self,'drawing',None) if isOpen else None
+        vertex=drawing.get('selectedVertex') if drawing else None
+        for commandId in ('deleteVertex','duplicateVertex'):
+            self.actions[commandId].setEnabled(writable and not busy and vertex is not None)
+        part=writable and not busy and self.selected is not None
+        for commandId in ('cut','duplicate','flipHorizontal','flipVertical'):
+            self.actions[commandId].setEnabled(part)
+        self.actions['copy'].setEnabled(isOpen and not busy and self.selected is not None)
+        self.actions['paste'].setEnabled(writable and not busy and self.session.clipboard is not None)
+        self.actions['undo'].setEnabled(writable and not busy and self.session.CanUndo())
+        self.actions['redo'].setEnabled(writable and not busy and self.session.CanRedo())
+        if drawing:
+            self.actions['undo'].setText('Undo '+drawing['undoName'] if drawing.get('undoName') else 'Undo')
+            self.actions['redo'].setText('Redo '+drawing['redoName'] if drawing.get('redoName') else 'Redo')
+        for commandId in ('archive','equations','postProcessing'):
+            self.actions[commandId].setEnabled(writable and not busy)
+        for commandId in ('exportNetlist','exportTikz','exportImage'):
+            self.actions[commandId].setEnabled(isOpen and not busy)
+        self.actions['extractArchive'].setEnabled(not busy)
         self.wireAction.setEnabled(writable and not busy)
         if not self.wireAction.isEnabled() and self.wireAction.isChecked():
             self.wireAction.setChecked(False)
@@ -475,11 +505,22 @@ class MainWindow(QMainWindow):
         self.RefreshProperties()
         self.Redraw()
     def OnBackgroundClicked(self,x,y):
-        """selects the wire under the pointer, or deselects everything"""
+        """starts dragging the wire corner under the pointer, selects the wire under it, or deselects everything"""
         if not self.session.IsOpen():
             return
         # within 5 screen pixels at any zoom, but never less than a quarter grid
-        wire=self.session.WireAt(x,y,max(0.25*self.view.grid,5./max(self.view.transform().m11(),1e-6)))
+        tolerance=max(0.25*self.view.grid,5./max(self.view.transform().m11(),1e-6))
+        vertex=self.session.VertexAt(x,y,tolerance)
+        if vertex is not None:
+            self.session.SelectVertex(*vertex)
+            self.selected=None
+            self.RefreshProperties()
+            self.Redraw()
+            if not self.session.readOnly:
+                self.view.BeginVertexDrag(*vertex)
+            self.statusBar().showMessage('wire corner selected: drag it, or use Wires > Delete Vertex / Duplicate Vertex')
+            return
+        wire=self.session.WireAt(x,y,tolerance)
         if wire is None:
             return self.OnDeviceClicked(None)
         self.session.SelectWire(wire)
@@ -487,6 +528,8 @@ class MainWindow(QMainWindow):
         self.RefreshProperties()
         self.Redraw()
         self.statusBar().showMessage('wire selected (Del deletes it)')
+    def OnVertexDragged(self,wire,vertex,x,y):
+        self._Do(lambda: self.session.MoveVertex(wire,vertex,x,y),'wire corner moved')
     def OnDeviceDragged(self,index,dx,dy):
         if self.session.readOnly:
             return
@@ -665,6 +708,10 @@ class MainWindow(QMainWindow):
                 self.eyeWindows[name].close()
             self.eyeWindows[name]=EyeDiagramWindow(name,image,self)
             self.eyeWindows[name].show()
+        if result.noise:
+            window=NoiseWindow(result,'Statistical Noise: '+title,self)
+            self.resultsWindows.append(window)
+            window.show()
     def _CalculationFailed(self,message):
         self.Error(message)
     def _CalculationFinished(self):
@@ -675,6 +722,120 @@ class MainWindow(QMainWindow):
         try:
             TextDialog('Netlist',self.session.NetList(),self).exec()
         except SessionError as e:
+            self.Error(e)
+    # ---- edits that go through _Do refresh everything an undo step can change
+    def _Do(self,edit,message=None,refreshTables=False):
+        try:
+            result=edit()
+        except SessionError as e:
+            self.Error(e)
+            return None
+        self.drawing=self.session.Render()
+        selected=[d['index'] for d in self.drawing['devices'] if d['selected']]
+        self.selected=selected[0] if selected else None
+        if refreshTables:
+            self.RefreshVariables()
+            self.RefreshCalculationProperties()
+        self.RefreshProperties()
+        self.Redraw()
+        if message:
+            self.statusBar().showMessage(message if not callable(message) else message(result))
+        return result
+    def OnUndo(self):
+        self._Do(self.session.Undo,lambda name: 'undid '+name,refreshTables=True)
+    def OnRedo(self):
+        self._Do(self.session.Redo,lambda name: 'redid '+name,refreshTables=True)
+    def OnCopy(self):
+        if self.selected is not None:
+            self.session.Copy(self.selected)
+            self.UpdateEnables()
+            self.statusBar().showMessage('part copied (Ctrl+V pastes it)')
+    def OnCut(self):
+        if self.selected is not None:
+            self._Do(lambda: self.session.Cut(self.selected),'part cut (Ctrl+V pastes it)')
+    def OnPaste(self):
+        self._Do(self.session.Paste,'part pasted - drag it into place')
+    def OnDuplicate(self):
+        if self.selected is not None:
+            self._Do(lambda: self.session.Duplicate(self.selected),'part duplicated - drag it into place')
+    def OnFlip(self,direction):
+        if self.selected is not None:
+            self._Do(lambda: self.session.FlipDevice(self.selected,direction),'flipped '+direction+'ly')
+    def _Vertex(self):
+        return (getattr(self,'drawing',None) or {}).get('selectedVertex')
+    def OnDeleteVertex(self):
+        vertex=self._Vertex()
+        if vertex is not None:
+            self._Do(lambda: self.session.DeleteVertex(*vertex),'wire corner deleted')
+    def OnDuplicateVertex(self):
+        vertex=self._Vertex()
+        if vertex is not None:
+            self._Do(lambda: self.session.DuplicateVertex(*vertex),'wire corner duplicated - drag it to make a bend')
+    # ---- equations, post-processing, preferences and help
+    def OnEquations(self):
+        from SignalIntegrity.QtApp.Dialogs import TextEditorDialog
+        dialog=TextEditorDialog('Schematic Equations',self.session.Equations(),self.session.CheckEquations,'equations',self)
+        if dialog.exec():
+            error=self._Do(lambda: self.session.SetEquations(dialog.Text()),'equations applied',refreshTables=True)
+            if error:
+                self.statusBar().showMessage('equations stored, but they have an error: '+error)
+    def OnPostProcessing(self):
+        from SignalIntegrity.QtApp.Dialogs import TextEditorDialog
+        dialog=TextEditorDialog('Post-Processing',self.session.PostProcessing(),None,'postprocessing',self)
+        if dialog.exec():
+            self._Do(lambda: self.session.SetPostProcessing(dialog.Text()),'post-processing applied')
+    def OnPreferences(self):
+        from SignalIntegrity.QtApp.Dialogs import PreferencesDialog
+        PreferencesDialog(self).exec()
+    def OnHelp(self,topic):
+        from SignalIntegrity.GuiCore import Help
+        try:
+            self.statusBar().showMessage('opened '+Help.Open(topic))
+        except Exception as e:
+            self.Error('could not open the help: '+str(e))
+    # ---- archives and exports
+    def OnArchive(self):
+        target=os.path.splitext(self.session.filename)[0]+'.siz'
+        if os.path.exists(target) and QMessageBox.question(self,'Archive Project',
+                'The archive exists. Overwrite '+target+'?')!=QMessageBox.Yes:
+            return
+        try:
+            self.statusBar().showMessage('archived to '+self.session.Archive())
+        except SessionError as e:
+            self.Error(e)
+    def OnExtractArchive(self):
+        filename,_=QFileDialog.getOpenFileName(self,'Extract Archived Project','','SignalIntegrity archives (*.siz)')
+        if not filename:
+            return
+        try:
+            drawing=self.session.ExtractArchive(filename)
+        except SessionError as e:
+            return self.Error(e)
+        for window in list(self.simulatorWindows.values())+list(self.eyeWindows.values())+self.resultsWindows:
+            window.close()
+        self.simulatorWindows={}; self.eyeWindows={}; self.resultsWindows=[]
+        self.ShowLevel(drawing)
+        Settings.AddRecentProject(drawing['filename'])
+        self.BuildRecentMenu()
+        self.statusBar().showMessage('extracted and opened '+drawing['filename'])
+    EXPORTS={'netlist':('Export NetList','netlist (*.txt);;All files (*)','.txt'),
+             'tikz':('Export LaTeX (TikZ)','TpX drawing with TikZ (*.TpX);;TikZ picture (*.tex)','.TpX'),
+             'image':('Export Bitmap Image','PNG image (*.png);;JPEG image (*.jpg)','.png')}
+    def OnExport(self,kind):
+        title,filters,extension=self.EXPORTS[kind]
+        start=os.path.splitext(self.session.filename)[0]+extension
+        filename,_=QFileDialog.getSaveFileName(self,title,start,filters)
+        if not filename:
+            return
+        try:
+            if kind=='netlist':
+                written=self.session.ExportNetList(filename)
+            elif kind=='tikz':
+                written=self.session.ExportTikZ(filename)
+            else:
+                written=self.session.ExportImage(filename)
+            self.statusBar().showMessage('exported '+written)
+        except (SessionError,OSError) as e:
             self.Error(e)
     def OnAbout(self):
         from SignalIntegrity.__about__ import __version__

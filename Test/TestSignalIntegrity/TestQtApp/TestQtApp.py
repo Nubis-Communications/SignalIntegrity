@@ -261,7 +261,7 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
     def testMenusLikeTk(self):
         from SignalIntegrity.GuiCore.Menus import CommandIds
         titles=[a.text().replace('&','') for a in self.window.menuBar().actions()]
-        self.assertEqual(titles,['File','Edit','Parts','Wires','View','Calculate','Help'])
+        self.assertEqual(titles,['File','Edit','Parts','Wires','View','Calculate','Variables','Help'])
         self.assertEqual(sorted(self.window.actions),sorted(CommandIds('qt')))
         fileMenu=self.window.menuBar().actions()[0].menu()
         self.assertIn('Open Recent Projects',[a.text() for a in fileMenu.actions()])
@@ -328,6 +328,99 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
         self.window.deleteAction.trigger()
         self.assertEqual(len(session.Wires()),2)
         self.assertIsNone(self.window.SelectedWire())
+        self.assertEqual(self.errors,[])
+    def testEditingCommands(self):
+        import shutil
+        from PySide6.QtCore import Qt, QPointF
+        from PySide6.QtTest import QTest
+        shutil.copy(os.path.join(EXAMPLES,'RLC.si'),self.directory)
+        w=self.window
+        w.OpenProject(os.path.join(self.directory,'RLC.si'))
+        a=w.actions
+        self.assertFalse(a['undo'].isEnabled() or a['redo'].isEnabled() or a['paste'].isEnabled())
+        resistor=[d['index'] for d in w.view.devices if d['partname']=='Resistor'][0]
+        w.OnDeviceClicked(resistor)
+        count=len(w.view.devices)
+        a['copy'].trigger()
+        self.assertTrue(a['paste'].isEnabled())
+        a['paste'].trigger()
+        self.assertEqual(len(w.view.devices),count+1)
+        self.assertEqual(w.view.devices[w.selected]['ref'],'R2')
+        a['duplicate'].trigger()
+        self.assertEqual(w.view.devices[w.selected]['ref'],'R3')
+        a['flipVertical'].trigger()
+        self.assertTrue(w.session.app.Drawing.schematic.deviceList[w.selected].partPicture.current.mirroredVertically)
+        self.assertEqual(a['undo'].text(),'Undo flip part')
+        for _ in range(3):
+            a['undo'].trigger()
+        self.assertEqual(len(w.view.devices),count)
+        self.assertTrue(a['redo'].isEnabled())
+        a['redo'].trigger()
+        self.assertEqual(len(w.view.devices),count+1)
+        # drag a wire corner one grid down
+        w.show()
+        view=w.view
+        at=lambda x,y: view.mapFromScene(QPointF(x,y))
+        wire=w.session.Wires()[0]
+        x,y=wire['points'][0],wire['points'][1]
+        QTest.mousePress(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(x,y))
+        self.assertEqual(w.drawing['selectedVertex'],[0,0])
+        self.assertTrue(a['deleteVertex'].isEnabled() and a['duplicateVertex'].isEnabled())
+        from PySide6.QtGui import QMouseEvent
+        from PySide6.QtCore import QEvent
+        target=QPointF(at(x,y+2*view.grid))
+        self.qapp.sendEvent(view.viewport(),QMouseEvent(QEvent.MouseMove,target,view.viewport().mapToGlobal(target),
+                                                       Qt.LeftButton,Qt.LeftButton,Qt.NoModifier))
+        self.assertIsNotNone(view.wirePreview)
+        QTest.mouseRelease(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(x,y+2*view.grid))
+        corners=[[ww['points'][k],ww['points'][k+1]] for ww in w.session.Wires() for k in range(0,len(ww['points']),2)]
+        self.assertIn([x,y+2*view.grid],corners)
+        self.assertEqual(a['undo'].text(),'Undo move vertex')
+        self.assertEqual(self.errors,[])
+    def testEquationsPreferencesAndResultWindows(self):
+        from unittest import mock
+        from PySide6.QtWidgets import QDialog
+        from SignalIntegrity.QtApp.Dialogs import TextEditorDialog, PreferencesDialog
+        from SignalIntegrity.QtApp.SimulatorWindow import NoiseWindow, SParametersWindow
+        w=self.window
+        w.OpenProject(os.path.join(self.directory,'eq'),new=True)
+        dialog=TextEditorDialog('Equations','x = 1 +',w.session.CheckEquations)
+        self.assertNotEqual(dialog.status.text(),'No Errors')
+        dialog.editor.setPlainText('x = 1 + 2'); dialog.Check()
+        self.assertEqual(dialog.status.text(),'No Errors')
+        with mock.patch.object(TextEditorDialog,'exec',return_value=QDialog.Accepted), \
+             mock.patch.object(TextEditorDialog,'Text',return_value='a = 3'):
+            w.actions['equations'].trigger()
+        self.assertEqual(w.session.Equations(),'a = 3')
+        self.assertTrue(w.actions['undo'].isEnabled())
+        prefsFile=os.path.join(self.directory,'preferences.xml')
+        with mock.patch.dict(os.environ,{'SIGNALINTEGRITY_PREFERENCES':prefsFile}):
+            from SignalIntegrity.GuiCore.Session import ProjectSession
+            ProjectSession()
+            prefs=PreferencesDialog()
+            editor=prefs.editors['Appearance.FontSize']
+            editor.setText('14'); editor.editingFinished.emit()
+            self.assertIn('= 14',prefs.status.text())
+            editor.setText('huge'); editor.editingFinished.emit()
+            self.assertIn('invalid',prefs.status.text())
+            with open(prefsFile) as f:
+                self.assertIn('<FontSize>14</FontSize>',f.read())
+        ProjectSession()
+        session=w.session
+        session.Open(os.path.join(os.path.dirname(EXAMPLES),'..','..','Test','TestSignalIntegrity','TestStatisticalNoise','StatisticalNoise.si'))
+        result=session.Calculate('simulate')
+        noise=NoiseWindow(result)
+        self.assertEqual(noise.table.topLevelItemCount(),2)
+        self.assertEqual(noise.table.topLevelItem(0).childCount(),2)
+        self.assertEqual(len(noise.panel.axes.get_lines()),2)
+        noise.close()
+        session.Open(os.path.join(EXAMPLES,'RLCTest2SP.si'))
+        sp=SParametersWindow(session.Calculate('sparameters'))
+        titles=[sp.tabs.tabText(i) for i in range(sp.tabs.count())]
+        self.assertEqual([t.split()[-1] for t in titles][-3:],['impulse','step','impedance'])
+        sp.tabs.setCurrentIndex(titles.index([t for t in titles if t.endswith('impedance')][0]))
+        self.assertEqual(len(sp.panels[-1].axes.get_lines()),3)
+        sp.close()
         self.assertEqual(self.errors,[])
 
 if __name__ == '__main__':

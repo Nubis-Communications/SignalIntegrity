@@ -24,6 +24,8 @@ import math
 import numpy as np
 
 VIEWS=('time','content','density')
+SPARAMETER_TIME_VIEWS=('impulse','step','impedance')
+IMPEDANCE_LIMIT=3000.
 
 def Decimate(x,y,maxPoints):
     """min/max envelope decimation that keeps every peak visible
@@ -59,6 +61,7 @@ class ResultData(object):
         self.waveforms=[]
         self.sparameters=[]
         self.eyes=[]
+        self.noise=None
         self._cache={}
     @classmethod
     def FromHeadless(cls,result,title='',endFrequency=None):
@@ -74,6 +77,9 @@ class ResultData(object):
             for name,eye in zip(result.get('eye diagram labels',[]),result.get('eye diagrams',[])):
                 if getattr(eye,'img',None) is not None:
                     data.eyes.append((name,eye.img))
+            noise=result.get('noise')
+            if isinstance(noise,dict) and noise.get('noise_display_output_names'):
+                data.noise=noise
         elif result['type']=='s-parameters':
             import os
             data.sparameters=[(os.path.basename(result['file names']),result['s-parameters'])]
@@ -170,6 +176,89 @@ class ResultData(object):
                 traces.append({'name':'S'+str(o)+str(i),'to':o,'from':i,
                                'dB':_List(fr.Values('dB')),'deg':_List(fr.Values('deg'))})
         return {'name':name,'ports':P,'frequencies':[float(f) for f in sp.f()],'traces':traces}
+    def SParameterTime(self,index,view,maxPoints=None):
+        """the tk S-parameter viewer's time-domain views of sparameters[index]: 'impulse' and 'step'
+        responses of every Sij, or 'impedance' (TDR) of every reflection Sii, with x in seconds
+        (round-trip time halved for impedance) and y unitless or in ohms
+        @return {name,view,traces:[{name,to,from,x,y}]}"""
+        import SignalIntegrity.Lib as si
+        if view not in SPARAMETER_TIME_VIEWS:
+            raise ValueError('unknown s-parameter view '+str(view))
+        name,sp=self.sparameters[index]
+        key=('sp',index,view)
+        if key not in self._cache:
+            Z0=float(np.real(getattr(sp,'m_Z0',50.)))
+            traces=[]
+            for o in range(1,sp.m_P+1):
+                for i in range(1,sp.m_P+1):
+                    if view=='impedance' and o!=i:
+                        continue
+                    ir=sp.FrequencyResponse(o,i).ImpulseResponse()
+                    if ir is None:
+                        raise ValueError('time-domain views need evenly spaced frequencies starting at 0 Hz')
+                    if view=='impulse':
+                        x,y=np.asarray(ir.Times(),dtype=float),np.asarray(ir.Values(),dtype=float).real
+                    else:
+                        fir=ir.FirFilter()
+                        step=si.td.wf.StepWaveform(ir.td/fir.FilterDescriptor())*fir
+                        x,y=np.asarray(step.Times(),dtype=float),np.asarray(step.Values(),dtype=float).real
+                        if view=='impedance':
+                            with np.errstate(divide='ignore',invalid='ignore'):
+                                z=Z0*(1.+y)/(1.-y)
+                            y=np.where((1.-y)<=1e-6,IMPEDANCE_LIMIT,np.minimum(z,IMPEDANCE_LIMIT))
+                            x=x/2.
+                    traces.append({'name':'S'+str(o)+str(i),'to':o,'from':i,'x':x,'y':y})
+            self._cache[key]=traces
+        out=[]
+        for t in self._cache[key]:
+            xs,ys=Decimate(t['x'],t['y'],maxPoints)
+            out.append({'name':t['name'],'to':t['to'],'from':t['from'],'x':_List(xs),'y':_List(ys)})
+        return {'name':name,'view':view,'traces':out}
+    # ---- statistical noise (the tk Statistical Noise and Noise Measurements dialogs)
+    def _NoiseNames(self):
+        return list(self.noise['noise_display_output_names']) if self.noise else []
+    def NoiseInfo(self):
+        """@return per displayed output: {index,name,type,rms,dBm,rmsPerRootHz,dBmPerHz,SNR,SalzSNR,
+        contributions:[{name,rms,dBm,SNR}]} as the tk noise measurements dialog shows them"""
+        info=[]
+        for k,name in enumerate(self._NoiseNames()):
+            density=self.noise['output_noise_spectral_density'][name]
+            spectrum=density['spectrum']
+            end=float(spectrum.Frequencies()[-1]) if len(spectrum.Frequencies()) else 0.
+            rms=float(density['rms'])
+            snr=self.noise.get('signal_to_noise_ratio',{}).get(name,{})
+            contributions=self.noise.get('contributions',{}).get(name,{})
+            num=lambda v: None if v is None or not math.isfinite(float(v)) else float(v)
+            info.append({'index':k,'name':name,'type':density.get('type','voltage'),'rms':num(rms),'dBm':num(density.get('dBm')),
+                         'rmsPerRootHz':num(rms/math.sqrt(end)) if end>0 else None,
+                         'dBmPerHz':num(density.get('dBm')-10.*math.log10(end)) if end>0 and density.get('dBm') is not None else None,
+                         'SNR':num(snr.get('SNR')),'SalzSNR':num(snr.get('SalzSNR')),
+                         # a source that does not reach this output has no meaningful dBm or SNR (only the -3000 dBm floor)
+                         'contributions':[{'name':source,'rms':num(c.get('rms')),
+                                           'dBm':num(c.get('dBm')) if c.get('rms') else None,
+                                           'SNR':num(c.get('SNR')) if c.get('rms') else None}
+                                          for source,c in contributions.items()]})
+        return info
+    def NoiseSeries(self,indices=None,maxPoints=None):
+        """output noise spectral densities in dBm/Hz versus frequency in Hz
+        @return {series:[{index,name,x,y}],autoscale:[xmin,xmax,ymin,ymax]}"""
+        names=self._NoiseNames()
+        indices=range(len(names)) if indices is None else indices
+        series=[]; lo=hi=None
+        for k in indices:
+            spectrum=self.noise['output_noise_spectral_density'][names[k]]['spectrum']
+            x=np.asarray(spectrum.Frequencies(),dtype=float)
+            with np.errstate(divide='ignore'):
+                y=np.asarray(spectrum.Values('dBm/Hz'),dtype=float)
+            finite=y[np.isfinite(y)&(y>-200.)]
+            if len(finite):
+                lo=finite.min() if lo is None else min(lo,finite.min())
+                hi=finite.max() if hi is None else max(hi,finite.max())
+            xs,ys=Decimate(x,y,maxPoints)
+            series.append({'index':int(k),'name':names[k],'x':_List(xs),'y':_List(ys)})
+        xmax=max((s['x'][-1] for s in series if s['x']),default=None)
+        return {'series':series,'autoscale':[0. if xmax is not None else None,xmax,
+                                             None if lo is None else float(lo-1.),None if hi is None else float(hi+1.)]}
     @staticmethod
     def PngDataUrl(image):
         buffer=io.BytesIO()
@@ -180,4 +269,5 @@ class ResultData(object):
         return {'type':self.kind,'title':self.title,
                 'waveforms':self.WaveformInfo(),
                 'sparameters':[self.SParametersData(n,sp) for n,sp in self.sparameters],
-                'eyes':[{'name':n,'image':self.PngDataUrl(img)} for n,img in self.eyes]}
+                'eyes':[{'name':n,'image':self.PngDataUrl(img)} for n,img in self.eyes],
+                'noise':self.NoiseInfo()}

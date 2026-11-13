@@ -111,6 +111,7 @@ class SchematicView(QGraphicsView):
     deleteRequested=Signal()
     cancelRequested=Signal()
     wireFinished=Signal(list)
+    vertexDragged=Signal(int,int,float,float)
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setScene(QGraphicsScene(self))
@@ -130,6 +131,7 @@ class SchematicView(QGraphicsView):
         self.wirePoints=[]
         self.wireCursor=None
         self.wirePreview=None
+        self._vertexDrag=None
         self._press=None
         self._pressDevice=None
     def ApplyPalette(self,palette):
@@ -193,14 +195,26 @@ class SchematicView(QGraphicsView):
                 self.deviceClicked.emit(self._pressDevice)
                 return
             self.backgroundClicked.emit(point.x(),point.y())
+            if self._vertexDrag is not None:
+                return
         super().mousePressEvent(event)
     def mouseMoveEvent(self,event):
         if self.wiring:
             self.wireCursor=self.Snap(self.mapToScene(event.position().toPoint()))
             self._UpdateWirePreview()
             return
+        if self._vertexDrag is not None:
+            self._vertexDrag['to']=self.Snap(self.mapToScene(event.position().toPoint()))
+            self._UpdateWirePreview()
+            return
         super().mouseMoveEvent(event)
     def mouseReleaseEvent(self,event):
+        if event.button()==Qt.LeftButton and self._vertexDrag is not None:
+            drag,self._vertexDrag=self._vertexDrag,None
+            self._UpdateWirePreview()
+            if drag['to'] is not None and drag['to']!=drag['from']:
+                self.vertexDragged.emit(drag['wire'],drag['vertex'],float(drag['to'][0]),float(drag['to'][1]))
+            return
         if event.button()==Qt.LeftButton and self._pressDevice is not None and self._press is not None:
             point=self.mapToScene(event.position().toPoint())
             dx=round((point.x()-self._press.x())/self.grid)
@@ -272,16 +286,30 @@ class SchematicView(QGraphicsView):
         self.wirePoints=[]
         self._UpdateWirePreview()
         return True
+    def BeginVertexDrag(self,wire,vertex):
+        """starts dragging a wire corner; called while handling backgroundClicked so the press doesn't pan"""
+        points=self.drawing['wires'][wire]['points']
+        corners=[(points[k],points[k+1]) for k in range(0,len(points)-1,2)]
+        self._vertexDrag={'wire':wire,'vertex':vertex,'from':corners[vertex],'to':None,
+                          'neighbours':[corners[k] for k in (vertex-1,vertex+1) if 0<=k<len(corners)]}
     def _UpdateWirePreview(self):
         if self.wirePreview is not None:
             self.scene().removeItem(self.wirePreview)
             self.wirePreview=None
-        points=self.wirePoints+([self.wireCursor] if self.wiring and self.wirePoints and self.wireCursor else [])
-        if len(points)<2:
+        path=None
+        drag=self._vertexDrag
+        if drag is not None and drag['to'] is not None:
+            path=QPainterPath()
+            for n in drag['neighbours'] or [drag['to']]:
+                path.moveTo(*n); path.lineTo(*drag['to'])
+        else:
+            points=self.wirePoints+([self.wireCursor] if self.wiring and self.wirePoints and self.wireCursor else [])
+            if len(points)>=2:
+                path=QPainterPath(QPointF(*points[0]))
+                for p in points[1:]:
+                    path.lineTo(*p)
+        if path is None:
             return
-        path=QPainterPath(QPointF(*points[0]))
-        for p in points[1:]:
-            path.lineTo(*p)
         pen=QPen(_color('blue',self.colorMap),1.5,Qt.DashLine)
         self.wirePreview=self.scene().addPath(path,pen)
     def keyPressEvent(self,event):

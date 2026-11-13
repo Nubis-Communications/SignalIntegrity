@@ -299,7 +299,7 @@ class SParametersWindow(QMainWindow):
         tabs=QTabWidget()
         self.setCentralWidget(tabs)
         log=_Preference('SParameterProperties.Plot.LogScale',False)
-        for name,sp in result.sparameters:
+        for spIndex,(name,sp) in enumerate(result.sparameters):
             f=list(sp.f())
             freqLabel=ToSI(f[-1]-f[0],'Hz')[-3:] if len(f)>1 else 'Hz'
             divisor=FromSI('1. '+freqLabel,'Hz') if len(f)>1 else 1.
@@ -328,6 +328,109 @@ class SParametersWindow(QMainWindow):
                 panel.autoscaleButton.clicked.connect(lambda checked=False,p=panel: (p.axes.autoscale(True),p.canvas.draw()))
                 self.panels.append(panel)
                 tabs.addTab(panel,panel.label.text())
+            # the tk viewer's time-domain views, computed when their tab is first shown
+            for view in ('impulse','step','impedance'):
+                placeholder=QLabel('computing...')
+                placeholder.pending=(spIndex,view)
+                tabs.addTab(placeholder,name+' '+view)
+        self.result=result
+        self.tabs=tabs
+        tabs.currentChanged.connect(self._BuildTimeView)
+    TIME_LABELS={'impulse':('impulse response','amplitude'),'step':('step response','amplitude'),
+                 'impedance':('impedance','impedance (Ohms)')}
+    def _BuildTimeView(self,tab):
+        widget=self.tabs.widget(tab)
+        pending=getattr(widget,'pending',None)
+        if not pending:
+            return
+        index,view=pending
+        title=self.tabs.tabText(tab)
+        try:
+            data=self.result.SParameterTime(index,view)
+        except Exception as e:
+            widget.setText(str(e)); widget.pending=None
+            return
+        panel=PlotPanel()
+        panel.label.setText(title)
+        plt=panel.axes
+        colors=_Colors()
+        xs=[x for t in data['traces'] for x in t['x'] if x is not None]
+        timeLabel=ToSI(max(xs)-min(xs),'s')[-2:] if len(xs)>1 else 's'
+        divisor=FromSI('1. '+timeLabel,'s') if len(xs)>1 else 1.
+        for k,trace in enumerate(data['traces']):
+            plt.plot([x/divisor for x in trace['x']],trace['y'],label=trace['name'],c=colors[k%len(colors)])
+        name,ylabel=self.TIME_LABELS[view]
+        plt.set_xlabel(('length (' if view=='impedance' else 'time (')+timeLabel+')',fontsize=10)
+        plt.set_ylabel(ylabel,fontsize=10)
+        if _Preference('Appearance.GridsOnPlots',True):
+            from SignalIntegrity.QtApp.Theme import GridColor
+            plt.grid(True,'both',color=GridColor())
+        if len(data['traces'])<=16:
+            plt.legend(loc='upper right',labelspacing=0.1)
+        from SignalIntegrity.QtApp.Theme import StyleAxes
+        StyleAxes(panel.figure,plt)
+        panel.autoscaleButton.clicked.connect(lambda checked=False,p=panel: (p.axes.autoscale(True),p.canvas.draw()))
+        self.panels.append(panel)
+        self.tabs.blockSignals(True)
+        self.tabs.removeTab(tab)
+        self.tabs.insertTab(tab,panel,title)
+        self.tabs.setCurrentIndex(tab)
+        self.tabs.blockSignals(False)
+        widget.deleteLater()
+
+class NoiseWindow(QMainWindow):
+    """the tk Statistical Noise dialog and its Noise Measurements: output noise spectral densities
+    and, per output, the RMS noise, SNR and each noise source's contribution"""
+    def __init__(self,result,title='Statistical Noise',parent=None):
+        super().__init__(parent)
+        import math
+        from PySide6.QtCore import Qt
+        from PySide6.QtWidgets import QSplitter, QTreeWidget, QTreeWidgetItem
+        self.setWindowTitle(title)
+        self.resize(1000,700)
+        splitter=QSplitter(Qt.Vertical)
+        self.setCentralWidget(splitter)
+        self.panel=PlotPanel()
+        splitter.addWidget(self.panel)
+        data=result.NoiseSeries()
+        plt=self.panel.axes
+        xmax=data['autoscale'][1] or 1.
+        freqLabel=ToSI(xmax,'Hz')[-3:]
+        divisor=FromSI('1. '+freqLabel,'Hz')
+        adder=10.*math.log10(divisor)
+        colors=_Colors()
+        log=_Preference('SParameterProperties.Plot.LogScale',False)
+        for s in data['series']:
+            pts=[(x/divisor,y+adder) for x,y in zip(s['x'],s['y']) if y is not None and (not log or x>0)]
+            (plt.semilogx if log else plt.plot)([p[0] for p in pts],[p[1] for p in pts],label=s['name'],c=colors[s['index']%len(colors)])
+        lo,hi=data['autoscale'][2],data['autoscale'][3]
+        if lo is not None and hi is not None:
+            plt.set_ylim(lo+adder,hi+adder)
+        self.panel.label.setText('Spectral Density')
+        plt.set_xlabel('frequency ('+freqLabel+')',fontsize=10)
+        plt.set_ylabel('magnitude (dBm/'+freqLabel+')',fontsize=10)
+        if _Preference('Appearance.GridsOnPlots',True):
+            from SignalIntegrity.QtApp.Theme import GridColor
+            plt.grid(True,'both',color=GridColor())
+        plt.legend(loc='upper right',labelspacing=0.1)
+        from SignalIntegrity.QtApp.Theme import StyleAxes
+        StyleAxes(self.panel.figure,plt)
+        self.panel.autoscaleButton.clicked.connect(lambda: (plt.autoscale(True),self.panel.canvas.draw()))
+        self.table=QTreeWidget()
+        self.table.setHeaderLabels(['Output / contribution','RMS','dBm','RMS density','dBm density','SNR (dB)','Salz SNR (dB)'])
+        fmt=lambda v,unit='': '' if v is None else (ToSI(v,unit,round=4) if unit else '%.2f'%v)
+        for info in result.NoiseInfo():
+            unit='A' if info['type']=='current' else 'V'
+            item=QTreeWidgetItem([info['name'],fmt(info['rms'],unit),fmt(info['dBm']),fmt(info['rmsPerRootHz'],unit+'/rtHz'),
+                                  fmt(info['dBmPerHz'])+(' /Hz' if info['dBmPerHz'] is not None else ''),fmt(info['SNR']),fmt(info['SalzSNR'])])
+            for c in info['contributions']:
+                item.addChild(QTreeWidgetItem(['from '+c['name'],fmt(c['rms'],unit),fmt(c['dBm']),'','',fmt(c['SNR']),'']))
+            self.table.addTopLevelItem(item)
+            item.setExpanded(True)
+        for c in range(self.table.columnCount()):
+            self.table.resizeColumnToContents(c)
+        splitter.addWidget(self.table)
+        splitter.setSizes([450,250])
 
 class EyeDiagramWindow(QMainWindow):
     """shows the eye diagram image computed by the headless engine"""
