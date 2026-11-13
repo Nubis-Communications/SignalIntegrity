@@ -321,13 +321,8 @@ def Palette(theme):
 
 # ---- the theme the user picked, shared by both GUIs
 def SettingsFile():
-    if sys.platform.startswith('win'):
-        base=os.environ.get('APPDATA') or os.path.expanduser('~')
-    elif sys.platform=='darwin':
-        base=os.path.expanduser('~/Library/Application Support')
-    else:
-        base=os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')
-    return os.path.join(base,'SignalIntegrity','gui-theme.json')
+    from SignalIntegrity.GuiCore.Settings import SettingsDirectory
+    return os.path.join(SettingsDirectory(),'gui-theme.json')
 
 def SavedThemeId():
     try:

@@ -347,6 +347,154 @@ class TestPartStencilTest(unittest.TestCase):
         with self.assertRaises(SessionError):
             self.session.DeleteDevice(0)
 
+def BuildDivider(session,directory):
+    """a step generator driving a 50 ohm divider, wired through the session API; @return grid"""
+    catalog={p['description']:p['index'] for p in session.PartCatalog()}
+    session.New(os.path.join(directory,'divider'))
+    g=session.Grid()
+    session.AddPart(catalog['One Port Voltage Step Generator'],5*g,10*g)    # pin at pixel (96,160)
+    session.AddPart(catalog['Two Port Resistor'],15*g,5*g)                  # pins at (240,96) and (304,96)
+    session.AddPart(catalog['Output'],25*g,5*g)                             # pin at (400,96)
+    session.AddPart(catalog['One Port Resistor to Ground'],30*g,5*g)        # pin at (496,80)
+    return g
+
+class TestWiresTest(unittest.TestCase):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        self.session=ProjectSession()
+    def tearDown(self):
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def testDrawAndSimulate(self):
+        BuildDivider(self.session,self.directory)
+        self.assertEqual(self.session.Render()['wires'],[])
+        # points snap to the nearest grid point, and repeated points are dropped
+        self.session.AddWire([[96,160],[97,161],[96,96],[241,95]])
+        self.session.AddWire([[304,96],[400,96],[496,96],[496,80]])
+        wires=self.session.Render()['wires']
+        self.assertEqual(wires[0]['points'],[96.,160.,96.,96.,240.,96.])
+        # consolidation splits the second wire at the output probe's pin, as the tk app does
+        self.assertEqual([w['points'] for w in wires[1:]],[[304.,96.,400.,96.],[400.,96.,496.,96.,496.,80.]])
+        netlist=self.session.NetList()
+        for line in ('connect R1 1 VG1 1','voltageoutput VO1 R1 2','connect R1 2 R2 1'):
+            self.assertIn(line,netlist)
+        result=self.session.Calculate('simulate')
+        self.assertAlmostEqual(max(result.waveforms[0][1].Values()),0.5,9)
+    def testSelectAndDelete(self):
+        BuildDivider(self.session,self.directory)
+        self.session.AddWire([[96,160],[96,96],[240,96]])
+        self.session.AddWire([[304,96],[400,96]])
+        self.assertEqual(self.session.WireAt(97,130),0)
+        self.assertEqual(self.session.WireAt(350,99),1)
+        self.assertIsNone(self.session.WireAt(350,110))
+        self.assertEqual(self.session.WireAt(350,110,15),1)
+        self.session.Select(1)
+        self.session.SelectWire(1)
+        drawing=self.session.Render()
+        self.assertEqual([w['selected'] for w in drawing['wires']],[False,True])
+        self.assertFalse(any(d['selected'] for d in drawing['devices']))
+        self.session.Select(0)
+        self.assertFalse(any(w['selected'] for w in self.session.Wires()))
+        self.session.DeleteWire(0)
+        self.assertEqual([w['points'] for w in self.session.Wires()],[[304.,96.,400.,96.]])
+        self.session.Save()
+        self.assertEqual(len(ProjectSession().Open(self.session.filename)['wires']),1)
+    def testErrors(self):
+        with self.assertRaises(SessionError):
+            self.session.AddWire([[0,0],[16,0]])     # nothing open
+        BuildDivider(self.session,self.directory)
+        for bad in ([[0,0]],[[0,0],[3,2]],[[0,0],[1]],'0,0,16,0',[[0,0],['a',0]]):
+            with self.assertRaises(SessionError):
+                self.session.AddWire(bad)
+        for index in (0,-1,'0'):
+            with self.assertRaises(SessionError):
+                self.session.DeleteWire(index)
+            with self.assertRaises(SessionError):
+                self.session.SelectWire(index)
+    def testReadOnlyLevel(self):
+        drawing=self.session.Open(os.path.join(EXAMPLES,'PID','PIDSimulation.si'))
+        self.assertGreater(len(drawing['wires']),0)
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        child=self.session.View(pid,'file')[1]
+        with self.assertRaises(SessionError):
+            self.session.AddWire([[0,0],[32,0]])
+        with self.assertRaises(SessionError):
+            self.session.DeleteWire(0)
+        self.session.SelectWire(0)    # selecting is allowed, editing is not
+        self.assertTrue(child['wires'])
+
+class TestSettingsTest(unittest.TestCase):
+    def setUp(self):
+        from unittest import mock
+        from SignalIntegrity.GuiCore import Settings
+        self.Settings=Settings
+        self.directory=tempfile.mkdtemp()
+        self.patch=mock.patch.dict(os.environ,{Settings.ENVIRONMENT_VARIABLE:os.path.join(self.directory,'settings')})
+        self.patch.start()
+    def tearDown(self):
+        self.patch.stop()
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _File(self,name):
+        path=os.path.join(self.directory,name)
+        open(path,'w').close()
+        return path
+    def testRecentProjects(self):
+        from SignalIntegrity.GuiCore import Themes
+        self.assertEqual(self.Settings.SettingsDirectory(),os.path.join(self.directory,'settings'))
+        self.assertTrue(Themes.SettingsFile().startswith(self.Settings.SettingsDirectory()))
+        self.assertEqual(self.Settings.RecentProjects(),[])
+        a,b=self._File('a.si'),self._File('b.si')
+        self.Settings.AddRecentProject(a)
+        self.Settings.AddRecentProject(b)
+        self.assertEqual(self.Settings.RecentProjects(),[b,a])
+        self.Settings.AddRecentProject(a)
+        self.assertEqual(self.Settings.RecentProjects(),[a,b])
+        os.remove(b)
+        self.assertEqual(self.Settings.RecentProjects(),[a])
+        for k in range(15):
+            self.Settings.AddRecentProject(self._File('p%d.si'%k))
+        recent=self.Settings.RecentProjects()
+        self.assertEqual(len(recent),self.Settings.MAX_RECENT_PROJECTS)
+        self.assertTrue(recent[0].endswith('p14.si'))
+        self.Settings.ClearRecentProjects()
+        self.assertEqual(self.Settings.RecentProjects(),[])
+    def testCorruptFile(self):
+        os.makedirs(self.Settings.SettingsDirectory())
+        with open(os.path.join(self.Settings.SettingsDirectory(),'gui-recent-projects.json'),'w') as f:
+            f.write('not json')
+        self.assertEqual(self.Settings.RecentProjects(),[])
+        a=self._File('a.si')
+        self.assertEqual(self.Settings.AddRecentProject(a),[a])
+
+class TestMenusTest(unittest.TestCase):
+    def testDefinition(self):
+        from SignalIntegrity.GuiCore import Menus
+        self.assertEqual([title for title,_ in Menus.MENUS],['File','Edit','Parts','Wires','View','Calculate','Help'])
+        for gui in ('qt','web'):
+            ids=Menus.CommandIds(gui)+Menus.SubmenuIds(gui)
+            self.assertEqual(len(ids),len(set(ids)),gui)
+            self.assertTrue(all(c is None or c in ids for c in Menus.TOOLBAR),gui)
+        self.assertIn('exit',Menus.CommandIds('qt'))
+        self.assertNotIn('exit',Menus.CommandIds('web'))
+        self.assertIn('recent',Menus.SubmenuIds('web'))
+        self.assertEqual(set(ProjectSession.CALCULATIONS)-set(Menus.CommandIds('web')),set())
+        json.dumps(Menus.MenusFor('web'))
+    def testToolbarIcons(self):
+        import xml.etree.ElementTree as ET
+        from SignalIntegrity.GuiCore import Menus, Icons
+        for commandId in [c for c in Menus.TOOLBAR if c is not None]:
+            self.assertTrue(Icons.HasIcon(commandId),commandId)
+            self.assertIn(commandId,Menus.TOOLBAR_LABELS)
+        svgs=Icons.AllSvgs(Menus.CommandIds('qt'))
+        ids=[]
+        for commandId,svg in svgs.items():
+            root=ET.fromstring(svg)
+            self.assertEqual(root.get('viewBox'),'0 0 32 32')
+            ids+=[e.get('id') for e in root.iter() if e.get('id')]
+        # gradient ids must stay unique when every icon is inlined into one web page
+        self.assertEqual(len(ids),len(set(ids)))
+
 class TestThemesTest(unittest.TestCase):
     DARK_THEME='''{
         // a comment, a trailing comma and a URL that is not a comment

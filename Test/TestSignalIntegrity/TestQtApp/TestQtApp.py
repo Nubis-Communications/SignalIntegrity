@@ -31,6 +31,18 @@ except ImportError:
 EXAMPLES=os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),
     '..','..','..','SignalIntegrity','App','Examples'))
 
+def IsolateSettings(test):
+    """points the GUI settings (theme, recent projects) at a temporary folder for one test"""
+    import tempfile, shutil
+    from unittest import mock
+    from SignalIntegrity.GuiCore.Settings import ENVIRONMENT_VARIABLE
+    directory=tempfile.mkdtemp()
+    patch=mock.patch.dict(os.environ,{ENVIRONMENT_VARIABLE:directory})
+    patch.start()
+    test.addCleanup(shutil.rmtree,directory,True)
+    test.addCleanup(patch.stop)
+    return directory
+
 @unittest.skipUnless(havePySide6,'PySide6 is not installed')
 class TestQtAppTest(unittest.TestCase):
     @classmethod
@@ -38,6 +50,7 @@ class TestQtAppTest(unittest.TestCase):
         cls.qapp=QApplication.instance() or QApplication([])
     def setUp(self):
         from SignalIntegrity.QtApp.MainWindow import MainWindow
+        IsolateSettings(self)
         self.cwd=os.getcwd()
         self.errors=[]
         self.window=MainWindow()
@@ -154,14 +167,10 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
         cls.qapp=QApplication.instance() or QApplication([])
     def setUp(self):
         import tempfile
-        from unittest import mock
-        from SignalIntegrity.GuiCore import Themes
         from SignalIntegrity.QtApp.MainWindow import MainWindow
         self.cwd=os.getcwd()
         self.directory=tempfile.mkdtemp()
-        # never touch the user's saved theme
-        self.patch=mock.patch.object(Themes,'SettingsFile',return_value=os.path.join(self.directory,'gui-theme.json'))
-        self.patch.start()
+        IsolateSettings(self)
         self.errors=[]
         self.window=MainWindow()
         self.window.Error=self.errors.append
@@ -171,7 +180,6 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
         from SignalIntegrity.QtApp import Theme
         Theme.Apply('builtin:light',save=False)
         self.window.close()
-        self.patch.stop()
         os.chdir(self.cwd)
         shutil.rmtree(self.directory,ignore_errors=True)
     def _Part(self,description):
@@ -250,6 +258,77 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
         labels=[a.text() for a in self.window.themeMenu.actions()]
         self.assertIn('SignalIntegrity Dark',labels)
         self.assertIn('Load Theme File...',labels)
+    def testMenusLikeTk(self):
+        from SignalIntegrity.GuiCore.Menus import CommandIds
+        titles=[a.text().replace('&','') for a in self.window.menuBar().actions()]
+        self.assertEqual(titles,['File','Edit','Parts','Wires','View','Calculate','Help'])
+        self.assertEqual(sorted(self.window.actions),sorted(CommandIds('qt')))
+        fileMenu=self.window.menuBar().actions()[0].menu()
+        self.assertIn('Open Recent Projects',[a.text() for a in fileMenu.actions()])
+    def testRecentProjects(self):
+        recent=self.window.submenus['recent']
+        self.window.BuildRecentMenu()
+        self.assertEqual([a.text() for a in recent.actions() if not a.isSeparator()][0],'(no recent projects)')
+        self.window.OpenProject(os.path.join(EXAMPLES,'RLC.si'))
+        self.window.OpenProject(os.path.join(self.directory,'fresh'),new=True)
+        self.window.BuildRecentMenu()
+        entries=[a for a in recent.actions() if a.toolTip().endswith('.si')]
+        self.assertEqual([os.path.basename(a.toolTip()) for a in entries],['fresh.si','RLC.si'])
+        entries[1].trigger()
+        self.assertIn('RLC.si',self.window.windowTitle())
+        [a for a in recent.actions() if a.text()=='Clear Recent Projects'][0].trigger()
+        self.assertEqual([a.text() for a in recent.actions() if not a.isSeparator()][0],'(no recent projects)')
+    def testDrawSelectDeleteWire(self):
+        from PySide6.QtCore import Qt, QPointF
+        from PySide6.QtTest import QTest
+        import importlib
+        BuildDivider=importlib.import_module('TestGuiCore.TestGuiCore').BuildDivider
+        session=self.window.session
+        BuildDivider(session,self.directory)
+        self.window.ShowLevel(session.Render())
+        self.window.show()
+        view=self.window.view
+        at=lambda x,y: view.mapFromScene(QPointF(x,y))
+        self.assertFalse(view.wiring)
+        self.window.wireAction.trigger()
+        self.assertTrue(view.wiring and self.window.wireAction.isChecked())
+        # clicks snap to the grid; a double-click finishes the wire
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(97,159))
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(96,97))
+        QTest.mouseDClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(239,96))
+        self.assertEqual([w['points'] for w in session.Wires()],[[96.,160.,96.,96.,240.,96.]])
+        # still in wire mode: a right-click finishes the next wire
+        for x,y in ((304,96),(400,96),(496,96),(496,80)):
+            QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(x,y))
+        QTest.mouseClick(view.viewport(),Qt.RightButton,Qt.NoModifier,at(496,80))
+        self.assertEqual(len(session.Wires()),3)
+        self.assertTrue(self.window.calculationActions['simulate'].isEnabled())
+        self.assertIn('connect R1 2 R2 1',session.NetList())
+        # Esc drops a half-drawn wire, a second Esc leaves wire mode
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(600,300))
+        from PySide6.QtGui import QMouseEvent
+        from PySide6.QtCore import QEvent
+        move=QPointF(at(700,300))
+        self.qapp.sendEvent(view.viewport(),QMouseEvent(QEvent.MouseMove,move,view.viewport().mapToGlobal(move),
+                                                       Qt.NoButton,Qt.NoButton,Qt.NoModifier))
+        self.assertEqual(view.wireCursor,(704.,304.))
+        self.assertIsNotNone(view.wirePreview)
+        self.window.actions['cancel'].trigger()
+        self.assertTrue(view.wiring)
+        self.assertEqual(view.wirePoints,[])
+        self.assertIsNone(view.wirePreview)
+        self.window.actions['cancel'].trigger()
+        self.assertFalse(view.wiring or self.window.wireAction.isChecked())
+        # clicking a wire selects it; Delete Selected removes it
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.NoModifier,at(96,130))
+        self.assertEqual(self.window.SelectedWire(),0)
+        self.assertIsNone(self.window.selected)
+        self.assertTrue(self.window.actions['deleteWire'].isEnabled())
+        self.assertFalse(self.window.actions['deletePart'].isEnabled())
+        self.window.deleteAction.trigger()
+        self.assertEqual(len(session.Wires()),2)
+        self.assertIsNone(self.window.SelectedWire())
+        self.assertEqual(self.errors,[])
 
 if __name__ == '__main__':
     unittest.main()

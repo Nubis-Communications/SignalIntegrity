@@ -35,6 +35,29 @@ def CurrentId():
 def AppIcon():
     return QIcon(os.path.join(os.path.dirname(os.path.realpath(__file__)),'icons','SignalIntegrityQt.png'))
 
+_commandIcons={}
+
+def CommandIcon(commandId):
+    """QIcon for a GuiCore.Menus command from the shared SVG icons (empty if it has none)"""
+    from SignalIntegrity.GuiCore import Icons
+    if commandId not in _commandIcons:
+        icon=QIcon()
+        if Icons.HasIcon(commandId):
+            from PySide6.QtCore import QByteArray, Qt
+            from PySide6.QtGui import QPixmap, QPainter
+            from PySide6.QtSvg import QSvgRenderer
+            renderer=QSvgRenderer(QByteArray(Icons.Svg(commandId).encode()))
+            for size in (16,24,32,48,64,96):
+                pixmap=QPixmap(size,size)
+                pixmap.fill(Qt.transparent)
+                painter=QPainter(pixmap)
+                painter.setRenderHint(QPainter.Antialiasing)
+                renderer.render(painter)
+                painter.end()
+                icon.addPixmap(pixmap)
+        _commandIcons[commandId]=icon
+    return _commandIcons[commandId]
+
 def StyleSheet(p):
     return f"""
 QWidget {{ color: {p['foreground']}; }}
@@ -52,10 +75,13 @@ QTableWidget {{ gridline-color: {p['border']}; }}
 QLineEdit, QComboBox {{ background: {p['inputBackground']}; color: {p['inputForeground']};
     border: 1px solid {p['border']}; border-radius: 3px; padding: 2px 4px; }}
 QLineEdit:focus, QComboBox:focus {{ border-color: {p['accent']}; }}
-QToolBar {{ background: {p['toolbar']}; border-bottom: 1px solid {p['border']}; spacing: 2px; }}
-QToolButton {{ color: {p['foreground']}; padding: 3px 6px; border-radius: 3px; }}
-QToolButton:hover {{ background: {p['hover']}; }}
-QToolButton:checked {{ background: {p['selection']}; }}
+QToolBar {{ background: {p['toolbar']}; border-bottom: 1px solid {p['border']}; spacing: 2px; padding: 2px 4px; }}
+QToolBar::separator {{ background: {p['border']}; width: 1px; margin: 6px 5px; }}
+QMenu::separator {{ height: 1px; background: {p['border']}; margin: 4px 8px; }}
+QToolButton {{ color: {p['foreground']}; padding: 3px 4px; border-radius: 6px; border: 1px solid transparent; }}
+QToolButton:hover {{ background: {p['hover']}; border-color: {p['border']}; }}
+QToolButton:pressed {{ background: {p['selection']}; }}
+QToolButton:checked {{ background: {p['selection']}; color: {p['selectionForeground']}; border-color: {p['accent']}; }}
 QToolButton:disabled {{ color: {p['border']}; }}
 QPushButton {{ background: {p['buttonBackground']}; color: {p['buttonForeground']}; border: none;
     border-radius: 3px; padding: 4px 12px; }}

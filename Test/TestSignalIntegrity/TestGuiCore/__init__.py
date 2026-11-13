@@ -21,4 +21,5 @@ __init__.py
 
 from __future__ import absolute_import
 
-from .TestGuiCore import TestRecordingCanvasTest, TestProjectSessionTest, TestPartStencilTest, TestThemesTest
+from .TestGuiCore import TestRecordingCanvasTest, TestProjectSessionTest, TestPartStencilTest, TestWiresTest, \
+    TestSettingsTest, TestMenusTest, TestThemesTest

@@ -29,7 +29,10 @@ standard install does not pull it in.
 | Area | Behaviour |
 |---|---|
 | Schematic | Every part picture, wire, pin, dot and label, drawn from the tk drawing code through `GuiCore.RecordingCanvas`. Wheel to zoom, drag the background to pan, Zoom to Fit. |
-| Parts stencil | The **Parts** dock lists all 144 parts of the tk **Add Part** picker, grouped by function (Resistors, Sources, Generators, Amplifiers, Transmission Lines, Ports and Probes...), each with a thumbnail of its part picture. Type in the search box to filter (every word must match the name, description or group). **Drag** a part onto the schematic, or **double-click** it (or press Enter) and then click where it goes; Esc cancels. New parts snap to the grid and get the next free reference designator (`R1`, `R2`...) and port number, as in tk. **Delete** (or Device > Delete) removes the selected part. |
+| Menus and toolbar | Dropdown menus laid out like the tk app (**File, Edit, Parts, Wires, View, Calculate, Help**) with icons and shortcuts, and a toolbar of large icons with captions. Both come from `GuiCore.Menus`/`GuiCore.Icons`, so the web GUI has the same commands. Unavailable commands are greyed out. |
+| Wires | **Wires > Add Wire** (W, or the Wire toolbar button) enters wire mode, as in tk: click each corner (points snap to the grid, a dashed line follows the pointer), then double-click, right-click or press Enter to finish; keep clicking to draw the next wire, and press Esc to drop an unfinished wire or, again, to leave wire mode. Wires are consolidated the way the tk app does it (split at junctions, dots drawn where three or more meet). Click a wire to select it (blue, with its vertices marked) and press Delete or use **Wires > Delete Wire**. |
+| Recent projects | **File > Open Recent Projects** lists the last ten projects opened, created or saved under a new name in either alternative GUI (missing files are skipped), with **Clear Recent Projects**. |
+| Parts stencil | The **Parts** dock lists all 144 parts of the tk **Add Part** picker, grouped by function (Resistors, Sources, Generators, Amplifiers, Transmission Lines, Ports and Probes...), each with a thumbnail of its part picture. Type in the search box to filter (every word must match the name, description or group). **Drag** a part onto the schematic, or **double-click** it (or press Enter) and then click where it goes; Esc cancels. New parts snap to the grid and get the next free reference designator (`R1`, `R2`...) and port number, as in tk. **Delete** (or Edit > Delete Selected) removes the selected part. |
 | New projects | **File > New Project** (Ctrl+N) asks for a file name and starts an empty schematic, as the tk app does. |
 | Themes | **View > Theme** lists the built-in SignalIntegrity Light and Dark themes and every color theme installed in VS Code (and Insiders, VSCodium, Cursor, Windsurf), split into dark and light. **Load Theme File...** opens any VS Code theme `.json` or `.vsix` package downloaded from the Marketplace or Open VSX. The theme restyles the window, docks, schematic, stencil thumbnails and plots (background, axes, grid and trace colors) and is remembered between runs. |
 | Devices | Click to select (highlighted blue, as in tk). Drag to move on the grid. Rotate with Ctrl+R. Properties appear in the **Device Properties** dock and can be edited in place; values are validated, SI suffixes like `33 n` are accepted, `=variable` references work, and enum properties use a drop-down. |
@@ -42,11 +45,13 @@ standard install does not pull it in.
 | Plot zoom | Same as the tk dialogs: the matplotlib toolbar **starts in pan mode** (left-drag pans; right-drag zooms x and y independently around the pointer), the magnifier tool gives box zoom, Home/Back/Forward keep a zoom history, and **autoscale** resets. The simulator window is reused for each recalculation, and its x/y limits are **kept across recalculations, waveform selection changes and Show Grids**, exactly like the tk dialog. They reset only on autoscale or when switching between time and frequency views. S-parameter windows use the same pan-first toolbar and autoscale. |
 | Files | Open, Save, Save As (`.si`). Show Netlist. |
 
-Not yet ported from the tk GUI: drawing wires, copy/paste, flipping parts, undo/redo,
-statistical noise windows, post-processing and equations editors, the S-parameter viewer's
-impulse/step/impedance views, TikZ/PNG export, archives (`.siz`), preferences, and the help
-system. Use the tk GUI for these. Both GUIs share the same file format, so you can switch
-between them freely; for example, place parts in the Qt GUI and wire them in the tk GUI.
+Not yet ported from the tk GUI: moving or editing wire vertices, copy/paste, flipping parts,
+undo/redo, statistical noise windows, post-processing and equations editors, the S-parameter
+viewer's impulse/step/impedance views, TikZ/PNG export, archives (`.siz`), preferences, and the
+help system. Use the tk GUI for these. Both GUIs share the same file format, so you can switch
+between them freely.
+
+To extend this GUI, see [RECIPES.md](RECIPES.md) and [../GuiCore/RECIPES.md](../GuiCore/RECIPES.md).
 
 ## Architecture
 

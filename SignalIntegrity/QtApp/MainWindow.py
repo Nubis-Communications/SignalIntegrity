@@ -19,14 +19,15 @@ MainWindow.py
 # If not, see <https://www.gnu.org/licenses/>
 import os
 
-from PySide6.QtCore import Qt, QThread, Signal
+from PySide6.QtCore import Qt, QThread, Signal, QSize
 from PySide6.QtGui import QAction, QKeySequence, QActionGroup
 from PySide6.QtWidgets import (QMainWindow, QDockWidget, QTableWidget, QTableWidgetItem, QFileDialog,
     QMessageBox, QWidget, QFormLayout, QLineEdit, QPushButton, QPlainTextEdit, QDialog, QVBoxLayout,
     QProgressDialog, QHeaderView, QAbstractItemView, QMenu, QComboBox, QInputDialog)
 
 from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
-from SignalIntegrity.GuiCore import Themes
+from SignalIntegrity.GuiCore import Themes, Settings
+from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS
 from SignalIntegrity.QtApp import Theme
 from SignalIntegrity.QtApp.SchematicView import SchematicView
 from SignalIntegrity.QtApp.PartsDock import PartsDock
@@ -83,12 +84,14 @@ class MainWindow(QMainWindow):
         self.view=SchematicView(self)
         self.setCentralWidget(self.view)
         self.view.deviceClicked.connect(self.OnDeviceClicked)
+        self.view.backgroundClicked.connect(self.OnBackgroundClicked)
         self.view.deviceDoubleClicked.connect(lambda index: self.propertiesDock.raise_())
         self.view.deviceDragged.connect(self.OnDeviceDragged)
         self.view.deviceContextMenu.connect(self.OnDeviceContextMenu)
         self.view.partDropped.connect(self.OnPartDropped)
         self.view.deleteRequested.connect(self.OnDelete)
-        self.view.placingCancelled.connect(lambda: self.statusBar().showMessage('placement cancelled'))
+        self.view.cancelRequested.connect(self.OnCancel)
+        self.view.wireFinished.connect(self.OnWireFinished)
         self.setWindowIcon(Theme.AppIcon())
         self._BuildDocks()
         self._BuildActions()
@@ -143,52 +146,83 @@ class MainWindow(QMainWindow):
         self.tabifyDockWidget(self.variablesDock,self.calculationDock)
         self.variablesDock.raise_()
         self.resizeDocks([self.partsDock],[260],Qt.Horizontal)
-    def _Action(self,menu,text,slot,shortcut=None):
-        action=QAction(text,self)
-        if shortcut is not None:
-            action.setShortcut(QKeySequence(shortcut))
-        action.triggered.connect(slot)
-        menu.addAction(action)
-        return action
+    def _Handlers(self):
+        """one handler per GuiCore.Menus command id"""
+        handlers={'new':self.OnNew,'open':self.OnOpen,'save':self.OnSave,'saveAs':self.OnSaveAs,
+                  'netlist':self.OnNetList,'exit':self.close,
+                  'delete':self.OnDelete,'cancel':self.OnCancel,
+                  'rotate':self.OnRotate,'properties':self.OnEditProperties,'deletePart':self.OnDeletePart,
+                  'wire':self.OnWireMode,'deleteWire':self.OnDeleteWire,
+                  'zoomIn':lambda: self.view.Zoom(1.25),'zoomOut':lambda: self.view.Zoom(0.8),'zoomFit':self.view.ZoomFit,
+                  'viewDevice':self.OnViewSelected,'up':self.OnAscend,'about':self.OnAbout}
+        handlers.update({kind:(lambda k=kind: self.RunCalculation(k)) for kind in CALCULATION_TITLES})
+        return handlers
+    def _SubmenuBuilders(self):
+        return {'recent':self.BuildRecentMenu,'theme':self.BuildThemeMenu,'panels':self.BuildPanelsMenu}
     def _BuildActions(self):
-        menuBar=self.menuBar()
+        """menus and toolbar come from GuiCore.Menus, shared with the web GUI"""
+        handlers=self._Handlers(); builders=self._SubmenuBuilders()
+        self.actions={}; self.submenus={}
+        for title,items in MenusFor('qt'):
+            menu=self.menuBar().addMenu('&'+title)
+            for item in items:
+                if item['kind']=='separator':
+                    menu.addSeparator()
+                elif item['kind']=='submenu':
+                    submenu=menu.addMenu(item['label'])
+                    submenu.aboutToShow.connect(builders[item['id']])
+                    self.submenus[item['id']]=submenu
+                else:
+                    action=QAction(Theme.CommandIcon(item['id']),item['label'],self)
+                    action.setIconText(TOOLBAR_LABELS.get(item['id'],item['label'].rstrip('.')))
+                    action.setToolTip(item['label'].rstrip('.')+(' ('+item['shortcut']+')' if item['shortcut'] else ''))
+                    action.setCheckable(item['checkable'])
+                    if item['shortcut']:
+                        action.setShortcut(QKeySequence(item['shortcut']))
+                        if '+' not in item['shortcut']:
+                            # single keys (Del, Esc, W) act on the schematic only, not while typing in a table
+                            action.setShortcutContext(Qt.WidgetWithChildrenShortcut)
+                            self.view.addAction(action)
+                    action.triggered.connect(lambda checked=False,h=handlers[item['id']]: h())
+                    menu.addAction(action)
+                    self.actions[item['id']]=action
         toolBar=self.addToolBar('Main')
         toolBar.setObjectName('main')
-        fileMenu=menuBar.addMenu('&File')
-        self.newAction=self._Action(fileMenu,'&New Project...',self.OnNew,QKeySequence.New)
-        self.openAction=self._Action(fileMenu,'&Open...',self.OnOpen,QKeySequence.Open)
-        self.saveAction=self._Action(fileMenu,'&Save',self.OnSave,QKeySequence.Save)
-        self.saveAsAction=self._Action(fileMenu,'Save &As...',self.OnSaveAs,QKeySequence.SaveAs)
-        fileMenu.addSeparator()
-        self._Action(fileMenu,'E&xit',self.close,QKeySequence.Quit)
-        viewMenu=menuBar.addMenu('&View')
-        self.zoomInAction=self._Action(viewMenu,'Zoom &In',lambda: self.view.Zoom(1.25),QKeySequence.ZoomIn)
-        self.zoomOutAction=self._Action(viewMenu,'Zoom &Out',lambda: self.view.Zoom(0.8),QKeySequence.ZoomOut)
-        self.zoomFitAction=self._Action(viewMenu,'Zoom to &Fit',self.view.ZoomFit,'Ctrl+0')
-        viewMenu.addSeparator()
-        for dock in (self.partsDock,self.variablesDock,self.calculationDock,self.propertiesDock):
-            viewMenu.addAction(dock.toggleViewAction())
-        viewMenu.addSeparator()
-        self.themeMenu=viewMenu.addMenu('&Theme')
-        self.themeMenu.aboutToShow.connect(self.BuildThemeMenu)
-        deviceMenu=menuBar.addMenu('&Device')
-        self.rotateAction=self._Action(deviceMenu,'&Rotate',self.OnRotate,'Ctrl+R')
-        self.deleteAction=self._Action(deviceMenu,'&Delete',self.OnDelete)
-        self.viewDeviceAction=self._Action(deviceMenu,'&View / Open Project',self.OnViewSelected,'Ctrl+E')
-        self.upAction=self._Action(deviceMenu,'&Up to Parent Project',self.OnAscend,'Alt+Up')
-        calculateMenu=menuBar.addMenu('&Calculate')
-        self.calculationActions={kind:self._Action(calculateMenu,title,lambda checked=False,k=kind: self.RunCalculation(k))
-                                 for kind,title in CALCULATION_TITLES.items()}
-        calculateMenu.addSeparator()
-        self.netListAction=self._Action(calculateMenu,'Show &Netlist',self.OnNetList)
-        helpMenu=menuBar.addMenu('&Help')
-        self._Action(helpMenu,'&About',self.OnAbout)
-        for action in [self.newAction,self.openAction,self.saveAction,None,self.zoomInAction,self.zoomOutAction,self.zoomFitAction,None,
-                       self.rotateAction,self.viewDeviceAction,self.upAction,None]+list(self.calculationActions.values()):
-            if action is None:
+        toolBar.setIconSize(QSize(32,32))
+        toolBar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        for commandId in TOOLBAR:
+            if commandId is None:
                 toolBar.addSeparator()
             else:
-                toolBar.addAction(action)
+                toolBar.addAction(self.actions[commandId])
+        a=self.actions
+        self.newAction,self.openAction,self.saveAction,self.saveAsAction=a['new'],a['open'],a['save'],a['saveAs']
+        self.zoomInAction,self.zoomOutAction,self.zoomFitAction=a['zoomIn'],a['zoomOut'],a['zoomFit']
+        self.rotateAction,self.deleteAction,self.wireAction=a['rotate'],a['delete'],a['wire']
+        self.viewDeviceAction,self.upAction,self.netListAction=a['viewDevice'],a['up'],a['netlist']
+        self.calculationActions={kind:a[kind] for kind in CALCULATION_TITLES}
+        self.themeMenu=self.submenus['theme']
+        self.BuildRecentMenu()
+    def BuildPanelsMenu(self):
+        menu=self.submenus['panels']
+        menu.clear()
+        for dock in (self.partsDock,self.variablesDock,self.calculationDock,self.propertiesDock):
+            menu.addAction(dock.toggleViewAction())
+    def BuildRecentMenu(self):
+        menu=self.submenus['recent']
+        menu.clear()
+        recent=Settings.RecentProjects()
+        for number,filename in enumerate(recent,1):
+            action=menu.addAction('&%d  %s'%(number%10,os.path.basename(filename)))
+            action.setToolTip(filename); action.setStatusTip(filename)
+            action.triggered.connect(lambda checked=False,f=filename: self.OpenProject(f))
+        if not recent:
+            menu.addAction('(no recent projects)').setEnabled(False)
+        menu.addSeparator()
+        clear=menu.addAction('Clear Recent Projects')
+        clear.setEnabled(bool(recent))
+        clear.triggered.connect(lambda: (Settings.ClearRecentProjects(),self.BuildRecentMenu()))
+        menu.setToolTipsVisible(True)
     # ---- state
     def ApplyTheme(self,themeId,name):
         """recolors the schematic, the stencil and any open plot windows for the current theme"""
@@ -264,7 +298,15 @@ class MainWindow(QMainWindow):
             action.setEnabled(writable and not busy)
         self.netListAction.setEnabled(isOpen and not busy)
         self.rotateAction.setEnabled(writable and not busy and self.selected is not None)
-        self.deleteAction.setEnabled(writable and not busy and self.selected is not None)
+        selectedWire=self.SelectedWire()
+        self.deleteAction.setEnabled(writable and not busy and (self.selected is not None or selectedWire is not None))
+        self.actions['deletePart'].setEnabled(writable and not busy and self.selected is not None)
+        self.actions['properties'].setEnabled(isOpen and self.selected is not None)
+        self.actions['deleteWire'].setEnabled(writable and not busy and selectedWire is not None)
+        self.wireAction.setEnabled(writable and not busy)
+        if not self.wireAction.isEnabled() and self.wireAction.isChecked():
+            self.wireAction.setChecked(False)
+            self.view.StopWiring()
         self.partsDock.widget().setEnabled(writable and not busy)
         self.viewDeviceAction.setEnabled(isOpen and not busy and self.selected is not None
                                          and len(self.session.ViewActions(self.selected))>0)
@@ -291,6 +333,8 @@ class MainWindow(QMainWindow):
             window.close()
         self.simulatorWindows={}; self.eyeWindows={}; self.resultsWindows=[]
         self.ShowLevel(drawing)
+        Settings.AddRecentProject(drawing['filename'])
+        self.BuildRecentMenu()
         self.statusBar().showMessage(('created ' if new else 'opened ')+drawing['filename']+
                                      ('  -  drag parts from the Parts stencil onto the schematic' if new else ''))
         return True
@@ -322,7 +366,10 @@ class MainWindow(QMainWindow):
         filename,_=QFileDialog.getSaveFileName(self,'Save Project As',self.session.filename or '','SignalIntegrity projects (*.si)')
         if filename:
             try:
-                self.statusBar().showMessage('saved '+self.session.Save(filename))
+                saved=self.session.Save(filename)
+                Settings.AddRecentProject(saved)
+                self.BuildRecentMenu()
+                self.statusBar().showMessage('saved '+saved)
             except (SessionError,OSError) as e:
                 self.Error(e)
             self.UpdateTitle()
@@ -416,12 +463,30 @@ class MainWindow(QMainWindow):
             self.Error(e)
         self.RefreshCalculationProperties()
     # ---- devices
+    def SelectedWire(self):
+        drawing=getattr(self,'drawing',None)
+        if not drawing or not self.session.IsOpen():
+            return None
+        return next((w['index'] for w in drawing.get('wires',[]) if w['selected']),None)
     def OnDeviceClicked(self,index):
-        if not self.session.IsOpen() or index==self.selected:
+        if not self.session.IsOpen() or (index==self.selected and self.SelectedWire() is None):
             return
         self.selected=self.session.Select(index)
         self.RefreshProperties()
         self.Redraw()
+    def OnBackgroundClicked(self,x,y):
+        """selects the wire under the pointer, or deselects everything"""
+        if not self.session.IsOpen():
+            return
+        # within 5 screen pixels at any zoom, but never less than a quarter grid
+        wire=self.session.WireAt(x,y,max(0.25*self.view.grid,5./max(self.view.transform().m11(),1e-6)))
+        if wire is None:
+            return self.OnDeviceClicked(None)
+        self.session.SelectWire(wire)
+        self.selected=None
+        self.RefreshProperties()
+        self.Redraw()
+        self.statusBar().showMessage('wire selected (Del deletes it)')
     def OnDeviceDragged(self,index,dx,dy):
         if self.session.readOnly:
             return
@@ -435,6 +500,9 @@ class MainWindow(QMainWindow):
     def OnPlaceRequested(self,index):
         if not self.session.IsOpen() or self.session.readOnly:
             return
+        if self.wireAction.isChecked():
+            self.wireAction.setChecked(False)
+            self.view.StopWiring()
         self.view.StartPlacing(index)
         name=self.partsDock.catalog[index]['partname'] if index<len(self.partsDock.catalog) else 'part'
         self.statusBar().showMessage('click on the schematic to place '+name+' (Esc cancels)')
@@ -450,6 +518,11 @@ class MainWindow(QMainWindow):
         self.propertiesDock.raise_()
         self.statusBar().showMessage('added '+self.session.Render()['devices'][self.selected]['partname'])
     def OnDelete(self):
+        """tk Edit > Delete Selected: the selected wire or part"""
+        if self.SelectedWire() is not None:
+            return self.OnDeleteWire()
+        self.OnDeletePart()
+    def OnDeletePart(self):
         if self.selected is None or self.session.readOnly or self.worker is not None:
             return
         try:
@@ -459,6 +532,47 @@ class MainWindow(QMainWindow):
         self.selected=None
         self.RefreshProperties()
         self.Redraw()
+    def OnEditProperties(self):
+        self.propertiesDock.show()
+        self.propertiesDock.raise_()
+        self.propertiesTable.setFocus()
+    def OnCancel(self):
+        """Esc: drop the wire being drawn, then leave wire mode; or stop placing a part"""
+        if self.view.wiring:
+            if not self.view.CancelWire():
+                self.wireAction.setChecked(False)
+                self.view.StopWiring()
+                self.statusBar().showMessage('wire mode off')
+        elif self.view.placing is not None:
+            self.view.StopPlacing()
+            self.statusBar().showMessage('placement cancelled')
+    # ---- wires
+    def OnWireMode(self):
+        if self.wireAction.isChecked():
+            self.view.StartWiring()
+            self.statusBar().showMessage('Add Wire: click each corner, double-click or right-click to finish a wire, Esc to stop')
+        else:
+            self.view.StopWiring()
+            self.statusBar().showMessage('wire mode off')
+    def OnWireFinished(self,points):
+        try:
+            self.session.AddWire(points)
+        except SessionError as e:
+            return self.Error(e)
+        self.selected=None
+        self.RefreshProperties()
+        self.Redraw()
+        self.statusBar().showMessage('wire added - keep clicking to draw another, Esc to stop')
+    def OnDeleteWire(self):
+        wire=self.SelectedWire()
+        if wire is None or self.session.readOnly or self.worker is not None:
+            return
+        try:
+            self.session.DeleteWire(wire)
+        except SessionError as e:
+            return self.Error(e)
+        self.Redraw()
+        self.statusBar().showMessage('wire deleted')
     # ---- hierarchy traversal and device views (tk right-click View / Open Project)
     def OnDeviceContextMenu(self,index,globalPos,control):
         if self.worker is not None:

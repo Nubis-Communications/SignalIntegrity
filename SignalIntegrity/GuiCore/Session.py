@@ -156,6 +156,7 @@ class ProjectSession(object):
                 'items':canvas.items,
                 'bbox':canvas.BoundingBox(),
                 'devices':devices,
+                'wires':self.Wires(),
                 'capabilities':self.Capabilities(),
                 'equationsValid':bool(self._Project()['Equations.Valid']) if self._Project()['Equations.Lines'] else True}
     def DeviceAt(self,x,y):
@@ -167,9 +168,12 @@ class ProjectSession(object):
                 return d
         return None
     def Select(self,index):
-        """selects a single device (or none if index is None)"""
+        """selects a single device (or none if index is None) and deselects any wire"""
         for d,device in enumerate(self.app.Drawing.schematic.deviceList):
             device.selected=(d==index)
+        for wire in self._WireList():
+            for vertex in wire['Vertices']:
+                vertex['Selected']=False
         return index
     def DeviceProperties(self,index):
         from SignalIntegrity.App.PartProperty import PartPropertyReadOnly
@@ -289,6 +293,70 @@ class ProjectSession(object):
         self._Writable()
         self._Device(index)
         del self.app.Drawing.schematic.deviceList[index]
+        self.Select(None)
+    # ---- wires
+    def _WireList(self):
+        return self._Project()['Drawing.Schematic.Wires']
+    def _GridCoordinate(self,x,y):
+        grid=self.Grid(); ox,oy=self.Origin()
+        try:
+            return (int(round(float(x)/grid))-ox,int(round(float(y)/grid))-oy)
+        except (TypeError,ValueError):
+            raise SessionError('coordinates must be numbers')
+    def Wires(self):
+        """@return [{index,points,selected}] each wire's vertices as a flat pixel list [x0,y0,x1,y1,...]"""
+        grid=self.Grid(); ox,oy=self.Origin()
+        return [{'index':w,
+                 'points':[float(c) for v in wire['Vertices'] for c in ((v['Coord'][0]+ox)*grid,(v['Coord'][1]+oy)*grid)],
+                 'selected':any(v['Selected'] for v in wire['Vertices'])}
+                for w,wire in enumerate(self._WireList())]
+    def WireAt(self,x,y,tolerance=None):
+        """@return index of the wire passing within tolerance pixels (default a quarter grid) of pixel x,y, or None"""
+        from SignalIntegrity.App.Wire import SegmentList
+        grid=self.Grid(); ox,oy=self.Origin()
+        coord=(float(x)/grid-ox,float(y)/grid-oy)
+        distance=0.25 if tolerance is None else float(tolerance)/grid
+        for w,wire in enumerate(self._WireList()):
+            for segment in SegmentList(wire):
+                if segment.IsAt(coord,(0.,0.),distance):
+                    return w
+        return None
+    def SelectWire(self,index):
+        """selects one wire (drawn highlighted, with its vertices marked) and deselects devices"""
+        wires=self._WireList()
+        if not isinstance(index,int) or not 0<=index<len(wires):
+            raise SessionError('no wire with index '+str(index))
+        self.Select(None)
+        for vertex in wires[index]['Vertices']:
+            vertex['Selected']=True
+        return index
+    def AddWire(self,points):
+        """adds a wire through pixel points [[x,y],...]; each point snaps to the nearest grid point
+        as in the tk app, repeated points are dropped, and the wires are then consolidated (split
+        at junctions, joined where only two meet) exactly as the tk app does when it opens a project"""
+        from SignalIntegrity.App.Wire import Wire,Vertex
+        self._Writable()
+        if not isinstance(points,(list,tuple)):
+            raise SessionError('wire points must be a list of [x,y] pairs')
+        coords=[]
+        for point in points:
+            if not isinstance(point,(list,tuple)) or len(point)!=2:
+                raise SessionError('wire points must be a list of [x,y] pairs')
+            coord=self._GridCoordinate(*point)
+            if not coords or coords[-1]!=coord:
+                coords.append(coord)
+        if len(coords)<2:
+            raise SessionError('a wire needs at least two different grid points')
+        self.Select(None)
+        self._WireList().append(Wire([Vertex(coord,False) for coord in coords]))
+        self.app.Drawing.schematic.Consolidate()
+    def DeleteWire(self,index):
+        self._Writable()
+        wires=self._WireList()
+        if not isinstance(index,int) or not 0<=index<len(wires):
+            raise SessionError('no wire with index '+str(index))
+        del wires[index]
+        self.app.Drawing.schematic.Consolidate()
         self.Select(None)
     def Variables(self):
         return [{'name':v['Name'],'value':v['Value'],'type':v['Type'],'units':v['Units'],

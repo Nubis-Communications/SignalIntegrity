@@ -101,14 +101,16 @@ def AddPrimitives(scene,items,colorMap=None):
 
 class SchematicView(QGraphicsView):
     """select/move view of a schematic rendered from GuiCore primitives, accepting parts
-    dragged from the stencil or placed with a click"""
+    dragged from the stencil or placed with a click, and drawing wires"""
     deviceClicked=Signal(object)
+    backgroundClicked=Signal(float,float)
     deviceDoubleClicked=Signal(int)
     deviceDragged=Signal(int,int,int)
     deviceContextMenu=Signal(int,object,bool)
     partDropped=Signal(int,float,float)
     deleteRequested=Signal()
-    placingCancelled=Signal()
+    cancelRequested=Signal()
+    wireFinished=Signal(list)
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setScene(QGraphicsScene(self))
@@ -117,12 +119,17 @@ class SchematicView(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
         self.setDragMode(QGraphicsView.ScrollHandDrag)
         self.setAcceptDrops(True)
+        self.viewport().setMouseTracking(True)
         self.devices=[]
         self.grid=16
         self.colorMap=None
         self.drawing=None
         self.fitRect=QRectF()
         self.placing=None
+        self.wiring=False
+        self.wirePoints=[]
+        self.wireCursor=None
+        self.wirePreview=None
         self._press=None
         self._pressDevice=None
     def ApplyPalette(self,palette):
@@ -135,6 +142,7 @@ class SchematicView(QGraphicsView):
         self.drawing=drawing
         scene=self.scene()
         scene.clear()
+        self.wirePreview=None
         AddPrimitives(scene,drawing['items'],self.colorMap)
         self.devices=drawing['devices']
         self.grid=drawing['grid']
@@ -144,6 +152,7 @@ class SchematicView(QGraphicsView):
         # leave room around the drawing to drop new parts
         room=40*self.grid
         scene.setSceneRect(self.fitRect.adjusted(-room,-room,room,room))
+        self._UpdateWirePreview()
         if fit:
             self.ZoomFit()
     def ZoomFit(self):
@@ -161,6 +170,15 @@ class SchematicView(QGraphicsView):
     def wheelEvent(self,event):
         self.Zoom(1.15 if event.angleDelta().y()>0 else 1/1.15)
     def mousePressEvent(self,event):
+        if self.wiring:
+            point=self.Snap(self.mapToScene(event.position().toPoint()))
+            if event.button()==Qt.LeftButton:
+                if not self.wirePoints or self.wirePoints[-1]!=point:
+                    self.wirePoints.append(point)
+                self._UpdateWirePreview()
+            elif event.button()==Qt.RightButton:
+                self.FinishWire()
+            return
         if event.button()==Qt.LeftButton and self.placing is not None:
             point=self.mapToScene(event.position().toPoint())
             index=self.placing
@@ -171,10 +189,17 @@ class SchematicView(QGraphicsView):
             point=self.mapToScene(event.position().toPoint())
             self._pressDevice=self.DeviceAt(point)
             self._press=point
-            self.deviceClicked.emit(self._pressDevice)
             if self._pressDevice is not None:
+                self.deviceClicked.emit(self._pressDevice)
                 return
+            self.backgroundClicked.emit(point.x(),point.y())
         super().mousePressEvent(event)
+    def mouseMoveEvent(self,event):
+        if self.wiring:
+            self.wireCursor=self.Snap(self.mapToScene(event.position().toPoint()))
+            self._UpdateWirePreview()
+            return
+        super().mouseMoveEvent(event)
     def mouseReleaseEvent(self,event):
         if event.button()==Qt.LeftButton and self._pressDevice is not None and self._press is not None:
             point=self.mapToScene(event.position().toPoint())
@@ -186,12 +211,20 @@ class SchematicView(QGraphicsView):
             return
         super().mouseReleaseEvent(event)
     def mouseDoubleClickEvent(self,event):
+        if self.wiring:
+            point=self.Snap(self.mapToScene(event.position().toPoint()))
+            if not self.wirePoints or self.wirePoints[-1]!=point:
+                self.wirePoints.append(point)
+            self.FinishWire()
+            return
         index=self.DeviceAt(self.mapToScene(event.position().toPoint()))
         if index is not None:
             self.deviceDoubleClicked.emit(index)
             return
         super().mouseDoubleClickEvent(event)
     def contextMenuEvent(self,event):
+        if self.wiring:
+            return
         index=self.DeviceAt(self.mapToScene(event.pos()))
         if index is None:
             return super().contextMenuEvent(event)
@@ -204,15 +237,63 @@ class SchematicView(QGraphicsView):
         self.setFocus()
     def StopPlacing(self):
         self.placing=None
+        self.setDragMode(QGraphicsView.NoDrag if self.wiring else QGraphicsView.ScrollHandDrag)
+        if not self.wiring:
+            self.viewport().unsetCursor()
+    # ---- drawing wires: click each vertex, double-click or right-click to finish
+    def Snap(self,point):
+        return (round(point.x()/self.grid)*self.grid,round(point.y()/self.grid)*self.grid)
+    def StartWiring(self):
+        if self.placing is not None:
+            self.StopPlacing()
+        self.wiring=True
+        self.wirePoints=[]
+        self.setDragMode(QGraphicsView.NoDrag)
+        self.viewport().setCursor(Qt.CrossCursor)
+        self.setFocus()
+    def StopWiring(self):
+        self.wiring=False
+        self.wirePoints=[]
+        self.wireCursor=None
+        self._UpdateWirePreview()
         self.setDragMode(QGraphicsView.ScrollHandDrag)
         self.viewport().unsetCursor()
+    def FinishWire(self):
+        """emits the wire drawn so far (two or more points) and starts the next one"""
+        points=[list(p) for p in self.wirePoints]
+        self.wirePoints=[]
+        self._UpdateWirePreview()
+        if len(points)>=2:
+            self.wireFinished.emit(points)
+    def CancelWire(self):
+        """drops the wire being drawn; @return False if there was none"""
+        if not self.wirePoints:
+            return False
+        self.wirePoints=[]
+        self._UpdateWirePreview()
+        return True
+    def _UpdateWirePreview(self):
+        if self.wirePreview is not None:
+            self.scene().removeItem(self.wirePreview)
+            self.wirePreview=None
+        points=self.wirePoints+([self.wireCursor] if self.wiring and self.wirePoints and self.wireCursor else [])
+        if len(points)<2:
+            return
+        path=QPainterPath(QPointF(*points[0]))
+        for p in points[1:]:
+            path.lineTo(*p)
+        pen=QPen(_color('blue',self.colorMap),1.5,Qt.DashLine)
+        self.wirePreview=self.scene().addPath(path,pen)
     def keyPressEvent(self,event):
-        if event.key()==Qt.Key_Escape and self.placing is not None:
-            self.StopPlacing()
-            self.placingCancelled.emit()
+        # normally the window's Esc/Del shortcuts get these first
+        if event.key()==Qt.Key_Escape:
+            self.cancelRequested.emit()
             return
         if event.key() in (Qt.Key_Delete,Qt.Key_Backspace):
             self.deleteRequested.emit()
+            return
+        if event.key() in (Qt.Key_Return,Qt.Key_Enter) and self.wiring:
+            self.FinishWire()
             return
         super().keyPressEvent(event)
     def dragEnterEvent(self,event):
