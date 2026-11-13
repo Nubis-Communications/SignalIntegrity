@@ -1,6 +1,4 @@
-"""
-__init__.py
-"""
+"""GUI layout, display scaling, indicator, and theme regression tests."""
 
 # Copyright (c) 2021 Nubis Communications, Inc.
 # Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
@@ -20,3 +18,6 @@ __init__.py
 # If not, see <https://www.gnu.org/licenses/>
 
 from .TestDisplayScaling import TestDisplayScaling
+from .TestTheme import TestTheme
+from .TestEquationsDialog import TestEquationsDialog
+from .TestSelectionIndicators import TestSelectionIndicators

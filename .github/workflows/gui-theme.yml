@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-name: GUI theme smoke tests
+name: GUI regression tests
 
 on:
   push:
@@ -23,7 +23,8 @@ on:
     paths:
       - 'SignalIntegrity/App/**'
       - 'Test/TestSignalIntegrity/TestSignalIntegrityApp/**'
-      - 'Test/TestSignalIntegrity/TestTheme/**'
+      - 'Test/TestSignalIntegrity/TestGui/**'
+      - 'Test/TestSignalIntegrity/TestAll.py'
       - '.github/workflows/gui-theme.yml'
       - 'setup.py'
   workflow_dispatch:
@@ -53,9 +54,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb tk
-      - name: Test Linux themes
+      - name: Test Linux GUI
         if: runner.os == 'Linux'
-        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestTheme
-      - name: Test Windows themes
+        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestGui
+      - name: Test Windows GUI
         if: runner.os == 'Windows'
-        run: python -m unittest Test.TestSignalIntegrity.TestTheme
+        run: python -m unittest Test.TestSignalIntegrity.TestGui

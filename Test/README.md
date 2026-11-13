@@ -11,10 +11,16 @@ dependencies with `python -m pip install -e ".[test]"`, then run:
 The root `pytest.ini` configuration selects `TestSignalIntegrity/TestAll.py`, which
 collects the unittest cases from the test modules.
 
-Linux display-scaling regression tests live in `TestSignalIntegrity/TestGui` and
-are included in `TestAll.py`. Run them separately from the repository root with
-`python -m unittest Test.TestSignalIntegrity.TestGui`. They skip without a Tk
-display; set `SIGNALINTEGRITY_REQUIRE_GUI_TESTS=1` to require one.
+GUI regressions, including Linux display scaling, in
+[TestGui](TestSignalIntegrity/TestGui) are included in `TestAll.py`.
+They skip when no Tk display is available. To run just these tests from the
+repository root:
+
+    python -m unittest Test.TestSignalIntegrity.TestGui
+
+On headless Linux, use `xvfb-run -a` before the command. Set
+`SIGNALINTEGRITY_REQUIRE_GUI_TESTS=1` to fail instead of skipping when a display
+is unavailable, as the GUI CI workflow does.
 
 For the most part, the [SignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/SignalIntegrity/App) GUI based application is tested by hand, insofar as the GUI is concerned, but in [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) are tests for testing a _headless_ version of PySIApp that can also be used within a scripted environment.  In other words, the headless version can be utilized to load a project file and obtain whatever results that project file produces.  This is a big aid to scripted applications and [TestSignalIntegrity/TestSignalIntegrityApp](https://github.com/Nubis-Communications/SignalIntegrity/tree/master/Test/TestSignalIntegrity/TestSignalIntegrityApp) tests this headless application.
 

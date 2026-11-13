@@ -1,6 +1,7 @@
 """Focused tests for reversible desktop appearance."""
 
-# Copyright (c) 2026 Nubis Communications, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.
@@ -51,6 +52,7 @@ class TestTheme(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.root.update_idletasks()
         cls.root.destroy()
         matplotlib.rcParams.update(cls.plotDefaults)
 
