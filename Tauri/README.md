@@ -35,14 +35,16 @@ Startup sequence:
 
 1. Tauri opens the main window on a bundled loading page (`Tauri/loading`).
 2. `main.rs` looks for a Python interpreter (`$SIGNALINTEGRITY_PYTHON`, then the checkout's
-   `.venv`, then `python`, `python3`, `py -3`) and runs `python -m SignalIntegrity.Server [project.si]`
-   with its stdout piped and no console window.
+   `.venv`, then `python`, `python3`, `py -3`) and runs
+   `python -m SignalIntegrity.Server --exit-with-stdin [project.si]` with its stdout piped and
+   no console window.
 3. The server binds a random free port on `127.0.0.1`, creates a random access token, and
    prints one JSON ready line. Only the parent process can see it.
 4. The shell navigates the window to `http://127.0.0.1:<port>/#token=<token>`. From then on,
    the UI talks to the server only through the token-protected JSON API (see
    [`SignalIntegrity/Server/README.md`](../SignalIntegrity/Server/README.md)).
-5. When the app exits, the sidecar is killed.
+5. When the app exits, the sidecar is killed. The shell also holds the sidecar's stdin open,
+   so if the shell is killed or crashes the pipe closes and the sidecar stops by itself.
 
 If Python or SignalIntegrity can't be found, the loading page shows the error and how to fix
 it.
@@ -67,16 +69,27 @@ without a checkout use whatever `SignalIntegrity` the chosen interpreter imports
 
 Prerequisites: Rust (stable, MSVC toolchain on Windows), Node.js 18+ (only for the Tauri CLI
 and bundling), Python 3 with SignalIntegrity's requirements. Windows also needs the WebView2
-runtime, which is preinstalled on Windows 10/11.
+runtime, which is preinstalled on Windows 10/11. Linux needs WebKitGTK 4.1 and the other
+[Tauri prerequisites](https://v2.tauri.app/start/prerequisites/#linux); on Debian/Ubuntu:
+
+```bash
+sudo apt install build-essential curl wget file pkg-config libwebkit2gtk-4.1-dev libxdo-dev \
+    libssl-dev libayatana-appindicator3-dev librsvg2-dev python3-venv
+```
 
 Keep the Python requirements out of the global installation with a virtual environment in
 the checkout. The shell finds `.venv` automatically, `.venv/` is ignored by git, and
-`.vscode/settings.json` selects it:
+`.vscode/settings.json` selects it (on Windows; on Linux and macOS select `.venv/bin/python`):
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\python -m pip install -e .[test]
 .venv\Scripts\python -m SignalIntegrity.Server --browser   # browser-only, without Rust
+```
+
+```bash
+python3 -m venv .venv                                       # Linux and macOS
+.venv/bin/python -m pip install -e '.[test]'
 ```
 
 ```bash
@@ -193,3 +206,9 @@ and [../SignalIntegrity/GuiCore/RECIPES.md](../SignalIntegrity/GuiCore/RECIPES.m
 - `cargo build` of the shell on Windows (MSVC, WebView2). The app was launched with
   `RLC.si`: the sidecar started, the schematic rendered, and the sidecar was terminated when
   the window closed.
+- Linux (Ubuntu 26.04 under WSL2/WSLg, WebKitGTK 4.1): `npm run tauri build` (deb, rpm and
+  AppImage) and `npm run tauri dev`; the GuiCore and Server tests; and a WebDriver session
+  (`tauri-driver` with `WebKitWebDriver`) driving the real window with `RLC.si`: the
+  schematic rendered, the menus, the stencil, device selection and Simulate (with its plot)
+  worked with no script errors. The sidecar stopped when the shell received SIGTERM or was
+  killed with SIGKILL, and when `npm run tauri dev` was stopped.

@@ -11,7 +11,7 @@ the `.si` format are unchanged, and it adds no new install requirements.
 ## Running
 
 ```bash
-SignalIntegrityServer [project.si] [--port N] [--browser] [--verbose]
+SignalIntegrityServer [project.si] [--port N] [--browser] [--verbose] [--exit-with-stdin]
 python -m SignalIntegrity.Server [project.si] --browser
 ```
 
@@ -24,6 +24,10 @@ server:
 
 `--browser` opens that URL in the default browser. The UI reads the token from the URL
 fragment, keeps it in `sessionStorage`, and removes it from the address bar.
+
+`--exit-with-stdin` stops the server when its standard input closes. The Tauri shell passes
+it and holds the pipe open, so the server stops whenever the shell exits, even if the shell
+is killed or crashes.
 
 ## Security model
 

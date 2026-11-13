@@ -431,6 +431,22 @@ class TestServerHttpTest(unittest.TestCase):
         self.assertEqual(job['state'],'done',job['error'])
         sp=job['result']['sparameters'][0]
         self.assertEqual(len(sp['traces']),sp['ports']**2)
+    def testExitWithStdin(self):
+        import subprocess, sys
+        root=os.path.realpath(os.path.join(EXAMPLES,'..','..','..'))
+        env=dict(os.environ,PYTHONPATH=os.pathsep.join([root]+[p for p in [os.environ.get('PYTHONPATH')] if p]))
+        process=subprocess.Popen([sys.executable,'-m','SignalIntegrity.Server','--exit-with-stdin'],cwd=root,env=env,
+            stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
+        try:
+            ready=json.loads(process.stdout.readline())
+            self.assertIn('url',ready['signalintegrity_server'])
+            process.stdin.close()
+            self.assertEqual(process.wait(timeout=30),0)
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+            process.stdout.close()
 
 if __name__ == '__main__':
     unittest.main()

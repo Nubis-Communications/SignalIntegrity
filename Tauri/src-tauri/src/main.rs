@@ -57,7 +57,7 @@ fn spawn_server(project: Option<String>) -> Result<(Child, String), String> {
     let mut errors = Vec::new();
     for (program, prefix) in python_candidates() {
         let mut command = Command::new(&program);
-        command.args(&prefix).args(["-m", "SignalIntegrity.Server"]);
+        command.args(&prefix).args(["-m", "SignalIntegrity.Server", "--exit-with-stdin"]);
         if let Some(project) = &project {
             command.arg(project);
         }
@@ -73,7 +73,9 @@ fn spawn_server(project: Option<String>) -> Result<(Child, String), String> {
             }
         }
         command.env_remove("SIGNALINTEGRITY_SERVER_TOKEN");
-        command.stdin(Stdio::null()).stdout(Stdio::piped()).stderr(Stdio::piped());
+        // the child's stdin stays open, unused, for as long as this process lives: the server exits when it
+        // closes, so it can't outlive the shell even if the shell is killed or crashes and RunEvent::Exit never runs
+        command.stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped());
         #[cfg(windows)]
         {
             use std::os::windows::process::CommandExt;

@@ -28,6 +28,8 @@ def main(argv=None):
     parser.add_argument('--port',type=int,default=0,help='port to listen on (default: any free port)')
     parser.add_argument('--browser',action='store_true',help='open the GUI in the default web browser')
     parser.add_argument('--verbose',action='store_true',help='log requests and server errors')
+    parser.add_argument('--exit-with-stdin',action='store_true',
+        help='stop when standard input closes (the Tauri shell holds it open, so the server stops when the shell exits for any reason)')
     parser.add_argument('project',nargs='?',help='project (.si) to open at start-up')
     args=parser.parse_args(argv)
 
@@ -45,6 +47,16 @@ def main(argv=None):
     if args.browser:
         import webbrowser
         webbrowser.open(server.Url())
+    if args.exit_with_stdin:
+        import threading
+        def ShutdownAtEndOfInput():
+            try:
+                while sys.stdin.buffer.read(4096):
+                    pass
+            except (AttributeError,OSError,ValueError):
+                pass
+            server.shutdown()
+        threading.Thread(target=ShutdownAtEndOfInput,daemon=True).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
