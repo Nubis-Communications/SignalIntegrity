@@ -64,7 +64,7 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    extras_require={'test': ['pytest>=6']},
+    extras_require={'test': ['pytest>=6','pytest-xdist','pycryptodome','scrypt']},
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [

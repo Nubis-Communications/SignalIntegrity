@@ -1,0 +1,8 @@
+# Pinned numeric stack for the unit tests (used by .github/workflows/unit-tests.yml).
+# Several regression tests compare against pixel-exact images and stored JSON results that were
+# generated with these versions; newer numpy/scipy/matplotlib/Pillow produce small differences.
+# Install with:  python -m pip install -r pytest-requirements.txt ".[test]"
+numpy==1.26.4
+scipy==1.13.1
+matplotlib==3.8.4
+pillow==10.4.0

@@ -692,7 +692,12 @@ class TestTheme(unittest.TestCase):
         def visible(event):
             if event.widget == dialog:
                 dialog.unbind('<Visibility>')
-                dialog.after_idle(lambda: dialog.defaultButton.event_generate('<Escape>'))
+                # Key events go to the focus window, and without a window manager (xvfb) focus must be
+                # forced and has arrived only once <FocusIn> is seen.
+                button = dialog.defaultButton
+                button.bind('<FocusIn>', lambda e: (button.unbind('<FocusIn>'),
+                                                    button.after_idle(lambda: button.event_generate('<Escape>'))))
+                dialog.after_idle(button.focus_force)
         dialog.bind('<Visibility>', visible)
         timeout = self.root.after(1000, lambda: dialog.Choose('timeout'))
         try:
