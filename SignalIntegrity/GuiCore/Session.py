@@ -18,6 +18,7 @@ Session.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 import copy
+import functools
 import os
 
 from SignalIntegrity.GuiCore.RecordingCanvas import RecordingCanvas
@@ -25,6 +26,17 @@ from SignalIntegrity.GuiCore.Results import ResultData
 
 class SessionError(Exception):
     pass
+
+def _Edit(eventName):
+    """marks a ProjectSession method as a project edit: an undo step is recorded after it succeeds"""
+    def decorate(method):
+        @functools.wraps(method)
+        def edit(self,*args,**kwargs):
+            result=method(self,*args,**kwargs)
+            self._Record(eventName)
+            return result
+        return edit
+    return decorate
 
 # the three helpers below mirror ViewableFileNameOfDevice, DeviceViewKind and
 # WaveformProjectFileNameOfDevice in App/DeviceProperties.py without importing tkinter
@@ -63,12 +75,17 @@ class ProjectSession(object):
                   'virtualprobe':'canVirtualProbe',
                   'deembed':'canDeembed'}
     CALCULATION_PROPERTIES=['EndFrequency','FrequencyPoints','UserSampleRate','ReferenceImpedance']
+    MAX_UNDO=100
     def __init__(self):
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         self.app=SignalIntegrityAppHeadless()
         self.filename=None
         self.readOnly=False
         self.stack=[]
+        self.history=[]
+        self.historyIndex=-1
+        self.clipboard=None
+        self.selectedVertex=None
     def _Project(self):
         import SignalIntegrity.App.Project
         if SignalIntegrity.App.Project is None or self.filename is None:
@@ -94,6 +111,7 @@ class ProjectSession(object):
         self.filename=filename
         self.readOnly=False
         self.stack=[]
+        self._ResetHistory()
         return self.Render()
     def New(self,filename):
         """starts an empty project and saves it to filename, as the tk app's File/New Project does"""
@@ -114,6 +132,7 @@ class ProjectSession(object):
         self.readOnly=False
         self.stack=[]
         self.Save()
+        self._ResetHistory()
         return self.Render()
     def Save(self,filename=None):
         self._Writable()
@@ -157,6 +176,11 @@ class ProjectSession(object):
                 'bbox':canvas.BoundingBox(),
                 'devices':devices,
                 'wires':self.Wires(),
+                'selectedVertex':self._SelectedVertex(),
+                'canUndo':self.CanUndo(),'canRedo':self.CanRedo(),
+                'undoName':self.history[self.historyIndex][0] if self.CanUndo() else None,
+                'redoName':self.history[self.historyIndex+1][0] if self.CanRedo() else None,
+                'canPaste':self.clipboard is not None and not self.readOnly,
                 'capabilities':self.Capabilities(),
                 'equationsValid':bool(self._Project()['Equations.Valid']) if self._Project()['Equations.Lines'] else True}
     def DeviceAt(self,x,y):
@@ -174,6 +198,7 @@ class ProjectSession(object):
         for wire in self._WireList():
             for vertex in wire['Vertices']:
                 vertex['Selected']=False
+        self.selectedVertex=None
         return index
     def DeviceProperties(self,index):
         from SignalIntegrity.App.PartProperty import PartPropertyReadOnly
@@ -202,6 +227,7 @@ class ProjectSession(object):
         if partProperty is None:
             raise SessionError('device has no property '+str(keyword))
         return partProperty
+    @_Edit('change property visibility')
     def SetDevicePropertyVisibility(self,index,keyword,visible=None,keywordVisible=None):
         """chooses whether a property (and its keyword) is shown on the schematic"""
         self._Writable()
@@ -211,6 +237,7 @@ class ProjectSession(object):
         if keywordVisible is not None:
             partProperty['KeywordVisible']=bool(keywordVisible)
         return self.DeviceProperties(index)
+    @_Edit('edit property')
     def SetDeviceProperty(self,index,keyword,value):
         from SignalIntegrity.App.PartProperty import PartPropertyReadOnly
         self._Writable()
@@ -228,14 +255,119 @@ class ProjectSession(object):
             raise SessionError('invalid value for '+str(keyword)+': '+value)
         partProperty.SetValueFromString(value)
         return self.DeviceProperties(index)
+    @_Edit('move part')
     def MoveDevice(self,index,dx,dy):
         """moves a device by an integer number of grid units"""
         self._Writable()
         picture=self._Device(index).partPicture.current
         picture.SetOrigin((picture.origin[0]+int(dx),picture.origin[1]+int(dy)))
+    @_Edit('rotate part')
     def RotateDevice(self,index):
         self._Writable()
         self._Device(index).partPicture.current.Rotate()
+    @_Edit('flip part')
+    def FlipDevice(self,index,direction='horizontal'):
+        """mirrors a device as the tk Flip Horizontally / Flip Vertically commands do"""
+        self._Writable()
+        if direction not in ('horizontal','vertical'):
+            raise SessionError('flip direction must be horizontal or vertical')
+        picture=self._Device(index).partPicture.current
+        horizontal,vertical=picture.mirroredHorizontally,picture.mirroredVertically
+        if direction=='horizontal':
+            horizontal=not horizontal
+        else:
+            vertical=not vertical
+        picture.ApplyOrientation(picture.orientation,horizontal,vertical)
+    # ---- clipboard (tk Duplicate / Cut, with Copy and Paste)
+    def _PlaceCopy(self,device,x=None,y=None):
+        """adds a copy of device with the next free reference designator (and port number), at
+        pixel x,y or two grid units below and right of the original, selects it and returns its index"""
+        schematic=self.app.Drawing.schematic
+        device=copy.deepcopy(device)
+        device.selected=False
+        partname=device['partname'].GetValue()
+        if partname in ('Port','NetworkAnalyzerStimulus') and device['pn'] is not None:
+            numbers={int(d['pn'].GetValue()) for d in schematic.deviceList if d['partname'].GetValue()==partname}
+            number=1
+            while number in numbers:
+                number+=1
+            device['pn'].SetValueFromString(str(number))
+        if device['defref'] is not None and device['ref'] is not None:
+            reference=schematic.NewUniqueReferenceDesignator(device['defref'].GetValue())
+            if reference is not None:
+                device['ref'].SetValueFromString(reference)
+        picture=device.partPicture.current
+        if x is None or y is None:
+            picture.SetOrigin((picture.origin[0]+2,picture.origin[1]+2))
+        else:
+            picture.SetOrigin(self._GridCoordinate(x,y))
+        schematic.deviceList.append(device)
+        index=len(schematic.deviceList)-1
+        self.Select(index)
+        return index
+    def Copy(self,index):
+        self.clipboard=copy.deepcopy(self._Device(index))
+    @_Edit('cut part')
+    def Cut(self,index):
+        self._Writable()
+        self.Copy(index)
+        del self.app.Drawing.schematic.deviceList[index]
+        self.Select(None)
+    @_Edit('paste part')
+    def Paste(self,x=None,y=None):
+        """@return the index of the pasted (and selected) part"""
+        self._Writable()
+        if self.clipboard is None:
+            raise SessionError('nothing to paste')
+        return self._PlaceCopy(self.clipboard,x,y)
+    @_Edit('duplicate part')
+    def Duplicate(self,index,x=None,y=None):
+        """@return the index of the new (and selected) copy; the clipboard is unchanged"""
+        self._Writable()
+        return self._PlaceCopy(self._Device(index),x,y)
+    # ---- undo and redo: snapshots of the project text, as the tk History does
+    def _Snapshot(self):
+        return self._Project().Write(self.app).LinesToWrite()
+    def _ResetHistory(self):
+        self.history=[('open',self._Snapshot())]
+        self.historyIndex=0
+        self.selectedVertex=None
+    def _Record(self,eventName):
+        del self.history[self.historyIndex+1:]
+        self.history.append((eventName,self._Snapshot()))
+        if len(self.history)>self.MAX_UNDO:
+            del self.history[0]
+        self.historyIndex=len(self.history)-1
+    def _Apply(self,lines):
+        # a fresh project, because FromText leaves sections the snapshot doesn't mention (e.g. emptied equations) untouched
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        project=ProjectFile()
+        project.FromText(lines)
+        SignalIntegrity.App.Project=project
+        self.app.Drawing.InitFromProject()
+        self.Select(None)
+    def CanUndo(self):
+        return not self.readOnly and self.historyIndex>0
+    def CanRedo(self):
+        return not self.readOnly and 0<=self.historyIndex<len(self.history)-1
+    def Undo(self):
+        """@return the name of the edit that was undone"""
+        self._Writable()
+        if not self.CanUndo():
+            raise SessionError('nothing to undo')
+        name=self.history[self.historyIndex][0]
+        self.historyIndex-=1
+        self._Apply(self.history[self.historyIndex][1])
+        return name
+    def Redo(self):
+        """@return the name of the edit that was redone"""
+        self._Writable()
+        if not self.CanRedo():
+            raise SessionError('nothing to redo')
+        self.historyIndex+=1
+        self._Apply(self.history[self.historyIndex][1])
+        return self.history[self.historyIndex][0]
     # ---- the parts stencil, using the same catalog as the tk Add Part dialog
     @staticmethod
     def _Catalog():
@@ -264,6 +396,7 @@ class ProjectSession(object):
         except Exception:
             canvas.items=[]
         return {'items':canvas.items,'bbox':canvas.BoundingBox()}
+    @_Edit('add part')
     def AddPart(self,index,x,y):
         """places a catalog part with its origin at the grid point nearest pixel x,y, gives it a
         unique reference designator (and port number) as the tk app does, and selects it
@@ -289,6 +422,7 @@ class ProjectSession(object):
         newIndex=len(schematic.deviceList)-1
         self.Select(newIndex)
         return newIndex
+    @_Edit('delete part')
     def DeleteDevice(self,index):
         self._Writable()
         self._Device(index)
@@ -330,6 +464,7 @@ class ProjectSession(object):
         for vertex in wires[index]['Vertices']:
             vertex['Selected']=True
         return index
+    @_Edit('add wire')
     def AddWire(self,points):
         """adds a wire through pixel points [[x,y],...]; each point snaps to the nearest grid point
         as in the tk app, repeated points are dropped, and the wires are then consolidated (split
@@ -350,6 +485,7 @@ class ProjectSession(object):
         self.Select(None)
         self._WireList().append(Wire([Vertex(coord,False) for coord in coords]))
         self.app.Drawing.schematic.Consolidate()
+    @_Edit('delete wire')
     def DeleteWire(self,index):
         self._Writable()
         wires=self._WireList()
@@ -358,11 +494,151 @@ class ProjectSession(object):
         del wires[index]
         self.app.Drawing.schematic.Consolidate()
         self.Select(None)
+    # ---- wire vertices, as the tk Wires menu edits them
+    def _Vertex(self,wire,vertex):
+        wires=self._WireList()
+        if not isinstance(wire,int) or not 0<=wire<len(wires):
+            raise SessionError('no wire with index '+str(wire))
+        vertices=wires[wire]['Vertices']
+        if not isinstance(vertex,int) or not 0<=vertex<len(vertices):
+            raise SessionError('no vertex '+str(vertex)+' on wire '+str(wire))
+        return vertices
+    def _SelectedVertex(self):
+        if self.selectedVertex is None:
+            return None
+        try:
+            self._Vertex(*self.selectedVertex)
+        except SessionError:
+            return None
+        return list(self.selectedVertex)
+    def VertexAt(self,x,y,tolerance=None):
+        """@return [wire,vertex] of the wire corner within tolerance pixels (default a quarter grid) of pixel x,y, or None"""
+        grid=self.Grid(); ox,oy=self.Origin()
+        coord=(float(x)/grid-ox,float(y)/grid-oy)
+        distance=0.25 if tolerance is None else float(tolerance)/grid
+        for w,wire in enumerate(self._WireList()):
+            for v,vertex in enumerate(wire['Vertices']):
+                if vertex.IsAt(coord,(0.,0.),distance):
+                    return [w,v]
+        return None
+    def SelectVertex(self,wire,vertex):
+        """selects one wire corner (drawn bold, with the wire's other corners marked)"""
+        vertices=self._Vertex(wire,vertex)
+        self.Select(None)
+        vertices[vertex]['Selected']=True
+        self.selectedVertex=(wire,vertex)
+        return [wire,vertex]
+    @_Edit('move vertex')
+    def MoveVertex(self,wire,vertex,x,y):
+        """moves a wire corner to the grid point nearest pixel x,y and consolidates the wires"""
+        self._Writable()
+        vertices=self._Vertex(wire,vertex)
+        vertices[vertex]['Coord']=self._GridCoordinate(x,y)
+        self.app.Drawing.schematic.Consolidate()
+        self.Select(None)
+    @_Edit('delete vertex')
+    def DeleteVertex(self,wire,vertex):
+        self._Writable()
+        vertices=self._Vertex(wire,vertex)
+        del vertices[vertex]
+        if len(vertices)<2:
+            del self._WireList()[wire]
+        self.app.Drawing.schematic.Consolidate()
+        self.Select(None)
+    @_Edit('duplicate vertex')
+    def DuplicateVertex(self,wire,vertex):
+        """inserts a copy of a corner after it and selects the copy, ready to be moved to make a bend
+        @return [wire,vertex] of the new corner"""
+        self._Writable()
+        vertices=self._Vertex(wire,vertex)
+        vertices.insert(vertex+1,copy.deepcopy(vertices[vertex]))
+        return self.SelectVertex(wire,vertex+1)
+    # ---- equations and post-processing (the tk Equations and Post-Processing editors)
+    def Equations(self):
+        return self._Project()['Equations'].GetTextString()
+    def CheckEquations(self,text):
+        """@return None if the equations evaluate, otherwise the error message, without changing the project"""
+        result=self._Project().EvaluateEquations(str(text),force=True)
+        return None if result is None else str(result)
+    @_Edit('edit equations')
+    def SetEquations(self,text):
+        """stores the equations and evaluates them
+        @return None if they evaluate, otherwise the error message"""
+        self._Writable()
+        error=self.CheckEquations(text)
+        self._Project()['Equations'].PutTextString(str(text))
+        self.app.CheckEquations()
+        return error
+    def PostProcessing(self):
+        return self._Project()['PostProcessing'].GetTextString()
+    @_Edit('edit post-processing')
+    def SetPostProcessing(self,text):
+        self._Writable()
+        self._Project()['PostProcessing'].PutTextString(str(text))
+    # ---- archives and exports
+    def Archive(self):
+        """writes the project and every file it uses into <project>.siz next to the project
+        @return the archive path"""
+        self._Writable()
+        self._Project().Write(self.app)
+        if not self.app.Archive(overrideExistance=True):
+            raise SessionError('nothing to archive, or the archive could not be written')
+        return os.path.splitext(self.filename)[0]+'.siz'
+    def ExtractArchive(self,filename):
+        """extracts a .siz archive next to itself and opens its project"""
+        filename=os.path.realpath(str(filename))
+        if not filename.lower().endswith('.siz') or not os.path.isfile(filename):
+            raise SessionError('not an archive: '+filename)
+        if not self.app.ExtractArchive(filename):
+            raise SessionError('could not extract '+filename)
+        self.filename=os.path.realpath(self.app.fileparts.FullFilePathExtension('.si'))
+        self.app.readOnly=False
+        self.readOnly=False
+        self.stack=[]
+        self._ResetHistory()
+        return self.Render()
+    @staticmethod
+    def _ExportName(filename,extension):
+        filename=os.path.realpath(str(filename))
+        if os.path.splitext(filename)[1]=='':
+            filename+=extension
+        if not os.path.isdir(os.path.dirname(filename)):
+            raise SessionError('folder not found: '+os.path.dirname(filename))
+        return filename
+    def ExportNetList(self,filename):
+        filename=self._ExportName(filename,'.txt')
+        with open(filename,'w') as f:
+            f.write(self.NetList()+'\n')
+        return filename
+    def ExportTikZ(self,filename):
+        """writes the schematic as LaTeX: a .TpX file (TpX drawing with TikZ, as the tk app writes)
+        or, for any other extension, a plain tikzpicture"""
+        from SignalIntegrity.App.TikZ import TikZ
+        from SignalIntegrity.App.TpX import TpX
+        self._Project()
+        filename=self._ExportName(filename,'.TpX')
+        tikz=self.app.Drawing.DrawSchematic(TikZ()).Finish()
+        if filename.lower().endswith('.tpx'):
+            tpx=self.app.Drawing.DrawSchematic(TpX()).Finish()
+            tpx.lineList=tpx.lineList+tikz.lineList
+            tpx.WriteToFile(filename)
+        else:
+            tikz.WriteToFile(filename)
+        return filename
+    def ExportImage(self,filename,colorMap=None,background='white',scale=2.):
+        """writes the schematic as a PNG (or any image format PIL knows from the extension)"""
+        from SignalIntegrity.GuiCore.Export import PrimitivesImage
+        filename=self._ExportName(filename,'.png')
+        drawing=self.Render()
+        PrimitivesImage(drawing['items'],drawing['bbox'],colorMap=colorMap,background=background,
+                        scale=scale,margin=drawing['grid']).save(filename)
+        return filename
     def Variables(self):
         return [{'name':v['Name'],'value':v['Value'],'type':v['Type'],'units':v['Units'],
                  'description':v['Description'],'visible':bool(v['Visible']),
                  'readOnly':self.readOnly or bool(v['ReadOnly'])}
                 for v in self._Project()['Variables.Items']]
+    @_Edit('change variable visibility')
     def SetVariableVisible(self,name,visible):
         """chooses whether a project variable is shown on the schematic"""
         self._Writable()
@@ -371,6 +647,7 @@ class ProjectSession(object):
             raise SessionError('no variable named '+str(name))
         project['Variables'].VariableByName(name)['Visible']=bool(visible)
         return self.Variables()
+    @_Edit('edit variable')
     def SetVariable(self,name,value):
         self._Writable()
         project=self._Project()
@@ -384,6 +661,7 @@ class ProjectSession(object):
     def CalculationProperties(self):
         calculationProperties=self._Project()['CalculationProperties']
         return {name:calculationProperties[name] for name in self.CALCULATION_PROPERTIES}
+    @_Edit('edit calculation properties')
     def SetCalculationProperties(self,values):
         self._Writable()
         calculationProperties=self._Project()['CalculationProperties']

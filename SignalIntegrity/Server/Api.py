@@ -57,11 +57,16 @@ class Api(object):
              'calculationProperties','setCalculationProperties','netlist','calculate','job','cancel',
              'plotData','viewActions','view','ascend','listDirectory','version',
              'partCatalog','addPart','deleteDevice','themes','theme','setTheme','themesInPackage',
-             'addWire','selectWire','deleteWire','menus','recentProjects','clearRecentProjects']
+             'addWire','selectWire','deleteWire','menus','recentProjects','clearRecentProjects',
+             'undo','redo','cut','copy','paste','duplicate','flipDevice',
+             'selectVertex','moveVertex','deleteVertex','duplicateVertex',
+             'equations','checkEquations','setEquations','postProcessing','setPostProcessing',
+             'archive','extractArchive','exportNetlist','exportTikz','exportImage',
+             'preferences','setPreference','help','sparameterTime','noiseSeries']
     # these never touch the project, so they neither wait for nor are blocked by a running calculation
     UNLOCKED=('job','cancel','plotData','listDirectory','version','themes','theme','setTheme','themesInPackage',
-              'menus','recentProjects','clearRecentProjects')
-    LISTABLE=('.si','.json','.vsix')
+              'menus','recentProjects','clearRecentProjects','help','sparameterTime','noiseSeries')
+    LISTABLE=('.si','.json','.vsix','.siz','.txt','.tpx','.tex','.png','.jpg')
     MAX_RESULTS=8
     def __init__(self,session=None):
         self.session=ProjectSession() if session is None else session
@@ -119,10 +124,10 @@ class Api(object):
         return drawing
     # ---- menus (GuiCore.Menus, shared with the Qt GUI) and recent projects
     def _menus(self,params):
-        from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS, CommandIds
+        from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS, TOOLBAR_ICON_SIZE, CommandIds
         from SignalIntegrity.GuiCore.Icons import AllSvgs
         return {'menus':[{'title':title,'items':items} for title,items in MenusFor('web')],'toolbar':TOOLBAR,
-                'toolbarLabels':TOOLBAR_LABELS,'icons':AllSvgs(CommandIds('web'))}
+                'toolbarLabels':TOOLBAR_LABELS,'iconSize':TOOLBAR_ICON_SIZE,'icons':AllSvgs(CommandIds('web'))}
     def _recentProjects(self,params):
         return Settings.RecentProjects()
     def _clearRecentProjects(self,params):
@@ -137,6 +142,118 @@ class Api(object):
     def _deleteWire(self,params):
         self.session.DeleteWire(self._Get(params,'index',int))
         return self.session.Render()
+    # ---- editing: undo/redo, clipboard, flip, wire corners (all return the render)
+    def _undo(self,params):
+        self.session.Undo()
+        return self.session.Render()
+    def _redo(self,params):
+        self.session.Redo()
+        return self.session.Render()
+    def _cut(self,params):
+        self.session.Cut(self._Get(params,'index',int))
+        return self.session.Render()
+    def _copy(self,params):
+        self.session.Copy(self._Get(params,'index',int))
+        return self.session.Render()
+    def _paste(self,params):
+        self.session.Paste(self._Get(params,'x',float,True),self._Get(params,'y',float,True))
+        return self.session.Render()
+    def _duplicate(self,params):
+        self.session.Duplicate(self._Get(params,'index',int),self._Get(params,'x',float,True),self._Get(params,'y',float,True))
+        return self.session.Render()
+    def _flipDevice(self,params):
+        self.session.FlipDevice(self._Get(params,'index',int),self._Get(params,'direction',str))
+        return self.session.Render()
+    def _selectVertex(self,params):
+        self.session.SelectVertex(self._Get(params,'wire',int),self._Get(params,'vertex',int))
+        return self.session.Render()
+    def _moveVertex(self,params):
+        self.session.MoveVertex(self._Get(params,'wire',int),self._Get(params,'vertex',int),
+                                self._Get(params,'x',float),self._Get(params,'y',float))
+        return self.session.Render()
+    def _deleteVertex(self,params):
+        self.session.DeleteVertex(self._Get(params,'wire',int),self._Get(params,'vertex',int))
+        return self.session.Render()
+    def _duplicateVertex(self,params):
+        self.session.DuplicateVertex(self._Get(params,'wire',int),self._Get(params,'vertex',int))
+        return self.session.Render()
+    # ---- equations and post-processing
+    def _equations(self,params):
+        return {'text':self.session.Equations()}
+    def _checkEquations(self,params):
+        return {'error':self.session.CheckEquations(self._Get(params,'text',str))}
+    def _setEquations(self,params):
+        error=self.session.SetEquations(self._Get(params,'text',str))
+        return {'error':error,'drawing':self.session.Render()}
+    def _postProcessing(self,params):
+        return {'text':self.session.PostProcessing()}
+    def _setPostProcessing(self,params):
+        self.session.SetPostProcessing(self._Get(params,'text',str))
+        return self.session.Render()
+    # ---- archives and exports
+    def _archive(self,params):
+        return {'filename':self.session.Archive()}
+    def _extractArchive(self,params):
+        drawing=self.session.ExtractArchive(self._Get(params,'filename',str))
+        Settings.AddRecentProject(drawing['filename'])
+        return drawing
+    def _exportNetlist(self,params):
+        return {'filename':self.session.ExportNetList(self._Get(params,'filename',str))}
+    def _exportTikz(self,params):
+        return {'filename':self.session.ExportTikZ(self._Get(params,'filename',str))}
+    def _exportImage(self,params):
+        filename=self._Get(params,'filename',str)
+        if os.path.splitext(filename)[1].lower() not in ('','.png','.jpg','.jpeg'):
+            raise ApiError('images are written as .png or .jpg')
+        return {'filename':self.session.ExportImage(filename)}
+    # ---- preferences (shared with the tk app) and help
+    def _preferences(self,params):
+        from SignalIntegrity.GuiCore import Preferences
+        return {'file':Preferences.FileName(),'sections':Preferences.Items()}
+    def _setPreference(self,params):
+        from SignalIntegrity.GuiCore import Preferences
+        value=params.get('value')
+        if not isinstance(value,(str,int,float,bool)):
+            raise ApiError('parameter value has the wrong type')
+        try:
+            return {'value':Preferences.Set(self._Get(params,'path',str),value)}
+        except Preferences.PreferencesError as e:
+            raise ApiError(str(e))
+    def _help(self,params):
+        from SignalIntegrity.GuiCore import Help
+        topic=self._Get(params,'topic',str)
+        if topic not in Help.TOPICS:
+            raise ApiError('unknown help topic '+topic)
+        return {'url':Help.Open(topic)}
+    # ---- result views
+    def _Result(self,params):
+        data=self.results.get(self._Get(params,'resultId',int))
+        if data is None:
+            raise ApiError('no such result',404)
+        return data
+    def _Points(self,params,default=4000):
+        points=self._Get(params,'points',int,True)
+        return default if points is None else max(16,min(points,20000))
+    def _sparameterTime(self,params):
+        from SignalIntegrity.GuiCore.Results import SPARAMETER_TIME_VIEWS
+        data=self._Result(params)
+        index=self._Get(params,'index',int)
+        view=self._Get(params,'view',str)
+        if not 0<=index<len(data.sparameters) or view not in SPARAMETER_TIME_VIEWS:
+            raise ApiError('no such s-parameter view')
+        try:
+            return data.SParameterTime(index,view,self._Points(params))
+        except ValueError as e:
+            raise ApiError(str(e))
+    def _noiseSeries(self,params):
+        data=self._Result(params)
+        if not data.noise:
+            raise ApiError('this result has no statistical noise')
+        indices=self._Get(params,'indices',list,True)
+        count=len(data.NoiseInfo())
+        if indices is not None and not all(isinstance(i,int) and not isinstance(i,bool) and 0<=i<count for i in indices):
+            raise ApiError('invalid noise indices')
+        return data.NoiseSeries(indices,self._Points(params))
     # ---- parts stencil
     def _partCatalog(self,params):
         if self.catalog is None:

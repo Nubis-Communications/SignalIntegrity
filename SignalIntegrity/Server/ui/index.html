@@ -58,6 +58,19 @@
   <pre id="textDialogBody"></pre>
   <div class="buttons"><button id="textDialogClose" type="button">Close</button></div>
 </dialog>
+<dialog id="editorDialog">
+  <h3 id="editorTitle"></h3>
+  <textarea id="editorText" spellcheck="false"></textarea>
+  <div id="editorStatus"></div>
+  <div class="buttons"><button id="editorHelp" type="button">Help</button><span class="spacer"></span><button id="editorCancel" type="button">Cancel</button><button id="editorOk" type="button">OK</button></div>
+</dialog>
+<dialog id="prefsDialog">
+  <h3>Preferences</h3>
+  <nav id="prefsTabs"></nav>
+  <div id="prefsForm"></div>
+  <div id="prefsStatus"></div>
+  <div class="buttons"><button id="prefsClose" type="button">Close</button></div>
+</dialog>
 <dialog id="progressDialog">
   <h3 id="progressTitle">Calculating...</h3>
   <progress id="progressBar" max="100" value="0"></progress>
@@ -95,6 +108,7 @@
     <div id="resultsPlot"></div>
     <div id="eyeView"><img id="eyeImage" alt="eye diagram"></div>
   </div>
+  <div id="noiseTable"></div>
   <div id="resultsStatus"></div>
 </dialog>
 </body>

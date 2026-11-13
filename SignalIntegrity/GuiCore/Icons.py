@@ -142,6 +142,102 @@ ICONS={
         '<circle cx="16" cy="16" r="12.5" fill="url(#ID-disc)" stroke="#2c5282" stroke-width="1.2"/>'
         '<circle cx="16" cy="9.8" r="2" fill="#ffffff"/>'
         '<path d="M16 14.5v9" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>',
+    'undo':'<defs>'+_linear('arrow','#63b3ed','#2b6cb0')+'</defs>'
+        '<path d="M10 11h10a7 7 0 0 1 0 14h-6" fill="none" stroke="url(#ID-arrow)" stroke-width="4" stroke-linecap="round"/>'
+        '<path d="M3.5 11l8-7v14z" fill="#3182ce" stroke="#2a4365" stroke-width="1" stroke-linejoin="round"/>',
+    'redo':'<defs>'+_linear('arrow','#68d391','#2f855a')+'</defs>'
+        '<path d="M22 11H12a7 7 0 0 0 0 14h6" fill="none" stroke="url(#ID-arrow)" stroke-width="4" stroke-linecap="round"/>'
+        '<path d="M28.5 11l-8-7v14z" fill="#38a169" stroke="#22543d" stroke-width="1" stroke-linejoin="round"/>',
+    'cut':'<defs>'+_linear('blade','#e2e8f0','#a0aec0',True)+'</defs>'
+        '<path d="M10.5 20L23 3.5M21.5 20L9 3.5" stroke="url(#ID-blade)" stroke-width="3.2" stroke-linecap="round"/>'
+        '<path d="M10.5 20L23 3.5M21.5 20L9 3.5" fill="none" stroke="#4a5568" stroke-width=".8"/>'
+        '<circle cx="9" cy="24" r="4.6" fill="none" stroke="#e53e3e" stroke-width="2.6"/>'
+        '<circle cx="23" cy="24" r="4.6" fill="none" stroke="#e53e3e" stroke-width="2.6"/>'
+        '<circle cx="16" cy="13.3" r="1.3" fill="#2d3748"/>',
+    'copy':'<defs>'+_linear('page','#ffffff','#d6e6ff')+'</defs>'
+        '<rect x="4" y="3.5" width="15" height="19" rx="1.6" fill="#e2ecf9" stroke="#4a78c2" stroke-width="1.2"/>'
+        '<rect x="12" y="9.5" width="15" height="19" rx="1.6" fill="url(#ID-page)" stroke="#2c5282" stroke-width="1.2"/>'
+        '<path d="M15 15h9M15 18.5h9M15 22h6" stroke="#4a78c2" stroke-width="1.5" stroke-linecap="round"/>',
+    'paste':'<defs>'+_linear('board','#d69e2e','#975a16')+_linear('page','#ffffff','#d6e6ff')+'</defs>'
+        '<rect x="4" y="5.5" width="19" height="23" rx="2" fill="url(#ID-board)" stroke="#744210" stroke-width="1.1"/>'
+        '<rect x="9" y="3" width="9" height="5" rx="1.5" fill="#cbd5e0" stroke="#4a5568" stroke-width="1"/>'
+        '<rect x="13" y="12" width="15" height="17" rx="1.5" fill="url(#ID-page)" stroke="#2c5282" stroke-width="1.2"/>'
+        '<path d="M16 17h9M16 20.5h9M16 24h6" stroke="#4a78c2" stroke-width="1.5" stroke-linecap="round"/>',
+    'duplicate':'<defs>'+_linear('chip','#63b3ed','#2b6cb0')+_linear('chip2','#b794f4','#6b46c1')+'</defs>'
+        '<rect x="3.5" y="4" width="14" height="12" rx="2" fill="url(#ID-chip)" stroke="#2c5282" stroke-width="1.1"/>'
+        '<rect x="12" y="13" width="14" height="12" rx="2" fill="url(#ID-chip2)" stroke="#44337a" stroke-width="1.1"/>'
+        '<circle cx="25" cy="25" r="5.5" fill="#38a169" stroke="#ffffff" stroke-width="1.2"/>'
+        '<path d="M25 22v6M22 25h6" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>',
+    'flipHorizontal':'<defs>'+_linear('left','#63b3ed','#2b6cb0',True)+_linear('right','#bee3f8','#90cdf4',True)+'</defs>'
+        '<path d="M16 3v26" stroke="#718096" stroke-width="1.6" stroke-dasharray="2.5 2"/>'
+        '<path d="M13.5 6.5v19L3.5 25.5z" fill="url(#ID-left)" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round"/>'
+        '<path d="M18.5 6.5v19l10 0z" fill="url(#ID-right)" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round" stroke-dasharray="2 1.5"/>'
+        '<path d="M8 4.5c4-3 12-3 16 0" fill="none" stroke="#dd6b20" stroke-width="1.8" stroke-linecap="round"/>'
+        '<path d="M24.8 2.5l-.5 3.8-3.6-.8" fill="none" stroke="#dd6b20" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    'flipVertical':'<defs>'+_linear('top','#63b3ed','#2b6cb0')+_linear('bottom','#bee3f8','#90cdf4')+'</defs>'
+        '<path d="M3 16h26" stroke="#718096" stroke-width="1.6" stroke-dasharray="2.5 2"/>'
+        '<path d="M6.5 13.5h19L25.5 3.5z" fill="url(#ID-top)" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round"/>'
+        '<path d="M6.5 18.5h19v10z" fill="url(#ID-bottom)" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round" stroke-dasharray="2 1.5"/>'
+        '<path d="M4.5 24c-3-4-3-12 0-16" fill="none" stroke="#dd6b20" stroke-width="1.8" stroke-linecap="round"/>',
+    'duplicateVertex':'<defs>'+_linear('wire','#38b2ac','#2b6cb0',True)+'</defs>'
+        '<path d="M4 25V12h14" fill="none" stroke="url(#ID-wire)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M18 12l8 0" fill="none" stroke="#2b6cb0" stroke-width="3" stroke-dasharray="2.5 2.5" stroke-linecap="round"/>'
+        '<circle cx="4" cy="12" r="3" fill="#f6ad55" stroke="#c05621" stroke-width="1.5"/>'
+        '<circle cx="23" cy="23" r="6" fill="#38a169" stroke="#ffffff" stroke-width="1.2"/>'
+        '<path d="M23 20v6M20 23h6" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>',
+    'deleteVertex':'<defs>'+_linear('wire','#38b2ac','#2b6cb0',True)+'</defs>'
+        '<path d="M4 25V12h18" fill="none" stroke="url(#ID-wire)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<circle cx="4" cy="12" r="3" fill="#f6ad55" stroke="#c05621" stroke-width="1.5"/>'
+        '<circle cx="23" cy="23" r="6" fill="#e53e3e" stroke="#ffffff" stroke-width="1.2"/>'
+        '<path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>',
+    'archive':'<defs>'+_linear('box','#f6e05e','#d69e2e')+_linear('lid','#faf089','#ecc94b')+'</defs>'
+        '<rect x="5" y="12" width="22" height="16" rx="1.5" fill="url(#ID-box)" stroke="#975a16" stroke-width="1.2"/>'
+        '<rect x="3.5" y="7" width="25" height="6" rx="1.3" fill="url(#ID-lid)" stroke="#975a16" stroke-width="1.2"/>'
+        '<path d="M16 7v21" stroke="#2d3748" stroke-width="1.3" stroke-dasharray="1.6 1.4"/>'
+        '<rect x="12.5" y="16" width="7" height="4.5" rx="1" fill="#e2e8f0" stroke="#4a5568" stroke-width="1"/>',
+    'extractArchive':'<defs>'+_linear('box','#f6e05e','#d69e2e')+'</defs>'
+        '<rect x="5" y="15" width="22" height="13" rx="1.5" fill="url(#ID-box)" stroke="#975a16" stroke-width="1.2"/>'
+        '<path d="M5 15l-2.5-4.5h12L16 15M27 15l2.5-4.5h-12" fill="#faf089" stroke="#975a16" stroke-width="1.1" stroke-linejoin="round"/>'
+        '<path d="M16 19V4" stroke="#38a169" stroke-width="3.2" stroke-linecap="round"/>'
+        '<path d="M11 8l5-6 5 6z" fill="#48bb78" stroke="#276749" stroke-width="1" stroke-linejoin="round"/>',
+    'exportNetlist':'<defs>'+_linear('page','#ffffff','#d6e6ff')+'</defs>'+_PAGE+
+        '<path d="M10 13h10M10 16.5h8M10 20h10" stroke="#4a78c2" stroke-width="1.8" stroke-linecap="round"/>'
+        '<path d="M17 24h11" stroke="#dd6b20" stroke-width="2.6" stroke-linecap="round"/>'
+        '<path d="M25 20.5l4 3.5-4 3.5" fill="none" stroke="#dd6b20" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+    'exportTikz':'<defs>'+_linear('page','#ffffff','#d6e6ff')+'</defs>'+_PAGE+
+        '<circle cx="11" cy="15" r="2.6" fill="#ebf8ff" stroke="#2c5282" stroke-width="1.3"/>'
+        '<circle cx="20.5" cy="23" r="2.6" fill="#ebf8ff" stroke="#2c5282" stroke-width="1.3"/>'
+        '<path d="M13 16.8l5 4.3" stroke="#2c5282" stroke-width="1.3"/>'
+        '<path d="M10 23.5c0-3 1-5 1-5.6M13.6 15h4.4l1.8 5.4" fill="none" stroke="#dd6b20" stroke-width="1.3" stroke-linecap="round"/>',
+    'exportImage':'<defs>'+_linear('sky','#bee3f8','#63b3ed')+'</defs>'
+        '<rect x="3.5" y="5.5" width="25" height="21" rx="2" fill="url(#ID-sky)" stroke="#2c5282" stroke-width="1.2"/>'
+        '<circle cx="22" cy="11.5" r="3" fill="#f6e05e" stroke="#d69e2e" stroke-width=".8"/>'
+        '<path d="M3.5 23.5l7-8 5 5 4-4 9 8.5v.5a2 2 0 0 1-2 2h-21a2 2 0 0 1-2-2z" fill="#48bb78" stroke="#276749" '
+        'stroke-width="1" stroke-linejoin="round"/>',
+    'equations':'<defs>'+_linear('panel','#faf5ff','#d6bcfa')+'</defs>'
+        '<rect x="3.5" y="4" width="25" height="24" rx="3" fill="url(#ID-panel)" stroke="#553c9a" stroke-width="1.2"/>'
+        '<path d="M18.5 9H8.5l5.5 7-5.5 7h10" fill="none" stroke="#44337a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M20 14h5M20 18h5" stroke="#dd6b20" stroke-width="2" stroke-linecap="round"/>',
+    'postProcessing':'<defs>'+_linear('screen','#2d3748','#11151c')+'</defs>'
+        '<rect x="3" y="5" width="26" height="22" rx="2.5" fill="url(#ID-screen)" stroke="#0d1117" stroke-width="1.1"/>'
+        '<path d="M7.5 11l4 3.5-4 3.5" fill="none" stroke="#68d391" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M14 18.5h8" stroke="#68d391" stroke-width="2" stroke-linecap="round"/>'
+        '<path d="M7 23h18" stroke="#4a5568" stroke-width="1.3" stroke-linecap="round"/>',
+    'help':'<defs>'+_linear('disc','#68d391','#2f855a')+'</defs>'
+        '<circle cx="16" cy="16" r="12.5" fill="url(#ID-disc)" stroke="#22543d" stroke-width="1.2"/>'
+        '<path d="M12 12.5a4 4 0 1 1 6 3.5c-1.4.8-2 1.6-2 3.2v.8" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"/>'
+        '<circle cx="16" cy="24" r="1.8" fill="#ffffff"/>',
+    'documentation':'<defs>'+_linear('cover','#63b3ed','#2b6cb0')+'</defs>'
+        '<path d="M5 6.5c4-2 8-2 11 .5v20c-3-2.5-7-2.5-11-.5z" fill="#ffffff" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round"/>'
+        '<path d="M27 6.5c-4-2-8-2-11 .5v20c3-2.5 7-2.5 11-.5z" fill="#ebf8ff" stroke="#2c5282" stroke-width="1.2" stroke-linejoin="round"/>'
+        '<path d="M8 11c2-.8 4-.8 5.5 0M8 14.5c2-.8 4-.8 5.5 0M18.5 11c1.5-.8 3.5-.8 5.5 0M18.5 14.5c1.5-.8 3.5-.8 5.5 0" '
+        'fill="none" stroke="#4a78c2" stroke-width="1.2" stroke-linecap="round"/>'
+        '<path d="M4 27.5h24" stroke="url(#ID-cover)" stroke-width="3" stroke-linecap="round"/>',
+    'preferences':'<defs>'+_radial('gear','#e2e8f0','#a0aec0','#718096')+'</defs>'
+        '<path d="M14 3h4l.8 3.6 2.6 1.1 3.1-2 2.8 2.8-2 3.1 1.1 2.6L30 14v4l-3.6.8-1.1 2.6 2 3.1-2.8 2.8-3.1-2-2.6 1.1L18 30h-4'
+        'l-.8-3.6-2.6-1.1-3.1 2-2.8-2.8 2-3.1-1.1-2.6L2 18v-4l3.6-.8 1.1-2.6-2-3.1 2.8-2.8 3.1 2 2.6-1.1z" '
+        'fill="url(#ID-gear)" stroke="#4a5568" stroke-width="1.1" stroke-linejoin="round"/>'
+        '<circle cx="16" cy="16" r="4.6" fill="#ffffff" stroke="#4a5568" stroke-width="1.2"/>',
 }
 ALIASES={'deletePart':'delete','deleteWire':'delete'}
 

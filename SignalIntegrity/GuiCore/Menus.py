@@ -40,15 +40,34 @@ MENUS=[
              Command('save','Save Project','Ctrl+S'),
              Command('saveAs','Save Project As...','Ctrl+Shift+S'),
              SEPARATOR,
+             Command('archive','Archive Project'),
+             Command('extractArchive','Extract Archived Project...'),
+             SEPARATOR,
+             Command('exportNetlist','Export NetList...'),
+             Command('exportTikz','Export LaTeX (TikZ)...'),
+             Command('exportImage','Export Bitmap Image...'),
+             SEPARATOR,
              Command('netlist','Show Netlist'),
              SEPARATOR,
              Command('exit','Exit','Ctrl+Q',only='qt')]),
-    ('Edit',[Command('delete','Delete Selected','Del'),
+    ('Edit',[Command('undo','Undo','Ctrl+Z'),
+             Command('redo','Redo','Ctrl+Shift+Z'),
+             SEPARATOR,
+             Command('cut','Cut','Ctrl+X'),
+             Command('copy','Copy','Ctrl+C'),
+             Command('paste','Paste','Ctrl+V'),
+             Command('duplicate','Duplicate','Ctrl+D'),
+             Command('delete','Delete Selected','Del'),
+             SEPARATOR,
              Command('cancel','Cancel Placing or Wiring','Esc')]),
-    ('Parts',[Command('rotate','Rotate Part','Ctrl+R'),
-              Command('properties','Edit Properties'),
+    ('Parts',[Command('properties','Edit Properties'),
+              Command('rotate','Rotate Part','Ctrl+R'),
+              Command('flipHorizontal','Flip Horizontally'),
+              Command('flipVertical','Flip Vertically'),
               Command('deletePart','Delete Part')]),
     ('Wires',[Command('wire','Add Wire','W',checkable=True),
+              Command('deleteVertex','Delete Vertex'),
+              Command('duplicateVertex','Duplicate Vertex'),
               Command('deleteWire','Delete Wire')]),
     ('View',[Command('zoomIn','Zoom In','Ctrl++'),
              Command('zoomOut','Zoom Out','Ctrl+-'),
@@ -59,23 +78,37 @@ MENUS=[
              SEPARATOR,
              Submenu('panels','Panels',only='qt'),
              Submenu('theme','Theme')]),
-    ('Calculate',[Command('simulate','Simulate'),
+    ('Calculate',[Command('postProcessing','Post-Processing...'),
+                  SEPARATOR,
+                  Command('simulate','Simulate'),
                   Command('sparameters','Calculate S-parameters'),
                   Command('virtualprobe','Virtual Probe'),
                   Command('deembed','Deembed')]),
-    ('Help',[Command('about','About')]),
+    ('Variables',[Command('equations','Schematic Equations...')]),
+    ('Help',[Command('help','Open Help','F1'),
+             Command('documentation','Software Documentation'),
+             SEPARATOR,
+             Command('preferences','Preferences...'),
+             SEPARATOR,
+             Command('about','About')]),
 ]
 
-TOOLBAR=['new','open','save',None,'zoomIn','zoomOut','zoomFit',None,'wire','rotate','delete','viewDevice','up',None,
-         'simulate','sparameters','virtualprobe','deembed']
+TOOLBAR=['new','open','save',None,'undo','redo',None,'zoomIn','zoomOut','zoomFit',None,
+         'wire','rotate','flipHorizontal','duplicate','delete',None,'viewDevice','up',None,
+         'simulate','sparameters','virtualprobe','deembed',None,'help']
 
 # the Calculate commands, named as ProjectSession.CALCULATIONS so GUIs can map them in one loop
 CALCULATION_IDS=['simulate','sparameters','virtualprobe','deembed']
 
 # short captions shown under the toolbar icons (GuiCore.Icons has the icons)
-TOOLBAR_LABELS={'new':'New','open':'Open','save':'Save','zoomIn':'Zoom In','zoomOut':'Zoom Out','zoomFit':'Fit',
-                'wire':'Wire','rotate':'Rotate','delete':'Delete','viewDevice':'View','up':'Up',
-                'simulate':'Simulate','sparameters':'S-params','virtualprobe':'V-Probe','deembed':'De-embed'}
+TOOLBAR_LABELS={'new':'New','open':'Open','save':'Save','undo':'Undo','redo':'Redo',
+                'zoomIn':'Zoom In','zoomOut':'Zoom Out','zoomFit':'Fit',
+                'wire':'Wire','rotate':'Rotate','flipHorizontal':'Flip','duplicate':'Duplicate','delete':'Delete',
+                'viewDevice':'View','up':'Up',
+                'simulate':'Simulate','sparameters':'S-params','virtualprobe':'V-Probe','deembed':'De-embed','help':'Help'}
+
+# toolbar icon size in pixels
+TOOLBAR_ICON_SIZE=24
 
 def MenusFor(gui):
     """@return MENUS without the entries that belong to the other GUI ('qt' or 'web') or separators left dangling"""

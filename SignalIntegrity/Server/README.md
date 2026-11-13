@@ -82,19 +82,33 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `themesInPackage` | `path` (`.vsix` or extension folder) | the themes it contains |
 | `addWire` | `points` (`[[x,y],...]` schematic pixels, snapped to the grid) | render (with `wires`) |
 | `selectWire` / `deleteWire` | `index` | render |
-| `menus` | – | `{menus:[{title,items}],toolbar,toolbarLabels,icons}` from `GuiCore.Menus`/`GuiCore.Icons` (`icons` are SVG strings by command id) |
+| `selectVertex` / `deleteVertex` / `duplicateVertex` | `wire`, `vertex` | render (with `selectedVertex`) |
+| `moveVertex` | `wire`, `vertex`, `x`, `y` (schematic pixels) | render |
+| `flipDevice` | `index`, `direction` (`horizontal`/`vertical`) | render |
+| `copy` / `cut` | `index` | render (with `canPaste`) |
+| `paste` / `duplicate` | `x?`, `y?` / `index`, `x?`, `y?` | render; the new part is selected |
+| `undo` / `redo` | – | render (with `canUndo`, `canRedo`, `undoName`, `redoName`) |
+| `equations` / `checkEquations` / `setEquations` | – / `text` / `text` | `{text}` / `{error}` / `{error,drawing}` |
+| `postProcessing` / `setPostProcessing` | – / `text` | `{text}` / render |
+| `archive` / `extractArchive` | – / `filename` (`.siz`) | `{filename}` / render of the extracted project |
+| `exportNetlist` / `exportTikz` / `exportImage` | `filename` | `{filename}` as written (`.txt`; `.TpX` or `.tex`; `.png` or `.jpg`) |
+| `preferences` / `setPreference` | – / `path`, `value` | `{file,sections}` / `{value}` as stored in the tk preferences file |
+| `help` | `topic` (`introduction`, `equations`, `postprocessing`, `preferences`, `documentation`) | `{url}`, opened in the system browser |
+| `sparameterTime` | `resultId`, `index`, `view` (`impulse`/`step`/`impedance`), `points?` | `{name,view,traces:[{name,to,from,x,y}]}` |
+| `noiseSeries` | `resultId`, `indices?`, `points?` | `{series:[{index,name,x,y}],autoscale}` noise densities in dBm/Hz |
+| `menus` | – | `{menus:[{title,items}],toolbar,toolbarLabels,iconSize,icons}` from `GuiCore.Menus`/`GuiCore.Icons` (`icons` are SVG strings by command id) |
 | `recentProjects` / `clearRecentProjects` | – | recent project paths, newest first; `open`, `new` and `save` with a `filename` add to it |
 
 To add a method or a UI command, see [RECIPES.md](RECIPES.md).
 
-A result summary is `{resultId,type,title,waveforms:[{index,name,dc,points,start,sampleRate}],sparameters:[...],eyes:[{name,image}]}`.
+A result summary is `{resultId,type,title,waveforms:[{index,name,dc,points,start,sampleRate}],sparameters:[...],eyes:[{name,image}],noise:[...]}`.
 Waveform samples are not sent with the summary. The UI requests `plotData` for the visible x range
 at screen resolution, so multi-million-point waveforms stay responsive and are complete at
 any zoom. The server keeps the last 8 results.
 
 Calculations run as one background job at a time, because the engine keeps a process-global
 project. Poll `job` until `state` is `done` or `failed`. While a job is running, project calls
-return 409; `job`, `cancel`, `plotData`, `listDirectory`, `version`, the theme methods, `menus` and
+return 409; `job`, `cancel`, `plotData`, `sparameterTime`, `noiseSeries`, `help`, `listDirectory`, `version`, the theme methods, `menus` and
 the recent-project methods never wait
 for the
 calculation.

@@ -104,12 +104,20 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Wheel to zoom, drag to pan, Fit.
 - **Menus and toolbar:** dropdown menus laid out like the tk app (File, Edit, Parts, Wires, View,
-  Calculate, Help) with icons, shortcuts and flyout submenus, and a toolbar of large icons with
-  captions. Both are built from `GuiCore.Menus` and `GuiCore.Icons`, the same definitions the Qt
+  Calculate, Variables, Help) with icons, shortcuts and flyout submenus, and a toolbar of 24-pixel
+  icons with captions. Both are built from `GuiCore.Menus` and `GuiCore.Icons`, the same definitions the Qt
   GUI uses.
 - **Wires:** Wires > Add Wire (W) enters wire mode as in tk: click each corner (snapped to the
   grid, with a dashed preview), double-click, right-click or Enter to finish, Esc to drop the
-  wire or leave the mode. Click a wire to select it; Delete removes it.
+  wire or leave the mode. Click a wire to select it; Delete removes it. Drag a vertex to move
+  it; Wires > Delete Vertex and Duplicate Vertex edit the selected one.
+- **Editing:** Undo/Redo (Ctrl+Z, Ctrl+Shift+Z, labelled with the edit), Cut/Copy/Paste/Duplicate
+  parts, and Parts > Flip Horizontally/Vertically.
+- **Equations and post-processing** editors (Variables > Schematic Equations, Calculate >
+  Post-Processing); equations are checked as you type.
+- **Archives and export:** File > Archive Project (`.siz`), Extract Archived Project, and
+  Export NetList, LaTeX (TikZ) and Bitmap Image (PNG/JPEG).
+- **Preferences** (Help > Preferences, the tk preferences file) and the online **help** (F1).
 - **Recent projects:** File > Open Recent Projects, shared with the Qt GUI.
 - **Parts stencil:** all 144 parts of the tk Add Part picker in collapsible groups (Resistors,
   Sources, Generators, Amplifiers, Ports and Probes...) with thumbnails and search. Drag a part
@@ -135,15 +143,16 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
   resolution through ranged, decimated data requests. It has per-waveform selection with
   All/None/Toggle, Time-domain, Spectral Content and Spectral Density views, log frequency
   scale, grids, Recalculate, a status line with points and sample rate, and an x/y cursor
-  readout. It also has tabs for **eye diagrams** and s-parameter magnitude/phase.
+  readout. It also has tabs for **eye diagrams**, s-parameter magnitude/phase/impulse/step/impedance,
+  and **statistical noise** (densities plus a measurements table).
 - **Plot zoom like the tk dialogs:** pan mode by default (left-drag pans, right-drag zooms each
   axis about the pointer), zoom-box mode, Home/Back/Forward, and autoscale. The zoom and
   selections are **kept across recalculations**, as in the tk simulator dialog.
 - Open, Save, Save As (built-in file browser), Netlist viewer, keyboard shortcuts.
 
-Not yet ported (use the tk GUI): moving or editing wire vertices, copy/paste, flipping parts,
-undo/redo, statistical noise windows, the equations and post-processing editors, `.siz`
-archives, preferences, and help. Both GUIs use the same files.
+The tk GUI still has a few things these GUIs do not: bathtub curves, the eye-diagram and
+statistical-noise property dialogs, the regression tools and the script editor. Both GUIs use
+the same files.
 
 To extend this GUI, see [../SignalIntegrity/Server/RECIPES.md](../SignalIntegrity/Server/RECIPES.md)
 and [../SignalIntegrity/GuiCore/RECIPES.md](../SignalIntegrity/GuiCore/RECIPES.md).

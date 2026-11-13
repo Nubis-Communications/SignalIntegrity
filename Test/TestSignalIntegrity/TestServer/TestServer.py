@@ -79,9 +79,98 @@ class TestServerApiTest(unittest.TestCase):
                     self.api.Dispatch(method,params)
             self.assertEqual(self.api.Dispatch('clearRecentProjects',{}),[])
             menus=self.api.Dispatch('menus',{})
-            self.assertEqual([m['title'] for m in menus['menus']],['File','Edit','Parts','Wires','View','Calculate','Help'])
+            self.assertEqual([m['title'] for m in menus['menus']],['File','Edit','Parts','Wires','View','Calculate','Variables','Help'])
+            self.assertEqual(menus['iconSize'],24)
             self.assertTrue(all(c is None or menus['icons'][c].startswith('<svg') for c in menus['toolbar']))
             json.dumps(menus)
+        finally:
+            os.chdir(self.cwd)
+            shutil.rmtree(directory,ignore_errors=True)
+    def testEditingToolsAndResultViews(self):
+        import tempfile, shutil
+        from unittest import mock
+        directory=tempfile.mkdtemp()
+        try:
+            shutil.copy(os.path.join(EXAMPLES,'RLC.si'),directory)
+            drawing=self.api.Dispatch('open',{'filename':os.path.join(directory,'RLC.si')})
+            resistor=[d for d in drawing['devices'] if d['partname']=='Resistor'][0]['index']
+            self.assertFalse(drawing['canUndo'])
+            drawing=self.api.Dispatch('copy',{'index':resistor})
+            self.assertTrue(drawing['canPaste'])
+            drawing=self.api.Dispatch('paste',{})
+            self.assertEqual([d['ref'] for d in drawing['devices'] if d['selected']],['R2'])
+            drawing=self.api.Dispatch('duplicate',{'index':resistor,'x':320,'y':48})
+            drawing=self.api.Dispatch('flipDevice',{'index':resistor,'direction':'vertical'})
+            self.assertEqual(drawing['undoName'],'flip part')
+            drawing=self.api.Dispatch('undo',{})
+            self.assertEqual((drawing['undoName'],drawing['redoName']),('duplicate part','flip part'))
+            drawing=self.api.Dispatch('redo',{})
+            count=len(drawing['devices'])
+            drawing=self.api.Dispatch('cut',{'index':count-1})
+            self.assertEqual(len(drawing['devices']),count-1)
+            for method,params in (('flipDevice',{'index':resistor,'direction':'up'}),('paste',{'x':'a'}),
+                                  ('selectVertex',{'wire':0,'vertex':99}),('moveVertex',{'wire':0,'vertex':0,'x':0})):
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch(method,params)
+            wire=drawing['wires'][0]['points']
+            drawing=self.api.Dispatch('selectVertex',{'wire':0,'vertex':0})
+            self.assertEqual(drawing['selectedVertex'],[0,0])
+            drawing=self.api.Dispatch('duplicateVertex',{'wire':0,'vertex':0})
+            self.assertEqual(drawing['selectedVertex'],[0,1])
+            drawing=self.api.Dispatch('moveVertex',{'wire':0,'vertex':1,'x':wire[0],'y':wire[1]+32})
+            self.assertIsNone(drawing['selectedVertex'])
+            self.assertEqual(self.api.Dispatch('checkEquations',{'text':'x = '})['error'] is None,False)
+            self.assertIsNone(self.api.Dispatch('setEquations',{'text':'a = 1'})['error'])
+            self.assertEqual(self.api.Dispatch('equations',{})['text'],'a = 1')
+            self.api.Dispatch('setPostProcessing',{'text':'pass'})
+            self.assertEqual(self.api.Dispatch('postProcessing',{})['text'],'pass')
+            for method,ext in (('exportNetlist','.txt'),('exportTikz','.TpX'),('exportImage','.png')):
+                written=self.api.Dispatch(method,{'filename':os.path.join(directory,'out')})['filename']
+                self.assertTrue(written.endswith(ext) and os.path.isfile(written))
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('exportImage',{'filename':os.path.join(directory,'out.exe')})
+            archive=self.api.Dispatch('archive',{})['filename']
+            listing=self.api.Dispatch('listDirectory',{'path':directory,'extensions':['.siz']})
+            self.assertEqual([e['name'] for e in listing['entries'] if not e['directory']],['RLC.siz'])
+            drawing=self.api.Dispatch('extractArchive',{'filename':archive})
+            self.assertIn('RLC_Archive',drawing['filename'])
+            self.assertEqual(self.api.Dispatch('recentProjects',{})[0],drawing['filename'])
+            with mock.patch.dict(os.environ,{'SIGNALINTEGRITY_PREFERENCES':os.path.join(directory,'preferences.xml')}):
+                from SignalIntegrity.GuiCore.Session import ProjectSession
+                ProjectSession()
+                prefs=self.api.Dispatch('preferences',{})
+                self.assertEqual(prefs['file'],os.path.join(directory,'preferences.xml'))
+                self.assertEqual(self.api.Dispatch('setPreference',{'path':'Appearance.FontSize','value':'15'})['value'],15)
+                for bad in ({'path':'Appearance.FontSize','value':'big'},{'path':'Encryption.Password','value':'x'},
+                            {'path':'Appearance.FontSize','value':[1]}):
+                    with self.assertRaises(ApiError):
+                        self.api.Dispatch('setPreference',bad)
+            ProjectSession()
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('help',{'topic':'nothing'})
+            with mock.patch('SignalIntegrity.App.BuildHelpSystem.HelpSystemKeys._OpenUrl') as opened:
+                url=self.api.Dispatch('help',{'topic':'equations'})['url']
+            opened.assert_called_once_with(url)
+            # result views
+            self.api.Dispatch('open',{'filename':os.path.join(EXAMPLES,'RLCTest2SP.si')})
+            job=WaitForJob(self.api,self.api.Dispatch('calculate',{'kind':'sparameters'}))
+            rid=job['result']['resultId']
+            impedance=self.api.Dispatch('sparameterTime',{'resultId':rid,'index':0,'view':'impedance','points':100})
+            self.assertEqual(len(impedance['traces']),3)
+            self.assertTrue(all(len(t['x'])<=100 for t in impedance['traces']))
+            for bad in ({'resultId':rid,'index':5,'view':'step'},{'resultId':rid,'index':0,'view':'bogus'}):
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('sparameterTime',bad)
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('noiseSeries',{'resultId':rid})
+            self.api.Dispatch('open',{'filename':os.path.join(EXAMPLES,'..','..','..','Test','TestSignalIntegrity',
+                                                              'TestStatisticalNoise','StatisticalNoise.si')})
+            job=WaitForJob(self.api,self.api.Dispatch('calculate',{'kind':'simulate'}))
+            self.assertEqual([n['name'] for n in job['result']['noise']],['Comp','Uncomp'])
+            series=self.api.Dispatch('noiseSeries',{'resultId':job['result']['resultId'],'indices':[1],'points':64})
+            self.assertEqual([s['name'] for s in series['series']],['Uncomp'])
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('noiseSeries',{'resultId':job['result']['resultId'],'indices':[5]})
         finally:
             os.chdir(self.cwd)
             shutil.rmtree(directory,ignore_errors=True)

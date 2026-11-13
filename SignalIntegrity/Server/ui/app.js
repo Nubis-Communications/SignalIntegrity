@@ -126,6 +126,18 @@ svg.addEventListener('pointerdown', async evt => {
       fill: 'none', stroke: state.palette ? state.palette.accent : '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
     drag = { kind: 'device', index, start: p, ghost, dx: 0, dy: 0 };
   } else {
+    const vertex = vertexAt(p);
+    if (vertex !== null) {
+      try { await setDrawing(await api('selectVertex', { wire: vertex[0], vertex: vertex[1] })); await refreshProperties(); } catch (e) { return error(e); }
+      status('wire corner selected: drag it, or use Wires > Delete Vertex / Duplicate Vertex');
+      if (!readOnly()) {
+        const q = state.drawing.wires[vertex[0]].points;
+        const corners = []; for (let k = 0; k + 1 < q.length; k += 2) corners.push([q[k], q[k + 1]]);
+        drag = { kind: 'vertex', wire: vertex[0], vertex: vertex[1], from: corners[vertex[1]], to: null,
+          neighbours: [corners[vertex[1] - 1], corners[vertex[1] + 1]].filter(Boolean) };
+      }
+      return;
+    }
     const wire = wireAt(p);
     if (wire !== null) {
       try { await setDrawing(await api('selectWire', { index: wire })); await refreshProperties(); } catch (e) { error(e); }
@@ -138,6 +150,7 @@ svg.addEventListener('pointerdown', async evt => {
 });
 svg.addEventListener('pointermove', evt => {
   if (state.wiring) { state.wireCursor = snap(toScene(evt)); drawWirePreview(); return; }
+  if (drag && drag.kind === 'vertex') { drag.to = snap(toScene(evt)); drawVertexPreview(drag); return; }
   if (!drag) return;
   if (drag.kind === 'pan') {
     state.view.tx += evt.clientX - drag.x; state.view.ty += evt.clientY - drag.y;
@@ -153,6 +166,13 @@ svg.addEventListener('pointermove', evt => {
 svg.addEventListener('pointerup', async () => {
   const d = drag; drag = null;
   svg.classList.remove('panning');
+  if (d && d.kind === 'vertex') {
+    drawVertexPreview(null);
+    if (d.to && (d.to[0] !== d.from[0] || d.to[1] !== d.from[1])) {
+      try { await setDrawing(await api('moveVertex', { wire: d.wire, vertex: d.vertex, x: d.to[0], y: d.to[1] })); status('wire corner moved'); } catch (e) { error(e); }
+    }
+    return;
+  }
   if (d && d.kind === 'device') {
     d.ghost.remove();
     if (d.dx || d.dy) {
@@ -211,9 +231,28 @@ function selectedWire() {
   return w ? w.index : null;
 }
 // within 5 screen pixels at any zoom, but never less than a quarter grid
+function hitTolerance() { return Math.max(0.25 * state.drawing.grid, 5 / state.view.s); }
+function vertexAt(p) {
+  if (!state.drawing) return null;
+  const tol = hitTolerance();
+  for (const w of state.drawing.wires || []) {
+    for (let k = 0; k + 1 < w.points.length; k += 2) {
+      if (Math.abs(w.points[k] - p.x) <= tol && Math.abs(w.points[k + 1] - p.y) <= tol) return [w.index, k / 2];
+    }
+  }
+  return null;
+}
+function drawVertexPreview(d) {
+  const old = $('vertexPreview');
+  if (old) old.remove();
+  if (!d || !d.to) return;
+  const parts = (d.neighbours.length ? d.neighbours : [d.to]).map(n => `M ${n[0]} ${n[1]} L ${d.to[0]} ${d.to[1]}`);
+  el('path', { id: 'vertexPreview', d: parts.join(' '), fill: 'none', stroke: state.colorMap ? state.colorMap.blue : 'blue',
+    'stroke-width': 1.5, 'stroke-dasharray': '5 3' }, viewport);
+}
 function wireAt(p) {
   if (!state.drawing) return null;
-  const tol = Math.max(0.25 * state.drawing.grid, 5 / state.view.s);
+  const tol = hitTolerance();
   for (const w of state.drawing.wires || []) {
     const q = w.points;
     for (let k = 0; k + 3 < q.length; k += 2) {
@@ -284,19 +323,39 @@ const COMMANDS = {
   open: { run: async () => { const f = await fileDialog('open'); if (f) await openProject(f); }, always: true },
   save: { run: async () => { try { status('saved ' + (await api('save')).filename); } catch (e) { error(e); } }, when: c => c.writable },
   saveAs: { run: saveAs, when: c => c.writable },
+  archive: { run: archiveProject, when: c => c.writable },
+  extractArchive: { run: extractArchive, always: true },
+  exportNetlist: { run: () => exportAs('netlist'), when: c => c.open },
+  exportTikz: { run: () => exportAs('tikz'), when: c => c.open },
+  exportImage: { run: () => exportAs('image'), when: c => c.open },
   netlist: { run: showNetlist, when: c => c.open },
+  undo: { run: () => edit('undo', {}, (d, before) => 'undid ' + before.undoName, true), when: c => c.writable && state.drawing.canUndo },
+  redo: { run: () => edit('redo', {}, d => 'redid ' + d.undoName, true), when: c => c.writable && state.drawing.canRedo },
+  cut: { run: () => edit('cut', { index: state.selected }, 'part cut (Ctrl+V pastes it)'), when: c => c.writable && c.device },
+  copy: { run: () => edit('copy', { index: state.selected }, 'part copied (Ctrl+V pastes it)'), when: c => c.device },
+  paste: { run: () => edit('paste', {}, 'part pasted - drag it into place'), when: c => c.writable && state.drawing.canPaste },
+  duplicate: { run: () => edit('duplicate', { index: state.selected }, 'part duplicated - drag it into place'), when: c => c.writable && c.device },
   delete: { run: () => runCommand(selectedWire() !== null ? 'deleteWire' : 'deletePart'), when: c => c.writable && (c.device || c.wire) },
   cancel: { run: cancel, always: true },
   rotate: { run: rotate, when: c => c.writable && c.device },
+  flipHorizontal: { run: () => edit('flipDevice', { index: state.selected, direction: 'horizontal' }, 'flipped horizontally'), when: c => c.writable && c.device },
+  flipVertical: { run: () => edit('flipDevice', { index: state.selected, direction: 'vertical' }, 'flipped vertically'), when: c => c.writable && c.device },
   properties: { run: editProperties, when: c => c.open && c.device },
   deletePart: { run: deletePart, when: c => c.writable && c.device },
   wire: { run: () => (state.wiring ? stopWiring() : startWiring()), when: c => c.writable, checked: () => state.wiring },
+  deleteVertex: { run: () => edit('deleteVertex', vertexParams(), 'wire corner deleted'), when: c => c.writable && c.vertex },
+  duplicateVertex: { run: () => edit('duplicateVertex', vertexParams(), 'wire corner duplicated - drag it to make a bend'), when: c => c.writable && c.vertex },
   deleteWire: { run: deleteWire, when: c => c.writable && c.wire },
   zoomIn: { run: () => zoomAt(1.25, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
   zoomOut: { run: () => zoomAt(0.8, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
   zoomFit: { run: zoomFit, when: c => c.open, idle: true },
   viewDevice: { run: () => viewDevice(state.selected, preferredAction(state.viewActions)), when: c => c.device && c.viewable },
   up: { run: ascend, when: c => c.open && state.drawing.canAscend },
+  postProcessing: { run: editPostProcessing, when: c => c.writable },
+  equations: { run: editEquations, when: c => c.writable },
+  help: { run: () => openHelp('introduction'), always: true, idle: true },
+  documentation: { run: () => openHelp('documentation'), always: true, idle: true },
+  preferences: { run: showPreferences, always: true },
   about: { run: showAbout, always: true, idle: true },
 };
 for (const kind of Object.keys(CALC_TITLES)) COMMANDS[kind] = { run: () => calculate(kind), when: c => c.open && !!c.caps[kind] };
@@ -304,7 +363,19 @@ for (const kind of Object.keys(CALC_TITLES)) COMMANDS[kind] = { run: () => calcu
 function commandContext() {
   const open = !!state.drawing;
   return { open, writable: open && !readOnly(), device: open && state.selected !== null, wire: open && selectedWire() !== null,
+    vertex: open && !!state.drawing.selectedVertex,
     viewable: !!(state.viewActions && state.viewActions.length), caps: open ? state.drawing.capabilities : {} };
+}
+const vertexParams = () => ({ wire: state.drawing.selectedVertex[0], vertex: state.drawing.selectedVertex[1] });
+// runs an editing api method that returns the render; refreshAll also reloads the tables an undo can change
+async function edit(method, params, message, refreshAll = false) {
+  try {
+    const before = state.drawing;
+    const drawing = await api(method, params);
+    await setDrawing(drawing);
+    await (refreshAll ? Promise.all([refreshVariables(), refreshProperties(), refreshCalculationProperties()]) : refreshProperties());
+    if (message) status(typeof message === 'function' ? message(drawing, before) : message);
+  } catch (e) { error(e); }
 }
 function commandEnabled(id) {
   const cmd = COMMANDS[id];
@@ -372,6 +443,121 @@ async function showAbout() {
   $('textDialog').showModal();
 }
 
+// ---------- equations, post-processing, preferences and help
+// resolves to the edited text, or null; check (optional) returns a promise of an error message or null
+function editText(title, text, check, helpTopic) {
+  return new Promise(resolve => {
+    const dlg = $('editorDialog'), area = $('editorText');
+    $('editorTitle').textContent = title;
+    area.value = text;
+    let timer = null;
+    const runCheck = async () => {
+      if (!check) { $('editorStatus').textContent = ''; return; }
+      try { const e = await check(area.value); $('editorStatus').textContent = e ? e : 'No Errors'; } catch (e) { $('editorStatus').textContent = e.message; }
+    };
+    area.oninput = () => { clearTimeout(timer); timer = setTimeout(runCheck, 400); };
+    area.onkeydown = e => {
+      if (e.key !== 'Tab') return;
+      e.preventDefault();
+      const s = area.selectionStart;
+      area.setRangeText('    ', s, area.selectionEnd, 'end');
+    };
+    const finish = value => { clearTimeout(timer); dlg.close(); resolve(value); };
+    $('editorOk').onclick = () => finish(area.value);
+    $('editorCancel').onclick = () => finish(null);
+    $('editorHelp').style.display = helpTopic ? '' : 'none';
+    $('editorHelp').onclick = () => openHelp(helpTopic);
+    dlg.oncancel = () => resolve(null);
+    runCheck();
+    dlg.showModal();
+    area.focus();
+  });
+}
+async function editEquations() {
+  try {
+    const { text } = await api('equations');
+    const edited = await editText('Schematic Equations', text, t => api('checkEquations', { text: t }).then(r => r.error), 'equations');
+    if (edited === null) return;
+    const r = await api('setEquations', { text: edited });
+    await setDrawing(r.drawing);
+    await Promise.all([refreshVariables(), refreshProperties()]);
+    status(r.error ? 'equations stored, but they have an error: ' + r.error : 'equations applied');
+  } catch (e) { error(e); }
+}
+async function editPostProcessing() {
+  try {
+    const { text } = await api('postProcessing');
+    const edited = await editText('Post-Processing', text, null, 'postprocessing');
+    if (edited === null) return;
+    await setDrawing(await api('setPostProcessing', { text: edited }));
+    status('post-processing applied');
+  } catch (e) { error(e); }
+}
+async function openHelp(topic) {
+  try { status('opened ' + (await api('help', { topic })).url); } catch (e) { error(e); }
+}
+async function showPreferences() {
+  let prefs;
+  try { prefs = await api('preferences'); } catch (e) { return error(e); }
+  const tabs = $('prefsTabs'), form = $('prefsForm');
+  clear(tabs);
+  $('prefsStatus').textContent = 'Saved to ' + prefs.file;
+  const showSection = section => {
+    tabs.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.textContent === section.label));
+    clear(form);
+    for (const item of section.items) {
+      const label = document.createElement('label');
+      label.append(item.label);
+      const input = document.createElement('input');
+      const save = async value => {
+        try {
+          const r = await api('setPreference', { path: item.path, value });
+          item.value = r.value;
+          $('prefsStatus').textContent = 'saved ' + item.path + ' = ' + r.value;
+        } catch (e) { $('prefsStatus').textContent = e.message; }
+      };
+      if (item.type === 'bool') {
+        input.type = 'checkbox'; input.checked = !!item.value;
+        input.onchange = () => save(input.checked);
+      } else {
+        input.type = 'text'; input.spellcheck = false;
+        input.value = item.value === null || item.value === 'None' ? '' : String(item.value);
+        input.onchange = () => save(input.value);
+      }
+      label.appendChild(input);
+      form.appendChild(label);
+    }
+  };
+  for (const section of prefs.sections) {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = section.label;
+    b.onclick = () => showSection(section);
+    tabs.appendChild(b);
+  }
+  if (prefs.sections.length) showSection(prefs.sections[0]);
+  $('prefsClose').onclick = () => $('prefsDialog').close();
+  $('prefsDialog').showModal();
+}
+
+// ---------- archives and exports
+async function archiveProject() {
+  try { status('archived to ' + (await api('archive')).filename); } catch (e) { error(e); }
+}
+async function extractArchive() {
+  const f = await fileDialog('archive');
+  if (!f) return;
+  try {
+    closeResults(true);
+    await showLevel(await api('extractArchive', { filename: f }));
+    status('extracted and opened ' + state.drawing.filename);
+  } catch (e) { error(e); }
+}
+const EXPORTS = { netlist: 'exportNetlist', tikz: 'exportTikz', image: 'exportImage' };
+async function exportAs(kind) {
+  const f = await fileDialog('export-' + kind);
+  if (!f) return;
+  try { status('exported ' + (await api(EXPORTS[kind], { filename: f })).filename); } catch (e) { error(e); }
+}
+
 // ---------- menu bar (dropdowns) and toolbar, built from api('menus')
 const SUBMENUS = { recent: recentItems, theme: themeItems };
 let openMenu = null;
@@ -401,7 +587,8 @@ async function showDropdown(items, x, y, depth = 0) {
     const label = document.createElement('span'); label.className = 'label';
     const icon = item.kind === 'command' ? iconImg(item.id, 18) : null;
     if (icon) label.appendChild(icon);
-    label.append(item.label);
+    const named = (item.id === 'undo' || item.id === 'redo') && state.drawing && state.drawing[item.id + 'Name'];
+    label.append(named ? item.label + ' ' + named : item.label);
     const keys = document.createElement('span'); keys.className = 'shortcut'; keys.textContent = shortcutText(item.shortcut);
     li.append(label, keys);
     if (item.kind === 'submenu') {
@@ -452,7 +639,7 @@ function buildMenus(spec) {
     const b = document.createElement('button'); b.type = 'button'; b.dataset.cmd = id;
     b.title = item.label.replace(/\.+$/, '') + (item.shortcut ? ' (' + shortcutText(item.shortcut) + ')' : '');
     const caption = document.createElement('span'); caption.textContent = spec.toolbarLabels[id] || item.label;
-    const img = iconImg(id, 32);
+    const img = iconImg(id, spec.iconSize || 24);
     if (img) b.appendChild(img);
     b.appendChild(caption);
     b.addEventListener('click', () => runCommand(id));
@@ -588,21 +775,27 @@ async function openProject(filename) {
   } catch (e) { error(e); }
 }
 function fileDialog(mode) {
-  // mode: open | save | new | theme
-  const TITLES = { open: 'Open Project', save: 'Save Project As', new: 'New Project File', theme: 'Load Theme (VS Code .json or .vsix)' };
-  const naming = mode === 'save' || mode === 'new';
+  // mode: open | save | new | theme | archive | export-netlist | export-tikz | export-image
+  const TITLES = { open: 'Open Project', save: 'Save Project As', new: 'New Project File', theme: 'Load Theme (VS Code .json or .vsix)',
+    archive: 'Extract Archived Project (.siz)', 'export-netlist': 'Export NetList', 'export-tikz': 'Export LaTeX (TikZ: .TpX or .tex)',
+    'export-image': 'Export Bitmap Image (.png or .jpg)' };
+  const EXTENSIONS = { theme: ['.json', '.vsix'], archive: ['.siz'], 'export-netlist': ['.txt'], 'export-tikz': ['.tpx', '.tex'],
+    'export-image': ['.png', '.jpg'] };
+  const DEFAULT_EXTENSION = { 'export-netlist': '.txt', 'export-tikz': '.TpX', 'export-image': '.png' };
+  const naming = mode === 'save' || mode === 'new' || mode.startsWith('export-');
   return new Promise(resolve => {
     const dlg = $('fileDialog');
     let current = null, chosen = null;
     $('fileDialogTitle').textContent = TITLES[mode];
-    $('fileOk').textContent = naming ? (mode === 'new' ? 'Create' : 'Save') : 'Open';
-    $('fileName').value = mode === 'save' && state.drawing ? state.drawing.title : '';
+    $('fileOk').textContent = naming ? (mode === 'new' ? 'Create' : mode.startsWith('export-') ? 'Export' : 'Save') : 'Open';
+    const base = state.drawing ? state.drawing.title.replace(/\.si$/i, '') : '';
+    $('fileName').value = mode === 'save' && state.drawing ? state.drawing.title : DEFAULT_EXTENSION[mode] ? base + DEFAULT_EXTENSION[mode] : '';
     $('fileName').style.display = naming ? '' : 'none';
     const finish = value => { dlg.close(); resolve(value); };
     const load = async path => {
       try {
         const params = path ? { path } : {};
-        if (mode === 'theme') params.extensions = ['.json', '.vsix'];
+        if (EXTENSIONS[mode]) params.extensions = EXTENSIONS[mode];
         const listing = await api('listDirectory', params);
         current = listing; $('filePath').value = listing.path;
         const ul = $('fileList'); clear(ul);
@@ -949,6 +1142,68 @@ function sparameterTab(sp, quantity) {
   };
 }
 
+// a plot tab whose traces are loaded on first show: load() resolves to [{name,index?,x,y}] in SI units;
+// opts: xUnit, xPrefix ('time', 'frequency', ...), yLabel and density (y in dB per Hz, rescaled per x unit)
+function seriesTab(name, load, opts) {
+  let cache = null, scaled = null;
+  const tab = {
+    kind: 'series', name, state: null,
+    async show() {
+      $('plotLabel').textContent = name;
+      plot.logX = false;
+      try { if (!cache) cache = await load(); } catch (e) { $('resultsStatus').textContent = e.message; return; }
+      if (currentTab !== tab) return;
+      let lo = Infinity, hi = -Infinity;
+      for (const t of cache) for (const v of t.x) if (v !== null) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+      const axis = engineering(hi > lo ? hi - lo : 1, opts.xUnit);
+      const adder = opts.density ? 10 * Math.log10(axis.divisor) : 0;
+      scaled = cache.map((t, i) => ({ name: cache.length <= 16 ? t.name : '', color: COLORS[(t.index ?? i) % COLORS.length],
+        x: t.x.map(v => v === null ? null : v / axis.divisor), y: t.y.map(v => v === null ? null : v + adder) }));
+      tab.adder = adder; tab.divisor = axis.divisor;
+      plot.setData(scaled, opts.xPrefix + ' (' + axis.label + ')', opts.yLabel + (opts.density ? '/' + axis.label + ')' : ''));
+      if (this.state) { plot.history = this.state.history; plot.historyIndex = this.state.historyIndex; plot.setLimits(this.state.limits); }
+      else plot.setLimits(this.limits(), { resetHistory: true });
+    },
+    limits() {
+      let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      for (const s of scaled || []) {
+        for (const v of s.x) if (v !== null) { x0 = Math.min(x0, v); x1 = Math.max(x1, v); }
+        for (const v of s.y) if (v !== null && isFinite(v)) { y0 = Math.min(y0, v); y1 = Math.max(y1, v); }
+      }
+      if (tab.serverLimits && tab.serverLimits[2] !== null) { y0 = tab.serverLimits[2] + tab.adder; y1 = tab.serverLimits[3] + tab.adder; }
+      if (!(x1 > x0)) { x0 = 0; x1 = 1; }
+      if (!(y1 > y0)) { y0 -= 1; y1 += 1; }
+      const pad = (y1 - y0) * 0.05;
+      return [x0, x1, y0 - pad, y1 + pad];
+    },
+    hide() { if (scaled) this.state = { limits: plot.limits.slice(), history: plot.history, historyIndex: plot.historyIndex }; },
+    autoscale() { plot.setLimits(this.limits()); plot._push(); },
+  };
+  return tab;
+}
+function buildNoiseTable(measurements) {
+  const host = $('noiseTable'); clear(host);
+  const table = document.createElement('table');
+  const head = document.createElement('tr');
+  for (const h of ['Output / contribution', 'RMS', 'dBm', 'RMS density', 'dBm density', 'SNR (dB)', 'Salz SNR (dB)']) {
+    const th = document.createElement('th'); th.textContent = h; head.appendChild(th);
+  }
+  table.appendChild(head);
+  const si = (v, unit) => { if (v === null || v === undefined) return ''; const u = engineering(Math.abs(v) || 1, unit); return +(v / u.divisor).toPrecision(4) + ' ' + u.label; };
+  const db = v => v === null || v === undefined ? '' : v.toFixed(2);
+  const row = (cells, sub) => {
+    const tr = document.createElement('tr');
+    cells.forEach((c, i) => { const td = document.createElement('td'); td.textContent = c; if (sub && i === 0) td.className = 'sub'; tr.appendChild(td); });
+    table.appendChild(tr);
+  };
+  for (const m of measurements) {
+    const unit = m.type === 'current' ? 'A' : 'V';
+    row([m.name, si(m.rms, unit), db(m.dBm), si(m.rmsPerRootHz, unit + '/rtHz'), m.dBmPerHz === null ? '' : db(m.dBmPerHz) + ' /Hz', db(m.SNR), db(m.SalzSNR)]);
+    for (const c of m.contributions) row(['from ' + c.name, si(c.rms, unit), db(c.dBm), '', '', db(c.SNR), ''], true);
+  }
+  host.appendChild(table);
+}
+
 function showResults(result, title, recalculable) {
   const dlg = $('resultsDialog');
   const tabs = [];
@@ -965,7 +1220,20 @@ function showResults(result, title, recalculable) {
       autoscale() { plot.setLimits(sim.autoLimits); sim.limits = plot.limits.slice(); plot._push(); },
     });
   }
-  for (const sp of result.sparameters) { tabs.push(sparameterTab(sp, 'dB')); tabs.push(sparameterTab(sp, 'deg')); }
+  result.sparameters.forEach((sp, k) => {
+    tabs.push(sparameterTab(sp, 'dB')); tabs.push(sparameterTab(sp, 'deg'));
+    for (const [view, xPrefix, yLabel] of [['impulse', 'time', 'amplitude'], ['step', 'time', 'amplitude'], ['impedance', 'length', 'impedance (Ohms)']]) {
+      tabs.push(seriesTab(sp.name + ' ' + view, () => api('sparameterTime', { resultId: result.resultId, index: k, view, points: 4000 })
+        .then(r => r.traces), { xUnit: 's', xPrefix, yLabel }));
+    }
+  });
+  if (result.noise && result.noise.length) {
+    const tab = seriesTab('Statistical Noise', () => api('noiseSeries', { resultId: result.resultId, points: 4000 })
+      .then(r => { tab.serverLimits = r.autoscale; return r.series; }), { xUnit: 'Hz', xPrefix: 'frequency', yLabel: 'magnitude (dBm', density: true });
+    tab.kind = 'noise';
+    tab.measurements = result.noise;
+    tabs.push(tab);
+  }
   for (const eye of result.eyes) {
     tabs.push({ kind: 'eye', name: 'Eye: ' + eye.name, show() { $('eyeImage').src = eye.image; }, hide() {}, autoscale() {} });
   }
@@ -975,7 +1243,7 @@ function showResults(result, title, recalculable) {
     if (currentTab) currentTab.hide();
     currentTab = tabs[i];
     nav.querySelectorAll('button').forEach((b, k) => b.classList.toggle('active', k === i));
-    const isWave = currentTab.kind === 'waveforms', isEye = currentTab.kind === 'eye';
+    const isWave = currentTab.kind === 'waveforms', isEye = currentTab.kind === 'eye', isNoise = currentTab.kind === 'noise';
     $('simControls').style.display = isWave ? '' : 'none';
     $('plotToolbar').style.display = isEye ? 'none' : '';
     $('resultsStatus').textContent = isEye ? '' : statusText();
@@ -983,6 +1251,8 @@ function showResults(result, title, recalculable) {
     $('resultsBody').classList.toggle('no-selection', !isWave);
     $('resultsBody').classList.toggle('eye', isEye);
     $('selectionList').style.display = isWave ? '' : 'none';
+    dlg.classList.toggle('noise', isNoise);
+    if (isNoise) buildNoiseTable(currentTab.measurements);
     currentTab.show();
   };
   tabs.forEach((t, i) => { const b = document.createElement('button'); b.textContent = t.name; b.onclick = () => activate(i); nav.appendChild(b); });
@@ -997,6 +1267,7 @@ function showResults(result, title, recalculable) {
 // shortcuts come from Menus.py, e.g. 'Ctrl+Shift+S', 'Alt+Up', 'Del', 'W'
 const KEY_NAMES = { ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left', ArrowRight: 'Right', Delete: 'Del', Backspace: 'Del',
   Escape: 'Esc', '=': '+' };
+const TEXT_EDITING_KEYS = new Set(['Ctrl+Z', 'Ctrl+Shift+Z', 'Ctrl+X', 'Ctrl+C', 'Ctrl+V']);
 function keyCombo(e) {
   const key = KEY_NAMES[e.key] || (e.key.length === 1 ? e.key.toUpperCase() : e.key);
   // Shift counts for letters and named keys; for punctuation like '+' it is part of the character
@@ -1010,8 +1281,8 @@ window.addEventListener('keydown', e => {
   const combo = keyCombo(e);
   for (const menu of state.menus.menus) for (const item of menu.items) {
     if (item.kind !== 'command' || item.shortcut !== combo) continue;
-    // single keys (Del, W) belong to the schematic, not to a table cell being edited
-    if (typing && !/^(Ctrl|Alt)\+/.test(combo) && item.id !== 'cancel') return;
+    // while typing, single keys and the text-editing shortcuts belong to the text field
+    if (typing && item.id !== 'cancel' && (!/^(Ctrl|Alt)\+/.test(combo) || TEXT_EDITING_KEYS.has(combo))) return;
     e.preventDefault();
     return runCommand(item.id);
   }
