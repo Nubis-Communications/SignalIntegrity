@@ -42,6 +42,8 @@ class TestWaveformProcessorTest(unittest.TestCase,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        self.UseSinX=SignalIntegrity.App.Preferences['Calculation.UseSinX']
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=True
         self.Autoshutoff=SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']
         self.MaximumProcessingIterations=SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=False
@@ -54,6 +56,7 @@ class TestWaveformProcessorTest(unittest.TestCase,
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         import SignalIntegrity.App.Project
         pysi=SignalIntegrityAppHeadless()
+        SignalIntegrity.App.Preferences['Calculation.UseSinX']=self.UseSinX
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=self.Autoshutoff
         SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']=self.MaximumProcessingIterations
         SignalIntegrity.App.Preferences.SaveToFile()
