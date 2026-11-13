@@ -20,8 +20,10 @@ Api.py
 import os
 import threading
 import itertools
+from collections import OrderedDict
 
 from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
+from SignalIntegrity.GuiCore.Results import VIEWS
 
 class ApiError(Exception):
     def __init__(self,message,status=400):
@@ -50,30 +52,45 @@ class Api(object):
     run as background jobs because the engine uses a process-global project; while a job runs,
     every call that touches the project is rejected with status 409."""
     METHODS=['open','save','render','deviceAt','select','deviceProperties','setDeviceProperty',
-             'moveDevice','rotateDevice','variables','setVariable','calculationProperties',
-             'setCalculationProperties','netlist','calculate','job','cancel','listDirectory','version']
-    READ_ONLY_WHILE_BUSY=('job','cancel','listDirectory','version')
+             'setPropertyVisibility','moveDevice','rotateDevice','variables','setVariable','setVariableVisible',
+             'calculationProperties','setCalculationProperties','netlist','calculate','job','cancel',
+             'plotData','viewActions','view','ascend','listDirectory','version']
+    # these never touch the project, so they neither wait for nor are blocked by a running calculation
+    UNLOCKED=('job','cancel','plotData','listDirectory','version')
+    MAX_RESULTS=8
     def __init__(self,session=None):
         self.session=ProjectSession() if session is None else session
         self.lock=threading.Lock()
         self.jobs={}
         self.activeJob=None
+        self.results=OrderedDict()
         self._ids=itertools.count(1)
+        self._resultIds=itertools.count(1)
     def Dispatch(self,method,params):
         if method not in self.METHODS:
             raise ApiError('unknown method '+str(method),404)
         if not isinstance(params,dict):
             raise ApiError('params must be an object')
-        if self.activeJob is not None and method not in self.READ_ONLY_WHILE_BUSY:
-            raise ApiError('a calculation is running',409)
         try:
+            if method in self.UNLOCKED:
+                return getattr(self,'_'+method)(params)
+            if self.activeJob is not None:
+                raise ApiError('a calculation is running',409)
             with self.lock:
                 return getattr(self,'_'+method)(params)
         except SessionError as e:
             raise ApiError(str(e))
+    def _StoreResult(self,data):
+        resultId=next(self._resultIds)
+        self.results[resultId]=data
+        while len(self.results)>self.MAX_RESULTS:
+            self.results.popitem(last=False)
+        summary=data.Summary()
+        summary['resultId']=resultId
+        return summary
     @staticmethod
     def _Get(params,name,kind,optional=False):
-        if name not in params:
+        if params.get(name) is None:
             if optional:
                 return None
             raise ApiError('missing parameter '+name)
@@ -105,6 +122,9 @@ class Api(object):
     def _setDeviceProperty(self,params):
         return self.session.SetDeviceProperty(self._Get(params,'index',int),self._Get(params,'keyword',str),
                                               self._Get(params,'value',str))
+    def _setPropertyVisibility(self,params):
+        return self.session.SetDevicePropertyVisibility(self._Get(params,'index',int),self._Get(params,'keyword',str),
+            self._Get(params,'visible',bool,True),self._Get(params,'keywordVisible',bool,True))
     def _moveDevice(self,params):
         self.session.MoveDevice(self._Get(params,'index',int),self._Get(params,'dx',int),self._Get(params,'dy',int))
         return self.session.Render()
@@ -115,6 +135,30 @@ class Api(object):
         return self.session.Variables()
     def _setVariable(self,params):
         return self.session.SetVariable(self._Get(params,'name',str),self._Get(params,'value',str))
+    def _setVariableVisible(self,params):
+        return self.session.SetVariableVisible(self._Get(params,'name',str),self._Get(params,'visible',bool))
+    def _viewActions(self,params):
+        return self.session.ViewActions(self._Get(params,'index',int))
+    def _view(self,params):
+        kind,value=self.session.View(self._Get(params,'index',int),self._Get(params,'action',str))
+        if kind=='project':
+            return {'kind':'project','drawing':value}
+        return {'kind':'result','result':self._StoreResult(value)}
+    def _ascend(self,params):
+        return self.session.Ascend()
+    def _plotData(self,params):
+        data=self.results.get(self._Get(params,'resultId',int))
+        if data is None:
+            raise ApiError('no such result',404)
+        view=self._Get(params,'view',str)
+        if view not in VIEWS:
+            raise ApiError('unknown view '+view)
+        indices=self._Get(params,'indices',list,True)
+        if indices is not None and not all(isinstance(i,int) and not isinstance(i,bool) and 0<=i<len(data.waveforms) for i in indices):
+            raise ApiError('invalid waveform indices')
+        points=self._Get(params,'points',int,True)
+        points=4000 if points is None else max(16,min(points,20000))
+        return data.Series(view,indices,self._Get(params,'xmin',float,True),self._Get(params,'xmax',float,True),points)
     def _calculationProperties(self,params):
         return self.session.CalculationProperties()
     def _setCalculationProperties(self,params):
@@ -145,7 +189,8 @@ class Api(object):
             return not job.cancelled
         try:
             with self.lock:
-                job.result=self.session.Calculate(job.kind,callback)
+                data=self.session.Calculate(job.kind,callback)
+            job.result=self._StoreResult(data)
             job.state='done'
         except Exception as e:
             job.error='calculation cancelled' if job.cancelled else str(e)

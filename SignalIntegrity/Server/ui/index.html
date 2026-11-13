@@ -18,6 +18,8 @@
   <button id="btnZoomFit" title="Zoom to fit (Ctrl+0)">Fit</button>
   <span class="sep"></span>
   <button id="btnRotate" title="Rotate selected device (Ctrl+R)" disabled>Rotate</button>
+  <button id="btnView" title="View the selected device or open its project (Ctrl+E)" disabled>View / Open Project</button>
+  <button id="btnUp" title="Up to the parent project (Alt+Up)" disabled>Up</button>
   <span class="sep"></span>
   <button class="calc" data-kind="simulate" disabled>Simulate</button>
   <button class="calc" data-kind="sparameters" disabled>S-parameters</button>
@@ -30,22 +32,23 @@
   <aside id="left">
     <section>
       <h2>Variables</h2>
-      <table id="variables"><thead><tr><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
+      <table id="variables"><colgroup><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show on schematic">Show</th><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
     </section>
     <section>
       <h2>Calculation Properties</h2>
       <form id="calcProps"></form>
     </section>
   </aside>
-  <div id="canvasHost"><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
+  <div id="canvasHost"><div id="hierarchy"></div><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
   <aside id="right">
     <section>
       <h2>Device Properties</h2>
-      <table id="properties"><thead><tr><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
+      <table id="properties"><colgroup><col class="chk"><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show the property on the schematic">Show</th><th title="show the keyword with the property">Kw</th><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
     </section>
   </aside>
 </main>
 <footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
+<menu id="contextMenu" hidden></menu>
 
 <dialog id="fileDialog">
   <h3 id="fileDialogTitle">Open Project</h3>
@@ -65,10 +68,38 @@
   <div class="buttons"><button id="progressCancel" type="button">Cancel</button></div>
 </dialog>
 <dialog id="resultsDialog">
-  <h3 id="resultsTitle">Results</h3>
+  <div class="titlebar"><h3 id="resultsTitle">Results</h3><button id="resultsClose" type="button" title="Close">&#x2715;</button></div>
   <nav id="resultsTabs"></nav>
-  <div id="resultsPlot"></div>
-  <div class="buttons"><button id="resultsClose" type="button">Close</button></div>
+  <div id="plotToolbar">
+    <button id="plotHome" title="Reset original view">Home</button>
+    <button id="plotBack" title="Back to previous view">Back</button>
+    <button id="plotForward" title="Forward to next view">Forward</button>
+    <button id="plotPan" class="active" title="Pan: left-drag pans, right-drag zooms (hold x or y to constrain)">Pan</button>
+    <button id="plotZoom" title="Zoom to rectangle: left-drag zooms in, right-drag zooms out">Zoom</button>
+    <button id="plotAutoscale" title="Autoscale">autoscale</button>
+    <span class="sep"></span>
+    <span id="simControls">
+      <select id="simView" title="View">
+        <option value="time">Time-domain</option>
+        <option value="content">Spectral Content</option>
+        <option value="density">Spectral Density</option>
+      </select>
+      <label><input type="checkbox" id="simLog"> Log Frequency Scale</label>
+      <button id="simRecalculate" title="Recalculate">Recalculate</button>
+      <span class="sep"></span>
+      <button id="selAll" title="Display all waveforms">All</button>
+      <button id="selNone" title="Display no waveforms">None</button>
+      <button id="selToggle" title="Toggle all waveforms">Toggle</button>
+    </span>
+    <label><input type="checkbox" id="plotGrid" checked> Show Grids</label>
+  </div>
+  <div id="resultsBody">
+    <div id="selectionList"></div>
+    <div id="plotLabel"></div>
+    <div id="resultsPlot"></div>
+    <div id="eyeView"><img id="eyeImage" alt="eye diagram"></div>
+  </div>
+  <div id="resultsStatus"></div>
 </dialog>
 </body>
 </html>

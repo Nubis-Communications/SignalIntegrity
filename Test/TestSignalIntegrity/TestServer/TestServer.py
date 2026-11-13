@@ -103,6 +103,47 @@ class TestServerApiTest(unittest.TestCase):
         self.assertTrue(all(e['directory'] or e['name'].endswith('.si') for e in listing['entries']))
         with self.assertRaises(ApiError):
             self.api.Dispatch('listDirectory',{'path':os.path.join(EXAMPLES,'RLC.si')})
+    def testPlotDataAndEyes(self):
+        self.api.Dispatch('open',{'filename':os.path.join(EXAMPLES,'HDMICable','PRBSTest.si')})
+        job=self.api.Dispatch('calculate',{'kind':'simulate'})
+        # polling must not wait for the calculation lock
+        self.assertIn(self.api.Dispatch('job',{'id':job['id']})['state'],('running','done'))
+        job=WaitForJob(self.api,job)
+        self.assertEqual(job['state'],'done',job['error'])
+        result=job['result']
+        self.assertEqual([e['name'] for e in result['eyes']],['Vdiff','Veq'])
+        self.assertTrue(result['eyes'][0]['image'].startswith('data:image/png;base64,'))
+        rid=result['resultId']
+        full=self.api.Dispatch('plotData',{'resultId':rid,'view':'time','points':500})
+        self.assertEqual(len(full['series']),len(result['waveforms']))
+        self.assertTrue(all(len(s['x'])<=500 for s in full['series']))
+        x0,x1=full['autoscale'][0],full['autoscale'][1]
+        zoom=self.api.Dispatch('plotData',{'resultId':rid,'view':'time','indices':[0],'xmin':x0,'xmax':x0+(x1-x0)/1000,'points':20000})
+        self.assertEqual(len(zoom['series'][0]['x']),zoom['series'][0]['total'])
+        content=self.api.Dispatch('plotData',{'resultId':rid,'view':'content','indices':[0],'points':300})
+        self.assertLessEqual(len(content['series'][0]['x']),300)
+        for bad in ({'resultId':999,'view':'time'},{'resultId':rid,'view':'bogus'},{'resultId':rid,'view':'time','indices':[99]}):
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('plotData',bad)
+    def testTraversalAndVisibility(self):
+        drawing=self.api.Dispatch('open',{'filename':os.path.join(EXAMPLES,'PID','PIDSimulation.si')})
+        pid=[d for d in drawing['devices'] if d['ref']=='PID'][0]['index']
+        self.assertEqual(self.api.Dispatch('viewActions',{'index':pid}),[{'label':'Open Project','action':'file'}])
+        properties=self.api.Dispatch('setPropertyVisibility',{'index':pid,'keyword':'ref','keywordVisible':True})
+        self.assertTrue([p for p in properties if p['keyword']=='ref'][0]['keywordVisible'])
+        self.assertFalse(self.api.Dispatch('setVariableVisible',{'name':'PID_P','visible':False})[0]['visible'])
+        child=self.api.Dispatch('view',{'index':pid,'action':'file'})
+        self.assertEqual(child['kind'],'project')
+        self.assertEqual(child['drawing']['path'],['PIDSimulation.si','PID.si'])
+        with self.assertRaises(ApiError):
+            self.api.Dispatch('setVariable',{'name':'P','value':'1'})
+        parent=self.api.Dispatch('ascend',{})
+        self.assertIn('ref PID',[i['text'] for i in parent['items'] if i['type']=='text'])
+        source=[d for d in parent['devices'] if d['ref']=='Vin'][0]['index']
+        waveform=self.api.Dispatch('view',{'index':source,'action':'waveform'})
+        self.assertEqual(waveform['kind'],'result')
+        self.assertEqual(waveform['result']['waveforms'][0]['name'],'Vin')
+        self.assertIn('resultId',waveform['result'])
 
 class TestServerHttpTest(unittest.TestCase):
     @classmethod

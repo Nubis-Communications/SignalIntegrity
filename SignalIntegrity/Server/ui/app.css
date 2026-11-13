@@ -37,10 +37,42 @@ dialog .buttons { display: flex; justify-content: flex-end; gap: 6px; margin-top
 #fileList li:hover, #fileList li.sel { background: #e8f0fb; }
 #textDialogBody { max-height: 60vh; width: 640px; overflow: auto; background: #fafafa; border: 1px solid var(--border); padding: 6px; margin: 0; }
 #progressBar { width: 100%; }
-#resultsDialog { width: 90vw; height: 85vh; }
+#resultsDialog { width: 92vw; height: 88vh; position: fixed; inset: 0; margin: auto; z-index: 10; box-shadow: 0 6px 24px rgba(0,0,0,.25); }
 #resultsDialog[open] { display: flex; flex-direction: column; }
+#resultsDialog .titlebar { display: flex; justify-content: space-between; align-items: center; }
 #resultsTabs { display: flex; gap: 4px; margin-bottom: 6px; flex-wrap: wrap; }
-#resultsTabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-#resultsPlot { flex: 1; min-height: 0; }
-#resultsPlot svg { width: 100%; height: 100%; }
-#resultsPlot text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 12px; }
+#resultsTabs button.active, #plotToolbar button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+#plotToolbar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-bottom: 4px; }
+#plotToolbar .sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; display: inline-block; }
+#simControls { display: inline-flex; gap: 4px; align-items: center; }
+#resultsBody { flex: 1; min-height: 0; display: grid; grid-template-columns: 150px 1fr; grid-template-rows: auto 1fr; }
+#resultsBody.no-selection { grid-template-columns: 0 1fr; }
+#selectionList { grid-row: 1 / 3; overflow: auto; border-right: 1px solid var(--border); padding-right: 4px; }
+#selectionList label { display: flex; gap: 4px; align-items: center; white-space: nowrap; }
+#selectionList .swatch { width: 14px; height: 3px; display: inline-block; }
+#plotLabel { text-align: center; font-weight: 600; padding: 2px; }
+#resultsPlot { min-height: 0; position: relative; }
+#eyeView { display: none; overflow: auto; grid-column: 2; grid-row: 1 / 3; }
+#resultsBody.eye #resultsPlot, #resultsBody.eye #plotLabel { display: none; }
+#resultsBody.eye #eyeView { display: block; }
+#resultsStatus { padding: 3px 2px; color: #444; min-height: 1.5em; }
+svg.plot { width: 100%; height: 100%; display: block; cursor: move; user-select: none; }
+svg.plot.zoom-mode { cursor: crosshair; }
+svg.plot text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 12px; fill: #222; }
+svg.plot .grid { stroke: #ddd; }
+svg.plot .tick, svg.plot .frame { stroke: #444; fill: none; }
+svg.plot .trace { fill: none; stroke-width: 1.5; }
+svg.plot .zoom-box { fill: rgba(10,100,200,.08); stroke: #0a64c8; stroke-dasharray: 4 3; }
+svg.plot .legend-box { fill: rgba(255,255,255,.85); stroke: #ccc; }
+col.chk { width: 42px; }
+col.unit { width: 52px; }
+td.chk { text-align: center; }
+td.chk input { width: auto; }
+td select { width: 100%; font: inherit; border: none; background: transparent; }
+#hierarchy { position: absolute; top: 0; left: 0; right: 0; padding: 3px 8px; background: rgba(255,255,255,.9); border-bottom: 1px solid var(--border); display: none; z-index: 2; }
+#hierarchy.visible { display: block; }
+#hierarchy .ro { color: #b05000; margin-left: 6px; }
+#contextMenu { position: fixed; z-index: 20; margin: 0; padding: 4px 0; list-style: none; background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,.2); min-width: 170px; }
+#contextMenu li { padding: 4px 14px; cursor: pointer; }
+#contextMenu li:hover { background: #e8f0fb; }
+#contextMenu li.sep { padding: 0; margin: 4px 0; border-top: 1px solid var(--border); cursor: default; }

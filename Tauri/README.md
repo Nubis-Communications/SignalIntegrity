@@ -90,15 +90,28 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Wheel to zoom, drag to pan, Fit.
 - Click to select a device (highlighted blue), drag to move it on the grid, Ctrl+R to rotate.
-- Edit device properties, project variables and calculation properties in place.
+- Edit device properties (enums as drop-downs), project variables and calculation properties in place.
+- **Show on schematic:** Show/Kw checkboxes per property and Show per variable. These are the
+  tk properties dialog's `Visible`/`KeywordVisible` choices, and they redraw immediately.
+- **Hierarchy traversal:** right-click a device for its tk View actions: Open Project into a `.si`
+  file or a source's waveform project, View an s-parameter file, or View Waveform. Ctrl+right-click
+  (or Ctrl+E) opens the project directly. The device's variables and calculation properties are
+  passed in, as the tk app does. Sub-projects are read-only, a path bar shows where you are, and
+  Up (Alt+Up) returns to the parent with its unsaved edits.
 - Simulate, S-parameters, Virtual Probe and De-embed, each enabled only when the schematic
   supports it. Runs as a background job with progress and Cancel.
-- Results: waveform plots and S-parameter magnitude/phase plots.
+- **Simulator dialog (port of the tk one):** shows every waveform the tk dialog shows, at full
+  resolution through ranged, decimated data requests. It has per-waveform selection with
+  All/None/Toggle, Time-domain, Spectral Content and Spectral Density views, log frequency
+  scale, grids, Recalculate, a status line with points and sample rate, and an x/y cursor
+  readout. It also has tabs for **eye diagrams** and s-parameter magnitude/phase.
+- **Plot zoom like the tk dialogs:** pan mode by default (left-drag pans, right-drag zooms each
+  axis about the pointer), zoom-box mode, Home/Back/Forward, and autoscale. The zoom and
+  selections are **kept across recalculations**, as in the tk simulator dialog.
 - Open, Save, Save As (built-in file browser), Netlist viewer, keyboard shortcuts.
 
-Not yet ported (use the tk GUI): placing parts and drawing wires, undo/redo, eye diagrams,
-statistical noise, the equations and post-processing editors, `.siz` archives, preferences,
-and help.
+Not yet ported (use the tk GUI): placing parts and drawing wires, undo/redo, statistical noise
+windows, the equations and post-processing editors, `.siz` archives, preferences, and help.
 
 ## Changes in this PR
 

@@ -56,21 +56,32 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `render` | – | render |
 | `deviceAt` | `x`, `y` | `{index}` |
 | `select` | `index` (int or null) | render |
-| `deviceProperties` | `index` | property list |
+| `deviceProperties` | `index` | property list (with `visible`, `keywordVisible`, `validEntries`) |
 | `setDeviceProperty` | `index`, `keyword`, `value` (string) | property list |
+| `setPropertyVisibility` | `index`, `keyword`, `visible?`, `keywordVisible?` (bool) | property list |
 | `moveDevice` | `index`, `dx`, `dy` (grid units) | render |
 | `rotateDevice` | `index` | render |
-| `variables` / `setVariable` | – / `name`, `value` | variable list |
+| `variables` / `setVariable` / `setVariableVisible` | – / `name`, `value` / `name`, `visible` | variable list |
 | `calculationProperties` / `setCalculationProperties` | – / `values` (object) | properties |
 | `netlist` | – | `{netlist}` |
+| `viewActions` | `index` | the device's View actions: `file`, `openproject`, `waveform` |
+| `view` | `index`, `action` | `{kind:'project',drawing}` after descending into a sub-project, or `{kind:'result',result}` |
+| `ascend` | – | render of the parent project |
 | `calculate` | `kind`: `simulate`, `sparameters`, `virtualprobe`, `deembed` | job |
-| `job` | `id` | job (`{id,kind,state,progress,error,result?}`) |
+| `job` | `id` | job (`{id,kind,state,progress,error,result?}`); `result` is a result summary |
 | `cancel` | `id` | job |
+| `plotData` | `resultId`, `view` (`time`/`content`/`density`), `indices?`, `xmin?`, `xmax?`, `points?` | `{series:[{index,name,dc,x,y,total}],autoscale}` for that x range, min/max-decimated to `points` |
 | `listDirectory` | `path?` | `{path,parent,entries:[{name,path,directory}]}` |
 
+A result summary is `{resultId,type,title,waveforms:[{index,name,dc,points,start,sampleRate}],sparameters:[...],eyes:[{name,image}]}`.
+Waveform samples are not sent with the summary. The UI requests `plotData` for the visible x range
+at screen resolution, so multi-million-point waveforms stay responsive and are complete at
+any zoom. The server keeps the last 8 results.
+
 Calculations run as one background job at a time, because the engine keeps a process-global
-project. Poll `job` until `state` is `done` or `failed`. While a job is running, only `job`,
-`cancel`, `listDirectory` and `version` are accepted.
+project. Poll `job` until `state` is `done` or `failed`. While a job is running, project calls
+return 409; `job`, `cancel`, `plotData`, `listDirectory` and `version` never wait for the
+calculation.
 
 ## Files
 
@@ -80,9 +91,9 @@ project. Poll `job` until `state` is `done` or `failed`. While a job is running,
 | `HttpServer.py` | `SignalIntegrityServer` (a `ThreadingHTTPServer`) and the request handler (security checks, static files, JSON). |
 | `Api.py` | `Api` method dispatcher, parameter validation and calculation jobs. |
 | `ui/index.html`, `ui/app.css` | Page layout and styles. |
-| `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), tables, file dialog, progress, results. |
+| `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), device context menu and hierarchy navigation, property/variable tables with Show/Keyword checkboxes, file dialog, progress, and the simulator results dialog. |
 | `ui/schematic.js` | Turns GuiCore primitives into SVG (tk-style arrowheads, arcs and text anchors). |
-| `ui/plot.js` | Dependency-free SVG line plots with engineering-unit axes. |
+| `ui/plot.js` | Dependency-free interactive SVG plot reproducing matplotlib's navigation in the tk dialogs: pan mode by default (left-drag pans, right-drag zooms x and y independently about the pointer, hold `x`/`y` to constrain), zoom-box mode (left zooms in, right zooms out, a flat box zooms one axis), Home/Back/Forward history, and autoscale. |
 
 The web UI has no third-party JavaScript and needs no build step.
 
