@@ -332,13 +332,13 @@ def _merge_release_branch(source_version, source_notes, notes_path):
             source_version, REMOTE, SOURCE_BRANCH, REMOTE, TARGET_BRANCH
         )
     )
-    if not _confirm('Continue with the master update and merge?'):
+    if not _confirm('Continue with a fast-forward-only master update?'):
         raise ReleaseCancelled('Release cancelled before changing branches.')
 
     _run(['git', 'checkout', TARGET_BRANCH])
     _run(['git', 'pull', '--ff-only', REMOTE, TARGET_BRANCH])
     _run([
-        'git', 'merge', '--no-ff', '--no-edit',
+        'git', 'merge', '--ff-only',
         '{}/{}'.format(REMOTE, SOURCE_BRANCH),
     ])
     merged_version = _release_version(TARGET_BRANCH)

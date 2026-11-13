@@ -28,9 +28,11 @@ bypassing its checks or confirmations.
   or production PyPI upload. If both are skipped (or only TestPyPI is used), the script
   retains the notes because no public production release took place. Failures and
   cancellations also retain the file so the user can inspect or reuse it.
-- The release script checks local/remote branch state, asks before merging and pushing,
-  builds `SignalIntegrity-X.Y.Z.zip` with that directory at the ZIP root, and builds a
-  universal wheel.
+- The release script checks local/remote branch state, asks before a fast-forward-only
+  merge of `origin/InNextRelease` into `master` and before pushing. If that merge
+  cannot fast-forward, the script stops; do not substitute a merge commit or rebase.
+- It builds `SignalIntegrity-X.Y.Z.zip` with that directory at the ZIP root, and builds
+  a universal wheel.
 - The source ZIP follows the Wiki's subset rules: omit tests, hidden files/directories,
   compiled/cache files, egg-info, linked Doc/Help content and scripts, all of `Doc`
   except `Doc/README.md`, `SignalIntegrity/App/Help`, and
