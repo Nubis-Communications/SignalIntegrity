@@ -301,8 +301,7 @@ noise = input_noise_1.TotalRMS()
                     drawing.schematic=app.Drawing.schematic
                     drawing.parent=Mock()
                     drawing.parent.ReadOnly.return_value=False
-                    canvas=Mock()
-                    canvas.displayScale=1.
+                    canvas=Mock(displayScale=1.,textSpacing=12)
                     drawing.DrawSchematic(canvas,evaluateEquations=False)
                     drawing.parent.SimulateDoer.Activate.assert_called_once_with(True)
                 netlist=app.Drawing.schematic.NetList()
@@ -508,8 +507,7 @@ noise = input_noise_1.TotalRMS()
                                           for wire in wires],
                                          [[coordinates[index],coordinates[index+len(coordinates)//2]]
                                           for index in range(len(coordinates)//2)])
-                        canvas=Mock()
-                        canvas.displayScale=1.
+                        canvas=Mock(displayScale=1.,textSpacing=12)
                         processor.DrawDevice(canvas,20,0,0)
                         self.assertFalse(any(call.kwargs.get('text') == 'py'
                                              for call in canvas.create_text.call_args_list))
@@ -579,8 +577,7 @@ noise = input_noise_1.TotalRMS()
                 drawing.schematic=app.Drawing.schematic
                 drawing.parent=Mock()
                 drawing.parent.ReadOnly.return_value=False
-                canvas=Mock()
-                canvas.displayScale=1.
+                canvas=Mock(displayScale=1.,textSpacing=12)
                 drawing.DrawSchematic(canvas,evaluateEquations=False)
                 drawing.parent.SimulateDoer.Activate.assert_called_once_with(canSimulate)
         processor['element_state']['Value']='disabled'
@@ -1460,8 +1457,7 @@ optimize = 99
                         picture.ApplyOrientation(orientation,horizontal,vertical)
                         picture.Selected(False)
                         picture.InsertVisiblePartProperties([])
-                        canvas=Mock()
-                        canvas.displayScale=1.
+                        canvas=Mock(displayScale=1.,textSpacing=12)
                         grid=20
                         picture.DrawDevice(None,canvas,grid,(3,-5))
                         canvas.create_rectangle.assert_called_once()
