@@ -91,6 +91,14 @@ class Handler(BaseHTTPRequestHandler):
         with open(full,'rb') as f:
             self._Send(200,f.read(),STATIC_TYPES[ext])
     def do_POST(self):
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+        except ValueError:
+            return self._Json(400,{'error':'bad content length'})
+        if length<0 or length>MAX_BODY:
+            return self._Json(413,{'error':'request too large'})
+        # read the body before any rejection: closing a socket with unread data resets it on Windows
+        body=self.rfile.read(length)
         if not self._HostAllowed():
             return self._Json(403,{'error':'forbidden host'})
         origin=self.headers.get('Origin')
@@ -101,16 +109,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._Json(401,{'error':'unauthorized'})
         if not self.path.startswith('/api/'):
             return self._Json(404,{'error':'not found'})
-        try:
-            length=int(self.headers.get('Content-Length','0'))
-        except ValueError:
-            return self._Json(400,{'error':'bad content length'})
-        if length>MAX_BODY:
-            return self._Json(413,{'error':'request too large'})
         if 'application/json' not in self.headers.get('Content-Type',''):
             return self._Json(415,{'error':'content type must be application/json'})
         try:
-            params=json.loads(self.rfile.read(length) or b'{}')
+            params=json.loads(body or b'{}')
         except ValueError:
             return self._Json(400,{'error':'invalid JSON'})
         try:
