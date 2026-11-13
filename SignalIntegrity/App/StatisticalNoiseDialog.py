@@ -126,6 +126,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
         self.f = Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
+        self.f.set_tight_layout(True)
 
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('frequency')

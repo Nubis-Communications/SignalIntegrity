@@ -275,6 +275,7 @@ class SParametersDialog(tk.Toplevel):
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
         self.topLeftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
+        self.topLeftFigure.set_tight_layout(True)
         self.topLeftPlot=self.topLeftFigure.add_subplot(111)
         self.topLeftCanvas=FigureCanvasTkAgg(self.topLeftFigure, master=topLeftFrame)
         self.topLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -284,6 +285,7 @@ class SParametersDialog(tk.Toplevel):
         self.topLeftToolbar.pan()
 
         self.topRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
+        self.topRightFigure.set_tight_layout(True)
         self.topRightPlot=self.topRightFigure.add_subplot(111)
         self.topRightCanvas=FigureCanvasTkAgg(self.topRightFigure, master=topRightFrame)
         self.topRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -298,6 +300,7 @@ class SParametersDialog(tk.Toplevel):
         self.delayViewerProperty.label.config(width=10)
 
         self.bottomLeftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
+        self.bottomLeftFigure.set_tight_layout(True)
         self.bottomLeftPlot=self.bottomLeftFigure.add_subplot(111)
         self.bottomLeftCanvas=FigureCanvasTkAgg(self.bottomLeftFigure, master=bottomLeftFrame)
         self.bottomLeftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -307,6 +310,7 @@ class SParametersDialog(tk.Toplevel):
         self.bottomLeftToolbar.pan()
 
         self.bottomRightFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
+        self.bottomRightFigure.set_tight_layout(True)
         self.bottomRightPlot=self.bottomRightFigure.add_subplot(111)
         self.bottomRightCanvas=FigureCanvasTkAgg(self.bottomRightFigure, master=bottomRightFrame)
         self.bottomRightCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
