@@ -388,7 +388,9 @@ def _include_file(relative_path):
         return False
     if '__pycache__' in parts or 'SignalIntegrity.egg-info' in parts:
         return False
-    if any(part in ('build', 'dist', 'Test') for part in parts):
+    if any(part in ('build', 'dist') for part in parts):
+        return False
+    if parts and parts[0] == 'Test':
         return False
     if parts[:3] == ('SignalIntegrity', 'App', 'Help'):
         return False
