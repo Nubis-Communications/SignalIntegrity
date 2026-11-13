@@ -24,6 +24,7 @@ from collections import OrderedDict
 
 from SignalIntegrity.GuiCore.Session import ProjectSession, SessionError
 from SignalIntegrity.GuiCore.Results import VIEWS
+from SignalIntegrity.GuiCore import Settings
 
 class ApiError(Exception):
     def __init__(self,message,status=400):
@@ -55,9 +56,11 @@ class Api(object):
              'setPropertyVisibility','moveDevice','rotateDevice','variables','setVariable','setVariableVisible',
              'calculationProperties','setCalculationProperties','netlist','calculate','job','cancel',
              'plotData','viewActions','view','ascend','listDirectory','version',
-             'partCatalog','addPart','deleteDevice','themes','theme','setTheme','themesInPackage']
+             'partCatalog','addPart','deleteDevice','themes','theme','setTheme','themesInPackage',
+             'addWire','selectWire','deleteWire','menus','recentProjects','clearRecentProjects']
     # these never touch the project, so they neither wait for nor are blocked by a running calculation
-    UNLOCKED=('job','cancel','plotData','listDirectory','version','themes','theme','setTheme','themesInPackage')
+    UNLOCKED=('job','cancel','plotData','listDirectory','version','themes','theme','setTheme','themesInPackage',
+              'menus','recentProjects','clearRecentProjects')
     LISTABLE=('.si','.json','.vsix')
     MAX_RESULTS=8
     def __init__(self,session=None):
@@ -107,9 +110,33 @@ class Api(object):
         from SignalIntegrity.__about__ import __version__
         return {'version':__version__}
     def _open(self,params):
-        return self.session.Open(self._Get(params,'filename',str))
+        drawing=self.session.Open(self._Get(params,'filename',str))
+        Settings.AddRecentProject(drawing['filename'])
+        return drawing
     def _new(self,params):
-        return self.session.New(self._Get(params,'filename',str))
+        drawing=self.session.New(self._Get(params,'filename',str))
+        Settings.AddRecentProject(drawing['filename'])
+        return drawing
+    # ---- menus (GuiCore.Menus, shared with the Qt GUI) and recent projects
+    def _menus(self,params):
+        from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS, CommandIds
+        from SignalIntegrity.GuiCore.Icons import AllSvgs
+        return {'menus':[{'title':title,'items':items} for title,items in MenusFor('web')],'toolbar':TOOLBAR,
+                'toolbarLabels':TOOLBAR_LABELS,'icons':AllSvgs(CommandIds('web'))}
+    def _recentProjects(self,params):
+        return Settings.RecentProjects()
+    def _clearRecentProjects(self,params):
+        return Settings.ClearRecentProjects()
+    # ---- wires
+    def _addWire(self,params):
+        self.session.AddWire(self._Get(params,'points',list))
+        return self.session.Render()
+    def _selectWire(self,params):
+        self.session.SelectWire(self._Get(params,'index',int))
+        return self.session.Render()
+    def _deleteWire(self,params):
+        self.session.DeleteWire(self._Get(params,'index',int))
+        return self.session.Render()
     # ---- parts stencil
     def _partCatalog(self,params):
         if self.catalog is None:
@@ -150,7 +177,11 @@ class Api(object):
         except Exception as e:
             raise ApiError('could not read '+path+': '+str(e))
     def _save(self,params):
-        return {'filename':self.session.Save(self._Get(params,'filename',str,True))}
+        filename=self._Get(params,'filename',str,True)
+        saved=self.session.Save(filename)
+        if filename is not None:
+            Settings.AddRecentProject(saved)
+        return {'filename':saved}
     def _render(self,params):
         return self.session.Render()
     def _deviceAt(self,params):

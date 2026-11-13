@@ -103,12 +103,20 @@ file-drop handler otherwise swallows HTML5 drag-and-drop, which the parts stenci
 Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Wheel to zoom, drag to pan, Fit.
+- **Menus and toolbar:** dropdown menus laid out like the tk app (File, Edit, Parts, Wires, View,
+  Calculate, Help) with icons, shortcuts and flyout submenus, and a toolbar of large icons with
+  captions. Both are built from `GuiCore.Menus` and `GuiCore.Icons`, the same definitions the Qt
+  GUI uses.
+- **Wires:** Wires > Add Wire (W) enters wire mode as in tk: click each corner (snapped to the
+  grid, with a dashed preview), double-click, right-click or Enter to finish, Esc to drop the
+  wire or leave the mode. Click a wire to select it; Delete removes it.
+- **Recent projects:** File > Open Recent Projects, shared with the Qt GUI.
 - **Parts stencil:** all 144 parts of the tk Add Part picker in collapsible groups (Resistors,
   Sources, Generators, Amplifiers, Ports and Probes...) with thumbnails and search. Drag a part
   onto the schematic, or click it and then click where it goes (Esc cancels). Parts snap to the
   grid and get the next reference designator and port number. Delete removes the selection.
 - **New** (Ctrl+N) creates an empty project, as tk's File > New Project does.
-- **Themes:** the Theme menu lists SignalIntegrity Light/Dark and every color theme installed
+- **Themes:** View > Theme lists SignalIntegrity Light/Dark and every color theme installed
   in VS Code (and Insiders, VSCodium, Cursor, Windsurf). **Load Theme File...** accepts a VS Code
   theme `.json` or a `.vsix` downloaded from the Marketplace or Open VSX. The theme colors the
   UI, the schematic, the stencil and the plots, and is shared with the Qt GUI.
@@ -133,9 +141,12 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
   selections are **kept across recalculations**, as in the tk simulator dialog.
 - Open, Save, Save As (built-in file browser), Netlist viewer, keyboard shortcuts.
 
-Not yet ported (use the tk GUI): drawing wires, copy/paste, flipping parts, undo/redo,
-statistical noise windows, the equations and post-processing editors, `.siz` archives,
-preferences, and help. Parts placed here can be wired in the tk GUI; both use the same files.
+Not yet ported (use the tk GUI): moving or editing wire vertices, copy/paste, flipping parts,
+undo/redo, statistical noise windows, the equations and post-processing editors, `.siz`
+archives, preferences, and help. Both GUIs use the same files.
+
+To extend this GUI, see [../SignalIntegrity/Server/RECIPES.md](../SignalIntegrity/Server/RECIPES.md)
+and [../SignalIntegrity/GuiCore/RECIPES.md](../SignalIntegrity/GuiCore/RECIPES.md).
 
 ## Changes in this PR
 
@@ -156,6 +167,9 @@ preferences, and help. Parts placed here can be wired in the tk GUI; both use th
 - Browser check of the stencil and themes: HTML5 drag-and-drop of a resistor, click-to-place
   of a capacitor (references R2/C2 after the existing R1/C1), Delete, switching to VS Code's
   Dark Modern theme (UI, schematic, thumbnails and plot traces recolored), and simulate.
+- Browser check of the menus, icons and wires: toolbar and dropdowns in light and dark themes,
+  disabled states, the recent-projects flyout, drawing a divider's wires with the mouse
+  (preview, double-click and right-click finish, Esc), selecting a wire, and simulating.
 - `cargo build` of the shell on Windows (MSVC, WebView2). The app was launched with
   `RLC.si`: the sidecar started, the schematic rendered, and the sidecar was terminated when
   the window closed.

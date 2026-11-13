@@ -80,6 +80,12 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `theme` | – | the saved theme `{id,name,palette,colorMap}` |
 | `setTheme` | `id` (built-in id, theme id, `.json` path or `.vsix` path), `name?` | `{id,name,palette,colorMap}`; also saves it for both GUIs |
 | `themesInPackage` | `path` (`.vsix` or extension folder) | the themes it contains |
+| `addWire` | `points` (`[[x,y],...]` schematic pixels, snapped to the grid) | render (with `wires`) |
+| `selectWire` / `deleteWire` | `index` | render |
+| `menus` | – | `{menus:[{title,items}],toolbar,toolbarLabels,icons}` from `GuiCore.Menus`/`GuiCore.Icons` (`icons` are SVG strings by command id) |
+| `recentProjects` / `clearRecentProjects` | – | recent project paths, newest first; `open`, `new` and `save` with a `filename` add to it |
+
+To add a method or a UI command, see [RECIPES.md](RECIPES.md).
 
 A result summary is `{resultId,type,title,waveforms:[{index,name,dc,points,start,sampleRate}],sparameters:[...],eyes:[{name,image}]}`.
 Waveform samples are not sent with the summary. The UI requests `plotData` for the visible x range
@@ -88,7 +94,8 @@ any zoom. The server keeps the last 8 results.
 
 Calculations run as one background job at a time, because the engine keeps a process-global
 project. Poll `job` until `state` is `done` or `failed`. While a job is running, project calls
-return 409; `job`, `cancel`, `plotData`, `listDirectory`, `version` and the theme methods never wait
+return 409; `job`, `cancel`, `plotData`, `listDirectory`, `version`, the theme methods, `menus` and
+the recent-project methods never wait
 for the
 calculation.
 

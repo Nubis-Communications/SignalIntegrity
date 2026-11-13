@@ -9,10 +9,36 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); }
 body { display: flex; flex-direction: column; }
-#toolbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border-bottom: 1px solid var(--border); background: var(--toolbar); align-items: center; }
+#menubar { display: flex; align-items: center; gap: 0; padding: 0 4px; background: var(--toolbar); user-select: none; }
+#menubar img.logo { width: 18px; height: 18px; margin: 0 6px 0 2px; }
+#menubar button { border: 1px solid transparent; background: transparent; padding: 3px 9px; border-radius: 3px; }
+#menubar button:hover, #menubar button.open { background: var(--hover); border-color: transparent; }
+#toolbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 6px; border-bottom: 1px solid var(--border); background: var(--toolbar); align-items: center; }
 #toolbar .sep { width: 1px; align-self: stretch; background: var(--border); margin: 0 4px; }
-#toolbar .spacer { flex: 1; }
-#toolbar img.logo { width: 22px; height: 22px; margin: 0 4px 0 2px; }
+#toolbar button.checked { background: var(--button-bg); color: var(--button-fg); border-color: var(--button-bg); }
+#toolbar button[data-cmd] { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 58px; padding: 4px 6px 3px;
+  background: transparent; border-color: transparent; border-radius: 6px; font-size: 12px; }
+#toolbar button[data-cmd]:hover:not(:disabled) { background: var(--hover); border-color: var(--border); }
+#toolbar button[data-cmd].checked { background: var(--selection); color: var(--selection-fg); border-color: var(--accent); }
+#toolbar button[data-cmd] img { width: 32px; height: 32px; transition: transform .08s; }
+#toolbar button[data-cmd]:hover:not(:disabled) img { transform: scale(1.08); }
+#toolbar button[data-cmd]:disabled { opacity: 1; }
+#toolbar button[data-cmd]:disabled img { filter: grayscale(1); opacity: .35; }
+#toolbar button[data-cmd]:disabled span { opacity: .45; }
+.dropdown { position: fixed; z-index: 30; margin: 0; padding: 4px 0; list-style: none; background: var(--panel); color: var(--fg);
+  border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,.3); min-width: 220px; max-height: 80vh; overflow: auto; }
+.dropdown li { display: flex; gap: 24px; justify-content: space-between; padding: 4px 14px 4px 22px; cursor: pointer; white-space: nowrap; position: relative; }
+.dropdown li:hover:not(.disabled):not(.sep):not(.heading), .dropdown li.open { background: var(--selection); color: var(--selection-fg); }
+.dropdown li .shortcut { color: var(--muted); }
+.dropdown li .label { display: inline-flex; align-items: center; gap: 8px; margin-left: -4px; }
+.dropdown li .label img { margin-left: 0; }
+.dropdown li .label:not(:has(img)) { padding-left: 26px; }
+.dropdown li:hover .shortcut { color: inherit; }
+.dropdown li.disabled { opacity: .45; cursor: default; }
+.dropdown li.sep { padding: 0; margin: 4px 0; border-top: 1px solid var(--border); cursor: default; }
+.dropdown li.heading { font-weight: 600; color: var(--muted); cursor: default; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.dropdown li.checked::before { content: "\2713"; position: absolute; left: 7px; }
+.dropdown li.submenu::after { content: "\25B8"; }
 button, select { font: inherit; padding: 4px 10px; border: 1px solid var(--border); background: var(--input-bg); color: var(--fg); border-radius: 3px; cursor: pointer; }
 button:hover:not(:disabled) { background: var(--hover); border-color: var(--accent); }
 button:disabled { opacity: .45; cursor: default; }
@@ -33,7 +59,7 @@ form input, dialog input[type=text] { font: inherit; padding: 2px 4px; backgroun
 #canvasHost.drop-target { outline: 2px dashed var(--accent); outline-offset: -4px; }
 #schematic { width: 100%; height: 100%; display: block; cursor: grab; user-select: none; }
 #schematic.panning { cursor: grabbing; }
-#schematic.placing { cursor: crosshair; }
+#schematic.placing, #schematic.wiring { cursor: crosshair; }
 #schematic text { font-family: Helvetica, Arial, sans-serif; font-size: 11px; }
 #status { padding: 3px 8px; border-top: 1px solid var(--border); background: var(--status-bg); color: var(--status-fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 dialog { border: 1px solid var(--border); border-radius: 6px; padding: 12px; min-width: 420px; background: var(--panel); color: var(--fg); }
@@ -86,14 +112,10 @@ td select option { background: var(--input-bg); color: var(--input-fg); }
 #hierarchy { position: absolute; top: 0; left: 0; right: 0; padding: 3px 8px; background: color-mix(in srgb, var(--toolbar) 92%, transparent); border-bottom: 1px solid var(--border); display: none; z-index: 2; }
 #hierarchy.visible { display: block; }
 #hierarchy .ro { color: #d07020; margin-left: 6px; }
-#contextMenu, #themeMenu { position: fixed; z-index: 20; margin: 0; padding: 4px 0; list-style: none; background: var(--panel); color: var(--fg); border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,.3); min-width: 170px; }
-#contextMenu li, #themeMenu li { padding: 4px 14px; cursor: pointer; white-space: nowrap; }
-#contextMenu li:hover, #themeMenu li:hover { background: var(--selection); color: var(--selection-fg); }
-#contextMenu li.sep, #themeMenu li.sep { padding: 0; margin: 4px 0; border-top: 1px solid var(--border); cursor: default; }
-#themeMenu { max-height: 70vh; overflow: auto; }
-#themeMenu li.heading { font-weight: 600; color: var(--muted); cursor: default; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
-#themeMenu li.heading:hover { background: none; color: var(--muted); }
-#themeMenu li.current::before { content: "\2713"; margin-left: -11px; width: 11px; display: inline-block; }
+#contextMenu { position: fixed; z-index: 20; margin: 0; padding: 4px 0; list-style: none; background: var(--panel); color: var(--fg); border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,.3); min-width: 170px; }
+#contextMenu li { padding: 4px 14px; cursor: pointer; white-space: nowrap; }
+#contextMenu li:hover { background: var(--selection); color: var(--selection-fg); }
+#contextMenu li.sep { padding: 0; margin: 4px 0; border-top: 1px solid var(--border); cursor: default; }
 
 /* parts stencil */
 #parts { display: flex; flex-direction: column; min-height: 0; }

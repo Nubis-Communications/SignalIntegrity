@@ -17,6 +17,11 @@ or the `.si` project format. Scripts that use `SignalIntegrityAppHeadless`, `si.
 | `Session.py` | `ProjectSession` is a façade over `SignalIntegrityAppHeadless`: it opens and saves projects, renders, selects and moves devices, edits properties, property visibility and variables, sets calculation properties, shows the netlist, runs calculations, and traverses the project hierarchy. |
 | `Results.py` | `ResultData` keeps the original SignalIntegrity waveforms, s-parameters and eye-diagram images of a calculation or device view. It provides plot data (time, spectral content, spectral density) for any x range, with min/max decimation, and autoscale limits chosen the way the tk simulator dialog chooses them. |
 | `Themes.py` | Finds and loads VS Code color themes (installed extensions, theme `.json` files and `.vsix` packages) and maps them to the palette both GUIs use. Stdlib only. |
+| `Menus.py` | The menu bar (laid out like the tk app: File, Edit, Parts, Wires, View, Calculate, Help) and toolbar of both GUIs as data: command ids, labels, shortcuts, submenus, toolbar order and captions. |
+| `Icons.py` | The toolbar and menu icons as 32x32 SVG, keyed by command id, drawn to read on light and dark themes. |
+| `Settings.py` | The settings folder both GUIs share (`SIGNALINTEGRITY_GUI_SETTINGS` overrides it) and the recent-projects list. |
+
+See [RECIPES.md](RECIPES.md) for how to extend the GUIs without touching more files than needed.
 
 ## How rendering works
 
@@ -70,8 +75,11 @@ Coordinates are in the same pixel units the tk application uses (`grid` pixels p
 | `PartPreview(index)` | `{items,bbox}` primitives of a catalog part drawn at the origin, used for stencil thumbnails |
 | `AddPart(index,x,y)` | places a copy of a catalog part with its origin on the grid point nearest pixel `x,y`, initialized from preferences, with a unique reference designator (`R1`, `R2`...) and, for ports, the next port number, as the tk app does; selects it and returns its device index |
 | `DeleteDevice(index)` | removes a device |
+| `Wires()` | `[{index,points,selected}]`, each wire's vertices as a flat pixel list; also in the render dict as `wires` |
+| `AddWire(points)` | adds a wire through `[[x,y],...]` pixel points; each snaps to the nearest grid point, repeats are dropped, and the wires are consolidated (split at junctions and pins, joined where only two meet) as the tk app does |
+| `WireAt(x,y,tolerance=None)` / `SelectWire(index)` / `DeleteWire(index)` | hit test (tolerance in pixels, default a quarter grid), select one wire (deselecting devices), delete one wire. `Select(index)` deselects wires. |
 
-`AddPart` and `DeleteDevice` raise `SessionError` at a read-only (traversed) level.
+`AddPart`, `DeleteDevice`, `AddWire` and `DeleteWire` raise `SessionError` at a read-only (traversed) level.
 
 ### ResultData
 

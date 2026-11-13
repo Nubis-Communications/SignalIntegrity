@@ -29,7 +29,8 @@ export async function api(method, params = {}) {
 
 // ---------- state
 const state = { drawing: null, selected: null, busy: false, view: { s: 1, tx: 0, ty: 0 }, lastCalculation: null,
-  colorMap: null, palette: null, theme: null, catalog: [], placing: null };
+  colorMap: null, palette: null, theme: null, catalog: [], placing: null,
+  wiring: false, wirePoints: [], wireCursor: null, menus: null };
 const svg = $('schematic'), viewport = $('viewport');
 
 function status(text) { $('status').textContent = text; }
@@ -38,18 +39,10 @@ const readOnly = () => !!(state.drawing && state.drawing.readOnly);
 
 function updateEnables() {
   const open = !!state.drawing, busy = state.busy, ro = readOnly();
-  const caps = open ? state.drawing.capabilities : {};
-  $('btnOpen').disabled = busy;
-  $('btnNew').disabled = busy;
-  for (const id of ['btnSave', 'btnSaveAs']) $(id).disabled = !open || busy || ro;
-  $('btnNetlist').disabled = !open || busy;
-  $('btnRotate').disabled = !open || busy || ro || state.selected === null;
-  $('btnDelete').disabled = !open || busy || ro || state.selected === null;
   $('parts').classList.toggle('disabled', !open || busy || ro);
   if ((!open || busy || ro) && state.placing !== null) stopPlacing();
-  $('btnView').disabled = !open || busy || state.selected === null || !(state.viewActions && state.viewActions.length);
-  $('btnUp').disabled = !open || busy || !state.drawing.canAscend;
-  for (const b of document.querySelectorAll('button.calc')) b.disabled = !open || busy || !caps[b.dataset.kind];
+  if ((!open || busy || ro) && state.wiring) stopWiring();
+  refreshCommands();
   for (const input of $('calcProps').querySelectorAll('input,button')) input.disabled = ro;
   document.title = 'SignalIntegrity' + (open ? ' - ' + state.drawing.path.join(' > ') + (ro ? ' (Read Only)' : '') : '');
   const bar = $('hierarchy');
@@ -96,6 +89,7 @@ function deviceAt(p) {
 async function setDrawing(drawing, fit = false) {
   state.drawing = drawing;
   renderPrimitives(viewport, drawing.items, state.colorMap);
+  drawWirePreview();
   const sel = drawing.devices.find(d => d.selected);
   state.selected = sel ? sel.index : null;
   state.viewActions = state.selected === null ? [] : await api('viewActions', { index: state.selected });
@@ -109,7 +103,11 @@ async function showLevel(drawing) {
 
 let drag = null;
 svg.addEventListener('pointerdown', async evt => {
-  hideContextMenu();
+  hideContextMenu(); closeMenus();
+  if (state.wiring) {
+    if (evt.button === 0) { addWirePoint(snap(toScene(evt))); drawWirePreview(); }
+    return;
+  }
   if (evt.button !== 0 || !state.drawing || state.busy) return;
   if (state.placing !== null) {
     const part = state.placing;
@@ -128,12 +126,18 @@ svg.addEventListener('pointerdown', async evt => {
       fill: 'none', stroke: state.palette ? state.palette.accent : '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
     drag = { kind: 'device', index, start: p, ghost, dx: 0, dy: 0 };
   } else {
-    if (state.selected !== null) await selectDevice(null);
+    const wire = wireAt(p);
+    if (wire !== null) {
+      try { await setDrawing(await api('selectWire', { index: wire })); await refreshProperties(); } catch (e) { error(e); }
+      return status('wire selected (Del deletes it)');
+    }
+    if (state.selected !== null || selectedWire() !== null) await selectDevice(null);
     drag = { kind: 'pan', x: evt.clientX, y: evt.clientY };
     svg.classList.add('panning');
   }
 });
 svg.addEventListener('pointermove', evt => {
+  if (state.wiring) { state.wireCursor = snap(toScene(evt)); drawWirePreview(); return; }
   if (!drag) return;
   if (drag.kind === 'pan') {
     state.view.tx += evt.clientX - drag.x; state.view.ty += evt.clientY - drag.y;
@@ -163,6 +167,65 @@ svg.addEventListener('wheel', evt => {
 }, { passive: false });
 window.addEventListener('resize', () => applyView());
 
+// ---------- wires: click each corner, double-click or right-click finishes, Esc cancels (as in tk)
+function snap(p) { const g = state.drawing.grid; return [Math.round(p.x / g) * g, Math.round(p.y / g) * g]; }
+function addWirePoint(pt) {
+  const last = state.wirePoints[state.wirePoints.length - 1];
+  if (!last || last[0] !== pt[0] || last[1] !== pt[1]) state.wirePoints.push(pt);
+}
+function drawWirePreview() {
+  const old = $('wirePreview');
+  if (old) old.remove();
+  const pts = state.wirePoints.concat(state.wiring && state.wirePoints.length && state.wireCursor ? [state.wireCursor] : []);
+  if (pts.length < 2) return;
+  el('polyline', { id: 'wirePreview', points: pts.map(p => p.join(',')).join(' '), fill: 'none',
+    stroke: state.colorMap ? state.colorMap.blue : 'blue', 'stroke-width': 1.5, 'stroke-dasharray': '5 3' }, viewport);
+}
+function startWiring() {
+  stopPlacing();
+  state.wiring = true; state.wirePoints = [];
+  svg.classList.add('wiring');
+  status('Add Wire: click each corner, double-click or right-click to finish a wire, Esc to stop');
+  refreshCommands();
+}
+function stopWiring() {
+  state.wiring = false; state.wirePoints = []; state.wireCursor = null;
+  svg.classList.remove('wiring');
+  drawWirePreview();
+  refreshCommands();
+}
+async function finishWire() {
+  const points = state.wirePoints;
+  state.wirePoints = [];
+  drawWirePreview();
+  if (points.length < 2) return;
+  try {
+    await setDrawing(await api('addWire', { points }));
+    await refreshProperties();
+    status('wire added - keep clicking to draw another, Esc to stop');
+  } catch (e) { error(e); }
+}
+svg.addEventListener('dblclick', evt => { if (state.wiring) { evt.preventDefault(); finishWire(); } });
+function selectedWire() {
+  const w = state.drawing && (state.drawing.wires || []).find(x => x.selected);
+  return w ? w.index : null;
+}
+// within 5 screen pixels at any zoom, but never less than a quarter grid
+function wireAt(p) {
+  if (!state.drawing) return null;
+  const tol = Math.max(0.25 * state.drawing.grid, 5 / state.view.s);
+  for (const w of state.drawing.wires || []) {
+    const q = w.points;
+    for (let k = 0; k + 3 < q.length; k += 2) {
+      const [x0, y0, x1, y1] = [q[k], q[k + 1], q[k + 2], q[k + 3]];
+      const L = (x1 - x0) ** 2 + (y1 - y0) ** 2;
+      const t = L ? Math.max(0, Math.min(1, ((p.x - x0) * (x1 - x0) + (p.y - y0) * (y1 - y0)) / L)) : 0;
+      if (Math.hypot(p.x - (x0 + t * (x1 - x0)), p.y - (y0 + t * (y1 - y0))) <= tol) return w.index;
+    }
+  }
+  return null;
+}
+
 // ---------- device context menu: the tk View / Open Project actions
 function hideContextMenu() { $('contextMenu').hidden = true; }
 document.addEventListener('pointerdown', e => { if (!$('contextMenu').contains(e.target)) hideContextMenu(); });
@@ -172,6 +235,7 @@ function preferredAction(actions) {
 }
 svg.addEventListener('contextmenu', async evt => {
   evt.preventDefault();
+  if (state.wiring) return finishWire();
   if (!state.drawing || state.busy) return;
   const index = deviceAt(toScene(evt));
   if (index === null) return;
@@ -181,9 +245,9 @@ svg.addEventListener('contextmenu', async evt => {
   const items = actions.map(a => [a.label, () => viewDevice(index, a.action)]);
   if (!readOnly()) {
     if (items.length) items.push(null);
-    items.push(['Edit Properties', () => { const i = $('properties').querySelector('input:not([type=checkbox]),select'); if (i) i.focus(); }]);
-    items.push(['Rotate', () => $('btnRotate').click()]);
-    items.push(['Delete', () => $('btnDelete').click()]);
+    items.push(['Edit Properties', () => runCommand('properties')]);
+    items.push(['Rotate', () => runCommand('rotate')]);
+    items.push(['Delete', () => runCommand('deletePart')]);
   }
   if (state.drawing.canAscend) { items.push(null); items.push(['Up to Parent Project', ascend]); }
   const menu = $('contextMenu');
@@ -213,8 +277,218 @@ async function viewDevice(index, action) {
 async function ascend() {
   try { await showLevel(await api('ascend')); status('returned to ' + state.drawing.title); } catch (e) { error(e); }
 }
-$('btnView').onclick = () => state.selected !== null && state.viewActions.length && viewDevice(state.selected, preferredAction(state.viewActions));
-$('btnUp').onclick = ascend;
+
+// ---------- commands: one handler and one enable rule per GuiCore/Menus.py command id
+const COMMANDS = {
+  new: { run: newProject, always: true },
+  open: { run: async () => { const f = await fileDialog('open'); if (f) await openProject(f); }, always: true },
+  save: { run: async () => { try { status('saved ' + (await api('save')).filename); } catch (e) { error(e); } }, when: c => c.writable },
+  saveAs: { run: saveAs, when: c => c.writable },
+  netlist: { run: showNetlist, when: c => c.open },
+  delete: { run: () => runCommand(selectedWire() !== null ? 'deleteWire' : 'deletePart'), when: c => c.writable && (c.device || c.wire) },
+  cancel: { run: cancel, always: true },
+  rotate: { run: rotate, when: c => c.writable && c.device },
+  properties: { run: editProperties, when: c => c.open && c.device },
+  deletePart: { run: deletePart, when: c => c.writable && c.device },
+  wire: { run: () => (state.wiring ? stopWiring() : startWiring()), when: c => c.writable, checked: () => state.wiring },
+  deleteWire: { run: deleteWire, when: c => c.writable && c.wire },
+  zoomIn: { run: () => zoomAt(1.25, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
+  zoomOut: { run: () => zoomAt(0.8, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
+  zoomFit: { run: zoomFit, when: c => c.open, idle: true },
+  viewDevice: { run: () => viewDevice(state.selected, preferredAction(state.viewActions)), when: c => c.device && c.viewable },
+  up: { run: ascend, when: c => c.open && state.drawing.canAscend },
+  about: { run: showAbout, always: true, idle: true },
+};
+for (const kind of Object.keys(CALC_TITLES)) COMMANDS[kind] = { run: () => calculate(kind), when: c => c.open && !!c.caps[kind] };
+
+function commandContext() {
+  const open = !!state.drawing;
+  return { open, writable: open && !readOnly(), device: open && state.selected !== null, wire: open && selectedWire() !== null,
+    viewable: !!(state.viewActions && state.viewActions.length), caps: open ? state.drawing.capabilities : {} };
+}
+function commandEnabled(id) {
+  const cmd = COMMANDS[id];
+  if (!cmd) return false;
+  if (state.busy && !cmd.idle) return false;
+  return cmd.always || cmd.when(commandContext());
+}
+function runCommand(id) {
+  closeMenus();
+  if (commandEnabled(id)) return COMMANDS[id].run();
+}
+function refreshCommands() {
+  for (const b of $('toolbar').querySelectorAll('button[data-cmd]')) {
+    b.disabled = !commandEnabled(b.dataset.cmd);
+    const cmd = COMMANDS[b.dataset.cmd];
+    b.classList.toggle('checked', !!(cmd && cmd.checked && cmd.checked()));
+  }
+}
+async function newProject() {
+  const f = await fileDialog('new');
+  if (!f) return;
+  try {
+    closeResults(true);
+    await showLevel(await api('new', { filename: f }));
+    status('created ' + state.drawing.filename + '  -  drag parts from the Parts stencil onto the schematic');
+  } catch (e) { error(e); }
+}
+async function saveAs() {
+  const f = await fileDialog('save');
+  if (!f) return;
+  try { status('saved ' + (await api('save', { filename: f })).filename); await setDrawing(await api('render')); } catch (e) { error(e); }
+}
+async function rotate() {
+  try { await setDrawing(await api('rotateDevice', { index: state.selected })); } catch (e) { error(e); }
+}
+async function deletePart() {
+  try { await setDrawing(await api('deleteDevice', { index: state.selected })); await refreshProperties(); } catch (e) { error(e); }
+}
+async function deleteWire() {
+  try { await setDrawing(await api('deleteWire', { index: selectedWire() })); status('wire deleted'); } catch (e) { error(e); }
+}
+function editProperties() {
+  const input = $('properties').querySelector('input:not([type=checkbox]),select');
+  if (input) input.focus();
+}
+function cancel() {
+  hideContextMenu(); closeMenus();
+  if (state.wiring) {
+    if (state.wirePoints.length) { state.wirePoints = []; drawWirePreview(); }
+    else { stopWiring(); status('wire mode off'); }
+  } else if (state.placing !== null) { stopPlacing(); status('placement cancelled'); }
+}
+async function showNetlist() {
+  try {
+    $('textDialogTitle').textContent = 'Netlist';
+    $('textDialogBody').textContent = (await api('netlist')).netlist;
+    $('textDialog').showModal();
+  } catch (e) { error(e); }
+}
+async function showAbout() {
+  const { version } = await api('version');
+  $('textDialogTitle').textContent = 'About SignalIntegrity';
+  $('textDialogBody').textContent = 'SignalIntegrity ' + version + '\nSignal and power integrity tools\n\n' +
+    'Copyright (c) 2021 Nubis Communications, Inc.\nCopyright (c) 2018-2020 Teledyne LeCroy, Inc.\nGNU General Public License v3 or later';
+  $('textDialog').showModal();
+}
+
+// ---------- menu bar (dropdowns) and toolbar, built from api('menus')
+const SUBMENUS = { recent: recentItems, theme: themeItems };
+let openMenu = null;
+function closeMenus() {
+  clear($('dropdowns'));
+  for (const b of $('menubar').querySelectorAll('button.open')) b.classList.remove('open');
+  openMenu = null;
+}
+function iconImg(id, size) {
+  const svgText = state.menus && state.menus.icons[id];
+  if (!svgText) return null;
+  const img = document.createElement('img');
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText);
+  img.width = img.height = size; img.alt = '';
+  return img;
+}
+function shortcutText(s) { return s ? s.replace('Del', 'Delete') : ''; }
+// items: menu entries from Menus.py, or {label, run, checked, heading, disabled} built by a submenu
+async function showDropdown(items, x, y, depth = 0) {
+  const host = $('dropdowns');
+  while (host.children.length > depth) host.lastChild.remove();
+  const ul = document.createElement('ul'); ul.className = 'dropdown';
+  for (const item of items) {
+    const li = document.createElement('li');
+    if (item.kind === 'separator') { li.className = 'sep'; ul.appendChild(li); continue; }
+    if (item.heading) { li.className = 'heading'; li.textContent = item.label; ul.appendChild(li); continue; }
+    const label = document.createElement('span'); label.className = 'label';
+    const icon = item.kind === 'command' ? iconImg(item.id, 18) : null;
+    if (icon) label.appendChild(icon);
+    label.append(item.label);
+    const keys = document.createElement('span'); keys.className = 'shortcut'; keys.textContent = shortcutText(item.shortcut);
+    li.append(label, keys);
+    if (item.kind === 'submenu') {
+      li.classList.add('submenu');
+      const open = async () => {
+        for (const s of ul.querySelectorAll('li.open')) s.classList.remove('open');
+        li.classList.add('open');
+        const r = li.getBoundingClientRect();
+        showDropdown(await SUBMENUS[item.id](), r.right - 2, r.top - 5, depth + 1);
+      };
+      li.addEventListener('pointerenter', open); li.addEventListener('click', open);
+    } else {
+      const enabled = item.kind === 'command' ? commandEnabled(item.id) : !item.disabled;
+      const checked = item.kind === 'command' ? !!(COMMANDS[item.id] && COMMANDS[item.id].checked && COMMANDS[item.id].checked()) : item.checked;
+      if (!enabled) li.classList.add('disabled');
+      if (checked) li.classList.add('checked');
+      if (item.title) li.title = item.title;
+      li.addEventListener('pointerenter', () => { while (host.children.length > depth + 1) host.lastChild.remove(); });
+      if (enabled) li.addEventListener('click', () => (item.kind === 'command' ? runCommand(item.id) : (closeMenus(), item.run())));
+    }
+    ul.appendChild(li);
+  }
+  host.appendChild(ul);
+  ul.style.left = Math.max(0, Math.min(x, window.innerWidth - ul.offsetWidth - 4)) + 'px';
+  ul.style.top = Math.max(0, Math.min(y, window.innerHeight - ul.offsetHeight - 4)) + 'px';
+}
+function buildMenus(spec) {
+  state.menus = spec;
+  const bar = $('menubar');
+  for (const b of bar.querySelectorAll('button')) b.remove();
+  for (const menu of spec.menus) {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = menu.title;
+    const open = () => {
+      closeMenus(); b.classList.add('open'); openMenu = b;
+      const r = b.getBoundingClientRect();
+      showDropdown(menu.items, r.left, r.bottom);
+    };
+    b.addEventListener('click', () => (openMenu === b ? closeMenus() : open()));
+    b.addEventListener('pointerenter', () => { if (openMenu && openMenu !== b) open(); });
+    bar.appendChild(b);
+  }
+  const labels = {};
+  for (const menu of spec.menus) for (const item of menu.items) if (item.kind === 'command') labels[item.id] = item;
+  const toolbar = $('toolbar'); clear(toolbar);
+  for (const id of spec.toolbar) {
+    if (id === null) { const s = document.createElement('span'); s.className = 'sep'; toolbar.appendChild(s); continue; }
+    const item = labels[id];
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.cmd = id;
+    b.title = item.label.replace(/\.+$/, '') + (item.shortcut ? ' (' + shortcutText(item.shortcut) + ')' : '');
+    const caption = document.createElement('span'); caption.textContent = spec.toolbarLabels[id] || item.label;
+    const img = iconImg(id, 32);
+    if (img) b.appendChild(img);
+    b.appendChild(caption);
+    b.addEventListener('click', () => runCommand(id));
+    toolbar.appendChild(b);
+  }
+  refreshCommands();
+}
+document.addEventListener('pointerdown', e => {
+  if (!e.target.closest('#dropdowns') && !e.target.closest('#menubar')) closeMenus();
+});
+async function recentItems() {
+  let recent = [];
+  try { recent = await api('recentProjects'); } catch (e) { /* show none */ }
+  const items = recent.map((f, i) => ({ label: (i + 1) % 10 + '  ' + f.split(/[\\/]/).pop(), title: f, run: () => openProject(f), disabled: state.busy }));
+  if (!items.length) items.push({ label: '(no recent projects)', disabled: true });
+  items.push({ kind: 'separator' });
+  items.push({ label: 'Clear Recent Projects', disabled: !recent.length, run: () => api('clearRecentProjects').then(() => status('recent projects cleared')) });
+  return items;
+}
+async function themeItems() {
+  let themes = [];
+  try { themes = await api('themes'); } catch (e) { error(e); }
+  const items = [];
+  const groups = [['SignalIntegrity', t => t.extension === 'SignalIntegrity'],
+    ['VS Code dark themes', t => t.extension !== 'SignalIntegrity' && !['vs', 'hc-light'].includes(t.uiTheme)],
+    ['VS Code light themes', t => t.extension !== 'SignalIntegrity' && ['vs', 'hc-light'].includes(t.uiTheme)]];
+  for (const [heading, rule] of groups) {
+    const list = themes.filter(rule);
+    if (!list.length) continue;
+    items.push({ label: heading, heading: true });
+    for (const t of list) items.push({ label: t.label, checked: !!(state.theme && state.theme.id === t.id), run: () => setTheme(t.id, t.label) });
+  }
+  items.push({ kind: 'separator' });
+  items.push({ label: 'Load Theme File...', run: loadThemeFile });
+  return items;
+}
 
 // ---------- tables
 function checkCell(checked, enabled, onChange) {
@@ -360,33 +634,6 @@ function fileDialog(mode) {
     dlg.showModal();
   });
 }
-$('btnOpen').onclick = async () => { const f = await fileDialog('open'); if (f) await openProject(f); };
-$('btnNew').onclick = async () => {
-  const f = await fileDialog('new');
-  if (!f) return;
-  try {
-    closeResults(true);
-    await showLevel(await api('new', { filename: f }));
-    status('created ' + state.drawing.filename + '  -  drag parts from the Parts stencil onto the schematic');
-  } catch (e) { error(e); }
-};
-$('btnSave').onclick = async () => { try { status('saved ' + (await api('save')).filename); } catch (e) { error(e); } };
-$('btnSaveAs').onclick = async () => {
-  const f = await fileDialog('save');
-  if (!f) return;
-  try { status('saved ' + (await api('save', { filename: f })).filename); await setDrawing(await api('render')); } catch (e) { error(e); }
-};
-$('btnZoomIn').onclick = () => zoomAt(1.25, svg.clientWidth / 2, svg.clientHeight / 2);
-$('btnZoomOut').onclick = () => zoomAt(0.8, svg.clientWidth / 2, svg.clientHeight / 2);
-$('btnZoomFit').onclick = zoomFit;
-$('btnRotate').onclick = async () => {
-  if (state.selected === null) return;
-  try { await setDrawing(await api('rotateDevice', { index: state.selected })); } catch (e) { error(e); }
-};
-$('btnDelete').onclick = async () => {
-  if (state.selected === null || readOnly()) return;
-  try { await setDrawing(await api('deleteDevice', { index: state.selected })); await refreshProperties(); } catch (e) { error(e); }
-};
 
 // ---------- parts stencil
 const PART_TYPE = 'text/x-si-part';
@@ -539,42 +786,6 @@ async function loadThemeFile() {
     if (i !== null) await setTheme(themes[i].id, themes[i].label);
   } catch (e) { error(e); }
 }
-function hideThemeMenu() { $('themeMenu').hidden = true; }
-document.addEventListener('pointerdown', e => { if (!$('themeMenu').contains(e.target) && e.target !== $('btnTheme')) hideThemeMenu(); });
-$('btnTheme').onclick = async () => {
-  const menu = $('themeMenu');
-  if (!menu.hidden) return hideThemeMenu();
-  let themes;
-  try { themes = await api('themes'); } catch (e) { return error(e); }
-  clear(menu);
-  const add = (text, cls, onClick) => {
-    const li = document.createElement('li'); li.textContent = text; if (cls) li.className = cls;
-    if (onClick) li.addEventListener('click', () => { hideThemeMenu(); onClick(); });
-    menu.appendChild(li);
-  };
-  const groups = [['SignalIntegrity', t => t.extension === 'SignalIntegrity'],
-    ['VS Code dark themes', t => t.extension !== 'SignalIntegrity' && !['vs', 'hc-light'].includes(t.uiTheme)],
-    ['VS Code light themes', t => t.extension !== 'SignalIntegrity' && ['vs', 'hc-light'].includes(t.uiTheme)]];
-  for (const [heading, rule] of groups) {
-    const list = themes.filter(rule);
-    if (!list.length) continue;
-    add(heading, 'heading');
-    for (const t of list) add(t.label, state.theme && state.theme.id === t.id ? 'current' : '', () => setTheme(t.id, t.label));
-  }
-  add('', 'sep');
-  add('Load Theme File...', '', loadThemeFile);
-  const r = $('btnTheme').getBoundingClientRect();
-  menu.hidden = false;
-  menu.style.top = r.bottom + 2 + 'px';
-  menu.style.left = Math.max(4, r.right - menu.offsetWidth) + 'px';
-};
-$('btnNetlist').onclick = async () => {
-  try {
-    $('textDialogTitle').textContent = 'Netlist';
-    $('textDialogBody').textContent = (await api('netlist')).netlist;
-    $('textDialog').showModal();
-  } catch (e) { error(e); }
-};
 $('textDialogClose').onclick = () => $('textDialog').close();
 
 // ---------- calculation
@@ -606,7 +817,6 @@ async function calculate(kind) {
     status(CALC_TITLES[kind] + ' complete');
   } else error(new Error(job.error || 'calculation failed'));
 }
-for (const b of document.querySelectorAll('button.calc')) b.onclick = () => calculate(b.dataset.kind);
 
 // ---------- results: a port of the tk simulator dialog
 // the simulator view keeps its zoom and selections across recalculations, like SimulatorDialog
@@ -784,16 +994,27 @@ function showResults(result, title, recalculable) {
 }
 
 // ---------- keyboard
+// shortcuts come from Menus.py, e.g. 'Ctrl+Shift+S', 'Alt+Up', 'Del', 'W'
+const KEY_NAMES = { ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left', ArrowRight: 'Right', Delete: 'Del', Backspace: 'Del',
+  Escape: 'Esc', '=': '+' };
+function keyCombo(e) {
+  const key = KEY_NAMES[e.key] || (e.key.length === 1 ? e.key.toUpperCase() : e.key);
+  // Shift counts for letters and named keys; for punctuation like '+' it is part of the character
+  const shift = e.shiftKey && /^([A-Z0-9]|[A-Z][a-z]+)$/.test(key);
+  return [(e.ctrlKey || e.metaKey) && 'Ctrl', shift && 'Shift', e.altKey && 'Alt', key].filter(Boolean).join('+');
+}
 window.addEventListener('keydown', e => {
-  if (document.querySelector('dialog[open]:modal')) return;
-  if (e.key === 'Escape') { if (state.placing !== null) { stopPlacing(); status('placement cancelled'); } hideThemeMenu(); hideContextMenu(); return; }
+  if (document.querySelector('dialog[open]:modal') || !state.menus) return;
+  if (state.wiring && e.key === 'Enter') { e.preventDefault(); return finishWire(); }
   const typing = /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement && document.activeElement.tagName);
-  if (!typing && (e.key === 'Delete' || e.key === 'Backspace') && !$('btnDelete').disabled) { e.preventDefault(); return $('btnDelete').click(); }
-  if (e.altKey && e.key === 'ArrowUp' && !$('btnUp').disabled) { e.preventDefault(); return ascend(); }
-  if (!(e.ctrlKey || e.metaKey)) return;
-  const k = e.key.toLowerCase();
-  const map = { n: 'btnNew', o: 'btnOpen', s: 'btnSave', r: 'btnRotate', e: 'btnView', 0: 'btnZoomFit' };
-  if (map[k] && !$(map[k]).disabled) { e.preventDefault(); $(map[k]).click(); }
+  const combo = keyCombo(e);
+  for (const menu of state.menus.menus) for (const item of menu.items) {
+    if (item.kind !== 'command' || item.shortcut !== combo) continue;
+    // single keys (Del, W) belong to the schematic, not to a table cell being edited
+    if (typing && !/^(Ctrl|Alt)\+/.test(combo) && item.id !== 'cancel') return;
+    e.preventDefault();
+    return runCommand(item.id);
+  }
 });
 
 // ---------- start-up
@@ -803,6 +1024,7 @@ window.addEventListener('keydown', e => {
   try {
     const { version } = await api('version');
     status('SignalIntegrity ' + version + ' - open a project (.si) to begin');
+    buildMenus(await api('menus'));
     applyTheme(await api('theme'));
     await loadStencil();
     await showLevel(await api('render'));

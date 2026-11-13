@@ -9,31 +9,9 @@
 <script type="module" src="app.js"></script>
 </head>
 <body>
-<header id="toolbar">
-  <img class="logo" src="favicon.png" alt="">
-  <button id="btnNew" title="New project (Ctrl+N)">New</button>
-  <button id="btnOpen" title="Open project (Ctrl+O)">Open</button>
-  <button id="btnSave" title="Save project (Ctrl+S)" disabled>Save</button>
-  <button id="btnSaveAs" title="Save project as" disabled>Save As</button>
-  <span class="sep"></span>
-  <button id="btnZoomIn" title="Zoom in">Zoom In</button>
-  <button id="btnZoomOut" title="Zoom out">Zoom Out</button>
-  <button id="btnZoomFit" title="Zoom to fit (Ctrl+0)">Fit</button>
-  <span class="sep"></span>
-  <button id="btnRotate" title="Rotate selected device (Ctrl+R)" disabled>Rotate</button>
-  <button id="btnDelete" title="Delete selected device (Delete)" disabled>Delete</button>
-  <button id="btnView" title="View the selected device or open its project (Ctrl+E)" disabled>View / Open Project</button>
-  <button id="btnUp" title="Up to the parent project (Alt+Up)" disabled>Up</button>
-  <span class="sep"></span>
-  <button class="calc" data-kind="simulate" disabled>Simulate</button>
-  <button class="calc" data-kind="sparameters" disabled>S-parameters</button>
-  <button class="calc" data-kind="virtualprobe" disabled>Virtual Probe</button>
-  <button class="calc" data-kind="deembed" disabled>De-embed</button>
-  <span class="sep"></span>
-  <button id="btnNetlist" disabled>Netlist</button>
-  <span class="spacer"></span>
-  <button id="btnTheme" title="Color theme (VS Code themes)">Theme &#x25BE;</button>
-</header>
+<!-- menu bar and toolbar are built by app.js from GuiCore/Menus.py (api 'menus') -->
+<nav id="menubar"><img class="logo" src="favicon.png" alt=""></nav>
+<header id="toolbar"></header>
 <main>
   <aside id="left">
     <section id="parts" class="disabled">
@@ -61,7 +39,7 @@
 </main>
 <footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
 <menu id="contextMenu" hidden></menu>
-<menu id="themeMenu" hidden></menu>
+<div id="dropdowns"></div>
 
 <dialog id="fileDialog">
   <h3 id="fileDialogTitle">Open Project</h3>

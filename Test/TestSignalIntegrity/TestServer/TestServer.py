@@ -40,10 +40,62 @@ def WaitForJob(api,job,timeout=120.):
 
 class TestServerApiTest(unittest.TestCase):
     def setUp(self):
+        import tempfile, shutil
+        from unittest import mock
+        from SignalIntegrity.GuiCore.Settings import ENVIRONMENT_VARIABLE
         self.cwd=os.getcwd()
+        self.settings=tempfile.mkdtemp()
+        patch=mock.patch.dict(os.environ,{ENVIRONMENT_VARIABLE:self.settings})
+        patch.start()
+        self.addCleanup(shutil.rmtree,self.settings,True)
+        self.addCleanup(patch.stop)
         self.api=Api()
     def tearDown(self):
         os.chdir(self.cwd)
+    def testWiresMenusAndRecent(self):
+        import sys, tempfile, shutil
+        sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
+        from TestGuiCore.TestGuiCore import BuildDivider
+        directory=tempfile.mkdtemp()
+        try:
+            self.assertEqual(self.api.Dispatch('recentProjects',{}),[])
+            BuildDivider(self.api.session,directory)
+            self.api.Dispatch('save',{'filename':os.path.join(directory,'divider')})
+            self.api.Dispatch('open',{'filename':os.path.join(EXAMPLES,'RLC.si')})
+            self.assertEqual([os.path.basename(f) for f in self.api.Dispatch('recentProjects',{})],['RLC.si','divider.si'])
+            drawing=self.api.Dispatch('open',{'filename':os.path.join(directory,'divider.si')})
+            self.assertEqual(drawing['wires'],[])
+            drawing=self.api.Dispatch('addWire',{'points':[[96,160],[96,96],[240,96]]})
+            drawing=self.api.Dispatch('addWire',{'points':[[304,96],[400,96],[496,96],[496,80]]})
+            self.assertEqual(len(drawing['wires']),3)
+            job=WaitForJob(self.api,self.api.Dispatch('calculate',{'kind':'simulate'}))
+            self.assertEqual(job['state'],'done',job['error'])
+            drawing=self.api.Dispatch('selectWire',{'index':0})
+            self.assertTrue(drawing['wires'][0]['selected'])
+            self.assertEqual(len(self.api.Dispatch('deleteWire',{'index':0})['wires']),2)
+            for method,params in (('addWire',{'points':'0,0'}),('addWire',{'points':[[0,0]]}),('selectWire',{'index':9}),
+                                  ('deleteWire',{'index':'0'})):
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch(method,params)
+            self.assertEqual(self.api.Dispatch('clearRecentProjects',{}),[])
+            menus=self.api.Dispatch('menus',{})
+            self.assertEqual([m['title'] for m in menus['menus']],['File','Edit','Parts','Wires','View','Calculate','Help'])
+            self.assertTrue(all(c is None or menus['icons'][c].startswith('<svg') for c in menus['toolbar']))
+            json.dumps(menus)
+        finally:
+            os.chdir(self.cwd)
+            shutil.rmtree(directory,ignore_errors=True)
+    def testWebHandlesEveryCommand(self):
+        import re
+        from SignalIntegrity.GuiCore.Menus import CommandIds, SubmenuIds, CALCULATION_IDS
+        ui=os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','..','SignalIntegrity','Server','ui','app.js')
+        with open(ui) as f:
+            source=f.read()
+        commands=source[source.index('const COMMANDS = {'):source.index('function commandContext')]
+        handled=set(re.findall(r'^\s+(\w+): \{ run:',commands,re.M))|set(CALCULATION_IDS)
+        self.assertEqual(set(CommandIds('web'))-handled,set())
+        submenus=re.search(r'const SUBMENUS = \{([^}]*)\}',source).group(1)
+        self.assertEqual({s for s in SubmenuIds('web') if not re.search(r'\b'+s+r':',submenus)},set())
     def testMethodValidation(self):
         with self.assertRaises(ApiError) as e:
             self.api.Dispatch('bogus',{})
@@ -209,13 +261,22 @@ class TestServerApiTest(unittest.TestCase):
 class TestServerHttpTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        import tempfile
+        from unittest import mock
+        from SignalIntegrity.GuiCore.Settings import ENVIRONMENT_VARIABLE
         cls.cwd=os.getcwd()
+        cls.settings=tempfile.mkdtemp()
+        cls.settingsPatch=mock.patch.dict(os.environ,{ENVIRONMENT_VARIABLE:cls.settings})
+        cls.settingsPatch.start()
         cls.server=SignalIntegrityServer(0,'test-token')
         cls.server.StartInThread()
     @classmethod
     def tearDownClass(cls):
+        import shutil
         cls.server.shutdown()
         cls.server.server_close()
+        cls.settingsPatch.stop()
+        shutil.rmtree(cls.settings,ignore_errors=True)
         os.chdir(cls.cwd)
     def Request(self,method,path,body=None,headers=None):
         connection=http.client.HTTPConnection('127.0.0.1',self.server.port,timeout=60)
