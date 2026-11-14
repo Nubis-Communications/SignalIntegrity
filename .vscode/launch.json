@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SignalIntegrity: Web",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "SignalIntegrity.Server",
+            "args": ["--browser"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "SignalIntegrity: Desktop (Tauri)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run tauri dev",
+            "cwd": "${workspaceFolder}/Tauri"
+        }
+    ]
+}

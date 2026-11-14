@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "SignalIntegrity",
+  "version": "1.5.7",
+  "identifier": "com.nubis-communications.signalintegrity",
+  "build": {
+    "frontendDist": "../loading"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "SignalIntegrity",
+        "url": "index.html",
+        "width": 1400,
+        "height": 900,
+        "minWidth": 800,
+        "minHeight": 500,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico", "icons/icon.png"],
+    "category": "DeveloperTool",
+    "shortDescription": "Signal and power integrity tools",
+    "fileAssociations": [
+      { "ext": ["si"], "name": "SignalIntegrity Project", "role": "Editor" }
+    ]
+  }
+}
