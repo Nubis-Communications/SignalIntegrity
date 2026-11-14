@@ -45,6 +45,17 @@ if _workerId is not None:
         shutil.copy2(_sharedPreferences, _workerPreferences)
     os.environ[Preferences.envVar] = _workerPreferences
 
+def pytest_configure(config):
+    config.addinivalue_line('markers', 'gui: Tk GUI test from the TestGui package')
+
+def pytest_collection_modifyitems(config, items):
+    # TestAll.py re-exports the TestGui classes, so mark them by their defining module. CI runs
+    # them serially (-m gui -p no:xdist); Tk start-up fails intermittently in xdist workers on Windows.
+    for item in items:
+        cls = getattr(item, 'cls', None)
+        if cls is not None and cls.__module__.split('.')[0] == 'TestGui':
+            item.add_marker('gui')
+
 def pytest_unconfigure(config):
     if _workerDir is not None:
         shutil.rmtree(_workerDir, ignore_errors=True)
