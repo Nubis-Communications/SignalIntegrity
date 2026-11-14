@@ -61,10 +61,12 @@ jobs:
       - name: Run tests (Windows)
         if: runner.os == 'Windows'
         run: python -m pytest -n auto --dist loadscope -m "not gui"
-      # GUI tests run serially; Tk start-up fails intermittently in pytest-xdist workers on Windows.
+      # GUI tests run serially and on their own, exactly like gui-theme.yml: Tk/Tcl intermittently fails
+      # to read its own library files on Windows when they run in pytest-xdist workers or after
+      # TestAll.py has imported the whole suite.
       - name: Run GUI tests (Linux)
         if: runner.os == 'Linux' && !cancelled()
-        run: xvfb-run -a python -m pytest -p no:xdist -m gui
+        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestGui
       - name: Run GUI tests (Windows)
         if: runner.os == 'Windows' && !cancelled()
-        run: python -m pytest -p no:xdist -m gui
+        run: python -m unittest Test.TestSignalIntegrity.TestGui
