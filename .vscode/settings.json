@@ -5,5 +5,6 @@
     "python.testing.pytestArgs": [
         "TestSignalIntegrity/TestAll.py"
     ],
-    "python-envs.defaultEnvManager": "ms-python.python:system"
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe"
 }
