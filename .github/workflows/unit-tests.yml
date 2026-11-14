@@ -1,0 +1,74 @@
+# Copyright (c) 2026 Nubis Communications, Inc.
+# All rights reserved worldwide.
+#
+# This file is part of SignalIntegrity.
+#
+# SignalIntegrity is free software: You can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>
+
+name: Unit tests
+
+on:
+  pull_request:
+    branches: [master, InNextRelease]
+
+permissions:
+  contents: read
+
+# A new push to the PR cancels the run still in progress for the previous push.
+concurrency:
+  group: unit-tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.14']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    env:
+      SIGNALINTEGRITY_REQUIRE_GUI_TESTS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: |
+            setup.py
+            pytest-requirements.txt
+      - name: Install Linux virtual display
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+      - name: Install application and test dependencies
+        run: python -m pip install -r pytest-requirements.txt ".[test]"
+      # Tcl occasionally fails to read its own library files on the Windows runners
+      # ("couldn't read file .../init.tcl"), so only tests failing with TclError are retried.
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
+      - name: Run tests (Windows)
+        if: runner.os == 'Windows'
+        run: python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
+      # GUI tests run serially and on their own with unittest: Tk/Tcl intermittently fails
+      # to read its own library files on Windows when they run in pytest-xdist workers or after
+      # TestAll.py has imported the whole suite.
+      - name: Run GUI tests (Linux)
+        if: runner.os == 'Linux' && !cancelled()
+        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestGui
+      - name: Run GUI tests (Windows)
+        if: runner.os == 'Windows' && !cancelled()
+        run: python -m unittest Test.TestSignalIntegrity.TestGui

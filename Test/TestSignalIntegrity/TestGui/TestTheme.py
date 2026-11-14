@@ -72,6 +72,31 @@ class TestTheme(unittest.TestCase):
         self.preferences['Appearance.Theme'] = name
         ApplyTheme(self.root, self.preferences)
 
+    def test_theme_applies_when_tcl_autoload_index_lacks_tk_procedures(self):
+        # Reproduces the state seen in pytest-xdist workers on Windows: the auto_index is marked
+        # loaded for the current auto_path but has no entry for tk_setPalette.
+        self.root.tk.eval('catch {rename ::tk_setPalette {}}; array unset ::auto_index tk_setPalette;'
+                          'set ::tcl::auto_oldpath $::auto_path')
+        self.assertEqual(self.root.tk.eval('info commands tk_setPalette'), '')
+        self.apply('Dark')
+        self.assertEqual(self.root.cget('background'), PALETTES['Dark']['background'])
+
+    def test_new_widgets_follow_theme_after_switching_back_from_legacy(self):
+        # Tk 9's tk_setPalette leaves class-specific option entries (e.g. *Label.foreground) from an
+        # earlier palette; they must not override the current theme for windows created later.
+        label = tk.Label(self.root)
+        self.apply('Dark')
+        self.apply('Legacy')
+        label.destroy()
+        self.preferences['Appearance.Themes.Dark.Foreground'] = '#aabbcc'
+        self.apply('Dark')
+        top = tk.Toplevel(self.root)
+        try:
+            self.assertEqual(self.root.winfo_rgb(tk.Label(top).cget('foreground')),
+                             self.root.winfo_rgb('#aabbcc'))
+        finally:
+            top.destroy()
+
     def test_switching_restores_legacy_controls_and_custom_preferences(self):
         entry = tk.Entry(self.root, readonlybackground='light gray')
         button = tk.Button(self.root)
@@ -463,8 +488,8 @@ class TestTheme(unittest.TestCase):
             with open(os.path.join(appDir, sourceName), encoding='utf-8-sig') as source:
                 tree = ast.parse(source.read())
             for node in ast.walk(tree):
-                if isinstance(node, ast.Str):
-                    filename = os.path.basename(node.s)
+                if isinstance(node, ast.Constant) and isinstance(node.value, str):
+                    filename = os.path.basename(node.value)
                     name, extension = os.path.splitext(filename)
                     if (extension in ('.gif', '.png') and '*' not in name
                             and filename not in ('AppIcon2.gif', 'gpl.gif')):
@@ -692,7 +717,12 @@ class TestTheme(unittest.TestCase):
         def visible(event):
             if event.widget == dialog:
                 dialog.unbind('<Visibility>')
-                dialog.after_idle(lambda: dialog.defaultButton.event_generate('<Escape>'))
+                # Key events go to the focus window, and without a window manager (xvfb) focus must be
+                # forced and has arrived only once <FocusIn> is seen.
+                button = dialog.defaultButton
+                button.bind('<FocusIn>', lambda e: (button.unbind('<FocusIn>'),
+                                                    button.after_idle(lambda: button.event_generate('<Escape>'))))
+                dialog.after_idle(button.focus_force)
         dialog.bind('<Visibility>', visible)
         timeout = self.root.after(1000, lambda: dialog.Choose('timeout'))
         try:

@@ -100,9 +100,20 @@ class RegressionContext(object):
         RegressionCallSite.enabled=False
         RegressionCallSite.Reset()
     @classmethod
+    def ProjectPath(cls,filename):
+        """Returns the project path relative to the archive root.
+        On Windows a project on a different drive than the archive root has no relative path,
+        so its absolute path without the drive is used, keeping mirrored files under the root.
+        """
+        absolute=os.path.abspath(filename)
+        try:
+            return os.path.relpath(absolute,cls.archiveRoot)
+        except ValueError:
+            return os.path.splitdrive(absolute)[1].lstrip('\\/')
+    @classmethod
     def CallSiteKey(cls,filename,args=None):
         """Returns the stable key for one sub-project invocation."""
-        project=os.path.relpath(os.path.abspath(filename),cls.archiveRoot).replace('\\','/')
+        project=cls.ProjectPath(filename).replace('\\','/')
         callsite=RegressionCallSite.Current()
         return project+('|'+callsite if callsite else '')
     @classmethod
@@ -125,7 +136,7 @@ class RegressionContext(object):
         @param label object (optional) distinguishes multiple results of one artifact
         (e.g. a waveform or noise name) within the same call site.
         """
-        project=os.path.relpath(os.path.abspath(filename),cls.archiveRoot)
+        project=cls.ProjectPath(filename)
         directory=os.path.join(cls.regressionRoot,os.path.dirname(project))
         stem=os.path.splitext(os.path.basename(project))[0]
         callsite=RegressionCallSite.Current()

@@ -31,6 +31,8 @@ class TestPAM6Test(unittest.TestCase,
     debug=False
     checkPictures=True
     epsilon=50e-12
+    # The eye diagram noise residual and SDR of PAM6_Vo1 differ by up to ~4% between Windows and Linux.
+    jsonRelativeTolerance=0.05
     def setUp(self):
         unittest.TestCase.setUp(self)
         self.cwd=os.getcwd()
