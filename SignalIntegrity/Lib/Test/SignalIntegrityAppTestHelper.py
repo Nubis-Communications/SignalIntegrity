@@ -28,6 +28,17 @@ class SignalIntegrityAppTestHelper:
     plotErrors=False
     forceWritePictures=False
     SPCompareResolution=1e-3
+    # Largest allowed RMS difference (in 0-255 levels, summed over color channels per pixel)
+    # between an eye-diagram image and its reference. Different platforms and numeric library
+    # builds render the same eye with tiny intensity differences, measured up to about 1.9.
+    imageRMSETolerance=3.0
+    # Largest allowed RMS difference of a regression array, relative to the reference's RMS value,
+    # when the arrays are not element-wise close. Measured up to about 0.017 between platforms.
+    arrayRelativeRMSTolerance=0.05
+    # Optional relative tolerance for floats in JSON results, for tests whose results include
+    # statistically estimated quantities (e.g. noise residuals) that vary more between platforms.
+    # None keeps the default comparison to the displayed significant digits.
+    jsonRelativeTolerance=None
     allowReferenceImpedanceTranslation=True
     diff_projects=True
     # whether pictures and netlists checked are mirrored into the Book folder
@@ -351,7 +362,8 @@ class SignalIntegrityAppTestHelper:
 
         #print(f'RMSE: {ImageRMSE(regression,img)}')
         errorBetweenImages=ImageRMSE(regression,img)
-        self.assertTrue(errorBetweenImages<=0.,filename + ' incorrect')
+        self.assertTrue(errorBetweenImages<=self.imageRMSETolerance,
+            f'{filename} incorrect (RMS difference {errorBetweenImages:.3f} > {self.imageRMSETolerance})')
         os.chdir(currentDirectory)
     def NumpyArrayRegressionChecker(self,ary,filename):
         import numpy as np
@@ -363,7 +375,15 @@ class SignalIntegrityAppTestHelper:
                 self.assertTrue(False, filename + ' not found')
         regression=np.load(filename)
         #print(np.sum(np.isclose(ary,regression)))
-        self.assertTrue(np.allclose(ary,regression),filename + ' incorrect')
+        same=np.shape(ary)==np.shape(regression) and np.allclose(ary,regression)
+        message=filename + ' incorrect'
+        if not same and np.shape(ary)==np.shape(regression):
+            # eye diagram bitmaps are probability densities that shift slightly between platforms
+            difference=np.asarray(ary,dtype=float)-np.asarray(regression,dtype=float)
+            relativeRMS=np.sqrt(np.mean(difference**2))/max(np.sqrt(np.mean(np.asarray(regression,dtype=float)**2)),1e-300)
+            same=relativeRMS<=self.arrayRelativeRMSTolerance
+            message=f'{filename} incorrect (relative RMS difference {relativeRMS:.4f} > {self.arrayRelativeRMSTolerance})'
+        self.assertTrue(same,message)
         os.chdir(currentDirectory)
     def JsonDictRegressionChecker(self,meas,filename):
         import json
@@ -417,6 +437,13 @@ class SignalIntegrityAppTestHelper:
             Raises:
                 TypeError: if `js1` or `js2` is not a valid json object.
             """
+            def _precision_for(js):
+                if js<1e-10:
+                    return max(0,precision-2)
+                elif js<1e-4:
+                    return max(0,precision-1)
+                return precision
+
             def _float_to_str_in_json(js,stringList):
                 if type(js) in (str, int, bool, type(None)):
                     jsstring=str(js)
@@ -426,12 +453,7 @@ class SignalIntegrityAppTestHelper:
                 if type(js) is float:
                     if abs(js)<1e-15:
                         js=0.0
-                    if js<1e-10:
-                        precisionToUse=max(0,precision-2)
-                    elif js<1e-4:
-                        precisionToUse=max(0,precision-1)
-                    else:
-                        precisionToUse=precision
+                    precisionToUse=_precision_for(js)
                     jsstring=f"{js:.{precisionToUse}e}"
                     #print(jsstring)
                     stringList.append(jsstring+'\n')
@@ -456,7 +478,31 @@ class SignalIntegrityAppTestHelper:
                 with open('regressionJson.txt','wt') as f: f.writelines(stringList1)
                 with open('currentJson.txt','wt') as f: f.writelines(stringList2)
 
-            return new_js1 == new_js2
+            if new_js1 == new_js2:
+                return True
+
+            # Rounded strings can differ for nearly identical values that straddle a rounding
+            # boundary (e.g. 0.02942 vs 0.02947 -> 2.94e-02 vs 2.95e-02, seen between Windows and
+            # Linux). Accept floats within half a unit of the last compared digit.
+            def _close(a,b):
+                if type(a) is complex and type(b) is complex:
+                    return _close(a.real,b.real) and _close(a.imag,b.imag)
+                if type(a) is float and type(b) is float:
+                    a=0.0 if abs(a)<1e-15 else a
+                    b=0.0 if abs(b)<1e-15 else b
+                    if f"{a:.{_precision_for(a)}e}" == f"{b:.{_precision_for(b)}e}":
+                        return True
+                    tolerance=0.5*10.**(-min(_precision_for(a),_precision_for(b)))
+                    if self.jsonRelativeTolerance is not None:
+                        tolerance=max(tolerance,self.jsonRelativeTolerance)
+                    return abs(a-b) <= tolerance*max(abs(a),abs(b))
+                if type(a) is list and type(b) is list:
+                    return len(a) == len(b) and all(_close(x,y) for x,y in zip(a,b))
+                if type(a) is dict and type(b) is dict:
+                    return a.keys() == b.keys() and all(_close(a[k],b[k]) for k in a)
+                return type(a) == type(b) and a == b
+
+            return _close(js1,js2)
 
         self.assertTrue(are_jsons_approx_equal(regression,meas,2),filename + ' incorrect')
         os.chdir(currentDirectory)

@@ -27,7 +27,6 @@ class Encryption(object):
     by only a few, in order to use it, you need to pip install:
 
     pycryptodome
-    scrypt
 
     """
     password = None
@@ -41,22 +40,29 @@ class Encryption(object):
                 ending = '$'
             Encryption.ending = ending
 
+    @staticmethod
+    def __secret_key(password, kdfSalt):
+        # hashlib.scrypt produces the same key as the scrypt package's scrypt.hash(), without
+        # needing that package (which has no wheels for newer Pythons on Windows).
+        import hashlib
+        if isinstance(password, str):
+            password = password.encode('utf-8')
+        return hashlib.scrypt(password, salt=kdfSalt, n=16384, r=8, p=1, maxmem=64*1024*1024, dklen=32)
+
     def __encrypt_AES_GCM(self,msg, password=None):
         from Crypto.Cipher import AES
-        import scrypt
         if password == None: password=self.password.encode()
         kdfSalt = os.urandom(16)
-        secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)
+        secretKey = self.__secret_key(password, kdfSalt)
         aesCipher = AES.new(secretKey, AES.MODE_GCM)
         ciphertext, authTag = aesCipher.encrypt_and_digest(msg)
         return (kdfSalt, ciphertext, aesCipher.nonce, authTag)
 
     def __decrypt_AES_GCM(self,encryptedMsg, password=None):
         from Crypto.Cipher import AES
-        import scrypt
         if password == None: password=self.password.encode()
         (kdfSalt, ciphertext, nonce, authTag) = encryptedMsg
-        secretKey = scrypt.hash(password, kdfSalt, N=16384, r=8, p=1, buflen=32)
+        secretKey = self.__secret_key(password, kdfSalt)
         aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
         plaintext = aesCipher.decrypt_and_verify(ciphertext, authTag)
         return plaintext
