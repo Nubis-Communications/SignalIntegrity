@@ -55,12 +55,14 @@ jobs:
           sudo apt-get install -y xvfb
       - name: Install application and test dependencies
         run: python -m pip install -r pytest-requirements.txt ".[test]"
+      # Tcl occasionally fails to read its own library files on the Windows runners
+      # ("couldn't read file .../init.tcl"), so only tests failing with TclError are retried.
       - name: Run tests (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run -a python -m pytest -n auto --dist loadscope -m "not gui"
+        run: xvfb-run -a python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
       - name: Run tests (Windows)
         if: runner.os == 'Windows'
-        run: python -m pytest -n auto --dist loadscope -m "not gui"
+        run: python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
       # GUI tests run serially and on their own, exactly like gui-theme.yml: Tk/Tcl intermittently fails
       # to read its own library files on Windows when they run in pytest-xdist workers or after
       # TestAll.py has imported the whole suite.
