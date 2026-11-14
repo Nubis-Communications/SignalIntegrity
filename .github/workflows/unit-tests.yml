@@ -63,7 +63,7 @@ jobs:
       - name: Run tests (Windows)
         if: runner.os == 'Windows'
         run: python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
-      # GUI tests run serially and on their own, exactly like gui-theme.yml: Tk/Tcl intermittently fails
+      # GUI tests run serially and on their own with unittest: Tk/Tcl intermittently fails
       # to read its own library files on Windows when they run in pytest-xdist workers or after
       # TestAll.py has imported the whole suite.
       - name: Run GUI tests (Linux)
