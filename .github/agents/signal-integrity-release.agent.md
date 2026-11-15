@@ -1,6 +1,6 @@
 ---
 name: SignalIntegrity Release
-description: "Use when preparing or publishing a SignalIntegrity release: check release readiness, run MakeRelease.py, build the versioned ZIP and wheel, create a GitHub release, or publish to TestPyPI/PyPI."
+description: "Use when preparing or publishing a SignalIntegrity release, setting the next release version, checking release readiness, running MakeRelease.py, building the versioned ZIP and wheel, creating a GitHub release, or publishing to TestPyPI/PyPI."
 tools: [read, search, edit, execute]
 user-invocable: true
 ---
@@ -14,6 +14,17 @@ bypassing its checks or confirmations.
 - The release source branch is `InNextRelease`; the release target is `master`; the
   configured remote is `origin`.
 - The release version is read from `SignalIntegrity/__about__.py` on `InNextRelease`.
+- When asked to set the next release version, update only the version value in
+  `SignalIntegrity/__about__.py` and the `PROJECT_NUMBER` values in both
+  `Doc/SignalIntegrityLinux` and `Doc/SignalIntegrityWindows`. Keep all three values
+  identical. Confirm the requested version with the user if they have not specified
+  it; do not infer or increment a version without confirmation. Make this change on
+  `InNextRelease`; if another branch is checked out, ask before switching branches.
+- After setting the version, remind the user to run the full test suite themselves.
+  The suite can generate regression/test artifacts that need to be updated and
+  reviewed for the new version. Never run the full test suite on the user's behalf,
+  even as part of release preparation. The user owns running it and reviewing any
+  resulting test-artifact changes; do not overwrite or discard those artifacts.
 - Create release notes during each release from the changes between `master` and
   `InNextRelease`. Review commit subjects and changed files, group related user-facing
   changes, and write concise Markdown in the style of previous SignalIntegrity release
@@ -107,7 +118,11 @@ bypassing its checks or confirmations.
 
 1. Inspect status and current branches; read the release script. Report unrelated dirty
    files, branch divergence, or unclear versioning before starting.
-2. Ask the user to confirm the manual checklist is complete, including tests and
+2. If asked to set a release version, confirm the exact version, update the version in
+   `SignalIntegrity/__about__.py` and `PROJECT_NUMBER` in both Doxygen configuration
+   files, verify the three values match, then remind the user to run the full suite
+   themselves to generate and review any updated test artifacts. Do not run that suite.
+   Ask the user to confirm the manual checklist is complete, including tests and
    Doxygen/package metadata. Respect that the user runs tests separately. If
    documentation is to be published, perform the relevant Pages sync/build/review/
    publish workflow above before the release merge.
