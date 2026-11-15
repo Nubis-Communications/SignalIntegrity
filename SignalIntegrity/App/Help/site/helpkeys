@@ -255,6 +255,7 @@ sub:Annotation-Color >>> 22-Eye-Diagram-Properties.html#sub:Annotation-Color
 sub:Appearance.Color.Background >>> 29-Preferences.html#sub:Appearance.Color.Background
 sub:Appearance.Color.Foreground >>> 29-Preferences.html#sub:Appearance.Color.Foreground
 sub:Appearance.Color.Plot >>> 29-Preferences.html#sub:Appearance.Color.Plot
+sub:Appearance.DialogStyle >>> 29-Preferences.html#sub:Appearance.DialogStyle
 sub:Appearance.FontSize >>> 29-Preferences.html#sub:Appearance.FontSize
 sub:Appearance.InitialGrid >>> 29-Preferences.html#sub:Appearance.InitialGrid
 sub:Appearance.LimitText >>> 29-Preferences.html#sub:Appearance.LimitText
@@ -265,6 +266,9 @@ sub:Appearance.PlotWidth >>> 29-Preferences.html#sub:Appearance.PlotWidth
 sub:Appearance.ProgressDialog >>> 29-Preferences.html#sub:Appearance.ProgressDialog
 sub:Appearance.RoundDisplayedValues >>> 29-Preferences.html#sub:Appearance.RoundDisplayedValues
 sub:Appearance.ShowAllPinNumbers-1 >>> 29-Preferences.html#sub:Appearance.ShowAllPinNumbers-1
+sub:Appearance.Theme >>> 29-Preferences.html#sub:Appearance.Theme
+sub:Appearance.Themes.Dark.Palette >>> 29-Preferences.html#sub:Appearance.Themes.Dark.Palette
+sub:Appearance.Themes.Light.Palette >>> 29-Preferences.html#sub:Appearance.Themes.Light.Palette
 sub:ArchiveCachedResults >>> 29-Preferences.html#sub:ArchiveCachedResults
 sub:ArchiveFile >>> 26-Equations.html#sub:ArchiveFile
 sub:ArchiveNonRelativeFiles >>> 29-Preferences.html#sub:ArchiveNonRelativeFiles

@@ -13,5 +13,6 @@ var searchData=
   ['prbs13qwaveform_10',['PRBS13QWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PRBS13QWaveform_1_1PRBS13QWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::PRBS13QWaveform']]],
   ['pseudorandompolynomial_11',['PseudoRandomPolynomial',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomPolynomial_1_1PseudoRandomPolynomial.xhtml',1,'SignalIntegrity::Lib::Prbs::PseudoRandomPolynomial']]],
   ['pseudorandomwaveform_12',['PseudoRandomWaveform',['../classSignalIntegrity_1_1Lib_1_1Prbs_1_1PseudoRandomWaveform_1_1PseudoRandomWaveform.xhtml',1,'SignalIntegrity::Lib::Prbs::PseudoRandomWaveform']]],
-  ['pulsewaveform_13',['PulseWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::PulseWaveform']]]
+  ['pulsewaveform_13',['PulseWaveform',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Waveform_1_1PulseWaveform_1_1PulseWaveform.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Waveform::PulseWaveform']]],
+  ['pz_5ffitter_14',['PZ_Fitter',['../classPZ_1_1PZ__Fitter.xhtml',1,'PZ']]]
 ];

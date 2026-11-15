@@ -44,7 +44,8 @@ var searchData=
   ['connectdeviceport_41',['ConnectDevicePort',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#a939ab9512333f7fd1cd53438c8bd23fc',1,'SignalIntegrity::Lib::SystemDescriptions::SystemDescription::SystemDescription']]],
   ['constants_42',['Constants',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1CalKit_1_1CalibrationKit_1_1CalibrationKit.xhtml#a198b8c2c77ea9f9815a181ddeda1c320',1,'SignalIntegrity::Lib::Measurement::CalKit::CalibrationKit::CalibrationKit']]],
   ['context_20help_43',['Building the Help System (User Manual and Context Help)',['../index.xhtml#autotoc_md3',1,'']]],
-  ['convertspectraldensity_44',['ConvertSpectralDensity',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml#a86e28c5b08c301e32cbc90dfac09073e',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities::DFTUtilities']]],
-  ['createimage_45',['CreateImage',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a76f788bc656cbe4b05821f21d6c0568b',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]],
-  ['ctle_46',['CTLE',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1EqualizerCTLE_1_1CTLE.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::EqualizerCTLE']]]
+  ['conv_5ffct_44',['conv_fct',['../classERL_1_1ERLComMatlabPDF.xhtml#a031f0b1a9e9a6b49164fc21666cb9ec0',1,'ERL::ERLComMatlabPDF']]],
+  ['convertspectraldensity_45',['ConvertSpectralDensity',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml#a86e28c5b08c301e32cbc90dfac09073e',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities::DFTUtilities']]],
+  ['createimage_46',['CreateImage',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a76f788bc656cbe4b05821f21d6c0568b',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]],
+  ['ctle_47',['CTLE',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1EqualizerCTLE_1_1CTLE.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::EqualizerCTLE']]]
 ];

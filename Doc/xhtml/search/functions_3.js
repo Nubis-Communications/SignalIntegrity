@@ -30,6 +30,7 @@ var searchData=
   ['comparesparameterfiles_27',['CompareSParameterFiles',['../classSignalIntegrity_1_1Lib_1_1Test_1_1RegressionFiles_1_1RegressionFiles.xhtml#a4b83d65dce3f03879101154b3fef79e4',1,'SignalIntegrity::Lib::Test::RegressionFiles::RegressionFiles']]],
   ['comparewaveformfiles_28',['CompareWaveformFiles',['../classSignalIntegrity_1_1Lib_1_1Test_1_1RegressionFiles_1_1RegressionFiles.xhtml#a5be851af7dc7c713be6b9a65261ac3be',1,'SignalIntegrity::Lib::Test::RegressionFiles::RegressionFiles']]],
   ['connectdeviceport_29',['ConnectDevicePort',['../classSignalIntegrity_1_1Lib_1_1SystemDescriptions_1_1SystemDescription_1_1SystemDescription.xhtml#a939ab9512333f7fd1cd53438c8bd23fc',1,'SignalIntegrity::Lib::SystemDescriptions::SystemDescription::SystemDescription']]],
-  ['convertspectraldensity_30',['ConvertSpectralDensity',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml#a86e28c5b08c301e32cbc90dfac09073e',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities::DFTUtilities']]],
-  ['createimage_31',['CreateImage',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a76f788bc656cbe4b05821f21d6c0568b',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]]
+  ['conv_5ffct_30',['conv_fct',['../classERL_1_1ERLComMatlabPDF.xhtml#a031f0b1a9e9a6b49164fc21666cb9ec0',1,'ERL::ERLComMatlabPDF']]],
+  ['convertspectraldensity_31',['ConvertSpectralDensity',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1DFTUtilities_1_1DFTUtilities.xhtml#a86e28c5b08c301e32cbc90dfac09073e',1,'SignalIntegrity::Lib::FrequencyDomain::DFTUtilities::DFTUtilities']]],
+  ['createimage_32',['CreateImage',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml#a76f788bc656cbe4b05821f21d6c0568b',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap::EyeDiagramBitmap']]]
 ];

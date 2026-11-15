@@ -10,10 +10,12 @@ var searchData=
   ['enforcepassivity_7',['EnforcePassivity',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#a02c316da27c6e4f8d6d85a08852e3ac1',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation::SParameterManipulation']]],
   ['enforcereciprocity_8',['EnforceReciprocity',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1SParameterManipulation_1_1SParameterManipulation.xhtml#aa38180bfbe133440c4e60df80e25b2ba',1,'SignalIntegrity::Lib::SParameters::SParameterManipulation::SParameterManipulation']]],
   ['equation_9',['Equation',['../classSignalIntegrity_1_1Lib_1_1SParameters_1_1Devices_1_1Equation_1_1Equation.xhtml',1,'SignalIntegrity::Lib::SParameters::Devices::Equation']]],
-  ['errorterms_10',['ErrorTerms',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::ErrorTerms']]],
-  ['evenlyspaced_11',['EvenlySpaced',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml#a210f86aa250d80b03b5de0993e12f085',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList::FrequencyList']]],
-  ['evenlyspacedfrequencylist_12',['EvenlySpacedFrequencyList',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList']]],
-  ['excalibration_13',['ExCalibration',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml#a4d2e4da73b66520ebdf3f5272d7b4f34',1,'SignalIntegrity::Lib::Measurement::Calibration::ErrorTerms::ErrorTerms']]],
-  ['eyediagram_14',['EyeDiagram',['../classSignalIntegrity_1_1Lib_1_1Test_1_1RegressionFiles_1_1RegressionFiles.xhtml#af2fdea212c66e6d437ec6066b28c917e',1,'SignalIntegrity::Lib::Test::RegressionFiles::RegressionFiles']]],
-  ['eyediagrambitmap_15',['EyeDiagramBitmap',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap']]]
+  ['erlcommatlabpdf_10',['ERLComMatlabPDF',['../classERL_1_1ERLComMatlabPDF.xhtml',1,'ERL']]],
+  ['error_11',['Error',['../classIXT_1_1IXT__Calculator.xhtml#a648dcf780fce6c939b3598d8e71e90ff',1,'IXT.IXT_Calculator.Error()'],['../classPZ_1_1PZ__Fitter.xhtml#a648dcf780fce6c939b3598d8e71e90ff',1,'PZ.PZ_Fitter.Error()']]],
+  ['errorterms_12',['ErrorTerms',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml',1,'SignalIntegrity::Lib::Measurement::Calibration::ErrorTerms']]],
+  ['evenlyspaced_13',['EvenlySpaced',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1FrequencyList.xhtml#a210f86aa250d80b03b5de0993e12f085',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList::FrequencyList']]],
+  ['evenlyspacedfrequencylist_14',['EvenlySpacedFrequencyList',['../classSignalIntegrity_1_1Lib_1_1FrequencyDomain_1_1FrequencyList_1_1EvenlySpacedFrequencyList.xhtml',1,'SignalIntegrity::Lib::FrequencyDomain::FrequencyList']]],
+  ['excalibration_15',['ExCalibration',['../classSignalIntegrity_1_1Lib_1_1Measurement_1_1Calibration_1_1ErrorTerms_1_1ErrorTerms.xhtml#a4d2e4da73b66520ebdf3f5272d7b4f34',1,'SignalIntegrity::Lib::Measurement::Calibration::ErrorTerms::ErrorTerms']]],
+  ['eyediagram_16',['EyeDiagram',['../classSignalIntegrity_1_1Lib_1_1Test_1_1RegressionFiles_1_1RegressionFiles.xhtml#af2fdea212c66e6d437ec6066b28c917e',1,'SignalIntegrity::Lib::Test::RegressionFiles::RegressionFiles']]],
+  ['eyediagrambitmap_17',['EyeDiagramBitmap',['../classSignalIntegrity_1_1Lib_1_1Eye_1_1EyeDiagramBitmap_1_1EyeDiagramBitmap.xhtml',1,'SignalIntegrity::Lib::Eye::EyeDiagramBitmap']]]
 ];

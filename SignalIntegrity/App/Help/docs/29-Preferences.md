@@ -53,7 +53,7 @@ The standard preferences are listed below along with the tab where each setting 
 | cache files per project | [Cache.CacheFilesPerProject](29-Preferences.md#sub:Cache.CacheFilesPerProject) | Caching | Int | 1 |
 | log cache (for debugging) | [Cache.LogCache](29-Preferences.md#sub:Cache.LogCache) | Caching | Bool | False |
 | check cache file times | [Cache.CheckCacheFileTimes](29-Preferences.md#sub:Cache.CheckCacheFileTimes) | Caching | Bool | True |
-| parameterize visible properties only | [Variables.ParameterizeOnlyVisible](29-Preferences.md#sub:ParameterizeOnlyVisible) | Appearance | Bool | True |
+| parameterize visible properties only | [Variables.ParameterizeOnlyVisible](29-Preferences.md#sub:Variables.ParameterizeOnlyVisible) | Appearance | Bool | True |
 | password for encryption | [Encryption.Password](29-Preferences.md#sub:Encryption.Password) | Archive and Regression | String | None |
 | file ending for encryption | [Encryption.Ending](29-Preferences.md#sub:Encryption.Ending) | Archive and Regression | String | \$ |
 | archive cached results | [ProjectFiles.ArchiveCachedResults](29-Preferences.md#sub:ArchiveCachedResults) | Archive and Regression | Bool | False |

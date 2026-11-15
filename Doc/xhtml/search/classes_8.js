@@ -8,5 +8,6 @@ var searchData=
   ['interpolatorfractionaldelayfilterlinear_5',['InterpolatorFractionalDelayFilterLinear',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorFractionalDelayFilterLinear.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorLinear']]],
   ['interpolatorfractionaldelayfiltersinx_6',['InterpolatorFractionalDelayFilterSinX',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorFractionalDelayFilterSinX.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorSinX']]],
   ['interpolatorlinear_7',['InterpolatorLinear',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorLinear_1_1InterpolatorLinear.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorLinear']]],
-  ['interpolatorsinx_8',['InterpolatorSinX',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorSinX']]]
+  ['interpolatorsinx_8',['InterpolatorSinX',['../classSignalIntegrity_1_1Lib_1_1TimeDomain_1_1Filters_1_1InterpolatorSinX_1_1InterpolatorSinX.xhtml',1,'SignalIntegrity::Lib::TimeDomain::Filters::InterpolatorSinX']]],
+  ['ixt_5fcalculator_9',['IXT_Calculator',['../classIXT_1_1IXT__Calculator.xhtml',1,'IXT']]]
 ];
