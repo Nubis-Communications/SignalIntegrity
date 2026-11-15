@@ -1,6 +1,6 @@
 # Main Schematic Dialog {#sec:Main-Schematic-Dialog}
 
-When ***SignalIntegrityApp*** opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The menu bar is broken into sections where appropriate. These are:
+When ***SignalIntegrityApp*** opens, the user sees a dialog with a menu bar, a toolbar, a canvas, and a status line. The menu bar, toolbar buttons and various key bindings enable certain tasks to be executed. The application’s appearance can be customized in [Preferences](29-Preferences.md#sec:Preferences). The menu bar is broken into sections where appropriate. These are:
 
 - [File](15-Main-Schematic-Dialog.md#sub:File) – tasks for dealing with the project file.
 

@@ -6,6 +6,8 @@ in ***SignalIntegrityApp***, there are a number of preferences that can be set b
 
 - On Linux Machines - ~/.signalIntegrity/preferences.xml.
 
+In the Preferences dialog's **Appearance** tab, you can choose a color theme, select a palette for that theme, and choose whether dialogs use the native or themed style.
+
 Currently, the preferences are broken into two groups:
 
 - [Standard Preferences](29-Preferences.md#sub:Standard-Preferences) - Preferences that govern the basic operation of the schematic editor, file system, calculations, and help system.
@@ -14,46 +16,50 @@ Currently, the preferences are broken into two groups:
 
 ## Standard Preferences {#sub:Standard-Preferences}
 
-The standard preferences are:
+The standard preferences are listed below along with the tab where each setting appears in the Preferences dialog.
 
-| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
-|:---|:---|:---|:---|
-| font size | [Appearance.FontSize](29-Preferences.md#sub:Appearance.FontSize) | Int | 12 |
-| initial grid | [Appearance.InitialGrid](29-Preferences.md#sub:Appearance.InitialGrid) | Int | 16 |
-| background color | [Appearance.Color.Background](29-Preferences.md#sub:Appearance.Color.Background) | String | gray |
-| foreground color | [Appearance.Color.Foreground](29-Preferences.md#sub:Appearance.Color.Foreground) | String | black |
-| round displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Int | 4 |
-| limit text in displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.LimitText) | Int | 60 |
-| detached progress bar | [Appearance.ProgressDialog](29-Preferences.md#sub:Appearance.ProgressDialog) | Bool | True |
-| show all pin numbers | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Bool | False |
-| use SinX/X for resampling | [Calculation.UseSinX/X](29-Preferences.md#sub:Calculation.UseSinX) | Bool | True |
-| try SVD in calculations (experimental) | [Calculation.TrySVD](29-Preferences.md#sub:Calculation.TrySVD) | Bool | True |
-| allow non-unique solutions with SVD | [Calculation.AllowNonUniqueSolutions](29-Preferences.md#sub:Calculation.AllowNonUniqueSolutions) | Bool | False |
-| check condition number in calculations | [Calculation.AllowNonUniqueSolutions](29-Preferences.md#sub:Calculation.AllowNonUniqueSolutions) | Bool | True |
-| employ mult-port tee elements | [Calculation.MultiPortTee](29-Preferences.md#sub:Calculation.MultiPortTee) | Bool | True |
-| enforce 12458 sequence in calculation properties | [Calculation.Enforce12458](29-Preferences.md#sub:Calculation.Enforce12458) | Bool | True |
-| enable logarithmically spaced frequencies solutions | [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) | Bool | False |
-| enable non 50 ohm solutions | [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) | Bool | False |
-| enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Bool | False |
-| enable maximum impulse response length | [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) | Bool | False |
-| ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Bool | True |
-| maximum waveform size | [Calculation.MaximumWaveformPoints](29-Preferences.md#sub:Calculation.MaximumWaveformPoints) | Float | 5 Mpts |
-| retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Bool | True |
-| open last file on start | [ProjectFiles.OpenLastFile](29-Preferences.md#sub:OpenLastFile) | Bool | True |
-| ask to save current file | [ProjectFiles.AskToSaveCurrentFile](29-Preferences.md#sub:AskToSaveCurrentFile) | Bool | True |
-| open projects read-only | [Features.OpenProjectsReadOnly](29-Preferences.md#sub:OpenProjectsReadOnly) | Bool | True |
-| prefer saving waveforms in LeCroy format | [ProjectFiles.PreferSaveWaveformsLeCroyFormat](29-Preferences.md#sub:PreferSaveWaveformsLeCroyFormat) | Bool | False |
-| cache results | [Cache.CacheResults](29-Preferences.md#sub:Cache.CacheResults) | Bool | True |
-| cache files per project | [Cache.CacheFilesPerProject](29-Preferences.md#sub:Cache.CacheFilesPerProject) | Int | 1 |
-| log cache (for debugging) | [Cache.LogCache](29-Preferences.md#sub:Cache.LogCache) | Bool | False |
-| check cache file times | [Cache.CheckCacheFileTimes](29-Preferences.md#sub:Cache.CheckCacheFileTimes) | Bool | True |
-| parameterize visible properties only | [Variables.ParameterizeOnlyVisible](29-Preferences.md#sub:Variables.ParameterizeOnlyVisible) | Bool | True |
-| password for encryption | [Encryption.Password](29-Preferences.md#sub:Encryption.Password) | String | None |
-| file ending for encryption | [Encryption.Ending](29-Preferences.md#sub:Encryption.Ending) | String | \$ |
-| archive cached results | [ProjectFiles.ArchiveCachedResults](29-Preferences.md#sub:ArchiveCachedResults) | Bool | False |
-| archive non-relative files | [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) | Bool | False |
-| use online help | [OnlineHelp.UseOnlineHelp](29-Preferences.md#sub:OnlineHelp.UseOnlineHelp) | Bool | True |
-| online help url | [OnlineHelp.URL](29-Preferences.md#sub:OnlineHelp.URL) | String | http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App |
+| **Preference Description** | **Preference Name** | **Tab** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|:---|
+| font size | [Appearance.FontSize](29-Preferences.md#sub:Appearance.FontSize) | Appearance | Int | 12 |
+| theme | [Appearance.Theme](29-Preferences.md#sub:Appearance.Theme) | Appearance | String | Legacy |
+| dialog style | [Appearance.DialogStyle](29-Preferences.md#sub:Appearance.DialogStyle) | Appearance | String | Native |
+| light theme palette | [Appearance.Themes.Light.Palette](29-Preferences.md#sub:Appearance.Themes.Light.Palette) | Appearance | String | Default |
+| dark theme palette | [Appearance.Themes.Dark.Palette](29-Preferences.md#sub:Appearance.Themes.Dark.Palette) | Appearance | String | Default |
+| initial grid | [Appearance.InitialGrid](29-Preferences.md#sub:Appearance.InitialGrid) | Appearance | Int | 16 |
+| background color | [Appearance.Color.Background](29-Preferences.md#sub:Appearance.Color.Background) | Appearance | String | gray |
+| foreground color | [Appearance.Color.Foreground](29-Preferences.md#sub:Appearance.Color.Foreground) | Appearance | String | black |
+| round displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Appearance | Int | 4 |
+| limit text in displayed values | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.LimitText) | Appearance | Int | 60 |
+| detached progress bar | [Appearance.ProgressDialog](29-Preferences.md#sub:Appearance.ProgressDialog) | Appearance | Bool | True |
+| show all pin numbers | [Appearance.RoundDisplayedValues](29-Preferences.md#sub:Appearance.RoundDisplayedValues) | Appearance | Bool | False |
+| use SinX/X for resampling | [Calculation.UseSinX/X](29-Preferences.md#sub:Calculation.UseSinX) | Calculation | Bool | True |
+| try SVD in calculations (experimental) | [Calculation.TrySVD](29-Preferences.md#sub:Calculation.TrySVD) | Calculation | Bool | True |
+| allow non-unique solutions with SVD | [Calculation.AllowNonUniqueSolutions](29-Preferences.md#sub:Calculation.AllowNonUniqueSolutions) | Calculation | Bool | False |
+| check condition number in calculations | [Calculation.AllowNonUniqueSolutions](29-Preferences.md#sub:Calculation.AllowNonUniqueSolutions) | Calculation | Bool | True |
+| employ mult-port tee elements | [Calculation.MultiPortTee](29-Preferences.md#sub:Calculation.MultiPortTee) | Calculation | Bool | True |
+| enforce 12458 sequence in calculation properties | [Calculation.Enforce12458](29-Preferences.md#sub:Calculation.Enforce12458) | Calculation | Bool | True |
+| enable logarithmically spaced frequencies solutions | [Calculation.LogarithmicSolutions](29-Preferences.md#sub:Calculation.LogarithmicSolutions) | Calculation | Bool | False |
+| enable non 50 ohm solutions | [Calculation.Non50OhmSolutions](29-Preferences.md#sub:Calculation.Non50OhmSolutions) | Calculation | Bool | False |
+| enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Calculation | Bool | False |
+| enable maximum impulse response length | [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) | Calculation | Bool | False |
+| ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Calculation | Bool | True |
+| maximum waveform size | [Calculation.MaximumWaveformPoints](29-Preferences.md#sub:Calculation.MaximumWaveformPoints) | Calculation | Float | 5 Mpts |
+| retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Plots and Files | Bool | True |
+| open last file on start | [ProjectFiles.OpenLastFile](29-Preferences.md#sub:OpenLastFile) | Plots and Files | Bool | True |
+| ask to save current file | [ProjectFiles.AskToSaveCurrentFile](29-Preferences.md#sub:AskToSaveCurrentFile) | Plots and Files | Bool | True |
+| open projects read-only | [Features.OpenProjectsReadOnly](29-Preferences.md#sub:OpenProjectsReadOnly) | Plots and Files | Bool | True |
+| prefer saving waveforms in LeCroy format | [ProjectFiles.PreferSaveWaveformsLeCroyFormat](29-Preferences.md#sub:PreferSaveWaveformsLeCroyFormat) | Plots and Files | Bool | False |
+| cache results | [Cache.CacheResults](29-Preferences.md#sub:Cache.CacheResults) | Caching | Bool | True |
+| cache files per project | [Cache.CacheFilesPerProject](29-Preferences.md#sub:Cache.CacheFilesPerProject) | Caching | Int | 1 |
+| log cache (for debugging) | [Cache.LogCache](29-Preferences.md#sub:Cache.LogCache) | Caching | Bool | False |
+| check cache file times | [Cache.CheckCacheFileTimes](29-Preferences.md#sub:Cache.CheckCacheFileTimes) | Caching | Bool | True |
+| parameterize visible properties only | [Variables.ParameterizeOnlyVisible](29-Preferences.md#sub:ParameterizeOnlyVisible) | Appearance | Bool | True |
+| password for encryption | [Encryption.Password](29-Preferences.md#sub:Encryption.Password) | Archive and Regression | String | None |
+| file ending for encryption | [Encryption.Ending](29-Preferences.md#sub:Encryption.Ending) | Archive and Regression | String | \$ |
+| archive cached results | [ProjectFiles.ArchiveCachedResults](29-Preferences.md#sub:ArchiveCachedResults) | Archive and Regression | Bool | False |
+| archive non-relative files | [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) | Archive and Regression | Bool | False |
+| use online help | [OnlineHelp.UseOnlineHelp](29-Preferences.md#sub:OnlineHelp.UseOnlineHelp) | Appearance | Bool | True |
+| online help url | [OnlineHelp.URL](29-Preferences.md#sub:OnlineHelp.URL) | Appearance | String | http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App |
 
 <div id="sub:Appearance.FontSize"></div>
 
@@ -68,6 +74,59 @@ The font size preference controls the fonts everywhere from within the applicati
 Unfortunately, changing the font generally does not take effect until the application is closed and restarted.
 
 Font sizes are not altered in any tikz or pgf plots outputs, which are geared to take the font of an enclosing document.
+
+<div id="sub:Appearance.Theme"></div>
+
+## Appearance.Theme {#appearance.theme .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| theme | [Appearance.Theme](29-Preferences.md#sub:Appearance.Theme) | String | Legacy |
+
+Choose `Legacy`, `Light`, or `Dark` from the theme preference:
+
+- `Legacy` keeps the original application appearance.
+- `Light` uses a light color scheme.
+- `Dark` uses a dark color scheme.
+
+The selected theme is used throughout the application.
+
+<div id="sub:Appearance.DialogStyle"></div>
+
+## Appearance.DialogStyle {#appearance.dialogstyle .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| dialog style | [Appearance.DialogStyle](29-Preferences.md#sub:Appearance.DialogStyle) | String | Native |
+
+The `Appearance.DialogStyle` preference controls how modal dialogs are rendered. It accepts:
+
+- `Native` - use the system's default dialog look.
+- `Themed` - use SignalIntegrity's themed dialog appearance.
+
+The selected color theme also applies to themed dialogs.
+
+<div id="sub:Appearance.Themes.Light.Palette"></div>
+
+## Appearance.Themes.Light.Palette {#appearance.themes.light.palette .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| light theme palette | [Appearance.Themes.Light.Palette](29-Preferences.md#sub:Appearance.Themes.Light.Palette) | String | Default |
+
+The `Light` theme offers `Default`, `Warm`, and `Cool` palette choices.
+
+<div id="sub:Appearance.Themes.Dark.Palette"></div>
+
+## Appearance.Themes.Dark.Palette {#appearance.themes.dark.palette .unnumbered}
+
+| **Preference Description** | **Preference Name** | **Type** | **(Default) Value** |
+|:---|:---|:---|:---|
+| dark theme palette | [Appearance.Themes.Dark.Palette](29-Preferences.md#sub:Appearance.Themes.Dark.Palette) | String | Default |
+
+The `Dark` theme offers `Default`, `Slate`, and `Midnight` palette choices.
+
+If you customize the background or foreground colors, the preferences dialog warns when the selected colors have low contrast. Use **Reset colors** to restore the palette's default colors.
 
 <div id="sub:Appearance.ProgressDialog"></div>
 
@@ -710,4 +769,3 @@ To remove the annoyance, this feature can be controlled by this preference.
 | significant digits | [SParameterProperties.SignificantDigits](29-Preferences.md#sub:SParameterProperties.SignificantDigits) | Int | 6 |
 
 Normally, when s-parameters are written to a file, 6 significant digits are used, without exponent. This is in the interest of space (remember that 0.000001 is -100 dB). If you want more digits, you can raise this number to something higher. In the future, exponents might be allowed, but this is the best compromise for now.
-
