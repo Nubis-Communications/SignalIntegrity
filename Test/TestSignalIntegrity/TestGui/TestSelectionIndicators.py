@@ -50,14 +50,14 @@ class TestSelectionIndicators(unittest.TestCase):
     def testLinuxIndicatorsFollowFontWithoutDoubleScaling(self):
         sizes=[]
         with patch.object(helpers.sys,'platform','linux'):
-            for scale in (1.0,1.5,2.0):
-                with self.subTest(scale=scale):
-                    self.root.tk.call('tk','scaling',(96.0/72.0)*scale)
-                    font=tkfont.Font(root=self.root,family='Arial',size=12)
+            for fontSize in (12,18,24):
+                with self.subTest(fontSize=fontSize):
+                    font=tkfont.Font(root=self.root,family='Arial',size=fontSize)
                     radio=helpers.SizeSelectionIndicator(tk.Radiobutton(self.root,font=font))
                     checkbox=helpers.SizeSelectionIndicator(tk.Checkbutton(self.root,font=font))
                     size=radio._indicatorImages[0].width()
                     self.assertEqual(size,checkbox._indicatorImages[0].width())
+                    self.assertEqual(size,max(10,round(font.metrics('linespace')*0.75)))
                     self.assertGreaterEqual(size,font.metrics('linespace')*0.65)
                     self.assertLess(size,font.metrics('linespace'))
                     sizes.append(size)

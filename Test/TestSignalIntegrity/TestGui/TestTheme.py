@@ -463,8 +463,11 @@ class TestTheme(unittest.TestCase):
             with open(os.path.join(appDir, sourceName), encoding='utf-8-sig') as source:
                 tree = ast.parse(source.read())
             for node in ast.walk(tree):
-                if isinstance(node, ast.Str):
-                    filename = os.path.basename(node.s)
+                value = getattr(node, 'value', None)
+                if not isinstance(value, str):
+                    value = getattr(node, 's', None)
+                if isinstance(value, str):
+                    filename = os.path.basename(value)
                     name, extension = os.path.splitext(filename)
                     if (extension in ('.gif', '.png') and '*' not in name
                             and filename not in ('AppIcon2.gif', 'gpl.gif')):

@@ -24,6 +24,8 @@ import tkinter as tk
     
 import matplotlib
 
+from SignalIntegrity.App.MenuSystemHelpers import SetTightLayout
+
 class PlotDialog(tk.Toplevel):
     def __init__(self, parent):
         tk.Toplevel.__init__(self, parent)
@@ -43,7 +45,7 @@ class PlotDialog(tk.Toplevel):
         from matplotlib.figure import Figure
 
         self.f = Figure(figsize=(5,4), dpi=100)
-        self.f.set_tight_layout(True)
+        SetTightLayout(self.f)
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('time (ns)')
         self.plt.set_ylabel('amplitude')
@@ -84,5 +86,4 @@ class PlotDialog(tk.Toplevel):
         self.plt.legend(loc='upper right',labelspacing=0.1)
         self.f.canvas.draw()
         return self
-
 

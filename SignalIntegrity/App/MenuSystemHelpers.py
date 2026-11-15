@@ -28,6 +28,13 @@ import subprocess
 from PIL import Image, ImageDraw, ImageTk
 from SignalIntegrity.App.ToolbarIcons import ICON_PATHS,RenderToolbarIcon
 
+def SetTightLayout(figure):
+    setLayoutEngine=getattr(figure,'set_layout_engine',None)
+    if setLayoutEngine is None:
+        figure.set_tight_layout(True)
+    else:
+        setLayoutEngine('tight')
+
 def ConfigureDisplayScaling(root):
     if not sys.platform.startswith('linux'):
         return 1.0

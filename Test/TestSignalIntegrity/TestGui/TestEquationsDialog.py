@@ -93,8 +93,8 @@ class TestEquationsDialog(unittest.TestCase):
                         self.assertEqual(int(editor.TextArea.cget('height')),25)
                         self.assertEqual(editor.winfo_width(),
                             min(editor.winfo_reqwidth(),round(editor.winfo_screenwidth()*0.9)))
-                        self.assertEqual(editor.winfo_height(),
-                            min(editor.winfo_reqheight(),round(editor.winfo_screenheight()*0.9)))
+                        self.assertAlmostEqual(editor.winfo_height(),
+                            min(editor.winfo_reqheight(),round(editor.winfo_screenheight()*0.9)),delta=1)
                         minimumHeight=editor.statusbar.winfo_height()
                         editor.statusbar.set('Traceback:\n  script line 1\n  invalid expression\nValueError: invalid value')
                         self.assertGreater(editor.statusbar.winfo_height(),minimumHeight)

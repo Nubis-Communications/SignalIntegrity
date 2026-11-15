@@ -25,6 +25,7 @@ import tkinter as tk
 import numpy as np
 
 from SignalIntegrity.Lib.ToSI import ToSI,FromSI
+from SignalIntegrity.App.MenuSystemHelpers import SetTightLayout
 
 import SignalIntegrity.App.Project
 
@@ -95,7 +96,7 @@ class BathtubCurveDialog(tk.Toplevel):
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
         self.leftFigure=Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
-        self.leftFigure.set_tight_layout(True)
+        SetTightLayout(self.leftFigure)
         self.leftPlot=self.leftFigure.add_subplot(111)
         self.leftCanvas=FigureCanvasTkAgg(self.leftFigure, master=leftPlotFrame)
         self.leftCanvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
@@ -111,7 +112,7 @@ class BathtubCurveDialog(tk.Toplevel):
 
         for e in range(numberOfEyes):
             self.rightPlots[e]=self.rightFigures[e].add_subplot(111)
-            self.rightFigures[e].set_tight_layout(True)
+            SetTightLayout(self.rightFigures[e])
             self.rightCanvases[e]=FigureCanvasTkAgg(self.rightFigures[e], master=rightPlotFrames[e])
             self.rightCanvases[e].get_tk_widget().pack(side=tk.TOP, fill=tk.X, expand=1)
             self.rightToolbars[e]=NavigationToolbar( self.rightCanvases[e], rightPlotFrames[e] ,self.onRightHome)

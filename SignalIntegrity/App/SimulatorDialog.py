@@ -24,7 +24,7 @@ import tkinter as tk
 from SignalIntegrity.App import MessageBox as messagebox
 
 from SignalIntegrity.App.SParameterViewerWindow import SParametersDialog
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,SetTightLayout
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.Lib.ToSI import FromSI,ToSI
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
@@ -150,7 +150,7 @@ class SimulatorDialog(tk.Toplevel):
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
         self.f = Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
-        self.f.set_tight_layout(True)
+        SetTightLayout(self.f)
 
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('time (ns)')

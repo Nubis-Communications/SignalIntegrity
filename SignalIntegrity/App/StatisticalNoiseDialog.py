@@ -23,7 +23,7 @@ import sys
 import tkinter as tk
 from SignalIntegrity.App import MessageBox as messagebox
 
-from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar
+from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,SetTightLayout
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
 from SignalIntegrity.App.StatisticalNoiseMeasurementsDialog import StatisticalNoiseMeasurementsDialog
 from SignalIntegrity.Lib.ToSI import FromSI,ToSI
@@ -128,7 +128,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         plotDPI=SignalIntegrity.App.Preferences['Appearance.PlotDPI']
 
         self.f = Figure(figsize=(plotWidth,plotHeight), dpi=plotDPI)
-        self.f.set_tight_layout(True)
+        SetTightLayout(self.f)
 
         self.plt = self.f.add_subplot(111)
         self.plt.set_xlabel('frequency')
