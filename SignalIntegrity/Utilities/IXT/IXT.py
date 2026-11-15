@@ -24,10 +24,23 @@ import os
 from SignalIntegrity.Lib.ToSI import ToSI,FromSI
 
 class IXT_Calculator(dict):
+    """Calculate integrated crosstalk from victim and aggressor channel responses.
+
+    Provide an S-parameter file or an S-parameter object, identify the victim's
+    input/output port pair and the aggressors' input/output pairs, and optionally
+    reorder ports, convert single-ended ports to mixed mode, or resample the
+    frequency data. The command-line options can also be supplied as constructor
+    keywords. The result in dB is available in the dictionary's ``ixt`` entry.
+    """
     prog='IXT'
 
     @staticmethod
     def ParseKeywordPairs(args_list=[]):
+        """Parse integrated-crosstalk command-line options.
+
+        @param args_list Command-line arguments to parse; defaults to an empty list.
+        @return A pair containing the parsed option dictionary and unrecognized arguments.
+        """
         import argparse
         from argparse import RawTextHelpFormatter
         parser = argparse.ArgumentParser(
@@ -75,18 +88,18 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
 
     @staticmethod
     def IXT(victim,aggressors,end_frequency,total_aggressor_lanes=None):
-        """Integrated crosstalk (in dB)
-        @param victim instance of class FrequencyDomain containing the frequency response of the victim channel.
-        @param aggressors instance of class FrequencyDomain containing the frequency response of the aggressor channel.
-        @param end_frequency float frequency to integrate the crosstalk to.
-        @param total_aggressor_lanes (optional) total number of statistically independent lanes for each aggressor.
-        A scalar is applied to every aggressor; a list supplies one value per aggressor.
-        @return integrated crosstalk in dB.
-        @remark
-        aggressors can be provided as a list of aggressor frequency responses, in which case the integrated crosstalk
-        will be for the aggregate of all of the aggressor channels.
-        @remark
-        The frequencies and lengths of the victim and aggressors are assumed to match.
+        """Calculate integrated crosstalk through ``end_frequency`` in dB.
+
+        @param victim Frequency-domain response of the victim channel.
+        @param aggressors One aggressor response or a list of aggressor responses.
+        @param end_frequency Upper frequency limit for the integration.
+        @param total_aggressor_lanes Optional number of statistically independent
+            lanes for each aggressor. A scalar applies to all aggressors; a list
+            supplies one value per aggressor.
+        @return Integrated crosstalk in dB.
+        @exception ValueError If the lane counts are invalid.
+        @remark The frequencies and lengths of the victim and aggressor responses
+            are expected to match.
         """
         import SignalIntegrity.Lib as si
         if isinstance(aggressors,si.fd.FrequencyDomain):
@@ -117,15 +130,23 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         return 10.*np.log10(ixt/num)
 
     def Message(self,message,error=False):
+        """Print a diagnostic when verbose or debug output is enabled."""
         if self.args['verbose'] or self.args['debug']:
             print(message)
         if error:
             raise Exception(message)
 
     def Error(self,message):
+        """Report an error and raise an exception."""
         self.Message(message,error=True)
 
     def __init__(self,**kwargs):
+        """Load or accept S-parameters, calculate integrated crosstalk, and store it.
+
+        Keyword arguments are the options documented by
+        ``ParseKeywordPairs``. The result is stored in the ``ixt`` entry;
+        processing errors are reported by raising an exception.
+        """
         dict.__init__(self,{'ixt':None})
 
         defaults,_ = self.ParseKeywordPairs()
@@ -327,6 +348,7 @@ it\'s a good idea to use as few frequency points as needed to improve speed.')
         self['ixt'] = ixt
 
 def IXT_Main():
+    """Run the integrated-crosstalk utility from process command-line arguments."""
     import sys
     args_list=sys.argv[1:]
     args,unknown = IXT_Calculator.ParseKeywordPairs(args_list)

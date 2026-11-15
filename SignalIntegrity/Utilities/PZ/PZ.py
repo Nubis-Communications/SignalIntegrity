@@ -25,13 +25,23 @@ import os
 from SignalIntegrity.Lib.Fit.PoleZero.PoleZeroFitter import PoleZeroLevMar
 
 class PZ_Fitter(dict):
+    """Fit a pole-zero transfer function to frequency-response data.
+
+    Input may be an S-parameter file (using S21 by default) or a CSV file with
+    frequency, real, and imaginary columns. Select the fit type and the number
+    of pole and zero pairs with the command-line options or matching constructor
+    keywords. The constructor performs the fit and exposes its results as a
+    dictionary; an optional JSON file can also be written.
+    """
     prog='PZ'
     def PrintProgress(self,iteration):
+        """Print the current iteration count and mean-square error."""
         iteration_string=str(self.m_fitter.ccm._IterationsTaken)+'  '+str(self.m_fitter.m_mse)
         if self.m_fitter.ccm._IterationsTaken == 2:
             iteration_string+='                             '
         print(iteration_string, end='\r',flush=True)
     def PlotResult(self,iteration):
+        """Update the optional live fitting dashboard for the current iteration."""
         if not self.args['verbose'] and not self.args['debug']:
             return
         self.PrintProgress(iteration)
@@ -172,6 +182,11 @@ class PZ_Fitter(dict):
 
     @staticmethod
     def ParseKeywordPairs(args_list=[]):
+        """Parse pole-zero fitter command-line options.
+
+        @param args_list Command-line arguments to parse; defaults to an empty list.
+        @return A pair containing the parsed option dictionary and unrecognized arguments.
+        """
         import argparse
         from argparse import RawTextHelpFormatter
         parser = argparse.ArgumentParser(
@@ -249,6 +264,7 @@ the delay is part of the fit.')
         return vars(args),unknown
 
     def Message(self,message,error=False):
+        """Print a message when verbose or debug output is enabled."""
         if self.args['verbose'] or self.args['debug']:
             try:
                 # Direct print (works if console encoding supports the characters)
@@ -266,9 +282,16 @@ the delay is part of the fit.')
                 raise Exception(message)
 
     def Error(self,message):
+        """Report an error and raise an exception."""
         self.Message(message,error=True)
 
     def __init__(self,**kwargs):
+        """Fit the supplied frequency response and initialize this result dictionary.
+
+        Keyword arguments are the fitter options documented by
+        ``ParseKeywordPairs``. The completed fit and its configuration are
+        exposed as dictionary data.
+        """
         dict.__init__(self,{})
 
         defaults,_ = self.ParseKeywordPairs()
@@ -660,6 +683,7 @@ the delay is part of the fit.')
         dict.__init__(self,results)
 
 def PZ_Main():
+    """Run the pole-zero fitter using the current process command-line arguments."""
     import sys
     args_list=sys.argv[1:]
     args,unknown = PZ_Fitter.ParseKeywordPairs(args_list)

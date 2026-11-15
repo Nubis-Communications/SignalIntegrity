@@ -783,27 +783,6 @@ GENERATE_BUGLIST       = YES
 
 GENERATE_DEPRECATEDLIST= YES
 
-# The GENERATE_REQUIREMENTS tag can be used to enable (YES) or disable (NO) the
-# requirements page. When enabled, this page is automatically created when at
-# least one comment block with a \requirement command appears in the input.
-# The default value is: YES.
-
-GENERATE_REQUIREMENTS  = YES
-
-# The REQ_TRACEABILITY_INFO tag controls if traceability information is shown on
-# the requirements page (only relevant when using \requirement comment blocks).
-# The setting NO will disable the traceability information altogether. The
-# setting UNSATISFIED_ONLY will show a list of requirements that are missing a
-# satisfies relation (through the command: \satisfies). Similarly the setting
-# UNVERIFIED_ONLY will show a list of requirements that are missing a verifies
-# relation (through the command: \verifies). Setting the tag to YES (the
-# default) will show both lists if applicable.
-# Possible values are: YES, NO, UNSATISFIED_ONLY and UNVERIFIED_ONLY.
-# The default value is: YES.
-# This tag requires that the tag GENERATE_REQUIREMENTS is set to YES.
-
-REQ_TRACEABILITY_INFO  = YES
-
 # The ENABLED_SECTIONS tag can be used to enable conditional documentation
 # sections, marked by \if <section_label> ... \endif and \cond <section_label>
 # ... \endcond blocks.
@@ -2619,19 +2598,6 @@ HAVE_DOT               = YES
 
 DOT_NUM_THREADS        = 0
 
-# The DOT_BATCH_SIZE specifies the number of dot graphs Doxygen is allowed to
-# compile in a single invocation of dot. When set to 1 Doxygen will invoke dot
-# for each graph separately, which can cause significant process creation
-# overhead especially on systems with many CPU cores. Together with
-# DOT_NUM_THREADS this setting can be used to optimise the dot processing speed
-# for a particular system. Doxygen will try to give each thread a balanced batch
-# of work. If the total number of graphs to process exceeds DOT_NUM_THREADS *
-# DOT_BATCH_SIZE then additional batches will be created for dot to process.
-# Minimum value: 1, maximum value: 1000, default value: 50.
-# This tag requires that the tag HAVE_DOT is set to YES.
-
-DOT_BATCH_SIZE         = 50
-
 # DOT_COMMON_ATTR is common attributes for nodes, edges and labels of
 # subgraphs. When you want a differently looking font in the dot files that
 # Doxygen generates you can specify fontname, fontcolor and fontsize attributes.
@@ -2922,58 +2888,6 @@ PLANTUML_INCLUDE_PATH  =
 # \plantumlfile command).
 
 PLANTUMLFILE_DIRS      =
-
-# When using Mermaid diagrams with CLI rendering, the MERMAID_PATH tag should be
-# used to specify the directory where the mmdc (Mermaid CLI) executable can be
-# found. If left blank, CLI-based rendering is disabled. For HTML output,
-# client-side rendering via JavaScript is used by default and does not require
-# mmdc. For LaTeX/PDF output, mmdc is required to pre-generate images. Doxygen
-# will generate a warning when CLI rendering is needed but mmdc is not
-# available.
-
-MERMAID_PATH           =
-
-# When using Mermaid diagrams, the MERMAID_CONFIG_FILE tag can be used to
-# specify a JSON configuration file for the Mermaid CLI tool (mmdc). This file
-# can contain theme settings and other Mermaid configuration options.
-
-MERMAID_CONFIG_FILE    =
-
-# The MERMAID_RENDER_MODE tag selects how Mermaid diagrams are rendered.
-# Possible values are: AUTO (use client-side rendering for HTML and mmdc for
-# LaTeX/PDF and other formats. If MERMAID_PATH is not set, non-HTML diagrams
-# will produce a warning), CLI (use the mmdc tool to pre-generate images
-# (requires Node.js and mermaid-js/mermaid-cli). Works for all output formats)
-# and CLIENT_SIDE (embed mermaid.js in HTML output for client-side rendering.
-# Does not require mmdc but only works for HTML output).
-# The default value is: AUTO.
-
-MERMAID_RENDER_MODE    = AUTO
-
-# The MERMAID_JS_URL tag specifies the URL to load mermaid.js from when using
-# client-side rendering (MERMAID_RENDER_MODE is CLIENT_SIDE or AUTO). The
-# default points to the latest Mermaid v11 release on the jsDelivr CDN.
-#
-# The default CDN URL requires internet access when viewing the generated
-# documentation. For offline use, download mermaid.esm.min.mjs and set this to a
-# relative path, or use MERMAID_RENDER_MODE=CLI to pre-generate images instead.
-# Examples:
-# - Latest v11 (default):
-# 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
-# - Pinned version:
-# 'https://cdn.jsdelivr.net/npm/mermaid@11.3.0/dist/mermaid.esm.min.mjs'
-# - Local copy: './mermaid.esm.min.mjs' (user must place file in HTML output
-# directory)
-# The default value is:
-# https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs.
-
-MERMAID_JS_URL         = https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs
-
-# The MERMAIDFILE_DIRS tag can be used to specify one or more directories that
-# contain Mermaid files that are included in the documentation (see the
-# \mermaidfile command).
-
-MERMAIDFILE_DIRS       =
 
 # The DOT_GRAPH_MAX_NODES tag can be used to set the maximum number of nodes
 # that will be shown in the graph. If the number of nodes in a graph becomes

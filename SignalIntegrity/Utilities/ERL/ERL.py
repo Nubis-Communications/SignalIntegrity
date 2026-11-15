@@ -26,13 +26,21 @@ import os
 
 
 class ERLComMatlabPDF:
-    """MATLAB-like PDF helpers used by get_pdf_from_sampled_signal.
-    This class implements a translation of get_pdf_from_sampled_signal() with the 
-    the FAST_NOISE_CONV=0 path in com_ieee8023_4p15p0.m (COM v4.15.0)
+    """Build the sampled-signal probability distribution used by the ERL calculation.
+
+    The implementation follows the ``FAST_NOISE_CONV=0`` path of
+    ``get_pdf_from_sampled_signal`` in COM v4.15.0.
     """
 
     @staticmethod
     def d_cpdf(binsize, values, probs):
+        """Create a normalized discrete probability distribution on a uniform grid.
+
+        @param binsize Spacing between adjacent grid points.
+        @param values Sample values to place in the distribution.
+        @param probs Probability weights corresponding to ``values``.
+        @return A dictionary containing the grid, probability mass, and bin metadata.
+        """
         values = np.atleast_1d(np.asarray(values, dtype=float))
         probs = np.atleast_1d(np.asarray(probs, dtype=float))
 
@@ -83,6 +91,13 @@ class ERLComMatlabPDF:
 
     @staticmethod
     def init_pdf_fast(empty_pdf, values, probs):
+        """Accumulate probability weights into bins using an existing grid spacing.
+
+        @param empty_pdf Distribution dictionary whose ``BinSize`` defines the grid.
+        @param values Sample values to place in the distribution.
+        @param probs Probability weights corresponding to ``values``.
+        @return A distribution dictionary containing the populated bins.
+        """
         binsize = float(empty_pdf['BinSize'])
         values = np.atleast_1d(np.asarray(values, dtype=float))
         probs = np.atleast_1d(np.asarray(probs, dtype=float))
@@ -106,6 +121,13 @@ class ERLComMatlabPDF:
 
     @staticmethod
     def conv_fct(p1, p2):
+        """Convolve two discrete distributions that use the same bin spacing.
+
+        @param p1 First distribution dictionary.
+        @param p2 Second distribution dictionary.
+        @return The convolved distribution dictionary.
+        @exception ValueError If the distributions have different bin spacings.
+        """
         if not np.isclose(p1['BinSize'], p2['BinSize']):
             raise ValueError('bin size must be equal')
 
@@ -125,6 +147,15 @@ class ERLComMatlabPDF:
 
     @staticmethod
     def get_pdf_from_sampled_signal(input_vector, L, BinSize, FAST_NOISE_CONV=0):
+        """Calculate the PDF of the sampled signal using the COM-compatible method.
+
+        @param input_vector One-dimensional signal samples.
+        @param L Number of equally likely symbol levels.
+        @param BinSize Spacing between PDF bins.
+        @param FAST_NOISE_CONV Noise-convolution mode; only ``0`` is implemented.
+        @return A dictionary containing the calculated probability distribution.
+        @exception ValueError If ``FAST_NOISE_CONV`` is not zero.
+        """
         # This Python port intentionally supports only FAST_NOISE_CONV == 0.
         if FAST_NOISE_CONV != 0:
             raise ValueError('FAST_NOISE_CONV path is not translated; use FAST_NOISE_CONV=0')
@@ -157,6 +188,12 @@ class ERLComMatlabPDF:
 
 
 def FindWaveformSupport(waveform, epsilon):
+    """Find the first and last waveform sample whose magnitude exceeds a threshold.
+
+    @param waveform Sampled waveform.
+    @param epsilon Magnitude threshold for considering a sample part of the support.
+    @return A pair of first and last sample indices, or ``(0, 0)`` if none qualify.
+    """
     for index in range(waveform.td.K):
         if abs(waveform[index]) > epsilon:
             first_index = index
@@ -170,6 +207,15 @@ def FindWaveformSupport(waveform, epsilon):
 
 
 def LinearlyInterpolate(xi, yi, xf, yf, target):
+    """Interpolate the x-coordinate at ``target`` between two points in log-y space.
+
+    @param xi x-coordinate of the first point.
+    @param yi y-coordinate of the first point; values below the numerical floor return ``xi``.
+    @param xf x-coordinate of the second point.
+    @param yf y-coordinate of the second point.
+    @param target y-coordinate at which to interpolate.
+    @return The interpolated x-coordinate.
+    """
     if yi < 10**-300 / 10:
         return xi
     yi = np.log10(yi)
@@ -181,32 +227,23 @@ def LinearlyInterpolate(xi, yi, xf, yf, target):
 
 
 def ERL(filename,args,debug=False,verbose=False):
-    """computes effective return loss (ERL) mostly according to IEEE COM
-    @param filename absolute path of four-port s-parameter file
-    @param args dictionary of arguments for the ERL calculation (defined below).
-    @param debug boolean (optional, defaults to False) whether to show debug information.
-    @param verbose boolean (optional, defaults to False) whether to show intermediate output messages. 
-    The valid arguments are:
-    |key           | units |required    |description                                                          |
-    |:------------:|:----:|:-----------:|:------------------------------------------------------------------- |
-    | port_reorder | --   | no, 1,2,3,4 | port ordering of 1p,1n,2p,2n of the .s4p file (default is 1,2,3,4). |
-    | T_r          | s    | yes         | transition time associated with a pulse                             |
-    | beta_x       | Hz   | yes         | incremental available signal loss factor                            |
-    | rho_x        | --   | yes         | permitted reflection from a transmission line external to the DUT   |
-    | N            | UI   | yes         | length of reflection signal                                         |
-    | N_bx         | UI   | yes         | equalizer length associated with reflection signal                  |
-    | Z0           | ohm  | no 100      | intended differential-mode characteristic impedance                 |
-    | T_fx         | s    | no 0        | time-gated propagation delay                                        |
-    | f_b          | Baud | yes         | Baud rate                                                           |
-    | DER_0        | --   | yes         | target detector error ratio                                         |
-    | levels       | --   | no 2        | number of symbol levels                                             |
-    | bps          | --   | no 1        | deprecated bits per symbol compatibility argument                    |
-    | phi          | --   | no 32       | number of sample phases in ptdr (essentially an upsample factor     |
-    | f_r          | --   | no 0.58     | receiver bandwidth as a fraction of the Baud rate                   |
-    | tukey_window | --   | no False    | apply a Tukey window to the receiver filter                         |
-    | bias         | dB   | no 0        | bias subtracted from the final ERL result                           |
-    | old_cdf      | --   | no False    | use the legacy ERL_S11_Error CDF calculation                        |
-    | worst_phase_samples | -- | no None    | truncate the worst-phase waveform before legacy CDF calculation     |
+    """Calculate effective return loss (ERL) for a four-port S-parameter file.
+
+    Required keys in ``args`` are ``T_r`` (seconds), ``beta_x`` (Hz),
+    ``rho_x`` (unitless), ``N`` and ``N_bx`` (UI), ``f_b`` (Baud), and
+    ``DER_0`` (unitless). Optional keys are ``port_reorder`` (default
+    ``'1,2,3,4'``), ``Z0`` (100 ohms), ``T_fx`` (0 seconds), ``levels`` (2),
+    ``bps`` (deprecated compatibility option), ``phi`` (32), ``f_r`` (0.58),
+    ``tukey_window`` (False), ``bias`` (0 dB), ``old_cdf`` (False), and
+    ``worst_phase_samples`` (no truncation).
+
+    @param filename Path to the four-port S-parameter file.
+    @param args Dictionary of ERL configuration values. Time, frequency,
+        baud-rate, and impedance values are supplied in SI units.
+    @param debug If True, show diagnostic plots and write intermediate data.
+    @param verbose If True, print calculation progress and intermediate values.
+    @return Effective return loss in dB.
+    @exception ERL_Exception If required values are missing or the simulation fails.
     """
     class ERL_Exception(si.SignalIntegrityException):
         def __init__(self,message):
@@ -545,6 +582,11 @@ def ERL(filename,args,debug=False,verbose=False):
     return ERL
 
 def ERL_Main():
+    """Parse command-line options, run the ERL calculation, and print its result.
+
+    The result is printed in dB; command-line errors are reported as ``error``
+    and cause a nonzero process exit.
+    """
     import argparse
     from argparse import RawTextHelpFormatter
     parser = argparse.ArgumentParser(
