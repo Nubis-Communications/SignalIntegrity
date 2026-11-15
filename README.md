@@ -1,15 +1,8 @@
 # SignalIntegrity: Signal and Power Integrity Tools
 
-[Go to the official website for these tools](https://github.com/TeledyneLeCroy/SignalIntegrity/wiki)
+[Go to the official website for these tools](https://github.com/Nubis-Communications/SignalIntegrity/wiki)
 
 ***
-[Download the latest release](https://github.com/TeledyneLeCroy/SignalIntegrity/releases)
+[Download the latest release](https://github.com/Nubis-Communications/SignalIntegrity/releases)
 ***
-![EyeCollage](https://user-images.githubusercontent.com/16583311/147685292-e834987f-fec8-4cfb-bbbf-462dc8cd78ab.png)
-
-![](https://teledynelecroy.github.io/SignalIntegrity/Images/Screenshot.png)
-
-
-
-
-
+![Collage](https://github.com/Nubis-Communications/SignalIntegrity/blob/master/SignalIntegrity/Images/SignalIntegrity-collage-slate.png)
