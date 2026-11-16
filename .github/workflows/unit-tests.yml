@@ -39,7 +39,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 45
     env:
       SIGNALINTEGRITY_REQUIRE_GUI_TESTS: '1'
     steps:
@@ -58,12 +58,21 @@ jobs:
           sudo apt-get install -y xvfb
       - name: Install application and test dependencies
         run: python -m pip install -r pytest-requirements.txt ".[test]"
-      # TestAll.py runs every test, including the GUI tests, serially. Tcl occasionally fails to read
-      # its own library files on the Windows runners ("couldn't read file .../init.tcl"), so only
-      # tests failing with TclError are retried.
-      - name: Run TestAll.py (Linux)
+      # Non-GUI tests run in parallel (conftest.py isolates the workers); classes stay together
+      # (--dist loadscope) because tests within a class depend on shared state. Tcl occasionally
+      # fails to read its own library files on the Windows runners ("couldn't read file
+      # .../init.tcl"), so only tests failing with TclError are retried.
+      - name: Run tests (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run -a python -m pytest Test/TestSignalIntegrity/TestAll.py --reruns 2 --only-rerun TclError
-      - name: Run TestAll.py (Windows)
+        run: xvfb-run -a python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
+      - name: Run tests (Windows)
         if: runner.os == 'Windows'
-        run: python -m pytest Test/TestSignalIntegrity/TestAll.py --reruns 2 --only-rerun TclError
+        run: python -m pytest -n auto --dist loadscope -m "not gui" --reruns 2 --only-rerun TclError
+      # GUI tests run serially and on their own: Tk is not reliable inside pytest-xdist workers
+      # on Windows.
+      - name: Run GUI tests (Linux)
+        if: runner.os == 'Linux' && !cancelled()
+        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestGui
+      - name: Run GUI tests (Windows)
+        if: runner.os == 'Windows' && !cancelled()
+        run: python -m unittest Test.TestSignalIntegrity.TestGui
