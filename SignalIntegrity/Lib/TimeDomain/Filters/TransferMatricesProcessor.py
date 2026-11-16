@@ -62,6 +62,8 @@ class TransferMatricesProcessor(CallBacker):
         before and after time 0.  This is the case for the default time_before_0 = None.  If the time_before_0
         is specified, the impulse response is assumed circular, and the time before the amount (the negative of
         the time_before_0 specified) is placed at the end of the impulse response.
+        @remark Exactly zero transfer paths do not restrict the output time span.  If all waveform
+        paths to an output are zero, the first input waveform supplies its time descriptor.
         """
         # pragma: silent exclude
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
@@ -78,14 +80,22 @@ class TransferMatricesProcessor(CallBacker):
         for o in range(len(ir)):
             acc=[]
             for i in range(len(ir[o])):
-                acc.append(ir[o][i].FirFilter().FilterWaveform(wfl[i])
-                           if isinstance(wfl[i],Waveform)
-                           else (wfl[i]*fr[o][i][0]).real)
+                if isinstance(wfl[i],Waveform):
+                    # Disconnected sources must not constrain the output time span.
+                    acc.append(0. if all(value == 0. for value in fr[o][i])
+                               else ir[o][i].FirFilter().FilterWaveform(wfl[i]))
+                else:
+                    acc.append((wfl[i]*fr[o][i][0]).real)
                 # pragma: silent exclude
                 if self.HasACallBack():
                     progress=(float(o)/len(ir)+float(i)/(len(ir)*len(ir[o])))*100.0
                     if not self.CallBack(progress):
                         raise SignalIntegrityExceptionSimulator('calculation aborted')
+            if not any(isinstance(wf,Waveform) for wf in acc):
+                for wf in wfl:
+                    if isinstance(wf,Waveform):
+                        acc.insert(0,Waveform(wf.td,0.))
+                        break
             if adaptToLargest and len(acc)>1:
                 largestValue=0.0; largestIndex=0
                 for wfi in range(len(acc)):

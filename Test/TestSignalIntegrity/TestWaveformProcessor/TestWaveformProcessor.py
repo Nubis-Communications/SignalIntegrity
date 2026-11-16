@@ -526,14 +526,13 @@ output_waveform_1 = input_waveform_1 * gain
         import SignalIntegrity.App.Project
         #Turn on autoshutoff
         SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']=True
-        #This fixture's saved waveforms represent the legacy two-pass result.
+        # Exercise the iteration limit with two passes.
         SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']=2
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
 
-        #Run test - have to make new file name cause waveform of authoshutoff will be different then large # iterations
-        #cause it clips the waveform more
+        # Keep convergence-enabled regression results separate.
         origFileName = 'WaveformProcessorTestTwoProbe_nonlin_source.si'
         newFileName = 'WaveformProcessorTestTwoProbe_nonlin_source_AS.si'
         pysi.OpenProjectFile(origFileName)
