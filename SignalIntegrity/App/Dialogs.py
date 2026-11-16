@@ -209,10 +209,7 @@ class ThemedFileDialog(filedialog.FileDialog):
         if isinstance(patterns, str):
             patterns = self.top.tk.splitlist(patterns)
         patterns = tuple('*' + pattern if pattern.startswith('.') else pattern for pattern in patterns)
-        # A Tcl list string; Tk 9 returns lists from [format %s ...] as tuples, so build it directly.
-        return ' '.join('{' + pattern + '}' if (not pattern or any(
-            character.isspace() or character in '{}"\\[]$;' for character in pattern)) else pattern
-            for pattern in patterns)
+        return self.top.tk.call('format', '%s', patterns)
 
     def SelectType(self, event=None):
         self.set_filter(self.directory, self.TypePattern())
