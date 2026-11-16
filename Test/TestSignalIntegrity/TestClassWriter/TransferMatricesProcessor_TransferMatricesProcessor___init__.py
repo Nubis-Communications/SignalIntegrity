@@ -15,8 +15,11 @@ class TransferMatricesProcessor(CallBacker):
         for o in range(len(ir)):
             acc=[]
             for i in range(len(ir[o])):
-                acc.append(ir[o][i].FirFilter().FilterWaveform(wfl[i])
-                           if isinstance(wfl[i],Waveform)
-                           else (wfl[i]*fr[o][i][0]).real)
+                if isinstance(wfl[i],Waveform):
+                    # Disconnected sources must not constrain the output time span.
+                    acc.append(0. if all(value == 0. for value in fr[o][i])
+                               else ir[o][i].FirFilter().FilterWaveform(wfl[i]))
+                else:
+                    acc.append((wfl[i]*fr[o][i][0]).real)
             result.append(sum(acc))
         return result

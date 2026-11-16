@@ -37,6 +37,55 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         si.td.wf.Waveform.adaptionStrategy='SinX'
         si.sd.Numeric.trySVD=True
         unittest.TestCase.tearDown(self)
+    def testZeroTransferPathsDoNotRestrictWaveformSupport(self):
+        frequencies=si.fd.EvenlySpacedFrequencyList(8.,16)
+        source=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-4.,256,16.),
+                                 np.sin(np.arange(256)*.1).tolist())
+        expected=si.td.f.TransferMatricesProcessor(
+            si.fd.TransferMatrices(frequencies,[[[1.]] for _ in frequencies])
+            ).ProcessWaveforms([source])[0]
+        for zeroFirst in [False,True]:
+            for adaptToLargest in [False,True]:
+                with self.subTest(zeroFirst=zeroFirst,adaptToLargest=adaptToLargest):
+                    gains=[0.,1.] if zeroFirst else [1.,0.]
+                    processor=si.td.f.TransferMatricesProcessor(
+                        si.fd.TransferMatrices(frequencies,[[gains] for _ in frequencies]))
+                    previous=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,64,16.),1.)
+                    for iteration in range(3):
+                        inputs=[previous,source] if zeroFirst else [source,previous]
+                        previous=processor.ProcessWaveforms(
+                            inputs,adaptToLargest=adaptToLargest)[0]
+                        self.assertEqual(previous.td,expected.td)
+                        np.testing.assert_allclose(previous,expected,rtol=0.,atol=1.e-14)
+
+    def testNonzeroTransferPathStillRestrictsWaveformSupport(self):
+        frequencies=si.fd.EvenlySpacedFrequencyList(8.,16)
+        source=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-4.,256,16.),1.)
+        shorter=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,64,16.),2.)
+        matrices=si.fd.TransferMatrices(
+            frequencies,[[[1.,1.e-14*f/frequencies[-1]]] for f in frequencies])
+        responses=matrices.ImpulseResponses([source.td.Fs,shorter.td.Fs])
+        expected=(responses[0][0].FirFilter().FilterWaveform(source)+
+                  responses[0][1].FirFilter().FilterWaveform(shorter))
+        output=si.td.f.TransferMatricesProcessor(matrices).ProcessWaveforms([source,shorter])[0]
+        self.assertEqual(output.td,expected.td)
+        self.assertLess(len(output),len(source))
+        np.testing.assert_allclose(output,expected,rtol=0.,atol=1.e-14)
+
+    def testZeroTransferOutputPreservesWaveformType(self):
+        frequencies=si.fd.EvenlySpacedFrequencyList(8.,16)
+        source=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-4.,256,16.),1.)
+        shorter=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,64,16.),2.)
+        processor=si.td.f.TransferMatricesProcessor(
+            si.fd.TransferMatrices(frequencies,[[[0.,0.,2.]] for _ in frequencies]))
+        for dc in [0.,3.]:
+            with self.subTest(dc=dc):
+                output=processor.ProcessWaveforms([source,shorter,dc])[0]
+                self.assertIsInstance(output,si.td.wf.Waveform)
+                self.assertEqual(output.td,source.td)
+                self.assertEqual(output.Values(),[2.*dc]*len(source))
+                self.assertEqual(processor.ProcessWaveforms([1.,2.,dc]),[2.*dc])
+
     def testSymbolicSimulatorExample1Old(self):
         sd=si.sd.SystemDescription()
         sd.AddDevice('S',2)
