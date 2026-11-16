@@ -14,8 +14,9 @@ capture because file-descriptor capture can intermittently disrupt Tk on Windows
 Output written directly to file descriptors is not captured by default.
 
 GUI regressions, including Linux display scaling, compact variable controls,
-and measurement-table section label contrast across theme palettes and live
-theme changes, in
+noise spectral-density export to files usable by noise sources, and
+measurement-table section label contrast across theme palettes and live theme
+changes, in
 [TestGui](TestSignalIntegrity/TestGui) are included in `TestAll.py`.
 They skip when no Tk display is available. To run just these tests from the
 repository root:

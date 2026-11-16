@@ -18,12 +18,14 @@ StatisticalNoiseDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+import os
 import sys
 
 import tkinter as tk
 from SignalIntegrity.App import MessageBox as messagebox
 
 from SignalIntegrity.App.MenuSystemHelpers import Doer,StatusBar,SetTightLayout
+from SignalIntegrity.App.FilePicker import AskSaveAsFilename
 from SignalIntegrity.App.SParameterViewerPreferencesDialog import SParameterViewerPreferencesDialog
 from SignalIntegrity.App.StatisticalNoiseMeasurementsDialog import StatisticalNoiseMeasurementsDialog
 from SignalIntegrity.Lib.ToSI import FromSI,ToSI
@@ -56,6 +58,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         from matplotlib.figure import Figure
 
         # the Doers - the holder of the commands, menu elements, toolbar elements, and key bindings
+        self.WaveformSaveDoer = Doer(self.onWriteNoiseToFile).AddHelpElement('Control-Help:Save-Noise-Spectral-Densities').AddToolTip('Save noise spectral densities to files')
         # ------
         self.SelectionsDisplayAllDoer = Doer(self.onSelectionsDisplayAll).AddHelpElement('Control-Help:Display-All').AddToolTip('Display all waveforms')
         self.SelectionsDisplayNoneDoer = Doer(self.onSelectionsDisplayNone).AddHelpElement('Control-Help:Display-None').AddToolTip('Turn off display of all waveforms')
@@ -79,6 +82,9 @@ class StatisticalNoiseDialog(tk.Toplevel):
         TheMenu=tk.Menu(self)
         self.TheMenu=TheMenu
         self.config(menu=TheMenu)
+        FileMenu=tk.Menu(self)
+        TheMenu.add_cascade(label='File',menu=FileMenu,underline=0)
+        self.WaveformSaveDoer.AddMenuElement(FileMenu,label='Save Noise Spectral Densities',underline=0)
         # ------
         self.SelectionMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Selection',menu=self.SelectionMenu,underline=0)
@@ -112,6 +118,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         ToolBarFrame = tk.Frame(self)
         ToolBarFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         iconsdir=SignalIntegrity.App.IconsDir+''
+        self.WaveformSaveDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'document-save-2.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.HelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-contents-5.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
         self.ControlHelpDoer.AddToolBarElement(ToolBarFrame,iconfile=iconsdir+'help-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO)
 
@@ -149,6 +156,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         self.ExamineTransferMatricesDoer.Activate(False)
         self.SimulateDoer.Activate(False)
         self.NoiseMeasurementsDoer.Activate(False)
+        self.WaveformSaveDoer.Activate(False)
         self.ZoomsInitialized=False
 
         self.geometry("%+d%+d" % (self.parent.parent.root.winfo_x()+self.parent.parent.root.winfo_width()//2-self.winfo_width()//2,
@@ -179,6 +187,23 @@ class StatisticalNoiseDialog(tk.Toplevel):
     def onAutoscale(self):
         self.plt.autoscale(True)
         self.f.canvas.draw()
+
+    def onWriteNoiseToFile(self):
+        fileparts=self.parent.parent.fileparts
+        initialDirectory=fileparts.AbsoluteFilePath()
+        for name,spectrum in zip(self.waveformNamesList,self.waveformList):
+            filename=(fileparts.filename+'_' if fileparts.filename else '')+name
+            filename=AskSaveAsFilename(parent=self,filetypes=[('spectral density','.txt')],
+                                       defaultextension='.txt',initialdir=initialDirectory,
+                                       initialfile=filename+'.txt')
+            if filename is None:
+                continue
+            initialDirectory=os.path.dirname(os.path.abspath(filename))
+            try:
+                spectrum.WriteToFile(filename)
+            except OSError as error:
+                messagebox.showerror('Save Noise Spectral Density',str(error),parent=self)
+                return
 
     def onHelp(self):
         if Doer.helpKeys is None:
@@ -428,6 +453,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
                 self.waveformColorIndexList.append(colors[oi%len(colors)])
                 self.waveformTypesList.append(self.totalwaveformTypesList[oi] if self.totalwaveformTypesList != None else 'lines')
 
+        self.WaveformSaveDoer.Activate(bool(self.waveformList))
         if len(self.waveformList) == 1:
             fl = si.fd.FrequencyList(self.waveformList[0].Frequencies())
             if fl.CheckEvenlySpaced():

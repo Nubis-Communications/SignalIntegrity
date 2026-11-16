@@ -343,6 +343,131 @@ class TestTheme(unittest.TestCase):
             finally:
                 dialog.destroy()
 
+    def test_noise_viewer_saves_selected_spectral_densities_for_noise_sources(self):
+        from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
+        from SignalIntegrity.App.StatisticalNoisePreferencesFile import (
+            SpectralDensityFileConfiguration, VoltageNoiseConfiguration, CurrentNoiseConfiguration)
+        import SignalIntegrity.App
+        import SignalIntegrity.Lib as si
+        app = tk.Frame(self.root)
+        app.root = self.root
+        app.onCalculate = Mock()
+        parent = tk.Frame(app)
+        parent.parent = app
+        with tempfile.TemporaryDirectory() as directory:
+            app.fileparts = SimpleNamespace(filename='project', AbsoluteFilePath=lambda: directory)
+            frequencies = si.fd.EvenlySpacedFrequencyList(4e9, 4)
+            spectra = [si.fd.SpectralDensity(frequencies, values) for values in (
+                [0, 1e-9, 2e-9, 3e-9, 4e-9],
+                [0, 4e-12, 3e-12, 2e-12, 1e-12],
+                [0, 5e-9, 5e-9, 5e-9, 5e-9])]
+            names = ['voltage', 'current', 'hidden']
+            metrics = {key: 1.0 for key in ('dBm', 'rms', 'dBm/Hz', 'dBm/GHz',
+                                             'rms/sqrt(Hz)', 'rms/sqrt(GHz)')}
+            analysis = {'output_names': names,
+                        'noise_display_output_names': names[:2],
+                        'output_noise_spectral_density_list': spectra,
+                        'output_noise_spectral_density': {name: dict(metrics) for name in names}}
+            paths = [os.path.join(directory, name+'.txt') for name in names]
+            with patch.object(SignalIntegrity.App, 'Preferences', self.preferences), \
+                    patch.object(Doer, 'inHelp', False):
+                dialog = StatisticalNoiseDialog(parent)
+                try:
+                    menu = dialog.nametowidget(dialog.TheMenu.entrycget('File', 'menu'))
+                    label = 'Save Noise Spectral Densities'
+                    self.assertEqual(menu.entrycget(label, 'state'), 'disabled')
+                    with patch.object(dialog, 'PlotWaveformsFrequencyContent'):
+                        dialog.UpdateNoiseSpectralDensities(analysis)
+                        self.assertEqual(menu.entrycget(label, 'state'), 'normal')
+                        with patch('SignalIntegrity.App.StatisticalNoiseDialog.AskSaveAsFilename',
+                                   side_effect=paths[:2]) as save:
+                            menu.invoke(label)
+                        self.assertEqual(save.call_count, 2)
+                        self.assertEqual(save.call_args_list[0].kwargs['initialfile'], 'project_voltage.txt')
+                        self.assertEqual(save.call_args_list[1].kwargs['initialfile'], 'project_current.txt')
+                        self.assertFalse(os.path.exists(paths[2]))
+                        for index, configurationType in enumerate((VoltageNoiseConfiguration,
+                                                                    CurrentNoiseConfiguration)):
+                            configuration = configurationType()
+                            configuration['Enable'] = True
+                            configuration['Type'] = 'SpectralDensityFile'
+                            configuration['SpectralDensityFile.FileName'] = paths[index]
+                            loaded = configuration.SpectralDensity(4e9, 4)
+                            self.assertEqual(loaded.Frequencies(), spectra[index].Frequencies())
+                            for actual, expected in zip(loaded.Values(), spectra[index].Values()):
+                                self.assertAlmostEqual(actual, expected, delta=1e-20)
+                        dialog.SelectionDoerList[0].Set(False)
+                        dialog.onSelection()
+                        with patch('SignalIntegrity.App.StatisticalNoiseDialog.AskSaveAsFilename',
+                                   return_value=None) as save:
+                            menu.invoke(label)
+                        self.assertEqual(save.call_count, 1)
+                        self.assertEqual(save.call_args.kwargs['initialfile'], 'project_current.txt')
+                        with patch('SignalIntegrity.App.StatisticalNoiseDialog.AskSaveAsFilename',
+                                   return_value=paths[1]), \
+                                patch.object(spectra[1], 'WriteToFile', side_effect=OSError('disk error')), \
+                                patch('SignalIntegrity.App.StatisticalNoiseDialog.messagebox.showerror') as error:
+                            menu.invoke(label)
+                            error.assert_called_once_with('Save Noise Spectral Density', 'disk error', parent=dialog)
+                        uneven = si.fd.SpectralDensity(si.fd.FrequencyList([0, 1e9, 3e9, 4e9]),
+                                                       [0, 2e-12, 4e-12, 6e-12])
+                        dialog.waveformList[0] = uneven
+                        with patch('SignalIntegrity.App.StatisticalNoiseDialog.AskSaveAsFilename',
+                                   return_value=paths[1]):
+                            menu.invoke(label)
+                        loaded = si.fd.SpectralDensity().ReadFromFile(paths[1])
+                        self.assertEqual(loaded.Frequencies(), uneven.Frequencies())
+                        self.assertEqual(loaded.Values(), uneven.Values())
+                        configuration = SpectralDensityFileConfiguration()
+                        configuration['FileName'] = paths[1]
+                        for actual, expected in zip(configuration.SpectralDensity(4e9, 4).Values(),
+                                                    [0, 2e-12, 3e-12, 4e-12, 6e-12]):
+                            self.assertAlmostEqual(actual, expected, delta=1e-20)
+                        dialog.SelectionDoerList[1].Set(False)
+                        dialog.onSelection()
+                        self.assertEqual(menu.entrycget(label, 'state'), 'disabled')
+                finally:
+                    dialog.destroy()
+
+    def test_waveform_and_noise_saves_start_at_project_and_follow_selected_directory(self):
+        from SignalIntegrity.App.Files import FileParts
+        from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
+        from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
+        import SignalIntegrity.App
+        with tempfile.TemporaryDirectory() as directory:
+            project = os.path.join(directory, 'project')
+            first = os.path.join(directory, 'first')
+            second = os.path.join(directory, 'second')
+            for path in (project, first, second):
+                os.mkdir(path)
+            fileparts = FileParts(os.path.join(project, 'example.si'))
+            for module, saveMethod, extension in (
+                    ('SimulatorDialog', SimulatorDialog.onWriteSimulatorToFile, '.csv'),
+                    ('StatisticalNoiseDialog', StatisticalNoiseDialog.onWriteNoiseToFile, '.txt')):
+                with self.subTest(viewer=module):
+                    waveforms = [Mock() for _ in range(4)]
+                    dialog = SimpleNamespace(
+                        parent=SimpleNamespace(parent=SimpleNamespace(fileparts=fileparts)),
+                        waveformNamesList=['one', 'two', 'three', 'four'], waveformList=waveforms)
+                    paths = [os.path.join(first, 'one'+extension), None,
+                             os.path.join(second, 'three'+extension), os.path.join(second, 'four'+extension)]
+                    with patch.object(SignalIntegrity.App, 'Preferences', self.preferences), \
+                            patch('SignalIntegrity.App.'+module+'.AskSaveAsFilename',
+                                  side_effect=paths) as save:
+                        saveMethod(dialog)
+                    self.assertEqual([call.kwargs['initialdir'] for call in save.call_args_list],
+                                     [project, first, first, second])
+                    for index in (0, 2, 3):
+                        waveforms[index].WriteToFile.assert_called_once_with(paths[index])
+                    waveforms[1].WriteToFile.assert_not_called()
+                    if module == 'SimulatorDialog':
+                        self.assertEqual(save.call_args_list[1].kwargs['defaultextension'], '.csv')
+                    with patch.object(SignalIntegrity.App, 'Preferences', self.preferences), \
+                            patch('SignalIntegrity.App.'+module+'.AskSaveAsFilename',
+                                  return_value=None) as save:
+                        saveMethod(dialog)
+                    self.assertEqual(save.call_args_list[0].kwargs['initialdir'], project)
+
     def test_invalid_theme_and_color_are_reported_before_palette_changes(self):
         self.apply('Light')
         baseline = self.root.cget('background')
@@ -824,6 +949,87 @@ class TestTheme(unittest.TestCase):
                 return dialog.result
             with patch.object(FilePicker.ThemedFileDialog, 'Show', autospec=True, side_effect=cancel):
                 self.assertIsNone(FilePicker.AskOpenFileName(parent=self.root, initialdir=directory))
+
+    def test_themed_save_dialog_creates_and_enters_new_folder(self):
+        from SignalIntegrity.App.Dialogs import ThemedFileDialog,FolderNameDialog
+        from SignalIntegrity.App import MessageBox
+        self.preferences['Appearance.DialogStyle'] = 'Themed'
+        self.apply('Dark')
+        with tempfile.TemporaryDirectory() as directory:
+            dialog = ThemedFileDialog('save', parent=self.root, initialdir=directory,
+                                      initialfile='trace.txt', defaultextension='.txt')
+            def prompt(name):
+                def answer(window):
+                    window.destroy()
+                    return name
+                return patch.object(FolderNameDialog, 'Show', autospec=True, side_effect=answer)
+            try:
+                with prompt(None):
+                    dialog.newFolderButton.invoke()
+                self.assertEqual(os.listdir(directory), [])
+                for name in ('', ' ', '.', '..', os.path.join('..', 'outside')):
+                    with self.subTest(name=name), \
+                            prompt(name), \
+                            patch.object(MessageBox, 'showerror') as error:
+                        dialog.newFolderButton.invoke()
+                        error.assert_called_once()
+                        self.assertEqual(os.listdir(directory), [])
+                os.mkdir(os.path.join(directory, 'existing'))
+                with prompt('existing'), \
+                        patch.object(MessageBox, 'showerror') as error:
+                    dialog.newFolderButton.invoke()
+                    error.assert_called_once()
+                    self.assertEqual(dialog.directory, directory)
+                with prompt('new'), \
+                        patch('SignalIntegrity.App.Dialogs.os.mkdir', side_effect=PermissionError('denied')), \
+                        patch.object(MessageBox, 'showerror') as error:
+                    dialog.newFolderButton.invoke()
+                    error.assert_called_once_with('New Folder', 'denied', parent=dialog.top)
+                with prompt('new'):
+                    dialog.newFolderButton.invoke()
+                target = os.path.join(directory, 'new')
+                self.assertTrue(os.path.isdir(target))
+                self.assertEqual(dialog.directory, target)
+                self.assertEqual(os.path.basename(dialog.get_selection()), 'trace.txt')
+                dialog.ok_command()
+                self.assertEqual(dialog.result, os.path.join(target, 'trace.txt'))
+            finally:
+                if dialog.top.winfo_exists():
+                    dialog.top.destroy()
+
+    def test_themed_folder_name_prompt_submits_and_cancels(self):
+        from SignalIntegrity.App.Dialogs import FolderNameDialog
+        def create(window, parent, focus):
+            self.assertIs(focus, window.entry)
+            focus.insert(0, 'new folder')
+            window.Create()
+        with patch('SignalIntegrity.App.Dialogs.RunModal', side_effect=create):
+            self.assertEqual(FolderNameDialog(self.root).Show(), 'new folder')
+        with patch('SignalIntegrity.App.Dialogs.RunModal',
+                   side_effect=lambda window, parent, focus: window.destroy()):
+            self.assertIsNone(FolderNameDialog(self.root).Show())
+
+    def test_themed_folder_name_prompt_restores_save_dialog_grab(self):
+        from SignalIntegrity.App.Dialogs import FolderNameDialog
+        parent = tk.Toplevel(self.root)
+        parent.update()
+        parent.grab_set()
+        dialog = FolderNameDialog(parent)
+        def submit():
+            dialog.entry.insert(0, 'nested')
+            dialog.Create()
+        def visible(event):
+            if event.widget == dialog:
+                dialog.unbind('<Visibility>')
+                dialog.after_idle(submit)
+        dialog.bind('<Visibility>', visible)
+        timeout = self.root.after(3000, dialog.destroy)
+        try:
+            self.assertEqual(dialog.Show(), 'nested')
+            self.assertEqual(self.root.grab_current(), parent)
+        finally:
+            self.root.after_cancel(timeout)
+            parent.destroy()
 
     def test_themed_file_dialog_initial_width_and_height(self):
         from SignalIntegrity.App.Dialogs import ThemedFileDialog
