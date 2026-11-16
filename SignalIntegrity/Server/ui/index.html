@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignalIntegrity</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="app.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<!-- menu bar and toolbar are built by app.js from GuiCore/Menus.py (api 'menus') -->
+<nav id="menubar"><img class="logo" src="favicon.png" alt=""></nav>
+<header id="toolbar"></header>
+<!-- panes start in their default docks; dock.js moves them to the saved layout -->
+<main id="workbench">
+  <div class="dock vertical" id="dock-left" data-area="left">
+    <section class="pane disabled" id="parts" data-pane="parts">
+      <div class="pane-header"><span class="chevron"></span><h2>Parts</h2></div>
+      <div class="pane-body">
+        <input id="partSearch" type="search" placeholder="Search parts..." spellcheck="false">
+        <div id="partGroups"></div>
+        <div id="partsHint">Drag a part onto the schematic, or click it and then click where it goes (Esc cancels).</div>
+      </div>
+    </section>
+    <section class="pane" data-pane="variables">
+      <div class="pane-header"><span class="chevron"></span><h2>Variables</h2></div>
+      <div class="pane-body">
+        <table id="variables"><colgroup><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show on schematic">Show</th><th>Variable</th><th>Value</th><th>Units</th></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+    <section class="pane" data-pane="calc">
+      <div class="pane-header"><span class="chevron"></span><h2>Calculation Properties</h2></div>
+      <div class="pane-body"><form id="calcProps"></form></div>
+    </section>
+  </div>
+  <div class="sash ew" data-area="left"></div>
+  <div id="center">
+    <div id="canvasHost"><div id="hierarchy"></div><svg id="schematic" xmlns="http://www.w3.org/2000/svg"><g id="viewport"></g></svg></div>
+    <div class="sash ns" data-area="bottom" hidden></div>
+    <div class="dock horizontal" id="dock-bottom" data-area="bottom" hidden></div>
+  </div>
+  <div class="sash ew" data-area="right"></div>
+  <div class="dock vertical" id="dock-right" data-area="right">
+    <section class="pane" data-pane="properties">
+      <div class="pane-header"><span class="chevron"></span><h2>Device Properties</h2></div>
+      <div class="pane-body">
+        <table id="properties"><colgroup><col class="chk"><col class="chk"><col><col><col class="unit"></colgroup><thead><tr><th title="show the property on the schematic">Show</th><th title="show the keyword with the property">Kw</th><th>Property</th><th>Value</th><th>Unit</th></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+  </div>
+</main>
+<div id="dropOverlay"></div>
+<div id="dragLabel"></div>
+<ul id="paneMenu" class="dropdown" hidden></ul>
+<footer id="status">Open a SignalIntegrity project (.si) to begin</footer>
+<menu id="contextMenu" hidden></menu>
+<div id="dropdowns"></div>
+
+<dialog id="fileDialog">
+  <h3 id="fileDialogTitle">Open Project</h3>
+  <div class="row"><button id="fileUp" type="button">Up</button><input id="filePath" type="text" spellcheck="false"></div>
+  <ul id="fileList"></ul>
+  <div class="row"><input id="fileName" type="text" placeholder="file name.si" spellcheck="false"></div>
+  <div class="buttons"><button id="fileCancel" type="button">Cancel</button><button id="fileOk" type="button">Open</button></div>
+</dialog>
+<dialog id="choiceDialog">
+  <h3 id="choiceTitle"></h3>
+  <select id="choiceList" size="8"></select>
+  <div class="buttons"><button id="choiceCancel" type="button">Cancel</button><button id="choiceOk" type="button">OK</button></div>
+</dialog>
+<dialog id="textDialog">
+  <h3 id="textDialogTitle"></h3>
+  <pre id="textDialogBody"></pre>
+  <div class="buttons"><button id="textDialogClose" type="button">Close</button></div>
+</dialog>
+<dialog id="editorDialog">
+  <h3 id="editorTitle"></h3>
+  <textarea id="editorText" spellcheck="false"></textarea>
+  <div id="editorStatus"></div>
+  <div class="buttons"><button id="editorHelp" type="button">Help</button><span class="spacer"></span><button id="editorCancel" type="button">Cancel</button><button id="editorOk" type="button">OK</button></div>
+</dialog>
+<dialog id="prefsDialog">
+  <h3>Preferences</h3>
+  <nav id="prefsTabs"></nav>
+  <div id="prefsForm"></div>
+  <div id="prefsStatus"></div>
+  <div class="buttons"><button id="prefsClose" type="button">Close</button></div>
+</dialog>
+<dialog id="progressDialog">
+  <h3 id="progressTitle">Calculating...</h3>
+  <progress id="progressBar" max="100" value="0"></progress>
+  <div class="buttons"><button id="progressCancel" type="button">Cancel</button></div>
+</dialog>
+<dialog id="resultsDialog">
+  <div class="titlebar"><h3 id="resultsTitle">Results</h3><button id="resultsClose" type="button" title="Close">&#x2715;</button></div>
+  <nav id="resultsTabs"></nav>
+  <div id="plotToolbar">
+    <button id="plotHome" title="Reset original view">Home</button>
+    <button id="plotBack" title="Back to previous view">Back</button>
+    <button id="plotForward" title="Forward to next view">Forward</button>
+    <button id="plotPan" class="active" title="Pan: left-drag pans, right-drag zooms (hold x or y to constrain)">Pan</button>
+    <button id="plotZoom" title="Zoom to rectangle: left-drag zooms in, right-drag zooms out">Zoom</button>
+    <button id="plotAutoscale" title="Autoscale">autoscale</button>
+    <span class="sep"></span>
+    <span id="simControls">
+      <select id="simView" title="View">
+        <option value="time">Time-domain</option>
+        <option value="content">Spectral Content</option>
+        <option value="density">Spectral Density</option>
+      </select>
+      <label><input type="checkbox" id="simLog"> Log Frequency Scale</label>
+      <button id="simRecalculate" title="Recalculate">Recalculate</button>
+      <span class="sep"></span>
+      <button id="selAll" title="Display all waveforms">All</button>
+      <button id="selNone" title="Display no waveforms">None</button>
+      <button id="selToggle" title="Toggle all waveforms">Toggle</button>
+    </span>
+    <label><input type="checkbox" id="plotGrid" checked> Show Grids</label>
+  </div>
+  <div id="resultsBody">
+    <div id="selectionList"></div>
+    <div id="plotLabel"></div>
+    <div id="resultsPlot"></div>
+    <div id="eyeView"><img id="eyeImage" alt="eye diagram"></div>
+  </div>
+  <div id="noiseTable"></div>
+  <div id="resultsStatus"></div>
+</dialog>
+</body>
+</html>
