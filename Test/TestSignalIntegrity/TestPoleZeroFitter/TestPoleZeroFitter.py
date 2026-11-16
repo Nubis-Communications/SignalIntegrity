@@ -317,13 +317,12 @@ class TestPoleZeroFitterTest(unittest.TestCase,
             print (cme.message)
     def testAAACommandLine(self):
         import platform
+        import sys
         if platform.system() == 'Windows':
             correct_result = 1
-            python = 'python'
         else: # assume Linux
             correct_result = 256
-            python = 'python3'
-        result = os.system(f'{python} ../../../SignalIntegrity/Utilities/PZ/PZ.py')
+        result = os.system(f'"{sys.executable}" ../../../SignalIntegrity/Utilities/PZ/PZ.py')
         self.assertEqual(result, correct_result, 'incorrect result')
     def testAAACommandLine2(self):
         from SignalIntegrity.Utilities.PZ.PZ import PZ_Main

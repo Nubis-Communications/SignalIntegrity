@@ -14,32 +14,32 @@
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
-name: GUI regression tests
+name: Unit tests
 
 on:
-  push:
-    branches: [GUI-improvement]
   pull_request:
-    paths:
-      - 'SignalIntegrity/App/**'
-      - 'Test/TestSignalIntegrity/TestSignalIntegrityApp/**'
-      - 'Test/TestSignalIntegrity/TestGui/**'
-      - 'Test/TestSignalIntegrity/TestAll.py'
-      - '.github/workflows/gui-theme.yml'
-      - 'setup.py'
-  workflow_dispatch:
+    branches: [master, InNextRelease]
+  # Runs after merges so the README badges show the status of these branches.
+  push:
+    branches: [master, InNextRelease]
 
 permissions:
   contents: read
 
+# A new push to the same PR or branch cancels the run still in progress for the previous push.
+concurrency:
+  group: unit-tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  themes:
+  tests:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python: ['3.8', '3.12']
+        python: ['3.11', '3.14']
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     env:
       SIGNALINTEGRITY_REQUIRE_GUI_TESTS: '1'
     steps:
@@ -47,16 +47,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: Install application and test dependencies
-        run: python -m pip install ".[test]"
+          cache: pip
+          cache-dependency-path: |
+            setup.py
+            pytest-requirements.txt
       - name: Install Linux virtual display
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb tk
-      - name: Test Linux GUI
+          sudo apt-get install -y xvfb
+      - name: Install application and test dependencies
+        run: python -m pip install -r pytest-requirements.txt ".[test]"
+      # TestAll.py runs every test, including the GUI tests, serially. Tcl occasionally fails to read
+      # its own library files on the Windows runners ("couldn't read file .../init.tcl"), so only
+      # tests failing with TclError are retried.
+      - name: Run TestAll.py (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run -a python -m unittest Test.TestSignalIntegrity.TestGui
-      - name: Test Windows GUI
+        run: xvfb-run -a python -m pytest Test/TestSignalIntegrity/TestAll.py --reruns 2 --only-rerun TclError
+      - name: Run TestAll.py (Windows)
         if: runner.os == 'Windows'
-        run: python -m unittest Test.TestSignalIntegrity.TestGui
+        run: python -m pytest Test/TestSignalIntegrity/TestAll.py --reruns 2 --only-rerun TclError

@@ -52,12 +52,8 @@ class TestERLTest(unittest.TestCase,
         SignalIntegrity.App.Preferences.SaveToFile()
         pysi=SignalIntegrityAppHeadless()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-        import platform
-        thisOS=platform.system()
-        if thisOS == 'Linux':
-            self.python = 'python3'
-        else:
-            self.python = 'python.exe'
+        import sys
+        self.python = '"'+sys.executable+'"'
     def tearDown(self):
         unittest.TestCase.tearDown(self)
         os.chdir(self.cwd)

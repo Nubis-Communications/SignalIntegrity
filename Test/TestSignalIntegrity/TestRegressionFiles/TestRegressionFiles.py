@@ -278,6 +278,19 @@ class TestRegressionFiles(unittest.TestCase):
                               self.id()+' disabled noise was recorded')
         finally:
             RegressionContext.Stop()
+    @unittest.skipUnless(os.name == 'nt', 'drive letters exist only on Windows')
+    def testRegressionContextProjectOnDifferentDriveStaysUnderRegressionRoot(self):
+        RegressionContext.Start(self.tempDir,self.File('Regression'))
+        try:
+            drive=os.path.splitdrive(os.path.abspath(self.tempDir))[0]
+            other='D:' if drive.upper()!='D:' else 'E:'
+            project=other+'\\work\\sub\\Top.si'
+            self.assertEqual(RegressionContext.CallSiteKey(project),'work/sub/Top.si')
+            path=RegressionContext.ReferencePath(project,'netlist','')
+            self.assertTrue(os.path.abspath(path).startswith(os.path.abspath(self.File('Regression'))),
+                            self.id()+' reference path escaped the regression root: '+path)
+        finally:
+            RegressionContext.Stop()
     def testRegressionContextProjectArtifactsAreSwitchable(self):
         class App(object):
             pass
