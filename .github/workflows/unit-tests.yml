@@ -19,13 +19,16 @@ name: Unit tests
 on:
   pull_request:
     branches: [master, InNextRelease]
+  # Runs after merges so the README badges show the status of these branches.
+  push:
+    branches: [master, InNextRelease]
 
 permissions:
   contents: read
 
-# A new push to the PR cancels the run still in progress for the previous push.
+# A new push to the same PR or branch cancels the run still in progress for the previous push.
 concurrency:
-  group: unit-tests-${{ github.event.pull_request.number }}
+  group: unit-tests-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
