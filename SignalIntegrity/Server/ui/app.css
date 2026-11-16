@@ -98,10 +98,12 @@ form label input { min-width: 0; width: 100%; }
 form input, dialog input[type=text] { font: inherit; padding: 2px 4px; background: var(--input-bg); color: var(--input-fg); border: 1px solid var(--border); }
 #canvasHost { position: relative; overflow: hidden; background: var(--canvas); }
 #canvasHost.drop-target { outline: 2px dashed var(--accent); outline-offset: -4px; }
-#schematic { width: 100%; height: 100%; display: block; cursor: grab; user-select: none; }
+#schematic { width: 100%; height: 100%; display: block; cursor: default; user-select: none; }
 #schematic.panning { cursor: grabbing; }
 #schematic.placing, #schematic.wiring { cursor: crosshair; }
 #schematic text { font-family: Helvetica, Arial, sans-serif; font-size: 11px; }
+#schematic .property-backing { fill: var(--canvas); }
+#schematic .rubber-band { fill: color-mix(in srgb, var(--accent) 12%, transparent); stroke: var(--accent); stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
 #status { padding: 3px 8px; border-top: 1px solid var(--border); background: var(--status-bg); color: var(--status-fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 dialog { border: 1px solid var(--border); border-radius: 6px; padding: 12px; min-width: 420px; background: var(--panel); color: var(--fg); }
 dialog::backdrop { background: rgba(0,0,0,.25); }

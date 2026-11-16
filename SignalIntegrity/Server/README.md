@@ -86,6 +86,11 @@ Do not put the server behind a reverse proxy or bind it to another interface.
 | `themesInPackage` | `path` (`.vsix` or extension folder) | the themes it contains |
 | `addWire` | `points` (`[[x,y],...]` schematic pixels, snapped to the grid) | render (with `wires`) |
 | `selectWire` / `deleteWire` | `index` | render |
+| `selectRegion` | `x0`, `y0`, `x1`, `y1` (schematic pixels), `add?` | render; selects the parts and wire corners inside the rectangle (tk rubber band) |
+| `toggleDevice` | `index` | render; adds or removes a part from the selection |
+| `moveSelection` | `dx`, `dy` (grid units) | render; moves everything selected as one undo step |
+| `deleteSelection` / `copySelection` / `cutSelection` | – | render; `paste` then pastes the group |
+| `duplicateSelection` | `x?`, `y?` | render |
 | `selectVertex` / `deleteVertex` / `duplicateVertex` | `wire`, `vertex` | render (with `selectedVertex`) |
 | `moveVertex` | `wire`, `vertex`, `x`, `y` (schematic pixels) | render |
 | `flipDevice` | `index`, `direction` (`horizontal`/`vertical`) | render |

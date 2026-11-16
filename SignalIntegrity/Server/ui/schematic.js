@@ -44,14 +44,17 @@ function arcPath(item) {
   return `M ${sx} ${sy} A ${rx} ${ry} 0 ${large} ${sweep} ${ex} ${ey}`;
 }
 
-const H_ANCHOR = a => a.includes('w') ? 'start' : a.includes('e') ? 'end' : 'middle';
-const V_BASELINE = a => a.includes('n') ? 'hanging' : a.includes('s') ? 'text-after-edge' : 'central';
+// tk anchors are compass points; 'center' must not match the 'n' and 'e' tests
+const compass = a => (a === 'center' ? '' : a);
+const H_ANCHOR = a => compass(a).includes('w') ? 'start' : compass(a).includes('e') ? 'end' : 'middle';
+const V_BASELINE = a => compass(a).includes('n') ? 'hanging' : compass(a).includes('s') ? 'text-after-edge' : 'central';
 
 // colorMap maps the tk colors the part pictures use (black, blue, salmon, white) to theme colors;
 // skipText leaves out labels, for small stencil thumbnails
 export function renderPrimitives(group, items, colorMap = null, skipText = false) {
   while (group.firstChild) group.removeChild(group.firstChild);
   const c = v => (v && colorMap && colorMap[v]) || v;
+  const properties = [];
   for (const item of items) {
     switch (item.type) {
       case 'line': {
@@ -94,12 +97,24 @@ export function renderPrimitives(group, items, colorMap = null, skipText = false
         break;
       case 'text': {
         if (skipText) break;
+        // property labels sit above their part, often across a wire, so they are drawn last with a halo
+        if (item.role === 'property') { properties.push(item); break; }
         const anchor = item.anchor || 'center';
         const t = el('text', { x: item.x, y: item.y, fill: c(item.color), 'text-anchor': H_ANCHOR(anchor),
           'dominant-baseline': V_BASELINE(anchor) }, group);
         t.textContent = item.text;
         break;
       }
+    }
+  }
+  for (const item of properties) {
+    const anchor = item.anchor || 'center';
+    const t = el('text', { x: item.x, y: item.y, fill: c(item.color), class: 'property', 'text-anchor': H_ANCHOR(anchor),
+      'dominant-baseline': V_BASELINE(anchor) }, group);
+    t.textContent = item.text;
+    if (group.isConnected) {
+      const b = t.getBBox();
+      group.insertBefore(el('rect', { class: 'property-backing', x: b.x - 1, y: b.y - 2, width: b.width + 2, height: b.height + 4 }), t);
     }
   }
 }

@@ -60,6 +60,7 @@ class Api(object):
              'partCatalog','addPart','deleteDevice','themes','theme','setTheme','themesInPackage',
              'addWire','selectWire','deleteWire','menus','recentProjects','clearRecentProjects',
              'undo','redo','cut','copy','paste','duplicate','flipDevice',
+             'selectRegion','toggleDevice','moveSelection','deleteSelection','copySelection','cutSelection','duplicateSelection',
              'selectVertex','moveVertex','deleteVertex','duplicateVertex',
              'equations','checkEquations','setEquations','postProcessing','setPostProcessing',
              'archive','extractArchive','exportNetlist','exportTikz','exportImage',
@@ -163,6 +164,29 @@ class Api(object):
         return self.session.Render()
     def _duplicate(self,params):
         self.session.Duplicate(self._Get(params,'index',int),self._Get(params,'x',float,True),self._Get(params,'y',float,True))
+        return self.session.Render()
+    # ---- multiple selection (rubber band, Ctrl/Shift+click, group moves and clipboard)
+    def _selectRegion(self,params):
+        self.session.SelectRegion(self._Get(params,'x0',float),self._Get(params,'y0',float),
+                                  self._Get(params,'x1',float),self._Get(params,'y1',float),bool(self._Get(params,'add',bool,True)))
+        return self.session.Render()
+    def _toggleDevice(self,params):
+        self.session.ToggleDevice(self._Get(params,'index',int))
+        return self.session.Render()
+    def _moveSelection(self,params):
+        self.session.MoveSelection(self._Get(params,'dx',int),self._Get(params,'dy',int))
+        return self.session.Render()
+    def _deleteSelection(self,params):
+        self.session.DeleteSelection()
+        return self.session.Render()
+    def _copySelection(self,params):
+        self.session.CopySelection()
+        return self.session.Render()
+    def _cutSelection(self,params):
+        self.session.CutSelection()
+        return self.session.Render()
+    def _duplicateSelection(self,params):
+        self.session.DuplicateSelection(self._Get(params,'x',float,True),self._Get(params,'y',float,True))
         return self.session.Render()
     def _flipDevice(self,params):
         self.session.FlipDevice(self._Get(params,'index',int),self._Get(params,'direction',str))

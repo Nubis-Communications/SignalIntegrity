@@ -91,8 +91,8 @@ async function setDrawing(drawing, fit = false) {
   state.drawing = drawing;
   renderPrimitives(viewport, drawing.items, state.colorMap);
   drawWirePreview();
-  const sel = drawing.devices.find(d => d.selected);
-  state.selected = sel ? sel.index : null;
+  const sel = drawing.devices.filter(d => d.selected);
+  state.selected = sel.length === 1 && !(drawing.wires || []).some(w => w.selected) ? sel[0].index : null;
   state.viewActions = state.selected === null ? [] : await api('viewActions', { index: state.selected });
   if (fit) zoomFit(); else applyView();
   updateEnables();
@@ -103,10 +103,33 @@ async function showLevel(drawing) {
 }
 
 let drag = null;
+// number of selected parts plus selected wires
+function selectionSize() {
+  if (!state.drawing) return 0;
+  return state.drawing.devices.filter(d => d.selected).length + (state.drawing.wires || []).filter(w => w.selected).length;
+}
+// several parts, parts and wires, or corners of several wires: the tk 'Multiple Selections' state
+function multipleSelection() {
+  if (!state.drawing) return false;
+  const parts = state.drawing.devices.filter(d => d.selected).length, wires = (state.drawing.wires || []).filter(w => w.selected).length;
+  return parts > 1 || (parts > 0 && wires > 0) || wires > 1;
+}
+function ghostRect(d) {
+  const [x0, y0, x1, y1] = d.bbox;
+  return el('rect', { x: Math.min(x0, x1), y: Math.min(y0, y1), width: Math.abs(x1 - x0), height: Math.abs(y1 - y0),
+    fill: 'none', stroke: state.palette ? state.palette.accent : '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
+}
 svg.addEventListener('pointerdown', async evt => {
   hideContextMenu(); closeMenus();
   if (state.wiring) {
     if (evt.button === 0) { addWirePoint(snap(toScene(evt))); drawWirePreview(); }
+    return;
+  }
+  if (evt.button === 1 && state.drawing) {
+    evt.preventDefault();
+    svg.setPointerCapture(evt.pointerId);
+    drag = { kind: 'pan', x: evt.clientX, y: evt.clientY };
+    svg.classList.add('panning');
     return;
   }
   if (evt.button !== 0 || !state.drawing || state.busy) return;
@@ -117,38 +140,47 @@ svg.addEventListener('pointerdown', async evt => {
   }
   svg.setPointerCapture(evt.pointerId);
   const p = toScene(evt);
+  const add = evt.ctrlKey || evt.shiftKey || evt.metaKey;
   const index = deviceAt(p);
   if (index !== null) {
-    if (index !== state.selected) await selectDevice(index);
+    if (add) return edit('toggleDevice', { index }, () => selectionStatus());
+    const group = state.drawing.devices[index].selected && selectionSize() > 1;
+    if (!group && index !== state.selected) await selectDevice(index);
     if (readOnly()) return;
-    const d = state.drawing.devices.find(x => x.index === index);
-    const [x0, y0, x1, y1] = d.bbox;
-    const ghost = el('rect', { x: Math.min(x0, x1), y: Math.min(y0, y1), width: Math.abs(x1 - x0), height: Math.abs(y1 - y0),
-      fill: 'none', stroke: state.palette ? state.palette.accent : '#0a64c8', 'stroke-dasharray': '4 3', visibility: 'hidden' }, viewport);
-    drag = { kind: 'device', index, start: p, ghost, dx: 0, dy: 0 };
+    const moving = group ? state.drawing.devices.filter(d => d.selected) : [state.drawing.devices[index]];
+    drag = { kind: 'device', index, group, start: p, ghosts: moving.map(ghostRect), dx: 0, dy: 0 };
   } else {
-    const vertex = vertexAt(p);
-    if (vertex !== null) {
-      try { await setDrawing(await api('selectVertex', { wire: vertex[0], vertex: vertex[1] })); await refreshProperties(); } catch (e) { return error(e); }
-      status('wire corner selected: drag it, or use Wires > Delete Vertex / Duplicate Vertex');
-      if (!readOnly()) {
-        const q = state.drawing.wires[vertex[0]].points;
-        const corners = []; for (let k = 0; k + 1 < q.length; k += 2) corners.push([q[k], q[k + 1]]);
-        drag = { kind: 'vertex', wire: vertex[0], vertex: vertex[1], from: corners[vertex[1]], to: null,
-          neighbours: [corners[vertex[1] - 1], corners[vertex[1] + 1]].filter(Boolean) };
+    if (!add) {
+      const vertex = vertexAt(p);
+      if (vertex !== null) {
+        try { await setDrawing(await api('selectVertex', { wire: vertex[0], vertex: vertex[1] })); await refreshProperties(); } catch (e) { return error(e); }
+        status('wire corner selected: drag it, or use Wires > Delete Vertex / Duplicate Vertex');
+        if (!readOnly()) {
+          const q = state.drawing.wires[vertex[0]].points;
+          const corners = []; for (let k = 0; k + 1 < q.length; k += 2) corners.push([q[k], q[k + 1]]);
+          drag = { kind: 'vertex', wire: vertex[0], vertex: vertex[1], from: corners[vertex[1]], to: null,
+            neighbours: [corners[vertex[1] - 1], corners[vertex[1] + 1]].filter(Boolean) };
+        }
+        return;
       }
-      return;
+      const wire = wireAt(p);
+      if (wire !== null) {
+        try { await setDrawing(await api('selectWire', { index: wire })); await refreshProperties(); } catch (e) { error(e); }
+        return status('wire selected (Del deletes it)');
+      }
+      if (state.selected !== null || selectedWire() !== null || selectionSize()) await selectDevice(null);
     }
-    const wire = wireAt(p);
-    if (wire !== null) {
-      try { await setDrawing(await api('selectWire', { index: wire })); await refreshProperties(); } catch (e) { error(e); }
-      return status('wire selected (Del deletes it)');
-    }
-    if (state.selected !== null || selectedWire() !== null) await selectDevice(null);
-    drag = { kind: 'pan', x: evt.clientX, y: evt.clientY };
-    svg.classList.add('panning');
+    // left-drag on the background selects with a rubber band (Ctrl/Shift adds), as in the tk app
+    drag = { kind: 'band', add, start: p, x: evt.clientX, y: evt.clientY,
+      rect: el('rect', { class: 'rubber-band', x: p.x, y: p.y, width: 0, height: 0, visibility: 'hidden' }, viewport) };
   }
 });
+function selectionStatus() {
+  const parts = state.drawing.devices.filter(d => d.selected).length;
+  const corners = (state.drawing.wires || []).filter(w => w.selected).length;
+  return parts || corners ? `${parts} part${parts === 1 ? '' : 's'} and ${corners} wire${corners === 1 ? '' : 's'} selected - drag one to move them all, Del deletes them`
+    : 'nothing selected';
+}
 svg.addEventListener('pointermove', evt => {
   if (state.wiring) { state.wireCursor = snap(toScene(evt)); drawWirePreview(); return; }
   if (drag && drag.kind === 'vertex') { drag.to = snap(toScene(evt)); drawVertexPreview(drag); return; }
@@ -157,16 +189,30 @@ svg.addEventListener('pointermove', evt => {
     state.view.tx += evt.clientX - drag.x; state.view.ty += evt.clientY - drag.y;
     drag.x = evt.clientX; drag.y = evt.clientY;
     applyView();
+  } else if (drag.kind === 'band') {
+    const p = toScene(evt);
+    drag.end = p;
+    drag.rect.setAttribute('x', Math.min(p.x, drag.start.x)); drag.rect.setAttribute('y', Math.min(p.y, drag.start.y));
+    drag.rect.setAttribute('width', Math.abs(p.x - drag.start.x)); drag.rect.setAttribute('height', Math.abs(p.y - drag.start.y));
+    drag.rect.setAttribute('visibility', 'visible');
   } else {
     const p = toScene(evt), g = state.drawing.grid;
     drag.dx = Math.round((p.x - drag.start.x) / g); drag.dy = Math.round((p.y - drag.start.y) / g);
-    drag.ghost.setAttribute('transform', `translate(${drag.dx * g} ${drag.dy * g})`);
-    drag.ghost.setAttribute('visibility', drag.dx || drag.dy ? 'visible' : 'hidden');
+    for (const ghost of drag.ghosts) {
+      ghost.setAttribute('transform', `translate(${drag.dx * g} ${drag.dy * g})`);
+      ghost.setAttribute('visibility', drag.dx || drag.dy ? 'visible' : 'hidden');
+    }
   }
 });
-svg.addEventListener('pointerup', async () => {
+svg.addEventListener('pointerup', async evt => {
   const d = drag; drag = null;
   svg.classList.remove('panning');
+  if (d && d.kind === 'band') {
+    d.rect.remove();
+    if (d.end && Math.abs(evt.clientX - d.x) + Math.abs(evt.clientY - d.y) >= 4)
+      await edit('selectRegion', { x0: d.start.x, y0: d.start.y, x1: d.end.x, y1: d.end.y, add: d.add }, () => selectionStatus());
+    return;
+  }
   if (d && d.kind === 'vertex') {
     drawVertexPreview(null);
     if (d.to && (d.to[0] !== d.from[0] || d.to[1] !== d.from[1])) {
@@ -175,12 +221,16 @@ svg.addEventListener('pointerup', async () => {
     return;
   }
   if (d && d.kind === 'device') {
-    d.ghost.remove();
-    if (d.dx || d.dy) {
+    for (const ghost of d.ghosts) ghost.remove();
+    if (d.group) {
+      if (d.dx || d.dy) await edit('moveSelection', { dx: d.dx, dy: d.dy }, 'selection moved');
+      else await selectDevice(d.index);   // a click on one part of a multiple selection selects just that part
+    } else if (d.dx || d.dy) {
       try { await setDrawing(await api('moveDevice', { index: d.index, dx: d.dx, dy: d.dy })); } catch (e) { error(e); }
     }
   }
 });
+svg.addEventListener('mousedown', evt => { if (evt.button === 1) evt.preventDefault(); });   // no autoscroll: middle-drag pans
 svg.addEventListener('wheel', evt => {
   evt.preventDefault();
   const r = svg.getBoundingClientRect();
@@ -332,11 +382,15 @@ const COMMANDS = {
   netlist: { run: showNetlist, when: c => c.open },
   undo: { run: () => edit('undo', {}, (d, before) => 'undid ' + before.undoName, true), when: c => c.writable && state.drawing.canUndo },
   redo: { run: () => edit('redo', {}, d => 'redid ' + d.undoName, true), when: c => c.writable && state.drawing.canRedo },
-  cut: { run: () => edit('cut', { index: state.selected }, 'part cut (Ctrl+V pastes it)'), when: c => c.writable && c.device },
-  copy: { run: () => edit('copy', { index: state.selected }, 'part copied (Ctrl+V pastes it)'), when: c => c.device },
-  paste: { run: () => edit('paste', {}, 'part pasted - drag it into place'), when: c => c.writable && state.drawing.canPaste },
-  duplicate: { run: () => edit('duplicate', { index: state.selected }, 'part duplicated - drag it into place'), when: c => c.writable && c.device },
-  delete: { run: () => runCommand(selectedWire() !== null ? 'deleteWire' : 'deletePart'), when: c => c.writable && (c.device || c.wire) },
+  cut: { run: () => (multipleSelection() ? edit('cutSelection', {}, 'selection cut (Ctrl+V pastes it)')
+    : edit('cut', { index: state.selected }, 'part cut (Ctrl+V pastes it)')), when: c => c.writable && (c.device || c.multiple) },
+  copy: { run: () => (multipleSelection() ? edit('copySelection', {}, 'selection copied (Ctrl+V pastes it)')
+    : edit('copy', { index: state.selected }, 'part copied (Ctrl+V pastes it)')), when: c => c.device || c.multiple },
+  paste: { run: () => edit('paste', {}, 'pasted - drag it into place'), when: c => c.writable && state.drawing.canPaste },
+  duplicate: { run: () => (multipleSelection() ? edit('duplicateSelection', {}, 'selection duplicated - drag it into place')
+    : edit('duplicate', { index: state.selected }, 'part duplicated - drag it into place')), when: c => c.writable && (c.device || c.multiple) },
+  delete: { run: () => (multipleSelection() ? edit('deleteSelection', {}, 'selection deleted')
+    : runCommand(selectedWire() !== null ? 'deleteWire' : 'deletePart')), when: c => c.writable && (c.device || c.wire || c.multiple) },
   cancel: { run: cancel, always: true },
   rotate: { run: rotate, when: c => c.writable && c.device },
   flipHorizontal: { run: () => edit('flipDevice', { index: state.selected, direction: 'horizontal' }, 'flipped horizontally'), when: c => c.writable && c.device },
@@ -364,6 +418,7 @@ for (const kind of Object.keys(CALC_TITLES)) COMMANDS[kind] = { run: () => calcu
 function commandContext() {
   const open = !!state.drawing;
   return { open, writable: open && !readOnly(), device: open && state.selected !== null, wire: open && selectedWire() !== null,
+    multiple: multipleSelection(),
     vertex: open && !!state.drawing.selectedVertex,
     viewable: !!(state.viewActions && state.viewActions.length), caps: open ? state.drawing.capabilities : {} };
 }

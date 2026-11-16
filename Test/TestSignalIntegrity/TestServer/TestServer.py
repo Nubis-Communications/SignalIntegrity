@@ -186,6 +186,42 @@ class TestServerApiTest(unittest.TestCase):
         finally:
             os.chdir(self.cwd)
             shutil.rmtree(directory,ignore_errors=True)
+    def testMultipleSelection(self):
+        import sys, tempfile, shutil
+        sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..'))
+        from TestGuiCore.TestGuiCore import BuildDivider
+        directory=tempfile.mkdtemp()
+        try:
+            BuildDivider(self.api.session,directory)
+            self.api.Dispatch('addWire',{'points':[[96,160],[96,96],[240,96]]})
+            self.api.Dispatch('addWire',{'points':[[304,96],[400,96],[496,96],[496,80]]})
+            drawing=self.api.Dispatch('selectRegion',{'x0':330,'y0':220,'x1':60,'y1':60})
+            self.assertEqual([d['ref'] for d in drawing['devices'] if d['selected']],['VG1','R1'])
+            drawing=self.api.Dispatch('toggleDevice',{'index':2})
+            self.assertEqual([d['ref'] for d in drawing['devices'] if d['selected']],['VG1','R1','VO1'])
+            before=drawing['devices'][1]['bbox'][1]
+            drawing=self.api.Dispatch('moveSelection',{'dx':0,'dy':2})
+            self.assertEqual(drawing['devices'][1]['bbox'][1]-before,2*drawing['grid'])
+            self.api.Dispatch('copySelection',{})
+            self.assertEqual(len(self.api.Dispatch('paste',{})['devices']),7)
+            self.api.Dispatch('undo',{})
+            self.api.Dispatch('selectRegion',{'x0':0,'y0':0,'x1':1000,'y1':1000})
+            self.assertEqual(len(self.api.Dispatch('duplicateSelection',{'x':800,'y':800})['devices']),8)
+            self.api.Dispatch('selectRegion',{'x0':0,'y0':0,'x1':10,'y1':10,'add':False})
+            with self.assertRaises(ApiError):
+                self.api.Dispatch('deleteSelection',{})
+            self.api.Dispatch('selectRegion',{'x0':700,'y0':700,'x1':2000,'y1':2000})
+            self.assertEqual(len(self.api.Dispatch('cutSelection',{})['devices']),4)
+            self.api.Dispatch('selectRegion',{'x0':0,'y0':0,'x1':2000,'y1':2000})
+            self.assertEqual(self.api.Dispatch('deleteSelection',{})['devices'],[])
+            for bad in ({'x0':'a','y0':0,'x1':1,'y1':1},{'x0':0,'y0':0,'x1':1},{'x0':0,'y0':0,'x1':1,'y1':1,'add':1}):
+                with self.assertRaises(ApiError):
+                    self.api.Dispatch('selectRegion',bad)
+            properties=[t for t in self.api.Dispatch('undo',{})['items'] if t.get('role')=='property']
+            self.assertTrue(properties and all(t['anchor']=='s' for t in properties))
+        finally:
+            os.chdir(self.cwd)
+            shutil.rmtree(directory,ignore_errors=True)
     def testWebHandlesEveryCommand(self):
         import re
         from SignalIntegrity.GuiCore.Menus import CommandIds, SubmenuIds, CALCULATION_IDS

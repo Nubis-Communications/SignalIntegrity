@@ -59,7 +59,7 @@ Coordinates are in the same pixel units the tk application uses (`grid` pixels p
 | `Open(filename)` | render dict (below); raises `SessionError` on failure |
 | `New(filename)` | starts an empty project and saves it to `filename`, as the tk **File > New Project** does; returns the render dict |
 | `Save(filename=None)` | the saved path (`.si` is appended if missing) |
-| `Render()` | `{filename,title,path,readOnly,canAscend,grid,items,bbox,devices,capabilities,equationsValid}` |
+| `Render()` | `{filename,title,path,readOnly,canAscend,grid,items,bbox,devices,capabilities,equationsValid}`. Each part's visible properties are drawn centred directly above the part (anchor `s`, stacked upwards) and those text items carry `role: 'property'` so a GUI can give them a backing; the part pictures themselves, and so the `.si` file and the tk app, keep tk's own placement |
 | `DeviceAt(x,y)` / `Select(index)` | device index under a pixel point / select one device |
 | `DeviceProperties(index)` / `SetDeviceProperty(index,keyword,value)` | list of `{keyword,name,description,type,unit,value,visible,keywordVisible,validEntries,readOnly}`; enum values are checked against `validEntries` |
 | `SetDevicePropertyVisibility(index,keyword,visible=None,keywordVisible=None)` | chooses what is shown next to the part on the schematic (the tk properties dialog checkboxes) |
@@ -79,6 +79,9 @@ Coordinates are in the same pixel units the tk application uses (`grid` pixels p
 | `AddWire(points)` | adds a wire through `[[x,y],...]` pixel points; each snaps to the nearest grid point, repeats are dropped, and the wires are consolidated (split at junctions and pins, joined where only two meet) as the tk app does |
 | `WireAt(x,y,tolerance=None)` / `SelectWire(index)` / `DeleteWire(index)` | hit test (tolerance in pixels, default a quarter grid), select one wire (deselecting devices), delete one wire. `Select(index)` deselects wires. |
 | `VertexAt(x,y,tolerance=None)` / `SelectVertex(wire,vertex)` | `(wire,vertex)` under a pixel point / select one wire vertex (`selectedVertex` in the render dict) |
+| `SelectRegion(x0,y0,x1,y1,add=False)` / `ToggleDevice(index)` / `Selection()` | the tk rubber band: selects the parts and wire corners entirely inside a pixel rectangle (keeping the current selection with `add`); toggles one part (Ctrl/Shift+click); `Selection()` is `{'devices':[...],'vertices':[[wire,vertex],...]}` |
+| `MoveSelection(dx,dy)` / `DeleteSelection()` | moves everything selected by whole grid units (wires are consolidated, the parts stay selected) / deletes the selected parts and wire corners as tk's Delete Selected does; one undo step each |
+| `CopySelection()` / `CutSelection()` / `DuplicateSelection(x=None,y=None)` | the selected parts plus, for each wire, the run between its first and last selected corner, as tk's Duplicate Selected does; `Paste(x,y)` places a copied group (renumbered like single parts) two grid units down and right, or with its top-left corner at pixel `x,y` |
 | `MoveVertex(wire,vertex,x,y)` / `DeleteVertex(wire,vertex)` / `DuplicateVertex(wire,vertex)` | as the tk vertex commands: a moved vertex snaps to the grid and the wires are consolidated; a wire left with one vertex is removed; the duplicate is inserted after the original and selected so it can be dragged away |
 | `FlipDevice(index,direction)` | mirror a part `'horizontal'`ly or `'vertical'`ly (the tk Orientation menu) |
 | `Copy(index)` / `Cut(index)` / `Paste(x=None,y=None)` / `Duplicate(index,x,y)` | part clipboard; pasted and duplicated parts get a new reference designator and port number and are selected |
