@@ -9,10 +9,13 @@ dependencies with `python -m pip install -e ".[test]"`, then run:
     pytest
 
 The root `pytest.ini` configuration selects `TestSignalIntegrity/TestAll.py`, which
-collects the unittest cases from the test modules.
+collects the unittest cases from the test modules. It uses Python-level output
+capture because file-descriptor capture can intermittently disrupt Tk on Windows.
+Output written directly to file descriptors is not captured by default.
 
-GUI regressions, including Linux display scaling and measurement-table section
-label contrast across theme palettes and live theme changes, in
+GUI regressions, including Linux display scaling, compact variable controls,
+and measurement-table section label contrast across theme palettes and live
+theme changes, in
 [TestGui](TestSignalIntegrity/TestGui) are included in `TestAll.py`.
 They skip when no Tk display is available. To run just these tests from the
 repository root:

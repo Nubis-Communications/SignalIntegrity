@@ -21,6 +21,7 @@ import ast
 import os
 import tempfile
 import tkinter as tk
+import tkinter.font as tkfont
 from tkinter import ttk
 import unittest
 from unittest.mock import patch
@@ -639,6 +640,86 @@ class TestTheme(unittest.TestCase):
             self.assertEqual(dialog.variableFrameList[1].entry.cget('readonlybackground'), 'light gray')
         finally:
             dialog.destroy()
+
+    def test_variables_dialog_compact_controls_scale_and_keep_their_actions(self):
+        from SignalIntegrity.App.VariablesDialog import VariablesDialog
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App import MenuSystemHelpers as helpers
+        import SignalIntegrity.App
+        originalScaling = self.root.tk.call('tk', 'scaling')
+        try:
+            for platform in ('win32', 'linux'):
+                for scale in (1, 2):
+                    with self.subTest(platform=platform, scale=scale), \
+                            patch.object(helpers.sys, 'platform', platform), \
+                            patch.dict(os.environ, {'GDK_SCALE': '1'}):
+                        self.root.tk.call('tk', 'scaling', scale * 96 / 72)
+                        self.apply('Dark')
+                        parent = tk.Frame(self.root)
+                        variables = []
+                        for name, kind in (('one', 'float'), ('two', 'file'), ('three', 'file')):
+                            variable = VariableConfiguration()
+                            variable['Name'], variable['Type'], variable['Value'] = name, kind, '1'
+                            variable['Visible'] = False
+                            variables.append(variable)
+                        dialog = VariablesDialog(parent, project=variables, top=parent)
+                        toolbar = ToolBarElement(parent, iconfile=SignalIntegrity.App.IconsDir+'edit-3.gif')
+                        try:
+                            dialog.update_idletasks()
+                            row = dialog.variablesFrame.winfo_children()[0]
+                            buttons = [child for child in row.winfo_children() if isinstance(child, tk.Button)]
+                            checkbox = next(child for child in row.winfo_children() if isinstance(child, tk.Checkbutton))
+                            field = dialog.variableFrameList[0]
+                            self.assertEqual(len(buttons), 4)
+                            self.assertLess(buttons[0].toolbarElement.icon.width(), toolbar.icon.width())
+                            self.assertEqual(dialog.addButton.toolbarElement.icon.width(),
+                                             buttons[0].toolbarElement.icon.width())
+                            self.assertLessEqual(row.winfo_reqheight(),
+                                                 max(field.winfo_reqheight()+2,
+                                                     round(toolbar.button.winfo_reqheight()*0.9)))
+                            rowHeight = row.winfo_reqheight()
+                            for index, fileRow in enumerate(dialog.variablesFrame.winfo_children()[1:], 1):
+                                self.assertEqual(fileRow.winfo_reqheight(), rowHeight)
+                                browse = next(child for child in fileRow.winfo_children()
+                                              if hasattr(child, 'toolbarElement')
+                                              and child.toolbarElement.iconKey[0] == 'browse-file')
+                                self.assertEqual(browse.toolbarElement.icon.width(), buttons[0].toolbarElement.icon.width())
+                                self.assertTrue(browse.bind('<Enter>'))
+                                with patch.object(dialog, 'onFileBrowse') as onBrowse:
+                                    browse.invoke()
+                                    onBrowse.assert_called_once_with(index)
+                            size = checkbox._indicatorImages[0].width()
+                            self.assertLessEqual(size, max(10, round(
+                                tkfont.Font(root=checkbox, font=checkbox.cget('font')).metrics('linespace')*0.65)))
+                            checkbox.invoke()
+                            self.assertTrue(variables[0]['Visible'])
+                            checkbox.invoke()
+                            self.assertFalse(variables[0]['Visible'])
+                            with patch.object(dialog, 'onEditVariable') as edit:
+                                buttons[0].invoke()
+                                edit.assert_called_once_with(0)
+                            self.apply('Light')
+                            self.assertEqual(checkbox._indicatorImages[0].width(), size)
+                            self.assertEqual(checkbox._indicatorKey[1], tuple(
+                                value//256 for value in checkbox.winfo_rgb(checkbox.cget('foreground')))+(255,))
+                            self.assertEqual(buttons[0].toolbarElement.icon.width(),
+                                             buttons[0].toolbarElement.iconKey[2])
+                            self.assertEqual(browse.toolbarElement.iconKey[1], tuple(
+                                value//257 for value in browse.winfo_rgb(browse.cget('foreground'))))
+                            self.apply('Legacy')
+                            dialog.update_idletasks()
+                            self.assertTrue(all(row.winfo_reqheight() == rowHeight
+                                                for row in dialog.variablesFrame.winfo_children()))
+                            dialog.DrawVariables()
+                            dialog.update_idletasks()
+                            self.assertTrue(all(row.winfo_reqheight() == rowHeight
+                                                for row in dialog.variablesFrame.winfo_children()))
+                        finally:
+                            toolbar.button.destroy()
+                            dialog.destroy()
+                            parent.destroy()
+        finally:
+            self.root.tk.call('tk', 'scaling', originalScaling)
 
     def test_dialog_style_selection_persists_and_takes_effect_immediately(self):
         from SignalIntegrity.App.Theme import DialogStyleSelector

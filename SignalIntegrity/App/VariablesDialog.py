@@ -28,7 +28,7 @@ from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, C
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
-from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,ToolBarElement
+from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,ToolBarElement,ToolTip
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.FilePicker import AskOpenFileName
 
@@ -126,6 +126,7 @@ class VariablesDialog(PropertiesDialog):
         self.DrawVariables()
 
         self.addButton=ToolBarElement(self.controlFrame,iconfile=SignalIntegrity.App.IconsDir+'edit-add-2.gif',
+                                      iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
                                       command=self.onAddVariable).Pack(side=tk.LEFT).button
 
         if self.isWaveformProcessor:
@@ -169,9 +170,10 @@ class VariablesDialog(PropertiesDialog):
                     ('up.gif',lambda v=v: self.onUpVariable(v)),
                     ('down.gif',lambda v=v: self.onDownVariable(v))):
                 ToolBarElement(variableFrame,iconfile=SignalIntegrity.App.IconsDir+icon,
+                               iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
                                command=command).Pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
 
-            visible=SizeSelectionIndicator(tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v)))
+            visible=SizeSelectionIndicator(tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v)),sizeFactor=0.65)
             visible.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
             if variable['Visible']: visible.select()
             else: visible.deselect()
@@ -192,8 +194,11 @@ class VariablesDialog(PropertiesDialog):
                     # variable.
                     # self.propertyFileViewButton = tk.Button(variableFrame,text='view',command=lambda v=v: self.onFileView(v))
                     # self.propertyFileViewButton.pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X)
-                    self.propertyFileBrowseButton = tk.Button(variableFrame,text='browse',command=lambda v=v: self.onFileBrowse(v))
-                    self.propertyFileBrowseButton.pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X)
+                    self.propertyFileBrowseButton = ToolBarElement(
+                        variableFrame,iconfile=SignalIntegrity.App.IconsDir+'browse-file.gif',
+                        iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
+                        command=lambda v=v: self.onFileBrowse(v)).Pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X).button
+                    ToolTip.createToolTip(self.propertyFileBrowseButton,'Browse for file')
 
                 self.variableFrameList.append(CalculationProperty(variableFrame,
                                                                   variable['Name'],
