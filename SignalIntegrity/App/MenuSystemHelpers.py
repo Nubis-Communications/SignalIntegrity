@@ -73,11 +73,14 @@ def LoadIcon(frame,filename):
             return ImageTk.PhotoImage(image,master=frame)
     return tk.PhotoImage(file=filename,master=frame)
 
-def SizeSelectionIndicator(widget):
-    if not sys.platform.startswith('linux'):
+def SizeSelectionIndicator(widget,sizeFactor=None):
+    if sizeFactor is not None:
+        widget._indicatorSizeFactor=sizeFactor
+    if not sys.platform.startswith('linux') and not hasattr(widget,'_indicatorSizeFactor'):
         return widget
     # Font metrics are already in display pixels, including Tk's DPI scaling.
-    size=max(10,round(tkfont.Font(root=widget,font=widget.cget('font')).metrics('linespace')*0.75))
+    size=max(10,round(tkfont.Font(root=widget,font=widget.cget('font')).metrics('linespace')*
+                      getattr(widget,'_indicatorSizeFactor',0.75)))
     red,green,blue=widget.winfo_rgb(widget.cget('foreground'))
     color=(red//256,green//256,blue//256,255)
     if getattr(widget,'_indicatorKey',None) == (size,color):
@@ -229,10 +232,11 @@ class IconLabel(tk.Label):
 class ToolBarElement(object):
     def __init__(self,frame,**kw):
         self.iconFile=kw.pop('iconfile',None)
+        iconSize=kw.pop('iconsize',20)
         self.iconKey=None
         self.button=tk.Button(frame,kw)
         self.button.toolbarElement=self
-        self.iconRenderer=None if self.iconFile is None else ThemedIcon(self.button,self.iconFile)
+        self.iconRenderer=None if self.iconFile is None else ThemedIcon(self.button,self.iconFile,iconSize)
         self.active=None
         if 'state' in kw:
             active=kw['state'] == 'normal'

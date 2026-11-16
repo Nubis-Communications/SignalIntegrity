@@ -22,6 +22,7 @@ TestEquationsDialog.py
 import sys
 import os
 import tkinter as tk
+import tkinter.font as tkfont
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -117,7 +118,10 @@ class TestEquationsDialog(unittest.TestCase):
             self.assertEqual(int(dialog.TextArea.cget('height')),25)
             self.assertGreater(dialog.TextArea.winfo_height(),100)
             minimumHeight=dialog.statusbar.winfo_height()
-            dialog.statusbar.set('Script failed:\nValueError: invalid value')
+            linespace=tkfont.Font(root=dialog.statusbar.label,
+                                  font=dialog.statusbar.label.cget('font')).metrics('linespace')
+            dialog.statusbar.set('Script failed:\n'+'\n'.join(
+                ['ValueError: invalid value']*(minimumHeight//linespace+1)))
             self.assertGreater(dialog.statusbar.winfo_height(),minimumHeight)
             self.assertGreaterEqual(
                 dialog.statusbar.label.winfo_height(),dialog.statusbar.label.winfo_reqheight())
