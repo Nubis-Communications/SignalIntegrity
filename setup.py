@@ -56,6 +56,7 @@ setup(
                  'SignalIntegrity.Utilities':'SignalIntegrity/Utilities'},
     packages=find_packages('.'),
     include_package_data=True,
+    package_data={'SignalIntegrity.QtApp':['icons/*.png','icons/*.ico']},
     data_files=[('.',['LICENSE.txt','README.md']),
                 (pathToIcons, [pathToIcons+'/AppIcon2.gif',
                                pathToIcons+'/AppIcon2.ico',
@@ -64,11 +65,13 @@ setup(
                   [pathToImages+'/OpticalCalculations.png']),
                 ('.', ['LICENSE.txt','README.md'])],
     install_requires=install_requires,
-    extras_require={'test': ['pytest>=6']},
+    extras_require={'test': ['pytest>=6'],
+                    'qt': ['PySide6>=6.5']},
     python_requires='>=3.6',
     entry_points={
       'console_scripts': [
           'SignalIntegrity = SignalIntegrity.App.SignalIntegrityApp:main',
+          'SignalIntegrityQt = SignalIntegrity.QtApp.SignalIntegrityQt:main',
           'ERL = SignalIntegrity.Utilities.ERL.ERL:ERL_Main',
           'PZ = SignalIntegrity.Utilities.PZ.PZ:PZ_Main',
           'IXT = SignalIntegrity.Utilities.IXT.IXT:IXT_Main']},
