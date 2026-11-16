@@ -158,6 +158,35 @@ class MessageDialog(tk.Toplevel):
         return self.result
 
 
+class FolderNameDialog(tk.Toplevel):
+    def __init__(self, parent):
+        tk.Toplevel.__init__(self, parent)
+        self.withdraw()
+        self.parent = parent
+        self.result = None
+        self.title('New Folder')
+        self.resizable(False, False)
+        body = ttk.Frame(self, padding=12)
+        body.pack(fill=tk.BOTH, expand=True)
+        ttk.Label(body, text='Folder name:').pack(anchor='w')
+        self.entry = ttk.Entry(body)
+        self.entry.pack(fill=tk.X, pady=(4, 12))
+        actions = ttk.Frame(body)
+        actions.pack(fill=tk.X)
+        ttk.Button(actions, text='Create', command=self.Create).pack(side=tk.LEFT, padx=(0, 4))
+        ttk.Button(actions, text='Cancel', command=self.destroy).pack(side=tk.LEFT)
+        self.bind('<Return>', self.Create)
+        self.bind('<Escape>', lambda event: self.destroy())
+
+    def Create(self, event=None):
+        self.result = self.entry.get()
+        self.destroy()
+
+    def Show(self):
+        RunModal(self, self.parent, self.entry)
+        return self.result
+
+
 class ThemedFileDialog(filedialog.FileDialog):
     def __init__(self, mode, parent=None, title=None, initialdir=None, initialfile='',
                  filetypes=(), defaultextension='', mustexist=False,
@@ -194,6 +223,9 @@ class ThemedFileDialog(filedialog.FileDialog):
             if label in labels:
                 self.types.current(labels.index(label))
         self.types.bind('<<ComboboxSelected>>', self.SelectType)
+        if mode == 'save':
+            self.newFolderButton = ttk.Button(typeRow, text='New Folder', command=self.NewFolder)
+            self.newFolderButton.pack(side=tk.LEFT, padx=(8, 0))
         if mode == 'directory':
             typeRow.pack_forget()
             self.files.configure(state='disabled')
@@ -215,6 +247,23 @@ class ThemedFileDialog(filedialog.FileDialog):
         self.set_filter(self.directory, self.TypePattern())
         if self.typevariable is not None:
             self.top.setvar(str(self.typevariable), self.types.get())
+        self.filter_command()
+
+    def NewFolder(self):
+        from SignalIntegrity.App import MessageBox
+        name = FolderNameDialog(self.top).Show()
+        if name is None:
+            return
+        if not name.strip() or name in ('.', '..') or os.path.basename(name) != name or '\x00' in name:
+            MessageBox.showerror('New Folder', 'Enter a single valid folder name.', parent=self.top)
+            return
+        path = os.path.join(self.directory, name)
+        try:
+            os.mkdir(path)
+        except OSError as error:
+            MessageBox.showerror('New Folder', str(error), parent=self.top)
+            return
+        self.set_filter(path, self.TypePattern())
         self.filter_command()
 
     def filter_command(self, event=None):

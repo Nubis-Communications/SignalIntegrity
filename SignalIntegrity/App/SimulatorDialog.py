@@ -18,6 +18,7 @@ SimulatorDialog.py
 # You should have received a copy of the GNU General Public License along with this program.
 # If not, see <https://www.gnu.org/licenses/>
 
+import os
 import sys
 
 import tkinter as tk
@@ -528,6 +529,7 @@ class SimulatorDialog(tk.Toplevel):
     def onWriteSimulatorToFile(self):
         filetypes=[('LeCroy','.trc'),('waveform', '.txt'),('time/value','.csv')]
         preferredExtension = '.trc' if SignalIntegrity.App.Preferences['ProjectFiles.PreferSaveWaveformsLeCroyFormat'] else '.txt'
+        initialDirectory=self.parent.parent.fileparts.AbsoluteFilePath()
         for wfi in range(len(self.waveformNamesList)):
             outputWaveformName=self.waveformNamesList[wfi]
             outputWaveform=self.waveformList[wfi]
@@ -548,11 +550,12 @@ class SimulatorDialog(tk.Toplevel):
 
             filename=AskSaveAsFilename(parent=self,filetypes=filetypes,
                             defaultextension=preferredExtension,
-                            initialdir=self.parent.parent.fileparts.AbsoluteFilePath(),
+                            initialdir=initialDirectory,
                             initialfile=filename+preferredExtension)
             if filename is None:
                 continue
 
+            initialDirectory=os.path.dirname(os.path.abspath(filename))
             extension='.'+filename.split('.')[-1]
             if extension in ['.trc','.txt','.csv']:
                 preferredExtension = extension
