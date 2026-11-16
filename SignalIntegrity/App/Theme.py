@@ -95,6 +95,49 @@ def ContrastRatio(root, foreground, background):
     return (second + 0.05) / (first + 0.05)
 
 
+def _EnsureTclCommand(root, command):
+    # Tk library procedures such as tk_setPalette are autoloaded through Tcl's auto_index. In some
+    # processes (observed in pytest-xdist workers on Windows) the index is marked as loaded while
+    # missing Tk's entries, so the command is "invalid". auto_reset forces it to be rebuilt.
+    if root.tk.call('info', 'commands', command) or int(root.tk.call('auto_load', command)):
+        return
+    root.tk.call('auto_reset')
+    root.tk.call('auto_load', command)
+
+
+_PALETTE_CLASSES = (tk.Button, tk.Canvas, tk.Checkbutton, tk.Entry, tk.Frame, tk.Label, tk.LabelFrame,
+                    tk.Listbox, tk.Menu, tk.Menubutton, tk.Message, tk.PanedWindow, tk.Radiobutton,
+                    tk.Scale, tk.Scrollbar, tk.Spinbox, tk.Text)
+
+
+def _SetPalette(root, palette):
+    # Tk 9's tk_setPalette adds class-specific option entries (e.g. *Label.foreground at priority
+    # 60) only for classes that have a widget at that moment. An entry left by an earlier palette
+    # then outranks the new *foreground default for later windows, so after e.g. Dark -> Legacy ->
+    # Dark new labels would keep the Legacy colors. Bring such stale entries up to date.
+    old = dict(zip(*[iter(root.tk.splitlist(root.tk.call('array', 'get', '::tk::Palette')))] * 2))
+    root.tk_setPalette(**palette)
+    if not old:
+        return
+    rgb = root.winfo_rgb
+    holder = tk.Toplevel(root)
+    holder.withdraw()
+    try:
+        for widgetClass in _PALETTE_CLASSES:
+            prototype = widgetClass(holder)
+            className = prototype.winfo_class()
+            for option, color in palette.items():
+                if option not in old:
+                    continue
+                current = root.tk.call('option', 'get', prototype._w, option,
+                                       option[0].upper() + option[1:])
+                if current and rgb(current) == rgb(old[option]) and rgb(current) != rgb(color):
+                    root.option_add('*{}.{}'.format(className, option), color, 60)
+            prototype.destroy()
+    finally:
+        holder.destroy()
+
+
 class ThemeManager:
     def __init__(self, root):
         self.root = root
@@ -174,7 +217,8 @@ class ThemeManager:
         self.name = name
         self.preferences = preferences
         self.palette = palette
-        self.root.tk_setPalette(**{
+        _EnsureTclCommand(self.root, 'tk_setPalette')
+        _SetPalette(self.root, {
             option: palette[key] for key, option in (
                 ('background', 'background'), ('foreground', 'foreground'),
                 ('activebackground', 'activeBackground'), ('activeforeground', 'activeForeground'),
