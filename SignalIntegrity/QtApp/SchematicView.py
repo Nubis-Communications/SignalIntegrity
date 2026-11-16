@@ -94,18 +94,29 @@ def AddPrimitives(scene,items,colorMap=None):
             textItem=scene.addSimpleText(item['text'],TEXT_FONT)
             textItem.setBrush(QBrush(_c(item['color'])))
             r=textItem.boundingRect()
+            # tk anchors are compass points; 'center' must not match the 'n' and 'e' tests
             anchor=item.get('anchor') or 'center'
+            anchor='' if anchor=='center' else anchor
             x=item['x']-(0. if 'w' in anchor else r.width() if 'e' in anchor else r.width()/2.)
             y=item['y']-(0. if 'n' in anchor else r.height() if 's' in anchor else r.height()/2.)
             textItem.setPos(x,y)
+            if item.get('role')=='property':
+                # property text sits above its part, often across the wire leaving a top pin
+                backing=scene.addRect(QRectF(x-1.,y-2.,r.width()+2.,r.height()+4.),QPen(Qt.NoPen),QBrush(_c('white')))
+                backing.setZValue(1)
+                textItem.setZValue(2)
 
 class SchematicView(QGraphicsView):
-    """select/move view of a schematic rendered from GuiCore primitives, accepting parts
-    dragged from the stencil or placed with a click, and drawing wires"""
+    """schematic rendered from GuiCore primitives: left-drag on the background selects with a rubber
+    band (Ctrl/Shift adds), left-drag on a part moves it or the whole selection, the middle button
+    pans and the wheel zooms; it also accepts parts from the stencil and draws wires"""
     deviceClicked=Signal(object)
+    deviceToggled=Signal(int)
     backgroundClicked=Signal(float,float)
+    regionSelected=Signal(float,float,float,float,bool)
     deviceDoubleClicked=Signal(int)
     deviceDragged=Signal(int,int,int)
+    selectionDragged=Signal(int,int)
     deviceContextMenu=Signal(int,object,bool)
     partDropped=Signal(int,float,float)
     deleteRequested=Signal()
@@ -118,7 +129,7 @@ class SchematicView(QGraphicsView):
         self.setRenderHints(QPainter.Antialiasing|QPainter.TextAntialiasing)
         self.setBackgroundBrush(QBrush(QColor('white')))
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
-        self.setDragMode(QGraphicsView.ScrollHandDrag)
+        self.setDragMode(QGraphicsView.NoDrag)
         self.setAcceptDrops(True)
         self.viewport().setMouseTracking(True)
         self.devices=[]
@@ -134,6 +145,10 @@ class SchematicView(QGraphicsView):
         self._vertexDrag=None
         self._press=None
         self._pressDevice=None
+        self._groupDrag=False
+        self._ghosts=[]
+        self._band=None
+        self._pan=None
     def ApplyPalette(self,palette):
         from SignalIntegrity.GuiCore.Themes import SchematicColorMap
         self.colorMap=SchematicColorMap(palette)
@@ -145,6 +160,9 @@ class SchematicView(QGraphicsView):
         scene=self.scene()
         scene.clear()
         self.wirePreview=None
+        self._ghosts=[]
+        if self._band is not None:
+            self._band['item']=None
         AddPrimitives(scene,drawing['items'],self.colorMap)
         self.devices=drawing['devices']
         self.grid=drawing['grid']
@@ -171,6 +189,42 @@ class SchematicView(QGraphicsView):
         return None
     def wheelEvent(self,event):
         self.Zoom(1.15 if event.angleDelta().y()>0 else 1/1.15)
+    def SelectionSize(self):
+        """number of selected parts plus selected wires in the last drawing"""
+        if not self.drawing:
+            return 0
+        return sum(1 for d in self.devices if d['selected'])+sum(1 for w in self.drawing.get('wires',[]) if w['selected'])
+    def _ScreenTolerance(self):
+        return max(0.25*self.grid,5./max(self.transform().m11(),1e-6))
+    def WireHit(self,point):
+        """True if a wire passes within a few screen pixels of the scene point"""
+        tolerance=self._ScreenTolerance()
+        for wire in (self.drawing or {}).get('wires',[]):
+            q=wire['points']
+            for k in range(0,len(q)-3,2):
+                x0,y0,x1,y1=q[k:k+4]
+                length=(x1-x0)**2+(y1-y0)**2
+                t=0. if not length else max(0.,min(1.,((point.x()-x0)*(x1-x0)+(point.y()-y0)*(y1-y0))/length))
+                if math.hypot(point.x()-(x0+t*(x1-x0)),point.y()-(y0+t*(y1-y0)))<=tolerance:
+                    return True
+        return False
+    def _ClearGhosts(self):
+        for item in self._ghosts:
+            self.scene().removeItem(item)
+        self._ghosts=[]
+    def _ShowGhosts(self,dx,dy):
+        """dashed outlines where the dragged part (or the whole selection) will land"""
+        self._ClearGhosts()
+        if not (dx or dy):
+            return
+        moving=[d for d in self.devices if d['selected']] if self._groupDrag else [d for d in self.devices if d['index']==self._pressDevice]
+        pen=QPen(_color('blue',self.colorMap),1.,Qt.DashLine)
+        for d in moving:
+            x0,y0,x1,y1=d['bbox']
+            rect=QRectF(QPointF(min(x0,x1),min(y0,y1)),QPointF(max(x0,x1),max(y0,y1))).translated(dx*self.grid,dy*self.grid)
+            self._ghosts.append(self.scene().addRect(rect,pen))
+    def _Modifiers(self,event):
+        return bool(event.modifiers() & (Qt.ControlModifier|Qt.ShiftModifier))
     def mousePressEvent(self,event):
         if self.wiring:
             point=self.Snap(self.mapToScene(event.position().toPoint()))
@@ -181,6 +235,10 @@ class SchematicView(QGraphicsView):
             elif event.button()==Qt.RightButton:
                 self.FinishWire()
             return
+        if event.button()==Qt.MiddleButton:
+            self._pan=event.position()
+            self.viewport().setCursor(Qt.ClosedHandCursor)
+            return
         if event.button()==Qt.LeftButton and self.placing is not None:
             point=self.mapToScene(event.position().toPoint())
             index=self.placing
@@ -189,14 +247,25 @@ class SchematicView(QGraphicsView):
             return
         if event.button()==Qt.LeftButton:
             point=self.mapToScene(event.position().toPoint())
-            self._pressDevice=self.DeviceAt(point)
-            self._press=point
-            if self._pressDevice is not None:
-                self.deviceClicked.emit(self._pressDevice)
+            add=self._Modifiers(event)
+            device=self.DeviceAt(point)
+            if device is not None:
+                if add:
+                    self.deviceToggled.emit(device)
+                    return
+                selected=any(d['index']==device and d['selected'] for d in self.devices)
+                self._groupDrag=selected and self.SelectionSize()>1
+                self._pressDevice=device
+                self._press=point
+                if not self._groupDrag:
+                    self.deviceClicked.emit(device)
                 return
-            self.backgroundClicked.emit(point.x(),point.y())
-            if self._vertexDrag is not None:
-                return
+            if not add:
+                self.backgroundClicked.emit(point.x(),point.y())
+                if self._vertexDrag is not None or self.WireHit(point):
+                    return
+            self._band={'start':point,'item':None,'add':add,'screen':event.position()}
+            return
         super().mousePressEvent(event)
     def mouseMoveEvent(self,event):
         if self.wiring:
@@ -207,8 +276,43 @@ class SchematicView(QGraphicsView):
             self._vertexDrag['to']=self.Snap(self.mapToScene(event.position().toPoint()))
             self._UpdateWirePreview()
             return
+        if self._pan is not None:
+            delta=event.position()-self._pan
+            self._pan=event.position()
+            self.horizontalScrollBar().setValue(self.horizontalScrollBar().value()-round(delta.x()))
+            self.verticalScrollBar().setValue(self.verticalScrollBar().value()-round(delta.y()))
+            return
+        if self._band is not None:
+            point=self.mapToScene(event.position().toPoint())
+            rect=QRectF(self._band['start'],point).normalized()
+            if self._band['item'] is None:
+                color=_color('blue',self.colorMap)
+                fill=QColor(color); fill.setAlpha(28)
+                pen=QPen(color,0.,Qt.DashLine); pen.setCosmetic(True)
+                self._band['item']=self.scene().addRect(rect,pen,QBrush(fill))
+            else:
+                self._band['item'].setRect(rect)
+            return
+        if self._pressDevice is not None and self._press is not None and event.buttons() & Qt.LeftButton:
+            point=self.mapToScene(event.position().toPoint())
+            self._ShowGhosts(round((point.x()-self._press.x())/self.grid),round((point.y()-self._press.y())/self.grid))
+            return
         super().mouseMoveEvent(event)
     def mouseReleaseEvent(self,event):
+        if event.button()==Qt.MiddleButton and self._pan is not None:
+            self._pan=None
+            self.viewport().setCursor(Qt.CrossCursor if self.wiring or self.placing is not None else Qt.ArrowCursor)
+            return
+        if event.button()==Qt.LeftButton and self._band is not None:
+            band,self._band=self._band,None
+            if band['item'] is not None:
+                self.scene().removeItem(band['item'])
+            moved=event.position()-band['screen']
+            if abs(moved.x())+abs(moved.y())>=4:
+                end=self.mapToScene(event.position().toPoint())
+                start=band['start']
+                self.regionSelected.emit(start.x(),start.y(),end.x(),end.y(),band['add'])
+            return
         if event.button()==Qt.LeftButton and self._vertexDrag is not None:
             drag,self._vertexDrag=self._vertexDrag,None
             self._UpdateWirePreview()
@@ -219,9 +323,17 @@ class SchematicView(QGraphicsView):
             point=self.mapToScene(event.position().toPoint())
             dx=round((point.x()-self._press.x())/self.grid)
             dy=round((point.y()-self._press.y())/self.grid)
-            if dx or dy:
-                self.deviceDragged.emit(self._pressDevice,dx,dy)
-            self._press=None; self._pressDevice=None
+            self._ClearGhosts()
+            device,group=self._pressDevice,self._groupDrag
+            self._press=None; self._pressDevice=None; self._groupDrag=False
+            if group:
+                if dx or dy:
+                    self.selectionDragged.emit(dx,dy)
+                else:
+                    # a click (no drag) on a part of a multiple selection selects just that part
+                    self.deviceClicked.emit(device)
+            elif dx or dy:
+                self.deviceDragged.emit(device,dx,dy)
             return
         super().mouseReleaseEvent(event)
     def mouseDoubleClickEvent(self,event):
@@ -251,7 +363,6 @@ class SchematicView(QGraphicsView):
         self.setFocus()
     def StopPlacing(self):
         self.placing=None
-        self.setDragMode(QGraphicsView.NoDrag if self.wiring else QGraphicsView.ScrollHandDrag)
         if not self.wiring:
             self.viewport().unsetCursor()
     # ---- drawing wires: click each vertex, double-click or right-click to finish
@@ -270,7 +381,6 @@ class SchematicView(QGraphicsView):
         self.wirePoints=[]
         self.wireCursor=None
         self._UpdateWirePreview()
-        self.setDragMode(QGraphicsView.ScrollHandDrag)
         self.viewport().unsetCursor()
     def FinishWire(self):
         """emits the wire drawn so far (two or more points) and starts the next one"""

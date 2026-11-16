@@ -21,4 +21,4 @@ __init__.py
 
 from __future__ import absolute_import
 
-from .TestQtApp import TestQtAppTest, TestQtStencilAndThemesTest
+from .TestQtApp import TestQtAppTest, TestQtStencilAndThemesTest, TestQtSelectionAndPanesTest

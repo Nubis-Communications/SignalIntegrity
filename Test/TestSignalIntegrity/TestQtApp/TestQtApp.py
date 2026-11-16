@@ -24,6 +24,8 @@ try:
     import PySide6
     os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
     from PySide6.QtWidgets import QApplication, QMessageBox
+    from PySide6.QtCore import Qt
+    from PySide6.QtTest import QTest
     havePySide6=True
 except ImportError:
     havePySide6=False
@@ -421,6 +423,161 @@ class TestQtStencilAndThemesTest(unittest.TestCase):
         sp.tabs.setCurrentIndex(titles.index([t for t in titles if t.endswith('impedance')][0]))
         self.assertEqual(len(sp.panels[-1].axes.get_lines()),3)
         sp.close()
+        self.assertEqual(self.errors,[])
+
+@unittest.skipUnless(havePySide6,'PySide6 is not installed')
+class TestQtSelectionAndPanesTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.qapp=QApplication.instance() or QApplication([])
+    def setUp(self):
+        import tempfile, importlib
+        from SignalIntegrity.QtApp.MainWindow import MainWindow
+        self.settings=IsolateSettings(self)
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        self.errors=[]
+        self.window=self._Window()
+        self.BuildDivider=importlib.import_module('TestGuiCore.TestGuiCore').BuildDivider
+    def _Window(self):
+        from SignalIntegrity.QtApp.MainWindow import MainWindow
+        window=MainWindow()
+        window.Error=self.errors.append
+        window.resize(1200,800)
+        window.show()
+        self.qapp.processEvents()
+        return window
+    def tearDown(self):
+        import shutil
+        self.window.close()
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Divider(self):
+        session=self.window.session
+        self.BuildDivider(session,self.directory)
+        session.AddWire([[96,160],[96,96],[240,96]])
+        session.AddWire([[304,96],[400,96],[496,96],[496,80]])
+        session.Select(None)
+        self.window.ShowLevel(session.Render())
+        self.qapp.processEvents()
+        return self.window.view
+    def _Drag(self,widget,start,end,button,modifiers=None):
+        from PySide6.QtCore import Qt, QPointF, QEvent
+        from PySide6.QtGui import QMouseEvent
+        modifiers=Qt.NoModifier if modifiers is None else modifiers
+        def send(kind,pos,buttons):
+            pos=QPointF(pos)
+            self.qapp.sendEvent(widget,QMouseEvent(kind,pos,widget.mapToGlobal(pos),button,buttons,modifiers))
+        send(QEvent.MouseButtonPress,start,button)
+        for k in range(1,5):
+            send(QEvent.MouseMove,start+(end-start)*k/4,button)
+        send(QEvent.MouseButtonRelease,end,Qt.NoButton)
+    def testRubberBandSelectAndGroupMove(self):
+        from PySide6.QtCore import QPointF
+        view=self._Divider()
+        at=lambda x,y: QPointF(view.mapFromScene(QPointF(x,y)))
+        # left-drag on the background selects; it no longer pans
+        scroll=(view.horizontalScrollBar().value(),view.verticalScrollBar().value())
+        self._Drag(view.viewport(),at(60,60),at(330,220),Qt.LeftButton)
+        self.assertEqual((view.horizontalScrollBar().value(),view.verticalScrollBar().value()),scroll)
+        self.assertEqual(self.window.session.Selection()['devices'],[0,1])
+        self.assertTrue(self.window.MultipleSelection())
+        self.assertTrue(self.window.deleteAction.isEnabled() and self.window.actions['duplicate'].isEnabled())
+        # dragging one selected part moves the whole selection as one undo step
+        start=self.window.drawing['devices'][1]['bbox']
+        self._Drag(view.viewport(),at(272,96),at(272,128),Qt.LeftButton)
+        moved=self.window.drawing['devices']
+        self.assertEqual(moved[1]['bbox'][1]-start[1],2*view.grid)
+        self.assertEqual(moved[0]['bbox'][1]-160-16,2*view.grid)
+        self.assertEqual(self.window.session.history[-1][0],'move selection')
+        self.assertIn('connect R1 2 R2 1',self.window.session.NetList())
+        # Ctrl+click adds a part, and Delete removes everything selected
+        QTest.mouseClick(view.viewport(),Qt.LeftButton,Qt.ControlModifier,at(408,88).toPoint())
+        self.assertEqual(self.window.session.Selection()['devices'],[0,1,2])
+        self.window.deleteAction.trigger()
+        self.assertEqual([d['ref'] for d in self.window.drawing['devices']],['R2'])
+        self.window.actions['undo'].trigger()
+        self.assertEqual(len(self.window.drawing['devices']),4)
+        self.assertEqual(self.errors,[])
+    def testMiddleButtonPans(self):
+        from PySide6.QtCore import QPointF
+        view=self._Divider()
+        view.Zoom(4)
+        self.qapp.processEvents()
+        before=view.horizontalScrollBar().value()
+        self._Drag(view.viewport(),QPointF(300,300),QPointF(200,300),Qt.MiddleButton)
+        self.assertEqual(view.horizontalScrollBar().value()-before,100)
+        self.assertEqual(self.window.session.Selection(),{'devices':[],'vertices':[]})
+    def testCentredLabels(self):
+        from PySide6.QtWidgets import QGraphicsScene
+        from SignalIntegrity.QtApp.SchematicView import AddPrimitives
+        scene=QGraphicsScene()
+        AddPrimitives(scene,[{'type':'text','x':100.,'y':50.,'text':'Eye','anchor':'center','color':'black'},
+                             {'type':'text','x':100.,'y':50.,'text':'Eye','anchor':'ne','color':'black'}])
+        centred,northEast=sorted(scene.items(),key=lambda item: item.pos().x(),reverse=True)
+        self.assertAlmostEqual(centred.sceneBoundingRect().center().x(),100.)
+        self.assertAlmostEqual(centred.sceneBoundingRect().center().y(),50.)
+        self.assertAlmostEqual(northEast.sceneBoundingRect().right(),100.)
+        self.assertAlmostEqual(northEast.sceneBoundingRect().top(),50.)
+    def testTearOffAndDropPanes(self):
+        from PySide6.QtCore import QPoint
+        docks=self.window.docks
+        self.assertEqual(docks.Layout()['areas'],{'left':['parts','variables','calc'],'right':['properties'],'bottom':[]})
+        # dragging a header outside every window tears the pane off into its own window
+        outside=self.window.mapToGlobal(QPoint(self.window.width()+300,100))
+        docks.BeginDrag(self.window.variablesDock)
+        docks.DragTo(outside)
+        self.assertTrue(docks.band.isVisible())
+        docks.EndDrag(outside)
+        self.assertEqual(len(docks.windows),1)
+        window=docks.windows[0]
+        self.assertTrue(window.isVisible())
+        self.assertIs(self.window.variablesDock.window(),window)
+        # another pane dropped on that window joins it, below the pane it lands on
+        self.qapp.processEvents()
+        target=self.window.variablesDock.mapToGlobal(QPoint(20,self.window.variablesDock.height()-5))
+        docks.BeginDrag(self.window.propertiesDock)
+        docks.EndDrag(target)
+        self.assertEqual([p.objectName() for p in window.area.Panes()],['variables','properties'])
+        self.assertFalse(docks.areas['right'].isVisible())    # an empty side bar disappears
+        # a header click collapses a pane, and the header menu moves it back
+        docks.ToggleCollapsed(self.window.partsDock)
+        self.assertTrue(self.window.partsDock.collapsed)
+        labels=[a.text() for a in docks.PaneMenu(self.window.propertiesDock).actions()]
+        for label in ('Collapse','Move to Primary Side Bar','Move to Secondary Side Bar','Move to Panel','Move to New Window','Reset Layout'):
+            self.assertIn(label,labels)
+        docks.MovePane(self.window.calculationDock,docks.areas['bottom'])
+        self.assertTrue(docks.areas['bottom'].isVisible())
+        # the arrangement, including the torn-off window, is remembered for the next window
+        docks.Save()
+        layout=docks.Layout()
+        self.window.close()
+        self.window=self._Window()
+        restored=self.window.docks.Layout()
+        self.assertEqual(restored['areas'],layout['areas'])
+        self.assertEqual([w['panes'] for w in restored['windows']],[['variables','properties']])
+        self.assertEqual(restored['collapsed'],['parts'])
+        self.assertTrue(self.window.docks.windows[0].isVisible())
+        # closing a pane window sends its panes home; Reset Layout restores the default
+        self.window.docks.windows[0].close()
+        self.assertEqual(self.window.docks.Layout()['windows'],[])
+        self.assertIn('properties',self.window.docks.Layout()['areas']['right'])
+        self.window.docks.ResetLayout()
+        self.assertEqual(self.window.docks.Layout()['areas'],{'left':['parts','variables','calc'],'right':['properties'],'bottom':[]})
+        self.assertEqual(self.window.docks.Layout()['collapsed'],[])
+    def testPanesStillWork(self):
+        self.window.OpenProject(os.path.join(EXAMPLES,'RLC.si'))
+        self.window.variablesDock.toggleViewAction().setChecked(False)
+        self.assertFalse(self.window.variablesDock.isVisible())
+        self.window.BuildPanelsMenu()
+        labels=[a.text() for a in self.window.submenus['panels'].actions()]
+        self.assertEqual(labels[:4],['Parts','Variables','Calculation Properties','Device Properties'])
+        self.assertIn('Reset Layout',labels)
+        self.window.docks.TearOff(self.window.propertiesDock)
+        self.window.docks.ToggleCollapsed(self.window.propertiesDock)   # collapsing is for side bars only... and windows
+        self.window.OnEditProperties()
+        self.assertFalse(self.window.propertiesDock.collapsed)
+        self.assertTrue(self.window.propertiesDock.window().isVisible())
         self.assertEqual(self.errors,[])
 
 if __name__ == '__main__':

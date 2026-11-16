@@ -154,7 +154,7 @@ class ProjectSession(object):
         """@return dict with the drawing primitives, per-device boxes and calculation capabilities"""
         self._Project()
         canvas=RecordingCanvas()
-        self.app.Drawing.DrawSchematic(canvas)
+        self._DrawWithPropertiesAbove(canvas)
         grid=self.Grid(); ox,oy=self.Origin()
         devices=[]
         for d,device in enumerate(self.app.Drawing.schematic.deviceList):
@@ -183,6 +183,30 @@ class ProjectSession(object):
                 'canPaste':self.clipboard is not None and not self.readOnly,
                 'capabilities':self.Capabilities(),
                 'equationsValid':bool(self._Project()['Equations.Valid']) if self._Project()['Equations.Lines'] else True}
+    def _DrawWithPropertiesAbove(self,canvas):
+        """draws the schematic with each part's visible properties centred directly above it, and marks
+        those texts with role 'property' so a GUI can give them a backing where they cross a wire"""
+        saved=[]
+        anchors={}
+        grid=self.Grid(); ox,oy=self.Origin()
+        try:
+            for device in self.app.Drawing.schematic.deviceList:
+                picture=device.partPicture.current
+                saved.append((picture,picture.propertiesLocation,picture.TextDirectionReversed))
+                (left,top),(right,_)=picture.innerBox
+                # PartPicture.DrawDevice anchors text 's' (centred, stacked upwards) at a point above the inner box
+                picture.propertiesLocation=((left+right)/2.,min(top,picture.boundingBox[0][1])-0.25)
+                picture.TextDirectionReversed=False
+                anchors[round((ox+picture.origin[0]+picture.propertiesLocation[0])*grid,3)]=picture
+            self.app.Drawing.DrawSchematic(canvas)
+        finally:
+            for picture,location,reversed_ in saved:
+                picture.propertiesLocation=location
+                picture.TextDirectionReversed=reversed_
+        for item in canvas.items:
+            picture=anchors.get(round(item['x'],3)) if item['type']=='text' and item['anchor']=='s' else None
+            if picture is not None and item['text'] in getattr(picture,'visiblePartPropertyList',[]):
+                item['role']='property'
     def DeviceAt(self,x,y):
         """@return index of the device under pixel coordinate x,y or None"""
         grid=self.Grid(); ox,oy=self.Origin()
@@ -307,6 +331,138 @@ class ProjectSession(object):
         return index
     def Copy(self,index):
         self.clipboard=copy.deepcopy(self._Device(index))
+    # ---- multiple selection (the tk rubber band and its Multiple Selections commands)
+    def _SelectedVertices(self):
+        return [(w,v) for w,wire in enumerate(self._WireList()) for v,vertex in enumerate(wire['Vertices']) if vertex['Selected']]
+    def Selection(self):
+        """@return {'devices':[indices],'vertices':[[wire,vertex],...]} of everything selected"""
+        return {'devices':[d for d,device in enumerate(self.app.Drawing.schematic.deviceList) if device.selected],
+                'vertices':[list(wv) for wv in self._SelectedVertices()]}
+    def _HasSelection(self):
+        selection=self.Selection()
+        if not selection['devices'] and not selection['vertices']:
+            raise SessionError('nothing is selected')
+        return selection
+    def SelectRegion(self,x0,y0,x1,y1,add=False):
+        """selects the parts and wire corners entirely inside a pixel rectangle, as the tk rubber band
+        does; with add the current selection is kept
+        @return Selection()"""
+        p0=self._GridFloat(x0,y0); p1=self._GridFloat(x1,y1)
+        a=(min(p0[0],p1[0]),min(p0[1],p1[1]))
+        b=(max(p0[0],p1[0]),max(p0[1],p1[1]))
+        if not add:
+            self.Select(None)
+        for device in self.app.Drawing.schematic.deviceList:
+            if device.IsIn(a,b,(0.,0.),(0.,0.)):
+                device.selected=True
+        for wire in self._WireList():
+            for vertex in wire['Vertices']:
+                if vertex.IsIn(a,b,(0.,0.),(0.,0.)):
+                    vertex['Selected']=True
+        self.selectedVertex=None
+        return self.Selection()
+    def ToggleDevice(self,index):
+        """adds a part to, or removes it from, the selection (Ctrl/Shift+click)
+        @return Selection()"""
+        device=self._Device(index)
+        device.selected=not device.selected
+        self.selectedVertex=None
+        return self.Selection()
+    @_Edit('move selection')
+    def MoveSelection(self,dx,dy):
+        """moves the selected parts and wire corners by whole grid units"""
+        self._Writable()
+        self._HasSelection()
+        dx,dy=int(dx),int(dy)
+        for device in self.app.Drawing.schematic.deviceList:
+            if device.selected:
+                picture=device.partPicture.current
+                picture.SetOrigin((picture.origin[0]+dx,picture.origin[1]+dy))
+        for w,v in self._SelectedVertices():
+            vertex=self._WireList()[w]['Vertices'][v]
+            vertex['Coord']=(vertex['Coord'][0]+dx,vertex['Coord'][1]+dy)
+        selected=[d for d,device in enumerate(self.app.Drawing.schematic.deviceList) if device.selected]
+        self.app.Drawing.schematic.Consolidate()
+        for d in selected:
+            self.app.Drawing.schematic.deviceList[d].selected=True
+    def _DeleteSelected(self):
+        schematic=self.app.Drawing.schematic
+        schematic.deviceList[:]=[device for device in schematic.deviceList if not device.selected]
+        wires=self._WireList()
+        for wire in wires:
+            wire['Vertices']=[vertex for vertex in wire['Vertices'] if not vertex['Selected']]
+        wires[:]=[wire for wire in wires if len(wire['Vertices'])>=2]
+        schematic.Consolidate()
+        self.Select(None)
+    @_Edit('delete selection')
+    def DeleteSelection(self):
+        """deletes the selected parts and wire corners (wires left with fewer than two corners go too)"""
+        self._Writable()
+        self._HasSelection()
+        self._DeleteSelected()
+    def CopySelection(self):
+        """puts the selected parts, and the selected run of each wire, on the clipboard"""
+        from SignalIntegrity.App.Wire import Wire
+        self._HasSelection()
+        devices=[copy.deepcopy(device) for device in self.app.Drawing.schematic.deviceList if device.selected]
+        wires=[]
+        for wire in self._WireList():
+            picked=[v for v,vertex in enumerate(wire['Vertices']) if vertex['Selected']]
+            if len(picked)>=2:
+                wires.append(Wire(copy.deepcopy(wire['Vertices'][picked[0]:picked[-1]+1])))
+        self.clipboard={'devices':devices,'wires':wires}
+    @_Edit('cut selection')
+    def CutSelection(self):
+        self._Writable()
+        self.CopySelection()
+        self._DeleteSelected()
+    def _PlaceGroup(self,group,x=None,y=None):
+        """adds copies of a clipboard group (renumbered like _PlaceCopy) two grid units down and right, or
+        with its top-left part origin at pixel x,y, selects them and returns Selection()"""
+        from SignalIntegrity.App.Wire import Wire,Vertex
+        coords=[d.partPicture.current.origin for d in group['devices']]+[v['Coord'] for w in group['wires'] for v in w['Vertices']]
+        if not coords:
+            raise SessionError('nothing to paste')
+        if x is None or y is None:
+            dx=dy=2
+        else:
+            target=self._GridCoordinate(x,y)
+            dx,dy=target[0]-min(c[0] for c in coords),target[1]-min(c[1] for c in coords)
+        schematic=self.app.Drawing.schematic
+        self.Select(None)
+        added=[]
+        for device in group['devices']:
+            picture=device.partPicture.current
+            index=self._PlaceCopy(device,None,None)
+            placed=schematic.deviceList[index].partPicture.current
+            placed.SetOrigin((picture.origin[0]+dx,picture.origin[1]+dy))
+            added.append(index)
+        wires=self._WireList()
+        for wire in group['wires']:
+            wires.append(Wire([Vertex((v['Coord'][0]+dx,v['Coord'][1]+dy),True) for v in wire['Vertices']]))
+        schematic.Consolidate()
+        for index in added:
+            schematic.deviceList[index].selected=True
+        for wire in wires:
+            for vertex in wire['Vertices']:
+                vertex['Selected']=False
+        coords=[(v['Coord'][0]+dx,v['Coord'][1]+dy) for w in group['wires'] for v in w['Vertices']]
+        for wire in wires:
+            for vertex in wire['Vertices']:
+                if tuple(vertex['Coord']) in coords:
+                    vertex['Selected']=True
+        self.selectedVertex=None
+        return self.Selection()
+    @_Edit('duplicate selection')
+    def DuplicateSelection(self,x=None,y=None):
+        """copies the selected parts and wires two grid units down and right (or to pixel x,y); the
+        clipboard is unchanged
+        @return Selection() of the copies"""
+        self._Writable()
+        clipboard=self.clipboard
+        self.CopySelection()
+        group,self.clipboard=self.clipboard,clipboard
+        return self._PlaceGroup(group,x,y)
     @_Edit('cut part')
     def Cut(self,index):
         self._Writable()
@@ -315,10 +471,12 @@ class ProjectSession(object):
         self.Select(None)
     @_Edit('paste part')
     def Paste(self,x=None,y=None):
-        """@return the index of the pasted (and selected) part"""
+        """@return the index of the pasted (and selected) part, or Selection() when a group was copied"""
         self._Writable()
         if self.clipboard is None:
             raise SessionError('nothing to paste')
+        if isinstance(self.clipboard,dict):
+            return self._PlaceGroup(self.clipboard,x,y)
         return self._PlaceCopy(self.clipboard,x,y)
     @_Edit('duplicate part')
     def Duplicate(self,index,x=None,y=None):
@@ -373,15 +531,19 @@ class ProjectSession(object):
     def _Catalog():
         from SignalIntegrity.App.Device import DeviceList,DeviceListUnknown,DeviceListSystem
         return [d for d in DeviceList+DeviceListUnknown+DeviceListSystem if d.enabled]
+    _previewCache=None
     def PartCatalog(self,previews=False):
         """@return [{index,partname,description,categories,preview?}] grouped the way the tk picker groups them"""
         catalog=[]
+        if previews and ProjectSession._previewCache is None:
+            # the catalog parts and their pictures never change, so draw them once per process
+            ProjectSession._previewCache=[self.PartPreview(index) for index in range(len(self._Catalog()))]
         for index,device in enumerate(self._Catalog()):
             entry={'index':index,'partname':device['partname'].GetValue(),
                    'description':' '.join(str(device['desc'].GetValue()).split()) if device['desc'] is not None else '',
                    'categories':device.Categories()}
             if previews:
-                entry['preview']=self.PartPreview(index)
+                entry['preview']=copy.deepcopy(ProjectSession._previewCache[index])
             catalog.append(entry)
         return catalog
     def PartPreview(self,index):
@@ -435,6 +597,12 @@ class ProjectSession(object):
         grid=self.Grid(); ox,oy=self.Origin()
         try:
             return (int(round(float(x)/grid))-ox,int(round(float(y)/grid))-oy)
+        except (TypeError,ValueError):
+            raise SessionError('coordinates must be numbers')
+    def _GridFloat(self,x,y):
+        grid=self.Grid(); ox,oy=self.Origin()
+        try:
+            return (float(x)/grid-ox,float(y)/grid-oy)
         except (TypeError,ValueError):
             raise SessionError('coordinates must be numbers')
     def Wires(self):

@@ -62,8 +62,11 @@ def StyleSheet(p):
     return f"""
 QWidget {{ color: {p['foreground']}; }}
 QMainWindow, QDialog {{ background: {p['background']}; }}
-QDockWidget {{ color: {p['panelForeground']}; }}
-QDockWidget::title {{ background: {p['toolbar']}; padding: 4px; border-bottom: 1px solid {p['border']}; }}
+#paneHeader {{ background: {p['toolbar']}; border-bottom: 1px solid {p['border']}; }}
+#paneHeader:hover {{ background: {p['hover']}; }}
+QSplitter::handle {{ background: {p['border']}; }}
+QSplitter::handle:hover {{ background: {p['accent']}; }}
+QRubberBand {{ background: {p['selection']}; border: 2px solid {p['accent']}; }}
 QTreeWidget, QTableWidget, QListWidget, QPlainTextEdit, QScrollArea {{
     background: {p['panel']}; color: {p['panelForeground']}; border: 1px solid {p['border']};
     alternate-background-color: {p['toolbar']}; }}

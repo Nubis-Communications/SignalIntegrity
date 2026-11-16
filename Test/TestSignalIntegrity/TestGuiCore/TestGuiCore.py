@@ -527,6 +527,86 @@ class TestEditingTest(unittest.TestCase):
             with self.assertRaises(SessionError):
                 s.SelectVertex(*bad)
 
+class TestMultipleSelectionTest(unittest.TestCase):
+    def setUp(self):
+        self.cwd=os.getcwd()
+        self.directory=tempfile.mkdtemp()
+        self.session=ProjectSession()
+        BuildDivider(self.session,self.directory)
+        self.session.AddWire([[96,160],[96,96],[240,96]])
+        self.session.AddWire([[304,96],[400,96],[496,96],[496,80]])
+        self.session.Select(None)
+    def tearDown(self):
+        os.chdir(self.cwd)
+        shutil.rmtree(self.directory,ignore_errors=True)
+    def _Refs(self):
+        return [d['ref'] for d in self.session.Render()['devices']]
+    def testRegionAndToggle(self):
+        # VG1 and R1 lie inside, VO1 and R2 don't; corners of the first wire and the start of the second are inside
+        selection=self.session.SelectRegion(330,220,60,60)
+        self.assertEqual(selection,{'devices':[0,1],'vertices':[[0,0],[0,1],[0,2],[1,0]]})
+        self.assertEqual(self.session.SelectRegion(390,70,420,100,add=True)['devices'],[0,1,2])
+        self.assertEqual(self.session.ToggleDevice(1)['devices'],[0,2])
+        self.assertEqual(self.session.SelectRegion(1000,1000,1100,1100),{'devices':[],'vertices':[]})
+        self.session.ToggleDevice(3)
+        self.session.Select(None)
+        self.assertEqual(self.session.Selection(),{'devices':[],'vertices':[]})
+        with self.assertRaises(SessionError):
+            self.session.SelectRegion('a',0,1,1)
+    def testMoveDeleteAndUndo(self):
+        with self.assertRaises(SessionError):
+            self.session.MoveSelection(1,1)
+        self.session.SelectRegion(60,60,330,220)
+        before=self.session.Render()['devices'][0]['bbox']
+        self.session.MoveSelection(0,2)
+        after=self.session.Render()['devices'][0]['bbox']
+        self.assertEqual(after[1]-before[1],2*self.session.Grid())
+        self.assertEqual(self.session.Selection()['devices'],[0,1])
+        for line in ('connect R1 1 VG1 1','connect R1 2 R2 1'):
+            self.assertIn(line,self.session.NetList())
+        self.session.DeleteSelection()
+        self.assertEqual(self._Refs(),['VO1','R2'])
+        self.assertEqual(self.session.history[-1][0],'delete selection')
+        self.session.Undo(); self.session.Undo()
+        self.assertEqual(self._Refs(),['VG1','R1','VO1','R2'])
+    def testClipboard(self):
+        self.session.SelectRegion(60,60,330,220)
+        self.session.CopySelection()
+        selection=self.session.Paste()
+        self.assertEqual(self._Refs(),['VG1','R1','VO1','R2','VG2','R3'])
+        self.assertEqual(selection['devices'],[4,5])
+        self.assertEqual(len(self.session.Wires()),4)
+        self.session.Undo()
+        self.session.SelectRegion(60,60,330,220)
+        self.session.DuplicateSelection(600,300)
+        self.assertEqual(self._Refs(),['VG1','R1','VO1','R2','VG2','R3'])
+        self.assertIsInstance(self.session.clipboard,dict)   # duplicating doesn't replace the clipboard
+        self.session.SelectRegion(0,0,2000,2000)
+        self.session.CutSelection()
+        self.assertEqual((self._Refs(),self.session.Wires()),([],[]))
+        self.session.Paste()
+        self.assertEqual(len(self._Refs()),6)
+        self.session.Select(None)
+        with self.assertRaises(SessionError):
+            self.session.CopySelection()
+    def testPropertiesCentredAbove(self):
+        pictures=[d.partPicture.current for d in self.session.app.Drawing.schematic.deviceList]
+        before=[(p.propertiesLocation,p.TextDirectionReversed) for p in pictures]
+        drawing=self.session.Render()
+        texts=[t for t in drawing['items'] if t['type']=='text' and t['text']=='50.0 ohm']
+        boxes=[d['bbox'] for d in drawing['devices'] if d['partname']=='Resistor']
+        self.assertEqual(len(texts),2)
+        for text,box in zip(texts,boxes):
+            self.assertEqual(text['anchor'],'s')
+            self.assertAlmostEqual(text['x'],(box[0]+box[2])/2.)
+            self.assertLess(text['y'],min(box[1],box[3]))
+        # the part pictures themselves keep the tk placement (saved files and the tk app are unaffected)
+        self.assertEqual([(p.propertiesLocation,p.TextDirectionReversed) for p in pictures],before)
+    def testPreviewCache(self):
+        first=self.session.PartCatalog(previews=True)
+        first[0]['preview']['items'].clear()
+        self.assertTrue(self.session.PartCatalog(previews=True)[0]['preview']['items'])
+
 class TestProjectToolsTest(unittest.TestCase):
     """equations, post-processing, archives and exports"""
     def setUp(self):

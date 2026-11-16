@@ -21,7 +21,7 @@ import os
 
 from PySide6.QtCore import Qt, QThread, Signal, QSize
 from PySide6.QtGui import QAction, QKeySequence, QActionGroup
-from PySide6.QtWidgets import (QMainWindow, QDockWidget, QTableWidget, QTableWidgetItem, QFileDialog,
+from PySide6.QtWidgets import (QMainWindow, QTableWidget, QTableWidgetItem, QFileDialog,
     QMessageBox, QWidget, QFormLayout, QLineEdit, QPushButton, QPlainTextEdit, QDialog, QVBoxLayout,
     QProgressDialog, QHeaderView, QAbstractItemView, QMenu, QComboBox, QInputDialog)
 
@@ -31,6 +31,7 @@ from SignalIntegrity.GuiCore.Menus import MenusFor, TOOLBAR, TOOLBAR_LABELS, TOO
 from SignalIntegrity.QtApp import Theme
 from SignalIntegrity.QtApp.SchematicView import SchematicView
 from SignalIntegrity.QtApp.PartsDock import PartsDock
+from SignalIntegrity.QtApp.Docking import DockManager, Pane
 from SignalIntegrity.QtApp.SimulatorWindow import SimulatorWindow, SParametersWindow, EyeDiagramWindow, NoiseWindow
 
 CALCULATION_TITLES={'simulate':'Simulate','sparameters':'Calculate S-parameters',
@@ -82,8 +83,10 @@ class MainWindow(QMainWindow):
         self._updating=False
         self.resize(1200,800)
         self.view=SchematicView(self)
-        self.setCentralWidget(self.view)
         self.view.deviceClicked.connect(self.OnDeviceClicked)
+        self.view.deviceToggled.connect(self.OnDeviceToggled)
+        self.view.regionSelected.connect(self.OnRegionSelected)
+        self.view.selectionDragged.connect(self.OnSelectionDragged)
         self.view.backgroundClicked.connect(self.OnBackgroundClicked)
         self.view.deviceDoubleClicked.connect(lambda index: self.propertiesDock.raise_())
         self.view.deviceDragged.connect(self.OnDeviceDragged)
@@ -112,23 +115,23 @@ class MainWindow(QMainWindow):
         table.setSelectionMode(QAbstractItemView.SingleSelection)
         return table
     def _BuildDocks(self):
+        """VS Code style panes (see Docking.py), laid out as in the web GUI"""
+        self.docks=DockManager(self,self.view,os.path.join(Settings.SettingsDirectory(),'qt-layout.json'))
+        self.setCentralWidget(self.docks.Widget())
         self.partsDock=PartsDock(self)
         self.partsDock.placeRequested.connect(self.OnPlaceRequested)
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.partsDock)
+        self.docks.AddPane('parts',self.partsDock,'left')
 
         self.variablesTable=self._Table(['Show','Variable','Value','Units'])
         self.variablesTable.itemChanged.connect(self.OnVariableChanged)
-        self.variablesDock=QDockWidget('Variables',self)
-        self.variablesDock.setObjectName('variables')
+        self.variablesDock=Pane('Variables',self)
         self.variablesDock.setWidget(self.variablesTable)
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.variablesDock)
+        self.docks.AddPane('variables',self.variablesDock,'left')
 
         self.propertiesTable=self._Table(['Show','Keyword','Property','Value','Unit'])
         self.propertiesTable.itemChanged.connect(self.OnPropertyChanged)
-        self.propertiesDock=QDockWidget('Device Properties',self)
-        self.propertiesDock.setObjectName('properties')
+        self.propertiesDock=Pane('Device Properties',self)
         self.propertiesDock.setWidget(self.propertiesTable)
-        self.addDockWidget(Qt.RightDockWidgetArea,self.propertiesDock)
 
         form=QWidget()
         layout=QFormLayout(form)
@@ -140,13 +143,20 @@ class MainWindow(QMainWindow):
         apply=QPushButton('Apply')
         apply.clicked.connect(self.OnApplyCalculationProperties)
         layout.addRow(apply)
-        self.calculationDock=QDockWidget('Calculation Properties',self)
-        self.calculationDock.setObjectName('calculation')
+        self.calculationDock=Pane('Calculation Properties',self)
         self.calculationDock.setWidget(form)
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.calculationDock)
-        self.tabifyDockWidget(self.variablesDock,self.calculationDock)
-        self.variablesDock.raise_()
-        self.resizeDocks([self.partsDock],[260],Qt.Horizontal)
+        self.docks.AddPane('calc',self.calculationDock,'left')
+        self.docks.AddPane('properties',self.propertiesDock,'right')
+        self.docks.areas['left'].setStretchFactor(0,3)
+        self.docks.Finish({'left':300,'right':300,'bottom':220})
+    def showEvent(self,event):
+        super().showEvent(event)
+        self.docks.ShowWindows()
+    def closeEvent(self,event):
+        self.docks.Save()
+        for window in list(self.docks.windows):
+            window.hide()
+        super().closeEvent(event)
     def _Handlers(self):
         """one handler per GuiCore.Menus command id"""
         handlers={'new':self.OnNew,'open':self.OnOpen,'save':self.OnSave,'saveAs':self.OnSaveAs,
@@ -219,6 +229,8 @@ class MainWindow(QMainWindow):
         menu.clear()
         for dock in (self.partsDock,self.variablesDock,self.calculationDock,self.propertiesDock):
             menu.addAction(dock.toggleViewAction())
+        menu.addSeparator()
+        menu.addAction('Reset Layout',self.docks.ResetLayout)
     def BuildRecentMenu(self):
         menu=self.submenus['recent']
         menu.clear()
@@ -310,7 +322,8 @@ class MainWindow(QMainWindow):
         self.netListAction.setEnabled(isOpen and not busy)
         self.rotateAction.setEnabled(writable and not busy and self.selected is not None)
         selectedWire=self.SelectedWire()
-        self.deleteAction.setEnabled(writable and not busy and (self.selected is not None or selectedWire is not None))
+        multiple=writable and not busy and self.MultipleSelection()
+        self.deleteAction.setEnabled(multiple or (writable and not busy and (self.selected is not None or selectedWire is not None)))
         self.actions['deletePart'].setEnabled(writable and not busy and self.selected is not None)
         self.actions['properties'].setEnabled(isOpen and self.selected is not None)
         self.actions['deleteWire'].setEnabled(writable and not busy and selectedWire is not None)
@@ -319,9 +332,11 @@ class MainWindow(QMainWindow):
         for commandId in ('deleteVertex','duplicateVertex'):
             self.actions[commandId].setEnabled(writable and not busy and vertex is not None)
         part=writable and not busy and self.selected is not None
-        for commandId in ('cut','duplicate','flipHorizontal','flipVertical'):
+        for commandId in ('flipHorizontal','flipVertical'):
             self.actions[commandId].setEnabled(part)
-        self.actions['copy'].setEnabled(isOpen and not busy and self.selected is not None)
+        for commandId in ('cut','duplicate'):
+            self.actions[commandId].setEnabled(part or multiple)
+        self.actions['copy'].setEnabled(isOpen and not busy and (self.selected is not None or self.MultipleSelection()))
         self.actions['paste'].setEnabled(writable and not busy and self.session.clipboard is not None)
         self.actions['undo'].setEnabled(writable and not busy and self.session.CanUndo())
         self.actions['redo'].setEnabled(writable and not busy and self.session.CanRedo())
@@ -535,6 +550,33 @@ class MainWindow(QMainWindow):
             return
         self.session.MoveDevice(index,dx,dy)
         self.Redraw()
+    # ---- multiple selection (rubber band, Ctrl/Shift+click, group moves)
+    def MultipleSelection(self):
+        """True when several parts, parts and wires, or corners of several wires are selected"""
+        if not self.session.IsOpen():
+            return False
+        selection=self.session.Selection()
+        parts,corners=len(selection['devices']),selection['vertices']
+        return parts>1 or bool(parts and corners) or len({w for w,_ in corners})>1
+    def _ShowSelection(self,selection):
+        self.selected=selection['devices'][0] if len(selection['devices'])==1 and not selection['vertices'] else None
+        self.RefreshProperties()
+        self.Redraw()
+        parts=len(selection['devices']); corners=len(selection['vertices'])
+        if parts or corners:
+            self.statusBar().showMessage('%d part%s and %d wire corner%s selected - drag one to move them all, Del deletes them'%(
+                parts,'' if parts==1 else 's',corners,'' if corners==1 else 's'))
+        else:
+            self.statusBar().showMessage('nothing selected')
+    def OnRegionSelected(self,x0,y0,x1,y1,add):
+        if self.session.IsOpen():
+            self._ShowSelection(self.session.SelectRegion(x0,y0,x1,y1,add))
+    def OnDeviceToggled(self,index):
+        if self.session.IsOpen():
+            self._ShowSelection(self.session.ToggleDevice(index))
+    def OnSelectionDragged(self,dx,dy):
+        if not self.session.readOnly:
+            self._Do(lambda: self.session.MoveSelection(dx,dy),'selection moved')
     def OnRotate(self):
         if self.selected is not None and not self.session.readOnly:
             self.session.RotateDevice(self.selected)
@@ -561,7 +603,11 @@ class MainWindow(QMainWindow):
         self.propertiesDock.raise_()
         self.statusBar().showMessage('added '+self.session.Render()['devices'][self.selected]['partname'])
     def OnDelete(self):
-        """tk Edit > Delete Selected: the selected wire or part"""
+        """tk Edit > Delete Selected: everything selected, the selected wire, or the selected part"""
+        if self.MultipleSelection():
+            if not self.session.readOnly and self.worker is None:
+                self._Do(self.session.DeleteSelection,'selection deleted')
+            return
         if self.SelectedWire() is not None:
             return self.OnDeleteWire()
         self.OnDeletePart()
@@ -576,7 +622,6 @@ class MainWindow(QMainWindow):
         self.RefreshProperties()
         self.Redraw()
     def OnEditProperties(self):
-        self.propertiesDock.show()
         self.propertiesDock.raise_()
         self.propertiesTable.setFocus()
     def OnCancel(self):
@@ -746,16 +791,24 @@ class MainWindow(QMainWindow):
     def OnRedo(self):
         self._Do(self.session.Redo,lambda name: 'redid '+name,refreshTables=True)
     def OnCopy(self):
+        if self.MultipleSelection():
+            self.session.CopySelection()
+            self.UpdateEnables()
+            return self.statusBar().showMessage('selection copied (Ctrl+V pastes it)')
         if self.selected is not None:
             self.session.Copy(self.selected)
             self.UpdateEnables()
             self.statusBar().showMessage('part copied (Ctrl+V pastes it)')
     def OnCut(self):
+        if self.MultipleSelection():
+            return self._Do(self.session.CutSelection,'selection cut (Ctrl+V pastes it)')
         if self.selected is not None:
             self._Do(lambda: self.session.Cut(self.selected),'part cut (Ctrl+V pastes it)')
     def OnPaste(self):
-        self._Do(self.session.Paste,'part pasted - drag it into place')
+        self._Do(self.session.Paste,'pasted - drag it into place')
     def OnDuplicate(self):
+        if self.MultipleSelection():
+            return self._Do(self.session.DuplicateSelection,'selection duplicated - drag it into place')
         if self.selected is not None:
             self._Do(lambda: self.session.Duplicate(self.selected),'part duplicated - drag it into place')
     def OnFlip(self,direction):

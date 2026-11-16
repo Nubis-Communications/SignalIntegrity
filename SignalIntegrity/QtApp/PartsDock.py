@@ -19,10 +19,11 @@ PartsDock.py
 # If not, see <https://www.gnu.org/licenses/>
 from PySide6.QtCore import Qt, QMimeData, QRectF, QSize, Signal
 from PySide6.QtGui import QPixmap, QPainter, QIcon, QColor, QDrag
-from PySide6.QtWidgets import (QDockWidget, QWidget, QVBoxLayout, QLineEdit, QTreeWidget, QTreeWidgetItem,
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QLineEdit, QTreeWidget, QTreeWidgetItem,
     QGraphicsScene, QAbstractItemView, QLabel)
 
 from SignalIntegrity.QtApp.SchematicView import AddPrimitives, PART_MIME
+from SignalIntegrity.QtApp.Docking import Pane
 
 ICON_SIZE=QSize(56,40)
 
@@ -71,7 +72,7 @@ class PartTree(QTreeWidget):
         drag.setPixmap(item.icon(0).pixmap(ICON_SIZE))
         drag.exec(Qt.CopyAction)
 
-class PartsDock(QDockWidget):
+class PartsDock(Pane):
     """a stencil of every part in the tk Add Part catalog, grouped by function"""
     placeRequested=Signal(int)
     def __init__(self,parent=None):
