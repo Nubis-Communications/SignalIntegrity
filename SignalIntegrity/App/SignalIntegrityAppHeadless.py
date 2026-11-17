@@ -458,9 +458,14 @@ class SignalIntegrityAppHeadless(object):
                     if (allOutputsEmpty):
                         raise si.SignalIntegrityExceptionSimulator('Output waveforms empty: Decrease impulse response or increase waveform duration')
 
-                    for inputWaveform in inputWaveformList:
-                        if isinstance(inputWaveform, DependentWaveform):
-                            inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList, i)
+                    from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
+                    dependentWaveforms=[wf for wf in inputWaveformList if isinstance(wf,DependentWaveform)]
+                    inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
+                        self.Drawing.schematic,transferMatrices,outputWaveformList,
+                        outputWaveformLabels+otherWaveformLabels,dependentWaveforms)
+                    for inputWaveform in dependentWaveforms:
+                        inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList, i,
+                                                     noise_spectral_densities=inputNoise)
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)
 

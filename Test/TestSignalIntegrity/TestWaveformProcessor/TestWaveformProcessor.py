@@ -202,6 +202,196 @@ output_waveform_1 = input_waveform_1 * gain
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
 
+    def testProcessorNoiseAliasesAndPreview(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
+
+        processor=DeviceWaveformProcessorVariable(2,2)
+        processor['ref']['Value']='P'
+        processor['script']['Value']=(
+            'assert input_noise_1.Values() == [0., 3.e-9, 3.e-9]\n'
+            'assert input_noise_2.Values() == [0., 4.e-9, 4.e-9]\n'
+            'output_waveform_1 = input_waveform_1 + input_noise_1.TotalRMS()\n'
+            'output_waveform_2 = input_waveform_2 + input_noise_2.TotalRMS()\n'
+            'input_noise_1[1] = 0.\n')
+        td=si.td.wf.TimeDescriptor(0.,8,4.e9)
+        inputs=[si.td.wf.Waveform(td,1.),si.td.wf.Waveform(td,2.)]
+        frequencies=si.fd.EvenlySpacedFrequencyList(2.e9,2)
+        noise={'P_in1':SpectralDensity(frequencies,[0.,3.e-9,3.e-9]),
+               'P_in2':SpectralDensity(frequencies,[0.,4.e-9,4.e-9])}
+        outputs=processor.Waveforms()
+        for output in outputs:
+            output.UpdateWaveform(['P_in2','P_in1'],inputs[::-1],0,
+                                  noise_spectral_densities=noise)
+        self.assertAlmostEqual(outputs[0][0],1.+noise['P_in1'].TotalRMS())
+        self.assertAlmostEqual(outputs[1][0],2.+noise['P_in2'].TotalRMS())
+        self.assertEqual(noise['P_in1'].Values(),[0.,3.e-9,3.e-9])
+        for mapping in [{},{'P_in1':None,'P_in2':noise['P_in2']}]:
+            with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
+                outputs[0].UpdateWaveform(['P_in1','P_in2'],inputs,0,
+                                          noise_spectral_densities=mapping)
+        preview=processor.ScriptedWaveform(
+            'assert input_noise_1.TotalRMS() == input_noise_2.TotalRMS() == 0.\n'
+            'output_waveform_1 = input_waveform_1\noutput_waveform_2 = input_waveform_2\n')
+        self.assertEqual(len(preview),8)
+
+    def testProcessorNoiseAtHiddenInputsThroughUpstreamProcessor(self):
+        import numpy as np
+        from types import SimpleNamespace
+        from SignalIntegrity.App.Device import DeviceList
+        from SignalIntegrity.App.NetList import NetList
+        from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+
+        frequencies=si.fd.EvenlySpacedFrequencyList(8.e9,16)
+        netlist=NetList.__new__(NetList)
+        netlist.outputNames=['A_in1','B_in1','OUT']
+        netlist.sourceNames=['V','A_out1','B_out1','VN1','VN2']
+        netlist.waveformProcessorSourceNames=['A_out1','B_out1']
+        netlist.waveformProcessorLinearSourceNames=['A_out1','B_out1']
+        netlist.waveformProcessorInputMappings=[('A_out1','A_in1'),('B_out1','B_in1')]
+        netlist.waveformProcessorOutputNames=['A_in1','B_in1']
+        netlist.noiseSourceNames=['VN1','VN2']
+        netlist.noiseOutputNames=['OUT']
+        netlist.noiseDisplayOutputNames=[]
+        matrices=si.fd.TransferMatrices(frequencies,
+            [[[1.,0.,0.,2.,0.],[0.,3.,0.,0.,4.],[0.,0.,1.,0.,0.]]
+             for _ in frequencies])
+        devices=[]
+        for name,density in [('VN1',3.e-12),('VN2',4.e-12)]:
+            device=copy.deepcopy(next(device for device in DeviceList
+                if device['partname'].GetValue() == 'VoltageStatisticalNoiseSource'))
+            device['ref']['Value']=name
+            device.configuration['Enable']=True
+            device.configuration['WhiteNoise.VPerRootHz']=density
+            device.configuration['WhiteNoise.NoiseBandwidth']=8.e9
+            devices.append(device)
+        schematic=SimpleNamespace(NetList=lambda:netlist,deviceList=devices)
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        SignalIntegrityAppHeadless().OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si')
+        siapp.Project['CalculationProperties.EndFrequency']=8.e9
+        siapp.Project['CalculationProperties.FrequencyPoints']=16
+        td=si.td.wf.TimeDescriptor(0.,256,16.e9)
+        waveforms=[si.td.wf.Waveform(td,1.) for _ in netlist.outputNames]
+        dependent=[DependentWaveform(['B_in1','A_in1'],script='outputWaveform=input_waveform_1')]
+        noise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
+            schematic,matrices,waveforms,netlist.outputNames,dependent)
+        self.assertEqual(set(noise),{'A_in1','B_in1'})
+        np.testing.assert_allclose(noise['A_in1'].Values()[1:],[6.e-12]*16,rtol=1.e-12)
+        np.testing.assert_allclose(noise['B_in1'].Values()[1:],
+                                   [np.hypot(18.e-12,16.e-12)]*16,rtol=1.e-12)
+        self.assertEqual(noise['A_in1'][0],0.)
+        netlist.noiseSourceNames=[]
+        quiet=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
+            schematic,matrices,waveforms,netlist.outputNames,dependent)
+        self.assertEqual(quiet['B_in1'].Frequencies(),list(frequencies))
+        self.assertEqual(quiet['B_in1'].Values(),[0.]*17)
+
+    def testProcessorNoiseRecalculatedBeforeEachIteration(self):
+        import numpy as np
+        from types import SimpleNamespace
+        from unittest.mock import Mock,patch
+        from SignalIntegrity.App.Device import DeviceList,DeviceCurrentOutputProbe
+        from SignalIntegrity.App.NetList import NetList
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.Simulator import Simulator
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+        import scipy.constants as constants
+
+        for gui in [False,True]:
+            with self.subTest(gui=gui):
+                app=SignalIntegrityAppHeadless()
+                self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+                siapp.Preferences['Cache.CacheResults']=False
+                siapp.Preferences['Calculation.Processing.StopOnConvergence']=False
+                siapp.Project['CalculationProperties.EndFrequency']=8.e9
+                siapp.Project['CalculationProperties.FrequencyPoints']=16
+                siapp.Project['CalculationProperties.UserSampleRate']=16.e9
+                frequencies=siapp.Project['CalculationProperties'].FrequencyList()
+                netlist=NetList(app.Drawing.schematic)
+                netlist.textToShow=[]
+                netlist.outputNames=['P_in1','P_in2','OUT','IO1']
+                netlist.sourceNames=['V','P_out1','IN1']
+                netlist.waveformProcessorSourceNames=['P_out1']
+                netlist.waveformProcessorSourceNamesToShow=[]
+                netlist.waveformProcessorLinearSourceNames=['P_out1']
+                netlist.waveformProcessorInputMappings=[('P_out1','P_in1')]
+                netlist.waveformProcessorOutputNames=['P_in1','P_in2']
+                netlist.sourceNamesToShow=[]
+                netlist.waveformNames=[]
+                netlist.noiseSourceNames=['IN1']
+                netlist.noiseOutputNames=['OUT']
+                netlist.noiseDisplayOutputNames=['OUT']
+                matrices=si.fd.TransferMatrices(frequencies,
+                    [[[1.,0.,2.],[0.,1.,.5],[0.,1.,1.],[0.,.01,0.]]
+                     for _ in frequencies])
+                noise=copy.deepcopy(next(device for device in DeviceList
+                    if device['partname'].GetValue() == 'CurrentStatisticalNoiseSource'))
+                noise['ref']['Value']='IN1'
+                noise.configuration['Enable']=True
+                noise.configuration['Type']='ShotNoise'
+                noise.configuration['ShotNoise.CurrentSource']='TimeVarying'
+                noise.configuration['ShotNoise.ProbeName']='IO1'
+                noise.configuration['ShotNoise.NoiseBandwidth']=8.e9
+                probe=DeviceCurrentOutputProbe()
+                probe['ref']['Value']='IO1'
+                processor=DependentWaveform(['P_in1','P_in2'],outputWaveformName='output_waveform_1',
+                    script='output_waveform_1 = input_waveform_1 * 0 + 2.\n')
+                td=si.td.wf.TimeDescriptor(0.,256,16.e9)
+                inputs=[si.td.wf.Waveform(td,1.),processor,0.]
+                schematic=Mock()
+                schematic.NetList.return_value=netlist
+                schematic.InputWaveforms.return_value=inputs
+                schematic.OtherWaveforms.return_value=[]
+                schematic.ProcessingIterationCount.return_value=2
+                schematic.deviceList=[noise,probe]
+                app.Drawing.schematic=schematic
+                app.Drawing.canCalculate=True
+                app.Drawing.canSimulate=True
+                app.Drawing.canSimulateNetworkAnalyzerModel=False
+                app.Drawing.canGenerateTransferMatrices=True
+                app.CheckEquations=Mock(return_value=True)
+                records=[]
+                evaluate=DependentWaveform.EvaluateTransformFunctionSafely
+
+                def capture(script,args,outputs):
+                    records.append((args['iteration'],copy.deepcopy(args['input_noise_1']),
+                                    copy.deepcopy(args['input_noise_2'])))
+                    return evaluate(script,args,outputs)
+
+                with patch.object(si.p.SimulatorNumericParser,'TransferMatrices',
+                                  return_value=matrices), \
+                     patch.object(DependentWaveform,'EvaluateTransformFunctionSafely',
+                                  side_effect=capture):
+                    if gui:
+                        app.statusbar=Mock()
+                        app.TransferParametersDoer=Mock(active=True)
+                        app.root=Mock()
+                        simulator=Simulator(app)
+                        simulator.SimulatorDialog=Mock()
+                        simulator.NoiseDialog=Mock()
+                        simulator.UpdateWaveforms=Mock()
+                        simulator.UpdateNoise=Mock()
+                        simulator.UpdateEyeDiagrams=Mock()
+                        progress=lambda parent,title,owner,calculate,**kwargs:SimpleNamespace(GetResult=calculate)
+                        with patch('SignalIntegrity.App.Simulator.ProgressDialog',side_effect=progress), \
+                             patch('SignalIntegrity.App.Simulator.messagebox.showerror') as error:
+                            simulator.Simulate()
+                        error.assert_not_called()
+                    else:
+                        result=app.Simulate()
+                        self.assertIn('output waveforms',result)
+                self.assertEqual([record[0] for record in records],[0,1])
+                self.assertEqual(records[0][1].Values(),[0.]*len(frequencies))
+                expected=np.sqrt(2.*constants.e*.02)
+                # Input 2 includes the upstream processor's unity noise path.
+                for index,gain in [(1,2.),(2,2.5)]:
+                    self.assertEqual(records[1][index].Frequencies(),list(frequencies))
+                    self.assertAlmostEqual(max(records[1][index].Values())/expected,gain,places=10)
+                np.testing.assert_allclose(records[1][2].Values(),
+                                           np.asarray(records[1][1].Values())*1.25,rtol=1.e-10)
+
     def testProcessingIterationCount(self):
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         app = SignalIntegrityAppHeadless()

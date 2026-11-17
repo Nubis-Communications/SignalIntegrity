@@ -514,8 +514,10 @@ class NetList(object):
         return self.waveformProcessorSourceNamesToShow
     def WaveformProcessorOutputNames(self):
         return self.waveformProcessorOutputNames
-    def LinearizeWaveformProcessorTransferMatrices(self,transferMatrices):
-        """Return transfer matrices with processors replaced by unity gain from input 1 to output."""
+    def LinearizeWaveformProcessorTransferMatrices(self,transferMatrices,includeProcessorInputs=False):
+        """Replace processors by unity gain from input 1 to output.
+        @param includeProcessorInputs bool retain internal input probes for noise analysis.
+        """
         if not self.waveformProcessorSourceNames:
             return self.outputNames,self.sourceNames,transferMatrices
         if not transferMatrices:
@@ -532,7 +534,8 @@ class NetList(object):
 
         hiddenSources=set(self.waveformProcessorSourceNames)
         hiddenOutputs=set(self.waveformProcessorOutputNames)
-        outputIndices=[i for i,name in enumerate(self.outputNames) if name not in hiddenOutputs]
+        outputIndices=[i for i,name in enumerate(self.outputNames)
+                       if includeProcessorInputs or name not in hiddenOutputs]
         sourceIndices=[i for i,name in enumerate(self.sourceNames) if name not in hiddenSources]
         inputProbeIndices=[self.outputNames.index(inputName) for _,inputName in processorInputs]
         processorSourceIndices=[self.sourceNames.index(source) for source,_ in processorInputs]

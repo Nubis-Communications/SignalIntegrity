@@ -606,6 +606,9 @@ _waveformProcessorScriptTemplate='''# Waveform processor script
 # }
 # </waveform-processor-interface>
 # Measured inputs are available as input_waveform_1, input_waveform_2, etc.
+# Statistical noise spectra are input_noise_1, input_noise_2, etc. (SpectralDensity).
+# Values() returns V/sqrt(Hz); Frequencies() returns Hz; TotalRMS() returns V.
+# Noise is recalculated before each iteration's script; absent noise gives zeros.
 # Assign each output as output_waveform_1, output_waveform_2, etc.
 # Device variables are also available by name.
 gain = 0.9
