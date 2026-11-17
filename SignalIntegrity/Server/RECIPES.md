@@ -1,8 +1,8 @@
-# Web/Tauri GUI recipes
+# Web/Tauri/Electron GUI recipes
 
 Shared rules and recipes are in [GuiCore/RECIPES.md](../GuiCore/RECIPES.md); read the
 "Rules that keep churn low" first. This file covers `SignalIntegrity/Server` (HTTP API and
-the web UI in `ui/`) and the Tauri shell in `Tauri/`.
+the web UI in `ui/`), the Tauri shell in `Tauri/` and the Electron shell in `Electron/`.
 
 ## Where things are
 
@@ -18,7 +18,7 @@ the web UI in `ui/`) and the Tauri shell in `Tauri/`.
 | Colours | CSS variables in `ui/app.css`, filled from the palette by `CSS_VARS` in `app.js` |
 | A dockable pane | a `<section class="pane" data-pane="id">` with `.pane-header` and `.pane-body` in `index.html`, and its id in `DEFAULT.areas` (and `weight`) in `ui/dock.js`; saved layouts without it fall back to the default |
 | Security (host/origin/token/CSP) | `HttpServer.py`; don't weaken it (see README "Security model") |
-| Desktop shell, sidecar start-up, window options | `Tauri/src-tauri/src/main.rs`, `tauri.conf.json` |
+| Desktop shell, sidecar start-up, window options | `Tauri/src-tauri/src/main.rs`, `tauri.conf.json`; `Electron/main.js`, `Electron/package.json` |
 
 ## Data flow
 
@@ -66,6 +66,10 @@ Never use `innerHTML` (the CSP and security model rely on it). SVG icons are ins
 window to the local URL. Prefer changing behaviour in the web UI so the browser version
 (`SignalIntegrityServer --browser`) gets it too. Rebuild with
 `cargo build --manifest-path Tauri/src-tauri/Cargo.toml`.
+
+`Electron/main.js` does the same for Electron; keep the two shells in step (Python search
+order, `--exit-with-stdin`, ready line, navigation lock). Check it with `npm run smoke` in
+`Electron/`, which loads the UI headless and exits 0 or 1.
 
 ## Testing
 - `Test/TestSignalIntegrity/TestServer/TestServer.py` tests `Api` directly and over HTTP; both

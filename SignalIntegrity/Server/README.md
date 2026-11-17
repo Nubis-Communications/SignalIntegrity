@@ -3,7 +3,8 @@
 `SignalIntegrity.Server` is a small HTTP/JSON server, using only the Python standard library.
 It serves the SignalIntegrity web GUI (`ui/`) and an API built on
 [`GuiCore.ProjectSession`](../GuiCore/README.md). The Tauri desktop app ([`Tauri/`](../../Tauri/README.md))
-uses it, and you can also use it from any browser.
+and the Electron desktop app ([`Electron/`](../../Electron/README.md)) use it, and you can also
+use it from any browser.
 
 It only **adds** code: the tk GUI, `SignalIntegrityAppHeadless`, `SignalIntegrity.Lib` and
 the `.si` format are unchanged, and it adds no new install requirements.
@@ -15,8 +16,8 @@ SignalIntegrityServer [project.si] [--port N] [--browser] [--verbose] [--exit-wi
 python -m SignalIntegrity.Server [project.si] --browser
 ```
 
-On startup it prints one JSON line to stdout. The Tauri shell reads this line to find the
-server:
+On startup it prints one JSON line to stdout. The Tauri and Electron shells read this line to
+find the server:
 
 ```json
 {"signalintegrity_server": {"port": 53122, "token": "...", "url": "http://127.0.0.1:53122/#token=..."}}
@@ -25,8 +26,8 @@ server:
 `--browser` opens that URL in the default browser. The UI reads the token from the URL
 fragment, keeps it in `sessionStorage`, and removes it from the address bar.
 
-`--exit-with-stdin` stops the server when its standard input closes. The Tauri shell passes
-it and holds the pipe open, so the server stops whenever the shell exits, even if the shell
+`--exit-with-stdin` stops the server when its standard input closes. The Tauri and Electron
+shells pass it and hold the pipe open, so the server stops whenever the shell exits, even if the shell
 is killed or crashes.
 
 ## Security model

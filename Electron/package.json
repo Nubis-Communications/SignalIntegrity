@@ -1,0 +1,64 @@
+{
+  "name": "signalintegrity-electron",
+  "productName": "SignalIntegrity",
+  "version": "1.5.7",
+  "description": "Electron desktop shell for the SignalIntegrity web UI",
+  "author": {
+    "name": "Peter J. Pupalaikis",
+    "email": "pete_pope@hotmail.com"
+  },
+  "homepage": "https://github.com/Nubis-Communications/SignalIntegrity",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke-test",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.nubiscommunications.signalintegrity.electron",
+    "productName": "SignalIntegrity",
+    "files": [
+      "main.js",
+      "loading/**",
+      "icons/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "fileAssociations": [
+      {
+        "ext": "si",
+        "name": "SignalIntegrity Project",
+        "role": "Editor"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "icons/icon.png",
+      "category": "Science"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "icons/icon.png",
+      "category": "public.app-category.developer-tools"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.3.3",
+    "electron-builder": "^26.18.0"
+  }
+}
