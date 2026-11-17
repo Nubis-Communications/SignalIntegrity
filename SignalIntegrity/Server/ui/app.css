@@ -100,6 +100,7 @@ form input, dialog input[type=text] { font: inherit; padding: 2px 4px; backgroun
 #canvasHost.drop-target { outline: 2px dashed var(--accent); outline-offset: -4px; }
 #schematic { width: 100%; height: 100%; display: block; cursor: default; user-select: none; }
 #schematic.panning { cursor: grabbing; }
+#schematic.pan-tool:not(.panning) { cursor: grab; }
 #schematic.placing, #schematic.wiring { cursor: crosshair; }
 #schematic text { font-family: Helvetica, Arial, sans-serif; font-size: 11px; }
 #schematic .property-backing { fill: var(--canvas); }

@@ -125,7 +125,7 @@ svg.addEventListener('pointerdown', async evt => {
     if (evt.button === 0) { addWirePoint(snap(toScene(evt))); drawWirePreview(); }
     return;
   }
-  if (evt.button === 1 && state.drawing) {
+  if ((evt.button === 1 || (evt.button === 0 && state.panTool)) && state.drawing) {
     evt.preventDefault();
     svg.setPointerCapture(evt.pointerId);
     drag = { kind: 'pan', x: evt.clientX, y: evt.clientY };
@@ -252,8 +252,17 @@ function drawWirePreview() {
   el('polyline', { id: 'wirePreview', points: pts.map(p => p.join(',')).join(' '), fill: 'none',
     stroke: state.colorMap ? state.colorMap.blue : 'blue', 'stroke-width': 1.5, 'stroke-dasharray': '5 3' }, viewport);
 }
+// the Pan tool: while it is on, left-drag pans the schematic (middle-drag always does)
+function setPanTool(on) {
+  state.panTool = on;
+  if (on) { stopPlacing(); if (state.wiring) stopWiring(); }
+  svg.classList.toggle('pan-tool', on);
+  status(on ? 'Pan: drag the schematic to move it, Esc or Pan again to stop' : 'pan off');
+  refreshCommands();
+}
 function startWiring() {
   stopPlacing();
+  if (state.panTool) setPanTool(false);
   state.wiring = true; state.wirePoints = [];
   svg.classList.add('wiring');
   status('Add Wire: click each corner, double-click or right-click to finish a wire, Esc to stop');
@@ -404,6 +413,7 @@ const COMMANDS = {
   zoomIn: { run: () => zoomAt(1.25, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
   zoomOut: { run: () => zoomAt(0.8, svg.clientWidth / 2, svg.clientHeight / 2), when: c => c.open, idle: true },
   zoomFit: { run: zoomFit, when: c => c.open, idle: true },
+  pan: { run: () => setPanTool(!state.panTool), when: c => c.open, idle: true, checked: () => !!state.panTool },
   viewDevice: { run: () => viewDevice(state.selected, preferredAction(state.viewActions)), when: c => c.device && c.viewable },
   up: { run: ascend, when: c => c.open && state.drawing.canAscend },
   postProcessing: { run: editPostProcessing, when: c => c.writable },
@@ -483,6 +493,7 @@ function cancel() {
     if (state.wirePoints.length) { state.wirePoints = []; drawWirePreview(); }
     else { stopWiring(); status('wire mode off'); }
   } else if (state.placing !== null) { stopPlacing(); status('placement cancelled'); }
+  else if (state.panTool) setPanTool(false);
 }
 async function showNetlist() {
   try {
@@ -949,6 +960,7 @@ $('partSearch').addEventListener('input', filterStencil);
 function startPlacing(index) {
   if (!state.drawing || readOnly() || state.busy) return;
   stopPlacing();
+  if (state.panTool) setPanTool(false);
   state.placing = index;
   svg.classList.add('placing');
   const row = $('partGroups').querySelector(`.part[data-part="${index}"]`);

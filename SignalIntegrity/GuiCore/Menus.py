@@ -71,8 +71,7 @@ MENUS=[
               Command('deleteWire','Delete Wire')]),
     ('View',[Command('zoomIn','Zoom In','Ctrl++'),
              Command('zoomOut','Zoom Out','Ctrl+-'),
-             Command('zoomFit','Zoom to Fit','Ctrl+0'),
-             SEPARATOR,
+             Command('zoomFit','Zoom to Fit','Ctrl+0'),             Command('pan','Pan',checkable=True),             SEPARATOR,
              Command('viewDevice','View / Open Project','Ctrl+E'),
              Command('up','Up to Parent Project','Alt+Up'),
              SEPARATOR,
@@ -93,7 +92,7 @@ MENUS=[
              Command('about','About')]),
 ]
 
-TOOLBAR=['new','open','save',None,'undo','redo',None,'zoomIn','zoomOut','zoomFit',None,
+TOOLBAR=['new','open','save',None,'undo','redo',None,'zoomIn','zoomOut','zoomFit','pan',None,
          'wire','rotate','flipHorizontal','duplicate','delete',None,'viewDevice','up',None,
          'simulate','sparameters','virtualprobe','deembed',None,'help']
 
@@ -102,7 +101,7 @@ CALCULATION_IDS=['simulate','sparameters','virtualprobe','deembed']
 
 # short captions shown under the toolbar icons (GuiCore.Icons has the icons)
 TOOLBAR_LABELS={'new':'New','open':'Open','save':'Save','undo':'Undo','redo':'Redo',
-                'zoomIn':'Zoom In','zoomOut':'Zoom Out','zoomFit':'Fit',
+                'zoomIn':'Zoom In','zoomOut':'Zoom Out','zoomFit':'Fit','pan':'Pan',
                 'wire':'Wire','rotate':'Rotate','flipHorizontal':'Flip','duplicate':'Duplicate','delete':'Delete',
                 'viewDevice':'View','up':'Up',
                 'simulate':'Simulate','sparameters':'S-params','virtualprobe':'V-Probe','deembed':'De-embed','help':'Help'}

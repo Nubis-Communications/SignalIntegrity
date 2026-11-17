@@ -122,7 +122,8 @@ Same scope as the PySide6 GUI. Both are built on `SignalIntegrity.GuiCore`:
 
 - Schematic rendered from the original part pictures as SVG. Visible properties sit centred
   directly above each part, on a backing so they stay readable where they cross a wire. Wheel to
-  zoom, **middle-drag to pan**, Fit.
+  zoom; to pan, turn on the **Pan** tool (toolbar or View > Pan) and drag, or drag with the middle
+  mouse button. Esc or Pan again turns the tool off. Fit.
 - **Selecting, as in the tk app:** left-drag on the background draws a rubber band that selects
   the parts and wire corners inside it; Ctrl/Shift+click adds or removes a part and Ctrl/Shift+drag
   adds a band. Drag any selected part to move the whole selection (dashed outlines show where it
