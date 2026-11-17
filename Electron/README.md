@@ -39,8 +39,8 @@ Start-up sequence, the same as the Tauri shell:
    `python -m SignalIntegrity.Server --exit-with-stdin [project.si]` with no console window.
 3. The server binds a random port on `127.0.0.1`, makes a random token and prints one JSON
    ready line. The shell accepts only an `http://127.0.0.1` URL.
-4. The window loads `http://127.0.0.1:<port>/#token=<token>`. From then on the UI talks only
-   to the token-protected JSON API (see
+4. The window loads `http://127.0.0.1:<port>/?skin=vscode&titlebar=custom#token=<token>`.
+   From then on the UI talks only to the token-protected JSON API (see
    [`SignalIntegrity/Server/README.md`](../SignalIntegrity/Server/README.md)).
 5. On quit the shell closes the sidecar's stdin and kills it. Because the shell holds that
    pipe, the sidecar also stops by itself if Electron is killed or crashes.
@@ -56,6 +56,26 @@ The project to open comes from the command line (`electron . path/to/file.si`, o
 `SignalIntegrity.exe file.si` when packaged; `.si` files are associated by the installer) or,
 on macOS, from the `open-file` event.
 
+## Look and feel
+
+The Electron app uses the web UI's VS Code skin (see the Server README):
+
+- **Title bar.** The window is frameless (`titleBarStyle: 'hidden'`). The menus sit in the
+  title bar with the project name centred, and Electron draws the minimize, maximize and close
+  buttons (`titleBarOverlay`; traffic lights on macOS). The UI publishes its toolbar colour as
+  `<meta name="theme-color">`. The shell picks it up through `did-change-theme-color` and
+  tints the window controls to match, so it needs no preload script or IPC.
+- **Rounded panels with clear separators.** The side bars, the panel and the schematic are
+  rounded cards on a slightly darker workbench, with visible gaps (the sashes). Pane headers
+  are divided by lines, and the toolbar groups by vertical rules. Menus, dialogs, buttons and
+  inputs have rounded corners too.
+- **Line icons.** The toolbar and menus use single-colour line icons in the style of
+  codicons (`ui/lineicons.js`); they take the theme's foreground colour. The toolbar shows
+  icons only, with the name and shortcut in the tooltip, as VS Code does.
+- **Pane controls.** Hover over a pane header for **Move to New Window** and **Close**.
+  A pane in its own window is a real OS window that you can put on another monitor. Closing
+  it docks the pane again. **View > Panels** shows closed panes again.
+
 ## Security
 
 The page is a normal web page served by the local server, so the shell gives it no extra
@@ -64,8 +84,8 @@ power. There is no preload script and no IPC.
 | Measure | Where |
 |---|---|
 | `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`, `webSecurity: true` | `BrowserWindow` options |
-| Navigation and redirects are refused unless they go to the loading page or the server's own origin | `will-navigate`, `will-redirect` |
-| No pop-up windows; external `http(s)` links open in the default browser | `setWindowOpenHandler` |
+| Navigation and redirects are refused unless they go to the loading page or the server's own origin | `will-navigate`, `will-redirect` (every web contents, through `guard`) |
+| The only new windows are pane windows: `about:blank`, named `si-pane-<id>`, opened by the main window, with the same `webPreferences`. Everything else is denied; external `http(s)` links open in the default browser | `setWindowOpenHandler` |
 | No `<webview>` tags | `will-attach-webview` |
 | All permission requests (camera, notifications, ...) denied | `setPermissionRequestHandler`, `setPermissionCheckHandler` |
 | The loading page has its own CSP (`default-src 'none'; script-src 'self'`) | `loading/index.html` |
@@ -104,11 +124,19 @@ install so Node trusts the operating system's certificate store. Don't disable T
 
 `electron . --smoke-test [project.si]` (`npm run smoke`) runs the real shell with a hidden
 window. It waits for the toolbar, the menus and, if a project is given, the drawn schematic.
-It then checks that the page can't see Node (`require` and `process` are undefined) and that
-navigating to another origin is blocked. It prints one JSON line and exits with 0 or 1:
+It then checks that:
+
+- the page can't see Node (`require` and `process` are undefined);
+- the VS Code skin is on and every toolbar button has a line icon;
+- Device Properties moves to a window of its own, docks again when that window is closed,
+  and closes with its Close button;
+- navigating to another origin is blocked.
+
+It uses a temporary settings folder, so it never changes your saved layout. It prints one JSON
+line and exits with 0 or 1:
 
 ```json
-{"ok":true,"nodeInPage":"undefined/undefined","navigationBlocked":true,"title":"SignalIntegrity - RLC.si","toolbarButtons":21,"menus":8,"drawn":46,"origin":"http://127.0.0.1:60231"}
+{"ok":true,"nodeInPage":"undefined/undefined","navigationBlocked":true,"panes":{"before":"docked","poppedOut":"window","paneWindows":1,"paneWindowTitle":"Device Properties - SignalIntegrity","afterWindowClosed":"docked","afterClose":"closed","ok":true},"title":"SignalIntegrity - RLC.si","toolbarButtons":21,"menus":8,"drawn":46,"skin":true,"lineIcons":21,"origin":"http://127.0.0.1:54267"}
 ```
 
 Start-up failures print `{"ok":false,"error":"..."}` and exit 1, so the same command works
@@ -132,8 +160,14 @@ easy to tell apart from the Tauri (violet) and Qt (teal) icons.
 
 Tested on Windows 11 with Electron 45.3.3, electron-builder 26.18.0 and Python 3.14:
 
-- `npm run smoke` with no project and with `RLC.si`: `ok:true`, 21 toolbar buttons, 8 menus,
-  46 schematic elements, no Node in the page, navigation blocked.
+- `npm run smoke` with no project and with `RLC.si`: `ok:true`, 21 toolbar buttons (all line
+  icons), 8 menus, 46 schematic elements, no Node in the page, navigation blocked, and the
+  Device Properties pane round trip (window titled `Device Properties - SignalIntegrity`,
+  docked again when that window closes, then closed).
+- In a browser with `?skin=vscode`: the light and Dark Modern themes; pane buttons on hover;
+  Variables moved to a window, docked again, closed and shown again from View > Panels;
+  Device Properties in its own window updating live when a part is selected in the main
+  window.
 - No usable Python (`SIGNALINTEGRITY_PYTHON` pointing nowhere, empty `PATH`): the error lists
   all four candidates; exit code 1.
 - Normal launch with `RLC.si`: window title `SignalIntegrity - RLC.si`; closing the window
@@ -141,4 +175,5 @@ Tested on Windows 11 with Electron 45.3.3, electron-builder 26.18.0 and Python 3
 - Electron force-killed: the sidecar exits by itself (`--exit-with-stdin`).
 - `npx electron-builder --dir --win`: the packaged `SignalIntegrity.exe` passes the smoke test
   with `RLC.si`.
-- The Python test suites (GuiCore, Server) are unchanged by this PR and still pass.
+- The Python test suites pass: GuiCore and Server (75), and in the Qt worktree GuiCore and
+  QtApp (78) with the shared `GuiCore/Menus.py` change.

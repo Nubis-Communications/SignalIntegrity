@@ -16,7 +16,9 @@ the web UI in `ui/`), the Tauri shell in `Tauri/` and the Electron shell in `Ele
 | Drawing primitives as SVG | `ui/schematic.js` |
 | Plot interaction | `ui/plot.js` (a `Plot` class with matplotlib semantics) |
 | Colours | CSS variables in `ui/app.css`, filled from the palette by `CSS_VARS` in `app.js` |
-| A dockable pane | a `<section class="pane" data-pane="id">` with `.pane-header` and `.pane-body` in `index.html`, and its id in `DEFAULT.areas` (and `weight`) in `ui/dock.js`; saved layouts without it fall back to the default |
+| A dockable pane | a `<section class="pane" data-pane="id">` with `.pane-header` and `.pane-body` in `index.html`, and its id in `DEFAULT.areas` (and `weight`) in `ui/dock.js`; saved layouts without it fall back to the default. Close, Move to New Window and View > Panels then work without more code |
+| A line icon (VS Code skin) | `ICONS` in `ui/lineicons.js`: path strings and `[cx, cy, r]` circles on a 16 px grid; `testLineIconsCoverEveryIcon` fails if a `GuiCore/Icons.py` icon has none |
+| The VS Code look | `ui/skin-vscode.css`; scope every rule to `html.skin-vscode` so the default look doesn't change |
 | Security (host/origin/token/CSP) | `HttpServer.py`; don't weaken it (see README "Security model") |
 | Desktop shell, sidecar start-up, window options | `Tauri/src-tauri/src/main.rs`, `tauri.conf.json`; `Electron/main.js`, `Electron/package.json` |
 
@@ -60,6 +62,10 @@ command, and turn it off in `cancel()` and in `updateEnables()` when editing isn
 Add a `<dialog>` to `index.html` and drive it from `app.js` with `textContent`/DOM APIs only.
 Never use `innerHTML` (the CSP and security model rely on it). SVG icons are inserted as
 `<img src="data:image/svg+xml,...">`, which the CSP allows.
+
+Find elements with `$('id')`, not `document.getElementById`. A pane can be in a window of its
+own, and `$` also looks there. Don't use `instanceof HTMLElement` on pane contents for the
+same reason (each window has its own globals).
 
 ### Change the desktop shell
 `main.rs` starts `python -m SignalIntegrity.Server`, reads its ready line, and navigates the

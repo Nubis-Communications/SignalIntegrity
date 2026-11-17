@@ -1,0 +1,71 @@
+/* VS Code look, opt-in with ?skin=vscode: rounded cards on a darker workbench, clearly marked
+   separators and line icons. ?titlebar=custom puts the menu bar in a frameless window's title bar. */
+html.skin-vscode {
+  --radius: 8px;
+  --radius-small: 5px;
+  --chrome: color-mix(in srgb, var(--panel) 93%, #000);
+  --separator: color-mix(in srgb, var(--fg) 18%, transparent);
+  --separator-strong: color-mix(in srgb, var(--fg) 30%, transparent);
+  --gap: 6px;
+}
+html.skin-vscode.dark { --chrome: color-mix(in srgb, var(--panel) 72%, #000); }
+html.skin-vscode body { background: var(--chrome); }
+
+/* menu bar and toolbar */
+html.skin-vscode #menubar { height: 32px; padding: 0 6px; gap: 1px; background: var(--chrome); border-bottom: 1px solid var(--separator); position: relative; }
+html.skin-vscode #menubar button { padding: 3px 8px; border-radius: var(--radius-small); }
+html.skin-vscode #toolbar { gap: 2px; padding: 5px var(--gap); background: var(--chrome); border-bottom: none; }
+html.skin-vscode #toolbar .sep { width: 1px; height: 20px; align-self: center; margin: 0 6px; background: var(--separator-strong); }
+html.skin-vscode #toolbar button[data-cmd] { flex-direction: row; min-width: 0; width: 30px; height: 30px; padding: 0; justify-content: center;
+  border-radius: var(--radius-small); border: 1px solid transparent; }
+html.skin-vscode #toolbar button[data-cmd] span { display: none; }
+html.skin-vscode #toolbar button[data-cmd]:hover:not(:disabled) { background: var(--hover); border-color: transparent; }
+html.skin-vscode #toolbar button[data-cmd].checked { background: var(--selection); color: var(--selection-fg); border-color: var(--accent); }
+html.skin-vscode #toolbar button[data-cmd] .line-icon { transition: none; }
+html.skin-vscode #toolbar button[data-cmd]:disabled .line-icon { opacity: .38; }
+html.skin-vscode .dropdown li .label .line-icon { width: 16px; height: 16px; }
+
+/* workbench: docks and the schematic are rounded cards separated by gaps */
+html.skin-vscode #workbench { padding: 0 var(--gap) var(--gap); background: var(--chrome); }
+html.skin-vscode .dock, html.skin-vscode #canvasHost { border: 1px solid var(--separator); border-radius: var(--radius); background: var(--panel); }
+html.skin-vscode #canvasHost { background: var(--canvas); }
+html.skin-vscode #workbench > .sash, html.skin-vscode #center > .sash { flex: 0 0 var(--gap); background: transparent; }
+html.skin-vscode #workbench > .sash.ew::before { left: calc(var(--gap) / 2 - 1px); width: 3px; border-radius: 2px; }
+html.skin-vscode #center > .sash.ns::before { top: calc(var(--gap) / 2 - 1px); height: 3px; border-radius: 2px; }
+html.skin-vscode .dock.vertical .pane:not(:first-child) > .pane-header { border-top: 1px solid var(--separator-strong); }
+html.skin-vscode .dock.horizontal > .sash { background: var(--separator-strong); }
+html.skin-vscode .pane-header { height: 28px; padding: 0 6px 0 4px; }
+html.skin-vscode .pane-header h2 { letter-spacing: .03em; }
+html.skin-vscode #hierarchy { border-bottom: 1px solid var(--separator); }
+
+/* status bar */
+html.skin-vscode #status { border-top: none; padding: 3px 10px; font-size: 12px; }
+
+/* controls */
+html.skin-vscode button, html.skin-vscode select { border-radius: var(--radius-small); }
+html.skin-vscode input[type=text], html.skin-vscode input[type=search], html.skin-vscode textarea,
+html.skin-vscode #partSearch { border-radius: var(--radius-small); border: 1px solid var(--separator-strong); }
+html.skin-vscode #partSearch { padding: 4px 8px; background: var(--input-bg); color: var(--input-fg); }
+html.skin-vscode #partGroups { border-color: var(--separator); border-radius: var(--radius-small); }
+html.skin-vscode #partGroups details { border-bottom-color: var(--separator); }
+html.skin-vscode th, html.skin-vscode td { border-color: var(--separator); }
+html.skin-vscode .dropdown, html.skin-vscode #contextMenu { padding: 4px; border-radius: var(--radius); border-color: var(--separator-strong);
+  box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+html.skin-vscode .dropdown li, html.skin-vscode #contextMenu li { border-radius: var(--radius-small); }
+html.skin-vscode .dropdown li.sep, html.skin-vscode #contextMenu li.sep { margin: 4px 6px; border-top-color: var(--separator-strong); }
+html.skin-vscode dialog { border-radius: var(--radius); border-color: var(--separator-strong); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+html.skin-vscode #fileList, html.skin-vscode #prefsForm, html.skin-vscode #textDialogBody { border-radius: var(--radius-small); }
+html.skin-vscode #dragLabel { border-radius: var(--radius-small); }
+html.skin-vscode #dropOverlay { border-radius: var(--radius); }
+
+/* panes floating over the workbench or in windows of their own */
+html.skin-vscode .pane.inline-float { border-radius: var(--radius); border-color: var(--separator-strong); }
+html.skin-vscode body.pane-window { padding: var(--gap); }
+html.skin-vscode body.pane-window > .pane { border: 1px solid var(--separator); border-radius: var(--radius); background: var(--panel); }
+
+/* menus in the title bar of a frameless window; the shell draws the window controls */
+html.custom-titlebar #menubar { -webkit-app-region: drag; app-region: drag; height: env(titlebar-area-height, 32px);
+  padding-left: calc(env(titlebar-area-x, 0px) + 6px); padding-right: calc(100vw - env(titlebar-area-x, 0px) - env(titlebar-area-width, 100vw)); }
+html.custom-titlebar #menubar button, html.custom-titlebar #menubar img { -webkit-app-region: no-drag; app-region: no-drag; }
+html.custom-titlebar #windowTitle { display: block; position: absolute; left: 50%; transform: translateX(-50%); max-width: 40vw;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; opacity: .8; pointer-events: none; }

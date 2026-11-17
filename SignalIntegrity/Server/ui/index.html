@@ -6,11 +6,12 @@
 <title>SignalIntegrity</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="skin-vscode.css">
 <script type="module" src="app.js"></script>
 </head>
 <body>
 <!-- menu bar and toolbar are built by app.js from GuiCore/Menus.py (api 'menus') -->
-<nav id="menubar"><img class="logo" src="favicon.png" alt=""></nav>
+<nav id="menubar"><img class="logo" src="favicon.png" alt=""><span id="windowTitle"></span></nav>
 <header id="toolbar"></header>
 <!-- panes start in their default docks; dock.js moves them to the saved layout -->
 <main id="workbench">
@@ -51,6 +52,7 @@
   </div>
 </main>
 <div id="dropOverlay"></div>
+<div id="paneStash" hidden></div>
 <div id="dragLabel"></div>
 <ul id="paneMenu" class="dropdown" hidden></ul>
 <footer id="status">Open a SignalIntegrity project (.si) to begin</footer>

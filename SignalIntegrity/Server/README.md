@@ -26,6 +26,31 @@ find the server:
 `--browser` opens that URL in the default browser. The UI reads the token from the URL
 fragment, keeps it in `sessionStorage`, and removes it from the address bar.
 
+Two optional query parameters change the look; the Electron shell sets both:
+
+| Parameter | Effect |
+|---|---|
+| `?skin=vscode` | VS Code look: line icons in the toolbar and menus (`ui/lineicons.js`), icon-only toolbar with tooltips, rounded panels on a darker workbench with clearly marked separators (`ui/skin-vscode.css`). |
+| `?titlebar=custom` | The menu bar becomes the title bar of a frameless window (drag region, centred title, room for the window controls through the `titlebar-area-*` CSS variables). |
+
+For example `http://127.0.0.1:53122/?skin=vscode#token=...`. Both are kept for the tab in
+`sessionStorage`.
+
+### Panes
+
+Every pane header has two buttons, shown on hover, like VS Code views:
+
+- **Move to New Window** moves the pane into a window of its own. The pane keeps working
+  there, because it is the same DOM node with the same event handlers, moved into a blank
+  same-origin window that the page opens. Close that window (or use its **Dock** button) to
+  put the pane back where it was. If the shell doesn't allow new windows, the pane floats
+  over the workbench instead; drag its header to move it and its corner to resize it.
+- **Close** hides the pane. **View > Panels** lists every pane with a check mark and shows
+  it again; **Reset Layout** restores the default.
+
+The header's right-click menu has the same two commands. Closed panes are saved in the
+layout; panes in windows are docked again when the app starts.
+
 `--exit-with-stdin` stops the server when its standard input closes. The Tauri and Electron
 shells pass it and hold the pipe open, so the server stops whenever the shell exits, even if the shell
 is killed or crashes.
@@ -132,7 +157,9 @@ calculation.
 | `HttpServer.py` | `SignalIntegrityServer` (a `ThreadingHTTPServer`) and the request handler (security checks, static files, JSON). |
 | `Api.py` | `Api` method dispatcher, parameter validation and calculation jobs. |
 | `ui/index.html`, `ui/app.css` | Page layout and styles. |
-| `ui/dock.js` | VS Code style docking: panes in the left/right side bars or bottom panel, header drag to move, collapse, sashes to resize, header context menu, layout saved with `setLayout`. |
+| `ui/skin-vscode.css` | The opt-in VS Code look (`?skin=vscode`) and the custom title bar (`?titlebar=custom`); every rule is scoped to `html.skin-vscode` or `html.custom-titlebar`. |
+| `ui/lineicons.js` | Line icons (16 px grid, `currentColor` strokes) for every command icon and the pane buttons, built with `createElementNS`. Original drawings, not copied from codicons. |
+| `ui/dock.js` | VS Code style docking: panes in the left/right side bars or bottom panel, header drag to move, collapse, close, move to a new window, sashes to resize, header context menu, layout saved with `setLayout`. |
 | `ui/app.js` | Application logic: API client, schematic view (pan/zoom/select/drag), parts stencil (HTML5 drag-and-drop of `text/x-si-part`, click-to-place, Delete), theme menu (applies the palette to CSS variables, the schematic color map and plot traces), device context menu and hierarchy navigation, property/variable tables with Show/Keyword checkboxes, file dialog, progress, and the simulator results dialog. |
 | `ui/schematic.js` | Turns GuiCore primitives into SVG (tk-style arrowheads, arcs and text anchors), recoloring the tk part colors through the theme's color map. Also draws the label-free stencil thumbnails. |
 | `ui/favicon.png` | App icon used as the favicon and toolbar logo. |

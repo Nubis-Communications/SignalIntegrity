@@ -9,10 +9,13 @@
 const { app, BrowserWindow, Menu, dialog, session, shell } = require('electron');
 const { spawn } = require('child_process');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const READY_TIMEOUT_MS = 90000;
 const SMOKE_TIMEOUT_MS = 120000;
+const TITLE_BAR_HEIGHT = 32;
+const PANE_WINDOW = /^si-pane-[a-z]+$/;
 
 let sidecar = null;
 let serverOrigin = null;
@@ -20,6 +23,8 @@ let mainWindow = null;
 let pendingProject = null;  // macOS delivers file-association opens through 'open-file'
 
 const smokeTest = process.argv.includes('--smoke-test');
+// the smoke test changes the pane layout, so it must not use the real settings
+const smokeSettings = smokeTest ? fs.mkdtempSync(path.join(os.tmpdir(), 'si-electron-smoke-')) : null;
 
 // ---------- locating Python and the SignalIntegrity sources
 
@@ -57,6 +62,7 @@ function startCandidate(program, prefix, root, project) {
   return new Promise((resolve, reject) => {
     const env = { ...process.env };
     delete env.SIGNALINTEGRITY_SERVER_TOKEN;  // the server always makes a fresh token
+    if (smokeSettings) env.SIGNALINTEGRITY_GUI_SETTINGS = smokeSettings;
     if (root) env.PYTHONPATH = env.PYTHONPATH ? root + path.delimiter + env.PYTHONPATH : root;
     const args = [...prefix, '-m', 'SignalIntegrity.Server', '--exit-with-stdin'];
     if (project) args.push(project);
@@ -145,25 +151,11 @@ function hardenSession() {
   session.defaultSession.setPermissionCheckHandler(() => false);
 }
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 1400,
-    height: 900,
-    minWidth: 800,
-    minHeight: 500,
-    show: !smokeTest,
-    title: 'SignalIntegrity',
-    icon: path.join(__dirname, 'icons', process.platform === 'win32' ? 'icon.ico' : 'icon.png'),
-    backgroundColor: '#f3f3f3',
-    webPreferences: {
-      contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true,
-      webSecurity: true,
-      spellcheck: false,
-    },
-  });
-  const wc = win.webContents;
+const webPreferences = { contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, spellcheck: false };
+const iconPath = path.join(__dirname, 'icons', process.platform === 'win32' ? 'icon.ico' : 'icon.png');
+
+// every page (the main window and pane windows) gets the same rules
+function guard(wc) {
   wc.on('will-navigate', (event, url) => {
     if (!isAllowed(url)) event.preventDefault();
   });
@@ -171,11 +163,53 @@ function createWindow() {
     if (!isAllowed(url)) event.preventDefault();
   });
   wc.on('will-attach-webview', (event) => event.preventDefault());
-  wc.setWindowOpenHandler(({ url }) => {
+  wc.setWindowOpenHandler(({ url, frameName }) => {
+    // "Move to New Window": a blank same-origin window the main page fills with one of its panes
+    if (mainWindow && wc === mainWindow.webContents && url === 'about:blank' && PANE_WINDOW.test(frameName)) {
+      return {
+        action: 'allow',
+        overrideBrowserWindowOptions: {
+          show: !smokeTest, icon: iconPath, autoHideMenuBar: true, minWidth: 220, minHeight: 120,
+          backgroundColor: mainWindow.getBackgroundColor(), webPreferences,
+        },
+      };
+    }
     // help pages are opened by the server itself; anything else on the web goes to the browser
     if (/^https?:/.test(url) && !isAllowed(url)) shell.openExternal(url);
     return { action: 'deny' };
   });
+}
+
+// tints the window controls drawn over the custom title bar to match the theme
+function titleBarColors(color) {
+  const m = /^#([0-9a-f]{6})$/i.exec(color || '');
+  if (!m) return null;
+  const v = parseInt(m[1], 16);
+  const luminance = (0.299 * (v >> 16) + 0.587 * ((v >> 8) & 255) + 0.114 * (v & 255)) / 255;
+  return { color, symbolColor: luminance > 0.55 ? '#333333' : '#e0e0e0', height: TITLE_BAR_HEIGHT };
+}
+
+function createWindow() {
+  const mac = process.platform === 'darwin';
+  const win = new BrowserWindow({
+    width: 1400,
+    height: 900,
+    minWidth: 800,
+    minHeight: 500,
+    show: !smokeTest,
+    title: 'SignalIntegrity',
+    icon: iconPath,
+    backgroundColor: '#f3f3f3',
+    titleBarStyle: 'hidden',
+    ...(mac ? { trafficLightPosition: { x: 10, y: 9 } } : { titleBarOverlay: titleBarColors('#f3f3f3') }),
+    webPreferences,
+  });
+  if (!mac) {
+    win.webContents.on('did-change-theme-color', (event, color) => {
+      const colors = titleBarColors(color);
+      if (colors) win.setTitleBarOverlay(colors);
+    });
+  }
   win.loadFile(path.join(__dirname, 'loading', 'index.html'));
   return win;
 }
@@ -201,7 +235,33 @@ function applicationMenu() {
 function report(result) {
   process.stdout.write(JSON.stringify(result) + '\n');
   stopServer();
+  if (smokeSettings) fs.rmSync(smokeSettings, { recursive: true, force: true });
   app.exit(result.ok ? 0 : 1);  // app.quit() would ignore the exit code
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// pops the Device Properties pane out to a window, closes that window, then closes the pane
+async function paneControls(win) {
+  const js = (code) => win.webContents.executeJavaScript(code);
+  const where = `(() => { const p = document.querySelector('[data-pane="properties"]');
+    return !p ? 'window' : p.closest('#paneStash') ? 'closed' : p.closest('.dock') ? 'docked' : 'other'; })()`;
+  const result = { before: await js(where) };
+  await js(`document.querySelector('[data-pane="properties"] .pane-action.pop-out').click(); 0`);
+  await sleep(800);
+  const children = BrowserWindow.getAllWindows().filter((w) => w !== win);
+  result.poppedOut = await js(where);
+  result.paneWindows = children.length;
+  result.paneWindowTitle = children.length ? children[0].getTitle() : null;
+  for (const child of children) child.close();
+  await sleep(1200);
+  result.afterWindowClosed = await js(where);
+  await js(`document.querySelector('[data-pane="properties"] .pane-action.close').click(); 0`);
+  await sleep(300);
+  result.afterClose = await js(where);
+  result.ok = result.before === 'docked' && result.poppedOut === 'window' && result.paneWindows === 1 &&
+    result.afterWindowClosed === 'docked' && result.afterClose === 'closed';
+  return result;
 }
 
 async function runSmokeTest(win, project) {
@@ -211,17 +271,22 @@ async function runSmokeTest(win, project) {
     toolbarButtons: document.querySelectorAll('#toolbar button').length,
     menus: document.querySelectorAll('#menubar button').length,
     drawn: document.querySelectorAll('#viewport > *').length,
+    skin: document.documentElement.classList.contains('skin-vscode'),
+    lineIcons: document.querySelectorAll('#toolbar svg.line-icon').length,
     origin: location.origin }))()`;
   while (Date.now() < deadline) {
     try {
       const state = await win.webContents.executeJavaScript(probe);
       if (state.toolbarButtons > 0 && state.menus > 0 && (!project || state.drawn > 0)) {
         const node = await win.webContents.executeJavaScript('typeof require + "/" + typeof process');
+        const panes = await paneControls(win);
         // navigating away from the server origin must be refused
         await win.webContents.executeJavaScript('location.href = "http://127.0.0.1:1/"; 0');
-        await new Promise((r) => setTimeout(r, 500));
+        await sleep(500);
         const stayed = new URL(win.webContents.getURL()).origin === serverOrigin;
-        report({ ok: node === 'undefined/undefined' && stayed, nodeInPage: node, navigationBlocked: stayed, ...state });
+        const skinned = state.skin && state.lineIcons === state.toolbarButtons;
+        report({ ok: node === 'undefined/undefined' && stayed && skinned && panes.ok,
+          nodeInPage: node, navigationBlocked: stayed, panes, ...state });
         return;
       }
     } catch (e) {
@@ -239,14 +304,15 @@ app.on('open-file', (event, file) => {
   pendingProject = file;
 });
 
-app.on('web-contents-created', (event, contents) => {
-  contents.on('will-attach-webview', (e) => e.preventDefault());
-});
+app.on('web-contents-created', (event, contents) => guard(contents));
 
 app.whenReady().then(async () => {
   hardenSession();
   Menu.setApplicationMenu(applicationMenu());
   mainWindow = createWindow();
+  mainWindow.on('closed', () => {
+    for (const w of BrowserWindow.getAllWindows()) w.close();
+  });
   const project = pendingProject || projectFromArgs(process.argv);
   try {
     const started = await startServer(project);
@@ -260,7 +326,9 @@ app.whenReady().then(async () => {
       stopServer();
       return;
     }
-    await mainWindow.loadURL(started.url.href);
+    const url = new URL(started.url.href);
+    url.search = '?skin=vscode&titlebar=custom';
+    await mainWindow.loadURL(url.href);
     if (smokeTest) runSmokeTest(mainWindow, project);
   } catch (e) {
     if (mainWindow && !mainWindow.isDestroyed()) showStartupError(mainWindow, e.message);

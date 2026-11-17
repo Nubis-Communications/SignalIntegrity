@@ -5,7 +5,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'">
 <title>SignalIntegrity</title>
 <style>
-  body { font-family: "Segoe UI", system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f3f3f3; color: #222; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f3f3f3; color: #222; -webkit-app-region: drag; }
+  #error { -webkit-app-region: no-drag; }
   #box { max-width: 720px; text-align: center; }
   #error { display: none; text-align: left; white-space: pre-wrap; background: #fff; border: 1px solid #d33; padding: 12px; border-radius: 4px; }
 </style>
