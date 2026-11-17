@@ -39,7 +39,8 @@ class TestBlindEqualizerScript(unittest.TestCase):
                         if prop.findtext('Keyword') == 'script')
         _,_,variables=ParseWaveformProcessorInterface(cls.script)
         cls.defaults={variable['Name']:int(variable['Value']) if variable['Type'] == 'int'
-                      else float(variable['Value']) for variable in variables}
+                      else float(variable['Value']) if variable['Type'] == 'float'
+                      else variable['Value'] for variable in variables}
 
     def equalize(self,waveform,**parameters):
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
@@ -55,6 +56,11 @@ class TestBlindEqualizerScript(unittest.TestCase):
         result=self.equalize(waveform)
         output=result['output_waveform_1']
         metrics=result['equalizer_result']
+        self.assertEqual(len(metrics['ctle_candidates']),44)
+        winner=min(metrics['ctle_candidates'],key=lambda item:item['validation_mse'])
+        self.assertEqual((metrics['GDC'],metrics['GDC2']),(winner['GDC'],winner['GDC2']))
+        self.assertEqual(metrics['validation_mse'],winner['validation_mse'])
+        self.assertLessEqual(max(abs(tap) for tap in metrics['dfe']),.3+1.e-12)
         self.assertLess(metrics['validation_mse'],.2*metrics['unequalized_mse'])
         self.assertEqual(output.td,waveform.td)
         self.assertEqual(len(output),len(waveform))
@@ -84,7 +90,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                 baud=25.e9
                 waveform=si.td.wf.Waveform(
                     si.td.wf.TimeDescriptor(-2.e-9,len(values),sps*baud),values.tolist())
-                result=self.equalize(waveform,levels=levels,baud_rate=baud,GDC=0.,GDC2=0.,
+                result=self.equalize(waveform,levels=levels,baud_rate=baud,GDC=[0.],GDC2=[0.],
                                      ffe_taps=7,precursor_taps=2,dfe_taps=dfe,amplitude=1.)
                 output=result['output_waveform_1']
                 phase=result['equalizer_result']['phase_ui']
@@ -103,6 +109,39 @@ class TestBlindEqualizerScript(unittest.TestCase):
                 self.assertEqual(len(output),len(waveform))
                 self.assertTrue(np.all(np.isfinite(output)))
 
+    def testCtleSearchMatchesIndependentFitsAndBoundsDfe(self):
+        import numpy as np
+
+        rng=np.random.default_rng(117)
+        symbols=rng.choice([-.5,.5],1800)
+        channel=np.convolve(symbols,[1.,.55])
+        waveform=si.td.wf.Waveform(
+            si.td.wf.TimeDescriptor(0.,4*len(channel),100.e9),
+            np.repeat(channel,4).tolist())
+        parameters=dict(baud_rate=25.e9,levels=2,ffe_taps=1,precursor_taps=0,dfe_taps=1)
+        independent=[]
+        for gdc in [0.,10.]:
+            for gdc2 in [0.,3.]:
+                result=self.equalize(waveform,GDC=[gdc],GDC2=[gdc2],**parameters)
+                independent.append(result['equalizer_result'])
+        result=self.equalize(waveform,GDC='[0, 10]',GDC2='[0, 3]',**parameters)
+        metrics=result['equalizer_result']
+        winner=min(independent,key=lambda item:item['validation_mse'])
+        self.assertEqual((metrics['GDC'],metrics['GDC2']),(winner['GDC'],winner['GDC2']))
+        self.assertAlmostEqual(metrics['validation_mse'],winner['validation_mse'],places=12)
+        for candidate,fit in zip(metrics['ctle_candidates'],independent):
+            self.assertAlmostEqual(candidate['validation_mse'],fit['validation_mse'],places=12)
+        self.assertEqual(metrics['gdc_db'],-metrics['GDC'])
+        self.assertEqual(metrics['gdc2_db'],-metrics['GDC2'])
+        fits=[]
+        for limit in [0.,.05,.3,1.]:
+            fit=self.equalize(waveform,GDC=[0.],GDC2=[0.],
+                              max_dfe_tap=limit,**parameters)['equalizer_result']
+            self.assertLessEqual(max(abs(tap) for tap in fit['dfe']),limit+1.e-12)
+            fits.append(fit)
+        self.assertGreater(abs(fits[-1]['dfe'][0]),.3)
+        self.assertLess(fits[-2]['validation_mse'],fits[0]['validation_mse'])
+
     def testRepeatedExecutionPreservesTimeDescriptor(self):
         import numpy as np
 
@@ -110,7 +149,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
         descriptor=si.td.wf.TimeDescriptor(waveform.td.H,waveform.td.K,waveform.td.Fs)
         for iteration in range(3):
             with self.subTest(iteration=iteration):
-                waveform=self.equalize(waveform)['output_waveform_1']
+                waveform=self.equalize(waveform,GDC=[10.],GDC2=[3.])['output_waveform_1']
                 self.assertEqual(waveform.td,descriptor)
                 self.assertEqual(len(waveform),descriptor.K)
                 self.assertTrue(np.all(np.isfinite(waveform)))
@@ -133,6 +172,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
         def capture(equations,sendargs,returnargs):
             waveform=sendargs['input_waveform_1']
             inputs.append(si.td.wf.Waveform(waveform))
+            sendargs=dict(sendargs,GDC='[10]',GDC2='[3]')
             result=evaluate(equations,sendargs,returnargs)
             self.assertEqual(result['output_waveform_1'].td,waveform.td)
             return result
@@ -162,7 +202,11 @@ class TestBlindEqualizerScript(unittest.TestCase):
                                  np.random.default_rng(17).normal(size=4096).tolist())
         for parameters in [{'baud_rate':0.},{'levels':1},{'amplitude':0.},
                            {'ffe_taps':2,'precursor_taps':2},{'dfe_taps':-1},
-                           {'GDC':float('nan')},{'baud_rate':300.e9}]:
+                           {'GDC':float('nan')},{'GDC':[]},{'GDC':[-1.]},
+                           {'GDC2':'[0, float("nan")]'},{'GDC2':[float('inf')]},
+                           {'GDC':'[True]'},{'GDC':'not a list'},
+                           {'max_dfe_tap':-0.1},{'max_dfe_tap':float('nan')},
+                           {'baud_rate':300.e9}]:
             with self.subTest(parameters=parameters):
                 with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
                     self.equalize(waveform,**parameters)
