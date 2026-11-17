@@ -202,6 +202,246 @@ output_waveform_1 = input_waveform_1 * gain
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
 
+    def testProcessorOutputVariablesPersistAndReload(self):
+        import tempfile
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.WaveformProcessorScript import ParseWaveformProcessorInterface
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si',
+                                            writable=True))
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if isinstance(device,DeviceWaveformProcessorVariable))
+        script='''# <waveform-processor-interface>
+# {
+#   "version": 1,
+#   "ports": {"inputs": 1, "outputs": 1},
+#   "variables": [
+#     {"name": "optimize", "type": "int", "default": 1},
+#     {"name": "tap", "type": "float", "default": 0, "read_only": true},
+#     {"name": "count", "type": "int", "default": 0, "read_only": true},
+#     {"name": "settings", "type": "string", "default": "", "read_only": true},
+#     {"name": "note", "type": "string", "default": "", "read_only": true}
+#   ]
+# }
+# </waveform-processor-interface>
+assert isinstance(tap, float) and isinstance(count, int)
+assert isinstance(settings, str) and note == ""
+if optimize:
+    tap = round(tap + 0.1, 12)
+    count += 1
+    settings = repr([tap, -tap])
+output_waveform_1 = input_waveform_1 * tap
+optimize = 99
+'''
+        processor['script']['Value']=script
+        processor.variablesList=ParseWaveformProcessorInterface(script)[2]
+        td=si.td.wf.TimeDescriptor(0.,8,1.e9)
+        inputWaveform=si.td.wf.Waveform(td,2.)
+        inputLabel=processor['ref'].GetValue()+'_in1'
+        output=processor.Waveforms()[0]
+        output.UpdateWaveform([inputLabel],[inputWaveform],0)
+        self.assertEqual(list(output),[0.2]*8)
+        self.assertEqual([variable['Value'] for variable in processor.variablesList],
+                         ['1','0.1','1','[0.1, -0.1]',''])
+        output.UpdateWaveform([inputLabel],[inputWaveform],1)
+        self.assertEqual(list(output),[0.4]*8)
+        self.assertEqual([variable['Value'] for variable in processor.variablesList],
+                         ['1','0.2','2','[0.2, -0.2]',''])
+
+        processor.variablesList[0]['Value']='0'
+        directory=os.getcwd()
+        with tempfile.TemporaryDirectory() as temporaryDirectory:
+            try:
+                filename=os.path.join(temporaryDirectory,'processor-state.si')
+                app.SaveProjectToFile(filename)
+                restoredApp=SignalIntegrityAppHeadless()
+                self.assertTrue(restoredApp.OpenProjectFile(filename))
+                restored=next(device for device in restoredApp.Drawing.schematic.deviceList
+                              if isinstance(device,DeviceWaveformProcessorVariable))
+                self.assertEqual([variable.Value() for variable in restored.variablesList],
+                                 ['0','0.2','2','[0.2, -0.2]',''])
+                frozenOutput=restored.Waveforms()[0]
+                frozenOutput.UpdateWaveform([inputLabel],[inputWaveform],0)
+                self.assertEqual(list(frozenOutput),[0.4]*8)
+                self.assertEqual([variable['Value'] for variable in restored.variablesList],
+                                 ['0','0.2','2','[0.2, -0.2]',''])
+                restored.variablesList[0]['Value']='1'
+                resumedOutput=restored.Waveforms()[0]
+                resumedOutput.UpdateWaveform([inputLabel],[inputWaveform],0)
+                self.assertEqual([variable['Value'] for variable in restored.variablesList],
+                                 ['1','0.3','3','[0.3, -0.3]',''])
+            finally:
+                os.chdir(directory)
+
+    def testProcessorLinkedOutputUsesCalculatedSystemValue(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if isinstance(device,DeviceWaveformProcessorVariable))
+        systemVariable=VariableConfiguration()
+        systemVariable['Name']='Y'
+        systemVariable['ReadOnly']=True
+        siapp.Project['Variables.Items'].append(systemVariable)
+        siapp.Project['Equations'].PutTextString('Y = 3. / 10.')
+        variable=copy.deepcopy(systemVariable)
+        variable['Name']='X'
+        variable['Value']='=Y'
+        processor.variablesList=[variable]
+        processor['script']['Value']=(
+            'assert X == 0.3\n'
+            'X = 0.4\n'
+            'output_waveform_1 = input_waveform_1 * X\n')
+        app.Drawing.DrawSchematic()
+        app.Drawing.schematic.NetList()
+        output=processor.Waveforms()[0]
+        td=si.td.wf.TimeDescriptor(0.,8,1.e9)
+        output.UpdateWaveform([processor['ref'].GetValue()+'_in1'],
+                              [si.td.wf.Waveform(td,1.)],0)
+        app.Drawing.DrawSchematic(evaluateEquations=False)
+        self.assertEqual(systemVariable['Value'],'0.4')
+        self.assertEqual(variable['Value'],'=Y')
+        self.assertIn('X=Y (0.4 )',processor.partPicture.current.visiblePartPropertyList)
+        self.assertEqual(list(output),[0.4]*8)
+
+    def testProcessorLinkedOutputVariablesPersistAndReload(self):
+        import tempfile
+        from unittest.mock import patch
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si',
+                                            writable=True))
+        processor=next(device for device in app.Drawing.schematic.deviceList
+                       if isinstance(device,DeviceWaveformProcessorVariable))
+        systemVariable=VariableConfiguration()
+        systemVariable['Name']='Y'
+        systemVariable['Value']='0.3'
+        siapp.Project['Variables.Items'].append(systemVariable)
+        variable=VariableConfiguration()
+        variable['Name']='X'
+        variable['Value']='=Y'
+        variable['ReadOnly']=True
+        inputVariable=copy.deepcopy(variable)
+        inputVariable['Name']='gain'
+        inputVariable['ReadOnly']=False
+        processor.variablesList=[variable,inputVariable]
+        processor['script']['Value']=(
+            'assert X == gain\n'
+            'X = round(X + 0.1, 12)\n'
+            'output_waveform_1 = input_waveform_1 * X\n'
+            'gain = 99.\n')
+        self.assertIsNone(siapp.Project.EvaluateEquations())
+        self.assertTrue(app.CheckEquations())
+        app.Drawing.schematic.NetList()
+        self.assertEqual(variable.DisplayString(),'X=Y (0.3 )')
+        self.assertAlmostEqual(processor.ScriptedWaveform()[0],0.4)
+        self.assertEqual(systemVariable['Value'],'0.3')
+        self.assertEqual(variable['Value'],'=Y')
+
+        td=si.td.wf.TimeDescriptor(0.,8,1.e9)
+        inputs=[si.td.wf.Waveform(td,2.)]
+        inputLabel=processor['ref'].GetValue()+'_in1'
+        output=processor.Waveforms()[0]
+        output.UpdateWaveform([inputLabel],inputs,0)
+        self.assertEqual(variable['Value'],'=Y')
+        self.assertEqual(systemVariable['Value'],'0.4')
+        self.assertEqual(inputVariable['Value'],'=Y')
+        self.assertEqual(inputVariable.Value(),'0.4')
+        with patch.object(siapp.Project,'EvaluateEquations') as evaluate:
+            app.Drawing.DrawSchematic(evaluateEquations=False)
+        evaluate.assert_not_called()
+        self.assertIn('X=Y (0.4 )',processor.partPicture.current.visiblePartPropertyList)
+        self.assertEqual(list(output),[0.8]*8)
+        output.UpdateWaveform([inputLabel],inputs,1)
+        self.assertEqual(systemVariable['Value'],'0.5')
+        self.assertEqual(variable.DisplayString(),'X=Y (0.5 )')
+
+        directory=os.getcwd()
+        with tempfile.TemporaryDirectory() as temporaryDirectory:
+            try:
+                filename=os.path.join(temporaryDirectory,'linked-processor-state.si')
+                app.SaveProjectToFile(filename)
+                restoredApp=SignalIntegrityAppHeadless()
+                self.assertTrue(restoredApp.OpenProjectFile(filename))
+                restored=next(device for device in restoredApp.Drawing.schematic.deviceList
+                              if isinstance(device,DeviceWaveformProcessorVariable))
+                self.assertEqual(restored.variablesList[0]['Value'],'=Y')
+                self.assertEqual(siapp.Project['Variables'].VariableByName('Y')['Value'],'0.5')
+                restored.Waveforms()[0].UpdateWaveform([inputLabel],inputs,0)
+                self.assertEqual(siapp.Project['Variables'].VariableByName('Y')['Value'],'0.6')
+                self.assertEqual(restored.variablesList[0].DisplayString(),'X=Y (0.6 )')
+            finally:
+                os.chdir(directory)
+
+    def testProcessorOutputVariablesAreAtomicAndPreviewIsolated(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
+
+        processor=DeviceWaveformProcessorVariable(1,2)
+        processor['ref']['Value']='P'
+        for name,variableType in [('tap','float'),('count','int')]:
+            variable=VariableConfiguration()
+            variable['Name']=name
+            variable['Type']=variableType
+            variable['ReadOnly']=True
+            processor.variablesList.append(variable)
+        systemVariable=VariableConfiguration()
+        systemVariable['Name']='Y'
+        siapp.Project['Variables.Items'].append(systemVariable)
+        processor.variablesList[0]['Value']='=Y'
+        script=('tap += 0.1\ncount += 1\n'
+                'output_waveform_1 = input_waveform_1 * tap\n'
+                'output_waveform_2 = input_waveform_1 * count\n')
+        processor['script']['Value']=script
+        preview=processor.ScriptedWaveform()
+        self.assertAlmostEqual(preview[0],0.1)
+        self.assertEqual([variable['Value'] for variable in processor.variablesList],['=Y','0'])
+        self.assertEqual(systemVariable['Value'],'0')
+        td=si.td.wf.TimeDescriptor(0.,8,1.e9)
+        inputs=[si.td.wf.Waveform(td,2.)]
+        invalidScripts=[
+            script+'raise RuntimeError("adaptation failed")\n',
+            script+'tap = None\n',
+            script+'count = "not an integer"\n',
+            script+'count = 1.5\n',
+            script+'del count\n',
+            script+'del output_waveform_2\n',
+            script+'output_waveform_2 = None\n']
+        for invalidScript in invalidScripts:
+            with self.subTest(script=invalidScript):
+                processor['script']['Value']=invalidScript
+                outputs=processor.Waveforms()
+                before=copy.deepcopy(outputs)
+                with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
+                    outputs[0].UpdateWaveform(['P_in1'],inputs,0)
+                self.assertEqual([variable['Value'] for variable in processor.variablesList],['=Y','0'])
+                self.assertEqual(systemVariable['Value'],'0')
+                self.assertEqual(outputs,before)
+        systemVariable['Type']='int'
+        processor['script']['Value']=script
+        outputs=processor.Waveforms()
+        with self.assertRaises(si.SignalIntegrityExceptionDependentWaveform):
+            outputs[0].UpdateWaveform(['P_in1'],inputs,0)
+        self.assertEqual(systemVariable['Value'],'0')
+        self.assertEqual(processor.variablesList[1]['Value'],'0')
+        systemVariable['Type']='float'
+        processor['script']['Value']=script
+        outputs=processor.Waveforms()
+        outputs[0].UpdateWaveform(['P_in1'],inputs,0)
+        self.assertEqual([variable['Value'] for variable in processor.variablesList],['=Y','1'])
+        self.assertEqual(systemVariable['Value'],'0.1')
+        self.assertEqual(list(outputs[0]),[0.2]*8)
+        self.assertEqual(list(outputs[1]),[2.]*8)
+
     def testProcessorNoiseAliasesAndPreview(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
@@ -292,8 +532,9 @@ output_waveform_1 = input_waveform_1 * gain
         import numpy as np
         from types import SimpleNamespace
         from unittest.mock import Mock,patch
-        from SignalIntegrity.App.Device import DeviceList,DeviceCurrentOutputProbe
+        from SignalIntegrity.App.Device import DeviceList,DeviceCurrentOutputProbe,DeviceWaveformProcessorVariable
         from SignalIntegrity.App.NetList import NetList
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         from SignalIntegrity.App.Simulator import Simulator
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
@@ -312,8 +553,8 @@ output_waveform_1 = input_waveform_1 * gain
                 netlist=NetList(app.Drawing.schematic)
                 netlist.textToShow=[]
                 netlist.outputNames=['P_in1','P_in2','OUT','IO1']
-                netlist.sourceNames=['V','P_out1','IN1']
-                netlist.waveformProcessorSourceNames=['P_out1']
+                netlist.sourceNames=['V','P_out1','P_out2','IN1']
+                netlist.waveformProcessorSourceNames=['P_out1','P_out2']
                 netlist.waveformProcessorSourceNamesToShow=[]
                 netlist.waveformProcessorLinearSourceNames=['P_out1']
                 netlist.waveformProcessorInputMappings=[('P_out1','P_in1')]
@@ -324,7 +565,7 @@ output_waveform_1 = input_waveform_1 * gain
                 netlist.noiseOutputNames=['OUT']
                 netlist.noiseDisplayOutputNames=['OUT']
                 matrices=si.fd.TransferMatrices(frequencies,
-                    [[[1.,0.,2.],[0.,1.,.5],[0.,1.,1.],[0.,.01,0.]]
+                    [[[1.,0.,0.,2.],[0.,1.,0.,.5],[0.,1.,0.,1.],[0.,.01,0.,0.]]
                      for _ in frequencies])
                 noise=copy.deepcopy(next(device for device in DeviceList
                     if device['partname'].GetValue() == 'CurrentStatisticalNoiseSource'))
@@ -336,16 +577,28 @@ output_waveform_1 = input_waveform_1 * gain
                 noise.configuration['ShotNoise.NoiseBandwidth']=8.e9
                 probe=DeviceCurrentOutputProbe()
                 probe['ref']['Value']='IO1'
-                processor=DependentWaveform(['P_in1','P_in2'],outputWaveformName='output_waveform_1',
-                    script='output_waveform_1 = input_waveform_1 * 0 + 2.\n')
+                processor=DeviceWaveformProcessorVariable(2,2)
+                processor['ref']['Value']='P'
+                state=VariableConfiguration()
+                state['Name']='state'
+                state['ReadOnly']=True
+                state['Value']='=processor_state'
+                systemState=VariableConfiguration()
+                systemState['Name']='processor_state'
+                siapp.Project['Variables.Items'].append(systemState)
+                processor.variablesList=[state]
+                processor['script']['Value']=(
+                    'state += 0.1\n'
+                    'output_waveform_1 = input_waveform_1 * 0 + 2.\n'
+                    'output_waveform_2 = input_waveform_2 * 0 + 4.\n')
                 td=si.td.wf.TimeDescriptor(0.,256,16.e9)
-                inputs=[si.td.wf.Waveform(td,1.),processor,0.]
+                inputs=[si.td.wf.Waveform(td,1.)]+processor.Waveforms()+[0.]
                 schematic=Mock()
                 schematic.NetList.return_value=netlist
                 schematic.InputWaveforms.return_value=inputs
                 schematic.OtherWaveforms.return_value=[]
                 schematic.ProcessingIterationCount.return_value=2
-                schematic.deviceList=[noise,probe]
+                schematic.deviceList=[noise,probe,processor]
                 app.Drawing.schematic=schematic
                 app.Drawing.canCalculate=True
                 app.Drawing.canSimulate=True
@@ -357,7 +610,7 @@ output_waveform_1 = input_waveform_1 * gain
 
                 def capture(script,args,outputs):
                     records.append((args['iteration'],copy.deepcopy(args['input_noise_1']),
-                                    copy.deepcopy(args['input_noise_2'])))
+                                    copy.deepcopy(args['input_noise_2']),args['state']))
                     return evaluate(script,args,outputs)
 
                 with patch.object(si.p.SimulatorNumericParser,'TransferMatrices',
@@ -368,6 +621,7 @@ output_waveform_1 = input_waveform_1 * gain
                         app.statusbar=Mock()
                         app.TransferParametersDoer=Mock(active=True)
                         app.root=Mock()
+                        app.Drawing.DrawSchematic=Mock()
                         simulator=Simulator(app)
                         simulator.SimulatorDialog=Mock()
                         simulator.NoiseDialog=Mock()
@@ -379,10 +633,15 @@ output_waveform_1 = input_waveform_1 * gain
                              patch('SignalIntegrity.App.Simulator.messagebox.showerror') as error:
                             simulator.Simulate()
                         error.assert_not_called()
+                        app.Drawing.DrawSchematic.assert_called_once_with(evaluateEquations=False)
                     else:
                         result=app.Simulate()
                         self.assertIn('output waveforms',result)
                 self.assertEqual([record[0] for record in records],[0,1])
+                self.assertEqual([record[3] for record in records],[0.,0.1])
+                self.assertEqual(state['Value'],'=processor_state')
+                self.assertEqual(systemState['Value'],'0.2')
+                self.assertEqual(list(inputs[2]),[4.]*len(inputs[2]))
                 self.assertEqual(records[0][1].Values(),[0.]*len(frequencies))
                 expected=np.sqrt(2.*constants.e*.02)
                 # Input 2 includes the upstream processor's unity noise path.
