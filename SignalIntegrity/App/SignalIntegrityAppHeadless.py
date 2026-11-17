@@ -58,7 +58,7 @@ class DrawingHeadless(object):
         self.parent=parent
         self.canvas = TikZ()
         self.schematic = Schematic()
-    def DrawSchematic(self,canvas=None):
+    def DrawSchematic(self,canvas=None,evaluateEquations=True):
         if canvas==None:
             canvas=self.canvas
         if SignalIntegrity.App.Project is None:
@@ -68,7 +68,8 @@ class DrawingHeadless(object):
         grid=drawingPropertiesProject['Grid']
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
-        SignalIntegrity.App.Project.EvaluateEquations()
+        if evaluateEquations:
+            SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
         locations=[(0+7,0+canvas.textSpacing*(v+1)+3) for v in range(V)]
@@ -464,8 +465,8 @@ class SignalIntegrityAppHeadless(object):
                     inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
                         self.Drawing.schematic,transferMatrices,outputWaveformList,
                         outputWaveformLabels+otherWaveformLabels,dependentWaveforms)
-                    for inputWaveform in dependentWaveforms:
-                        inputWaveform.UpdateWaveform(outputWaveformLabels, outputWaveformList, i,
+                    DependentWaveform.UpdateWaveforms(dependentWaveforms,outputWaveformLabels,
+                                                     outputWaveformList,i,
                                                      noise_spectral_densities=inputNoise)
             except si.SignalIntegrityException as e:
                 return Result('simulation',None)

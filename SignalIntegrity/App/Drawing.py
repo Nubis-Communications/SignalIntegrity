@@ -121,7 +121,7 @@ class Drawing(tk.Frame):
         originy=drawingPropertiesProject['Originy']
         (nearestGridx,nearestGridy)=self.NearestGridCoordinate(x,y)
         return (float(x)/grid-originx-nearestGridx,float(y)/grid-originy-nearestGridy)
-    def DrawSchematic(self,canvas=None):
+    def DrawSchematic(self,canvas=None,evaluateEquations=True):
         if canvas is None:
             canvas=self.canvas
             canvas.delete(tk.ALL)
@@ -134,7 +134,8 @@ class Drawing(tk.Frame):
         grid=drawingPropertiesProject['Grid']*displayScale
         originx=drawingPropertiesProject['Originx']
         originy=drawingPropertiesProject['Originy']
-        SignalIntegrity.App.Project.EvaluateEquations()
+        if evaluateEquations:
+            SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
         locations=[(7*displayScale,PartPicture.textSpacing*(v+1)*displayScale+3*displayScale) for v in range(V)]

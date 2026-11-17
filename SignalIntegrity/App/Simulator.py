@@ -310,8 +310,8 @@ class Simulator(object):
                     inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
                         self.parent.Drawing.schematic,self.transferMatrices,outputWaveformList,
                         self.outputWaveformLabels+otherWaveformLabels,dependentWaveforms)
-                    for inputWaveform in dependentWaveforms:
-                        inputWaveform.UpdateWaveform(self.outputWaveformLabels, outputWaveformList, i,
+                    DependentWaveform.UpdateWaveforms(dependentWaveforms,self.outputWaveformLabels,
+                                                     outputWaveformList,i,
                                                      noise_spectral_densities=inputNoise)
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
@@ -410,6 +410,9 @@ class Simulator(object):
             self.NoiseDialog().ExamineTransferMatricesDoer.Activate(True)
             self.NoiseDialog().SimulateDoer.Activate(True)
             self.UpdateNoise(sna)
+        if any(variable['ReadOnly'] for waveform in self.inputWaveformList
+               if isinstance(waveform,DependentWaveform) for variable in waveform.VariablesList):
+            self.parent.Drawing.DrawSchematic(evaluateEquations=False)
         self.parent.root.update()
         self.parent.statusbar.set('Calculation Complete')
 

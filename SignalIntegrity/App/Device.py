@@ -611,6 +611,12 @@ _waveformProcessorScriptTemplate='''# Waveform processor script
 # Noise is recalculated before each iteration's script; absent noise gives zeros.
 # Assign each output as output_waveform_1, output_waveform_2, etc.
 # Device variables are also available by name.
+# Output Variable (read_only: true) values are passed in, updated after the script,
+# reused next iteration, and stored by project Save; leave unchanged to reuse a fit.
+# A linked output keeps its =reference and updates the referenced system variable.
+# Store coefficient lists in string variables (e.g. taps = repr([0.1, 0.2])).
+# All output waveforms and variables are returned by one execution per iteration.
+# Script-editor previews do not change saved device variables.
 gain = 0.9
 output_waveform_1 = input_waveform_1 * gain
 '''
@@ -666,11 +672,15 @@ class DeviceWaveformProcessorVariable(Device):
         outputWaveformNames=['output_waveform_'+str(i+1)
                              for i in range(self['outputports'].GetValue())]
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
-        return [DependentWaveform(inputProbeNames,self.variablesList,
-                                  outputWaveformName=outputWaveformNames[i],script=script)
-                for i in range(self['outputports'].GetValue())]
+        waveforms=[DependentWaveform(inputProbeNames,self.variablesList,
+                                    outputWaveformName=outputWaveformNames[i],script=script)
+                   for i in range(self['outputports'].GetValue())]
+        for waveform in waveforms:
+            waveform.ProcessorOutputs=waveforms
+        return waveforms
 
     def ScriptedWaveform(self,script=None):
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
         from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
 
@@ -681,8 +691,12 @@ class DeviceWaveformProcessorVariable(Device):
         inputWaveforms=[Waveform(timeDescriptor,[float(index+1) for index in range(8)])
                         for _ in inputWaveformNames]
         dependentWaveforms=self.Waveforms(script=script)
+        previewVariables=copy.deepcopy(self.variablesList)
+        previewProjectVariables=copy.deepcopy(SignalIntegrity.App.Project['Variables'])
         for dependentWaveform in dependentWaveforms:
-            dependentWaveform.UpdateWaveform(inputWaveformNames,inputWaveforms,0)
+            dependentWaveform.VariablesList=previewVariables
+            dependentWaveform.ProjectVariables=previewProjectVariables
+        DependentWaveform.UpdateWaveforms(dependentWaveforms,inputWaveformNames,inputWaveforms,0)
         return dependentWaveforms[0]
 
 class DeviceWaveformProcessorPythonScriptPicker(Device):

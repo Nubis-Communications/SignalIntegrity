@@ -47,9 +47,23 @@ class DependentWaveform(Waveform):
         self.Script = script
         self.VariablesList = [] if VariablesList is None else VariablesList
         self.OutputWaveformName = outputWaveformName
+        self.ProcessorOutputs = [self]
+        self.ProjectVariables = None
 
         self.td = None
         list.__init__(self, [0]) #Default is a blank waveform
+
+    @staticmethod
+    def UpdateWaveforms(dependentWaveforms, OutputWaveformLabels, OutputWaveformList,
+                        iteration=None, noise_spectral_densities=None):
+        """Execute each processor once, updating all of its outputs together."""
+        updated=set()
+        for waveform in dependentWaveforms:
+            if id(waveform) in updated:
+                continue
+            waveform.UpdateWaveform(OutputWaveformLabels,OutputWaveformList,iteration,
+                                    noise_spectral_densities=noise_spectral_densities)
+            updated.update(id(output) for output in waveform.ProcessorOutputs)
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList, iteration=None,
                        noise_spectral_densities=None):
@@ -60,6 +74,11 @@ class DependentWaveform(Waveform):
         input_waveform_1, input_waveform_2, ... . Simulation supplies spectra on its
         calculation frequency grid. Direct calls and previews without a noise mapping
         receive zero spectra on each input waveform's frequency grid.
+
+        Variables marked ReadOnly (Output Variable in the UI) are passed in and
+        written back after successful execution, for subsequent iterations and saves.
+        A linked output retains its =reference and writes to that system variable.
+        All outputs belonging to this processor are updated by the same execution.
         """
         import copy
         from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
@@ -101,29 +120,45 @@ class DependentWaveform(Waveform):
         sendargs['iteration'] = iteration
         
         #Transferring variables list to a dictionary
+        outputTargets={}
         for i in range(len(self.VariablesList)):
             variable = self.VariablesList[i]
+            target=variable
             value = variable['Value']
-            if value[0] == "=":
+            if value is None:
+                value=''
+            if value.startswith("="):
                 #Check if a system variable 
 
-                projectVariables=SignalIntegrity.App.Project['Variables'].Dictionary()
-                if (value[1:] in projectVariables):
-                    value = projectVariables[value[1:]]
+                projectVariables=(SignalIntegrity.App.Project['Variables']
+                                  if self.ProjectVariables is None else self.ProjectVariables)
+                if value[1:] in projectVariables.Names():
+                    target=projectVariables.VariableByName(value[1:])
+                    value=projectVariables.Dictionary()[value[1:]]
                 else:
                     raise SignalIntegrityExceptionDependentWaveform(
                         f"System variable not found: {value}"
                     )
-            if variable['Type'] in ['file','string','enum']:
-                sendargs[variable['Name']]=str(value)
-            elif variable['Type'] == 'float':
-                sendargs[variable['Name']]=float(value)
-            elif variable['Type'] == 'int':
-                sendargs[variable['Name']]=int(value)
+            if variable['ReadOnly']:
+                outputTargets[variable['Name']]=target
+            try:
+                if variable['Type'] in ['file','string','enum']:
+                    sendargs[variable['Name']]=str(value)
+                elif variable['Type'] == 'float':
+                    sendargs[variable['Name']]=float(value)
+                elif variable['Type'] == 'int':
+                    sendargs[variable['Name']]=int(value)
+            except (TypeError,ValueError,OverflowError) as error:
+                raise SignalIntegrityExceptionDependentWaveform(
+                    'invalid '+variable['Type']+' value for variable '+variable['Name']+
+                    ': '+str(error)) from error
 
         sendargs.update(inputWaveformAliases)
 
-        returnargs = {self.OutputWaveformName: Waveform()}
+        outputVariables=[variable for variable in self.VariablesList if variable['ReadOnly']]
+        returnargs = {output.OutputWaveformName: Waveform() for output in self.ProcessorOutputs}
+        returnargs.update({variable['Name']:sendargs[variable['Name']]
+                           for variable in outputVariables})
 
         equations=self.Script
         projectDir=os.getcwd()
@@ -131,8 +166,45 @@ class DependentWaveform(Waveform):
             sys.path.insert(0, projectDir)
         #Perform transformation
         returnargs = DependentWaveform.EvaluateTransformFunctionSafely(equations, sendargs, returnargs)
-            
-        super().__init__(x=returnargs[self.OutputWaveformName])
+
+        waveforms=[]
+        for output in self.ProcessorOutputs:
+            waveform=returnargs[output.OutputWaveformName]
+            if not isinstance(waveform,Waveform):
+                raise SignalIntegrityExceptionDependentWaveform(
+                    'waveform processor output must be a Waveform: '+output.OutputWaveformName)
+            waveforms.append(Waveform(waveform))
+
+        variableValues=[]
+        for variable in outputVariables:
+            value=self.OutputVariableValue(variable,returnargs[variable['Name']])
+            target=outputTargets[variable['Name']]
+            if target is not variable:
+                value=self.OutputVariableValue(target,value)
+            variableValues.append((target,str(value)))
+
+        # Commit only after every returned waveform and variable has been validated.
+        for output,waveform in zip(self.ProcessorOutputs,waveforms):
+            Waveform.__init__(output,x=waveform)
+        for variable,value in variableValues:
+            variable['Value']=value
+
+    @staticmethod
+    def OutputVariableValue(variable,value):
+        """Validate an output against its interface and destination variable types."""
+        try:
+            if variable['Type'] == 'float':
+                return float(value)
+            if variable['Type'] == 'int':
+                integer=int(value)
+                if not isinstance(value,str) and integer != value:
+                    raise ValueError('integer output must not have a fractional part')
+                return integer
+            return str(value)
+        except (TypeError,ValueError,OverflowError) as error:
+            raise SignalIntegrityExceptionDependentWaveform(
+                'invalid '+variable['Type']+' output variable '+variable['Name']+
+                ': '+str(error)) from error
 
     @staticmethod
     def EvaluateTransformFunctionSafely(equations, sendargs, returnargs):
