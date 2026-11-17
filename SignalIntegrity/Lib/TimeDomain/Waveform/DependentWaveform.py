@@ -51,7 +51,18 @@ class DependentWaveform(Waveform):
         self.td = None
         list.__init__(self, [0]) #Default is a blank waveform
 
-    def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList, iteration=None):
+    def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList, iteration=None,
+                       noise_spectral_densities=None):
+        """Update from measured waveforms and their statistical noise spectra.
+
+        @param noise_spectral_densities optional dict of probe name to SpectralDensity.
+        Scripts receive independent input_noise_1, input_noise_2, ... objects alongside
+        input_waveform_1, input_waveform_2, ... . Simulation supplies spectra on its
+        calculation frequency grid. Direct calls and previews without a noise mapping
+        receive zero spectra on each input waveform's frequency grid.
+        """
+        import copy
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
 
         allOutputPorts =  self.OutputPortName #Get all port names
 
@@ -65,6 +76,20 @@ class DependentWaveform(Waveform):
                 inputWaveform = OutputWaveformList[OutputWaveformLabels.index(allOutputPorts[i])]
                 inputWaveforms[allOutputPorts[i]] = inputWaveform
                 inputWaveformAliases['input_waveform_' + str(i+1)] = inputWaveform
+                if noise_spectral_densities is None:
+                    frequencies=inputWaveform.td.FrequencyList()
+                    noise=SpectralDensity(frequencies,[0.]*len(frequencies),
+                                          Keven=inputWaveform.td.K % 2 == 0)
+                else:
+                    if allOutputPorts[i] not in noise_spectral_densities:
+                        raise SignalIntegrityExceptionDependentWaveform(
+                            'dependent input noise spectrum not found: '+allOutputPorts[i])
+                    noise=noise_spectral_densities[allOutputPorts[i]]
+                    if not isinstance(noise,SpectralDensity):
+                        raise SignalIntegrityExceptionDependentWaveform(
+                            'dependent input noise must be a SpectralDensity: '+allOutputPorts[i])
+                    noise=copy.deepcopy(noise)
+                inputWaveformAliases['input_noise_' + str(i+1)] = noise
             else:
                 raise SignalIntegrityExceptionDependentWaveform(
                     'dependent output port not found: ' + (allOutputPorts[i]))

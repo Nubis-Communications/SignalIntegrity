@@ -24,7 +24,8 @@ class StatisticalNoiseAnalysis(dict):
                  output_waveforms,
                  output_waveform_names,
                  transfer_output_names=None,
-                 transfer_source_names=None):
+                 transfer_source_names=None,
+                 noise_output_names=None):
 
         dict.__init__(self)
 
@@ -41,11 +42,13 @@ class StatisticalNoiseAnalysis(dict):
                 transfer_output_names=netlist.OutputNames()
             if transfer_source_names is None:
                 transfer_source_names=netlist.SourceNames()
+            if noise_output_names is None:
+                noise_output_names=netlist.NoiseOutputNames()
 
             outputWaveformLabels,sourceNames,transferMatrices = transferMatrices.Keep(
                 transfer_output_names,        # outputs
                 transfer_source_names,        # sources
-                netlist.NoiseOutputNames(),    # outputs to keep
+                noise_output_names,           # outputs to keep
                 netlist.NoiseSourceNames()     # sources to keep
                 )
 
@@ -130,7 +133,39 @@ class StatisticalNoiseAnalysis(dict):
                 displayNames = netlist.NoiseDisplayOutputNames()
                 self['noise_display_output_names'] = [name for name in self['output_names'] if name in displayNames]
         except Exception as e:
-            raise Exception("Error in StatisticalNoiseAnalysis: "+str(e))
+            from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
+            raise SignalIntegrityExceptionSimulator("Error in StatisticalNoiseAnalysis: "+str(e)) from e
+
+    @classmethod
+    def WaveformProcessorInputNoise(cls,schematic,transfer_matrices,output_waveforms,
+                                    output_waveform_names,dependent_waveforms):
+        """Calculate input SpectralDensity objects before each processor update.
+
+        Includes hidden processor probes regardless of noise-display settings.
+        Upstream processors use the existing unity-gain linear noise model.
+        Source densities are evaluated against this iteration's waveforms.
+        """
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
+
+        input_names=list(dict.fromkeys(name for waveform in dependent_waveforms
+                                       for name in waveform.OutputPortName))
+        if not input_names:
+            return {}
+        netlist=schematic.NetList()
+        missing=[name for name in input_names if name not in netlist.OutputNames()]
+        if missing:
+            raise SignalIntegrityExceptionSimulator(
+                'processor noise input probes not found: '+', '.join(missing))
+        if not netlist.NoiseSourceNames():
+            return {name:SpectralDensity(transfer_matrices.f,[0.]*len(transfer_matrices.f))
+                    for name in input_names}
+        outputs,sources,matrices=netlist.LinearizeWaveformProcessorTransferMatrices(
+            transfer_matrices,includeProcessorInputs=True)
+        analysis=cls(schematic,matrices,output_waveforms,output_waveform_names,
+                     outputs,sources,noise_output_names=input_names)
+        return {name:analysis['output_noise_spectral_density'][name]['spectrum']
+                for name in input_names}
 
     def Noise(self,reference):
         try:
