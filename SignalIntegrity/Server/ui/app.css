@@ -87,6 +87,22 @@ body.docking, body.docking * { cursor: grabbing !important; user-select: none; }
 #paneMenu { min-width: 200px; }
 #paneMenu li { padding-left: 14px; }
 #paneMenu li .label { margin-left: 0; padding-left: 0; }
+#windowTitle { display: none; }
+.line-icon { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.pane-header h2 { flex: 1; }
+.pane-actions { display: flex; gap: 2px; margin-left: 4px; visibility: hidden; }
+.pane-header:hover .pane-actions, .pane-header:focus-within .pane-actions, .pane.floating .pane-actions { visibility: visible; }
+.pane-action { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; padding: 0;
+  border: 1px solid transparent; background: transparent; color: inherit; border-radius: 4px; }
+.pane-action:hover:not(:disabled) { background: var(--hover); border-color: transparent; }
+.pane:not(.floating) .dock-back, .pane.floating .pop-out { display: none; }
+.pane.floating .chevron { visibility: hidden; }
+.pane.floating .pane-header { cursor: default; }
+.pane.inline-float { position: fixed; z-index: 25; resize: both; background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.35); min-width: 220px; min-height: 120px; }
+.pane.inline-float .pane-header { cursor: move; }
+body.pane-window { padding: 0; }
+body.pane-window > .pane { flex: 1; }
 table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 th, td { border: 1px solid var(--border); padding: 2px 4px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 th { background: var(--toolbar); font-weight: 600; }

@@ -75,7 +75,7 @@ MENUS=[
              Command('viewDevice','View / Open Project','Ctrl+E'),
              Command('up','Up to Parent Project','Alt+Up'),
              SEPARATOR,
-             Submenu('panels','Panels',only='qt'),
+             Submenu('panels','Panels'),
              Submenu('theme','Theme')]),
     ('Calculate',[Command('postProcessing','Post-Processing...'),
                   SEPARATOR,

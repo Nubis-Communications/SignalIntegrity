@@ -16,6 +16,13 @@
             "request": "launch",
             "command": "npm run tauri dev",
             "cwd": "${workspaceFolder}/Tauri"
+        },
+        {
+            "name": "SignalIntegrity: Desktop (Electron)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm start",
+            "cwd": "${workspaceFolder}/Electron"
         }
     ]
 }

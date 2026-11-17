@@ -1,5 +1,8 @@
 // VS Code style docking: panes live in the left or right side bar or the bottom panel. Drag a pane
 // header to move it, click it to collapse it, right-click it for a menu, and drag the sashes to resize.
+// The header buttons close a pane (View > Panels shows it again) or move it to a window of its own.
+import { lineIcon } from './lineicons.js';
+
 const AREAS = ['left', 'right', 'bottom'];
 const AREA_NAMES = { left: 'Primary Side Bar', right: 'Secondary Side Bar', bottom: 'Panel' };
 const DEFAULT = {
@@ -7,11 +10,14 @@ const DEFAULT = {
   size: { left: 300, right: 300, bottom: 220 },
   weight: { parts: 3, variables: 1, calc: 1, properties: 1 },
   collapsed: {},
+  closed: {},
 };
 const MIN_SIZE = { left: 170, right: 170, bottom: 90 };
 const DRAG_THRESHOLD = 5;
 
 const panes = {};
+// id -> { win } for a pane in its own window, { inline: true } for one floating over the workbench
+const floating = {};
 let layout = structuredClone(DEFAULT);
 let persist = () => {};
 let saveTimer = null;
@@ -20,6 +26,7 @@ const dock = area => $('dock-' + area);
 const dockSash = area => document.querySelector(`#workbench > .sash[data-area="${area}"], #center > .sash[data-area="${area}"]`);
 const horizontal = area => area === 'bottom';
 const areaOf = id => AREAS.find(a => layout.areas[a].includes(id));
+const docked = area => layout.areas[area].filter(id => !layout.closed[id] && !floating[id]);
 
 function save() {
   clearTimeout(saveTimer);
@@ -42,6 +49,7 @@ function sanitize(stored) {
       const w = stored.weight && stored.weight[id];
       if (Number.isFinite(w) && w > 0) out.weight[id] = w;
       if (stored.collapsed && stored.collapsed[id] === true) out.collapsed[id] = true;
+      if (stored.closed && stored.closed[id] === true) out.closed[id] = true;
     }
     return out;
   } catch { return null; }
@@ -49,8 +57,10 @@ function sanitize(stored) {
 
 function render() {
   for (const area of AREAS) {
-    const host = dock(area), ids = layout.areas[area];
+    const host = dock(area), ids = docked(area);
     host.replaceChildren();
+    // closed panes stay in the document so the app can still update them
+    for (const id of layout.areas[area]) if (layout.closed[id] && !floating[id]) $('paneStash').appendChild(panes[id]);
     ids.forEach((id, i) => {
       if (i) host.appendChild(paneSash(area, i));
       const pane = panes[id];
@@ -110,7 +120,7 @@ function paneSash(area, index) {
   const sash = document.createElement('div');
   sash.className = 'sash ' + (horizontal(area) ? 'ew' : 'ns');
   sash.addEventListener('pointerdown', evt => {
-    const ids = layout.areas[area];
+    const ids = docked(area);
     const open = id => horizontal(area) || !layout.collapsed[id];
     const before = ids.slice(0, index).reverse().find(open), after = ids.slice(index).find(open);
     if (!before || !after) return;
@@ -176,13 +186,30 @@ function showDrop(target) {
   if (target) for (const k of ['left', 'top', 'width', 'height']) overlay.style[k] = target.rect[k] + 'px';
 }
 
+function actionButton(icon, cls, title, run) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'pane-action ' + cls; b.title = title;
+  b.setAttribute('aria-label', title);
+  b.appendChild(lineIcon(icon, 16));
+  b.addEventListener('click', evt => { evt.stopPropagation(); run(); });
+  return b;
+}
+
 function initHeader(id) {
   const pane = panes[id], header = pane.querySelector('.pane-header');
   header.tabIndex = 0;
   header.setAttribute('role', 'button');
   header.title = 'Click to collapse or expand; drag to move; right-click for more';
+  const actions = document.createElement('div');
+  actions.className = 'pane-actions';
+  actions.append(
+    actionButton('popOut', 'pop-out', 'Move to New Window', () => popOut(id)),
+    actionButton('dockBack', 'dock-back', 'Dock', () => dockBack(id)),
+    actionButton('close', 'close', 'Close', () => closePane(id)));
+  header.appendChild(actions);
   header.addEventListener('pointerdown', evt => {
-    if (evt.button !== 0) return;
+    if (evt.button !== 0 || evt.target.closest('.pane-actions')) return;
+    if (floating[id]) { if (floating[id].inline) dragFloating(pane, header, evt); return; }
     header.setPointerCapture(evt.pointerId);
     const x0 = evt.clientX, y0 = evt.clientY, label = $('dragLabel');
     let dragging = false, target = null;
@@ -216,13 +243,17 @@ function initHeader(id) {
     header.addEventListener('pointercancel', upHandler);
   });
   header.addEventListener('keydown', evt => {
+    if (evt.target !== header || floating[id]) return;
     if (evt.key === 'Enter' || evt.key === ' ') { evt.preventDefault(); evt.stopPropagation(); toggle(id); }
   });
-  header.addEventListener('contextmenu', evt => { evt.preventDefault(); openMenu(id, evt.clientX, evt.clientY); });
+  header.addEventListener('contextmenu', evt => {
+    evt.preventDefault();
+    if (!floating[id]) openMenu(id, evt.clientX, evt.clientY);
+  });
 }
 
 function toggle(id) {
-  if (horizontal(areaOf(id))) return;
+  if (horizontal(areaOf(id)) || floating[id]) return;
   layout.collapsed[id] = !layout.collapsed[id];
   render();
   save();
@@ -243,12 +274,134 @@ function openMenu(id, x, y) {
   const separator = () => { const li = document.createElement('li'); li.className = 'sep'; menu.appendChild(li); };
   if (!horizontal(area)) item(layout.collapsed[id] ? 'Expand' : 'Collapse', () => toggle(id));
   for (const a of AREAS) if (a !== area) item('Move to ' + AREA_NAMES[a], () => move(id, a, layout.areas[a].length));
+  item('Move to New Window', () => popOut(id));
+  item('Close', () => closePane(id));
   separator();
-  item('Reset Layout', () => { layout = structuredClone(DEFAULT); render(); save(); });
+  item('Reset Layout', resetLayout);
   menu.hidden = false;
   const r = menu.getBoundingClientRect();
   menu.style.left = Math.min(x, innerWidth - r.width - 4) + 'px';
   menu.style.top = Math.min(y, innerHeight - r.height - 4) + 'px';
+}
+
+// ---------- closing panes and moving them to windows of their own
+export function closePane(id) {
+  if (floating[id]) dockBack(id);
+  layout.closed[id] = true;
+  render();
+  save();
+}
+
+export function showPane(id) {
+  if (floating[id]) {
+    if (floating[id].win) floating[id].win.focus();
+    return;
+  }
+  delete layout.closed[id];
+  delete layout.collapsed[id];
+  render();
+  save();
+}
+
+export function resetLayout() {
+  for (const id of Object.keys(floating)) dockBack(id);
+  layout = structuredClone(DEFAULT);
+  render();
+  save();
+}
+
+export function paneList() {
+  return Object.keys(panes).map(id => ({
+    id, title: panes[id].querySelector('h2').textContent, visible: !layout.closed[id], floating: !!floating[id] }));
+}
+
+/** an element inside a pane that is in a window of its own (document.getElementById misses those) */
+export function findElement(id) {
+  for (const f of Object.values(floating)) {
+    const found = f.win && !f.win.closed && f.win.document.getElementById(id);
+    if (found) return found;
+  }
+  return null;
+}
+
+// pane windows share the main window's theme: its <html> class and CSS variables
+const rootObserver = new MutationObserver(() => {
+  for (const f of Object.values(floating)) if (f.win && !f.win.closed) copyRoot(f.win.document);
+});
+function copyRoot(doc) {
+  doc.documentElement.className = document.documentElement.className;
+  doc.documentElement.style.cssText = document.documentElement.style.cssText;
+}
+
+function popOut(id) {
+  if (floating[id]) return showPane(id);
+  const pane = panes[id], r = pane.getBoundingClientRect();
+  const width = Math.round(Math.max(r.width, 300)), height = Math.round(Math.max(r.height, 260));
+  const left = Math.round(window.screenX + r.left + 30), top = Math.round(window.screenY + r.top + 30);
+  let win = null;
+  try {
+    win = window.open('', 'si-pane-' + id, `popup,width=${width},height=${height},left=${left},top=${top}`);
+  } catch { win = null; }
+  // shells that don't allow new windows get a panel floating over the workbench instead
+  if (!win || !win.document) return floatInline(id, r);
+  const doc = win.document;
+  doc.title = pane.querySelector('h2').textContent + ' - SignalIntegrity';
+  for (const link of document.querySelectorAll('link[rel="stylesheet"], link[rel="icon"]')) {
+    const copy = doc.createElement('link');
+    copy.rel = link.rel; copy.href = link.href;
+    doc.head.appendChild(copy);
+  }
+  copyRoot(doc);
+  doc.body.className = 'pane-window';
+  floating[id] = { win };
+  pane.classList.add('floating');
+  pane.classList.remove('collapsed');
+  pane.style.flex = '';
+  doc.body.appendChild(pane);
+  render();
+  const back = () => { if (floating[id] && floating[id].win === win) dockBack(id); };
+  win.addEventListener('pagehide', back);
+  floating[id].timer = setInterval(() => { if (win.closed) back(); }, 500);
+}
+
+function floatInline(id, r) {
+  const pane = panes[id];
+  floating[id] = { inline: true };
+  pane.classList.add('floating', 'inline-float');
+  pane.classList.remove('collapsed');
+  Object.assign(pane.style, { flex: '', left: r.left + 30 + 'px', top: r.top + 30 + 'px',
+    width: Math.max(r.width, 300) + 'px', height: Math.max(r.height, 260) + 'px' });
+  document.body.appendChild(pane);
+  render();
+}
+
+function dragFloating(pane, header, evt) {
+  header.setPointerCapture(evt.pointerId);
+  const x0 = evt.clientX - pane.offsetLeft, y0 = evt.clientY - pane.offsetTop;
+  const moveHandler = e => {
+    pane.style.left = Math.max(0, Math.min(e.clientX - x0, innerWidth - 60)) + 'px';
+    pane.style.top = Math.max(0, Math.min(e.clientY - y0, innerHeight - 30)) + 'px';
+  };
+  const upHandler = () => {
+    header.removeEventListener('pointermove', moveHandler);
+    header.removeEventListener('pointerup', upHandler);
+    header.removeEventListener('pointercancel', upHandler);
+  };
+  header.addEventListener('pointermove', moveHandler);
+  header.addEventListener('pointerup', upHandler);
+  header.addEventListener('pointercancel', upHandler);
+}
+
+function dockBack(id) {
+  const f = floating[id];
+  if (!f) return;
+  delete floating[id];
+  clearInterval(f.timer);
+  const pane = panes[id];
+  pane.classList.remove('floating', 'inline-float');
+  for (const k of ['left', 'top', 'width', 'height']) pane.style[k] = '';
+  render();
+  if (f.win && !f.win.closed) f.win.close();
 }
 
 /** load(): Promise of a stored layout or null; store(layout): saves it */
@@ -259,6 +412,8 @@ export function initDock({ load, store }) {
   document.addEventListener('pointerdown', evt => { if (!evt.target.closest('#paneMenu')) closeMenu(); }, true);
   document.addEventListener('keydown', evt => { if (evt.key === 'Escape') closeMenu(); });
   window.addEventListener('blur', closeMenu);
+  window.addEventListener('pagehide', () => { for (const f of Object.values(floating)) if (f.win) f.win.close(); });
+  rootObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
   render();
   Promise.resolve(load()).then(stored => {
     const restored = stored && sanitize(stored);

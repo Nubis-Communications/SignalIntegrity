@@ -136,6 +136,12 @@ if __name__ == '__main__':
                   top=(4, 38, 46), bottom=(6, 112, 96), glow=(20, 190, 170),
                   stops=[(0, (0, 140, 160)), (0.35, (40, 230, 220)), (0.7, (180, 255, 240)), (1, (255, 255, 255))],
                   levels=2, accent=(120, 255, 220))
+    elif which == 'electron':
+        # midnight navy tile with an electric-blue-to-white hot eye
+        make_icon(os.path.join(target, 'icon.png'), os.path.join(target, 'icon.ico'),
+                  top=(10, 16, 34), bottom=(22, 48, 92), glow=(60, 170, 255),
+                  stops=[(0, (20, 80, 200)), (0.35, (70, 180, 255)), (0.7, (190, 235, 255)), (1, (255, 255, 255))],
+                  levels=2, accent=(120, 220, 255))
     else:
         # indigo/violet tile with an amber-to-white hot eye
         make_icon(os.path.join(target, 'app-icon.png'), None,

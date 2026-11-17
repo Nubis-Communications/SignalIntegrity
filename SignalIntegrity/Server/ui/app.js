@@ -1,10 +1,22 @@
 // SignalIntegrity web GUI - talks to SignalIntegrity.Server over a token-protected local JSON API.
 import { el, renderPrimitives, primitivesBox } from './schematic.js';
 import { Plot, COLORS, engineering } from './plot.js';
-import { initDock } from './dock.js';
+import { initDock, findElement, paneList, showPane, closePane, resetLayout } from './dock.js';
+import { lineIcon, hasLineIcon } from './lineicons.js';
 
-const $ = id => document.getElementById(id);
+const $ = id => document.getElementById(id) || findElement(id);
 const CALC_TITLES = { simulate: 'Simulate', sparameters: 'S-parameters', virtualprobe: 'Virtual Probe', deembed: 'De-embed' };
+
+// ?skin=vscode gives line icons and the rounded VS Code look; ?titlebar=custom puts the menus in
+// the title bar of a frameless window (the Electron shell asks for both)
+const UI_OPTIONS = (() => {
+  const query = new URLSearchParams(location.search);
+  for (const key of ['skin', 'titlebar']) if (query.has(key)) sessionStorage.setItem('si-' + key, query.get(key));
+  return { skin: sessionStorage.getItem('si-skin'), titlebar: sessionStorage.getItem('si-titlebar') };
+})();
+const LINE_ICONS = UI_OPTIONS.skin === 'vscode';
+document.documentElement.classList.toggle('skin-vscode', LINE_ICONS);
+document.documentElement.classList.toggle('custom-titlebar', UI_OPTIONS.titlebar === 'custom');
 
 // ---------- API
 const token = (() => {
@@ -46,6 +58,7 @@ function updateEnables() {
   refreshCommands();
   for (const input of $('calcProps').querySelectorAll('input,button')) input.disabled = ro;
   document.title = 'SignalIntegrity' + (open ? ' - ' + state.drawing.path.join(' > ') + (ro ? ' (Read Only)' : '') : '');
+  $('windowTitle').textContent = document.title;
   const bar = $('hierarchy');
   bar.classList.toggle('visible', open && state.drawing.path.length > 1);
   while (bar.firstChild) bar.removeChild(bar.firstChild);
@@ -626,7 +639,7 @@ async function exportAs(kind) {
 }
 
 // ---------- menu bar (dropdowns) and toolbar, built from api('menus')
-const SUBMENUS = { recent: recentItems, theme: themeItems };
+const SUBMENUS = { recent: recentItems, theme: themeItems, panels: panelItems };
 let openMenu = null;
 function closeMenus() {
   clear($('dropdowns'));
@@ -634,6 +647,7 @@ function closeMenus() {
   openMenu = null;
 }
 function iconImg(id, size) {
+  if (LINE_ICONS && hasLineIcon(id)) return lineIcon(id, size <= 18 ? 16 : 20);
   const svgText = state.menus && state.menus.icons[id];
   if (!svgText) return null;
   const img = document.createElement('img');
@@ -724,6 +738,14 @@ async function recentItems() {
   if (!items.length) items.push({ label: '(no recent projects)', disabled: true });
   items.push({ kind: 'separator' });
   items.push({ label: 'Clear Recent Projects', disabled: !recent.length, run: () => api('clearRecentProjects').then(() => status('recent projects cleared')) });
+  return items;
+}
+async function panelItems() {
+  const items = paneList().map(p => ({
+    label: p.title + (p.floating ? ' (window)' : ''), checked: p.visible,
+    run: () => (p.visible && !p.floating ? closePane(p.id) : showPane(p.id)) }));
+  items.push({ kind: 'separator' });
+  items.push({ label: 'Reset Layout', run: resetLayout });
   return items;
 }
 async function themeItems() {
@@ -1011,6 +1033,10 @@ function applyTheme(theme) {
   const root = document.documentElement.style;
   for (const [name, key] of Object.entries(CSS_VARS)) if (theme.palette[key]) root.setProperty(name, theme.palette[key]);
   root.setProperty('color-scheme', theme.palette.dark ? 'dark' : 'light');
+  document.documentElement.classList.toggle('dark', !!theme.palette.dark);
+  let meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) { meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta); }
+  meta.content = theme.palette.toolbar || theme.palette.panel;
   COLORS.splice(0, COLORS.length, ...theme.palette.traces);
   if (state.drawing) renderPrimitives(viewport, state.drawing.items, state.colorMap);
   if (state.catalog.length) buildStencil();

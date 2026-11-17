@@ -233,6 +233,17 @@ class TestServerApiTest(unittest.TestCase):
         self.assertEqual(set(CommandIds('web'))-handled,set())
         submenus=re.search(r'const SUBMENUS = \{([^}]*)\}',source).group(1)
         self.assertEqual({s for s in SubmenuIds('web') if not re.search(r'\b'+s+r':',submenus)},set())
+    def testLineIconsCoverEveryIcon(self):
+        import re
+        from SignalIntegrity.GuiCore import Icons
+        ui=os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','..','SignalIntegrity','Server','ui','lineicons.js')
+        with open(ui) as f:
+            source=f.read()
+        icons=source[source.index('const ICONS = {'):source.index('const ALIASES')]
+        defined=set(re.findall(r'^\s+(\w+): \[',icons,re.M))
+        self.assertEqual(set(Icons.ICONS)-defined,set())
+        self.assertTrue({'close','popOut','dockBack'}<=defined)
+        self.assertNotIn('.innerHTML',source)
     def testMethodValidation(self):
         with self.assertRaises(ApiError) as e:
             self.api.Dispatch('bogus',{})
@@ -434,6 +445,11 @@ class TestServerHttpTest(unittest.TestCase):
         self.assertIn(b'SignalIntegrity',data)
         self.assertIn("default-src 'self'",response.getheader('Content-Security-Policy'))
         self.assertEqual(self.Request('GET','/app.js')[0],200)
+        for name in ('dock.js','lineicons.js','skin-vscode.css'):
+            self.assertEqual(self.Request('GET','/'+name)[0],200,name)
+        status,data,response=self.Request('GET','/?skin=vscode&titlebar=custom')
+        self.assertEqual(status,200)
+        self.assertIn(b'skin-vscode.css',data)
         status,data,response=self.Request('GET','/favicon.png')
         self.assertEqual((status,response.getheader('Content-Type'),data[:4]),(200,'image/png',b'\x89PNG'))
         self.assertEqual(self.Request('GET','/../HttpServer.py')[0],404)
