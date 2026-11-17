@@ -72,6 +72,14 @@ ICONS={
         '<path d="M11 18h3l1.5-4.5 2 7 1.6-4h2" fill="none" stroke="#25855a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
         '<path d="M4 10V4h6M22 4h6v6M28 22v6h-6M10 28H4v-6" fill="none" stroke="#3182ce" stroke-width="2.8" '
         'stroke-linecap="round" stroke-linejoin="round"/>',
+    'pan':'<defs>'+_linear('glove','#ffffff','#e2e8f0')+_linear('arrow','#63b3ed','#2b6cb0')+'</defs>'
+        '<path d="M16 1.5l3.6 4h-2.3v2.4h-2.6V5.5h-2.3zM16 30.5l3.6-4h-2.3v-2.4h-2.6v2.4h-2.3zM1.5 16l4-3.6v2.3h2.4v2.6H5.5v2.3zM30.5 16l-4-3.6v2.3h-2.4v2.6h2.4v2.3z" '
+        'fill="url(#ID-arrow)" stroke="#2c5282" stroke-width=".7" stroke-linejoin="round"/>'
+        '<g transform="translate(16 16.5) scale(1.22) translate(-16 -16.5)">'
+        '<path d="M12.6 22.5c-1.5-1.6-3.6-3.6-3.9-4.6-.4-1 .5-1.8 1.4-1.4.6.3 1.6 1.2 2.4 2V11.4a1.2 1.2 0 0 1 2.4 0v4.4'
+        'V9.9a1.2 1.2 0 0 1 2.4 0v5.9V10.6a1.2 1.2 0 0 1 2.4 0v5.6v-3.9a1.2 1.2 0 0 1 2.4 0v6.4c0 2.7-1.1 4.3-2.4 5.5'
+        'H14.4c-.7 0-1.2-.6-1.8-1.7z" fill="url(#ID-glove)" stroke="#4a5568" stroke-width="1.1" stroke-linejoin="round"/>'
+        '<path d="M14.8 16v-2.2M17.2 15.8v-2.6M19.6 16.2v-2" stroke="#a0aec0" stroke-width=".7" stroke-linecap="round"/></g>',
     'wire':'<defs>'+_linear('wire','#38b2ac','#2b6cb0',True)+'</defs>'
         '<path d="M5 26V14h11V6h11" fill="none" stroke="#38b2ac" stroke-opacity=".25" stroke-width="6" '
         'stroke-linejoin="round" stroke-linecap="round"/>'

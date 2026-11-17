@@ -172,6 +172,7 @@ class MainWindow(QMainWindow):
                   'wire':self.OnWireMode,'deleteWire':self.OnDeleteWire,
                   'deleteVertex':self.OnDeleteVertex,'duplicateVertex':self.OnDuplicateVertex,
                   'zoomIn':lambda: self.view.Zoom(1.25),'zoomOut':lambda: self.view.Zoom(0.8),'zoomFit':self.view.ZoomFit,
+                  'pan':self.OnPanMode,
                   'viewDevice':self.OnViewSelected,'up':self.OnAscend,
                   'postProcessing':self.OnPostProcessing,'equations':self.OnEquations,
                   'help':lambda: self.OnHelp('introduction'),'documentation':lambda: self.OnHelp('documentation'),
@@ -588,6 +589,9 @@ class MainWindow(QMainWindow):
         if self.wireAction.isChecked():
             self.wireAction.setChecked(False)
             self.view.StopWiring()
+        if self.actions['pan'].isChecked():
+            self.actions['pan'].setChecked(False)
+            self.view.SetPanTool(False)
         self.view.StartPlacing(index)
         name=self.partsDock.catalog[index]['partname'] if index<len(self.partsDock.catalog) else 'part'
         self.statusBar().showMessage('click on the schematic to place '+name+' (Esc cancels)')
@@ -625,7 +629,7 @@ class MainWindow(QMainWindow):
         self.propertiesDock.raise_()
         self.propertiesTable.setFocus()
     def OnCancel(self):
-        """Esc: drop the wire being drawn, then leave wire mode; or stop placing a part"""
+        """Esc: drop the wire being drawn, then leave wire mode; or stop placing a part; or leave the Pan tool"""
         if self.view.wiring:
             if not self.view.CancelWire():
                 self.wireAction.setChecked(False)
@@ -634,9 +638,20 @@ class MainWindow(QMainWindow):
         elif self.view.placing is not None:
             self.view.StopPlacing()
             self.statusBar().showMessage('placement cancelled')
+        elif self.view.panning:
+            self.actions['pan'].setChecked(False)
+            self.OnPanMode()
+    def OnPanMode(self):
+        on=self.actions['pan'].isChecked()
+        if on and self.wireAction.isChecked():
+            self.wireAction.setChecked(False)
+        self.view.SetPanTool(on)
+        self.statusBar().showMessage('Pan: drag the schematic to move it, Esc or Pan again to stop' if on else 'pan off')
     # ---- wires
     def OnWireMode(self):
         if self.wireAction.isChecked():
+            self.actions['pan'].setChecked(False)
+            self.view.SetPanTool(False)
             self.view.StartWiring()
             self.statusBar().showMessage('Add Wire: click each corner, double-click or right-click to finish a wire, Esc to stop')
         else:

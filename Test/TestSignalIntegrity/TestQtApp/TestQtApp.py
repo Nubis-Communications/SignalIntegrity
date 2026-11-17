@@ -508,6 +508,34 @@ class TestQtSelectionAndPanesTest(unittest.TestCase):
         self._Drag(view.viewport(),QPointF(300,300),QPointF(200,300),Qt.MiddleButton)
         self.assertEqual(view.horizontalScrollBar().value()-before,100)
         self.assertEqual(self.window.session.Selection(),{'devices':[],'vertices':[]})
+    def testPanTool(self):
+        from PySide6.QtCore import QPointF
+        view=self._Divider()
+        view.Zoom(4)
+        self.qapp.processEvents()
+        from PySide6.QtWidgets import QToolBar
+        pan=self.window.actions['pan']
+        self.assertTrue(pan.isCheckable() and not pan.icon().isNull())
+        self.assertIn(pan,self.window.findChild(QToolBar,'main').actions())
+        pan.trigger()
+        self.assertTrue(view.panning)
+        # with the Pan tool on, a left-drag that starts on a part pans instead of moving or selecting it
+        before=(view.horizontalScrollBar().value(),self.window.drawing['devices'][1]['bbox'])
+        start=QPointF(view.mapFromScene(QPointF(272,96)))
+        self._Drag(view.viewport(),start,start-QPointF(80,0),Qt.LeftButton)
+        self.assertEqual(view.horizontalScrollBar().value()-before[0],80)
+        self.assertEqual(self.window.drawing['devices'][1]['bbox'],before[1])
+        self.assertEqual(self.window.session.Selection(),{'devices':[],'vertices':[]})
+        # wire mode turns the Pan tool off, and Esc leaves it
+        self.window.wireAction.trigger()
+        self.assertFalse(pan.isChecked() or view.panning)
+        self.window.actions['cancel'].trigger(); self.window.actions['cancel'].trigger()
+        pan.trigger()
+        self.window.actions['cancel'].trigger()
+        self.assertFalse(pan.isChecked() or view.panning)
+        # back to normal: a left-drag on the background selects again
+        self._Drag(view.viewport(),QPointF(view.mapFromScene(QPointF(60,60))),QPointF(view.mapFromScene(QPointF(330,220))),Qt.LeftButton)
+        self.assertEqual(self.window.session.Selection()['devices'],[0,1])
     def testCentredLabels(self):
         from PySide6.QtWidgets import QGraphicsScene
         from SignalIntegrity.QtApp.SchematicView import AddPrimitives

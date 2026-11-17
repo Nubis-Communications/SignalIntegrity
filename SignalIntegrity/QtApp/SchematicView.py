@@ -149,6 +149,22 @@ class SchematicView(QGraphicsView):
         self._ghosts=[]
         self._band=None
         self._pan=None
+        self.panning=False
+    def SetPanTool(self,on):
+        """the Pan tool: while it is on, left-drag pans the schematic (middle-drag always does)"""
+        self.panning=bool(on)
+        if self.panning:
+            if self.placing is not None:
+                self.StopPlacing()
+            if self.wiring:
+                self.StopWiring()
+            self.viewport().setCursor(Qt.OpenHandCursor)
+        else:
+            self.viewport().unsetCursor()
+    def _IdleCursor(self):
+        if self.wiring or self.placing is not None:
+            return Qt.CrossCursor
+        return Qt.OpenHandCursor if self.panning else Qt.ArrowCursor
     def ApplyPalette(self,palette):
         from SignalIntegrity.GuiCore.Themes import SchematicColorMap
         self.colorMap=SchematicColorMap(palette)
@@ -235,7 +251,7 @@ class SchematicView(QGraphicsView):
             elif event.button()==Qt.RightButton:
                 self.FinishWire()
             return
-        if event.button()==Qt.MiddleButton:
+        if event.button()==Qt.MiddleButton or (event.button()==Qt.LeftButton and self.panning):
             self._pan=event.position()
             self.viewport().setCursor(Qt.ClosedHandCursor)
             return
@@ -299,9 +315,9 @@ class SchematicView(QGraphicsView):
             return
         super().mouseMoveEvent(event)
     def mouseReleaseEvent(self,event):
-        if event.button()==Qt.MiddleButton and self._pan is not None:
+        if event.button() in (Qt.MiddleButton,Qt.LeftButton) and self._pan is not None:
             self._pan=None
-            self.viewport().setCursor(Qt.CrossCursor if self.wiring or self.placing is not None else Qt.ArrowCursor)
+            self.viewport().setCursor(self._IdleCursor())
             return
         if event.button()==Qt.LeftButton and self._band is not None:
             band,self._band=self._band,None
