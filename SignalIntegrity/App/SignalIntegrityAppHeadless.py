@@ -96,6 +96,8 @@ class DrawingHeadless(object):
             if id(device) in visible:
                 device.DrawDevice(canvas,grid,originx,originy,visible[id(device)])
             deviceType = device['partname'].GetValue()
+            if deviceType == 'WaveformProcessorVariable' and not device.IsProcessingEnabled():
+                continue
             if deviceType == 'WaveformProcessorVariable' and device['outputports'].GetValue() == 0:
                 foundAnOutput = True
             if  deviceType == 'Port':

@@ -632,6 +632,7 @@ class DeviceWaveformProcessorVariable(Device):
             PartPropertyHelp('device:Waveform-Processor'),
             PartPropertyDefaultReferenceDesignator('WFP?'),
             PartPropertyCalculationProperties(),
+            PartPropertyElementState(),
             PartPropertyScript(_waveformProcessorScriptTemplate),
             PartPropertyShow(),
             PartPropertyWaveformType('Dependent'),
@@ -651,7 +652,24 @@ class DeviceWaveformProcessorVariable(Device):
 
     def DrawDevice(self,canvas,grid,x,y,pinsConnectedList=None):
         self.UpdatePortConfiguration()
+        state=self['element_state'].GetValue()
+        if state in ['thru','thru_wires']:
+            thru=DeviceThru.ConvertDeviceToThru(self)
+            if thru is not self:
+                if state == 'thru_wires':
+                    thru.AddPartProperty(PartPropertyElementState(state))
+                thru.DrawDevice(canvas,grid,x,y,pinsConnectedList)
+                return
         Device.DrawDevice(self,canvas,grid,x,y,pinsConnectedList)
+
+    def IsProcessingEnabled(self):
+        self.UpdatePortConfiguration()
+        state=self['element_state'].GetValue()
+        if state == 'disabled':
+            return False
+        if state in ['thru','thru_wires']:
+            return DeviceThru.ConvertDeviceToThru(self) is self
+        return True
 
     def PinCoordinates(self):
         self.UpdatePortConfiguration()
@@ -2027,6 +2045,17 @@ class DeviceThru(Device):
                 return device
             thru_device=DeviceThru(int(ports))
             thru_device['ref']['Value']=device['ref']['Value']
+            if isinstance(device,DeviceWaveformProcessorVariable):
+                picture=device.partPicture.current
+                pins=copy.deepcopy(picture.pinListSupplied)
+                for pin in pins:
+                    pin['NumberVisible']=False
+                PartPicture.__init__(thru_device.partPicture.current,picture.origin,pins,
+                    picture.innerBoxSupplied,picture.boundingBoxSupplied,picture.propertiesLocationSupplied,
+                    picture.orientation,picture.mirroredHorizontally,picture.mirroredVertically,
+                    rotationPoint=picture.rotationPointSupplied)
+                thru_device.selected=device.selected
+                return thru_device
             pinList=copy.deepcopy(thru_device.partPicture.current.pinList)
             pinListSupplied=copy.deepcopy(thru_device.partPicture.current.pinListSupplied)
             thru_device.partPicture.current=copy.copy(device.partPicture.current)

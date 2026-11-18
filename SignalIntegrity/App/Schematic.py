@@ -89,6 +89,8 @@ class Schematic(CallBacker):
         for device in self.CircuitDevices():
             if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
                 if isinstance(device,DeviceWaveformProcessorVariable):
+                    if not device.IsProcessingEnabled():
+                        continue
                     processor=device.WaveformProcessor(self.callback)
                     self.dependentWaveforms.append(processor)
                     inputWaveformList.extend(processor.ProcessorOutputs)
@@ -105,8 +107,11 @@ class Schematic(CallBacker):
         return inputWaveformList+deferredNoiseWaveforms
     
     def DependentSourceCount(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         count = 0
         for device in self.CircuitDevices():
+            if isinstance(device,DeviceWaveformProcessorVariable) and not device.IsProcessingEnabled():
+                continue
             if device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
                 continue
             wftype = device['wftype']
