@@ -2283,10 +2283,10 @@ class PartPictureWaveformProcessor(PartPictureBox):
     def DrawDevice(self,device,canvas,grid,drawingOrigin,connected=None):
         PartPictureBox.DrawDevice(self,device,canvas,grid,drawingOrigin,connected)
         ct=self.CoordinateTranslater(grid,drawingOrigin)
-        left=(drawingOrigin[0]+self.origin[0]+self.innerBox[0][0])*grid
-        right=(drawingOrigin[0]+self.origin[0]+self.innerBox[1][0])*grid
-        top=(drawingOrigin[1]+self.origin[1]+self.innerBox[0][1])*grid
-        bottom=(drawingOrigin[1]+self.origin[1]+self.innerBox[1][1])*grid
+        left=(drawingOrigin[0]+self.origin[0]+self.innerBoxSupplied[0][0])*grid
+        right=(drawingOrigin[0]+self.origin[0]+self.innerBoxSupplied[1][0])*grid
+        top=(drawingOrigin[1]+self.origin[1]+self.innerBoxSupplied[0][1])*grid
+        bottom=(drawingOrigin[1]+self.origin[1]+self.innerBoxSupplied[1][1])*grid
         centerX=(left+right)/2.
         centerY=(top+bottom)/2.
         textPoint=ct.Translate((centerX,centerY-grid*0.35))
@@ -2307,7 +2307,7 @@ class PartPictureVariableWaveformProcessor(object):
         self.SetPortCounts(inputPorts,outputPorts,force=True)
     def SetPortCounts(self,inputPorts,outputPorts,force=False):
         inputPorts=max(1,int(inputPorts))
-        outputPorts=max(1,int(outputPorts))
+        outputPorts=max(0,int(outputPorts))
         if not force and inputPorts == self.inputPorts and outputPorts == self.outputPorts:
             return
         if hasattr(self,'current'):

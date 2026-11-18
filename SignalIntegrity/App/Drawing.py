@@ -169,6 +169,8 @@ class Drawing(tk.Frame):
             if visiblePins is not None:
                 device.DrawDevice(canvas,grid,originx,originy,visiblePins)
             deviceType = device['partname'].GetValue()
+            if deviceType == 'WaveformProcessorVariable' and device['outputports'].GetValue() == 0:
+                foundAnOutput = True
             if  deviceType == 'Port':
                 foundAPort = True
                 numPortsFound=numPortsFound+1

@@ -610,6 +610,7 @@ _waveformProcessorScriptTemplate='''# Waveform processor script
 # Values() returns V/sqrt(Hz); Frequencies() returns Hz; TotalRMS() returns V.
 # Noise is recalculated before each iteration's script; absent noise gives zeros.
 # Assign each output as output_waveform_1, output_waveform_2, etc.
+# With zero output ports, no output waveform assignments are required.
 # Device variables are also available by name.
 # Output Variable (read_only: true) values are passed in, updated after the script,
 # reused next iteration, and stored by project Save; leave unchanged to reuse a fit.
@@ -642,7 +643,7 @@ class DeviceWaveformProcessorVariable(Device):
 
     def UpdatePortConfiguration(self):
         inputPorts=max(1,int(self['inputports'].GetValue()))
-        outputPorts=max(1,int(self['outputports'].GetValue()))
+        outputPorts=max(0,int(self['outputports'].GetValue()))
         self['inputports']['Value']=inputPorts
         self['outputports']['Value']=outputPorts
         self['ports']['Value']=inputPorts+outputPorts
@@ -661,9 +662,14 @@ class DeviceWaveformProcessorVariable(Device):
         return Device.NetListLine(self)
 
     def Waveform(self,callback=None):
-        return self.Waveforms(callback)[0]
+        waveforms=self.Waveforms(callback)
+        return waveforms[0] if waveforms else None
 
     def Waveforms(self,callback=None,script=None):
+        return self.WaveformProcessor(callback,script).ProcessorOutputs
+
+    def WaveformProcessor(self,callback=None,script=None):
+        """Return the execution object, even when there are no waveform outputs."""
         self.UpdatePortConfiguration()
         if script is None:
             script=self['script'].GetValue()
@@ -677,7 +683,12 @@ class DeviceWaveformProcessorVariable(Device):
                    for i in range(self['outputports'].GetValue())]
         for waveform in waveforms:
             waveform.ProcessorOutputs=waveforms
-        return waveforms
+        if waveforms:
+            return waveforms[0]
+        processor=DependentWaveform(inputProbeNames,self.variablesList,
+                                   outputWaveformName=None,script=script)
+        processor.ProcessorOutputs=[]
+        return processor
 
     def ScriptedWaveform(self,script=None):
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
@@ -690,14 +701,14 @@ class DeviceWaveformProcessorVariable(Device):
         timeDescriptor=TimeDescriptor(0,8,1e9)
         inputWaveforms=[Waveform(timeDescriptor,[float(index+1) for index in range(8)])
                         for _ in inputWaveformNames]
-        dependentWaveforms=self.Waveforms(script=script)
+        processor=self.WaveformProcessor(script=script)
         previewVariables=copy.deepcopy(self.variablesList)
         previewProjectVariables=copy.deepcopy(SignalIntegrity.App.Project['Variables'])
-        for dependentWaveform in dependentWaveforms:
+        for dependentWaveform in processor.ProcessorOutputs or [processor]:
             dependentWaveform.VariablesList=previewVariables
             dependentWaveform.ProjectVariables=previewProjectVariables
-        DependentWaveform.UpdateWaveforms(dependentWaveforms,inputWaveformNames,inputWaveforms,0)
-        return dependentWaveforms[0]
+        DependentWaveform.UpdateWaveforms([processor],inputWaveformNames,inputWaveforms,0)
+        return processor if processor.ProcessorOutputs else None
 
 class DeviceWaveformProcessorPythonScriptPicker(Device):
     isWaveformProcessorScriptPicker=True

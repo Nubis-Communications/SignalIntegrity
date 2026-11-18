@@ -28,10 +28,11 @@ import copy
 class TransferMatrices(list,CallBacker):
     """Class that is used for processing waveforms in simulation."""
     cacheResponses=True
-    def __init__(self,f,d):
+    def __init__(self,f,d,inputs=0):
         """Constructor
         @param f instance of class FrequencyList
         @param d list of list of list matrices
+        @param inputs input count when matrices have zero output rows
         @remark
         The list of list of list matrices in d are such that each element in the list
         represents a list of list matrix for a given frequency.  The list of list matrix
@@ -47,7 +48,7 @@ class TransferMatrices(list,CallBacker):
         self.f=FrequencyList(f)
         list.__init__(self,d)
         CallBacker.__init__(self)
-        self.Inputs=len(d[0][0])
+        self.Inputs=len(d[0][0]) if len(d[0]) else inputs
         self.Outputs=len(d[0])
         self.fr=None
         self.ir=None
@@ -201,7 +202,7 @@ class TransferMatrices(list,CallBacker):
         new_d=[[[self[n][o][s] for s in source_indices_to_keep]
                                 for o in output_indices_to_keep]
                                     for n in range(len(self))]
-        return (new_outputs,new_sources,TransferMatrices(self.f,new_d))
+        return (new_outputs,new_sources,TransferMatrices(self.f,new_d,inputs=len(new_sources)))
     def Keep(self,outputs,sources,outputs_to_keep,sources_to_keep):
         """Keeps only the specified outputs and sources in the transfer matrices.
         @param outputs list of output names corresponding to the rows of the transfer matrices.
@@ -231,4 +232,4 @@ class TransferMatrices(list,CallBacker):
         new_d=[[[self[n][o][s] for s in source_indices_to_keep]
                                 for o in output_indices_to_keep]
                                     for n in range(len(self))]
-        return (new_outputs,new_sources,TransferMatrices(self.f,new_d))
+        return (new_outputs,new_sources,TransferMatrices(self.f,new_d,inputs=len(new_sources)))

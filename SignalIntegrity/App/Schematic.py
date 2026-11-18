@@ -28,6 +28,7 @@ class Schematic(CallBacker):
     def __init__(self):
         self.deviceList = []
         self.otherPages={}
+        self.dependentWaveforms = []
         super().__init__()
 
     def InitFromProject(self):
@@ -80,17 +81,27 @@ class Schematic(CallBacker):
             wires.ConsolidateWires(page)
         return NetList(self)
     def InputWaveforms(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
         inputWaveformList=[]
         deferredNoiseWaveforms=[]
+        self.dependentWaveforms=[]
         for device in self.CircuitDevices():
             if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
-                waveforms=device.Waveforms(self.callback)
-                # NetList emits four-port noise sources after the other sources.
-                if (device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']
-                        and device['ports']['Value'] == '4'):
-                    deferredNoiseWaveforms.extend(waveforms)
+                if isinstance(device,DeviceWaveformProcessorVariable):
+                    processor=device.WaveformProcessor(self.callback)
+                    self.dependentWaveforms.append(processor)
+                    inputWaveformList.extend(processor.ProcessorOutputs)
                 else:
-                    inputWaveformList.extend(waveforms)
+                    waveforms=device.Waveforms(self.callback)
+                    # NetList emits four-port noise sources after the other sources.
+                    if (device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']
+                            and device['ports']['Value'] == '4'):
+                        deferredNoiseWaveforms.extend(waveforms)
+                    else:
+                        inputWaveformList.extend(waveforms)
+                    self.dependentWaveforms.extend(wf for wf in waveforms
+                                                   if isinstance(wf,DependentWaveform))
         return inputWaveformList+deferredNoiseWaveforms
     
     def DependentSourceCount(self):
