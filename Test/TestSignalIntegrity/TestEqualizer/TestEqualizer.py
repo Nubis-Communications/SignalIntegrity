@@ -34,13 +34,243 @@ class TestBlindEqualizerScript(unittest.TestCase):
         cls.projectDirectory=os.path.dirname(os.path.abspath(__file__))
         root=ET.parse(os.path.join(cls.projectDirectory,'TestEqualizer.si'))
         device=next(device for device in root.findall('.//Device')
-                    if device.findtext('ClassName') == 'DeviceWaveformProcessorVariable')
+                    if any(prop.findtext('Keyword') == 'ref' and prop.findtext('Value') == 'WFP1'
+                           for prop in device.findall('./PartProperties/PartProperty')))
         cls.script=next(prop.findtext('Value') for prop in device.findall('./PartProperties/PartProperty')
                         if prop.findtext('Keyword') == 'script')
         _,_,variables=ParseWaveformProcessorInterface(cls.script)
         cls.defaults={variable['Name']:int(variable['Value']) if variable['Type'] == 'int'
                       else float(variable['Value']) if variable['Type'] == 'float'
                       else variable['Value'] for variable in variables}
+        dfeDevice=next(device for device in root.findall('.//Device')
+                       if any(prop.findtext('Keyword') == 'ref' and prop.findtext('Value') == 'WFP2'
+                              for prop in device.findall('./PartProperties/PartProperty')))
+        cls.dfeScript=next(prop.findtext('Value') for prop in dfeDevice.findall('./PartProperties/PartProperty')
+                          if prop.findtext('Keyword') == 'script')
+        _,_,variables=ParseWaveformProcessorInterface(cls.dfeScript)
+        cls.dfeDefaults={variable['Name']:int(variable['Value']) if variable['Type'] == 'int'
+                         else float(variable['Value']) if variable['Type'] == 'float'
+                         else variable['Value'] for variable in variables}
+
+    def applyDfe(self,waveform,**parameters):
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+
+        namespace=dict(self.dfeDefaults,input_waveform_1=waveform)
+        namespace.update(parameters)
+        return DependentWaveform.EvaluateTransformFunctionSafely(
+            self.dfeScript,namespace,{'output_waveform_1':None})['output_waveform_1']
+
+    def assertAlignedDescriptor(self,output,inputDescriptor,delay):
+        self.assertEqual(len(output),inputDescriptor.K)
+        self.assertEqual(output.td.Fs,inputDescriptor.Fs)
+        self.assertAlmostEqual(output.td.H*output.td.Fs,
+                               round(output.td.H*output.td.Fs),places=7)
+        self.assertLessEqual(abs((output.td.H-inputDescriptor.H-delay)*inputDescriptor.Fs),
+                             .5+1.e-7)
+
+    def testStandaloneDfeCorrectsKnownIsiWithSamplingDelay(self):
+        import numpy as np
+
+        rng=np.random.default_rng(42)
+        symbols=rng.choice([-1.,1.],400)
+        baud=25.e9
+        origin=-2.e-9
+        for sps,phase,start in [(4.,0.,.25),(4.3,.375,.25),
+                                (4.3,.375,52.5),(4.,.75,89.125)]:
+            with self.subTest(sps=sps,phase=phase,start=start):
+                start=round((start+((-phase)%1))*sps)/sps-((-phase)%1)
+                td=si.td.wf.TimeDescriptor(origin+start/baud,1000,baud*sps)
+                symbolIndex=np.floor(start+np.arange(td.K)/sps-phase+.5).astype(int)
+                desired=symbols[5+symbolIndex]
+                normalized=desired+.25*symbols[4+symbolIndex]
+                raw=(normalized-.12)*.2+.05*1.2
+                waveform=si.td.wf.Waveform(td,raw.tolist())
+                output=self.applyDfe(
+                    waveform,baud_rate=baud,levels=2,amplitude=2.,
+                    dfe_taps_input='.25',ffe_taps_input='[.3, 1, -.1]',
+                    num_precursor_taps=1,normalization_offset_input=.05,
+                    normalization_scale_input=.2,bias_input=.12,
+                    sample_time_input=((-phase)%1)/baud)
+                interior=(symbolIndex>=symbolIndex[0]+5)&(symbolIndex<symbolIndex[-1]-4)
+                np.testing.assert_allclose(np.asarray(output)[interior],desired[interior],atol=2.e-14)
+                self.assertAlignedDescriptor(output,td,((-phase)%1)/baud)
+                repeated=self.applyDfe(
+                    waveform,baud_rate=baud,levels=2,amplitude=2.,
+                    dfe_taps_input='.25',ffe_taps_input='[.3, 1, -.1]',
+                    num_precursor_taps=1,normalization_offset_input=.05,
+                    normalization_scale_input=.2,bias_input=.12,
+                    sample_time_input=(((-phase)%1)+1000)/baud)
+                np.testing.assert_allclose(output,repeated,rtol=0.,atol=2.e-14)
+                self.assertAlmostEqual((repeated.td.H-output.td.H)*baud,0.,places=10)
+
+    def testStandaloneDfeMatchesCombinedEqualizer(self):
+        import numpy as np
+
+        rng=np.random.default_rng(17)
+        waveform=si.td.wf.Waveform(
+            si.td.wf.TimeDescriptor(-1.e-9,4096,100.e9),
+            np.repeat(rng.choice([-.5,.5],1024),4).tolist())
+        settings=dict(train_equalizer='False',baud_rate=25.e9,levels=2,amplitude=.4,
+                      GDC_input=-3.,GDC2_input=-1.,ffe_taps_input='[.2, 1, -.1]',
+                      num_precursor_taps=1,normalization_offset_input=.03,
+                      normalization_scale_input=.7,bias_input=.05,
+                      sample_time_input=.625/25.e9)
+        for trim in [0,209]:
+            with self.subTest(trim=trim):
+                td=si.td.wf.TimeDescriptor(waveform.td.H+trim/waveform.td.Fs,
+                                           len(waveform)-trim,waveform.td.Fs)
+                trimmed=si.td.wf.Waveform(td,list(waveform)[trim:])
+                preDfe=self.equalize(trimmed,dfe_taps_input='[]',**settings)['output_waveform_1']
+                result=self.equalize(trimmed,dfe_taps_input='[.2]',**settings)
+                self.assertEqual(result['sample_time_output'],settings['sample_time_input'])
+                ffeVoltage=(np.asarray(preDfe)/.2-.05)*.7+.03*1.1
+                actual=self.applyDfe(
+                    si.td.wf.Waveform(preDfe.td.DelayBy(-settings['sample_time_input']),
+                                      ffeVoltage.tolist()),
+                    baud_rate=25.e9,levels=2,amplitude=.4,ffe_taps_input='[.2, 1, -.1]',
+                    num_precursor_taps=1,dfe_taps_input='[.2]',normalization_offset_input=.03,
+                    normalization_scale_input=.7,bias_input=.05,
+                    sample_time_input=result['sample_time_output'])
+                np.testing.assert_allclose(actual,result['output_waveform_1'],rtol=0.,atol=2.e-15)
+                self.assertEqual(actual.td,result['output_waveform_1'].td)
+
+    def testDfeDelayCentersEyeWithoutAutoAlignment(self):
+        import numpy as np
+        from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
+
+        baud=25.e9
+        delay=.31/baud
+        rng=np.random.default_rng(42)
+        symbols=rng.choice([-1.,1.],700)
+        for start in [-37.137,52.3]:
+            for feedback in [0.,.25]:
+                with self.subTest(start=start,feedback=feedback):
+                    td=si.td.wf.TimeDescriptor(start/baud,8192,16*baud)
+                    clock=start+np.arange(td.K)/16+delay*baud
+                    index=np.floor(clock+.5).astype(int)
+                    pulse=symbols[100+index]*np.cos(np.pi*(clock-index))
+                    raw=pulse+feedback*symbols[99+index]
+                    output=self.applyDfe(
+                        si.td.wf.Waveform(td,raw.tolist()),baud_rate=baud,levels=2,
+                        amplitude=2.,dfe_taps_input=str([feedback]),sample_time_input=delay)
+                    self.assertAlignedDescriptor(output,td,delay)
+                    interior=si.td.wf.Waveform(
+                        si.td.wf.TimeDescriptor(output.td.H+512/output.td.Fs,
+                                               len(output)-1024,output.td.Fs),
+                        list(output)[512:-512])
+                    eye=EyeDiagramBitmap(
+                        YAxisMode='Fixed',YMin=-1.2,YMax=1.2,Rows=128,Cols=128,
+                        BaudRate=baud,prbswf=interior,EnhancementMode='Fixed',
+                        EnhancementSteps=2,Levels=2)
+                    volts=eye.minV+np.arange(128)*(eye.maxV-eye.minV)/128
+                    opening=np.abs(volts)@eye.Bitmap()
+                    self.assertGreater(opening[64],.95)
+                    self.assertLess(opening[0],.08+abs(feedback))
+                    self.assertLessEqual(abs(int(np.argmax(opening))-64),3)
+
+    def testStandaloneDfeRejectsInvalidSettingsAndHandlesDisabledFeedback(self):
+        import numpy as np
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
+
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,8,100.e9),.3)
+        for taps in ['[]','[0]',0.]:
+            with self.subTest(taps=taps):
+                output=self.applyDfe(waveform,baud_rate=25.e9,levels=2,amplitude=2.,
+                                     dfe_taps_input=taps,normalization_offset_input=.1,
+                                     normalization_scale_input=.2,bias_input=.05)
+                np.testing.assert_allclose(output,[1.05]*8,rtol=0.,atol=3.e-16)
+        for parameters in [{'baud_rate':0.},{'levels':1},{'amplitude':0.},
+                           {'dfe_taps_input':'[True]'},{'dfe_taps_input':'invalid'},
+                           {'dfe_taps_input':[np.inf]},{'ffe_taps_input':'[]'},
+                           {'normalization_scale_input':0.},{'bias_input':np.nan},
+                           {'sample_time_input':np.inf},
+                           {'dfe_taps_input':'[.2]'}]:
+            with self.subTest(parameters=parameters):
+                settings=dict(baud_rate=25.e9)
+                settings.update(parameters)
+                with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
+                    self.applyDfe(waveform,**settings)
+
+    def testStandaloneDfeSchematicWiringAndNormalizedOutput(self):
+        import sys
+        import numpy as np
+        import SignalIntegrity.App as siapp
+        from unittest.mock import patch
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+
+        cwd=os.getcwd()
+        searchPath=sys.path[:]
+        self.addCleanup(os.chdir,cwd)
+        self.addCleanup(setattr,sys,'path',searchPath)
+        records=[]
+        origins=[]
+        clocks=[]
+        evaluate=DependentWaveform.EvaluateTransformFunctionSafely
+
+        def capture(script,args,outputs):
+            result=evaluate(script,args,outputs)
+            if script == self.script:
+                origins.append(args['input_waveform_1'].td.H)
+                clocks.append(result['sample_time_output'])
+                self.assertEqual(result['sample_time_output'],args['sample_time_input'])
+            if script == self.dfeScript:
+                self.assertEqual(args['sample_time_input'],clocks[-1])
+                records.append((si.td.wf.Waveform(args['input_waveform_1']),
+                                si.td.wf.Waveform(result['output_waveform_1'])))
+            return result
+
+        with patch.object(siapp,'Project',getattr(siapp,'Project',None),create=True), \
+             patch.object(siapp,'Preferences',getattr(siapp,'Preferences',None),create=True):
+            app=SignalIntegrityAppHeadless()
+            siapp.Preferences['Cache.CacheResults']=False
+            siapp.Preferences['Calculation.Processing.StopOnConvergence']=False
+            self.assertTrue(app.OpenProjectFile(
+                os.path.join(self.projectDirectory,'TestEqualizer.si')))
+            byRef={device['ref'].GetValue():device for device in app.Drawing.schematic.deviceList
+                   if device['ref'] is not None}
+            for ref in ('Vo2','Vo3'):
+                self.assertFalse(byRef[ref].configuration['Alignment.AutoAlign'])
+            siapp.Project['CalculationProperties.FrequencyPoints']=212
+            next(variable for variable in byRef['WFP1'].variablesList
+                 if variable['Name'] == 'train_equalizer')['Value']='False'
+            text=app.Drawing.schematic.NetList().Text()
+            connections=[set(zip(line.split()[1::2],line.split()[2::2]))
+                         for line in text if line.startswith('connect ')]
+            self.assertIn({('WFP2','1'),('F2','2')},connections)
+            self.assertIn({('O2','1'),('WFP2','2')},connections)
+            self.assertIn({('F2','1'),('F1','2')},connections)
+            with patch.object(DependentWaveform,'EvaluateTransformFunctionSafely',side_effect=capture):
+                result=app.Simulate()
+            self.assertIn('output waveforms',result)
+            self.assertEqual(len(records),3)
+            self.assertEqual(len(origins),len(records))
+            original=si.td.wf.Waveform().ReadFromFile('Vo.txt')
+            self.assertNotAlmostEqual((origins[-1]-original.td.H)*self.defaults['baud_rate'],0.)
+            self.assertEqual(float(siapp.Project['Variables'].VariableByName('sample_time').Value()),
+                             clocks[-1])
+            settings={variable['Name']:variable.Value() for variable in byRef['WFP2'].variablesList}
+            for raw,processed in records:
+                expected=self.applyDfe(
+                    raw,**{name:int(value) if name in ('levels','num_precursor_taps') else
+                           value if name in ('dfe_taps_input','ffe_taps_input') else float(value)
+                           for name,value in settings.items()})
+                np.testing.assert_array_equal(processed,expected)
+            vo2=result['output waveforms'][result['output waveform labels'].index('Vo2')]
+            expected=records[-2][1].Adapt(vo2.td)
+            np.testing.assert_allclose(vo2,expected,rtol=1.e-11,atol=1.e-12)
+            vo3=result['output waveforms'][result['output waveform labels'].index('Vo3')]
+            baud=self.defaults['baud_rate']
+            start=max(vo2.td.H,vo3.td.H)+128/baud
+            end=min(vo2.td.H+(len(vo2)-1)/vo2.td.Fs,
+                    vo3.td.H+(len(vo3)-1)/vo3.td.Fs)-128/baud
+            rate=min(vo2.td.Fs,vo3.td.Fs)
+            td=si.td.wf.TimeDescriptor(start,int((end-start)*rate),rate)
+            difference=np.asarray(vo2.Adapt(td))-np.asarray(vo3.Adapt(td))
+            amplitude=float(next(variable for variable in byRef['WFP1'].variablesList
+                                 if variable['Name'] == 'amplitude').Value())
+            self.assertLess(np.sqrt(np.mean(difference**2)),amplitude*2.5e-4)
+            self.assertLess(np.max(np.abs(difference)),amplitude*2.5e-3)
 
     def equalize(self,waveform,**parameters):
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
@@ -53,7 +283,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                                    'ffe_taps_output':None,'dfe_taps_output':None,
                                    'normalization_offset_output':None,
                                    'normalization_scale_output':None,
-                                   'bias_output':None,'phase_ui_output':None,
+                                   'bias_output':None,'sample_time_output':None,
                                    'ffe_taps_input':None,'dfe_taps_input':None})
 
     def testFixedSettingsBypassTrainingAndNormalizeTapLists(self):
@@ -66,15 +296,16 @@ class TestBlindEqualizerScript(unittest.TestCase):
                                  np.linspace(-1.,1.,32).tolist())
         with patch('scipy.optimize.minimize',side_effect=AssertionError('training called')), \
              patch('scipy.optimize.lsq_linear',side_effect=AssertionError('training called')):
-            for ffe,dfe in [('2','0'),(2.,0.),([2.],[0.]),('[2.]','[0.]')]:
-                with self.subTest(ffe=ffe,dfe=dfe):
+            for ffe,dfe,delay in [('2','0',.25),(2.,0.,-.75),
+                                  ([2.],[0.],3.25),('[2.]','[0.]',.25)]:
+                with self.subTest(ffe=ffe,dfe=dfe,delay=delay):
                     result=self.equalize(
                         waveform,train_equalizer='False',baud_rate=25.e9,levels=2,
                         amplitude=2.,ffe_taps_input=ffe,dfe_taps_input=dfe,
                         GDC_input=-7.,GDC2_input=-2.,
                         GDC_choices='unused',GDC2_choices='unused',
                         normalization_offset_input=.1,normalization_scale_input=2.,
-                        bias_input=.2,phase_ui_input=.25)
+                        bias_input=.2,sample_time_input=delay/25.e9)
                     size=1 << (len(waveform)+1024-1).bit_length()
                     frequencies=np.fft.rfftfreq(size,1/waveform.td.Fs)
                     ctle=CTLE([0.],-7.,-2.,10.e9,25.e9/80,10.e9,25.e9)
@@ -83,7 +314,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                     filtered=np.fft.irfft(np.fft.rfft(waveform,size)*response,size)[:len(waveform)]
                     np.testing.assert_array_equal(result['output_waveform_1'],
                                                   (filtered-.1)/2.*2.+.2)
-                    self.assertEqual(result['output_waveform_1'].td,waveform.td)
+                    self.assertAlignedDescriptor(result['output_waveform_1'],waveform.td,.25/25.e9)
                     self.assertEqual(result['GDC_output'],-7.)
                     self.assertEqual(result['GDC2_output'],-2.)
                     self.assertEqual(ast.literal_eval(result['ffe_taps_input']),[2.])
@@ -91,7 +322,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                     self.assertEqual(result['ffe_taps_output'],result['ffe_taps_input'])
                     self.assertEqual(result['dfe_taps_output'],result['dfe_taps_input'])
                     self.assertEqual(result['bias_output'],.2)
-                    self.assertEqual(result['phase_ui_output'],.25)
+                    self.assertAlmostEqual(result['sample_time_output']*25.e9,.25,places=13)
                     self.assertEqual(result['normalization_offset_output'],.1)
                     self.assertEqual(result['normalization_scale_output'],2.)
                     self.assertFalse(result['equalizer_result']['trained'])
@@ -125,7 +356,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                 {'ffe_taps_input':'[True]'}, {'ffe_taps_input':'[[1]]'},
                 {'dfe_taps_input':[np.inf]}, {'ffe_taps_input':[1+2j]},
                 {'normalization_scale_input':0.}, {'normalization_offset_input':np.nan},
-                {'bias_input':np.inf}, {'phase_ui_input':1.},
+                {'bias_input':np.inf}, {'sample_time_input':np.inf},
                 {'GDC_input':1.}, {'GDC2_input':np.nan},
                 {'ffe_taps_input':'[1, 0]', 'num_precursor_taps':2}]:
             with self.subTest(parameters=parameters):
@@ -166,9 +397,13 @@ class TestBlindEqualizerScript(unittest.TestCase):
             labels=[processor['ref'].GetValue()+'_in1']
             trained=processor.Waveforms()[0]
             trained.UpdateWaveform(labels,[waveform],0)
+            delay=float(byName['sample_time_output'].Value())
+            self.assertGreaterEqual(delay,0.)
+            self.assertLess(delay,1/25.e9)
+            self.assertAlignedDescriptor(trained,waveform.td,delay)
             self.assertTrue(any(ast.literal_eval(byName['dfe_taps_output'].Value())))
             for stem in ['ffe_taps','dfe_taps','GDC','GDC2','normalization_offset',
-                         'normalization_scale','bias','phase_ui']:
+                         'normalization_scale','bias','sample_time']:
                 byName[stem+'_input']['Value']=byName[stem+'_output'].Value()
             byName['train_equalizer']['Value']='False'
             # Supplied coefficients, not the training counts/limits, govern fixed mode.
@@ -192,7 +427,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                 finally:
                     os.chdir(cwd)
 
-    def testSavedSchematicDefaultsToFixedSettings(self):
+    def testSchematicAppliesFixedSettingsWithoutTraining(self):
         import ast
         import sys
         import SignalIntegrity.App as siapp
@@ -211,13 +446,14 @@ class TestBlindEqualizerScript(unittest.TestCase):
             siapp.Preferences['Calculation.Processing.StopOnConvergence']=False
             self.assertTrue(app.OpenProjectFile(
                 os.path.join(self.projectDirectory,'TestEqualizer.si')))
+            processor=next(device for device in app.Drawing.schematic.deviceList
+                           if isinstance(device,DeviceWaveformProcessorVariable))
+            byName={variable['Name']:variable for variable in processor.variablesList}
+            byName['train_equalizer']['Value']='False'
             with patch('scipy.optimize.minimize',side_effect=AssertionError('training called')), \
                  patch('scipy.optimize.lsq_linear',side_effect=AssertionError('training called')):
                 result=app.Simulate()
             self.assertIn('output waveforms',result)
-            processor=next(device for device in app.Drawing.schematic.deviceList
-                           if isinstance(device,DeviceWaveformProcessorVariable))
-            byName={variable['Name']:variable for variable in processor.variablesList}
             for stem in ['ffe_taps','dfe_taps']:
                 self.assertEqual(byName[stem+'_output'].Value(),
                                  str([float(value) for value in ast.literal_eval(
@@ -238,7 +474,10 @@ class TestBlindEqualizerScript(unittest.TestCase):
         self.assertEqual(metrics['validation_mse'],winner['validation_mse'])
         self.assertLessEqual(max(abs(tap) for tap in metrics['dfe']),.3+1.e-12)
         self.assertLess(metrics['validation_mse'],.2*metrics['unequalized_mse'])
-        self.assertEqual(output.td,waveform.td)
+        delay=result['sample_time_output']
+        self.assertGreaterEqual(delay,0.)
+        self.assertLess(delay,1/self.defaults['baud_rate'])
+        self.assertAlignedDescriptor(output,waveform.td,delay)
         self.assertEqual(len(output),len(waveform))
         self.assertTrue(np.all(np.isfinite(output)))
         # Check the emitted waveform, not just the internal training objective.
@@ -247,7 +486,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
         last_symbol=int((len(waveform)-1)/sps)-self.defaults['num_precursor_taps']-1
         symbols=np.arange(int(.75*len(waveform)/sps),
                           last_symbol-1)+metrics['phase_ui']
-        values=np.interp(symbols*sps-first,np.arange(len(output)),output)
+        values=np.interp(symbols*sps+delay*waveform.td.Fs-first,np.arange(len(output)),output)
         alphabet=np.linspace(-.5,.5,self.defaults['levels'])
         errors=np.min(np.abs(values[:,None]-alphabet),axis=1)
         self.assertLess(np.mean(errors**2)/(alphabet[1]-alphabet[0])**2,.025)
@@ -272,7 +511,8 @@ class TestBlindEqualizerScript(unittest.TestCase):
                 phase=result['equalizer_result']['phase_ui']
                 first=(output.td.H-waveform.td.H)*waveform.td.Fs
                 n=np.arange(3000,4800)
-                recovered=np.interp((n+phase)*sps-first,np.arange(len(output)),output)
+                sampleDelay=result['sample_time_output']
+                recovered=np.interp((n+phase)*sps+sampleDelay*waveform.td.Fs-first,np.arange(len(output)),output)
                 alphabet=np.linspace(-.5,.5,levels)
                 decisions=np.argmin(abs(recovered[:,None]-alphabet),axis=1)
                 bestError=1.
@@ -281,7 +521,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
                         target=np.rint((polarity*symbols[n+delay]+.5)*(levels-1)).astype(int)
                         bestError=min(bestError,np.mean(decisions != target))
                 self.assertLess(bestError,.01)
-                self.assertEqual(output.td,waveform.td)
+                self.assertAlignedDescriptor(output,waveform.td,sampleDelay)
                 self.assertEqual(len(output),len(waveform))
                 self.assertTrue(np.all(np.isfinite(output)))
 
@@ -324,16 +564,20 @@ class TestBlindEqualizerScript(unittest.TestCase):
         self.assertGreater(abs(fits[-1]['dfe'][0]),.3)
         self.assertLess(fits[-2]['validation_mse'],fits[0]['validation_mse'])
 
-    def testRepeatedExecutionPreservesTimeDescriptor(self):
+    def testRepeatedExecutionPreservesSamplesAndAppliesDelay(self):
         import numpy as np
 
         waveform=si.td.wf.Waveform().ReadFromFile(os.path.join(self.projectDirectory,'Vo.txt'))
-        descriptor=si.td.wf.TimeDescriptor(waveform.td.H,waveform.td.K,waveform.td.Fs)
         for iteration in range(3):
             with self.subTest(iteration=iteration):
-                waveform=self.equalize(waveform,GDC_choices=[-10.],GDC2_choices=[-3.])['output_waveform_1']
-                self.assertEqual(waveform.td,descriptor)
-                self.assertEqual(len(waveform),descriptor.K)
+                previous=waveform.td
+                result=self.equalize(waveform,GDC_choices=[-10.],GDC2_choices=[-3.])
+                waveform=result['output_waveform_1']
+                delay=result['sample_time_output']
+                self.assertGreaterEqual(delay,0.)
+                self.assertLess(delay,1/self.defaults['baud_rate'])
+                self.assertAlignedDescriptor(waveform,previous,delay)
+                self.assertEqual(len(waveform),previous.K)
                 self.assertTrue(np.all(np.isfinite(waveform)))
 
     def testSchematicProcessorInputDoesNotShrinkAcrossIterations(self):
@@ -353,11 +597,14 @@ class TestBlindEqualizerScript(unittest.TestCase):
         evaluate=DependentWaveform.EvaluateTransformFunctionSafely
 
         def capture(equations,sendargs,returnargs):
+            if equations != self.script:
+                return evaluate(equations,sendargs,returnargs)
             waveform=sendargs['input_waveform_1']
             inputs.append(si.td.wf.Waveform(waveform))
             sendargs=dict(sendargs,GDC_choices='[-10]',GDC2_choices='[-3]',train_equalizer='True')
             result=evaluate(equations,sendargs,returnargs)
-            self.assertEqual(result['output_waveform_1'].td,waveform.td)
+            self.assertAlignedDescriptor(result['output_waveform_1'],
+                                          waveform.td,result['sample_time_output'])
             outputSettings.append((result['ffe_taps_output'],result['GDC_output'],
                                    result['GDC2_output']))
             return result
