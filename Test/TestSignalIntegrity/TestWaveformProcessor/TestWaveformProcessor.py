@@ -408,6 +408,153 @@ noise = input_noise_1.TotalRMS()
         self.assertEqual(state['Value'],'12.0')
         self.assertEqual(list(sources[0]),[2.]*8)
 
+    def testProcessorElementStatesNetlistAndScheduling(self):
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+        siapp.Project['Drawing.Schematic.Wires']=[]
+        processor=DeviceWaveformProcessorVariable()
+        processor['ref']['Value']='P'
+        self.assertIsNotNone(processor['element_state'])
+        for inputs,outputs in [(1,1),(2,2),(3,1),(1,0),(2,1)]:
+            for state in ['', 'disabled','thru','thru_wires']:
+                with self.subTest(inputs=inputs,outputs=outputs,state=state):
+                    processor['inputports']['Value']=inputs
+                    processor['outputports']['Value']=outputs
+                    processor['element_state']['Value']=state
+                    app.Drawing.schematic.deviceList=[processor]
+                    active=(state != 'disabled'
+                            and (state not in ['thru','thru_wires'] or (inputs+outputs)%2 != 0))
+                    netlist=app.Drawing.schematic.NetList()
+                    sources=app.Drawing.schematic.InputWaveforms()
+                    self.assertEqual(len(sources),outputs if active else 0)
+                    self.assertEqual(len(app.Drawing.schematic.dependentWaveforms),int(active))
+                    self.assertEqual(app.Drawing.schematic.DependentSourceCount(),int(active))
+                    self.assertEqual(app.Drawing.schematic.ProcessingIterationCount(False,100),
+                                     2 if active else 1)
+                    self.assertEqual(netlist.WaveformProcessorSourceNames(),
+                                     ['P_out'+str(i+1) for i in range(outputs)] if active else [])
+                    self.assertEqual(netlist.WaveformProcessorOutputNames(),
+                                     ['P_in'+str(i+1) for i in range(inputs)] if active else [])
+                    if state == 'thru' and not active:
+                        self.assertIn('device P '+str(inputs+outputs)+' thru',netlist.Text())
+                    if state in ['disabled','thru_wires'] and not active:
+                        self.assertFalse(any(line.startswith('device P ') for line in netlist.Text()))
+
+    def testProcessorElementStatesPreserveThruGeometry(self):
+        from unittest.mock import Mock
+        from SignalIntegrity.App.Device import DeviceThru,DeviceWaveformProcessorVariable
+
+        for inputs,outputs in [(1,1),(2,2),(3,1)]:
+            for orientation in ['0','90','180','270']:
+                with self.subTest(inputs=inputs,outputs=outputs,orientation=orientation):
+                    processor=DeviceWaveformProcessorVariable(inputs,outputs)
+                    processor['ref']['Value']='P'
+                    processor.partPicture.current.SetOrigin((17,23))
+                    processor.partPicture.current.ApplyOrientation(orientation,True,False)
+                    coordinates=processor.PinCoordinates()
+                    for state in ['thru','thru_wires']:
+                        processor['element_state']['Value']=state
+                        thru=DeviceThru.ConvertDeviceToThru(processor)
+                        self.assertEqual(thru.PinCoordinates(),coordinates)
+                        wires=DeviceThru.ConvertDeviceToThruWires(processor)
+                        self.assertEqual([[vertex['Coord'] for vertex in wire['Vertices']]
+                                          for wire in wires],
+                                         [[coordinates[index],coordinates[index+len(coordinates)//2]]
+                                          for index in range(len(coordinates)//2)])
+                        canvas=Mock()
+                        canvas.displayScale=1.
+                        processor.DrawDevice(canvas,20,0,0)
+                        self.assertFalse(any(call.kwargs.get('text') == 'py'
+                                             for call in canvas.create_text.call_args_list))
+                        self.assertTrue(canvas.create_line.called)
+                        self.assertTrue(all(call.kwargs.get('fill') ==
+                                            ('salmon' if state == 'thru_wires' else 'black')
+                                            for call in canvas.create_line.call_args_list))
+
+    def testProcessorElementStatesSimulationAndPersistence(self):
+        import tempfile
+        from unittest.mock import Mock
+        from SignalIntegrity.App.Device import DeviceList,DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.Drawing import Drawing
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si',
+                                            writable=True))
+        siapp.Preferences['Cache.CacheResults']=False
+        siapp.Project['CalculationProperties.EndFrequency']=8.e9
+        siapp.Project['CalculationProperties.FrequencyPoints']=16
+        siapp.Project['CalculationProperties.UserSampleRate']=16.e9
+        source=next(device for device in app.Drawing.schematic.deviceList
+                    if device['ref'].GetValue() == 'VS1')
+        source.Wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,256,16.e9),1.)
+        processor=DeviceWaveformProcessorVariable()
+        processor['ref']['Value']='P'
+        processor['script']['Value']='raise AssertionError("bypassed processor executed")'
+        inputPoint=processor.PinCoordinates()[0]
+        source.partPicture.current.SetOrigin(tuple(
+            source.partPicture.current.origin[index]+inputPoint[index]-source.PinCoordinates()[0][index]
+            for index in range(2)))
+        probe=next(device for device in app.Drawing.schematic.deviceList
+                   if device['partname'].GetValue() == 'Output')
+        outputPoint=processor.PinCoordinates()[1]
+        probe.partPicture.current.SetOrigin(tuple(
+            probe.partPicture.current.origin[index]+outputPoint[index]-probe.PinCoordinates()[0][index]
+            for index in range(2)))
+        load=copy.deepcopy(next(device for device in DeviceList
+            if device['partname'].GetValue() == 'Resistor' and device['ports'].GetValue() == 1))
+        loads=[]
+        for reference,point in [('R1',inputPoint),('R2',outputPoint),('R3',outputPoint)]:
+            termination=copy.deepcopy(load)
+            termination['ref']['Value']=reference
+            termination.partPicture.current.SetOrigin(tuple(
+                termination.partPicture.current.origin[index]+point[index]-termination.PinCoordinates()[0][index]
+                for index in range(2)))
+            loads.append(termination)
+        app.Drawing.schematic.deviceList=[source,processor,probe]+loads
+        siapp.Project['Drawing.Schematic.Wires']=[]
+        for state,expected in [('thru',1.),('thru_wires',1.),('disabled',0.)]:
+            with self.subTest(state=state):
+                processor['element_state']['Value']=state
+                app.Drawing.DrawSchematic()
+                result=app.Simulate()
+                self.assertIn('output waveforms',result)
+                self.assertEqual(result['source names'],['VS1'])
+                self.assertAlmostEqual(result['output waveforms'][0][128],expected)
+        processor['outputports']['Value']=0
+        app.Drawing.schematic.deviceList=[source,processor]
+        for state,canSimulate in [('',True),('disabled',False),('thru',True)]:
+            with self.subTest(state=state):
+                processor['element_state']['Value']=state
+                app.Drawing.DrawSchematic()
+                self.assertEqual(app.Drawing.canSimulate,canSimulate)
+                drawing=Drawing.__new__(Drawing)
+                drawing.schematic=app.Drawing.schematic
+                drawing.parent=Mock()
+                drawing.parent.ReadOnly.return_value=False
+                canvas=Mock()
+                canvas.displayScale=1.
+                drawing.DrawSchematic(canvas,evaluateEquations=False)
+                drawing.parent.SimulateDoer.Activate.assert_called_once_with(canSimulate)
+        processor['element_state']['Value']='disabled'
+        directory=os.getcwd()
+        with tempfile.TemporaryDirectory() as temporaryDirectory:
+            try:
+                filename=os.path.join(temporaryDirectory,'disabled-processor.si')
+                app.SaveProjectToFile(filename)
+                restoredApp=SignalIntegrityAppHeadless()
+                self.assertTrue(restoredApp.OpenProjectFile(filename))
+                restored=next(device for device in restoredApp.Drawing.schematic.deviceList
+                              if isinstance(device,DeviceWaveformProcessorVariable))
+                self.assertEqual(restored['element_state'].GetValue(),'disabled')
+                self.assertEqual(restored['outputports'].GetValue(),0)
+                self.assertEqual(restoredApp.Drawing.schematic.DependentSourceCount(),0)
+            finally:
+                os.chdir(directory)
+
     def testShownProcessorOutputsAreOtherWaveforms(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
